@@ -11,8 +11,34 @@ import {
   CHARACTER_PERSONALITY, CHARACTER_KINK, CHARACTER_JOB,
   CHARACTER_HOBBY, CHARACTER_RELATIONSHIP,
 } from '@/core-chat/lib/character-enums';
+import {
+  VISUAL_HAIRCOLOR, VISUAL_HAIRTEXTURE, VISUAL_HAIRSTYLE,
+  VISUAL_EYESCOLOR, VISUAL_SKIN, VISUAL_BODYDESCRIPTION,
+} from '@/core-chat/lib/visual-enums';
 
 type EnumMap = ReadonlyMap<number, { id: number; key: string; title: string }>;
+
+/** Convert a visual enum object (keyed by name) to a flat options array */
+function visualEnumOptions(obj: Record<string, { id: number; label: string }>): Array<{ id: number; label: string }> {
+  return Object.values(obj).sort((a, b) => a.id - b.id);
+}
+
+function VisualEnumSelect({ label, value, onChange, options, nullable = true }: {
+  label: string; value: number | null; onChange: (v: number | null) => void;
+  options: Array<{ id: number; label: string }>; nullable?: boolean;
+}) {
+  return (
+    <label className="space-y-1">
+      <span className="text-sm font-medium text-(--text-secondary)">{label}</span>
+      <select value={value ?? ''} onChange={(e) => onChange(e.target.value ? parseInt(e.target.value) : null)} className="select w-full text-sm">
+        {nullable && <option value="">—</option>}
+        {options.map((item) => (
+          <option key={item.id} value={item.id}>{item.label}</option>
+        ))}
+      </select>
+    </label>
+  );
+}
 
 function EnumSelect({ label, value, onChange, enumMap, nullable = true }: {
   label: string; value: number | null; onChange: (v: number | null) => void;
@@ -189,9 +215,22 @@ export default function CharacterEditPage() {
           </div>
         </div>
 
-        {/* Image generation */}
+        {/* Visual appearance (for image generation) */}
         <div className="border-t border-(--border-primary) pt-5">
-          <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Image Generation')}</h2>
+          <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Visual Appearance')}</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <VisualEnumSelect label={__('Hair Color')} value={form.hairColorId} onChange={(v) => set('hairColorId', v)} options={visualEnumOptions(VISUAL_HAIRCOLOR as Record<string, { id: number; label: string }>)} />
+            <VisualEnumSelect label={__('Hair Texture')} value={form.hairTextureId} onChange={(v) => set('hairTextureId', v)} options={visualEnumOptions(VISUAL_HAIRTEXTURE as Record<string, { id: number; label: string }>)} />
+            <VisualEnumSelect label={__('Hair Style')} value={form.hairStyleId} onChange={(v) => set('hairStyleId', v)} options={visualEnumOptions(VISUAL_HAIRSTYLE as Record<string, { id: number; label: string }>)} />
+            <VisualEnumSelect label={__('Eye Color')} value={form.eyesColorId} onChange={(v) => set('eyesColorId', v)} options={visualEnumOptions(VISUAL_EYESCOLOR as Record<string, { id: number; label: string }>)} />
+            <VisualEnumSelect label={__('Skin')} value={form.skinId} onChange={(v) => set('skinId', v)} options={visualEnumOptions(VISUAL_SKIN as Record<string, { id: number; label: string }>)} />
+            <VisualEnumSelect label={__('Body Type')} value={form.bodyDescriptionId} onChange={(v) => set('bodyDescriptionId', v)} options={visualEnumOptions(VISUAL_BODYDESCRIPTION as Record<string, { id: number; label: string }>)} />
+          </div>
+        </div>
+
+        {/* Image generation settings */}
+        <div className="border-t border-(--border-primary) pt-5">
+          <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Image Generation Settings')}</h2>
           <div className="grid grid-cols-3 gap-4">
             <label className="space-y-1"><span className="label">{__('Model Preset')}</span>
               <input type="text" value={form.modelPreset} onChange={(e) => set('modelPreset', e.target.value)} placeholder="default-realistic" className="input w-full" /></label>

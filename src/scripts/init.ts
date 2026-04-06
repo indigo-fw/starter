@@ -112,30 +112,15 @@ async function ensureDatabaseUrl(): Promise<string> {
   return url;
 }
 
-// ─── All PostgreSQL table names (for TRUNCATE on reset) ───────────────────────
-
-const ALL_TABLES = [
-  // Auth
-  '"user"', 'session', 'account', 'verification',
-  // CMS
-  'cms_posts', 'cms_post_attachments', 'cms_options',
-  'cms_categories', 'cms_media', 'cms_terms', 'cms_term_relationships',
-  'cms_menus', 'cms_menu_items', 'cms_audit_log', 'cms_webhooks',
-  'cms_custom_field_definitions', 'cms_custom_field_values',
-  'cms_forms', 'cms_form_submissions',
-  'cms_portfolio', 'cms_showcase',
-  'cms_content_revisions', 'cms_slug_redirects',
-  'cms_reactions', 'cms_comments',
-  'cms_translations', 'cms_user_preferences',
-  // SaaS
-  'saas_subscriptions', 'saas_subscription_events',
-  'saas_payment_transactions', 'saas_discount_codes', 'saas_discount_usages',
-  'saas_affiliates', 'saas_referrals', 'saas_affiliate_events',
-  'saas_notifications', 'saas_projects', 'saas_task_queue',
-  'saas_tickets', 'saas_ticket_messages',
-  // Organizations
-  'organization', 'member', 'invitation',
-];
+/** Query all application tables from the database (excludes drizzle internals) */
+async function getAllTables(rawSql: ReturnType<typeof postgres>): Promise<string[]> {
+  const rows = await rawSql`
+    SELECT tablename FROM pg_tables
+    WHERE schemaname = 'public'
+      AND tablename NOT LIKE '__drizzle%'
+  `;
+  return rows.map((r) => `"${r.tablename}"`);
+}
 
 // ─── Step 1: Ensure .env ──────────────────────────────────────────────────────
 
@@ -282,8 +267,10 @@ async function checkAndResetIfNeeded(
     log('🗑️', 'Resetting all data...');
   }
 
-  const tableList = ALL_TABLES.join(', ');
-  await rawSql.unsafe(`TRUNCATE TABLE ${tableList} CASCADE`);
+  const tables = await getAllTables(rawSql);
+  if (tables.length > 0) {
+    await rawSql.unsafe(`TRUNCATE TABLE ${tables.join(', ')} CASCADE`);
+  }
 
   const seedDir = path.join(PROJECT_ROOT, 'uploads', 'seed');
   if (fs.existsSync(seedDir)) {

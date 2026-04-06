@@ -146,6 +146,56 @@ export default function ChatStatsPage() {
           )}
         </div>
       </div>
+
+      {/* Provider Health */}
+      <ProviderHealthSection />
+    </div>
+  );
+}
+
+function ProviderHealthSection() {
+  const __ = useAdminTranslations();
+  const { data: health, isLoading } = trpc.chatAdmin.providerHealth.useQuery();
+
+  return (
+    <div className="card p-5">
+      <h2 className="font-semibold text-(--text-primary) mb-4">{__('Provider Health (24h)')}</h2>
+      {isLoading ? (
+        <div className="flex justify-center py-8"><Loader2 className="animate-spin text-(--text-tertiary)" size={20} /></div>
+      ) : !health?.length ? (
+        <p className="text-sm text-(--text-tertiary) text-center py-4">{__('No provider activity yet')}</p>
+      ) : (
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-xs text-(--text-tertiary)">
+              <th className="text-left pb-2">{__('Provider')}</th>
+              <th className="text-left pb-2">{__('Type')}</th>
+              <th className="text-right pb-2">{__('Requests')}</th>
+              <th className="text-right pb-2">{__('Success')}</th>
+              <th className="text-right pb-2">{__('Failures')}</th>
+              <th className="text-right pb-2">{__('Avg ms')}</th>
+              <th className="text-right pb-2">{__('Rate')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {health.map((h) => (
+              <tr key={h.providerId} className="border-t border-(--border-primary)">
+                <td className="py-2 font-medium text-(--text-primary)">{h.providerName}</td>
+                <td className="py-2 text-(--text-secondary)">{h.providerType}</td>
+                <td className="py-2 text-right text-(--text-secondary)">{h.totalRequests}</td>
+                <td className="py-2 text-right text-green-500">{h.successCount}</td>
+                <td className="py-2 text-right text-red-500">{h.failureCount}</td>
+                <td className="py-2 text-right text-(--text-secondary)">{h.avgResponseMs ?? '—'}</td>
+                <td className="py-2 text-right">
+                  <span className={h.successRate >= 95 ? 'text-green-500' : h.successRate >= 80 ? 'text-yellow-500' : 'text-red-500'}>
+                    {h.successRate}%
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

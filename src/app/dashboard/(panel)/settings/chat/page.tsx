@@ -2,7 +2,7 @@
 
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
-import { MessageCircle, Users, AlertTriangle, Zap, Bot, Flag, BarChart3, Server } from 'lucide-react';
+import { MessageCircle, Users, AlertTriangle, Zap, Bot, Flag, BarChart3, Server, Shield } from 'lucide-react';
 
 export default function ChatOverviewPage() {
   const __ = useAdminTranslations();
@@ -21,6 +21,7 @@ export default function ChatOverviewPage() {
     { href: '/dashboard/settings/chat/flagged', label: __('Flagged Messages'), desc: __('Review moderated content'), icon: Flag },
     { href: '/dashboard/settings/chat/providers', label: __('AI Providers'), desc: __('Manage LLM providers'), icon: Server },
     { href: '/dashboard/settings/chat/stats', label: __('Analytics'), desc: __('Usage statistics and charts'), icon: BarChart3 },
+    { href: '/dashboard/settings#chat', label: __('Moderation'), desc: __('Keywords, action, and rate limits'), icon: Shield },
   ];
 
   return (
