@@ -160,14 +160,14 @@ export function ChatPanel({ conversationId, characterName, characterAvatar }: Ch
   const sendMutation = trpc.messages.send.useMutation();
   const retryMutation = trpc.messages.retry.useMutation();
 
-  const handleSend = useCallback((content: string) => {
+  const handleSend = useCallback((content: string, mediaId?: string) => {
     const id = crypto.randomUUID();
     setLocalMessages((prev) => [...prev, {
       id, role: MessageRole.USER, content, status: MessageStatus.PENDING, createdAt: new Date().toISOString(),
     }]);
     setIsSending(true);
 
-    sendMutation.mutate({ id, conversationId, content }, {
+    sendMutation.mutate({ id, conversationId, content, mediaId }, {
       onSuccess: (result) => {
         if (result.status === MessageStatus.MODERATED) {
           setLocalMessages((prev) => prev.map((m) => m.id === id

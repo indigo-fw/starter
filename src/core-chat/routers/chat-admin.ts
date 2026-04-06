@@ -6,6 +6,8 @@ import { db } from '@/server/db';
 import { chatConversations } from '@/core-chat/schema/conversations';
 import { chatCharacters } from '@/core-chat/schema/characters';
 import { chatMessages } from '@/core-chat/schema/messages';
+import { chatProviders } from '@/core-chat/schema/providers';
+import { chatProviderLogs } from '@/core-chat/schema/provider-logs';
 import { user as userTable } from '@/server/db/schema/auth';
 import { parsePagination } from '@/core/crud';
 import { MessageStatus } from '@/core-chat/lib/types';
@@ -243,4 +245,36 @@ export const chatAdminRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Flagged message not found' });
       }
     }),
+
+  /** Provider health stats (last 24h) */
+  providerHealth: adminProcedure.query(async () => {
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+    const stats = await db
+      .select({
+        providerId: chatProviderLogs.providerId,
+        providerName: chatProviders.name,
+        providerType: chatProviders.providerType,
+        totalRequests: drizzleCount(chatProviderLogs.id),
+        successCount: sql<number>`COUNT(CASE WHEN ${chatProviderLogs.status} = 'success' THEN 1 END)`,
+        failureCount: sql<number>`COUNT(CASE WHEN ${chatProviderLogs.status} = 'failure' THEN 1 END)`,
+        avgResponseMs: sql<number>`ROUND(AVG(${chatProviderLogs.responseTimeMs}))`,
+      })
+      .from(chatProviderLogs)
+      .innerJoin(chatProviders, eq(chatProviderLogs.providerId, chatProviders.id))
+      .where(gte(chatProviderLogs.createdAt, oneDayAgo))
+      .groupBy(chatProviderLogs.providerId, chatProviders.name, chatProviders.providerType)
+      .orderBy(desc(sql`COUNT(${chatProviderLogs.id})`))
+      .limit(20);
+
+    return stats.map((s) => ({
+      ...s,
+      successCount: Number(s.successCount),
+      failureCount: Number(s.failureCount),
+      avgResponseMs: Number(s.avgResponseMs),
+      successRate: s.totalRequests > 0
+        ? Math.round((Number(s.successCount) / s.totalRequests) * 100)
+        : 0,
+    }));
+  }),
 });
