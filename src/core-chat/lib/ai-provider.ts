@@ -1,26 +1,43 @@
 import { ProviderManager } from './provider-manager';
-import type { LlmMessage } from './adapters/openai';
+import type { LlmMessage, LlmResponse, AdapterResponse, ImageResponse, VideoResponse } from './adapters/types';
 
 /**
- * Get a streaming AI response from DB-configured providers.
- * No env fallback — chat requires providers to be configured in the dashboard.
- * Use the seed script or admin UI to set up providers.
+ * Streaming LLM response from DB-configured providers.
  */
 export async function* streamAiResponse(
   messages: LlmMessage[],
-  opts?: { temperature?: number; maxTokens?: number; model?: string },
+  opts?: { temperature?: number; maxTokens?: number },
   signal?: AbortSignal,
 ): AsyncGenerator<string> {
-  yield* ProviderManager.stream(messages, opts, signal);
+  yield* ProviderManager.streamLlm(messages, opts, signal);
 }
 
 /**
- * Non-streaming AI completion from DB-configured providers.
- * Returns null if no providers available.
+ * Non-streaming LLM completion.
  */
 export async function completeAi(
   messages: LlmMessage[],
-  opts?: { temperature?: number; maxTokens?: number; model?: string },
-) {
-  return ProviderManager.complete(messages, opts);
+  opts?: { temperature?: number; maxTokens?: number },
+): Promise<AdapterResponse<LlmResponse>> {
+  return ProviderManager.completeLlm(messages, opts);
+}
+
+/**
+ * Generate an image from a prompt.
+ */
+export async function generateImage(
+  prompt: string,
+  opts?: { width?: number; height?: number; negativePrompt?: string },
+): Promise<AdapterResponse<ImageResponse>> {
+  return ProviderManager.generateImage(prompt, opts);
+}
+
+/**
+ * Generate a video from a source image.
+ */
+export async function generateVideo(
+  sourceImageUrl: string,
+  opts?: { prompt?: string; duration?: number; resolution?: string },
+): Promise<AdapterResponse<VideoResponse>> {
+  return ProviderManager.generateVideo(sourceImageUrl, opts);
 }

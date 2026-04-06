@@ -70,6 +70,9 @@ const serverEnvSchema = z.object({
   // Encryption key for DB-stored secrets (provider API keys). 64-char hex = 32 bytes.
   ENCRYPTION_KEY: z.string().length(64).optional(),
 
+  // Set to 'true' to use mock AI adapters (random text, placeholder images/videos)
+  MOCK_AI: z.coerce.boolean().default(false),
+
   // Email list / newsletter integration (optional)
   EMAIL_LIST_PROVIDER: z.enum(['mailchimp', 'brevo']).optional(),
   MAILCHIMP_API_KEY: z.string().optional(),

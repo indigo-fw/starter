@@ -2,7 +2,8 @@ import { desc, eq, and } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { chatMessages } from '@/core-chat/schema/messages';
 import { chatConversationSummaries } from '@/core-chat/schema/messages';
-import { MessageRole, type ChatAiMessage } from './types';
+import { MessageRole } from './types';
+import type { LlmMessage } from './adapters/types';
 
 /**
  * Build the LLM message context for a conversation.
@@ -18,8 +19,8 @@ export async function buildContext(
   conversationId: string,
   systemPrompt: string,
   contextMessageLimit: number,
-): Promise<ChatAiMessage[]> {
-  const context: ChatAiMessage[] = [];
+): Promise<LlmMessage[]> {
+  const context: LlmMessage[] = [];
 
   // 1. System prompt
   context.push({ role: 'system', content: systemPrompt });

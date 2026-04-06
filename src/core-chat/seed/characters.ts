@@ -47,32 +47,75 @@ export async function seedChatCharacters(
     await db.insert(chatCharacters).values(character).onConflictDoNothing();
   }
 
-  // ── Seed default provider from AI_API_KEY if available ────────────────────
+  // ── Seed providers ─────────────────────────────────────────────────────────
 
-  const aiApiKey = process.env.AI_API_KEY;
-  if (aiApiKey && isEncryptionConfigured()) {
-    const [existing] = await db
-      .select({ count: count() })
-      .from(chatProviders);
+  const [existing] = await db.select({ count: count() }).from(chatProviders);
+  if ((existing?.count ?? 0) > 0) {
+    return {};
+  }
 
-    if ((existing?.count ?? 0) === 0) {
-      const aiModel = process.env.AI_MODEL ?? 'gpt-4o-mini';
-      const aiApiUrl = process.env.AI_API_URL ?? undefined;
+  const isMockAi = process.env.MOCK_AI === 'true';
 
-      await db.insert(chatProviders).values({
-        name: 'Default (from AI_API_KEY)',
-        adapterType: 'openai',
-        baseUrl: aiApiUrl,
-        encryptedApiKey: encrypt(aiApiKey),
-        model: aiModel,
+  if (isMockAi) {
+    // Mock providers for local development (no API keys needed)
+    // Use a dummy encrypted key — mock adapters ignore it
+    const dummyKey = isEncryptionConfigured() ? encrypt('mock-key') : 'not-encrypted';
+
+    await db.insert(chatProviders).values([
+      {
+        name: 'Mock LLM',
+        providerType: 'llm',
+        adapterType: 'mock',
+        encryptedApiKey: dummyKey,
+        model: 'mock-llm',
         priority: 10,
         status: 'active',
-      }).onConflictDoNothing();
+      },
+      {
+        name: 'Mock Image',
+        providerType: 'image',
+        adapterType: 'mock',
+        encryptedApiKey: dummyKey,
+        model: 'mock-image',
+        priority: 10,
+        status: 'active',
+      },
+      {
+        name: 'Mock Video',
+        providerType: 'video',
+        adapterType: 'mock',
+        encryptedApiKey: dummyKey,
+        model: 'mock-video',
+        priority: 10,
+        status: 'active',
+      },
+    ]).onConflictDoNothing();
 
-      console.log(`  ✓ Created default chat provider (${aiModel})`);
-    }
-  } else if (aiApiKey && !isEncryptionConfigured()) {
-    console.log('  ⚠ AI_API_KEY is set but ENCRYPTION_KEY is missing — skipping default chat provider');
+    console.log('  ✓ Created mock chat providers (LLM, Image, Video)');
+
+  } else if (process.env.AI_API_KEY && isEncryptionConfigured()) {
+    // Real provider from AI_API_KEY
+    const aiModel = process.env.AI_MODEL ?? 'gpt-4o-mini';
+    const aiApiUrl = process.env.AI_API_URL ?? undefined;
+
+    await db.insert(chatProviders).values({
+      name: 'Default (from AI_API_KEY)',
+      providerType: 'llm',
+      adapterType: 'openai',
+      baseUrl: aiApiUrl,
+      encryptedApiKey: encrypt(process.env.AI_API_KEY),
+      model: aiModel,
+      priority: 10,
+      status: 'active',
+    }).onConflictDoNothing();
+
+    console.log(`  ✓ Created default LLM provider (${aiModel})`);
+    console.log('  ⚠ No image/video providers — add them in /dashboard/settings/chat/providers');
+
+  } else if (process.env.AI_API_KEY && !isEncryptionConfigured()) {
+    console.log('  ⚠ AI_API_KEY set but ENCRYPTION_KEY missing — skipping provider seed');
+  } else {
+    console.log('  ⚠ No AI_API_KEY or MOCK_AI — add providers in /dashboard/settings/chat/providers');
   }
 
   return {};

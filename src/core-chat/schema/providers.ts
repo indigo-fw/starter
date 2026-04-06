@@ -9,6 +9,7 @@ export const chatProviders = pgTable('chat_providers', {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: varchar('name', { length: 100 }).notNull(),
+  providerType: varchar('provider_type', { length: 20 }).notNull().default('llm'),
   adapterType: varchar('adapter_type', { length: 20 }).notNull().default('openai'),
   baseUrl: varchar('base_url', { length: 500 }),
   encryptedApiKey: text('encrypted_api_key').notNull(),

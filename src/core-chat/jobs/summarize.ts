@@ -59,14 +59,14 @@ export function startChatSummarizeWorker(): void {
         { role: 'user', content: transcript },
       ], { maxTokens: 500, temperature: 0.3 });
 
-      if (!result?.text) {
+      if (!result?.result.text) {
         logger.error('Summarization returned empty result', { conversationId });
         return;
       }
 
       await db.insert(chatConversationSummaries).values({
         conversationId,
-        summary: result.text,
+        summary: result.result.text,
         messagesFrom: messages[0]!.createdAt!,
         messagesTo: messages[messages.length - 1]!.createdAt!,
         messagesCovered: messages.length,

@@ -38,40 +38,7 @@ export const ChatWsEvent = {
   CONV_STATUS: 'conv_status',
 } as const;
 
-// ─── AI provider types ──────────────────────────────────────────────────────
+// ─── Re-export adapter types for convenience ────────────────────────────────
 
-export interface ChatAiMessage {
-  role: 'system' | 'user' | 'assistant';
-  content: string;
-}
-
-export interface ChatAiCompletionResult {
-  text: string;
-  tokenCount: number;
-}
-
-export interface ChatAiStreamChunk {
-  chunk: string;
-  done: boolean;
-  tokenCount?: number;
-}
-
-export interface ChatAiProvider {
-  complete(
-    messages: ChatAiMessage[],
-    opts?: { temperature?: number; maxTokens?: number },
-  ): Promise<ChatAiCompletionResult | null>;
-
-  stream(
-    messages: ChatAiMessage[],
-    opts?: { temperature?: number; maxTokens?: number },
-  ): AsyncGenerator<ChatAiStreamChunk>;
-}
-
-export interface ChatAiConfig {
-  apiUrl: string;
-  apiKey: string;
-  model: string;
-  temperature: number;
-  maxTokens: number;
-}
+export type { LlmMessage, LlmResponse, ImageResponse, VideoResponse } from './adapters/types';
+export type { LlmMessage as ChatAiMessage } from './adapters/types';

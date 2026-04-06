@@ -19,12 +19,13 @@ export default function ProvidersPage() {
   const [editId, setEditId] = useState<string | null>(null);
   const [testResult, setTestResult] = useState<{ id: string; success: boolean; msg: string } | null>(null);
   const [form, setForm] = useState({
-    name: '', baseUrl: '', apiKey: '', model: 'gpt-4o-mini',
+    name: '', providerType: 'llm' as const, adapterType: 'openai',
+    baseUrl: '', apiKey: '', model: 'gpt-4o-mini',
     priority: 0, status: 'active' as const, maxConcurrent: 10, timeoutSeconds: 60,
   });
 
   function resetForm() {
-    setForm({ name: '', baseUrl: '', apiKey: '', model: 'gpt-4o-mini', priority: 0, status: 'active', maxConcurrent: 10, timeoutSeconds: 60 });
+    setForm({ name: '', providerType: 'llm', adapterType: 'openai', baseUrl: '', apiKey: '', model: 'gpt-4o-mini', priority: 0, status: 'active', maxConcurrent: 10, timeoutSeconds: 60 });
     setEditId(null);
     setShowForm(false);
   }
@@ -35,7 +36,8 @@ export default function ProvidersPage() {
     // Load provider data
     utils.chatProviders.get.fetch({ id }).then((p) => {
       setForm({
-        name: p.name, baseUrl: p.baseUrl ?? '', apiKey: p.apiKey ?? '',
+        name: p.name, providerType: p.providerType as 'llm', adapterType: p.adapterType,
+        baseUrl: p.baseUrl ?? '', apiKey: p.apiKey ?? '',
         model: p.model, priority: p.priority, status: p.status as 'active',
         maxConcurrent: p.maxConcurrent, timeoutSeconds: p.timeoutSeconds,
       });
@@ -46,15 +48,17 @@ export default function ProvidersPage() {
     const onSuccess = () => { resetForm(); utils.chatProviders.list.invalidate(); };
     if (editId) {
       updateMutation.mutate({
-        id: editId, name: form.name, baseUrl: form.baseUrl || null,
-        apiKey: form.apiKey || undefined, model: form.model, priority: form.priority,
-        status: form.status, maxConcurrent: form.maxConcurrent, timeoutSeconds: form.timeoutSeconds,
+        id: editId, name: form.name, providerType: form.providerType, adapterType: form.adapterType,
+        baseUrl: form.baseUrl || null, apiKey: form.apiKey || undefined, model: form.model,
+        priority: form.priority, status: form.status, maxConcurrent: form.maxConcurrent,
+        timeoutSeconds: form.timeoutSeconds,
       }, { onSuccess });
     } else {
       createMutation.mutate({
-        name: form.name, baseUrl: form.baseUrl || undefined, apiKey: form.apiKey,
-        model: form.model, priority: form.priority, status: form.status,
-        maxConcurrent: form.maxConcurrent, timeoutSeconds: form.timeoutSeconds,
+        name: form.name, providerType: form.providerType, adapterType: form.adapterType,
+        baseUrl: form.baseUrl || undefined, apiKey: form.apiKey, model: form.model,
+        priority: form.priority, status: form.status, maxConcurrent: form.maxConcurrent,
+        timeoutSeconds: form.timeoutSeconds,
       }, { onSuccess });
     }
   }
@@ -93,9 +97,22 @@ export default function ProvidersPage() {
             <h2 className="font-semibold text-(--text-primary)">{editId ? __('Edit Provider') : __('New Provider')}</h2>
             <button onClick={resetForm} className="p-1 text-(--text-tertiary) hover:text-(--text-primary)"><X size={16} /></button>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <label className="space-y-1"><span className="label">{__('Name')}</span>
               <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="input w-full" /></label>
+            <label className="space-y-1"><span className="label">{__('Type')}</span>
+              <select value={form.providerType} onChange={(e) => setForm({ ...form, providerType: e.target.value as 'llm' })} className="select w-full">
+                <option value="llm">{__('LLM (Text)')}</option>
+                <option value="image">{__('Image')}</option>
+                <option value="video">{__('Video')}</option>
+              </select></label>
+            <label className="space-y-1"><span className="label">{__('Adapter')}</span>
+              <select value={form.adapterType} onChange={(e) => setForm({ ...form, adapterType: e.target.value })} className="select w-full">
+                <option value="openai">OpenAI</option>
+                <option value="dall-e">DALL-E</option>
+                <option value="falai">Fal.ai</option>
+                <option value="mock">Mock (dev)</option>
+              </select></label>
             <label className="space-y-1"><span className="label">{__('Model')}</span>
               <input type="text" value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} className="input w-full" /></label>
           </div>
@@ -139,6 +156,7 @@ export default function ProvidersPage() {
             <thead>
               <tr className="border-b border-(--border-primary) bg-(--surface-secondary)">
                 <th className="px-4 py-3 text-left font-medium text-(--text-secondary)">{__('Name')}</th>
+                <th className="px-4 py-3 text-left font-medium text-(--text-secondary)">{__('Type')}</th>
                 <th className="px-4 py-3 text-left font-medium text-(--text-secondary)">{__('Model')}</th>
                 <th className="px-4 py-3 text-left font-medium text-(--text-secondary)">{__('API Key')}</th>
                 <th className="px-4 py-3 text-left font-medium text-(--text-secondary)">{__('Priority')}</th>
@@ -150,6 +168,11 @@ export default function ProvidersPage() {
               {providers.map((p) => (
                 <tr key={p.id} className="border-b border-(--border-primary) last:border-0">
                   <td className="px-4 py-3 font-medium text-(--text-primary)">{p.name}</td>
+                  <td className="px-4 py-3">
+                    <span className="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-(--surface-secondary) text-(--text-secondary)">
+                      {p.providerType}/{p.adapterType}
+                    </span>
+                  </td>
                   <td className="px-4 py-3 font-mono text-xs text-(--text-secondary)">{p.model}</td>
                   <td className="px-4 py-3 font-mono text-xs text-(--text-tertiary)">{p.encryptedApiKey}</td>
                   <td className="px-4 py-3 text-(--text-secondary)">{p.priority}</td>

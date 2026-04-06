@@ -169,6 +169,13 @@
       "when": 1775485124309,
       "tag": "0023_dapper_dagger",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1775486289466,
+      "tag": "0024_broken_valkyrie",
+      "breakpoints": true
     }
   ]
 }

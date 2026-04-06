@@ -132,9 +132,7 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
     let fullText = '';
     let chunkIndex = 0;
 
-    for await (const chunk of streamAiResponse(context, {
-      model: character.model ?? undefined,
-    })) {
+    for await (const chunk of streamAiResponse(context)) {
       fullText += chunk;
       deps.broadcastEvent(`chat:${conversationId}`, ChatWsEvent.MSG_STREAM_CHUNK, {
         type: ChatWsEvent.MSG_STREAM_CHUNK,

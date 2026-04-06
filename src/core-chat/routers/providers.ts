@@ -6,7 +6,8 @@ import { db } from '@/server/db';
 import { chatProviders } from '@/core-chat/schema/providers';
 import { encrypt, decrypt, maskApiKey, isEncryptionConfigured } from '@/core-chat/lib/encryption';
 import { ProviderManager } from '@/core-chat/lib/provider-manager';
-import { OpenAiAdapter } from '@/core-chat/lib/adapters/openai';
+import { getLlmAdapter, getImageAdapter, getVideoAdapter } from '@/core-chat/lib/adapters/registry';
+import { ProviderType } from '@/core-chat/lib/adapters/types';
 import { parsePagination, paginatedResult } from '@/core/crud';
 
 export const providerRouter = createTRPCRouter({
@@ -68,6 +69,7 @@ export const providerRouter = createTRPCRouter({
   create: superadminProcedure
     .input(z.object({
       name: z.string().min(1).max(100),
+      providerType: z.enum(['llm', 'image', 'video']).default('llm'),
       adapterType: z.string().max(20).default('openai'),
       baseUrl: z.string().max(500).optional(),
       apiKey: z.string().min(1).max(500),
@@ -90,6 +92,7 @@ export const providerRouter = createTRPCRouter({
 
       const [provider] = await db.insert(chatProviders).values({
         name: input.name,
+        providerType: input.providerType,
         adapterType: input.adapterType,
         baseUrl: input.baseUrl,
         encryptedApiKey,
@@ -110,6 +113,7 @@ export const providerRouter = createTRPCRouter({
     .input(z.object({
       id: z.string().uuid(),
       name: z.string().min(1).max(100).optional(),
+      providerType: z.enum(['llm', 'image', 'video']).optional(),
       adapterType: z.string().max(20).optional(),
       baseUrl: z.string().max(500).nullable().optional(),
       apiKey: z.string().min(1).max(500).optional(),
@@ -182,22 +186,41 @@ export const providerRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Provider not found' });
       }
 
-      const adapter = new OpenAiAdapter();
       const apiKey = decrypt(provider.encryptedApiKey);
 
       try {
-        const result = await adapter.complete({
-          messages: [
-            { role: 'system', content: 'Respond with exactly: "Provider test successful."' },
-            { role: 'user', content: 'Test' },
-          ],
-          apiUrl: provider.baseUrl ?? 'https://api.openai.com/v1/chat/completions',
-          apiKey,
-          model: provider.model,
-          timeoutSeconds: 15,
-        });
+        if (provider.providerType === ProviderType.LLM) {
+          const adapter = getLlmAdapter(provider.adapterType);
+          const result = await adapter.complete({
+            messages: [
+              { role: 'system', content: 'Respond with exactly: "Provider test successful."' },
+              { role: 'user', content: 'Test' },
+            ],
+            apiUrl: provider.baseUrl ?? 'https://api.openai.com/v1/chat/completions',
+            apiKey,
+            model: provider.model,
+            timeoutSeconds: 15,
+          });
+          return { success: true, response: result.result.text.slice(0, 100) };
 
-        return { success: true, response: result.text.slice(0, 100) };
+        } else if (provider.providerType === ProviderType.IMAGE) {
+          const adapter = getImageAdapter(provider.adapterType);
+          const result = await adapter.generate({
+            prompt: 'A simple test image of a red circle on white background',
+            apiUrl: provider.baseUrl ?? 'https://api.openai.com/v1/images/generations',
+            apiKey,
+            model: provider.model,
+            timeoutSeconds: 30,
+          });
+          return { success: true, response: `Image generated: ${result.result.width}x${result.result.height}` };
+
+        } else if (provider.providerType === ProviderType.VIDEO) {
+          // Video test is expensive — just verify the adapter loads
+          getVideoAdapter(provider.adapterType);
+          return { success: true, response: `Video adapter "${provider.adapterType}" loaded successfully` };
+        }
+
+        return { success: false, response: `Unknown provider type: ${provider.providerType}` };
       } catch (err) {
         return {
           success: false,

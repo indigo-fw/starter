@@ -1,57 +1,18 @@
 import { createLogger } from '@/core/lib/logger';
+import type { LlmAdapter, LlmRequest, LlmResponse, AdapterResponse } from './types';
+import { ProviderClientError } from './types';
 
-const logger = createLogger('chat-openai-adapter');
-
+const logger = createLogger('openai-llm');
 const DEFAULT_API_URL = 'https://api.openai.com/v1/chat/completions';
 
-// ─── Types ──────────────────────────────────────────────────────────────────
-
-export interface LlmMessage {
-  role: 'system' | 'user' | 'assistant';
-  content: string;
-}
-
-export interface LlmRequest {
-  messages: LlmMessage[];
-  apiUrl: string;
-  apiKey: string;
-  model: string;
-  temperature?: number;
-  maxTokens?: number;
-  timeoutSeconds?: number;
-  extraHeaders?: Record<string, string>;
-}
-
-export interface LlmResponse {
-  text: string;
-  tokenCount: number;
-}
-
 /**
- * Error thrown for 4xx responses (bad input). Provider should NOT be
- * put on cooldown — the error is the caller's fault, not the provider's.
- */
-export class ProviderClientError extends Error {
-  constructor(message: string, public readonly statusCode: number) {
-    super(message);
-    this.name = 'ProviderClientError';
-  }
-}
-
-// ─── OpenAI-Compatible Adapter ──────────────────────────────────────────────
-
-/**
- * Adapter for OpenAI-compatible chat completion APIs.
+ * OpenAI-compatible LLM adapter.
  * Works with OpenAI, Anthropic (via proxy), Ollama, vLLM, etc.
  */
-export class OpenAiAdapter {
-  /** Non-streaming completion */
-  async complete(request: LlmRequest): Promise<LlmResponse> {
+export class OpenAiLlmAdapter implements LlmAdapter {
+  async complete(request: LlmRequest): Promise<AdapterResponse<LlmResponse>> {
     const controller = new AbortController();
-    const timeout = setTimeout(
-      () => controller.abort(),
-      (request.timeoutSeconds ?? 30) * 1000,
-    );
+    const timeout = setTimeout(() => controller.abort(), (request.timeoutSeconds ?? 30) * 1000);
 
     try {
       const response = await fetch(normalizeUrl(request.apiUrl), {
@@ -85,26 +46,21 @@ export class OpenAiAdapter {
       };
 
       return {
-        text: data.choices?.[0]?.message?.content?.trim() ?? '',
-        tokenCount: data.usage?.total_tokens ?? 0,
+        result: {
+          text: data.choices?.[0]?.message?.content?.trim() ?? '',
+          tokenCount: data.usage?.total_tokens ?? 0,
+        },
+        metadata: { model: request.model },
       };
     } finally {
       clearTimeout(timeout);
     }
   }
 
-  /** Streaming completion via SSE */
   async *stream(request: LlmRequest, signal?: AbortSignal): AsyncGenerator<string> {
     const controller = new AbortController();
-    const timeout = setTimeout(
-      () => controller.abort(),
-      (request.timeoutSeconds ?? 60) * 1000,
-    );
-
-    // Combine user signal with timeout
-    if (signal) {
-      signal.addEventListener('abort', () => controller.abort());
-    }
+    const timeout = setTimeout(() => controller.abort(), (request.timeoutSeconds ?? 60) * 1000);
+    if (signal) signal.addEventListener('abort', () => controller.abort());
 
     try {
       const response = await fetch(normalizeUrl(request.apiUrl), {
@@ -150,7 +106,6 @@ export class OpenAiAdapter {
             const trimmed = line.trim();
             if (!trimmed || !trimmed.startsWith('data: ')) continue;
             const payload = trimmed.slice(6);
-
             if (payload === '[DONE]') return;
 
             try {
@@ -173,7 +128,6 @@ export class OpenAiAdapter {
   }
 }
 
-/** Normalize API URL to end with /chat/completions */
 function normalizeUrl(url: string): string {
   if (!url) return DEFAULT_API_URL;
   if (url.endsWith('/chat/completions')) return url;
