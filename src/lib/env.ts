@@ -73,6 +73,10 @@ const serverEnvSchema = z.object({
   // Set to 'true' to use mock AI adapters (random text, placeholder images/videos)
   MOCK_AI: z.coerce.boolean().default(false),
 
+  // ElevenLabs (optional — voice calls disabled without API key)
+  ELEVENLABS_API_KEY: z.string().optional(),
+  ELEVENLABS_DEFAULT_VOICE_ID: z.string().optional(),
+
   // Email list / newsletter integration (optional)
   EMAIL_LIST_PROVIDER: z.enum(['mailchimp', 'brevo']).optional(),
   MAILCHIMP_API_KEY: z.string().optional(),

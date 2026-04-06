@@ -18,7 +18,7 @@ import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
 import { sendNotification } from '@/server/lib/notifications';
 import { broadcastToChannel, sendToUser } from '@/server/lib/ws';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { registerChannelAuthorizer } from '@/core/lib/module-hooks';
+import { registerChannelAuthorizer, registerHook } from '@/core/lib/module-hooks';
 import { Policy } from '@/core/policy';
 import { db } from '@/server/db';
 import { eq } from 'drizzle-orm';
@@ -86,4 +86,44 @@ registerChannelAuthorizer(async (userId, channel) => {
   }
 
   return null; // not our channel
+});
+
+// ─── Voice call WS message handler ─────────────────────────────────────────
+
+registerHook('ws.message', async (userId: unknown, msg: unknown) => {
+  const message = msg as { type?: string; payload?: Record<string, unknown> };
+  if (!message.type?.startsWith('voice_call_') || !userId) return;
+
+  const conversationId = message.payload?.conversation_id as string;
+  if (!conversationId) return;
+
+  const { startCall, handleAudioChunk, handleInterrupt, endCall } =
+    await import('@/core-chat/lib/voice/call-handler');
+
+  const broadcastFn = (channel: string, type: string, payload: Record<string, unknown>) =>
+    broadcastToChannel(channel, type, payload);
+
+  switch (message.type) {
+    case 'voice_call_start':
+      await startCall(conversationId, userId as string, broadcastFn);
+      break;
+    case 'voice_call_audio_chunk': {
+      const audioBase64 = message.payload?.audio as string | undefined;
+      const isFinal = message.payload?.is_final as boolean;
+      if (audioBase64) {
+        const bytes = Buffer.from(audioBase64, 'base64');
+        const audio = new Int16Array(bytes.buffer, bytes.byteOffset, bytes.byteLength / 2);
+        handleAudioChunk(conversationId, audio, isFinal, broadcastFn);
+      } else if (isFinal) {
+        handleAudioChunk(conversationId, new Int16Array(0), true, broadcastFn);
+      }
+      break;
+    }
+    case 'voice_call_interrupt':
+      handleInterrupt(conversationId);
+      break;
+    case 'voice_call_end':
+      await endCall(conversationId, 'user_hangup', broadcastFn);
+      break;
+  }
 });

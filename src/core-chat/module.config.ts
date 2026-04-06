@@ -11,6 +11,7 @@ const config: ModuleConfig = {
     { name: 'chatAdminRouter', key: 'chatAdmin', from: '@/core-chat/routers/chat-admin' },
     { name: 'chatMediaRouter', key: 'chatMedia', from: '@/core-chat/routers/media' },
     { name: 'taskQueueRouter', key: 'chatTaskQueue', from: '@/core-chat/routers/task-queue' },
+    { name: 'voiceRouter', key: 'chatVoice', from: '@/core-chat/routers/voice' },
   ],
   schema: [
     '@/core-chat/schema/characters',
@@ -21,6 +22,7 @@ const config: ModuleConfig = {
     '@/core-chat/schema/provider-logs',
     '@/core-chat/schema/reports',
     '@/core-chat/schema/audit',
+    '@/core-chat/schema/voice-calls',
   ],
   serverInit: [
     '@/config/chat-deps',
@@ -29,6 +31,7 @@ const config: ModuleConfig = {
     { name: 'startChatAiWorker', from: '@/core-chat/lib/engine' },
     { name: 'startChatSummarizeWorker', from: '@/core-chat/jobs/summarize' },
     { name: 'startChatCleanupWorker', from: '@/core-chat/jobs/cleanup' },
+    { name: 'startVideoOptimizationWorker', from: '@/core-chat/jobs/optimize-video' },
   ],
   seed: [
     { name: 'seedChatCharacters', from: '@/core-chat/seed/characters', label: 'Chat demo characters' },

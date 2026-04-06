@@ -9,6 +9,10 @@ import { ChatPanel } from './ChatPanel';
 import { CharacterCard } from './CharacterCard';
 import { CharacterPicker } from './CharacterPicker';
 import { LanguageSelector } from './LanguageSelector';
+import { VoiceCallButton } from './VoiceCallButton';
+import { VoiceCallOverlay } from './VoiceCallOverlay';
+import { VoiceCallActiveOverlay } from './VoiceCallActiveOverlay';
+import { useVoiceCall } from '@/core-chat/hooks/useVoiceCall';
 import { Loader2, Menu, X, User as UserIcon } from 'lucide-react';
 import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
@@ -23,9 +27,26 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
   const [showNewChat, setShowNewChat] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCharInfo, setShowCharInfo] = useState(false);
+  const [showVoiceRinging, setShowVoiceRinging] = useState(false);
+  const [voiceSubtitle, setVoiceSubtitle] = useState('');
+
+  // Voice call hook
+  const voiceCall = useVoiceCall({
+    conversationId: conversationId ?? '',
+    onAudio: (audio, text) => { if (text) setVoiceSubtitle(text); },
+    onTranscription: (text) => { setVoiceSubtitle(text); },
+    onCompleted: (text) => { setVoiceSubtitle(text); },
+    onEnded: () => { setShowVoiceRinging(false); setVoiceSubtitle(''); },
+  });
 
   // Fetch conversation data if we have an ID
   const { data: conversation, isLoading } = trpc.conversations.get.useQuery(
+    { id: conversationId! },
+    { enabled: !!conversationId },
+  );
+
+  // Fetch block status for pre-check
+  const { data: settings } = trpc.conversations.getSettings.useQuery(
     { id: conversationId! },
     { enabled: !!conversationId },
   );
@@ -38,7 +59,11 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
     setShowSidebar(false);
   }, [router]);
 
-  const setLanguageMutation = trpc.conversations.setLanguage.useMutation();
+  const setLanguageMutation = trpc.conversations.setLanguage.useMutation({
+    onSuccess: () => {
+      if (conversationId) utils.conversations.get.invalidate({ id: conversationId });
+    },
+  });
 
   const handleNewChat = useCallback(() => {
     setShowNewChat(true);
@@ -117,6 +142,14 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
                 </p>
               </div>
             </div>
+            <VoiceCallButton
+              onClick={() => {
+                if (voiceCall.state === 'active') voiceCall.endCall();
+                else setShowVoiceRinging(true);
+              }}
+              isActive={voiceCall.state === 'active'}
+              disabled={!conversationId}
+            />
             <LanguageSelector
               currentLang={conversation.lang}
               onChange={(lang) => {
@@ -157,6 +190,7 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
             conversationId={conversationId}
             characterName={conversation.character.name}
             characterAvatar={conversation.character.avatarUrl}
+            blockStatus={settings?.blockStatus}
           />
         ) : null}
       </div>
@@ -198,6 +232,50 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
           isCreating={createConversation.isPending}
         />
       )}
+
+      {/* Voice call ringing overlay */}
+      {showVoiceRinging && conversation && (
+        <VoiceCallOverlayWithCheck
+          conversationId={conversationId!}
+          characterName={conversation.character.name}
+          characterAvatar={conversation.character.avatarUrl}
+          onAccept={() => { setShowVoiceRinging(false); voiceCall.startCall(); }}
+          onDecline={() => setShowVoiceRinging(false)}
+        />
+      )}
+
+      {/* Voice call active overlay */}
+      {voiceCall.state === 'active' && (
+        <VoiceCallActiveOverlay
+          characterName={conversation?.character.name ?? ''}
+          characterAvatar={conversation?.character.avatarUrl}
+          duration={voiceCall.duration}
+          subtitle={voiceSubtitle}
+          onEndCall={voiceCall.endCall}
+        />
+      )}
     </div>
+  );
+}
+
+/** Wrapper that fetches real token/cost data for voice call overlay */
+function VoiceCallOverlayWithCheck(props: {
+  conversationId: string;
+  characterName: string;
+  characterAvatar?: string | null;
+  onAccept: () => void;
+  onDecline: () => void;
+}) {
+  const { data } = trpc.chatVoice.canStartCall.useQuery({ conversationId: props.conversationId });
+
+  return (
+    <VoiceCallOverlay
+      characterName={props.characterName}
+      characterAvatar={props.characterAvatar}
+      costPerMinute={data?.costPerMinute ?? 50}
+      tokenBalance={data?.balance ?? 0}
+      onAccept={props.onAccept}
+      onDecline={props.onDecline}
+    />
   );
 }

@@ -4,6 +4,8 @@ export const ProviderType = {
   LLM: 'llm',
   IMAGE: 'image',
   VIDEO: 'video',
+  TTS: 'tts',
+  STT: 'stt',
 } as const;
 export type ProviderType = (typeof ProviderType)[keyof typeof ProviderType];
 
@@ -94,6 +96,47 @@ export interface VideoResponse {
 
 export interface VideoAdapter {
   generate(request: VideoRequest): Promise<AdapterResponse<VideoResponse>>;
+}
+
+// ─── TTS types ──────────────────────────────────────────────────────────────
+
+export interface TtsRequest {
+  text: string;
+  voiceId: string;
+  apiUrl?: string;
+  apiKey: string;
+  model?: string;
+  config?: Record<string, unknown>;
+}
+
+export interface TtsResponse {
+  /** Base64-encoded PCM audio (24kHz, Int16LE) */
+  audioBase64: string;
+}
+
+export interface TtsAdapter {
+  synthesize(request: TtsRequest): Promise<AdapterResponse<TtsResponse>>;
+}
+
+// ─── STT types ──────────────────────────────────────────────────────────────
+
+export interface SttRequest {
+  /** WAV audio buffer (16kHz, Int16LE) */
+  audioBuffer: Buffer;
+  apiUrl?: string;
+  apiKey: string;
+  model?: string;
+  lang?: string;
+  config?: Record<string, unknown>;
+}
+
+export interface SttResponse {
+  text: string;
+  confidence?: number;
+}
+
+export interface SttAdapter {
+  transcribe(request: SttRequest): Promise<AdapterResponse<SttResponse>>;
 }
 
 // ─── Client error (4xx — no cooldown, no retry) ────────────────────────────

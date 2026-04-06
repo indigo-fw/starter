@@ -4,12 +4,13 @@ import { db } from '@/server/db';
 import { chatProviders, type ChatProvider } from '@/core-chat/schema/providers';
 import { chatProviderLogs } from '@/core-chat/schema/provider-logs';
 import { decrypt } from './encryption';
-import { getLlmAdapter, getImageAdapter, getVideoAdapter } from './adapters/registry';
+import { getLlmAdapter, getImageAdapter, getVideoAdapter, getTtsAdapter, getSttAdapter } from './adapters/registry';
 import { ProviderClientError } from './adapters/types';
 import type {
   LlmMessage, LlmResponse, AdapterResponse,
   ImageRequest, ImageResponse,
   VideoRequest, VideoResponse,
+  TtsResponse, SttResponse,
 } from './adapters/types';
 
 const logger = createLogger('chat-provider-mgr');
@@ -231,6 +232,80 @@ export const ProviderManager = {
       }
     }
     throw lastError ?? new Error('All video providers failed');
+  },
+
+  // ── TTS (Text-to-Speech) ───────────────────────────────────────────────────
+
+  async synthesizeSpeech(
+    text: string,
+    voiceIdOverride?: string,
+  ): Promise<AdapterResponse<TtsResponse>> {
+    const providers = await getAvailableProviders('tts');
+    if (providers.length === 0) throw new Error('No TTS providers available');
+
+    const provider = selectProvider(providers, 'tts');
+    if (!provider) throw new Error('All TTS providers in cooldown');
+
+    const startTime = Date.now();
+    incrementActive(provider.id);
+    try {
+      const adapter = getTtsAdapter(provider.adapterType);
+      const apiKey = decryptApiKey(provider);
+      const config = (provider.config ?? {}) as Record<string, unknown>;
+      const result = await adapter.synthesize({
+        text,
+        voiceId: voiceIdOverride ?? (config.voiceId as string) ?? '',
+        apiUrl: provider.baseUrl ?? undefined,
+        apiKey,
+        model: provider.model,
+        config,
+      });
+      logProviderRequest(provider.id, 'tts', 'success', Date.now() - startTime);
+      return result;
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logProviderRequest(provider.id, 'tts', 'failure', Date.now() - startTime, errMsg);
+      addCooldown(provider.id);
+      throw err;
+    } finally {
+      decrementActive(provider.id);
+    }
+  },
+
+  // ── STT (Speech-to-Text) ──────────────────────────────────────────────────
+
+  async transcribeAudio(
+    audioBuffer: Buffer,
+    lang?: string,
+  ): Promise<AdapterResponse<SttResponse>> {
+    const providers = await getAvailableProviders('stt');
+    if (providers.length === 0) throw new Error('No STT providers available');
+
+    const provider = selectProvider(providers, 'stt');
+    if (!provider) throw new Error('All STT providers in cooldown');
+
+    const startTime = Date.now();
+    incrementActive(provider.id);
+    try {
+      const adapter = getSttAdapter(provider.adapterType);
+      const apiKey = decryptApiKey(provider);
+      const result = await adapter.transcribe({
+        audioBuffer,
+        apiUrl: provider.baseUrl ?? undefined,
+        apiKey,
+        model: provider.model,
+        lang,
+      });
+      logProviderRequest(provider.id, 'stt', 'success', Date.now() - startTime);
+      return result;
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logProviderRequest(provider.id, 'stt', 'failure', Date.now() - startTime, errMsg);
+      addCooldown(provider.id);
+      throw err;
+    } finally {
+      decrementActive(provider.id);
+    }
   },
 
   /** Clear the provider cache (call after admin CRUD) */

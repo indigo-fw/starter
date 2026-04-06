@@ -20,6 +20,7 @@ export const chatMedia = pgTable('chat_media', {
   contentHash: varchar('content_hash', { length: 32 }),
   sourceFilepath: varchar('source_filepath', { length: 1024 }),
   isNsfw: boolean('is_nsfw').notNull().default(false),
+  optimizationStatus: varchar('optimization_status', { length: 20 }),
   checkedAt: timestamp('checked_at'),
   disapprovedAt: timestamp('disapproved_at'),
   deletedAt: timestamp('deleted_at'),

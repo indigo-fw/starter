@@ -3,7 +3,11 @@
 export const MessageRole = {
   USER: 'user',
   USER_IMG: 'user_img',
+  USER_VOICE: 'user_voice',
   ASSISTANT: 'assistant',
+  ASSISTANT_VOICE: 'assistant_voice',
+  CALL_START: 'call_start',
+  CALL_END: 'call_end',
   SYSTEM: 'system',
 } as const;
 export type MessageRole = (typeof MessageRole)[keyof typeof MessageRole];
@@ -61,6 +65,13 @@ export const ChatWsEvent = {
   MSG_VIDEO_COMPLETE: 'msg_video_complete',
   BALANCE_UPDATE: 'balance_update',
   CONV_STATUS: 'conv_status',
+  // Voice call events
+  VOICE_CALL_AUDIO: 'voice_call_audio',
+  VOICE_CALL_PARTIAL_TRANSCRIPTION: 'voice_call_partial_transcription',
+  VOICE_CALL_COMPLETED: 'voice_call_completed',
+  VOICE_CALL_BILLING: 'voice_call_billing',
+  VOICE_CALL_ENDED: 'voice_call_ended',
+  VOICE_CALL_FORCE_END: 'voice_call_force_end',
 } as const;
 
 // ─── Response types (from message detection) ────────────────────────────────

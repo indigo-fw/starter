@@ -80,4 +80,5 @@ export const OPTION_REGISTRY: OptionDefinition[] = [
   { key: 'chat.rate_limit.anonymous_lifetime', label: 'Anonymous: lifetime messages', group: 'chat', type: 'number', defaultValue: 20 },
   { key: 'chat.rate_limit.registered_window_hours', label: 'Registered: rate limit window (hours)', group: 'chat', type: 'number', defaultValue: 24 },
   { key: 'chat.rate_limit.registered_messages', label: 'Registered: messages per window', group: 'chat', type: 'number', defaultValue: 50 },
+  { key: 'chat.tokens.voice_call_per_minute', label: 'Token cost per voice call minute', group: 'chat', type: 'number', defaultValue: 50 },
 ];

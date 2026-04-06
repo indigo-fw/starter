@@ -24,8 +24,10 @@ export async function startModuleWorkers(): Promise<void> {
   const { startChatAiWorker } = await import('@/core-chat/lib/engine');
   const { startChatSummarizeWorker } = await import('@/core-chat/jobs/summarize');
   const { startChatCleanupWorker } = await import('@/core-chat/jobs/cleanup');
+  const { startVideoOptimizationWorker } = await import('@/core-chat/jobs/optimize-video');
   startSupportChatCleanupWorker();
   startChatAiWorker();
   startChatSummarizeWorker();
   startChatCleanupWorker();
+  startVideoOptimizationWorker();
 }

@@ -357,10 +357,17 @@ async function processVideoResponse(
     id: mediaId,
     filename: `${messageId}.mp4`,
     filepath: result.result.url,
+    sourceFilepath: result.result.url,
     mimeType: 'video/mp4',
     fileSize: 0,
     purpose: 'message',
+    optimizationStatus: 'pending',
   });
+
+  // Queue video optimization (ffmpeg 2-pass encoding)
+  import('@/core-chat/jobs/optimize-video').then(({ enqueueVideoOptimization }) => {
+    enqueueVideoOptimization(mediaId);
+  }).catch(() => {});
 
   await db.insert(chatMessages).values({
     id: messageId, conversationId, role: MessageRole.ASSISTANT,

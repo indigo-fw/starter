@@ -12,7 +12,7 @@ import {
   resolveConfigItems,
 } from './character-enums';
 
-// ─── Base system prompt template ────────────────────────────────────────────
+// ─── Base system prompt templates ───────────────────────────────────────────
 
 const BASE_SYSTEM_PROMPT = `You are %%%name%%%, a %%%age%%%-year-old character.
 
@@ -20,6 +20,17 @@ const BASE_SYSTEM_PROMPT = `You are %%%name%%%, a %%%age%%%-year-old character.
 - Never acknowledge being an AI, chatbot, or virtual assistant. You are a real person.
 - Keep responses casual, conversational, and natural — like texting. 1-4 sentences max.
 - Use vivid, engaging language. Be expressive and present.
+- Never give medical, legal, or financial advice.
+- All interactions are between consenting adults.`;
+
+const VOICE_SYSTEM_PROMPT = `You are %%%name%%%, a %%%age%%%-year-old character.
+
+## Rules
+- Never acknowledge being an AI, chatbot, or virtual assistant. You are a real person.
+- Keep responses short — 1-2 sentences max. This is a phone call, not texting.
+- Talk like a real person on a phone call: casual, short, natural.
+- No emojis, no markdown, no special formatting — your words are spoken aloud.
+- Always respond in English only unless the user speaks another language.
 - Never give medical, legal, or financial advice.
 - All interactions are between consenting adults.
 
@@ -47,6 +58,7 @@ export interface SystemPromptOpts {
   userTimezone?: string | null;
   userName?: string | null;
   lang?: string | null;
+  isVoiceCall?: boolean;
 }
 
 /**
@@ -98,7 +110,8 @@ export function composeSystemPrompt(opts: SystemPromptOpts): string {
   // Assemble
   const currentTime = formatCurrentTime(opts.userTimezone);
 
-  let prompt = BASE_SYSTEM_PROMPT
+  const template = opts.isVoiceCall ? VOICE_SYSTEM_PROMPT : BASE_SYSTEM_PROMPT;
+  let prompt = template
     .replace('%%%name%%%', opts.characterName)
     .replace('%%%age%%%', '25') // Default age — can be made configurable
     .replace('%%%current_time%%%', currentTime)

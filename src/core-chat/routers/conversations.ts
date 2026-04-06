@@ -16,6 +16,7 @@ export const conversationRouter = createTRPCRouter({
   list: protectedProcedure
     .input(z.object({
       status: z.enum(['active', 'archived']).default('active'),
+      characterId: z.string().uuid().optional(),
       page: z.number().int().min(1).default(1),
       pageSize: z.number().int().min(1).max(50).default(20),
     }))
@@ -55,6 +56,7 @@ export const conversationRouter = createTRPCRouter({
         .where(and(
           eq(chatConversations.userId, userId),
           eq(chatConversations.status, input.status),
+          ...(input.characterId ? [eq(chatConversations.characterId, input.characterId)] : []),
         ))
         .orderBy(desc(chatConversations.lastMessageAt))
         .limit(pageSize)
