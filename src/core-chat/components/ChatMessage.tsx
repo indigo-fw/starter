@@ -1,9 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useBlankTranslations } from '@/lib/translations';
-import { MessageRole, MessageStatus } from '@/core-chat/lib/types';
-import { AlertTriangle, Check, Loader2, RotateCcw, Image as ImageIcon, Play } from 'lucide-react';
+import { MessageRole, MessageStatus, CensorType } from '@/core-chat/lib/types';
+import { Lightbox } from '@/core/components/Lightbox';
+import { NsfwBlurOverlay } from './NsfwBlurOverlay';
+import { CensoredMessage } from './CensoredMessage';
+import { SmartProgress } from './SmartProgress';
+import { AlertTriangle, Check, Loader2, RotateCcw } from 'lucide-react';
 
 export interface ChatMessageData {
   id: string;
@@ -16,6 +21,9 @@ export interface ChatMessageData {
   mediaType?: 'image' | 'video';
   mediaWidth?: number;
   mediaHeight?: number;
+  isNsfw?: boolean;
+  isProcessing?: boolean;
+  censorType?: number;
 }
 
 interface ChatMessageProps {
@@ -27,11 +35,12 @@ interface ChatMessageProps {
 
 export function ChatMessage({ message, characterName, characterAvatar, onRetry }: ChatMessageProps) {
   const __ = useBlankTranslations();
-  const isUser = message.role === MessageRole.USER;
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const isUser = message.role === MessageRole.USER || message.role === MessageRole.USER_IMG;
   const isModerated = message.status === MessageStatus.MODERATED;
   const isFailed = message.status === MessageStatus.FAILED;
   const isPending = message.status === MessageStatus.PENDING;
-  const isProcessing = message.content === '[Image]' && !message.mediaUrl;
+  const isProcessing = message.isProcessing || (message.content === '[Image]' && !message.mediaUrl);
 
   return (
     <div
@@ -66,37 +75,31 @@ export function ChatMessage({ message, characterName, characterAvatar, onRetry }
         )}
       >
         {isModerated ? (
-          <div className="flex items-center gap-2 text-red-500">
-            <AlertTriangle size={14} />
-            <span className="text-xs">{__('Message flagged by content filter')}</span>
-          </div>
+          <CensoredMessage censorType={message.censorType} />
         ) : message.mediaUrl && message.mediaType === 'video' ? (
           /* Video message */
           <div className="relative">
-            <video
-              src={message.mediaUrl}
-              controls
-              className="rounded-xl max-w-full"
-              style={{ maxHeight: 400 }}
-            />
+            <video src={message.mediaUrl} controls className="rounded-xl max-w-full" style={{ maxHeight: 400 }} />
           </div>
         ) : message.mediaUrl ? (
-          /* Image message */
-          <div className="relative">
-            <img
-              src={message.mediaUrl}
-              alt={message.content}
-              className="rounded-xl max-w-full cursor-pointer hover:opacity-90 transition-opacity"
-              style={{ maxHeight: 400 }}
-              loading="lazy"
-            />
-          </div>
+          /* Image message with lightbox + NSFW overlay */
+          <>
+            <div className="relative cursor-pointer" onClick={() => setLightboxOpen(true)}>
+              {message.isNsfw ? (
+                <NsfwBlurOverlay imageUrl={message.mediaUrl}>
+                  <img src={message.mediaUrl} alt={message.content} className="rounded-xl max-w-full" style={{ maxHeight: 400 }} loading="lazy" />
+                </NsfwBlurOverlay>
+              ) : (
+                <img src={message.mediaUrl} alt={message.content} className="rounded-xl max-w-full hover:opacity-90 transition-opacity" style={{ maxHeight: 400 }} loading="lazy" />
+              )}
+            </div>
+            <Lightbox open={lightboxOpen} onClose={() => setLightboxOpen(false)} label={message.content} closeOnContentClick>
+              <img src={message.mediaUrl} alt={message.content} className="max-w-[90vw] max-h-[90vh] object-contain" />
+            </Lightbox>
+          </>
         ) : isProcessing ? (
-          /* Image/video processing placeholder */
-          <div className="flex items-center gap-2 px-4 py-3 text-(--text-tertiary)">
-            <Loader2 size={16} className="animate-spin" />
-            <span className="text-xs">{__('Generating...')}</span>
-          </div>
+          /* Smart progress bar for image/video generation */
+          <SmartProgress estimatedSeconds={message.mediaType === 'video' ? 30 : 12} />
         ) : (
           /* Text message */
           <div className="whitespace-pre-wrap break-words">

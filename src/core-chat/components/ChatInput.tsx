@@ -5,10 +5,14 @@ import { Send, Paperclip, X } from 'lucide-react';
 import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
 
+import { ChatInputActions } from './ChatInputActions';
+
 interface ChatInputProps {
   onSend: (content: string, mediaId?: string) => void;
   onUpload?: (file: File) => Promise<{ id: string; url: string } | null>;
+  onVideoRequest?: () => void;
   disabled?: boolean;
+  blocked?: boolean;
   placeholder?: string;
   maxLength?: number;
 }
@@ -16,7 +20,9 @@ interface ChatInputProps {
 export function ChatInput({
   onSend,
   onUpload,
+  onVideoRequest,
   disabled = false,
+  blocked = false,
   placeholder,
   maxLength = 4000,
 }: ChatInputProps) {
@@ -99,6 +105,14 @@ export function ChatInput({
       )}
 
       <div className="flex items-end gap-2">
+        {/* Quick actions dropdown */}
+        <ChatInputActions
+          onAction={(text) => { setValue(text); textareaRef.current?.focus(); }}
+          onVideoRequest={onVideoRequest}
+          disabled={disabled || blocked}
+          hasText={!!value.trim()}
+        />
+
         {/* Attachment button */}
         {onUpload && (
           <>

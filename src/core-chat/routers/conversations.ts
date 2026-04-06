@@ -69,6 +69,7 @@ export const conversationRouter = createTRPCRouter({
           lastMessageAt: chatConversations.lastMessageAt,
           messageCount: chatConversations.messageCount,
           totalTokensUsed: chatConversations.totalTokensUsed,
+          lang: chatConversations.lang,
           createdAt: chatConversations.createdAt,
           character: {
             id: chatCharacters.id,
@@ -113,6 +114,7 @@ export const conversationRouter = createTRPCRouter({
           id: chatCharacters.id,
           name: chatCharacters.name,
           greeting: chatCharacters.greeting,
+          personalityId: chatCharacters.personalityId,
         })
         .from(chatCharacters)
         .where(and(
@@ -126,27 +128,49 @@ export const conversationRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Character not found' });
       }
 
+      // Generate conversation hash for dedup
+      const { generateConversationHash } = await import('@/core-chat/lib/conversation-hash');
+      const convHash = generateConversationHash(input.characterId);
+
+      // Check for existing conversation with same hash
+      const [existing] = await db
+        .select({ id: chatConversations.id })
+        .from(chatConversations)
+        .where(and(
+          eq(chatConversations.userId, userId),
+          eq(chatConversations.conversationHash, convHash),
+          eq(chatConversations.status, ConversationStatus.ACTIVE),
+        ))
+        .limit(1);
+
+      if (existing) {
+        return { id: existing.id, greeting: null };
+      }
+
       // Create conversation
       const [conv] = await db.insert(chatConversations).values({
         userId,
         organizationId: orgId,
         characterId: input.characterId,
         title: character.name,
+        conversationHash: convHash,
         lastMessageAt: new Date(),
       }).returning();
 
-      // Insert greeting as system message if defined
-      if (character.greeting) {
+      // Insert personality-specific greeting
+      const { getGreeting } = await import('@/core-chat/lib/greetings');
+      const greeting = getGreeting(character.personalityId, null, character.greeting);
+      if (greeting) {
         await db.insert(chatMessages).values({
           id: crypto.randomUUID(),
           conversationId: conv!.id,
           role: MessageRole.ASSISTANT,
-          content: character.greeting,
+          content: greeting,
           status: MessageStatus.DELIVERED,
         });
       }
 
-      return { id: conv!.id, greeting: character.greeting };
+      return { id: conv!.id, greeting };
     }),
 
   /** Archive a conversation */

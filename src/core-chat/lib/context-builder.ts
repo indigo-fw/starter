@@ -3,6 +3,7 @@ import { db } from '@/server/db';
 import { chatMessages } from '@/core-chat/schema/messages';
 import { chatConversationSummaries } from '@/core-chat/schema/messages';
 import { chatCharacters, type ChatCharacter } from '@/core-chat/schema/characters';
+import { chatConversations, type ChatConversation } from '@/core-chat/schema/conversations';
 import { composeSystemPrompt } from './system-prompt';
 import { MessageRole } from './types';
 import type { LlmMessage } from './adapters/types';
@@ -10,33 +11,36 @@ import type { LlmMessage } from './adapters/types';
 /**
  * Build the LLM message context for a conversation.
  *
- * 1. Compose enriched system prompt (character traits + date/time + user context)
+ * 1. Compose enriched system prompt (character traits + conversation overrides + date/time)
  * 2. Append conversation summaries
  * 3. Append N most recent messages
+ *
+ * Conversation-level trait overrides take precedence over character defaults.
  */
 export async function buildContext(
   conversationId: string,
   character: ChatCharacter,
   contextMessageLimit: number,
-  opts?: { userName?: string | null; userTimezone?: string | null; lang?: string | null },
+  opts?: { userName?: string | null; userTimezone?: string | null; lang?: string | null; conversationOverrides?: Partial<ChatConversation> },
 ): Promise<LlmMessage[]> {
   const context: LlmMessage[] = [];
 
-  // 1. Enriched system prompt with character traits
+  // 1. Enriched system prompt — conversation overrides take precedence
+  const co = opts?.conversationOverrides;
   const systemPrompt = composeSystemPrompt({
     characterName: character.name,
     systemPrompt: character.systemPrompt,
-    genderId: character.genderId,
-    sexualityId: character.sexualityId,
-    ethnicityId: character.ethnicityId,
-    personalityId: character.personalityId,
-    kinkId: character.kinkId,
-    jobId: character.jobId,
-    hobbies: character.hobbies as number[] | null,
-    relationshipId: character.relationshipId,
-    userName: opts?.userName,
+    genderId: co?.genderId ?? character.genderId,
+    sexualityId: co?.sexualityId ?? character.sexualityId,
+    ethnicityId: co?.ethnicityId ?? character.ethnicityId,
+    personalityId: co?.personalityId ?? character.personalityId,
+    kinkId: co?.kinkId ?? character.kinkId,
+    jobId: co?.jobId ?? character.jobId,
+    hobbies: (co?.hobbies as number[] | null) ?? (character.hobbies as number[] | null),
+    relationshipId: co?.relationshipId ?? character.relationshipId,
+    userName: co?.userName ?? opts?.userName,
     userTimezone: opts?.userTimezone,
-    lang: opts?.lang,
+    lang: co?.lang ?? opts?.lang,
   });
   context.push({ role: 'system', content: systemPrompt });
 

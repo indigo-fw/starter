@@ -1,6 +1,7 @@
 'use client';
 
 import { useBlankTranslations } from '@/lib/translations';
+import { CharacterDescription } from './CharacterDescription';
 import { MessageSquare, Sparkles, Clock } from 'lucide-react';
 
 interface CharacterCardProps {
@@ -9,6 +10,12 @@ interface CharacterCardProps {
     avatarUrl?: string | null;
     tagline?: string | null;
     personality?: string | null;
+    genderId?: number | null;
+    personalityId?: number | null;
+    kinkId?: number | null;
+    jobId?: number | null;
+    hobbies?: number[] | null;
+    relationshipId?: number | null;
   };
   stats?: {
     messageCount: number;
@@ -38,18 +45,26 @@ export function CharacterCard({ character, stats }: CharacterCardProps) {
         )}
       </div>
 
-      {/* Personality */}
-      {character.personality && (
-        <div className="mb-4">
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <Sparkles size={12} className="text-brand-500" />
-            <span className="text-xs font-medium text-(--text-secondary)">{__('Personality')}</span>
-          </div>
-          <p className="text-xs text-(--text-tertiary) leading-relaxed">
+      {/* Character traits (resolved from enums) */}
+      <div className="mb-4">
+        <div className="flex items-center gap-1.5 mb-1.5">
+          <Sparkles size={12} className="text-brand-500" />
+          <span className="text-xs font-medium text-(--text-secondary)">{__('Personality')}</span>
+        </div>
+        <CharacterDescription
+          genderId={character.genderId}
+          personalityId={character.personalityId}
+          kinkId={character.kinkId}
+          jobId={character.jobId}
+          hobbies={character.hobbies}
+          relationshipId={character.relationshipId}
+        />
+        {character.personality && (
+          <p className="text-xs text-(--text-tertiary) leading-relaxed mt-1">
             {character.personality}
           </p>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Stats */}
       {stats && (

@@ -74,10 +74,7 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
   try {
     // 1. Load conversation + character
     const [conv] = await db
-      .select({
-        characterId: chatConversations.characterId,
-        messageCount: chatConversations.messageCount,
-      })
+      .select()
       .from(chatConversations)
       .where(eq(chatConversations.id, conversationId))
       .limit(1);
@@ -160,14 +157,18 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
 async function processTextResponse(
   conversationId: string,
   character: ChatCharacter,
-  conv: { messageCount: number },
+  conv: import('@/core-chat/schema/conversations').ChatConversation,
   deps: ReturnType<typeof getChatDeps>,
   config: ReturnType<typeof getChatConfig>,
   tempId: string,
   cost: number,
   organizationId: string,
 ): Promise<void> {
-  const context = await buildContext(conversationId, character, config.contextMessageLimit);
+  const context = await buildContext(conversationId, character, config.contextMessageLimit, {
+    userName: conv.userName,
+    lang: conv.lang,
+    conversationOverrides: conv,
+  });
 
   deps.broadcastEvent(`chat:${conversationId}`, ChatWsEvent.MSG_STREAM_START, {
     type: ChatWsEvent.MSG_STREAM_START, conversationId, tempId,

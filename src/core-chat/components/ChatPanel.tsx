@@ -7,12 +7,15 @@ import { useChannel, useWebSocket } from '@/core/lib/ws-client';
 import { ChatMessage, type ChatMessageData } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { TypingIndicator } from './TypingIndicator';
+import { BlockMessage } from './BlockMessage';
+import { VideoGenerationDialog } from './VideoGenerationDialog';
 import { ChatWsEvent, MessageRole, MessageStatus } from '@/core-chat/lib/types';
 import { Loader2 } from 'lucide-react';
 
 interface ChatPanelProps {
   conversationId: string;
   characterName: string;
+  blockStatus?: { blockType?: number; blockResetAt?: number } | null;
   characterAvatar?: string | null;
 }
 
@@ -21,11 +24,13 @@ interface StreamingMessage {
   content: string;
 }
 
-export function ChatPanel({ conversationId, characterName, characterAvatar }: ChatPanelProps) {
+export function ChatPanel({ conversationId, characterName, characterAvatar, blockStatus }: ChatPanelProps) {
   const __ = useBlankTranslations();
   useWebSocket();
 
   const [localMessages, setLocalMessages] = useState<ChatMessageData[]>([]);
+  const [showVideoDialog, setShowVideoDialog] = useState(false);
+  const isBlocked = !!blockStatus?.blockType;
   const [streaming, setStreaming] = useState<StreamingMessage | null>(null);
   const [isTyping, setIsTyping] = useState(false);
   const [isSending, setIsSending] = useState(false);
@@ -183,6 +188,12 @@ export function ChatPanel({ conversationId, characterName, characterAvatar }: Ch
     });
   }, [conversationId, sendMutation, __]);
 
+  // Mark conversation as read on open
+  const markReadMutation = trpc.conversations.markRead.useMutation();
+  useEffect(() => {
+    markReadMutation.mutate({ id: conversationId });
+  }, [conversationId]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleRetry = useCallback(() => {
     setIsSending(true);
     retryMutation.mutate({ conversationId }, { onError: () => setIsSending(false) });
@@ -250,11 +261,30 @@ export function ChatPanel({ conversationId, characterName, characterAvatar }: Ch
         <div ref={bottomRef} />
       </div>
 
+      {/* Block message overlay */}
+      {isBlocked && blockStatus?.blockType && (
+        <BlockMessage blockType={blockStatus.blockType} blockResetAt={blockStatus.blockResetAt} />
+      )}
+
       <ChatInput
         onSend={handleSend}
-        disabled={isSending}
-        placeholder={__('Type a message...')}
+        onVideoRequest={() => setShowVideoDialog(true)}
+        disabled={isSending || isBlocked}
+        blocked={isBlocked}
+        placeholder={isBlocked ? __('Chat is currently unavailable') : __('Type a message...')}
       />
+
+      {/* Video generation dialog */}
+      {showVideoDialog && (
+        <VideoGenerationDialog
+          onSubmit={(opts) => {
+            handleSend(`send random video ${opts.prompt}`);
+            setShowVideoDialog(false);
+          }}
+          onClose={() => setShowVideoDialog(false)}
+          isGenerating={isSending}
+        />
+      )}
     </div>
   );
 }

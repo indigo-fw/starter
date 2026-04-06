@@ -8,6 +8,7 @@ import { ConversationList } from './ConversationList';
 import { ChatPanel } from './ChatPanel';
 import { CharacterCard } from './CharacterCard';
 import { CharacterPicker } from './CharacterPicker';
+import { LanguageSelector } from './LanguageSelector';
 import { Loader2, Menu, X, User as UserIcon } from 'lucide-react';
 import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
@@ -36,6 +37,8 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
     router.push(`/chat/${id}`);
     setShowSidebar(false);
   }, [router]);
+
+  const setLanguageMutation = trpc.conversations.setLanguage.useMutation();
 
   const handleNewChat = useCallback(() => {
     setShowNewChat(true);
@@ -114,6 +117,12 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
                 </p>
               </div>
             </div>
+            <LanguageSelector
+              currentLang={conversation.lang}
+              onChange={(lang) => {
+                setLanguageMutation.mutate({ id: conversationId!, lang });
+              }}
+            />
             <button
               onClick={() => setShowCharInfo(!showCharInfo)}
               className="2xl:hidden rounded-lg p-1.5 text-(--text-secondary) hover:bg-(--surface-secondary) transition-colors"
