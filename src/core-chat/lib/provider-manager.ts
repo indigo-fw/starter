@@ -2,6 +2,7 @@ import { eq, and, desc } from 'drizzle-orm';
 import { createLogger } from '@/core/lib/logger';
 import { db } from '@/server/db';
 import { chatProviders, type ChatProvider } from '@/core-chat/schema/providers';
+import { chatProviderLogs } from '@/core-chat/schema/provider-logs';
 import { decrypt } from './encryption';
 import { getLlmAdapter, getImageAdapter, getVideoAdapter } from './adapters/registry';
 import { ProviderClientError } from './adapters/types';
@@ -239,7 +240,7 @@ async function getAvailableProviders(type: string): Promise<ChatProvider[]> {
 }
 
 function selectProvider(providers: ChatProvider[], type: string): ChatProvider | null {
-  const available = providers.filter((p) => !isInCooldown(p.id));
+  const available = providers.filter((p) => !isInCooldown(p.id) && !isAtCapacity(p));
   if (available.length === 0) return null;
   if (available.length === 1) return available[0]!;
 
@@ -271,4 +272,47 @@ function decryptApiKey(provider: ChatProvider): string {
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// ─── Provider health logging (fire-and-forget) ─────────────────────────────
+
+const activeRequests = new Map<string, number>();
+
+function incrementActive(providerId: string): void {
+  activeRequests.set(providerId, (activeRequests.get(providerId) ?? 0) + 1);
+}
+
+function decrementActive(providerId: string): void {
+  const current = activeRequests.get(providerId) ?? 1;
+  if (current <= 1) activeRequests.delete(providerId);
+  else activeRequests.set(providerId, current - 1);
+}
+
+function getActiveCount(providerId: string): number {
+  return activeRequests.get(providerId) ?? 0;
+}
+
+function isAtCapacity(provider: ChatProvider): boolean {
+  return getActiveCount(provider.id) >= provider.maxConcurrent;
+}
+
+function logProviderRequest(
+  providerId: string,
+  providerType: string,
+  status: 'success' | 'failure',
+  responseTimeMs: number,
+  errorMessage?: string,
+): void {
+  // Fire-and-forget — don't await, don't block
+  db.insert(chatProviderLogs).values({
+    providerId,
+    providerType,
+    status,
+    responseTimeMs,
+    errorMessage: errorMessage?.slice(0, 500),
+  }).catch((err) => {
+    logger.error('Failed to log provider request', {
+      error: err instanceof Error ? err.message : String(err),
+    });
+  });
 }

@@ -35,8 +35,16 @@ export const ChatWsEvent = {
   MSG_STREAM_START: 'msg_stream_start',
   MSG_STREAM_CHUNK: 'msg_stream_chunk',
   MSG_STREAM_END: 'msg_stream_end',
+  MSG_IMAGE_PROCESSING: 'msg_image_processing',
+  MSG_IMAGE_COMPLETE: 'msg_image_complete',
+  MSG_VIDEO_PROCESSING: 'msg_video_processing',
+  MSG_VIDEO_COMPLETE: 'msg_video_complete',
   CONV_STATUS: 'conv_status',
 } as const;
+
+// ─── Response types (from message detection) ────────────────────────────────
+
+export type ResponseType = 'text' | 'image' | 'video';
 
 // ─── Re-export adapter types for convenience ────────────────────────────────
 

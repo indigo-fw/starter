@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { trpc } from '@/lib/trpc/client';
+import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
 import { MessageSquarePlus, Archive, Trash2, Loader2 } from 'lucide-react';
 
@@ -12,6 +13,7 @@ interface ConversationListProps {
 }
 
 export function ConversationList({ activeConversationId, onSelect, onNewChat }: ConversationListProps) {
+  const __ = useBlankTranslations();
   const { data: conversations, isLoading } = trpc.conversations.list.useQuery({ status: 'active' });
   const archiveMutation = trpc.conversations.archive.useMutation();
   const deleteMutation = trpc.conversations.delete.useMutation();
@@ -37,11 +39,11 @@ export function ConversationList({ activeConversationId, onSelect, onNewChat }: 
     <div className="flex flex-col h-full border-r border-(--border-primary) bg-(--surface-primary)">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-(--border-primary)">
-        <h2 className="text-sm font-semibold text-(--text-primary)">Chats</h2>
+        <h2 className="text-sm font-semibold text-(--text-primary)">{__('Chats')}</h2>
         <button
           onClick={onNewChat}
           className="rounded-lg p-1.5 text-(--text-secondary) hover:bg-(--surface-secondary) transition-colors"
-          title="New chat"
+          title={__('New chat')}
         >
           <MessageSquarePlus size={18} />
         </button>
@@ -55,10 +57,10 @@ export function ConversationList({ activeConversationId, onSelect, onNewChat }: 
           </div>
         ) : !conversations?.length ? (
           <div className="px-4 py-8 text-center text-sm text-(--text-tertiary)">
-            No conversations yet.
+            {__('No conversations yet.')}
             <br />
             <button onClick={onNewChat} className="text-brand-500 hover:underline mt-1 inline-block">
-              Start a new chat
+              {__('Start a new chat')}
             </button>
           </div>
         ) : (

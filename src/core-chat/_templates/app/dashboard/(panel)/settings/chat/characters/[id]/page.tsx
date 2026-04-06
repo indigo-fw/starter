@@ -33,7 +33,7 @@ export default function CharacterEditPage() {
     personality: '',
     avatarUrl: '',
     greeting: '',
-    model: '',
+    modelPreset: '',
     isActive: true,
     sortOrder: 0,
     tokenCostMultiplier: 1.0,
@@ -49,7 +49,7 @@ export default function CharacterEditPage() {
         personality: character.personality ?? '',
         avatarUrl: character.avatarUrl ?? '',
         greeting: character.greeting ?? '',
-        model: character.model ?? '',
+        modelPreset: character.modelPreset ?? '',
         isActive: character.isActive,
         sortOrder: character.sortOrder,
         tokenCostMultiplier: character.tokenCostMultiplier,
@@ -72,7 +72,7 @@ export default function CharacterEditPage() {
           personality: form.personality || undefined,
           avatarUrl: form.avatarUrl || undefined,
           greeting: form.greeting || undefined,
-          model: form.model || undefined,
+          modelPreset: form.modelPreset || undefined,
           isActive: form.isActive,
           sortOrder: form.sortOrder,
           tokenCostMultiplier: form.tokenCostMultiplier,
@@ -90,7 +90,7 @@ export default function CharacterEditPage() {
           personality: form.personality || null,
           avatarUrl: form.avatarUrl || null,
           greeting: form.greeting || null,
-          model: form.model || null,
+          modelPreset: form.modelPreset || null,
           isActive: form.isActive,
           sortOrder: form.sortOrder,
           tokenCostMultiplier: form.tokenCostMultiplier,
@@ -216,8 +216,8 @@ export default function CharacterEditPage() {
             <span className="text-sm font-medium text-(--text-secondary)">{__('Model Override')}</span>
             <input
               type="text"
-              value={form.model}
-              onChange={(e) => handleChange('model', e.target.value)}
+              value={form.modelPreset}
+              onChange={(e) => handleChange('modelPreset', e.target.value)}
               placeholder="e.g. gpt-4o"
               className="w-full rounded-lg border border-(--border-primary) bg-(--surface-secondary) px-3 py-2 text-sm"
             />

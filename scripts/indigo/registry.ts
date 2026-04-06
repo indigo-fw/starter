@@ -74,6 +74,12 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     description: 'Documentation system — CMS, .md, .mdx sources with LLM export',
   },
   {
+    id: 'core-chat',
+    repo: 'git@github.com:indigo-fw/core-chat.git',
+    importName: 'coreChat',
+    description: 'AI character chat — characters, conversations, messages, providers, media',
+  },
+  {
     id: 'core-store',
     repo: 'git@github.com:indigo-fw/core-store.git',
     importName: 'coreStore',

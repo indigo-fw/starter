@@ -7,7 +7,11 @@
  * with a module-not-found error — that is intentional and expected.
  */
 import { setChatDeps } from '@/core-chat/deps';
+import { initImagePipeline } from '@/core-chat/lib/image/init';
 import { resolveOrgId } from '@/server/lib/resolve-org';
+
+// Initialize image orchestration pipeline (builds enum index, configures normalizer)
+initImagePipeline();
 import { addTokens, deductTokens, getTokenBalance } from '@/core-subscriptions/lib/token-service';
 import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
 import { sendNotification } from '@/server/lib/notifications';

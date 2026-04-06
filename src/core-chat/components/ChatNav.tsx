@@ -2,6 +2,7 @@
 
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useBlankTranslations } from '@/lib/translations';
 import {
   Home,
   MessageCircle,
@@ -19,19 +20,20 @@ interface ChatNavItem {
   exact?: boolean;
 }
 
-const NAV_ITEMS: ChatNavItem[] = [
-  { href: '/', icon: <Home size={20} />, label: 'Home' },
-  { href: '/chat', icon: <MessageCircle size={20} />, label: 'Chat', exact: false },
-  { href: '/account', icon: <User size={20} />, label: 'Account' },
-  { href: '/account/billing', icon: <CreditCard size={20} />, label: 'Billing' },
-];
-
 /**
  * Minimal left navigation rail for the chat layout.
  * Shows icons only on desktop, hidden on mobile (hamburger in ChatLayout).
  */
 export function ChatNav() {
+  const __ = useBlankTranslations();
   const pathname = usePathname();
+
+  const navItems: ChatNavItem[] = [
+    { href: '/', icon: <Home size={20} />, label: __('Home') },
+    { href: '/chat', icon: <MessageCircle size={20} />, label: __('Chat'), exact: false },
+    { href: '/account', icon: <User size={20} />, label: __('Account') },
+    { href: '/account/billing', icon: <CreditCard size={20} />, label: __('Billing') },
+  ];
 
   return (
     <nav className="hidden xl:flex flex-col w-16 h-full border-r border-(--border-primary) bg-(--surface-primary) shrink-0">
@@ -44,7 +46,7 @@ export function ChatNav() {
 
       {/* Nav items */}
       <div className="flex-1 flex flex-col items-center gap-1 py-3">
-        {NAV_ITEMS.map((item) => {
+        {navItems.map((item) => {
           const isActive = item.exact === false
             ? pathname.startsWith(item.href)
             : pathname === item.href;
@@ -71,7 +73,7 @@ export function ChatNav() {
       <div className="flex flex-col items-center gap-1 py-3 border-t border-(--border-primary)">
         <NextLink
           href="/dashboard/settings/chat"
-          title="Chat Settings"
+          title={__('Chat Settings')}
           className="flex items-center justify-center w-10 h-10 rounded-xl text-(--text-tertiary) hover:text-(--text-primary) hover:bg-(--surface-secondary) transition-colors"
         >
           <Settings size={20} />

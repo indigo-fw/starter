@@ -29,6 +29,7 @@ import {
   ListChecks,
   Mail,
   Menu,
+  MessageCircle,
   Settings,
   Tag,
   Upload,
@@ -55,8 +56,8 @@ import { MODULE_NAV_ITEMS } from '@/generated/module-nav';
 const ICON_MAP: Record<string, React.ElementType> = {
   Activity, ArrowRightLeft, Briefcase, Tv, Calendar, ClipboardList,
   CreditCard, FileText, FolderKanban, FolderOpen, Hash, Home, Image,
-  Layers, LifeBuoy, Link2, ListChecks, Mail, Menu, Settings, Tag,
-  Upload, Users, Webhook,
+  Layers, LifeBuoy, Link2, ListChecks, Mail, Menu, MessageCircle,
+  Settings, Tag, Upload, Users, Webhook,
 };
 
 // ─── Base navigation (static items) ─────────────────────────────────────────

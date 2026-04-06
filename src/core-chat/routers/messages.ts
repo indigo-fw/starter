@@ -105,6 +105,7 @@ export const messageRouter = createTRPCRouter({
       id: z.string().uuid(),
       conversationId: z.string().uuid(),
       content: z.string().min(1).max(4000),
+      mediaId: z.string().uuid().optional(),
     }))
     .mutation(async ({ ctx, input }) => {
       const deps = getChatDeps();
@@ -187,6 +188,7 @@ export const messageRouter = createTRPCRouter({
         role: MessageRole.USER,
         content: input.content,
         status: MessageStatus.DELIVERED,
+        mediaId: input.mediaId ?? null,
       }).onConflictDoNothing();
 
       // 6. Broadcast confirmation
@@ -205,6 +207,7 @@ export const messageRouter = createTRPCRouter({
         conversationId: input.conversationId,
         userId,
         organizationId: conv.organizationId,
+        lastUserMessage: input.content,
       });
 
       return { messageId: input.id, status: MessageStatus.DELIVERED as string };
@@ -229,10 +232,22 @@ export const messageRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
       }
 
+      // Get the last user message for retry
+      const [lastMsg] = await db
+        .select({ content: chatMessages.content })
+        .from(chatMessages)
+        .where(and(
+          eq(chatMessages.conversationId, input.conversationId),
+          eq(chatMessages.role, 'user'),
+        ))
+        .orderBy(desc(chatMessages.createdAt))
+        .limit(1);
+
       enqueueAiResponse({
         conversationId: input.conversationId,
         userId,
         organizationId: conv.organizationId,
+        lastUserMessage: lastMsg?.content ?? '',
       });
 
       return { status: 'dispatched' };

@@ -1,6 +1,7 @@
 'use client';
 
 import { trpc } from '@/lib/trpc/client';
+import { useBlankTranslations } from '@/lib/translations';
 import { Loader2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -11,6 +12,7 @@ interface CharacterPickerProps {
 }
 
 export function CharacterPicker({ onSelect, onClose, isCreating }: CharacterPickerProps) {
+  const __ = useBlankTranslations();
   const { data: characters, isLoading } = trpc.chatPublic.characters.useQuery({ limit: 20 });
 
   return (
@@ -22,7 +24,7 @@ export function CharacterPicker({ onSelect, onClose, isCreating }: CharacterPick
       <div className="relative w-full max-w-lg bg-(--surface-primary) rounded-2xl shadow-xl border border-(--border-primary) overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-(--border-primary)">
-          <h2 className="text-base font-semibold text-(--text-primary)">Choose a character</h2>
+          <h2 className="text-base font-semibold text-(--text-primary)">{__('Choose a character')}</h2>
           <button
             onClick={onClose}
             className="rounded-lg p-1 text-(--text-tertiary) hover:text-(--text-primary) hover:bg-(--surface-secondary) transition-colors"
@@ -39,7 +41,7 @@ export function CharacterPicker({ onSelect, onClose, isCreating }: CharacterPick
             </div>
           ) : !characters?.length ? (
             <p className="text-center text-sm text-(--text-tertiary) py-8">
-              No characters available yet.
+              {__('No characters available yet.')}
             </p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

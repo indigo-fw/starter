@@ -9,6 +9,7 @@ import { ChatPanel } from './ChatPanel';
 import { CharacterCard } from './CharacterCard';
 import { CharacterPicker } from './CharacterPicker';
 import { Loader2, Menu, X, User as UserIcon } from 'lucide-react';
+import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
 
 interface ChatLayoutProps {
@@ -16,6 +17,7 @@ interface ChatLayoutProps {
 }
 
 export function ChatLayout({ conversationId }: ChatLayoutProps) {
+  const __ = useBlankTranslations();
   const router = useRouter();
   const [showNewChat, setShowNewChat] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -125,15 +127,15 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
         {!conversationId ? (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
-              <h2 className="text-lg font-semibold text-(--text-primary) mb-2">Welcome to Chat</h2>
+              <h2 className="text-lg font-semibold text-(--text-primary) mb-2">{__('Welcome to Chat')}</h2>
               <p className="text-sm text-(--text-tertiary) mb-4">
-                Select a conversation or start a new one
+                {__('Select a conversation or start a new one')}
               </p>
               <button
                 onClick={handleNewChat}
                 className="px-4 py-2 rounded-xl bg-brand-500 text-white text-sm font-medium hover:bg-brand-600 transition-colors"
               >
-                Start a new chat
+                {__('Start a new chat')}
               </button>
             </div>
           </div>

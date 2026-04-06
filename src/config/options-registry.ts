@@ -9,6 +9,7 @@ export const GROUP_LABELS: Record<string, string> = {
   social: 'Social & Analytics',
   ga4: 'Google Analytics 4 (Dashboard)',
   reading: 'Reading',
+  chat: 'Chat & AI',
 };
 
 export const OPTION_REGISTRY: OptionDefinition[] = [
@@ -55,4 +56,22 @@ export const OPTION_REGISTRY: OptionDefinition[] = [
   // ─── Reading ────────────────────────────────────────────────────────────────
   { key: 'site.posts_per_page', label: 'Posts per page', group: 'reading', type: 'number', defaultValue: 10 },
   { key: 'site.allow_registration', label: 'Allow user registration', group: 'reading', type: 'boolean', defaultValue: true },
+
+  // ─── Chat & AI ─────────────────────────────────────────────────────────────
+  { key: 'chat.moderation.enabled', label: 'Enable content moderation', group: 'chat', type: 'boolean', defaultValue: true },
+  { key: 'chat.moderation.action', label: 'Moderation action', description: 'block = reject message, flag = allow but mark for review', group: 'chat', type: 'text', defaultValue: 'block' },
+  {
+    key: 'chat.moderation.keywords',
+    label: 'Moderation keywords',
+    description: 'JSON array of blocked keywords. Edit carefully.',
+    group: 'chat',
+    type: 'json',
+    defaultValue: JSON.stringify([
+      'kill', 'murder', 'bomb', 'terrorist', 'suicide',
+      'child abuse', 'child porn', 'underage',
+      'nazi', 'white supremacy', 'ethnic cleansing',
+    ]),
+  },
+  { key: 'chat.token_cost', label: 'Token cost per message', group: 'chat', type: 'number', defaultValue: 1 },
+  { key: 'chat.rate_limit_messages', label: 'Rate limit (messages per minute)', group: 'chat', type: 'number', defaultValue: 20 },
 ];

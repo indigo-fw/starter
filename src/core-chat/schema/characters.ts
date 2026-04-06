@@ -1,7 +1,8 @@
-import { boolean, index, integer, jsonb, pgTable, real, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { boolean, index, integer, jsonb, pgTable, real, smallint, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 // ─── chat_characters ────────────────────────────────────────────────────────
 // AI personas that users can chat with. Admin-managed.
+// Enum IDs reference character-enums.ts (personality traits) and visual-enums.ts (appearance).
 
 export const chatCharacters = pgTable('chat_characters', {
   id: text('id')
@@ -14,7 +15,28 @@ export const chatCharacters = pgTable('chat_characters', {
   personality: text('personality'),
   avatarUrl: varchar('avatar_url', { length: 1024 }),
   greeting: text('greeting'),
-  model: varchar('model', { length: 100 }),
+
+  // Character trait enum IDs (from character-enums.ts)
+  genderId: smallint('gender_id'),
+  sexualityId: smallint('sexuality_id'),
+  ethnicityId: smallint('ethnicity_id'),
+  personalityId: smallint('personality_id'),
+  kinkId: smallint('kink_id'),
+  jobId: smallint('job_id'),
+  hobbies: jsonb('hobbies').$type<number[] | null>(),
+  relationshipId: smallint('relationship_id'),
+
+  // Visual trait enum IDs (from visual-enums.ts — for image generation)
+  hairColorId: smallint('hair_color_id'),
+  hairTextureId: smallint('hair_texture_id'),
+  hairStyleId: smallint('hair_style_id'),
+  eyesColorId: smallint('eyes_color_id'),
+  skinId: smallint('skin_id'),
+  bodyDescriptionId: smallint('body_description_id'),
+  customNegative: text('custom_negative'),
+  modelPreset: varchar('model_preset', { length: 50 }),
+  loraConfig: text('lora_config'),
+
   isActive: boolean('is_active').notNull().default(true),
   sortOrder: integer('sort_order').notNull().default(0),
   tokenCostMultiplier: real('token_cost_multiplier').notNull().default(1.0),

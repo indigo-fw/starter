@@ -9,6 +9,7 @@ const config: ModuleConfig = {
     { name: 'chatPublicRouter', key: 'chatPublic', from: '@/core-chat/routers/chat-public' },
     { name: 'providerRouter', key: 'chatProviders', from: '@/core-chat/routers/providers' },
     { name: 'chatAdminRouter', key: 'chatAdmin', from: '@/core-chat/routers/chat-admin' },
+    { name: 'chatMediaRouter', key: 'chatMedia', from: '@/core-chat/routers/media' },
   ],
   schema: [
     '@/core-chat/schema/characters',
@@ -16,6 +17,7 @@ const config: ModuleConfig = {
     '@/core-chat/schema/messages',
     '@/core-chat/schema/media',
     '@/core-chat/schema/providers',
+    '@/core-chat/schema/provider-logs',
   ],
   serverInit: [
     '@/config/chat-deps',

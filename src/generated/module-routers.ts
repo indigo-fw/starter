@@ -20,6 +20,7 @@ import { messageRouter } from '@/core-chat/routers/messages';
 import { chatPublicRouter } from '@/core-chat/routers/chat-public';
 import { providerRouter } from '@/core-chat/routers/providers';
 import { chatAdminRouter } from '@/core-chat/routers/chat-admin';
+import { chatMediaRouter } from '@/core-chat/routers/media';
 
 export const moduleRouters = {
   billing: billingRouter,
@@ -41,4 +42,5 @@ export const moduleRouters = {
   chatPublic: chatPublicRouter,
   chatProviders: providerRouter,
   chatAdmin: chatAdminRouter,
+  chatMedia: chatMediaRouter,
 } as const;

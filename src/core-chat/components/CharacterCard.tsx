@@ -1,5 +1,6 @@
 'use client';
 
+import { useBlankTranslations } from '@/lib/translations';
 import { MessageSquare, Sparkles, Clock } from 'lucide-react';
 
 interface CharacterCardProps {
@@ -17,6 +18,7 @@ interface CharacterCardProps {
 }
 
 export function CharacterCard({ character, stats }: CharacterCardProps) {
+  const __ = useBlankTranslations();
   return (
     <div className="flex flex-col h-full border-l border-(--border-primary) bg-(--surface-primary) p-4">
       {/* Avatar */}
@@ -41,7 +43,7 @@ export function CharacterCard({ character, stats }: CharacterCardProps) {
         <div className="mb-4">
           <div className="flex items-center gap-1.5 mb-1.5">
             <Sparkles size={12} className="text-brand-500" />
-            <span className="text-xs font-medium text-(--text-secondary)">Personality</span>
+            <span className="text-xs font-medium text-(--text-secondary)">{__('Personality')}</span>
           </div>
           <p className="text-xs text-(--text-tertiary) leading-relaxed">
             {character.personality}
@@ -54,11 +56,11 @@ export function CharacterCard({ character, stats }: CharacterCardProps) {
         <div className="mt-auto pt-4 border-t border-(--border-primary) space-y-2">
           <div className="flex items-center gap-2 text-xs text-(--text-tertiary)">
             <MessageSquare size={12} />
-            <span>{stats.messageCount} messages</span>
+            <span>{stats.messageCount} {__('messages')}</span>
           </div>
           <div className="flex items-center gap-2 text-xs text-(--text-tertiary)">
             <Clock size={12} />
-            <span>Started {formatDate(stats.createdAt)}</span>
+            <span>{__('Started')} {formatDate(stats.createdAt)}</span>
           </div>
         </div>
       )}
