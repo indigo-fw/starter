@@ -21,9 +21,9 @@ jobs:
 
       - name: Push subtrees
         env:
-          GITHUB_TOKEN: ${{ secrets.SUBTREE_PUSH_TOKEN }}
+          PUSH_TOKEN: ${{ secrets.SUBTREE_PUSH_TOKEN }}
         run: |
-          REMOTE_BASE="https://x-access-token:${GITHUB_TOKEN}@github.com/indigo-fw"
+          REMOTE_BASE="https://x-access-token:${PUSH_TOKEN}@github.com/indigo-fw"
 
           push_subtree() {
             local prefix=$1

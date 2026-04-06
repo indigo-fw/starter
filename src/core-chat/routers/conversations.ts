@@ -287,4 +287,72 @@ export const conversationRouter = createTRPCRouter({
 
       if (result.length === 0) throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
     }),
+
+  /** Update per-conversation trait overrides */
+  updateTraits: protectedProcedure
+    .input(z.object({
+      id: z.string().uuid(),
+      genderId: z.number().int().nullable().optional(),
+      sexualityId: z.number().int().nullable().optional(),
+      ethnicityId: z.number().int().nullable().optional(),
+      personalityId: z.number().int().nullable().optional(),
+      kinkId: z.number().int().nullable().optional(),
+      jobId: z.number().int().nullable().optional(),
+      hobbies: z.array(z.number().int()).max(10).nullable().optional(),
+      relationshipId: z.number().int().nullable().optional(),
+      age: z.number().int().min(18).max(99).nullable().optional(),
+      userName: z.string().max(100).nullable().optional(),
+      bornIn: z.string().max(255).nullable().optional(),
+      livingIn: z.string().max(255).nullable().optional(),
+      customTrait: z.string().max(255).nullable().optional(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const { id, ...traits } = input;
+      const result = await db.update(chatConversations)
+        .set({ ...traits, updatedAt: new Date() })
+        .where(and(eq(chatConversations.id, id), eq(chatConversations.userId, ctx.session.user.id)))
+        .returning({ id: chatConversations.id });
+
+      if (result.length === 0) throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
+    }),
+
+  /** Get conversation settings (traits + block status) */
+  getSettings: protectedProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .query(async ({ ctx, input }) => {
+      const [conv] = await db
+        .select()
+        .from(chatConversations)
+        .where(and(eq(chatConversations.id, input.id), eq(chatConversations.userId, ctx.session.user.id)))
+        .limit(1);
+
+      if (!conv) throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
+
+      // Pre-check blocking
+      const { checkBlocking } = await import('@/core-chat/lib/subscription-guard');
+      const blockStatus = await checkBlocking(ctx.session.user.id, input.id, 'text', conv.organizationId);
+
+      return {
+        traits: {
+          genderId: conv.genderId,
+          sexualityId: conv.sexualityId,
+          ethnicityId: conv.ethnicityId,
+          personalityId: conv.personalityId,
+          kinkId: conv.kinkId,
+          jobId: conv.jobId,
+          hobbies: conv.hobbies as number[] | null,
+          relationshipId: conv.relationshipId,
+          age: conv.age,
+          userName: conv.userName,
+          bornIn: conv.bornIn,
+          livingIn: conv.livingIn,
+          customTrait: conv.customTrait,
+        },
+        lang: conv.lang,
+        blockStatus: blockStatus.blocked ? {
+          blockType: blockStatus.blockType,
+          blockResetAt: blockStatus.blockResetAt,
+        } : null,
+      };
+    }),
 });

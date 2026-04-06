@@ -12,6 +12,7 @@ import { enqueueAiResponse } from '@/core-chat/lib/engine';
 import { ChatWsEvent, ConversationStatus, MessageRole, MessageStatus } from '@/core-chat/lib/types';
 import { createLogger } from '@/core/lib/logger';
 import { getRedis } from '@/core/lib/redis';
+import { logAuditEvent, checkAutoBlock } from '@/core-chat/lib/audit';
 import { checkRateLimit, type RateLimitConfig } from '@/core/lib/rate-limit';
 
 const logger = createLogger('chat-messages');
@@ -177,6 +178,19 @@ export const messageRouter = createTRPCRouter({
           id: input.id,
           status: MessageStatus.MODERATED,
         });
+
+        // Audit log + auto-block check
+        logAuditEvent(userId, 'content_moderated', {
+          entityType: 'message',
+          entityId: input.id,
+          reason: moderationResult.reason,
+        });
+        checkAutoBlock(userId).then((shouldBlock) => {
+          if (shouldBlock) {
+            logAuditEvent(userId, 'auto_blocked', { reason: 'Exceeded moderation threshold' });
+            // TODO: wire to user ban system when available
+          }
+        }).catch(() => {});
 
         return { messageId: input.id, status: MessageStatus.MODERATED as string };
       }
