@@ -1,44 +1,45 @@
 import type { ModelPreset } from '../types';
 
 // ─── Preset registry ────────────────────────────────────────────────────────
+// Module provides registration functions. Project decides which presets to register.
+// Registration happens in chat-deps.ts (project-owned).
 
 const presets = new Map<string, ModelPreset>();
 
+/** Register a preset. Called by project code in chat-deps.ts. */
 export function registerPreset(preset: ModelPreset): void {
   presets.set(preset.id, preset);
 }
 
+/** Get a preset by ID. */
 export function getPreset(id: string): ModelPreset | undefined {
   return presets.get(id);
 }
 
+/** Get the first registered preset as default. */
 export function getDefaultPreset(): ModelPreset {
-  return presets.values().next().value ?? DEFAULT_PRESET;
+  const first = presets.values().next();
+  if (first.done) return FALLBACK_PRESET;
+  return first.value;
 }
 
+/** List all registered presets. */
 export function listPresets(): ModelPreset[] {
   return [...presets.values()];
 }
 
-// ─── Default realistic preset ───────────────────────────────────────────────
+// ─── Fallback (used only when NO presets registered — shouldn't happen) ─────
 
-const DEFAULT_PRESET: ModelPreset = {
-  id: 'default-realistic',
-  name: 'Default Realistic',
-  description: 'Standard realistic image generation preset',
+const FALLBACK_PRESET: ModelPreset = {
+  id: 'fallback',
+  name: 'Fallback',
   category: 'realistic',
   generationConfig: {
-    width: 832,
-    height: 1216,
-    steps: 32,
-    cfgScale: 6.0,
-    samplerName: 'DPM++ 2M SDE',
-    scheduler: 'Karras',
-    enableHr: false,
-    restoreFaces: false,
-    adetailerModels: ['face_yolov8n.pt', 'hand_yolov8n.pt'],
-    allowedResolutions: [[1024, 1024], [832, 1216], [1216, 832], [896, 1152]],
+    width: 1024,
+    height: 1024,
+    steps: 20,
+    cfgScale: 7.0,
+    samplerName: 'Euler',
+    scheduler: 'Normal',
   },
 };
-
-registerPreset(DEFAULT_PRESET);

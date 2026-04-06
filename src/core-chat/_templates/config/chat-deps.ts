@@ -13,6 +13,9 @@ import { resolveOrgId } from '@/server/lib/resolve-org';
 
 // Initialize image orchestration pipeline (builds enum index, configures normalizer)
 initImagePipeline();
+
+// Register presets (project decides which to use — comment out to disable)
+import '@/config/chat-presets';
 import { addTokens, deductTokens, getTokenBalance } from '@/core-subscriptions/lib/token-service';
 import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
 import { sendNotification } from '@/server/lib/notifications';
