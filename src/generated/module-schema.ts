@@ -17,3 +17,4 @@ export * from '@/core-chat/schema/messages';
 export * from '@/core-chat/schema/media';
 export * from '@/core-chat/schema/providers';
 export * from '@/core-chat/schema/provider-logs';
+export * from '@/core-chat/schema/reports';

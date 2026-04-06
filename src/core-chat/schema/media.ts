@@ -1,4 +1,4 @@
-import { index, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { boolean, index, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 // ─── chat_media ─────────────────────────────────────────────────────────────
 // Media files for chat: user-uploaded attachments and character avatars.
@@ -17,10 +17,13 @@ export const chatMedia = pgTable('chat_media', {
   height: integer('height'),
   thumbnailPath: varchar('thumbnail_path', { length: 1024 }),
   purpose: varchar('purpose', { length: 30 }).notNull().default('message'),
+  contentHash: varchar('content_hash', { length: 32 }),
+  isNsfw: boolean('is_nsfw').notNull().default(false),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 }, (t) => [
   index('idx_chat_media_user').on(t.userId),
   index('idx_chat_media_purpose').on(t.purpose),
+  index('idx_chat_media_hash').on(t.contentHash),
 ]);
 
 export type ChatMediaRecord = typeof chatMedia.$inferSelect;

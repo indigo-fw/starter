@@ -252,4 +252,22 @@ export const messageRouter = createTRPCRouter({
 
       return { status: 'dispatched' };
     }),
+
+  /** Report a message */
+  report: protectedProcedure
+    .input(z.object({
+      messageId: z.string().uuid().optional(),
+      conversationId: z.string().uuid(),
+      text: z.string().min(10).max(5000),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const { chatReports } = await import('@/core-chat/schema/reports');
+      await db.insert(chatReports).values({
+        reportedById: ctx.session.user.id,
+        messageId: input.messageId,
+        conversationId: input.conversationId,
+        text: input.text,
+      });
+      return { success: true };
+    }),
 });

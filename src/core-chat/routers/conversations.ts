@@ -206,4 +206,85 @@ export const conversationRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
       }
     }),
+
+  /** Reset conversation — clear messages, re-insert greeting */
+  reset: protectedProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const [conv] = await db
+        .select({
+          userId: chatConversations.userId,
+          characterId: chatConversations.characterId,
+          lang: chatConversations.lang,
+        })
+        .from(chatConversations)
+        .where(and(eq(chatConversations.id, input.id), eq(chatConversations.userId, ctx.session.user.id)))
+        .limit(1);
+
+      if (!conv) throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
+
+      // Soft-delete all messages by deleting them
+      await db.delete(chatMessages).where(eq(chatMessages.conversationId, input.id));
+
+      // Load character for greeting
+      const [character] = await db
+        .select({ personalityId: chatCharacters.personalityId, greeting: chatCharacters.greeting })
+        .from(chatCharacters)
+        .where(eq(chatCharacters.id, conv.characterId))
+        .limit(1);
+
+      if (character) {
+        const { getGreeting } = await import('@/core-chat/lib/greetings');
+        const greeting = getGreeting(character.personalityId, null, character.greeting);
+        await db.insert(chatMessages).values({
+          id: crypto.randomUUID(),
+          conversationId: input.id,
+          role: MessageRole.ASSISTANT,
+          content: greeting,
+          status: MessageStatus.DELIVERED,
+        });
+      }
+
+      await db.update(chatConversations).set({
+        messageCount: character ? 1 : 0,
+        lastMessageAt: new Date(),
+        updatedAt: new Date(),
+      }).where(eq(chatConversations.id, input.id));
+    }),
+
+  /** Mark conversation as read */
+  markRead: protectedProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const [latest] = await db
+        .select({ id: chatMessages.id })
+        .from(chatMessages)
+        .where(eq(chatMessages.conversationId, input.id))
+        .orderBy(desc(chatMessages.createdAt))
+        .limit(1);
+
+      if (!latest) return;
+
+      await db.update(chatConversations).set({ lastReadMessageId: latest.id })
+        .where(and(eq(chatConversations.id, input.id), eq(chatConversations.userId, ctx.session.user.id)));
+    }),
+
+  /** Mark conversation as unread */
+  markUnread: protectedProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      await db.update(chatConversations).set({ lastReadMessageId: null })
+        .where(and(eq(chatConversations.id, input.id), eq(chatConversations.userId, ctx.session.user.id)));
+    }),
+
+  /** Set conversation language */
+  setLanguage: protectedProcedure
+    .input(z.object({ id: z.string().uuid(), lang: z.string().min(2).max(10) }))
+    .mutation(async ({ ctx, input }) => {
+      const result = await db.update(chatConversations).set({ lang: input.lang, updatedAt: new Date() })
+        .where(and(eq(chatConversations.id, input.id), eq(chatConversations.userId, ctx.session.user.id)))
+        .returning({ id: chatConversations.id });
+
+      if (result.length === 0) throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
+    }),
 });

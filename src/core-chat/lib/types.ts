@@ -18,6 +18,23 @@ export const MessageStatus = {
 } as const;
 export type MessageStatus = (typeof MessageStatus)[keyof typeof MessageStatus];
 
+// ─── Block types (numeric IDs matching flirtcam convention) ─────────────────
+
+export const BlockType = {
+  BLOCK_ANONYMOUS: 40,
+  BLOCK_UNSUBSCRIBED: 41,
+  BLOCK_INSUFFICIENT_TOKENS: 42,
+  BLOCK_ANONYMOUS_SOFT: 45,
+  BLOCK_UNSUBSCRIBED_SOFT: 46,
+} as const;
+
+// ─── Censored message types ────────────────────────────────────────────────
+
+export const CensorType = {
+  CENSORED_TEXT: 30,
+  CENSORED_IMAGE: 31,
+} as const;
+
 // ─── Conversation statuses ──────────────────────────────────────────────────
 
 export const ConversationStatus = {
@@ -39,6 +56,7 @@ export const ChatWsEvent = {
   MSG_IMAGE_COMPLETE: 'msg_image_complete',
   MSG_VIDEO_PROCESSING: 'msg_video_processing',
   MSG_VIDEO_COMPLETE: 'msg_video_complete',
+  BALANCE_UPDATE: 'balance_update',
   CONV_STATUS: 'conv_status',
 } as const;
 

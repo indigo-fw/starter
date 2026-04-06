@@ -18,6 +18,7 @@ const config: ModuleConfig = {
     '@/core-chat/schema/media',
     '@/core-chat/schema/providers',
     '@/core-chat/schema/provider-logs',
+    '@/core-chat/schema/reports',
   ],
   serverInit: [
     '@/config/chat-deps',

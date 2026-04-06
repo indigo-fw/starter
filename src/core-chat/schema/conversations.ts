@@ -1,4 +1,4 @@
-import { index, integer, jsonb, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { index, integer, jsonb, pgTable, smallint, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { chatCharacters } from './characters';
 
 // ─── chat_conversations ─────────────────────────────────────────────────────
@@ -18,6 +18,11 @@ export const chatConversations = pgTable('chat_conversations', {
   lastMessageAt: timestamp('last_message_at'),
   messageCount: integer('message_count').notNull().default(0),
   totalTokensUsed: integer('total_tokens_used').notNull().default(0),
+  lastReadMessageId: text('last_read_message_id'),
+  lang: varchar('lang', { length: 10 }),
+  conversationHash: varchar('conversation_hash', { length: 32 }),
+  summarizationFailures: smallint('summarization_failures').notNull().default(0),
+  lastSummarizationAt: timestamp('last_summarization_at'),
   metadata: jsonb('metadata'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
