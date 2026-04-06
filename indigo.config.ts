@@ -18,6 +18,7 @@ import coreAiWriter from './src/core-ai-writer/module.config';
 import coreImport from './src/core-import/module.config';
 import coreDocs from './src/core-docs/module.config';
 import coreStore from './src/core-store/module.config';
+import coreChat from './src/core-chat/module.config';
 
 const modules: ModuleConfig[] = [
   corePayments,
@@ -29,6 +30,7 @@ const modules: ModuleConfig[] = [
   coreImport,
   coreDocs,
   coreStore,
+  coreChat,
 ];
 
 export default modules;

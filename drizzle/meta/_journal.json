@@ -1,0 +1,167 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1774652245138,
+      "tag": "0000_exotic_enchantress",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1774687662762,
+      "tag": "0001_burly_korvac",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774702137610,
+      "tag": "0002_taxonomy_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1774787598466,
+      "tag": "0003_chief_layla_miller",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1774791460213,
+      "tag": "0004_melodic_emma_frost",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1774894853091,
+      "tag": "0005_goofy_talon",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1774896396396,
+      "tag": "0006_cynical_prodigy",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1775003875807,
+      "tag": "0007_oval_maestro",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1775144049754,
+      "tag": "0008_abandoned_king_bedlam",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1775148040172,
+      "tag": "0009_wise_satana",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1775149474249,
+      "tag": "0010_kind_absorbing_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1775165857615,
+      "tag": "0011_typical_thing",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1775233268441,
+      "tag": "0012_tiresome_satana",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1775237502827,
+      "tag": "0013_magenta_penance",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1775238944380,
+      "tag": "0014_many_chat",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1775245056170,
+      "tag": "0015_awesome_unus",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1775250957665,
+      "tag": "0016_nosy_nicolaos",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1775257467038,
+      "tag": "0017_neat_doctor_octopus",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1775336679685,
+      "tag": "0018_tired_gideon",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1775380390133,
+      "tag": "0019_tearful_invaders",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1775400244511,
+      "tag": "0020_modern_natasha_romanoff",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1775421463368,
+      "tag": "0021_lazy_squadron_supreme",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1775474528211,
+      "tag": "0022_woozy_mach_iv",
+      "breakpoints": true
+    }
+  ]
+}

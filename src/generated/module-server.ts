@@ -12,6 +12,7 @@ export async function initModuleDeps(): Promise<void> {
   await import('@/config/support-deps');
   await import('@/config/affiliates-deps');
   await import('@/config/store-deps');
+  await import('@/config/chat-deps');
 }
 
 /**
@@ -20,5 +21,11 @@ export async function initModuleDeps(): Promise<void> {
  */
 export async function startModuleWorkers(): Promise<void> {
   const { startSupportChatCleanupWorker } = await import('@/core-support/jobs/support-chat');
+  const { startChatAiWorker } = await import('@/core-chat/lib/engine');
+  const { startChatSummarizeWorker } = await import('@/core-chat/jobs/summarize');
+  const { startChatCleanupWorker } = await import('@/core-chat/jobs/cleanup');
   startSupportChatCleanupWorker();
+  startChatAiWorker();
+  startChatSummarizeWorker();
+  startChatCleanupWorker();
 }

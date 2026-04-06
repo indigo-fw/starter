@@ -11,3 +11,7 @@ export * from '@/core-docs/schema/docs';
 export * from '@/core-store/schema/products';
 export * from '@/core-store/schema/orders';
 export * from '@/core-store/schema/shipping-tax';
+export * from '@/core-chat/schema/characters';
+export * from '@/core-chat/schema/conversations';
+export * from '@/core-chat/schema/messages';
+export * from '@/core-chat/schema/media';

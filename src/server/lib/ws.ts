@@ -6,6 +6,7 @@ import { db } from '@/server/db';
 import { member as memberTable } from '@/server/db/schema/organization';
 import { saasTickets } from '@/core-support/schema/support-tickets';
 import { saasSupportChatSessions } from '@/core-support/schema/support-chat';
+import { chatConversations } from '@/core-chat/schema/conversations';
 import { user as userTable } from '@/server/db/schema/auth';
 import { Policy } from '@/core/policy';
 
@@ -227,6 +228,29 @@ async function canSubscribe(ws: AuthenticatedSocket, channel: string): Promise<b
       // the chat conversation itself which the visitor already participated in.
       if (!ws.userId) return true;
       return false;
+    } catch {
+      return false;
+    }
+  }
+  // chat:<conversationId> — conversation owner or staff
+  if (channel.startsWith('chat:')) {
+    if (!ws.userId) return false;
+    const conversationId = channel.slice(5);
+    try {
+      const [conv] = await db
+        .select({ userId: chatConversations.userId })
+        .from(chatConversations)
+        .where(eq(chatConversations.id, conversationId))
+        .limit(1);
+      if (!conv) return false;
+      if (conv.userId === ws.userId) return true;
+      // Staff can monitor
+      const [u] = await db
+        .select({ role: userTable.role })
+        .from(userTable)
+        .where(eq(userTable.id, ws.userId))
+        .limit(1);
+      return !!u && Policy.for(u.role).can('section.settings');
     } catch {
       return false;
     }

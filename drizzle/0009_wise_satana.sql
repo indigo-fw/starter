@@ -1,0 +1,1 @@
+ALTER TABLE "invitation" ALTER COLUMN "role" DROP NOT NULL;

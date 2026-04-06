@@ -1,0 +1,1 @@
+ALTER TABLE "cms_audit_log" ALTER COLUMN "user_id" SET DATA TYPE text;

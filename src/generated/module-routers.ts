@@ -14,6 +14,10 @@ import { storeProductsRouter } from '@/core-store/routers/products';
 import { storeCartRouter } from '@/core-store/routers/cart';
 import { storeCheckoutRouter } from '@/core-store/routers/checkout';
 import { storeOrdersRouter } from '@/core-store/routers/orders';
+import { characterRouter } from '@/core-chat/routers/characters';
+import { conversationRouter } from '@/core-chat/routers/conversations';
+import { messageRouter } from '@/core-chat/routers/messages';
+import { chatPublicRouter } from '@/core-chat/routers/chat-public';
 
 export const moduleRouters = {
   billing: billingRouter,
@@ -29,4 +33,8 @@ export const moduleRouters = {
   storeCart: storeCartRouter,
   storeCheckout: storeCheckoutRouter,
   storeOrders: storeOrdersRouter,
+  characters: characterRouter,
+  conversations: conversationRouter,
+  messages: messageRouter,
+  chatPublic: chatPublicRouter,
 } as const;
