@@ -18,6 +18,8 @@ import { characterRouter } from '@/core-chat/routers/characters';
 import { conversationRouter } from '@/core-chat/routers/conversations';
 import { messageRouter } from '@/core-chat/routers/messages';
 import { chatPublicRouter } from '@/core-chat/routers/chat-public';
+import { providerRouter } from '@/core-chat/routers/providers';
+import { chatAdminRouter } from '@/core-chat/routers/chat-admin';
 
 export const moduleRouters = {
   billing: billingRouter,
@@ -37,4 +39,6 @@ export const moduleRouters = {
   conversations: conversationRouter,
   messages: messageRouter,
   chatPublic: chatPublicRouter,
+  chatProviders: providerRouter,
+  chatAdmin: chatAdminRouter,
 } as const;

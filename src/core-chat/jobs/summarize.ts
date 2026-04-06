@@ -4,7 +4,7 @@ import { createLogger } from '@/core/lib/logger';
 import { db } from '@/server/db';
 import { chatMessages, chatConversationSummaries } from '@/core-chat/schema/messages';
 import { chatConversations } from '@/core-chat/schema/conversations';
-import { getProviderFromEnv } from '@/core-chat/lib/ai-provider';
+import { completeAi } from '@/core-chat/lib/ai-provider';
 import { MessageRole } from '@/core-chat/lib/types';
 
 const logger = createLogger('chat-summarize');
@@ -46,18 +46,12 @@ export function startChatSummarizeWorker(): void {
         return;
       }
 
-      const provider = await getProviderFromEnv();
-      if (!provider) {
-        logger.warn('No AI provider configured for summarization');
-        return;
-      }
-
       // Build transcript
       const transcript = messages
         .map((m) => `${m.role === MessageRole.USER ? 'User' : 'Assistant'}: ${m.content}`)
         .join('\n');
 
-      const result = await provider.complete([
+      const result = await completeAi([
         {
           role: 'system',
           content: 'Summarize the following conversation in 2-3 concise paragraphs. Focus on key topics, decisions, and emotional tone. This summary will be used as context for future messages.',

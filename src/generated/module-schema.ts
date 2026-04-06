@@ -15,3 +15,4 @@ export * from '@/core-chat/schema/characters';
 export * from '@/core-chat/schema/conversations';
 export * from '@/core-chat/schema/messages';
 export * from '@/core-chat/schema/media';
+export * from '@/core-chat/schema/providers';

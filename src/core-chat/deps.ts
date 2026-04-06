@@ -15,6 +15,14 @@ export interface ChatDeps {
     metadata?: Record<string, unknown>,
   ): Promise<number>;
 
+  /** Add tokens (for refunds on AI failure). Returns new balance. */
+  addTokens(
+    orgId: string,
+    amount: number,
+    reason: string,
+    metadata?: Record<string, unknown>,
+  ): Promise<number>;
+
   /** Read-only balance check (pre-flight) */
   getTokenBalance(orgId: string): Promise<number>;
 

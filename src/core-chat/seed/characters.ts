@@ -1,10 +1,15 @@
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { chatCharacters } from '@/core-chat/schema/characters';
+import { chatProviders } from '@/core-chat/schema/providers';
+import { count } from 'drizzle-orm';
+import { encrypt, isEncryptionConfigured } from '@/core-chat/lib/encryption';
 
 export async function seedChatCharacters(
   db: PostgresJsDatabase,
   _superadminUserId: string,
 ): Promise<{ userIds?: string[]; orgIds?: string[] }> {
+  // ── Seed characters ───────────────────────────────────────────────────────
+
   const characters = [
     {
       name: 'Luna',
@@ -40,6 +45,34 @@ export async function seedChatCharacters(
 
   for (const character of characters) {
     await db.insert(chatCharacters).values(character).onConflictDoNothing();
+  }
+
+  // ── Seed default provider from AI_API_KEY if available ────────────────────
+
+  const aiApiKey = process.env.AI_API_KEY;
+  if (aiApiKey && isEncryptionConfigured()) {
+    const [existing] = await db
+      .select({ count: count() })
+      .from(chatProviders);
+
+    if ((existing?.count ?? 0) === 0) {
+      const aiModel = process.env.AI_MODEL ?? 'gpt-4o-mini';
+      const aiApiUrl = process.env.AI_API_URL ?? undefined;
+
+      await db.insert(chatProviders).values({
+        name: 'Default (from AI_API_KEY)',
+        adapterType: 'openai',
+        baseUrl: aiApiUrl,
+        encryptedApiKey: encrypt(aiApiKey),
+        model: aiModel,
+        priority: 10,
+        status: 'active',
+      }).onConflictDoNothing();
+
+      console.log(`  ✓ Created default chat provider (${aiModel})`);
+    }
+  } else if (aiApiKey && !isEncryptionConfigured()) {
+    console.log('  ⚠ AI_API_KEY is set but ENCRYPTION_KEY is missing — skipping default chat provider');
   }
 
   return {};

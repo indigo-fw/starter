@@ -8,7 +8,7 @@
  */
 import { setChatDeps } from '@/core-chat/deps';
 import { resolveOrgId } from '@/server/lib/resolve-org';
-import { deductTokens, getTokenBalance } from '@/core-subscriptions/lib/token-service';
+import { addTokens, deductTokens, getTokenBalance } from '@/core-subscriptions/lib/token-service';
 import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
 import { sendNotification } from '@/server/lib/notifications';
 import { broadcastToChannel, sendToUser } from '@/server/lib/ws';
@@ -20,6 +20,9 @@ setChatDeps({
 
   deductTokens: (orgId, amount, reason, metadata) =>
     deductTokens(orgId, amount, reason, metadata),
+
+  addTokens: (orgId, amount, reason, metadata) =>
+    addTokens(orgId, amount, reason, metadata),
 
   getTokenBalance: (orgId) => getTokenBalance(orgId),
 

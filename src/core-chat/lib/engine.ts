@@ -7,7 +7,7 @@ import { chatConversations } from '@/core-chat/schema/conversations';
 import { chatCharacters } from '@/core-chat/schema/characters';
 import { getChatDeps } from '@/core-chat/deps';
 import { getChatConfig } from '@/core-chat/config';
-import { getProviderFromEnv } from './ai-provider';
+import { streamAiResponse } from './ai-provider';
 import { buildContext } from './context-builder';
 import { enqueueSummarize } from '@/core-chat/jobs/summarize';
 import { ChatWsEvent, MessageRole, MessageStatus } from './types';
@@ -25,8 +25,7 @@ export interface ChatAiJob {
 const chatAiQueue = createQueue('chat-ai-response');
 
 /**
- * Enqueue an AI response job. If Redis is unavailable, falls back to
- * in-process execution (fire-and-forget).
+ * Enqueue an AI response job. Falls back to in-process if no Redis.
  */
 export function enqueueAiResponse(job: ChatAiJob): void {
   if (chatAiQueue) {
@@ -36,14 +35,12 @@ export function enqueueAiResponse(job: ChatAiJob): void {
       removeOnComplete: 100,
       removeOnFail: 200,
     }).catch((err) => {
-      logger.error('Failed to enqueue AI response job, falling back to in-process', {
+      logger.error('Failed to enqueue AI job, falling back to in-process', {
         error: err instanceof Error ? err.message : String(err),
       });
-      // Fallback: run in-process
       processAiResponse(job).catch(() => {});
     });
   } else {
-    // No Redis — run in-process (dev mode)
     processAiResponse(job).catch((err) => {
       logger.error('In-process AI response failed', {
         error: err instanceof Error ? err.message : String(err),
@@ -52,34 +49,21 @@ export function enqueueAiResponse(job: ChatAiJob): void {
   }
 }
 
-/**
- * Start the BullMQ worker that processes AI response jobs.
- * Called from module.config.ts jobs array.
- */
+/** Start the BullMQ worker for AI response jobs */
 export function startChatAiWorker(): void {
   createWorker('chat-ai-response', async (job) => {
-    const data = job.data as ChatAiJob;
-    await processAiResponse(data);
-  }, 3); // concurrency: 3
+    await processAiResponse(job.data as ChatAiJob);
+  }, 3);
 }
 
 // ─── Core processing logic ──────────────────────────────────────────────────
 
-/**
- * Process an AI response for a conversation.
- *
- * 1. Load character + build context
- * 2. Stream AI response via WebSocket
- * 3. Insert assistant message
- * 4. Deduct tokens
- * 5. Update conversation stats
- * 6. Trigger summarization if needed
- */
 async function processAiResponse(job: ChatAiJob): Promise<void> {
   const { conversationId, userId, organizationId } = job;
   const deps = getChatDeps();
   const config = getChatConfig();
   const tempId = crypto.randomUUID();
+  let tokensPrepaid = 0;
 
   try {
     // 1. Load conversation + character
@@ -93,7 +77,7 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
       .limit(1);
 
     if (!conv) {
-      logger.error('Conversation not found for AI response', { conversationId });
+      logger.error('Conversation not found', { conversationId });
       return;
     }
 
@@ -108,17 +92,26 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
       .limit(1);
 
     if (!character) {
-      logger.error('Character not found for AI response', { characterId: conv.characterId });
+      logger.error('Character not found', { characterId: conv.characterId });
       broadcastFailed(deps, conversationId, tempId);
       return;
     }
 
-    // 2. Get AI provider
-    const provider = await getProviderFromEnv(character.model ?? undefined);
-    if (!provider) {
-      logger.error('No AI provider configured');
-      broadcastFailed(deps, conversationId, tempId);
-      return;
+    // 2. Pre-pay tokens (deduct BEFORE generation)
+    const cost = Math.ceil(config.tokenCostPerMessage * character.tokenCostMultiplier);
+    if (cost > 0) {
+      try {
+        await deps.deductTokens(organizationId, cost, 'ai_chat', { conversationId });
+        tokensPrepaid = cost;
+      } catch (err) {
+        logger.warn('Token deduction failed (insufficient balance)', {
+          error: err instanceof Error ? err.message : String(err),
+          organizationId,
+          cost,
+        });
+        broadcastFailed(deps, conversationId, tempId);
+        return;
+      }
     }
 
     // 3. Build context
@@ -137,26 +130,25 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
 
     // 5. Stream response
     let fullText = '';
-    let tokenCount = 0;
     let chunkIndex = 0;
 
-    for await (const chunk of provider.stream(context)) {
-      if (chunk.done) {
-        tokenCount = chunk.tokenCount ?? 0;
-        break;
-      }
-      fullText += chunk.chunk;
+    for await (const chunk of streamAiResponse(context, {
+      model: character.model ?? undefined,
+    })) {
+      fullText += chunk;
       deps.broadcastEvent(`chat:${conversationId}`, ChatWsEvent.MSG_STREAM_CHUNK, {
         type: ChatWsEvent.MSG_STREAM_CHUNK,
         conversationId,
         tempId,
-        chunk: chunk.chunk,
+        chunk,
         index: chunkIndex++,
       });
     }
 
     if (!fullText.trim()) {
       logger.error('AI returned empty response', { conversationId });
+      await refundTokens(deps, organizationId, tokensPrepaid, conversationId, 'empty_response');
+      tokensPrepaid = 0;
       broadcastFailed(deps, conversationId, tempId);
       return;
     }
@@ -169,7 +161,6 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
       role: MessageRole.ASSISTANT,
       content: fullText,
       status: MessageStatus.DELIVERED,
-      tokenCount,
     });
 
     // 7. Broadcast stream end
@@ -179,26 +170,10 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
       tempId,
       messageId,
       content: fullText,
-      tokenCount,
     });
 
-    // 8. Deduct tokens (log but don't fail the response)
-    const cost = Math.ceil(config.tokenCostPerMessage * character.tokenCostMultiplier);
-    if (cost > 0) {
-      try {
-        await deps.deductTokens(organizationId, cost, 'ai_chat', {
-          conversationId,
-          messageId,
-          tokenCount,
-        });
-      } catch (err) {
-        logger.error('Token deduction failed (post-response)', {
-          error: err instanceof Error ? err.message : String(err),
-          organizationId,
-          cost,
-        });
-      }
-    }
+    // 8. Tokens already deducted (pre-paid). Mark as consumed.
+    tokensPrepaid = 0; // Prevent refund in catch block
 
     // 9. Update conversation stats
     const newMessageCount = conv.messageCount + 2;
@@ -207,12 +182,12 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
       .set({
         lastMessageAt: new Date(),
         messageCount: newMessageCount,
-        totalTokensUsed: sql`${chatConversations.totalTokensUsed} + ${tokenCount}`,
+        totalTokensUsed: sql`${chatConversations.totalTokensUsed} + ${cost}`,
         updatedAt: new Date(),
       })
       .where(eq(chatConversations.id, conversationId));
 
-    // 10. Trigger summarization if threshold exceeded
+    // 10. Trigger summarization if needed
     if (newMessageCount >= config.summaryThreshold && newMessageCount % config.summaryThreshold < 2) {
       enqueueSummarize(conversationId);
     }
@@ -222,11 +197,36 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
       error: err instanceof Error ? err.message : String(err),
       conversationId,
     });
+
+    // Refund pre-paid tokens on failure
+    if (tokensPrepaid > 0) {
+      await refundTokens(deps, organizationId, tokensPrepaid, conversationId, 'ai_failure');
+    }
+
     try {
       broadcastFailed(getChatDeps(), conversationId, tempId);
     } catch {
       // deps not ready
     }
+  }
+}
+
+async function refundTokens(
+  deps: ReturnType<typeof getChatDeps>,
+  orgId: string,
+  amount: number,
+  conversationId: string,
+  reason: string,
+): Promise<void> {
+  try {
+    await deps.addTokens(orgId, amount, 'ai_chat_refund', { conversationId, reason });
+    logger.info('Tokens refunded after AI failure', { orgId, amount, reason });
+  } catch (err) {
+    logger.error('Token refund failed', {
+      error: err instanceof Error ? err.message : String(err),
+      orgId,
+      amount,
+    });
   }
 }
 

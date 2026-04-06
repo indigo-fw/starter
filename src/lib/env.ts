@@ -67,6 +67,9 @@ const serverEnvSchema = z.object({
   AI_API_URL: z.url().optional(),
   AI_MODEL: z.string().optional(),
 
+  // Encryption key for DB-stored secrets (provider API keys). 64-char hex = 32 bytes.
+  ENCRYPTION_KEY: z.string().length(64).optional(),
+
   // Email list / newsletter integration (optional)
   EMAIL_LIST_PROVIDER: z.enum(['mailchimp', 'brevo']).optional(),
   MAILCHIMP_API_KEY: z.string().optional(),

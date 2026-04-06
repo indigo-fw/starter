@@ -162,6 +162,13 @@
       "when": 1775474528211,
       "tag": "0022_woozy_mach_iv",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1775485124309,
+      "tag": "0023_dapper_dagger",
+      "breakpoints": true
     }
   ]
 }
