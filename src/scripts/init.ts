@@ -154,6 +154,19 @@ async function ensureDatabase() {
 // ─── Step 3: Run migrations ─────────────────────────────────────────────────
 
 function runMigrations() {
+  // Generate migrations if none exist yet (fresh clone or reset)
+  const journalPath = path.resolve(process.cwd(), 'drizzle/meta/_journal.json');
+  if (!fs.existsSync(journalPath)) {
+    log('🔄', 'No migrations found — generating from schema...');
+    try {
+      execSync('bunx drizzle-kit generate', { stdio: 'inherit' });
+      log('✅', 'Migrations generated.');
+    } catch {
+      console.error('Migration generation failed. Check the error above.');
+      process.exit(1);
+    }
+  }
+
   log('🔄', 'Running database migrations...');
   try {
     execSync('bunx drizzle-kit migrate', { stdio: 'inherit' });
