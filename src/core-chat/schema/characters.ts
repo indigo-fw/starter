@@ -37,6 +37,10 @@ export const chatCharacters = pgTable('chat_characters', {
   modelPreset: varchar('model_preset', { length: 50 }),
   loraConfig: text('lora_config'),
 
+  // Featured media (for browse page)
+  featuredImageId: text('featured_image_id'),
+  featuredVideoId: text('featured_video_id'),
+
   isActive: boolean('is_active').notNull().default(true),
   sortOrder: integer('sort_order').notNull().default(0),
   tokenCostMultiplier: real('token_cost_multiplier').notNull().default(1.0),

@@ -20,3 +20,4 @@ export * from '@/core-chat/schema/provider-logs';
 export * from '@/core-chat/schema/reports';
 export * from '@/core-chat/schema/audit';
 export * from '@/core-chat/schema/voice-calls';
+export * from '@/core-chat/schema/user-preferences';

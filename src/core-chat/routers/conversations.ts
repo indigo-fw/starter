@@ -393,4 +393,40 @@ export const conversationRouter = createTRPCRouter({
         } : null,
       };
     }),
+
+  /** Get user's chat preferences */
+  getPreferences: protectedProcedure.query(async ({ ctx }) => {
+    const { chatUserPreferences } = await import('@/core-chat/schema/user-preferences');
+    const [prefs] = await db
+      .select()
+      .from(chatUserPreferences)
+      .where(eq(chatUserPreferences.userId, ctx.session.user.id))
+      .limit(1);
+    return prefs ?? { userId: ctx.session.user.id, preferredName: null, preferredGender: null };
+  }),
+
+  /** Update user's chat preferences */
+  updatePreferences: protectedProcedure
+    .input(z.object({
+      preferredName: z.string().max(100).nullable().optional(),
+      preferredGender: z.number().int().nullable().optional(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const { chatUserPreferences } = await import('@/core-chat/schema/user-preferences');
+      await db
+        .insert(chatUserPreferences)
+        .values({
+          userId: ctx.session.user.id,
+          preferredName: input.preferredName,
+          preferredGender: input.preferredGender,
+        })
+        .onConflictDoUpdate({
+          target: chatUserPreferences.userId,
+          set: {
+            preferredName: input.preferredName ?? undefined,
+            preferredGender: input.preferredGender ?? undefined,
+            updatedAt: new Date(),
+          },
+        });
+    }),
 });

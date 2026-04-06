@@ -23,6 +23,7 @@ const config: ModuleConfig = {
     '@/core-chat/schema/reports',
     '@/core-chat/schema/audit',
     '@/core-chat/schema/voice-calls',
+    '@/core-chat/schema/user-preferences',
   ],
   serverInit: [
     '@/config/chat-deps',

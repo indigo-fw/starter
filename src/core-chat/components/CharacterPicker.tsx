@@ -13,7 +13,8 @@ interface CharacterPickerProps {
 
 export function CharacterPicker({ onSelect, onClose, isCreating }: CharacterPickerProps) {
   const __ = useBlankTranslations();
-  const { data: characters, isLoading } = trpc.chatPublic.characters.useQuery({ limit: 20 });
+  const { data, isLoading } = trpc.chatPublic.characters.useQuery({ pageSize: 20 });
+  const characters = data?.results;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
