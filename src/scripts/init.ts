@@ -37,7 +37,12 @@ import {
 import { seedMedia, seedCmsContent } from './seed/cms-content';
 import { seedUsersAndOrgs } from './seed/users-orgs';
 import { seedExtras } from './seed/extras';
-import { MODULE_SEEDS } from '@/generated/module-seeds';
+
+// Lazy-loaded after .env is ensured (top-level import triggers env validation)
+async function getModuleSeeds() {
+  const { MODULE_SEEDS } = await import('@/generated/module-seeds');
+  return MODULE_SEEDS;
+}
 
 // ─── CLI Flags ───────────────────────────────────────────────────────────────
 
@@ -64,12 +69,46 @@ const PROJECT_ROOT = process.cwd();
 const ENV_PATH = path.join(PROJECT_ROOT, '.env');
 const ENV_EXAMPLE_PATH = path.join(PROJECT_ROOT, '.env.example');
 
-function getDatabaseUrl(): string {
-  const url = process.env.DATABASE_URL;
-  if (!url) {
-    console.error('DATABASE_URL is not set. Copy .env.example to .env and configure it.');
-    process.exit(1);
+/** Reload .env into process.env (bun only auto-loads if .env exists at startup) */
+function reloadEnv() {
+  if (!fs.existsSync(ENV_PATH)) return;
+  const content = fs.readFileSync(ENV_PATH, 'utf-8');
+  for (const line of content.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const value = trimmed.slice(eqIdx + 1).trim();
+    if (!process.env[key] || process.env[key] === '') {
+      process.env[key] = value;
+    }
   }
+}
+
+async function ensureDatabaseUrl(): Promise<string> {
+  // Reload in case .env was just created
+  reloadEnv();
+
+  let url = process.env.DATABASE_URL;
+  const defaultUrl = 'postgresql://postgres:@localhost:5432/indigo';
+
+  if (!url || url === defaultUrl) {
+    if (AUTO_YES) {
+      url = url || defaultUrl;
+    } else {
+      url = await promptWithDefault('  Database URL:', url || defaultUrl);
+    }
+
+    // Write back to .env
+    if (fs.existsSync(ENV_PATH)) {
+      let envContent = fs.readFileSync(ENV_PATH, 'utf-8');
+      envContent = envContent.replace(/^DATABASE_URL=.*$/m, `DATABASE_URL=${url}`);
+      fs.writeFileSync(ENV_PATH, envContent);
+    }
+    process.env.DATABASE_URL = url;
+  }
+
   return url;
 }
 
@@ -101,28 +140,56 @@ const ALL_TABLES = [
 // ─── Step 1: Ensure .env ──────────────────────────────────────────────────────
 
 function ensureEnvFile(): boolean {
-  if (fs.existsSync(ENV_PATH)) {
-    return true;
-  }
-
-  if (fs.existsSync(ENV_EXAMPLE_PATH)) {
-    fs.copyFileSync(ENV_EXAMPLE_PATH, ENV_PATH);
-    log('📄', 'Created .env from .env.example.');
-    if (!AUTO_YES) {
-      log('📝', 'Review the file, then re-run: bun run init');
+  if (!fs.existsSync(ENV_PATH)) {
+    if (fs.existsSync(ENV_EXAMPLE_PATH)) {
+      fs.copyFileSync(ENV_EXAMPLE_PATH, ENV_PATH);
+      log('📄', 'Created .env from .env.example.');
+    } else {
+      log('⚠️', 'No .env or .env.example found. Create .env with DATABASE_URL, then re-run.');
       return false;
     }
-    return true;
   }
 
-  log('⚠️', 'No .env or .env.example found. Create .env with DATABASE_URL, then re-run.');
-  return false;
+  // Auto-generate secrets if they're still placeholder values
+  let envContent = fs.readFileSync(ENV_PATH, 'utf-8');
+  let changed = false;
+
+  // BETTER_AUTH_SECRET — 32 random bytes = 64 hex chars
+  if (/BETTER_AUTH_SECRET=your-secret/.test(envContent) || !/BETTER_AUTH_SECRET=.{32}/.test(envContent)) {
+    const secret = crypto.randomBytes(32).toString('hex');
+    envContent = envContent.replace(/^BETTER_AUTH_SECRET=.*$/m, `BETTER_AUTH_SECRET=${secret}`);
+    changed = true;
+    log('🔑', 'Generated BETTER_AUTH_SECRET.');
+  }
+
+  // ENCRYPTION_KEY — 32 random bytes = 64 hex chars (for dashboard credential encryption)
+  if (!/^ENCRYPTION_KEY=.{64}$/m.test(envContent)) {
+    const key = crypto.randomBytes(32).toString('hex');
+    if (/^#?\s*ENCRYPTION_KEY=/m.test(envContent)) {
+      envContent = envContent.replace(/^#?\s*ENCRYPTION_KEY=.*$/m, `ENCRYPTION_KEY=${key}`);
+    } else {
+      envContent += `\nENCRYPTION_KEY=${key}`;
+    }
+    changed = true;
+    log('🔑', 'Generated ENCRYPTION_KEY.');
+  }
+
+  if (changed) {
+    fs.writeFileSync(ENV_PATH, envContent);
+  }
+
+  if (!AUTO_YES && !fs.existsSync(ENV_PATH.replace('.env', '.env.generated'))) {
+    // Only pause on first-ever .env creation (not on secret rotation)
+    if (!changed) return true;
+  }
+
+  return true;
 }
 
 // ─── Step 2: Create database ──────────────────────────────────────────────────
 
-async function ensureDatabase() {
-  const databaseUrl = getDatabaseUrl();
+async function ensureDatabase(): Promise<string> {
+  const databaseUrl = await ensureDatabaseUrl();
   const dbUrl = new URL(databaseUrl);
   const dbName = dbUrl.pathname.slice(1);
   const maintenanceUrl = `${dbUrl.protocol}//${dbUrl.username}${dbUrl.password ? ':' + dbUrl.password : ''}@${dbUrl.host}/postgres`;
@@ -149,6 +216,8 @@ async function ensureDatabase() {
   } finally {
     await sql.end();
   }
+
+  return databaseUrl;
 }
 
 // ─── Step 3: Run migrations ─────────────────────────────────────────────────
@@ -241,17 +310,21 @@ async function ensureSuperadmin(db: ReturnType<typeof drizzle>): Promise<string>
     return existingAdmin.id;
   }
 
-  // In auto mode, use env vars or defaults
-  const name = await ask('  Admin name: ', process.env.INIT_ADMIN_NAME, 'Admin');
-  const email = await ask('  Admin email: ', process.env.INIT_ADMIN_EMAIL, 'admin@example.com');
+  log('👤', 'Creating superadmin...');
+  if (!AUTO_YES) console.log('');
+
+  const defaultEmail = process.env.INIT_ADMIN_EMAIL || 'admin@example.com';
+  const defaultPassword = process.env.INIT_ADMIN_PASSWORD || '12341234';
+
+  const email = AUTO_YES ? defaultEmail : await promptWithDefault('  Admin email:', defaultEmail);
+  const name = process.env.INIT_ADMIN_NAME || email.split('@')[0];
 
   let password: string;
   if (AUTO_YES) {
-    password = process.env.INIT_ADMIN_PASSWORD || 'demo1234';
+    password = defaultPassword;
   } else {
-    log('👤', 'No superadmin found. Creating one...');
-    console.log('');
-    password = await promptPassword('  Admin password (min 6 chars): ');
+    password = await promptPassword(`  Admin password [${defaultPassword}]: `);
+    if (!password) password = defaultPassword;
   }
 
   if (!name || !email || !password) {
@@ -419,12 +492,11 @@ async function main() {
   }
 
   // Step 2
-  await ensureDatabase();
+  const databaseUrl = await ensureDatabase();
 
   // Step 3
   runMigrations();
 
-  const databaseUrl = getDatabaseUrl();
   const sql = postgres(databaseUrl, { max: 1 });
   const db = drizzle(sql);
 
@@ -454,12 +526,13 @@ async function main() {
       log('📋', 'What to seed:');
       const wantCms = await confirm('  Seed CMS content (pages, blog, portfolio, showcase)?', true);
 
+      const MODULE_SEEDS = await getModuleSeeds();
       const hasModuleSeeds = MODULE_SEEDS.length > 0;
       const wantDemoUsers = hasModuleSeeds
         ? await confirm('  Seed demo users & organizations (required for module data)?', true)
         : false;
 
-      const moduleSeeds: { label: string; fn: typeof MODULE_SEEDS[number]['fn']; accepted: boolean }[] = [];
+      const moduleSeeds: { label: string; fn: (typeof MODULE_SEEDS)[number]['fn']; accepted: boolean }[] = [];
       if (wantDemoUsers) {
         for (const seed of MODULE_SEEDS) {
           const accepted = await confirm(`  Seed ${seed.label}?`, true);
