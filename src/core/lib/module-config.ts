@@ -77,9 +77,33 @@ export interface ModuleConfig {
   /** Admin nav items to register (appended to existing nav groups) */
   navItems: NavItemEntry[];
   /**
+   * Schema tables that can be extended by the project.
+   *
+   * The module exports column definitions (not the table). The project can create
+   * an override file at `src/schema/overrides/<filename>.ts` that spreads the module's
+   * columns and adds its own. The sync script detects overrides and re-exports the
+   * project version in `generated/module-schema.ts`.
+   *
+   * If no override exists, the module's default table is used.
+   *
+   * Example:
+   *   Module: `export const chatUserPreferenceColumns = { ... };`
+   *   Module: `export const chatUserPreferences = pgTable('...', chatUserPreferenceColumns);`
+   *   Project: `src/schema/overrides/chat-user-preferences.ts` spreads + extends
+   */
+  overridableSchema?: OverridableSchemaEntry[];
+
+  /**
    * Project-layer files scaffolded by this module (relative to src/).
    * Copied from _templates/ during `indigo add`, removed during `indigo remove`.
    * These are the project-side files the module needs to function (deps, admin pages, etc.).
    */
   projectFiles: string[];
+}
+
+export interface OverridableSchemaEntry {
+  /** Override filename (without .ts). Must match file in src/schema/overrides/ */
+  name: string;
+  /** Module schema path that provides the default (same as in `schema` array) */
+  modulePath: string;
 }

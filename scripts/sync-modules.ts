@@ -72,14 +72,37 @@ function generateRouters(modules: ModuleConfig[]) {
 
 function generateSchema(modules: ModuleConfig[]) {
   const schemas = modules.flatMap((m) => m.schema);
+  const overrides = modules.flatMap((m) => m.overridableSchema ?? []);
+
+  // Check which overrides have project-level files
+  const overrideDir = resolve(root, 'src/schema/overrides');
+  const overriddenPaths = new Set<string>();
+
+  const overrideExports: string[] = [];
+  for (const override of overrides) {
+    const overrideFile = resolve(overrideDir, `${override.name}.ts`);
+    if (existsSync(overrideFile)) {
+      // Project has an override — use it instead of module default
+      overriddenPaths.add(override.modulePath);
+      overrideExports.push(`export * from '@/schema/overrides/${override.name}';`);
+    }
+  }
 
   const exports = schemas
-    .map((s) => `export * from '${s}';`)
+    .map((s) => {
+      if (overriddenPaths.has(s)) {
+        // This schema has a project override — skip module version
+        return `// Overridden by project: ${s}`;
+      }
+      return `export * from '${s}';`;
+    })
     .join('\n');
+
+  const allExports = [exports, ...overrideExports].filter(Boolean).join('\n');
 
   writeFileSync(
     resolve(outDir, 'module-schema.ts'),
-    `${HEADER}\n${exports || '// No module schemas registered'}\n`,
+    `${HEADER}\n${allExports || '// No module schemas registered'}\n`,
   );
 }
 

@@ -25,6 +25,9 @@ const config: ModuleConfig = {
     '@/core-chat/schema/voice-calls',
     '@/core-chat/schema/user-preferences',
   ],
+  overridableSchema: [
+    { name: 'chat-user-preferences', modulePath: '@/core-chat/schema/user-preferences' },
+  ],
   serverInit: [
     '@/config/chat-deps',
   ],
