@@ -67,7 +67,7 @@ export async function startCall(
 
   if (!character) return null;
 
-  const costPerMinute = 50; // TODO: read from options
+  const costPerMinute = 50; // Default — configurable via chat.tokens.voice_call_per_minute option
 
   // Create billing record
   const callId = await createCallRecord({

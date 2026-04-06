@@ -30,6 +30,7 @@ Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS:
 - DRY where it reduces bugs, but type-specific redundancy is OK when abstraction would obscure intent
 - Open-closed principle — extend via registration/config, don't edit shared code for new types
 - Config-driven over hardcoded — new content types, features, etc. should be addable without touching core logic
+- Schema overrides — modules can declare overridable tables; projects extend by dropping a file in `src/schema/overrides/` and running `bun run indigo:sync`
 
 ### Plans
 

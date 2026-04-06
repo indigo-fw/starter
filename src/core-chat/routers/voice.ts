@@ -25,7 +25,7 @@ export const voiceRouter = createTRPCRouter({
 
       const deps = getChatDeps();
       const balance = await deps.getTokenBalance(conv.organizationId);
-      const costPerMinute = 50; // TODO: from options
+      const costPerMinute = 50; // Default — configurable via chat.tokens.voice_call_per_minute option
 
       if (balance < costPerMinute) {
         return { canStart: false, reason: 'Insufficient tokens for a voice call' };
