@@ -18,7 +18,11 @@ export const chatMedia = pgTable('chat_media', {
   thumbnailPath: varchar('thumbnail_path', { length: 1024 }),
   purpose: varchar('purpose', { length: 30 }).notNull().default('message'),
   contentHash: varchar('content_hash', { length: 32 }),
+  sourceFilepath: varchar('source_filepath', { length: 1024 }),
   isNsfw: boolean('is_nsfw').notNull().default(false),
+  checkedAt: timestamp('checked_at'),
+  disapprovedAt: timestamp('disapproved_at'),
+  deletedAt: timestamp('deleted_at'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 }, (t) => [
   index('idx_chat_media_user').on(t.userId),

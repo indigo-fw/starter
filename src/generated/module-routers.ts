@@ -21,6 +21,7 @@ import { chatPublicRouter } from '@/core-chat/routers/chat-public';
 import { providerRouter } from '@/core-chat/routers/providers';
 import { chatAdminRouter } from '@/core-chat/routers/chat-admin';
 import { chatMediaRouter } from '@/core-chat/routers/media';
+import { taskQueueRouter } from '@/core-chat/routers/task-queue';
 
 export const moduleRouters = {
   billing: billingRouter,
@@ -43,4 +44,5 @@ export const moduleRouters = {
   chatProviders: providerRouter,
   chatAdmin: chatAdminRouter,
   chatMedia: chatMediaRouter,
+  chatTaskQueue: taskQueueRouter,
 } as const;

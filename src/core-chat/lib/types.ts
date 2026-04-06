@@ -2,6 +2,7 @@
 
 export const MessageRole = {
   USER: 'user',
+  USER_IMG: 'user_img',
   ASSISTANT: 'assistant',
   SYSTEM: 'system',
 } as const;
@@ -24,6 +25,8 @@ export const BlockType = {
   BLOCK_ANONYMOUS: 40,
   BLOCK_UNSUBSCRIBED: 41,
   BLOCK_INSUFFICIENT_TOKENS: 42,
+  BLOCK_IMAGE_LIMIT: 43,
+  BLOCK_IMAGE_DISABLED: 44,
   BLOCK_ANONYMOUS_SOFT: 45,
   BLOCK_UNSUBSCRIBED_SOFT: 46,
 } as const;

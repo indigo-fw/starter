@@ -10,6 +10,7 @@ const config: ModuleConfig = {
     { name: 'providerRouter', key: 'chatProviders', from: '@/core-chat/routers/providers' },
     { name: 'chatAdminRouter', key: 'chatAdmin', from: '@/core-chat/routers/chat-admin' },
     { name: 'chatMediaRouter', key: 'chatMedia', from: '@/core-chat/routers/media' },
+    { name: 'taskQueueRouter', key: 'chatTaskQueue', from: '@/core-chat/routers/task-queue' },
   ],
   schema: [
     '@/core-chat/schema/characters',
@@ -19,6 +20,7 @@ const config: ModuleConfig = {
     '@/core-chat/schema/providers',
     '@/core-chat/schema/provider-logs',
     '@/core-chat/schema/reports',
+    '@/core-chat/schema/audit',
   ],
   serverInit: [
     '@/config/chat-deps',

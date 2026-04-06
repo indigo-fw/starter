@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useBlankTranslations } from '@/lib/translations';
-import { Lock, Clock, CreditCard } from 'lucide-react';
+import { Lock, Clock, CreditCard, ImageOff } from 'lucide-react';
 import { BlockType } from '@/core-chat/lib/types';
 
 interface BlockMessageProps {
@@ -73,6 +73,16 @@ const BLOCK_CONFIGS: Record<number, { icon: typeof Lock; title: string; descript
     icon: Lock,
     title: 'Message limit reached',
     description: 'Sign up for more messages.',
+  },
+  [BlockType.BLOCK_IMAGE_LIMIT]: {
+    icon: ImageOff,
+    title: 'Image limit reached',
+    description: 'You have reached your image generation limit.',
+  },
+  [BlockType.BLOCK_IMAGE_DISABLED]: {
+    icon: ImageOff,
+    title: 'Image generation disabled',
+    description: 'Image generation is not available on your current plan.',
   },
   [BlockType.BLOCK_UNSUBSCRIBED_SOFT]: {
     icon: Clock,
