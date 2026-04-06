@@ -84,8 +84,8 @@ vi.mock('@/core/lib/stats-cache', () => ({
   invalidateStats: vi.fn(),
 }));
 
-vi.mock('@/core-affiliates/lib/affiliates', () => ({
-  recordConversion: vi.fn(),
+vi.mock('@/core/lib/module-hooks', () => ({
+  runHook: vi.fn(),
 }));
 
 vi.mock('@/config/routes', () => ({

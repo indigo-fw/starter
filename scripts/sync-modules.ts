@@ -32,6 +32,7 @@ async function main() {
   generateSchema(modules);
   generateServer(modules);
   generateWidgets(modules);
+  generatePageWidgets(modules);
   generateSeeds(modules);
   generateNav(modules);
 
@@ -40,6 +41,7 @@ async function main() {
   console.log('  src/generated/module-schema.ts');
   console.log('  src/generated/module-server.ts');
   console.log('  src/generated/module-widgets.ts');
+  console.log('  src/generated/module-page-widgets.ts');
   console.log('  src/generated/module-seeds.ts');
   console.log('  src/generated/module-nav.ts');
 }
@@ -141,6 +143,37 @@ function generateWidgets(modules: ModuleConfig[]) {
   writeFileSync(
     resolve(outDir, 'module-widgets.ts'),
     `${HEADER}\nimport type { ComponentType } from 'react';\n\n${imports}\n\nexport const PUBLIC_LAYOUT_WIDGETS: ComponentType[] = [\n${entries}\n];\n`,
+  );
+}
+
+function generatePageWidgets(modules: ModuleConfig[]) {
+  const widgets = modules.flatMap((m) => m.pageWidgets ?? []);
+  const emptyContent = `${HEADER}\nimport type { ComponentType } from 'react';\n\nexport const PAGE_WIDGETS: Record<string, ComponentType[]> = {};\n`;
+
+  if (widgets.length === 0) {
+    writeFileSync(resolve(outDir, 'module-page-widgets.ts'), emptyContent);
+    return;
+  }
+
+  // Group by slot
+  const slots = new Map<string, typeof widgets>();
+  for (const w of widgets) {
+    const list = slots.get(w.slot) ?? [];
+    list.push(w);
+    slots.set(w.slot, list);
+  }
+
+  const imports = widgets
+    .map((w) => `import { ${w.name} } from '${w.from}';`)
+    .join('\n');
+
+  const entries = [...slots.entries()]
+    .map(([slot, items]) => `  '${slot}': [${items.map((w) => w.name).join(', ')}],`)
+    .join('\n');
+
+  writeFileSync(
+    resolve(outDir, 'module-page-widgets.ts'),
+    `${HEADER}\nimport type { ComponentType } from 'react';\n\n${imports}\n\nexport const PAGE_WIDGETS: Record<string, ComponentType[]> = {\n${entries}\n};\n`,
   );
 }
 

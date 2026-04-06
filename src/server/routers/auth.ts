@@ -8,6 +8,7 @@ import { logAudit } from '@/core/lib/audit';
 import { detectGeo } from '@/core/lib/geo';
 import { extractRequestContext } from '@/core/lib/request-context';
 import { createLogger } from '@/core/lib/logger';
+import { runHook } from '@/core/lib/module-hooks';
 
 const geoLog = createLogger('geo-sync');
 
@@ -189,7 +190,7 @@ export const authRouter = createTRPCRouter({
     }),
 
   /** Capture marketing attribution after registration (ref code, UTM params, referrer, etc.)
-   *  Requires core-affiliates module — silently no-ops if not installed. */
+   *  Uses module hooks — no-ops if core-affiliates is not installed. */
   captureAttribution: protectedProcedure
     .input(z.object({
       refCode: z.string().max(255).optional(),
@@ -199,12 +200,7 @@ export const authRouter = createTRPCRouter({
       extra: z.record(z.string(), z.string().max(2000)).optional(),
     }))
     .mutation(async ({ ctx, input }) => {
-      try {
-        const { captureAttribution } = await import('@/core-affiliates/lib/attribution');
-        await captureAttribution(ctx.session.user.id, input);
-      } catch {
-        // core-affiliates not installed — silently skip
-      }
+      await runHook('attribution.capture', ctx.session.user.id, input);
       return { success: true };
     }),
 

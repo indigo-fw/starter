@@ -37,6 +37,15 @@ export interface SeedEntry {
   label: string;
 }
 
+export interface PageWidgetEntry {
+  /** Slot identifier — which page to inject into (e.g. 'billing') */
+  slot: string;
+  /** Component export name */
+  name: string;
+  /** Import path */
+  from: string;
+}
+
 export interface NavItemEntry {
   /** Nav group ID to add this item to (e.g., 'billing', 'settings') */
   groupId: string;
@@ -63,6 +72,8 @@ export interface ModuleConfig {
   layoutWidgets: WidgetEntry[];
   /** Seed functions for demo data (run during `bun run init`) */
   seed: SeedEntry[];
+  /** Components injected into specific dashboard pages by slot name */
+  pageWidgets: PageWidgetEntry[];
   /** Admin nav items to register (appended to existing nav groups) */
   navItems: NavItemEntry[];
   /**

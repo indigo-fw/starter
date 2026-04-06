@@ -12,6 +12,7 @@ const config: ModuleConfig = {
   jobs: [],
   seed: [],
   layoutWidgets: [],
+  pageWidgets: [],
   navItems: [],
   projectFiles: [
     'config/payments-deps.ts',

@@ -18,6 +18,7 @@ import { NotificationType, NotificationCategory } from '@/core/types/notificatio
 import { createLogger } from '@/core/lib/logger';
 import { adminPanel } from '@/config/routes';
 import { invalidateStats } from '@/core/lib/stats-cache';
+import { runHook } from '@/core/lib/module-hooks';
 import { tagSubscriber } from '@/core/lib/email-list/index';
 
 const logger = createLogger('stripe-webhook');
@@ -112,16 +113,14 @@ export async function POST(request: Request) {
           actionUrl: adminPanel.settingsBilling,
         });
 
-        // Record affiliate conversion if applicable (core-affiliates module optional)
+        // Record affiliate conversion if applicable (via module hooks registry)
         const checkoutUserId = metadata?.userId as string | undefined;
         if (checkoutUserId) {
           const activatedPlanObj = getPlanByProviderPriceId('stripe', event.providerPriceId ?? '');
           const amountCents = activatedPlanObj
             ? (inferredInterval === 'yearly' ? activatedPlanObj.priceYearly : activatedPlanObj.priceMonthly)
             : 0;
-          import('@/core-affiliates/lib/affiliates')
-            .then(({ recordConversion }) => recordConversion(checkoutUserId, event.providerSubscriptionId!, amountCents))
-            .catch(() => {/* core-affiliates not installed */});
+          runHook('payment.conversion', checkoutUserId, event.providerSubscriptionId!, amountCents);
         }
 
         // Tag subscriber in email list with plan name

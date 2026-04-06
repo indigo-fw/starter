@@ -22,6 +22,7 @@
     "test": "vitest",
     "indigo": "bun run scripts/indigo.ts",
     "indigo:sync": "bun run scripts/sync-modules.ts",
+    "release": "git push && bun run indigo push --all",
     "core:push": "git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main",
     "core:pull": "git subtree pull --prefix=src/core git@github.com:indigo-fw/core.git main --squash",
     "prepare": "husky"

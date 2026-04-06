@@ -7,6 +7,10 @@
  *   bun run indigo remove <module> [--yes]      Remove a module (config + sync + cleanup)
  *   bun run indigo remove <module> --drop-tables Remove module and generate DROP migration
  *   bun run indigo update <module>              Update a module (subtree pull)
+ *   bun run indigo update --all                 Update all installed modules
+ *   bun run indigo push <module>                Push module changes to its upstream repo
+ *   bun run indigo push --all                   Push all installed modules to their repos
+ *   bun run indigo push core                    Push the core engine to its repo
  *   bun run indigo list                         Show installed and available modules
  *   bun run indigo sync                         Regenerate glue files from indigo.config.ts
  */
@@ -65,7 +69,12 @@ function stashChanges(): boolean {
 function popStash(didStash: boolean) {
   if (!didStash) return;
   console.log('  Restoring stashed changes...');
-  run('git stash pop');
+  try {
+    execSync('git stash pop', { cwd: root, stdio: 'inherit' });
+  } catch {
+    console.error('  ⚠ Failed to pop stash. Your changes are saved in git stash.');
+    console.error('  Run `git stash pop` manually to recover them.');
+  }
 }
 
 function addToConfig(id: string, importName: string) {
@@ -378,9 +387,14 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean }
       const filePath = resolve(root, `${normalized}.ts`);
       if (existsSync(filePath)) {
         const content = readFileSync(filePath, 'utf-8');
-        // Match pgTable('table_name', ...) calls
+        // Match pgTable('table_name', ...) or pgTable("table_name", ...) — handles multiline
         const matches = content.matchAll(/pgTable\(\s*['"]([^'"]+)['"]/g);
         for (const match of matches) {
+          tableNames.push(match[1]);
+        }
+        // Also match mysqlTable / sqliteTable patterns in case of future adapters
+        const altMatches = content.matchAll(/(?:mysqlTable|sqliteTable)\(\s*['"]([^'"]+)['"]/g);
+        for (const match of altMatches) {
           tableNames.push(match[1]);
         }
       }
@@ -406,6 +420,105 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean }
   if (!flags.dropTables) {
     console.log('  Note: Database tables from this module still exist. Use --drop-tables to generate a DROP migration.');
   }
+}
+
+const CORE_REPO = 'git@github.com:indigo-fw/core.git';
+
+async function push(id: string) {
+  // Special case: push the core engine
+  if (id === 'core') {
+    if (!moduleExists('core')) {
+      console.error('Core engine not found at src/core/');
+      process.exit(1);
+    }
+    console.log(`\nPushing core to ${CORE_REPO}...`);
+    run(
+      `git subtree push --prefix=src/core ${CORE_REPO} main`,
+      'Pushing src/core/ ...',
+    );
+    console.log('✓ core pushed successfully');
+    return;
+  }
+
+  const entry = getRegistryEntry(id);
+  if (!entry) {
+    console.error(`Unknown module: ${id}`);
+    console.error('Available: core, ' + REGISTRY.map((e) => e.id).join(', '));
+    process.exit(1);
+  }
+
+  if (!moduleExists(id)) {
+    console.error(`Module directory src/${id} not found`);
+    process.exit(1);
+  }
+
+  console.log(`\nPushing ${id} to ${entry.repo}...`);
+  run(
+    `git subtree push --prefix=src/${id} ${entry.repo} main`,
+    `Pushing src/${id}/ ...`,
+  );
+  console.log(`✓ ${id} pushed successfully`);
+}
+
+async function pushAll() {
+  const installed = getInstalledModules();
+
+  console.log(`\nPushing core + ${installed.length} modules...\n`);
+
+  // Push core first
+  if (moduleExists('core')) {
+    console.log('── core ──');
+    run(
+      `git subtree push --prefix=src/core ${CORE_REPO} main`,
+      'Pushing src/core/ ...',
+    );
+    console.log('');
+  }
+
+  // Push all installed modules
+  for (const id of installed) {
+    const entry = getRegistryEntry(id);
+    if (!entry || !moduleExists(id)) continue;
+
+    console.log(`── ${id} ──`);
+    try {
+      execSync(`git subtree push --prefix=src/${id} ${entry.repo} main`, { cwd: root, stdio: 'inherit' });
+    } catch {
+      console.error(`  ✗ Failed to push ${id} — continuing with others`);
+    }
+    console.log('');
+  }
+
+  console.log('✓ Push complete');
+}
+
+async function updateAll() {
+  const installed = getInstalledModules();
+  console.log(`\nUpdating ${installed.length} modules...\n`);
+
+  const didStash = stashChanges();
+  try {
+    for (const id of installed) {
+      const entry = getRegistryEntry(id);
+      if (!entry || !moduleExists(id)) continue;
+
+      console.log(`── ${id} ──`);
+      try {
+        execSync(`git subtree pull --prefix=src/${id} ${entry.repo} main --squash`, { cwd: root, stdio: 'inherit' });
+      } catch {
+        console.error(`  ✗ Failed to update ${id} — continuing with others`);
+      }
+      console.log('');
+    }
+  } finally {
+    popStash(didStash);
+  }
+
+  run('bun run indigo:sync', 'Regenerating glue files...');
+  run('bun run db:generate', 'Generating schema...');
+  run('bun run db:migrate', 'Applying migrations...');
+
+  console.log('✓ All modules updated');
 }
 
 function list() {
@@ -434,6 +547,7 @@ const [command, ...args] = process.argv.slice(2);
 const flags = {
   yes: args.includes('--yes') || args.includes('-y'),
   dropTables: args.includes('--drop-tables'),
+  all: args.includes('--all'),
 };
 const positionalArgs = args.filter((a) => !a.startsWith('--') && !a.startsWith('-'));
 
@@ -447,8 +561,24 @@ switch (command) {
     await remove(positionalArgs[0], flags);
     break;
   case 'update':
-    if (!positionalArgs[0]) { console.error('Usage: bun run indigo update <module>'); process.exit(1); }
-    await update(positionalArgs[0]);
+    if (flags.all) {
+      await updateAll();
+    } else if (!positionalArgs[0]) {
+      console.error('Usage: bun run indigo update <module>  or  bun run indigo update --all');
+      process.exit(1);
+    } else {
+      await update(positionalArgs[0]);
+    }
+    break;
+  case 'push':
+    if (flags.all) {
+      await pushAll();
+    } else if (!positionalArgs[0]) {
+      console.error('Usage: bun run indigo push <module>  or  bun run indigo push --all');
+      process.exit(1);
+    } else {
+      await push(positionalArgs[0]);
+    }
     break;
   case 'list':
     list();
@@ -463,6 +593,9 @@ switch (command) {
     console.log('  bun run indigo remove <module> [--yes]      Remove a module');
     console.log('  bun run indigo remove <module> --drop-tables Remove + generate DROP migration');
     console.log('  bun run indigo update <module>              Update a module (pull latest)');
+    console.log('  bun run indigo update --all                 Update all installed modules');
+    console.log('  bun run indigo push <module>                Push module to upstream repo');
+    console.log('  bun run indigo push --all                   Push all modules to upstream repos');
     console.log('  bun run indigo list                         Show modules');
     console.log('  bun run indigo sync                         Regenerate glue files');
     break;

@@ -20,13 +20,15 @@ const config: ModuleConfig = {
   layoutWidgets: [
     { name: 'AttributionCapture', from: '@/core-affiliates/components/AttributionCapture' },
   ],
+  pageWidgets: [
+    { slot: 'billing', name: 'AffiliateOverview', from: '@/core-affiliates/components/AffiliateOverview' },
+  ],
   navItems: [
     { groupId: 'billing', name: 'Affiliates', href: '/dashboard/settings/affiliates', icon: 'Link2' },
   ],
   projectFiles: [
     'config/affiliates-deps.ts',
     'app/dashboard/(panel)/settings/affiliates/page.tsx',
-    'app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx',
     'app/(public)/account/affiliates/page.tsx',
   ],
 };

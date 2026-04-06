@@ -19,6 +19,7 @@ const config: ModuleConfig = {
   jobs: [],
   seed: [],
   layoutWidgets: [],
+  pageWidgets: [],
   navItems: [],
   projectFiles: [
     'config/store-deps.ts',
