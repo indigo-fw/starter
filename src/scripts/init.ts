@@ -314,7 +314,7 @@ async function ensureSuperadmin(db: ReturnType<typeof drizzle>): Promise<string>
   if (!AUTO_YES) console.log('');
 
   const defaultEmail = process.env.INIT_ADMIN_EMAIL || 'admin@example.com';
-  const defaultPassword = process.env.INIT_ADMIN_PASSWORD || '12341234';
+  const defaultPassword = process.env.INIT_ADMIN_PASSWORD || 'asdasdasd';
 
   const email = AUTO_YES ? defaultEmail : await promptWithDefault('  Admin email:', defaultEmail);
   const name = process.env.INIT_ADMIN_NAME || email.split('@')[0];
