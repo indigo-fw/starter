@@ -1,1 +1,0 @@
-ALTER TABLE "chat_providers" ADD COLUMN "provider_type" varchar(20) DEFAULT 'llm' NOT NULL;
