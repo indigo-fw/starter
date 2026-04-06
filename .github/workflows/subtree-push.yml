@@ -1,0 +1,51 @@
+name: Push subtrees
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  subtree-push:
+    runs-on: ubuntu-latest
+    # Skip if commit message contains [skip subtree]
+    if: "!contains(github.event.head_commit.message, '[skip subtree]')"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history required for git subtree
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Push subtrees
+        env:
+          GITHUB_TOKEN: ${{ secrets.SUBTREE_PUSH_TOKEN }}
+        run: |
+          REMOTE_BASE="https://x-access-token:${GITHUB_TOKEN}@github.com/indigo-fw"
+
+          push_subtree() {
+            local prefix=$1
+            local repo=$2
+            echo "── Pushing $prefix → $repo ──"
+            git subtree push --prefix="$prefix" "${REMOTE_BASE}/${repo}.git" main || echo "⚠ Failed: $repo (continuing)"
+            echo ""
+          }
+
+          # Core engine
+          push_subtree src/core core
+
+          # Modules
+          push_subtree src/core-payments core-payments
+          push_subtree src/core-subscriptions core-subscriptions
+          push_subtree src/core-payments-crypto core-payments-crypto
+          push_subtree src/core-support core-support
+          push_subtree src/core-affiliates core-affiliates
+          push_subtree src/core-ai-writer core-ai-writer
+          push_subtree src/core-import core-import
+          push_subtree src/core-docs core-docs
+          push_subtree src/core-store core-store
+          push_subtree src/core-chat core-chat
+
+          echo "✓ Subtree push complete"

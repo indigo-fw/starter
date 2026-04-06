@@ -4,14 +4,17 @@
  */
 import { setSupportDeps } from '@/core-support/deps';
 import { saasTickets, saasTicketMessages } from '@/core-support/schema/support-tickets';
+import { saasSupportChatSessions } from '@/core-support/schema/support-chat';
 import { user } from '@/server/db/schema/auth';
 import { db } from '@/server/db';
-import { inArray } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 import { sendNotification, sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { supportChatConfig } from '@/core-support/config';
 import { createLogger } from '@/core/lib/logger';
+import { registerChannelAuthorizer } from '@/core/lib/module-hooks';
+import { Policy } from '@/core/policy';
 
 const logger = createLogger('support-chat-ai');
 
@@ -129,4 +132,60 @@ setSupportDeps({
       return null;
     }
   },
+});
+
+// ─── WebSocket channel authorization ────────────────────────────────────────
+
+registerChannelAuthorizer(async (userId, channel) => {
+  // support:<ticketId> — ticket owner or staff
+  if (channel.startsWith('support:')) {
+    if (!userId) return false;
+    const ticketId = channel.slice(8);
+    try {
+      const [ticket] = await db
+        .select({ userId: saasTickets.userId })
+        .from(saasTickets)
+        .where(eq(saasTickets.id, ticketId))
+        .limit(1);
+      if (!ticket) return false;
+      if (ticket.userId === userId) return true;
+      const [u] = await db
+        .select({ role: user.role })
+        .from(user)
+        .where(eq(user.id, userId))
+        .limit(1);
+      return !!u && Policy.for(u.role).can('section.settings');
+    } catch {
+      return false;
+    }
+  }
+
+  // supportChat:<sessionId> — session owner, staff, or anonymous visitor
+  if (channel.startsWith('supportChat:')) {
+    const sessionId = channel.slice(12);
+    try {
+      const [session] = await db
+        .select({ visitorId: saasSupportChatSessions.visitorId, userId: saasSupportChatSessions.userId })
+        .from(saasSupportChatSessions)
+        .where(eq(saasSupportChatSessions.id, sessionId))
+        .limit(1);
+      if (!session) return false;
+      if (userId && session.userId === userId) return true;
+      if (userId) {
+        const [u] = await db
+          .select({ role: user.role })
+          .from(user)
+          .where(eq(user.id, userId))
+          .limit(1);
+        if (u && Policy.for(u.role).can('section.settings')) return true;
+      }
+      // Anonymous — session UUID is unguessable (acts as bearer token)
+      if (!userId) return true;
+      return false;
+    } catch {
+      return false;
+    }
+  }
+
+  return null; // not our channel
 });

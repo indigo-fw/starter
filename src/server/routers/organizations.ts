@@ -8,7 +8,7 @@ import { auth } from '@/lib/auth';
 import { logAudit } from '@/core/lib/audit';
 import { sendNotification, sendBulkNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
+import { runGuard } from '@/core/lib/module-hooks';
 
 export const organizationsRouter = createTRPCRouter({
   /** List organizations the current user is a member of */
@@ -147,7 +147,8 @@ export const organizationsRouter = createTRPCRouter({
         .where(eq(member.organizationId, input.organizationId))
         .limit(1000);
 
-      await requireFeature(input.organizationId, 'maxMembers', currentMembers.length);
+      // Throws TRPCError if plan limit exceeded (no-op if subscriptions module not installed)
+      await runGuard('feature.require', input.organizationId, 'maxMembers', currentMembers.length);
 
       const result = await auth.api.createInvitation({
         headers: ctx.headers,

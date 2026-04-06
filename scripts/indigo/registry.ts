@@ -77,6 +77,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     id: 'core-chat',
     repo: 'git@github.com:indigo-fw/core-chat.git',
     importName: 'coreChat',
+    requires: ['core-subscriptions'],
     description: 'AI character chat — characters, conversations, messages, providers, media',
   },
   {

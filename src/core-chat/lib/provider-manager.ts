@@ -47,6 +47,8 @@ export const ProviderManager = {
       if (!provider) throw new Error('All LLM providers in cooldown');
 
       let anyChunksYielded = false;
+      const startTime = Date.now();
+      incrementActive(provider.id);
       try {
         const adapter = getLlmAdapter(provider.adapterType);
         const apiKey = decryptApiKey(provider);
@@ -65,14 +67,18 @@ export const ProviderManager = {
           anyChunksYielded = true;
           yield chunk;
         }
+        logProviderRequest(provider.id, 'llm', 'success', Date.now() - startTime);
         return;
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err));
+        logProviderRequest(provider.id, 'llm', 'failure', Date.now() - startTime, lastError.message);
         if (anyChunksYielded) { addCooldown(provider.id); throw err; }
         if (err instanceof ProviderClientError) throw err;
         logger.warn(`LLM provider "${provider.name}" failed`, { attempt: attempt + 1, error: lastError.message });
         addCooldown(provider.id);
         if (attempt < MAX_RETRIES) await delay(RETRY_DELAY_MS);
+      } finally {
+        decrementActive(provider.id);
       }
     }
     throw lastError ?? new Error('All LLM providers failed');
@@ -93,12 +99,14 @@ export const ProviderManager = {
       const provider = selectProvider(providers, 'llm');
       if (!provider) throw new Error('All LLM providers in cooldown');
 
+      const startTime = Date.now();
+      incrementActive(provider.id);
       try {
         const adapter = getLlmAdapter(provider.adapterType);
         const apiKey = decryptApiKey(provider);
         const config = (provider.config ?? {}) as Record<string, unknown>;
 
-        return await adapter.complete({
+        const result = await adapter.complete({
           messages,
           apiUrl: provider.baseUrl ?? 'https://api.openai.com/v1/chat/completions',
           apiKey,
@@ -108,12 +116,17 @@ export const ProviderManager = {
           timeoutSeconds: provider.timeoutSeconds,
           extraHeaders: config.headers as Record<string, string> | undefined,
         });
+        logProviderRequest(provider.id, 'llm', 'success', Date.now() - startTime);
+        return result;
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err));
+        logProviderRequest(provider.id, 'llm', 'failure', Date.now() - startTime, lastError.message);
         if (err instanceof ProviderClientError) throw err;
         logger.warn(`LLM provider "${provider.name}" failed`, { attempt: attempt + 1, error: lastError.message });
         addCooldown(provider.id);
         if (attempt < MAX_RETRIES) await delay(RETRY_DELAY_MS);
+      } finally {
+        decrementActive(provider.id);
       }
     }
     throw lastError ?? new Error('All LLM providers failed');
@@ -134,12 +147,14 @@ export const ProviderManager = {
       const provider = selectProvider(providers, 'image');
       if (!provider) throw new Error('All image providers in cooldown');
 
+      const startTime = Date.now();
+      incrementActive(provider.id);
       try {
         const adapter = getImageAdapter(provider.adapterType);
         const apiKey = decryptApiKey(provider);
         const config = (provider.config ?? {}) as Record<string, unknown>;
 
-        return await adapter.generate({
+        const result = await adapter.generate({
           prompt,
           negativePrompt: opts?.negativePrompt,
           width: opts?.width ?? (config.width as number | undefined),
@@ -151,12 +166,17 @@ export const ProviderManager = {
           timeoutSeconds: provider.timeoutSeconds,
           extraHeaders: config.headers as Record<string, string> | undefined,
         });
+        logProviderRequest(provider.id, 'image', 'success', Date.now() - startTime);
+        return result;
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err));
+        logProviderRequest(provider.id, 'image', 'failure', Date.now() - startTime, lastError.message);
         if (err instanceof ProviderClientError) throw err;
         logger.warn(`Image provider "${provider.name}" failed`, { attempt: attempt + 1, error: lastError.message });
         addCooldown(provider.id);
         if (attempt < MAX_RETRIES) await delay(RETRY_DELAY_MS);
+      } finally {
+        decrementActive(provider.id);
       }
     }
     throw lastError ?? new Error('All image providers failed');
@@ -178,12 +198,14 @@ export const ProviderManager = {
       const provider = selectProvider(providers, 'video');
       if (!provider) throw new Error('All video providers in cooldown');
 
+      const startTime = Date.now();
+      incrementActive(provider.id);
       try {
         const adapter = getVideoAdapter(provider.adapterType);
         const apiKey = decryptApiKey(provider);
         const config = (provider.config ?? {}) as Record<string, unknown>;
 
-        return await adapter.generate({
+        const result = await adapter.generate({
           sourceImageUrl,
           prompt: opts?.prompt,
           duration: opts?.duration ?? (config.duration as number | undefined),
@@ -195,12 +217,17 @@ export const ProviderManager = {
           timeoutSeconds: provider.timeoutSeconds ?? 600,
           extraHeaders: config.headers as Record<string, string> | undefined,
         });
+        logProviderRequest(provider.id, 'video', 'success', Date.now() - startTime);
+        return result;
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err));
+        logProviderRequest(provider.id, 'video', 'failure', Date.now() - startTime, lastError.message);
         if (err instanceof ProviderClientError) throw err;
         logger.warn(`Video provider "${provider.name}" failed`, { attempt: attempt + 1, error: lastError.message });
         addCooldown(provider.id);
         if (attempt < 1) await delay(RETRY_DELAY_MS);
+      } finally {
+        decrementActive(provider.id);
       }
     }
     throw lastError ?? new Error('All video providers failed');
