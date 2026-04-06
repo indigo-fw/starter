@@ -38,7 +38,7 @@ const config: ModuleConfig = {
     { name: 'startVideoOptimizationWorker', from: '@/core-chat/jobs/optimize-video' },
   ],
   seed: [
-    { name: 'seedChatCharacters', from: '@/core-chat/seed/characters', label: 'Chat demo characters' },
+    { name: 'seedChatCharacters', from: '@/core-chat/seed/characters', label: 'Chat demo characters', hasDataCheck: 'hasChatData' },
   ],
   layoutWidgets: [],
   pageWidgets: [],

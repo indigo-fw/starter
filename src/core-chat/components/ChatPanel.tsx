@@ -9,6 +9,7 @@ import { ChatInput } from './ChatInput';
 import { TypingIndicator } from './TypingIndicator';
 import { BlockMessage } from './BlockMessage';
 import { VideoGenerationDialog } from './VideoGenerationDialog';
+import { DateSeparator, isDifferentDay } from './DateSeparator';
 import { ChatWsEvent, MessageRole, MessageStatus } from '@/core-chat/lib/types';
 import { Loader2 } from 'lucide-react';
 
@@ -240,15 +241,37 @@ export function ChatPanel({ conversationId, characterName, characterAvatar, bloc
           </div>
         )}
 
-        {mergedMessages.map((msg) => (
-          <ChatMessage
-            key={msg.id}
-            message={msg}
-            characterName={characterName}
-            characterAvatar={characterAvatar}
-            onRetry={msg.status === MessageStatus.FAILED ? handleRetry : undefined}
-          />
-        ))}
+        {/* Empty conversation help */}
+        {mergedMessages.length === 0 && !streaming && !isTyping && (
+          <div className="flex flex-col items-center justify-center py-12 text-center px-8">
+            <div className="w-16 h-16 rounded-full bg-(--surface-secondary) mb-4 flex items-center justify-center">
+              {characterAvatar ? (
+                <img src={characterAvatar} alt={characterName} className="w-full h-full rounded-full object-cover" />
+              ) : (
+                <span className="text-2xl font-bold text-(--text-tertiary)">{characterName[0]?.toUpperCase()}</span>
+              )}
+            </div>
+            <p className="text-sm text-(--text-secondary) font-medium">{characterName}</p>
+            <p className="text-xs text-(--text-tertiary) mt-1">{__('Start a conversation — say hello!')}</p>
+          </div>
+        )}
+
+        {mergedMessages.map((msg, i) => {
+          const prevMsg = i > 0 ? mergedMessages[i - 1] : undefined;
+          const showDateSep = i === 0 || isDifferentDay(prevMsg?.createdAt, msg.createdAt);
+
+          return (
+            <div key={msg.id}>
+              {showDateSep && msg.createdAt && <DateSeparator date={msg.createdAt} />}
+              <ChatMessage
+                message={msg}
+                characterName={characterName}
+                characterAvatar={characterAvatar}
+                onRetry={msg.status === MessageStatus.FAILED ? handleRetry : undefined}
+              />
+            </div>
+          );
+        })}
 
         {/* Streaming message */}
         {streaming && !isTyping && (

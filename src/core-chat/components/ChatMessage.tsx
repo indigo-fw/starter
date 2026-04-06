@@ -8,7 +8,8 @@ import { Lightbox } from '@/core/components/Lightbox';
 import { NsfwBlurOverlay } from './NsfwBlurOverlay';
 import { CensoredMessage } from './CensoredMessage';
 import { SmartProgress } from './SmartProgress';
-import { AlertTriangle, Check, Loader2, RotateCcw } from 'lucide-react';
+import { VoiceCallEventMessage } from './VoiceCallEventMessage';
+import { AlertTriangle, Check, Loader2, Mic, RotateCcw } from 'lucide-react';
 
 export interface ChatMessageData {
   id: string;
@@ -37,11 +38,18 @@ interface ChatMessageProps {
 export function ChatMessage({ message, characterName, characterAvatar, isSubscribed, onRetry }: ChatMessageProps) {
   const __ = useBlankTranslations();
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const isUser = message.role === MessageRole.USER || message.role === MessageRole.USER_IMG;
+  const isUser = message.role === MessageRole.USER || message.role === MessageRole.USER_IMG || message.role === MessageRole.USER_VOICE;
+  const isVoice = message.role === MessageRole.USER_VOICE || message.role === MessageRole.ASSISTANT_VOICE;
+  const isCallEvent = message.role === MessageRole.CALL_START || message.role === MessageRole.CALL_END;
   const isModerated = message.status === MessageStatus.MODERATED;
   const isFailed = message.status === MessageStatus.FAILED;
   const isPending = message.status === MessageStatus.PENDING;
   const isProcessing = message.isProcessing || (message.content === '[Image]' && !message.mediaUrl);
+
+  // Call events render as centered timeline markers
+  if (isCallEvent) {
+    return <VoiceCallEventMessage role={message.role} content={message.content} />;
+  }
 
   return (
     <div
@@ -102,8 +110,14 @@ export function ChatMessage({ message, characterName, characterAvatar, isSubscri
           /* Smart progress bar for image/video generation */
           <SmartProgress estimatedSeconds={message.mediaType === 'video' ? 30 : 12} />
         ) : (
-          /* Text message */
-          <div className="whitespace-pre-wrap break-words">
+          /* Text / voice message */
+          <div className="whitespace-pre-wrap break-words px-4 py-2.5">
+            {isVoice && (
+              <div className="flex items-center gap-1 mb-1 opacity-60">
+                <Mic size={10} />
+                <span className="text-[10px]">{__('Voice')}</span>
+              </div>
+            )}
             {message.content}
             {message.isStreaming && (
               <span className="inline-block w-1.5 h-4 bg-current ml-0.5 animate-pulse" />
@@ -111,10 +125,17 @@ export function ChatMessage({ message, characterName, characterAvatar, isSubscri
           </div>
         )}
 
+        {/* Timestamp */}
+        {message.createdAt && !isProcessing && (
+          <div className={cn('px-4 pb-1 text-[10px]', isUser ? 'text-white/50' : 'text-(--text-tertiary)')}>
+            {formatTime(message.createdAt)}
+          </div>
+        )}
+
         {isFailed && onRetry && (
           <button
             onClick={onRetry}
-            className="mt-1.5 flex items-center gap-1 text-xs text-red-500 hover:text-red-400 transition-colors"
+            className="mx-4 mb-1 flex items-center gap-1 text-xs text-red-500 hover:text-red-400 transition-colors"
           >
             <RotateCcw size={12} />
             {__('Retry')}
@@ -133,4 +154,12 @@ export function ChatMessage({ message, characterName, characterAvatar, isSubscri
       )}
     </div>
   );
+}
+
+function formatTime(dateStr: string): string {
+  try {
+    return new Date(dateStr).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+  } catch {
+    return '';
+  }
 }

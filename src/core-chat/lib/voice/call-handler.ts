@@ -10,6 +10,7 @@ import { chatCharacters, type ChatCharacter } from '@/core-chat/schema/character
 import { chatConversations } from '@/core-chat/schema/conversations';
 import { getChatDeps } from '@/core-chat/deps';
 import { MessageRole, MessageStatus, ChatWsEvent } from '@/core-chat/lib/types';
+import type { ElevenLabsStreamingStt } from '@/core-chat/lib/adapters/elevenlabs-streaming-stt';
 import { createCallRecord, deductMinute, finalizeCall } from './billing';
 import { runGreetingPipeline, runVoicePipeline } from './orchestrator';
 
@@ -34,6 +35,7 @@ export interface VoiceCallSession {
   idleTimer: ReturnType<typeof setTimeout> | null;
   abortController: AbortController;
   audioChunks: Int16Array[];
+  streamingStt: ElevenLabsStreamingStt | null;
 }
 
 // Active calls by conversationId
@@ -110,7 +112,34 @@ export async function startCall(
     idleTimer: null,
     abortController: new AbortController(),
     audioChunks: [],
+    streamingStt: null,
   };
+
+  // Initialize streaming STT (fire-and-forget, optional — falls back to batch STT)
+  try {
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    if (apiKey) {
+      const { ElevenLabsStreamingStt } = await import('@/core-chat/lib/adapters/elevenlabs-streaming-stt');
+      const stt = new ElevenLabsStreamingStt(apiKey, {
+        onPartialTranscript: (text) => {
+          broadcastEvent(`chat:${conversationId}`, ChatWsEvent.VOICE_CALL_PARTIAL_TRANSCRIPTION, {
+            type: ChatWsEvent.VOICE_CALL_PARTIAL_TRANSCRIPTION, conversationId, text, isFinal: false,
+          });
+        },
+        onFinalTranscript: (text) => {
+          broadcastEvent(`chat:${conversationId}`, ChatWsEvent.VOICE_CALL_PARTIAL_TRANSCRIPTION, {
+            type: ChatWsEvent.VOICE_CALL_PARTIAL_TRANSCRIPTION, conversationId, text, isFinal: true,
+          });
+        },
+        onError: (err) => logger.warn('Streaming STT error', { err }),
+      });
+      await stt.connect();
+      session.streamingStt = stt;
+      logger.info('Streaming STT connected', { conversationId });
+    }
+  } catch {
+    logger.info('Streaming STT not available, using batch STT', { conversationId });
+  }
 
   activeCalls.set(conversationId, session);
 
@@ -177,6 +206,17 @@ export function handleAudioChunk(
 
   // Accumulate audio
   session.audioChunks.push(audio);
+
+  // Feed to streaming STT for real-time captions (if available)
+  if (session.streamingStt?.isConnected && audio.length > 0) {
+    const bytes = new Uint8Array(audio.buffer, audio.byteOffset, audio.byteLength);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]!);
+    session.streamingStt.sendAudioChunk(btoa(binary));
+  }
+  if (isFinal && session.streamingStt?.isConnected) {
+    session.streamingStt.commit();
+  }
 
   if (isFinal && session.audioChunks.length > 0) {
     // Combine all chunks
@@ -253,9 +293,10 @@ export async function endCall(
 
   session.state = 'ended';
 
-  // Clear timers
+  // Clear timers + streaming STT
   if (session.billingTimer) clearInterval(session.billingTimer);
   if (session.idleTimer) clearTimeout(session.idleTimer);
+  session.streamingStt?.close();
   session.abortController.abort();
 
   // Finalize billing

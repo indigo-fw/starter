@@ -7,6 +7,12 @@ import { encrypt, isEncryptionConfigured } from '@/core-chat/lib/encryption';
 import { generateSilhouetteSvg, svgToPng, pngToVideo } from './generate-media';
 import { getStorage } from '@/core/storage';
 
+/** Check if chat character data already exists (for smart seed prompting) */
+export async function hasChatData(db: PostgresJsDatabase): Promise<boolean> {
+  const [result] = await db.select({ count: count() }).from(chatCharacters);
+  return (result?.count ?? 0) > 0;
+}
+
 // ─── 30 diverse characters ──────────────────────────────────────────────────
 
 interface CharDef {

@@ -35,6 +35,12 @@ export interface SeedEntry {
   from: string;
   /** Human-readable label shown during init (e.g. 'Billing demo data') */
   label: string;
+  /**
+   * Optional: export name of a function that checks if seed data already exists.
+   * Signature: `(db: PostgresJsDatabase) => Promise<boolean>`
+   * Used to flip the prompt default: YES when empty, NO when data exists.
+   */
+  hasDataCheck?: string;
 }
 
 export interface PageWidgetEntry {

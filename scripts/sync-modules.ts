@@ -211,12 +211,25 @@ function generateSeeds(modules: ModuleConfig[]) {
     return;
   }
 
-  const imports = seeds
-    .map((s) => `import { ${s.name} } from '${s.from}';`)
-    .join('\n');
+  const importNames = new Set<string>();
+  const importLines: string[] = [];
+
+  for (const s of seeds) {
+    if (!importNames.has(s.name)) {
+      const extras = s.hasDataCheck ? `, ${s.hasDataCheck}` : '';
+      importLines.push(`import { ${s.name}${extras} } from '${s.from}';`);
+      importNames.add(s.name);
+      if (s.hasDataCheck) importNames.add(s.hasDataCheck);
+    }
+  }
+
+  const imports = importLines.join('\n');
 
   const entries = seeds
-    .map((s) => `  { label: '${s.label}', fn: ${s.name} },`)
+    .map((s) => {
+      const hasDataPart = s.hasDataCheck ? `, hasData: ${s.hasDataCheck}` : '';
+      return `  { label: '${s.label}', fn: ${s.name}${hasDataPart} },`;
+    })
     .join('\n');
 
   const content = `${HEADER}
@@ -232,6 +245,7 @@ export interface SeedContext {
 export interface ModuleSeed {
   label: string;
   fn: (db: PostgresJsDatabase, superadminUserId: string, context?: SeedContext) => Promise<{ userIds?: string[]; orgIds?: string[] }>;
+  hasData?: (db: PostgresJsDatabase) => Promise<boolean>;
 }
 
 export const MODULE_SEEDS: ModuleSeed[] = [

@@ -522,7 +522,15 @@ async function main() {
       const moduleSeeds: { label: string; fn: (typeof MODULE_SEEDS)[number]['fn']; accepted: boolean }[] = [];
       if (wantDemoUsers) {
         for (const seed of MODULE_SEEDS) {
-          const accepted = await confirm(`  Seed ${seed.label}?`, true);
+          // Smart default: YES when empty (fresh install), NO when data exists (protect existing)
+          let defaultYes = true;
+          if (seed.hasData) {
+            try {
+              defaultYes = !(await seed.hasData(db));
+            } catch { /* default YES on error */ }
+          }
+          const hint = defaultYes ? '' : ' (data exists)';
+          const accepted = await confirm(`  Seed ${seed.label}?${hint}`, defaultYes);
           moduleSeeds.push({ label: seed.label, fn: seed.fn, accepted });
         }
       }

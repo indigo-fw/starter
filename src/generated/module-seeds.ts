@@ -5,7 +5,7 @@ import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { seedBilling } from '@/core-subscriptions/seed';
 import { seedAffiliates } from '@/core-affiliates/seed';
-import { seedChatCharacters } from '@/core-chat/seed/characters';
+import { seedChatCharacters, hasChatData } from '@/core-chat/seed/characters';
 
 export interface SeedContext {
   userIds: string[];
@@ -15,10 +15,11 @@ export interface SeedContext {
 export interface ModuleSeed {
   label: string;
   fn: (db: PostgresJsDatabase, superadminUserId: string, context?: SeedContext) => Promise<{ userIds?: string[]; orgIds?: string[] }>;
+  hasData?: (db: PostgresJsDatabase) => Promise<boolean>;
 }
 
 export const MODULE_SEEDS: ModuleSeed[] = [
   { label: 'Billing demo data (users, orgs, subscriptions, tokens)', fn: seedBilling },
   { label: 'Affiliate demo data (referrals, commissions)', fn: seedAffiliates },
-  { label: 'Chat demo characters', fn: seedChatCharacters },
+  { label: 'Chat demo characters', fn: seedChatCharacters, hasData: hasChatData },
 ];
