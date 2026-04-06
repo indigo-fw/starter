@@ -147,6 +147,13 @@ async function handleMessage(ws: AuthenticatedSocket, msg: { type: string; chann
       ws.send(JSON.stringify({ type: 'pong' }));
       break;
     }
+    default: {
+      // Delegate unhandled message types to module hooks (e.g., voice calls)
+      import('@/core/lib/module-hooks').then(({ runHook }) => {
+        runHook('ws.message', ws.userId, msg).catch(() => {});
+      }).catch(() => {});
+      break;
+    }
   }
 }
 
