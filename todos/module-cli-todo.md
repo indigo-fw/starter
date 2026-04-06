@@ -1,65 +1,44 @@
 # Indigo Module CLI — Remaining Work
 
-## 1. Create GitHub Repos
+## 1. Create GitHub Repos ✅
 
-Create these repos under `indigo-fw` org and push initial content from `src/` directories:
-
-```bash
-# For each module:
-git subtree push --prefix=src/core-billing git@github.com:indigo-fw/core-billing.git main
-git subtree push --prefix=src/core-billing-crypto git@github.com:indigo-fw/core-billing-crypto.git main
-git subtree push --prefix=src/core-support git@github.com:indigo-fw/core-support.git main
-git subtree push --prefix=src/core-affiliates git@github.com:indigo-fw/core-affiliates.git main
-```
-
-Once repos exist, `bun run indigo add <module>` will work for fresh installations.
+All repos created under `indigo-fw` org:
+- core, starter (public)
+- core-docs, core-payments (public)
+- core-import, core-store, core-ai-writer, core-affiliates, core-support, core-payments-crypto, core-subscriptions (private)
 
 ## 2. Access Control for Paid Modules
 
-Paid module repos (`core-support`, `core-affiliates`, `core-billing-crypto`) need gated access:
+Paid module repos (`core-support`, `core-affiliates`, `core-payments-crypto`, `core-store`, `core-ai-writer`, `core-import`) need gated access:
 
 - **Simple (start here):** Private GitHub repos + manual collaborator invites after purchase
 - **Automated:** Stripe webhook → GitHub API to grant/revoke repo access
 - **Services:** Polar.sh or Keygen.sh handle license → repo access mapping
 
-## 3. Cross-Module References in Project Code
+## 3. Cross-Module References in Project Code ✅
 
-These project-layer files reference modules directly and will break if the module is removed:
+Fixed: module-specific nav items, webhook imports, and billing page references now handle missing modules gracefully.
 
-**Webhook routes reference multiple modules:**
-- `src/app/api/webhooks/stripe/route.ts` — imports from core-billing AND core-affiliates (`recordConversion`)
-- `src/app/api/webhooks/nowpayments/route.ts` — same
+**What was done:**
+- Added `navItems` field to `ModuleConfig` — modules declare their admin nav items
+- Sync script generates `src/generated/module-nav.ts`
+- `admin-nav.ts` merges module nav items dynamically (empty groups auto-hidden)
+- NOWPayments webhook: `recordConversion` import converted to dynamic import with `.catch()`
+- Billing page: `AffiliateOverview` converted to `React.lazy` with catch fallback
+- Auth router: already had dynamic import with try/catch (no change needed)
+- Stripe webhook: already had dynamic import with `.catch()` (no change needed)
 
-**Fix:** Make `recordConversion` optional via a registry. Billing webhook checks if affiliates registered a conversion handler. No affiliates = no conversion tracking. No import error.
+## 4. `indigo add` Improvements ✅
 
-**Auth router references affiliates:**
-- `src/server/routers/auth.ts` line ~201 — dynamic import of `captureAttribution` from core-affiliates
+- **Uncommitted changes:** CLI now stashes changes before `git subtree add`, pops after
+- **Update command:** `bun run indigo update <module>` wraps `git subtree pull --squash`
+- **Offline/local mode:** Already supported — if `src/<module>` exists, subtree pull is skipped
 
-**Fix:** Move the `captureAttribution` call behind a registry check or optional dynamic import with try/catch.
+## 5. `indigo remove` Improvements ✅
 
-**Seed script references affiliates:**
-- `src/scripts/seed/billing.ts` — imports affiliate schema for seed data
-
-**Fix:** Split seed into per-module seed files. Each module's `_templates/` includes its seed. The main seed script discovers and runs them.
-
-**Admin nav references module sections:**
-- Sidebar links to `/dashboard/settings/support`, `/dashboard/settings/affiliates`, etc.
-
-**Fix:** Modules register their nav items via the existing admin-nav registry. No module = no nav item.
-
-## 4. `indigo add` Improvements
-
-Current limitations to address:
-
-- **Uncommitted changes:** `git subtree add` fails if working tree is dirty. The CLI should stash changes, add subtree, then pop stash.
-- **Update command:** Need `bun run indigo update <module>` that wraps `git subtree pull`.
-- **Offline/local mode:** For development without GitHub repos, support adding from a local directory path instead of git URL.
-
-## 5. `indigo remove` Improvements
-
-- **Empty directory cleanup:** After removing scaffolded files, parent directories may be empty. The CLI should prune empty dirs.
-- **Database tables:** Currently warns "tables still exist." Could offer `bun run indigo remove --drop-tables` that generates a DROP migration.
-- **Confirmation prompt:** `remove` should require `--yes` flag or interactive confirmation before deleting.
+- **Empty directory cleanup:** After removing scaffolded files, empty parent dirs are pruned
+- **Database tables:** `bun run indigo remove --drop-tables` generates a DROP migration from module schema
+- **Confirmation prompt:** `remove` now requires interactive confirmation (skip with `--yes`)
 
 ## 6. Module Template Versioning
 
@@ -69,3 +48,10 @@ When a module updates (subtree pull), its `_templates/` may have changed. The CL
 3. Let the user decide whether to update their project files or keep customizations
 
 This is a v2 feature — not needed for launch.
+
+## 7. Registry Alignment ✅
+
+Fixed registry to match actual GitHub repos:
+- Removed non-existent `core-billing` entry
+- Added `core-payments`, `core-subscriptions`, `core-import` entries
+- Fixed dependencies: `core-payments-crypto` and `core-store` now depend on `core-payments` (not `core-billing`)

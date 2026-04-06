@@ -9,7 +9,6 @@ import { sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { createLogger } from '@/core/lib/logger';
 import { adminPanel } from '@/config/routes';
-import { recordConversion } from '@/core-affiliates/lib/affiliates';
 import { invalidateStats } from '@/core/lib/stats-cache';
 
 const logger = createLogger('nowpayments-webhook');
@@ -91,11 +90,13 @@ export async function POST(request: Request) {
           actionUrl: adminPanel.settingsBilling,
         });
 
-        // Record affiliate conversion if applicable
+        // Record affiliate conversion if applicable (core-affiliates module optional)
         const checkoutUserId = providerData?.userId as string | undefined;
         const amountCents = providerData?.amountCents as number | undefined;
         if (checkoutUserId && amountCents) {
-          recordConversion(checkoutUserId, orderId ?? 'unknown', amountCents).catch(() => {});
+          import('@/core-affiliates/lib/affiliates')
+            .then(({ recordConversion }) => recordConversion(checkoutUserId, orderId ?? 'unknown', amountCents))
+            .catch(() => {/* core-affiliates not installed */});
         }
 
         invalidateStats('billing');

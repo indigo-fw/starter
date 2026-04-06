@@ -37,6 +37,17 @@ export interface SeedEntry {
   label: string;
 }
 
+export interface NavItemEntry {
+  /** Nav group ID to add this item to (e.g., 'billing', 'settings') */
+  groupId: string;
+  /** Display name */
+  name: string;
+  /** Route href */
+  href: string;
+  /** Lucide icon import name (e.g. 'Link2', 'LifeBuoy') */
+  icon: string;
+}
+
 export interface ModuleConfig {
   /** Module identifier (e.g. 'core-billing') */
   id: string;
@@ -52,6 +63,8 @@ export interface ModuleConfig {
   layoutWidgets: WidgetEntry[];
   /** Seed functions for demo data (run during `bun run init`) */
   seed: SeedEntry[];
+  /** Admin nav items to register (appended to existing nav groups) */
+  navItems: NavItemEntry[];
   /**
    * Project-layer files scaffolded by this module (relative to src/).
    * Copied from _templates/ during `indigo add`, removed during `indigo remove`.

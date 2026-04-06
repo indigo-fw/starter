@@ -1,13 +1,7 @@
 /**
  * Module registry — maps module IDs to their git repos and metadata.
  *
- * TODO: Create these GitHub repos under the indigo-fw org:
- *   - indigo-fw/core-billing
- *   - indigo-fw/core-payments-crypto
- *   - indigo-fw/core-support
- *   - indigo-fw/core-affiliates
- * Until repos exist, `indigo add` will fail on git subtree pull.
- * For local development, modules are already in src/ — use `indigo sync` instead.
+ * GitHub org: https://github.com/indigo-fw
  */
 
 export interface ModuleRegistryEntry {
@@ -27,17 +21,25 @@ export interface ModuleRegistryEntry {
 
 export const REGISTRY: ModuleRegistryEntry[] = [
   {
-    id: 'core-billing',
-    repo: 'git@github.com:indigo-fw/core-billing.git',
-    importName: 'coreBilling',
+    id: 'core-payments',
+    repo: 'git@github.com:indigo-fw/core-payments.git',
+    importName: 'corePayments',
     free: true,
-    description: 'Payment system: subscriptions, tokens, discounts, Stripe, dunning',
+    description: 'Payment provider abstraction layer (Stripe integration)',
+  },
+  {
+    id: 'core-subscriptions',
+    repo: 'git@github.com:indigo-fw/core-subscriptions.git',
+    importName: 'coreSubscriptions',
+    requires: ['core-payments'],
+    free: true,
+    description: 'Subscription plans, tokens, discounts, dunning',
   },
   {
     id: 'core-payments-crypto',
     repo: 'git@github.com:indigo-fw/core-payments-crypto.git',
-    importName: 'coreBillingCrypto',
-    requires: ['core-billing'],
+    importName: 'corePaymentsCrypto',
+    requires: ['core-payments'],
     description: 'Cryptocurrency payments via NOWPayments',
   },
   {
@@ -59,6 +61,12 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     description: 'AI content generation, SEO optimization, translation, image alt text',
   },
   {
+    id: 'core-import',
+    repo: 'git@github.com:indigo-fw/core-import.git',
+    importName: 'coreImport',
+    description: 'Data import and migration tools',
+  },
+  {
     id: 'core-docs',
     repo: 'git@github.com:indigo-fw/core-docs.git',
     importName: 'coreDocs',
@@ -69,7 +77,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     id: 'core-store',
     repo: 'git@github.com:indigo-fw/core-store.git',
     importName: 'coreStore',
-    requires: ['core-billing'],
+    requires: ['core-payments'],
     description: 'E-commerce — products, variants, cart, checkout, orders, shipping, tax (EU VAT)',
   },
 ];

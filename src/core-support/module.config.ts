@@ -20,6 +20,9 @@ const config: ModuleConfig = {
   layoutWidgets: [
     { name: 'SupportChatWidgetWrapper', from: '@/components/public/SupportChatWidgetWrapper' },
   ],
+  navItems: [
+    { groupId: 'settings', name: 'Support', href: '/dashboard/settings/support', icon: 'LifeBuoy' },
+  ],
   projectFiles: [
     'config/support-deps.ts',
     'components/public/SupportChatWidgetWrapper.tsx',

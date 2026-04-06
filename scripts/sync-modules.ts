@@ -33,6 +33,7 @@ async function main() {
   generateServer(modules);
   generateWidgets(modules);
   generateSeeds(modules);
+  generateNav(modules);
 
   console.log(`Module sync complete — ${modules.length} modules registered`);
   console.log('  src/generated/module-routers.ts');
@@ -40,6 +41,7 @@ async function main() {
   console.log('  src/generated/module-server.ts');
   console.log('  src/generated/module-widgets.ts');
   console.log('  src/generated/module-seeds.ts');
+  console.log('  src/generated/module-nav.ts');
 }
 
 function generateRouters(modules: ModuleConfig[]) {
@@ -182,6 +184,37 @@ ${entries}
 `;
 
   writeFileSync(resolve(outDir, 'module-seeds.ts'), content);
+}
+
+function generateNav(modules: ModuleConfig[]) {
+  const navItems = modules.flatMap((m) => m.navItems ?? []);
+
+  if (navItems.length === 0) {
+    writeFileSync(
+      resolve(outDir, 'module-nav.ts'),
+      `${HEADER}\nexport interface ModuleNavItem {\n  groupId: string;\n  name: string;\n  href: string;\n  icon: string;\n}\n\nexport const MODULE_NAV_ITEMS: ModuleNavItem[] = [];\n`,
+    );
+    return;
+  }
+
+  const entries = navItems
+    .map((n) => `  { groupId: '${n.groupId}', name: '${n.name}', href: '${n.href}', icon: '${n.icon}' },`)
+    .join('\n');
+
+  const content = `${HEADER}
+export interface ModuleNavItem {
+  groupId: string;
+  name: string;
+  href: string;
+  icon: string;
+}
+
+export const MODULE_NAV_ITEMS: ModuleNavItem[] = [
+${entries}
+];
+`;
+
+  writeFileSync(resolve(outDir, 'module-nav.ts'), content);
 }
 
 main().catch((err) => {

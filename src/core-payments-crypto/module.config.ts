@@ -10,6 +10,7 @@ const config: ModuleConfig = {
   jobs: [],
   seed: [],
   layoutWidgets: [],
+  navItems: [],
   projectFiles: [
     'app/api/webhooks/nowpayments/route.ts',
     'app/api/webhooks/nowpayments/__tests__/route.test.ts',

@@ -12,6 +12,7 @@ const config: ModuleConfig = {
   jobs: [],
   seed: [],
   layoutWidgets: [],
+  navItems: [],
   projectFiles: [
     'app/docs/[...slug]/page.tsx',
     'app/api/docs/llms.txt/route.ts',

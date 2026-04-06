@@ -5,6 +5,9 @@
  * Interfaces and pure helpers live in @/core/config/admin-nav.
  * This file provides the project-specific navigation data array
  * and convenience wrappers that bind the array to the engine helpers.
+ *
+ * Module-contributed nav items are auto-generated in module-nav.ts
+ * and merged into the appropriate groups at runtime.
  */
 import {
   Activity,
@@ -41,11 +44,24 @@ import {
   flatNavItems as _flatNavItems,
   getActiveSectionId as _getActiveSectionId,
   getNavItem as _getNavItem,
+  isNavGroup,
 } from '@/core/config/admin-nav';
-import type { NavItem } from '@/core/config/admin-nav';
+import type { NavItem, NavChild } from '@/core/config/admin-nav';
 import { adminRoutes, adminPanel } from '@/config/routes';
+import { MODULE_NAV_ITEMS } from '@/generated/module-nav';
 
-export const navigation: NavItem[] = [
+// ─── Icon map for module-declared nav items ─────────────────────────────────
+
+const ICON_MAP: Record<string, React.ElementType> = {
+  Activity, ArrowRightLeft, Briefcase, Tv, Calendar, ClipboardList,
+  CreditCard, FileText, FolderKanban, FolderOpen, Hash, Home, Image,
+  Layers, LifeBuoy, Link2, ListChecks, Mail, Menu, Settings, Tag,
+  Upload, Users, Webhook,
+};
+
+// ─── Base navigation (static items) ─────────────────────────────────────────
+
+const baseNavigation: NavItem[] = [
   { id: 'dashboard', name: 'Dashboard', href: adminRoutes.home, icon: Home },
   {
     id: 'content',
@@ -77,11 +93,7 @@ export const navigation: NavItem[] = [
     id: 'billing',
     name: 'Billing',
     icon: CreditCard,
-    children: [
-      { name: 'Overview', href: adminPanel.settingsBilling, icon: CreditCard },
-      { name: 'Discount Codes', href: adminPanel.settingsDiscountCodes, icon: Tag },
-      { name: 'Affiliates', href: adminPanel.settingsAffiliates, icon: Link2 },
-    ],
+    children: [],
   },
   {
     id: 'settings',
@@ -92,14 +104,33 @@ export const navigation: NavItem[] = [
       { name: 'Custom Fields', href: adminPanel.settingsCustomFields, icon: Layers },
       { name: 'Email Templates', href: adminPanel.settingsEmailTemplates, icon: Mail },
       { name: 'Webhooks', href: adminPanel.settingsWebhooks, icon: Webhook },
-      { name: 'Import', href: adminPanel.settingsImport, icon: Upload },
       { name: 'Job Queue', href: adminPanel.settingsJobQueue, icon: ListChecks },
       { name: 'Activity', href: adminPanel.activity, icon: Activity },
-      { name: 'Support', href: adminPanel.settingsSupport, icon: LifeBuoy },
     ],
   },
   { id: 'projects', name: 'Projects', href: adminPanel.projects, icon: FolderKanban },
 ];
+
+// ─── Merge module nav items into base navigation ────────────────────────────
+
+function buildNavigation(): NavItem[] {
+  const nav = baseNavigation.map((item) => (isNavGroup(item) ? { ...item, children: [...item.children] } : item));
+
+  for (const moduleItem of MODULE_NAV_ITEMS) {
+    const icon = ICON_MAP[moduleItem.icon] ?? Settings;
+    const child: NavChild = { name: moduleItem.name, href: moduleItem.href, icon };
+
+    const group = nav.find((item) => isNavGroup(item) && item.id === moduleItem.groupId);
+    if (group && isNavGroup(group)) {
+      group.children.push(child);
+    }
+  }
+
+  // Remove empty groups (e.g., billing with no modules installed)
+  return nav.filter((item) => !isNavGroup(item) || item.children.length > 0);
+}
+
+export const navigation: NavItem[] = buildNavigation();
 
 /** Flatten navigation into a flat list for search/command palette */
 export function flatNavItems() {

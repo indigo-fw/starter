@@ -20,6 +20,9 @@ const config: ModuleConfig = {
   layoutWidgets: [
     { name: 'AttributionCapture', from: '@/core-affiliates/components/AttributionCapture' },
   ],
+  navItems: [
+    { groupId: 'billing', name: 'Affiliates', href: '/dashboard/settings/affiliates', icon: 'Link2' },
+  ],
   projectFiles: [
     'config/affiliates-deps.ts',
     'app/dashboard/(panel)/settings/affiliates/page.tsx',

@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useRef, useState, useEffect, useMemo, useCallback } from 'react';
+import { Suspense, lazy, useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAdminTranslations } from '@/lib/translations';
 import { trpc } from '@/lib/trpc/client';
@@ -11,7 +11,16 @@ import { ChurnedSubscriptionsTable } from './components/ChurnedSubscriptionsTabl
 import { DiscountCodesTable } from './components/DiscountCodesTable';
 import { RevenueChart } from './components/RevenueChart';
 import { RecentTransactionsTable } from './components/RecentTransactionsTable';
-import { AffiliateOverview } from './components/AffiliateOverview';
+
+// Optional: only renders if core-affiliates is installed
+const AffiliateOverview = lazy(async () => {
+  try {
+    const m = await import('./components/AffiliateOverview');
+    return { default: m.AffiliateOverview };
+  } catch {
+    return { default: () => <></> };
+  }
+});
 
 // ─── Date helpers (pure — no mutation) ──────────────────────────────────────
 
@@ -274,10 +283,12 @@ function BillingDashboardContent() {
         <DiscountCodesTable />
       </div>
 
-      {/* ─── Affiliate overview ────────────────────────────────────────── */}
-      <div className="mt-6 mb-8">
-        <AffiliateOverview />
-      </div>
+      {/* ─── Affiliate overview (core-affiliates module, optional) ─────── */}
+      <Suspense fallback={null}>
+        <div className="mt-6 mb-8">
+          <AffiliateOverview />
+        </div>
+      </Suspense>
     </div>
   );
 }

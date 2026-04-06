@@ -10,6 +10,9 @@ const config: ModuleConfig = {
   jobs: [],
   seed: [],
   layoutWidgets: [],
+  navItems: [
+    { groupId: 'settings', name: 'Import', href: '/dashboard/settings/import', icon: 'Upload' },
+  ],
   projectFiles: [
     'app/dashboard/(panel)/settings/import/page.tsx',
   ],

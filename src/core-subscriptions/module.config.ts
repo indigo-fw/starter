@@ -17,6 +17,10 @@ const config: ModuleConfig = {
     { name: 'seedBilling', from: '@/core-subscriptions/seed', label: 'Billing demo data (users, orgs, subscriptions, tokens)' },
   ],
   layoutWidgets: [],
+  navItems: [
+    { groupId: 'billing', name: 'Overview', href: '/dashboard/settings/billing', icon: 'CreditCard' },
+    { groupId: 'billing', name: 'Discount Codes', href: '/dashboard/settings/discount-codes', icon: 'Tag' },
+  ],
   projectFiles: [
     'config/subscriptions-deps.ts',
     'app/dashboard/(panel)/settings/billing/page.tsx',
