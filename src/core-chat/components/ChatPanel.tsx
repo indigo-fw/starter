@@ -63,13 +63,20 @@ export function ChatPanel({ conversationId, characterName, characterAvatar, bloc
   const serverIds = new Set(serverMessages.map((m) => m.id));
 
   const mergedMessages: ChatMessageData[] = [
-    ...serverMessages.map((m) => ({
-      id: m.id,
-      role: m.role,
-      content: m.content,
-      status: m.status,
-      createdAt: m.createdAt?.toISOString(),
-    })),
+    ...serverMessages.map((m) => {
+      const modResult = m.moderationResult as { censorType?: number } | null;
+      const metadata = m.metadata as { isNsfw?: boolean } | null;
+      return {
+        id: m.id,
+        role: m.role,
+        content: m.content,
+        status: m.status,
+        createdAt: m.createdAt?.toISOString(),
+        mediaId: m.mediaId ?? undefined,
+        censorType: modResult?.censorType,
+        isNsfw: metadata?.isNsfw,
+      };
+    }),
     ...localMessages.filter((m) => !serverIds.has(m.id)),
   ];
 
@@ -86,7 +93,11 @@ export function ChatPanel({ conversationId, characterName, characterAvatar, bloc
           setIsTyping(false);
           setIsSending(false);
         }
-        setLocalMessages((prev) => prev.map((m) => m.id === event.id ? { ...m, status: event.status as string } : m));
+        setLocalMessages((prev) => prev.map((m) => m.id === event.id ? {
+          ...m,
+          status: event.status as string,
+          censorType: event.censorType as number | undefined,
+        } : m));
         break;
       }
       case ChatWsEvent.MSG_STREAM_START: {
@@ -131,6 +142,7 @@ export function ChatPanel({ conversationId, characterName, characterAvatar, bloc
           mediaType: 'image',
           mediaWidth: event.width as number,
           mediaHeight: event.height as number,
+          isNsfw: event.isNsfw as boolean | undefined,
           createdAt: new Date().toISOString(),
         }]);
         break;

@@ -30,10 +30,11 @@ interface ChatMessageProps {
   message: ChatMessageData;
   characterName?: string;
   characterAvatar?: string | null;
+  isSubscribed?: boolean;
   onRetry?: () => void;
 }
 
-export function ChatMessage({ message, characterName, characterAvatar, onRetry }: ChatMessageProps) {
+export function ChatMessage({ message, characterName, characterAvatar, isSubscribed, onRetry }: ChatMessageProps) {
   const __ = useBlankTranslations();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const isUser = message.role === MessageRole.USER || message.role === MessageRole.USER_IMG;
@@ -86,7 +87,7 @@ export function ChatMessage({ message, characterName, characterAvatar, onRetry }
           <>
             <div className="relative cursor-pointer" onClick={() => setLightboxOpen(true)}>
               {message.isNsfw ? (
-                <NsfwBlurOverlay imageUrl={message.mediaUrl}>
+                <NsfwBlurOverlay imageUrl={message.mediaUrl} isSubscribed={isSubscribed}>
                   <img src={message.mediaUrl} alt={message.content} className="rounded-xl max-w-full" style={{ maxHeight: 400 }} loading="lazy" />
                 </NsfwBlurOverlay>
               ) : (

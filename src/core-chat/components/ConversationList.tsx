@@ -98,11 +98,16 @@ export function ConversationList({ activeConversationId, onSelect, onNewChat }: 
                   <span className="text-sm font-medium text-(--text-primary) truncate">
                     {conv.title ?? conv.character.name}
                   </span>
-                  {conv.lastMessageAt && (
-                    <span className="text-[10px] text-(--text-tertiary) shrink-0 ml-2">
-                      {formatRelative(conv.lastMessageAt)}
-                    </span>
-                  )}
+                  <div className="flex items-center gap-1.5 shrink-0 ml-2">
+                    {conv.lastMessageId && conv.lastReadMessageId !== conv.lastMessageId && (
+                      <span className="w-2 h-2 rounded-full bg-brand-500" title={__('Unread')} />
+                    )}
+                    {conv.lastMessageAt && (
+                      <span className="text-[10px] text-(--text-tertiary)">
+                        {formatRelative(conv.lastMessageAt)}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <p className="text-xs text-(--text-tertiary) truncate mt-0.5">
                   {conv.lastMessagePreview ?? conv.character.tagline ?? `Chat with ${conv.character.name}`}

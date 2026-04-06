@@ -137,6 +137,20 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
       enqueueSummarize(conversationId);
     }
 
+    // Auto-detect language on 3rd message (fire-and-forget)
+    if (newMessageCount === 6 && !conv.lang && lastUserMessage) {
+      import('./translation').then(({ detectLanguage }) => {
+        detectLanguage(lastUserMessage).then((detected) => {
+          if (detected && detected !== 'en') {
+            db.update(chatConversations)
+              .set({ lang: detected, langDetectedAt: new Date() })
+              .where(eq(chatConversations.id, conversationId))
+              .catch(() => {});
+          }
+        }).catch(() => {});
+      }).catch(() => {});
+    }
+
     // Webhook
     dispatchWebhook(db, 'chat.message.sent', { conversationId, userId, responseType });
 
@@ -273,7 +287,7 @@ async function processImageResponse(
   const messageId = crypto.randomUUID();
   const mediaId = crypto.randomUUID();
 
-  // Save to chat_media
+  // Save to chat_media (with NSFW flag)
   await db.insert(chatMedia).values({
     id: mediaId,
     filename: `${messageId}.jpg`,
@@ -283,12 +297,14 @@ async function processImageResponse(
     width: result.result.width,
     height: result.result.height,
     purpose: 'message',
+    isNsfw,
   });
 
   // Insert message
   await db.insert(chatMessages).values({
     id: messageId, conversationId, role: MessageRole.ASSISTANT,
     content: '[Image]', status: MessageStatus.DELIVERED, mediaId,
+    metadata: isNsfw ? { isNsfw: true } : null,
   });
 
   deps.broadcastEvent(`chat:${conversationId}`, ChatWsEvent.MSG_IMAGE_COMPLETE, {
@@ -296,6 +312,7 @@ async function processImageResponse(
     mediaUrl: result.result.url,
     width: result.result.width,
     height: result.result.height,
+    isNsfw,
   });
 
   dispatchWebhook(db, 'chat.image.generated', { conversationId, messageId });

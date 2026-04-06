@@ -9,7 +9,7 @@ import { getChatDeps } from '@/core-chat/deps';
 import { getChatConfig } from '@/core-chat/config';
 import { moderateContent } from '@/core-chat/lib/moderation';
 import { enqueueAiResponse } from '@/core-chat/lib/engine';
-import { ChatWsEvent, ConversationStatus, MessageRole, MessageStatus } from '@/core-chat/lib/types';
+import { ChatWsEvent, CensorType, ConversationStatus, MessageRole, MessageStatus } from '@/core-chat/lib/types';
 import { createLogger } from '@/core/lib/logger';
 import { getRedis } from '@/core/lib/redis';
 import { logAuditEvent, checkAutoBlock } from '@/core-chat/lib/audit';
@@ -161,6 +161,11 @@ export const messageRouter = createTRPCRouter({
       );
 
       if (!moderationResult.passed) {
+        // Determine censor type based on whether this was an image request
+        const { detectMessageType } = await import('@/core-chat/lib/detect-message-type');
+        const msgType = detectMessageType(input.content);
+        const censorType = msgType === 'image' ? CensorType.CENSORED_IMAGE : CensorType.CENSORED_TEXT;
+
         await db.insert(chatMessages).values({
           id: input.id,
           conversationId: input.conversationId,
@@ -170,6 +175,7 @@ export const messageRouter = createTRPCRouter({
           moderationResult: {
             reason: moderationResult.reason,
             action: moderationResult.action,
+            censorType,
           },
         }).onConflictDoNothing();
 
@@ -177,6 +183,7 @@ export const messageRouter = createTRPCRouter({
           type: ChatWsEvent.MSG_STATUS,
           id: input.id,
           status: MessageStatus.MODERATED,
+          censorType,
         });
 
         // Audit log + auto-block check
@@ -196,10 +203,11 @@ export const messageRouter = createTRPCRouter({
       }
 
       // 5. Insert user message (idempotent via ON CONFLICT DO NOTHING)
+      const userRole = input.mediaId ? MessageRole.USER_IMG : MessageRole.USER;
       await db.insert(chatMessages).values({
         id: input.id,
         conversationId: input.conversationId,
-        role: MessageRole.USER,
+        role: userRole,
         content: input.content,
         status: MessageStatus.DELIVERED,
         mediaId: input.mediaId ?? null,
@@ -210,7 +218,7 @@ export const messageRouter = createTRPCRouter({
         type: ChatWsEvent.MSG_CONFIRMED,
         id: input.id,
         conversationId: input.conversationId,
-        role: MessageRole.USER,
+        role: userRole,
         content: input.content,
         status: MessageStatus.DELIVERED,
         createdAt: new Date().toISOString(),

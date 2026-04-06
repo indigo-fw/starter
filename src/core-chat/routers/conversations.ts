@@ -30,9 +30,15 @@ export const conversationRouter = createTRPCRouter({
           status: chatConversations.status,
           lastMessageAt: chatConversations.lastMessageAt,
           messageCount: chatConversations.messageCount,
+          lastReadMessageId: chatConversations.lastReadMessageId,
           createdAt: chatConversations.createdAt,
           lastMessagePreview: sql<string | null>`(
             SELECT LEFT(${chatMessages.content}, 100) FROM ${chatMessages}
+            WHERE ${chatMessages.conversationId} = ${chatConversations.id}
+            ORDER BY ${chatMessages.createdAt} DESC LIMIT 1
+          )`,
+          lastMessageId: sql<string | null>`(
+            SELECT ${chatMessages.id} FROM ${chatMessages}
             WHERE ${chatMessages.conversationId} = ${chatConversations.id}
             ORDER BY ${chatMessages.createdAt} DESC LIMIT 1
           )`,
@@ -79,6 +85,12 @@ export const conversationRouter = createTRPCRouter({
             tagline: chatCharacters.tagline,
             personality: chatCharacters.personality,
             greeting: chatCharacters.greeting,
+            genderId: chatCharacters.genderId,
+            personalityId: chatCharacters.personalityId,
+            kinkId: chatCharacters.kinkId,
+            jobId: chatCharacters.jobId,
+            hobbies: chatCharacters.hobbies,
+            relationshipId: chatCharacters.relationshipId,
           },
         })
         .from(chatConversations)
