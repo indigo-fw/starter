@@ -1,0 +1,259 @@
+@layer theme, base, components, utilities;
+
+/*
+ * Shared structural overlay classes for Dialog, Lightbox, and SlideOver.
+ * Positioning, visibility, transitions, focus trap boundaries.
+ * Visual styling (colors, borders, shadows, padding) lives in admin.css / frontend.css.
+ */
+
+@layer components {
+  /* ═══ Shared backdrop ═══ */
+  .overlay-backdrop {
+    position: absolute;
+    inset: 0;
+    background: oklch(0 0 0 / 0);
+  }
+
+  /* ═══ Shared overlay title ═══ */
+  .overlay-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  /* ═══ Shared close button ═══ */
+  .overlay-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    padding: 0.25rem;
+    color: var(--text-muted);
+    transition: background-color var(--duration-fast) ease,
+                color var(--duration-fast) ease;
+  }
+
+  .overlay-close-btn:hover {
+    background-color: var(--surface-inset);
+    color: var(--text-primary);
+  }
+
+  /* ═══ Dialog (centered modal) ═══ */
+  .overlay-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    pointer-events: none;
+    visibility: hidden;
+    transition: visibility 0s 200ms;
+  }
+
+  .overlay-dialog-open {
+    pointer-events: auto;
+    visibility: visible;
+    transition: visibility 0s;
+  }
+
+  .overlay-dialog .overlay-backdrop {
+    transition: background 200ms ease;
+  }
+
+  .overlay-dialog-open .overlay-backdrop {
+    background: oklch(0 0 0 / 0.5);
+  }
+
+  .overlay-dialog-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: calc(100vh - 2rem);
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 200ms ease;
+  }
+
+  .overlay-dialog-open .overlay-dialog-panel {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* Dramatic zoom-from-click variant — opt-in via class */
+  .overlay-dialog-panel.overlay-zoom-origin {
+    transform: scale(0.3);
+    transition: transform 125ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 100ms ease;
+  }
+
+  .overlay-dialog-open .overlay-dialog-panel.overlay-zoom-origin {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .overlay-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .overlay-dialog-body {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .overlay-dialog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  /* ═══ Lightbox (fullscreen media viewer) ═══ */
+  .overlay-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    visibility: hidden;
+    transition: visibility 0s 200ms;
+  }
+
+  .overlay-lightbox-open {
+    pointer-events: auto;
+    visibility: visible;
+    transition: visibility 0s;
+  }
+
+  .overlay-lightbox .overlay-backdrop {
+    transition: background 200ms ease;
+  }
+
+  .overlay-lightbox-open .overlay-backdrop {
+    background: oklch(0 0 0 / 0.85);
+  }
+
+  .overlay-lightbox-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 95vw;
+    max-height: 95vh;
+    transform: scale(0.3);
+    opacity: 0;
+    transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 200ms ease;
+  }
+
+  .overlay-lightbox-open .overlay-lightbox-content {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* Auto-size media children */
+  .overlay-lightbox-content img,
+  .overlay-lightbox-content video {
+    max-width: 95vw;
+    max-height: 95vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+  }
+
+  .overlay-lightbox-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .overlay-lightbox-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background: oklch(0 0 0 / 0.6);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px oklch(1 0 0 / 0.15);
+    backdrop-filter: blur(4px);
+    transition: background var(--duration-fast) ease;
+  }
+
+  .overlay-lightbox-close:hover {
+    background: oklch(0 0 0 / 0.8);
+  }
+
+  .overlay-lightbox-close:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
+  /* ═══ Slide-Over (side panel) ═══ */
+  .overlay-slide-over-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .overlay-slide-over-body {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .overlay-slide-over {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+    visibility: hidden;
+    transition: visibility 0s 300ms;
+  }
+
+  .overlay-slide-over-open {
+    pointer-events: auto;
+    visibility: visible;
+    transition: visibility 0s;
+  }
+
+  .overlay-slide-over .overlay-backdrop {
+    transition: background 300ms ease;
+  }
+
+  .overlay-slide-over-open .overlay-backdrop {
+    background: oklch(0 0 0 / 0.5);
+  }
+
+  .overlay-slide-over-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    transform: translateX(100%);
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .overlay-slide-over-open .overlay-slide-over-panel {
+    transform: translateX(0);
+  }
+}

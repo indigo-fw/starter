@@ -1,0 +1,28 @@
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* ===================== Account ===================== */
+  .account-sidebar {
+    /* Sidebar nav for account pages */
+  }
+
+  .account-sidebar-link {
+    /* Individual sidebar link */
+  }
+
+  .account-card {
+    background: var(--surface-primary);
+  }
+
+  .social-btn {
+    cursor: pointer;
+  }
+
+  .social-btn-google:hover {
+    border-color: #4285F4;
+  }
+
+  .social-btn-discord:hover {
+    border-color: #5865F2;
+  }
+}

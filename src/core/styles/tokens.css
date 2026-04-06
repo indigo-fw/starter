@@ -1,0 +1,165 @@
+@layer theme, base, components, utilities;
+
+/*
+ * Design Tokens — OKLCH Tinted-Neutral System
+ *
+ * TO REBRAND:
+ *   1. Replace "350" with your brand hue (brand scale, --brand-hue var)
+ *   2. Replace "303" with your accent hue (accent scale, --accent-hue var)
+ *   3. Grays use hue 260 (cool blue-violet) — change to match your brand
+ *      if desired, but 260 works well as a universal neutral.
+ *   4. Edit tokens-public.css for frontend look, tokens-admin.css for admin look.
+ *      Update hardcoded hue 260 in dark surface tokens in both files.
+ *
+ * Hue examples: Blue=220, Teal=180, Emerald=155, Rose=10, Orange=55, Violet=290
+ */
+
+@theme {
+  /* Brand scale — pink/coral (hue 350) */
+  --color-brand-50:  oklch(0.97 0.025 350);
+  --color-brand-100: oklch(0.93 0.05 350);
+  --color-brand-200: oklch(0.87 0.08 350);
+  --color-brand-300: oklch(0.79 0.15 350);
+  --color-brand-400: oklch(0.72 0.19 350);
+  --color-brand-500: oklch(0.65 0.24 350);
+  --color-brand-600: oklch(0.56 0.24 350);
+  --color-brand-700: oklch(0.48 0.22 350);
+  --color-brand-800: oklch(0.40 0.18 350);
+  --color-brand-900: oklch(0.33 0.14 350);
+
+  /* Accent scale — purple (hue 303) */
+  --color-accent-50:  oklch(0.97 0.025 303);
+  --color-accent-100: oklch(0.93 0.05 303);
+  --color-accent-200: oklch(0.87 0.08 303);
+  --color-accent-300: oklch(0.78 0.15 303);
+  --color-accent-400: oklch(0.65 0.24 303);
+  --color-accent-500: oklch(0.55 0.27 303);
+  --color-accent-600: oklch(0.47 0.27 303);
+  --color-accent-700: oklch(0.40 0.25 303);
+
+  /* Tinted gray scale — cool blue-violet neutrals (hue 260) */
+  --color-gray-50:  oklch(0.98 0.002 265);
+  --color-gray-100: oklch(0.96 0.003 265);
+  --color-gray-200: oklch(0.93 0.005 265);
+  --color-gray-300: oklch(0.87 0.005 265);
+  --color-gray-400: oklch(0.71 0.01 265);
+  --color-gray-500: oklch(0.55 0.015 265);
+  --color-gray-600: oklch(0.45 0.015 260);
+  --color-gray-700: oklch(0.37 0.015 260);
+  --color-gray-800: oklch(0.27 0.02 260);
+  --color-gray-900: oklch(0.21 0.02 260);
+  --color-gray-950: oklch(0.16 0.02 260);
+
+  /* Semantic colors */
+  --color-success-50:  oklch(0.97 0.02 145);
+  --color-success-500: oklch(0.65 0.20 145);
+  --color-success-600: oklch(0.58 0.19 145);
+  --color-success-700: oklch(0.50 0.16 145);
+
+  --color-warning-50:  oklch(0.98 0.02 70);
+  --color-warning-500: oklch(0.75 0.18 70);
+  --color-warning-600: oklch(0.65 0.19 55);
+
+  --color-danger-50:  oklch(0.97 0.01 25);
+  --color-danger-500: oklch(0.60 0.22 25);
+  --color-danger-600: oklch(0.55 0.22 25);
+  --color-danger-700: oklch(0.47 0.20 25);
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
+
+:root {
+  /* Brand hue — must match the hue in @theme above (used by admin.css alpha tints) */
+  --brand-hue: 350;
+  --accent-hue: 303;
+
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+
+  /* Brand gradient — pink→purple diagonal */
+  --gradient-brand: linear-gradient(in oklch 135deg, oklch(0.65 0.24 var(--brand-hue)), oklch(0.55 0.27 var(--accent-hue)));
+
+  /* Overlay — shared between public and admin */
+  --surface-overlay: oklch(0 0 0 / 0.5);
+
+  /* ═══ Semantic defaults (override in tokens-public.css or tokens-admin.css) ═══ */
+
+  /* Surfaces */
+  --surface-primary:   var(--color-gray-50);
+  --surface-secondary: var(--color-white);
+  --surface-elevated:  var(--color-white);
+  --surface-inset:     var(--color-gray-100);
+  --surface-sidebar:   var(--color-white);
+
+  /* Text */
+  --text-primary:   var(--color-gray-900);
+  --text-secondary: var(--color-gray-600);
+  --text-muted:     var(--color-gray-400);
+  --text-inverse:   var(--color-white);
+
+  /* Borders — soft, low-chroma for elevation-first design */
+  --border-primary:   oklch(0.93 0.005 265 / 0.7);
+  --border-secondary: oklch(0.96 0.003 265 / 0.5);
+
+  /* Shadows — slightly lifted for border-free cards */
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.05), 0 1px 2px oklch(0 0 0 / 0.03);
+  --shadow-md: 0 3px 10px oklch(0 0 0 / 0.07), 0 1px 3px oklch(0 0 0 / 0.04);
+  --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.08), 0 2px 8px oklch(0 0 0 / 0.04);
+}
+
+html.dark {
+  color-scheme: dark;
+  --surface-overlay: oklch(0 0 0 / 0.7);
+
+  /* Surfaces — layered dark (hue 260)
+   * inset (0.20) < sidebar (0.20) < primary (0.21 = gray-900) < secondary (0.27) < elevated (0.32) */
+  --surface-inset:     oklch(0.20 0.02 260);
+  --surface-sidebar:   oklch(0.20 0.02 260);
+  --surface-primary:   oklch(0.21 0.02 260);
+  --surface-secondary: oklch(0.27 0.02 260);
+  --surface-elevated:  oklch(0.32 0.015 260);
+
+  /* Text */
+  --text-primary:   var(--color-gray-50);
+  --text-secondary: var(--color-gray-400);
+  --text-muted:     var(--color-gray-500);
+  --text-inverse:   var(--color-gray-900);
+
+  /* Borders — subtle in dark mode */
+  --border-primary:   oklch(0.35 0.01 260 / 0.8);
+  --border-secondary: oklch(0.30 0.01 260 / 0.5);
+
+  /* Autofill override — masks browser/1Password autofill backgrounds in dark mode.
+     Shared across admin and frontend (loaded via globals.css). */
+  .input:-webkit-autofill,
+  .input:-webkit-autofill:hover,
+  .input:-webkit-autofill:focus,
+  input.input[data-com-onepassword-filled],
+  .input-sm:-webkit-autofill,
+  .input-sm:-webkit-autofill:hover,
+  .input-sm:-webkit-autofill:focus,
+  input.input-sm[data-com-onepassword-filled],
+  .search-input:-webkit-autofill,
+  .search-input:-webkit-autofill:hover,
+  .search-input:-webkit-autofill:focus,
+  input.search-input[data-com-onepassword-filled] {
+    box-shadow: inset 0 0 0 9999px var(--surface-inset) !important;
+    -webkit-text-fill-color: var(--color-white) !important;
+    caret-color: var(--color-white);
+    filter: none !important;
+  }
+
+  /* Shadows — dark mode */
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.2), 0 0 0 1px oklch(1 0 0 / 0.03);
+  --shadow-md: 0 3px 10px oklch(0 0 0 / 0.3), 0 0 0 1px oklch(1 0 0 / 0.03);
+  --shadow-lg: 0 8px 30px oklch(0 0 0 / 0.35), 0 0 0 1px oklch(1 0 0 / 0.03);
+}

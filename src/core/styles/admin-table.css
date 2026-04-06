@@ -1,0 +1,635 @@
+@layer theme, base, components, utilities;
+
+/*
+ * Admin — Table, Badge, Form, and Pagination Classes
+ * Built on OKLCH tinted-neutral tokens.
+ *
+ * Brand-tinted alpha variants use decomposed oklch(L C var(--brand-hue) / alpha)
+ * so rebranding only requires changing --brand-hue in tokens.css.
+ * L/C values must match the brand scale in @theme:
+ *   brand-500 = L:0.65 C:0.24   brand-400 = L:0.72 C:0.19
+ * Success/danger are fixed-hue and use literal oklch values.
+ */
+
+@layer components {
+  /* ===================== Table Rows ===================== */
+  .tr {
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  .tr:nth-child(even) {
+    background-color: oklch(0 0 0 / 0.02);
+  }
+
+  .tr:hover {
+    background-color: oklch(0 0 0 / 0.04);
+  }
+
+  /* ===================== Primary Table Cell ===================== */
+  .td-primary {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    border-bottom: 1px solid oklch(0.93 0.005 260 / 0.4);
+  }
+
+  /* ===================== Sticky Actions Column ===================== */
+  .th-actions {
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    padding: 0.5rem 1rem;
+    text-align: right;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background-color: var(--surface-inset);
+    border-left: 1px solid var(--border-primary);
+  }
+
+  .td-actions {
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    text-align: right;
+    background-color: var(--surface-secondary);
+    border-bottom: 1px solid oklch(0.93 0.005 260 / 0.4);
+    border-left: 1px solid var(--border-primary);
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  /* Sticky action cells must be SOLID (not transparent) so overlapped content doesn't show through.
+     These approximate the transparent row tints resolved on a white card background. */
+  .tr:hover .td-actions {
+    background-color: var(--color-gray-100);
+  }
+
+  .tr:nth-child(even) .td-actions {
+    background-color: var(--color-gray-50);
+  }
+
+  .tr:nth-child(even):hover .td-actions {
+    background-color: var(--color-gray-100);
+  }
+
+  /* ===================== Checkbox Column ===================== */
+  .th-checkbox,
+  .td-checkbox {
+    width: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+  }
+
+  /* ===================== Action Buttons ===================== */
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    transition: color var(--duration-fast) ease, background-color var(--duration-fast) ease;
+    cursor: pointer;
+  }
+
+  .action-btn:hover {
+    color: var(--text-primary);
+    background-color: var(--surface-inset);
+  }
+
+  .action-btn-danger {
+    color: var(--color-danger-600);
+  }
+
+  .action-btn-danger:hover {
+    color: var(--color-danger-700);
+    background-color: var(--color-danger-50);
+  }
+
+  /* ===================== Status Badges ===================== */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    line-height: 1.5;
+  }
+
+  .badge-published {
+    background-color: oklch(0.60 0.16 150 / 0.10);
+    color: var(--color-success-600);
+    border-color: oklch(0.60 0.16 150 / 0.20);
+  }
+
+  .badge-draft {
+    background-color: var(--surface-inset);
+    color: var(--text-secondary);
+    border-color: var(--border-primary);
+  }
+
+  .badge-scheduled {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.10);
+    color: var(--color-brand-600);
+    border-color: oklch(0.65 0.24 var(--brand-hue) / 0.20);
+  }
+
+  .badge-trashed {
+    background-color: oklch(0.60 0.19 25 / 0.10);
+    color: var(--color-danger-600);
+    border-color: oklch(0.60 0.19 25 / 0.20);
+  }
+
+  /* ===================== Search & Filters ===================== */
+  .search-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  }
+
+  .search-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+  }
+
+  .filter-select {
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: border-color var(--duration-fast) ease;
+  }
+
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+  }
+
+  /* ===================== Empty State ===================== */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  .empty-state-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-lg);
+    background-color: var(--surface-inset);
+    color: var(--text-muted);
+  }
+
+  .empty-state-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .empty-state-text {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  /* ===================== Sortable Headers ===================== */
+  .sortable-th {
+    cursor: pointer;
+    user-select: none;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .sortable-th:hover {
+    color: var(--text-primary);
+  }
+
+  /* ===================== Pagination ===================== */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border-secondary, transparent);
+  }
+
+  .pagination-info {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    background-color: var(--surface-secondary);
+    cursor: pointer;
+    transition: background-color var(--duration-fast) ease,
+                color var(--duration-fast) ease,
+                border-color var(--duration-fast) ease;
+  }
+
+  .pagination-btn:hover:not(:disabled) {
+    background-color: var(--surface-inset);
+    color: var(--text-primary);
+  }
+
+  .pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .pagination-btn.active {
+    background: var(--gradient-brand);
+    border-color: transparent;
+    color: var(--color-white);
+  }
+
+  /* ===================== Status Tabs ===================== */
+  .status-tabs {
+    display: flex;
+    gap: 0.125rem;
+    border-bottom: 1px solid var(--border-primary);
+    padding: 0 0.5rem;
+  }
+
+  .status-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+  }
+
+  .status-tab:hover {
+    color: var(--text-secondary);
+  }
+
+  .status-tab.active {
+    color: var(--color-brand-600);
+    border-bottom-color: var(--color-brand-600);
+  }
+
+  .status-tab-count {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    padding: 0 0.375rem;
+    border-radius: 9999px;
+    background-color: var(--surface-inset);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .status-tab.active .status-tab-count {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.12);
+    color: var(--color-brand-600);
+  }
+
+  /* ===================== Form Inputs ===================== */
+  .input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+  }
+
+  .input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.375rem;
+  }
+
+  /* ===================== Select Inputs ===================== */
+  .select {
+    width: 100%;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  }
+  .select:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+  }
+
+  /* ===================== Textarea Inputs ===================== */
+  .textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    resize: vertical;
+    min-height: 5rem;
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  }
+  .textarea:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+  }
+  .textarea::placeholder { color: var(--text-muted); }
+
+  /* ===================== Input Variants ===================== */
+  .input-sm {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  }
+
+  .input-sm:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+  }
+
+  .filter-input {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color var(--duration-fast) ease;
+  }
+
+  .filter-input:focus {
+    border-color: var(--color-accent-500);
+  }
+
+  /* ===================== Brand Highlights ===================== */
+  .highlight {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.08);
+    color: var(--color-brand-600);
+  }
+  .highlight-strong {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.12);
+    color: var(--color-brand-700);
+  }
+
+  /* ===================== Role Badges ===================== */
+  .role-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+  }
+
+  .role-superadmin {
+    background-color: oklch(0.95 0.04 var(--brand-hue));
+    color: oklch(0.50 0.18 var(--brand-hue));
+    border-color: oklch(0.85 0.06 var(--brand-hue));
+  }
+
+  .role-admin {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.10);
+    color: var(--color-brand-600);
+    border-color: oklch(0.65 0.24 var(--brand-hue) / 0.20);
+  }
+
+  .role-editor {
+    background-color: oklch(0.60 0.16 150 / 0.10);
+    color: var(--color-success-600);
+    border-color: oklch(0.60 0.16 150 / 0.20);
+  }
+
+  .role-user {
+    background-color: var(--surface-inset);
+    color: var(--text-secondary);
+    border-color: var(--border-primary);
+  }
+}
+
+/* ===================== Dark mode overrides ===================== */
+html.dark {
+
+  /* Badges: solid colors, white text */
+  .badge-published {
+    background-color: var(--color-success-500);
+    color: var(--color-white);
+    border-color: transparent;
+  }
+
+  .badge-draft {
+    background-color: var(--color-gray-600);
+    color: var(--color-white);
+    border-color: transparent;
+  }
+
+  .badge-scheduled {
+    background-color: var(--color-brand-500);
+    color: var(--color-white);
+    border-color: transparent;
+  }
+
+  .badge-trashed {
+    background-color: var(--color-danger-500);
+    color: var(--color-white);
+    border-color: transparent;
+  }
+
+  .status-tab.active {
+    color: var(--color-brand-400);
+    border-bottom-color: var(--color-brand-400);
+  }
+
+  .status-tab.active .status-tab-count {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.15);
+    color: var(--color-brand-400);
+  }
+
+  .pagination-btn.active {
+    background: var(--gradient-brand);
+    border-color: transparent;
+  }
+
+  .role-superadmin {
+    background-color: oklch(0.25 0.05 var(--brand-hue));
+    color: oklch(0.80 0.15 var(--brand-hue));
+    border-color: oklch(0.35 0.08 var(--brand-hue));
+  }
+
+  .role-admin {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.15);
+    color: var(--color-brand-400);
+    border-color: oklch(0.65 0.24 var(--brand-hue) / 0.25);
+  }
+
+  .role-editor {
+    background-color: oklch(0.60 0.16 150 / 0.15);
+    color: var(--color-success-500);
+    border-color: oklch(0.60 0.16 150 / 0.25);
+  }
+
+  /* Solid row colors — LIGHTER than card bg (0.27), matching white-tint pattern */
+  .tr:hover {
+    background-color: oklch(0.30 0.02 260);
+  }
+
+  .action-btn:hover {
+    background-color: oklch(1 0 0 / 0.08);
+  }
+
+  .action-btn-danger:hover {
+    background-color: oklch(0.60 0.19 25 / 0.15);
+  }
+
+  .pagination-btn:hover:not(:disabled) {
+    background-color: oklch(1 0 0 / 0.08);
+  }
+
+  .td,
+  .td-primary {
+    border-bottom-color: oklch(1 0 0 / 0.06);
+  }
+
+  /* Sticky actions: solid bg so content doesn't show through */
+  .th-actions {
+    background-color: var(--surface-inset);
+    border-left: 1px solid oklch(1 0 0 / 0.06);
+  }
+
+  .td-actions {
+    background-color: var(--color-gray-800);
+    border-bottom-color: oklch(1 0 0 / 0.06);
+    border-left: 1px solid oklch(1 0 0 / 0.06);
+  }
+
+  /* Odd rows hover — action cell matches row */
+  .tr:hover .td-actions {
+    background-color: oklch(0.30 0.02 260);
+  }
+
+  /* Even row striping — solid, slightly lighter than card (≈ white 2% on 0.27) */
+  .tr:nth-child(even) {
+    background-color: oklch(0.29 0.02 260);
+  }
+
+  .tr:nth-child(even) .td-actions {
+    background-color: oklch(0.29 0.02 260);
+  }
+
+  /* Even row hover — same as odd hover */
+  .tr:nth-child(even):hover {
+    background-color: oklch(0.30 0.02 260);
+  }
+
+  .tr:nth-child(even):hover .td-actions {
+    background-color: oklch(0.30 0.02 260);
+  }
+
+  /* Form inputs: lighter than cards */
+  .search-input,
+  .filter-select {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+
+  .input,
+  .select,
+  .textarea {
+    background-color: var(--surface-inset);
+    border-color: var(--color-gray-600);
+  }
+
+  .input-sm {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+  }
+
+  .filter-input {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+    color-scheme: dark;
+  }
+
+  .filter-input:focus {
+    border-color: var(--color-brand-500);
+  }
+
+  .highlight {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.12);
+    color: var(--color-brand-400);
+  }
+  .highlight-strong {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.18);
+    color: var(--color-brand-400);
+  }
+
+  /* Autofill override moved to tokens.css (shared across admin + frontend) */
+}

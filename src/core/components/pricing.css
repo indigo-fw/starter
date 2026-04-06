@@ -1,0 +1,24 @@
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* ===================== Pricing ===================== */
+  .pricing-card {
+    background: var(--surface-primary);
+  }
+
+  .pricing-card-highlighted {
+    background: var(--surface-primary);
+  }
+
+  .pricing-toggle {
+    cursor: pointer;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary {
+    list-style: none;
+  }
+}

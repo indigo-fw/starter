@@ -1,0 +1,121 @@
+{
+  "rate_limiting": {
+    "phase": "http_ratelimit",
+    "description": "Indigo rate limiting rules",
+    "rules": [
+      {
+        "description": "Brute force protection — /dashboard/login",
+        "expression": "(http.request.uri.path eq \"/dashboard/login\" and http.request.method eq \"POST\")",
+        "action": "block",
+        "ratelimit": {
+          "characteristics": ["ip.src"],
+          "period": 10,
+          "requests_per_period": 5,
+          "mitigation_timeout": 60
+        }
+      },
+      {
+        "description": "Registration abuse — /dashboard/register",
+        "expression": "(http.request.uri.path eq \"/dashboard/register\" and http.request.method eq \"POST\")",
+        "action": "block",
+        "ratelimit": {
+          "characteristics": ["ip.src"],
+          "period": 60,
+          "requests_per_period": 3,
+          "mitigation_timeout": 120
+        }
+      },
+      {
+        "description": "Password reset flood — /dashboard/forgot-password",
+        "expression": "(http.request.uri.path eq \"/dashboard/forgot-password\" and http.request.method eq \"POST\")",
+        "action": "block",
+        "ratelimit": {
+          "characteristics": ["ip.src"],
+          "period": 60,
+          "requests_per_period": 3,
+          "mitigation_timeout": 120
+        }
+      },
+      {
+        "description": "Better Auth endpoint protection",
+        "expression": "(starts_with(http.request.uri.path, \"/api/auth/\"))",
+        "action": "block",
+        "ratelimit": {
+          "characteristics": ["ip.src"],
+          "period": 60,
+          "requests_per_period": 10,
+          "mitigation_timeout": 60
+        }
+      },
+      {
+        "description": "Upload abuse protection",
+        "expression": "(http.request.uri.path eq \"/api/upload\" and http.request.method eq \"POST\")",
+        "action": "block",
+        "ratelimit": {
+          "characteristics": ["ip.src"],
+          "period": 60,
+          "requests_per_period": 20,
+          "mitigation_timeout": 60
+        }
+      },
+      {
+        "description": "Form spam protection",
+        "expression": "(http.request.uri.path matches \"^/api/forms/.*/submit$\" and http.request.method eq \"POST\")",
+        "action": "block",
+        "ratelimit": {
+          "characteristics": ["ip.src"],
+          "period": 60,
+          "requests_per_period": 5,
+          "mitigation_timeout": 120
+        }
+      }
+    ]
+  },
+  "waf_custom": {
+    "phase": "http_request_firewall_custom",
+    "description": "Indigo WAF custom rules",
+    "rules": [
+      {
+        "description": "Block known bots on /dashboard/*",
+        "expression": "(starts_with(http.request.uri.path, \"/dashboard/\") and (http.user_agent contains \"bot\" or http.user_agent contains \"crawler\" or http.user_agent contains \"spider\" or http.user_agent contains \"scraper\" or http.user_agent contains \"curl\" or http.user_agent contains \"wget\"))",
+        "action": "block"
+      },
+      {
+        "description": "Block empty User-Agent on /api/*",
+        "expression": "(starts_with(http.request.uri.path, \"/api/\") and http.user_agent eq \"\")",
+        "action": "block"
+      },
+      {
+        "description": "JS Challenge suspicious login traffic",
+        "expression": "(http.request.uri.path eq \"/dashboard/login\" and http.request.method eq \"POST\" and not ip.geoip.country in {\"US\" \"GB\" \"DE\" \"FR\" \"ES\" \"NL\" \"CZ\" \"SK\" \"AT\" \"CH\" \"PL\"})",
+        "action": "js_challenge"
+      }
+    ]
+  },
+  "cache": {
+    "description": "Indigo cache rules",
+    "rules": [
+      {
+        "description": "Cache uploaded files for 30 days",
+        "expression": "(starts_with(http.request.uri.path, \"/uploads/\"))",
+        "action": {
+          "edge_ttl": 2592000,
+          "browser_ttl": 2592000
+        }
+      },
+      {
+        "description": "Cache static assets for 1 year",
+        "expression": "(http.request.uri.path.extension in {\"js\" \"css\" \"ico\" \"woff2\" \"woff\" \"ttf\" \"svg\" \"png\" \"jpg\" \"jpeg\" \"gif\" \"webp\" \"avif\"})",
+        "action": {
+          "edge_ttl": 31536000,
+          "browser_ttl": 31536000
+        }
+      },
+      {
+        "description": "Bypass cache for API and dashboard",
+        "expression": "(starts_with(http.request.uri.path, \"/api/\") or starts_with(http.request.uri.path, \"/dashboard/\"))",
+        "action": "bypass"
+      }
+    ]
+  }
+}

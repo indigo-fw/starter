@@ -1,0 +1,24 @@
+@layer theme, base, components, utilities;
+
+/*
+ * Admin Semantic Overrides — rarely needs editing
+ *
+ * Base defaults live in tokens.css (loaded globally via globals.css).
+ * Anything not listed here inherits from those defaults.
+ * Use plain :root / html.dark selectors for any overrides.
+ *
+ * Example:
+ *   :root {
+ *     --surface-sidebar: oklch(0.95 0.01 260);
+ *   }
+ *   html.dark {
+ *     --surface-sidebar: oklch(0.18 0.02 260);
+ *   }
+ */
+
+:root {
+  /* Dashboard content area max-width (centered).
+   * Override per-section via data-section attribute:
+   *   .dash-container[data-section~="media"] { --content-max-width: 100%; } */
+  --content-max-width: 80rem;
+}

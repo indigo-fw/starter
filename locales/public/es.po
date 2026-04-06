@@ -1,0 +1,454 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: indigo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-05T08:52:44.685Z\n"
+"PO-Revision-Date: 2026-04-05T08:52:44.685Z\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/app/(public)/account/page.tsx:23
+msgid "Welcome"
+msgstr "Bienvenido"
+
+#: src/app/(public)/account/page.tsx:23
+msgid "there"
+msgstr "allí"
+
+#: src/app/(public)/account/page.tsx:31
+msgid "Account Overview"
+msgstr "Resumen de la cuenta"
+
+#: src/app/(public)/account/page.tsx:51
+msgid "Profile Settings"
+msgstr "Configuración del perfil"
+
+#: src/app/(public)/account/page.tsx:52
+msgid "Update your name and profile information."
+msgstr "Actualiza tu nombre y la información de tu perfil."
+
+#: src/app/(public)/account/page.tsx:55
+#: src/components/public/UserMenu.tsx:112
+msgid "Security"
+msgstr "Seguridad"
+
+#: src/app/(public)/account/page.tsx:56
+msgid "Change your password and manage sessions."
+msgstr "Cambia tu contraseña y gestiona tus sesiones."
+
+#: src/app/(public)/account/page.tsx:59
+#: src/components/public/UserMenu.tsx:120
+msgid "Billing"
+msgstr "Facturación"
+
+#: src/app/(public)/account/page.tsx:60
+msgid "Manage your subscription and payment methods."
+msgstr "Gestiona tu suscripción y tus métodos de pago."
+
+#: src/app/(public)/account/page.tsx:63
+msgid "Support"
+msgstr "Asistencia"
+
+#: src/app/(public)/account/page.tsx:64
+msgid "View your support tickets or create a new one."
+msgstr "Consulta tus tickets de asistencia o crea uno nuevo."
+
+#: src/app/(public)/account/support/page.tsx:14
+#: src/app/(public)/account/support/[id]/page.tsx:27
+msgctxt "General"
+msgid "Open"
+msgstr "Abrir"
+
+#: src/app/(public)/account/support/page.tsx:15
+#: src/app/(public)/account/support/[id]/page.tsx:28
+msgctxt "General"
+msgid "Awaiting You"
+msgstr "Te esperamos"
+
+#: src/app/(public)/account/support/page.tsx:16
+#: src/app/(public)/account/support/[id]/page.tsx:29
+msgctxt "General"
+msgid "Awaiting Staff"
+msgstr "A la espera del personal"
+
+#: src/app/(public)/account/support/page.tsx:17
+#: src/app/(public)/account/support/[id]/page.tsx:30
+msgctxt "General"
+msgid "Resolved"
+msgstr "Resuelto"
+
+#: src/app/(public)/account/support/page.tsx:18
+#: src/app/(public)/account/support/[id]/page.tsx:31
+msgctxt "General"
+msgid "Closed"
+msgstr "Cerrado"
+
+#: src/app/(public)/account/support/page.tsx:30
+msgctxt "General"
+msgid "Low"
+msgstr "Bajo"
+
+#: src/app/(public)/account/support/page.tsx:31
+msgctxt "General"
+msgid "Normal"
+msgstr "Normal"
+
+#: src/app/(public)/account/support/page.tsx:32
+msgctxt "General"
+msgid "High"
+msgstr "Alto"
+
+#: src/app/(public)/account/support/page.tsx:33
+msgctxt "General"
+msgid "Urgent"
+msgstr "Urgente"
+
+#: src/app/(public)/blog/page.tsx:54
+#: src/app/(public)/layout.tsx:87
+#: src/app/(public)/layout.tsx:137
+#: src/app/(public)/layout.tsx:214
+#: src/app/(showcase)/layout.tsx:53
+#: src/app/(showcase)/layout.tsx:73
+msgid "Blog"
+msgstr "Blog"
+
+#: src/app/(public)/blog/page.tsx:78
+#: src/app/(public)/search/page.tsx:183
+msgid "Previous"
+msgstr "Anterior"
+
+#: src/app/(public)/blog/page.tsx:82
+#: src/app/(public)/search/page.tsx:187
+msgid "Page {page} of {totalPages}"
+msgstr "Página {page} de {totalPages}"
+
+#: src/app/(public)/blog/page.tsx:89
+#: src/app/(public)/search/page.tsx:194
+msgid "Next"
+msgstr "Siguiente"
+
+#: src/app/(public)/blog/page.tsx:96
+msgid "No blog posts yet."
+msgstr "Aún no hay entradas en el blog."
+
+#: src/app/(public)/forgot-password/page.tsx:15
+msgid "Forgot Password"
+msgstr "¿Has olvidado tu contraseña?"
+
+#: src/app/(public)/forgot-password/page.tsx:16
+msgid "Enter your email to receive a reset link."
+msgstr "Introduce tu correo electrónico para recibir un enlace de restablecimiento."
+
+#: src/app/(public)/layout.tsx:32
+msgctxt "General"
+msgid "This page is available in {language}"
+msgstr "This page is available in {language}"
+
+#: src/app/(public)/layout.tsx:92
+#: src/app/(public)/layout.tsx:215
+#: src/app/(public)/portfolio/page.tsx:28
+#: src/app/(showcase)/layout.tsx:54
+#: src/app/(showcase)/layout.tsx:76
+msgid "Portfolio"
+msgstr "Portafolio"
+
+#: src/app/(public)/layout.tsx:93
+#: src/app/(public)/layout.tsx:149
+#: src/app/(public)/layout.tsx:216
+msgid "Showcase"
+msgstr "Vitrina"
+
+#: src/app/(public)/layout.tsx:94
+#: src/app/(public)/layout.tsx:158
+#: src/app/(public)/layout.tsx:217
+#: src/app/(public)/search/page.tsx:127
+#: src/app/(public)/search/page.tsx:143
+#: src/app/(showcase)/showcase/search/page.tsx:66
+#: src/components/public/BlogSidebar.tsx:78
+msgid "Search"
+msgstr "Buscar"
+
+#: src/app/(public)/layout.tsx:119
+msgid "Blog RSS"
+msgstr "RSS del blog"
+
+#: src/app/(public)/layout.tsx:198
+#: src/app/(public)/page.tsx:148
+#: src/components/public/BlogSidebar.tsx:92
+msgid "Categories"
+msgstr "Categorías"
+
+#: src/app/(public)/layout.tsx:213
+msgid "Quick Links"
+msgstr "Enlaces rápidos"
+
+#: src/app/(public)/layout.tsx:222
+msgid "More"
+msgstr "Más"
+
+#: src/app/(public)/layout.tsx:225
+msgid "RSS Feed"
+msgstr "Canal RSS"
+
+#: src/app/(public)/layout.tsx:227
+msgid "Admin"
+msgstr "Admin"
+
+#: src/app/(public)/layout.tsx:233
+msgid "Powered by Indigo"
+msgstr "Desarrollado con Indigo"
+
+#: src/app/(public)/login/page.tsx:15
+#: src/components/public/AuthDialogs.tsx:24
+#: src/components/public/UserMenu.tsx:40
+msgid "Sign In"
+msgstr "Iniciar sesión"
+
+#: src/app/(public)/login/page.tsx:16
+msgid "Welcome back! Sign in to your account."
+msgstr "¡Bienvenido de nuevo! Inicia sesión en tu cuenta."
+
+#: src/app/(public)/page.tsx:83
+msgid "Read the Blog"
+msgstr "Lee el blog"
+
+#: src/app/(public)/page.tsx:89
+msgid "View Portfolio"
+msgstr "Ver portfolio"
+
+#: src/app/(public)/page.tsx:100
+msgid "Recent Posts"
+msgstr "Publicaciones recientes"
+
+#: src/app/(public)/page.tsx:105
+msgid "View all"
+msgstr "Ver todo"
+
+#: src/app/(public)/page.tsx:168
+msgid "Popular Tags"
+msgstr "Etiquetas populares"
+
+#: src/app/(public)/portfolio/page.tsx:31
+msgid "Browse our projects and case studies."
+msgstr "Echa un vistazo a nuestros proyectos y casos prácticos."
+
+#: src/app/(public)/portfolio/page.tsx:86
+msgid "No portfolio items yet."
+msgstr "Aún no hay elementos en el portafolio."
+
+#: src/app/(public)/pricing/page.tsx:20
+msgid "Simple, transparent pricing"
+msgstr "Precios sencillos y transparentes"
+
+#: src/app/(public)/pricing/page.tsx:22
+msgid "Choose the plan that fits your team. All plans include a 14-day free trial."
+msgstr "Elige el plan que mejor se adapte a tu equipo. Todos los planes incluyen una prueba gratuita de 14 días."
+
+#: src/app/(public)/pricing/page.tsx:30
+msgid "Frequently asked questions"
+msgstr "Preguntas frecuentes"
+
+#: src/app/(public)/register/page.tsx:17
+msgid "Registration Closed"
+msgstr "El plazo de inscripción ha finalizado"
+
+#: src/app/(public)/register/page.tsx:18
+#: src/components/public/AuthDialogs.tsx:65
+msgid "Registration is currently not available. Please contact us for access."
+msgstr "El registro no está disponible en este momento. Ponte en contacto con nosotros para obtener acceso."
+
+#: src/app/(public)/register/page.tsx:26
+#: src/components/public/AuthDialogs.tsx:53
+msgid "Create Account"
+msgstr "Crear cuenta"
+
+#: src/app/(public)/register/page.tsx:27
+msgid "Start your journey with a free account."
+msgstr "Empieza tu aventura con una cuenta gratuita."
+
+#: src/app/(public)/reset-password/page.tsx:15
+msgid "Reset Password"
+msgstr "Restablecer contraseña"
+
+#: src/app/(public)/reset-password/page.tsx:16
+msgid "Enter your new password below."
+msgstr "Introduce tu nueva contraseña a continuación."
+
+#: src/app/(public)/search/page.tsx:135
+msgid "Search content..."
+msgstr "Buscar contenido..."
+
+#: src/app/(public)/search/page.tsx:150
+msgid "1 result for \"{query}\""
+msgid_plural "{total} results for \"{query}\""
+msgstr[0] "1 result for \"{query}\""
+msgstr[1] "{total} results for \"{query}\""
+
+#: src/app/(showcase)/layout.tsx:51
+msgid "Home"
+msgstr "Inicio"
+
+#: src/app/(showcase)/layout.tsx:52
+#: src/app/(showcase)/layout.tsx:70
+msgid "Feed"
+msgstr "Feed"
+
+#: src/app/(showcase)/showcase/search/page.tsx:66
+msgid "Results for \"{query}\""
+msgstr "Resultados para «{query}»"
+
+#: src/app/(showcase)/showcase/search/page.tsx:70
+msgid "No results found for \"{query}\""
+msgstr "No se han encontrado resultados para «{query}»"
+
+#: src/app/(showcase)/showcase/search/page.tsx:96
+msgid "Use the search bar above or press"
+msgstr "Utiliza la barra de búsqueda de arriba o pulsa"
+
+#: src/app/(showcase)/showcase/search/page.tsx:96
+msgid "to search."
+msgstr "para buscar."
+
+#: src/components/public/BlogSidebar.tsx:83
+msgid "Search posts..."
+msgstr "Search posts..."
+
+#: src/components/public/BlogSidebar.tsx:113
+msgid "Tags"
+msgstr "Tags"
+
+#: src/components/public/CommentPanel.tsx:126
+msgid "Reply"
+msgstr "Reply"
+
+#: src/components/public/CommentPanel.tsx:134
+msgid "Delete"
+msgstr "Delete"
+
+#: src/components/public/CommentPanel.tsx:147
+msgid "Reply..."
+msgstr "Reply..."
+
+#: src/components/public/CommentPanel.tsx:168
+msgid "Hide"
+msgstr "Hide"
+
+#: src/components/public/CommentPanel.tsx:168
+msgid "reply"
+msgid_plural "replies"
+msgstr[0] "reply"
+msgstr[1] "replies"
+
+#: src/components/public/CommentPanel.tsx:324
+msgid "Comments"
+msgstr "Comments"
+
+#: src/components/public/CommentPanel.tsx:342
+msgid "No comments yet. Be the first!"
+msgstr "No comments yet. Be the first!"
+
+#: src/components/public/CommentPanel.tsx:373
+msgid "Add a comment..."
+msgstr "Add a comment..."
+
+#: src/components/public/CommentPanel.tsx:392
+msgid "Sign in"
+msgstr "Sign in"
+
+#: src/components/public/CommentPanel.tsx:394
+msgid "to comment"
+msgstr "to comment"
+
+#: src/components/public/ContactForm.tsx:75
+msgid "Network error. Please try again."
+msgstr "Network error. Please try again."
+
+#: src/components/public/ContactForm.tsx:140
+msgid "Select..."
+msgstr "Select..."
+
+#: src/components/public/ContactForm.tsx:217
+msgid "Submitting..."
+msgstr "Submitting..."
+
+#: src/components/public/ContactForm.tsx:220
+msgid "Submit"
+msgstr "Submit"
+
+#: src/components/public/CreateOrgCard.tsx:39
+msgid "Create your organization"
+msgstr "Create your organization"
+
+#: src/components/public/CreateOrgCard.tsx:41
+msgid "Get started by creating an organization. You can invite team members later."
+msgstr "Get started by creating an organization. You can invite team members later."
+
+#: src/components/public/CreateOrgCard.tsx:47
+msgid "Organization name"
+msgstr "Organization name"
+
+#: src/components/public/CreateOrgCard.tsx:54
+msgid "My Company"
+msgstr "My Company"
+
+#: src/components/public/CreateOrgCard.tsx:71
+msgid "Creating..."
+msgstr "Creating..."
+
+#: src/components/public/CreateOrgCard.tsx:71
+msgid "Create Organization"
+msgstr "Create Organization"
+
+#: src/components/public/ExpandableSearch.tsx:75
+msgid "Search (/)"
+msgstr "Search (/)"
+
+#: src/components/public/ExpandableSearch.tsx:94
+#: src/components/public/ExpandableSearch.tsx:114
+msgid "Search..."
+msgstr "Search..."
+
+#: src/components/public/ShowcaseActionBar.tsx:93
+msgid "Sign in to react"
+msgstr "Sign in to react"
+
+#: src/components/public/ShowcaseActionBar.tsx:105
+msgid "Link copied"
+msgstr "Link copied"
+
+#: src/components/public/ShowcaseFeed.tsx:202
+msgid "No showcase items yet."
+msgstr "No showcase items yet."
+
+#: src/components/public/SocialLoginButtons.tsx:30
+msgid "Continue with Google"
+msgstr "Continuar con Google"
+
+#: src/components/public/SocialLoginButtons.tsx:41
+msgid "Continue with Discord"
+msgstr "Continuar en Discord"
+
+#: src/components/public/SubscribeOrTokens.tsx:34
+msgid "Subscribe"
+msgstr "Subscribe"
+
+#: src/components/public/UserMenu.tsx:46
+msgid "Sign Up"
+msgstr "Regístrate"
+
+#: src/components/public/UserMenu.tsx:96
+msgid "Account"
+msgstr "Cuenta"
+
+#: src/components/public/UserMenu.tsx:104
+msgid "Settings"
+msgstr "Configuración"
+
+#: src/components/public/UserMenu.tsx:129
+msgid "Sign Out"
+msgstr "Cerrar sesión"

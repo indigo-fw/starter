@@ -1,0 +1,208 @@
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* ===================== Sidebar ===================== */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .sidebar-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.375rem 0.5rem;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
+  }
+
+  .sidebar-link:hover {
+    background-color: var(--surface-secondary);
+    color: var(--text-primary);
+  }
+
+  .sidebar-count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ===================== Tags ===================== */
+  .tag {
+    display: inline-block;
+    border-radius: 9999px;
+    background-color: var(--color-brand-50);
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-brand-600);
+    text-decoration: none;
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  a.tag:hover {
+    background-color: var(--color-brand-100);
+  }
+
+  /* ===================== Content rendering ===================== */
+
+  /* Public-facing content container */
+  .content {
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3rem 1rem;
+  }
+
+  /* Preview banner for draft content */
+  .preview-banner {
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-warning-50);
+    border: 1px solid var(--color-warning-500);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--color-warning-600);
+  }
+
+  /* Featured image */
+  .featured-image {
+    width: 100%;
+    margin-bottom: 2rem;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    max-height: 400px;
+  }
+
+  /* Page/post header */
+  .title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .date {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  /* Post card in listings */
+  .post-card {
+    border-bottom: 1px solid var(--border-secondary);
+    padding-bottom: 1.5rem;
+  }
+
+  .post-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition-property: color;
+    transition-duration: var(--duration-fast);
+  }
+
+  .post-card-title:hover {
+    color: var(--color-brand-600);
+  }
+
+  .post-card-excerpt {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+  }
+
+  .post-card-meta {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    align-items: center;
+  }
+
+  .pagination-btn {
+    border-radius: var(--radius-md);
+    background-color: var(--surface-secondary);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    transition-property: background-color;
+    transition-duration: var(--duration-fast);
+  }
+
+  .pagination-btn:hover {
+    background-color: var(--surface-elevated);
+  }
+
+  .pagination-info {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+}
+
+/* ===================== Dark Mode ===================== */
+html.dark {
+  /* Autofill override moved to tokens.css (shared across admin + frontend) */
+
+  .tag {
+    background-color: oklch(0.65 0.17 var(--brand-hue) / 0.12);
+    color: var(--color-brand-400);
+  }
+
+  a.tag:hover {
+    background-color: oklch(0.65 0.17 var(--brand-hue) / 0.18);
+  }
+
+  .sidebar-link:hover {
+    background-color: oklch(1 0 0 / 0.06);
+  }
+
+  .post-card {
+    border-bottom-color: oklch(1 0 0 / 0.06);
+  }
+
+  .post-card-title:hover {
+    color: var(--color-brand-400);
+  }
+
+  .pagination-btn {
+    background-color: var(--color-gray-700);
+  }
+
+  .pagination-btn:hover {
+    background-color: var(--color-gray-600);
+  }
+
+  .preview-banner {
+    background-color: oklch(0.75 0.16 65 / 0.15);
+    border-color: var(--color-warning-600);
+    color: var(--color-warning-500);
+  }
+}

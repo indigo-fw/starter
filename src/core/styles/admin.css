@@ -1,0 +1,817 @@
+@layer theme, base, components, utilities;
+
+@import "./tokens-admin.css";
+@import "./admin-table.css";
+
+/*
+ * Admin Panel — Component Classes
+ * Linear-inspired design: tinted neutrals, subtle elevation, clean typography.
+ * All classes use design tokens from tokens.css.
+ */
+
+:root {
+  /* Admin chart colors */
+  --admin-chart-info: #2196f3;
+  --admin-chart-success: #4caf50;
+  --admin-chart-warning: #ff9800;
+  --admin-chart-danger: #ef4444;
+  --admin-chart-grid: oklch(0.35 0.008 260);
+  --admin-chart-axis: oklch(0.75 0.005 260);
+  --admin-chart-tooltip-bg: oklch(0.22 0.01 260);
+  --admin-chart-tooltip-border: oklch(0.35 0.008 260);
+
+  /* Multi-series palette */
+  --admin-chart-series-1: #3b82f6;
+  --admin-chart-series-2: #10b981;
+  --admin-chart-series-3: #f59e0b;
+  --admin-chart-series-4: #8b5cf6;
+  --admin-chart-series-5: #ef4444;
+  --admin-chart-series-6: #06b6d4;
+  --admin-chart-series-7: #84cc16;
+  --admin-chart-series-8: #f97316;
+}
+
+@layer components {
+  /* ===================== Page Layout ===================== */
+
+  /*
+   * Universal page layout classes.
+   *
+   * Structure (semantic HTML):
+   *   .dash-container                    ← full width, data-section (div)
+   *     <header class="dash-header">     ← sticky, full width bg, scroll-driven fade
+   *       .dash-toolbar                  ← centered flex row (max-width, fixed height)
+   *     <main class="dash-main">         ← content slot (no constraints)
+   *       .dash-inner                    ← centered content (max-width, padding)
+   *     <footer class="dash-footer">     ← sticky bottom, full width bg
+   *       .dash-toolbar                  ← centered flex row (reused)
+   */
+
+  .dash-container {
+    /* no constraints — full width of <main> */
+  }
+
+  /* Centered content block — max-width + padding. Used inside main, header, or footer. */
+  .dash-inner {
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block: 1.5rem;
+  }
+
+  /* No styles — semantic slot only. */
+  /* .dash-main { */
+  /* intentionally empty */
+  /* } */
+
+  /* Sticky header — full-width, scroll-driven background fade. */
+  .dash-header {
+    margin-top: 1rem;
+    position: sticky;
+    top: 3rem;
+    z-index: 30;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    animation: dash-header-fade linear both;
+    animation-timeline: scroll();
+    animation-range: 0px 80px;
+  }
+
+  @media (min-width: 80rem) {
+    .dash-header {
+      top: 0;
+    }
+  }
+
+  @keyframes dash-header-fade {
+    from {
+      background-color: transparent;
+      border-bottom-color: transparent;
+    }
+    to {
+      background-color: var(--surface-secondary);
+      border-bottom-color: var(--border-primary);
+    }
+  }
+
+  /* Centered toolbar — fixed height, flex row. Used inside header and footer. */
+  .dash-toolbar {
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Sticky footer — full-width, sticks to bottom. */
+  .dash-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 30;
+    border-top: 1px solid var(--border-primary);
+    background-color: var(--surface-secondary);
+  }
+
+  .dash-footer .dash-toolbar {
+    height: 3rem;
+  }
+
+  /*
+   * Per-section width overrides — data-section holds space-separated tokens
+   * auto-derived from the URL. Use [attr~="token"] to match any token.
+   *
+   * Mapping:
+   *   /dashboard                       → "home"
+   *   /dashboard/cms/pages             → "cms pages"
+   *   /dashboard/cms/pages/new         → "cms pages new"
+   *   /dashboard/cms/blog              → "cms blog"
+   *   /dashboard/media                 → "media"
+   *   /dashboard/users                 → "users"
+   *   /dashboard/settings/billing      → "settings billing"
+   *
+   * Selector examples:
+   *   .dash-container[data-section~="cms"]    { --content-max-width: 90rem; }
+   *   .dash-container[data-section~="media"]  { --content-max-width: 100%; }
+   */
+
+  /* ===================== Global button cursor ===================== */
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  /* ===================== Cards ===================== */
+  .card {
+    background-color: var(--surface-secondary);
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: box-shadow var(--duration-fast) ease;
+  }
+
+  /* ===================== Widget Header & Stats ===================== */
+  .widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border-secondary);
+    background-color: var(--surface-inset);
+  }
+
+  .stat-grid {
+    display: grid;
+    gap: 0;
+  }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+
+  .stat-row:last-child {
+    border-bottom: none;
+  }
+
+  .stat-label {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+  }
+
+  .stat-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ===================== Checkbox ===================== */
+  .checkbox {
+    width: 0.875rem;
+    height: 0.875rem;
+    border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    background-color: transparent;
+    cursor: pointer;
+    appearance: none;
+    display: grid;
+    place-content: center;
+    transition:
+      background-color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease;
+  }
+
+  .checkbox:checked {
+    background-color: var(--color-brand-500);
+    border-color: var(--color-brand-500);
+  }
+
+  .checkbox:checked::after {
+    content: "";
+    width: 0.375rem;
+    height: 0.25rem;
+    border-left: 2px solid var(--color-white);
+    border-bottom: 2px solid var(--color-white);
+    transform: rotate(-45deg) translateY(-0.5px);
+  }
+
+  /* ===================== Typography ===================== */
+  .h2 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .widget-header .h2 {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  /* ===================== Tables ===================== */
+  .thead {
+    background-color: var(--surface-inset);
+    border-bottom: 1px solid var(--border-primary);
+  }
+
+  .th {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .td {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid oklch(0.93 0.005 260 / 0.4);
+  }
+
+  /* ===================== Sidebar ===================== */
+  .dash-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    transition:
+      color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+
+  .dash-sidebar-link:hover {
+    color: var(--text-primary);
+    background-color: var(--surface-inset);
+  }
+
+  .dash-sidebar-link.active {
+    color: var(--color-brand-700);
+    background: linear-gradient(
+      135deg,
+      oklch(0.65 0.24 var(--brand-hue) / 0.12),
+      oklch(0.55 0.27 var(--accent-hue) / 0.08)
+    );
+    font-weight: 500;
+  }
+
+  /* ===================== Rail (Level 1) ===================== */
+  .dash-rail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--surface-inset);
+    border-right: 1px solid var(--border-primary);
+    z-index: 60;
+  }
+
+  .dash-rail-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin: 8px auto 4px;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-white);
+    background: var(--gradient-brand);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .dash-rail-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    padding: 8px 0;
+    overflow-y: auto;
+  }
+
+  .dash-rail-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition:
+      color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+    flex-shrink: 0;
+  }
+
+  .dash-rail-btn:hover {
+    color: var(--text-primary);
+    background-color: var(--surface-secondary);
+  }
+
+  .dash-rail-btn.active {
+    color: var(--color-brand-700);
+    background: linear-gradient(
+      135deg,
+      oklch(0.65 0.24 var(--brand-hue) / 0.12),
+      oklch(0.55 0.27 var(--accent-hue) / 0.08)
+    );
+  }
+
+  .dash-rail-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 0;
+    border-top: 1px solid var(--border-secondary);
+  }
+
+  /* ===================== Level 2 Panel ===================== */
+  .dash-nav {
+    position: fixed;
+    left: 48px;
+    top: 0;
+    bottom: 0;
+    width: 220px;
+    background-color: var(--surface-secondary);
+    border-right: 1px solid var(--border-primary);
+    z-index: 55;
+    overflow-y: auto;
+    padding: 1rem 0.75rem;
+  }
+
+  .dash-nav.dash-nav-collapsed {
+    width: 48px;
+    padding: 1rem 0.375rem;
+  }
+
+  .dash-nav-collapsed .dash-sidebar-link {
+    justify-content: center;
+    padding: 0.375rem;
+  }
+
+  .dash-nav-title {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 0.5rem 0.75rem 0.375rem;
+  }
+
+  /* ===================== User Popover ===================== */
+  .user-popover {
+    position: absolute;
+    left: calc(100% + 8px);
+    bottom: 4px;
+    width: 220px;
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 70;
+    padding: 0.5rem;
+  }
+
+  /* ===================== Mobile Top Bar ===================== */
+  /* ===================== Mobile Rail (overlay, not fixed) ===================== */
+  .dash-mobile-rail {
+    display: flex;
+    width: 48px;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--surface-inset);
+    border-right: 1px solid var(--border-primary);
+  }
+
+  /* ===================== Mobile Top Bar ===================== */
+  .dash-mobile-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.75rem;
+    background-color: var(--surface-sidebar);
+    border-bottom: 1px solid var(--border-primary);
+    z-index: 40;
+  }
+
+  /* ===================== Buttons ===================== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) ease,
+      color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease,
+      box-shadow var(--duration-fast) ease,
+      transform var(--duration-fast) ease;
+    user-select: none;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .btn:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  .btn-primary {
+    background: var(--gradient-brand);
+    color: var(--color-white);
+    transition: filter var(--duration-normal) ease;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    filter: brightness(0.88);
+  }
+
+  .btn-secondary {
+    background-color: var(--surface-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--surface-inset);
+  }
+
+  .btn-danger {
+    background-color: var(--color-danger-600);
+    color: var(--color-white);
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background-color: var(--color-danger-700);
+  }
+
+  .btn-success {
+    background-color: var(--color-success-600);
+    color: var(--color-white);
+  }
+
+  .btn-success:hover:not(:disabled) {
+    background-color: var(--color-success-700);
+  }
+
+  .btn-sm {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.8125rem;
+    gap: 0.25rem;
+  }
+
+  /* ===================== Keyboard Shortcut Pill ===================== */
+  .kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.25rem;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-inset);
+    font-family: inherit;
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1;
+  }
+
+  /* ===================== Command Palette ===================== */
+  .command-palette {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+    background: transparent;
+    border: none;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .command-palette::backdrop {
+    background-color: oklch(0 0 0 / 0.5);
+  }
+
+  .command-panel {
+    width: 100%;
+    max-width: 560px;
+    border-radius: var(--radius-xl);
+    background-color: var(--surface-secondary);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-primary);
+  }
+
+  .command-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+
+  .command-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+  }
+
+  .command-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .command-results {
+    max-height: 360px;
+    overflow-y: auto;
+    padding: 0.5rem;
+  }
+
+  .command-group {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .command-result {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  .command-result:hover,
+  .command-result.active {
+    background-color: var(--surface-inset);
+  }
+
+  .command-result.active {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.08);
+  }
+
+  .command-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  /* ===================== Slide-Over Panel (visual only — structural in overlay.css) ===================== */
+
+  .slide-over-panel {
+    background-color: var(--surface-secondary);
+    box-shadow: var(--shadow-lg);
+    border-left: 1px solid var(--border-secondary);
+  }
+
+  .slide-over-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+
+  .slide-over-body {
+    padding: 1.25rem;
+  }
+
+  /* ===================== Dialog (visual only — structural in overlay.css) ===================== */
+
+  .dialog-panel {
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .dialog-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+
+  .dialog-body {
+    padding: 1.25rem;
+  }
+
+  .dialog-footer {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--border-secondary);
+  }
+}
+
+/* ===================== Dark mode overrides ===================== */
+html.dark {
+  /* Cards: solid dark surface */
+  .card {
+    background-color: var(--color-gray-800);
+    border: 1px solid var(--color-gray-700);
+    box-shadow:
+      0 2px 8px oklch(0 0 0 / 0.25),
+      0 0 0 1px oklch(1 0 0 / 0.03);
+  }
+
+  .card:hover {
+    box-shadow:
+      0 4px 12px oklch(0 0 0 / 0.3),
+      0 0 0 1px oklch(1 0 0 / 0.05);
+  }
+
+  .widget-header {
+    background-color: oklch(0.2 0.02 260);
+    border-bottom-color: oklch(1 0 0 / 0.08);
+  }
+
+  .stat-row {
+    border-bottom-color: oklch(1 0 0 / 0.05);
+  }
+
+  /* Rail: surface-inset in dark = oklch(0.20), border = white tint */
+  .dash-rail {
+    background: var(--surface-inset);
+    border-right-color: oklch(1 0 0 / 0.08);
+  }
+
+  /* L2 panel: solid dark (oklch 0.26) */
+  .dash-nav {
+    background: oklch(0.26 0.02 260);
+    border-right-color: oklch(1 0 0 / 0.08);
+    box-shadow: 1px 0 8px oklch(0 0 0 / 0.15);
+  }
+
+  /* Command palette: solid elevated */
+  .command-panel {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    box-shadow: 0 8px 24px oklch(0 0 0 / 0.4);
+  }
+
+  /* Dialog: solid elevated */
+  .dialog-panel {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    box-shadow: 0 8px 24px oklch(0 0 0 / 0.4);
+  }
+
+  .dialog-header {
+    border-bottom-color: oklch(1 0 0 / 0.08);
+  }
+
+  .dialog-footer {
+    border-top-color: oklch(1 0 0 / 0.08);
+  }
+
+  /* Slide-over: solid elevated */
+  .slide-over-panel {
+    background-color: var(--color-gray-800);
+    border-left-color: var(--color-gray-700);
+    box-shadow: -8px 0 24px oklch(0 0 0 / 0.4);
+  }
+
+  .slide-over-header {
+    border-bottom-color: oklch(1 0 0 / 0.08);
+  }
+
+  /* User popover: solid elevated */
+  .user-popover {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    box-shadow: 0 8px 24px oklch(0 0 0 / 0.4);
+  }
+
+  /* Mobile rail + topbar: solid dark with white-tint borders */
+  .dash-mobile-rail {
+    background: var(--surface-inset);
+    border-right-color: oklch(1 0 0 / 0.08);
+  }
+
+  .dash-mobile-topbar {
+    background: var(--surface-inset);
+    border-bottom-color: oklch(1 0 0 / 0.08);
+  }
+
+  .dash-sidebar-link.active {
+    color: var(--color-brand-300);
+    background: linear-gradient(
+      135deg,
+      oklch(0.65 0.24 var(--brand-hue) / 0.22),
+      oklch(0.55 0.27 var(--accent-hue) / 0.22)
+    );
+  }
+
+  .dash-rail-btn.active {
+    color: var(--color-brand-300);
+    background: linear-gradient(
+      135deg,
+      oklch(0.65 0.24 var(--brand-hue) / 0.22),
+      oklch(0.55 0.27 var(--accent-hue) / 0.22)
+    );
+  }
+
+  /* White-tint hovers */
+  .dash-sidebar-link:hover {
+    background-color: oklch(1 0 0 / 0.06);
+  }
+
+  .dash-rail-btn:hover {
+    background-color: oklch(1 0 0 / 0.08);
+  }
+
+  .command-result:hover {
+    background-color: oklch(1 0 0 / 0.06);
+  }
+
+  .btn-secondary {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--color-gray-600);
+  }
+
+  .command-result.active {
+    background-color: oklch(0.65 0.24 var(--brand-hue) / 0.12);
+  }
+}

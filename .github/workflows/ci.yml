@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: "latest"
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run typecheck
+        run: bun run typecheck
+
+      - name: Run tests
+        run: bun test --run
+
+      - name: Run production build
+        env:
+          DATABASE_URL: "postgresql://localhost:5432/test"
+          BETTER_AUTH_SECRET: "ci-test-secret-that-is-at-least-32-chars-long"
+          NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+        run: bun run build

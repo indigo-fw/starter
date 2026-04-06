@@ -1,0 +1,915 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Indigo REST API v1",
+    "version": "1.0.0",
+    "description": "Public REST API for Indigo content delivery. All endpoints require an API key via the X-API-Key header (unless no key is configured in CMS options). Rate limited to 100 requests per minute per IP via Redis sliding window."
+  },
+  "servers": [
+    {
+      "url": "/api/v1",
+      "description": "Relative base path"
+    }
+  ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "paths": {
+    "/posts": {
+      "get": {
+        "operationId": "listPosts",
+        "summary": "List published posts",
+        "description": "Returns a paginated list of published posts (pages and blog posts), ordered by publishedAt descending.",
+        "tags": ["Posts"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (minimum 1).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of items per page (1-100).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Filter by language code (e.g. \"en\", \"de\").",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by post type (1 = page, 2 = blog).",
+            "schema": {
+              "type": "string",
+              "enum": ["1", "2"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of posts.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "Access-Control-Allow-Origin": {
+                "$ref": "#/components/headers/AccessControlAllowOrigin"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data", "meta"],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PostSummary"
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/PaginationMeta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/posts/{slug}": {
+      "get": {
+        "operationId": "getPostBySlug",
+        "summary": "Get a post by slug",
+        "description": "Returns a single published post by its slug. Supports preview mode via a preview token that bypasses the published status check.",
+        "tags": ["Posts"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "URL slug of the post.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Filter by language code.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "preview",
+            "in": "query",
+            "description": "Preview token. When provided, bypasses the published status check and validates against the post's stored preview token.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Single post detail.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "Access-Control-Allow-Origin": {
+                "$ref": "#/components/headers/AccessControlAllowOrigin"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data"],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/PostDetail"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "operationId": "listCategories",
+        "summary": "List published categories",
+        "description": "Returns a paginated list of published categories, ordered by their sort order ascending.",
+        "tags": ["Categories"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (minimum 1).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of items per page (1-100).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Filter by language code.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of categories.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "Access-Control-Allow-Origin": {
+                "$ref": "#/components/headers/AccessControlAllowOrigin"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data", "meta"],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/PaginationMeta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/categories/{slug}": {
+      "get": {
+        "operationId": "getCategoryBySlug",
+        "summary": "Get a category by slug",
+        "description": "Returns a single published category by its slug.",
+        "tags": ["Categories"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "URL slug of the category.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Filter by language code.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Single category detail.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "Access-Control-Allow-Origin": {
+                "$ref": "#/components/headers/AccessControlAllowOrigin"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data"],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/tags": {
+      "get": {
+        "operationId": "listTags",
+        "summary": "List published tags",
+        "description": "Returns a paginated list of published taxonomy terms, ordered by sort order ascending. Can filter by taxonomyId to scope to a specific taxonomy (e.g. \"tag\").",
+        "tags": ["Tags"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (minimum 1).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of items per page (1-100).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Filter by language code.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "taxonomyId",
+            "in": "query",
+            "description": "Filter by taxonomy identifier (e.g. \"tag\").",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of tags/terms.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "Access-Control-Allow-Origin": {
+                "$ref": "#/components/headers/AccessControlAllowOrigin"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data", "meta"],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Tag"
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/PaginationMeta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/menus/{slug}": {
+      "get": {
+        "operationId": "getMenuBySlug",
+        "summary": "Get a menu by slug",
+        "description": "Returns a menu with its items organized as a nested tree structure. Menu items with a parentId are nested under their parent as children.",
+        "tags": ["Menus"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "URL slug of the menu.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Menu with nested item tree.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/CacheControl"
+              },
+              "Access-Control-Allow-Origin": {
+                "$ref": "#/components/headers/AccessControlAllowOrigin"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data"],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Menu"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "X-API-Key",
+        "in": "header",
+        "description": "API key configured in CMS options (key: api.key). If no key is configured on the server, all requests are allowed without authentication."
+      }
+    },
+    "headers": {
+      "CacheControl": {
+        "description": "Cache control directives.",
+        "schema": {
+          "type": "string",
+          "example": "public, s-maxage=60, stale-while-revalidate=300"
+        }
+      },
+      "AccessControlAllowOrigin": {
+        "description": "CORS allow origin.",
+        "schema": {
+          "type": "string",
+          "example": "*"
+        }
+      }
+    },
+    "schemas": {
+      "PostSummary": {
+        "type": "object",
+        "description": "Post object returned in list responses.",
+        "required": ["id", "title", "slug", "content", "type", "lang", "createdAt", "updatedAt"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier."
+          },
+          "title": {
+            "type": "string",
+            "description": "Post title."
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-safe slug."
+          },
+          "content": {
+            "type": "string",
+            "description": "Markdown content body."
+          },
+          "type": {
+            "type": "integer",
+            "description": "Post type discriminator (1 = page, 2 = blog).",
+            "enum": [1, 2]
+          },
+          "lang": {
+            "type": "string",
+            "description": "Language code."
+          },
+          "metaDescription": {
+            "type": ["string", "null"],
+            "description": "SEO meta description."
+          },
+          "seoTitle": {
+            "type": ["string", "null"],
+            "description": "SEO title override."
+          },
+          "featuredImage": {
+            "type": ["string", "null"],
+            "description": "URL of the featured image."
+          },
+          "publishedAt": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Publication timestamp."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp."
+          }
+        }
+      },
+      "PostDetail": {
+        "type": "object",
+        "description": "Post object returned in single-post responses. Includes additional fields not present in the list.",
+        "required": ["id", "title", "slug", "content", "type", "lang", "createdAt", "updatedAt"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier."
+          },
+          "title": {
+            "type": "string",
+            "description": "Post title."
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-safe slug."
+          },
+          "content": {
+            "type": "string",
+            "description": "Markdown content body."
+          },
+          "type": {
+            "type": "integer",
+            "description": "Post type discriminator (1 = page, 2 = blog).",
+            "enum": [1, 2]
+          },
+          "lang": {
+            "type": "string",
+            "description": "Language code."
+          },
+          "metaDescription": {
+            "type": ["string", "null"],
+            "description": "SEO meta description."
+          },
+          "seoTitle": {
+            "type": ["string", "null"],
+            "description": "SEO title override."
+          },
+          "featuredImage": {
+            "type": ["string", "null"],
+            "description": "URL of the featured image."
+          },
+          "featuredImageAlt": {
+            "type": ["string", "null"],
+            "description": "Alt text for the featured image."
+          },
+          "jsonLd": {
+            "type": ["string", "null"],
+            "description": "JSON-LD structured data stored as a JSON string."
+          },
+          "publishedAt": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Publication timestamp."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp."
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "description": "Category object with rich content fields.",
+        "required": ["id", "name", "slug", "lang", "title", "text", "order", "createdAt", "updatedAt"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier."
+          },
+          "name": {
+            "type": "string",
+            "description": "Category display name."
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-safe slug."
+          },
+          "lang": {
+            "type": "string",
+            "description": "Language code."
+          },
+          "title": {
+            "type": "string",
+            "description": "SEO/page title."
+          },
+          "text": {
+            "type": "string",
+            "description": "Rich text content (markdown)."
+          },
+          "icon": {
+            "type": ["string", "null"],
+            "description": "Icon identifier or URL."
+          },
+          "metaDescription": {
+            "type": ["string", "null"],
+            "description": "SEO meta description."
+          },
+          "seoTitle": {
+            "type": ["string", "null"],
+            "description": "SEO title override."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Sort order."
+          },
+          "publishedAt": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Publication timestamp."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp."
+          }
+        }
+      },
+      "Tag": {
+        "type": "object",
+        "description": "Taxonomy term (tag) object.",
+        "required": ["id", "taxonomyId", "name", "slug", "lang", "order", "createdAt"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier."
+          },
+          "taxonomyId": {
+            "type": "string",
+            "description": "Taxonomy identifier (e.g. \"tag\")."
+          },
+          "name": {
+            "type": "string",
+            "description": "Term display name."
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-safe slug."
+          },
+          "lang": {
+            "type": "string",
+            "description": "Language code."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Sort order."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp."
+          },
+          "updatedAt": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Last update timestamp."
+          }
+        }
+      },
+      "Menu": {
+        "type": "object",
+        "description": "Menu with nested item tree.",
+        "required": ["id", "name", "slug", "items"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier."
+          },
+          "name": {
+            "type": "string",
+            "description": "Menu display name."
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-safe slug."
+          },
+          "items": {
+            "type": "array",
+            "description": "Root-level menu items (top of the tree).",
+            "items": {
+              "$ref": "#/components/schemas/MenuItem"
+            }
+          }
+        }
+      },
+      "MenuItem": {
+        "type": "object",
+        "description": "A menu item that may contain nested children.",
+        "required": ["id", "label", "openInNewTab", "order", "children"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier."
+          },
+          "parentId": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "Parent menu item ID (null for root items)."
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label."
+          },
+          "url": {
+            "type": ["string", "null"],
+            "description": "URL (external link or path)."
+          },
+          "contentType": {
+            "type": ["string", "null"],
+            "description": "Linked content type (e.g. \"page\", \"blog\")."
+          },
+          "contentId": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "Linked content item ID."
+          },
+          "openInNewTab": {
+            "type": "boolean",
+            "description": "Whether the link opens in a new tab."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Sort order within the parent."
+          },
+          "children": {
+            "type": "array",
+            "description": "Nested child menu items.",
+            "items": {
+              "$ref": "#/components/schemas/MenuItem"
+            }
+          }
+        }
+      },
+      "PaginationMeta": {
+        "type": "object",
+        "description": "Pagination metadata included in list responses.",
+        "required": ["total", "page", "pageSize", "totalPages"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total number of matching records."
+          },
+          "page": {
+            "type": "integer",
+            "description": "Current page number."
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Items per page."
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages."
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Human-readable error message."
+          }
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "Invalid or missing API key.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "error": "Invalid API key"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource not found.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "error": "Not found"
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "Rate limit exceeded (100 requests per minute per IP).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "error": "Rate limit exceeded"
+            }
+          }
+        }
+      },
+      "InternalError": {
+        "description": "Internal server error.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "error": "Internal server error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Posts",
+      "description": "Pages and blog posts from cms_posts."
+    },
+    {
+      "name": "Categories",
+      "description": "Content categories from cms_categories."
+    },
+    {
+      "name": "Tags",
+      "description": "Taxonomy terms from cms_terms."
+    },
+    {
+      "name": "Menus",
+      "description": "Navigation menus with hierarchical items."
+    }
+  ]
+}

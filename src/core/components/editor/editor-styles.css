@@ -1,0 +1,188 @@
+@layer components {
+  /* ─── Drag Handle ──────────────────────────────────────────────── */
+  .editor-drag-handle {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    cursor: grab;
+    color: var(--text-muted);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s, background-color 0.15s, color 0.15s;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .editor-drag-handle:hover {
+    background-color: var(--surface-secondary);
+    color: var(--text-secondary);
+  }
+
+  .editor-drag-handle:active {
+    cursor: grabbing;
+    background-color: var(--surface-inset);
+  }
+
+  /* ─── Image Resize ─────────────────────────────────────────────── */
+  .image-resizable-selected {
+    position: relative;
+    display: inline-block;
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  .image-resize-handle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: var(--color-brand-500);
+    cursor: col-resize;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+    z-index: 20;
+  }
+
+  .image-resize-handle:hover {
+    opacity: 1;
+  }
+
+  .image-resize-handle-left {
+    left: -4px;
+  }
+
+  .image-resize-handle-right {
+    right: -4px;
+  }
+
+  /* ─── Table Styles ─────────────────────────────────────────────── */
+  .ProseMirror table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    overflow: hidden;
+    table-layout: fixed;
+  }
+
+  .ProseMirror td,
+  .ProseMirror th {
+    border: 1px solid var(--border-primary);
+    padding: 0.5em 0.75em;
+    vertical-align: top;
+    position: relative;
+    min-width: 80px;
+  }
+
+  .ProseMirror th {
+    background-color: var(--surface-secondary);
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .ProseMirror td > *,
+  .ProseMirror th > * {
+    margin: 0;
+  }
+
+  /* Selected cell highlight */
+  .ProseMirror .selectedCell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: oklch(0.65 0.17 var(--brand-hue) / 0.12);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Column resize handle */
+  .ProseMirror .column-resize-handle {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    bottom: -2px;
+    width: 4px;
+    background-color: var(--color-brand-500);
+    pointer-events: none;
+  }
+
+  .ProseMirror.resize-cursor {
+    cursor: col-resize;
+  }
+
+  /* ─── Slash Command Menu ───────────────────────────────────────── */
+  .slash-command-menu {
+    animation: slash-menu-in 0.12s ease-out;
+  }
+
+  @keyframes slash-menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* ─── Bubble Menu ──────────────────────────────────────────────── */
+  .bubble-menu {
+    animation: bubble-in 0.12s ease-out;
+  }
+
+  .table-menu {
+    animation: bubble-in 0.12s ease-out;
+  }
+
+  @keyframes bubble-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ─── AI Assist Menu ───────────────────────────────────────────── */
+  .ai-assist-menu {
+    animation: ai-menu-in 0.15s ease-out;
+  }
+
+  @keyframes ai-menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ─── Live Preview ─────────────────────────────────────────────── */
+  .editor-preview-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    .editor-preview-split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ─── Drop cursor styling ──────────────────────────────────────── */
+  .ProseMirror-dropcursor {
+    color: var(--color-brand-500);
+  }
+}

@@ -1,0 +1,77 @@
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - DATABASE_URL=postgresql://indigo:${POSTGRES_PASSWORD}@postgres:5432/indigo
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+      - REDIS_URL=redis://redis:6379
+      - SERVER_ROLE=all
+      - NODE_ENV=production
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - FROM_EMAIL=${FROM_EMAIL:-}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
+      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:-}
+      - STORAGE_BACKEND=${STORAGE_BACKEND:-filesystem}
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ─── Uncomment to run background workers separately ───────────────────────
+  # worker:
+  #   build: .
+  #   environment:
+  #     - DATABASE_URL=postgresql://indigo:${POSTGRES_PASSWORD}@postgres:5432/indigo
+  #     - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+  #     - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+  #     - REDIS_URL=redis://redis:6379
+  #     - SERVER_ROLE=worker
+  #     - NODE_ENV=production
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #   restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=indigo
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=indigo
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U indigo"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads:

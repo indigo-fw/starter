@@ -1,0 +1,17 @@
+@layer theme, base, components, utilities;
+
+/*
+ * Public Semantic Overrides — edit freely per project
+ *
+ * Base defaults live in tokens.css (loaded globally via globals.css).
+ * Anything not listed here inherits from those defaults.
+ * Uncomment and edit to diverge the frontend from the base.
+ *
+ * Example:
+ *   :root {
+ *     --surface-primary: oklch(0.99 0.005 200);
+ *   }
+ *   html.dark {
+ *     --surface-primary: oklch(0.18 0.02 200);
+ *   }
+ */

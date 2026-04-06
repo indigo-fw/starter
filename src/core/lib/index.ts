@@ -1,0 +1,21 @@
+// Engine lib — shared utilities
+export { slugify, slugifyFilename } from './slug';
+export { htmlToMarkdown, markdownToHtml } from './markdown';
+export { logAudit } from './audit';
+export type { LogAuditParams } from './audit';
+export { dispatchWebhook } from './webhooks';
+export { useBlankTranslations, dataTranslations } from './translations';
+export { parseShortcodes } from './shortcodes-parser';
+export { prepareForEditor, serializeForStorage } from './shortcode-utils';
+export { createQueue, createWorker, getQueues, shutdownAllWorkers } from './queue';
+export { applyRateLimit } from './trpc-rate-limit';
+export { validateApiKey, checkRateLimit as checkApiRateLimit, apiHeaders } from './api-auth';
+export { SEO_OVERRIDE_ROUTES, SEO_OVERRIDE_SLUGS } from './seo-routes';
+export { getGA4Config, runGA4Report } from './ga4';
+export { anonymizeUser, exportUserData } from './gdpr';
+export { localePath } from './locale';
+export { getLocale } from './locale-server';
+export { useWebSocket, useChannel } from './ws-client';
+export { WS_CHANNELS } from './ws-channels';
+export { getStats, invalidateStats, clearStatsCache } from './stats-cache';
+export { withApiRoute, parseApiPagination, paginatedApiResponse } from './api-route';

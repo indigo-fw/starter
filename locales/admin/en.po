@@ -1,0 +1,3657 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: indigo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-05T08:52:44.672Z\n"
+"PO-Revision-Date: 2026-04-05T08:52:44.672Z\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: en\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:49
+msgid "Activity Log"
+msgstr "Activity Log"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:60
+#: src/engine/components/MediaPickerDialog.tsx:239
+msgid "All types"
+msgstr "All types"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:70
+msgid "All actions"
+msgstr "All actions"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:84
+msgid "Filter by user..."
+msgstr "Filter by user..."
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:102
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:244
+#: src/app/dashboard/(panel)/forms/page.tsx:109
+#: src/app/dashboard/(panel)/users/page.tsx:214
+#: src/components/admin/AdminSidebar.tsx:174
+msgid "Search"
+msgstr "Search"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:115
+#: src/engine/components/RecentActivity.tsx:33
+msgid "No activity recorded yet."
+msgstr "No activity recorded yet."
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:121
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:415
+msgid "Time"
+msgstr "Time"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:122
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:416
+msgid "Action"
+msgstr "Action"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:123
+#: src/app/dashboard/(panel)/organizations/page.tsx:399
+#: src/app/dashboard/(panel)/users/page.tsx:228
+#: src/components/admin/AdminSidebar.tsx:192
+msgid "User"
+msgstr "User"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:124
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:266
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:356
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:61
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:327
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:417
+msgid "Type"
+msgstr "Type"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:125
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:418
+msgid "Entity"
+msgstr "Entity"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:157
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:325
+#: src/app/dashboard/(panel)/forms/page.tsx:215
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:232
+#: src/app/dashboard/(panel)/media/page.tsx:309
+#: src/app/dashboard/(panel)/projects/page.tsx:265
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:109
+#: src/app/dashboard/(panel)/settings/import/page.tsx:421
+#: src/app/dashboard/(panel)/settings/support/page.tsx:177
+#: src/app/dashboard/(panel)/settings/support/page.tsx:313
+#: src/app/dashboard/(panel)/users/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:443
+#: src/components/admin/CmsListView.tsx:936
+#: src/engine/components/GA4Widget.tsx:296
+msgid "Page"
+msgstr "Page"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:157
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:325
+#: src/app/dashboard/(panel)/forms/page.tsx:215
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:232
+#: src/app/dashboard/(panel)/media/page.tsx:309
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:163
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+#: src/app/dashboard/(panel)/settings/import/page.tsx:561
+#: src/app/dashboard/(panel)/users/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:443
+#: src/components/admin/CmsListView.tsx:936
+msgid "of"
+msgstr "of"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:25
+msgid "Menu created"
+msgstr "Menu created"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:35
+msgid "Menu deleted"
+msgstr "Menu deleted"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:51
+msgid "Menus"
+msgstr "Menus"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:58
+msgid "New Menu"
+msgstr "New Menu"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:70
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:73
+msgid "Menu name"
+msgstr "Menu name"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:80
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:212
+#: src/app/dashboard/(panel)/organizations/page.tsx:187
+#: src/app/dashboard/(panel)/organizations/page.tsx:225
+#: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
+msgid "Create"
+msgstr "Create"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:87
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:114
+#: src/app/dashboard/(panel)/organizations/page.tsx:228
+#: src/app/dashboard/(panel)/organizations/page.tsx:474
+#: src/app/dashboard/(panel)/projects/page.tsx:151
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:306
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:184
+#: src/app/dashboard/(panel)/users/page.tsx:424
+#: src/engine/components/InternalLinkDialog.tsx:117
+#: src/engine/components/MediaPickerDialog.tsx:510
+#: src/engine/components/PostAttachments.tsx:252
+#: src/engine/components/SeoOverridesDialog.tsx:197
+#: src/engine/components/shortcodes/ShortcodeEditDialog.tsx:92
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:99
+msgid "No menus yet. Create your first one."
+msgstr "No menus yet. Create your first one."
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:105
+#: src/app/dashboard/(panel)/forms/page.tsx:127
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:223
+#: src/app/dashboard/(panel)/organizations/page.tsx:199
+#: src/app/dashboard/(panel)/projects/page.tsx:123
+#: src/app/dashboard/(panel)/projects/page.tsx:189
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:195
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:325
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:173
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:129
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:203
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:267
+#: src/components/admin/CategoryForm.tsx:325
+#: src/components/admin/PortfolioForm.tsx:349
+#: src/components/admin/TermForm.tsx:235
+msgid "Name"
+msgstr "Name"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:106
+#: src/app/dashboard/(panel)/forms/page.tsx:128
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:235
+#: src/app/dashboard/(panel)/organizations/page.tsx:211
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:326
+#: src/app/dashboard/(panel)/settings/import/page.tsx:592
+#: src/components/admin/CategoryForm.tsx:338
+#: src/components/admin/CmsListView.tsx:757
+#: src/components/admin/PortfolioForm.tsx:362
+#: src/components/admin/ShowcaseForm.tsx:331
+#: src/components/admin/TermForm.tsx:248
+#: src/engine/components/SeoOverridesDialog.tsx:135
+msgid "Slug"
+msgstr "Slug"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:120
+#: src/app/dashboard/(panel)/projects/page.tsx:236
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:365
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:231
+#: src/components/admin/CmsListView.tsx:909
+msgid "Edit"
+msgstr "Edit"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:127
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:144
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:356
+#: src/app/dashboard/(panel)/forms/page.tsx:246
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:261
+#: src/app/dashboard/(panel)/media/page.tsx:293
+#: src/app/dashboard/(panel)/media/page.tsx:336
+#: src/app/dashboard/(panel)/notifications/page.tsx:98
+#: src/app/dashboard/(panel)/organizations/page.tsx:514
+#: src/app/dashboard/(panel)/projects/page.tsx:243
+#: src/app/dashboard/(panel)/projects/page.tsx:285
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:374
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:393
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:238
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:255
+#: src/components/admin/CmsListView.tsx:974
+#: src/engine/components/MediaPickerDialog.tsx:490
+#: src/engine/components/MediaPickerDialog.tsx:527
+msgid "Delete"
+msgstr "Delete"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:142
+msgid "Delete menu?"
+msgstr "Delete menu?"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:143
+msgid "\"{name}\" and all its items will be permanently deleted."
+msgstr "\"{name}\" and all its items will be permanently deleted."
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:33
+msgid "Menu updated"
+msgstr "Menu updated"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:59
+msgid "Edit Menu"
+msgstr "Edit Menu"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:81
+msgid "Update Name"
+msgstr "Update Name"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:88
+msgid "Menu Items"
+msgstr "Menu Items"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:50
+msgid "Redirect created"
+msgstr "Redirect created"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:52
+msgid "Chain detected: {chain}"
+msgstr "Chain detected: {chain}"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:68
+msgid "Redirect deleted"
+msgstr "Redirect deleted"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:104
+msgid "Redirects"
+msgstr "Redirects"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:119
+msgid "New Redirect"
+msgstr "New Redirect"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:134
+msgid "Create Redirect"
+msgstr "Create Redirect"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:139
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:264
+msgid "Old Slug"
+msgstr "Old Slug"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:147
+msgid "e.g. old-page-slug"
+msgstr "e.g. old-page-slug"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:154
+msgid "Content Type"
+msgstr "Content Type"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:175
+msgid "Content ID"
+msgstr "Content ID"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:183
+msgid "UUID of target content"
+msgstr "UUID of target content"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:190
+msgid "URL Prefix"
+msgstr "URL Prefix"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:198
+msgid "e.g. / or /blog"
+msgstr "e.g. / or /blog"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:226
+msgid "Search by slug or content type..."
+msgstr "Search by slug or content type..."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:257
+msgid "No redirects found."
+msgstr "No redirects found."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:258
+msgid "No redirects yet."
+msgstr "No redirects yet."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:265
+msgid "Target"
+msgstr "Target"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:267
+msgid "Prefix"
+msgstr "Prefix"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:268
+#: src/app/dashboard/(panel)/forms/page.tsx:132
+#: src/app/dashboard/(panel)/projects/page.tsx:191
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:117
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:174
+#: src/app/dashboard/(panel)/settings/support/page.tsx:121
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:262
+#: src/components/admin/CmsListView.tsx:776
+msgid "Created"
+msgstr "Created"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:309
+msgid "Delete redirect"
+msgstr "Delete redirect"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:326
+#: src/app/dashboard/(panel)/forms/page.tsx:216
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:233
+#: src/app/dashboard/(panel)/media/page.tsx:310
+#: src/app/dashboard/(panel)/users/page.tsx:374
+#: src/components/admin/CmsListView.tsx:937
+msgid "total"
+msgstr "total"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:352
+msgid "Delete redirect?"
+msgstr "Delete redirect?"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:44
+msgid "Form deleted"
+msgstr "Form deleted"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:72
+msgid "Forms"
+msgstr "Forms"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:77
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:197
+msgid "New Form"
+msgstr "New Form"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:91
+msgid "Search forms..."
+msgstr "Search forms..."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:121
+msgid "No forms found."
+msgstr "No forms found."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:121
+msgid "No forms yet. Create your first form."
+msgstr "No forms yet. Create your first form."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:129
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:292
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:38
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:47
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:175
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
+#: src/app/dashboard/(panel)/users/page.tsx:292
+msgid "Active"
+msgstr "Active"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:130
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:304
+msgid "Fields"
+msgstr "Fields"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:131
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:133
+msgid "Submissions"
+msgstr "Submissions"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:160
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:201
+msgid "Yes"
+msgstr "Yes"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:165
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:202
+msgid "No"
+msgstr "No"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:188
+msgid "Edit form"
+msgstr "Edit form"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:197
+msgid "Delete form"
+msgstr "Delete form"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:242
+msgid "Delete form?"
+msgstr "Delete form?"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:99
+msgid "Form created"
+msgstr "Form created"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:107
+msgid "Form saved"
+msgstr "Form saved"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:154
+msgid "Form name is required"
+msgstr "Form name is required"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:160
+msgid "At least one field with a label is required"
+msgstr "At least one field with a label is required"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:197
+msgid "Edit Form"
+msgstr "Edit Form"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:211
+#: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:145
+#: src/app/dashboard/(panel)/settings/page.tsx:212
+#: src/components/admin/CategoryForm.tsx:300
+#: src/components/admin/PortfolioForm.tsx:324
+#: src/components/admin/PostForm.tsx:847
+#: src/components/admin/ShowcaseForm.tsx:293
+#: src/components/admin/TermForm.tsx:212
+#: src/engine/components/PostAttachments.tsx:264
+#: src/engine/components/shortcodes/ShortcodeEditDialog.tsx:95
+msgid "Save"
+msgstr "Save"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:219
+msgid "Form Settings"
+msgstr "Form Settings"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:229
+msgid "e.g. Contact Form"
+msgstr "e.g. Contact Form"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:241
+msgid "Auto-generated from name"
+msgstr "Auto-generated from name"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:247
+msgid "Recipient Email"
+msgstr "Recipient Email"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:253
+msgid "Notifications sent to this email"
+msgstr "Notifications sent to this email"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:259
+msgid "Success Message"
+msgstr "Success Message"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:265
+msgid "Thank you!"
+msgstr "Thank you!"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:271
+msgid "Honeypot Field Name"
+msgstr "Honeypot Field Name"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:277
+msgid "e.g. website (leave empty to disable)"
+msgstr "e.g. website (leave empty to disable)"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:281
+msgid "Hidden field to catch bots. Submissions with this field filled are rejected."
+msgstr "Hidden field to catch bots. Submissions with this field filled are rejected."
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:295
+msgid "Inactive forms reject submissions"
+msgstr "Inactive forms reject submissions"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:311
+msgid "Add Field"
+msgstr "Add Field"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:333
+msgid "Move up"
+msgstr "Move up"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:345
+msgid "Move down"
+msgstr "Move down"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:374
+#: src/engine/components/MenuBuilder.tsx:96
+msgid "Label"
+msgstr "Label"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:382
+msgid "Field label"
+msgstr "Field label"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:388
+msgid "Placeholder"
+msgstr "Placeholder"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:396
+msgid "Placeholder text"
+msgstr "Placeholder text"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:406
+msgid "Options (comma-separated)"
+msgstr "Options (comma-separated)"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:414
+msgid "Option 1, Option 2, Option 3"
+msgstr "Option 1, Option 2, Option 3"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:431
+msgid "Required"
+msgstr "Required"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:445
+msgid "Remove field"
+msgstr "Remove field"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:456
+msgid "No fields yet. Click \"Add Field\" to start building your form."
+msgstr "No fields yet. Click \"Add Field\" to start building your form."
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:464
+msgid "Embed"
+msgstr "Embed"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:466
+msgid "Use this component to embed the form on any page:"
+msgstr "Use this component to embed the form on any page:"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:472
+msgid "API endpoint for direct submissions:"
+msgstr "API endpoint for direct submissions:"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:509
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:111
+msgid "Form not found."
+msgstr "Form not found."
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:41
+msgid "Submission deleted"
+msgstr "Submission deleted"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:70
+msgid "Export downloaded"
+msgstr "Export downloaded"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:72
+#: src/components/admin/CmsListView.tsx:335
+#: src/components/admin/CmsListView.tsx:368
+msgid "Export failed"
+msgstr "Export failed"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:144
+msgid "CSV"
+msgstr "CSV"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:151
+msgid "JSON"
+msgstr "JSON"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:165
+msgid "No submissions yet."
+msgstr "No submissions yet."
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:172
+msgid "Submitted"
+msgstr "Submitted"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:178
+msgid "IP"
+msgstr "IP"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:214
+msgid "Delete submission"
+msgstr "Delete submission"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:259
+msgid "Delete submission?"
+msgstr "Delete submission?"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:260
+msgid "Delete this submission? This cannot be undone."
+msgstr "Delete this submission? This cannot be undone."
+
+#: src/app/dashboard/(panel)/media/page.tsx:65
+msgid "File deleted"
+msgstr "File deleted"
+
+#: src/app/dashboard/(panel)/media/page.tsx:92
+msgid "Upload failed"
+msgstr "Upload failed"
+
+#: src/app/dashboard/(panel)/media/page.tsx:108
+#: src/engine/components/MediaPickerDialog.tsx:150
+msgid "Failed to upload {name}"
+msgstr "Failed to upload {name}"
+
+#: src/app/dashboard/(panel)/media/page.tsx:113
+msgid "1 file uploaded"
+msgid_plural "{count} files uploaded"
+msgstr[0] "1 file uploaded"
+msgstr[1] "{count} files uploaded"
+
+#: src/app/dashboard/(panel)/media/page.tsx:162
+#: src/components/admin/QuickActionsWidget.tsx:42
+#: src/engine/components/MediaPickerDialog.tsx:215
+msgid "Media Library"
+msgstr "Media Library"
+
+#: src/app/dashboard/(panel)/media/page.tsx:182
+msgid "Uploading..."
+msgstr "Uploading..."
+
+#: src/app/dashboard/(panel)/media/page.tsx:182
+#: src/engine/components/MediaPickerDialog.tsx:283
+#: src/engine/components/PostAttachments.tsx:153
+msgid "Upload"
+msgstr "Upload"
+
+#: src/app/dashboard/(panel)/media/page.tsx:218
+msgid "No media files yet."
+msgstr "No media files yet."
+
+#: src/app/dashboard/(panel)/media/page.tsx:224
+msgid "Upload your first file"
+msgstr "Upload your first file"
+
+#: src/app/dashboard/(panel)/media/page.tsx:277
+msgid "Copy URL"
+msgstr "Copy URL"
+
+#: src/app/dashboard/(panel)/media/page.tsx:334
+msgid "Delete file?"
+msgstr "Delete file?"
+
+#: src/app/dashboard/(panel)/media/page.tsx:335
+msgid "\"{name}\" will be deleted."
+msgstr "\"{name}\" will be deleted."
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:40
+#: src/engine/components/NotificationBell.tsx:61
+#: src/engine/components/NotificationBell.tsx:74
+msgid "Notifications"
+msgstr "Notifications"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:47
+#: src/engine/components/NotificationBell.tsx:81
+msgid "Mark all read"
+msgstr "Mark all read"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:54
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:45
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:16
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:119
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
+#: src/engine/components/RecentActivity.tsx:25
+msgid "Loading..."
+msgstr "Loading..."
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:60
+msgid "No notifications yet"
+msgstr "No notifications yet"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:89
+msgid "Mark read"
+msgstr "Mark read"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:71
+msgid "Organization created"
+msgstr "Organization created"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:82
+msgid "Organization deleted"
+msgstr "Organization deleted"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:93
+msgid "Left organization"
+msgstr "Left organization"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:104
+msgid "Invitation sent"
+msgstr "Invitation sent"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:115
+msgid "Member removed"
+msgstr "Member removed"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:123
+msgid "Invitation canceled"
+msgstr "Invitation canceled"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:131
+msgid "Invitation accepted"
+msgstr "Invitation accepted"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:180
+#: src/app/dashboard/(panel)/organizations/page.tsx:320
+msgid "Organizations"
+msgstr "Organizations"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:196
+msgid "Create Organization"
+msgstr "Create Organization"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:205
+msgid "My Organization"
+msgstr "My Organization"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:217
+msgid "my-organization (auto-generated if empty)"
+msgstr "my-organization (auto-generated if empty)"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:245
+msgid "No organizations yet. Create one to get started."
+msgstr "No organizations yet. Create one to get started."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:252
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:127
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
+msgid "Organization"
+msgstr "Organization"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:253
+#: src/app/dashboard/(panel)/organizations/page.tsx:369
+#: src/app/dashboard/(panel)/organizations/page.tsx:400
+#: src/app/dashboard/(panel)/organizations/page.tsx:465
+#: src/app/dashboard/(panel)/users/page.tsx:229
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:289
+msgid "Role"
+msgstr "Role"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:291
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:25
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:38
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
+msgid "Manage"
+msgstr "Manage"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:341
+msgid "Members"
+msgstr "Members"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:349
+msgid "Invite"
+msgstr "Invite"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:358
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:278
+msgid "Email"
+msgstr "Email"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:375
+msgid "Member"
+msgstr "Member"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:376
+msgid "Admin"
+msgstr "Admin"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:381
+msgid "Send"
+msgstr "Send"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:436
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:221
+#: src/engine/components/PostAttachments.tsx:209
+msgid "Remove"
+msgstr "Remove"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:457
+msgid "Pending Invitations"
+msgstr "Pending Invitations"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:465
+msgid "Expires"
+msgstr "Expires"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:484
+msgid "Danger Zone"
+msgstr "Danger Zone"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:492
+msgid "Leave Organization"
+msgstr "Leave Organization"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:501
+msgid "Delete Organization"
+msgstr "Delete Organization"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:512
+msgid "Delete organization?"
+msgstr "Delete organization?"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:513
+msgid "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
+msgstr "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:525
+msgid "Leave organization?"
+msgstr "Leave organization?"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:526
+msgid "Leave \"{name}\"? You will lose access to this organization."
+msgstr "Leave \"{name}\"? You will lose access to this organization."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:527
+msgid "Leave"
+msgstr "Leave"
+
+#: src/app/dashboard/(panel)/page.tsx:31
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: src/app/dashboard/(panel)/page.tsx:32
+msgid "Welcome to Indigo admin panel."
+msgstr "Welcome to Indigo admin panel."
+
+#: src/app/dashboard/(panel)/page.tsx:44
+msgid "Pages"
+msgstr "Pages"
+
+#: src/app/dashboard/(panel)/page.tsx:51
+msgid "Blog Posts"
+msgstr "Blog Posts"
+
+#: src/app/dashboard/(panel)/page.tsx:58
+#: src/app/dashboard/(panel)/settings/import/page.tsx:595
+msgid "Categories"
+msgstr "Categories"
+
+#: src/app/dashboard/(panel)/page.tsx:65
+#: src/app/dashboard/(panel)/users/page.tsx:160
+msgid "Users"
+msgstr "Users"
+
+#: src/app/dashboard/(panel)/page.tsx:72
+msgid "Media Files"
+msgstr "Media Files"
+
+#: src/app/dashboard/(panel)/page.tsx:84
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
+msgid "Active Subscriptions"
+msgstr "Active Subscriptions"
+
+#: src/app/dashboard/(panel)/page.tsx:91
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
+msgid "MRR"
+msgstr "MRR"
+
+#: src/app/dashboard/(panel)/page.tsx:98
+msgid "Churn (30d)"
+msgstr "Churn (30d)"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:40
+msgid "Project created"
+msgstr "Project created"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:49
+msgid "Project updated"
+msgstr "Project updated"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:58
+msgid "Project deleted"
+msgstr "Project deleted"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:104
+msgid "Projects"
+msgstr "Projects"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:111
+#: src/app/dashboard/(panel)/projects/page.tsx:120
+#: src/components/admin/QuickActionsWidget.tsx:38
+msgid "New Project"
+msgstr "New Project"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:120
+msgid "Edit Project"
+msgstr "Edit Project"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:129
+#: src/components/admin/PortfolioForm.tsx:357
+msgid "Project name"
+msgstr "Project name"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:135
+#: src/components/admin/CategoryForm.tsx:384
+#: src/components/admin/PortfolioForm.tsx:474
+#: src/components/admin/ShowcaseForm.tsx:434
+#: src/engine/components/MediaPickerDialog.tsx:466
+#: src/engine/components/SeoPreviewCard.tsx:124
+msgid "Description"
+msgstr "Description"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:141
+#: src/engine/components/MediaPickerDialog.tsx:478
+msgid "Optional description"
+msgstr "Optional description"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:164
+msgid "Search projects..."
+msgstr "Search projects..."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:180
+msgid "No projects match your search."
+msgstr "No projects match your search."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:181
+msgid "No projects yet. Create one to get started."
+msgstr "No projects yet. Create one to get started."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:190
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:58
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:64
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:55
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:114
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:280
+#: src/app/dashboard/(panel)/settings/import/page.tsx:593
+#: src/app/dashboard/(panel)/settings/support/page.tsx:118
+#: src/app/dashboard/(panel)/settings/support/page.tsx:249
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:205
+#: src/app/dashboard/(panel)/users/page.tsx:230
+#: src/components/admin/CategoryForm.tsx:455
+#: src/components/admin/CmsListView.tsx:737
+#: src/components/admin/PortfolioForm.tsx:559
+#: src/components/admin/PostForm.tsx:942
+#: src/components/admin/PostForm.tsx:946
+#: src/components/admin/ShowcaseForm.tsx:490
+#: src/components/admin/TermForm.tsx:268
+msgid "Status"
+msgstr "Status"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:220
+msgid "Archive"
+msgstr "Archive"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:228
+#: src/components/admin/CmsListView.tsx:883
+#: src/engine/components/AutosaveRecoveryBanner.tsx:44
+#: src/engine/components/BulkActionBar.tsx:62
+#: src/engine/components/RevisionHistory.tsx:219
+msgid "Restore"
+msgstr "Restore"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:262
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:106
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:180
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:158
+#: src/app/dashboard/(panel)/settings/support/page.tsx:174
+#: src/app/dashboard/(panel)/settings/support/page.tsx:310
+#: src/engine/components/MediaPickerDialog.tsx:374
+msgid "Previous"
+msgstr "Previous"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:272
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:116
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:187
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/import/page.tsx:454
+#: src/app/dashboard/(panel)/settings/support/page.tsx:184
+#: src/app/dashboard/(panel)/settings/support/page.tsx:320
+#: src/engine/components/MediaPickerDialog.tsx:386
+msgid "Next"
+msgstr "Next"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:283
+msgid "Delete project?"
+msgstr "Delete project?"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:284
+msgid "Delete \"{name}\"? This action cannot be undone."
+msgstr "Delete \"{name}\"? This action cannot be undone."
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:23
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:36
+msgid "Affiliates"
+msgstr "Affiliates"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:37
+#: src/app/dashboard/(panel)/settings/support/page.tsx:86
+msgid "All Statuses"
+msgstr "All Statuses"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:39
+msgid "Suspended"
+msgstr "Suspended"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:40
+#: src/app/dashboard/(panel)/users/page.tsx:288
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:209
+msgid "Banned"
+msgstr "Banned"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:47
+msgid "No affiliates found"
+msgstr "No affiliates found"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:54
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:71
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:60
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
+#: src/engine/components/editor/EditorBubbleMenu.tsx:103
+msgid "Code"
+msgstr "Code"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:55
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:74
+msgid "Commission"
+msgstr "Commission"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:72
+msgid "Referrals"
+msgstr "Referrals"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:57
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:73
+msgid "Earnings"
+msgstr "Earnings"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:59
+msgid "Actions"
+msgstr "Actions"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:81
+msgid "Suspend"
+msgstr "Suspend"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:89
+msgid "Activate"
+msgstr "Activate"
+
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:28
+msgid "No affiliates yet."
+msgstr "No affiliates yet."
+
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:44
+msgid "Active Affiliates"
+msgstr "Active Affiliates"
+
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:48
+msgid "Total Referrals"
+msgstr "Total Referrals"
+
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:52
+msgid "Conversion Rate"
+msgstr "Conversion Rate"
+
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:56
+msgid "Total Earnings"
+msgstr "Total Earnings"
+
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:64
+msgid "Top Affiliates"
+msgstr "Top Affiliates"
+
+#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:70
+msgid "Affiliate"
+msgstr "Affiliate"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:83
+msgid "Canceled"
+msgstr "Canceled"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
+msgid "Payment Failed"
+msgstr "Payment Failed"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
+msgid "Unpaid"
+msgstr "Unpaid"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:91
+msgid "Churned Subscriptions"
+msgstr "Churned Subscriptions"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:111
+msgid "Search by organization..."
+msgstr "Search by organization..."
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:121
+msgid "No churned subscriptions found."
+msgstr "No churned subscriptions found."
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:128
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:113
+msgid "Plan"
+msgstr "Plan"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
+msgid "Provider"
+msgstr "Provider"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:131
+msgid "Churn Date"
+msgstr "Churn Date"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
+msgid "Subscription Start"
+msgstr "Subscription Start"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:163
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "Showing"
+msgstr "Showing"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:163
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "to"
+msgstr "to"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:163
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "results"
+msgstr "results"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
+msgid "Discount Codes"
+msgstr "Discount Codes"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
+msgid "No discount codes yet."
+msgstr "No discount codes yet."
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
+msgid "Value"
+msgstr "Value"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
+msgid "Usage"
+msgstr "Usage"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
+msgid "Inactive"
+msgstr "Inactive"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
+msgid "unlimited"
+msgstr "unlimited"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
+msgid "Recent Transactions"
+msgstr "Recent Transactions"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
+msgid "No transactions yet."
+msgstr "No transactions yet."
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
+msgid "Amount"
+msgstr "Amount"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
+#: src/app/dashboard/(panel)/settings/import/page.tsx:594
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:349
+#: src/components/admin/CmsListView.tsx:748
+msgid "Date"
+msgstr "Date"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
+msgid "Revenue"
+msgstr "Revenue"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
+msgid "Transactions"
+msgstr "Transactions"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
+msgid "Revenue Over Time"
+msgstr "Revenue Over Time"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
+msgid "No revenue data for this period."
+msgstr "No revenue data for this period."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
+msgid "Search organizations..."
+msgstr "Search organizations..."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
+msgid "per page"
+msgstr "per page"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
+msgid "No subscriptions found."
+msgstr "No subscriptions found."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
+msgid "Period"
+msgstr "Period"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
+msgid "Total Revenue"
+msgstr "Total Revenue"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
+msgid "Trialing"
+msgstr "Trialing"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
+msgid "Trial"
+msgstr "Trial"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
+msgid "Plan Distribution"
+msgstr "Plan Distribution"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
+msgid "No subscriptions yet"
+msgstr "No subscriptions yet"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
+msgid "Churn Metrics"
+msgstr "Churn Metrics"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
+msgid "Churn Rate (30d)"
+msgstr "Churn Rate (30d)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
+msgid "Canceled (30d)"
+msgstr "Canceled (30d)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
+msgid "Past Due (at risk)"
+msgstr "Past Due (at risk)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
+msgid "Unpaid (lost)"
+msgstr "Unpaid (lost)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
+msgid "Total Ever Subscribed"
+msgstr "Total Ever Subscribed"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:156
+msgid "Monitor revenue, track churn, and manage subscriptions."
+msgstr "Monitor revenue, track churn, and manage subscriptions."
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:181
+msgid "Custom range"
+msgstr "Custom range"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:187
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:267
+msgid "From"
+msgstr "From"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:194
+msgid "To"
+msgstr "To"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "Last"
+msgstr "Last"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "days"
+msgstr "days"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:235
+msgid "All time"
+msgstr "All time"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:60
+msgid "Custom field created"
+msgstr "Custom field created"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:69
+msgid "Custom field updated"
+msgstr "Custom field updated"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:78
+msgid "Custom field deleted"
+msgstr "Custom field deleted"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:169
+#: src/engine/components/CustomFieldsEditor.tsx:121
+msgid "Custom Fields"
+msgstr "Custom Fields"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:181
+msgid "New Field"
+msgstr "New Field"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:205
+msgid "e.g. Author Bio"
+msgstr "e.g. Author Bio"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:210
+msgid "Field Type"
+msgstr "Field Type"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:234
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:328
+msgid "Content Types"
+msgstr "Content Types"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:255
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:329
+#: src/components/admin/ShowcaseForm.tsx:415
+msgid "Sort Order"
+msgstr "Sort Order"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:276
+msgid "Choices (one per line)"
+msgstr "Choices (one per line)"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
+msgid "Option A
+Option B
+Option C"
+msgstr "Option A
+Option B
+Option C"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
+#: src/app/dashboard/(panel)/users/page.tsx:431
+msgid "Update"
+msgstr "Update"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:319
+msgid "No custom fields defined yet."
+msgstr "No custom fields defined yet."
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:389
+msgid "Delete custom field?"
+msgstr "Delete custom field?"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
+msgid "Discount code created"
+msgstr "Discount code created"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
+msgid "Discount code updated"
+msgstr "Discount code updated"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
+msgid "Discount code deleted"
+msgstr "Discount code deleted"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
+msgid "New Code"
+msgstr "New Code"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Percentage (0-100)"
+msgstr "Percentage (0-100)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Price (cents)"
+msgstr "Price (cents)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
+msgid "Trial Days"
+msgstr "Trial Days"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
+msgid "Trial Price (cents)"
+msgstr "Trial Price (cents)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
+msgid "Max Uses (leave empty for unlimited)"
+msgstr "Max Uses (leave empty for unlimited)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
+msgid "Max Uses Per User"
+msgstr "Max Uses Per User"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
+msgid "No discount codes configured."
+msgstr "No discount codes configured."
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
+msgid "Uses"
+msgstr "Uses"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
+msgid "Delete discount code?"
+msgstr "Delete discount code?"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
+msgid "Code \"{code}\" will be permanently deleted."
+msgstr "Code \"{code}\" will be permanently deleted."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:70
+msgid "Template saved"
+msgstr "Template saved"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:78
+msgid "Template reset to default"
+msgstr "Template reset to default"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:122
+msgid "Edit: {label}"
+msgstr "Edit: {label}"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:132
+msgid "Reset to Default"
+msgstr "Reset to Default"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:154
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
+#: src/app/dashboard/(panel)/settings/support/page.tsx:117
+msgid "Subject"
+msgstr "Subject"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:161
+msgid "Email subject line"
+msgstr "Email subject line"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:167
+msgid "HTML Body"
+msgstr "HTML Body"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:180
+msgid "Available Variables"
+msgstr "Available Variables"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:197
+#: src/app/dashboard/(panel)/settings/import/page.tsx:528
+#: src/components/admin/PostForm.tsx:823
+#: src/engine/components/RichTextEditor.tsx:864
+msgid "Preview"
+msgstr "Preview"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:211
+msgid "Reset to default?"
+msgstr "Reset to default?"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:212
+msgid "This will remove your customizations and revert to the file-based template."
+msgstr "This will remove your customizations and revert to the file-based template."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:213
+msgid "Reset"
+msgstr "Reset"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:275
+msgid "Email Templates"
+msgstr "Email Templates"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:281
+msgid "Customize email templates. Overrides are stored in the database; unmodified templates use the default file."
+msgstr "Customize email templates. Overrides are stored in the database; unmodified templates use the default file."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:305
+msgid "Custom"
+msgstr "Custom"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:305
+#: src/engine/components/FallbackRadio.tsx:28
+msgid "Default"
+msgstr "Default"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:309
+msgid "Variables: {vars}"
+msgstr "Variables: {vars}"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:123
+msgid "File size exceeds 50MB limit"
+msgstr "File size exceeds 50MB limit"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:150
+msgid "Failed to read file"
+msgstr "Failed to read file"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:185
+msgid "Please select a file first"
+msgstr "Please select a file first"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:221
+msgid "No items selected"
+msgstr "No items selected"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:300
+msgid "Import Content"
+msgstr "Import Content"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:333
+msgid "Import Format"
+msgstr "Import Format"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:366
+msgid "Select File"
+msgstr "Select File"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:392
+msgid "Click to change file"
+msgstr "Click to change file"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:399
+msgid "Click to select a file (max 50MB)"
+msgstr "Click to select a file (max 50MB)"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:409
+msgid "Import Options"
+msgstr "Import Options"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:413
+msgid "Post Type"
+msgstr "Post Type"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:420
+msgid "Blog Post"
+msgstr "Blog Post"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:426
+msgid "Override Status"
+msgstr "Override Status"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:437
+msgid "Keep original status"
+msgstr "Keep original status"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:438
+msgid "Import all as Draft"
+msgstr "Import all as Draft"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:440
+msgid "Import all as Published"
+msgstr "Import all as Published"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:465
+msgid "Map CSV Columns"
+msgstr "Map CSV Columns"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:467
+msgid "Map your CSV column headers to CMS fields. Only Title is required."
+msgstr "Map your CSV column headers to CMS fields. Only Title is required."
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:498
+msgid "-- Skip --"
+msgstr "-- Skip --"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:517
+#: src/app/dashboard/(panel)/settings/import/page.tsx:671
+msgid "Back"
+msgstr "Back"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:544
+msgid "Warnings"
+msgstr "Warnings"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:562
+msgid "items selected"
+msgstr "items selected"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:570
+#: src/engine/components/BulkActionBar.tsx:50
+msgid "Deselect all"
+msgstr "Deselect all"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:571
+msgid "Select all"
+msgstr "Select all"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:591
+#: src/components/admin/CategoryForm.tsx:353
+#: src/components/admin/CmsListView.tsx:731
+#: src/components/admin/PortfolioForm.tsx:377
+#: src/components/admin/ShowcaseForm.tsx:318
+#: src/engine/components/MediaPickerDialog.tsx:430
+#: src/engine/components/SeoPreviewCard.tsx:121
+msgid "Title"
+msgstr "Title"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:635
+#: src/components/admin/CategoryForm.tsx:465
+#: src/components/admin/CmsListView.tsx:765
+#: src/components/admin/PortfolioForm.tsx:569
+#: src/components/admin/PostForm.tsx:954
+#: src/components/admin/ShowcaseForm.tsx:500
+#: src/components/admin/TaxonomyOverview.tsx:22
+#: src/components/admin/TermForm.tsx:278
+#: src/engine/components/BulkActionBar.tsx:80
+msgid "Published"
+msgstr "Published"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:636
+#: src/components/admin/CategoryForm.tsx:463
+#: src/components/admin/PortfolioForm.tsx:567
+#: src/components/admin/PostForm.tsx:953
+#: src/components/admin/ShowcaseForm.tsx:498
+#: src/components/admin/TermForm.tsx:276
+#: src/engine/components/BulkActionBar.tsx:79
+msgid "Draft"
+msgstr "Draft"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:657
+msgid "No items found in this file"
+msgstr "No items found in this file"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:687
+msgid "Importing..."
+msgstr "Importing..."
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:688
+msgid "Import"
+msgstr "Import"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:688
+msgid "items"
+msgstr "items"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:702
+msgid "Import Complete"
+msgstr "Import Complete"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:704
+msgid "items created"
+msgstr "items created"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:706
+msgid "skipped"
+msgstr "skipped"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:717
+msgid "Errors"
+msgstr "Errors"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:738
+msgid "Import More"
+msgstr "Import More"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:45
+msgid "Job queued for retry"
+msgstr "Job queued for retry"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:54
+msgid "Job removed"
+msgstr "Job removed"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:72
+msgid "Job Queue"
+msgstr "Job Queue"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:82
+msgid "Refresh"
+msgstr "Refresh"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:94
+msgid "No queues registered. Redis may not be configured."
+msgstr "No queues registered. Redis may not be configured."
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:166
+msgid "No jobs with this status."
+msgstr "No jobs with this status."
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:172
+msgid "ID"
+msgstr "ID"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:175
+msgid "Attempts"
+msgstr "Attempts"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:177
+msgid "Error"
+msgstr "Error"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:208
+msgid "Retry"
+msgstr "Retry"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:35
+msgid "Settings saved"
+msgstr "Settings saved"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:45
+msgid "Reset \"{key}\" to default"
+msgstr "Reset \"{key}\" to default"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:59
+msgid "GA4 connection successful"
+msgstr "GA4 connection successful"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:66
+msgid "Created 1 SEO override page"
+msgid_plural "Created {count} SEO override pages"
+msgstr[0] "Created 1 SEO override page"
+msgstr[1] "Created {count} SEO override pages"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:199
+msgid "Settings"
+msgstr "Settings"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:228
+msgid "Connect a GA4 property to display analytics on the dashboard. Requires a service account with Analytics read access."
+msgstr "Connect a GA4 property to display analytics on the dashboard. Requires a service account with Analytics read access."
+
+#: src/app/dashboard/(panel)/settings/page.tsx:242
+#: src/app/dashboard/(panel)/settings/page.tsx:267
+msgid "Reset to default"
+msgstr "Reset to default"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:259
+msgid "Modified"
+msgstr "Modified"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:299
+msgid "Test Connection"
+msgstr "Test Connection"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:310
+#: src/components/admin/CmsListView.tsx:615
+#: src/components/admin/CmsListView.tsx:618
+msgid "SEO Overrides"
+msgstr "SEO Overrides"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:312
+msgid "Create CMS pages to override SEO metadata for coded routes (homepage, login, etc.)."
+msgstr "Create CMS pages to override SEO metadata for coded routes (homepage, login, etc.)."
+
+#: src/app/dashboard/(panel)/settings/page.tsx:321
+msgid "Manage SEO Overrides"
+msgstr "Manage SEO Overrides"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
+msgid "Chat closed"
+msgstr "Chat closed"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
+msgid "Chat session not found."
+msgstr "Chat session not found."
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
+msgid "Live Chat"
+msgstr "Live Chat"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
+#: src/engine/components/SupportChatWidget.tsx:394
+msgid "View Ticket"
+msgstr "View Ticket"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
+msgid "Close Chat"
+msgstr "Close Chat"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
+msgid "Visitor"
+msgstr "Visitor"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
+msgid "Chat email"
+msgstr "Chat email"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
+#: src/app/dashboard/(panel)/settings/support/page.tsx:251
+msgid "Started"
+msgstr "Started"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
+msgid "Reply as agent..."
+msgstr "Reply as agent..."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:68
+msgid "Total"
+msgstr "Total"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:96
+msgid "All Priorities"
+msgstr "All Priorities"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:111
+msgid "No tickets found."
+msgstr "No tickets found."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:119
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:258
+msgid "Priority"
+msgstr "Priority"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:120
+#: src/engine/components/RichTextEditor.tsx:847
+msgid "Source"
+msgstr "Source"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:122
+msgid "Updated"
+msgstr "Updated"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:226
+msgid "Active (non-closed)"
+msgstr "Active (non-closed)"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:227
+msgid "AI Active"
+msgstr "AI Active"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:228
+msgid "Agent Active"
+msgstr "Agent Active"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:229
+msgid "Escalated"
+msgstr "Escalated"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:230
+msgid "Closed"
+msgstr "Closed"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:242
+msgid "No active chats."
+msgstr "No active chats."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:248
+msgid "Visitor / User"
+msgstr "Visitor / User"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:250
+msgid "Last Message"
+msgstr "Last Message"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:347
+msgid "Support"
+msgstr "Support"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:358
+msgid "Tickets"
+msgstr "Tickets"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:365
+msgid "Live Chats"
+msgstr "Live Chats"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:108
+msgid "Reply sent"
+msgstr "Reply sent"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:116
+msgid "Status updated"
+msgstr "Status updated"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:124
+msgid "Assignment updated"
+msgstr "Assignment updated"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:141
+msgid "Ticket not found."
+msgstr "Ticket not found."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:143
+msgid "Back to tickets"
+msgstr "Back to tickets"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:203
+msgid "Staff"
+msgstr "Staff"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:203
+msgid "Customer"
+msgstr "Customer"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:216
+msgid "Staff Reply"
+msgstr "Staff Reply"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:225
+msgid "Type your reply..."
+msgstr "Type your reply..."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:237
+msgid "Send Reply"
+msgstr "Send Reply"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:242
+msgid "This ticket is closed."
+msgstr "This ticket is closed."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:251
+msgid "Details"
+msgstr "Details"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:273
+msgid "Assigned"
+msgstr "Assigned"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:282
+msgid "Change Status"
+msgstr "Change Status"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:297
+msgid "Assignment"
+msgstr "Assignment"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:306
+msgid "Unassign"
+msgstr "Unassign"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:310
+msgid "Not assigned"
+msgstr "Not assigned"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:39
+msgid "Webhook created"
+msgstr "Webhook created"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:48
+msgid "Webhook updated"
+msgstr "Webhook updated"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:57
+msgid "Webhook deleted"
+msgstr "Webhook deleted"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:64
+msgid "Test sent (status {status})"
+msgstr "Test sent (status {status})"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:114
+msgid "Webhooks"
+msgstr "Webhooks"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:119
+msgid "New Webhook"
+msgstr "New Webhook"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:139
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:204
+#: src/engine/components/MenuBuilder.tsx:104
+#: src/engine/components/RichTextEditor.tsx:475
+msgid "URL"
+msgstr "URL"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:152
+msgid "Events"
+msgstr "Events"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:197
+msgid "No webhooks configured."
+msgstr "No webhooks configured."
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:224
+msgid "Test"
+msgstr "Test"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:253
+msgid "Delete webhook?"
+msgstr "Delete webhook?"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:254
+msgid "\"{name}\" will be permanently deleted."
+msgstr "\"{name}\" will be permanently deleted."
+
+#: src/app/dashboard/(panel)/users/page.tsx:80
+msgid "Role updated"
+msgstr "Role updated"
+
+#: src/app/dashboard/(panel)/users/page.tsx:89
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:92
+msgid "User banned"
+msgstr "User banned"
+
+#: src/app/dashboard/(panel)/users/page.tsx:97
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:100
+msgid "User unbanned"
+msgstr "User unbanned"
+
+#: src/app/dashboard/(panel)/users/page.tsx:105
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:108
+msgid "User anonymized"
+msgstr "User anonymized"
+
+#: src/app/dashboard/(panel)/users/page.tsx:196
+msgid "Search by name or email..."
+msgstr "Search by name or email..."
+
+#: src/app/dashboard/(panel)/users/page.tsx:231
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:305
+msgid "Joined"
+msgstr "Joined"
+
+#: src/app/dashboard/(panel)/users/page.tsx:239
+msgid "No users found."
+msgstr "No users found."
+
+#: src/app/dashboard/(panel)/users/page.tsx:239
+msgid "No users yet."
+msgstr "No users yet."
+
+#: src/app/dashboard/(panel)/users/page.tsx:311
+msgid "Change role"
+msgstr "Change role"
+
+#: src/app/dashboard/(panel)/users/page.tsx:329
+#: src/app/dashboard/(panel)/users/page.tsx:447
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:231
+msgid "Unban"
+msgstr "Unban"
+
+#: src/app/dashboard/(panel)/users/page.tsx:329
+#: src/app/dashboard/(panel)/users/page.tsx:447
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:240
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:472
+msgid "Ban"
+msgstr "Ban"
+
+#: src/app/dashboard/(panel)/users/page.tsx:342
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:248
+msgid "Export data (GDPR)"
+msgstr "Export data (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:354
+msgid "Anonymize (GDPR)"
+msgstr "Anonymize (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:403
+msgid "Change Role"
+msgstr "Change Role"
+
+#: src/app/dashboard/(panel)/users/page.tsx:406
+msgid "Change role for {name}"
+msgstr "Change role for {name}"
+
+#: src/app/dashboard/(panel)/users/page.tsx:441
+msgid "Unban user?"
+msgstr "Unban user?"
+
+#: src/app/dashboard/(panel)/users/page.tsx:441
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:470
+msgid "Ban user?"
+msgstr "Ban user?"
+
+#: src/app/dashboard/(panel)/users/page.tsx:444
+msgid "Unban {name}? They will regain access."
+msgstr "Unban {name}? They will regain access."
+
+#: src/app/dashboard/(panel)/users/page.tsx:445
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:471
+msgid "Ban {name}? They will lose access."
+msgstr "Ban {name}? They will lose access."
+
+#: src/app/dashboard/(panel)/users/page.tsx:456
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:484
+msgid "Anonymize user? (GDPR)"
+msgstr "Anonymize user? (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:460
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:259
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:488
+msgid "Anonymize"
+msgstr "Anonymize"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:80
+msgid "User updated"
+msgstr "User updated"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:162
+msgid "User not found"
+msgstr "User not found"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:168
+msgid "Back to Users"
+msgstr "Back to Users"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:222
+msgid "Profile"
+msgstr "Profile"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:251
+#: src/components/admin/CmsListView.tsx:591
+#: src/engine/components/BulkActionBar.tsx:91
+msgid "Export"
+msgstr "Export"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:325
+msgid "Save Changes"
+msgstr "Save Changes"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:334
+msgid "Login History"
+msgstr "Login History"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:342
+msgid "No login sessions found."
+msgstr "No login sessions found."
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:350
+msgid "IP Address"
+msgstr "IP Address"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:351
+msgid "User Agent"
+msgstr "User Agent"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:400
+msgid "Audit Trail"
+msgstr "Audit Trail"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:408
+msgid "No activity recorded for this user."
+msgstr "No activity recorded for this user."
+
+#: src/components/admin/AdminSidebar.tsx:50
+msgctxt "General"
+msgid "Light"
+msgstr "Light"
+
+#: src/components/admin/AdminSidebar.tsx:50
+msgctxt "General"
+msgid "Dark"
+msgstr "Dark"
+
+#: src/components/admin/AdminSidebar.tsx:50
+msgctxt "General"
+msgid "System"
+msgstr "System"
+
+#: src/components/admin/AdminSidebar.tsx:182
+msgid "Theme"
+msgstr "Theme"
+
+#: src/components/admin/AdminSidebar.tsx:222
+msgid "Sign Out"
+msgstr "Sign Out"
+
+#: src/components/admin/AdminSidebar.tsx:245
+msgid "Expand panel"
+msgstr "Expand panel"
+
+#: src/components/admin/AdminSidebar.tsx:245
+msgid "Collapse panel"
+msgstr "Collapse panel"
+
+#: src/components/admin/AdminSidebar.tsx:289
+#: src/components/admin/AdminSidebar.tsx:353
+msgid "View site"
+msgstr "View site"
+
+#: src/components/admin/CategoryForm.tsx:156
+msgid "Category created"
+msgstr "Category created"
+
+#: src/components/admin/CategoryForm.tsx:170
+msgid "Category updated"
+msgstr "Category updated"
+
+#: src/components/admin/CategoryForm.tsx:284
+#: src/components/admin/QuickActionsWidget.tsx:34
+msgid "New Category"
+msgstr "New Category"
+
+#: src/components/admin/CategoryForm.tsx:284
+msgid "Edit Category"
+msgstr "Edit Category"
+
+#: src/components/admin/CategoryForm.tsx:333
+msgid "Category name"
+msgstr "Category name"
+
+#: src/components/admin/CategoryForm.tsx:364
+msgid "Display title (can differ from name)"
+msgstr "Display title (can differ from name)"
+
+#: src/components/admin/CategoryForm.tsx:369
+msgid "Icon"
+msgstr "Icon"
+
+#: src/components/admin/CategoryForm.tsx:376
+msgid "Icon name or URL"
+msgstr "Icon name or URL"
+
+#: src/components/admin/CategoryForm.tsx:389
+msgid "Category description..."
+msgstr "Category description..."
+
+#: src/components/admin/CategoryForm.tsx:400
+#: src/components/admin/CmsListView.tsx:830
+#: src/components/admin/PortfolioForm.tsx:490
+#: src/components/admin/ShowcaseForm.tsx:450
+msgid "SEO"
+msgstr "SEO"
+
+#: src/components/admin/CategoryForm.tsx:444
+#: src/components/admin/PortfolioForm.tsx:548
+#: src/components/admin/ShowcaseForm.tsx:566
+msgid "Tags"
+msgstr "Tags"
+
+#: src/components/admin/CategoryForm.tsx:471
+#: src/components/admin/TermForm.tsx:284
+msgid "Order"
+msgstr "Order"
+
+#: src/components/admin/CategoryForm.tsx:502
+#: src/components/admin/PortfolioForm.tsx:595
+#: src/components/admin/PostForm.tsx:681
+#: src/components/admin/ShowcaseForm.tsx:526
+#: src/components/admin/TermForm.tsx:295
+#: src/engine/components/TranslationBar.tsx:74
+msgid "Language"
+msgstr "Language"
+
+#: src/components/admin/CategoryForm.tsx:528
+#: src/components/admin/PortfolioForm.tsx:621
+#: src/components/admin/PostForm.tsx:961
+#: src/components/admin/ShowcaseForm.tsx:552
+msgid "Publish Date"
+msgstr "Publish Date"
+
+#: src/components/admin/CmsListView.tsx:40
+msgctxt "General"
+msgid "Draft"
+msgstr "Draft"
+
+#: src/components/admin/CmsListView.tsx:41
+msgctxt "General"
+msgid "Published"
+msgstr "Published"
+
+#: src/components/admin/CmsListView.tsx:42
+msgctxt "General"
+msgid "Scheduled"
+msgstr "Scheduled"
+
+#: src/components/admin/CmsListView.tsx:209
+#: src/components/admin/CmsListView.tsx:223
+#: src/components/admin/CmsListView.tsx:237
+#: src/components/admin/CmsListView.tsx:251
+#: src/components/admin/CmsListView.tsx:265
+msgid "Moved to trash"
+msgstr "Moved to trash"
+
+#: src/components/admin/CmsListView.tsx:213
+#: src/components/admin/CmsListView.tsx:227
+#: src/components/admin/CmsListView.tsx:241
+#: src/components/admin/CmsListView.tsx:255
+#: src/components/admin/CmsListView.tsx:269
+msgid "Restored"
+msgstr "Restored"
+
+#: src/components/admin/CmsListView.tsx:217
+#: src/components/admin/CmsListView.tsx:231
+#: src/components/admin/CmsListView.tsx:245
+#: src/components/admin/CmsListView.tsx:259
+#: src/components/admin/CmsListView.tsx:273
+msgid "Permanently deleted"
+msgstr "Permanently deleted"
+
+#: src/components/admin/CmsListView.tsx:281
+#: src/components/admin/CmsListView.tsx:289
+#: src/components/admin/CmsListView.tsx:297
+#: src/components/admin/CmsListView.tsx:305
+msgid "Duplicated"
+msgstr "Duplicated"
+
+#: src/components/admin/CmsListView.tsx:366
+msgid "Exported 1 item"
+msgid_plural "Exported {count} items"
+msgstr[0] "Exported 1 item"
+msgstr[1] "Exported {count} items"
+
+#: src/components/admin/CmsListView.tsx:559
+msgid "Toggle columns"
+msgstr "Toggle columns"
+
+#: src/components/admin/CmsListView.tsx:562
+#: src/engine/components/DashboardConfig.tsx:121
+msgid "Columns"
+msgstr "Columns"
+
+#: src/components/admin/CmsListView.tsx:626
+#: src/components/admin/PostForm.tsx:808
+msgid "New {label}"
+msgstr "New {label}"
+
+#: src/components/admin/CmsListView.tsx:668
+msgid "Search {label}..."
+msgstr "Search {label}..."
+
+#: src/components/admin/CmsListView.tsx:686
+msgid "All langs"
+msgstr "All langs"
+
+#: src/components/admin/CmsListView.tsx:740
+msgid "Lang"
+msgstr "Lang"
+
+#: src/components/admin/CmsListView.tsx:754
+msgid "Author"
+msgstr "Author"
+
+#: src/components/admin/CmsListView.tsx:792
+msgid "No results found."
+msgstr "No results found."
+
+#: src/components/admin/CmsListView.tsx:793
+msgid "No items yet. Create your first one."
+msgstr "No items yet. Create your first one."
+
+#: src/components/admin/CmsListView.tsx:821
+#: src/engine/components/RevisionHistory.tsx:129
+msgid "(untitled)"
+msgstr "(untitled)"
+
+#: src/components/admin/CmsListView.tsx:826
+msgid "(homepage)"
+msgstr "(homepage)"
+
+#: src/components/admin/CmsListView.tsx:890
+msgid "Delete permanently"
+msgstr "Delete permanently"
+
+#: src/components/admin/CmsListView.tsx:901
+msgid "Duplicate"
+msgstr "Duplicate"
+
+#: src/components/admin/CmsListView.tsx:916
+#: src/components/admin/CmsListView.tsx:974
+#: src/components/admin/CmsListView.tsx:985
+msgid "Trash"
+msgstr "Trash"
+
+#: src/components/admin/CmsListView.tsx:966
+msgid "Delete permanently?"
+msgstr "Delete permanently?"
+
+#: src/components/admin/CmsListView.tsx:967
+#: src/components/admin/CmsListView.tsx:983
+msgid "Move to trash?"
+msgstr "Move to trash?"
+
+#: src/components/admin/CmsListView.tsx:971
+msgid "\"{title}\" will be permanently deleted. This cannot be undone."
+msgstr "\"{title}\" will be permanently deleted. This cannot be undone."
+
+#: src/components/admin/CmsListView.tsx:972
+msgid "\"{title}\" will be moved to trash."
+msgstr "\"{title}\" will be moved to trash."
+
+#: src/components/admin/CmsListView.tsx:984
+msgid "1 item will be moved to trash."
+msgid_plural "{count} items will be moved to trash."
+msgstr[0] "1 item will be moved to trash."
+msgstr[1] "{count} items will be moved to trash."
+
+#: src/components/admin/CmsListView.tsx:1001
+msgid "Created 1 SEO override"
+msgid_plural "Created {count} SEO overrides"
+msgstr[0] "Created 1 SEO override"
+msgstr[1] "Created {count} SEO overrides"
+
+#: src/components/admin/CmsListView.tsx:1005
+msgid "All SEO overrides already exist"
+msgstr "All SEO overrides already exist"
+
+#: src/components/admin/PortfolioForm.tsx:162
+msgid "Portfolio item created"
+msgstr "Portfolio item created"
+
+#: src/components/admin/PortfolioForm.tsx:176
+msgid "Portfolio item updated"
+msgstr "Portfolio item updated"
+
+#: src/components/admin/PortfolioForm.tsx:308
+msgid "New Portfolio Item"
+msgstr "New Portfolio Item"
+
+#: src/components/admin/PortfolioForm.tsx:308
+msgid "Edit Portfolio Item"
+msgstr "Edit Portfolio Item"
+
+#: src/components/admin/PortfolioForm.tsx:388
+msgid "Display title"
+msgstr "Display title"
+
+#: src/components/admin/PortfolioForm.tsx:396
+msgid "Project Details"
+msgstr "Project Details"
+
+#: src/components/admin/PortfolioForm.tsx:400
+msgid "Client Name"
+msgstr "Client Name"
+
+#: src/components/admin/PortfolioForm.tsx:407
+msgid "Client or company name"
+msgstr "Client or company name"
+
+#: src/components/admin/PortfolioForm.tsx:412
+msgid "Project URL"
+msgstr "Project URL"
+
+#: src/components/admin/PortfolioForm.tsx:424
+msgid "Tech Stack"
+msgstr "Tech Stack"
+
+#: src/components/admin/PortfolioForm.tsx:455
+msgid "Type and press Enter or comma to add"
+msgstr "Type and press Enter or comma to add"
+
+#: src/components/admin/PortfolioForm.tsx:460
+msgid "Completion Date"
+msgstr "Completion Date"
+
+#: src/components/admin/PortfolioForm.tsx:479
+msgid "Project description..."
+msgstr "Project description..."
+
+#: src/components/admin/PortfolioForm.tsx:531
+msgid "Featured Image"
+msgstr "Featured Image"
+
+#: src/components/admin/PostForm.tsx:100
+#: src/components/admin/PostForm.tsx:128
+msgid "None (top level)"
+msgstr "None (top level)"
+
+#: src/components/admin/PostForm.tsx:112
+msgid "Search pages..."
+msgstr "Search pages..."
+
+#: src/components/admin/PostForm.tsx:146
+msgid "No pages found"
+msgstr "No pages found"
+
+#: src/components/admin/PostForm.tsx:320
+msgid "{label} created"
+msgstr "{label} created"
+
+#: src/components/admin/PostForm.tsx:334
+msgid "{label} updated"
+msgstr "{label} updated"
+
+#: src/components/admin/PostForm.tsx:719
+msgid "No categories yet."
+msgstr "No categories yet."
+
+#: src/components/admin/PostForm.tsx:809
+#: src/engine/components/shortcodes/ShortcodeEditDialog.tsx:35
+msgid "Edit {label}"
+msgstr "Edit {label}"
+
+#: src/components/admin/PostForm.tsx:833
+msgid "Publish"
+msgstr "Publish"
+
+#: src/components/admin/PostForm.tsx:884
+msgid "{label} title"
+msgstr "{label} title"
+
+#: src/components/admin/PostForm.tsx:910
+msgid "Add Media"
+msgstr "Add Media"
+
+#: src/components/admin/PostForm.tsx:917
+msgid "Start writing your content..."
+msgstr "Start writing your content..."
+
+#: src/components/admin/PostForm.tsx:955
+#: src/engine/components/ContentStatusWidget.tsx:38
+msgid "Scheduled"
+msgstr "Scheduled"
+
+#: src/components/admin/PostForm.tsx:979
+#: src/engine/components/RevisionHistory.tsx:241
+msgid "Revisions"
+msgstr "Revisions"
+
+#: src/components/admin/PostFormConfig.tsx:107
+msgid "Show panel"
+msgstr "Show panel"
+
+#: src/components/admin/PostFormConfig.tsx:107
+msgid "Hide panel"
+msgstr "Hide panel"
+
+#: src/components/admin/PostFormConfig.tsx:168
+msgid "No panels"
+msgstr "No panels"
+
+#: src/components/admin/PostFormConfig.tsx:245
+msgid "Drag to reorder panels. Toggle visibility with the eye icon."
+msgstr "Drag to reorder panels. Toggle visibility with the eye icon."
+
+#: src/components/admin/PostFormConfig.tsx:250
+msgid "Content Panels"
+msgstr "Content Panels"
+
+#: src/components/admin/PostFormConfig.tsx:256
+msgid "Move to sidebar"
+msgstr "Move to sidebar"
+
+#: src/components/admin/PostFormConfig.tsx:260
+msgid "Sidebar Panels"
+msgstr "Sidebar Panels"
+
+#: src/components/admin/PostFormConfig.tsx:266
+msgid "Move to content"
+msgstr "Move to content"
+
+#: src/components/admin/PostFormConfig.tsx:285
+msgid "Configure panels"
+msgstr "Configure panels"
+
+#: src/components/admin/PostFormConfig.tsx:290
+msgid "Editor Layout"
+msgstr "Editor Layout"
+
+#: src/components/admin/QuickActionsWidget.tsx:20
+msgid "Quick Actions"
+msgstr "Quick Actions"
+
+#: src/components/admin/QuickActionsWidget.tsx:26
+msgid "New Page"
+msgstr "New Page"
+
+#: src/components/admin/QuickActionsWidget.tsx:30
+msgid "New Post"
+msgstr "New Post"
+
+#: src/components/admin/QuickActionsWidget.tsx:46
+msgid "View Site"
+msgstr "View Site"
+
+#: src/components/admin/ShowcaseForm.tsx:149
+msgid "Showcase item created"
+msgstr "Showcase item created"
+
+#: src/components/admin/ShowcaseForm.tsx:163
+msgid "Showcase item updated"
+msgstr "Showcase item updated"
+
+#: src/components/admin/ShowcaseForm.tsx:277
+msgid "New Showcase Item"
+msgstr "New Showcase Item"
+
+#: src/components/admin/ShowcaseForm.tsx:277
+msgid "Edit Showcase Item"
+msgstr "Edit Showcase Item"
+
+#: src/components/admin/ShowcaseForm.tsx:326
+msgid "Card title"
+msgstr "Card title"
+
+#: src/components/admin/ShowcaseForm.tsx:349
+msgid "Card Configuration"
+msgstr "Card Configuration"
+
+#: src/components/admin/ShowcaseForm.tsx:353
+msgid "Card Type"
+msgstr "Card Type"
+
+#: src/components/admin/ShowcaseForm.tsx:371
+msgid "Video Embed URL"
+msgstr "Video Embed URL"
+
+#: src/components/admin/ShowcaseForm.tsx:386
+msgid "Image URL"
+msgstr "Image URL"
+
+#: src/components/admin/ShowcaseForm.tsx:401
+msgid "Thumbnail URL"
+msgstr "Thumbnail URL"
+
+#: src/components/admin/ShowcaseForm.tsx:426
+msgid "Lower numbers appear first in the feed"
+msgstr "Lower numbers appear first in the feed"
+
+#: src/components/admin/ShowcaseForm.tsx:439
+msgid "Card description..."
+msgstr "Card description..."
+
+#: src/components/admin/TaxonomyOverview.tsx:16
+msgid "Total Tags"
+msgstr "Total Tags"
+
+#: src/components/admin/TaxonomyOverview.tsx:28
+msgid "Relationships"
+msgstr "Relationships"
+
+#: src/components/admin/TaxonomyOverview.tsx:34
+msgid "Orphaned"
+msgstr "Orphaned"
+
+#: src/components/admin/TaxonomyOverview.tsx:67
+msgid "Top Tags"
+msgstr "Top Tags"
+
+#: src/components/admin/TaxonomyOverview.tsx:73
+msgid "Tag"
+msgstr "Tag"
+
+#: src/components/admin/TaxonomyOverview.tsx:74
+msgid "Posts"
+msgstr "Posts"
+
+#: src/components/admin/TermForm.tsx:91
+msgid "Tag created"
+msgstr "Tag created"
+
+#: src/components/admin/TermForm.tsx:102
+msgid "Tag updated"
+msgstr "Tag updated"
+
+#: src/components/admin/TermForm.tsx:196
+msgid "New Tag"
+msgstr "New Tag"
+
+#: src/components/admin/TermForm.tsx:196
+msgid "Edit Tag"
+msgstr "Edit Tag"
+
+#: src/components/admin/TermForm.tsx:243
+msgid "Tag name"
+msgstr "Tag name"
+
+#: src/config/dashboard-widgets.tsx:33
+msgid "Recent Activity"
+msgstr "Recent Activity"
+
+#: src/config/dashboard-widgets.tsx:40
+msgid "View all"
+msgstr "View all"
+
+#: src/engine/components/AutosaveIndicator.tsx:39
+msgid "Autosaved"
+msgstr "Autosaved"
+
+#: src/engine/components/AutosaveRecoveryBanner.tsx:36
+msgid "Unsaved changes recovered from"
+msgstr "Unsaved changes recovered from"
+
+#: src/engine/components/BrokenLinksBanner.tsx:23
+msgid "Broken internal links detected:"
+msgstr "Broken internal links detected:"
+
+#: src/engine/components/BulkActionBar.tsx:77
+msgid "Set status..."
+msgstr "Set status..."
+
+#: src/engine/components/BulkActionBar.tsx:118
+msgid "Move to Trash"
+msgstr "Move to Trash"
+
+#: src/engine/components/CommandPalette.tsx:75
+msgid "Navigation"
+msgstr "Navigation"
+
+#: src/engine/components/CommandPalette.tsx:87
+#: src/engine/components/CommandPalette.tsx:228
+#: src/engine/components/shortcodes/ShortcodeEditDialog.tsx:79
+msgid "Content"
+msgstr "Content"
+
+#: src/engine/components/CommandPalette.tsx:200
+msgid "Search pages, content, settings..."
+msgstr "Search pages, content, settings..."
+
+#: src/engine/components/CommandPalette.tsx:241
+#: src/engine/components/InternalLinkDialog.tsx:77
+msgid "No results found"
+msgstr "No results found"
+
+#: src/engine/components/CommandPalette.tsx:247
+msgid "Start typing to search..."
+msgstr "Start typing to search..."
+
+#: src/engine/components/ContentCalendar.tsx:89
+msgid "Calendar"
+msgstr "Calendar"
+
+#: src/engine/components/ContentCalendar.tsx:167
+msgid "more"
+msgstr "more"
+
+#: src/engine/components/ContentStatusWidget.tsx:58
+msgid "Content Status"
+msgstr "Content Status"
+
+#: src/engine/components/CustomFieldsEditor.tsx:109
+msgid "Loading custom fields..."
+msgstr "Loading custom fields..."
+
+#: src/engine/components/CustomFieldsEditor.tsx:142
+msgid "Saving custom fields..."
+msgstr "Saving custom fields..."
+
+#: src/engine/components/CustomFieldsEditor.tsx:195
+msgid "Enabled"
+msgstr "Enabled"
+
+#: src/engine/components/CustomFieldsEditor.tsx:207
+msgid "-- Select --"
+msgstr "-- Select --"
+
+#: src/engine/components/DashboardConfig.tsx:112
+msgid "Show widget"
+msgstr "Show widget"
+
+#: src/engine/components/DashboardConfig.tsx:112
+msgid "Hide widget"
+msgstr "Hide widget"
+
+#: src/engine/components/DashboardConfig.tsx:214
+msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
+msgstr "Drag to reorder widgets. Toggle visibility with the eye icon."
+
+#: src/engine/components/DashboardConfig.tsx:257
+msgid "Configure dashboard"
+msgstr "Configure dashboard"
+
+#: src/engine/components/DashboardConfig.tsx:262
+msgid "Dashboard Layout"
+msgstr "Dashboard Layout"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:31
+msgid "Rewrite"
+msgstr "Rewrite"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:37
+msgid "Shorten"
+msgstr "Shorten"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:43
+msgid "Expand"
+msgstr "Expand"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:49
+msgid "Fix grammar"
+msgstr "Fix grammar"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:55
+msgid "Translate to English"
+msgstr "Translate to English"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:97
+msgid "AI request failed"
+msgstr "AI request failed"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:202
+#: src/engine/components/editor/EditorBubbleMenu.tsx:123
+msgid "AI Assist"
+msgstr "AI Assist"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:216
+msgid "Thinking..."
+msgstr "Thinking..."
+
+#: src/engine/components/editor/AiAssistMenu.tsx:229
+msgid "Try again"
+msgstr "Try again"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:247
+msgid "Apply"
+msgstr "Apply"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:254
+msgid "Discard"
+msgstr "Discard"
+
+#: src/engine/components/editor/AiAssistMenu.tsx:290
+#: src/engine/components/editor/AiAssistMenu.tsx:302
+msgid "Custom instruction..."
+msgstr "Custom instruction..."
+
+#: src/engine/components/editor/EditorBubbleMenu.tsx:75
+#: src/engine/components/RichTextEditor.tsx:508
+msgid "Bold"
+msgstr "Bold"
+
+#: src/engine/components/editor/EditorBubbleMenu.tsx:82
+#: src/engine/components/RichTextEditor.tsx:515
+msgid "Italic"
+msgstr "Italic"
+
+#: src/engine/components/editor/EditorBubbleMenu.tsx:89
+#: src/engine/components/RichTextEditor.tsx:522
+msgid "Underline"
+msgstr "Underline"
+
+#: src/engine/components/editor/EditorBubbleMenu.tsx:96
+#: src/engine/components/RichTextEditor.tsx:529
+msgid "Strikethrough"
+msgstr "Strikethrough"
+
+#: src/engine/components/editor/EditorBubbleMenu.tsx:113
+#: src/engine/components/RichTextEditor.tsx:644
+msgid "Link"
+msgstr "Link"
+
+#: src/engine/components/editor/ImageBubbleMenu.tsx:99
+msgid "Alt text"
+msgstr "Alt text"
+
+#: src/engine/components/editor/ImageBubbleMenu.tsx:109
+msgid "Align left"
+msgstr "Align left"
+
+#: src/engine/components/editor/ImageBubbleMenu.tsx:120
+msgid "Center"
+msgstr "Center"
+
+#: src/engine/components/editor/ImageBubbleMenu.tsx:132
+msgid "Align right"
+msgstr "Align right"
+
+#: src/engine/components/editor/ImageBubbleMenu.tsx:140
+msgid "Replace image"
+msgstr "Replace image"
+
+#: src/engine/components/editor/ImageBubbleMenu.tsx:147
+msgid "Remove image"
+msgstr "Remove image"
+
+#: src/engine/components/editor/slash-commands.ts:18
+#: src/engine/components/RichTextEditor.tsx:546
+msgid "Heading 1"
+msgstr "Heading 1"
+
+#: src/engine/components/editor/slash-commands.ts:19
+msgid "Large section heading"
+msgstr "Large section heading"
+
+#: src/engine/components/editor/slash-commands.ts:21
+#: src/engine/components/editor/slash-commands.ts:30
+#: src/engine/components/editor/slash-commands.ts:39
+msgid "Headings"
+msgstr "Headings"
+
+#: src/engine/components/editor/slash-commands.ts:27
+#: src/engine/components/RichTextEditor.tsx:553
+msgid "Heading 2"
+msgstr "Heading 2"
+
+#: src/engine/components/editor/slash-commands.ts:28
+msgid "Medium section heading"
+msgstr "Medium section heading"
+
+#: src/engine/components/editor/slash-commands.ts:36
+#: src/engine/components/RichTextEditor.tsx:560
+msgid "Heading 3"
+msgstr "Heading 3"
+
+#: src/engine/components/editor/slash-commands.ts:37
+msgid "Small section heading"
+msgstr "Small section heading"
+
+#: src/engine/components/editor/slash-commands.ts:45
+#: src/engine/components/RichTextEditor.tsx:570
+msgid "Bullet List"
+msgstr "Bullet List"
+
+#: src/engine/components/editor/slash-commands.ts:46
+msgid "Unordered list"
+msgstr "Unordered list"
+
+#: src/engine/components/editor/slash-commands.ts:48
+#: src/engine/components/editor/slash-commands.ts:57
+msgid "Lists"
+msgstr "Lists"
+
+#: src/engine/components/editor/slash-commands.ts:54
+msgid "Numbered List"
+msgstr "Numbered List"
+
+#: src/engine/components/editor/slash-commands.ts:55
+msgid "Ordered list"
+msgstr "Ordered list"
+
+#: src/engine/components/editor/slash-commands.ts:63
+msgid "Blockquote"
+msgstr "Blockquote"
+
+#: src/engine/components/editor/slash-commands.ts:64
+msgid "Quote block"
+msgstr "Quote block"
+
+#: src/engine/components/editor/slash-commands.ts:66
+#: src/engine/components/editor/slash-commands.ts:75
+#: src/engine/components/editor/slash-commands.ts:84
+#: src/engine/components/editor/slash-commands.ts:93
+msgid "Blocks"
+msgstr "Blocks"
+
+#: src/engine/components/editor/slash-commands.ts:72
+#: src/engine/components/RichTextEditor.tsx:591
+msgid "Code Block"
+msgstr "Code Block"
+
+#: src/engine/components/editor/slash-commands.ts:73
+msgid "Fenced code block"
+msgstr "Fenced code block"
+
+#: src/engine/components/editor/slash-commands.ts:81
+#: src/engine/components/RichTextEditor.tsx:597
+msgid "Horizontal Rule"
+msgstr "Horizontal Rule"
+
+#: src/engine/components/editor/slash-commands.ts:82
+msgid "Divider line"
+msgstr "Divider line"
+
+#: src/engine/components/editor/slash-commands.ts:90
+#: src/engine/components/editor/TableMenu.tsx:138
+msgid "Table"
+msgstr "Table"
+
+#: src/engine/components/editor/slash-commands.ts:91
+msgid "Insert a table"
+msgstr "Insert a table"
+
+#: src/engine/components/editor/slash-commands.ts:101
+#: src/engine/components/RichTextEditor.tsx:653
+msgid "Image"
+msgstr "Image"
+
+#: src/engine/components/editor/slash-commands.ts:102
+msgid "Upload or embed an image"
+msgstr "Upload or embed an image"
+
+#: src/engine/components/editor/slash-commands.ts:104
+msgid "Media"
+msgstr "Media"
+
+#: src/engine/components/editor/TableMenu.tsx:71
+msgid "Add row above"
+msgstr "Add row above"
+
+#: src/engine/components/editor/TableMenu.tsx:77
+msgid "Add row below"
+msgstr "Add row below"
+
+#: src/engine/components/editor/TableMenu.tsx:86
+msgid "Add column left"
+msgstr "Add column left"
+
+#: src/engine/components/editor/TableMenu.tsx:92
+msgid "Add column right"
+msgstr "Add column right"
+
+#: src/engine/components/editor/TableMenu.tsx:101
+msgid "Merge cells"
+msgstr "Merge cells"
+
+#: src/engine/components/editor/TableMenu.tsx:108
+msgid "Split cell"
+msgstr "Split cell"
+
+#: src/engine/components/editor/TableMenu.tsx:118
+msgid "Delete row"
+msgstr "Delete row"
+
+#: src/engine/components/editor/TableMenu.tsx:122
+msgid "Row"
+msgstr "Row"
+
+#: src/engine/components/editor/TableMenu.tsx:126
+msgid "Delete column"
+msgstr "Delete column"
+
+#: src/engine/components/editor/TableMenu.tsx:130
+msgid "Col"
+msgstr "Col"
+
+#: src/engine/components/editor/TableMenu.tsx:134
+msgid "Delete table"
+msgstr "Delete table"
+
+#: src/engine/components/FallbackRadio.tsx:21
+msgid "Language Fallback"
+msgstr "Language Fallback"
+
+#: src/engine/components/FallbackRadio.tsx:31
+msgid "Show EN version for missing translations"
+msgstr "Show EN version for missing translations"
+
+#: src/engine/components/FallbackRadio.tsx:32
+msgid "404 for missing translations"
+msgstr "404 for missing translations"
+
+#: src/engine/components/FallbackRadio.tsx:39
+msgid "Always Fallback"
+msgstr "Always Fallback"
+
+#: src/engine/components/FallbackRadio.tsx:45
+msgid "Never Fallback"
+msgstr "Never Fallback"
+
+#: src/engine/components/FallbackRadio.tsx:49
+msgid "Controls whether this content is shown when visiting in a language without a translation"
+msgstr "Controls whether this content is shown when visiting in a language without a translation"
+
+#: src/engine/components/GA4Widget.tsx:183
+#: src/engine/components/GA4Widget.tsx:214
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: src/engine/components/GA4Widget.tsx:190
+msgid "Connect Google Analytics to see page views, sessions, and top pages."
+msgstr "Connect Google Analytics to see page views, sessions, and top pages."
+
+#: src/engine/components/GA4Widget.tsx:198
+msgid "Configure in Settings"
+msgstr "Configure in Settings"
+
+#: src/engine/components/GA4Widget.tsx:247
+msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
+msgstr "Failed to load analytics data. Check your GA4 configuration in Settings."
+
+#: src/engine/components/GA4Widget.tsx:259
+msgid "Page Views"
+msgstr "Page Views"
+
+#: src/engine/components/GA4Widget.tsx:268
+msgid "Sessions"
+msgstr "Sessions"
+
+#: src/engine/components/GA4Widget.tsx:279
+msgid "Daily Page Views"
+msgstr "Daily Page Views"
+
+#: src/engine/components/GA4Widget.tsx:290
+msgid "Top Pages"
+msgstr "Top Pages"
+
+#: src/engine/components/GA4Widget.tsx:297
+msgid "Views"
+msgstr "Views"
+
+#: src/engine/components/InternalLinkDialog.tsx:54
+msgid "Insert Internal Link"
+msgstr "Insert Internal Link"
+
+#: src/engine/components/InternalLinkDialog.tsx:63
+msgid "Search pages, blog posts, categories..."
+msgstr "Search pages, blog posts, categories..."
+
+#: src/engine/components/InternalLinkDialog.tsx:72
+msgid "Searching..."
+msgstr "Searching..."
+
+#: src/engine/components/InternalLinkDialog.tsx:81
+msgid "Type at least 2 characters to search"
+msgstr "Type at least 2 characters to search"
+
+#: src/engine/components/MediaPickerButton.tsx:79
+msgid "Change"
+msgstr "Change"
+
+#: src/engine/components/MediaPickerButton.tsx:92
+msgid "Select Image"
+msgstr "Select Image"
+
+#: src/engine/components/MediaPickerButton.tsx:102
+#: src/engine/components/MediaPickerDialog.tsx:448
+msgid "Alt Text"
+msgstr "Alt Text"
+
+#: src/engine/components/MediaPickerButton.tsx:108
+msgid "Describe the image..."
+msgstr "Describe the image..."
+
+#: src/engine/components/MediaPickerDialog.tsx:112
+msgid "Only image files are supported"
+msgstr "Only image files are supported"
+
+#: src/engine/components/MediaPickerDialog.tsx:225
+msgid "Search media..."
+msgstr "Search media..."
+
+#: src/engine/components/MediaPickerDialog.tsx:240
+msgid "Images"
+msgstr "Images"
+
+#: src/engine/components/MediaPickerDialog.tsx:241
+msgid "Videos"
+msgstr "Videos"
+
+#: src/engine/components/MediaPickerDialog.tsx:242
+msgid "Documents"
+msgstr "Documents"
+
+#: src/engine/components/MediaPickerDialog.tsx:243
+msgid "Other"
+msgstr "Other"
+
+#: src/engine/components/MediaPickerDialog.tsx:256
+msgid "All users"
+msgstr "All users"
+
+#: src/engine/components/MediaPickerDialog.tsx:314
+msgid "Drop files to upload"
+msgstr "Drop files to upload"
+
+#: src/engine/components/MediaPickerDialog.tsx:329
+msgid "No images match your search."
+msgstr "No images match your search."
+
+#: src/engine/components/MediaPickerDialog.tsx:330
+msgid "No images yet. Upload or drag files here."
+msgstr "No images yet. Upload or drag files here."
+
+#: src/engine/components/MediaPickerDialog.tsx:442
+msgid "Image title"
+msgstr "Image title"
+
+#: src/engine/components/MediaPickerDialog.tsx:460
+msgid "Describe the image"
+msgstr "Describe the image"
+
+#: src/engine/components/MediaPickerDialog.tsx:496
+msgid "Select an image to view details"
+msgstr "Select an image to view details"
+
+#: src/engine/components/MediaPickerDialog.tsx:506
+msgid "No image selected"
+msgstr "No image selected"
+
+#: src/engine/components/MediaPickerDialog.tsx:517
+msgid "Select"
+msgstr "Select"
+
+#: src/engine/components/MediaPickerDialog.tsx:525
+msgid "Delete media file?"
+msgstr "Delete media file?"
+
+#: src/engine/components/MediaPickerDialog.tsx:526
+msgid "This file will be permanently deleted."
+msgstr "This file will be permanently deleted."
+
+#: src/engine/components/MenuBuilder.tsx:115
+msgid "New tab"
+msgstr "New tab"
+
+#: src/engine/components/MenuBuilder.tsx:123
+msgid "Indent"
+msgstr "Indent"
+
+#: src/engine/components/MenuBuilder.tsx:131
+msgid "Outdent"
+msgstr "Outdent"
+
+#: src/engine/components/MenuBuilder.tsx:176
+msgid "Menu saved"
+msgstr "Menu saved"
+
+#: src/engine/components/MenuBuilder.tsx:325
+msgid "No menu items yet. Add one below."
+msgstr "No menu items yet. Add one below."
+
+#: src/engine/components/MenuBuilder.tsx:332
+msgid "Add Item"
+msgstr "Add Item"
+
+#: src/engine/components/MenuBuilder.tsx:341
+msgid "Save Menu"
+msgstr "Save Menu"
+
+#: src/engine/components/NotificationBell.tsx:89
+msgid "No notifications"
+msgstr "No notifications"
+
+#: src/engine/components/NotificationBell.tsx:127
+msgid "View all notifications"
+msgstr "View all notifications"
+
+#: src/engine/components/OrgSwitcher.tsx:46
+msgid "Switch organization"
+msgstr "Switch organization"
+
+#: src/engine/components/OrgSwitcher.tsx:58
+msgid "Personal"
+msgstr "Personal"
+
+#: src/engine/components/OrgSwitcher.tsx:77
+msgid "Manage organizations"
+msgstr "Manage organizations"
+
+#: src/engine/components/PostAttachments.tsx:75
+msgid "Alt text updated"
+msgstr "Alt text updated"
+
+#: src/engine/components/PostAttachments.tsx:84
+msgid "Attachment removed"
+msgstr "Attachment removed"
+
+#: src/engine/components/PostAttachments.tsx:133
+#: src/engine/components/PostAttachments.tsx:146
+msgid "Attachments"
+msgstr "Attachments"
+
+#: src/engine/components/PostAttachments.tsx:135
+msgid "Save the post first to add attachments."
+msgstr "Save the post first to add attachments."
+
+#: src/engine/components/PostAttachments.tsx:169
+msgid "No attachments yet."
+msgstr "No attachments yet."
+
+#: src/engine/components/PostAttachments.tsx:202
+msgid "Edit alt text"
+msgstr "Edit alt text"
+
+#: src/engine/components/PostAttachments.tsx:229
+msgid "Edit Alt Text"
+msgstr "Edit Alt Text"
+
+#: src/engine/components/PostAttachments.tsx:244
+msgid "Describe this file..."
+msgstr "Describe this file..."
+
+#: src/engine/components/RecentActivity.tsx:13
+msgid "created"
+msgstr "created"
+
+#: src/engine/components/RecentActivity.tsx:14
+msgid "updated"
+msgstr "updated"
+
+#: src/engine/components/RecentActivity.tsx:15
+msgid "deleted"
+msgstr "deleted"
+
+#: src/engine/components/RecentActivity.tsx:16
+msgid "restored"
+msgstr "restored"
+
+#: src/engine/components/RecentActivity.tsx:17
+msgid "published"
+msgstr "published"
+
+#: src/engine/components/RecentActivity.tsx:44
+msgid "System"
+msgstr "System"
+
+#: src/engine/components/RevisionHistory.tsx:71
+msgid "Revision restored"
+msgstr "Revision restored"
+
+#: src/engine/components/RevisionHistory.tsx:74
+msgid "Failed to restore revision"
+msgstr "Failed to restore revision"
+
+#: src/engine/components/RevisionHistory.tsx:93
+msgid "Revision History"
+msgstr "Revision History"
+
+#: src/engine/components/RevisionHistory.tsx:110
+msgid "Oldest"
+msgstr "Oldest"
+
+#: src/engine/components/RevisionHistory.tsx:111
+msgid "Newest"
+msgstr "Newest"
+
+#: src/engine/components/RevisionHistory.tsx:119
+msgid "No revisions yet"
+msgstr "No revisions yet"
+
+#: src/engine/components/RevisionHistory.tsx:158
+msgid "No changes in this revision"
+msgstr "No changes in this revision"
+
+#: src/engine/components/RevisionHistory.tsx:206
+msgid "Restore this version"
+msgstr "Restore this version"
+
+#: src/engine/components/RevisionHistory.tsx:217
+msgid "Restore revision?"
+msgstr "Restore revision?"
+
+#: src/engine/components/RevisionHistory.tsx:218
+msgid "Current state will be saved as a new revision before restoring."
+msgstr "Current state will be saved as a new revision before restoring."
+
+#: src/engine/components/RichTextEditor.tsx:247
+msgid "Insert"
+msgstr "Insert"
+
+#: src/engine/components/RichTextEditor.tsx:249
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+#: src/engine/components/RichTextEditor.tsx:291
+msgid "Start writing or type / for commands..."
+msgstr "Start writing or type / for commands..."
+
+#: src/engine/components/RichTextEditor.tsx:349
+#: src/engine/components/RichTextEditor.tsx:366
+#: src/engine/components/RichTextEditor.tsx:758
+msgid "Image upload failed"
+msgstr "Image upload failed"
+
+#: src/engine/components/RichTextEditor.tsx:536
+msgid "Inline Code"
+msgstr "Inline Code"
+
+#: src/engine/components/RichTextEditor.tsx:577
+msgid "Ordered List"
+msgstr "Ordered List"
+
+#: src/engine/components/RichTextEditor.tsx:584
+msgid "Quote"
+msgstr "Quote"
+
+#: src/engine/components/RichTextEditor.tsx:610
+msgid "Insert Table"
+msgstr "Insert Table"
+
+#: src/engine/components/RichTextEditor.tsx:620
+msgid "Align Left"
+msgstr "Align Left"
+
+#: src/engine/components/RichTextEditor.tsx:627
+msgid "Align Center"
+msgstr "Align Center"
+
+#: src/engine/components/RichTextEditor.tsx:634
+msgid "Align Right"
+msgstr "Align Right"
+
+#: src/engine/components/RichTextEditor.tsx:649
+msgid "Internal Link"
+msgstr "Internal Link"
+
+#: src/engine/components/RichTextEditor.tsx:665
+msgid "Insert Block"
+msgstr "Insert Block"
+
+#: src/engine/components/RichTextEditor.tsx:711
+msgid "Undo"
+msgstr "Undo"
+
+#: src/engine/components/RichTextEditor.tsx:718
+msgid "Redo"
+msgstr "Redo"
+
+#: src/engine/components/RichTextEditor.tsx:734
+msgid "Hide Preview"
+msgstr "Hide Preview"
+
+#: src/engine/components/RichTextEditor.tsx:734
+msgid "Show Preview"
+msgstr "Show Preview"
+
+#: src/engine/components/RichTextEditor.tsx:835
+msgid "Visual"
+msgstr "Visual"
+
+#: src/engine/components/SEOFields.tsx:27
+msgid "SEO Title"
+msgstr "SEO Title"
+
+#: src/engine/components/SEOFields.tsx:33
+msgid "Optional SEO title for {titleTag} tag"
+msgstr "Optional SEO title for {titleTag} tag"
+
+#: src/engine/components/SEOFields.tsx:40
+msgid "Falls back to Title if empty"
+msgstr "Falls back to Title if empty"
+
+#: src/engine/components/SEOFields.tsx:46
+msgid "Meta Description"
+msgstr "Meta Description"
+
+#: src/engine/components/SEOFields.tsx:51
+msgid "SEO meta description (max 160 chars)"
+msgstr "SEO meta description (max 160 chars)"
+
+#: src/engine/components/SEOFields.tsx:71
+msgid "Noindex"
+msgstr "Noindex"
+
+#: src/engine/components/SEOFields.tsx:74
+msgid "Exclude from search engine indexing (adds noindex meta tag)"
+msgstr "Exclude from search engine indexing (adds noindex meta tag)"
+
+#: src/engine/components/SeoOverridesDialog.tsx:120
+msgid "Create SEO Override Pages"
+msgstr "Create SEO Override Pages"
+
+#: src/engine/components/SeoOverridesDialog.tsx:132
+msgid "Route"
+msgstr "Route"
+
+#: src/engine/components/SeoOverridesDialog.tsx:205
+msgid "Create Selected"
+msgstr "Create Selected"
+
+#: src/engine/components/SeoPreviewCard.tsx:27
+msgid "No image"
+msgstr "No image"
+
+#: src/engine/components/SeoPreviewCard.tsx:41
+msgid "Google"
+msgstr "Google"
+
+#: src/engine/components/SeoPreviewCard.tsx:42
+msgid "Facebook"
+msgstr "Facebook"
+
+#: src/engine/components/SeoPreviewCard.tsx:43
+msgid "Twitter / X"
+msgstr "Twitter / X"
+
+#: src/engine/components/SlideOver.tsx:102
+msgid "Close"
+msgstr "Close"
+
+#: src/engine/components/SupportChatWidget.tsx:275
+msgid "Hi! How can I help you today?"
+msgstr "Hi! How can I help you today?"
+
+#: src/engine/components/SupportChatWidget.tsx:276
+msgid "Type your message..."
+msgstr "Type your message..."
+
+#: src/engine/components/SupportChatWidget.tsx:286
+msgid "Support Chat"
+msgstr "Support Chat"
+
+#: src/engine/components/SupportChatWidget.tsx:333
+msgid "Support Agent"
+msgstr "Support Agent"
+
+#: src/engine/components/SupportChatWidget.tsx:351
+msgid "Enter your email so our team can follow up:"
+msgstr "Enter your email so our team can follow up:"
+
+#: src/engine/components/SupportChatWidget.tsx:361
+msgid "your@email.com"
+msgstr "your@email.com"
+
+#: src/engine/components/SupportChatWidget.tsx:366
+msgid "Connect with support"
+msgstr "Connect with support"
+
+#: src/engine/components/SupportChatWidget.tsx:375
+msgid "Would you like to create a support ticket so our team can follow up?"
+msgstr "Would you like to create a support ticket so our team can follow up?"
+
+#: src/engine/components/SupportChatWidget.tsx:378
+msgid "Create Support Ticket"
+msgstr "Create Support Ticket"
+
+#: src/engine/components/SupportChatWidget.tsx:385
+msgid "Thanks! Our team will follow up at your email soon."
+msgstr "Thanks! Our team will follow up at your email soon."
+
+#: src/engine/components/SupportChatWidget.tsx:391
+msgid "Your ticket has been created. Our team will follow up soon."
+msgstr "Your ticket has been created. Our team will follow up soon."
+
+#: src/engine/components/SupportChatWidget.tsx:427
+msgid "Talk to a human"
+msgstr "Talk to a human"
+
+#: src/engine/components/SupportChatWidget.tsx:434
+msgid "Start New Chat"
+msgstr "Start New Chat"
+
+#: src/engine/components/SupportChatWidget.tsx:444
+msgid "Close chat"
+msgstr "Close chat"
+
+#: src/engine/components/SupportChatWidget.tsx:444
+msgid "Open chat"
+msgstr "Open chat"
+
+#: src/engine/components/TagInput.tsx:197
+msgid "Type to add tags..."
+msgstr "Type to add tags..."
+
+#: src/engine/components/TagInput.tsx:238
+msgid "Press Enter to create \""
+msgstr "Press Enter to create \""
+
+#: src/engine/components/TagInput.tsx:240
+msgid "\""
+msgstr "\""
+
+#: src/engine/components/TokenBalance.tsx:71
+msgid "Token balance"
+msgstr "Token balance"
+
+#: src/engine/components/TranslationBar.tsx:66
+msgid "Failed to create translation"
+msgstr "Failed to create translation"
+
+#: src/engine/components/TranslationBar.tsx:129
+msgid "Copy"
+msgstr "Copy"
+
+#: src/engine/components/TranslationBar.tsx:138
+msgid "Copy & Translate"
+msgstr "Copy & Translate"
+
+#: src/engine/hooks/useBulkActions.ts:50
+msgid "{succeeded} {action}, {failed} failed"
+msgstr "{succeeded} {action}, {failed} failed"
+
+#: src/engine/hooks/useBulkActions.ts:52
+msgid "1 item {action}"
+msgid_plural "{count} items {action}"
+msgstr[0] "1 item {action}"
+msgstr[1] "{count} items {action}"
+
+#: src/engine/hooks/useCmsFormState.ts:49
+msgid "Please check the form for errors"
+msgstr "Please check the form for errors"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgctxt "General"
+#~ msgid "This page is available in {language}"
+#~ msgstr "This page is available in {language}"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "{count} file(s) uploaded"
+#~ msgstr "{count} file(s) uploaded"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Created {count} SEO override page(s)"
+#~ msgstr "Created {count} SEO override page(s)"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Exported {count} items"
+#~ msgstr "Exported {count} items"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "{count} items will be moved to trash."
+#~ msgstr "{count} items will be moved to trash."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Created {count} SEO override(s)"
+#~ msgstr "Created {count} SEO override(s)"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "{count} items {action}"
+#~ msgstr "{count} items {action}"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Subscriptions"
+#~ msgstr "Subscriptions"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Browse"
+#~ msgstr "Browse"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Please sign in to create a support ticket."
+#~ msgstr "Please sign in to create a support ticket."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Sign In"
+#~ msgstr "Sign In"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Support Tickets"
+#~ msgstr "Support Tickets"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Published pages"
+#~ msgstr "Published pages"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Draft pages"
+#~ msgstr "Draft pages"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Published posts"
+#~ msgstr "Published posts"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Draft posts"
+#~ msgstr "Draft posts"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Delete this media file?"
+#~ msgstr "Delete this media file?"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Restore this revision? Current state will be saved as a new revision."
+#~ msgstr "Restore this revision? Current state will be saved as a new revision."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Insert {name} block"
+#~ msgstr "Insert {name} block"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "All"
+#~ msgstr "All"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "This will overwrite the current content with the selected revision. Continue?"
+#~ msgstr "This will overwrite the current content with the selected revision. Continue?"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "SEO Preview"
+#~ msgstr "SEO Preview"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Parent Page"
+#~ msgstr "Parent Page"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Structured Data"
+#~ msgstr "Structured Data"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No images yet. Upload one above."
+#~ msgstr "No images yet. Upload one above."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Structured Data (JSON-LD)"
+#~ msgstr "Structured Data (JSON-LD)"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Start writing..."
+#~ msgstr "Start writing..."
