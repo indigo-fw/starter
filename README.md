@@ -1,8 +1,11 @@
 # Indigo
 
-**The complete SaaS framework for Next.js** — CMS, billing, auth, real-time, and modular architecture out of the box.
+**The complete SaaS framework for Next.js** — CMS, billing, auth, real-time, AI chat, and modular architecture out of the box.
 
 Clone, install modules, ship. Designed for professionals who know what they're building.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Findigo-fw%2Fstarter&env=DATABASE_URL,REDIS_URL&envDescription=PostgreSQL%20and%20Redis%20connection%20strings&project-name=my-indigo-app)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/indigo?referralCode=indigo)
 
 ## What's Included
 
@@ -150,7 +153,7 @@ Registered in `src/config/cms.ts`. Add new types by extending the array — no c
 | `bun run dev` | Dev server (Turbopack + BullMQ + WebSocket) |
 | `bun run build` | Production build |
 | `bun run start` | Production server |
-| `bun run init` | Initialize DB + seed (`-y` for auto, `--reset` for force) |
+| `bun run init` | Initialize DB + seed (`-y` auto, `--reset` force, `--no-seed` skip seeding) |
 | `bun run indigo <cmd>` | Module CLI (add, remove, list, sync) |
 | `bun run promote <email>` | Promote user to superadmin |
 | `bun run typecheck` | TypeScript type check |
