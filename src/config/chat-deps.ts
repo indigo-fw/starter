@@ -21,7 +21,7 @@ import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
 import { sendNotification } from '@/server/lib/notifications';
 import { broadcastToChannel, sendToUser } from '@/server/lib/ws';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { registerChannelAuthorizer, registerHook } from '@/core/lib/module-hooks';
+import { registerChannelAuthorizer, registerHook, registerHealthCheck } from '@/core/lib/module-hooks';
 import { Policy } from '@/core/policy';
 import { db } from '@/server/db';
 import { eq } from 'drizzle-orm';
@@ -128,5 +128,44 @@ registerHook('ws.message', async (userId: unknown, msg: unknown) => {
     case 'voice_call_end':
       await endCall(conversationId, 'user_hangup', broadcastFn);
       break;
+  }
+});
+
+// ─── Module health check ───────────────────────────────────────────────────
+
+registerHealthCheck('core-chat', async () => {
+  const { count } = await import('drizzle-orm');
+  const { chatProviders } = await import('@/core-chat/schema/providers');
+  const { chatCharacters } = await import('@/core-chat/schema/characters');
+
+  try {
+    // Check: at least one active provider exists
+    const [providerCount] = await db
+      .select({ count: count() })
+      .from(chatProviders)
+      .where(eq(chatProviders.status, 'active'));
+
+    // Check: at least one active character exists
+    const [charCount] = await db
+      .select({ count: count() })
+      .from(chatCharacters)
+      .where(eq(chatCharacters.isActive, true));
+
+    const hasProviders = (providerCount?.count ?? 0) > 0;
+    const hasCharacters = (charCount?.count ?? 0) > 0;
+
+    if (!hasProviders && !hasCharacters) {
+      return { status: 'error', details: { providers: 0, characters: 0, message: 'No providers or characters configured' } };
+    }
+    if (!hasProviders) {
+      return { status: 'degraded', details: { providers: 0, characters: charCount?.count, message: 'No active AI providers' } };
+    }
+    if (!hasCharacters) {
+      return { status: 'degraded', details: { providers: providerCount?.count, characters: 0, message: 'No active characters' } };
+    }
+
+    return { status: 'ok', details: { providers: providerCount?.count, characters: charCount?.count } };
+  } catch (err) {
+    return { status: 'error', details: { error: err instanceof Error ? err.message : String(err) } };
   }
 });

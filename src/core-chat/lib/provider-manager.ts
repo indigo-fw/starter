@@ -16,6 +16,13 @@ import type {
 const logger = createLogger('chat-provider-mgr');
 
 // ─── Constants ──────────────────────────────────────────────────────────────
+// Cooldown-based resilience (simpler than a full circuit breaker):
+// - On 5xx/network error: provider goes on cooldown for DEFAULT_COOLDOWN_MS
+// - During cooldown: provider is skipped, next in round-robin is tried
+// - After cooldown expires: provider is eligible again (no half-open state)
+// - A full circuit breaker (with half-open/threshold) would add complexity
+//   for minimal benefit since providers self-recover and cooldown achieves
+//   the same effect for the typical 1-3 provider setup.
 
 const CACHE_TTL_MS = 60_000;
 const DEFAULT_COOLDOWN_MS = 300_000;

@@ -1,8 +1,12 @@
-import { eq, and, lt, isNull } from 'drizzle-orm';
+import { eq, and, lt, isNull, isNotNull, notInArray, sql } from 'drizzle-orm';
 import { createQueue, createWorker } from '@/core/lib/queue';
 import { createLogger } from '@/core/lib/logger';
 import { db } from '@/server/db';
 import { chatConversations } from '@/core-chat/schema/conversations';
+import { chatMedia } from '@/core-chat/schema/media';
+import { chatMessages } from '@/core-chat/schema/messages';
+import { chatCharacters } from '@/core-chat/schema/characters';
+import { chatVoiceCalls } from '@/core-chat/schema/voice-calls';
 import { ConversationStatus } from '@/core-chat/lib/types';
 
 const logger = createLogger('chat-cleanup');
@@ -38,6 +42,35 @@ export function startChatCleanupWorker(): void {
 
     if (staleArchived.length > 0) {
       logger.info('Auto-archived stale conversations', { count: staleArchived.length });
+    }
+
+    // Purge orphaned media (soft-deleted > 7 days, no message references)
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const orphanedMedia = await db
+      .delete(chatMedia)
+      .where(and(
+        isNotNull(chatMedia.deletedAt),
+        lt(chatMedia.deletedAt, sevenDaysAgo),
+      ))
+      .returning({ id: chatMedia.id });
+
+    if (orphanedMedia.length > 0) {
+      logger.info('Purged soft-deleted media', { count: orphanedMedia.length });
+    }
+
+    // Recover orphaned voice calls (started but never finalized — crash recovery)
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+    const orphanedCalls = await db
+      .update(chatVoiceCalls)
+      .set({ endedAt: new Date(), charged: true })
+      .where(and(
+        eq(chatVoiceCalls.charged, false),
+        lt(chatVoiceCalls.startedAt, oneHourAgo),
+      ))
+      .returning({ id: chatVoiceCalls.id });
+
+    if (orphanedCalls.length > 0) {
+      logger.info('Recovered orphaned voice calls', { count: orphanedCalls.length });
     }
   });
 

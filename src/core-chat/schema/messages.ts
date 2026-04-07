@@ -1,5 +1,6 @@
 import { index, integer, jsonb, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { chatConversations } from './conversations';
+import { chatMedia } from './media';
 
 // ─── chat_messages ──────────────────────────────────────────────────────────
 // Messages within a conversation. User messages use client-generated UUIDs
@@ -15,7 +16,8 @@ export const chatMessages = pgTable('chat_messages', {
   status: varchar('status', { length: 20 }).notNull().default('delivered'),
   moderationResult: jsonb('moderation_result'),
   tokenCount: integer('token_count'),
-  mediaId: text('media_id'),
+  mediaId: text('media_id')
+    .references(() => chatMedia.id, { onDelete: 'set null' }),
   metadata: jsonb('metadata'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 }, (t) => [

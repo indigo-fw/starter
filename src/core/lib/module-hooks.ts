@@ -80,3 +80,56 @@ export async function authorizeChannel(userId: string | undefined, channel: stri
   }
   return false;
 }
+
+// ─── Health checks (for /api/health) ────────────────────────────────────────
+
+interface HealthCheckResult {
+  status: 'ok' | 'error' | 'degraded';
+  details?: Record<string, unknown>;
+}
+
+type HealthChecker = () => Promise<HealthCheckResult>;
+
+const healthCheckers = new Map<string, HealthChecker>();
+
+/**
+ * Register a module health check.
+ * Called during serverInit. The health endpoint runs all registered checks.
+ */
+export function registerHealthCheck(moduleName: string, checker: HealthChecker): void {
+  healthCheckers.set(moduleName, checker);
+}
+
+/**
+ * Run all registered module health checks.
+ * Returns a map of module name → check result.
+ */
+export async function runHealthChecks(): Promise<Record<string, HealthCheckResult>> {
+  const results: Record<string, HealthCheckResult> = {};
+  const entries = [...healthCheckers.entries()];
+
+  const settled = await Promise.allSettled(
+    entries.map(async ([name, checker]) => {
+      const result = await checker();
+      return { name, result };
+    }),
+  );
+
+  for (const outcome of settled) {
+    if (outcome.status === 'fulfilled') {
+      results[outcome.value.name] = outcome.value.result;
+    } else {
+      const name = entries[settled.indexOf(outcome)]?.[0] ?? 'unknown';
+      results[name] = { status: 'error', details: { error: String(outcome.reason) } };
+    }
+  }
+
+  return results;
+}
+
+/**
+ * Get list of registered module names (for health overview).
+ */
+export function getRegisteredModules(): string[] {
+  return [...healthCheckers.keys()];
+}

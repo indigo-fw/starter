@@ -332,6 +332,25 @@ export function getActiveCall(conversationId: string): VoiceCallSession | null {
   return activeCalls.get(conversationId) ?? null;
 }
 
+/**
+ * Graceful shutdown — finalize all active voice calls.
+ * Called during server shutdown to prevent orphaned billing records.
+ */
+export async function shutdownAllCalls(): Promise<void> {
+  const entries = [...activeCalls.entries()];
+  if (entries.length === 0) return;
+
+  logger.info('Shutting down active voice calls', { count: entries.length });
+
+  const noopBroadcast = () => {}; // Can't broadcast during shutdown
+
+  await Promise.allSettled(
+    entries.map(([convId]) => endCall(convId, 'server_shutdown', noopBroadcast)),
+  );
+
+  logger.info('All voice calls finalized');
+}
+
 // ─── Internal ───────────────────────────────────────────────────────────────
 
 function resetIdleTimer(
