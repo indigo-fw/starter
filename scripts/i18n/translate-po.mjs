@@ -209,6 +209,9 @@ async function processPoFile(filePath, lang) {
       for (let j = 0; j < batch.length; j++) {
         // Escape quotes for PO format
         batch[j].msgstr = unescapeICU(results[j])
+          .replace(/&amp;/g, '&')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
           .replace(/\\"/g, '"')
           .replace(/"/g, '\\"');
         translated++;

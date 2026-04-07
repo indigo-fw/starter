@@ -2518,7 +2518,7 @@ msgstr "Keine Paneele"
 
 #: src/components/admin/PostFormConfig.tsx:245
 msgid "Drag to reorder panels. Toggle visibility with the eye icon."
-msgstr "Ziehen Sie die Felder per Drag &amp; Drop, um ihre Reihenfolge zu ändern. Über das Augensymbol können Sie die Sichtbarkeit ein- und ausschalten."
+msgstr "Ziehen Sie die Felder per Drag & Drop, um ihre Reihenfolge zu ändern. Über das Augensymbol können Sie die Sichtbarkeit ein- und ausschalten."
 
 #: src/components/admin/PostFormConfig.tsx:250
 msgid "Content Panels"
@@ -2741,7 +2741,7 @@ msgstr "Widget ausblenden"
 
 #: src/engine/components/DashboardConfig.tsx:214
 msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
-msgstr "Ziehe die Widgets per Drag &amp; Drop, um ihre Reihenfolge zu ändern. Über das Augensymbol kannst du die Sichtbarkeit ein- und ausschalten."
+msgstr "Ziehe die Widgets per Drag & Drop, um ihre Reihenfolge zu ändern. Über das Augensymbol kannst du die Sichtbarkeit ein- und ausschalten."
 
 #: src/engine/components/DashboardConfig.tsx:257
 msgid "Configure dashboard"
@@ -3531,7 +3531,7 @@ msgstr "Kopieren"
 
 #: src/engine/components/TranslationBar.tsx:138
 msgid "Copy & Translate"
-msgstr "Kopieren &amp; Übersetzen"
+msgstr "Kopieren & Übersetzen"
 
 #: src/engine/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
