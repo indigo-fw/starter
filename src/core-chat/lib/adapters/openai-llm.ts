@@ -60,7 +60,7 @@ export class OpenAiLlmAdapter implements LlmAdapter {
   async *stream(request: LlmRequest, signal?: AbortSignal): AsyncGenerator<string> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), (request.timeoutSeconds ?? 60) * 1000);
-    if (signal) signal.addEventListener('abort', () => controller.abort());
+    if (signal) signal.addEventListener('abort', () => controller.abort(), { once: true });
 
     try {
       const response = await fetch(normalizeUrl(request.apiUrl), {

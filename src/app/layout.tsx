@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
@@ -29,6 +30,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
 
   return (
     <html
@@ -38,6 +40,7 @@ export default async function RootLayout({
     >
       <head>
         <script
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `(function(){var p=location.pathname;var k=p.startsWith('/dashboard')?'indigo-theme-admin':'indigo-theme-public';var t=localStorage.getItem(k)||localStorage.getItem('indigo-theme');var d=t==='dark'||(t==='system')&&matchMedia('(prefers-color-scheme:dark)').matches;if(d)document.documentElement.classList.add('dark')})()`,
           }}

@@ -12,6 +12,7 @@ interface ChatInputActionsProps {
   hasText?: boolean;
 }
 
+// Display-only cost hints. Actual costs enforced server-side via options registry.
 const ACTIONS = [
   { id: 'photo', icon: Camera, labelKey: 'Send photo', text: 'send photo', cost: null },
   { id: 'nsfw', icon: Sparkles, labelKey: 'Send NSFW photo', text: 'send photo nsfw', cost: 10 },

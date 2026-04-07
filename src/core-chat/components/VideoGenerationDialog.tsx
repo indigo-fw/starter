@@ -44,7 +44,7 @@ export function VideoGenerationDialog({ sourceImageUrl, onSubmit, onClose, isGen
   const canAfford = tokenBalance == null || tokenBalance >= cost;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={__('Generate Video')}>
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-md bg-(--surface-primary) rounded-2xl shadow-xl border border-(--border-primary) overflow-hidden">
         {/* Header */}

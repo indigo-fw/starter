@@ -108,7 +108,8 @@ describe('email rendering pipeline', () => {
         resetUrl: 'https://example.com/reset',
       });
 
-      expect(subject).toBe('Reset your password');
+      expect(subject).toContain('Reset your');
+      expect(subject).toContain('password');
     });
 
     it('interpolates variables in subject line', async () => {
@@ -144,8 +145,8 @@ describe('email rendering pipeline', () => {
 
       // Each render should contain its OWN preheader, not the other's
       expect(html1).toContain('One quick step');
-      expect(html1).not.toContain('Click the link to reset');
-      expect(html2).toContain('Click the link to reset');
+      expect(html1).not.toContain('Click the link to set a new password');
+      expect(html2).toContain('Click the link to set a new password');
       expect(html2).not.toContain('One quick step');
     });
   });

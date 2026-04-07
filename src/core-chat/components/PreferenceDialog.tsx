@@ -33,7 +33,7 @@ export function PreferenceDialog({ onSubmit, onSkip }: PreferenceDialogProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={__('Set preferences')}>
       <div className="absolute inset-0 bg-black/50" onClick={handleSkip} />
       <div className="relative w-full max-w-md bg-(--surface-primary) rounded-2xl shadow-xl border border-(--border-primary) overflow-hidden">
         <div className="flex items-center justify-between px-5 py-4 border-b border-(--border-primary)">

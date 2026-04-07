@@ -1,15 +1,20 @@
-'use client';
+import type { Metadata } from 'next';
+import { CharacterBrowsePageClient } from './client';
 
-import { CharacterBrowsePage } from '@/core-chat/components/CharacterBrowsePage';
-import { ChatErrorBoundary } from '@/core-chat/components/ChatErrorBoundary';
+export const metadata: Metadata = {
+  title: 'AI Characters — Browse & Chat',
+  description: 'Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly.',
+  openGraph: {
+    title: 'AI Characters',
+    description: 'Browse AI characters with unique personalities and start chatting.',
+    type: 'website',
+  },
+};
 
 /**
- * /characters — Browse AI characters with filters and pagination.
+ * /characters — Server component with metadata.
+ * Renders client component for interactive browse experience.
  */
 export default function CharactersPage() {
-  return (
-    <ChatErrorBoundary>
-      <CharacterBrowsePage />
-    </ChatErrorBoundary>
-  );
+  return <CharacterBrowsePageClient />;
 }

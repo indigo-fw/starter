@@ -11,15 +11,38 @@ import { isEmailVerificationRequired } from '@/lib/email-verification';
 /**
  * Next.js 16 Proxy — runs before routes are rendered.
  *
- * Handles two concerns:
+ * Handles three concerns:
  * 1. Dashboard auth gating (session cookie check)
  * 2. Locale prefix detection + URL rewriting for i18n
+ * 3. Nonce-based Content Security Policy
  */
 
 /** Non-default locale codes for prefix matching */
 const NON_DEFAULT_LOCALE_SET: Set<string> = new Set(
   LOCALES.filter((l) => l !== DEFAULT_LOCALE)
 );
+
+/** Generate a cryptographic nonce and set nonce-based CSP on the response. */
+function withCsp(response: NextResponse): NextResponse {
+  const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64');
+
+  const csp = [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' https://www.googletagmanager.com https://www.google-analytics.com`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data:",
+    "connect-src 'self' ws: wss: https://www.google-analytics.com https://region1.google-analytics.com",
+    "frame-src 'self' https://www.youtube.com https://js.stripe.com",
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+  ].join('; ');
+
+  response.headers.set('Content-Security-Policy', csp);
+  response.headers.set('x-nonce', nonce);
+  return response;
+}
 
 const VERIFY_EMAIL_PATH = publicAuthRoutes.verifyEmail;
 
@@ -29,7 +52,7 @@ export async function proxy(request: NextRequest) {
   // ── Dashboard auth gating ──
   if (pathname.startsWith(DASHBOARD_PREFIX)) {
     if (PUBLIC_ADMIN_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'))) {
-      return NextResponse.next();
+      return withCsp(NextResponse.next());
     }
 
     const sessionCookie = getSessionCookie(request);
@@ -37,7 +60,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL(adminRoutes.login, request.url));
     }
 
-    return NextResponse.next();
+    return withCsp(NextResponse.next());
   }
 
   // ── Customer account auth gating ──
@@ -108,13 +131,13 @@ export async function proxy(request: NextRequest) {
 
     const response = NextResponse.rewrite(url);
     response.headers.set('x-locale', locale);
-    return response;
+    return withCsp(response);
   }
 
   // Default locale — no rewrite, set header for consistency
   const response = NextResponse.next();
   response.headers.set('x-locale', DEFAULT_LOCALE);
-  return response;
+  return withCsp(response);
 }
 
 export const config = {
