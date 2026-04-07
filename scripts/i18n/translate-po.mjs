@@ -141,8 +141,9 @@ async function translateBatch(texts, targetLang) {
       text: texts,
       target_lang: targetLang.toUpperCase(),
       source_lang: 'EN',
-      // Preserve ICU placeholders like {count} by treating them as tags
-      tag_handling: 'html',
+      // Preserve ICU placeholders like {count} by treating them as XML tags.
+      // Using 'xml' instead of 'html' to avoid &amp; encoding of plain-text ampersands.
+      tag_handling: 'xml',
       ignore_tags: ['x'],
     }),
     signal: AbortSignal.timeout(30_000),

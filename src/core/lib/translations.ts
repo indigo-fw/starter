@@ -81,11 +81,24 @@ const blankTranslator: TranslationFn = Object.assign(
 );
 
 /**
- * Module-scope extraction marker — identity function at runtime.
+ * Module-scope extraction marker for translatable data constants.
+ * Returns the key as-is at runtime (identity function).
  *
- * Use for translatable strings in data constants outside components/handlers.
- * The generate-po script extracts these keys under the given namespace.
- * At render time, translate via `useAdminTranslations(sameNamespace)` (admin) or `useBlankTranslations()` (public).
+ * WHY: The PO extractor can only pick up __('literal') calls.
+ * When a string is defined in a module-scope constant and later passed
+ * as a variable — __(item.label) — the extractor can't trace it back.
+ * Wrapping with dataTranslations registers the key for extraction.
+ *
+ * USAGE (two steps — both required):
+ *   // 1. At definition: register keys for PO extraction
+ *   const _d = dataTranslations('General');
+ *   const ITEMS = [{ label: _d('Occupation') }];
+ *
+ *   // 2. At render: actually translate at runtime
+ *   {__(item.label)}
+ *
+ * Step 1 ensures the key lands in the PO file.
+ * Step 2 performs the real translation lookup.
  */
 export const dataTranslations = (_namespace: string): TranslationFn =>
   blankTranslator;
