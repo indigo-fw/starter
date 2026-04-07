@@ -45,9 +45,13 @@ export default getRequestConfig(async () => {
       if (error.code === 'MISSING_MESSAGE') return;
       console.error('[next-intl]', error.message);
     },
-    getMessageFallback({ key }) {
-      // Return the raw key as fallback — reverse the dot→@@@ transform
-      return key.replace(/@@@/g, '.');
+    getMessageFallback({ key, namespace }) {
+      const rawKey = key.replace(/@@@/g, '.');
+      // Dev: show namespace prefix so missing translations are obvious
+      if (process.env.NODE_ENV === 'development' && namespace) {
+        return `${namespace}.${rawKey}`;
+      }
+      return rawKey;
     },
   };
 });
