@@ -10,11 +10,26 @@ export default getRequestConfig(async () => {
     ? (raw as Locale)
     : DEFAULT_LOCALE;
 
-  // Load public translations only — admin translations are loaded separately
-  // in the dashboard layout to avoid exposing admin strings to public pages.
-  let messages = {};
+  // Always load English as base, then overlay locale-specific translations.
+  // Missing keys in non-EN locales automatically fall back to the English value.
+  // Admin translations are loaded separately in the dashboard layout.
+  let messages: Record<string, Record<string, string>> = {};
   try {
-    messages = (await import(`../locales/build/${locale}.json`)).default;
+    const en: Record<string, Record<string, string>> = (
+      await import('../locales/build/en.json')
+    ).default;
+    if (locale === 'en') {
+      messages = en;
+    } else {
+      const localeMessages: Record<string, Record<string, string>> = (
+        await import(`../locales/build/${locale}.json`)
+      ).default;
+      // Deep merge: EN base + locale overlay
+      messages = { ...en };
+      for (const ns of Object.keys(localeMessages)) {
+        messages[ns] = { ...(en[ns] || {}), ...localeMessages[ns] };
+      }
+    }
   } catch {
     // JSON not generated yet — translations will fall back to English keys.
   }
