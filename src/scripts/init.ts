@@ -38,6 +38,7 @@ import {
 import { seedMedia, seedCmsContent } from "./seed/cms-content";
 import { seedUsersAndOrgs } from "./seed/users-orgs";
 import { seedExtras } from "./seed/extras";
+import { applySearchTriggersWithConnection } from "./apply-search-triggers";
 
 // Lazy-loaded after .env is ensured (top-level import triggers env validation)
 async function getModuleSeeds() {
@@ -567,10 +568,18 @@ async function main() {
   const databaseUrl = await ensureDatabase();
 
   // Step 3
-  runMigrations();
+  await runMigrations();
 
   const sql = postgres(databaseUrl, { max: 1 });
   const db = drizzle(sql);
+
+  // Apply full-text search triggers (idempotent — safe to re-run)
+  log("🔍", "Applying full-text search triggers...");
+  try {
+    await applySearchTriggersWithConnection(sql);
+  } catch {
+    console.error("Search trigger setup failed. Search will not work correctly.");
+  }
 
   try {
     // Step 4

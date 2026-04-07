@@ -2,13 +2,7 @@
 
 @layer components {
   /* ===================== Layout ===================== */
-  .container {
-    max-width: 64rem; /* 1024px ≈ max-w-5xl */
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+  /* .container is defined as @utility in globals.css (80rem / 1280px) */
 
   .container-narrow {
     max-width: 48rem; /* 768px ≈ max-w-3xl */
@@ -45,7 +39,7 @@
     align-items: center;
     justify-content: space-between;
     height: 3.5rem; /* 56px */
-    max-width: 64rem;
+    max-width: 80rem;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1rem;

@@ -3,6 +3,7 @@ import { cmsPosts } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
 import { CONTENT_TYPES } from '@/config/cms';
 import { and, desc, eq, ilike, isNull, or, sql } from 'drizzle-orm';
+import { ilikePattern } from '@/core/crud/drizzle-utils';
 import NextLink from 'next/link';
 import { Link } from '@/i18n/navigation';
 import { getLocale } from '@/lib/locale-server';
@@ -39,12 +40,13 @@ export default async function SearchPage({ searchParams }: Props) {
     const hasSearchVector = query.length >= 3;
 
     if (hasSearchVector) {
-      const tsQuery = sql`plainto_tsquery('english', ${query})`;
+      const tsConfig = sql`cms_ts_config(${locale})`;
+      const tsQuery = sql`plainto_tsquery(${tsConfig}, ${query})`;
       const conditions = and(
         eq(cmsPosts.status, ContentStatus.PUBLISHED),
         eq(cmsPosts.lang, locale),
         isNull(cmsPosts.deletedAt),
-        sql`search_vector @@ ${tsQuery}`
+        sql`${cmsPosts.searchVector} @@ ${tsQuery}`
       );
 
       const [items, countResult] = await Promise.all([
@@ -56,11 +58,11 @@ export default async function SearchPage({ searchParams }: Props) {
             type: cmsPosts.type,
             metaDescription: cmsPosts.metaDescription,
             publishedAt: cmsPosts.publishedAt,
-            headline: sql<string>`ts_headline('english', regexp_replace(coalesce(content, ''), '<[^>]*>', '', 'g'), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as('headline'),
+            headline: sql<string>`ts_headline(${tsConfig}, regexp_replace(coalesce(${cmsPosts.content}, ''), '<[^>]*>', '', 'g'), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as('headline'),
           })
           .from(cmsPosts)
           .where(conditions)
-          .orderBy(desc(sql`ts_rank(search_vector, ${tsQuery})`))
+          .orderBy(desc(sql`ts_rank(${cmsPosts.searchVector}, ${tsQuery})`))
           .offset(offset)
           .limit(pageSize),
         db
@@ -80,7 +82,7 @@ export default async function SearchPage({ searchParams }: Props) {
       });
     } else {
       // ILIKE fallback for short queries
-      const pattern = `%${query}%`;
+      const pattern = ilikePattern(query);
       const conditions = and(
         eq(cmsPosts.status, ContentStatus.PUBLISHED),
         eq(cmsPosts.lang, locale),

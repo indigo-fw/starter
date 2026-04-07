@@ -42,12 +42,14 @@ const logger = createLogger('showcase-router');
 const contentProcedure = sectionProcedure('content');
 
 const CARD_TYPES = ['video', 'image', 'richtext'] as const;
+const VARIANTS = ['shorts', 'contained', 'full'] as const;
 
 const SHOWCASE_SNAPSHOT_KEYS = [
   'title',
   'slug',
   'description',
   'cardType',
+  'variant',
   'mediaUrl',
   'thumbnailUrl',
   'status',
@@ -128,6 +130,7 @@ export const showcaseRouter = createTRPCRouter({
         lang: z.string().min(2).max(2),
         description: z.string().default(''),
         cardType: z.enum(CARD_TYPES).default('richtext'),
+        variant: z.enum(VARIANTS).default('full'),
         mediaUrl: z.string().max(2048).optional(),
         thumbnailUrl: z.string().max(2048).optional(),
         status: z.number().int().default(ContentStatus.DRAFT),
@@ -167,6 +170,7 @@ export const showcaseRouter = createTRPCRouter({
           lang: itemInput.lang,
           description: itemInput.description,
           cardType: itemInput.cardType,
+          variant: itemInput.variant,
           mediaUrl: itemInput.mediaUrl ?? null,
           thumbnailUrl: itemInput.thumbnailUrl ?? null,
           status: itemInput.status,
@@ -220,6 +224,7 @@ export const showcaseRouter = createTRPCRouter({
           lang: original.lang,
           description: original.description,
           cardType: original.cardType,
+          variant: original.variant,
           mediaUrl: original.mediaUrl,
           thumbnailUrl: original.thumbnailUrl,
           status: ContentStatus.DRAFT,
@@ -299,6 +304,7 @@ export const showcaseRouter = createTRPCRouter({
           lang: input.targetLang,
           description,
           cardType: source.cardType,
+          variant: source.variant,
           mediaUrl: source.mediaUrl,
           thumbnailUrl: source.thumbnailUrl,
           status: ContentStatus.DRAFT,
@@ -347,6 +353,7 @@ export const showcaseRouter = createTRPCRouter({
           slug: cmsShowcase.slug,
           description: cmsShowcase.description,
           cardType: cmsShowcase.cardType,
+          variant: cmsShowcase.variant,
           mediaUrl: cmsShowcase.mediaUrl,
           thumbnailUrl: cmsShowcase.thumbnailUrl,
           status: cmsShowcase.status,
@@ -361,7 +368,7 @@ export const showcaseRouter = createTRPCRouter({
         .from(cmsShowcase)
         .where(inArray(cmsShowcase.id, input.ids));
 
-      const headers = ['id', 'title', 'slug', 'cardType', 'status', 'lang', 'sortOrder', 'mediaUrl', 'thumbnailUrl', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'description'];
+      const headers = ['id', 'title', 'slug', 'cardType', 'variant', 'status', 'lang', 'sortOrder', 'mediaUrl', 'thumbnailUrl', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'description'];
       return serializeExport(items as Record<string, unknown>[], headers, input.format);
     }),
 
@@ -373,6 +380,7 @@ export const showcaseRouter = createTRPCRouter({
         slug: z.string().min(1).max(255).optional(),
         description: z.string().optional(),
         cardType: z.enum(CARD_TYPES).optional(),
+        variant: z.enum(VARIANTS).optional(),
         mediaUrl: z.string().max(2048).optional().nullable(),
         thumbnailUrl: z.string().max(2048).optional().nullable(),
         status: z.number().int().optional(),

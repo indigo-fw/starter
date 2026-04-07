@@ -21,6 +21,7 @@ export const cmsShowcase = pgTable(
     lang: varchar('lang', { length: 2 }).notNull().default('en'),
     description: text('description').notNull().default(''),
     cardType: varchar('card_type', { length: 20 }).notNull().default('richtext'),
+    variant: varchar('variant', { length: 20 }).notNull().default('full'),
     mediaUrl: text('media_url'),
     thumbnailUrl: text('thumbnail_url'),
     status: smallint('status').notNull().default(0),

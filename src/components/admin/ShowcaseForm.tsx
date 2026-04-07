@@ -42,6 +42,7 @@ interface ShowcaseFormData extends Record<string, unknown> {
   slug: string;
   description: string;
   cardType: string;
+  variant: string;
   mediaUrl: string;
   thumbnailUrl: string;
   status: number;
@@ -62,6 +63,12 @@ const CARD_TYPE_OPTIONS = [
   { value: 'image', label: 'Image' },
   { value: 'richtext', label: 'Rich Text' },
 ];
+
+const VARIANT_OPTIONS = [
+  { value: 'shorts', label: 'Shorts', width: '450px', pct: '33%' },
+  { value: 'contained', label: 'Contained', width: '768px', pct: '66%' },
+  { value: 'full', label: 'Full Width', width: '100%', pct: '100%' },
+] as const;
 
 interface Props {
   showcaseId?: string;
@@ -92,7 +99,7 @@ export function ShowcaseForm({ showcaseId }: Props) {
   const initialFormData: ShowcaseFormData = useMemo(() => {
     if (!item) {
       return {
-        title: '', slug: '', description: '', cardType: 'richtext',
+        title: '', slug: '', description: '', cardType: 'richtext', variant: 'full',
         mediaUrl: '', thumbnailUrl: '', status: ContentStatus.DRAFT,
         lang: DEFAULT_LOCALE, sortOrder: 0, metaDescription: '', seoTitle: '',
         noindex: false, publishedAt: '', tagIds: [], fallbackToDefault: null,
@@ -103,6 +110,7 @@ export function ShowcaseForm({ showcaseId }: Props) {
       slug: item.slug,
       description: item.description,
       cardType: item.cardType,
+      variant: item.variant ?? 'full',
       mediaUrl: item.mediaUrl ?? '',
       thumbnailUrl: item.thumbnailUrl ?? '',
       status: item.status,
@@ -220,6 +228,7 @@ export function ShowcaseForm({ showcaseId }: Props) {
         lang: formData.lang,
         description: formData.description,
         cardType: formData.cardType as 'video' | 'image' | 'richtext',
+        variant: formData.variant as 'shorts' | 'contained' | 'full',
         mediaUrl: formData.mediaUrl || undefined,
         thumbnailUrl: formData.thumbnailUrl || undefined,
         status: formData.status,
@@ -238,6 +247,7 @@ export function ShowcaseForm({ showcaseId }: Props) {
         slug: formData.slug,
         description: formData.description,
         cardType: formData.cardType as 'video' | 'image' | 'richtext',
+        variant: formData.variant as 'shorts' | 'contained' | 'full',
         mediaUrl: formData.mediaUrl || null,
         thumbnailUrl: formData.thumbnailUrl || null,
         status: formData.status,
@@ -363,6 +373,39 @@ export function ShowcaseForm({ showcaseId }: Props) {
                       </option>
                     ))}
                   </select>
+                </div>
+
+                <div className="field-group">
+                  <label className="block text-sm font-medium text-(--text-secondary)">
+                    {__('Layout Variant')}
+                  </label>
+                  <select
+                    value={formData.variant}
+                    onChange={(e) => handleChange('variant', e.target.value)}
+                    className="select mt-1 w-full"
+                  >
+                    {VARIANT_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {__(opt.label)} ({opt.width})
+                      </option>
+                    ))}
+                  </select>
+                  {(() => {
+                    const opt = VARIANT_OPTIONS.find((o) => o.value === formData.variant) ?? VARIANT_OPTIONS[2];
+                    return (
+                      <div className="mt-2 flex items-center gap-2">
+                        <div className="h-1.5 flex-1 rounded-full bg-(--surface-secondary)">
+                          <div
+                            className="h-full rounded-full bg-(--brand-500) transition-all"
+                            style={{ width: opt.pct }}
+                          />
+                        </div>
+                        <span className="shrink-0 text-xs tabular-nums text-(--text-muted)">
+                          {opt.width}
+                        </span>
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {formData.cardType === 'video' && (

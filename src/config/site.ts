@@ -30,4 +30,10 @@ export const siteConfig = {
   /** Seconds after registration before unverified users are blocked.
    * Set to 0 to require immediate verification. Set to -1 to disable (never block). */
   emailVerificationGracePeriod: 24 * 60 * 60, // 24 hours
+
+  /** Showcase feed configuration. */
+  showcase: {
+    /** Show navigation dots on the left side of the feed. */
+    showNavDots: true,
+  },
 } as const;

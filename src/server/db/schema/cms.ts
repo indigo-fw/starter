@@ -13,6 +13,7 @@ import {
 } from 'drizzle-orm/pg-core';
 
 import { user } from './auth';
+import { tsvector } from './types';
 
 // ─── cms_posts ─────────────────────────────────────────────────────────────────
 
@@ -40,6 +41,7 @@ export const cmsPosts = pgTable(
     authorId: text('author_id').references(() => user.id, {
       onDelete: 'set null',
     }),
+    searchVector: tsvector('search_vector'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
     deletedAt: timestamp('deleted_at'),
@@ -55,6 +57,7 @@ export const cmsPosts = pgTable(
     index('cms_posts_author_id_idx').on(t.authorId),
     index('cms_posts_created_at_idx').on(t.createdAt),
     index('cms_posts_parent_id_idx').on(t.parentId),
+    index('cms_posts_search_vector_idx').using('gin', t.searchVector),
   ]
 );
 

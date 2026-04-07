@@ -18,5 +18,10 @@ export default async function ShowcasePage() {
     pageSize: 100,
   });
 
-  return <ShowcaseFeed items={items} />;
+  return (
+    <ShowcaseFeed
+      items={items}
+      showNavDots={siteConfig.showcase.showNavDots}
+    />
+  );
 }

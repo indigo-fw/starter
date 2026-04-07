@@ -1,5 +1,15 @@
 import { type AnyColumn, type SQL, ilike, or, sql } from 'drizzle-orm';
 
+/** Escape ILIKE special characters (%, _, \) so they match literally. */
+export function escapeIlike(value: string): string {
+  return value.replace(/[\\%_]/g, (ch) => `\\${ch}`);
+}
+
+/** Build a `%value%` ILIKE pattern with special chars escaped. */
+export function ilikePattern(value: string): string {
+  return `%${escapeIlike(value)}%`;
+}
+
 /**
  * Split a search string into words and create ILIKE conditions for each word
  * across multiple columns. All words must match at least one column (AND logic
@@ -16,7 +26,7 @@ export function wordSplitLike(
   if (words.length === 0) return undefined;
 
   const wordConditions = words.map((word) => {
-    const pattern = `%${word}%`;
+    const pattern = ilikePattern(word);
     const colConditions = columns.map((col) => ilike(col, pattern));
     return colConditions.length === 1 ? colConditions[0]! : or(...colConditions);
   });

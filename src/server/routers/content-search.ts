@@ -9,6 +9,7 @@ import { cmsTerms } from '@/server/db/schema/terms';
 import { ContentStatus } from '@/core/types/cms';
 import { CONTENT_TYPES } from '@/config/cms';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
+import { ilikePattern } from '@/core/crud/drizzle-utils';
 import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 
 /**
@@ -30,7 +31,7 @@ export const contentSearchRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const { query, limit, lang } = input;
-      const pattern = `%${query}%`;
+      const pattern = ilikePattern(query);
 
       type SearchResult = {
         type: string;
@@ -229,7 +230,7 @@ export const contentSearchRouter = createTRPCRouter({
 
       // For very short queries, fall back to ILIKE
       if (input.query.length < 3) {
-        const pattern = `%${input.query}%`;
+        const pattern = ilikePattern(input.query);
         const conditions = and(
           eq(cmsPosts.status, ContentStatus.PUBLISHED),
           eq(cmsPosts.lang, input.lang),
@@ -272,13 +273,14 @@ export const contentSearchRouter = createTRPCRouter({
         return paginatedResult(results, total, page, pageSize);
       }
 
-      // Full-text search with tsvector
-      const tsQuery = sql`plainto_tsquery('english', ${input.query})`;
+      // Full-text search with tsvector (language-aware via cms_ts_config)
+      const tsConfig = sql`cms_ts_config(${input.lang})`;
+      const tsQuery = sql`plainto_tsquery(${tsConfig}, ${input.query})`;
       const conditions = and(
         eq(cmsPosts.status, ContentStatus.PUBLISHED),
         eq(cmsPosts.lang, input.lang),
         isNull(cmsPosts.deletedAt),
-        sql`search_vector @@ ${tsQuery}`
+        sql`${cmsPosts.searchVector} @@ ${tsQuery}`
       );
 
       const [items, countResult] = await Promise.all([
@@ -290,12 +292,12 @@ export const contentSearchRouter = createTRPCRouter({
             type: cmsPosts.type,
             metaDescription: cmsPosts.metaDescription,
             publishedAt: cmsPosts.publishedAt,
-            rank: sql<number>`ts_rank(search_vector, ${tsQuery})`.as('rank'),
-            headline: sql<string>`ts_headline('english', regexp_replace(coalesce(content, ''), '<[^>]*>', '', 'g'), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as('headline'),
+            rank: sql<number>`ts_rank(${cmsPosts.searchVector}, ${tsQuery})`.as('rank'),
+            headline: sql<string>`ts_headline(${tsConfig}, regexp_replace(coalesce(${cmsPosts.content}, ''), '<[^>]*>', '', 'g'), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as('headline'),
           })
           .from(cmsPosts)
           .where(conditions)
-          .orderBy(desc(sql`ts_rank(search_vector, ${tsQuery})`))
+          .orderBy(desc(sql`ts_rank(${cmsPosts.searchVector}, ${tsQuery})`))
           .offset(offset)
           .limit(pageSize),
         ctx.db

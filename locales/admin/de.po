@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07T22:38:54.267Z\n"
-"PO-Revision-Date: 2026-04-07T22:38:54.267Z\n"
+"POT-Creation-Date: 2026-04-07T23:28:31.119Z\n"
+"PO-Revision-Date: 2026-04-07T23:28:31.119Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de\n"
 "Language: de\n"
@@ -193,7 +193,7 @@ msgstr "Name"
 #: src/components/admin/CategoryForm.tsx:338
 #: src/components/admin/CmsListView.tsx:759
 #: src/components/admin/PortfolioForm.tsx:362
-#: src/components/admin/ShowcaseForm.tsx:331
+#: src/components/admin/ShowcaseForm.tsx:341
 #: src/components/admin/TermForm.tsx:248
 msgid "Slug"
 msgstr "Schnecke"
@@ -455,7 +455,7 @@ msgstr "Formular bearbeiten"
 #: src/components/admin/CategoryForm.tsx:300
 #: src/components/admin/PortfolioForm.tsx:324
 #: src/components/admin/PostForm.tsx:853
-#: src/components/admin/ShowcaseForm.tsx:293
+#: src/components/admin/ShowcaseForm.tsx:303
 #: src/components/admin/TermForm.tsx:212
 msgid "Save"
 msgstr "Speichern"
@@ -909,7 +909,7 @@ msgstr "Projektname"
 #: src/app/dashboard/(panel)/projects/page.tsx:135
 #: src/components/admin/CategoryForm.tsx:384
 #: src/components/admin/PortfolioForm.tsx:474
-#: src/components/admin/ShowcaseForm.tsx:434
+#: src/components/admin/ShowcaseForm.tsx:472
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -951,7 +951,7 @@ msgstr "Noch keine Projekte. Erstelle eines, um loszulegen."
 #: src/components/admin/PortfolioForm.tsx:559
 #: src/components/admin/PostForm.tsx:948
 #: src/components/admin/PostForm.tsx:952
-#: src/components/admin/ShowcaseForm.tsx:490
+#: src/components/admin/ShowcaseForm.tsx:528
 #: src/components/admin/TermForm.tsx:268
 msgid "Status"
 msgstr "Status"
@@ -1390,7 +1390,7 @@ msgstr "Model Preset"
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:255
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:329
-#: src/components/admin/ShowcaseForm.tsx:415
+#: src/components/admin/ShowcaseForm.tsx:453
 msgid "Sort Order"
 msgstr "Sortierreihenfolge"
 
@@ -2029,7 +2029,7 @@ msgstr "Alles auswählen"
 #: src/components/admin/CategoryForm.tsx:353
 #: src/components/admin/CmsListView.tsx:733
 #: src/components/admin/PortfolioForm.tsx:377
-#: src/components/admin/ShowcaseForm.tsx:318
+#: src/components/admin/ShowcaseForm.tsx:328
 msgid "Title"
 msgstr "Titel"
 
@@ -2038,7 +2038,7 @@ msgstr "Titel"
 #: src/components/admin/CmsListView.tsx:767
 #: src/components/admin/PortfolioForm.tsx:569
 #: src/components/admin/PostForm.tsx:960
-#: src/components/admin/ShowcaseForm.tsx:500
+#: src/components/admin/ShowcaseForm.tsx:538
 #: src/components/admin/TaxonomyOverview.tsx:22
 #: src/components/admin/TermForm.tsx:278
 msgid "Published"
@@ -2048,7 +2048,7 @@ msgstr "Veröffentlicht"
 #: src/components/admin/CategoryForm.tsx:463
 #: src/components/admin/PortfolioForm.tsx:567
 #: src/components/admin/PostForm.tsx:959
-#: src/components/admin/ShowcaseForm.tsx:498
+#: src/components/admin/ShowcaseForm.tsx:536
 #: src/components/admin/TermForm.tsx:276
 msgid "Draft"
 msgstr "Entwurf"
@@ -2612,13 +2612,13 @@ msgstr "Kategoriebeschreibung..."
 #: src/components/admin/CategoryForm.tsx:400
 #: src/components/admin/CmsListView.tsx:832
 #: src/components/admin/PortfolioForm.tsx:490
-#: src/components/admin/ShowcaseForm.tsx:450
+#: src/components/admin/ShowcaseForm.tsx:488
 msgid "SEO"
 msgstr "SEO"
 
 #: src/components/admin/CategoryForm.tsx:444
 #: src/components/admin/PortfolioForm.tsx:548
-#: src/components/admin/ShowcaseForm.tsx:568
+#: src/components/admin/ShowcaseForm.tsx:606
 msgid "Tags"
 msgstr "Stichworte"
 
@@ -2630,7 +2630,7 @@ msgstr "Bestellung"
 #: src/components/admin/CategoryForm.tsx:503
 #: src/components/admin/PortfolioForm.tsx:596
 #: src/components/admin/PostForm.tsx:687
-#: src/components/admin/ShowcaseForm.tsx:527
+#: src/components/admin/ShowcaseForm.tsx:565
 #: src/components/admin/TermForm.tsx:296
 msgid "Language"
 msgstr "Sprache"
@@ -2638,7 +2638,7 @@ msgstr "Sprache"
 #: src/components/admin/CategoryForm.tsx:530
 #: src/components/admin/PortfolioForm.tsx:623
 #: src/components/admin/PostForm.tsx:967
-#: src/components/admin/ShowcaseForm.tsx:554
+#: src/components/admin/ShowcaseForm.tsx:592
 msgid "Publish Date"
 msgstr "Veröffentlichungsdatum"
 
@@ -2951,51 +2951,55 @@ msgstr "Neuer Beitrag"
 msgid "View Site"
 msgstr "Zur Website"
 
-#: src/components/admin/ShowcaseForm.tsx:149
+#: src/components/admin/ShowcaseForm.tsx:157
 msgid "Showcase item created"
 msgstr "Vorzeigeartikel erstellt"
 
-#: src/components/admin/ShowcaseForm.tsx:163
+#: src/components/admin/ShowcaseForm.tsx:171
 msgid "Showcase item updated"
 msgstr "Vorzeigeartikel aktualisiert"
 
-#: src/components/admin/ShowcaseForm.tsx:277
+#: src/components/admin/ShowcaseForm.tsx:287
 msgid "New Showcase Item"
 msgstr "Neues Produkt im Schaufenster"
 
-#: src/components/admin/ShowcaseForm.tsx:277
+#: src/components/admin/ShowcaseForm.tsx:287
 msgid "Edit Showcase Item"
 msgstr "Showcase-Artikel bearbeiten"
 
-#: src/components/admin/ShowcaseForm.tsx:326
+#: src/components/admin/ShowcaseForm.tsx:336
 msgid "Card title"
 msgstr "Kartentitel"
 
-#: src/components/admin/ShowcaseForm.tsx:349
+#: src/components/admin/ShowcaseForm.tsx:359
 msgid "Card Configuration"
 msgstr "Kartenkonfiguration"
 
-#: src/components/admin/ShowcaseForm.tsx:353
+#: src/components/admin/ShowcaseForm.tsx:363
 msgid "Card Type"
 msgstr "Kartentyp"
 
-#: src/components/admin/ShowcaseForm.tsx:371
+#: src/components/admin/ShowcaseForm.tsx:380
+msgid "Layout Variant"
+msgstr "Layout Variant"
+
+#: src/components/admin/ShowcaseForm.tsx:409
 msgid "Video Embed URL"
 msgstr "URL zum Einbetten des Videos"
 
-#: src/components/admin/ShowcaseForm.tsx:386
+#: src/components/admin/ShowcaseForm.tsx:424
 msgid "Image URL"
 msgstr "Bild-URL"
 
-#: src/components/admin/ShowcaseForm.tsx:401
+#: src/components/admin/ShowcaseForm.tsx:439
 msgid "Thumbnail URL"
 msgstr "URL der Miniaturansicht"
 
-#: src/components/admin/ShowcaseForm.tsx:426
+#: src/components/admin/ShowcaseForm.tsx:464
 msgid "Lower numbers appear first in the feed"
 msgstr "Die niedrigeren Zahlen werden im Feed zuerst angezeigt"
 
-#: src/components/admin/ShowcaseForm.tsx:439
+#: src/components/admin/ShowcaseForm.tsx:477
 msgid "Card description..."
 msgstr "Kartenbeschreibung..."
 
@@ -3050,6 +3054,10 @@ msgstr "Letzte Aktivitäten"
 #: src/config/dashboard-widgets.tsx:40
 msgid "View all"
 msgstr "Alle anzeigen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Controls the card width in the feed"
+#~ msgstr "Controls the card width in the feed"
 
 #. REMOVED FROM CODE - PRESERVED FOR REFERENCE
 #~ msgid "No affiliates yet."

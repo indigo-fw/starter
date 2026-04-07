@@ -1,4 +1,5 @@
-import { eq, and, asc } from 'drizzle-orm';
+import { eq, and, asc, sql, desc } from 'drizzle-orm';
+import { ilikePattern } from '@/core/crud/drizzle-utils';
 import { db } from '@/server/db';
 import { cmsDocs } from '@/core-docs/schema/docs';
 import { loadFileDocs, loadFileDoc, stripHtml, type FileDoc } from './docs-loader';
@@ -194,24 +195,76 @@ export async function generateLlmExport(): Promise<string> {
 }
 
 /**
- * Simple full-text search across all docs.
+ * Full-text search across all docs.
+ * Uses tsvector for CMS docs (ranked, with highlighted excerpts) and
+ * substring matching for file-based docs. File-based results with the
+ * same slug override CMS results (consistent with the rest of the system).
  */
 export async function searchDocs(query: string, limit = 20): Promise<Array<{ slug: string; title: string; excerpt: string }>> {
   if (!query.trim()) return [];
 
-  const docs = await getAllDocs();
   const q = query.toLowerCase();
 
-  return docs
+  // File-based docs: substring match (no DB, no tsvector)
+  const fileDocs = loadFileDocs().map(fileDocToUnified);
+  const fileResults = fileDocs
     .filter((d) => d.title.toLowerCase().includes(q) || d.bodyText.toLowerCase().includes(q))
-    .slice(0, limit)
     .map((d) => {
-      // Extract excerpt around the match
       const idx = d.bodyText.toLowerCase().indexOf(q);
       const start = Math.max(0, idx - 80);
       const end = Math.min(d.bodyText.length, idx + q.length + 80);
       const excerpt = (start > 0 ? '...' : '') + d.bodyText.slice(start, end) + (end < d.bodyText.length ? '...' : '');
-
       return { slug: d.slug, title: d.title, excerpt };
     });
+  const fileSlugs = new Set(fileResults.map((r) => r.slug));
+
+  // CMS docs: tsvector full-text search (ranked)
+  let cmsResults: Array<{ slug: string; title: string; excerpt: string }> = [];
+  if (query.length >= 3) {
+    const tsQuery = sql`plainto_tsquery('english', ${query})`;
+    const rows = await db
+      .select({
+        slug: cmsDocs.slug,
+        title: cmsDocs.title,
+        excerpt: sql<string>`ts_headline('english', coalesce(${cmsDocs.bodyText}, ''), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as('excerpt'),
+      })
+      .from(cmsDocs)
+      .where(and(
+        eq(cmsDocs.status, 'published'),
+        sql`${cmsDocs.searchVector} @@ ${tsQuery}`,
+      ))
+      .orderBy(desc(sql`ts_rank(${cmsDocs.searchVector}, ${tsQuery})`))
+      .limit(limit);
+    cmsResults = rows;
+  } else {
+    // Short queries: ILIKE fallback
+    const pattern = ilikePattern(query);
+    const rows = await db
+      .select({
+        slug: cmsDocs.slug,
+        title: cmsDocs.title,
+        bodyText: cmsDocs.bodyText,
+      })
+      .from(cmsDocs)
+      .where(and(
+        eq(cmsDocs.status, 'published'),
+        sql`(${cmsDocs.title} ILIKE ${pattern} OR ${cmsDocs.bodyText} ILIKE ${pattern})`,
+      ))
+      .limit(limit);
+    cmsResults = rows.map((r) => {
+      const idx = r.bodyText.toLowerCase().indexOf(q);
+      const start = Math.max(0, idx - 80);
+      const end = Math.min(r.bodyText.length, idx + q.length + 80);
+      const excerpt = (start > 0 ? '...' : '') + r.bodyText.slice(start, end) + (end < r.bodyText.length ? '...' : '');
+      return { slug: r.slug, title: r.title, excerpt };
+    });
+  }
+
+  // Merge: file-based docs win over CMS docs with same slug
+  const merged = [...fileResults];
+  for (const r of cmsResults) {
+    if (!fileSlugs.has(r.slug)) merged.push(r);
+  }
+
+  return merged.slice(0, limit);
 }

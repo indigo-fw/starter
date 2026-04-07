@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07T22:38:54.255Z\n"
-"PO-Revision-Date: 2026-04-07T22:38:54.255Z\n"
+"POT-Creation-Date: 2026-04-07T23:28:31.109Z\n"
+"PO-Revision-Date: 2026-04-07T23:28:31.109Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: es\n"
 "Language: es\n"
@@ -133,7 +133,7 @@ msgid "Blog"
 msgstr "Blog"
 
 #: src/app/(public)/blog/page.tsx:78
-#: src/app/(public)/search/page.tsx:184
+#: src/app/(public)/search/page.tsx:186
 #: src/core/components/MediaPickerDialog.tsx:374
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:106
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:104
@@ -146,12 +146,12 @@ msgid "Previous"
 msgstr "Anterior"
 
 #: src/app/(public)/blog/page.tsx:82
-#: src/app/(public)/search/page.tsx:188
+#: src/app/(public)/search/page.tsx:190
 msgid "Page {page} of {totalPages}"
 msgstr "Página {page} de {totalPages}"
 
 #: src/app/(public)/blog/page.tsx:89
-#: src/app/(public)/search/page.tsx:195
+#: src/app/(public)/search/page.tsx:197
 #: src/core/components/MediaPickerDialog.tsx:386
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:116
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:107
@@ -197,8 +197,8 @@ msgstr "Vitrina"
 #: src/app/(public)/layout.tsx:94
 #: src/app/(public)/layout.tsx:158
 #: src/app/(public)/layout.tsx:216
-#: src/app/(public)/search/page.tsx:128
-#: src/app/(public)/search/page.tsx:144
+#: src/app/(public)/search/page.tsx:130
+#: src/app/(public)/search/page.tsx:146
 #: src/app/(showcase)/showcase/search/page.tsx:66
 #: src/components/public/BlogSidebar.tsx:77
 msgid "Search"
@@ -360,11 +360,11 @@ msgstr "Restablecer contraseña"
 msgid "Enter your new password below."
 msgstr "Introduce tu nueva contraseña a continuación."
 
-#: src/app/(public)/search/page.tsx:136
+#: src/app/(public)/search/page.tsx:138
 msgid "Search content..."
 msgstr "Buscar contenido..."
 
-#: src/app/(public)/search/page.tsx:151
+#: src/app/(public)/search/page.tsx:153
 msgid "1 result for \"{query}\""
 msgid_plural "{total} results for \"{query}\""
 msgstr[0] "1 result for \"{query}\""
@@ -506,7 +506,7 @@ msgstr "Sign in to react"
 msgid "Link copied"
 msgstr "Link copied"
 
-#: src/components/public/ShowcaseFeed.tsx:202
+#: src/components/public/ShowcaseFeed.tsx:247
 msgid "No showcase items yet."
 msgstr "No showcase items yet."
 
@@ -2667,6 +2667,65 @@ msgstr "Unassign"
 msgid "Not assigned"
 msgstr "Not assigned"
 
+
+#. Homepage feature cards (dynamic strings)
+
+msgid "AI Chat"
+msgstr "AI Chat"
+
+msgid "Image Generation"
+msgstr "Image Generation"
+
+msgid "Voice Calls"
+msgstr "Voice Calls"
+
+msgid "CMS"
+msgstr "CMS"
+
+msgid "Billing & Tokens"
+msgstr "Billing & Tokens"
+
+msgid "Organizations"
+msgstr "Organizations"
+
+msgid "Theme & Branding"
+msgstr "Theme & Branding"
+
+msgid "30 AI characters with filters, pagination, and video hover."
+msgstr "30 AI characters with filters, pagination, and video hover."
+
+msgid "Real-time text chat with LLM streaming and typing animation."
+msgstr "Real-time text chat with LLM streaming and typing animation."
+
+msgid "Content, users, settings, analytics, provider management."
+msgstr "Content, users, settings, analytics, provider management."
+
+msgid "Blog, pages, portfolio, categories, tags — config-driven."
+msgstr "Blog, pages, portfolio, categories, tags — config-driven."
+
+msgid "Stripe subscriptions, token balance, discount codes."
+msgstr "Stripe subscriptions, token balance, discount codes."
+
+msgid "Multi-tenant with roles for billing scoping."
+msgstr "Multi-tenant with roles for billing scoping."
+
+msgid "Keyword filter + audit log + auto-block."
+msgstr "Keyword filter + audit log + auto-block."
+
+msgid "Character stats, user activity, provider health."
+msgstr "Character stats, user activity, provider health."
+
+msgid "DB-stored with encryption, round-robin, fallback."
+msgstr "DB-stored with encryption, round-robin, fallback."
+
+msgid "OKLCH design tokens, dark mode, CSS variables."
+msgstr "OKLCH design tokens, dark mode, CSS variables."
+
+msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
+msgstr "Call AI characters — STT → LLM → TTS with per-minute billing."
+
+msgid "Full keyword orchestration — type \"send me a photo\" in chat."
+msgstr "Full keyword orchestration — type \"send me a photo\" in chat."
 #. REMOVED FROM CODE - PRESERVED FOR REFERENCE
 #~ msgid "Read the Blog"
 #~ msgstr "Lee el blog"

@@ -13,12 +13,15 @@ import { ShowcaseActionBar } from './ShowcaseActionBar';
 import { CommentPanel } from './CommentPanel';
 import { useTranslations } from '@/lib/translations';
 
+type ShowcaseVariant = 'shorts' | 'contained' | 'full';
+
 interface ShowcaseItem {
   id: string;
   title: string;
   slug: string;
   description: string;
   cardType: string;
+  variant: string;
   mediaUrl: string | null;
   thumbnailUrl: string | null;
   sortOrder: number;
@@ -26,7 +29,40 @@ interface ShowcaseItem {
 
 interface Props {
   items: ShowcaseItem[];
+  showNavDots?: boolean;
 }
+
+// ── Single source of truth for variant dimensions ────────────────────
+
+const VARIANT_CONFIG = {
+  shorts:    { maxWidth: '450px', halfWidth: '225px' },
+  contained: { maxWidth: '48rem', halfWidth: '24rem' },
+  full:      { maxWidth: undefined, halfWidth: undefined },
+} as const;
+
+/**
+ * Action bar positioning — uses --card-half CSS var set on the parent.
+ * Mobile: absolute inside the card (right-3).
+ * Desktop: calc-positioned outside the card's right edge.
+ * Shorts breaks out at md (768px+), contained at lg (1024px+).
+ */
+const barPositionClass: Record<ShowcaseVariant, string> = {
+  shorts:    'absolute bottom-24 right-3 z-20 md:right-auto md:left-[calc(50%+var(--card-half)+0.75rem)]',
+  contained: 'absolute bottom-24 right-3 z-20 lg:right-auto lg:left-[calc(50%+var(--card-half)+0.75rem)]',
+  full:      'absolute bottom-24 right-4 z-20 sm:right-6',
+};
+
+/**
+ * Overlay right padding.
+ * Extra padding when bar overlaps (mobile / full), standard when bar is outside (desktop constrained).
+ */
+const overlayPadClass: Record<ShowcaseVariant, string> = {
+  shorts:    'pr-16 md:pr-6',
+  contained: 'pr-16 lg:pr-6',
+  full:      'pr-20 sm:pr-24',
+};
+
+// ── Helpers ──────────────────────────────────────────────────────────
 
 function parseVideoEmbed(url: string): { provider: 'youtube' | 'vimeo' | 'unknown'; embedUrl: string } {
   const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
@@ -40,9 +76,14 @@ function parseVideoEmbed(url: string): { provider: 'youtube' | 'vimeo' | 'unknow
   return { provider: 'unknown', embedUrl: url };
 }
 
-function CardOverlay({ title, description }: { title: string; description?: string }) {
+// ── Card sub-components ──────────────────────────────────────────────
+
+function CardOverlay({ title, description, className }: { title: string; description?: string; className?: string }) {
   return (
-    <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 pb-8 pr-20 pt-24 sm:px-10 sm:pb-12 sm:pr-24">
+    <div className={cn(
+      'absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 pb-8 pt-24 sm:px-10 sm:pb-12',
+      className,
+    )}>
       <h2 className="text-2xl font-bold leading-tight text-white drop-shadow-lg sm:text-4xl">
         {title}
       </h2>
@@ -55,7 +96,7 @@ function CardOverlay({ title, description }: { title: string; description?: stri
   );
 }
 
-function VideoCard({ item, isActive }: { item: ShowcaseItem; isActive: boolean }) {
+function VideoCard({ item, isActive, overlayClassName }: { item: ShowcaseItem; isActive: boolean; overlayClassName?: string }) {
   const video = item.mediaUrl ? parseVideoEmbed(item.mediaUrl) : null;
 
   return (
@@ -85,12 +126,12 @@ function VideoCard({ item, isActive }: { item: ShowcaseItem; isActive: boolean }
           </div>
         </div>
       )}
-      <CardOverlay title={item.title} description={item.description} />
+      <CardOverlay title={item.title} description={item.description} className={overlayClassName} />
     </div>
   );
 }
 
-function ImageCard({ item }: { item: ShowcaseItem }) {
+function ImageCard({ item, overlayClassName }: { item: ShowcaseItem; overlayClassName?: string }) {
   return (
     <div className="relative flex h-full w-full items-center justify-center">
       {item.mediaUrl ? (
@@ -104,7 +145,7 @@ function ImageCard({ item }: { item: ShowcaseItem }) {
         <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-accent-800" />
       )}
       <div className="absolute inset-0 bg-black/25" />
-      <CardOverlay title={item.title} description={item.description} />
+      <CardOverlay title={item.title} description={item.description} className={overlayClassName} />
     </div>
   );
 }
@@ -126,7 +167,9 @@ function RichTextCard({ item }: { item: ShowcaseItem }) {
   );
 }
 
-export function ShowcaseFeed({ items }: Props) {
+// ── Feed ──────────────────────────────────────────────────────────────
+
+export function ShowcaseFeed({ items, showNavDots = true }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [commentPanelId, setCommentPanelId] = useState<string | null>(null);
@@ -135,7 +178,6 @@ export function ShowcaseFeed({ items }: Props) {
 
   const itemIds = items.map((i) => i.id);
 
-  // Batch fetch reactions and comments for all items
   const { data: reactionCounts } = trpc.reactions.getBatchCounts.useQuery(
     { contentType: 'showcase', contentIds: itemIds },
     { enabled: itemIds.length > 0 }
@@ -182,7 +224,7 @@ export function ShowcaseFeed({ items }: Props) {
   }, [items]);
 
   useEffect(() => {
-    if (commentPanelId) return; // Don't intercept keys when panel is open
+    if (commentPanelId) return;
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'ArrowDown' || e.key === 'j') {
         e.preventDefault();
@@ -195,6 +237,14 @@ export function ShowcaseFeed({ items }: Props) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentIndex, items.length, scrollToIndex, commentPanelId]);
+
+  // ── Nav dots position: tracks current card's variant ──
+  const currentV = (items[currentIndex]?.variant || 'full') as ShowcaseVariant;
+  const currentCfg = VARIANT_CONFIG[currentV];
+  // max() clamps to 1rem on narrow viewports, calc positions near card edge on wide ones
+  const dotsLeft = currentCfg.halfWidth
+    ? `max(1rem, calc(50% - ${currentCfg.halfWidth} - 2.5rem))`
+    : undefined;
 
   if (items.length === 0) {
     return (
@@ -214,23 +264,36 @@ export function ShowcaseFeed({ items }: Props) {
           const counts = reactionCounts?.[item.id] ?? { likes: 0, dislikes: 0 };
           const cCount = commentCounts?.[item.id] ?? 0;
           const uReaction = userReactions?.[item.id] ?? null;
+          const v = (item.variant || 'full') as ShowcaseVariant;
+          const cfg = VARIANT_CONFIG[v];
+          const isConstrained = v !== 'full';
 
           return (
             <div
               key={item.id}
               data-index={index}
-              className="relative h-[calc(100dvh-3.5rem)] w-full snap-start snap-always"
-            >
-              {item.cardType === 'video' ? (
-                <VideoCard item={item} isActive={index === currentIndex} />
-              ) : item.cardType === 'image' ? (
-                <ImageCard item={item} />
-              ) : (
-                <RichTextCard item={item} />
+              className={cn(
+                'relative h-[calc(100dvh-3.5rem)] w-full snap-start snap-always',
+                isConstrained && 'bg-black',
               )}
+              style={cfg.halfWidth ? { '--card-half': cfg.halfWidth } as React.CSSProperties : undefined}
+            >
+              {/* Card — centered via mx-auto, width from VARIANT_CONFIG */}
+              <div
+                className="relative mx-auto h-full"
+                style={cfg.maxWidth ? { maxWidth: cfg.maxWidth } : undefined}
+              >
+                {item.cardType === 'video' ? (
+                  <VideoCard item={item} isActive={index === currentIndex} overlayClassName={overlayPadClass[v]} />
+                ) : item.cardType === 'image' ? (
+                  <ImageCard item={item} overlayClassName={overlayPadClass[v]} />
+                ) : (
+                  <RichTextCard item={item} />
+                )}
+              </div>
 
-              {/* Action bar — right side */}
-              <div className="absolute bottom-24 right-4 z-20 sm:right-6">
+              {/* Action bar — uses --card-half for calc positioning */}
+              <div className={barPositionClass[v]}>
                 <ShowcaseActionBar
                   itemId={item.id}
                   itemSlug={item.slug}
@@ -248,9 +311,15 @@ export function ShowcaseFeed({ items }: Props) {
         })}
       </div>
 
-      {/* Navigation dots — left side */}
-      {items.length > 1 && (
-        <div className="absolute left-4 top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-1.5 sm:left-6">
+      {/* Navigation dots — tracks current card's width via dotsLeft */}
+      {showNavDots && items.length > 1 && (
+        <div
+          className={cn(
+            'absolute top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-1.5 transition-[left] duration-300',
+            !dotsLeft && 'left-4 sm:left-6',
+          )}
+          style={dotsLeft ? { left: dotsLeft } : undefined}
+        >
           <button
             onClick={() => scrollToIndex(Math.max(currentIndex - 1, 0))}
             disabled={currentIndex === 0}

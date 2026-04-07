@@ -1,4 +1,5 @@
 import { index, integer, jsonb, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { tsvector } from '@/server/db/schema/types';
 
 // ─── cms_docs ───────────────────────────────────────────────────────────────
 // Documentation pages authored via the CMS admin dashboard.
@@ -29,6 +30,7 @@ export const cmsDocs = pgTable('cms_docs', {
   metadata: jsonb('metadata'),
   /** Source: 'cms' for dashboard-authored, 'file' entries are NOT stored here */
   status: varchar('status', { length: 20 }).notNull().default('published'),
+  searchVector: tsvector('search_vector'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 }, (table) => [
@@ -36,4 +38,5 @@ export const cmsDocs = pgTable('cms_docs', {
   index('idx_docs_section_order').on(table.section, table.sortOrder),
   index('idx_docs_parent').on(table.parentId),
   index('idx_docs_status').on(table.status),
+  index('idx_docs_search_vector').using('gin', table.searchVector),
 ]);
