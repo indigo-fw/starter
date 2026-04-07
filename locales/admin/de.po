@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-05T08:52:44.695Z\n"
-"PO-Revision-Date: 2026-04-05T08:52:44.695Z\n"
+"POT-Creation-Date: 2026-04-07T22:38:54.267Z\n"
+"PO-Revision-Date: 2026-04-07T22:38:54.267Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de\n"
 "Language: de\n"
@@ -17,7 +17,6 @@ msgid "Activity Log"
 msgstr "Aktivitätsprotokoll"
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:60
-#: src/engine/components/MediaPickerDialog.tsx:239
 msgid "All types"
 msgstr "Alle Arten"
 
@@ -38,7 +37,6 @@ msgid "Search"
 msgstr "Suchen"
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:115
-#: src/engine/components/RecentActivity.tsx:33
 msgid "No activity recorded yet."
 msgstr "Es wurden noch keine Aktivitäten verzeichnet."
 
@@ -54,6 +52,8 @@ msgstr "Aktion"
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:123
 #: src/app/dashboard/(panel)/organizations/page.tsx:399
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:49
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:125
 #: src/app/dashboard/(panel)/users/page.tsx:228
 #: src/components/admin/AdminSidebar.tsx:192
 msgid "User"
@@ -63,6 +63,9 @@ msgstr "Benutzer"
 #: src/app/dashboard/(panel)/cms/redirects/page.tsx:266
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:356
 #: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:61
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:103
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:159
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:172
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:327
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
@@ -88,8 +91,7 @@ msgstr "Entität"
 #: src/app/dashboard/(panel)/users/page.tsx:373
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:373
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:443
-#: src/components/admin/CmsListView.tsx:936
-#: src/engine/components/GA4Widget.tsx:296
+#: src/components/admin/CmsListView.tsx:938
 msgid "Page"
 msgstr "Seite"
 
@@ -104,7 +106,7 @@ msgstr "Seite"
 #: src/app/dashboard/(panel)/users/page.tsx:373
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:373
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:443
-#: src/components/admin/CmsListView.tsx:936
+#: src/components/admin/CmsListView.tsx:938
 msgid "of"
 msgstr "von"
 
@@ -134,6 +136,7 @@ msgstr "Menüname"
 #: src/app/dashboard/(panel)/organizations/page.tsx:187
 #: src/app/dashboard/(panel)/organizations/page.tsx:225
 #: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
@@ -145,15 +148,11 @@ msgstr "Erstellen"
 #: src/app/dashboard/(panel)/organizations/page.tsx:228
 #: src/app/dashboard/(panel)/organizations/page.tsx:474
 #: src/app/dashboard/(panel)/projects/page.tsx:151
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:136
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:306
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:184
 #: src/app/dashboard/(panel)/users/page.tsx:424
-#: src/engine/components/InternalLinkDialog.tsx:117
-#: src/engine/components/MediaPickerDialog.tsx:510
-#: src/engine/components/PostAttachments.tsx:252
-#: src/engine/components/SeoOverridesDialog.tsx:197
-#: src/engine/components/shortcodes/ShortcodeEditDialog.tsx:92
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -167,6 +166,10 @@ msgstr "Es gibt noch keine Menüs. Erstelle dein erstes."
 #: src/app/dashboard/(panel)/organizations/page.tsx:199
 #: src/app/dashboard/(panel)/projects/page.tsx:123
 #: src/app/dashboard/(panel)/projects/page.tsx:189
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:56
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:177
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:101
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:158
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:195
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:325
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:173
@@ -183,14 +186,15 @@ msgstr "Name"
 #: src/app/dashboard/(panel)/forms/page.tsx:128
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:235
 #: src/app/dashboard/(panel)/organizations/page.tsx:211
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:57
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:182
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:326
 #: src/app/dashboard/(panel)/settings/import/page.tsx:592
 #: src/components/admin/CategoryForm.tsx:338
-#: src/components/admin/CmsListView.tsx:757
+#: src/components/admin/CmsListView.tsx:759
 #: src/components/admin/PortfolioForm.tsx:362
 #: src/components/admin/ShowcaseForm.tsx:331
 #: src/components/admin/TermForm.tsx:248
-#: src/engine/components/SeoOverridesDialog.tsx:135
 msgid "Slug"
 msgstr "Schnecke"
 
@@ -199,7 +203,7 @@ msgstr "Schnecke"
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:365
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:231
-#: src/components/admin/CmsListView.tsx:909
+#: src/components/admin/CmsListView.tsx:911
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -220,9 +224,7 @@ msgstr "Bearbeiten"
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:238
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:255
-#: src/components/admin/CmsListView.tsx:974
-#: src/engine/components/MediaPickerDialog.tsx:490
-#: src/engine/components/MediaPickerDialog.tsx:527
+#: src/components/admin/CmsListView.tsx:976
 msgid "Delete"
 msgstr "Löschen"
 
@@ -329,8 +331,8 @@ msgstr "Präfix"
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:117
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:174
 #: src/app/dashboard/(panel)/settings/support/page.tsx:121
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:262
-#: src/components/admin/CmsListView.tsx:776
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:280
+#: src/components/admin/CmsListView.tsx:778
 msgid "Created"
 msgstr "Erstellt"
 
@@ -343,7 +345,7 @@ msgstr "Weiterleitung löschen"
 #: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:233
 #: src/app/dashboard/(panel)/media/page.tsx:310
 #: src/app/dashboard/(panel)/users/page.tsx:374
-#: src/components/admin/CmsListView.tsx:937
+#: src/components/admin/CmsListView.tsx:939
 msgid "total"
 msgstr "insgesamt"
 
@@ -381,6 +383,10 @@ msgstr "Noch keine Formulare. Erstellen Sie Ihr erstes Formular."
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:38
 #: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:47
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:61
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:175
@@ -443,15 +449,14 @@ msgstr "Formular bearbeiten"
 
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:211
 #: src/app/dashboard/(panel)/projects/page.tsx:148
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:145
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:165
 #: src/app/dashboard/(panel)/settings/page.tsx:212
 #: src/components/admin/CategoryForm.tsx:300
 #: src/components/admin/PortfolioForm.tsx:324
-#: src/components/admin/PostForm.tsx:847
+#: src/components/admin/PostForm.tsx:853
 #: src/components/admin/ShowcaseForm.tsx:293
 #: src/components/admin/TermForm.tsx:212
-#: src/engine/components/PostAttachments.tsx:264
-#: src/engine/components/shortcodes/ShortcodeEditDialog.tsx:95
 msgid "Save"
 msgstr "Speichern"
 
@@ -512,7 +517,6 @@ msgid "Move down"
 msgstr "Nach unten scrollen"
 
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:374
-#: src/engine/components/MenuBuilder.tsx:96
 msgid "Label"
 msgstr "Bezeichnung"
 
@@ -620,7 +624,6 @@ msgid "Upload failed"
 msgstr "Der Upload ist fehlgeschlagen"
 
 #: src/app/dashboard/(panel)/media/page.tsx:108
-#: src/engine/components/MediaPickerDialog.tsx:150
 msgid "Failed to upload {name}"
 msgstr "Das Hochladen von „{name}“ ist fehlgeschlagen"
 
@@ -632,7 +635,6 @@ msgstr[1] "{count} files uploaded"
 
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
-#: src/engine/components/MediaPickerDialog.tsx:215
 msgid "Media Library"
 msgstr "Medienbibliothek"
 
@@ -641,8 +643,6 @@ msgid "Uploading..."
 msgstr "Wird hochgeladen..."
 
 #: src/app/dashboard/(panel)/media/page.tsx:182
-#: src/engine/components/MediaPickerDialog.tsx:283
-#: src/engine/components/PostAttachments.tsx:153
 msgid "Upload"
 msgstr "Hochladen"
 
@@ -667,23 +667,18 @@ msgid "\"{name}\" will be deleted."
 msgstr "„{name}“ wird gelöscht."
 
 #: src/app/dashboard/(panel)/notifications/page.tsx:40
-#: src/engine/components/NotificationBell.tsx:61
-#: src/engine/components/NotificationBell.tsx:74
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
 #: src/app/dashboard/(panel)/notifications/page.tsx:47
-#: src/engine/components/NotificationBell.tsx:81
 msgid "Mark all read"
 msgstr "Alle als gelesen markieren"
 
 #: src/app/dashboard/(panel)/notifications/page.tsx:54
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:45
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:16
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:119
 #: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
-#: src/engine/components/RecentActivity.tsx:25
 msgid "Loading..."
 msgstr "Wird geladen..."
 
@@ -761,8 +756,6 @@ msgid "Role"
 msgstr "Rolle"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:291
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:25
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:38
 #: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
 msgid "Manage"
 msgstr "Verwalten"
@@ -794,7 +787,6 @@ msgstr "Senden"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:436
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:221
-#: src/engine/components/PostAttachments.tsx:209
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -918,13 +910,10 @@ msgstr "Projektname"
 #: src/components/admin/CategoryForm.tsx:384
 #: src/components/admin/PortfolioForm.tsx:474
 #: src/components/admin/ShowcaseForm.tsx:434
-#: src/engine/components/MediaPickerDialog.tsx:466
-#: src/engine/components/SeoPreviewCard.tsx:124
 msgid "Description"
 msgstr "Beschreibung"
 
 #: src/app/dashboard/(panel)/projects/page.tsx:141
-#: src/engine/components/MediaPickerDialog.tsx:478
 msgid "Optional description"
 msgstr "Optionale Beschreibung"
 
@@ -946,18 +935,22 @@ msgstr "Noch keine Projekte. Erstelle eines, um loszulegen."
 #: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:64
 #: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:55
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:114
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:58
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:280
 #: src/app/dashboard/(panel)/settings/import/page.tsx:593
 #: src/app/dashboard/(panel)/settings/support/page.tsx:118
 #: src/app/dashboard/(panel)/settings/support/page.tsx:249
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:254
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:272
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:205
 #: src/app/dashboard/(panel)/users/page.tsx:230
 #: src/components/admin/CategoryForm.tsx:455
-#: src/components/admin/CmsListView.tsx:737
+#: src/components/admin/CmsListView.tsx:739
 #: src/components/admin/PortfolioForm.tsx:559
-#: src/components/admin/PostForm.tsx:942
-#: src/components/admin/PostForm.tsx:946
+#: src/components/admin/PostForm.tsx:948
+#: src/components/admin/PostForm.tsx:952
 #: src/components/admin/ShowcaseForm.tsx:490
 #: src/components/admin/TermForm.tsx:268
 msgid "Status"
@@ -968,10 +961,7 @@ msgid "Archive"
 msgstr "Archiv"
 
 #: src/app/dashboard/(panel)/projects/page.tsx:228
-#: src/components/admin/CmsListView.tsx:883
-#: src/engine/components/AutosaveRecoveryBanner.tsx:44
-#: src/engine/components/BulkActionBar.tsx:62
-#: src/engine/components/RevisionHistory.tsx:219
+#: src/components/admin/CmsListView.tsx:885
 msgid "Restore"
 msgstr "Wiederherstellen"
 
@@ -979,9 +969,10 @@ msgstr "Wiederherstellen"
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:106
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:180
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:158
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:104
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:75
 #: src/app/dashboard/(panel)/settings/support/page.tsx:174
 #: src/app/dashboard/(panel)/settings/support/page.tsx:310
-#: src/engine/components/MediaPickerDialog.tsx:374
 msgid "Previous"
 msgstr "Zurück"
 
@@ -989,10 +980,11 @@ msgstr "Zurück"
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:116
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:187
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:107
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:78
 #: src/app/dashboard/(panel)/settings/import/page.tsx:454
 #: src/app/dashboard/(panel)/settings/support/page.tsx:184
 #: src/app/dashboard/(panel)/settings/support/page.tsx:320
-#: src/engine/components/MediaPickerDialog.tsx:386
 msgid "Next"
 msgstr "Weiter"
 
@@ -1005,8 +997,6 @@ msgid "Delete \"{name}\"? This action cannot be undone."
 msgstr "„{name}“ löschen? Diese Aktion kann nicht rückgängig gemacht werden."
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:23
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:36
 msgid "Affiliates"
 msgstr "Partner"
 
@@ -1030,30 +1020,27 @@ msgid "No affiliates found"
 msgstr "Es wurden keine Partner gefunden"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:54
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:71
 #: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:60
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
-#: src/engine/components/editor/EditorBubbleMenu.tsx:103
 msgid "Code"
 msgstr "Code"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:55
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:74
 msgid "Commission"
 msgstr "Kommission"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:56
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:72
 msgid "Referrals"
 msgstr "Empfehlungen"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:57
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:73
 msgid "Earnings"
 msgstr "Ergebnis"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:59
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:59
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -1064,34 +1051,6 @@ msgstr "Aussetzen"
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:89
 msgid "Activate"
 msgstr "Aktivieren"
-
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:28
-msgid "No affiliates yet."
-msgstr "Noch keine Partner."
-
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:44
-msgid "Active Affiliates"
-msgstr "Aktive Partner"
-
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:48
-msgid "Total Referrals"
-msgstr "Gesamtzahl der Empfehlungen"
-
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:52
-msgid "Conversion Rate"
-msgstr "Konversionsrate"
-
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:56
-msgid "Total Earnings"
-msgstr "Gesamtverdienst"
-
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:64
-msgid "Top Affiliates"
-msgstr "Top-Partner"
-
-#: src/app/dashboard/(panel)/settings/billing/components/AffiliateOverview.tsx:70
-msgid "Affiliate"
-msgstr "Partner"
 
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:83
 msgid "Canceled"
@@ -1126,6 +1085,7 @@ msgstr "Plan"
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
 #: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:171
 msgid "Provider"
 msgstr "Anbieter"
 
@@ -1171,6 +1131,8 @@ msgid "Usage"
 msgstr "Verwendung"
 
 #: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
 msgid "Inactive"
@@ -1195,7 +1157,7 @@ msgstr "Betrag"
 #: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
 #: src/app/dashboard/(panel)/settings/import/page.tsx:594
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:349
-#: src/components/admin/CmsListView.tsx:748
+#: src/components/admin/CmsListView.tsx:750
 msgid "Date"
 msgstr "Datum"
 
@@ -1287,7 +1249,7 @@ msgid "Custom range"
 msgstr "Individuelles Sortiment"
 
 #: src/app/dashboard/(panel)/settings/billing/page.tsx:187
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:267
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:285
 msgid "From"
 msgstr "Von"
 
@@ -1307,6 +1269,477 @@ msgstr "Tage"
 msgid "All time"
 msgstr "Gesamt"
 
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:19
+msgid "Are you sure you want to delete this character?"
+msgstr "Are you sure you want to delete this character?"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:29
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Characters"
+msgstr "Characters"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:31
+msgid "AI personas that users can chat with."
+msgstr "AI personas that users can chat with."
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:39
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
+msgid "New Character"
+msgstr "New Character"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:49
+msgid "No characters yet. Create your first AI persona."
+msgstr "No characters yet. Create your first AI persona."
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
+msgid "Edit Character"
+msgstr "Edit Character"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:186
+msgid "Tagline"
+msgstr "Tagline"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:189
+msgid "System Prompt"
+msgstr "System Prompt"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:192
+msgid "Personality (visible to users)"
+msgstr "Personality (visible to users)"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:195
+msgid "Greeting Message"
+msgstr "Greeting Message"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:198
+msgid "Avatar URL"
+msgstr "Avatar URL"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:203
+msgid "Character Traits"
+msgstr "Character Traits"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
+msgid "Gender"
+msgstr "Gender"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:206
+msgid "Sexuality"
+msgstr "Sexuality"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
+msgid "Ethnicity"
+msgstr "Ethnicity"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
+msgid "Personality"
+msgstr "Personality"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
+msgid "Kink"
+msgstr "Kink"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
+msgid "Job"
+msgstr "Job"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
+msgid "Relationship"
+msgstr "Relationship"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:214
+msgid "Hobbies"
+msgstr "Hobbies"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:220
+msgid "Visual Appearance"
+msgstr "Visual Appearance"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
+msgid "Hair Color"
+msgstr "Hair Color"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:223
+msgid "Hair Texture"
+msgstr "Hair Texture"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
+msgid "Hair Style"
+msgstr "Hair Style"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
+msgid "Eye Color"
+msgstr "Eye Color"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
+msgid "Skin"
+msgstr "Skin"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
+msgid "Body Type"
+msgstr "Body Type"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:233
+msgid "Image Generation Settings"
+msgstr "Image Generation Settings"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
+msgid "Model Preset"
+msgstr "Model Preset"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:255
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:329
+#: src/components/admin/ShowcaseForm.tsx:415
+msgid "Sort Order"
+msgstr "Sortierreihenfolge"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
+msgid "Token Cost Multiplier"
+msgstr "Token Cost Multiplier"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:242
+msgid "Custom Negative Prompt"
+msgstr "Custom Negative Prompt"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
+msgid "LoRA Config"
+msgstr "LoRA Config"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:250
+msgid "Active (visible to users)"
+msgstr "Active (visible to users)"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
+msgid "Create Character"
+msgstr "Create Character"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:325
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:24
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:12
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:20
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:23
+msgid "Conversations"
+msgstr "Conversations"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
+msgid "Browse all chat conversations"
+msgstr "Browse all chat conversations"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:32
+msgid "All statuses"
+msgstr "All statuses"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:34
+msgid "Archived"
+msgstr "Archived"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
+msgid "Deleted"
+msgstr "Deleted"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:42
+msgid "No conversations found."
+msgstr "No conversations found."
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:83
+msgid "Character"
+msgstr "Character"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
+msgid "Messages"
+msgstr "Messages"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
+msgid "Tokens"
+msgstr "Tokens"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:54
+msgid "Last Active"
+msgstr "Last Active"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:27
+msgid "Conversation"
+msgstr "Conversation"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:34
+msgid "No messages."
+msgstr "No messages."
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:15
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Flagged Messages"
+msgstr "Flagged Messages"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
+msgid "Messages blocked by content moderation"
+msgstr "Messages blocked by content moderation"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
+msgid "No flagged messages."
+msgstr "No flagged messages."
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
+msgid "Reason"
+msgstr "Reason"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
+msgid "Dismiss flag"
+msgstr "Dismiss flag"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
+msgid "Dismiss"
+msgstr "Dismiss"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:13
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:24
+msgid "Total Messages"
+msgstr "Total Messages"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:14
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
+msgid "Active Users (24h)"
+msgstr "Active Users (24h)"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Manage AI personas"
+msgstr "Manage AI personas"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:20
+msgid "Browse all conversations"
+msgstr "Browse all conversations"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Review moderated content"
+msgstr "Review moderated content"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:22
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:84
+msgid "AI Providers"
+msgstr "AI Providers"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:22
+msgid "Manage LLM providers"
+msgstr "Manage LLM providers"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Analytics"
+msgstr "Analytics"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Usage statistics and charts"
+msgstr "Usage statistics and charts"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Moderation"
+msgstr "Moderation"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Keywords, action, and rate limits"
+msgstr "Keywords, action, and rate limits"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:30
+msgid "Chat"
+msgstr "Chat"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:31
+msgid "AI character chat management"
+msgstr "AI character chat management"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:67
+msgid "Delete this provider?"
+msgstr "Delete this provider?"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:85
+msgid "Manage LLM provider credentials and routing"
+msgstr "Manage LLM provider credentials and routing"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:89
+msgid "Add Provider"
+msgstr "Add Provider"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
+msgid "Edit Provider"
+msgstr "Edit Provider"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
+msgid "New Provider"
+msgstr "New Provider"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
+msgid "LLM (Text)"
+msgstr "LLM (Text)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:106
+msgid "Image"
+msgstr "Bild"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
+msgid "Video"
+msgstr "Video"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
+msgid "Adapter"
+msgstr "Adapter"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:116
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:160
+msgid "Model"
+msgstr "Model"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:119
+msgid "Base URL (leave empty for OpenAI)"
+msgstr "Base URL (leave empty for OpenAI)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
+msgid "API Key"
+msgstr "API Key"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:122
+msgid "Leave empty to keep current"
+msgstr "Leave empty to keep current"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
+#: src/app/dashboard/(panel)/settings/support/page.tsx:119
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:276
+msgid "Priority"
+msgstr "Priorität"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
+msgid "Max Concurrent"
+msgstr "Max Concurrent"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
+msgid "Timeout (s)"
+msgstr "Timeout (s)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:151
+msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:187
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:224
+msgid "Test"
+msgstr "Test"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
+msgid "Task Queues"
+msgstr "Task Queues"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
+msgid "BullMQ job queue status and failed job management"
+msgstr "BullMQ job queue status and failed job management"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
+msgid "No queues found. Workers may not be running."
+msgstr "No queues found. Workers may not be running."
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
+msgid "Waiting"
+msgstr "Waiting"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
+msgid "Done"
+msgstr "Done"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
+msgid "Failed"
+msgstr "Failed"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
+msgid "Failed Jobs"
+msgstr "Failed Jobs"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:175
+msgid "Attempts"
+msgstr "Versuche"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:208
+msgid "Retry"
+msgstr "Erneut versuchen"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
+msgid "Tokens Consumed"
+msgstr "Tokens Consumed"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:32
+msgid "Chat Analytics"
+msgstr "Chat Analytics"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:33
+msgid "Usage statistics and trends"
+msgstr "Usage statistics and trends"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:53
+msgid "Messages (30 days)"
+msgstr "Messages (30 days)"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:72
+msgid "Popular Characters"
+msgstr "Popular Characters"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:76
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:119
+msgid "No data yet"
+msgstr "No data yet"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:84
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:126
+msgid "Convs"
+msgstr "Convs"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
+msgid "Msgs"
+msgstr "Msgs"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
+msgid "Avg"
+msgstr "Avg"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:115
+msgid "Most Active Users"
+msgstr "Most Active Users"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:162
+msgid "Provider Health (24h)"
+msgstr "Provider Health (24h)"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:166
+msgid "No provider activity yet"
+msgstr "No provider activity yet"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
+msgid "Requests"
+msgstr "Requests"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:174
+msgid "Success"
+msgstr "Success"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
+msgid "Failures"
+msgstr "Failures"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
+msgid "Avg ms"
+msgstr "Avg ms"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
+msgid "Rate"
+msgstr "Rate"
+
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:60
 msgid "Custom field created"
 msgstr "Benutzerdefiniertes Feld erstellt"
@@ -1320,7 +1753,6 @@ msgid "Custom field deleted"
 msgstr "Benutzerdefiniertes Feld gelöscht"
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:169
-#: src/engine/components/CustomFieldsEditor.tsx:121
 msgid "Custom Fields"
 msgstr "Benutzerdefinierte Felder"
 
@@ -1340,12 +1772,6 @@ msgstr "Feldtyp"
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:328
 msgid "Content Types"
 msgstr "Inhaltstypen"
-
-#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:255
-#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:329
-#: src/components/admin/ShowcaseForm.tsx:415
-msgid "Sort Order"
-msgstr "Sortierreihenfolge"
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:276
 msgid "Choices (one per line)"
@@ -1430,77 +1856,75 @@ msgstr "Rabattcode löschen?"
 msgid "Code \"{code}\" will be permanently deleted."
 msgstr "Der Code „{code}“ wird endgültig gelöscht."
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:70
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:90
 msgid "Template saved"
 msgstr "Vorlage gespeichert"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:78
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:98
 msgid "Template reset to default"
 msgstr "Vorlage auf Standardwerte zurücksetzen"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:122
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:142
 msgid "Edit: {label}"
 msgstr "Bearbeiten: {label}"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:132
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:152
 msgid "Reset to Default"
 msgstr "Auf Standard zurücksetzen"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:154
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:174
 #: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
 #: src/app/dashboard/(panel)/settings/support/page.tsx:117
 msgid "Subject"
 msgstr "Betreff"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:161
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:181
 msgid "Email subject line"
 msgstr "Betreffzeile der E-Mail"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:167
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:187
 msgid "HTML Body"
 msgstr "HTML-Hauptteil"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:180
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:200
 msgid "Available Variables"
 msgstr "Verfügbare Variablen"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:197
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:217
 #: src/app/dashboard/(panel)/settings/import/page.tsx:528
-#: src/components/admin/PostForm.tsx:823
-#: src/engine/components/RichTextEditor.tsx:864
+#: src/components/admin/PostForm.tsx:829
 msgid "Preview"
 msgstr "Vorschau"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:211
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:231
 msgid "Reset to default?"
 msgstr "Auf die Werkseinstellungen zurücksetzen?"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:212
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:232
 msgid "This will remove your customizations and revert to the file-based template."
 msgstr "Dadurch werden Ihre Anpassungen entfernt und die dateibasierte Vorlage wiederhergestellt."
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:213
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:233
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:275
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:295
 msgid "Email Templates"
 msgstr "E-Mail-Vorlagen"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:281
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:301
 msgid "Customize email templates. Overrides are stored in the database; unmodified templates use the default file."
 msgstr "E-Mail-Vorlagen anpassen. Die Anpassungen werden in der Datenbank gespeichert; unveränderte Vorlagen verwenden die Standarddatei."
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:305
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:325
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:305
-#: src/engine/components/FallbackRadio.tsx:28
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:325
 msgid "Default"
 msgstr "Standard"
 
-#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:309
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:329
 msgid "Variables: {vars}"
 msgstr "Variablen: {vars}"
 
@@ -1594,7 +2018,6 @@ msgid "items selected"
 msgstr "Ausgewählte Artikel"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:570
-#: src/engine/components/BulkActionBar.tsx:50
 msgid "Deselect all"
 msgstr "Alle abwählen"
 
@@ -1604,33 +2027,29 @@ msgstr "Alles auswählen"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:591
 #: src/components/admin/CategoryForm.tsx:353
-#: src/components/admin/CmsListView.tsx:731
+#: src/components/admin/CmsListView.tsx:733
 #: src/components/admin/PortfolioForm.tsx:377
 #: src/components/admin/ShowcaseForm.tsx:318
-#: src/engine/components/MediaPickerDialog.tsx:430
-#: src/engine/components/SeoPreviewCard.tsx:121
 msgid "Title"
 msgstr "Titel"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:635
 #: src/components/admin/CategoryForm.tsx:465
-#: src/components/admin/CmsListView.tsx:765
+#: src/components/admin/CmsListView.tsx:767
 #: src/components/admin/PortfolioForm.tsx:569
-#: src/components/admin/PostForm.tsx:954
+#: src/components/admin/PostForm.tsx:960
 #: src/components/admin/ShowcaseForm.tsx:500
 #: src/components/admin/TaxonomyOverview.tsx:22
 #: src/components/admin/TermForm.tsx:278
-#: src/engine/components/BulkActionBar.tsx:80
 msgid "Published"
 msgstr "Veröffentlicht"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:636
 #: src/components/admin/CategoryForm.tsx:463
 #: src/components/admin/PortfolioForm.tsx:567
-#: src/components/admin/PostForm.tsx:953
+#: src/components/admin/PostForm.tsx:959
 #: src/components/admin/ShowcaseForm.tsx:498
 #: src/components/admin/TermForm.tsx:276
-#: src/engine/components/BulkActionBar.tsx:79
 msgid "Draft"
 msgstr "Entwurf"
 
@@ -1698,17 +2117,9 @@ msgstr "Es gibt keine Stellenangebote mit diesem Status."
 msgid "ID"
 msgstr "ID"
 
-#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:175
-msgid "Attempts"
-msgstr "Versuche"
-
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:177
 msgid "Error"
 msgstr "Fehler"
-
-#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:208
-msgid "Retry"
-msgstr "Erneut versuchen"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:35
 msgid "Settings saved"
@@ -1776,7 +2187,6 @@ msgid "Live Chat"
 msgstr "Live-Chat"
 
 #: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
-#: src/engine/components/SupportChatWidget.tsx:394
 msgid "View Ticket"
 msgstr "Ticket anzeigen"
 
@@ -1813,13 +2223,7 @@ msgstr "Alle Prioritäten"
 msgid "No tickets found."
 msgstr "Es wurden keine Tickets gefunden."
 
-#: src/app/dashboard/(panel)/settings/support/page.tsx:119
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:258
-msgid "Priority"
-msgstr "Priorität"
-
 #: src/app/dashboard/(panel)/settings/support/page.tsx:120
-#: src/engine/components/RichTextEditor.tsx:847
 msgid "Source"
 msgstr "Quelle"
 
@@ -1871,71 +2275,75 @@ msgstr "Tickets"
 msgid "Live Chats"
 msgstr "Live-Chats"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:108
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:114
 msgid "Reply sent"
 msgstr "Antwort gesendet"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:116
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:122
 msgid "Status updated"
 msgstr "Status aktualisiert"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:124
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:130
 msgid "Assignment updated"
 msgstr "Aufgabe aktualisiert"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:141
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:147
 msgid "Ticket not found."
 msgstr "Ticket nicht gefunden."
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:143
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:149
 msgid "Back to tickets"
 msgstr "Zurück zu den Tickets"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:203
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
 msgid "Staff"
 msgstr "Mitarbeiter"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:203
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
 msgid "Customer"
 msgstr "Kunde"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:216
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:222
 msgid "Staff Reply"
 msgstr "Antwort des Teams"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:225
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:231
 msgid "Type your reply..."
 msgstr "Geben Sie Ihre Antwort ein..."
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:237
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:243
 msgid "Send Reply"
 msgstr "Antwort senden"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:242
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:248
 msgid "This ticket is closed."
 msgstr "Dieses Ticket ist geschlossen."
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:251
+msgid "User feedback"
+msgstr "User feedback"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
 msgid "Details"
 msgstr "Details"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:273
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:291
 msgid "Assigned"
 msgstr "Zugewiesen"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:282
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:300
 msgid "Change Status"
 msgstr "Status ändern"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:297
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:315
 msgid "Assignment"
 msgstr "Aufgabe"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:306
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:324
 msgid "Unassign"
 msgstr "Zuordnung aufheben"
 
-#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:310
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:328
 msgid "Not assigned"
 msgstr "Nicht zugewiesen"
 
@@ -1965,8 +2373,6 @@ msgstr "Neuer Webhook"
 
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:139
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:204
-#: src/engine/components/MenuBuilder.tsx:104
-#: src/engine/components/RichTextEditor.tsx:475
 msgid "URL"
 msgstr "URL"
 
@@ -1977,10 +2383,6 @@ msgstr "Veranstaltungen"
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:197
 msgid "No webhooks configured."
 msgstr "Es sind keine Webhooks konfiguriert."
-
-#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:224
-msgid "Test"
-msgstr "Test"
 
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:253
 msgid "Delete webhook?"
@@ -2107,13 +2509,8 @@ msgstr "Profil"
 
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:251
 #: src/components/admin/CmsListView.tsx:591
-#: src/engine/components/BulkActionBar.tsx:91
 msgid "Export"
 msgstr "Exportieren"
-
-#: src/app/dashboard/(panel)/users/[id]/page.tsx:325
-msgid "Save Changes"
-msgstr "Änderungen speichern"
 
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:334
 msgid "Login History"
@@ -2213,7 +2610,7 @@ msgid "Category description..."
 msgstr "Kategoriebeschreibung..."
 
 #: src/components/admin/CategoryForm.tsx:400
-#: src/components/admin/CmsListView.tsx:830
+#: src/components/admin/CmsListView.tsx:832
 #: src/components/admin/PortfolioForm.tsx:490
 #: src/components/admin/ShowcaseForm.tsx:450
 msgid "SEO"
@@ -2221,7 +2618,7 @@ msgstr "SEO"
 
 #: src/components/admin/CategoryForm.tsx:444
 #: src/components/admin/PortfolioForm.tsx:548
-#: src/components/admin/ShowcaseForm.tsx:566
+#: src/components/admin/ShowcaseForm.tsx:568
 msgid "Tags"
 msgstr "Stichworte"
 
@@ -2230,19 +2627,18 @@ msgstr "Stichworte"
 msgid "Order"
 msgstr "Bestellung"
 
-#: src/components/admin/CategoryForm.tsx:502
-#: src/components/admin/PortfolioForm.tsx:595
-#: src/components/admin/PostForm.tsx:681
-#: src/components/admin/ShowcaseForm.tsx:526
-#: src/components/admin/TermForm.tsx:295
-#: src/engine/components/TranslationBar.tsx:74
+#: src/components/admin/CategoryForm.tsx:503
+#: src/components/admin/PortfolioForm.tsx:596
+#: src/components/admin/PostForm.tsx:687
+#: src/components/admin/ShowcaseForm.tsx:527
+#: src/components/admin/TermForm.tsx:296
 msgid "Language"
 msgstr "Sprache"
 
-#: src/components/admin/CategoryForm.tsx:528
-#: src/components/admin/PortfolioForm.tsx:621
-#: src/components/admin/PostForm.tsx:961
-#: src/components/admin/ShowcaseForm.tsx:552
+#: src/components/admin/CategoryForm.tsx:530
+#: src/components/admin/PortfolioForm.tsx:623
+#: src/components/admin/PostForm.tsx:967
+#: src/components/admin/ShowcaseForm.tsx:554
 msgid "Publish Date"
 msgstr "Veröffentlichungsdatum"
 
@@ -2303,12 +2699,11 @@ msgid "Toggle columns"
 msgstr "Spalten ein- und ausblenden"
 
 #: src/components/admin/CmsListView.tsx:562
-#: src/engine/components/DashboardConfig.tsx:121
 msgid "Columns"
 msgstr "Spalten"
 
 #: src/components/admin/CmsListView.tsx:626
-#: src/components/admin/PostForm.tsx:808
+#: src/components/admin/PostForm.tsx:814
 msgid "New {label}"
 msgstr "Neues „{label}“"
 
@@ -2316,79 +2711,78 @@ msgstr "Neues „{label}“"
 msgid "Search {label}..."
 msgstr "Suche auf {label}..."
 
-#: src/components/admin/CmsListView.tsx:686
+#: src/components/admin/CmsListView.tsx:687
 msgid "All langs"
 msgstr "Alle Sprachen"
 
-#: src/components/admin/CmsListView.tsx:740
+#: src/components/admin/CmsListView.tsx:742
 msgid "Lang"
 msgstr "Lang"
 
-#: src/components/admin/CmsListView.tsx:754
+#: src/components/admin/CmsListView.tsx:756
 msgid "Author"
 msgstr "Autor"
 
-#: src/components/admin/CmsListView.tsx:792
+#: src/components/admin/CmsListView.tsx:794
 msgid "No results found."
 msgstr "Es wurden keine Ergebnisse gefunden."
 
-#: src/components/admin/CmsListView.tsx:793
+#: src/components/admin/CmsListView.tsx:795
 msgid "No items yet. Create your first one."
 msgstr "Noch keine Einträge. Erstelle deinen ersten Eintrag."
 
-#: src/components/admin/CmsListView.tsx:821
-#: src/engine/components/RevisionHistory.tsx:129
+#: src/components/admin/CmsListView.tsx:823
 msgid "(untitled)"
 msgstr "(ohne Titel)"
 
-#: src/components/admin/CmsListView.tsx:826
+#: src/components/admin/CmsListView.tsx:828
 msgid "(homepage)"
 msgstr "(Startseite)"
 
-#: src/components/admin/CmsListView.tsx:890
+#: src/components/admin/CmsListView.tsx:892
 msgid "Delete permanently"
 msgstr "Endgültig löschen"
 
-#: src/components/admin/CmsListView.tsx:901
+#: src/components/admin/CmsListView.tsx:903
 msgid "Duplicate"
 msgstr "Duplikat"
 
-#: src/components/admin/CmsListView.tsx:916
-#: src/components/admin/CmsListView.tsx:974
-#: src/components/admin/CmsListView.tsx:985
+#: src/components/admin/CmsListView.tsx:918
+#: src/components/admin/CmsListView.tsx:976
+#: src/components/admin/CmsListView.tsx:987
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: src/components/admin/CmsListView.tsx:966
+#: src/components/admin/CmsListView.tsx:968
 msgid "Delete permanently?"
 msgstr "Endgültig löschen?"
 
-#: src/components/admin/CmsListView.tsx:967
-#: src/components/admin/CmsListView.tsx:983
+#: src/components/admin/CmsListView.tsx:969
+#: src/components/admin/CmsListView.tsx:985
 msgid "Move to trash?"
 msgstr "In den Papierkorb verschieben?"
 
-#: src/components/admin/CmsListView.tsx:971
+#: src/components/admin/CmsListView.tsx:973
 msgid "\"{title}\" will be permanently deleted. This cannot be undone."
 msgstr "„{title}“ wird endgültig gelöscht. Dieser Vorgang kann nicht rückgängig gemacht werden."
 
-#: src/components/admin/CmsListView.tsx:972
+#: src/components/admin/CmsListView.tsx:974
 msgid "\"{title}\" will be moved to trash."
 msgstr "„{title}“ wird in den Papierkorb verschoben."
 
-#: src/components/admin/CmsListView.tsx:984
+#: src/components/admin/CmsListView.tsx:986
 msgid "1 item will be moved to trash."
 msgid_plural "{count} items will be moved to trash."
 msgstr[0] "1 item will be moved to trash."
 msgstr[1] "{count} items will be moved to trash."
 
-#: src/components/admin/CmsListView.tsx:1001
+#: src/components/admin/CmsListView.tsx:1003
 msgid "Created 1 SEO override"
 msgid_plural "Created {count} SEO overrides"
 msgstr[0] "Created 1 SEO override"
 msgstr[1] "Created {count} SEO overrides"
 
-#: src/components/admin/CmsListView.tsx:1005
+#: src/components/admin/CmsListView.tsx:1007
 msgid "All SEO overrides already exist"
 msgstr "Alle SEO-Überschreibungen sind bereits vorhanden"
 
@@ -2469,38 +2863,35 @@ msgstr "{label} erstellt"
 msgid "{label} updated"
 msgstr "{label} aktualisiert"
 
-#: src/components/admin/PostForm.tsx:719
+#: src/components/admin/PostForm.tsx:725
 msgid "No categories yet."
 msgstr "Noch keine Kategorien."
 
-#: src/components/admin/PostForm.tsx:809
-#: src/engine/components/shortcodes/ShortcodeEditDialog.tsx:35
+#: src/components/admin/PostForm.tsx:815
 msgid "Edit {label}"
 msgstr "Bearbeiten {label}"
 
-#: src/components/admin/PostForm.tsx:833
+#: src/components/admin/PostForm.tsx:839
 msgid "Publish"
 msgstr "Veröffentlichen"
 
-#: src/components/admin/PostForm.tsx:884
+#: src/components/admin/PostForm.tsx:890
 msgid "{label} title"
 msgstr "{label} Titel"
 
-#: src/components/admin/PostForm.tsx:910
+#: src/components/admin/PostForm.tsx:916
 msgid "Add Media"
 msgstr "Medien hinzufügen"
 
-#: src/components/admin/PostForm.tsx:917
+#: src/components/admin/PostForm.tsx:923
 msgid "Start writing your content..."
 msgstr "Fang an, deinen Text zu schreiben..."
 
-#: src/components/admin/PostForm.tsx:955
-#: src/engine/components/ContentStatusWidget.tsx:38
+#: src/components/admin/PostForm.tsx:961
 msgid "Scheduled"
 msgstr "Geplant"
 
-#: src/components/admin/PostForm.tsx:979
-#: src/engine/components/RevisionHistory.tsx:241
+#: src/components/admin/PostForm.tsx:985
 msgid "Revisions"
 msgstr "Änderungen"
 
@@ -2660,892 +3051,881 @@ msgstr "Letzte Aktivitäten"
 msgid "View all"
 msgstr "Alle anzeigen"
 
-#: src/engine/components/AutosaveIndicator.tsx:39
-msgid "Autosaved"
-msgstr "Automatisch gespeichert"
-
-#: src/engine/components/AutosaveRecoveryBanner.tsx:36
-msgid "Unsaved changes recovered from"
-msgstr "Nicht gespeicherte Änderungen wurden wiederhergestellt aus"
-
-#: src/engine/components/BrokenLinksBanner.tsx:23
-msgid "Broken internal links detected:"
-msgstr "Es wurden defekte interne Links festgestellt:"
-
-#: src/engine/components/BulkActionBar.tsx:77
-msgid "Set status..."
-msgstr "Status festlegen..."
-
-#: src/engine/components/BulkActionBar.tsx:118
-msgid "Move to Trash"
-msgstr "In den Papierkorb verschieben"
-
-#: src/engine/components/CommandPalette.tsx:75
-msgid "Navigation"
-msgstr "Navigation"
-
-#: src/engine/components/CommandPalette.tsx:87
-#: src/engine/components/CommandPalette.tsx:228
-#: src/engine/components/shortcodes/ShortcodeEditDialog.tsx:79
-msgid "Content"
-msgstr "Inhalt"
-
-#: src/engine/components/CommandPalette.tsx:200
-msgid "Search pages, content, settings..."
-msgstr "Seiten, Inhalte, Einstellungen suchen..."
-
-#: src/engine/components/CommandPalette.tsx:241
-#: src/engine/components/InternalLinkDialog.tsx:77
-msgid "No results found"
-msgstr "Es wurden keine Ergebnisse gefunden"
-
-#: src/engine/components/CommandPalette.tsx:247
-msgid "Start typing to search..."
-msgstr "Beginne mit der Eingabe, um zu suchen..."
-
-#: src/engine/components/ContentCalendar.tsx:89
-msgid "Calendar"
-msgstr "Kalender"
-
-#: src/engine/components/ContentCalendar.tsx:167
-msgid "more"
-msgstr "mehr"
-
-#: src/engine/components/ContentStatusWidget.tsx:58
-msgid "Content Status"
-msgstr "Status des Inhalts"
-
-#: src/engine/components/CustomFieldsEditor.tsx:109
-msgid "Loading custom fields..."
-msgstr "Benutzerdefinierte Felder werden geladen..."
-
-#: src/engine/components/CustomFieldsEditor.tsx:142
-msgid "Saving custom fields..."
-msgstr "Benutzerdefinierte Felder werden gespeichert..."
-
-#: src/engine/components/CustomFieldsEditor.tsx:195
-msgid "Enabled"
-msgstr "Aktiviert"
-
-#: src/engine/components/CustomFieldsEditor.tsx:207
-msgid "-- Select --"
-msgstr "-- Auswählen --"
-
-#: src/engine/components/DashboardConfig.tsx:112
-msgid "Show widget"
-msgstr "Widget anzeigen"
-
-#: src/engine/components/DashboardConfig.tsx:112
-msgid "Hide widget"
-msgstr "Widget ausblenden"
-
-#: src/engine/components/DashboardConfig.tsx:214
-msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
-msgstr "Ziehe die Widgets per Drag & Drop, um ihre Reihenfolge zu ändern. Über das Augensymbol kannst du die Sichtbarkeit ein- und ausschalten."
-
-#: src/engine/components/DashboardConfig.tsx:257
-msgid "Configure dashboard"
-msgstr "Dashboard konfigurieren"
-
-#: src/engine/components/DashboardConfig.tsx:262
-msgid "Dashboard Layout"
-msgstr "Layout des Dashboards"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:31
-msgid "Rewrite"
-msgstr "Umschreiben"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:37
-msgid "Shorten"
-msgstr "Kürzen"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:43
-msgid "Expand"
-msgstr "Erweitern"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:49
-msgid "Fix grammar"
-msgstr "Grammatik korrigieren"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:55
-msgid "Translate to English"
-msgstr "Ins Englische übersetzen"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:97
-msgid "AI request failed"
-msgstr "AI-Anfrage fehlgeschlagen"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:202
-#: src/engine/components/editor/EditorBubbleMenu.tsx:123
-msgid "AI Assist"
-msgstr "KI-Assistent"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:216
-msgid "Thinking..."
-msgstr "Ich denke nach..."
-
-#: src/engine/components/editor/AiAssistMenu.tsx:229
-msgid "Try again"
-msgstr "Versuche es noch einmal"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:247
-msgid "Apply"
-msgstr "Bewerben"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:254
-msgid "Discard"
-msgstr "Verwerfen"
-
-#: src/engine/components/editor/AiAssistMenu.tsx:290
-#: src/engine/components/editor/AiAssistMenu.tsx:302
-msgid "Custom instruction..."
-msgstr "Individueller Unterricht..."
-
-#: src/engine/components/editor/EditorBubbleMenu.tsx:75
-#: src/engine/components/RichTextEditor.tsx:508
-msgid "Bold"
-msgstr "Fett"
-
-#: src/engine/components/editor/EditorBubbleMenu.tsx:82
-#: src/engine/components/RichTextEditor.tsx:515
-msgid "Italic"
-msgstr "kursiv"
-
-#: src/engine/components/editor/EditorBubbleMenu.tsx:89
-#: src/engine/components/RichTextEditor.tsx:522
-msgid "Underline"
-msgstr "Unterstreichen"
-
-#: src/engine/components/editor/EditorBubbleMenu.tsx:96
-#: src/engine/components/RichTextEditor.tsx:529
-msgid "Strikethrough"
-msgstr "Durchgestrichen"
-
-#: src/engine/components/editor/EditorBubbleMenu.tsx:113
-#: src/engine/components/RichTextEditor.tsx:644
-msgid "Link"
-msgstr "Link"
-
-#: src/engine/components/editor/ImageBubbleMenu.tsx:99
-msgid "Alt text"
-msgstr "Alternativtext"
-
-#: src/engine/components/editor/ImageBubbleMenu.tsx:109
-msgid "Align left"
-msgstr "Linksbündig"
-
-#: src/engine/components/editor/ImageBubbleMenu.tsx:120
-msgid "Center"
-msgstr "Mitte"
-
-#: src/engine/components/editor/ImageBubbleMenu.tsx:132
-msgid "Align right"
-msgstr "Rechtsbündig"
-
-#: src/engine/components/editor/ImageBubbleMenu.tsx:140
-msgid "Replace image"
-msgstr "Bild ersetzen"
-
-#: src/engine/components/editor/ImageBubbleMenu.tsx:147
-msgid "Remove image"
-msgstr "Bild entfernen"
-
-#: src/engine/components/editor/slash-commands.ts:18
-#: src/engine/components/RichTextEditor.tsx:546
-msgid "Heading 1"
-msgstr "Überschrift 1"
-
-#: src/engine/components/editor/slash-commands.ts:19
-msgid "Large section heading"
-msgstr "Überschrift eines großen Abschnitts"
-
-#: src/engine/components/editor/slash-commands.ts:21
-#: src/engine/components/editor/slash-commands.ts:30
-#: src/engine/components/editor/slash-commands.ts:39
-msgid "Headings"
-msgstr "Überschriften"
-
-#: src/engine/components/editor/slash-commands.ts:27
-#: src/engine/components/RichTextEditor.tsx:553
-msgid "Heading 2"
-msgstr "Überschrift 2"
-
-#: src/engine/components/editor/slash-commands.ts:28
-msgid "Medium section heading"
-msgstr "Überschrift mittlerer Abschnitt"
-
-#: src/engine/components/editor/slash-commands.ts:36
-#: src/engine/components/RichTextEditor.tsx:560
-msgid "Heading 3"
-msgstr "Überschrift 3"
-
-#: src/engine/components/editor/slash-commands.ts:37
-msgid "Small section heading"
-msgstr "Kleine Überschrift"
-
-#: src/engine/components/editor/slash-commands.ts:45
-#: src/engine/components/RichTextEditor.tsx:570
-msgid "Bullet List"
-msgstr "Aufzählung"
-
-#: src/engine/components/editor/slash-commands.ts:46
-msgid "Unordered list"
-msgstr "Ungeordnete Liste"
-
-#: src/engine/components/editor/slash-commands.ts:48
-#: src/engine/components/editor/slash-commands.ts:57
-msgid "Lists"
-msgstr "Listen"
-
-#: src/engine/components/editor/slash-commands.ts:54
-msgid "Numbered List"
-msgstr "Nummerierte Liste"
-
-#: src/engine/components/editor/slash-commands.ts:55
-msgid "Ordered list"
-msgstr "Aufzählung"
-
-#: src/engine/components/editor/slash-commands.ts:63
-msgid "Blockquote"
-msgstr "Zitat"
-
-#: src/engine/components/editor/slash-commands.ts:64
-msgid "Quote block"
-msgstr "Zitatblock"
-
-#: src/engine/components/editor/slash-commands.ts:66
-#: src/engine/components/editor/slash-commands.ts:75
-#: src/engine/components/editor/slash-commands.ts:84
-#: src/engine/components/editor/slash-commands.ts:93
-msgid "Blocks"
-msgstr "Blöcke"
-
-#: src/engine/components/editor/slash-commands.ts:72
-#: src/engine/components/RichTextEditor.tsx:591
-msgid "Code Block"
-msgstr "Code-Block"
-
-#: src/engine/components/editor/slash-commands.ts:73
-msgid "Fenced code block"
-msgstr "Eingeschränkter Code-Block"
-
-#: src/engine/components/editor/slash-commands.ts:81
-#: src/engine/components/RichTextEditor.tsx:597
-msgid "Horizontal Rule"
-msgstr "Horizontale Linie"
-
-#: src/engine/components/editor/slash-commands.ts:82
-msgid "Divider line"
-msgstr "Trennlinie"
-
-#: src/engine/components/editor/slash-commands.ts:90
-#: src/engine/components/editor/TableMenu.tsx:138
-msgid "Table"
-msgstr "Tabelle"
-
-#: src/engine/components/editor/slash-commands.ts:91
-msgid "Insert a table"
-msgstr "Eine Tabelle einfügen"
-
-#: src/engine/components/editor/slash-commands.ts:101
-#: src/engine/components/RichTextEditor.tsx:653
-msgid "Image"
-msgstr "Bild"
-
-#: src/engine/components/editor/slash-commands.ts:102
-msgid "Upload or embed an image"
-msgstr "Ein Bild hochladen oder einbetten"
-
-#: src/engine/components/editor/slash-commands.ts:104
-msgid "Media"
-msgstr "Medien"
-
-#: src/engine/components/editor/TableMenu.tsx:71
-msgid "Add row above"
-msgstr "Zeile darüber einfügen"
-
-#: src/engine/components/editor/TableMenu.tsx:77
-msgid "Add row below"
-msgstr "Zeile darunter einfügen"
-
-#: src/engine/components/editor/TableMenu.tsx:86
-msgid "Add column left"
-msgstr "Spalte links einfügen"
-
-#: src/engine/components/editor/TableMenu.tsx:92
-msgid "Add column right"
-msgstr "Spalte rechts einfügen"
-
-#: src/engine/components/editor/TableMenu.tsx:101
-msgid "Merge cells"
-msgstr "Zellen zusammenführen"
-
-#: src/engine/components/editor/TableMenu.tsx:108
-msgid "Split cell"
-msgstr "Geteilte Zelle"
-
-#: src/engine/components/editor/TableMenu.tsx:118
-msgid "Delete row"
-msgstr "Zeile löschen"
-
-#: src/engine/components/editor/TableMenu.tsx:122
-msgid "Row"
-msgstr "Zeile"
-
-#: src/engine/components/editor/TableMenu.tsx:126
-msgid "Delete column"
-msgstr "Spalte löschen"
-
-#: src/engine/components/editor/TableMenu.tsx:130
-msgid "Col"
-msgstr "Oberst"
-
-#: src/engine/components/editor/TableMenu.tsx:134
-msgid "Delete table"
-msgstr "Tabelle löschen"
-
-#: src/engine/components/FallbackRadio.tsx:21
-msgid "Language Fallback"
-msgstr "Ausweichsprache"
-
-#: src/engine/components/FallbackRadio.tsx:31
-msgid "Show EN version for missing translations"
-msgstr "EN-Version anzeigen, wenn Übersetzungen fehlen"
-
-#: src/engine/components/FallbackRadio.tsx:32
-msgid "404 for missing translations"
-msgstr "404 wegen fehlender Übersetzungen"
-
-#: src/engine/components/FallbackRadio.tsx:39
-msgid "Always Fallback"
-msgstr "Immer auf die Ausweichlösung zurückgreifen"
-
-#: src/engine/components/FallbackRadio.tsx:45
-msgid "Never Fallback"
-msgstr "Niemals auf Plan B zurückgreifen"
-
-#: src/engine/components/FallbackRadio.tsx:49
-msgid "Controls whether this content is shown when visiting in a language without a translation"
-msgstr "Legt fest, ob dieser Inhalt angezeigt wird, wenn die Seite in einer Sprache aufgerufen wird, für die keine Übersetzung vorliegt"
-
-#: src/engine/components/GA4Widget.tsx:183
-#: src/engine/components/GA4Widget.tsx:214
-msgid "Google Analytics"
-msgstr "Google Analytics"
-
-#: src/engine/components/GA4Widget.tsx:190
-msgid "Connect Google Analytics to see page views, sessions, and top pages."
-msgstr "Verbinden Sie Google Analytics, um Seitenaufrufe, Sitzungen und die meistbesuchten Seiten anzuzeigen."
-
-#: src/engine/components/GA4Widget.tsx:198
-msgid "Configure in Settings"
-msgstr "In den Einstellungen konfigurieren"
-
-#: src/engine/components/GA4Widget.tsx:247
-msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
-msgstr "Die Analysedaten konnten nicht geladen werden. Überprüfen Sie Ihre GA4-Konfiguration in den Einstellungen."
-
-#: src/engine/components/GA4Widget.tsx:259
-msgid "Page Views"
-msgstr "Seitenaufrufe"
-
-#: src/engine/components/GA4Widget.tsx:268
-msgid "Sessions"
-msgstr "Sitzungen"
-
-#: src/engine/components/GA4Widget.tsx:279
-msgid "Daily Page Views"
-msgstr "Tägliche Seitenaufrufe"
-
-#: src/engine/components/GA4Widget.tsx:290
-msgid "Top Pages"
-msgstr "Beliebteste Seiten"
-
-#: src/engine/components/GA4Widget.tsx:297
-msgid "Views"
-msgstr "Aufrufe"
-
-#: src/engine/components/InternalLinkDialog.tsx:54
-msgid "Insert Internal Link"
-msgstr "Interner Link einfügen"
-
-#: src/engine/components/InternalLinkDialog.tsx:63
-msgid "Search pages, blog posts, categories..."
-msgstr "Suchseiten, Blogbeiträge, Kategorien..."
-
-#: src/engine/components/InternalLinkDialog.tsx:72
-msgid "Searching..."
-msgstr "Suche..."
-
-#: src/engine/components/InternalLinkDialog.tsx:81
-msgid "Type at least 2 characters to search"
-msgstr "Geben Sie mindestens 2 Zeichen für die Suche ein"
-
-#: src/engine/components/MediaPickerButton.tsx:79
-msgid "Change"
-msgstr "Ändern"
-
-#: src/engine/components/MediaPickerButton.tsx:92
-msgid "Select Image"
-msgstr "Bild auswählen"
-
-#: src/engine/components/MediaPickerButton.tsx:102
-#: src/engine/components/MediaPickerDialog.tsx:448
-msgid "Alt Text"
-msgstr "Alternativtext"
-
-#: src/engine/components/MediaPickerButton.tsx:108
-msgid "Describe the image..."
-msgstr "Beschreibe das Bild..."
-
-#: src/engine/components/MediaPickerDialog.tsx:112
-msgid "Only image files are supported"
-msgstr "Es werden nur Bilddateien unterstützt"
-
-#: src/engine/components/MediaPickerDialog.tsx:225
-msgid "Search media..."
-msgstr "Medien suchen..."
-
-#: src/engine/components/MediaPickerDialog.tsx:240
-msgid "Images"
-msgstr "Bilder"
-
-#: src/engine/components/MediaPickerDialog.tsx:241
-msgid "Videos"
-msgstr "Videos"
-
-#: src/engine/components/MediaPickerDialog.tsx:242
-msgid "Documents"
-msgstr "Dokumente"
-
-#: src/engine/components/MediaPickerDialog.tsx:243
-msgid "Other"
-msgstr "Sonstiges"
-
-#: src/engine/components/MediaPickerDialog.tsx:256
-msgid "All users"
-msgstr "Alle Benutzer"
-
-#: src/engine/components/MediaPickerDialog.tsx:314
-msgid "Drop files to upload"
-msgstr "Dateien zum Hochladen hier ablegen"
-
-#: src/engine/components/MediaPickerDialog.tsx:329
-msgid "No images match your search."
-msgstr "Es wurden keine Bilder gefunden, die Ihrer Suche entsprechen."
-
-#: src/engine/components/MediaPickerDialog.tsx:330
-msgid "No images yet. Upload or drag files here."
-msgstr "Noch keine Bilder. Lade Dateien hoch oder ziehe sie hierher."
-
-#: src/engine/components/MediaPickerDialog.tsx:442
-msgid "Image title"
-msgstr "Bildtitel"
-
-#: src/engine/components/MediaPickerDialog.tsx:460
-msgid "Describe the image"
-msgstr "Beschreibe das Bild"
-
-#: src/engine/components/MediaPickerDialog.tsx:496
-msgid "Select an image to view details"
-msgstr "Wählen Sie ein Bild aus, um Details anzuzeigen"
-
-#: src/engine/components/MediaPickerDialog.tsx:506
-msgid "No image selected"
-msgstr "Es wurde kein Bild ausgewählt"
-
-#: src/engine/components/MediaPickerDialog.tsx:517
-msgid "Select"
-msgstr "Auswählen"
-
-#: src/engine/components/MediaPickerDialog.tsx:525
-msgid "Delete media file?"
-msgstr "Mediendatei löschen?"
-
-#: src/engine/components/MediaPickerDialog.tsx:526
-msgid "This file will be permanently deleted."
-msgstr "Diese Datei wird endgültig gelöscht."
-
-#: src/engine/components/MenuBuilder.tsx:115
-msgid "New tab"
-msgstr "Neuer Tab"
-
-#: src/engine/components/MenuBuilder.tsx:123
-msgid "Indent"
-msgstr "Einzug"
-
-#: src/engine/components/MenuBuilder.tsx:131
-msgid "Outdent"
-msgstr "Outdent"
-
-#: src/engine/components/MenuBuilder.tsx:176
-msgid "Menu saved"
-msgstr "Menü gespeichert"
-
-#: src/engine/components/MenuBuilder.tsx:325
-msgid "No menu items yet. Add one below."
-msgstr "Es gibt noch keine Menüpunkte. Füge unten einen hinzu."
-
-#: src/engine/components/MenuBuilder.tsx:332
-msgid "Add Item"
-msgstr "Artikel hinzufügen"
-
-#: src/engine/components/MenuBuilder.tsx:341
-msgid "Save Menu"
-msgstr "Menü speichern"
-
-#: src/engine/components/NotificationBell.tsx:89
-msgid "No notifications"
-msgstr "Keine Benachrichtigungen"
-
-#: src/engine/components/NotificationBell.tsx:127
-msgid "View all notifications"
-msgstr "Alle Benachrichtigungen anzeigen"
-
-#: src/engine/components/OrgSwitcher.tsx:46
-msgid "Switch organization"
-msgstr "Organisation wechseln"
-
-#: src/engine/components/OrgSwitcher.tsx:58
-msgid "Personal"
-msgstr "Persönlich"
-
-#: src/engine/components/OrgSwitcher.tsx:77
-msgid "Manage organizations"
-msgstr "Organisationen verwalten"
-
-#: src/engine/components/PostAttachments.tsx:75
-msgid "Alt text updated"
-msgstr "Alt-Text aktualisiert"
-
-#: src/engine/components/PostAttachments.tsx:84
-msgid "Attachment removed"
-msgstr "Anhang entfernt"
-
-#: src/engine/components/PostAttachments.tsx:133
-#: src/engine/components/PostAttachments.tsx:146
-msgid "Attachments"
-msgstr "Anhänge"
-
-#: src/engine/components/PostAttachments.tsx:135
-msgid "Save the post first to add attachments."
-msgstr "Speichere den Beitrag zunächst, um Anhänge hinzuzufügen."
-
-#: src/engine/components/PostAttachments.tsx:169
-msgid "No attachments yet."
-msgstr "Noch keine Anhänge."
-
-#: src/engine/components/PostAttachments.tsx:202
-msgid "Edit alt text"
-msgstr "Alt-Text bearbeiten"
-
-#: src/engine/components/PostAttachments.tsx:229
-msgid "Edit Alt Text"
-msgstr "Alt-Text bearbeiten"
-
-#: src/engine/components/PostAttachments.tsx:244
-msgid "Describe this file..."
-msgstr "Beschreibe diese Datei..."
-
-#: src/engine/components/RecentActivity.tsx:13
-msgid "created"
-msgstr "erstellt"
-
-#: src/engine/components/RecentActivity.tsx:14
-msgid "updated"
-msgstr "aktualisiert"
-
-#: src/engine/components/RecentActivity.tsx:15
-msgid "deleted"
-msgstr "gelöscht"
-
-#: src/engine/components/RecentActivity.tsx:16
-msgid "restored"
-msgstr "wiederhergestellt"
-
-#: src/engine/components/RecentActivity.tsx:17
-msgid "published"
-msgstr "veröffentlicht"
-
-#: src/engine/components/RecentActivity.tsx:44
-msgid "System"
-msgstr "System"
-
-#: src/engine/components/RevisionHistory.tsx:71
-msgid "Revision restored"
-msgstr "Die Änderung wurde wiederhergestellt"
-
-#: src/engine/components/RevisionHistory.tsx:74
-msgid "Failed to restore revision"
-msgstr "Die Wiederherstellung der Revision ist fehlgeschlagen"
-
-#: src/engine/components/RevisionHistory.tsx:93
-msgid "Revision History"
-msgstr "Änderungshistorie"
-
-#: src/engine/components/RevisionHistory.tsx:110
-msgid "Oldest"
-msgstr "Älteste"
-
-#: src/engine/components/RevisionHistory.tsx:111
-msgid "Newest"
-msgstr "Neueste"
-
-#: src/engine/components/RevisionHistory.tsx:119
-msgid "No revisions yet"
-msgstr "Noch keine Überarbeitungen"
-
-#: src/engine/components/RevisionHistory.tsx:158
-msgid "No changes in this revision"
-msgstr "In dieser Überarbeitung wurden keine Änderungen vorgenommen"
-
-#: src/engine/components/RevisionHistory.tsx:206
-msgid "Restore this version"
-msgstr "Diese Version wiederherstellen"
-
-#: src/engine/components/RevisionHistory.tsx:217
-msgid "Restore revision?"
-msgstr "Revision wiederherstellen?"
-
-#: src/engine/components/RevisionHistory.tsx:218
-msgid "Current state will be saved as a new revision before restoring."
-msgstr "Der aktuelle Zustand wird vor der Wiederherstellung als neue Revision gespeichert."
-
-#: src/engine/components/RichTextEditor.tsx:247
-msgid "Insert"
-msgstr "Einfügen"
-
-#: src/engine/components/RichTextEditor.tsx:249
-msgid "Shortcodes"
-msgstr "Shortcodes"
-
-#: src/engine/components/RichTextEditor.tsx:291
-msgid "Start writing or type / for commands..."
-msgstr "Beginne mit dem Schreiben oder gib / für Befehle ein..."
-
-#: src/engine/components/RichTextEditor.tsx:349
-#: src/engine/components/RichTextEditor.tsx:366
-#: src/engine/components/RichTextEditor.tsx:758
-msgid "Image upload failed"
-msgstr "Das Hochladen des Bildes ist fehlgeschlagen"
-
-#: src/engine/components/RichTextEditor.tsx:536
-msgid "Inline Code"
-msgstr "Inline-Code"
-
-#: src/engine/components/RichTextEditor.tsx:577
-msgid "Ordered List"
-msgstr "Aufzählung"
-
-#: src/engine/components/RichTextEditor.tsx:584
-msgid "Quote"
-msgstr "Zitat"
-
-#: src/engine/components/RichTextEditor.tsx:610
-msgid "Insert Table"
-msgstr "Tabelle einfügen"
-
-#: src/engine/components/RichTextEditor.tsx:620
-msgid "Align Left"
-msgstr "Linksbündig"
-
-#: src/engine/components/RichTextEditor.tsx:627
-msgid "Align Center"
-msgstr "Zentrieren"
-
-#: src/engine/components/RichTextEditor.tsx:634
-msgid "Align Right"
-msgstr "Rechtsbündig"
-
-#: src/engine/components/RichTextEditor.tsx:649
-msgid "Internal Link"
-msgstr "Interner Link"
-
-#: src/engine/components/RichTextEditor.tsx:665
-msgid "Insert Block"
-msgstr "Block einfügen"
-
-#: src/engine/components/RichTextEditor.tsx:711
-msgid "Undo"
-msgstr "Rückgängig"
-
-#: src/engine/components/RichTextEditor.tsx:718
-msgid "Redo"
-msgstr "Wiederholen"
-
-#: src/engine/components/RichTextEditor.tsx:734
-msgid "Hide Preview"
-msgstr "Vorschau ausblenden"
-
-#: src/engine/components/RichTextEditor.tsx:734
-msgid "Show Preview"
-msgstr "Vorschau anzeigen"
-
-#: src/engine/components/RichTextEditor.tsx:835
-msgid "Visual"
-msgstr "Visuell"
-
-#: src/engine/components/SEOFields.tsx:27
-msgid "SEO Title"
-msgstr "SEO-Titel"
-
-#: src/engine/components/SEOFields.tsx:33
-msgid "Optional SEO title for {titleTag} tag"
-msgstr "Optionaler SEO-Titel für das `{titleTag}`-Tag"
-
-#: src/engine/components/SEOFields.tsx:40
-msgid "Falls back to Title if empty"
-msgstr "Wenn leer, wird auf den Titel zurückgegriffen"
-
-#: src/engine/components/SEOFields.tsx:46
-msgid "Meta Description"
-msgstr "Meta-Beschreibung"
-
-#: src/engine/components/SEOFields.tsx:51
-msgid "SEO meta description (max 160 chars)"
-msgstr "SEO-Meta-Beschreibung (max. 160 Zeichen)"
-
-#: src/engine/components/SEOFields.tsx:71
-msgid "Noindex"
-msgstr "Noindex"
-
-#: src/engine/components/SEOFields.tsx:74
-msgid "Exclude from search engine indexing (adds noindex meta tag)"
-msgstr "Von der Indizierung durch Suchmaschinen ausschließen (fügt den Meta-Tag „noindex“ hinzu)"
-
-#: src/engine/components/SeoOverridesDialog.tsx:120
-msgid "Create SEO Override Pages"
-msgstr "SEO-Überschreibungsseiten erstellen"
-
-#: src/engine/components/SeoOverridesDialog.tsx:132
-msgid "Route"
-msgstr "Route"
-
-#: src/engine/components/SeoOverridesDialog.tsx:205
-msgid "Create Selected"
-msgstr "Ausgewählte erstellen"
-
-#: src/engine/components/SeoPreviewCard.tsx:27
-msgid "No image"
-msgstr "Kein Bild"
-
-#: src/engine/components/SeoPreviewCard.tsx:41
-msgid "Google"
-msgstr "Google"
-
-#: src/engine/components/SeoPreviewCard.tsx:42
-msgid "Facebook"
-msgstr "Facebook"
-
-#: src/engine/components/SeoPreviewCard.tsx:43
-msgid "Twitter / X"
-msgstr "Twitter / X"
-
-#: src/engine/components/SlideOver.tsx:102
-msgid "Close"
-msgstr "Schließen"
-
-#: src/engine/components/SupportChatWidget.tsx:275
-msgid "Hi! How can I help you today?"
-msgstr "Hallo! Wie kann ich Ihnen heute helfen?"
-
-#: src/engine/components/SupportChatWidget.tsx:276
-msgid "Type your message..."
-msgstr "Geben Sie Ihre Nachricht ein..."
-
-#: src/engine/components/SupportChatWidget.tsx:286
-msgid "Support Chat"
-msgstr "Support-Chat"
-
-#: src/engine/components/SupportChatWidget.tsx:333
-msgid "Support Agent"
-msgstr "Support-Mitarbeiter"
-
-#: src/engine/components/SupportChatWidget.tsx:351
-msgid "Enter your email so our team can follow up:"
-msgstr "Geben Sie Ihre E-Mail-Adresse ein, damit unser Team sich bei Ihnen melden kann:"
-
-#: src/engine/components/SupportChatWidget.tsx:361
-msgid "your@email.com"
-msgstr "your@email.com"
-
-#: src/engine/components/SupportChatWidget.tsx:366
-msgid "Connect with support"
-msgstr "Kontakt zum Support"
-
-#: src/engine/components/SupportChatWidget.tsx:375
-msgid "Would you like to create a support ticket so our team can follow up?"
-msgstr "Möchten Sie ein Support-Ticket erstellen, damit unser Team sich darum kümmern kann?"
-
-#: src/engine/components/SupportChatWidget.tsx:378
-msgid "Create Support Ticket"
-msgstr "Support-Ticket erstellen"
-
-#: src/engine/components/SupportChatWidget.tsx:385
-msgid "Thanks! Our team will follow up at your email soon."
-msgstr "Vielen Dank! Unser Team wird sich in Kürze per E-Mail bei Ihnen melden."
-
-#: src/engine/components/SupportChatWidget.tsx:391
-msgid "Your ticket has been created. Our team will follow up soon."
-msgstr "Ihr Ticket wurde erstellt. Unser Team wird sich in Kürze bei Ihnen melden."
-
-#: src/engine/components/SupportChatWidget.tsx:427
-msgid "Talk to a human"
-msgstr "Sprechen Sie mit einem Mitarbeiter"
-
-#: src/engine/components/SupportChatWidget.tsx:434
-msgid "Start New Chat"
-msgstr "Neuen Chat starten"
-
-#: src/engine/components/SupportChatWidget.tsx:444
-msgid "Close chat"
-msgstr "Chat schließen"
-
-#: src/engine/components/SupportChatWidget.tsx:444
-msgid "Open chat"
-msgstr "Chat öffnen"
-
-#: src/engine/components/TagInput.tsx:197
-msgid "Type to add tags..."
-msgstr "Gib etwas ein, um Tags hinzuzufügen..."
-
-#: src/engine/components/TagInput.tsx:238
-msgid "Press Enter to create \""
-msgstr "Drücke die Eingabetaste, um \&quot; zu erstellen"
-
-#: src/engine/components/TagInput.tsx:240
-msgid "\""
-msgstr "\&quot;"
-
-#: src/engine/components/TokenBalance.tsx:71
-msgid "Token balance"
-msgstr "Token-Guthaben"
-
-#: src/engine/components/TranslationBar.tsx:66
-msgid "Failed to create translation"
-msgstr "Die Übersetzung konnte nicht erstellt werden"
-
-#: src/engine/components/TranslationBar.tsx:129
-msgid "Copy"
-msgstr "Kopieren"
-
-#: src/engine/components/TranslationBar.tsx:138
-msgid "Copy & Translate"
-msgstr "Kopieren & Übersetzen"
-
-#: src/engine/hooks/useBulkActions.ts:50
-msgid "{succeeded} {action}, {failed} failed"
-msgstr "{succeeded} {action}, {failed} fehlgeschlagen"
-
-#: src/engine/hooks/useBulkActions.ts:52
-msgid "1 item {action}"
-msgid_plural "{count} items {action}"
-msgstr[0] "1 item {action}"
-msgstr[1] "{count} items {action}"
-
-#: src/engine/hooks/useCmsFormState.ts:49
-msgid "Please check the form for errors"
-msgstr "Bitte überprüfen Sie das Formular auf Fehler"
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No affiliates yet."
+#~ msgstr "Noch keine Partner."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Active Affiliates"
+#~ msgstr "Aktive Partner"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Total Referrals"
+#~ msgstr "Gesamtzahl der Empfehlungen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Conversion Rate"
+#~ msgstr "Konversionsrate"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Total Earnings"
+#~ msgstr "Gesamtverdienst"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Top Affiliates"
+#~ msgstr "Top-Partner"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Affiliate"
+#~ msgstr "Partner"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Autosaved"
+#~ msgstr "Automatisch gespeichert"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Unsaved changes recovered from"
+#~ msgstr "Nicht gespeicherte Änderungen wurden wiederhergestellt aus"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Broken internal links detected:"
+#~ msgstr "Es wurden defekte interne Links festgestellt:"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Set status..."
+#~ msgstr "Status festlegen..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Move to Trash"
+#~ msgstr "In den Papierkorb verschieben"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Navigation"
+#~ msgstr "Navigation"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Content"
+#~ msgstr "Inhalt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Search pages, content, settings..."
+#~ msgstr "Seiten, Inhalte, Einstellungen suchen..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No results found"
+#~ msgstr "Es wurden keine Ergebnisse gefunden"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Start typing to search..."
+#~ msgstr "Beginne mit der Eingabe, um zu suchen..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Calendar"
+#~ msgstr "Kalender"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "more"
+#~ msgstr "mehr"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Content Status"
+#~ msgstr "Status des Inhalts"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Loading custom fields..."
+#~ msgstr "Benutzerdefinierte Felder werden geladen..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Saving custom fields..."
+#~ msgstr "Benutzerdefinierte Felder werden gespeichert..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Enabled"
+#~ msgstr "Aktiviert"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "-- Select --"
+#~ msgstr "-- Auswählen --"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Show widget"
+#~ msgstr "Widget anzeigen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Hide widget"
+#~ msgstr "Widget ausblenden"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
+#~ msgstr "Ziehe die Widgets per Drag & Drop, um ihre Reihenfolge zu ändern. Über das Augensymbol kannst du die Sichtbarkeit ein- und ausschalten."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Configure dashboard"
+#~ msgstr "Dashboard konfigurieren"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Dashboard Layout"
+#~ msgstr "Layout des Dashboards"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Rewrite"
+#~ msgstr "Umschreiben"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Shorten"
+#~ msgstr "Kürzen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Expand"
+#~ msgstr "Erweitern"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Fix grammar"
+#~ msgstr "Grammatik korrigieren"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Translate to English"
+#~ msgstr "Ins Englische übersetzen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "AI request failed"
+#~ msgstr "AI-Anfrage fehlgeschlagen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "AI Assist"
+#~ msgstr "KI-Assistent"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Thinking..."
+#~ msgstr "Ich denke nach..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Try again"
+#~ msgstr "Versuche es noch einmal"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Apply"
+#~ msgstr "Bewerben"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Discard"
+#~ msgstr "Verwerfen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Custom instruction..."
+#~ msgstr "Individueller Unterricht..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Bold"
+#~ msgstr "Fett"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Italic"
+#~ msgstr "kursiv"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Underline"
+#~ msgstr "Unterstreichen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Strikethrough"
+#~ msgstr "Durchgestrichen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Link"
+#~ msgstr "Link"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Alt text"
+#~ msgstr "Alternativtext"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Align left"
+#~ msgstr "Linksbündig"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Center"
+#~ msgstr "Mitte"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Align right"
+#~ msgstr "Rechtsbündig"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Replace image"
+#~ msgstr "Bild ersetzen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Remove image"
+#~ msgstr "Bild entfernen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Heading 1"
+#~ msgstr "Überschrift 1"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Large section heading"
+#~ msgstr "Überschrift eines großen Abschnitts"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Headings"
+#~ msgstr "Überschriften"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Heading 2"
+#~ msgstr "Überschrift 2"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Medium section heading"
+#~ msgstr "Überschrift mittlerer Abschnitt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Heading 3"
+#~ msgstr "Überschrift 3"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Small section heading"
+#~ msgstr "Kleine Überschrift"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Bullet List"
+#~ msgstr "Aufzählung"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Unordered list"
+#~ msgstr "Ungeordnete Liste"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Lists"
+#~ msgstr "Listen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Numbered List"
+#~ msgstr "Nummerierte Liste"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Ordered list"
+#~ msgstr "Aufzählung"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Blockquote"
+#~ msgstr "Zitat"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Quote block"
+#~ msgstr "Zitatblock"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Blocks"
+#~ msgstr "Blöcke"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Code Block"
+#~ msgstr "Code-Block"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Fenced code block"
+#~ msgstr "Eingeschränkter Code-Block"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Horizontal Rule"
+#~ msgstr "Horizontale Linie"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Divider line"
+#~ msgstr "Trennlinie"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Table"
+#~ msgstr "Tabelle"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Insert a table"
+#~ msgstr "Eine Tabelle einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Upload or embed an image"
+#~ msgstr "Ein Bild hochladen oder einbetten"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Media"
+#~ msgstr "Medien"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Add row above"
+#~ msgstr "Zeile darüber einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Add row below"
+#~ msgstr "Zeile darunter einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Add column left"
+#~ msgstr "Spalte links einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Add column right"
+#~ msgstr "Spalte rechts einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Merge cells"
+#~ msgstr "Zellen zusammenführen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Split cell"
+#~ msgstr "Geteilte Zelle"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Delete row"
+#~ msgstr "Zeile löschen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Row"
+#~ msgstr "Zeile"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Delete column"
+#~ msgstr "Spalte löschen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Col"
+#~ msgstr "Oberst"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Delete table"
+#~ msgstr "Tabelle löschen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Language Fallback"
+#~ msgstr "Ausweichsprache"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Show EN version for missing translations"
+#~ msgstr "EN-Version anzeigen, wenn Übersetzungen fehlen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "404 for missing translations"
+#~ msgstr "404 wegen fehlender Übersetzungen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Always Fallback"
+#~ msgstr "Immer auf die Ausweichlösung zurückgreifen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Never Fallback"
+#~ msgstr "Niemals auf Plan B zurückgreifen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Controls whether this content is shown when visiting in a language without a translation"
+#~ msgstr "Legt fest, ob dieser Inhalt angezeigt wird, wenn die Seite in einer Sprache aufgerufen wird, für die keine Übersetzung vorliegt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Google Analytics"
+#~ msgstr "Google Analytics"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Connect Google Analytics to see page views, sessions, and top pages."
+#~ msgstr "Verbinden Sie Google Analytics, um Seitenaufrufe, Sitzungen und die meistbesuchten Seiten anzuzeigen."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Configure in Settings"
+#~ msgstr "In den Einstellungen konfigurieren"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
+#~ msgstr "Die Analysedaten konnten nicht geladen werden. Überprüfen Sie Ihre GA4-Konfiguration in den Einstellungen."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Page Views"
+#~ msgstr "Seitenaufrufe"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Sessions"
+#~ msgstr "Sitzungen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Daily Page Views"
+#~ msgstr "Tägliche Seitenaufrufe"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Top Pages"
+#~ msgstr "Beliebteste Seiten"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Views"
+#~ msgstr "Aufrufe"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Insert Internal Link"
+#~ msgstr "Interner Link einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Search pages, blog posts, categories..."
+#~ msgstr "Suchseiten, Blogbeiträge, Kategorien..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Searching..."
+#~ msgstr "Suche..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Type at least 2 characters to search"
+#~ msgstr "Geben Sie mindestens 2 Zeichen für die Suche ein"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Change"
+#~ msgstr "Ändern"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Select Image"
+#~ msgstr "Bild auswählen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Alt Text"
+#~ msgstr "Alternativtext"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Describe the image..."
+#~ msgstr "Beschreibe das Bild..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Only image files are supported"
+#~ msgstr "Es werden nur Bilddateien unterstützt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Search media..."
+#~ msgstr "Medien suchen..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Images"
+#~ msgstr "Bilder"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Videos"
+#~ msgstr "Videos"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Documents"
+#~ msgstr "Dokumente"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Other"
+#~ msgstr "Sonstiges"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "All users"
+#~ msgstr "Alle Benutzer"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Drop files to upload"
+#~ msgstr "Dateien zum Hochladen hier ablegen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No images match your search."
+#~ msgstr "Es wurden keine Bilder gefunden, die Ihrer Suche entsprechen."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No images yet. Upload or drag files here."
+#~ msgstr "Noch keine Bilder. Lade Dateien hoch oder ziehe sie hierher."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Image title"
+#~ msgstr "Bildtitel"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Describe the image"
+#~ msgstr "Beschreibe das Bild"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Select an image to view details"
+#~ msgstr "Wählen Sie ein Bild aus, um Details anzuzeigen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No image selected"
+#~ msgstr "Es wurde kein Bild ausgewählt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Select"
+#~ msgstr "Auswählen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Delete media file?"
+#~ msgstr "Mediendatei löschen?"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "This file will be permanently deleted."
+#~ msgstr "Diese Datei wird endgültig gelöscht."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "New tab"
+#~ msgstr "Neuer Tab"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Indent"
+#~ msgstr "Einzug"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Outdent"
+#~ msgstr "Outdent"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Menu saved"
+#~ msgstr "Menü gespeichert"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No menu items yet. Add one below."
+#~ msgstr "Es gibt noch keine Menüpunkte. Füge unten einen hinzu."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Add Item"
+#~ msgstr "Artikel hinzufügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Save Menu"
+#~ msgstr "Menü speichern"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No notifications"
+#~ msgstr "Keine Benachrichtigungen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "View all notifications"
+#~ msgstr "Alle Benachrichtigungen anzeigen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Switch organization"
+#~ msgstr "Organisation wechseln"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Personal"
+#~ msgstr "Persönlich"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Manage organizations"
+#~ msgstr "Organisationen verwalten"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Alt text updated"
+#~ msgstr "Alt-Text aktualisiert"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Attachment removed"
+#~ msgstr "Anhang entfernt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Attachments"
+#~ msgstr "Anhänge"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Save the post first to add attachments."
+#~ msgstr "Speichere den Beitrag zunächst, um Anhänge hinzuzufügen."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No attachments yet."
+#~ msgstr "Noch keine Anhänge."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Edit alt text"
+#~ msgstr "Alt-Text bearbeiten"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Edit Alt Text"
+#~ msgstr "Alt-Text bearbeiten"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Describe this file..."
+#~ msgstr "Beschreibe diese Datei..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "created"
+#~ msgstr "erstellt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "updated"
+#~ msgstr "aktualisiert"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "deleted"
+#~ msgstr "gelöscht"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "restored"
+#~ msgstr "wiederhergestellt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "published"
+#~ msgstr "veröffentlicht"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "System"
+#~ msgstr "System"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Revision restored"
+#~ msgstr "Die Änderung wurde wiederhergestellt"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Failed to restore revision"
+#~ msgstr "Die Wiederherstellung der Revision ist fehlgeschlagen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Revision History"
+#~ msgstr "Änderungshistorie"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Oldest"
+#~ msgstr "Älteste"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Newest"
+#~ msgstr "Neueste"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No revisions yet"
+#~ msgstr "Noch keine Überarbeitungen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No changes in this revision"
+#~ msgstr "In dieser Überarbeitung wurden keine Änderungen vorgenommen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Restore this version"
+#~ msgstr "Diese Version wiederherstellen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Restore revision?"
+#~ msgstr "Revision wiederherstellen?"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Current state will be saved as a new revision before restoring."
+#~ msgstr "Der aktuelle Zustand wird vor der Wiederherstellung als neue Revision gespeichert."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Insert"
+#~ msgstr "Einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Shortcodes"
+#~ msgstr "Shortcodes"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Start writing or type / for commands..."
+#~ msgstr "Beginne mit dem Schreiben oder gib / für Befehle ein..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Image upload failed"
+#~ msgstr "Das Hochladen des Bildes ist fehlgeschlagen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Inline Code"
+#~ msgstr "Inline-Code"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Ordered List"
+#~ msgstr "Aufzählung"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Quote"
+#~ msgstr "Zitat"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Insert Table"
+#~ msgstr "Tabelle einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Align Left"
+#~ msgstr "Linksbündig"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Align Center"
+#~ msgstr "Zentrieren"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Align Right"
+#~ msgstr "Rechtsbündig"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Internal Link"
+#~ msgstr "Interner Link"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Insert Block"
+#~ msgstr "Block einfügen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Undo"
+#~ msgstr "Rückgängig"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Redo"
+#~ msgstr "Wiederholen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Hide Preview"
+#~ msgstr "Vorschau ausblenden"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Show Preview"
+#~ msgstr "Vorschau anzeigen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Visual"
+#~ msgstr "Visuell"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "SEO Title"
+#~ msgstr "SEO-Titel"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Optional SEO title for {titleTag} tag"
+#~ msgstr "Optionaler SEO-Titel für das `{titleTag}`-Tag"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Falls back to Title if empty"
+#~ msgstr "Wenn leer, wird auf den Titel zurückgegriffen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Meta Description"
+#~ msgstr "Meta-Beschreibung"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "SEO meta description (max 160 chars)"
+#~ msgstr "SEO-Meta-Beschreibung (max. 160 Zeichen)"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Noindex"
+#~ msgstr "Noindex"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Exclude from search engine indexing (adds noindex meta tag)"
+#~ msgstr "Von der Indizierung durch Suchmaschinen ausschließen (fügt den Meta-Tag „noindex“ hinzu)"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Create SEO Override Pages"
+#~ msgstr "SEO-Überschreibungsseiten erstellen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Route"
+#~ msgstr "Route"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Create Selected"
+#~ msgstr "Ausgewählte erstellen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "No image"
+#~ msgstr "Kein Bild"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Google"
+#~ msgstr "Google"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Facebook"
+#~ msgstr "Facebook"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Twitter / X"
+#~ msgstr "Twitter / X"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Close"
+#~ msgstr "Schließen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Hi! How can I help you today?"
+#~ msgstr "Hallo! Wie kann ich Ihnen heute helfen?"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Type your message..."
+#~ msgstr "Geben Sie Ihre Nachricht ein..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Support Chat"
+#~ msgstr "Support-Chat"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Support Agent"
+#~ msgstr "Support-Mitarbeiter"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Enter your email so our team can follow up:"
+#~ msgstr "Geben Sie Ihre E-Mail-Adresse ein, damit unser Team sich bei Ihnen melden kann:"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "your@email.com"
+#~ msgstr "your@email.com"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Connect with support"
+#~ msgstr "Kontakt zum Support"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Would you like to create a support ticket so our team can follow up?"
+#~ msgstr "Möchten Sie ein Support-Ticket erstellen, damit unser Team sich darum kümmern kann?"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Create Support Ticket"
+#~ msgstr "Support-Ticket erstellen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Thanks! Our team will follow up at your email soon."
+#~ msgstr "Vielen Dank! Unser Team wird sich in Kürze per E-Mail bei Ihnen melden."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Your ticket has been created. Our team will follow up soon."
+#~ msgstr "Ihr Ticket wurde erstellt. Unser Team wird sich in Kürze bei Ihnen melden."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Talk to a human"
+#~ msgstr "Sprechen Sie mit einem Mitarbeiter"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Start New Chat"
+#~ msgstr "Neuen Chat starten"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Close chat"
+#~ msgstr "Chat schließen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Open chat"
+#~ msgstr "Chat öffnen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Type to add tags..."
+#~ msgstr "Gib etwas ein, um Tags hinzuzufügen..."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Press Enter to create \""
+#~ msgstr "Drücke die Eingabetaste, um \&quot; zu erstellen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "\""
+#~ msgstr "\&quot;"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Token balance"
+#~ msgstr "Token-Guthaben"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Failed to create translation"
+#~ msgstr "Die Übersetzung konnte nicht erstellt werden"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Copy"
+#~ msgstr "Kopieren"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Copy & Translate"
+#~ msgstr "Kopieren & Übersetzen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "{succeeded} {action}, {failed} failed"
+#~ msgstr "{succeeded} {action}, {failed} fehlgeschlagen"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Please check the form for errors"
+#~ msgstr "Bitte überprüfen Sie das Formular auf Fehler"
 
 #. REMOVED FROM CODE - PRESERVED FOR REFERENCE
 #~ msgctxt "General"

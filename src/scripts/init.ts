@@ -19,14 +19,14 @@
  * 9. Selectively seeds: CMS content, module data, extras
  */
 
-import postgres from 'postgres';
-import { drizzle } from 'drizzle-orm/postgres-js';
-import { count, eq } from 'drizzle-orm';
-import { execSync } from 'child_process';
-import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
-import { hashPassword } from '@/lib/password';
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
+import { count, eq } from "drizzle-orm";
+import { execSync } from "child_process";
+import crypto from "crypto";
+import fs from "fs";
+import path from "path";
+import { hashPassword } from "@/lib/password";
 import {
   log,
   prompt,
@@ -34,23 +34,23 @@ import {
   promptWithDefault,
   promptYesNo,
   type CompanyInfo,
-} from './seed/helpers';
-import { seedMedia, seedCmsContent } from './seed/cms-content';
-import { seedUsersAndOrgs } from './seed/users-orgs';
-import { seedExtras } from './seed/extras';
+} from "./seed/helpers";
+import { seedMedia, seedCmsContent } from "./seed/cms-content";
+import { seedUsersAndOrgs } from "./seed/users-orgs";
+import { seedExtras } from "./seed/extras";
 
 // Lazy-loaded after .env is ensured (top-level import triggers env validation)
 async function getModuleSeeds() {
-  const { MODULE_SEEDS } = await import('@/generated/module-seeds');
+  const { MODULE_SEEDS } = await import("@/generated/module-seeds");
   return MODULE_SEEDS;
 }
 
 // ─── CLI Flags ───────────────────────────────────────────────────────────────
 
 const args = process.argv.slice(2);
-const AUTO_YES = args.includes('-y') || args.includes('--yes');
-const FORCE_RESET = args.includes('--reset');
-const NO_SEED = args.includes('--no-seed');
+const AUTO_YES = args.includes("-y") || args.includes("--yes");
+const FORCE_RESET = args.includes("--reset");
+const NO_SEED = args.includes("--no-seed");
 
 /** Prompt or auto-accept. In -y mode, always returns the default value. */
 async function confirm(message: string, defaultValue = true): Promise<boolean> {
@@ -59,7 +59,11 @@ async function confirm(message: string, defaultValue = true): Promise<boolean> {
 }
 
 /** Prompt or use fallback. In -y mode, returns env value or fallback. */
-async function ask(message: string, envValue?: string, fallback = ''): Promise<string> {
+async function ask(
+  message: string,
+  envValue?: string,
+  fallback = "",
+): Promise<string> {
   if (AUTO_YES) return envValue || fallback;
   if (envValue) return promptWithDefault(message, envValue);
   return (await prompt(message)) || fallback;
@@ -68,21 +72,21 @@ async function ask(message: string, envValue?: string, fallback = ''): Promise<s
 // ─── Config ───────────────────────────────────────────────────────────────────
 
 const PROJECT_ROOT = process.cwd();
-const ENV_PATH = path.join(PROJECT_ROOT, '.env');
-const ENV_EXAMPLE_PATH = path.join(PROJECT_ROOT, '.env.example');
+const ENV_PATH = path.join(PROJECT_ROOT, ".env");
+const ENV_EXAMPLE_PATH = path.join(PROJECT_ROOT, ".env.example");
 
 /** Reload .env into process.env (bun only auto-loads if .env exists at startup) */
 function reloadEnv() {
   if (!fs.existsSync(ENV_PATH)) return;
-  const content = fs.readFileSync(ENV_PATH, 'utf-8');
-  for (const line of content.split('\n')) {
+  const content = fs.readFileSync(ENV_PATH, "utf-8");
+  for (const line of content.split("\n")) {
     const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
-    const eqIdx = trimmed.indexOf('=');
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eqIdx = trimmed.indexOf("=");
     if (eqIdx === -1) continue;
     const key = trimmed.slice(0, eqIdx).trim();
     const value = trimmed.slice(eqIdx + 1).trim();
-    if (!process.env[key] || process.env[key] === '') {
+    if (!process.env[key] || process.env[key] === "") {
       process.env[key] = value;
     }
   }
@@ -93,19 +97,22 @@ async function ensureDatabaseUrl(): Promise<string> {
   reloadEnv();
 
   let url = process.env.DATABASE_URL;
-  const defaultUrl = 'postgresql://postgres:@localhost:5432/indigo';
+  const defaultUrl = "postgresql://postgres:@localhost:5432/indigo";
 
   if (!url || url === defaultUrl) {
     if (AUTO_YES) {
       url = url || defaultUrl;
     } else {
-      url = await promptWithDefault('  Database URL:', url || defaultUrl);
+      url = await promptWithDefault("  Database URL:", url || defaultUrl);
     }
 
     // Write back to .env
     if (fs.existsSync(ENV_PATH)) {
-      let envContent = fs.readFileSync(ENV_PATH, 'utf-8');
-      envContent = envContent.replace(/^DATABASE_URL=.*$/m, `DATABASE_URL=${url}`);
+      let envContent = fs.readFileSync(ENV_PATH, "utf-8");
+      envContent = envContent.replace(
+        /^DATABASE_URL=.*$/m,
+        `DATABASE_URL=${url}`,
+      );
       fs.writeFileSync(ENV_PATH, envContent);
     }
     process.env.DATABASE_URL = url;
@@ -115,7 +122,9 @@ async function ensureDatabaseUrl(): Promise<string> {
 }
 
 /** Query all application tables from the database (excludes drizzle internals) */
-async function getAllTables(rawSql: ReturnType<typeof postgres>): Promise<string[]> {
+async function getAllTables(
+  rawSql: ReturnType<typeof postgres>,
+): Promise<string[]> {
   const rows = await rawSql`
     SELECT tablename FROM pg_tables
     WHERE schemaname = 'public'
@@ -130,42 +139,54 @@ function ensureEnvFile(): boolean {
   if (!fs.existsSync(ENV_PATH)) {
     if (fs.existsSync(ENV_EXAMPLE_PATH)) {
       fs.copyFileSync(ENV_EXAMPLE_PATH, ENV_PATH);
-      log('📄', 'Created .env from .env.example.');
+      log("📄", "Created .env from .env.example.");
     } else {
-      log('⚠️', 'No .env or .env.example found. Create .env with DATABASE_URL, then re-run.');
+      log(
+        "⚠️",
+        "No .env or .env.example found. Create .env with DATABASE_URL, then re-run.",
+      );
       return false;
     }
   }
 
   // Auto-generate secrets if they're still placeholder values
-  let envContent = fs.readFileSync(ENV_PATH, 'utf-8');
+  let envContent = fs.readFileSync(ENV_PATH, "utf-8");
   let changed = false;
 
   // BETTER_AUTH_SECRET — 32 random bytes = 64 hex chars
-  if (/BETTER_AUTH_SECRET=your-secret/.test(envContent) || !/BETTER_AUTH_SECRET=.{32}/.test(envContent)) {
-    const secret = crypto.randomBytes(32).toString('hex');
-    envContent = envContent.replace(/^BETTER_AUTH_SECRET=.*$/m, `BETTER_AUTH_SECRET=${secret}`);
+  if (
+    /BETTER_AUTH_SECRET=your-secret/.test(envContent) ||
+    !/BETTER_AUTH_SECRET=.{32}/.test(envContent)
+  ) {
+    const secret = crypto.randomBytes(32).toString("hex");
+    envContent = envContent.replace(
+      /^BETTER_AUTH_SECRET=.*$/m,
+      `BETTER_AUTH_SECRET=${secret}`,
+    );
     changed = true;
-    log('🔑', 'Generated BETTER_AUTH_SECRET.');
+    log("🔑", "Generated BETTER_AUTH_SECRET.");
   }
 
   // ENCRYPTION_KEY — 32 random bytes = 64 hex chars (for dashboard credential encryption)
   if (!/^ENCRYPTION_KEY=.{64}$/m.test(envContent)) {
-    const key = crypto.randomBytes(32).toString('hex');
+    const key = crypto.randomBytes(32).toString("hex");
     if (/^#?\s*ENCRYPTION_KEY=/m.test(envContent)) {
-      envContent = envContent.replace(/^#?\s*ENCRYPTION_KEY=.*$/m, `ENCRYPTION_KEY=${key}`);
+      envContent = envContent.replace(
+        /^#?\s*ENCRYPTION_KEY=.*$/m,
+        `ENCRYPTION_KEY=${key}`,
+      );
     } else {
       envContent += `\nENCRYPTION_KEY=${key}`;
     }
     changed = true;
-    log('🔑', 'Generated ENCRYPTION_KEY.');
+    log("🔑", "Generated ENCRYPTION_KEY.");
   }
 
   if (changed) {
     fs.writeFileSync(ENV_PATH, envContent);
   }
 
-  if (!AUTO_YES && !fs.existsSync(ENV_PATH.replace('.env', '.env.generated'))) {
+  if (!AUTO_YES && !fs.existsSync(ENV_PATH.replace(".env", ".env.generated"))) {
     // Only pause on first-ever .env creation (not on secret rotation)
     if (!changed) return true;
   }
@@ -179,26 +200,29 @@ async function ensureDatabase(): Promise<string> {
   const databaseUrl = await ensureDatabaseUrl();
   const dbUrl = new URL(databaseUrl);
   const dbName = dbUrl.pathname.slice(1);
-  const maintenanceUrl = `${dbUrl.protocol}//${dbUrl.username}${dbUrl.password ? ':' + dbUrl.password : ''}@${dbUrl.host}/postgres`;
+  const maintenanceUrl = `${dbUrl.protocol}//${dbUrl.username}${dbUrl.password ? ":" + dbUrl.password : ""}@${dbUrl.host}/postgres`;
 
-  log('🗄️', `Checking database "${dbName}"...`);
+  log("🗄️", `Checking database "${dbName}"...`);
 
   const sql = postgres(maintenanceUrl, { max: 1 });
 
   try {
-    const result = await sql`SELECT 1 FROM pg_database WHERE datname = ${dbName}`;
+    const result =
+      await sql`SELECT 1 FROM pg_database WHERE datname = ${dbName}`;
 
     if (result.length === 0) {
-      log('📦', `Creating database "${dbName}"...`);
+      log("📦", `Creating database "${dbName}"...`);
       await sql.unsafe(`CREATE DATABASE "${dbName}"`);
-      log('✅', `Database "${dbName}" created.`);
+      log("✅", `Database "${dbName}" created.`);
     } else {
-      log('✅', `Database "${dbName}" already exists.`);
+      log("✅", `Database "${dbName}" already exists.`);
     }
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     console.error(`Failed to connect to PostgreSQL: ${message}`);
-    console.error('Make sure PostgreSQL is running and DATABASE_URL is correct.');
+    console.error(
+      "Make sure PostgreSQL is running and DATABASE_URL is correct.",
+    );
     process.exit(1);
   } finally {
     await sql.end();
@@ -211,129 +235,135 @@ async function ensureDatabase(): Promise<string> {
 
 function runMigrations() {
   // Generate migrations if none exist yet (fresh clone or reset)
-  const journalPath = path.resolve(process.cwd(), 'drizzle/meta/_journal.json');
+  const journalPath = path.resolve(process.cwd(), "drizzle/meta/_journal.json");
   if (!fs.existsSync(journalPath)) {
-    log('🔄', 'No migrations found — generating from schema...');
+    log("🔄", "No migrations found — generating from schema...");
     try {
-      execSync('bunx drizzle-kit generate', { stdio: 'inherit' });
-      log('✅', 'Migrations generated.');
+      execSync("bunx drizzle-kit generate", { stdio: "inherit" });
+      log("✅", "Migrations generated.");
     } catch {
-      console.error('Migration generation failed. Check the error above.');
+      console.error("Migration generation failed. Check the error above.");
       process.exit(1);
     }
   }
 
-  log('🔄', 'Running database migrations...');
+  log("🔄", "Running database migrations...");
   try {
-    execSync('bunx drizzle-kit migrate', { stdio: 'inherit' });
-    log('✅', 'Migrations applied.');
+    execSync("bunx drizzle-kit migrate", { stdio: "inherit" });
+    log("✅", "Migrations applied.");
   } catch {
-    console.error('Migration failed. Check the error above.');
+    console.error("Migration failed. Check the error above.");
     process.exit(1);
   }
 }
 
 // ─── Step 4: Check existing data & offer reset ──────────────────────────────
 
-type ResetResult = 'no_data' | 'reset' | 'skip';
+type ResetResult = "no_data" | "reset" | "skip";
 
 async function checkAndResetIfNeeded(
   db: ReturnType<typeof drizzle>,
   rawSql: ReturnType<typeof postgres>,
 ): Promise<ResetResult> {
-  const { cmsPosts } = await import('../server/db/schema/cms');
-  const { cmsMenus } = await import('../server/db/schema/menu');
+  const { cmsPosts } = await import("../server/db/schema/cms");
+  const { cmsMenus } = await import("../server/db/schema/menu");
 
   const [postCount] = await db.select({ count: count() }).from(cmsPosts);
   const [menuCount] = await db.select({ count: count() }).from(cmsMenus);
 
-  const hasData =
-    (postCount?.count ?? 0) > 0 ||
-    (menuCount?.count ?? 0) > 0;
+  const hasData = (postCount?.count ?? 0) > 0 || (menuCount?.count ?? 0) > 0;
 
-  if (!hasData) return 'no_data';
+  if (!hasData) return "no_data";
 
   // --reset flag forces reset without asking
   if (FORCE_RESET) {
-    log('🗑️', 'Force resetting all data (--reset flag)...');
+    log("🗑️", "Force resetting all data (--reset flag)...");
   } else {
-    console.log('');
-    log('⚠️', 'Data already exists in the database.');
-    const shouldReset = await confirm('  Reset and re-seed all data?', false);
+    console.log("");
+    log("⚠️", "Data already exists in the database.");
+    const shouldReset = await confirm("  Reset and re-seed all data?", false);
 
     if (!shouldReset) {
-      log('⏭️', 'Keeping existing data.');
-      return 'skip';
+      log("⏭️", "Keeping existing data.");
+      return "skip";
     }
 
-    log('🗑️', 'Resetting all data...');
+    log("🗑️", "Resetting all data...");
   }
 
   const tables = await getAllTables(rawSql);
   if (tables.length > 0) {
-    await rawSql.unsafe(`TRUNCATE TABLE ${tables.join(', ')} CASCADE`);
+    await rawSql.unsafe(`TRUNCATE TABLE ${tables.join(", ")} CASCADE`);
   }
 
-  const seedDir = path.join(PROJECT_ROOT, 'uploads', 'seed');
+  const seedDir = path.join(PROJECT_ROOT, "uploads", "seed");
   if (fs.existsSync(seedDir)) {
     fs.rmSync(seedDir, { recursive: true, force: true });
   }
 
-  log('✅', 'All data cleared.');
-  return 'reset';
+  log("✅", "All data cleared.");
+  return "reset";
 }
 
 // ─── Step 5: Ensure superadmin exists ───────────────────────────────────────
 
-async function ensureSuperadmin(db: ReturnType<typeof drizzle>): Promise<string> {
-  const { user, account } = await import('../server/db/schema/auth');
+async function ensureSuperadmin(
+  db: ReturnType<typeof drizzle>,
+): Promise<string> {
+  const { user, account } = await import("../server/db/schema/auth");
 
   const [existingAdmin] = await db
     .select({ id: user.id })
     .from(user)
-    .where(eq(user.role, 'superadmin'))
+    .where(eq(user.role, "superadmin"))
     .limit(1);
 
   if (existingAdmin) {
-    log('✅', 'Superadmin user exists.');
+    log("✅", "Superadmin user exists.");
     return existingAdmin.id;
   }
 
-  log('👤', 'Creating superadmin...');
-  if (!AUTO_YES) console.log('');
+  log("👤", "Creating superadmin...");
+  if (!AUTO_YES) console.log("");
 
-  const defaultEmail = process.env.INIT_ADMIN_EMAIL || 'admin@example.com';
+  const defaultEmail = process.env.INIT_ADMIN_EMAIL || "admin@example.com";
   const envPassword = process.env.INIT_ADMIN_PASSWORD;
 
   // In auto mode without explicit password: generate a secure random password
   // NEVER use a hardcoded default — especially in production (--no-seed path)
-  const fallbackPassword = AUTO_YES && !envPassword
-    ? crypto.randomBytes(16).toString('base64url')
-    : 'asdasdasd';
+  const fallbackPassword =
+    AUTO_YES && !envPassword
+      ? crypto.randomBytes(16).toString("base64url")
+      : "asdfasdf";
 
-  const email = AUTO_YES ? defaultEmail : await promptWithDefault('  Admin email:', defaultEmail);
-  const name = process.env.INIT_ADMIN_NAME || email.split('@')[0];
+  const email = AUTO_YES
+    ? defaultEmail
+    : await promptWithDefault("  Admin email:", defaultEmail);
+  const name = process.env.INIT_ADMIN_NAME || email.split("@")[0];
 
   let password: string;
   if (AUTO_YES) {
     password = envPassword || fallbackPassword;
     if (!envPassword) {
-      console.log('');
-      log('🔑', `Generated admin password: ${password}`);
-      log('⚠️', 'Change this password immediately! Set INIT_ADMIN_PASSWORD env var for future inits.');
-      console.log('');
+      console.log("");
+      log("🔑", `Generated admin password: ${password}`);
+      log(
+        "⚠️",
+        "Change this password immediately! Set INIT_ADMIN_PASSWORD env var for future inits.",
+      );
+      console.log("");
     }
   } else {
-    password = await promptPassword(`  Admin password [asdasdasd]: `);
-    if (!password) password = 'asdasdasd';
+    password = await promptPassword(`  Admin password [asdfasdf]: `);
+    if (!password) password = "asdfasdf";
   }
 
   if (!name || !email || !password) {
-    console.error('All fields are required.');
+    console.error("All fields are required.");
     process.exit(1);
   }
   if (password.length < 6) {
-    console.error('Password must be at least 6 characters.');
+    console.error("Password must be at least 6 characters.");
     process.exit(1);
   }
 
@@ -345,28 +375,31 @@ async function ensureSuperadmin(db: ReturnType<typeof drizzle>): Promise<string>
     name,
     email,
     emailVerified: true,
-    role: 'superadmin',
+    role: "superadmin",
   });
 
   await db.insert(account).values({
     id: crypto.randomUUID(),
     accountId: userId,
-    providerId: 'credential',
+    providerId: "credential",
     userId,
     password: hashedPassword,
   });
 
-  const { cmsAuditLog } = await import('../server/db/schema/audit');
-  await db.insert(cmsAuditLog).values({
-    userId,
-    action: 'init.superadmin',
-    entityType: 'user',
-    entityId: userId,
-    entityTitle: name,
-  }).catch(() => {});
+  const { cmsAuditLog } = await import("../server/db/schema/audit");
+  await db
+    .insert(cmsAuditLog)
+    .values({
+      userId,
+      action: "init.superadmin",
+      entityType: "user",
+      entityId: userId,
+      entityTitle: name,
+    })
+    .catch(() => {});
 
-  console.log('');
-  log('✅', `Superadmin "${name}" <${email}> created.`);
+  console.log("");
+  log("✅", `Superadmin "${name}" <${email}> created.`);
   return userId;
 }
 
@@ -374,24 +407,56 @@ async function ensureSuperadmin(db: ReturnType<typeof drizzle>): Promise<string>
 
 async function promptCompanyInfo(): Promise<CompanyInfo> {
   if (!AUTO_YES) {
-    log('🏢', 'Company info (used in legal page templates)...');
-    console.log('');
+    log("🏢", "Company info (used in legal page templates)...");
+    console.log("");
   }
 
-  const siteName = await ask('  Site name: ', process.env.NEXT_PUBLIC_SITE_NAME, 'Indigo');
-  const siteUrl = await ask('  Site URL: ', process.env.NEXT_PUBLIC_APP_URL, 'http://localhost:3000');
-  const companyName = await ask('  Company legal name (e.g. "Acme Corp s.r.o."): ', undefined, 'Indigo Inc.');
-  const companyAddress = await ask('  Company address: ', undefined, '123 Main Street, City, Country');
-  const companyId = await ask('  Company registration number: ', undefined, 'N/A');
+  const siteName = await ask(
+    "  Site name: ",
+    process.env.NEXT_PUBLIC_SITE_NAME,
+    "Indigo",
+  );
+  const siteUrl = await ask(
+    "  Site URL: ",
+    process.env.NEXT_PUBLIC_APP_URL,
+    "http://localhost:3000",
+  );
+  const companyName = await ask(
+    '  Company legal name (e.g. "Acme Corp s.r.o."): ',
+    undefined,
+    "Indigo Inc.",
+  );
+  const companyAddress = await ask(
+    "  Company address: ",
+    undefined,
+    "123 Main Street, City, Country",
+  );
+  const companyId = await ask(
+    "  Company registration number: ",
+    undefined,
+    "N/A",
+  );
   const companyJurisdiction = await ask(
     '  Governing law jurisdiction (e.g. "the Slovak Republic"): ',
     undefined,
-    'the United States',
+    "the United States",
   );
-  const contactEmail = await ask('  Contact email: ', undefined, 'info@example.com');
+  const contactEmail = await ask(
+    "  Contact email: ",
+    undefined,
+    "info@example.com",
+  );
 
-  if (!AUTO_YES) console.log('');
-  return { siteName, siteUrl, companyName, companyAddress, companyId, companyJurisdiction, contactEmail };
+  if (!AUTO_YES) console.log("");
+  return {
+    siteName,
+    siteUrl,
+    companyName,
+    companyAddress,
+    companyId,
+    companyJurisdiction,
+    contactEmail,
+  };
 }
 
 // ─── Step 7: Update .env with site values ───────────────────────────────────
@@ -399,7 +464,7 @@ async function promptCompanyInfo(): Promise<CompanyInfo> {
 function updateEnvFile(companyInfo: CompanyInfo) {
   if (!fs.existsSync(ENV_PATH)) return;
 
-  let envContent = fs.readFileSync(ENV_PATH, 'utf-8');
+  let envContent = fs.readFileSync(ENV_PATH, "utf-8");
   let changed = false;
 
   const updates: Record<string, string> = {
@@ -408,7 +473,7 @@ function updateEnvFile(companyInfo: CompanyInfo) {
   };
 
   for (const [key, value] of Object.entries(updates)) {
-    const regex = new RegExp(`^${key}=.*$`, 'm');
+    const regex = new RegExp(`^${key}=.*$`, "m");
     if (regex.test(envContent)) {
       const currentMatch = envContent.match(regex);
       if (currentMatch && currentMatch[0] !== `${key}=${value}`) {
@@ -423,36 +488,39 @@ function updateEnvFile(companyInfo: CompanyInfo) {
 
   if (changed) {
     fs.writeFileSync(ENV_PATH, envContent);
-    log('📝', '.env updated with site name and URL.');
+    log("📝", ".env updated with site name and URL.");
   }
 }
 
 // ─── Step 8: Seed options ───────────────────────────────────────────────────
 
-async function seedOptions(db: ReturnType<typeof drizzle>, companyInfo: CompanyInfo) {
-  const { cmsOptions } = await import('../server/db/schema/cms');
+async function seedOptions(
+  db: ReturnType<typeof drizzle>,
+  companyInfo: CompanyInfo,
+) {
+  const { cmsOptions } = await import("../server/db/schema/cms");
 
   const [existing] = await db.select({ count: count() }).from(cmsOptions);
 
   if ((existing?.count ?? 0) > 0) {
-    log('⏭️', 'Options already seeded.');
+    log("⏭️", "Options already seeded.");
     return;
   }
 
-  log('⚙️', 'Seeding default site options...');
+  log("⚙️", "Seeding default site options...");
 
   const defaults: Record<string, unknown> = {
-    'site.name': companyInfo.siteName,
-    'site.tagline': 'AI Agent-driven T3 SaaS starter with integrated CMS',
-    'site.description': '',
-    'site.url': companyInfo.siteUrl,
-    'site.logo': '',
-    'site.favicon': '',
-    'site.social.twitter': '',
-    'site.social.github': '',
-    'site.analytics.ga_id': '',
-    'site.posts_per_page': 10,
-    'site.allow_registration': true,
+    "site.name": companyInfo.siteName,
+    "site.tagline": "AI Agent-driven T3 SaaS starter with integrated CMS",
+    "site.description": "",
+    "site.url": companyInfo.siteUrl,
+    "site.logo": "",
+    "site.favicon": "",
+    "site.social.twitter": "",
+    "site.social.github": "",
+    "site.analytics.ga_id": "",
+    "site.posts_per_page": 10,
+    "site.allow_registration": true,
   };
 
   for (const [key, value] of Object.entries(defaults)) {
@@ -463,29 +531,32 @@ async function seedOptions(db: ReturnType<typeof drizzle>, companyInfo: CompanyI
     });
   }
 
-  log('✅', `${Object.keys(defaults).length} default options created.`);
+  log("✅", `${Object.keys(defaults).length} default options created.`);
 
-  const { cmsAuditLog } = await import('../server/db/schema/audit');
-  await db.insert(cmsAuditLog).values({
-    userId: 'system',
-    action: 'init.options',
-    entityType: 'system',
-    entityId: crypto.randomUUID(),
-    entityTitle: `Seeded ${Object.keys(defaults).length} default options`,
-  }).catch(() => {});
+  const { cmsAuditLog } = await import("../server/db/schema/audit");
+  await db
+    .insert(cmsAuditLog)
+    .values({
+      userId: "system",
+      action: "init.options",
+      entityType: "system",
+      entityId: crypto.randomUUID(),
+      entityTitle: `Seeded ${Object.keys(defaults).length} default options`,
+    })
+    .catch(() => {});
 }
 
 // ─── Main ───────────────────────────────────────────────────────────────────
 
 async function main() {
-  console.log('');
-  console.log('  ╔═══════════════════════════════╗');
-  console.log('  ║      Indigo Initialization     ║');
-  console.log('  ╚═══════════════════════════════╝');
+  console.log("");
+  console.log("  ╔═══════════════════════════════╗");
+  console.log("  ║      Indigo Initialization     ║");
+  console.log("  ╚═══════════════════════════════╝");
   if (AUTO_YES) {
-    console.log(`  Mode: auto${FORCE_RESET ? ' + force reset' : ''}`);
+    console.log(`  Mode: auto${FORCE_RESET ? " + force reset" : ""}`);
   }
-  console.log('');
+  console.log("");
 
   // Step 1
   if (!ensureEnvFile()) {
@@ -508,10 +579,10 @@ async function main() {
     // Step 5
     const superadminUserId = await ensureSuperadmin(db);
 
-    const needsSeed = resetResult !== 'skip';
+    const needsSeed = resetResult !== "skip";
 
     if (!needsSeed) {
-      log('⏭️', 'Nothing to do.');
+      log("⏭️", "Nothing to do.");
     } else {
       // Step 6
       const companyInfo = await promptCompanyInfo();
@@ -524,95 +595,119 @@ async function main() {
 
       // Step 9: Seed
       if (NO_SEED) {
-        log('⏭️', 'Skipping seed (--no-seed flag)');
+        log("⏭️", "Skipping seed (--no-seed flag)");
       } else {
-      console.log('');
-      log('📋', 'What to seed:');
-      const wantCms = await confirm('  Seed CMS content (pages, blog, portfolio, showcase)?', true);
+        console.log("");
+        log("📋", "What to seed:");
+        const wantCms = await confirm(
+          "  Seed CMS content (pages, blog, portfolio, showcase)?",
+          true,
+        );
 
-      const MODULE_SEEDS = await getModuleSeeds();
-      const hasModuleSeeds = MODULE_SEEDS.length > 0;
-      const wantDemoUsers = hasModuleSeeds
-        ? await confirm('  Seed demo users & organizations (required for module data)?', true)
-        : false;
+        const MODULE_SEEDS = await getModuleSeeds();
+        const hasModuleSeeds = MODULE_SEEDS.length > 0;
+        const wantDemoUsers = hasModuleSeeds
+          ? await confirm(
+              "  Seed demo users & organizations (required for module data)?",
+              true,
+            )
+          : false;
 
-      const moduleSeeds: { label: string; fn: (typeof MODULE_SEEDS)[number]['fn']; accepted: boolean }[] = [];
-      if (wantDemoUsers) {
-        for (const seed of MODULE_SEEDS) {
-          // Smart default: YES when empty (fresh install), NO when data exists (protect existing)
-          let defaultYes = true;
-          if (seed.hasData) {
-            try {
-              defaultYes = !(await seed.hasData(db));
-            } catch { /* default YES on error */ }
+        const moduleSeeds: {
+          label: string;
+          fn: (typeof MODULE_SEEDS)[number]["fn"];
+          accepted: boolean;
+        }[] = [];
+        if (wantDemoUsers) {
+          for (const seed of MODULE_SEEDS) {
+            // Smart default: YES when empty (fresh install), NO when data exists (protect existing)
+            let defaultYes = true;
+            if (seed.hasData) {
+              try {
+                defaultYes = !(await seed.hasData(db));
+              } catch {
+                /* default YES on error */
+              }
+            }
+            const hint = defaultYes ? "" : " (data exists)";
+            const accepted = await confirm(
+              `  Seed ${seed.label}?${hint}`,
+              defaultYes,
+            );
+            moduleSeeds.push({ label: seed.label, fn: seed.fn, accepted });
           }
-          const hint = defaultYes ? '' : ' (data exists)';
-          const accepted = await confirm(`  Seed ${seed.label}?${hint}`, defaultYes);
-          moduleSeeds.push({ label: seed.label, fn: seed.fn, accepted });
         }
-      }
 
-      const wantExtras = await confirm('  Seed extras (menus, forms, audit log, notifications)?', true);
-      console.log('');
+        const wantExtras = await confirm(
+          "  Seed extras (menus, forms, audit log, notifications)?",
+          true,
+        );
+        console.log("");
 
-      let cmsResult: Awaited<ReturnType<typeof seedCmsContent>> | undefined;
+        let cmsResult: Awaited<ReturnType<typeof seedCmsContent>> | undefined;
 
-      if (wantCms) {
-        await seedMedia(db);
-        cmsResult = await seedCmsContent(db, companyInfo);
-      }
+        if (wantCms) {
+          await seedMedia(db);
+          cmsResult = await seedCmsContent(db, companyInfo);
+        }
 
-      let seedContext = { userIds: [] as string[], orgIds: [] as string[] };
-      if (wantDemoUsers) {
-        const usersOrgsResult = await seedUsersAndOrgs(db, superadminUserId);
-        seedContext = { userIds: usersOrgsResult.userIds, orgIds: usersOrgsResult.orgIds };
-      }
+        let seedContext = { userIds: [] as string[], orgIds: [] as string[] };
+        if (wantDemoUsers) {
+          const usersOrgsResult = await seedUsersAndOrgs(db, superadminUserId);
+          seedContext = {
+            userIds: usersOrgsResult.userIds,
+            orgIds: usersOrgsResult.orgIds,
+          };
+        }
 
-      const seededModules: string[] = [];
-      for (const seed of moduleSeeds) {
-        if (!seed.accepted) continue;
-        await seed.fn(db, superadminUserId, seedContext);
-        seededModules.push(seed.label);
-      }
+        const seededModules: string[] = [];
+        for (const seed of moduleSeeds) {
+          if (!seed.accepted) continue;
+          await seed.fn(db, superadminUserId, seedContext);
+          seededModules.push(seed.label);
+        }
 
-      if (wantExtras) {
-        await seedExtras(db, {
-          superadminUserId,
-          postIds: cmsResult?.postIds ?? [],
-          categoryIds: cmsResult?.categoryIds ?? [],
-          userIds: seedContext.userIds,
-          orgIds: seedContext.orgIds,
-        });
-      }
+        if (wantExtras) {
+          await seedExtras(db, {
+            superadminUserId,
+            postIds: cmsResult?.postIds ?? [],
+            categoryIds: cmsResult?.categoryIds ?? [],
+            userIds: seedContext.userIds,
+            orgIds: seedContext.orgIds,
+          });
+        }
 
-      const { cmsAuditLog } = await import('../server/db/schema/audit');
-      const seeded = [
-        wantCms && 'cms',
-        ...seededModules,
-        wantExtras && 'extras',
-      ].filter(Boolean);
-      if (seeded.length > 0) {
-        await db.insert(cmsAuditLog).values({
-          userId: superadminUserId,
-          action: 'init.seed',
-          entityType: 'system',
-          entityId: crypto.randomUUID(),
-          entityTitle: `Database seeded: ${seeded.join(', ')}`,
-          metadata: { seeded },
-        }).catch(() => {});
-      }
-    } // end if (!NO_SEED)
+        const { cmsAuditLog } = await import("../server/db/schema/audit");
+        const seeded = [
+          wantCms && "cms",
+          ...seededModules,
+          wantExtras && "extras",
+        ].filter(Boolean);
+        if (seeded.length > 0) {
+          await db
+            .insert(cmsAuditLog)
+            .values({
+              userId: superadminUserId,
+              action: "init.seed",
+              entityType: "system",
+              entityId: crypto.randomUUID(),
+              entityTitle: `Database seeded: ${seeded.join(", ")}`,
+              metadata: { seeded },
+            })
+            .catch(() => {});
+        }
+      } // end if (!NO_SEED)
     }
   } finally {
     await sql.end();
   }
 
-  console.log('');
-  log('🚀', 'Indigo is ready! Run `bun run dev` to start.');
-  console.log('');
+  console.log("");
+  log("🚀", "Indigo is ready! Run `bun run dev` to start.");
+  console.log("");
 }
 
 main().catch((err) => {
-  console.error('Init failed:', err);
+  console.error("Init failed:", err);
   process.exit(1);
 });

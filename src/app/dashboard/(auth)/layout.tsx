@@ -1,3 +1,5 @@
+import { ThemeInit } from '@/core/components/ThemeInit';
+
 export default function DashboardAuthLayout({
   children,
 }: {
@@ -5,6 +7,7 @@ export default function DashboardAuthLayout({
 }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-(--surface-secondary)">
+      <ThemeInit />
       <div className="w-full max-w-md">{children}</div>
     </div>
   );
