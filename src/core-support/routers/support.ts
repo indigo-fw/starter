@@ -223,6 +223,43 @@ export const supportRouter = createTRPCRouter({
       return { success: true };
     }),
 
+  /** Provide satisfaction feedback on a closed/resolved ticket */
+  provideFeedback: protectedProcedure
+    .input(z.object({
+      ticketId: z.string().uuid(),
+      satisfaction: z.enum(['negative', 'neutral', 'positive']),
+      comment: z.string().max(2000).optional(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const [ticket] = await ctx.db
+        .select()
+        .from(saasTickets)
+        .where(and(
+          eq(saasTickets.id, input.ticketId),
+          eq(saasTickets.userId, ctx.session.user.id),
+        ))
+        .limit(1);
+
+      if (!ticket) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Ticket not found' });
+      }
+
+      if (ticket.status !== 'closed' && ticket.status !== 'resolved') {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Ticket must be closed to provide feedback' });
+      }
+
+      await ctx.db
+        .update(saasTickets)
+        .set({
+          satisfaction: input.satisfaction,
+          satisfactionComment: input.comment ?? null,
+          updatedAt: new Date(),
+        })
+        .where(eq(saasTickets.id, input.ticketId));
+
+      return { success: true };
+    }),
+
   /** Close own ticket */
   close: protectedProcedure
     .input(z.object({ ticketId: z.string().uuid() }))

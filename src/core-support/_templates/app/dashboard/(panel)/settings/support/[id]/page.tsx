@@ -40,6 +40,12 @@ const PRIORITY_LABELS: Record<string, string> = {
   urgent: 'Urgent',
 };
 
+const SATISFACTION_DISPLAY: Record<string, { emoji: string; label: string; color: string }> = {
+  positive: { emoji: '😊', label: 'Satisfied', color: 'text-green-500' },
+  neutral: { emoji: '😐', label: 'It was okay', color: 'text-amber-500' },
+  negative: { emoji: '😞', label: 'Not satisfied', color: 'text-red-500' },
+};
+
 function isNearBottom(el: HTMLElement, threshold = 150): boolean {
   return el.scrollHeight - el.scrollTop - el.clientHeight < threshold;
 }
@@ -239,7 +245,19 @@ export default function AdminTicketDetailPage() {
             </form>
           ) : (
             <div className="card p-4 text-center text-sm text-(--text-muted)">
-              {__('This ticket is closed.')}
+              <div>{__('This ticket is closed.')}</div>
+              {ticket.satisfaction && SATISFACTION_DISPLAY[ticket.satisfaction] && (
+                <div className="mt-2 text-xs">
+                  {__('User feedback')}:{' '}
+                  <span className={SATISFACTION_DISPLAY[ticket.satisfaction].color}>
+                    {SATISFACTION_DISPLAY[ticket.satisfaction].emoji}{' '}
+                    {__(SATISFACTION_DISPLAY[ticket.satisfaction].label)}
+                  </span>
+                  {ticket.satisfactionComment && (
+                    <p className="mt-1 text-(--text-muted) italic">&ldquo;{ticket.satisfactionComment}&rdquo;</p>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>

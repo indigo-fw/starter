@@ -10,6 +10,12 @@ import { accountRoutes } from '@/config/routes';
 import { cn } from '@/lib/utils';
 import { useBlankTranslations, dataTranslations } from '@/lib/translations';
 
+const SATISFACTION_OPTIONS = [
+  { value: 'negative' as const, emoji: '😞', label: 'Not satisfied' },
+  { value: 'neutral' as const, emoji: '😐', label: 'It was okay' },
+  { value: 'positive' as const, emoji: '😊', label: 'Satisfied' },
+];
+
 const _d = dataTranslations('General');
 
 interface TicketWsEvent {
@@ -222,10 +228,94 @@ export default function TicketDetailPage() {
           </button>
         </form>
       ) : (
-        <div className="rounded-lg border border-(--border-primary) p-4 text-center text-sm text-(--text-muted)">
-          {__('This ticket is closed. Create a new ticket if you need further assistance.')}
-        </div>
+        <ClosedTicketFeedback ticketId={id} satisfaction={ticket.satisfaction} />
       )}
+    </div>
+  );
+}
+
+function ClosedTicketFeedback({ ticketId, satisfaction }: { ticketId: string; satisfaction: string | null }) {
+  const __ = useBlankTranslations();
+  const [selected, setSelected] = useState<'negative' | 'neutral' | 'positive' | null>(null);
+  const [comment, setComment] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const feedbackMutation = trpc.support.provideFeedback.useMutation({
+    onSuccess: () => setSubmitted(true),
+  });
+
+  const handleSubmit = () => {
+    if (!selected) return;
+    feedbackMutation.mutate({
+      ticketId,
+      satisfaction: selected,
+      comment: comment.trim() || undefined,
+    });
+  };
+
+  const hasFeedback = satisfaction != null || submitted;
+
+  return (
+    <div className="space-y-4 text-center">
+      <div className="rounded-lg border border-(--border-primary) p-4 text-sm text-(--text-muted)">
+        {__('This ticket is closed.')}
+      </div>
+
+      {!hasFeedback ? (
+        <div className="rounded-lg border border-(--border-primary) p-4">
+          <p className="mb-3 text-sm text-(--text-secondary)">
+            {__('How was your experience with our support?')}
+          </p>
+          <div className="mb-3 flex items-center justify-center gap-6">
+            {SATISFACTION_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setSelected(opt.value)}
+                className={cn(
+                  'flex flex-col items-center gap-1 rounded-lg px-4 py-2 text-sm transition-all',
+                  selected === opt.value
+                    ? 'scale-110 bg-(--surface-secondary) ring-2 ring-brand-500'
+                    : 'hover:bg-(--surface-secondary)',
+                )}
+              >
+                <span className="text-2xl">{opt.emoji}</span>
+                <span className="text-xs text-(--text-muted)">{__(opt.label)}</span>
+              </button>
+            ))}
+          </div>
+          {selected != null && (
+            <>
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder={__('Tell us more (optional)...')}
+                maxLength={2000}
+                rows={2}
+                className="mb-3 w-full rounded-lg border border-(--border-primary) bg-(--surface-primary) px-3 py-2 text-sm"
+              />
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={feedbackMutation.isPending}
+                className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-600 disabled:opacity-50"
+              >
+                {feedbackMutation.isPending ? __('Sending...') : __('Submit feedback')}
+              </button>
+            </>
+          )}
+        </div>
+      ) : (
+        <p className="text-sm text-(--text-muted)">
+          {__('Thank you for your feedback!')}
+        </p>
+      )}
+
+      <div className="text-sm">
+        <Link href={accountRoutes.supportNew} className="text-brand-500 transition-colors hover:text-brand-600">
+          {__('Not satisfied with the outcome? Create a new ticket')}
+        </Link>
+      </div>
     </div>
   );
 }

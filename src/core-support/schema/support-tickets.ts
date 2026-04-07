@@ -18,6 +18,8 @@ export const saasTickets = pgTable('saas_tickets', {
   assignedTo: text('assigned_to'),
   source: varchar('source', { length: 20 }).notNull().default('form'),
   chatSessionId: text('chat_session_id'),
+  satisfaction: varchar('satisfaction', { length: 20 }),
+  satisfactionComment: text('satisfaction_comment'),
   closedAt: timestamp('closed_at'),
   resolvedAt: timestamp('resolved_at'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
