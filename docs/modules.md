@@ -111,7 +111,30 @@ await runHook('payment.conversion', userId, subscriptionId, amountCents);
 // No-ops if no handler registered (module not installed)
 ```
 
-Current hooks: `payment.conversion` (core-affiliates), `attribution.capture` (core-affiliates).
+There are also guards (blocking checks that propagate errors) and channel authorizers (for WebSocket):
+
+```ts
+// Guard — throws if handler throws, no-ops if no handler registered:
+import { runGuard } from '@/core/lib/module-hooks';
+await runGuard('feature.require', orgId, 'maxMembers', currentCount);
+
+// Channel authorizer — returns true/false/null (not my channel):
+import { registerChannelAuthorizer } from '@/core/lib/module-hooks';
+registerChannelAuthorizer(async (userId, channel) => {
+  if (!channel.startsWith('myprefix:')) return null; // not my channel
+  return userId === getOwner(channel); // true or false
+});
+```
+
+Current hooks:
+- `payment.conversion` (core-affiliates) — record affiliate conversion on payment
+- `attribution.capture` (core-affiliates) — capture marketing attribution on registration
+- `feature.require` (core-subscriptions) — enforce plan feature limits (guard)
+- `ws.message` (core-chat) — handle WebSocket control messages (voice calls)
+
+Current channel authorizers:
+- `support:` / `supportChat:` (core-support) — ticket and chat session access
+- `chat:` (core-chat) — conversation access
 
 ## Creating a New Module
 

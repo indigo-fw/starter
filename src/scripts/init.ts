@@ -2,9 +2,10 @@
  * Indigo Init Script
  *
  * Single command to fully set up and populate the database:
- *   bun run init              — interactive mode
- *   bun run init -- -y        — auto-accept all prompts (uses env/defaults)
- *   bun run init -- -y --reset — force reset + re-seed (for demo deployments)
+ *   bun run init                  — interactive mode
+ *   bun run init -- -y            — auto-accept all prompts (uses env/defaults)
+ *   bun run init -- -y --reset    — force reset + re-seed (for demo deployments)
+ *   bun run init -- --no-seed     — DB + migrations + superadmin only, skip all seeding
  *
  * What it does:
  * 1. Ensures .env exists (copies from .env.example if missing)
@@ -49,6 +50,7 @@ async function getModuleSeeds() {
 const args = process.argv.slice(2);
 const AUTO_YES = args.includes('-y') || args.includes('--yes');
 const FORCE_RESET = args.includes('--reset');
+const NO_SEED = args.includes('--no-seed');
 
 /** Prompt or auto-accept. In -y mode, always returns the default value. */
 async function confirm(message: string, defaultValue = true): Promise<boolean> {
@@ -301,17 +303,29 @@ async function ensureSuperadmin(db: ReturnType<typeof drizzle>): Promise<string>
   if (!AUTO_YES) console.log('');
 
   const defaultEmail = process.env.INIT_ADMIN_EMAIL || 'admin@example.com';
-  const defaultPassword = process.env.INIT_ADMIN_PASSWORD || 'asdasdasd';
+  const envPassword = process.env.INIT_ADMIN_PASSWORD;
+
+  // In auto mode without explicit password: generate a secure random password
+  // NEVER use a hardcoded default — especially in production (--no-seed path)
+  const fallbackPassword = AUTO_YES && !envPassword
+    ? crypto.randomBytes(16).toString('base64url')
+    : 'asdasdasd';
 
   const email = AUTO_YES ? defaultEmail : await promptWithDefault('  Admin email:', defaultEmail);
   const name = process.env.INIT_ADMIN_NAME || email.split('@')[0];
 
   let password: string;
   if (AUTO_YES) {
-    password = defaultPassword;
+    password = envPassword || fallbackPassword;
+    if (!envPassword) {
+      console.log('');
+      log('🔑', `Generated admin password: ${password}`);
+      log('⚠️', 'Change this password immediately! Set INIT_ADMIN_PASSWORD env var for future inits.');
+      console.log('');
+    }
   } else {
-    password = await promptPassword(`  Admin password [${defaultPassword}]: `);
-    if (!password) password = defaultPassword;
+    password = await promptPassword(`  Admin password [asdasdasd]: `);
+    if (!password) password = 'asdasdasd';
   }
 
   if (!name || !email || !password) {
@@ -509,6 +523,9 @@ async function main() {
       await seedOptions(db, companyInfo);
 
       // Step 9: Seed
+      if (NO_SEED) {
+        log('⏭️', 'Skipping seed (--no-seed flag)');
+      } else {
       console.log('');
       log('📋', 'What to seed:');
       const wantCms = await confirm('  Seed CMS content (pages, blog, portfolio, showcase)?', true);
@@ -584,6 +601,7 @@ async function main() {
           metadata: { seeded },
         }).catch(() => {});
       }
+    } // end if (!NO_SEED)
     }
   } finally {
     await sql.end();

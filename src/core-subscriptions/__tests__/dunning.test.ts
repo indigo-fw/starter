@@ -112,18 +112,16 @@ vi.mock('@/core/types/notifications', () => ({
   NotificationCategory: { BILLING: 'billing', ORGANIZATION: 'organization', CONTENT: 'content', SYSTEM: 'system', SECURITY: 'security' },
 }));
 
-const { mockPaymentsDeps } = vi.hoisted(() => ({
-  mockPaymentsDeps: {
-    getPlan: vi.fn().mockReturnValue({ name: 'Pro', priceMonthly: 2900, priceYearly: 29000 }),
-    sendOrgNotification: vi.fn(),
-    enqueueTemplateEmail: vi.fn().mockResolvedValue(undefined),
-    broadcastEvent: vi.fn(),
-    getPlans: vi.fn().mockReturnValue([]),
-    getPlanByProviderPriceId: vi.fn(),
-    getProviderPriceId: vi.fn(),
-    getEnabledProviderConfigs: vi.fn().mockReturnValue([]),
-    resolveOrgId: vi.fn().mockResolvedValue('org-1'),
-  },
+const mockPaymentsDeps = vi.hoisted(() => ({
+  getPlan: vi.fn().mockReturnValue({ name: 'Pro', priceMonthly: 2900, priceYearly: 29000 }),
+  sendOrgNotification: vi.fn(),
+  enqueueTemplateEmail: vi.fn().mockResolvedValue(undefined),
+  broadcastEvent: vi.fn(),
+  getPlans: vi.fn().mockReturnValue([]),
+  getPlanByProviderPriceId: vi.fn(),
+  getProviderPriceId: vi.fn(),
+  getEnabledProviderConfigs: vi.fn().mockReturnValue([]),
+  resolveOrgId: vi.fn().mockResolvedValue('org-1'),
 }));
 vi.mock('@/core-subscriptions/deps', () => ({
   getSubscriptionsDeps: () => mockPaymentsDeps,

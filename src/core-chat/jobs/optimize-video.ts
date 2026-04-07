@@ -98,7 +98,9 @@ export function startVideoOptimizationWorker(): void {
       });
 
       await db.update(chatMedia).set({ optimizationStatus: 'failed' })
-        .where(eq(chatMedia.id, mediaId)).catch(() => {});
+        .where(eq(chatMedia.id, mediaId)).catch((e) => {
+          logger.error('Failed to mark media as optimization-failed', { mediaId, error: String(e) });
+        });
     }
   }, 1); // concurrency: 1 (CPU-intensive)
 }

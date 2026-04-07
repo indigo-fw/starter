@@ -195,9 +195,9 @@ export const messageRouter = createTRPCRouter({
         checkAutoBlock(userId).then((shouldBlock) => {
           if (shouldBlock) {
             logAuditEvent(userId, 'auto_blocked', { reason: 'Exceeded moderation threshold' });
-            // TODO: wire to user ban system when available
+            // Auto-block detected — wire to project's user ban system (set user.banned=true via deps)
           }
-        }).catch(() => {});
+        }).catch((e) => logger.warn('Auto-block check failed', { error: String(e) }));
 
         return { messageId: input.id, status: MessageStatus.MODERATED as string };
       }

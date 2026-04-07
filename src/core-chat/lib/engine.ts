@@ -45,7 +45,9 @@ export function enqueueAiResponse(job: ChatAiJob): void {
       logger.error('Failed to enqueue AI job, falling back to in-process', {
         error: err instanceof Error ? err.message : String(err),
       });
-      processAiResponse(job).catch(() => {});
+      processAiResponse(job).catch((e) => {
+        logger.error('In-process AI fallback also failed', { error: e instanceof Error ? e.message : String(e) });
+      });
     });
   } else {
     processAiResponse(job).catch((err) => {
@@ -137,7 +139,7 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
       enqueueSummarize(conversationId);
     }
 
-    // Auto-detect language on 3rd message (fire-and-forget)
+    // Auto-detect language on 3rd message (fire-and-forget — errors logged, not thrown)
     if (newMessageCount === 6 && !conv.lang && lastUserMessage) {
       import('./translation').then(({ detectLanguage }) => {
         detectLanguage(lastUserMessage).then((detected) => {
@@ -145,10 +147,10 @@ async function processAiResponse(job: ChatAiJob): Promise<void> {
             db.update(chatConversations)
               .set({ lang: detected, langDetectedAt: new Date() })
               .where(eq(chatConversations.id, conversationId))
-              .catch(() => {});
+              .catch((e) => logger.warn('Failed to save detected language', { error: String(e) }));
           }
-        }).catch(() => {});
-      }).catch(() => {});
+        }).catch((e) => logger.warn('Language detection failed', { error: String(e) }));
+      }).catch(() => { /* translation module not available */ });
     }
 
     // Webhook
@@ -367,7 +369,7 @@ async function processVideoResponse(
   // Queue video optimization (ffmpeg 2-pass encoding)
   import('@/core-chat/jobs/optimize-video').then(({ enqueueVideoOptimization }) => {
     enqueueVideoOptimization(mediaId);
-  }).catch(() => {});
+  }).catch((e) => logger.warn('Video optimization enqueue failed', { error: String(e) }));
 
   await db.insert(chatMessages).values({
     id: messageId, conversationId, role: MessageRole.ASSISTANT,

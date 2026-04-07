@@ -10,16 +10,17 @@ import {
   VISUAL_OUTFIT,
   VISUAL_POSE,
 } from '@/core-chat/lib/visual-enums';
+import { getEntryContextTags } from '@/core-chat/lib/visual-enum-utils';
 
-type EnumObj = Record<string, { id: number; contextTags?: readonly string[] }>;
+type VisualEnum = Record<string, { id: number; contextTags?: readonly string[] }>;
 
-const ENUM_TYPE_MAP: Record<string, EnumObj> = {
-  outfits: VISUAL_OUTFIT as unknown as EnumObj,
-  location: VISUAL_LOCATION as unknown as EnumObj,
-  lighting: VISUAL_LIGHTING as unknown as EnumObj,
-  poses: VISUAL_POSE as unknown as EnumObj,
-  expression: VISUAL_EXPRESSION as unknown as EnumObj,
-  accessories: VISUAL_ACCESSORIES as unknown as EnumObj,
+const ENUM_TYPE_MAP: Record<string, VisualEnum> = {
+  outfits: VISUAL_OUTFIT,
+  location: VISUAL_LOCATION,
+  lighting: VISUAL_LIGHTING,
+  poses: VISUAL_POSE,
+  expression: VISUAL_EXPRESSION,
+  accessories: VISUAL_ACCESSORIES,
 };
 
 const idLookupCache = new Map<string, Map<number, readonly string[]>>();
