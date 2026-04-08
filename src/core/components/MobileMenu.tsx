@@ -51,16 +51,16 @@ export function MobileMenu({ items }: Props) {
 
       {/* Overlay */}
       <div
-        className={cn('mobile-overlay transition-opacity duration-200', open ? 'opacity-100' : 'pointer-events-none opacity-0')}
+        className={cn('app-mobile-overlay transition-opacity duration-200', open ? 'opacity-100' : 'pointer-events-none opacity-0')}
         onClick={close}
         aria-hidden
       />
 
       {/* Drawer */}
       <div
-        className={cn('mobile-drawer transition-transform duration-200', open ? 'translate-x-0' : 'translate-x-full')}
+        className={cn('app-mobile-drawer transition-transform duration-200', open ? 'translate-x-0' : 'translate-x-full')}
       >
-        <div className="mobile-drawer-header">
+        <div className="app-mobile-drawer-header">
           <span className="text-sm font-semibold text-(--text-primary)">Menu</span>
           <button
             type="button"
@@ -72,14 +72,14 @@ export function MobileMenu({ items }: Props) {
           </button>
         </div>
 
-        <nav className="mobile-drawer-nav">
+        <nav className="app-mobile-drawer-nav">
           {items.map((item) => (
             <a
               key={item.url}
               href={item.url}
               className={cn(
-                'mobile-drawer-link',
-                pathname === item.url && 'mobile-drawer-link-active'
+                'app-mobile-drawer-link',
+                pathname === item.url && 'app-mobile-drawer-link-active'
               )}
             >
               {item.label}

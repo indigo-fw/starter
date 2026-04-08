@@ -23,14 +23,14 @@
   }
 
   /* ===================== Mobile Nav ===================== */
-  .mobile-overlay {
+  .app-mobile-overlay {
     position: fixed;
     inset: 0;
     z-index: 50;
     background-color: var(--surface-overlay);
   }
 
-  .mobile-drawer {
+  .app-mobile-drawer {
     position: fixed;
     top: 0;
     right: 0;
@@ -45,7 +45,7 @@
     overflow-y: auto;
   }
 
-  .mobile-drawer-header {
+  .app-mobile-drawer-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -53,13 +53,13 @@
     border-bottom: 1px solid var(--border-primary);
   }
 
-  .mobile-drawer-nav {
+  .app-mobile-drawer-nav {
     display: flex;
     flex-direction: column;
     padding: 0.5rem 0;
   }
 
-  .mobile-drawer-link {
+  .app-mobile-drawer-link {
     display: block;
     padding: 0.75rem 1rem;
     font-size: 0.9375rem;
@@ -68,12 +68,12 @@
     transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
   }
 
-  .mobile-drawer-link:hover {
+  .app-mobile-drawer-link:hover {
     background-color: var(--surface-secondary);
     color: var(--text-primary);
   }
 
-  .mobile-drawer-link-active {
+  .app-mobile-drawer-link-active {
     color: var(--color-brand-600);
     font-weight: 500;
   }
@@ -81,7 +81,7 @@
 
 /* ===================== Dark Mode ===================== */
 html.dark {
-  .mobile-drawer-link:hover {
+  .app-mobile-drawer-link:hover {
     background-color: oklch(1 0 0 / 0.06);
   }
 

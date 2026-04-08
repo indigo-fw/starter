@@ -278,19 +278,19 @@ export function SupportChatWidget({
   return (
     <>
       {/* ═══ Chat Panel ═══ */}
-      <div className={cn('support-chat-widget-panel', open && 'support-chat-widget-panel-open')}>
+      <div className={cn('support-chat-panel', open && 'support-chat-panel-open')}>
         {/* Header */}
-        <div className="support-chat-widget-header">
+        <div className="support-chat-header">
           <div className="flex items-center gap-2">
             <MessageCircle className="h-5 w-5" />
             <span className="font-semibold">{__('Support Chat')}</span>
             {sessionStatus === 'agent_active' && (
-              <span className="support-chat-widget-live-dot" />
+              <span className="support-chat-live-dot" />
             )}
           </div>
           <button
             onClick={() => setOpen(false)}
-            className="support-chat-widget-close-btn"
+            className="support-chat-close-btn"
           >
             <X className="h-4 w-4" />
           </button>
@@ -300,11 +300,11 @@ export function SupportChatWidget({
         <div
           ref={messagesRef}
           onScroll={handleScroll}
-          className="support-chat-widget-messages"
+          className="support-chat-messages"
         >
           {/* Welcome message */}
-          <div className="support-chat-widget-msg support-chat-widget-msg-ai">
-            <div className="support-chat-widget-bubble support-chat-widget-bubble-ai">
+          <div className="support-chat-msg support-chat-msg-ai">
+            <div className="support-chat-bubble support-chat-bubble-ai">
               {welcomeText}
             </div>
           </div>
@@ -313,24 +313,24 @@ export function SupportChatWidget({
             <div
               key={msg.id}
               className={cn(
-                'support-chat-widget-msg',
+                'support-chat-msg',
                 msg.role === 'user'
-                  ? 'support-chat-widget-msg-user'
-                  : 'support-chat-widget-msg-ai'
+                  ? 'support-chat-msg-user'
+                  : 'support-chat-msg-ai'
               )}
             >
               <div
                 className={cn(
-                  'support-chat-widget-bubble',
+                  'support-chat-bubble',
                   msg.role === 'user'
-                    ? 'support-chat-widget-bubble-user'
+                    ? 'support-chat-bubble-user'
                     : msg.role === 'agent'
-                      ? 'support-chat-widget-bubble-agent'
-                      : 'support-chat-widget-bubble-ai'
+                      ? 'support-chat-bubble-agent'
+                      : 'support-chat-bubble-ai'
                 )}
               >
                 {msg.role === 'agent' && (
-                  <span className="support-chat-widget-agent-label">{__('Support Agent')}</span>
+                  <span className="support-chat-agent-label">{__('Support Agent')}</span>
                 )}
                 {msg.body}
               </div>
@@ -338,8 +338,8 @@ export function SupportChatWidget({
           ))}
 
           {isAiTyping && (
-            <div className="support-chat-widget-msg support-chat-widget-msg-ai">
-              <div className="support-chat-widget-bubble support-chat-widget-bubble-ai support-chat-widget-typing">
+            <div className="support-chat-msg support-chat-msg-ai">
+              <div className="support-chat-bubble support-chat-bubble-ai support-chat-typing">
                 <span /><span /><span />
               </div>
             </div>
@@ -347,11 +347,11 @@ export function SupportChatWidget({
 
           {/* Email form — shown when anonymous user requests escalation */}
           {needsEmail && !emailCaptured && !ticketId && (
-            <div className="support-chat-widget-escalation">
+            <div className="support-chat-escalation">
               <p>{__('Enter your email so our team can follow up:')}</p>
               <form
                 onSubmit={(e) => { e.preventDefault(); handleEmailSubmit(); }}
-                className="support-chat-widget-email-form"
+                className="support-chat-email-form"
               >
                 <input
                   type="email"
@@ -359,9 +359,9 @@ export function SupportChatWidget({
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                   placeholder={__('your@email.com')}
-                  className="support-chat-widget-email-input"
+                  className="support-chat-email-input"
                 />
-                <button type="submit" className="support-chat-widget-escalate-btn" disabled={escalateMut.isPending || !emailInput.trim()}>
+                <button type="submit" className="support-chat-escalate-btn" disabled={escalateMut.isPending || !emailInput.trim()}>
                   {escalateMut.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                   {__('Connect with support')}
                 </button>
@@ -371,9 +371,9 @@ export function SupportChatWidget({
 
           {/* Escalated by AI — authenticated user can create ticket */}
           {isEscalated && !ticketId && !emailCaptured && !needsEmail && (
-            <div className="support-chat-widget-escalation">
+            <div className="support-chat-escalation">
               <p>{__('Would you like to create a support ticket so our team can follow up?')}</p>
-              <button onClick={() => handleEscalate()} className="support-chat-widget-escalate-btn" disabled={escalateMut.isPending}>
+              <button onClick={() => handleEscalate()} className="support-chat-escalate-btn" disabled={escalateMut.isPending}>
                 {escalateMut.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUpRight className="h-4 w-4" />}
                 {__('Create Support Ticket')}
               </button>
@@ -381,15 +381,15 @@ export function SupportChatWidget({
           )}
 
           {emailCaptured && !ticketId && (
-            <div className="support-chat-widget-escalation">
+            <div className="support-chat-escalation">
               <p>{__('Thanks! Our team will follow up at your email soon.')}</p>
             </div>
           )}
 
           {ticketId && (
-            <div className="support-chat-widget-escalation">
+            <div className="support-chat-escalation">
               <p>{__('Your ticket has been created. Our team will follow up soon.')}</p>
-              <a href={supportUrl(ticketId)} className="support-chat-widget-ticket-link">
+              <a href={supportUrl(ticketId)} className="support-chat-ticket-link">
                 <ArrowUpRight className="h-4 w-4" />
                 {__('View Ticket')}
               </a>
@@ -399,8 +399,8 @@ export function SupportChatWidget({
 
         {/* Input area */}
         {!isClosed ? (
-          <div className="support-chat-widget-input-area">
-            <div className="support-chat-widget-input-row">
+          <div className="support-chat-input-area">
+            <div className="support-chat-input-row">
               <textarea
                 ref={inputRef}
                 value={input}
@@ -408,13 +408,13 @@ export function SupportChatWidget({
                 onKeyDown={handleKeyDown}
                 placeholder={placeholderText}
                 rows={1}
-                className="support-chat-widget-input"
+                className="support-chat-input"
                 disabled={isAiTyping}
               />
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || isAiTyping}
-                className="support-chat-widget-send-btn"
+                className="support-chat-send-btn"
               >
                 <Send className="h-4 w-4" />
               </button>
@@ -422,15 +422,15 @@ export function SupportChatWidget({
             {sessionStatus === 'ai_active' && messages.length > 0 && !needsEmail && (
               <button
                 onClick={() => handleEscalate()}
-                className="support-chat-widget-human-btn"
+                className="support-chat-human-btn"
               >
                 {__('Talk to a human')}
               </button>
             )}
           </div>
         ) : (
-          <div className="support-chat-widget-input-area">
-            <button onClick={handleNewChat} className="support-chat-widget-new-btn">
+          <div className="support-chat-input-area">
+            <button onClick={handleNewChat} className="support-chat-new-btn">
               {__('Start New Chat')}
             </button>
           </div>
@@ -440,7 +440,7 @@ export function SupportChatWidget({
       {/* ═══ Floating Bubble ═══ */}
       <button
         onClick={() => (open ? setOpen(false) : handleOpen())}
-        className={cn('support-chat-widget-bubble-btn', open && 'support-chat-widget-bubble-btn-active')}
+        className={cn('support-chat-bubble-btn', open && 'support-chat-bubble-btn-active')}
         aria-label={open ? __('Close chat') : __('Open chat')}
       >
         {open ? (
@@ -449,7 +449,7 @@ export function SupportChatWidget({
           <>
             <MessageCircle className="h-6 w-6" />
             {unread > 0 && (
-              <span className="support-chat-widget-unread">{unread > 9 ? '9+' : unread}</span>
+              <span className="support-chat-unread">{unread > 9 ? '9+' : unread}</span>
             )}
           </>
         )}
