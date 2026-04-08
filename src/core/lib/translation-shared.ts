@@ -63,3 +63,72 @@ export const createTranslationFunction = (
 
   return fn;
 };
+
+/**
+ * Detect next-intl's silent missing-key fallback: "Namespace.transformedKey".
+ * Exact match against the transformed key avoids false positives on real translations
+ * that happen to start with the namespace (e.g. "General information about...").
+ */
+function fixMissingKeyFallback(
+  result: string,
+  namespace: string,
+  transformedKey: string
+): string {
+  if (result === `${namespace}.${transformedKey}`) {
+    return transformedKey.replace(/@@@/g, '.');
+  }
+  return result;
+}
+
+/**
+ * Wrap a raw TranslationFn with safe missing-key fallback.
+ * When next-intl silently returns "Namespace.key" for missing keys (instead of
+ * throwing), this strips the prefix and returns the plain English key.
+ */
+export function wrapWithFallback(
+  wrapped: TranslationFn,
+  namespace: string
+): TranslationFn {
+  const fn = ((
+    key: string,
+    values?: TranslationValues,
+    formats?: Formats
+  ) => {
+    try {
+      const result = wrapped(key, values, formats);
+      return fixMissingKeyFallback(
+        result,
+        namespace,
+        key.replace(/\./g, '@@@')
+      );
+    } catch {
+      return key;
+    }
+  }) as TranslationFn;
+
+  fn._n = (singular, plural, count, values) => {
+    try {
+      const result = wrapped._n(singular, plural, count, values);
+      return fixMissingKeyFallback(
+        result,
+        namespace,
+        singular.replace(/\./g, '@@@')
+      );
+    } catch {
+      return count === 1 ? singular : plural;
+    }
+  };
+
+  fn._x = (key, context, values) => {
+    try {
+      const result = wrapped._x(key, context, values);
+      const transformedKey = `${key.replace(/\./g, '@@@')}${CONTEXT_SEPARATOR}${context}`;
+      if (result === `${namespace}.${transformedKey}`) return key;
+      return result;
+    } catch {
+      return key;
+    }
+  };
+
+  return fn;
+}

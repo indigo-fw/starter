@@ -10,7 +10,7 @@
 import 'server-only';
 
 import { getTranslations as getBaseTranslations } from 'next-intl/server';
-import { createTranslationFunction, type TranslationFn } from './translation-shared';
+import { createTranslationFunction, wrapWithFallback, type TranslationFn } from './translation-shared';
 
 export type { TranslationFn } from './translation-shared';
 
@@ -19,5 +19,5 @@ export const getServerTranslations = async (
   namespace: string = 'General'
 ): Promise<TranslationFn> => {
   const t = await getBaseTranslations(namespace);
-  return createTranslationFunction(t);
+  return wrapWithFallback(createTranslationFunction(t), namespace);
 };

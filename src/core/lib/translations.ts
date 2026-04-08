@@ -18,8 +18,7 @@
  */
 
 import { useTranslations as useBaseTranslations } from 'next-intl';
-import type { Formats } from 'next-intl';
-import { createTranslationFunction, type TranslationFn, type TranslationValues } from './translation-shared';
+import { createTranslationFunction, wrapWithFallback, type TranslationFn } from './translation-shared';
 
 export type { TranslationFn, TranslationValues } from './translation-shared';
 
@@ -36,30 +35,7 @@ export function useAdminTranslations(
   namespace: string = 'General'
 ): TranslationFn {
   const t = useBaseTranslations(namespace);
-  const wrapped = createTranslationFunction(t);
-  const fn = ((key: string, values?: TranslationValues, formats?: Formats) => {
-    try {
-      return wrapped(key, values, formats);
-    } catch {
-      // Missing key — return the raw key (reverse @@@ transform if present)
-      return key.replace(/@@@/g, '.');
-    }
-  }) as TranslationFn;
-  fn._n = (singular, plural, count, values) => {
-    try {
-      return wrapped._n(singular, plural, count, values);
-    } catch {
-      return count === 1 ? singular : plural;
-    }
-  };
-  fn._x = (key, context, values) => {
-    try {
-      return wrapped._x(key, context, values);
-    } catch {
-      return key;
-    }
-  };
-  return fn;
+  return wrapWithFallback(createTranslationFunction(t), namespace);
 }
 
 /**
