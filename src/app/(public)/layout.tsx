@@ -122,7 +122,7 @@ export default async function PublicLayout({
 
       {/* ═══ Header ═══ */}
       <header className="header">
-        <div className="header-inner container">
+        <div className="header-inner app-container">
           <Link href="/" className="header-logo">
             {siteConfig.name}
           </Link>
@@ -179,7 +179,7 @@ export default async function PublicLayout({
 
       {/* ═══ Footer ═══ */}
       <footer className="footer">
-        <div className="container py-8">
+        <div className="app-container py-8">
           <div className="footer-grid">
             {/* Col 1: About */}
             <div>

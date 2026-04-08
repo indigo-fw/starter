@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function ResetPasswordPage() {
   const __ = await getServerTranslations();
   return (
-    <main className="container mx-auto px-4 py-16 max-w-md">
+    <main className="app-container py-16 max-w-md">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold">{__('Reset Password')}</h1>
         <p className="text-(--text-secondary) mt-2">{__('Enter your new password below.')}</p>

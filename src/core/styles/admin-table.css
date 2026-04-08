@@ -31,7 +31,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--text-primary);
-    border-bottom: 1px solid oklch(0.93 0.005 260 / 0.4);
+    border-bottom: 1px solid var(--border-table);
   }
 
   /* ===================== Sticky Actions Column ===================== */
@@ -58,7 +58,7 @@
     font-size: 0.875rem;
     text-align: right;
     background-color: var(--surface-secondary);
-    border-bottom: 1px solid oklch(0.93 0.005 260 / 0.4);
+    border-bottom: 1px solid var(--border-table);
     border-left: 1px solid var(--border-primary);
     transition: background-color var(--duration-fast) ease;
   }
@@ -167,7 +167,7 @@
   .search-input:focus {
     outline: none;
     border-color: var(--color-accent-500);
-    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+    box-shadow: var(--focus-ring-accent);
   }
 
   .filter-select {
@@ -184,7 +184,7 @@
   .filter-select:focus {
     outline: none;
     border-color: var(--color-accent-500);
-    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+    box-shadow: var(--focus-ring-accent);
   }
 
   /* ===================== Empty State ===================== */
@@ -326,75 +326,9 @@
     color: var(--color-brand-600);
   }
 
-  /* ===================== Form Inputs ===================== */
-  .input {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    background-color: var(--surface-secondary);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    color: var(--text-primary);
-    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
-  }
+  /* Base .input, .select, .textarea, .label are in shared-components.css */
 
-  .input:focus {
-    outline: none;
-    border-color: var(--color-accent-500);
-    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
-  }
-
-  .input::placeholder {
-    color: var(--text-muted);
-  }
-
-  .label {
-    display: block;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 0.375rem;
-  }
-
-  /* ===================== Select Inputs ===================== */
-  .select {
-    width: 100%;
-    padding: 0.5rem 2rem 0.5rem 0.75rem;
-    background-color: var(--surface-secondary);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    color: var(--text-primary);
-    cursor: pointer;
-    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
-  }
-  .select:focus {
-    outline: none;
-    border-color: var(--color-accent-500);
-    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
-  }
-
-  /* ===================== Textarea Inputs ===================== */
-  .textarea {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    background-color: var(--surface-secondary);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    color: var(--text-primary);
-    resize: vertical;
-    min-height: 5rem;
-    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
-  }
-  .textarea:focus {
-    outline: none;
-    border-color: var(--color-accent-500);
-    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
-  }
-  .textarea::placeholder { color: var(--text-muted); }
-
-  /* ===================== Input Variants ===================== */
+  /* ===================== Admin Input Variants ===================== */
   .input-sm {
     width: 100%;
     padding: 0.375rem 0.75rem;
@@ -409,7 +343,7 @@
   .input-sm:focus {
     outline: none;
     border-color: var(--color-accent-500);
-    box-shadow: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+    box-shadow: var(--focus-ring-accent);
   }
 
   .filter-input {
@@ -600,12 +534,7 @@ html.dark {
     border-color: var(--color-gray-700);
   }
 
-  .input,
-  .select,
-  .textarea {
-    background-color: var(--surface-inset);
-    border-color: var(--color-gray-600);
-  }
+  /* .input/.select/.textarea dark override is in shared-components.css */
 
   .input-sm {
     background-color: var(--color-gray-700);

@@ -88,6 +88,16 @@
   /* Brand gradient — pink→purple diagonal */
   --gradient-brand: linear-gradient(in oklch 135deg, oklch(0.65 0.24 var(--brand-hue)), oklch(0.55 0.27 var(--accent-hue)));
 
+  /* Subtle brand gradient — active states (sidebar, nav, rail) */
+  --gradient-brand-subtle: linear-gradient(135deg, oklch(0.65 0.24 var(--brand-hue) / 0.12), oklch(0.55 0.27 var(--accent-hue) / 0.08));
+
+  /* Focus ring — accent-hued glow for inputs */
+  --focus-ring-accent: 0 0 0 3px oklch(0.55 0.27 var(--accent-hue) / 0.25);
+
+  /* Repeated tints */
+  --border-table: oklch(0.93 0.005 260 / 0.4);
+  --hover-tint-dark: oklch(1 0 0 / 0.06);
+
   /* Overlay — shared between public and admin */
   --surface-overlay: oklch(0 0 0 / 0.5);
 
@@ -119,6 +129,8 @@
 html.dark {
   color-scheme: dark;
   --surface-overlay: oklch(0 0 0 / 0.7);
+  --gradient-brand-subtle: linear-gradient(135deg, oklch(0.65 0.24 var(--brand-hue) / 0.22), oklch(0.55 0.27 var(--accent-hue) / 0.22));
+  --hover-tint-dark: oklch(1 0 0 / 0.06);
 
   /* Surfaces — layered dark (hue 260)
    * inset (0.20) < sidebar (0.20) < primary (0.21 = gray-900) < secondary (0.27) < elevated (0.32) */

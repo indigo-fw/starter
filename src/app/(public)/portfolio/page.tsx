@@ -23,7 +23,7 @@ export default async function PortfolioListPage() {
   });
 
   return (
-    <div className="container py-12">
+    <div className="app-container py-12">
       <h1 className="text-3xl font-bold text-(--text-primary) sm:text-4xl">
         {__('Portfolio')}
       </h1>

@@ -24,7 +24,7 @@ import { getServerTranslations } from '@/lib/translations-server';
  * App-like layout for the showcase route group.
  *
  * Structure mirrors the dashboard's page-* pattern:
- *   .app-container > .app-header > .app-toolbar
+ *   .page-container > .app-header > .app-toolbar
  *                  > .app-sidebar
  *                  > .app-main
  *
@@ -54,7 +54,7 @@ export default async function ShowcaseLayout({
 
   return (
     <AppSidebarProvider>
-      <div className="app-container">
+      <div className="page-container">
         <header className="app-header">
           <div className="app-toolbar">
             <AppSidebarToggle />

@@ -1,7 +1,15 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @custom-variant dark (html.dark &);
+
+@utility app-container {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
 @import "../core/styles/tokens.css";
+@import "../core/styles/shared-components.css";
 @import "../core/styles/overlay.css";
 
 @layer base {

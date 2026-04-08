@@ -6,7 +6,7 @@
    * App-style layout (used by showcase, reusable for customer SaaS apps).
    *
    * Structure (mirrors dashboard's page-* pattern):
-   *   .app-container
+   *   .page-container
    *     .app-header          <- sticky top bar
    *       .app-toolbar       <- centered flex row (logo, nav, actions)
    *     .app-sidebar         <- slide-out (optional)
@@ -18,7 +18,7 @@
    * To restyle, edit these classes or override via tokens-public.css.
    */
 
-  .app-container {
+  .page-container {
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
