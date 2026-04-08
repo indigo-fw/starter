@@ -1,6 +1,7 @@
 import '@/core/styles/tokens-public.css';
 import '@/core/styles/frontend/index.css';
 import '@/core/styles/frontend/app-layout.css';
+import './showcase.css';
 
 import { Link, getPathname } from '@/i18n/navigation';
 import { Compass, BookOpen, Briefcase, Home } from 'lucide-react';
@@ -54,7 +55,7 @@ export default async function ShowcaseLayout({
 
   return (
     <AppSidebarProvider>
-      <div className="page-container">
+      <div className="page-container" data-page="showcase">
         <header className="app-header">
           <div className="app-toolbar">
             <AppSidebarToggle />

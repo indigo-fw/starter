@@ -269,10 +269,7 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
             <div
               key={item.id}
               data-index={index}
-              className={cn(
-                'relative h-[calc(100dvh-3.5rem)] w-full snap-start snap-always',
-                isConstrained && 'bg-black',
-              )}
+              className="relative h-[calc(100dvh-3.5rem)] w-full snap-start snap-always"
               style={cfg.halfWidth ? { '--card-half': cfg.halfWidth } as React.CSSProperties : undefined}
             >
               {/* Card — centered via mx-auto, width from VARIANT_CONFIG */}

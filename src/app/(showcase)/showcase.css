@@ -1,0 +1,15 @@
+@layer theme, base, components, utilities;
+
+@layer components {
+  /*
+   * Showcase page overrides.
+   *
+   * Uses the data-page attribute convention documented in app-layout.css.
+   * The showcase feed uses a dark background so constrained cards (shorts,
+   * contained) sit on black, and the area behind the comment panel stays
+   * dark when the feed pushes left.
+   */
+  .page-container[data-page="showcase"] {
+    --app-page-bg: oklch(0 0 0);
+  }
+}

@@ -6,16 +6,30 @@
    * App-style layout (used by showcase, reusable for customer SaaS apps).
    *
    * Structure (mirrors dashboard's page-* pattern):
-   *   .page-container
+   *   .page-container[data-page]
    *     .app-header          <- sticky top bar
    *       .app-toolbar       <- centered flex row (logo, nav, actions)
    *     .app-sidebar         <- slide-out (optional)
-   *     .app-main            <- content area
+   *     .app-main            <- content area (bg: --app-page-bg)
    *       .app-inner         <- centered content (if needed)
    *     .app-footer          <- sticky bottom (optional)
    *       .app-toolbar       <- reused centered row
    *
    * To restyle, edit these classes or override via tokens-public.css.
+   *
+   * ── Per-page overrides (mirrors dashboard's data-section pattern) ──
+   *
+   * Set `data-page` on the .page-container to enable route-specific styles:
+   *
+   *   <div className="page-container" data-page="showcase">
+   *
+   * Then target it in a co-located CSS file:
+   *
+   *   .page-container[data-page="showcase"] { --app-page-bg: oklch(0 0 0); }
+   *
+   * Available CSS custom properties:
+   *
+   *   --app-page-bg   Background color for .app-main (default: transparent)
    */
 
   .page-container {
@@ -197,6 +211,7 @@
   /* -- Main content area -- */
   .app-main {
     flex: 1;
+    background-color: var(--app-page-bg, transparent);
   }
 
   .app-inner {
