@@ -714,9 +714,9 @@ export function CmsListView({ contentType }: Props) {
           </div>
         ) : (
           <table className="w-full min-w-[640px]">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th w-10">
+                <th className="table-th w-10">
                   <input
                     type="checkbox"
                     checked={items.length > 0 && selectedIds.size === items.length}
@@ -726,7 +726,7 @@ export function CmsListView({ contentType }: Props) {
                 </th>
                 {isColVisible('title') && (
                   <th
-                    className="th cursor-pointer select-none"
+                    className="table-th cursor-pointer select-none"
                     onClick={() => toggleSort('title')}
                   >
                     <span className="inline-flex items-center gap-1">
@@ -736,14 +736,14 @@ export function CmsListView({ contentType }: Props) {
                   </th>
                 )}
                 {isColVisible('status') && (
-                  <th className="th w-24">{__('Status')}</th>
+                  <th className="table-th w-24">{__('Status')}</th>
                 )}
                 {IS_MULTILINGUAL && isColVisible('lang') && (
-                  <th className="th w-20">{__('Lang')}</th>
+                  <th className="table-th w-20">{__('Lang')}</th>
                 )}
                 {isColVisible('date') && (
                   <th
-                    className="th w-32 cursor-pointer select-none"
+                    className="table-th w-32 cursor-pointer select-none"
                     onClick={() => toggleSort('updated_at')}
                   >
                     <span className="inline-flex items-center gap-1">
@@ -753,14 +753,14 @@ export function CmsListView({ contentType }: Props) {
                   </th>
                 )}
                 {isColVisible('author') && (
-                  <th className="th w-28">{__('Author')}</th>
+                  <th className="table-th w-28">{__('Author')}</th>
                 )}
                 {isColVisible('slug') && (
-                  <th className="th w-40">{__('Slug')}</th>
+                  <th className="table-th w-40">{__('Slug')}</th>
                 )}
                 {isColVisible('publishedAt') && (
                   <th
-                    className="th w-32 cursor-pointer select-none"
+                    className="table-th w-32 cursor-pointer select-none"
                     onClick={() => toggleSort('published_at')}
                   >
                     <span className="inline-flex items-center gap-1">
@@ -771,7 +771,7 @@ export function CmsListView({ contentType }: Props) {
                 )}
                 {isColVisible('createdAt') && (
                   <th
-                    className="th w-32 cursor-pointer select-none"
+                    className="table-th w-32 cursor-pointer select-none"
                     onClick={() => toggleSort('created_at')}
                   >
                     <span className="inline-flex items-center gap-1">
@@ -780,14 +780,14 @@ export function CmsListView({ contentType }: Props) {
                     </span>
                   </th>
                 )}
-                <th className="th-actions w-28" />
+                <th className="table-th-actions w-28" />
               </tr>
             </thead>
             <tbody>
               {items.length === 0 ? (
                 <tr>
                   <td
-                    className="td py-12 text-center text-(--text-muted)"
+                    className="table-td py-12 text-center text-(--text-muted)"
                     colSpan={COLUMNS.filter((c) => isColVisible(c.key)).length + 2}
                   >
                     {search
@@ -799,14 +799,14 @@ export function CmsListView({ contentType }: Props) {
                 items.map((item) => (
                   <tr
                     key={item.id}
-                    className="tr cursor-pointer"
+                    className="table-tr cursor-pointer"
                     onClick={(e) => {
                       const target = e.target as HTMLElement;
                       if (target.closest('a, button, input')) return;
                       router.push(adminPanel.cmsItem(contentType.adminSlug, item.id));
                     }}
                   >
-                    <td className="td">
+                    <td className="table-td">
                       <input
                         type="checkbox"
                         checked={selectedIds.has(item.id)}
@@ -815,7 +815,7 @@ export function CmsListView({ contentType }: Props) {
                       />
                     </td>
                     {isColVisible('title') && (
-                      <td className="td">
+                      <td className="table-td">
                         <Link
                           href={adminPanel.cmsItem(contentType.adminSlug, item.id)}
                           className="font-medium text-(--text-primary) hover:text-brand-600"
@@ -836,7 +836,7 @@ export function CmsListView({ contentType }: Props) {
                       </td>
                     )}
                     {isColVisible('status') && (
-                      <td className="td">
+                      <td className="table-td">
                         <span
                           className={cn(
                             'inline-block rounded-full px-2 py-0.5 text-xs font-medium',
@@ -848,34 +848,34 @@ export function CmsListView({ contentType }: Props) {
                       </td>
                     )}
                     {IS_MULTILINGUAL && isColVisible('lang') && (
-                      <td className="td text-xs uppercase">{item.lang}</td>
+                      <td className="table-td text-xs uppercase">{item.lang}</td>
                     )}
                     {isColVisible('date') && (
-                      <td className="td text-xs text-(--text-muted)">
+                      <td className="table-td text-xs text-(--text-muted)">
                         {formatDate(item.publishedAt ?? item.updatedAt)}
                       </td>
                     )}
                     {isColVisible('author') && (
-                      <td className="td text-xs text-(--text-muted)">
+                      <td className="table-td text-xs text-(--text-muted)">
                         {item.author ?? '—'}
                       </td>
                     )}
                     {isColVisible('slug') && (
-                      <td className="td text-xs text-(--text-muted)">
+                      <td className="table-td text-xs text-(--text-muted)">
                         {item.slug || '—'}
                       </td>
                     )}
                     {isColVisible('publishedAt') && (
-                      <td className="td text-xs text-(--text-muted)">
+                      <td className="table-td text-xs text-(--text-muted)">
                         {formatDate(item.publishedAt)}
                       </td>
                     )}
                     {isColVisible('createdAt') && (
-                      <td className="td text-xs text-(--text-muted)">
+                      <td className="table-td text-xs text-(--text-muted)">
                         {formatDate(item.createdAt)}
                       </td>
                     )}
-                    <td className="td-actions">
+                    <td className="table-td-actions">
                       <div className="list-view-row-actions flex items-center justify-end gap-1">
                         {tab === 'trash' ? (
                           <>

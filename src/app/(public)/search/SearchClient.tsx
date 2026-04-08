@@ -43,23 +43,30 @@ export default function SearchClient({
   const [inputValue, setInputValue] = useState(initialQuery);
   const [query, setQuery] = useState(initialQuery);
   const [page, setPage] = useState(initialPage);
+  // Tracks whether tRPC has ever fetched — once true, always prefer tRPC data
+  const [hasClientData, setHasClientData] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Track whether we're using client-side data or initial SSR data
-  const isInitialRender = query === initialQuery && page === initialPage;
 
   const { data, isFetching } = trpc.contentSearch.fullTextSearch.useQuery(
     { query, lang: locale, page, pageSize },
-    { enabled: query.length >= 1, placeholderData: (prev) => prev },
+    {
+      enabled: query.length >= 1,
+      placeholderData: (prev) => prev,
+    },
   );
+
+  // Once tRPC returns data, always use client-side results from here on
+  useEffect(() => {
+    if (data) setHasClientData(true);
+  }, [data]);
 
   // tRPC results don't include locale prefix — apply it
   const tRPCResults = (data?.results ?? []).map((r) => ({
     ...r,
     url: localePath(r.url, locale),
   }));
-  const results = isInitialRender && !data ? initialResults : tRPCResults;
-  const total = isInitialRender && !data ? initialTotal : (data?.total ?? 0);
+  const results = hasClientData ? tRPCResults : initialResults;
+  const total = hasClientData ? (data?.total ?? 0) : initialTotal;
   const totalPages = Math.ceil(total / pageSize);
 
   // Sync URL when query/page changes (without full navigation)
@@ -77,13 +84,33 @@ export default function SearchClient({
     }
   }, [query, page, locale, router, searchParams]);
 
+  // Debounced live search: triggers 400ms after the user stops typing
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const handleInputChange = useCallback(
+    (value: string) => {
+      setInputValue(value);
+      clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        const trimmed = value.trim();
+        if (trimmed !== query) {
+          setQuery(trimmed);
+          setPage(1);
+        }
+      }, 400);
+    },
+    [query],
+  );
+
+  // Immediate search on submit (cancels pending debounce)
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
+      clearTimeout(debounceRef.current);
       const trimmed = inputValue.trim();
-      if (trimmed === query) return;
-      setQuery(trimmed);
-      setPage(1);
+      if (trimmed !== query) {
+        setQuery(trimmed);
+        setPage(1);
+      }
     },
     [inputValue, query],
   );
@@ -104,7 +131,7 @@ export default function SearchClient({
               ref={inputRef}
               type="text"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => handleInputChange(e.target.value)}
               placeholder={__('Search content...')}
               className="input w-full px-4 py-2.5 pr-10"
               autoFocus

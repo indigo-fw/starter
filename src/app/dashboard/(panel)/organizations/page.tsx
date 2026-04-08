@@ -247,19 +247,19 @@ export default function OrganizationsPage() {
             </div>
           ) : (
             <table className="w-full">
-              <thead className="thead">
+              <thead className="table-thead">
                 <tr>
-                  <th className="th">{__('Organization')}</th>
-                  <th className="th w-28">{__('Role')}</th>
-                  <th className="th w-24" />
+                  <th className="table-th">{__('Organization')}</th>
+                  <th className="table-th w-28">{__('Role')}</th>
+                  <th className="table-th w-24" />
                 </tr>
               </thead>
               <tbody>
                 {orgsQuery.data.map((org) => {
                   const RoleIcon = ROLE_ICONS[org.role] ?? UserIcon;
                   return (
-                    <tr key={org.orgId} className="tr">
-                      <td className="td">
+                    <tr key={org.orgId} className="table-tr">
+                      <td className="table-td">
                         <button
                           onClick={() => openDetail(org.orgId)}
                           className="flex items-center gap-3 text-left hover:text-(--color-brand-600)"
@@ -277,13 +277,13 @@ export default function OrganizationsPage() {
                           </div>
                         </button>
                       </td>
-                      <td className="td">
+                      <td className="table-td">
                         <span className="inline-flex items-center gap-1 text-xs font-medium text-(--text-secondary)">
                           <RoleIcon className="h-3 w-3" />
                           {org.role}
                         </span>
                       </td>
-                      <td className="td text-right">
+                      <td className="table-td text-right">
                         <button
                           onClick={() => openDetail(org.orgId)}
                           className="action-btn text-xs"
@@ -394,19 +394,19 @@ export default function OrganizationsPage() {
                 </div>
               ) : (
                 <table className="w-full">
-                  <thead className="thead">
+                  <thead className="table-thead">
                     <tr>
-                      <th className="th">{__('User')}</th>
-                      <th className="th w-24">{__('Role')}</th>
-                      {isOwnerOrAdmin && <th className="th w-20" />}
+                      <th className="table-th">{__('User')}</th>
+                      <th className="table-th w-24">{__('Role')}</th>
+                      {isOwnerOrAdmin && <th className="table-th w-20" />}
                     </tr>
                   </thead>
                   <tbody>
                     {(members ?? []).map((m) => {
                       const RoleIcon = ROLE_ICONS[m.role] ?? UserIcon;
                       return (
-                        <tr key={m.id} className="tr">
-                          <td className="td">
+                        <tr key={m.id} className="table-tr">
+                          <td className="table-td">
                             <div className="flex items-center gap-3">
                               {m.user?.image ? (
                                 <Image src={m.user.image} alt="" width={28} height={28} className="rounded-full object-cover" unoptimized />
@@ -421,14 +421,14 @@ export default function OrganizationsPage() {
                               </div>
                             </div>
                           </td>
-                          <td className="td">
+                          <td className="table-td">
                             <span className="inline-flex items-center gap-1 text-xs font-medium text-(--text-secondary)">
                               <RoleIcon className="h-3 w-3" />
                               {m.role}
                             </span>
                           </td>
                           {isOwnerOrAdmin && (
-                            <td className="td text-right">
+                            <td className="table-td text-right">
                               {m.role !== 'owner' && (
                                 <button
                                   onClick={() => removeMember.mutate({ organizationId: selectedOrgId!, memberId: m.id })}

@@ -112,20 +112,20 @@ function TicketsTab({ __: t }: { __: (s: string) => string }) {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{t('Subject')}</th>
-                <th className="th w-28">{t('Status')}</th>
-                <th className="th w-24">{t('Priority')}</th>
-                <th className="th w-20">{t('Source')}</th>
-                <th className="th w-32">{t('Created')}</th>
-                <th className="th w-32">{t('Updated')}</th>
+                <th className="table-th">{t('Subject')}</th>
+                <th className="table-th w-28">{t('Status')}</th>
+                <th className="table-th w-24">{t('Priority')}</th>
+                <th className="table-th w-20">{t('Source')}</th>
+                <th className="table-th w-32">{t('Created')}</th>
+                <th className="table-th w-32">{t('Updated')}</th>
               </tr>
             </thead>
             <tbody>
               {data.results.map((ticket) => (
-                <tr key={ticket.id} className="tr">
-                  <td className="td">
+                <tr key={ticket.id} className="table-tr">
+                  <td className="table-td">
                     <Link
                       href={adminPanel.settingsSupportDetail(ticket.id)}
                       className="font-medium text-(--text-primary) hover:text-brand-500"
@@ -133,7 +133,7 @@ function TicketsTab({ __: t }: { __: (s: string) => string }) {
                       {ticket.subject}
                     </Link>
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <span className={cn(
                       'badge',
                       ticket.status === 'open' && 'badge-published',
@@ -144,16 +144,16 @@ function TicketsTab({ __: t }: { __: (s: string) => string }) {
                       {t(STATUS_LABELS[ticket.status] ?? ticket.status)}
                     </span>
                   </td>
-                  <td className={cn('td text-sm', PRIORITY_COLORS[ticket.priority] ?? '')}>
+                  <td className={cn('table-td text-sm', PRIORITY_COLORS[ticket.priority] ?? '')}>
                     {t(PRIORITY_LABELS[ticket.priority] ?? ticket.priority)}
                   </td>
-                  <td className="td text-sm text-(--text-muted)">
+                  <td className="table-td text-sm text-(--text-muted)">
                     {ticket.source ?? 'form'}
                   </td>
-                  <td className="td text-sm text-(--text-muted)">
+                  <td className="table-td text-sm text-(--text-muted)">
                     {new Date(ticket.createdAt).toLocaleDateString()}
                   </td>
-                  <td className="td text-sm text-(--text-muted)">
+                  <td className="table-td text-sm text-(--text-muted)">
                     {new Date(ticket.updatedAt).toLocaleDateString()}
                   </td>
                 </tr>
@@ -243,18 +243,18 @@ function LiveChatsTab({ __: t }: { __: (s: string) => string }) {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{t('Visitor / User')}</th>
-                <th className="th w-28">{t('Status')}</th>
-                <th className="th">{t('Last Message')}</th>
-                <th className="th w-32">{t('Started')}</th>
+                <th className="table-th">{t('Visitor / User')}</th>
+                <th className="table-th w-28">{t('Status')}</th>
+                <th className="table-th">{t('Last Message')}</th>
+                <th className="table-th w-32">{t('Started')}</th>
               </tr>
             </thead>
             <tbody>
               {data.results.map((session) => (
-                <tr key={session.id} className="tr">
-                  <td className="td">
+                <tr key={session.id} className="table-tr">
+                  <td className="table-td">
                     <Link
                       href={`${adminPanel.settingsSupport}/chat/${session.id}`}
                       className="font-medium text-(--text-primary) hover:text-brand-500"
@@ -270,7 +270,7 @@ function LiveChatsTab({ __: t }: { __: (s: string) => string }) {
                       </Link>
                     )}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <span className={cn(
                       'badge',
                       session.status === 'ai_active' && 'badge-published',
@@ -281,7 +281,7 @@ function LiveChatsTab({ __: t }: { __: (s: string) => string }) {
                       {t(CHAT_STATUS_LABELS[session.status] ?? session.status)}
                     </span>
                   </td>
-                  <td className="td text-sm text-(--text-muted) max-w-xs truncate">
+                  <td className="table-td text-sm text-(--text-muted) max-w-xs truncate">
                     {session.lastMessage ? (
                       <span>
                         <span className="font-medium">{session.lastMessage.role === 'user' ? 'User' : session.lastMessage.role === 'ai' ? 'AI' : 'Agent'}:</span>{' '}
@@ -289,7 +289,7 @@ function LiveChatsTab({ __: t }: { __: (s: string) => string }) {
                       </span>
                     ) : '—'}
                   </td>
-                  <td className="td text-sm text-(--text-muted)">
+                  <td className="table-td text-sm text-(--text-muted)">
                     {new Date(session.createdAt).toLocaleDateString()}
                   </td>
                 </tr>
@@ -352,14 +352,18 @@ export default function AdminSupportPage() {
       {/* Tab bar */}
       <div className="status-tabs mt-4">
         <button
-          className={cn('status-tab', activeTab === 'tickets' && 'active')}
+          className={cn('status-tab', activeTab === 'tickets' && 'is-active')}
           onClick={() => setActiveTab('tickets')}
+          role="tab"
+          aria-selected={activeTab === 'tickets'}
         >
           {__('Tickets')}
         </button>
         <button
-          className={cn('status-tab', activeTab === 'chats' && 'active')}
+          className={cn('status-tab', activeTab === 'chats' && 'is-active')}
           onClick={() => setActiveTab('chats')}
+          role="tab"
+          aria-selected={activeTab === 'chats'}
         >
           <MessageCircle className="mr-1.5 inline h-4 w-4" />
           {__('Live Chats')}

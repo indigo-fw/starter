@@ -55,27 +55,27 @@ export function DiscountCodesTable() {
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Code')}</th>
-                <th className="th">{__('Type')}</th>
-                <th className="th">{__('Value')}</th>
-                <th className="th">{__('Usage')}</th>
-                <th className="th">{__('Status')}</th>
+                <th className="table-th">{__('Code')}</th>
+                <th className="table-th">{__('Type')}</th>
+                <th className="table-th">{__('Value')}</th>
+                <th className="table-th">{__('Usage')}</th>
+                <th className="table-th">{__('Status')}</th>
               </tr>
             </thead>
             <tbody>
               {codes.map((code) => (
-                <tr key={code.id} className="tr">
-                  <td className="td font-mono font-semibold">{code.code}</td>
-                  <td className="td">{__(TYPE_LABELS[code.discountType] ?? code.discountType)}</td>
-                  <td className="td">
+                <tr key={code.id} className="table-tr">
+                  <td className="table-td font-mono font-semibold">{code.code}</td>
+                  <td className="table-td">{__(TYPE_LABELS[code.discountType] ?? code.discountType)}</td>
+                  <td className="table-td">
                     {formatValue(code.discountType, code.discountValue, code.trialDays)}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <UsageBar currentUses={code.currentUses} maxUses={code.maxUses} />
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <span className={cn('badge', code.isActive ? 'badge-published' : 'badge-draft')}>
                       {code.isActive ? __('Active') : __('Inactive')}
                     </span>

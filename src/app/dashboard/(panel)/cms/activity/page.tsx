@@ -116,31 +116,31 @@ export default function ActivityPage() {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th w-36">{__('Time')}</th>
-                <th className="th w-24">{__('Action')}</th>
-                <th className="th w-36">{__('User')}</th>
-                <th className="th w-24">{__('Type')}</th>
-                <th className="th">{__('Entity')}</th>
+                <th className="table-th w-36">{__('Time')}</th>
+                <th className="table-th w-24">{__('Action')}</th>
+                <th className="table-th w-36">{__('User')}</th>
+                <th className="table-th w-24">{__('Type')}</th>
+                <th className="table-th">{__('Entity')}</th>
               </tr>
             </thead>
             <tbody>
               {(data?.results ?? []).map((entry) => (
                 <tr key={entry.id} className="hover:bg-(--surface-secondary)">
-                  <td className="td text-xs text-(--text-muted)">
+                  <td className="table-td text-xs text-(--text-muted)">
                     {formatDate(entry.createdAt)}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <span className="inline-block rounded-full bg-(--surface-secondary) px-2 py-0.5 text-xs font-medium text-(--text-secondary)">
                       {entry.action}
                     </span>
                   </td>
-                  <td className="td text-xs text-(--text-muted)">
+                  <td className="table-td text-xs text-(--text-muted)">
                     {entry.userName ?? entry.userEmail ?? '\u2014'}
                   </td>
-                  <td className="td text-xs text-(--text-muted)">{entry.entityType}</td>
-                  <td className="td text-sm text-(--text-primary)">
+                  <td className="table-td text-xs text-(--text-muted)">{entry.entityType}</td>
+                  <td className="table-td text-sm text-(--text-primary)">
                     {entry.entityTitle ?? entry.entityId.slice(0, 8)}
                   </td>
                 </tr>

@@ -215,11 +215,11 @@ export function CommandPalette({ open, onClose, navItems: navItemsProp, contentT
                   <button
                     key={item.id}
                     type="button"
-                    data-active={item.index === activeIndex}
                     className={cn(
                       'command-result',
-                      item.index === activeIndex && 'active'
+                      item.index === activeIndex && 'is-active'
                     )}
+                    aria-selected={item.index === activeIndex}
                     onClick={() => handleSelect(item)}
                     onMouseEnter={() => setActiveIndex(item.index)}
                   >

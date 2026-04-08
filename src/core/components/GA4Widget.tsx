@@ -292,9 +292,9 @@ export default function GA4Widget({
               <div className="ga4-table-wrapper mt-2 overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="thead">
-                      <th className="th text-left">{__('Page')}</th>
-                      <th className="th text-right">{__('Views')}</th>
+                    <tr className="table-thead">
+                      <th className="table-th text-left">{__('Page')}</th>
+                      <th className="table-th text-right">{__('Views')}</th>
                     </tr>
                   </thead>
                   <tbody>

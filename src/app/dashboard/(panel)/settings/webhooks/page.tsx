@@ -198,25 +198,25 @@ export default function WebhooksPage() {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Name')}</th>
-                <th className="th">{__('URL')}</th>
-                <th className="th w-20">{__('Status')}</th>
-                <th className="th w-32" />
+                <th className="table-th">{__('Name')}</th>
+                <th className="table-th">{__('URL')}</th>
+                <th className="table-th w-20">{__('Status')}</th>
+                <th className="table-th w-32" />
               </tr>
             </thead>
             <tbody>
               {(webhooksQuery.data ?? []).map((hook) => (
                 <tr key={hook.id} className="hover:bg-(--surface-secondary)">
-                  <td className="td font-medium text-(--text-primary)">{hook.name}</td>
-                  <td className="td text-xs font-mono text-(--text-muted) truncate max-w-xs">{hook.url}</td>
-                  <td className="td">
+                  <td className="table-td font-medium text-(--text-primary)">{hook.name}</td>
+                  <td className="table-td text-xs font-mono text-(--text-muted) truncate max-w-xs">{hook.url}</td>
+                  <td className="table-td">
                     <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${hook.active ? 'bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400' : 'bg-(--surface-secondary) text-(--text-muted)'}`}>
                       {hook.active ? __('Active') : __('Inactive')}
                     </span>
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <div className="webhooks-row-actions flex items-center justify-end gap-1">
                       <button
                         onClick={() => testWebhook.mutate({ id: hook.id })}

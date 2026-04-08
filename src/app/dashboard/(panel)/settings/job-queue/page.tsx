@@ -167,34 +167,34 @@ export default function JobQueuePage() {
                   </p>
                 ) : (
                   <table className="w-full">
-                    <thead className="thead">
+                    <thead className="table-thead">
                       <tr>
-                        <th className="th">{__('ID')}</th>
-                        <th className="th">{__('Name')}</th>
-                        <th className="th">{__('Created')}</th>
-                        <th className="th">{__('Attempts')}</th>
+                        <th className="table-th">{__('ID')}</th>
+                        <th className="table-th">{__('Name')}</th>
+                        <th className="table-th">{__('Created')}</th>
+                        <th className="table-th">{__('Attempts')}</th>
                         {selectedStatus === 'failed' && (
-                          <th className="th">{__('Error')}</th>
+                          <th className="table-th">{__('Error')}</th>
                         )}
-                        <th className="th w-24" />
+                        <th className="table-th w-24" />
                       </tr>
                     </thead>
                     <tbody>
                       {(jobList.data ?? []).map((job) => {
                         return (
                           <tr key={job.id} className="hover:bg-(--surface-secondary)">
-                            <td className="td font-mono text-xs">{job.id}</td>
-                            <td className="td text-sm">{job.name}</td>
-                            <td className="td text-xs text-(--text-muted)">
+                            <td className="table-td font-mono text-xs">{job.id}</td>
+                            <td className="table-td text-sm">{job.name}</td>
+                            <td className="table-td text-xs text-(--text-muted)">
                               {formatTimestamp(job.timestamp)}
                             </td>
-                            <td className="td text-xs">{job.attemptsMade}</td>
+                            <td className="table-td text-xs">{job.attemptsMade}</td>
                             {selectedStatus === 'failed' && (
-                              <td className="td max-w-xs truncate text-xs text-red-600 dark:text-red-400">
+                              <td className="table-td max-w-xs truncate text-xs text-red-600 dark:text-red-400">
                                 {job.failedReason}
                               </td>
                             )}
-                            <td className="td">
+                            <td className="table-td">
                               <div className="job-queue-row-actions flex items-center justify-end gap-1">
                                 {selectedStatus === 'failed' && (
                                   <button

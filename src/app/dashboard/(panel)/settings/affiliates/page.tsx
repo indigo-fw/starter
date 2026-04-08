@@ -50,28 +50,28 @@ export default function AffiliatesAdminPage() {
           <div className="card">
             <table className="w-full">
               <thead>
-                <tr className="thead">
-                  <th className="th">{__('Code')}</th>
-                  <th className="th">{__('Commission')}</th>
-                  <th className="th">{__('Referrals')}</th>
-                  <th className="th">{__('Earnings')}</th>
-                  <th className="th">{__('Status')}</th>
-                  <th className="th">{__('Actions')}</th>
+                <tr className="table-thead">
+                  <th className="table-th">{__('Code')}</th>
+                  <th className="table-th">{__('Commission')}</th>
+                  <th className="table-th">{__('Referrals')}</th>
+                  <th className="table-th">{__('Earnings')}</th>
+                  <th className="table-th">{__('Status')}</th>
+                  <th className="table-th">{__('Actions')}</th>
                 </tr>
               </thead>
               <tbody>
                 {data.results.map((aff) => (
-                  <tr key={aff.id} className="tr">
-                    <td className="td font-mono">{aff.code}</td>
-                    <td className="td">{aff.commissionPercent}%</td>
-                    <td className="td">{aff.totalReferrals}</td>
-                    <td className="td">${(aff.totalEarningsCents / 100).toFixed(2)}</td>
-                    <td className="td">
+                  <tr key={aff.id} className="table-tr">
+                    <td className="table-td font-mono">{aff.code}</td>
+                    <td className="table-td">{aff.commissionPercent}%</td>
+                    <td className="table-td">{aff.totalReferrals}</td>
+                    <td className="table-td">${(aff.totalEarningsCents / 100).toFixed(2)}</td>
+                    <td className="table-td">
                       <span className={`badge badge-${aff.status === 'active' ? 'published' : 'draft'}`}>
                         {aff.status}
                       </span>
                     </td>
-                    <td className="td">
+                    <td className="table-td">
                       {aff.status === 'active' ? (
                         <button
                           className="action-btn"

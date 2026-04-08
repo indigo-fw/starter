@@ -271,24 +271,24 @@ export default function DiscountCodesPage() {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Code')}</th>
-                <th className="th">{__('Type')}</th>
-                <th className="th">{__('Value')}</th>
-                <th className="th">{__('Uses')}</th>
-                <th className="th w-20">{__('Status')}</th>
-                <th className="th w-24" />
+                <th className="table-th">{__('Code')}</th>
+                <th className="table-th">{__('Type')}</th>
+                <th className="table-th">{__('Value')}</th>
+                <th className="table-th">{__('Uses')}</th>
+                <th className="table-th w-20">{__('Status')}</th>
+                <th className="table-th w-24" />
               </tr>
             </thead>
             <tbody>
               {(codesQuery.data ?? []).map((item) => (
-                <tr key={item.id} className="tr">
-                  <td className="td font-mono font-medium text-(--text-primary)">{item.code}</td>
-                  <td className="td text-sm text-(--text-secondary)">
+                <tr key={item.id} className="table-tr">
+                  <td className="table-td font-mono font-medium text-(--text-primary)">{item.code}</td>
+                  <td className="table-td text-sm text-(--text-secondary)">
                     {__(DISCOUNT_TYPE_LABELS[item.discountType] ?? item.discountType)}
                   </td>
-                  <td className="td text-sm text-(--text-secondary)">
+                  <td className="table-td text-sm text-(--text-secondary)">
                     {item.discountType === DiscountType.PERCENTAGE && item.discountValue !== null
                       ? `${item.discountValue}%`
                       : item.discountType === DiscountType.FIXED_PRICE && item.discountValue !== null
@@ -297,15 +297,15 @@ export default function DiscountCodesPage() {
                           ? `${item.trialDays} days`
                           : '—'}
                   </td>
-                  <td className="td text-sm text-(--text-secondary)">
+                  <td className="table-td text-sm text-(--text-secondary)">
                     {item.currentUses}{item.maxUses !== null ? ` / ${item.maxUses}` : ''}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <span className={`badge ${item.isActive ? 'badge-published' : 'badge-draft'}`}>
                       {item.isActive ? __('Active') : __('Inactive')}
                     </span>
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <div className="flex items-center justify-end gap-1">
                       <button
                         onClick={() => startEdit(item)}

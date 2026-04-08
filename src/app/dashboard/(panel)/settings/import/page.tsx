@@ -579,8 +579,8 @@ export default function ImportPage() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="thead">
-                      <th className="th w-10">
+                    <tr className="table-thead">
+                      <th className="table-th w-10">
                         <input
                           type="checkbox"
                           checked={selectedIndices.size === previewItems.length}
@@ -588,11 +588,11 @@ export default function ImportPage() {
                           className="rounded border-(--border-primary)"
                         />
                       </th>
-                      <th className="th">{__('Title')}</th>
-                      <th className="th">{__('Slug')}</th>
-                      <th className="th">{__('Status')}</th>
-                      <th className="th">{__('Date')}</th>
-                      <th className="th">{__('Categories')}</th>
+                      <th className="table-th">{__('Title')}</th>
+                      <th className="table-th">{__('Slug')}</th>
+                      <th className="table-th">{__('Status')}</th>
+                      <th className="table-th">{__('Date')}</th>
+                      <th className="table-th">{__('Categories')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -604,7 +604,7 @@ export default function ImportPage() {
                           !selectedIndices.has(i) && 'opacity-40'
                         )}
                       >
-                        <td className="td">
+                        <td className="table-td">
                           <input
                             type="checkbox"
                             checked={selectedIndices.has(i)}
@@ -612,17 +612,17 @@ export default function ImportPage() {
                             className="rounded border-(--border-primary)"
                           />
                         </td>
-                        <td className="td max-w-xs">
+                        <td className="table-td max-w-xs">
                           <span className="font-medium text-(--text-primary)">
                             {truncate(item.title, 60)}
                           </span>
                         </td>
-                        <td className="td">
+                        <td className="table-td">
                           <code className="text-xs text-(--text-muted)">
                             {truncate(item.slug, 40)}
                           </code>
                         </td>
-                        <td className="td">
+                        <td className="table-td">
                           <span
                             className={cn(
                               'inline-block rounded-full px-2 py-0.5 text-xs font-medium',
@@ -636,10 +636,10 @@ export default function ImportPage() {
                               : __('Draft')}
                           </span>
                         </td>
-                        <td className="td text-xs">
+                        <td className="table-td text-xs">
                           {formatDate(item.publishedAt)}
                         </td>
-                        <td className="td text-xs text-(--text-muted)">
+                        <td className="table-td text-xs text-(--text-muted)">
                           {(item.categories ?? []).join(', ') || '--'}
                         </td>
                       </tr>

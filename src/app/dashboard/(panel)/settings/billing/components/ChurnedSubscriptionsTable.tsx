@@ -95,8 +95,10 @@ export function ChurnedSubscriptionsTable({ from, to }: ChurnedSubscriptionsTabl
         {tabs.map((tab) => (
           <button
             key={tab.key}
-            className={cn('status-tab', activeTab === tab.key && 'active')}
+            className={cn('status-tab', activeTab === tab.key && 'is-active')}
             onClick={() => setActiveTab(tab.key)}
+            role="tab"
+            aria-selected={activeTab === tab.key}
           >
             {__(tab.label)} ({tabCounts[tab.key]})
           </button>
@@ -122,31 +124,31 @@ export function ChurnedSubscriptionsTable({ from, to }: ChurnedSubscriptionsTabl
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Organization')}</th>
-                <th className="th">{__('Plan')}</th>
-                <th className="th">{__('Status')}</th>
-                <th className="th">{__('Provider')}</th>
-                <th className="th">{__('Churn Date')}</th>
-                <th className="th">{__('Subscription Start')}</th>
+                <th className="table-th">{__('Organization')}</th>
+                <th className="table-th">{__('Plan')}</th>
+                <th className="table-th">{__('Status')}</th>
+                <th className="table-th">{__('Provider')}</th>
+                <th className="table-th">{__('Churn Date')}</th>
+                <th className="table-th">{__('Subscription Start')}</th>
               </tr>
             </thead>
             <tbody>
               {results.map((sub) => (
-                <tr key={sub.id} className="tr">
-                  <td className="td">{sub.orgName ?? '—'}</td>
-                  <td className="td">{PLAN_NAMES[sub.planId] ?? sub.planId}</td>
-                  <td className="td">
+                <tr key={sub.id} className="table-tr">
+                  <td className="table-td">{sub.orgName ?? '—'}</td>
+                  <td className="table-td">{PLAN_NAMES[sub.planId] ?? sub.planId}</td>
+                  <td className="table-td">
                     <span className={statusBadgeClass(sub.status)}>
                       {statusLabel(sub.status)}
                     </span>
                   </td>
-                  <td className="td">{sub.providerId ?? '—'}</td>
-                  <td className="td">
+                  <td className="table-td">{sub.providerId ?? '—'}</td>
+                  <td className="table-td">
                     {sub.updatedAt ? new Date(sub.updatedAt).toLocaleDateString() : '—'}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     {sub.createdAt ? new Date(sub.createdAt).toLocaleDateString() : '—'}
                   </td>
                 </tr>

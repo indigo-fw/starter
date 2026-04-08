@@ -122,15 +122,15 @@ export default function FormsPage() {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Name')}</th>
-                <th className="th w-40">{__('Slug')}</th>
-                <th className="th w-20">{__('Active')}</th>
-                <th className="th w-20">{__('Fields')}</th>
-                <th className="th w-28">{__('Submissions')}</th>
-                <th className="th w-32">{__('Created')}</th>
-                <th className="th w-28" />
+                <th className="table-th">{__('Name')}</th>
+                <th className="table-th w-40">{__('Slug')}</th>
+                <th className="table-th w-20">{__('Active')}</th>
+                <th className="table-th w-20">{__('Fields')}</th>
+                <th className="table-th w-28">{__('Submissions')}</th>
+                <th className="table-th w-32">{__('Created')}</th>
+                <th className="table-th w-28" />
               </tr>
             </thead>
             <tbody>
@@ -140,7 +140,7 @@ export default function FormsPage() {
                   : 0;
                 return (
                   <tr key={form.id} className="hover:bg-(--surface-secondary)">
-                    <td className="td">
+                    <td className="table-td">
                       <Link
                         href={adminPanel.formDetail(form.id)}
                         className="font-medium text-(--text-primary) hover:text-(--color-brand-600)"
@@ -148,12 +148,12 @@ export default function FormsPage() {
                         {form.name}
                       </Link>
                     </td>
-                    <td className="td">
+                    <td className="table-td">
                       <code className="rounded bg-(--surface-secondary) px-1.5 py-0.5 text-xs text-(--text-secondary)">
                         {form.slug}
                       </code>
                     </td>
-                    <td className="td">
+                    <td className="table-td">
                       {form.active ? (
                         <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600">
                           <Eye className="h-3 w-3" />
@@ -166,10 +166,10 @@ export default function FormsPage() {
                         </span>
                       )}
                     </td>
-                    <td className="td text-sm text-(--text-secondary)">
+                    <td className="table-td text-sm text-(--text-secondary)">
                       {fieldCount}
                     </td>
-                    <td className="td">
+                    <td className="table-td">
                       <Link
                         href={adminPanel.formSubmissions(form.id)}
                         className="text-sm text-(--color-brand-600) hover:underline"
@@ -177,10 +177,10 @@ export default function FormsPage() {
                         {form.submissionCount}
                       </Link>
                     </td>
-                    <td className="td text-xs text-(--text-muted)">
+                    <td className="table-td text-xs text-(--text-muted)">
                       {formatDate(form.createdAt)}
                     </td>
-                    <td className="td">
+                    <td className="table-td">
                       <div className="forms-row-actions flex items-center justify-end gap-1">
                         <Link
                           href={adminPanel.formDetail(form.id)}

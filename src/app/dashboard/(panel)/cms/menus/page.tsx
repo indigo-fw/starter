@@ -100,19 +100,19 @@ export default function MenusPage() {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Name')}</th>
-                <th className="th w-40">{__('Slug')}</th>
-                <th className="th w-28" />
+                <th className="table-th">{__('Name')}</th>
+                <th className="table-th w-40">{__('Slug')}</th>
+                <th className="table-th w-28" />
               </tr>
             </thead>
             <tbody>
               {(menusQuery.data ?? []).map((menu) => (
                 <tr key={menu.id} className="hover:bg-(--surface-secondary)">
-                  <td className="td font-medium text-(--text-primary)">{menu.name}</td>
-                  <td className="td text-sm font-mono text-(--text-muted)">{menu.slug}</td>
-                  <td className="td">
+                  <td className="table-td font-medium text-(--text-primary)">{menu.name}</td>
+                  <td className="table-td text-sm font-mono text-(--text-muted)">{menu.slug}</td>
+                  <td className="table-td">
                     <div className="menus-row-actions flex items-center justify-end gap-1">
                       <Link
                         href={adminPanel.menuDetail(menu.id)}

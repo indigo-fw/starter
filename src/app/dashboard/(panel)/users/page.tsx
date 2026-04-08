@@ -223,19 +223,19 @@ export default function UsersPage() {
           </div>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('User')}</th>
-                <th className="th w-28">{__('Role')}</th>
-                <th className="th w-24">{__('Status')}</th>
-                <th className="th w-32">{__('Joined')}</th>
-                <th className="th w-32" />
+                <th className="table-th">{__('User')}</th>
+                <th className="table-th w-28">{__('Role')}</th>
+                <th className="table-th w-24">{__('Status')}</th>
+                <th className="table-th w-32">{__('Joined')}</th>
+                <th className="table-th w-32" />
               </tr>
             </thead>
             <tbody>
               {(data?.results ?? []).length === 0 ? (
                 <tr>
-                  <td className="td py-12 text-center text-(--text-muted)" colSpan={5}>
+                  <td className="table-td py-12 text-center text-(--text-muted)" colSpan={5}>
                     {search ? __('No users found.') : __('No users yet.')}
                   </td>
                 </tr>
@@ -244,7 +244,7 @@ export default function UsersPage() {
                   const RoleIcon = ROLE_ICONS[u.role] ?? Shield;
                   return (
                     <tr key={u.id} className="hover:bg-(--surface-secondary)">
-                      <td className="td">
+                      <td className="table-td">
                         <div className="users-cell flex items-center gap-3">
                           {u.image ? (
                             <Image
@@ -271,7 +271,7 @@ export default function UsersPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="td">
+                      <td className="table-td">
                         <span
                           className={cn(
                             'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium',
@@ -282,7 +282,7 @@ export default function UsersPage() {
                           {u.role}
                         </span>
                       </td>
-                      <td className="td">
+                      <td className="table-td">
                         {u.banned ? (
                           <span className="inline-block rounded-full bg-red-100 dark:bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-700 dark:text-red-400">
                             {__('Banned')}
@@ -293,10 +293,10 @@ export default function UsersPage() {
                           </span>
                         )}
                       </td>
-                      <td className="td text-xs text-(--text-muted)">
+                      <td className="table-td text-xs text-(--text-muted)">
                         {formatDate(u.createdAt)}
                       </td>
-                      <td className="td">
+                      <td className="table-td">
                         <div className="users-row-actions flex items-center justify-end gap-1">
                           <button
                             onClick={() => {

@@ -65,23 +65,23 @@ export function AffiliateOverview() {
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="thead">
+              <thead className="table-thead">
                 <tr>
-                  <th className="th">{__('Affiliate')}</th>
-                  <th className="th">{__('Code')}</th>
-                  <th className="th text-right">{__('Referrals')}</th>
-                  <th className="th text-right">{__('Earnings')}</th>
-                  <th className="th text-right">{__('Commission')}</th>
+                  <th className="table-th">{__('Affiliate')}</th>
+                  <th className="table-th">{__('Code')}</th>
+                  <th className="table-th text-right">{__('Referrals')}</th>
+                  <th className="table-th text-right">{__('Earnings')}</th>
+                  <th className="table-th text-right">{__('Commission')}</th>
                 </tr>
               </thead>
               <tbody>
                 {data.topAffiliates.map((a) => (
-                  <tr key={a.id} className="tr">
-                    <td className="td">{a.userName ?? a.userEmail ?? '—'}</td>
-                    <td className="td font-mono text-sm">{a.code}</td>
-                    <td className="td text-right">{a.totalReferrals}</td>
-                    <td className="td text-right">{fmtCurrency(a.totalEarningsCents)}</td>
-                    <td className="td text-right">{a.commissionPercent}%</td>
+                  <tr key={a.id} className="table-tr">
+                    <td className="table-td">{a.userName ?? a.userEmail ?? '—'}</td>
+                    <td className="table-td font-mono text-sm">{a.code}</td>
+                    <td className="table-td text-right">{a.totalReferrals}</td>
+                    <td className="table-td text-right">{fmtCurrency(a.totalEarningsCents)}</td>
+                    <td className="table-td text-right">{a.commissionPercent}%</td>
                   </tr>
                 ))}
               </tbody>

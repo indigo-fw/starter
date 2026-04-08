@@ -259,25 +259,25 @@ export default function RedirectsPage() {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Old Slug')}</th>
-                <th className="th">{__('Target')}</th>
-                <th className="th w-28">{__('Type')}</th>
-                <th className="th w-24">{__('Prefix')}</th>
-                <th className="th w-40">{__('Created')}</th>
-                <th className="th w-16" />
+                <th className="table-th">{__('Old Slug')}</th>
+                <th className="table-th">{__('Target')}</th>
+                <th className="table-th w-28">{__('Type')}</th>
+                <th className="table-th w-24">{__('Prefix')}</th>
+                <th className="table-th w-40">{__('Created')}</th>
+                <th className="table-th w-16" />
               </tr>
             </thead>
             <tbody>
               {(data?.results ?? []).map((r) => (
                 <tr key={r.id} className="hover:bg-(--surface-secondary)">
-                  <td className="td">
+                  <td className="table-td">
                     <code className="rounded bg-(--surface-secondary) px-1.5 py-0.5 text-xs text-(--text-primary)">
                       {r.oldSlug}
                     </code>
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <div>
                       <p className="text-sm font-medium text-(--text-primary)">
                         {r.targetTitle}
@@ -289,18 +289,18 @@ export default function RedirectsPage() {
                       )}
                     </div>
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <span className="inline-block rounded-full bg-(--surface-secondary) px-2 py-0.5 text-xs font-medium text-(--text-secondary)">
                       {r.contentType}
                     </span>
                   </td>
-                  <td className="td text-xs text-(--text-muted)">
+                  <td className="table-td text-xs text-(--text-muted)">
                     {r.urlPrefix}
                   </td>
-                  <td className="td text-xs text-(--text-muted)">
+                  <td className="table-td text-xs text-(--text-muted)">
                     {formatDate(r.createdAt)}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <button
                       onClick={() =>
                         setDeleteTarget({ id: r.id, slug: r.oldSlug })

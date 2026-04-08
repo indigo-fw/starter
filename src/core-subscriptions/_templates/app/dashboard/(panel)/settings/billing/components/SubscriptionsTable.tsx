@@ -107,33 +107,33 @@ export function SubscriptionsTable({ from, to, planFilter, statusFilter }: Subsc
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Organization')}</th>
-                <th className="th">{__('Plan')}</th>
-                <th className="th">{__('Status')}</th>
-                <th className="th">{__('Provider')}</th>
-                <th className="th">{__('Period')}</th>
-                <th className="th">{__('Created')}</th>
+                <th className="table-th">{__('Organization')}</th>
+                <th className="table-th">{__('Plan')}</th>
+                <th className="table-th">{__('Status')}</th>
+                <th className="table-th">{__('Provider')}</th>
+                <th className="table-th">{__('Period')}</th>
+                <th className="table-th">{__('Created')}</th>
               </tr>
             </thead>
             <tbody>
               {results.map((sub) => (
-                <tr key={sub.id} className="tr cursor-pointer" onClick={() => router.push(`/dashboard/organizations?org=${sub.organizationId}`)}>
-                  <td className="td">{sub.orgName ?? sub.organizationId}</td>
-                  <td className="td">{PLAN_NAMES[sub.planId] ?? sub.planId}</td>
-                  <td className="td">
+                <tr key={sub.id} className="table-tr cursor-pointer" onClick={() => router.push(`/dashboard/organizations?org=${sub.organizationId}`)}>
+                  <td className="table-td">{sub.orgName ?? sub.organizationId}</td>
+                  <td className="table-td">{PLAN_NAMES[sub.planId] ?? sub.planId}</td>
+                  <td className="table-td">
                     <span className={statusBadgeClass(sub.status)}>
                       {sub.status.charAt(0).toUpperCase() + sub.status.slice(1).replace('_', ' ')}
                     </span>
                   </td>
-                  <td className="td">{sub.providerId ?? '—'}</td>
-                  <td className="td">
+                  <td className="table-td">{sub.providerId ?? '—'}</td>
+                  <td className="table-td">
                     {sub.currentPeriodStart && sub.currentPeriodEnd
                       ? `${new Date(sub.currentPeriodStart).toLocaleDateString()} – ${new Date(sub.currentPeriodEnd).toLocaleDateString()}`
                       : '—'}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     {sub.createdAt ? new Date(sub.createdAt).toLocaleDateString() : '—'}
                   </td>
                 </tr>

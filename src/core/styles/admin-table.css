@@ -13,20 +13,20 @@
 
 @layer components {
   /* ===================== Table Rows ===================== */
-  .tr {
+  .table-tr {
     transition: background-color var(--duration-fast) ease;
   }
 
-  .tr:nth-child(even) {
+  .table-tr:nth-child(even) {
     background-color: oklch(0 0 0 / 0.02);
   }
 
-  .tr:hover {
+  .table-tr:hover {
     background-color: oklch(0 0 0 / 0.04);
   }
 
   /* ===================== Primary Table Cell ===================== */
-  .td-primary {
+  .table-td-primary {
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -35,7 +35,7 @@
   }
 
   /* ===================== Sticky Actions Column ===================== */
-  .th-actions {
+  .table-th-actions {
     position: sticky;
     right: 0;
     z-index: 1;
@@ -50,7 +50,7 @@
     border-left: 1px solid var(--border-primary);
   }
 
-  .td-actions {
+  .table-td-actions {
     position: sticky;
     right: 0;
     z-index: 1;
@@ -65,21 +65,21 @@
 
   /* Sticky action cells must be SOLID (not transparent) so overlapped content doesn't show through.
      These approximate the transparent row tints resolved on a white card background. */
-  .tr:hover .td-actions {
+  .table-tr:hover .table-td-actions {
     background-color: var(--color-gray-100);
   }
 
-  .tr:nth-child(even) .td-actions {
+  .table-tr:nth-child(even) .table-td-actions {
     background-color: var(--color-gray-50);
   }
 
-  .tr:nth-child(even):hover .td-actions {
+  .table-tr:nth-child(even):hover .table-td-actions {
     background-color: var(--color-gray-100);
   }
 
   /* ===================== Checkbox Column ===================== */
-  .th-checkbox,
-  .td-checkbox {
+  .table-th-checkbox,
+  .table-td-checkbox {
     width: 2.5rem;
     padding: 0.5rem 0.75rem;
     text-align: center;
@@ -222,13 +222,13 @@
   }
 
   /* ===================== Sortable Headers ===================== */
-  .sortable-th {
+  .table-sortable-th {
     cursor: pointer;
     user-select: none;
     transition: color var(--duration-fast) ease;
   }
 
-  .sortable-th:hover {
+  .table-sortable-th:hover {
     color: var(--text-primary);
   }
 
@@ -274,7 +274,7 @@
     cursor: not-allowed;
   }
 
-  .pagination-btn.active {
+  .pagination-btn.is-active {
     background: var(--gradient-brand);
     border-color: transparent;
     color: var(--color-white);
@@ -306,7 +306,7 @@
     color: var(--text-secondary);
   }
 
-  .status-tab.active {
+  .status-tab.is-active {
     color: var(--color-brand-600);
     border-bottom-color: var(--color-brand-600);
   }
@@ -321,7 +321,7 @@
     line-height: 1.5;
   }
 
-  .status-tab.active .status-tab-count {
+  .status-tab.is-active .status-tab-count {
     background-color: oklch(0.65 0.24 var(--brand-hue) / 0.12);
     color: var(--color-brand-600);
   }
@@ -437,17 +437,17 @@ html.dark {
     border-color: transparent;
   }
 
-  .status-tab.active {
+  .status-tab.is-active {
     color: var(--color-brand-400);
     border-bottom-color: var(--color-brand-400);
   }
 
-  .status-tab.active .status-tab-count {
+  .status-tab.is-active .status-tab-count {
     background-color: oklch(0.65 0.24 var(--brand-hue) / 0.15);
     color: var(--color-brand-400);
   }
 
-  .pagination-btn.active {
+  .pagination-btn.is-active {
     background: var(--gradient-brand);
     border-color: transparent;
   }
@@ -471,7 +471,7 @@ html.dark {
   }
 
   /* Solid row colors — LIGHTER than card bg (0.27), matching white-tint pattern */
-  .tr:hover {
+  .table-tr:hover {
     background-color: oklch(0.30 0.02 260);
   }
 
@@ -487,43 +487,43 @@ html.dark {
     background-color: oklch(1 0 0 / 0.08);
   }
 
-  .td,
-  .td-primary {
+  .table-td,
+  .table-td-primary {
     border-bottom-color: oklch(1 0 0 / 0.06);
   }
 
   /* Sticky actions: solid bg so content doesn't show through */
-  .th-actions {
+  .table-th-actions {
     background-color: var(--surface-inset);
     border-left: 1px solid oklch(1 0 0 / 0.06);
   }
 
-  .td-actions {
+  .table-td-actions {
     background-color: var(--color-gray-800);
     border-bottom-color: oklch(1 0 0 / 0.06);
     border-left: 1px solid oklch(1 0 0 / 0.06);
   }
 
   /* Odd rows hover — action cell matches row */
-  .tr:hover .td-actions {
+  .table-tr:hover .table-td-actions {
     background-color: oklch(0.30 0.02 260);
   }
 
   /* Even row striping — solid, slightly lighter than card (≈ white 2% on 0.27) */
-  .tr:nth-child(even) {
+  .table-tr:nth-child(even) {
     background-color: oklch(0.29 0.02 260);
   }
 
-  .tr:nth-child(even) .td-actions {
+  .table-tr:nth-child(even) .table-td-actions {
     background-color: oklch(0.29 0.02 260);
   }
 
   /* Even row hover — same as odd hover */
-  .tr:nth-child(even):hover {
+  .table-tr:nth-child(even):hover {
     background-color: oklch(0.30 0.02 260);
   }
 
-  .tr:nth-child(even):hover .td-actions {
+  .table-tr:nth-child(even):hover .table-td-actions {
     background-color: oklch(0.30 0.02 260);
   }
 

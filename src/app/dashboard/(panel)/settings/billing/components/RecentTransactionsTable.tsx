@@ -47,29 +47,29 @@ export function RecentTransactionsTable({ transactions, isLoading }: RecentTrans
         <div className="empty-state">{__('No transactions yet.')}</div>
       ) : (
         <table className="w-full">
-          <thead className="thead">
+          <thead className="table-thead">
             <tr>
-              <th className="th">{__('Organization')}</th>
-              <th className="th">{__('Amount')}</th>
-              <th className="th">{__('Plan')}</th>
-              <th className="th">{__('Status')}</th>
-              <th className="th">{__('Provider')}</th>
-              <th className="th">{__('Date')}</th>
+              <th className="table-th">{__('Organization')}</th>
+              <th className="table-th">{__('Amount')}</th>
+              <th className="table-th">{__('Plan')}</th>
+              <th className="table-th">{__('Status')}</th>
+              <th className="table-th">{__('Provider')}</th>
+              <th className="table-th">{__('Date')}</th>
             </tr>
           </thead>
           <tbody>
             {transactions.map((tx) => (
-              <tr key={tx.id} className="tr">
-                <td className="td">{tx.orgName ?? tx.organizationId}</td>
-                <td className="td">{formatAmount(tx.amountCents, tx.currency)}</td>
-                <td className="td">{tx.planId ? __(PLAN_LABELS[tx.planId] ?? tx.planId) : '—'}</td>
-                <td className="td">
+              <tr key={tx.id} className="table-tr">
+                <td className="table-td">{tx.orgName ?? tx.organizationId}</td>
+                <td className="table-td">{formatAmount(tx.amountCents, tx.currency)}</td>
+                <td className="table-td">{tx.planId ? __(PLAN_LABELS[tx.planId] ?? tx.planId) : '—'}</td>
+                <td className="table-td">
                   <span className={cn(STATUS_BADGE[tx.status] ?? 'badge')}>
                     {__(tx.status)}
                   </span>
                 </td>
-                <td className="td">{tx.providerId}</td>
-                <td className="td">{new Date(tx.createdAt).toLocaleDateString()}</td>
+                <td className="table-td">{tx.providerId}</td>
+                <td className="table-td">{new Date(tx.createdAt).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>

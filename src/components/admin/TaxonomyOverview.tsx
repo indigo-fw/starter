@@ -68,19 +68,19 @@ export function TaxonomyOverview() {
             </h3>
           </div>
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Tag')}</th>
-                <th className="th w-24 text-right">{__('Posts')}</th>
+                <th className="table-th">{__('Tag')}</th>
+                <th className="table-th w-24 text-right">{__('Posts')}</th>
               </tr>
             </thead>
             <tbody>
               {data.topTags.map((tag) => (
                 <tr key={tag.slug} className="hover:bg-(--surface-secondary)">
-                  <td className="td text-sm font-medium text-(--text-primary)">
+                  <td className="table-td text-sm font-medium text-(--text-primary)">
                     {tag.name}
                   </td>
-                  <td className="td text-right text-sm text-(--text-muted)">
+                  <td className="table-td text-right text-sm text-(--text-muted)">
                     {Number(tag.count)}
                   </td>
                 </tr>

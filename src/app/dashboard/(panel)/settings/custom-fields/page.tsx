@@ -320,29 +320,29 @@ export default function CustomFieldsPage() {
           </p>
         ) : (
           <table className="w-full">
-            <thead className="thead">
+            <thead className="table-thead">
               <tr>
-                <th className="th">{__('Name')}</th>
-                <th className="th">{__('Slug')}</th>
-                <th className="th">{__('Type')}</th>
-                <th className="th">{__('Content Types')}</th>
-                <th className="th w-24">{__('Sort Order')}</th>
-                <th className="th w-24" />
+                <th className="table-th">{__('Name')}</th>
+                <th className="table-th">{__('Slug')}</th>
+                <th className="table-th">{__('Type')}</th>
+                <th className="table-th">{__('Content Types')}</th>
+                <th className="table-th w-24">{__('Sort Order')}</th>
+                <th className="table-th w-24" />
               </tr>
             </thead>
             <tbody>
               {(fieldsQuery.data ?? []).map((def) => (
                 <tr key={def.id} className="hover:bg-(--surface-secondary)">
-                  <td className="td font-medium text-(--text-primary)">
+                  <td className="table-td font-medium text-(--text-primary)">
                     {def.name}
                   </td>
-                  <td className="td text-xs font-mono text-(--text-muted)">
+                  <td className="table-td text-xs font-mono text-(--text-muted)">
                     {def.slug}
                   </td>
-                  <td className="td text-sm text-(--text-secondary)">
+                  <td className="table-td text-sm text-(--text-secondary)">
                     {def.fieldType}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <div className="flex flex-wrap gap-1">
                       {(def.contentTypes as string[]).map((ct) => (
                         <span
@@ -354,10 +354,10 @@ export default function CustomFieldsPage() {
                       ))}
                     </div>
                   </td>
-                  <td className="td text-sm text-(--text-secondary)">
+                  <td className="table-td text-sm text-(--text-secondary)">
                     {def.sortOrder}
                   </td>
-                  <td className="td">
+                  <td className="table-td">
                     <div className="custom-fields-page-row-actions flex items-center justify-end gap-1">
                       <button
                         onClick={() => startEdit(def)}

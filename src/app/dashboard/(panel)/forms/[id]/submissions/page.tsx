@@ -167,16 +167,16 @@ export default function SubmissionsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="thead">
+              <thead className="table-thead">
                 <tr>
-                  <th className="th w-40">{__('Submitted')}</th>
+                  <th className="table-th w-40">{__('Submitted')}</th>
                   {fields.map((field) => (
-                    <th key={field.id} className="th">
+                    <th key={field.id} className="table-th">
                       {field.label}
                     </th>
                   ))}
-                  <th className="th w-28">{__('IP')}</th>
-                  <th className="th w-16" />
+                  <th className="table-th w-28">{__('IP')}</th>
+                  <th className="table-th w-16" />
                 </tr>
               </thead>
               <tbody>
@@ -190,11 +190,11 @@ export default function SubmissionsPage() {
                       key={submission.id}
                       className="hover:bg-(--surface-secondary)"
                     >
-                      <td className="td text-xs text-(--text-muted)">
+                      <td className="table-td text-xs text-(--text-muted)">
                         {formatDate(submission.createdAt)}
                       </td>
                       {fields.map((field) => (
-                        <td key={field.id} className="td">
+                        <td key={field.id} className="table-td">
                           <span className="text-sm text-(--text-primary)">
                             {field.type === 'checkbox'
                               ? submissionData[field.id]
@@ -204,10 +204,10 @@ export default function SubmissionsPage() {
                           </span>
                         </td>
                       ))}
-                      <td className="td text-xs text-(--text-muted)">
+                      <td className="table-td text-xs text-(--text-muted)">
                         {submission.ip ?? '—'}
                       </td>
-                      <td className="td">
+                      <td className="table-td">
                         <button
                           onClick={() => setDeleteTarget(submission.id)}
                           className="rounded p-1.5 text-(--text-muted) hover:bg-(--surface-secondary) hover:text-red-600"

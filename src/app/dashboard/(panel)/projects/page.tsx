@@ -184,18 +184,18 @@ export default function ProjectsPage() {
         ) : (
           <>
             <table className="w-full">
-              <thead className="thead">
+              <thead className="table-thead">
                 <tr>
-                  <th className="th">{__('Name')}</th>
-                  <th className="th w-32">{__('Status')}</th>
-                  <th className="th w-40">{__('Created')}</th>
-                  <th className="th w-28" />
+                  <th className="table-th">{__('Name')}</th>
+                  <th className="table-th w-32">{__('Status')}</th>
+                  <th className="table-th w-40">{__('Created')}</th>
+                  <th className="table-th w-28" />
                 </tr>
               </thead>
               <tbody>
                 {data.results.map((project) => (
-                  <tr key={project.id} className="tr">
-                    <td className="td">
+                  <tr key={project.id} className="table-tr">
+                    <td className="table-td">
                       <div>
                         <div className="font-medium text-(--text-primary)">{project.name}</div>
                         {project.description && (
@@ -203,15 +203,15 @@ export default function ProjectsPage() {
                         )}
                       </div>
                     </td>
-                    <td className="td">
+                    <td className="table-td">
                       <span className={`badge ${project.status === 'active' ? 'badge-published' : 'badge-draft'}`}>
                         {project.status}
                       </span>
                     </td>
-                    <td className="td text-sm text-(--text-muted)">
+                    <td className="table-td text-sm text-(--text-muted)">
                       {new Date(project.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="td text-right">
+                    <td className="table-td text-right">
                       <div className="flex items-center justify-end gap-1">
                         {project.status === 'active' ? (
                           <button
