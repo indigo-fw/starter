@@ -238,14 +238,6 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentIndex, items.length, scrollToIndex, commentPanelId]);
 
-  // ── Nav dots position: tracks current card's variant ──
-  const currentV = (items[currentIndex]?.variant || 'full') as ShowcaseVariant;
-  const currentCfg = VARIANT_CONFIG[currentV];
-  // max() clamps to 1rem on narrow viewports, calc positions near card edge on wide ones
-  const dotsLeft = currentCfg.halfWidth
-    ? `max(1rem, calc(50% - ${currentCfg.halfWidth} - 2.5rem))`
-    : undefined;
-
   if (items.length === 0) {
     return (
       <div className="flex h-[calc(100dvh-3.5rem)] items-center justify-center">
@@ -311,15 +303,9 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
         })}
       </div>
 
-      {/* Navigation dots — tracks current card's width via dotsLeft */}
+      {/* Navigation dots — fixed to left viewport edge */}
       {showNavDots && items.length > 1 && (
-        <div
-          className={cn(
-            'absolute top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-1.5 transition-[left] duration-300',
-            !dotsLeft && 'left-4 sm:left-6',
-          )}
-          style={dotsLeft ? { left: dotsLeft } : undefined}
-        >
+        <div className="absolute left-4 top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-1.5 sm:left-6">
           <button
             onClick={() => scrollToIndex(Math.max(currentIndex - 1, 0))}
             disabled={currentIndex === 0}

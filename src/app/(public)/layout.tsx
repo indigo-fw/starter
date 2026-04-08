@@ -122,7 +122,7 @@ export default async function PublicLayout({
 
       {/* ═══ Header ═══ */}
       <header className="header">
-        <div className="header-inner">
+        <div className="header-inner container">
           <Link href="/" className="header-logo">
             {siteConfig.name}
           </Link>

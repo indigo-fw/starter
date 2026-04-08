@@ -2,7 +2,11 @@
 
 @layer components {
   /* ===================== Layout ===================== */
-  /* .container is defined as @utility in globals.css (80rem / 1280px) */
+  /* Tailwind's container handles responsive max-width; we add centering + padding */
+  .container {
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
 
   .container-narrow {
     max-width: 48rem; /* 768px ≈ max-w-3xl */
@@ -39,11 +43,7 @@
     align-items: center;
     justify-content: space-between;
     height: 3.5rem; /* 56px */
-    max-width: 80rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    /* Width controlled by .container class in markup — keeps header in sync with page content */
   }
 
   .header-logo {

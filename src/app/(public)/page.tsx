@@ -37,94 +37,85 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const DEMO_CREDENTIALS = { email: "admin@example.com", password: "asdfasdf" };
 
-interface FeatureLink {
-  icon: typeof MessageCircle;
-  title: string;
-  description: string;
-  href: string;
-  badge?: string;
-}
-
-const FEATURES: FeatureLink[] = [
-  {
-    icon: Bot,
-    title: "Browse Characters",
-    description: "30 AI characters with filters, pagination, and video hover.",
-    href: "/characters",
-  },
-  {
-    icon: MessageCircle,
-    title: "AI Chat",
-    description: "Real-time text chat with LLM streaming and typing animation.",
-    href: "/chat",
-    badge: "WebSocket",
-  },
-  {
-    icon: Image,
-    title: "Image Generation",
-    description: 'Full keyword orchestration — type "send me a photo" in chat.',
-    href: "/chat",
-  },
-  {
-    icon: Mic,
-    title: "Voice Calls",
-    description:
-      "Call AI characters — STT → LLM → TTS with per-minute billing.",
-    href: "/chat",
-    badge: "New",
-  },
-  {
-    icon: LayoutDashboard,
-    title: "Admin Dashboard",
-    description: "Content, users, settings, analytics, provider management.",
-    href: "/dashboard",
-  },
-  {
-    icon: FileText,
-    title: "CMS",
-    description: "Blog, pages, portfolio, categories, tags — config-driven.",
-    href: "/blog",
-  },
-  {
-    icon: CreditCard,
-    title: "Billing & Tokens",
-    description: "Stripe subscriptions, token balance, discount codes.",
-    href: "/account/billing",
-  },
-  {
-    icon: Users,
-    title: "Organizations",
-    description: "Multi-tenant with roles for billing scoping.",
-    href: "/account",
-  },
-  {
-    icon: Shield,
-    title: "Moderation",
-    description: "Keyword filter + audit log + auto-block.",
-    href: "/dashboard/settings/chat/flagged",
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics",
-    description: "Character stats, user activity, provider health.",
-    href: "/dashboard/settings/chat/stats",
-  },
-  {
-    icon: Settings,
-    title: "AI Providers",
-    description: "DB-stored with encryption, round-robin, fallback.",
-    href: "/dashboard/settings/chat/providers",
-  },
-  {
-    icon: Palette,
-    title: "Theme & Branding",
-    description: "OKLCH design tokens, dark mode, CSS variables.",
-    href: "/dashboard/settings",
-  },
-];
-
 export default async function DemoHomePage() {
   const __ = await getServerTranslations();
+
+  const features = [
+    {
+      icon: Bot,
+      title: __("Browse Characters"),
+      description: __("30 AI characters with filters, pagination, and video hover."),
+      href: "/characters",
+    },
+    {
+      icon: MessageCircle,
+      title: __("AI Chat"),
+      description: __("Real-time text chat with LLM streaming and typing animation."),
+      href: "/chat",
+      badge: "WebSocket",
+    },
+    {
+      icon: Image,
+      title: __("Image Generation"),
+      description: __('Full keyword orchestration — type "send me a photo" in chat.'),
+      href: "/chat",
+    },
+    {
+      icon: Mic,
+      title: __("Voice Calls"),
+      description: __("Call AI characters — STT → LLM → TTS with per-minute billing."),
+      href: "/chat",
+      badge: "New",
+    },
+    {
+      icon: LayoutDashboard,
+      title: __("Admin Dashboard"),
+      description: __("Content, users, settings, analytics, provider management."),
+      href: "/dashboard",
+    },
+    {
+      icon: FileText,
+      title: __("CMS"),
+      description: __("Blog, pages, portfolio, categories, tags — config-driven."),
+      href: "/blog",
+    },
+    {
+      icon: CreditCard,
+      title: __("Billing & Tokens"),
+      description: __("Stripe subscriptions, token balance, discount codes."),
+      href: "/account/billing",
+    },
+    {
+      icon: Users,
+      title: __("Organizations"),
+      description: __("Multi-tenant with roles for billing scoping."),
+      href: "/account",
+    },
+    {
+      icon: Shield,
+      title: __("Moderation"),
+      description: __("Keyword filter + audit log + auto-block."),
+      href: "/dashboard/settings/chat/flagged",
+    },
+    {
+      icon: BarChart3,
+      title: __("Analytics"),
+      description: __("Character stats, user activity, provider health."),
+      href: "/dashboard/settings/chat/stats",
+    },
+    {
+      icon: Settings,
+      title: __("AI Providers"),
+      description: __("DB-stored with encryption, round-robin, fallback."),
+      href: "/dashboard/settings/chat/providers",
+    },
+    {
+      icon: Palette,
+      title: __("Theme & Branding"),
+      description: __("OKLCH design tokens, dark mode, CSS variables."),
+      href: "/dashboard/settings",
+    },
+  ];
 
   return (
     <div className="flex flex-col">
@@ -194,9 +185,9 @@ export default async function DemoHomePage() {
           </p>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {FEATURES.map((f) => (
+            {features.map((f) => (
               <NextLink
-                key={f.title}
+                key={f.href + f.title}
                 href={f.href}
                 className="group relative p-5 rounded-xl border border-(--border-primary) bg-(--surface-primary) hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all"
               >
@@ -209,10 +200,10 @@ export default async function DemoHomePage() {
                   <f.icon size={18} />
                 </div>
                 <h3 className="font-semibold text-sm text-(--text-primary)">
-                  {__(f.title)}
+                  {f.title}
                 </h3>
                 <p className="mt-1.5 text-xs text-(--text-secondary) leading-relaxed">
-                  {__(f.description)}
+                  {f.description}
                 </p>
                 <div className="mt-3 flex items-center gap-1 text-xs text-brand-500 opacity-0 group-hover:opacity-100 transition-opacity">
                   <span>{__("Explore")}</span>

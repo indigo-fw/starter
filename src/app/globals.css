@@ -1,14 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @custom-variant dark (html.dark &);
-
-/* Override Tailwind's responsive container — fixed 80rem (1280px) max-width */
-@utility container {
-  width: 100%;
-  margin-inline: auto;
-  padding-inline: 1rem;
-  max-width: 80rem;
-}
 @import "../core/styles/tokens.css";
 @import "../core/styles/overlay.css";
 

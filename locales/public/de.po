@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07T23:28:31.126Z\n"
-"PO-Revision-Date: 2026-04-07T23:28:31.126Z\n"
+"POT-Creation-Date: 2026-04-07T23:51:47.404Z\n"
+"PO-Revision-Date: 2026-04-07T23:51:47.404Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de\n"
 "Language: de\n"
@@ -243,71 +243,165 @@ msgstr "Anmelden"
 msgid "Welcome back! Sign in to your account."
 msgstr "Willkommen zurück! Melde dich bei deinem Konto an."
 
-#: src/app/(public)/page.tsx:135
-msgid "Live Demo — resets hourly"
-msgstr "Live Demo — resets hourly"
-
-#: src/app/(public)/page.tsx:143
-msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-
-#: src/app/(public)/page.tsx:153
-msgid "Demo login"
-msgstr "Demo login"
-
+#: src/app/(public)/page.tsx:46
 #: src/app/(public)/page.tsx:163
-msgid "Log in"
-msgstr "Log in"
-
-#: src/app/(public)/page.tsx:172
 msgid "Browse Characters"
 msgstr "Browse Characters"
 
-#: src/app/(public)/page.tsx:178
+#: src/app/(public)/page.tsx:47
+msgid "30 AI characters with filters, pagination, and video hover."
+msgstr "30 AI characters with filters, pagination, and video hover."
+
+#: src/app/(public)/page.tsx:52
+msgid "AI Chat"
+msgstr "AI Chat"
+
+#: src/app/(public)/page.tsx:53
+msgid "Real-time text chat with LLM streaming and typing animation."
+msgstr "Real-time text chat with LLM streaming and typing animation."
+
+#: src/app/(public)/page.tsx:59
+msgid "Image Generation"
+msgstr "Image Generation"
+
+#: src/app/(public)/page.tsx:60
+msgid "Full keyword orchestration — type \"send me a photo\" in chat."
+msgstr "Full keyword orchestration — type \"send me a photo\" in chat."
+
+#: src/app/(public)/page.tsx:65
+msgid "Voice Calls"
+msgstr "Voice Calls"
+
+#: src/app/(public)/page.tsx:66
+msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
+msgstr "Call AI characters — STT → LLM → TTS with per-minute billing."
+
+#: src/app/(public)/page.tsx:72
+#: src/app/(public)/page.tsx:169
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: src/app/(public)/page.tsx:188
+#: src/app/(public)/page.tsx:73
+msgid "Content, users, settings, analytics, provider management."
+msgstr "Content, users, settings, analytics, provider management."
+
+#: src/app/(public)/page.tsx:78
+msgid "CMS"
+msgstr "CMS"
+
+#: src/app/(public)/page.tsx:79
+msgid "Blog, pages, portfolio, categories, tags — config-driven."
+msgstr "Blog, pages, portfolio, categories, tags — config-driven."
+
+#: src/app/(public)/page.tsx:84
+msgid "Billing & Tokens"
+msgstr "Billing & Tokens"
+
+#: src/app/(public)/page.tsx:85
+msgid "Stripe subscriptions, token balance, discount codes."
+msgstr "Stripe subscriptions, token balance, discount codes."
+
+#: src/app/(public)/page.tsx:90
+msgid "Organizations"
+msgstr "Organizations"
+
+#: src/app/(public)/page.tsx:91
+msgid "Multi-tenant with roles for billing scoping."
+msgstr "Multi-tenant with roles for billing scoping."
+
+#: src/app/(public)/page.tsx:96
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Moderation"
+msgstr "Moderation"
+
+#: src/app/(public)/page.tsx:97
+msgid "Keyword filter + audit log + auto-block."
+msgstr "Keyword filter + audit log + auto-block."
+
+#: src/app/(public)/page.tsx:102
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Analytics"
+msgstr "Analytics"
+
+#: src/app/(public)/page.tsx:103
+msgid "Character stats, user activity, provider health."
+msgstr "Character stats, user activity, provider health."
+
+#: src/app/(public)/page.tsx:108
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:84
+msgid "AI Providers"
+msgstr "AI Providers"
+
+#: src/app/(public)/page.tsx:109
+msgid "DB-stored with encryption, round-robin, fallback."
+msgstr "DB-stored with encryption, round-robin, fallback."
+
+#: src/app/(public)/page.tsx:114
+msgid "Theme & Branding"
+msgstr "Theme & Branding"
+
+#: src/app/(public)/page.tsx:115
+msgid "OKLCH design tokens, dark mode, CSS variables."
+msgstr "OKLCH design tokens, dark mode, CSS variables."
+
+#: src/app/(public)/page.tsx:126
+msgid "Live Demo — resets hourly"
+msgstr "Live Demo — resets hourly"
+
+#: src/app/(public)/page.tsx:134
+msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+
+#: src/app/(public)/page.tsx:144
+msgid "Demo login"
+msgstr "Demo login"
+
+#: src/app/(public)/page.tsx:154
+msgid "Log in"
+msgstr "Log in"
+
+#: src/app/(public)/page.tsx:179
 msgid "Explore the Features"
 msgstr "Explore the Features"
 
-#: src/app/(public)/page.tsx:191
+#: src/app/(public)/page.tsx:182
 msgid "Click any card to see it in action. Everything is live and functional."
 msgstr "Click any card to see it in action. Everything is live and functional."
 
-#: src/app/(public)/page.tsx:218
+#: src/app/(public)/page.tsx:209
 msgid "Explore"
 msgstr "Explore"
 
-#: src/app/(public)/page.tsx:231
+#: src/app/(public)/page.tsx:222
 msgid "Built With"
 msgstr "Built With"
 
-#: src/app/(public)/page.tsx:265
+#: src/app/(public)/page.tsx:256
 msgid "Modular Architecture"
 msgstr "Modular Architecture"
 
-#: src/app/(public)/page.tsx:268
+#: src/app/(public)/page.tsx:259
 msgid "Install only what you need. Each module is a self-contained git subtree."
 msgstr "Install only what you need. Each module is a self-contained git subtree."
 
-#: src/app/(public)/page.tsx:331
+#: src/app/(public)/page.tsx:322
 msgid "Ready to build?"
 msgstr "Ready to build?"
 
-#: src/app/(public)/page.tsx:334
+#: src/app/(public)/page.tsx:325
 msgid "Clone, init, ship. It's that simple."
 msgstr "Clone, init, ship. It's that simple."
 
-#: src/app/(public)/page.tsx:341
+#: src/app/(public)/page.tsx:332
 msgid "Clone on GitHub"
 msgstr "Clone on GitHub"
 
-#: src/app/(public)/page.tsx:347
+#: src/app/(public)/page.tsx:338
 msgid "Documentation"
 msgstr "Documentation"
 
-#: src/app/(public)/page.tsx:351
+#: src/app/(public)/page.tsx:342
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
 msgstr "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
 
@@ -506,7 +600,7 @@ msgstr "Sign in to react"
 msgid "Link copied"
 msgstr "Link copied"
 
-#: src/components/public/ShowcaseFeed.tsx:247
+#: src/components/public/ShowcaseFeed.tsx:244
 msgid "No showcase items yet."
 msgstr "No showcase items yet."
 
@@ -1914,25 +2008,12 @@ msgid "Review moderated content"
 msgstr "Review moderated content"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
-#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:84
-msgid "AI Providers"
-msgstr "AI Providers"
-
-#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 msgid "Manage LLM providers"
 msgstr "Manage LLM providers"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
-msgid "Analytics"
-msgstr "Analytics"
-
-#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Usage statistics and charts"
 msgstr "Usage statistics and charts"
-
-#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
-msgid "Moderation"
-msgstr "Moderation"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Keywords, action, and rate limits"
@@ -2667,65 +2748,6 @@ msgstr "Unassign"
 msgid "Not assigned"
 msgstr "Not assigned"
 
-
-#. Homepage feature cards (dynamic strings)
-
-msgid "AI Chat"
-msgstr "AI Chat"
-
-msgid "Image Generation"
-msgstr "Image Generation"
-
-msgid "Voice Calls"
-msgstr "Voice Calls"
-
-msgid "CMS"
-msgstr "CMS"
-
-msgid "Billing & Tokens"
-msgstr "Billing & Tokens"
-
-msgid "Organizations"
-msgstr "Organizations"
-
-msgid "Theme & Branding"
-msgstr "Theme & Branding"
-
-msgid "30 AI characters with filters, pagination, and video hover."
-msgstr "30 AI characters with filters, pagination, and video hover."
-
-msgid "Real-time text chat with LLM streaming and typing animation."
-msgstr "Real-time text chat with LLM streaming and typing animation."
-
-msgid "Content, users, settings, analytics, provider management."
-msgstr "Content, users, settings, analytics, provider management."
-
-msgid "Blog, pages, portfolio, categories, tags — config-driven."
-msgstr "Blog, pages, portfolio, categories, tags — config-driven."
-
-msgid "Stripe subscriptions, token balance, discount codes."
-msgstr "Stripe subscriptions, token balance, discount codes."
-
-msgid "Multi-tenant with roles for billing scoping."
-msgstr "Multi-tenant with roles for billing scoping."
-
-msgid "Keyword filter + audit log + auto-block."
-msgstr "Keyword filter + audit log + auto-block."
-
-msgid "Character stats, user activity, provider health."
-msgstr "Character stats, user activity, provider health."
-
-msgid "DB-stored with encryption, round-robin, fallback."
-msgstr "DB-stored with encryption, round-robin, fallback."
-
-msgid "OKLCH design tokens, dark mode, CSS variables."
-msgstr "OKLCH design tokens, dark mode, CSS variables."
-
-msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
-msgstr "Call AI characters — STT → LLM → TTS with per-minute billing."
-
-msgid "Full keyword orchestration — type \"send me a photo\" in chat."
-msgstr "Full keyword orchestration — type \"send me a photo\" in chat."
 #. REMOVED FROM CODE - PRESERVED FOR REFERENCE
 #~ msgid "Read the Blog"
 #~ msgstr "Den Blog lesen"
