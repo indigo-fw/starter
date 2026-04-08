@@ -29,7 +29,7 @@ export function HeroSection({
       variant === 'default' && 'bg-(--surface-primary)',
       className,
     )}>
-      <div className="content-container text-center relative z-10">
+      <div className="app-container text-center relative z-10">
         {badge && (
           <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-500/10 text-brand-500 mb-6">
             {badge}

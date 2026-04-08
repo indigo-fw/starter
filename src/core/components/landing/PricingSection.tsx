@@ -24,7 +24,7 @@ interface PricingSectionProps {
 export function PricingSection({ title, subtitle, plans, className }: PricingSectionProps) {
   return (
     <section className={cn('py-20', className)}>
-      <div className="content-container">
+      <div className="app-container">
         {(title || subtitle) && (
           <div className="text-center mb-14">
             {title && <h2 className="text-3xl font-bold text-(--text-primary)">{title}</h2>}

@@ -109,7 +109,7 @@ export default async function PublicLayout({
   const mobileItems = await getMobileNavItems(categories, locale, __);
 
   return (
-    <div className="app-container" data-page="public">
+    <div className="app-wrapper" data-page="public">
       <Suspense fallback={null}>
         {PUBLIC_LAYOUT_WIDGETS.map((Widget, i) => <Widget key={i} />)}
       </Suspense>
@@ -122,7 +122,7 @@ export default async function PublicLayout({
 
       {/* ═══ Header ═══ */}
       <header className="app-header">
-        <div className="app-toolbar content-container">
+        <div className="app-toolbar app-container">
           <Link href="/" className="app-logo">
             {siteConfig.name}
           </Link>
@@ -181,7 +181,7 @@ export default async function PublicLayout({
 
       {/* ═══ Footer ═══ */}
       <footer className="app-footer">
-        <div className="content-container py-8">
+        <div className="app-container py-8">
           <div className="app-footer-grid">
             {/* Col 1: About */}
             <div>

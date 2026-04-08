@@ -21,7 +21,7 @@ export function FaqSection({ title, subtitle, items, className }: FaqSectionProp
 
   return (
     <section className={cn('py-20', className)}>
-      <div className="content-container max-w-3xl">
+      <div className="app-container max-w-3xl">
         {(title || subtitle) && (
           <div className="text-center mb-14">
             {title && <h2 className="text-3xl font-bold text-(--text-primary)">{title}</h2>}

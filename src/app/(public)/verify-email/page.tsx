@@ -21,7 +21,7 @@ export default async function VerifyEmailPage() {
   }
 
   return (
-    <div className="content-container py-16 max-w-md">
+    <div className="app-container py-16 max-w-md">
       <VerifyEmailContent
         email={session.user.email}
         createdAt={(u.createdAt as string) ?? new Date().toISOString()}

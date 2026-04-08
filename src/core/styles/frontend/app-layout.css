@@ -6,7 +6,7 @@
    * Unified layout system for all public-facing routes.
    *
    * Structure (mirrors dashboard's dash-* pattern):
-   *   .app-container[data-page]
+   *   .app-wrapper[data-page]
    *     .app-header                <- sticky top bar
    *       .app-toolbar             <- centered flex row (height: --app-header-h)
    *         .app-logo              <- site name link
@@ -27,23 +27,23 @@
    *
    * Every route group layout sets `data-page` on its outermost wrapper:
    *
-   *   .app-container[data-page="public"]     — marketing site
-   *   .app-container[data-page="showcase"]   — showcase feed
+   *   .app-wrapper[data-page="public"]     — marketing site
+   *   .app-wrapper[data-page="showcase"]   — showcase feed
    *   [data-page="account"]                  — nested layout
    *   [data-page="chat"]                     — full-screen layout
    *   [data-page="auth"]                     — dashboard auth
    *
    * Target in a co-located CSS file:
    *
-   *   .app-container[data-page="showcase"] { --page-bg: oklch(0 0 0); }
+   *   .app-wrapper[data-page="showcase"] { --page-bg: oklch(0 0 0); }
    *
-   * Available CSS custom properties on .app-container:
+   * Available CSS custom properties on .app-wrapper:
    *
    *   --page-bg              .app-main background (default: transparent)
    *   --app-header-h         Header height (default: 3.5rem)
    */
 
-  .app-container {
+  .app-wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
