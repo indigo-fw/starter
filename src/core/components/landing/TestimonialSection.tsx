@@ -19,7 +19,7 @@ interface TestimonialSectionProps {
 export function TestimonialSection({ title, subtitle, testimonials, className }: TestimonialSectionProps) {
   return (
     <section className={cn('py-20', className)}>
-      <div className="app-container">
+      <div className="content-container">
         {(title || subtitle) && (
           <div className="text-center mb-14">
             {title && <h2 className="text-3xl font-bold text-(--text-primary)">{title}</h2>}

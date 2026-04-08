@@ -47,7 +47,7 @@ export default async function BlogListPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="app-container py-12">
+    <div className="content-container py-12">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_280px]">
         {/* Main column */}
         <div>

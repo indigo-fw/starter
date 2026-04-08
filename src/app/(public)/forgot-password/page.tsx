@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function ForgotPasswordPage() {
   const __ = await getServerTranslations();
   return (
-    <main className="app-container py-16 max-w-md">
+    <main className="content-container py-16 max-w-md">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold">{__('Forgot Password')}</h1>
         <p className="text-(--text-secondary) mt-2">{__('Enter your email to receive a reset link.')}</p>

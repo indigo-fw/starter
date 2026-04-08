@@ -43,7 +43,7 @@ export function MobileMenu({ items }: Props) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="header-icon-btn sm:hidden"
+        className="app-icon-btn sm:hidden"
         aria-label="Open menu"
       >
         <Menu className="h-5 w-5" />
@@ -65,7 +65,7 @@ export function MobileMenu({ items }: Props) {
           <button
             type="button"
             onClick={close}
-            className="header-icon-btn"
+            className="app-icon-btn"
             aria-label="Close menu"
           >
             <X className="h-5 w-5" />

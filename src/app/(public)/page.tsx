@@ -121,7 +121,7 @@ export default async function DemoHomePage() {
     <div className="flex flex-col">
       {/* Hero */}
       <section className="relative overflow-hidden py-16 sm:py-24">
-        <div className="app-container text-center relative z-10">
+        <div className="content-container text-center relative z-10">
           <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-500/10 text-brand-500 mb-6">
             {__("Live Demo — resets hourly")}
           </div>
@@ -174,7 +174,7 @@ export default async function DemoHomePage() {
 
       {/* Feature grid */}
       <section className="py-16 section-alt">
-        <div className="app-container">
+        <div className="content-container">
           <h2 className="text-2xl font-bold text-(--text-primary) text-center mb-3">
             {__("Explore the Features")}
           </h2>
@@ -217,7 +217,7 @@ export default async function DemoHomePage() {
 
       {/* Tech stack */}
       <section className="py-16">
-        <div className="app-container">
+        <div className="content-container">
           <h2 className="text-2xl font-bold text-(--text-primary) text-center mb-10">
             {__("Built With")}
           </h2>
@@ -251,7 +251,7 @@ export default async function DemoHomePage() {
 
       {/* Modules */}
       <section className="py-16 section-alt">
-        <div className="app-container max-w-3xl">
+        <div className="content-container max-w-3xl">
           <h2 className="text-2xl font-bold text-(--text-primary) text-center mb-3">
             {__("Modular Architecture")}
           </h2>
@@ -317,7 +317,7 @@ export default async function DemoHomePage() {
 
       {/* CTA */}
       <section className="py-16">
-        <div className="app-container text-center">
+        <div className="content-container text-center">
           <h2 className="text-2xl font-bold text-(--text-primary)">
             {__("Ready to build?")}
           </h2>

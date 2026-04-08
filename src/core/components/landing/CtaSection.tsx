@@ -18,7 +18,7 @@ export function CtaSection({ title, subtitle, primaryAction, secondaryAction, va
       variant === 'brand' && 'bg-gradient-to-r from-brand-500 to-accent-500',
       className,
     )}>
-      <div className="app-container text-center">
+      <div className="content-container text-center">
         <h2 className={cn(
           'text-3xl font-bold',
           variant === 'brand' ? 'text-white' : 'text-(--text-primary)',

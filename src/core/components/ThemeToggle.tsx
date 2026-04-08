@@ -30,7 +30,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(next[theme])}
-      className="header-icon-btn"
+      className="app-icon-btn"
       aria-label={`Switch to ${next[theme]} theme`}
     >
       <Icon className="h-4 w-4" />

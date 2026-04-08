@@ -109,7 +109,7 @@ export default async function PublicLayout({
   const mobileItems = await getMobileNavItems(categories, locale, __);
 
   return (
-    <div className="page-container" data-page="public">
+    <div className="app-container" data-page="public">
       <Suspense fallback={null}>
         {PUBLIC_LAYOUT_WIDGETS.map((Widget, i) => <Widget key={i} />)}
       </Suspense>
@@ -121,41 +121,43 @@ export default async function PublicLayout({
       />
 
       {/* ═══ Header ═══ */}
-      <header className="header">
-        <div className="header-inner app-container">
-          <Link href="/" className="header-logo">
+      <header className="app-header">
+        <div className="app-toolbar content-container">
+          <Link href="/" className="app-logo">
             {siteConfig.name}
           </Link>
 
           {/* Desktop nav */}
-          <div className="header-nav hidden sm:flex">
+          <nav className="app-nav hidden sm:flex">
             <DynamicNav
               menuSlug="main"
               fallback={
                 <>
-                  <Link href="/blog" className="header-link">
+                  <Link href="/blog" className="app-nav-link">
                     {__('Blog')}
                   </Link>
                   {categories.map((cat) => (
                     <Link
                       key={cat.slug}
                       href={{ pathname: '/category/[slug]', params: { slug: cat.slug } }}
-                      className="header-link"
+                      className="app-nav-link"
                     >
                       {cat.name}
                     </Link>
                   ))}
-                  <Link href="/showcase" className="header-link">
+                  <Link href="/showcase" className="app-nav-link">
                     {__('Showcase')}
                   </Link>
                 </>
               }
             />
-          </div>
+          </nav>
+
+          <div className="app-spacer" />
 
           {/* Actions */}
-          <div className="header-actions">
-            <Link href="/search" className="header-icon-btn" title={__('Search')}>
+          <div className="app-actions">
+            <Link href="/search" className="app-icon-btn" title={__('Search')}>
               <Search className="h-4 w-4" />
             </Link>
             <LanguageSwitcher />
@@ -175,12 +177,12 @@ export default async function PublicLayout({
         />
       )}
       <AuthDialogs />
-      <main className="flex-1">{children}</main>
+      <main className="app-main">{children}</main>
 
       {/* ═══ Footer ═══ */}
-      <footer className="footer">
-        <div className="app-container py-8">
-          <div className="footer-grid">
+      <footer className="app-footer">
+        <div className="content-container py-8">
+          <div className="app-footer-grid">
             {/* Col 1: About */}
             <div>
               <p className="text-sm font-semibold text-(--text-primary)">
@@ -194,12 +196,12 @@ export default async function PublicLayout({
             {/* Col 2: Categories */}
             {categories.length > 0 && (
               <div>
-                <h4 className="footer-col-title">{__('Categories')}</h4>
+                <h4 className="app-footer-col-title">{__('Categories')}</h4>
                 {categories.map((cat) => (
                   <Link
                     key={cat.slug}
                     href={{ pathname: '/category/[slug]', params: { slug: cat.slug } }}
-                    className="footer-link"
+                    className="app-footer-link"
                   >
                     {cat.name}
                   </Link>
@@ -209,25 +211,25 @@ export default async function PublicLayout({
 
             {/* Col 3: Quick Links */}
             <div>
-              <h4 className="footer-col-title">{__('Quick Links')}</h4>
-              <Link href="/blog" className="footer-link">{__('Blog')}</Link>
-              <Link href="/portfolio" className="footer-link">{__('Portfolio')}</Link>
-              <Link href="/showcase" className="footer-link">{__('Showcase')}</Link>
-              <Link href="/search" className="footer-link">{__('Search')}</Link>
+              <h4 className="app-footer-col-title">{__('Quick Links')}</h4>
+              <Link href="/blog" className="app-footer-link">{__('Blog')}</Link>
+              <Link href="/portfolio" className="app-footer-link">{__('Portfolio')}</Link>
+              <Link href="/showcase" className="app-footer-link">{__('Showcase')}</Link>
+              <Link href="/search" className="app-footer-link">{__('Search')}</Link>
             </div>
 
             {/* Col 4: More */}
             <div>
-              <h4 className="footer-col-title">{__('More')}</h4>
-              <NextLink href={apiRoutes.feedBlog} className="footer-link inline-flex items-center gap-1">
+              <h4 className="app-footer-col-title">{__('More')}</h4>
+              <NextLink href={apiRoutes.feedBlog} className="app-footer-link inline-flex items-center gap-1">
                 <Rss className="h-3.5 w-3.5" />
                 {__('RSS Feed')}
               </NextLink>
-              <NextLink href={adminRoutes.home} className="footer-link">{__('Admin')}</NextLink>
+              <NextLink href={adminRoutes.home} className="app-footer-link">{__('Admin')}</NextLink>
             </div>
           </div>
 
-          <div className="footer-bottom">
+          <div className="app-footer-bottom">
             <span>&copy; {new Date().getFullYear()} {siteConfig.name}</span>
             <span>{__('Powered by Indigo')}</span>
           </div>

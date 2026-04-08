@@ -9,7 +9,7 @@
    * contained) sit on black, and the area behind the comment panel stays
    * dark when the feed pushes left.
    */
-  .page-container[data-page="showcase"] {
-    --app-page-bg: oklch(0 0 0);
+  .app-container[data-page="showcase"] {
+    --page-bg: oklch(0 0 0);
   }
 }

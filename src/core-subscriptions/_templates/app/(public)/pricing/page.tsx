@@ -15,7 +15,7 @@ export default async function PricingPage() {
   const cryptoEnabled = !!process.env.NOWPAYMENTS_API_KEY;
 
   return (
-    <main className="app-container py-16 max-w-6xl">
+    <main className="content-container py-16 max-w-6xl">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">{__('Simple, transparent pricing')}</h1>
         <p className="text-lg text-(--text-secondary) max-w-2xl mx-auto">
