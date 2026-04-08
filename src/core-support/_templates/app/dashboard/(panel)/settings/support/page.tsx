@@ -8,7 +8,7 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { adminPanel } from '@/config/routes';
 import { cn } from '@/lib/utils';
-import { activeClass, activeAria } from '@/core/lib/active-props';
+import { IS_ACTIVE, activeAria } from '@/core/lib/active-props';
 
 // ─── Shared constants ───────────────────────────────────────────────────────
 
@@ -351,16 +351,16 @@ export default function AdminSupportPage() {
       </header>
       <main className="dash-main"><div className="dash-inner support-page">
       {/* Tab bar */}
-      <div className="status-tabs mt-4">
+      <div role="tablist" className="status-tabs mt-4">
         <button
-          className={cn('status-tab', activeTab === 'tickets' && activeClass('tab'))}
+          className={cn('status-tab', activeTab === 'tickets' && IS_ACTIVE)}
           onClick={() => setActiveTab('tickets')}
           {...activeAria(activeTab === 'tickets', 'tab')}
         >
           {__('Tickets')}
         </button>
         <button
-          className={cn('status-tab', activeTab === 'chats' && activeClass('tab'))}
+          className={cn('status-tab', activeTab === 'chats' && IS_ACTIVE)}
           onClick={() => setActiveTab('chats')}
           {...activeAria(activeTab === 'chats', 'tab')}
         >

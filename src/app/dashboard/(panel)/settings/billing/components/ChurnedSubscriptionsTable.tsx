@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
-import { activeClass, activeAria } from '@/core/lib/active-props';
+import { IS_ACTIVE, activeAria } from '@/core/lib/active-props';
 
 interface ChurnedSubscriptionsTableProps {
   from?: string;
@@ -92,11 +92,11 @@ export function ChurnedSubscriptionsTable({ from, to }: ChurnedSubscriptionsTabl
         <h2 className="font-semibold text-(--text-primary)">{__('Churned Subscriptions')}</h2>
       </div>
       {/* Tab bar */}
-      <div className="status-tabs">
+      <div role="tablist" className="status-tabs">
         {tabs.map((tab) => (
           <button
             key={tab.key}
-            className={cn('status-tab', activeTab === tab.key && activeClass('tab'))}
+            className={cn('status-tab', activeTab === tab.key && IS_ACTIVE)}
             onClick={() => setActiveTab(tab.key)}
             {...activeAria(activeTab === tab.key, 'tab')}
           >

@@ -3,25 +3,27 @@
  * Couples styling with accessibility so neither can be forgotten.
  *
  * Usage:
- *   <Link className={cn('dash-sidebar-link', active && activeClass('nav'))} {...activeAria(active, 'nav')}>
- *   <button className={cn('status-tab', isActive && activeClass('tab'))} {...activeAria(isActive, 'tab')}>
+ *   <Link className={cn('dash-sidebar-link', active && IS_ACTIVE)} {...activeAria(active, 'nav')}>
+ *   <button className={cn('status-tab', isActive && IS_ACTIVE)} {...activeAria(isActive, 'tab')}>
+ *   <button className={cn('command-result', isActive && IS_ACTIVE)} {...activeAria(isActive, 'option')}>
  */
 
-type ActiveRole = 'nav' | 'tab';
+/** The active state class — use in cn() conditionals */
+export const IS_ACTIVE = 'is-active';
 
-/** Returns 'is-active' — use in cn() conditionals */
-export function activeClass(_role?: ActiveRole): string {
-  return 'is-active';
-}
+type ActiveRole = 'nav' | 'tab' | 'option';
 
 /** Returns ARIA attributes for the given active state and role */
 export function activeAria(
   isActive: boolean,
-  role: ActiveRole = 'nav',
+  role: ActiveRole,
 ): Record<string, unknown> {
-  if (role === 'tab') {
-    return { role: 'tab', 'aria-selected': isActive };
+  switch (role) {
+    case 'nav':
+      return isActive ? { 'aria-current': 'page' as const } : {};
+    case 'tab':
+      return { role: 'tab', 'aria-selected': isActive };
+    case 'option':
+      return { role: 'option', 'aria-selected': isActive };
   }
-  // nav
-  return isActive ? { 'aria-current': 'page' as const } : {};
 }

@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Briefcase, ChevronsLeft, ChevronsRight, ExternalLink, FolderOpen, Hash, LogOut, Menu, Monitor, Moon, Search, Sun, User, FileText } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { activeClass, activeAria } from '@/core/lib/active-props';
+import { IS_ACTIVE, activeAria } from '@/core/lib/active-props';
 import { useAdminTranslations, dataTranslations } from '@/lib/translations';
 import { signOut, useSession } from '@/lib/auth-client';
 import { useSidebarStore } from '@/core/store/sidebar-store';
@@ -144,7 +144,7 @@ export function AdminSidebar() {
               if (firstChild) router.push(firstChild.href);
               closeSidebar();
             }}
-            className={cn('dash-rail-btn', isActive && activeClass('nav'))}
+            className={cn('dash-rail-btn', isActive && IS_ACTIVE)}
             {...activeAria(isActive, 'nav')}
           >
             <Icon className="h-5 w-5" />
@@ -158,7 +158,7 @@ export function AdminSidebar() {
           href={item.href}
           title={item.name}
           onClick={closeSidebar}
-          className={cn('dash-rail-btn', isActive && activeClass('nav'))}
+          className={cn('dash-rail-btn', isActive && IS_ACTIVE)}
           {...activeAria(isActive, 'nav')}
         >
           <Icon className="h-5 w-5" />
@@ -260,7 +260,7 @@ export function AdminSidebar() {
                 href={child.href}
                 onClick={closeSidebar}
                 title={isL2Collapsed ? child.name : undefined}
-                className={cn('dash-sidebar-link', active && activeClass('nav'))}
+                className={cn('dash-sidebar-link', active && IS_ACTIVE)}
                 {...activeAria(active, 'nav')}
               >
                 <Icon className="h-4 w-4 shrink-0" />

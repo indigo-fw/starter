@@ -72,7 +72,7 @@ const __ = await getServerTranslations();
 - **Tailwind utility** for one-off layout — spacing, flex, grid, responsive breakpoints, max-width overrides. These are structural, not branded.
 - **Page width:** `app-container` utility (80rem, centered, padded) — defined in `globals.css`. Never use Tailwind's `container` (responsive breakpoints, no centering/padding, collides with custom intent).
 - **Naming:** 100% kebab-case. Scoped prefixes for route-specific components (`dash-*` admin, `app-*` showcase). Shared components unprefixed (`.btn`, `.input`, `.card`).
-- **Modifiers:** separate class (`.btn-primary`, `.btn-sm`), not BEM (`--primary`). State via `activeClass()` + `activeAria()` from `@/core/lib/active-props` — couples `.is-active` class with correct ARIA attributes so neither can be forgotten.
+- **Modifiers:** separate class (`.btn-primary`, `.btn-sm`), not BEM (`--primary`). State via `IS_ACTIVE` constant + `activeAria(isActive, role)` from `@/core/lib/active-props` — couples `.is-active` class with correct ARIA attributes (`aria-current="page"` for `'nav'`, `role="tab" aria-selected` for `'tab'`, `role="option" aria-selected` for `'option'`). Parent containers need `role="tablist"` or `role="listbox"` respectively.
 - **Table classes:** prefixed `.table-th`, `.table-td`, `.table-tr` (not bare `.th`/`.td`/`.tr`).
 - **Dark mode:** always `html.dark { }` selector. Never `dark:` Tailwind modifier (breaks oklch alpha tints). Co-locate dark overrides in same file as light mode.
 - **Shared styles:** `shared-components.css` (loaded globally via `globals.css`) owns `.btn`, `.input`, `.select`, `.textarea`, `.label` base + dark overrides. Route-specific variants in `admin.css` (`.btn-danger`, `.btn-sm`) or `frontend/forms.css` (`.btn-ghost`).

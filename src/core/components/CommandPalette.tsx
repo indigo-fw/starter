@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FileText, Search } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { activeClass, activeAria } from '@/core/lib/active-props';
+import { IS_ACTIVE, activeAria } from '@/core/lib/active-props';
 import { useAdminTranslations } from '@/core/lib/translations';
 import { trpc } from '@/lib/trpc/client';
 import { useKeyboardShortcuts } from '@/core/hooks/useKeyboardShortcuts';
@@ -206,7 +206,7 @@ export function CommandPalette({ open, onClose, navItems: navItemsProp, contentT
         </div>
 
         {/* Results */}
-        <div ref={listRef} className="command-results">
+        <div ref={listRef} className="command-results" role="listbox">
           {grouped.map((group) => (
             <div key={group.label}>
               <div className="command-group">{group.label}</div>
@@ -218,9 +218,9 @@ export function CommandPalette({ open, onClose, navItems: navItemsProp, contentT
                     type="button"
                     className={cn(
                       'command-result',
-                      item.index === activeIndex && activeClass('tab')
+                      item.index === activeIndex && IS_ACTIVE
                     )}
-                    {...activeAria(item.index === activeIndex, 'tab')}
+                    {...activeAria(item.index === activeIndex, 'option')}
                     onClick={() => handleSelect(item)}
                     onMouseEnter={() => setActiveIndex(item.index)}
                   >
