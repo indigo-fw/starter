@@ -1,5 +1,7 @@
 'use client';
 
+import './AppSidebar.css';
+
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -55,7 +57,7 @@ export function AppSidebarToggle({ alwaysOpen = false }: { alwaysOpen?: boolean 
     <button
       type="button"
       onClick={toggle}
-      className={cn('app-icon-btn', alwaysOpen && 'xl:hidden')}
+      className={cn('icon-btn', alwaysOpen && 'xl:hidden')}
       aria-label={open ? 'Close menu' : 'Open menu'}
     >
       {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

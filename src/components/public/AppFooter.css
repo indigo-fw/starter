@@ -1,0 +1,75 @@
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* ── App Footer ── */
+
+  .app-footer {
+    border-top: 1px solid var(--border-primary);
+    background-color: var(--surface-secondary);
+  }
+
+  .app-footer .app-toolbar {
+    height: 3rem;
+  }
+
+  .app-footer-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .app-footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .app-footer-grid {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+  }
+
+  .app-footer-col-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .app-footer-link {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .app-footer-link:hover {
+    color: var(--text-primary);
+  }
+
+  .app-footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+}
+
+/* ── Dark Mode ── */
+html.dark {
+  .app-footer {
+    background-color: oklch(0.20 0.02 260);
+    border-top-color: oklch(1 0 0 / 0.08);
+  }
+}

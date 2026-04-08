@@ -11,6 +11,7 @@ import { LanguageSwitcher } from '@/core/components/LanguageSwitcher';
 import { UserMenu } from '@/components/public/UserMenu';
 import { SubscribeOrTokens } from '@/components/public/SubscribeOrTokens';
 import { ExpandableSearch } from '@/components/public/ExpandableSearch';
+import { AppNav } from '@/components/public/AppNav';
 import {
   AppSidebarProvider,
   AppSidebarToggle,
@@ -57,33 +58,36 @@ export default async function ShowcaseLayout({
       <div className="app-wrapper" data-page="showcase">
         <header className="app-header">
           <div className="app-toolbar">
-            <AppSidebarToggle />
-
-            <Link href="/" className="app-logo">
-              {siteConfig.name}
-            </Link>
-
-            <nav className="app-nav hidden lg:flex">
-              <Link href="/showcase" className="app-nav-link">
-                {__('Feed')}
-              </Link>
-              <Link href="/blog" className="app-nav-link">
-                {__('Blog')}
-              </Link>
-              <Link href="/portfolio" className="app-nav-link">
-                {__('Portfolio')}
-              </Link>
-            </nav>
-
-            <div className="app-spacer" />
-
-            <div className="app-actions">
-              <SubscribeOrTokens />
-              <ExpandableSearch />
-              <LanguageSwitcher />
-              <ThemeToggle />
-              <UserMenu />
-            </div>
+            <AppNav
+              leading={<AppSidebarToggle />}
+              logo={
+                <Link href="/" className="app-logo">
+                  {siteConfig.name}
+                </Link>
+              }
+              nav={
+                <nav className="app-nav hidden lg:flex">
+                  <Link href="/showcase" className="app-nav-link">
+                    {__('Feed')}
+                  </Link>
+                  <Link href="/blog" className="app-nav-link">
+                    {__('Blog')}
+                  </Link>
+                  <Link href="/portfolio" className="app-nav-link">
+                    {__('Portfolio')}
+                  </Link>
+                </nav>
+              }
+              actions={
+                <>
+                  <SubscribeOrTokens />
+                  <ExpandableSearch />
+                  <LanguageSwitcher />
+                  <ThemeToggle />
+                  <UserMenu />
+                </>
+              }
+            />
           </div>
         </header>
 

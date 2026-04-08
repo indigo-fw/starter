@@ -1,0 +1,65 @@
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* ── App Sidebar — slide-out overlay nav ── */
+
+  .app-sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background-color: var(--surface-overlay);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .app-sidebar {
+    position: fixed;
+    left: 0;
+    top: var(--app-header-h, 3.5rem);
+    bottom: 0;
+    z-index: 40;
+    width: 16rem;
+    border-right: 1px solid var(--border-primary);
+    background-color: var(--surface-primary);
+    overflow-y: auto;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .app-sidebar[data-visible="false"] {
+    transform: translateX(-100%);
+  }
+
+  .app-sidebar[data-visible="true"] {
+    transform: translateX(0);
+  }
+
+  .app-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+  }
+
+  .app-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-lg);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) ease, background-color var(--duration-fast) ease;
+  }
+
+  .app-sidebar-link:hover {
+    background-color: var(--surface-secondary);
+    color: var(--text-primary);
+  }
+
+  .app-sidebar-link-active {
+    background-color: var(--surface-secondary);
+    color: var(--text-primary);
+  }
+}

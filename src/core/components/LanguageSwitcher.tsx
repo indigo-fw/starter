@@ -55,7 +55,7 @@ function LanguageSwitcherInner() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="app-icon-btn"
+        className="icon-btn"
         title="Language"
         aria-label={`Language: ${LOCALE_LABELS[currentLocale]}`}
       >

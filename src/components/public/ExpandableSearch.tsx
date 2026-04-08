@@ -69,7 +69,7 @@ export function ExpandableSearch() {
 
   if (!expanded) {
     return (
-      <button type="button" onClick={open} className="app-icon-btn" title={__('Search (/)')}>
+      <button type="button" onClick={open} className="icon-btn" title={__('Search (/)')}>
         <Search className="h-4 w-4" />
       </button>
     );
@@ -79,7 +79,7 @@ export function ExpandableSearch() {
     <>
       {/* Mobile: full-width overlay */}
       <div className="app-search-overlay sm:hidden">
-        <button type="button" onClick={close} className="app-icon-btn">
+        <button type="button" onClick={close} className="icon-btn">
           <ArrowLeft className="h-5 w-5" />
         </button>
         <form onSubmit={handleSubmit} className="flex-1">
@@ -93,7 +93,7 @@ export function ExpandableSearch() {
           />
         </form>
         {query && (
-          <button type="button" onClick={() => setQuery('')} className="app-icon-btn">
+          <button type="button" onClick={() => setQuery('')} className="icon-btn">
             <X className="h-4 w-4" />
           </button>
         )}
@@ -110,7 +110,7 @@ export function ExpandableSearch() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={__('Search...')}
           />
-          <button type="button" onClick={close} className="app-icon-btn">
+          <button type="button" onClick={close} className="icon-btn">
             <X className="h-3.5 w-3.5" />
           </button>
         </div>

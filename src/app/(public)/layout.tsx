@@ -20,6 +20,8 @@ import { getLocale } from '@/lib/locale-server';
 import { localePath } from '@/lib/locale';
 import { LOCALES, DEFAULT_LOCALE, LOCALE_LABELS, type Locale } from '@/lib/constants';
 import { adminRoutes, contentRoutes, apiRoutes } from '@/config/routes';
+import { AppNav } from '@/components/public/AppNav';
+import { AppFooter } from '@/components/public/AppFooter';
 import { AuthDialogs } from '@/components/public/AuthDialogs';
 import { PUBLIC_LAYOUT_WIDGETS } from '@/generated/module-widgets';
 import { getServerTranslations, type TranslationFn } from '@/lib/translations-server';
@@ -123,48 +125,50 @@ export default async function PublicLayout({
       {/* ═══ Header ═══ */}
       <header className="app-header">
         <div className="app-toolbar app-container">
-          <Link href="/" className="app-logo">
-            {siteConfig.name}
-          </Link>
-
-          {/* Desktop nav */}
-          <nav className="app-nav hidden sm:flex">
-            <DynamicNav
-              menuSlug="main"
-              fallback={
-                <>
-                  <Link href="/blog" className="app-nav-link">
-                    {__('Blog')}
-                  </Link>
-                  {categories.map((cat) => (
-                    <Link
-                      key={cat.slug}
-                      href={{ pathname: '/category/[slug]', params: { slug: cat.slug } }}
-                      className="app-nav-link"
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
-                  <Link href="/showcase" className="app-nav-link">
-                    {__('Showcase')}
-                  </Link>
-                </>
-              }
-            />
-          </nav>
-
-          <div className="app-spacer" />
-
-          {/* Actions */}
-          <div className="app-actions">
-            <Link href="/search" className="app-icon-btn" title={__('Search')}>
-              <Search className="h-4 w-4" />
-            </Link>
-            <LanguageSwitcher />
-            <ThemeToggle />
-            <UserMenu />
-            <MobileMenu items={mobileItems} />
-          </div>
+          <AppNav
+            logo={
+              <Link href="/" className="app-logo">
+                {siteConfig.name}
+              </Link>
+            }
+            nav={
+              <nav className="app-nav hidden sm:flex">
+                <DynamicNav
+                  menuSlug="main"
+                  fallback={
+                    <>
+                      <Link href="/blog" className="app-nav-link">
+                        {__('Blog')}
+                      </Link>
+                      {categories.map((cat) => (
+                        <Link
+                          key={cat.slug}
+                          href={{ pathname: '/category/[slug]', params: { slug: cat.slug } }}
+                          className="app-nav-link"
+                        >
+                          {cat.name}
+                        </Link>
+                      ))}
+                      <Link href="/showcase" className="app-nav-link">
+                        {__('Showcase')}
+                      </Link>
+                    </>
+                  }
+                />
+              </nav>
+            }
+            actions={
+              <>
+                <Link href="/search" className="icon-btn" title={__('Search')}>
+                  <Search className="h-4 w-4" />
+                </Link>
+                <LanguageSwitcher />
+                <ThemeToggle />
+                <UserMenu />
+                <MobileMenu items={mobileItems} />
+              </>
+            }
+          />
         </div>
       </header>
 
@@ -180,61 +184,59 @@ export default async function PublicLayout({
       <main className="app-main">{children}</main>
 
       {/* ═══ Footer ═══ */}
-      <footer className="app-footer">
-        <div className="app-container py-8">
-          <div className="app-footer-grid">
-            {/* Col 1: About */}
-            <div>
-              <p className="text-sm font-semibold text-(--text-primary)">
-                {siteConfig.name}
-              </p>
-              <p className="mt-2 text-sm text-(--text-muted)">
-                {siteConfig.description}
-              </p>
-            </div>
-
-            {/* Col 2: Categories */}
-            {categories.length > 0 && (
-              <div>
-                <h4 className="app-footer-col-title">{__('Categories')}</h4>
-                {categories.map((cat) => (
-                  <Link
-                    key={cat.slug}
-                    href={{ pathname: '/category/[slug]', params: { slug: cat.slug } }}
-                    className="app-footer-link"
-                  >
-                    {cat.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            {/* Col 3: Quick Links */}
-            <div>
-              <h4 className="app-footer-col-title">{__('Quick Links')}</h4>
-              <Link href="/blog" className="app-footer-link">{__('Blog')}</Link>
-              <Link href="/portfolio" className="app-footer-link">{__('Portfolio')}</Link>
-              <Link href="/showcase" className="app-footer-link">{__('Showcase')}</Link>
-              <Link href="/search" className="app-footer-link">{__('Search')}</Link>
-            </div>
-
-            {/* Col 4: More */}
-            <div>
-              <h4 className="app-footer-col-title">{__('More')}</h4>
-              <NextLink href={apiRoutes.feedBlog} className="app-footer-link inline-flex items-center gap-1">
-                <Rss className="h-3.5 w-3.5" />
-                {__('RSS Feed')}
-              </NextLink>
-              <NextLink href={adminRoutes.home} className="app-footer-link">{__('Admin')}</NextLink>
-            </div>
+      <AppFooter>
+        <div className="app-footer-grid">
+          {/* Col 1: About */}
+          <div>
+            <p className="text-sm font-semibold text-(--text-primary)">
+              {siteConfig.name}
+            </p>
+            <p className="mt-2 text-sm text-(--text-muted)">
+              {siteConfig.description}
+            </p>
           </div>
 
-          <div className="app-footer-bottom">
-            <span>&copy; {new Date().getFullYear()} {siteConfig.name}</span>
-            <span>{__('Powered by Indigo')}</span>
+          {/* Col 2: Categories */}
+          {categories.length > 0 && (
+            <div>
+              <h4 className="app-footer-col-title">{__('Categories')}</h4>
+              {categories.map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={{ pathname: '/category/[slug]', params: { slug: cat.slug } }}
+                  className="app-footer-link"
+                >
+                  {cat.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Col 3: Quick Links */}
+          <div>
+            <h4 className="app-footer-col-title">{__('Quick Links')}</h4>
+            <Link href="/blog" className="app-footer-link">{__('Blog')}</Link>
+            <Link href="/portfolio" className="app-footer-link">{__('Portfolio')}</Link>
+            <Link href="/showcase" className="app-footer-link">{__('Showcase')}</Link>
+            <Link href="/search" className="app-footer-link">{__('Search')}</Link>
+          </div>
+
+          {/* Col 4: More */}
+          <div>
+            <h4 className="app-footer-col-title">{__('More')}</h4>
+            <NextLink href={apiRoutes.feedBlog} className="app-footer-link inline-flex items-center gap-1">
+              <Rss className="h-3.5 w-3.5" />
+              {__('RSS Feed')}
+            </NextLink>
+            <NextLink href={adminRoutes.home} className="app-footer-link">{__('Admin')}</NextLink>
           </div>
         </div>
-      </footer>
+
+        <div className="app-footer-bottom">
+          <span>&copy; {new Date().getFullYear()} {siteConfig.name}</span>
+          <span>{__('Powered by Indigo')}</span>
+        </div>
+      </AppFooter>
     </div>
   );
 }

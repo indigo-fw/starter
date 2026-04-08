@@ -4,7 +4,7 @@
   /* ===================== Layout Utilities ===================== */
 
   .app-container-narrow {
-    max-width: 48rem; /* 768px ≈ max-w-3xl */
+    max-width: 48rem; /* 768px */
     margin-left: auto;
     margin-right: auto;
     padding-left: 1rem;
@@ -21,70 +21,10 @@
     padding-bottom: 4rem;
     background-color: var(--surface-secondary);
   }
-
-  /* ===================== Mobile Nav ===================== */
-  .app-mobile-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    background-color: var(--surface-overlay);
-  }
-
-  .app-mobile-drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 50;
-    width: 280px;
-    max-width: 80vw;
-    background-color: var(--surface-primary);
-    box-shadow: var(--shadow-lg);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-  }
-
-  .app-mobile-drawer-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-primary);
-  }
-
-  .app-mobile-drawer-nav {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 0;
-  }
-
-  .app-mobile-drawer-link {
-    display: block;
-    padding: 0.75rem 1rem;
-    font-size: 0.9375rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
-  }
-
-  .app-mobile-drawer-link:hover {
-    background-color: var(--surface-secondary);
-    color: var(--text-primary);
-  }
-
-  .app-mobile-drawer-link-active {
-    color: var(--color-brand-600);
-    font-weight: 500;
-  }
 }
 
-/* ===================== Dark Mode ===================== */
+/* ── Dark Mode ── */
 html.dark {
-  .app-mobile-drawer-link:hover {
-    background-color: oklch(1 0 0 / 0.06);
-  }
-
   .app-section-alt {
     background-color: var(--surface-inset);
   }

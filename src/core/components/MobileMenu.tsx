@@ -1,5 +1,7 @@
 'use client';
 
+import './MobileMenu.css';
+
 import { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -43,7 +45,7 @@ export function MobileMenu({ items }: Props) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="app-icon-btn sm:hidden"
+        className="icon-btn sm:hidden"
         aria-label="Open menu"
       >
         <Menu className="h-5 w-5" />
@@ -65,7 +67,7 @@ export function MobileMenu({ items }: Props) {
           <button
             type="button"
             onClick={close}
-            className="app-icon-btn"
+            className="icon-btn"
             aria-label="Close menu"
           >
             <X className="h-5 w-5" />
