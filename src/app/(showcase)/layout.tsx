@@ -55,7 +55,7 @@ export default async function ShowcaseLayout({
 
   return (
     <AppSidebarProvider>
-      <div className="app-wrapper" data-page="showcase">
+      <div className="app-wrapper" data-page="showcase" data-theme="dark">
         <header className="app-header">
           <div className="app-toolbar">
             <AppNav

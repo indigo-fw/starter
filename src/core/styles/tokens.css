@@ -160,7 +160,7 @@
   --shadow-dialog: 0 4px 16px oklch(0 0 0 / 0.08);
 }
 
-html.dark {
+html.dark, [data-theme="dark"] {
   color-scheme: dark;
   --surface-overlay: oklch(0 0 0 / 0.7);
   --gradient-brand-subtle: linear-gradient(135deg, oklch(0.65 0.24 var(--brand-hue) / 0.22), oklch(0.55 0.27 var(--accent-hue) / 0.22));
