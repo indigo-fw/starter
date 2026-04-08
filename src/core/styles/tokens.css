@@ -173,7 +173,7 @@ html.dark, [data-theme="dark"] {
   --surface-primary:   oklch(0.21 0.02 260);
   --surface-secondary: oklch(0.27 0.02 260);
   --surface-elevated:  oklch(0.32 0.015 260);
-  --surface-header:    oklch(0.21 0.02 260 / 0.85);
+  --surface-header:    oklch(0.21 0.02 260);
   --surface-footer:    oklch(0.20 0.02 260);
   --surface-dialog:    var(--color-gray-800);
   --surface-section-alt: var(--surface-inset);
