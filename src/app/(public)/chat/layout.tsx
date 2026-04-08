@@ -14,7 +14,7 @@ export default async function ChatLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden" data-page="chat">
       {children}
     </div>
   );

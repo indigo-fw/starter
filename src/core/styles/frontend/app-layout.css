@@ -19,15 +19,21 @@
    *
    * ── Per-page overrides (mirrors dashboard's data-section pattern) ──
    *
-   * Set `data-page` on the .page-container to enable route-specific styles:
+   * Convention: every route group layout sets `data-page` on its outermost
+   * wrapper for CSS targeting. This is project-wide, not limited to
+   * .page-container — any layout wrapper can carry it:
    *
-   *   <div className="page-container" data-page="showcase">
+   *   .page-container[data-page="showcase"]   — app-style layout
+   *   .page-container[data-page="public"]     — marketing site
+   *   [data-page="account"]                   — nested layout
+   *   [data-page="chat"]                      — full-screen layout
+   *   [data-page="auth"]                      — dashboard auth
    *
-   * Then target it in a co-located CSS file:
+   * Target in a co-located CSS file:
    *
    *   .page-container[data-page="showcase"] { --app-page-bg: oklch(0 0 0); }
    *
-   * Available CSS custom properties:
+   * Available CSS custom properties for .page-container layouts:
    *
    *   --app-page-bg   Background color for .app-main (default: transparent)
    */

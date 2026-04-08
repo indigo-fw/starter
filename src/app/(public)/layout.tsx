@@ -109,7 +109,7 @@ export default async function PublicLayout({
   const mobileItems = await getMobileNavItems(categories, locale, __);
 
   return (
-    <>
+    <div className="page-container" data-page="public">
       <Suspense fallback={null}>
         {PUBLIC_LAYOUT_WIDGETS.map((Widget, i) => <Widget key={i} />)}
       </Suspense>
@@ -233,6 +233,6 @@ export default async function PublicLayout({
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

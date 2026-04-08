@@ -1,6 +1,5 @@
 import '@/core/styles/tokens-public.css';
 import '@/core/styles/frontend/index.css';
-import '@/core/styles/frontend/app-layout.css';
 import './showcase.css';
 
 import { Link, getPathname } from '@/i18n/navigation';

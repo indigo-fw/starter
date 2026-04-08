@@ -16,7 +16,7 @@ export default async function AccountLayout({ children }: { children: React.Reac
   }
 
   return (
-    <div className="app-container py-8 max-w-5xl">
+    <div className="app-container py-8 max-w-5xl" data-page="account">
       <GeoSyncer />
       <EmailVerificationBanner />
       <div className="flex flex-col md:flex-row gap-8">
