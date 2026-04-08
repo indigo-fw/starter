@@ -8,6 +8,7 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { adminPanel } from '@/config/routes';
 import { cn } from '@/lib/utils';
+import { activeClass, activeAria } from '@/core/lib/active-props';
 
 // ─── Shared constants ───────────────────────────────────────────────────────
 
@@ -352,18 +353,16 @@ export default function AdminSupportPage() {
       {/* Tab bar */}
       <div className="status-tabs mt-4">
         <button
-          className={cn('status-tab', activeTab === 'tickets' && 'is-active')}
+          className={cn('status-tab', activeTab === 'tickets' && activeClass('tab'))}
           onClick={() => setActiveTab('tickets')}
-          role="tab"
-          aria-selected={activeTab === 'tickets'}
+          {...activeAria(activeTab === 'tickets', 'tab')}
         >
           {__('Tickets')}
         </button>
         <button
-          className={cn('status-tab', activeTab === 'chats' && 'is-active')}
+          className={cn('status-tab', activeTab === 'chats' && activeClass('tab'))}
           onClick={() => setActiveTab('chats')}
-          role="tab"
-          aria-selected={activeTab === 'chats'}
+          {...activeAria(activeTab === 'chats', 'tab')}
         >
           <MessageCircle className="mr-1.5 inline h-4 w-4" />
           {__('Live Chats')}

@@ -246,11 +246,16 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
     );
   }
 
+  const isPanelOpen = commentPanelId !== null;
+
   return (
     <div className="relative">
       <div
         ref={containerRef}
-        className="showcase-feed h-[calc(100dvh-3.5rem)] snap-y snap-mandatory overflow-y-scroll"
+        className={cn(
+          'showcase-feed h-[calc(100dvh-3.5rem)] snap-y snap-mandatory overflow-y-scroll transition-[margin-right] duration-300',
+          isPanelOpen && 'md:mr-[400px]',
+        )}
       >
         {items.map((item, index) => {
           const counts = reactionCounts?.[item.id] ?? { likes: 0, dislikes: 0 };

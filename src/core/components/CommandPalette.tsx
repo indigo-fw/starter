@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FileText, Search } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { activeClass, activeAria } from '@/core/lib/active-props';
 import { useAdminTranslations } from '@/core/lib/translations';
 import { trpc } from '@/lib/trpc/client';
 import { useKeyboardShortcuts } from '@/core/hooks/useKeyboardShortcuts';
@@ -217,9 +218,9 @@ export function CommandPalette({ open, onClose, navItems: navItemsProp, contentT
                     type="button"
                     className={cn(
                       'command-result',
-                      item.index === activeIndex && 'is-active'
+                      item.index === activeIndex && activeClass('tab')
                     )}
-                    aria-selected={item.index === activeIndex}
+                    {...activeAria(item.index === activeIndex, 'tab')}
                     onClick={() => handleSelect(item)}
                     onMouseEnter={() => setActiveIndex(item.index)}
                   >

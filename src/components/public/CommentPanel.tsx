@@ -197,8 +197,6 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
   const utils = trpc.useUtils();
   const __ = useTranslations();
 
-  // Animation state machine: enter/exit transitions
-  // We track "phase" to manage the slide-up/slide-down lifecycle
   const [phase, setPhase] = useState<'closed' | 'entering' | 'open' | 'exiting'>('closed');
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -206,7 +204,6 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
   const displayId = activeId ?? contentId;
   const visible = phase === 'open';
 
-  // Enter/exit: adjust state when contentId prop changes (React docs pattern)
   const [prevContentId, setPrevContentId] = useState(contentId);
   if (prevContentId !== contentId) {
     setPrevContentId(contentId);
@@ -218,7 +215,6 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
     }
   }
 
-  // Trigger slide-up animation frame after entering (genuine DOM side-effect)
   useEffect(() => {
     if (phase === 'entering') {
       const frameId = requestAnimationFrame(() => {
@@ -228,7 +224,6 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
     }
   }, [phase]);
 
-  // Exit: clear activeId after slide-down transition completes
   useEffect(() => {
     if (phase === 'exiting') {
       const timer = setTimeout(() => {
@@ -264,7 +259,6 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
     });
   }
 
-  // Close on escape
   useEffect(() => {
     if (!isOpen) return;
     function handleKey(e: KeyboardEvent) {
@@ -274,11 +268,14 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
     return () => window.removeEventListener('keydown', handleKey);
   }, [isOpen, onClose]);
 
-  // Prevent body scroll when open
+  // Lock body scroll on mobile only — desktop keeps scrollbar to avoid content shift
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      return () => { document.body.style.overflow = ''; };
+      const isMobile = !window.matchMedia('(min-width: 768px)').matches;
+      if (isMobile) {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+      }
     }
   }, [isOpen]);
 
@@ -289,37 +286,43 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
     [onClose]
   );
 
-  // Nothing to show
   if (!activeId) return null;
 
   const totalComments = comments.data?.total ?? 0;
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Backdrop — mobile only (bottom sheet needs it) */}
       <div
         className={cn(
-          'fixed inset-0 z-50 bg-black/50 transition-opacity duration-300',
-          visible ? 'opacity-100' : 'opacity-0'
+          'fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 md:hidden',
+          visible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
         onClick={handleBackdropClick}
       />
 
-      {/* Panel */}
+      {/* Panel — bottom sheet on mobile, side panel on desktop */}
       <div
         ref={panelRef}
         className={cn(
-          'fixed inset-x-0 bottom-0 z-50 flex max-h-[75dvh] flex-col rounded-t-2xl bg-[oklch(0.15_0.01_260)] transition-transform duration-300 ease-out',
-          visible ? 'translate-y-0' : 'translate-y-full'
+          'fixed z-40 flex flex-col bg-[oklch(0.15_0.01_260)] transition-transform duration-300 ease-out',
+          // Mobile: bottom sheet
+          'inset-x-0 bottom-0 max-h-[75dvh] rounded-t-2xl',
+          // Desktop: right side panel, below navbar with spacing
+          'md:inset-x-auto md:right-3 md:top-[calc(3.5rem+0.75rem)] md:bottom-3 md:max-h-none md:w-[400px] md:rounded-2xl md:border md:border-white/10',
+          // Animation direction
+          visible
+            ? 'translate-y-0 md:translate-x-0'
+            : 'translate-y-full md:translate-x-full md:translate-y-0',
         )}
       >
-        {/* Drag handle */}
-        <div className="flex justify-center py-2">
+        {/* Drag handle — mobile only */}
+        <div className="flex justify-center py-2 md:hidden">
           <div className="h-1 w-10 rounded-full bg-white/20" />
         </div>
 
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 px-4 pb-3">
+        <div className="flex items-center justify-between border-b border-white/10 px-4 pb-3 md:pt-4">
           <h3 className="text-base font-semibold text-white">
             {__('Comments')}{totalComments > 0 && ` ${totalComments}`}
           </h3>

@@ -66,6 +66,18 @@ const __ = await getServerTranslations();
 <h1>Users</h1>           // WRONG
 ```
 
+## CSS Conventions
+
+- **Custom CSS class** for anything that changes with branding — buttons (`.btn`), inputs (`.input`), cards (`.card`), nav, surfaces, overlays. These live in `shared-components.css`, `admin.css`, or `frontend/forms.css` and use design tokens, so rebranding is CSS-only.
+- **Tailwind utility** for one-off layout — spacing, flex, grid, responsive breakpoints, max-width overrides. These are structural, not branded.
+- **Page width:** `app-container` utility (80rem, centered, padded) — defined in `globals.css`. Never use Tailwind's `container` (responsive breakpoints, no centering/padding, collides with custom intent).
+- **Naming:** 100% kebab-case. Scoped prefixes for route-specific components (`dash-*` admin, `app-*` showcase). Shared components unprefixed (`.btn`, `.input`, `.card`).
+- **Modifiers:** separate class (`.btn-primary`, `.btn-sm`), not BEM (`--primary`). State via `activeClass()` + `activeAria()` from `@/core/lib/active-props` — couples `.is-active` class with correct ARIA attributes so neither can be forgotten.
+- **Table classes:** prefixed `.table-th`, `.table-td`, `.table-tr` (not bare `.th`/`.td`/`.tr`).
+- **Dark mode:** always `html.dark { }` selector. Never `dark:` Tailwind modifier (breaks oklch alpha tints). Co-locate dark overrides in same file as light mode.
+- **Shared styles:** `shared-components.css` (loaded globally via `globals.css`) owns `.btn`, `.input`, `.select`, `.textarea`, `.label` base + dark overrides. Route-specific variants in `admin.css` (`.btn-danger`, `.btn-sm`) or `frontend/forms.css` (`.btn-ghost`).
+- **Tokens:** `--gradient-brand-subtle`, `--focus-ring-accent`, `--border-table`, `--hover-tint-dark` — use these instead of hardcoding oklch values.
+
 ## CSS Gotchas
 
 - **OKLCH traps:** `oklch(L C var(--brand-hue) / alpha)` works. `oklch(from ...)` does NOT work with Lightning CSS. `color-mix()` is wrong for alpha tints
