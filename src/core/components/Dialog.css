@@ -4,15 +4,15 @@
   /* ── Dialog (visual only — structural in overlay.css) ── */
 
   .dialog-panel {
-    background-color: var(--surface-primary);
+    background-color: var(--surface-dialog);
     border: 1px solid var(--border-primary);
     border-radius: var(--radius-xl);
-    box-shadow: 0 4px 16px oklch(0 0 0 / 0.08);
+    box-shadow: var(--shadow-dialog);
   }
 
   .dialog-header {
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--border-secondary);
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   .dialog-body {
@@ -21,23 +21,6 @@
 
   .dialog-footer {
     padding: 0.75rem 1.5rem;
-    border-top: 1px solid var(--border-secondary);
-  }
-}
-
-/* ===================== Dark Mode ===================== */
-html.dark {
-  .dialog-panel {
-    background-color: var(--color-gray-800);
-    border-color: var(--color-gray-700);
-    box-shadow: 0 8px 24px oklch(0 0 0 / 0.4);
-  }
-
-  .dialog-header {
-    border-bottom-color: oklch(1 0 0 / 0.08);
-  }
-
-  .dialog-footer {
-    border-top-color: oklch(1 0 0 / 0.08);
+    border-top: 1px solid var(--border-subtle);
   }
 }

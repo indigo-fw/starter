@@ -4,8 +4,8 @@
   /* ── App Footer ── */
 
   .app-footer {
-    border-top: 1px solid var(--border-primary);
-    background-color: var(--surface-secondary);
+    border-top: 1px solid var(--border-subtle);
+    background-color: var(--surface-footer);
   }
 
   .app-footer .app-toolbar {
@@ -63,13 +63,5 @@
     gap: 0.5rem;
     font-size: 0.75rem;
     color: var(--text-muted);
-  }
-}
-
-/* ── Dark Mode ── */
-html.dark {
-  .app-footer {
-    background-color: oklch(0.20 0.02 260);
-    border-top-color: oklch(1 0 0 / 0.08);
   }
 }

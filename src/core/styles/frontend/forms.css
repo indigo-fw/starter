@@ -13,14 +13,7 @@
   }
 
   .btn-ghost:hover:not(:disabled) {
-    background-color: var(--surface-secondary);
+    background-color: var(--surface-hover-subtle);
     color: var(--text-primary);
-  }
-}
-
-/* ===================== Dark Mode ===================== */
-html.dark {
-  .btn-ghost:hover:not(:disabled) {
-    background-color: var(--hover-tint-dark);
   }
 }

@@ -19,13 +19,6 @@
   .app-section-alt {
     padding-top: 4rem;
     padding-bottom: 4rem;
-    background-color: var(--surface-secondary);
-  }
-}
-
-/* ── Dark Mode ── */
-html.dark {
-  .app-section-alt {
-    background-color: var(--surface-inset);
+    background-color: var(--surface-section-alt);
   }
 }

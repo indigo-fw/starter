@@ -109,6 +109,14 @@
   --surface-elevated:  var(--color-white);
   --surface-inset:     var(--color-gray-100);
   --surface-sidebar:   var(--color-white);
+  --surface-header:    var(--surface-primary);
+  --surface-footer:    var(--surface-secondary);
+  --surface-dialog:    var(--color-white);
+  --surface-section-alt: var(--surface-secondary);
+
+  /* Hover surfaces */
+  --surface-hover:        var(--surface-secondary);
+  --surface-hover-subtle: var(--surface-secondary);
 
   /* Text */
   --text-primary:   var(--color-gray-900);
@@ -119,11 +127,37 @@
   /* Borders — soft, low-chroma for elevation-first design */
   --border-primary:   oklch(0.93 0.005 265 / 0.7);
   --border-secondary: oklch(0.96 0.003 265 / 0.5);
+  --border-subtle:    var(--border-secondary);
+
+  /* Inputs & buttons */
+  --input-bg:             var(--surface-secondary);
+  --input-border:         var(--border-primary);
+  --btn-secondary-bg:     var(--surface-secondary);
+  --btn-secondary-border: var(--border-primary);
+  --btn-secondary-hover:  var(--surface-inset);
+
+  /* Tags */
+  --tag-bg:       var(--color-brand-50);
+  --tag-bg-hover: var(--color-brand-100);
+  --tag-color:    var(--color-brand-600);
+
+  /* Pagination */
+  --pagination-bg:       var(--surface-secondary);
+  --pagination-bg-hover: var(--surface-elevated);
+
+  /* Preview banner */
+  --preview-bg:     var(--color-warning-50);
+  --preview-border: var(--color-warning-500);
+  --preview-color:  var(--color-warning-600);
+
+  /* Brand accent for hover/active text */
+  --brand-hover: var(--color-brand-600);
 
   /* Shadows — slightly lifted for border-free cards */
   --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.05), 0 1px 2px oklch(0 0 0 / 0.03);
   --shadow-md: 0 3px 10px oklch(0 0 0 / 0.07), 0 1px 3px oklch(0 0 0 / 0.04);
   --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.08), 0 2px 8px oklch(0 0 0 / 0.04);
+  --shadow-dialog: 0 4px 16px oklch(0 0 0 / 0.08);
 }
 
 html.dark {
@@ -139,6 +173,14 @@ html.dark {
   --surface-primary:   oklch(0.21 0.02 260);
   --surface-secondary: oklch(0.27 0.02 260);
   --surface-elevated:  oklch(0.32 0.015 260);
+  --surface-header:    oklch(0.21 0.02 260 / 0.85);
+  --surface-footer:    oklch(0.20 0.02 260);
+  --surface-dialog:    var(--color-gray-800);
+  --surface-section-alt: var(--surface-inset);
+
+  /* Hover surfaces */
+  --surface-hover:        oklch(1 0 0 / 0.08);
+  --surface-hover-subtle: oklch(1 0 0 / 0.06);
 
   /* Text */
   --text-primary:   var(--color-gray-50);
@@ -149,6 +191,33 @@ html.dark {
   /* Borders — subtle in dark mode */
   --border-primary:   oklch(0.35 0.01 260 / 0.8);
   --border-secondary: oklch(0.30 0.01 260 / 0.5);
+  --border-subtle:    oklch(1 0 0 / 0.08);
+
+  /* Inputs & buttons */
+  --input-bg:             var(--surface-inset);
+  --input-border:         var(--color-gray-600);
+  --btn-secondary-bg:     var(--color-gray-700);
+  --btn-secondary-border: var(--color-gray-600);
+  --btn-secondary-hover:  var(--color-gray-600);
+
+  /* Tags */
+  --tag-bg:       oklch(0.65 0.17 var(--brand-hue) / 0.12);
+  --tag-bg-hover: oklch(0.65 0.17 var(--brand-hue) / 0.18);
+  --tag-color:    var(--color-brand-400);
+
+  /* Pagination */
+  --pagination-bg:       var(--color-gray-700);
+  --pagination-bg-hover: var(--color-gray-600);
+
+  /* Preview banner */
+  --preview-bg:     oklch(0.75 0.16 65 / 0.15);
+  --preview-border: var(--color-warning-600);
+  --preview-color:  var(--color-warning-500);
+
+  /* Brand accent for hover/active text */
+  --brand-hover: var(--color-brand-400);
+
+  --shadow-dialog: 0 8px 24px oklch(0 0 0 / 0.4);
 
   /* Autofill override — masks browser/1Password autofill backgrounds in dark mode.
      Shared across admin and frontend (loaded via globals.css). */

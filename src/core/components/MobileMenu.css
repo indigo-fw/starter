@@ -49,19 +49,12 @@
   }
 
   .app-mobile-drawer-link:hover {
-    background-color: var(--surface-secondary);
+    background-color: var(--surface-hover-subtle);
     color: var(--text-primary);
   }
 
   .app-mobile-drawer-link-active {
     color: var(--color-brand-600);
     font-weight: 500;
-  }
-}
-
-/* ── Dark Mode ── */
-html.dark {
-  .app-mobile-drawer-link:hover {
-    background-color: oklch(1 0 0 / 0.06);
   }
 }

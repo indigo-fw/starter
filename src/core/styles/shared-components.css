@@ -56,13 +56,13 @@
   }
 
   .btn-secondary {
-    background-color: var(--surface-secondary);
+    background-color: var(--btn-secondary-bg);
     color: var(--text-primary);
-    border-color: var(--border-primary);
+    border-color: var(--btn-secondary-border);
   }
 
   .btn-secondary:hover:not(:disabled) {
-    background-color: var(--surface-inset);
+    background-color: var(--btn-secondary-hover);
   }
 
   /* ===================== Icon Button ===================== */
@@ -80,7 +80,7 @@
   }
 
   .icon-btn:hover {
-    background-color: var(--surface-secondary);
+    background-color: var(--surface-hover);
     color: var(--text-primary);
   }
 
@@ -88,8 +88,8 @@
   .input {
     width: 100%;
     padding: 0.5rem 0.75rem;
-    background-color: var(--surface-secondary);
-    border: 1px solid var(--border-primary);
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: var(--radius-md);
     font-size: 0.875rem;
     color: var(--text-primary);
@@ -117,8 +117,8 @@
   .select {
     width: 100%;
     padding: 0.5rem 2rem 0.5rem 0.75rem;
-    background-color: var(--surface-secondary);
-    border: 1px solid var(--border-primary);
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: var(--radius-md);
     font-size: 0.875rem;
     color: var(--text-primary);
@@ -135,8 +135,8 @@
   .textarea {
     width: 100%;
     padding: 0.5rem 0.75rem;
-    background-color: var(--surface-secondary);
-    border: 1px solid var(--border-primary);
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: var(--radius-md);
     font-size: 0.875rem;
     color: var(--text-primary);
@@ -156,25 +156,3 @@
   }
 }
 
-/* ===================== Dark Mode ===================== */
-html.dark {
-  .icon-btn:hover {
-    background-color: oklch(1 0 0 / 0.08);
-  }
-
-  .btn-secondary {
-    background-color: var(--color-gray-700);
-    border-color: var(--color-gray-600);
-  }
-
-  .btn-secondary:hover:not(:disabled) {
-    background-color: var(--color-gray-600);
-  }
-
-  .input,
-  .select,
-  .textarea {
-    background-color: var(--surface-inset);
-    border-color: var(--color-gray-600);
-  }
-}

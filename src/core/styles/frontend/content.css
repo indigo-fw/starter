@@ -38,7 +38,7 @@
   }
 
   .sidebar-link:hover {
-    background-color: var(--surface-secondary);
+    background-color: var(--surface-hover-subtle);
     color: var(--text-primary);
   }
 
@@ -52,17 +52,17 @@
   .tag {
     display: inline-block;
     border-radius: 9999px;
-    background-color: var(--color-brand-50);
+    background-color: var(--tag-bg);
     padding: 0.125rem 0.5rem;
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--color-brand-600);
+    color: var(--tag-color);
     text-decoration: none;
     transition: background-color var(--duration-fast) ease;
   }
 
   a.tag:hover {
-    background-color: var(--color-brand-100);
+    background-color: var(--tag-bg-hover);
   }
 
   /* ===================== Content rendering ===================== */
@@ -79,11 +79,11 @@
   .preview-banner {
     margin-bottom: 1.5rem;
     border-radius: var(--radius-md);
-    background-color: var(--color-warning-50);
-    border: 1px solid var(--color-warning-500);
+    background-color: var(--preview-bg);
+    border: 1px solid var(--preview-border);
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
-    color: var(--color-warning-600);
+    color: var(--preview-color);
   }
 
   /* Featured image */
@@ -112,7 +112,7 @@
 
   /* Post card in listings */
   .post-card {
-    border-bottom: 1px solid var(--border-secondary);
+    border-bottom: 1px solid var(--border-subtle);
     padding-bottom: 1.5rem;
   }
 
@@ -125,7 +125,7 @@
   }
 
   .post-card-title:hover {
-    color: var(--color-brand-600);
+    color: var(--brand-hover);
   }
 
   .post-card-excerpt {
@@ -149,7 +149,7 @@
 
   .pagination-btn {
     border-radius: var(--radius-md);
-    background-color: var(--surface-secondary);
+    background-color: var(--pagination-bg);
     padding: 0.25rem 0.75rem;
     font-size: 0.875rem;
     transition-property: background-color;
@@ -157,52 +157,12 @@
   }
 
   .pagination-btn:hover {
-    background-color: var(--surface-elevated);
+    background-color: var(--pagination-bg-hover);
   }
 
   .pagination-info {
     padding: 0.25rem 0.75rem;
     font-size: 0.875rem;
     color: var(--text-muted);
-  }
-}
-
-/* ===================== Dark Mode ===================== */
-html.dark {
-  /* Autofill override moved to tokens.css (shared across admin + frontend) */
-
-  .tag {
-    background-color: oklch(0.65 0.17 var(--brand-hue) / 0.12);
-    color: var(--color-brand-400);
-  }
-
-  a.tag:hover {
-    background-color: oklch(0.65 0.17 var(--brand-hue) / 0.18);
-  }
-
-  .sidebar-link:hover {
-    background-color: oklch(1 0 0 / 0.06);
-  }
-
-  .post-card {
-    border-bottom-color: oklch(1 0 0 / 0.06);
-  }
-
-  .post-card-title:hover {
-    color: var(--color-brand-400);
-  }
-
-  .pagination-btn {
-    background-color: var(--color-gray-700);
-  }
-
-  .pagination-btn:hover {
-    background-color: var(--color-gray-600);
-  }
-
-  .preview-banner {
-    background-color: oklch(0.75 0.16 65 / 0.15);
-    border-color: var(--color-warning-600);
-    color: var(--color-warning-500);
   }
 }
