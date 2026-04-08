@@ -68,11 +68,10 @@ const __ = await getServerTranslations();
 
 ## CSS Conventions
 
-- **Custom CSS class** for anything that changes with branding — buttons (`.btn`), inputs (`.input`), cards (`.card`), nav, surfaces, overlays. These live in `shared-components.css`, `admin.css`, or `frontend/forms.css` and use design tokens, so rebranding is CSS-only.
-- **Tailwind utility** for one-off layout — spacing, flex, grid, responsive breakpoints, max-width overrides. These are structural, not branded.
-- **Page width:** `app-container` utility (80rem, centered, padded) — defined in `globals.css`. Never use Tailwind's `container` (responsive breakpoints, no centering/padding, collides with custom intent).
-- **Naming:** 100% kebab-case. Scoped prefixes for layout components (`dash-*` admin, `app-*` all public layouts). Shared components unprefixed (`.btn`, `.input`, `.card`).
-- **App layout:** `.app-wrapper[data-page]` > `.app-header` > `.app-toolbar` + `.app-main` + `.app-footer`. All public routes use `app-*` classes. Override via `--page-bg` and `data-page` CSS selectors. See `app-layout.css`.
+- **CSS class naming:** layout → `app-*` prefix (`app-header`, `app-section`, `app-container`). Components → no prefix (`.btn`, `.card`, `.input`). Dashboard → `dash-*`. Modules → module prefix (`support-chat-*`). All kebab-case.
+- **App layout:** `.app-wrapper[data-page]` > `.app-header` > `.app-toolbar` + `.app-main` + `.app-footer`. Override per route via `--page-bg` and `[data-page]` CSS selectors. See `app-layout.css`.
+- **Layout utilities:** `.app-container` (80rem, centered, padded — defined in `globals.css`), `.app-container-narrow` (48rem), `.app-section` / `.app-section-alt` (vertical rhythm). Never use Tailwind's `container`.
+- **Shared components:** `shared-components.css` (loaded globally) owns `.btn`, `.input`, `.select`, `.textarea`, `.label`, `.card`. Route-specific variants in `admin.css` (`.btn-danger`) or `frontend/forms.css` (`.btn-ghost`).
 - **Modifiers:** separate class (`.btn-primary`, `.btn-sm`), not BEM (`--primary`). State via `IS_ACTIVE` constant + `activeAria(isActive, role)` from `@/core/lib/active-props` — couples `.is-active` class with correct ARIA attributes (`aria-current="page"` for `'nav'`, `role="tab" aria-selected` for `'tab'`, `role="option" aria-selected` for `'option'`). Parent containers need `role="tablist"` or `role="listbox"` respectively.
 - **Table classes:** prefixed `.table-th`, `.table-td`, `.table-tr` (not bare `.th`/`.td`/`.tr`).
 - **Dark mode:** always `html.dark { }` selector. Never `dark:` Tailwind modifier (breaks oklch alpha tints). Co-locate dark overrides in same file as light mode.

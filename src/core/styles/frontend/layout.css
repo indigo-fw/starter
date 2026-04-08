@@ -3,7 +3,7 @@
 @layer components {
   /* ===================== Layout Utilities ===================== */
 
-  .container-narrow {
+  .app-container-narrow {
     max-width: 48rem; /* 768px ≈ max-w-3xl */
     margin-left: auto;
     margin-right: auto;
@@ -11,12 +11,12 @@
     padding-right: 1rem;
   }
 
-  .section {
+  .app-section {
     padding-top: 4rem;
     padding-bottom: 4rem;
   }
 
-  .section-alt {
+  .app-section-alt {
     padding-top: 4rem;
     padding-bottom: 4rem;
     background-color: var(--surface-secondary);
@@ -85,7 +85,7 @@ html.dark {
     background-color: oklch(1 0 0 / 0.06);
   }
 
-  .section-alt {
+  .app-section-alt {
     background-color: var(--surface-inset);
   }
 }

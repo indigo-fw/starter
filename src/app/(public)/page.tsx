@@ -173,7 +173,7 @@ export default async function DemoHomePage() {
       </section>
 
       {/* Feature grid */}
-      <section className="py-16 section-alt">
+      <section className="py-16 app-section-alt">
         <div className="app-container">
           <h2 className="text-2xl font-bold text-(--text-primary) text-center mb-3">
             {__("Explore the Features")}
@@ -250,7 +250,7 @@ export default async function DemoHomePage() {
       </section>
 
       {/* Modules */}
-      <section className="py-16 section-alt">
+      <section className="py-16 app-section-alt">
         <div className="app-container max-w-3xl">
           <h2 className="text-2xl font-bold text-(--text-primary) text-center mb-3">
             {__("Modular Architecture")}

@@ -5,6 +5,12 @@
   /*
    * Unified layout system for all public-facing routes.
    *
+   * Naming convention:
+   *   Layout (page structure)  → app-* prefix (app-header, app-section, app-container)
+   *   Components (UI elements) → no prefix (btn, card, input)
+   *   Dashboard                → dash-* prefix
+   *   Modules                  → module prefix (support-chat-*, store-*)
+   *
    * Structure (mirrors dashboard's dash-* pattern):
    *   .app-wrapper[data-page]
    *     .app-header                <- sticky top bar
@@ -16,12 +22,21 @@
    *         .app-actions           <- right-side buttons
    *     .app-sidebar               <- optional slide-out nav
    *     .app-main                  <- content area (bg: --page-bg)
-   *       .app-inner               <- optional centered wrapper
+   *       .app-container           <- width utility (80rem, centered, padded)
+   *       .app-container-narrow    <- width utility (48rem)
+   *       .app-section             <- vertical rhythm (4rem padding)
+   *       .app-section-alt         <- vertical rhythm + alt background
+   *       .app-inner               <- optional centered wrapper (64rem)
    *     .app-footer                <- optional bottom section
    *       .app-footer-grid         <- responsive column grid
    *         .app-footer-col-title  <- column heading
    *         .app-footer-link       <- column link
    *       .app-footer-bottom       <- copyright / credits bar
+   *
+   * Mobile nav (layout.css):
+   *     .app-mobile-overlay        <- backdrop
+   *     .app-mobile-drawer         <- slide-out panel
+   *       .app-mobile-drawer-link  <- nav link
    *
    * ── Per-page overrides ──
    *
@@ -29,9 +44,9 @@
    *
    *   .app-wrapper[data-page="public"]     — marketing site
    *   .app-wrapper[data-page="showcase"]   — showcase feed
-   *   [data-page="account"]                  — nested layout
-   *   [data-page="chat"]                     — full-screen layout
-   *   [data-page="auth"]                     — dashboard auth
+   *   [data-page="account"]                — nested layout
+   *   [data-page="chat"]                   — full-screen layout
+   *   [data-page="auth"]                   — dashboard auth
    *
    * Target in a co-located CSS file:
    *
