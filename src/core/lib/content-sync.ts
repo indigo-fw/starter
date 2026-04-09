@@ -128,6 +128,8 @@ function scanDir(
     }
 
     if (extname(entry).toLowerCase() !== '.md') continue;
+    // Skip documentation/meta files (ALL-CAPS names like CLAUDE.md, README.md, LICENSE.md, etc.)
+    if (/^[A-Z][A-Z0-9_-]*\.md$/.test(entry)) continue;
 
     const raw = readFileSync(fullPath, 'utf-8');
     const { frontmatter, content } = parseFrontmatter<MdFrontmatter>(raw);

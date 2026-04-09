@@ -94,7 +94,8 @@ function getTemplateFilenames(): string[] {
   for (const localeDir of readdirSync(TEMPLATES_DIR)) {
     const localePath = join(TEMPLATES_DIR, localeDir);
     if (!statSync(localePath).isDirectory()) continue;
-    return readdirSync(localePath).filter((f) => f.endsWith('.md'));
+    // Filter out documentation/meta files (ALL-CAPS names like CLAUDE.md, README.md, etc.)
+    return readdirSync(localePath).filter((f) => f.endsWith('.md') && !/^[A-Z][A-Z0-9_-]*\.md$/.test(f));
   }
 
   return [];

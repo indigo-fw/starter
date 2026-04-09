@@ -49,4 +49,9 @@ content/
     about.mdx                 → runtime MDX render
     blog/
       building-with-indigo.mdx → runtime MDX render
+  CLAUDE.md                    → ignored (ALL-CAPS = meta file)
 ```
+
+## Ignored Files
+
+Files with ALL-CAPS names (e.g. `CLAUDE.md`, `README.md`, `LICENSE.md`, `CHANGELOG.md`) are skipped by both the sync script and the content loader. Convention: ALL-CAPS = documentation/meta, lowercase = content.

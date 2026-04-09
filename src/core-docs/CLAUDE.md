@@ -44,6 +44,8 @@ description: How to install Indigo
 
 Slug derived from file path. Numeric prefixes stripped: `01-installation.mdx` → slug `installation`.
 
+Files with ALL-CAPS names (e.g. `CLAUDE.mdx`, `README.mdx`) are ignored by the loader.
+
 ## MDX Components
 
 Available in all `.mdx` files (compiled to static HTML via rehype plugin in `@/core/lib/mdx-compiler`):
