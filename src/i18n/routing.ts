@@ -28,6 +28,8 @@ export const routing = defineRouting({
     '/showcase/search': '/showcase/search',
     '/pricing': '/pricing',
     '/search': '/search',
+    '/docs': '/docs',
+    '/docs/[...slug]': '/docs/[...slug]',
 
     // ─── Public dynamic (catch-all content) ──────────────────────────
     '/blog/[slug]': '/blog/[slug]',

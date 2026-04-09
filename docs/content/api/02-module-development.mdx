@@ -1,0 +1,183 @@
+---
+title: Module Development
+section: API Reference
+order: 2
+description: How to create custom Indigo modules with routers, schema, and components
+---
+
+# Module Development
+
+Create reusable modules to extend Indigo with custom features.
+
+## Module Structure
+
+```
+src/core-mymodule/
+  schema/           # Drizzle ORM tables
+  routers/          # tRPC routers
+  lib/              # Service layer
+  components/       # React components (optional)
+  deps.ts           # Dependency injection interface
+  register.ts       # Re-exports
+  module.config.ts  # Self-description
+  CLAUDE.md         # AI agent docs
+  _templates/       # Project files scaffolded on install
+```
+
+## Module Config
+
+Every module needs a `module.config.ts` that self-describes its capabilities:
+
+```typescript
+import type { ModuleConfig } from '@/core/lib/module-config';
+
+const config: ModuleConfig = {
+  id: 'core-mymodule',
+  routers: [
+    { name: 'myRouter', key: 'my', from: '@/core-mymodule/routers/my' },
+  ],
+  schema: ['@/core-mymodule/schema/my-table'],
+  serverInit: ['@/core-mymodule/lib/init'],
+  jobs: [],
+  seed: ['@/core-mymodule/lib/seed'],
+  layoutWidgets: [],
+  pageWidgets: [],
+  navItems: [
+    { group: 'content', label: 'My Module', href: '/dashboard/my-module', icon: 'Box' },
+  ],
+  projectFiles: ['app/my-module/page.tsx'],
+};
+
+export default config;
+```
+
+<Callout type="info">
+After creating or modifying `module.config.ts`, run `bun run indigo:sync` to regenerate the glue files in `src/generated/`.
+</Callout>
+
+## Quick Start
+
+<Steps>
+<Step title="Scaffold the module directory">
+
+Create the directory structure under `src/core-mymodule/` with the files shown above.
+
+</Step>
+<Step title="Define your schema">
+
+```typescript
+// src/core-mymodule/schema/my-table.ts
+import { pgTable, uuid, varchar, timestamp } from 'drizzle-orm/pg-core';
+
+export const myItems = pgTable('my_items', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+```
+
+</Step>
+<Step title="Create a tRPC router">
+
+```typescript
+// src/core-mymodule/routers/my.ts
+import { z } from 'zod';
+import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
+import { myItems } from '@/core-mymodule/schema/my-table';
+
+export const myRouter = createTRPCRouter({
+  list: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.db.select().from(myItems).limit(100);
+  }),
+});
+```
+
+</Step>
+<Step title="Register and sync">
+
+Add to `indigo.config.ts`, then run `bun run indigo:sync` and `bun run db:generate`.
+
+</Step>
+</Steps>
+
+## Dependency Injection
+
+Modules must not hard-import project-specific code. Define a `deps.ts` interface:
+
+<CodeTabs>
+<Tab label="deps.ts (module side)">
+
+```typescript
+// src/core-mymodule/deps.ts
+interface MyModuleDeps {
+  getFeatureLimit: (orgId: string) => Promise<number>;
+  sendNotification: (userId: string, message: string) => Promise<void>;
+}
+
+let _deps: MyModuleDeps | null = null;
+
+export function setMyModuleDeps(deps: MyModuleDeps) {
+  _deps = deps;
+}
+
+export function getMyModuleDeps(): MyModuleDeps {
+  if (!_deps) throw new Error('MyModule deps not initialized');
+  return _deps;
+}
+```
+
+</Tab>
+<Tab label="config/mymodule-deps.ts (project side)">
+
+```typescript
+// src/config/mymodule-deps.ts
+import { setMyModuleDeps } from '@/core-mymodule/deps';
+
+setMyModuleDeps({
+  getFeatureLimit: async (orgId) => {
+    // Project-specific implementation
+    return 100;
+  },
+  sendNotification: async (userId, message) => {
+    // Wire to your notification system
+    await sendPushNotification(userId, message);
+  },
+});
+```
+
+</Tab>
+</CodeTabs>
+
+<Callout type="warning">
+The project wires deps in `src/config/*-deps.ts`, imported as side-effects in `server.ts`. If deps aren't initialized, the module will throw at runtime.
+</Callout>
+
+## Cross-Module Communication
+
+Use the hook registry for loose coupling between modules:
+
+```typescript
+import { registerHook, runHook } from '@/core/lib/module-hooks';
+
+// Register (in your deps/init file)
+registerHook('mymodule.event', async (userId, data) => {
+  // handle event
+});
+
+// Trigger (from another module)
+await runHook('mymodule.event', userId, eventData);
+// No-ops if no handler registered (module not installed)
+```
+
+### Available Hook Types
+
+| Type | Function | Behavior |
+|------|----------|----------|
+| Hook | `registerHook` / `runHook` | Fire-and-forget, no-ops if unregistered |
+| Guard | `registerGuard` / `runGuard` | Blocking — throws if handler throws, no-ops if unregistered |
+| Channel Auth | `registerChannelAuthorizer` | Returns `true`/`false`/`null` (not my channel) |
+
+<Callout type="tip">
+Always document your module's hooks in its `CLAUDE.md` so AI agents can understand the integration points.
+</Callout>

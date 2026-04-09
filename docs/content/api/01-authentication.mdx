@@ -1,0 +1,155 @@
+---
+title: Authentication API
+section: API Reference
+order: 1
+description: Authentication endpoints and session management with Better Auth
+---
+
+# Authentication API
+
+Indigo uses [Better Auth](https://www.better-auth.com/) for authentication. Sessions are managed server-side with secure HTTP-only cookies.
+
+<Callout type="info">
+Better Auth handles password hashing, session rotation, and CSRF protection automatically. You don't need to implement these yourself.
+</Callout>
+
+## Sign Up
+
+<CodeTabs>
+<Tab label="Client">
+
+```typescript
+import { authClient } from '@/lib/auth-client';
+
+const { data, error } = await authClient.signUp.email({
+  email: 'user@example.com',
+  password: 'securepassword',
+  name: 'John Doe',
+});
+```
+
+</Tab>
+<Tab label="Server (tRPC)">
+
+```typescript
+// Registration is handled by Better Auth client-side.
+// Use protectedProcedure to access the authenticated user:
+import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
+
+export const profileRouter = createTRPCRouter({
+  me: protectedProcedure.query(({ ctx }) => {
+    return ctx.session.user; // { id, email, name }
+  }),
+});
+```
+
+</Tab>
+</CodeTabs>
+
+## Sign In
+
+```typescript
+const { data, error } = await authClient.signIn.email({
+  email: 'user@example.com',
+  password: 'securepassword',
+});
+```
+
+## Sign Out
+
+```typescript
+await authClient.signOut();
+```
+
+## Get Current Session
+
+<CodeTabs>
+<Tab label="Server Component">
+
+```typescript
+import { auth } from '@/server/auth';
+import { headers } from 'next/headers';
+
+export default async function Page() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) return <p>Not logged in</p>;
+  return <p>Hello, {session.user.name}</p>;
+}
+```
+
+</Tab>
+<Tab label="Client Component">
+
+```typescript
+'use client';
+import { authClient } from '@/lib/auth-client';
+
+export function UserGreeting() {
+  const { data: session } = authClient.useSession();
+  if (!session) return null;
+  return <p>Hello, {session.user.name}</p>;
+}
+```
+
+</Tab>
+</CodeTabs>
+
+## Protected tRPC Procedures
+
+Use `protectedProcedure` to require authentication:
+
+```typescript
+import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
+
+export const myRouter = createTRPCRouter({
+  getProfile: protectedProcedure.query(async ({ ctx }) => {
+    // ctx.session.user.id is guaranteed to exist
+    return await getUser(ctx.session.user.id);
+  }),
+});
+```
+
+<Callout type="warning">
+Always verify resource ownership in protected procedures. Never trust client-provided user IDs — use `ctx.session.user.id` instead.
+</Callout>
+
+## Social Providers
+
+<Steps>
+<Step title="Configure providers in src/server/auth.ts">
+
+```typescript
+import { betterAuth } from 'better-auth';
+
+export const auth = betterAuth({
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    },
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    },
+  },
+});
+```
+
+</Step>
+<Step title="Add environment variables">
+
+Add `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GITHUB_CLIENT_ID`, and `GITHUB_CLIENT_SECRET` to your `.env` file.
+
+</Step>
+<Step title="Use social sign-in on the client">
+
+```typescript
+await authClient.signIn.social({ provider: 'google' });
+await authClient.signIn.social({ provider: 'github' });
+```
+
+</Step>
+</Steps>

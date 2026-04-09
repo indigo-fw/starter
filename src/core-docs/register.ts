@@ -10,9 +10,10 @@ export { cmsDocs } from './schema/docs';
 
 // Lib
 export { loadFileDocs, loadFileDoc, invalidateFileDocsCache } from './lib/docs-loader';
+export { invalidateCompileCache } from './lib/mdx-compiler';
 export type { FileDoc, DocFrontmatter } from './lib/docs-loader';
 export { getAllDocs, getDocBySlug, getDocsNavigation, searchDocs, generateLlmExport } from './lib/docs-service';
-export type { UnifiedDoc, DocNavItem } from './lib/docs-service';
+export type { UnifiedDoc, RenderedDoc, DocNavItem } from './lib/docs-service';
 
 // Components
 export { DocRenderer } from './components/DocRenderer';

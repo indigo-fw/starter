@@ -2,12 +2,13 @@ import { eq, and, asc, sql, desc } from 'drizzle-orm';
 import { ilikePattern } from '@/core/crud/drizzle-utils';
 import { db } from '@/server/db';
 import { cmsDocs } from '@/core-docs/schema/docs';
-import { loadFileDocs, loadFileDoc, stripHtml, type FileDoc } from './docs-loader';
+import { loadFileDocs, loadFileDoc, stripHtml, markdownToPlainText, type FileDoc } from './docs-loader';
+import { compileMarkdownToHtml } from './mdx-compiler';
 
 export interface UnifiedDoc {
   slug: string;
   title: string;
-  /** HTML content (for CMS docs) or raw markdown/MDX (for file docs) */
+  /** Raw content — HTML for CMS, markdown for file docs */
   body: string;
   /** Plain text for search/LLM */
   bodyText: string;
@@ -19,6 +20,12 @@ export interface UnifiedDoc {
   /** 'cms' | 'md' | 'mdx' */
   source: string;
   updatedAt: Date;
+}
+
+/** UnifiedDoc with pre-rendered HTML — returned by getDocBySlug only. */
+export interface RenderedDoc extends UnifiedDoc {
+  /** Pre-rendered HTML (compiled from md/mdx, or same as body for CMS) */
+  renderedBody: string;
 }
 
 export interface DocNavItem {
@@ -37,7 +44,7 @@ function fileDocToUnified(doc: FileDoc): UnifiedDoc {
     slug: doc.slug,
     title: doc.frontmatter.title ?? doc.slug,
     body: doc.content,
-    bodyText: doc.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(),
+    bodyText: markdownToPlainText(doc.content),
     section: doc.frontmatter.section ?? null,
     sortOrder: doc.frontmatter.order ?? 0,
     parentSlug: doc.slug.includes('/') ? doc.slug.split('/').slice(0, -1).join('/') : null,
@@ -54,7 +61,7 @@ function fileDocToUnified(doc: FileDoc): UnifiedDoc {
  */
 export async function getAllDocs(): Promise<UnifiedDoc[]> {
   // Load file-based docs
-  const fileDocs = loadFileDocs().map(fileDocToUnified);
+  const fileDocs = loadFileDocs().map((d) => fileDocToUnified(d));
 
   // Load CMS docs
   const cmsDocsRows = await db
@@ -96,10 +103,14 @@ export async function getAllDocs(): Promise<UnifiedDoc[]> {
 /**
  * Get a single doc by slug (checks file first, then CMS).
  */
-export async function getDocBySlug(slug: string): Promise<UnifiedDoc | null> {
+export async function getDocBySlug(slug: string): Promise<RenderedDoc | null> {
   // Check file-based first (takes priority)
   const fileDoc = loadFileDoc(slug);
-  if (fileDoc) return fileDocToUnified(fileDoc);
+  if (fileDoc) {
+    const cacheKey = `${slug}:${fileDoc.format}:${fileDoc.updatedAt.getTime()}`;
+    const renderedBody = await compileMarkdownToHtml(fileDoc.content, fileDoc.format, cacheKey);
+    return { ...fileDocToUnified(fileDoc), renderedBody };
+  }
 
   // Fall back to CMS
   const [cmsDoc] = await db
@@ -114,6 +125,7 @@ export async function getDocBySlug(slug: string): Promise<UnifiedDoc | null> {
     slug: cmsDoc.slug,
     title: cmsDoc.title,
     body: cmsDoc.body,
+    renderedBody: cmsDoc.body,
     bodyText: cmsDoc.bodyText || stripHtml(cmsDoc.body),
     section: cmsDoc.section,
     sortOrder: cmsDoc.sortOrder,
@@ -206,7 +218,7 @@ export async function searchDocs(query: string, limit = 20): Promise<Array<{ slu
   const q = query.toLowerCase();
 
   // File-based docs: substring match (no DB, no tsvector)
-  const fileDocs = loadFileDocs().map(fileDocToUnified);
+  const fileDocs = loadFileDocs().map((d) => fileDocToUnified(d));
   const fileResults = fileDocs
     .filter((d) => d.title.toLowerCase().includes(q) || d.bodyText.toLowerCase().includes(q))
     .map((d) => {

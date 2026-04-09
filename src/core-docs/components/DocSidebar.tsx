@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { LocaleLink as Link } from '@/core/components/LocaleLink';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import type { DocNavItem } from '@/core-docs/lib/docs-service';
@@ -66,7 +66,7 @@ export function DocSidebar({ navigation, activeSlug }: DocSidebarProps) {
   }
 
   return (
-    <aside className="w-64 shrink-0 border-r border-(--surface-secondary) p-4 overflow-y-auto sticky top-0 h-screen">
+    <aside className="docs-sidebar">
       <nav>
         {[...sections.entries()].map(([section, items]) => (
           <div key={section} className="mb-6">
