@@ -1,0 +1,3064 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: indigo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-09T19:59:34.145Z\n"
+"PO-Revision-Date: 2026-04-09T19:59:34.145Z\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: nb\n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:49
+msgid "Activity Log"
+msgstr "Aktivitetslogg"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:60
+msgid "All types"
+msgstr "Alle typer"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:70
+msgid "All actions"
+msgstr "Alle handlinger"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:84
+msgid "Filter by user..."
+msgstr "Filtrer etter bruker..."
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:102
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:244
+#: src/app/dashboard/(panel)/forms/page.tsx:109
+#: src/app/dashboard/(panel)/users/page.tsx:214
+#: src/components/admin/AdminSidebar.tsx:177
+msgid "Search"
+msgstr "Søk"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:115
+msgid "No activity recorded yet."
+msgstr "Ingen aktivitet registrert enda."
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:121
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:415
+msgid "Time"
+msgstr "Tid"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:122
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:416
+msgid "Action"
+msgstr "Handling"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:123
+#: src/app/dashboard/(panel)/organizations/page.tsx:399
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:49
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:125
+#: src/app/dashboard/(panel)/users/page.tsx:228
+#: src/components/admin/AdminSidebar.tsx:195
+msgid "User"
+msgstr "Bruker"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:124
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:266
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:356
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:61
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:103
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:159
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:172
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:327
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:417
+msgid "Type"
+msgstr "Type"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:125
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:418
+msgid "Entity"
+msgstr "Enhet"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:157
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:325
+#: src/app/dashboard/(panel)/forms/page.tsx:215
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:232
+#: src/app/dashboard/(panel)/media/page.tsx:309
+#: src/app/dashboard/(panel)/projects/page.tsx:265
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:109
+#: src/app/dashboard/(panel)/settings/import/page.tsx:421
+#: src/app/dashboard/(panel)/settings/support/page.tsx:178
+#: src/app/dashboard/(panel)/settings/support/page.tsx:314
+#: src/app/dashboard/(panel)/users/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:443
+#: src/components/admin/CmsListView.tsx:953
+msgid "Page"
+msgstr "Side"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:157
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:325
+#: src/app/dashboard/(panel)/forms/page.tsx:215
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:232
+#: src/app/dashboard/(panel)/media/page.tsx:309
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+#: src/app/dashboard/(panel)/settings/import/page.tsx:561
+#: src/app/dashboard/(panel)/users/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:443
+#: src/components/admin/CmsListView.tsx:953
+msgid "of"
+msgstr "av"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:25
+msgid "Menu created"
+msgstr "Meny opprettet"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:35
+msgid "Menu deleted"
+msgstr "Meny slettet"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:51
+msgid "Menus"
+msgstr "Menyer"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:58
+msgid "New Menu"
+msgstr "Ny meny"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:70
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:73
+msgid "Menu name"
+msgstr "Menynavn"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:80
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:212
+#: src/app/dashboard/(panel)/organizations/page.tsx:187
+#: src/app/dashboard/(panel)/organizations/page.tsx:225
+#: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
+msgid "Create"
+msgstr "Opprett"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:87
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:114
+#: src/app/dashboard/(panel)/organizations/page.tsx:228
+#: src/app/dashboard/(panel)/organizations/page.tsx:474
+#: src/app/dashboard/(panel)/projects/page.tsx:151
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:136
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:306
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:184
+#: src/app/dashboard/(panel)/users/page.tsx:424
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:99
+msgid "No menus yet. Create your first one."
+msgstr "Ingen menyer enda. Opprett din første."
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:105
+#: src/app/dashboard/(panel)/forms/page.tsx:127
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:223
+#: src/app/dashboard/(panel)/organizations/page.tsx:199
+#: src/app/dashboard/(panel)/projects/page.tsx:123
+#: src/app/dashboard/(panel)/projects/page.tsx:189
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:56
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:177
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:101
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:158
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:195
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:325
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:173
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:129
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:203
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:267
+#: src/components/admin/CategoryForm.tsx:325
+#: src/components/admin/PortfolioForm.tsx:349
+#: src/components/admin/TermForm.tsx:235
+msgid "Name"
+msgstr "Navn"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:106
+#: src/app/dashboard/(panel)/forms/page.tsx:128
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:235
+#: src/app/dashboard/(panel)/organizations/page.tsx:211
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:57
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:182
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:326
+#: src/app/dashboard/(panel)/settings/import/page.tsx:592
+#: src/components/admin/CategoryForm.tsx:338
+#: src/components/admin/CmsListView.tsx:769
+#: src/components/admin/PortfolioForm.tsx:362
+#: src/components/admin/ShowcaseForm.tsx:341
+#: src/components/admin/TermForm.tsx:248
+msgid "Slug"
+msgstr "Slug"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:120
+#: src/app/dashboard/(panel)/projects/page.tsx:236
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:365
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:231
+#: src/components/admin/CmsListView.tsx:926
+msgid "Edit"
+msgstr "Rediger"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:127
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:144
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:356
+#: src/app/dashboard/(panel)/forms/page.tsx:246
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:261
+#: src/app/dashboard/(panel)/media/page.tsx:293
+#: src/app/dashboard/(panel)/media/page.tsx:336
+#: src/app/dashboard/(panel)/notifications/page.tsx:98
+#: src/app/dashboard/(panel)/organizations/page.tsx:514
+#: src/app/dashboard/(panel)/projects/page.tsx:243
+#: src/app/dashboard/(panel)/projects/page.tsx:285
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:374
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:393
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:238
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:255
+#: src/components/admin/CmsListView.tsx:991
+msgid "Delete"
+msgstr "Slett"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:142
+msgid "Delete menu?"
+msgstr "Slette meny?"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:143
+msgid "\"{name}\" and all its items will be permanently deleted."
+msgstr "\"{name}\" og alle elementene vil bli permanent slettet."
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:33
+msgid "Menu updated"
+msgstr "Meny oppdatert"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:59
+msgid "Edit Menu"
+msgstr "Rediger meny"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:81
+msgid "Update Name"
+msgstr "Oppdater navn"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:88
+msgid "Menu Items"
+msgstr "Menyelementer"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:50
+msgid "Redirect created"
+msgstr "Omdirigering opprettet"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:52
+msgid "Chain detected: {chain}"
+msgstr "Kjede oppdaget: {chain}"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:68
+msgid "Redirect deleted"
+msgstr "Omdirigering slettet"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:104
+msgid "Redirects"
+msgstr "Omdirigeringer"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:119
+msgid "New Redirect"
+msgstr "Ny omdirigering"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:134
+msgid "Create Redirect"
+msgstr "Opprett omdirigering"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:139
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:264
+msgid "Old Slug"
+msgstr "Gammel slug"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:147
+msgid "e.g. old-page-slug"
+msgstr "f.eks. gammel-side-slug"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:154
+msgid "Content Type"
+msgstr "Innholdstype"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:175
+msgid "Content ID"
+msgstr "Innholds-ID"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:183
+msgid "UUID of target content"
+msgstr "UUID for målinnhold"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:190
+msgid "URL Prefix"
+msgstr "URL-prefiks"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:198
+msgid "e.g. / or /blog"
+msgstr "f.eks. / eller /blog"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:226
+msgid "Search by slug or content type..."
+msgstr "Søk etter slug eller innholdstype..."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:257
+msgid "No redirects found."
+msgstr "Ingen omdirigeringer funnet."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:258
+msgid "No redirects yet."
+msgstr "Ingen omdirigeringer enda."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:265
+msgid "Target"
+msgstr "Mål"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:267
+msgid "Prefix"
+msgstr "Prefiks"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:268
+#: src/app/dashboard/(panel)/forms/page.tsx:132
+#: src/app/dashboard/(panel)/projects/page.tsx:191
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:117
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:174
+#: src/app/dashboard/(panel)/settings/support/page.tsx:122
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:280
+#: src/components/admin/CmsListView.tsx:788
+msgid "Created"
+msgstr "Opprettet"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:309
+msgid "Delete redirect"
+msgstr "Slett omdirigering"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:326
+#: src/app/dashboard/(panel)/forms/page.tsx:216
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:233
+#: src/app/dashboard/(panel)/media/page.tsx:310
+#: src/app/dashboard/(panel)/users/page.tsx:374
+#: src/components/admin/CmsListView.tsx:954
+msgid "total"
+msgstr "totalt"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:352
+msgid "Delete redirect?"
+msgstr "Slette omdirigering?"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:44
+msgid "Form deleted"
+msgstr "Skjema slettet"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:72
+msgid "Forms"
+msgstr "Skjemaer"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:77
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:197
+msgid "New Form"
+msgstr "Nytt skjema"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:91
+msgid "Search forms..."
+msgstr "Søk i skjemaer..."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:121
+msgid "No forms found."
+msgstr "Ingen skjemaer funnet."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:121
+msgid "No forms yet. Create your first form."
+msgstr "Ingen skjemaer enda. Opprett ditt første skjema."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:129
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:292
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:38
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:47
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:61
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:175
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
+#: src/app/dashboard/(panel)/users/page.tsx:292
+msgid "Active"
+msgstr "Aktiv"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:130
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:304
+msgid "Fields"
+msgstr "Felter"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:131
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:133
+msgid "Submissions"
+msgstr "Innsendinger"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:160
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:201
+msgid "Yes"
+msgstr "Ja"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:165
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:202
+msgid "No"
+msgstr "Nei"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:188
+msgid "Edit form"
+msgstr "Rediger skjema"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:197
+msgid "Delete form"
+msgstr "Slett skjema"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:242
+msgid "Delete form?"
+msgstr "Slette skjema?"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:99
+msgid "Form created"
+msgstr "Skjema opprettet"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:107
+msgid "Form saved"
+msgstr "Skjema lagret"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:154
+msgid "Form name is required"
+msgstr "Skjemanavn er påkrevd"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:160
+msgid "At least one field with a label is required"
+msgstr "Minst ett felt med en etikett er påkrevd"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:197
+msgid "Edit Form"
+msgstr "Rediger skjema"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:211
+#: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:165
+#: src/app/dashboard/(panel)/settings/page.tsx:212
+#: src/components/admin/CategoryForm.tsx:300
+#: src/components/admin/PortfolioForm.tsx:324
+#: src/components/admin/PostForm.tsx:853
+#: src/components/admin/ShowcaseForm.tsx:303
+#: src/components/admin/TermForm.tsx:212
+msgid "Save"
+msgstr "Lagre"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:219
+msgid "Form Settings"
+msgstr "Skjemainnstillinger"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:229
+msgid "e.g. Contact Form"
+msgstr "f.eks. Kontaktskjema"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:241
+msgid "Auto-generated from name"
+msgstr "Automatisk generert fra navn"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:247
+msgid "Recipient Email"
+msgstr "Mottakers e-post"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:253
+msgid "Notifications sent to this email"
+msgstr "Varsler sendes til denne e-posten"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:259
+msgid "Success Message"
+msgstr "Suksessmelding"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:265
+msgid "Thank you!"
+msgstr "Takk!"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:271
+msgid "Honeypot Field Name"
+msgstr "Honeypot-feltnavn"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:277
+msgid "e.g. website (leave empty to disable)"
+msgstr "f.eks. website (la stå tomt for å deaktivere)"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:281
+msgid "Hidden field to catch bots. Submissions with this field filled are rejected."
+msgstr "Skjult felt for å fange roboter. Innsendinger med dette feltet utfylt avvises."
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:295
+msgid "Inactive forms reject submissions"
+msgstr "Inaktive skjemaer avviser innsendinger"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:311
+msgid "Add Field"
+msgstr "Legg til felt"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:333
+msgid "Move up"
+msgstr "Flytt opp"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:345
+msgid "Move down"
+msgstr "Flytt ned"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:374
+msgid "Label"
+msgstr "Etikett"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:382
+msgid "Field label"
+msgstr "Feltetikett"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:388
+msgid "Placeholder"
+msgstr "Plassholder"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:396
+msgid "Placeholder text"
+msgstr "Plassholdertekst"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:406
+msgid "Options (comma-separated)"
+msgstr "Alternativer (kommaseparert)"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:414
+msgid "Option 1, Option 2, Option 3"
+msgstr "Alternativ 1, Alternativ 2, Alternativ 3"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:431
+msgid "Required"
+msgstr "Påkrevd"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:445
+msgid "Remove field"
+msgstr "Fjern felt"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:456
+msgid "No fields yet. Click \"Add Field\" to start building your form."
+msgstr "No fields yet. Click \"Add Field\" to start building your form."
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:464
+msgid "Embed"
+msgstr "Innbygg"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:466
+msgid "Use this component to embed the form on any page:"
+msgstr "Bruk denne komponenten for å bygge inn skjemaet på en hvilken som helst side:"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:472
+msgid "API endpoint for direct submissions:"
+msgstr "API-endepunkt for direkte innsendinger:"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:509
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:111
+msgid "Form not found."
+msgstr "Skjema ikke funnet."
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:41
+msgid "Submission deleted"
+msgstr "Innsending slettet"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:70
+msgid "Export downloaded"
+msgstr "Eksport lastet ned"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:72
+#: src/components/admin/CmsListView.tsx:335
+#: src/components/admin/CmsListView.tsx:368
+msgid "Export failed"
+msgstr "Eksport mislyktes"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:144
+msgid "CSV"
+msgstr "CSV"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:151
+msgid "JSON"
+msgstr "JSON"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:165
+msgid "No submissions yet."
+msgstr "Ingen innsendinger enda."
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:172
+msgid "Submitted"
+msgstr "Sendt inn"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:178
+msgid "IP"
+msgstr "IP"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:214
+msgid "Delete submission"
+msgstr "Slett innsending"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:259
+msgid "Delete submission?"
+msgstr "Slette innsending?"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:260
+msgid "Delete this submission? This cannot be undone."
+msgstr "Slette denne innsendingen? Dette kan ikke angres."
+
+#: src/app/dashboard/(panel)/media/page.tsx:65
+msgid "File deleted"
+msgstr "Fil slettet"
+
+#: src/app/dashboard/(panel)/media/page.tsx:92
+msgid "Upload failed"
+msgstr "Opplasting mislyktes"
+
+#: src/app/dashboard/(panel)/media/page.tsx:108
+msgid "Failed to upload {name}"
+msgstr "Kunne ikke laste opp {name}"
+
+#: src/app/dashboard/(panel)/media/page.tsx:113
+msgid "1 file uploaded"
+msgid_plural "{count} files uploaded"
+msgstr[0] "1 fil lastet opp"
+msgstr[1] "{count} filer lastet opp"
+
+#: src/app/dashboard/(panel)/media/page.tsx:162
+#: src/components/admin/QuickActionsWidget.tsx:42
+msgid "Media Library"
+msgstr "Mediebibliotek"
+
+#: src/app/dashboard/(panel)/media/page.tsx:182
+msgid "Uploading..."
+msgstr "Laster opp..."
+
+#: src/app/dashboard/(panel)/media/page.tsx:182
+msgid "Upload"
+msgstr "Last opp"
+
+#: src/app/dashboard/(panel)/media/page.tsx:218
+msgid "No media files yet."
+msgstr "Ingen mediefiler enda."
+
+#: src/app/dashboard/(panel)/media/page.tsx:224
+msgid "Upload your first file"
+msgstr "Last opp din første fil"
+
+#: src/app/dashboard/(panel)/media/page.tsx:277
+msgid "Copy URL"
+msgstr "Kopier URL"
+
+#: src/app/dashboard/(panel)/media/page.tsx:334
+msgid "Delete file?"
+msgstr "Slette fil?"
+
+#: src/app/dashboard/(panel)/media/page.tsx:335
+msgid "\"{name}\" will be deleted."
+msgstr "\"{name}\" will be deleted."
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:40
+msgid "Notifications"
+msgstr "Varsler"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:47
+msgid "Mark all read"
+msgstr "Merk alle som lest"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:54
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:45
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:121
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
+msgid "Loading..."
+msgstr "Laster..."
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:60
+msgid "No notifications yet"
+msgstr "Ingen varsler enda"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:89
+msgid "Mark read"
+msgstr "Merk som lest"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:71
+msgid "Organization created"
+msgstr "Organisasjon opprettet"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:82
+msgid "Organization deleted"
+msgstr "Organisasjon slettet"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:93
+msgid "Left organization"
+msgstr "Forlot organisasjon"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:104
+msgid "Invitation sent"
+msgstr "Invitasjon sendt"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:115
+msgid "Member removed"
+msgstr "Medlem fjernet"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:123
+msgid "Invitation canceled"
+msgstr "Invitasjon kansellert"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:131
+msgid "Invitation accepted"
+msgstr "Invitasjon akseptert"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:180
+#: src/app/dashboard/(panel)/organizations/page.tsx:320
+msgid "Organizations"
+msgstr "Organisasjoner"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:196
+msgid "Create Organization"
+msgstr "Opprett organisasjon"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:205
+msgid "My Organization"
+msgstr "Min organisasjon"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:217
+msgid "my-organization (auto-generated if empty)"
+msgstr "min-organisasjon (automatisk generert hvis tomt)"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:245
+msgid "No organizations yet. Create one to get started."
+msgstr "Ingen organisasjoner enda. Opprett en for å komme i gang."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:252
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
+msgid "Organization"
+msgstr "Organisasjon"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:253
+#: src/app/dashboard/(panel)/organizations/page.tsx:369
+#: src/app/dashboard/(panel)/organizations/page.tsx:400
+#: src/app/dashboard/(panel)/organizations/page.tsx:465
+#: src/app/dashboard/(panel)/users/page.tsx:229
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:289
+msgid "Role"
+msgstr "Rolle"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:291
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
+msgid "Manage"
+msgstr "Administrer"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:341
+msgid "Members"
+msgstr "Medlemmer"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:349
+msgid "Invite"
+msgstr "Inviter"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:358
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:278
+msgid "Email"
+msgstr "E-post"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:375
+msgid "Member"
+msgstr "Medlem"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:376
+msgid "Admin"
+msgstr "Admin"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:381
+msgid "Send"
+msgstr "Send"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:436
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:221
+msgid "Remove"
+msgstr "Fjern"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:457
+msgid "Pending Invitations"
+msgstr "Ventende invitasjoner"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:465
+msgid "Expires"
+msgstr "Utløper"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:484
+msgid "Danger Zone"
+msgstr "Faresone"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:492
+msgid "Leave Organization"
+msgstr "Forlat organisasjon"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:501
+msgid "Delete Organization"
+msgstr "Slett organisasjon"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:512
+msgid "Delete organization?"
+msgstr "Slette organisasjon?"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:513
+msgid "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
+msgstr "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:525
+msgid "Leave organization?"
+msgstr "Forlate organisasjon?"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:526
+msgid "Leave \"{name}\"? You will lose access to this organization."
+msgstr "Leave \"{name}\"? You will lose access to this organization."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:527
+msgid "Leave"
+msgstr "Forlat"
+
+#: src/app/dashboard/(panel)/page.tsx:31
+msgid "Dashboard"
+msgstr "Kontrollpanel"
+
+#: src/app/dashboard/(panel)/page.tsx:32
+msgid "Welcome to Indigo admin panel."
+msgstr "Velkommen til Indigo administrasjonspanel."
+
+#: src/app/dashboard/(panel)/page.tsx:44
+msgid "Pages"
+msgstr "Sider"
+
+#: src/app/dashboard/(panel)/page.tsx:51
+msgid "Blog Posts"
+msgstr "Blogginnlegg"
+
+#: src/app/dashboard/(panel)/page.tsx:58
+#: src/app/dashboard/(panel)/settings/import/page.tsx:595
+msgid "Categories"
+msgstr "Kategorier"
+
+#: src/app/dashboard/(panel)/page.tsx:65
+#: src/app/dashboard/(panel)/users/page.tsx:160
+msgid "Users"
+msgstr "Brukere"
+
+#: src/app/dashboard/(panel)/page.tsx:72
+msgid "Media Files"
+msgstr "Mediefiler"
+
+#: src/app/dashboard/(panel)/page.tsx:84
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
+msgid "Active Subscriptions"
+msgstr "Aktive abonnementer"
+
+#: src/app/dashboard/(panel)/page.tsx:91
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
+msgid "MRR"
+msgstr "MRR"
+
+#: src/app/dashboard/(panel)/page.tsx:98
+msgid "Churn (30d)"
+msgstr "Frafall (30d)"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:40
+msgid "Project created"
+msgstr "Prosjekt opprettet"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:49
+msgid "Project updated"
+msgstr "Prosjekt oppdatert"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:58
+msgid "Project deleted"
+msgstr "Prosjekt slettet"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:104
+msgid "Projects"
+msgstr "Prosjekter"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:111
+#: src/app/dashboard/(panel)/projects/page.tsx:120
+#: src/components/admin/QuickActionsWidget.tsx:38
+msgid "New Project"
+msgstr "Nytt prosjekt"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:120
+msgid "Edit Project"
+msgstr "Rediger prosjekt"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:129
+#: src/components/admin/PortfolioForm.tsx:357
+msgid "Project name"
+msgstr "Prosjektnavn"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:135
+#: src/components/admin/CategoryForm.tsx:384
+#: src/components/admin/PortfolioForm.tsx:474
+#: src/components/admin/ShowcaseForm.tsx:477
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:141
+msgid "Optional description"
+msgstr "Valgfri beskrivelse"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:164
+msgid "Search projects..."
+msgstr "Søk i prosjekter..."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:180
+msgid "No projects match your search."
+msgstr "Ingen prosjekter samsvarer med søket ditt."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:181
+msgid "No projects yet. Create one to get started."
+msgstr "Ingen prosjekter enda. Opprett et for å komme i gang."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:190
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:58
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:131
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:64
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:55
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:114
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:58
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:280
+#: src/app/dashboard/(panel)/settings/import/page.tsx:593
+#: src/app/dashboard/(panel)/settings/support/page.tsx:119
+#: src/app/dashboard/(panel)/settings/support/page.tsx:250
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:272
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:205
+#: src/app/dashboard/(panel)/users/page.tsx:230
+#: src/components/admin/CategoryForm.tsx:455
+#: src/components/admin/CmsListView.tsx:749
+#: src/components/admin/PortfolioForm.tsx:559
+#: src/components/admin/PostForm.tsx:948
+#: src/components/admin/PostForm.tsx:952
+#: src/components/admin/ShowcaseForm.tsx:533
+#: src/components/admin/TermForm.tsx:268
+msgid "Status"
+msgstr "Status"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:220
+msgid "Archive"
+msgstr "Arkiver"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:228
+#: src/components/admin/CmsListView.tsx:900
+msgid "Restore"
+msgstr "Gjenopprett"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:262
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:106
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:182
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:158
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:104
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:75
+#: src/app/dashboard/(panel)/settings/support/page.tsx:175
+#: src/app/dashboard/(panel)/settings/support/page.tsx:311
+msgid "Previous"
+msgstr "Forrige"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:272
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:116
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:189
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:107
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:78
+#: src/app/dashboard/(panel)/settings/import/page.tsx:454
+#: src/app/dashboard/(panel)/settings/support/page.tsx:185
+#: src/app/dashboard/(panel)/settings/support/page.tsx:321
+msgid "Next"
+msgstr "Neste"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:283
+msgid "Delete project?"
+msgstr "Slette prosjekt?"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:284
+msgid "Delete \"{name}\"? This action cannot be undone."
+msgstr "Delete \"{name}\"? This action cannot be undone."
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
+msgid "Affiliates"
+msgstr "Affiliater"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:37
+#: src/app/dashboard/(panel)/settings/support/page.tsx:87
+msgid "All Statuses"
+msgstr "Alle statuser"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:39
+msgid "Suspended"
+msgstr "Suspendert"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:40
+#: src/app/dashboard/(panel)/users/page.tsx:288
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:209
+msgid "Banned"
+msgstr "Utestengt"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:47
+msgid "No affiliates found"
+msgstr "Ingen affiliater funnet"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:54
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:60
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
+msgid "Code"
+msgstr "Kode"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:55
+msgid "Commission"
+msgstr "Provisjon"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:56
+msgid "Referrals"
+msgstr "Henvisninger"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:57
+msgid "Earnings"
+msgstr "Inntekter"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:59
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:59
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
+msgid "Actions"
+msgstr "Handlinger"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:81
+msgid "Suspend"
+msgstr "Suspender"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:89
+msgid "Activate"
+msgstr "Aktiver"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
+msgid "Canceled"
+msgstr "Kansellert"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
+msgid "Payment Failed"
+msgstr "Betaling mislyktes"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
+msgid "Unpaid"
+msgstr "Ubetalt"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
+msgid "Churned Subscriptions"
+msgstr "Frafallsabonnementer"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
+msgid "Search by organization..."
+msgstr "Søk etter organisasjon..."
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
+msgid "No churned subscriptions found."
+msgstr "Ingen frafallsabonnementer funnet."
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:113
+msgid "Plan"
+msgstr "Plan"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:171
+msgid "Provider"
+msgstr "Leverandør"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
+msgid "Churn Date"
+msgstr "Frafallsdato"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
+msgid "Subscription Start"
+msgstr "Abonnementsstart"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "Showing"
+msgstr "Viser"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "to"
+msgstr "til"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "results"
+msgstr "resultater"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
+msgid "Discount Codes"
+msgstr "Rabattkoder"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
+msgid "No discount codes yet."
+msgstr "Ingen rabattkoder enda."
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
+msgid "Value"
+msgstr "Verdi"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
+msgid "Usage"
+msgstr "Bruk"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
+msgid "unlimited"
+msgstr "ubegrenset"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
+msgid "Recent Transactions"
+msgstr "Nylige transaksjoner"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
+msgid "No transactions yet."
+msgstr "Ingen transaksjoner enda."
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
+msgid "Amount"
+msgstr "Beløp"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
+#: src/app/dashboard/(panel)/settings/import/page.tsx:594
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:349
+#: src/components/admin/CmsListView.tsx:760
+msgid "Date"
+msgstr "Dato"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
+msgid "Revenue"
+msgstr "Inntekt"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
+msgid "Transactions"
+msgstr "Transaksjoner"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
+msgid "Revenue Over Time"
+msgstr "Inntekt over tid"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
+msgid "No revenue data for this period."
+msgstr "Ingen inntektsdata for denne perioden."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
+msgid "Search organizations..."
+msgstr "Søk i organisasjoner..."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
+msgid "per page"
+msgstr "per side"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
+msgid "No subscriptions found."
+msgstr "Ingen abonnementer funnet."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
+msgid "Period"
+msgstr "Periode"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
+msgid "Total Revenue"
+msgstr "Total inntekt"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
+msgid "Trialing"
+msgstr "Prøveperiode"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
+msgid "Trial"
+msgstr "Prøve"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
+msgid "Plan Distribution"
+msgstr "Planfordeling"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
+msgid "No subscriptions yet"
+msgstr "Ingen abonnementer enda"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
+msgid "Churn Metrics"
+msgstr "Frafallsmetrikker"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
+msgid "Churn Rate (30d)"
+msgstr "Frafallsrate (30d)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
+msgid "Canceled (30d)"
+msgstr "Kansellert (30d)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
+msgid "Past Due (at risk)"
+msgstr "Forfalt (i faresonen)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
+msgid "Unpaid (lost)"
+msgstr "Ubetalt (tapt)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
+msgid "Total Ever Subscribed"
+msgstr "Totalt abonnert noensinne"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:156
+msgid "Monitor revenue, track churn, and manage subscriptions."
+msgstr "Overvåk inntekt, spor frafall og administrer abonnementer."
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:181
+msgid "Custom range"
+msgstr "Egendefinert periode"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:187
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:285
+msgid "From"
+msgstr "Fra"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:194
+msgid "To"
+msgstr "Til"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "Last"
+msgstr "Siste"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "days"
+msgstr "dager"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:235
+msgid "All time"
+msgstr "All tid"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:19
+msgid "Are you sure you want to delete this character?"
+msgstr "Er du sikker på at du vil slette denne karakteren?"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:29
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Characters"
+msgstr "Karakterer"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:31
+msgid "AI personas that users can chat with."
+msgstr "AI-personaer som brukere kan chatte med."
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:39
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
+msgid "New Character"
+msgstr "Ny karakter"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:49
+msgid "No characters yet. Create your first AI persona."
+msgstr "Ingen karakterer enda. Opprett din første AI-persona."
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
+msgid "Edit Character"
+msgstr "Rediger karakter"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:186
+msgid "Tagline"
+msgstr "Slagord"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:189
+msgid "System Prompt"
+msgstr "Systeminstruksjon"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:192
+msgid "Personality (visible to users)"
+msgstr "Personlighet (synlig for brukere)"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:195
+msgid "Greeting Message"
+msgstr "Velkomstmelding"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:198
+msgid "Avatar URL"
+msgstr "Avatar-URL"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:203
+msgid "Character Traits"
+msgstr "Karaktertrekk"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
+msgid "Gender"
+msgstr "Kjønn"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:206
+msgid "Sexuality"
+msgstr "Seksualitet"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
+msgid "Ethnicity"
+msgstr "Etnisitet"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
+msgid "Personality"
+msgstr "Personlighet"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
+msgid "Kink"
+msgstr "Kink"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
+msgid "Job"
+msgstr "Jobb"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
+msgid "Relationship"
+msgstr "Forhold"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:214
+msgid "Hobbies"
+msgstr "Hobbyer"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:220
+msgid "Visual Appearance"
+msgstr "Visuelt utseende"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
+msgid "Hair Color"
+msgstr "Hårfarge"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:223
+msgid "Hair Texture"
+msgstr "Hårtekstur"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
+msgid "Hair Style"
+msgstr "Frisyre"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
+msgid "Eye Color"
+msgstr "Øyefarge"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
+msgid "Skin"
+msgstr "Hud"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
+msgid "Body Type"
+msgstr "Kroppstype"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:233
+msgid "Image Generation Settings"
+msgstr "Innstillinger for bildegenerering"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
+msgid "Model Preset"
+msgstr "Modellmal"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:255
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:329
+#: src/components/admin/ShowcaseForm.tsx:458
+msgid "Sort Order"
+msgstr "Sorteringsrekkefølge"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
+msgid "Token Cost Multiplier"
+msgstr "Token-kostnadsmultiplikator"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:242
+msgid "Custom Negative Prompt"
+msgstr "Egendefinert negativ instruksjon"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
+msgid "LoRA Config"
+msgstr "LoRA-konfigurasjon"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:250
+msgid "Active (visible to users)"
+msgstr "Aktiv (synlig for brukere)"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
+msgid "Create Character"
+msgstr "Opprett karakter"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:325
+msgid "Save Changes"
+msgstr "Lagre endringer"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:24
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:12
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:20
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:23
+msgid "Conversations"
+msgstr "Samtaler"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
+msgid "Browse all chat conversations"
+msgstr "Bla gjennom alle chattesamtaler"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:32
+msgid "All statuses"
+msgstr "Alle statuser"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:34
+msgid "Archived"
+msgstr "Arkivert"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
+msgid "Deleted"
+msgstr "Slettet"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:42
+msgid "No conversations found."
+msgstr "Ingen samtaler funnet."
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:83
+msgid "Character"
+msgstr "Karakter"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
+msgid "Messages"
+msgstr "Meldinger"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
+msgid "Tokens"
+msgstr "Tokens"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:54
+msgid "Last Active"
+msgstr "Sist aktiv"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:27
+msgid "Conversation"
+msgstr "Samtale"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:34
+msgid "No messages."
+msgstr "Ingen meldinger."
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:15
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Flagged Messages"
+msgstr "Flaggede meldinger"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
+msgid "Messages blocked by content moderation"
+msgstr "Meldinger blokkert av innholdsmoderering"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
+msgid "No flagged messages."
+msgstr "Ingen flaggede meldinger."
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
+msgid "Reason"
+msgstr "Årsak"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
+msgid "Dismiss flag"
+msgstr "Avvis flagg"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
+msgid "Dismiss"
+msgstr "Avvis"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:13
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:24
+msgid "Total Messages"
+msgstr "Totalt antall meldinger"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:14
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
+msgid "Active Users (24h)"
+msgstr "Aktive brukere (24t)"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Manage AI personas"
+msgstr "Administrer AI-personaer"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:20
+msgid "Browse all conversations"
+msgstr "Bla gjennom alle samtaler"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Review moderated content"
+msgstr "Gjennomgå moderert innhold"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:22
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:84
+msgid "AI Providers"
+msgstr "AI-leverandører"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:22
+msgid "Manage LLM providers"
+msgstr "Administrer LLM-leverandører"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Analytics"
+msgstr "Analyse"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Usage statistics and charts"
+msgstr "Bruksstatistikk og diagrammer"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Moderation"
+msgstr "Moderering"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Keywords, action, and rate limits"
+msgstr "Nøkkelord, handlinger og hastighetsbegrensninger"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:30
+msgid "Chat"
+msgstr "Chat"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:31
+msgid "AI character chat management"
+msgstr "AI-karakter chatteadministrasjon"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:67
+msgid "Delete this provider?"
+msgstr "Slette denne leverandøren?"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:85
+msgid "Manage LLM provider credentials and routing"
+msgstr "Administrer LLM-leverandørlegitimasjon og ruting"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:89
+msgid "Add Provider"
+msgstr "Legg til leverandør"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
+msgid "Edit Provider"
+msgstr "Rediger leverandør"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
+msgid "New Provider"
+msgstr "Ny leverandør"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
+msgid "LLM (Text)"
+msgstr "LLM (tekst)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:106
+msgid "Image"
+msgstr "Bilde"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
+msgid "Video"
+msgstr "Video"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
+msgid "Adapter"
+msgstr "Adapter"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:116
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:160
+msgid "Model"
+msgstr "Modell"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:119
+msgid "Base URL (leave empty for OpenAI)"
+msgstr "Basis-URL (la stå tomt for OpenAI)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
+msgid "API Key"
+msgstr "API-nøkkel"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:122
+msgid "Leave empty to keep current"
+msgstr "La stå tomt for å beholde gjeldende"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
+#: src/app/dashboard/(panel)/settings/support/page.tsx:120
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:276
+msgid "Priority"
+msgstr "Prioritet"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
+msgid "Max Concurrent"
+msgstr "Maks samtidige"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
+msgid "Timeout (s)"
+msgstr "Tidsavbrudd (s)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:151
+msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "Ingen leverandører konfigurert. Legg til en eller sett AI_API_KEY i .env for en rask start."
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:187
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:224
+msgid "Test"
+msgstr "Test"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
+msgid "Task Queues"
+msgstr "Oppgavekøer"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
+msgid "BullMQ job queue status and failed job management"
+msgstr "BullMQ jobbkø-status og administrasjon av mislykkede jobber"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
+msgid "No queues found. Workers may not be running."
+msgstr "Ingen køer funnet. Arbeidere kjører kanskje ikke."
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
+msgid "Waiting"
+msgstr "Venter"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
+msgid "Done"
+msgstr "Ferdig"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
+msgid "Failed"
+msgstr "Mislykket"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
+msgid "Failed Jobs"
+msgstr "Mislykkede jobber"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:175
+msgid "Attempts"
+msgstr "Forsøk"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:208
+msgid "Retry"
+msgstr "Prøv igjen"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
+msgid "Tokens Consumed"
+msgstr "Tokens forbrukt"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:32
+msgid "Chat Analytics"
+msgstr "Chatteanalyse"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:33
+msgid "Usage statistics and trends"
+msgstr "Bruksstatistikk og trender"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:53
+msgid "Messages (30 days)"
+msgstr "Meldinger (30 dager)"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:72
+msgid "Popular Characters"
+msgstr "Populære karakterer"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:76
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:119
+msgid "No data yet"
+msgstr "Ingen data enda"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:84
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:126
+msgid "Convs"
+msgstr "Samtaler"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
+msgid "Msgs"
+msgstr "Mld."
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
+msgid "Avg"
+msgstr "Gj.sn."
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:115
+msgid "Most Active Users"
+msgstr "Mest aktive brukere"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:162
+msgid "Provider Health (24h)"
+msgstr "Leverandørhelse (24t)"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:166
+msgid "No provider activity yet"
+msgstr "Ingen leverandøraktivitet enda"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
+msgid "Requests"
+msgstr "Forespørsler"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:174
+msgid "Success"
+msgstr "Vellykket"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
+msgid "Failures"
+msgstr "Feil"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
+msgid "Avg ms"
+msgstr "Gj.sn. ms"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
+msgid "Rate"
+msgstr "Rate"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:60
+msgid "Custom field created"
+msgstr "Egendefinert felt opprettet"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:69
+msgid "Custom field updated"
+msgstr "Egendefinert felt oppdatert"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:78
+msgid "Custom field deleted"
+msgstr "Egendefinert felt slettet"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:169
+msgid "Custom Fields"
+msgstr "Egendefinerte felter"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:181
+msgid "New Field"
+msgstr "Nytt felt"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:205
+msgid "e.g. Author Bio"
+msgstr "f.eks. Forfatterbiografi"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:210
+msgid "Field Type"
+msgstr "Felttype"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:234
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:328
+msgid "Content Types"
+msgstr "Innholdstyper"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:276
+msgid "Choices (one per line)"
+msgstr "Valg (ett per linje)"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
+msgid "Option A
+Option B
+Option C"
+msgstr "Option A
+Option B
+Option C"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
+#: src/app/dashboard/(panel)/users/page.tsx:431
+msgid "Update"
+msgstr "Oppdater"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:319
+msgid "No custom fields defined yet."
+msgstr "Ingen egendefinerte felter definert enda."
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:389
+msgid "Delete custom field?"
+msgstr "Slette egendefinert felt?"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
+msgid "Discount code created"
+msgstr "Rabattkode opprettet"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
+msgid "Discount code updated"
+msgstr "Rabattkode oppdatert"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
+msgid "Discount code deleted"
+msgstr "Rabattkode slettet"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
+msgid "New Code"
+msgstr "Ny kode"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Percentage (0-100)"
+msgstr "Prosent (0-100)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Price (cents)"
+msgstr "Pris (øre)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
+msgid "Trial Days"
+msgstr "Prøvedager"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
+msgid "Trial Price (cents)"
+msgstr "Prøvepris (øre)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
+msgid "Max Uses (leave empty for unlimited)"
+msgstr "Maks bruk (la stå tomt for ubegrenset)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
+msgid "Max Uses Per User"
+msgstr "Maks bruk per bruker"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
+msgid "No discount codes configured."
+msgstr "Ingen rabattkoder konfigurert."
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
+msgid "Uses"
+msgstr "Bruk"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
+msgid "Delete discount code?"
+msgstr "Slette rabattkode?"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
+msgid "Code \"{code}\" will be permanently deleted."
+msgstr "Code \"{code}\" will be permanently deleted."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:90
+msgid "Template saved"
+msgstr "Mal lagret"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:98
+msgid "Template reset to default"
+msgstr "Mal tilbakestilt til standard"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:142
+msgid "Edit: {label}"
+msgstr "Rediger: {label}"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:152
+msgid "Reset to Default"
+msgstr "Tilbakestill til standard"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:174
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
+#: src/app/dashboard/(panel)/settings/support/page.tsx:118
+msgid "Subject"
+msgstr "Emne"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:181
+msgid "Email subject line"
+msgstr "E-postemnelinje"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:187
+msgid "HTML Body"
+msgstr "HTML-innhold"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:200
+msgid "Available Variables"
+msgstr "Tilgjengelige variabler"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:217
+#: src/app/dashboard/(panel)/settings/import/page.tsx:528
+#: src/components/admin/PostForm.tsx:829
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:231
+msgid "Reset to default?"
+msgstr "Tilbakestille til standard?"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:232
+msgid "This will remove your customizations and revert to the file-based template."
+msgstr "Dette vil fjerne tilpasningene dine og gå tilbake til den filbaserte malen."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:233
+msgid "Reset"
+msgstr "Tilbakestill"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:295
+msgid "Email Templates"
+msgstr "E-postmaler"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:301
+msgid "Customize email templates. Overrides are stored in the database; unmodified templates use the default file."
+msgstr "Tilpass e-postmaler. Overstyringer lagres i databasen; uendrede maler bruker standardfilen."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:325
+msgid "Custom"
+msgstr "Tilpasset"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:325
+msgid "Default"
+msgstr "Standard"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:329
+msgid "Variables: {vars}"
+msgstr "Variabler: {vars}"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:123
+msgid "File size exceeds 50MB limit"
+msgstr "Filstørrelsen overskrider grensen på 50 MB"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:150
+msgid "Failed to read file"
+msgstr "Kunne ikke lese fil"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:185
+msgid "Please select a file first"
+msgstr "Vennligst velg en fil først"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:221
+msgid "No items selected"
+msgstr "Ingen elementer valgt"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:300
+msgid "Import Content"
+msgstr "Importer innhold"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:333
+msgid "Import Format"
+msgstr "Importformat"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:366
+msgid "Select File"
+msgstr "Velg fil"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:392
+msgid "Click to change file"
+msgstr "Klikk for å endre fil"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:399
+msgid "Click to select a file (max 50MB)"
+msgstr "Klikk for å velge en fil (maks 50 MB)"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:409
+msgid "Import Options"
+msgstr "Importalternativer"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:413
+msgid "Post Type"
+msgstr "Innleggstype"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:420
+msgid "Blog Post"
+msgstr "Blogginnlegg"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:426
+msgid "Override Status"
+msgstr "Overstyr status"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:437
+msgid "Keep original status"
+msgstr "Behold original status"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:438
+msgid "Import all as Draft"
+msgstr "Importer alle som utkast"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:440
+msgid "Import all as Published"
+msgstr "Importer alle som publisert"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:465
+msgid "Map CSV Columns"
+msgstr "Tilordne CSV-kolonner"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:467
+msgid "Map your CSV column headers to CMS fields. Only Title is required."
+msgstr "Tilordne CSV-kolonneoverskriftene til CMS-felter. Kun tittel er påkrevd."
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:498
+msgid "-- Skip --"
+msgstr "-- Hopp over --"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:517
+#: src/app/dashboard/(panel)/settings/import/page.tsx:671
+msgid "Back"
+msgstr "Tilbake"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:544
+msgid "Warnings"
+msgstr "Advarsler"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:562
+msgid "items selected"
+msgstr "elementer valgt"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:570
+msgid "Deselect all"
+msgstr "Fjern alle valg"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:571
+msgid "Select all"
+msgstr "Velg alle"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:591
+#: src/components/admin/CategoryForm.tsx:353
+#: src/components/admin/CmsListView.tsx:743
+#: src/components/admin/PortfolioForm.tsx:377
+#: src/components/admin/ShowcaseForm.tsx:328
+msgid "Title"
+msgstr "Tittel"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:635
+#: src/components/admin/CategoryForm.tsx:465
+#: src/components/admin/CmsListView.tsx:777
+#: src/components/admin/PortfolioForm.tsx:569
+#: src/components/admin/PostForm.tsx:960
+#: src/components/admin/ShowcaseForm.tsx:543
+#: src/components/admin/TaxonomyOverview.tsx:22
+#: src/components/admin/TermForm.tsx:278
+msgid "Published"
+msgstr "Publisert"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:636
+#: src/components/admin/CategoryForm.tsx:463
+#: src/components/admin/PortfolioForm.tsx:567
+#: src/components/admin/PostForm.tsx:959
+#: src/components/admin/ShowcaseForm.tsx:541
+#: src/components/admin/TermForm.tsx:276
+msgid "Draft"
+msgstr "Utkast"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:657
+msgid "No items found in this file"
+msgstr "Ingen elementer funnet i denne filen"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:687
+msgid "Importing..."
+msgstr "Importerer..."
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:688
+msgid "Import"
+msgstr "Importer"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:688
+msgid "items"
+msgstr "elementer"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:702
+msgid "Import Complete"
+msgstr "Import fullført"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:704
+msgid "items created"
+msgstr "elementer opprettet"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:706
+msgid "skipped"
+msgstr "hoppet over"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:717
+msgid "Errors"
+msgstr "Feil"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:738
+msgid "Import More"
+msgstr "Importer mer"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:45
+msgid "Job queued for retry"
+msgstr "Jobb satt i kø for nytt forsøk"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:54
+msgid "Job removed"
+msgstr "Jobb fjernet"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:72
+msgid "Job Queue"
+msgstr "Jobbkø"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:82
+msgid "Refresh"
+msgstr "Oppdater"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:94
+msgid "No queues registered. Redis may not be configured."
+msgstr "Ingen køer registrert. Redis er kanskje ikke konfigurert."
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:166
+msgid "No jobs with this status."
+msgstr "Ingen jobber med denne statusen."
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:172
+msgid "ID"
+msgstr "ID"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:177
+msgid "Error"
+msgstr "Feil"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:35
+msgid "Settings saved"
+msgstr "Innstillinger lagret"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:45
+msgid "Reset \"{key}\" to default"
+msgstr "Reset \"{key}\" to default"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:59
+msgid "GA4 connection successful"
+msgstr "GA4-tilkobling vellykket"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:66
+msgid "Created 1 SEO override page"
+msgid_plural "Created {count} SEO override pages"
+msgstr[0] "Opprettet 1 SEO-overstyring"
+msgstr[1] "Opprettet {count} SEO-overstyringer"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:199
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:228
+msgid "Connect a GA4 property to display analytics on the dashboard. Requires a service account with Analytics read access."
+msgstr "Koble til en GA4-eiendom for å vise analyse på kontrollpanelet. Krever en tjenestekonto med lesetilgang til Analytics."
+
+#: src/app/dashboard/(panel)/settings/page.tsx:242
+#: src/app/dashboard/(panel)/settings/page.tsx:267
+msgid "Reset to default"
+msgstr "Tilbakestill til standard"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:259
+msgid "Modified"
+msgstr "Endret"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:299
+msgid "Test Connection"
+msgstr "Test tilkobling"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:310
+#: src/components/admin/CmsListView.tsx:625
+#: src/components/admin/CmsListView.tsx:628
+msgid "SEO Overrides"
+msgstr "SEO-overstyringer"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:312
+msgid "Create CMS pages to override SEO metadata for coded routes (homepage, login, etc.)."
+msgstr "Opprett CMS-sider for å overstyre SEO-metadata for kodede ruter (hjemmeside, innlogging osv.)."
+
+#: src/app/dashboard/(panel)/settings/page.tsx:321
+msgid "Manage SEO Overrides"
+msgstr "Administrer SEO-overstyringer"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
+msgid "Chat closed"
+msgstr "Chat lukket"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
+msgid "Chat session not found."
+msgstr "Chatøkt ikke funnet."
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
+msgid "Live Chat"
+msgstr "Live chat"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
+msgid "View Ticket"
+msgstr "Vis sak"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
+msgid "Close Chat"
+msgstr "Lukk chat"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
+msgid "Visitor"
+msgstr "Besøker"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
+msgid "Chat email"
+msgstr "Chat-e-post"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
+#: src/app/dashboard/(panel)/settings/support/page.tsx:252
+msgid "Started"
+msgstr "Startet"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
+msgid "Reply as agent..."
+msgstr "Svar som agent..."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:69
+msgid "Total"
+msgstr "Totalt"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:97
+msgid "All Priorities"
+msgstr "Alle prioriteter"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:112
+msgid "No tickets found."
+msgstr "Ingen saker funnet."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:121
+msgid "Source"
+msgstr "Kilde"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:123
+msgid "Updated"
+msgstr "Oppdatert"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:227
+msgid "Active (non-closed)"
+msgstr "Aktiv (ikke lukket)"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:228
+msgid "AI Active"
+msgstr "AI aktiv"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:229
+msgid "Agent Active"
+msgstr "Agent aktiv"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:230
+msgid "Escalated"
+msgstr "Eskalert"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:231
+msgid "Closed"
+msgstr "Lukket"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:243
+msgid "No active chats."
+msgstr "Ingen aktive chatter."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:249
+msgid "Visitor / User"
+msgstr "Besøker / Bruker"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:251
+msgid "Last Message"
+msgstr "Siste melding"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:348
+msgid "Support"
+msgstr "Brukersstøtte"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:360
+msgid "Tickets"
+msgstr "Saker"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:368
+msgid "Live Chats"
+msgstr "Live chatter"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:114
+msgid "Reply sent"
+msgstr "Svar sendt"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:122
+msgid "Status updated"
+msgstr "Status oppdatert"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:130
+msgid "Assignment updated"
+msgstr "Tildeling oppdatert"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:147
+msgid "Ticket not found."
+msgstr "Sak ikke funnet."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:149
+msgid "Back to tickets"
+msgstr "Tilbake til saker"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
+msgid "Staff"
+msgstr "Personale"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
+msgid "Customer"
+msgstr "Kunde"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:222
+msgid "Staff Reply"
+msgstr "Personalesvar"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:231
+msgid "Type your reply..."
+msgstr "Skriv ditt svar..."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:243
+msgid "Send Reply"
+msgstr "Send svar"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:248
+msgid "This ticket is closed."
+msgstr "Denne saken er lukket."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:251
+msgid "User feedback"
+msgstr "Tilbakemelding fra bruker"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
+msgid "Details"
+msgstr "Detaljer"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:291
+msgid "Assigned"
+msgstr "Tildelt"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:300
+msgid "Change Status"
+msgstr "Endre status"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:315
+msgid "Assignment"
+msgstr "Tildeling"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:324
+msgid "Unassign"
+msgstr "Fjern tildeling"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:328
+msgid "Not assigned"
+msgstr "Ikke tildelt"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:39
+msgid "Webhook created"
+msgstr "Webhook opprettet"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:48
+msgid "Webhook updated"
+msgstr "Webhook oppdatert"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:57
+msgid "Webhook deleted"
+msgstr "Webhook slettet"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:64
+msgid "Test sent (status {status})"
+msgstr "Test sendt (status {status})"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:114
+msgid "Webhooks"
+msgstr "Webhooks"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:119
+msgid "New Webhook"
+msgstr "Ny webhook"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:139
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:204
+msgid "URL"
+msgstr "URL"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:152
+msgid "Events"
+msgstr "Hendelser"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:197
+msgid "No webhooks configured."
+msgstr "Ingen webhooks konfigurert."
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:253
+msgid "Delete webhook?"
+msgstr "Slette webhook?"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:254
+msgid "\"{name}\" will be permanently deleted."
+msgstr "\"{name}\" will be permanently deleted."
+
+#: src/app/dashboard/(panel)/users/page.tsx:80
+msgid "Role updated"
+msgstr "Rolle oppdatert"
+
+#: src/app/dashboard/(panel)/users/page.tsx:89
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:92
+msgid "User banned"
+msgstr "Bruker utestengt"
+
+#: src/app/dashboard/(panel)/users/page.tsx:97
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:100
+msgid "User unbanned"
+msgstr "Bruker ikke lenger utestengt"
+
+#: src/app/dashboard/(panel)/users/page.tsx:105
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:108
+msgid "User anonymized"
+msgstr "Bruker anonymisert"
+
+#: src/app/dashboard/(panel)/users/page.tsx:196
+msgid "Search by name or email..."
+msgstr "Søk etter navn eller e-post..."
+
+#: src/app/dashboard/(panel)/users/page.tsx:231
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:305
+msgid "Joined"
+msgstr "Ble med"
+
+#: src/app/dashboard/(panel)/users/page.tsx:239
+msgid "No users found."
+msgstr "Ingen brukere funnet."
+
+#: src/app/dashboard/(panel)/users/page.tsx:239
+msgid "No users yet."
+msgstr "Ingen brukere enda."
+
+#: src/app/dashboard/(panel)/users/page.tsx:311
+msgid "Change role"
+msgstr "Endre rolle"
+
+#: src/app/dashboard/(panel)/users/page.tsx:329
+#: src/app/dashboard/(panel)/users/page.tsx:447
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:231
+msgid "Unban"
+msgstr "Opphev utestengelse"
+
+#: src/app/dashboard/(panel)/users/page.tsx:329
+#: src/app/dashboard/(panel)/users/page.tsx:447
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:240
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:472
+msgid "Ban"
+msgstr "Utesteng"
+
+#: src/app/dashboard/(panel)/users/page.tsx:342
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:248
+msgid "Export data (GDPR)"
+msgstr "Eksporter data (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:354
+msgid "Anonymize (GDPR)"
+msgstr "Anonymiser (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:403
+msgid "Change Role"
+msgstr "Endre rolle"
+
+#: src/app/dashboard/(panel)/users/page.tsx:406
+msgid "Change role for {name}"
+msgstr "Endre rolle for {name}"
+
+#: src/app/dashboard/(panel)/users/page.tsx:441
+msgid "Unban user?"
+msgstr "Oppheve utestengelse?"
+
+#: src/app/dashboard/(panel)/users/page.tsx:441
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:470
+msgid "Ban user?"
+msgstr "Utestenge bruker?"
+
+#: src/app/dashboard/(panel)/users/page.tsx:444
+msgid "Unban {name}? They will regain access."
+msgstr "Oppheve utestengelsen av {name}? De vil få tilgang igjen."
+
+#: src/app/dashboard/(panel)/users/page.tsx:445
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:471
+msgid "Ban {name}? They will lose access."
+msgstr "Utestenge {name}? De vil miste tilgangen."
+
+#: src/app/dashboard/(panel)/users/page.tsx:456
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:484
+msgid "Anonymize user? (GDPR)"
+msgstr "Anonymisere bruker? (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:460
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:259
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:488
+msgid "Anonymize"
+msgstr "Anonymiser"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:80
+msgid "User updated"
+msgstr "Bruker oppdatert"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:162
+msgid "User not found"
+msgstr "Bruker ikke funnet"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:168
+msgid "Back to Users"
+msgstr "Tilbake til brukere"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:222
+msgid "Profile"
+msgstr "Profil"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:251
+#: src/components/admin/CmsListView.tsx:601
+msgid "Export"
+msgstr "Eksporter"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:334
+msgid "Login History"
+msgstr "Innloggingshistorikk"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:342
+msgid "No login sessions found."
+msgstr "Ingen innloggingsøkter funnet."
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:350
+msgid "IP Address"
+msgstr "IP-adresse"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:351
+msgid "User Agent"
+msgstr "Brukeragent"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:400
+msgid "Audit Trail"
+msgstr "Revisjonslogg"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:408
+msgid "No activity recorded for this user."
+msgstr "Ingen aktivitet registrert for denne brukeren."
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "Light"
+msgstr "Lys"
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "Dark"
+msgstr "Mørk"
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "System"
+msgstr "System"
+
+#: src/components/admin/AdminSidebar.tsx:185
+msgid "Theme"
+msgstr "Tema"
+
+#: src/components/admin/AdminSidebar.tsx:225
+msgid "Sign Out"
+msgstr "Logg ut"
+
+#: src/components/admin/AdminSidebar.tsx:248
+msgid "Expand panel"
+msgstr "Utvid panel"
+
+#: src/components/admin/AdminSidebar.tsx:248
+msgid "Collapse panel"
+msgstr "Skjul panel"
+
+#: src/components/admin/AdminSidebar.tsx:293
+#: src/components/admin/AdminSidebar.tsx:357
+msgid "View site"
+msgstr "Vis nettsted"
+
+#: src/components/admin/CategoryForm.tsx:156
+msgid "Category created"
+msgstr "Kategori opprettet"
+
+#: src/components/admin/CategoryForm.tsx:170
+msgid "Category updated"
+msgstr "Kategori oppdatert"
+
+#: src/components/admin/CategoryForm.tsx:284
+#: src/components/admin/QuickActionsWidget.tsx:34
+msgid "New Category"
+msgstr "Ny kategori"
+
+#: src/components/admin/CategoryForm.tsx:284
+msgid "Edit Category"
+msgstr "Rediger kategori"
+
+#: src/components/admin/CategoryForm.tsx:333
+msgid "Category name"
+msgstr "Kategorinavn"
+
+#: src/components/admin/CategoryForm.tsx:364
+msgid "Display title (can differ from name)"
+msgstr "Visningstitel (kan avvike fra navn)"
+
+#: src/components/admin/CategoryForm.tsx:369
+msgid "Icon"
+msgstr "Ikon"
+
+#: src/components/admin/CategoryForm.tsx:376
+msgid "Icon name or URL"
+msgstr "Ikonnavn eller URL"
+
+#: src/components/admin/CategoryForm.tsx:389
+msgid "Category description..."
+msgstr "Kategoribeskrivelse..."
+
+#: src/components/admin/CategoryForm.tsx:400
+#: src/components/admin/CmsListView.tsx:842
+#: src/components/admin/PortfolioForm.tsx:490
+#: src/components/admin/ShowcaseForm.tsx:493
+msgid "SEO"
+msgstr "SEO"
+
+#: src/components/admin/CategoryForm.tsx:444
+#: src/components/admin/PortfolioForm.tsx:548
+#: src/components/admin/ShowcaseForm.tsx:611
+msgid "Tags"
+msgstr "Tagger"
+
+#: src/components/admin/CategoryForm.tsx:471
+#: src/components/admin/TermForm.tsx:284
+msgid "Order"
+msgstr "Rekkefølge"
+
+#: src/components/admin/CategoryForm.tsx:503
+#: src/components/admin/PortfolioForm.tsx:596
+#: src/components/admin/PostForm.tsx:687
+#: src/components/admin/ShowcaseForm.tsx:570
+#: src/components/admin/TermForm.tsx:296
+msgid "Language"
+msgstr "Språk"
+
+#: src/components/admin/CategoryForm.tsx:530
+#: src/components/admin/PortfolioForm.tsx:623
+#: src/components/admin/PostForm.tsx:967
+#: src/components/admin/ShowcaseForm.tsx:597
+msgid "Publish Date"
+msgstr "Publiseringsdato"
+
+#: src/components/admin/CmsListView.tsx:40
+msgctxt "General"
+msgid "Draft"
+msgstr "Utkast"
+
+#: src/components/admin/CmsListView.tsx:41
+msgctxt "General"
+msgid "Published"
+msgstr "Publisert"
+
+#: src/components/admin/CmsListView.tsx:42
+msgctxt "General"
+msgid "Scheduled"
+msgstr "Planlagt"
+
+#: src/components/admin/CmsListView.tsx:209
+#: src/components/admin/CmsListView.tsx:223
+#: src/components/admin/CmsListView.tsx:237
+#: src/components/admin/CmsListView.tsx:251
+#: src/components/admin/CmsListView.tsx:265
+msgid "Moved to trash"
+msgstr "Flyttet til papirkurven"
+
+#: src/components/admin/CmsListView.tsx:213
+#: src/components/admin/CmsListView.tsx:227
+#: src/components/admin/CmsListView.tsx:241
+#: src/components/admin/CmsListView.tsx:255
+#: src/components/admin/CmsListView.tsx:269
+msgid "Restored"
+msgstr "Gjenopprettet"
+
+#: src/components/admin/CmsListView.tsx:217
+#: src/components/admin/CmsListView.tsx:231
+#: src/components/admin/CmsListView.tsx:245
+#: src/components/admin/CmsListView.tsx:259
+#: src/components/admin/CmsListView.tsx:273
+msgid "Permanently deleted"
+msgstr "Permanent slettet"
+
+#: src/components/admin/CmsListView.tsx:281
+#: src/components/admin/CmsListView.tsx:289
+#: src/components/admin/CmsListView.tsx:297
+#: src/components/admin/CmsListView.tsx:305
+msgid "Duplicated"
+msgstr "Duplisert"
+
+#: src/components/admin/CmsListView.tsx:366
+msgid "Exported 1 item"
+msgid_plural "Exported {count} items"
+msgstr[0] "Eksportert 1 element"
+msgstr[1] "Eksportert {count} elementer"
+
+#: src/components/admin/CmsListView.tsx:569
+msgid "Toggle columns"
+msgstr "Vis/skjul kolonner"
+
+#: src/components/admin/CmsListView.tsx:572
+msgid "Columns"
+msgstr "Kolonner"
+
+#: src/components/admin/CmsListView.tsx:636
+#: src/components/admin/PostForm.tsx:814
+msgid "New {label}"
+msgstr "Ny(tt) {label}"
+
+#: src/components/admin/CmsListView.tsx:678
+msgid "Search {label}..."
+msgstr "Søk i {label}..."
+
+#: src/components/admin/CmsListView.tsx:697
+msgid "All langs"
+msgstr "Alle språk"
+
+#: src/components/admin/CmsListView.tsx:752
+msgid "Lang"
+msgstr "Språk"
+
+#: src/components/admin/CmsListView.tsx:766
+msgid "Author"
+msgstr "Forfatter"
+
+#: src/components/admin/CmsListView.tsx:804
+msgid "No results found."
+msgstr "Ingen resultater funnet."
+
+#: src/components/admin/CmsListView.tsx:805
+msgid "No items yet. Create your first one."
+msgstr "Ingen elementer enda. Opprett det første."
+
+#: src/components/admin/CmsListView.tsx:833
+msgid "(untitled)"
+msgstr "(uten tittel)"
+
+#: src/components/admin/CmsListView.tsx:838
+msgid "(homepage)"
+msgstr "(hjemmeside)"
+
+#: src/components/admin/CmsListView.tsx:846
+msgid "This content is managed by a .mdx file and cannot be edited from the dashboard"
+msgstr "Dette innholdet administreres av en .mdx-fil og kan ikke redigeres fra kontrollpanelet"
+
+#: src/components/admin/CmsListView.tsx:847
+msgid ".mdx"
+msgstr ".mdx"
+
+#: src/components/admin/CmsListView.tsx:907
+msgid "Delete permanently"
+msgstr "Slett permanent"
+
+#: src/components/admin/CmsListView.tsx:918
+msgid "Duplicate"
+msgstr "Dupliser"
+
+#: src/components/admin/CmsListView.tsx:933
+#: src/components/admin/CmsListView.tsx:991
+#: src/components/admin/CmsListView.tsx:1002
+msgid "Trash"
+msgstr "Papirkurv"
+
+#: src/components/admin/CmsListView.tsx:983
+msgid "Delete permanently?"
+msgstr "Slette permanent?"
+
+#: src/components/admin/CmsListView.tsx:984
+#: src/components/admin/CmsListView.tsx:1000
+msgid "Move to trash?"
+msgstr "Flytte til papirkurven?"
+
+#: src/components/admin/CmsListView.tsx:988
+msgid "\"{title}\" will be permanently deleted. This cannot be undone."
+msgstr "\"{title}\" will be permanently deleted. This cannot be undone."
+
+#: src/components/admin/CmsListView.tsx:989
+msgid "\"{title}\" will be moved to trash."
+msgstr "\"{title}\" will be moved to trash."
+
+#: src/components/admin/CmsListView.tsx:1001
+msgid "1 item will be moved to trash."
+msgid_plural "{count} items will be moved to trash."
+msgstr[0] "1 element vil bli flyttet til papirkurven."
+msgstr[1] "{count} elementer vil bli flyttet til papirkurven."
+
+#: src/components/admin/CmsListView.tsx:1018
+msgid "Created 1 SEO override"
+msgid_plural "Created {count} SEO overrides"
+msgstr[0] "Opprettet 1 SEO-overstyring"
+msgstr[1] "Opprettet {count} SEO-overstyringer"
+
+#: src/components/admin/CmsListView.tsx:1022
+msgid "All SEO overrides already exist"
+msgstr "Alle SEO-overstyringer finnes allerede"
+
+#: src/components/admin/PortfolioForm.tsx:162
+msgid "Portfolio item created"
+msgstr "Portefoljelement opprettet"
+
+#: src/components/admin/PortfolioForm.tsx:176
+msgid "Portfolio item updated"
+msgstr "Portefoljelement oppdatert"
+
+#: src/components/admin/PortfolioForm.tsx:308
+msgid "New Portfolio Item"
+msgstr "Nytt portefoljelement"
+
+#: src/components/admin/PortfolioForm.tsx:308
+msgid "Edit Portfolio Item"
+msgstr "Rediger portefoljelement"
+
+#: src/components/admin/PortfolioForm.tsx:388
+msgid "Display title"
+msgstr "Visningstitel"
+
+#: src/components/admin/PortfolioForm.tsx:396
+msgid "Project Details"
+msgstr "Prosjektdetaljer"
+
+#: src/components/admin/PortfolioForm.tsx:400
+msgid "Client Name"
+msgstr "Kundenavn"
+
+#: src/components/admin/PortfolioForm.tsx:407
+msgid "Client or company name"
+msgstr "Kunde- eller firmanavn"
+
+#: src/components/admin/PortfolioForm.tsx:412
+msgid "Project URL"
+msgstr "Prosjekt-URL"
+
+#: src/components/admin/PortfolioForm.tsx:424
+msgid "Tech Stack"
+msgstr "Teknologistabel"
+
+#: src/components/admin/PortfolioForm.tsx:455
+msgid "Type and press Enter or comma to add"
+msgstr "Skriv og trykk Enter eller komma for å legge til"
+
+#: src/components/admin/PortfolioForm.tsx:460
+msgid "Completion Date"
+msgstr "Fullføringsdato"
+
+#: src/components/admin/PortfolioForm.tsx:479
+msgid "Project description..."
+msgstr "Prosjektbeskrivelse..."
+
+#: src/components/admin/PortfolioForm.tsx:531
+msgid "Featured Image"
+msgstr "Fremhevet bilde"
+
+#: src/components/admin/PostForm.tsx:100
+#: src/components/admin/PostForm.tsx:128
+msgid "None (top level)"
+msgstr "Ingen (toppnivå)"
+
+#: src/components/admin/PostForm.tsx:112
+msgid "Search pages..."
+msgstr "Søk i sider..."
+
+#: src/components/admin/PostForm.tsx:146
+msgid "No pages found"
+msgstr "Ingen sider funnet"
+
+#: src/components/admin/PostForm.tsx:320
+msgid "{label} created"
+msgstr "{label} opprettet"
+
+#: src/components/admin/PostForm.tsx:334
+msgid "{label} updated"
+msgstr "{label} oppdatert"
+
+#: src/components/admin/PostForm.tsx:725
+msgid "No categories yet."
+msgstr "Ingen kategorier enda."
+
+#: src/components/admin/PostForm.tsx:815
+msgid "Edit {label}"
+msgstr "Rediger {label}"
+
+#: src/components/admin/PostForm.tsx:839
+msgid "Publish"
+msgstr "Publiser"
+
+#: src/components/admin/PostForm.tsx:890
+msgid "{label} title"
+msgstr "{label}-tittel"
+
+#: src/components/admin/PostForm.tsx:916
+msgid "Add Media"
+msgstr "Legg til media"
+
+#: src/components/admin/PostForm.tsx:923
+msgid "Start writing your content..."
+msgstr "Begynn å skrive innholdet ditt..."
+
+#: src/components/admin/PostForm.tsx:961
+msgid "Scheduled"
+msgstr "Planlagt"
+
+#: src/components/admin/PostForm.tsx:985
+msgid "Revisions"
+msgstr "Revisjoner"
+
+#: src/components/admin/PostFormConfig.tsx:107
+msgid "Show panel"
+msgstr "Vis panel"
+
+#: src/components/admin/PostFormConfig.tsx:107
+msgid "Hide panel"
+msgstr "Skjul panel"
+
+#: src/components/admin/PostFormConfig.tsx:168
+msgid "No panels"
+msgstr "Ingen paneler"
+
+#: src/components/admin/PostFormConfig.tsx:245
+msgid "Drag to reorder panels. Toggle visibility with the eye icon."
+msgstr "Dra for å omorganisere paneler. Bytt synlighet med øyeikonet."
+
+#: src/components/admin/PostFormConfig.tsx:250
+msgid "Content Panels"
+msgstr "Innholdspaneler"
+
+#: src/components/admin/PostFormConfig.tsx:256
+msgid "Move to sidebar"
+msgstr "Flytt til sidefeltet"
+
+#: src/components/admin/PostFormConfig.tsx:260
+msgid "Sidebar Panels"
+msgstr "Sidepaneler"
+
+#: src/components/admin/PostFormConfig.tsx:266
+msgid "Move to content"
+msgstr "Flytt til innhold"
+
+#: src/components/admin/PostFormConfig.tsx:285
+msgid "Configure panels"
+msgstr "Konfigurer paneler"
+
+#: src/components/admin/PostFormConfig.tsx:290
+msgid "Editor Layout"
+msgstr "Redigeringsoppsett"
+
+#: src/components/admin/QuickActionsWidget.tsx:20
+msgid "Quick Actions"
+msgstr "Hurtighandlinger"
+
+#: src/components/admin/QuickActionsWidget.tsx:26
+msgid "New Page"
+msgstr "Ny side"
+
+#: src/components/admin/QuickActionsWidget.tsx:30
+msgid "New Post"
+msgstr "Nytt innlegg"
+
+#: src/components/admin/QuickActionsWidget.tsx:46
+msgid "View Site"
+msgstr "Vis nettsted"
+
+#: src/components/admin/ShowcaseForm.tsx:157
+msgid "Showcase item created"
+msgstr "Utstillingselement opprettet"
+
+#: src/components/admin/ShowcaseForm.tsx:171
+msgid "Showcase item updated"
+msgstr "Utstillingselement oppdatert"
+
+#: src/components/admin/ShowcaseForm.tsx:287
+msgid "New Showcase Item"
+msgstr "Nytt utstillingselement"
+
+#: src/components/admin/ShowcaseForm.tsx:287
+msgid "Edit Showcase Item"
+msgstr "Rediger utstillingselement"
+
+#: src/components/admin/ShowcaseForm.tsx:336
+msgid "Card title"
+msgstr "Korttittel"
+
+#: src/components/admin/ShowcaseForm.tsx:359
+msgid "Card Configuration"
+msgstr "Kortkonfigurasjon"
+
+#: src/components/admin/ShowcaseForm.tsx:363
+msgid "Card Type"
+msgstr "Korttype"
+
+#: src/components/admin/ShowcaseForm.tsx:380
+msgid "Layout Variant"
+msgstr "Oppsettvariant"
+
+#: src/components/admin/ShowcaseForm.tsx:414
+msgid "Video Embed URL"
+msgstr "Video-innbyggings-URL"
+
+#: src/components/admin/ShowcaseForm.tsx:429
+msgid "Image URL"
+msgstr "Bilde-URL"
+
+#: src/components/admin/ShowcaseForm.tsx:444
+msgid "Thumbnail URL"
+msgstr "Miniatyrbilde-URL"
+
+#: src/components/admin/ShowcaseForm.tsx:469
+msgid "Lower numbers appear first in the feed"
+msgstr "Lavere tall vises først i feeden"
+
+#: src/components/admin/ShowcaseForm.tsx:482
+msgid "Card description..."
+msgstr "Kortbeskrivelse..."
+
+#: src/components/admin/TaxonomyOverview.tsx:16
+msgid "Total Tags"
+msgstr "Totalt antall tagger"
+
+#: src/components/admin/TaxonomyOverview.tsx:28
+msgid "Relationships"
+msgstr "Relasjoner"
+
+#: src/components/admin/TaxonomyOverview.tsx:34
+msgid "Orphaned"
+msgstr "Foreldreleøse"
+
+#: src/components/admin/TaxonomyOverview.tsx:67
+msgid "Top Tags"
+msgstr "Topp-tagger"
+
+#: src/components/admin/TaxonomyOverview.tsx:73
+msgid "Tag"
+msgstr "Tagg"
+
+#: src/components/admin/TaxonomyOverview.tsx:74
+msgid "Posts"
+msgstr "Innlegg"
+
+#: src/components/admin/TermForm.tsx:91
+msgid "Tag created"
+msgstr "Tagg opprettet"
+
+#: src/components/admin/TermForm.tsx:102
+msgid "Tag updated"
+msgstr "Tagg oppdatert"
+
+#: src/components/admin/TermForm.tsx:196
+msgid "New Tag"
+msgstr "Ny tagg"
+
+#: src/components/admin/TermForm.tsx:196
+msgid "Edit Tag"
+msgstr "Rediger tagg"
+
+#: src/components/admin/TermForm.tsx:243
+msgid "Tag name"
+msgstr "Taggnavn"
+
+#: src/config/dashboard-widgets.tsx:33
+msgid "Recent Activity"
+msgstr "Nylig aktivitet"
+
+#: src/config/dashboard-widgets.tsx:40
+msgid "View all"
+msgstr "Vis alle"

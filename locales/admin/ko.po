@@ -1,0 +1,3060 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: indigo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-09T19:59:34.083Z\n"
+"PO-Revision-Date: 2026-04-09T19:59:34.083Z\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ko\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:49
+msgid "Activity Log"
+msgstr "활동 로그"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:60
+msgid "All types"
+msgstr "모든 유형"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:70
+msgid "All actions"
+msgstr "모든 작업"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:84
+msgid "Filter by user..."
+msgstr "사용자별 필터..."
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:102
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:244
+#: src/app/dashboard/(panel)/forms/page.tsx:109
+#: src/app/dashboard/(panel)/users/page.tsx:214
+#: src/components/admin/AdminSidebar.tsx:177
+msgid "Search"
+msgstr "검색"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:115
+msgid "No activity recorded yet."
+msgstr "기록된 활동이 없습니다."
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:121
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:415
+msgid "Time"
+msgstr "시간"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:122
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:416
+msgid "Action"
+msgstr "작업"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:123
+#: src/app/dashboard/(panel)/organizations/page.tsx:399
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:49
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:125
+#: src/app/dashboard/(panel)/users/page.tsx:228
+#: src/components/admin/AdminSidebar.tsx:195
+msgid "User"
+msgstr "사용자"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:124
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:266
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:356
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:61
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:103
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:159
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:172
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:327
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:417
+msgid "Type"
+msgstr "유형"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:125
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:418
+msgid "Entity"
+msgstr "엔티티"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:157
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:325
+#: src/app/dashboard/(panel)/forms/page.tsx:215
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:232
+#: src/app/dashboard/(panel)/media/page.tsx:309
+#: src/app/dashboard/(panel)/projects/page.tsx:265
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:109
+#: src/app/dashboard/(panel)/settings/import/page.tsx:421
+#: src/app/dashboard/(panel)/settings/support/page.tsx:178
+#: src/app/dashboard/(panel)/settings/support/page.tsx:314
+#: src/app/dashboard/(panel)/users/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:443
+#: src/components/admin/CmsListView.tsx:953
+msgid "Page"
+msgstr "페이지"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:157
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:325
+#: src/app/dashboard/(panel)/forms/page.tsx:215
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:232
+#: src/app/dashboard/(panel)/media/page.tsx:309
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+#: src/app/dashboard/(panel)/settings/import/page.tsx:561
+#: src/app/dashboard/(panel)/users/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:443
+#: src/components/admin/CmsListView.tsx:953
+msgid "of"
+msgstr "/"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:25
+msgid "Menu created"
+msgstr "메뉴가 생성되었습니다"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:35
+msgid "Menu deleted"
+msgstr "메뉴가 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:51
+msgid "Menus"
+msgstr "메뉴"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:58
+msgid "New Menu"
+msgstr "새 메뉴"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:70
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:73
+msgid "Menu name"
+msgstr "메뉴 이름"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:80
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:212
+#: src/app/dashboard/(panel)/organizations/page.tsx:187
+#: src/app/dashboard/(panel)/organizations/page.tsx:225
+#: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
+msgid "Create"
+msgstr "생성"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:87
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:114
+#: src/app/dashboard/(panel)/organizations/page.tsx:228
+#: src/app/dashboard/(panel)/organizations/page.tsx:474
+#: src/app/dashboard/(panel)/projects/page.tsx:151
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:136
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:306
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:184
+#: src/app/dashboard/(panel)/users/page.tsx:424
+msgid "Cancel"
+msgstr "취소"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:99
+msgid "No menus yet. Create your first one."
+msgstr "메뉴가 없습니다. 첫 번째 메뉴를 만들어 보세요."
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:105
+#: src/app/dashboard/(panel)/forms/page.tsx:127
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:223
+#: src/app/dashboard/(panel)/organizations/page.tsx:199
+#: src/app/dashboard/(panel)/projects/page.tsx:123
+#: src/app/dashboard/(panel)/projects/page.tsx:189
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:56
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:177
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:101
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:158
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:195
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:325
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:173
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:129
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:203
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:267
+#: src/components/admin/CategoryForm.tsx:325
+#: src/components/admin/PortfolioForm.tsx:349
+#: src/components/admin/TermForm.tsx:235
+msgid "Name"
+msgstr "이름"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:106
+#: src/app/dashboard/(panel)/forms/page.tsx:128
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:235
+#: src/app/dashboard/(panel)/organizations/page.tsx:211
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:57
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:182
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:326
+#: src/app/dashboard/(panel)/settings/import/page.tsx:592
+#: src/components/admin/CategoryForm.tsx:338
+#: src/components/admin/CmsListView.tsx:769
+#: src/components/admin/PortfolioForm.tsx:362
+#: src/components/admin/ShowcaseForm.tsx:341
+#: src/components/admin/TermForm.tsx:248
+msgid "Slug"
+msgstr "슬러그"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:120
+#: src/app/dashboard/(panel)/projects/page.tsx:236
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:365
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:231
+#: src/components/admin/CmsListView.tsx:926
+msgid "Edit"
+msgstr "편집"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:127
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:144
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:356
+#: src/app/dashboard/(panel)/forms/page.tsx:246
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:261
+#: src/app/dashboard/(panel)/media/page.tsx:293
+#: src/app/dashboard/(panel)/media/page.tsx:336
+#: src/app/dashboard/(panel)/notifications/page.tsx:98
+#: src/app/dashboard/(panel)/organizations/page.tsx:514
+#: src/app/dashboard/(panel)/projects/page.tsx:243
+#: src/app/dashboard/(panel)/projects/page.tsx:285
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:374
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:393
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:238
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:255
+#: src/components/admin/CmsListView.tsx:991
+msgid "Delete"
+msgstr "삭제"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:142
+msgid "Delete menu?"
+msgstr "메뉴를 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:143
+msgid "\"{name}\" and all its items will be permanently deleted."
+msgstr "\"{name}\"과(와) 모든 항목이 영구적으로 삭제됩니다."
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:33
+msgid "Menu updated"
+msgstr "메뉴가 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:59
+msgid "Edit Menu"
+msgstr "메뉴 편집"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:81
+msgid "Update Name"
+msgstr "이름 변경"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:88
+msgid "Menu Items"
+msgstr "메뉴 항목"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:50
+msgid "Redirect created"
+msgstr "리다이렉트가 생성되었습니다"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:52
+msgid "Chain detected: {chain}"
+msgstr "체인 감지됨: {chain}"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:68
+msgid "Redirect deleted"
+msgstr "리다이렉트가 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:104
+msgid "Redirects"
+msgstr "리다이렉트"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:119
+msgid "New Redirect"
+msgstr "새 리다이렉트"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:134
+msgid "Create Redirect"
+msgstr "리다이렉트 생성"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:139
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:264
+msgid "Old Slug"
+msgstr "이전 슬러그"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:147
+msgid "e.g. old-page-slug"
+msgstr "예: old-page-slug"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:154
+msgid "Content Type"
+msgstr "콘텐츠 유형"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:175
+msgid "Content ID"
+msgstr "콘텐츠 ID"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:183
+msgid "UUID of target content"
+msgstr "대상 콘텐츠의 UUID"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:190
+msgid "URL Prefix"
+msgstr "URL 접두사"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:198
+msgid "e.g. / or /blog"
+msgstr "예: / 또는 /blog"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:226
+msgid "Search by slug or content type..."
+msgstr "슬러그 또는 콘텐츠 유형으로 검색..."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:257
+msgid "No redirects found."
+msgstr "리다이렉트를 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:258
+msgid "No redirects yet."
+msgstr "리다이렉트가 없습니다."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:265
+msgid "Target"
+msgstr "대상"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:267
+msgid "Prefix"
+msgstr "접두사"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:268
+#: src/app/dashboard/(panel)/forms/page.tsx:132
+#: src/app/dashboard/(panel)/projects/page.tsx:191
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:117
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:174
+#: src/app/dashboard/(panel)/settings/support/page.tsx:122
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:280
+#: src/components/admin/CmsListView.tsx:788
+msgid "Created"
+msgstr "생성일"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:309
+msgid "Delete redirect"
+msgstr "리다이렉트 삭제"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:326
+#: src/app/dashboard/(panel)/forms/page.tsx:216
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:233
+#: src/app/dashboard/(panel)/media/page.tsx:310
+#: src/app/dashboard/(panel)/users/page.tsx:374
+#: src/components/admin/CmsListView.tsx:954
+msgid "total"
+msgstr "전체"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:352
+msgid "Delete redirect?"
+msgstr "리다이렉트를 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:44
+msgid "Form deleted"
+msgstr "폼이 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:72
+msgid "Forms"
+msgstr "폼"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:77
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:197
+msgid "New Form"
+msgstr "새 폼"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:91
+msgid "Search forms..."
+msgstr "폼 검색..."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:121
+msgid "No forms found."
+msgstr "폼을 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:121
+msgid "No forms yet. Create your first form."
+msgstr "폼이 없습니다. 첫 번째 폼을 만들어 보세요."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:129
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:292
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:38
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:47
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:61
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:175
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
+#: src/app/dashboard/(panel)/users/page.tsx:292
+msgid "Active"
+msgstr "활성"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:130
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:304
+msgid "Fields"
+msgstr "필드"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:131
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:133
+msgid "Submissions"
+msgstr "제출"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:160
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:201
+msgid "Yes"
+msgstr "예"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:165
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:202
+msgid "No"
+msgstr "아니오"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:188
+msgid "Edit form"
+msgstr "폼 편집"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:197
+msgid "Delete form"
+msgstr "폼 삭제"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:242
+msgid "Delete form?"
+msgstr "폼을 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:99
+msgid "Form created"
+msgstr "폼이 생성되었습니다"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:107
+msgid "Form saved"
+msgstr "폼이 저장되었습니다"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:154
+msgid "Form name is required"
+msgstr "폼 이름은 필수입니다"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:160
+msgid "At least one field with a label is required"
+msgstr "라벨이 있는 필드가 최소 하나 필요합니다"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:197
+msgid "Edit Form"
+msgstr "폼 편집"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:211
+#: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:165
+#: src/app/dashboard/(panel)/settings/page.tsx:212
+#: src/components/admin/CategoryForm.tsx:300
+#: src/components/admin/PortfolioForm.tsx:324
+#: src/components/admin/PostForm.tsx:853
+#: src/components/admin/ShowcaseForm.tsx:303
+#: src/components/admin/TermForm.tsx:212
+msgid "Save"
+msgstr "저장"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:219
+msgid "Form Settings"
+msgstr "폼 설정"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:229
+msgid "e.g. Contact Form"
+msgstr "예: 문의 폼"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:241
+msgid "Auto-generated from name"
+msgstr "이름에서 자동 생성"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:247
+msgid "Recipient Email"
+msgstr "수신자 이메일"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:253
+msgid "Notifications sent to this email"
+msgstr "이 이메일로 알림이 발송됩니다"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:259
+msgid "Success Message"
+msgstr "성공 메시지"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:265
+msgid "Thank you!"
+msgstr "감사합니다!"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:271
+msgid "Honeypot Field Name"
+msgstr "허니팟 필드 이름"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:277
+msgid "e.g. website (leave empty to disable)"
+msgstr "예: website (비활성화하려면 비워 두세요)"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:281
+msgid "Hidden field to catch bots. Submissions with this field filled are rejected."
+msgstr "봇을 감지하기 위한 숨겨진 필드입니다. 이 필드가 채워진 제출은 거부됩니다."
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:295
+msgid "Inactive forms reject submissions"
+msgstr "비활성 폼은 제출을 거부합니다"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:311
+msgid "Add Field"
+msgstr "필드 추가"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:333
+msgid "Move up"
+msgstr "위로 이동"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:345
+msgid "Move down"
+msgstr "아래로 이동"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:374
+msgid "Label"
+msgstr "라벨"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:382
+msgid "Field label"
+msgstr "필드 라벨"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:388
+msgid "Placeholder"
+msgstr "플레이스홀더"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:396
+msgid "Placeholder text"
+msgstr "플레이스홀더 텍스트"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:406
+msgid "Options (comma-separated)"
+msgstr "옵션 (쉼표로 구분)"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:414
+msgid "Option 1, Option 2, Option 3"
+msgstr "옵션 1, 옵션 2, 옵션 3"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:431
+msgid "Required"
+msgstr "필수"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:445
+msgid "Remove field"
+msgstr "필드 제거"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:456
+msgid "No fields yet. Click \"Add Field\" to start building your form."
+msgstr "필드가 없습니다. \"필드 추가\"를 클릭하여 폼을 만들어 보세요."
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:464
+msgid "Embed"
+msgstr "임베드"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:466
+msgid "Use this component to embed the form on any page:"
+msgstr "이 컴포넌트를 사용하여 폼을 페이지에 삽입하세요:"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:472
+msgid "API endpoint for direct submissions:"
+msgstr "직접 제출용 API 엔드포인트:"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:509
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:111
+msgid "Form not found."
+msgstr "폼을 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:41
+msgid "Submission deleted"
+msgstr "제출이 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:70
+msgid "Export downloaded"
+msgstr "내보내기 다운로드 완료"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:72
+#: src/components/admin/CmsListView.tsx:335
+#: src/components/admin/CmsListView.tsx:368
+msgid "Export failed"
+msgstr "내보내기 실패"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:144
+msgid "CSV"
+msgstr "CSV"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:151
+msgid "JSON"
+msgstr "JSON"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:165
+msgid "No submissions yet."
+msgstr "제출이 없습니다."
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:172
+msgid "Submitted"
+msgstr "제출일"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:178
+msgid "IP"
+msgstr "IP"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:214
+msgid "Delete submission"
+msgstr "제출 삭제"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:259
+msgid "Delete submission?"
+msgstr "제출을 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:260
+msgid "Delete this submission? This cannot be undone."
+msgstr "이 제출을 삭제하시겠습니까? 되돌릴 수 없습니다."
+
+#: src/app/dashboard/(panel)/media/page.tsx:65
+msgid "File deleted"
+msgstr "파일이 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/media/page.tsx:92
+msgid "Upload failed"
+msgstr "업로드 실패"
+
+#: src/app/dashboard/(panel)/media/page.tsx:108
+msgid "Failed to upload {name}"
+msgstr "{name} 업로드 실패"
+
+#: src/app/dashboard/(panel)/media/page.tsx:113
+msgid "1 file uploaded"
+msgid_plural "{count} files uploaded"
+msgstr[0] "1개 파일 업로드 완료"
+msgstr[1] "{count}개 파일 업로드 완료"
+
+#: src/app/dashboard/(panel)/media/page.tsx:162
+#: src/components/admin/QuickActionsWidget.tsx:42
+msgid "Media Library"
+msgstr "미디어 라이브러리"
+
+#: src/app/dashboard/(panel)/media/page.tsx:182
+msgid "Uploading..."
+msgstr "업로드 중..."
+
+#: src/app/dashboard/(panel)/media/page.tsx:182
+msgid "Upload"
+msgstr "업로드"
+
+#: src/app/dashboard/(panel)/media/page.tsx:218
+msgid "No media files yet."
+msgstr "미디어 파일이 없습니다."
+
+#: src/app/dashboard/(panel)/media/page.tsx:224
+msgid "Upload your first file"
+msgstr "첫 번째 파일을 업로드하세요"
+
+#: src/app/dashboard/(panel)/media/page.tsx:277
+msgid "Copy URL"
+msgstr "URL 복사"
+
+#: src/app/dashboard/(panel)/media/page.tsx:334
+msgid "Delete file?"
+msgstr "파일을 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/media/page.tsx:335
+msgid "\"{name}\" will be deleted."
+msgstr "\"{name}\"이(가) 삭제됩니다."
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:40
+msgid "Notifications"
+msgstr "알림"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:47
+msgid "Mark all read"
+msgstr "모두 읽음 처리"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:54
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:45
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:121
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
+msgid "Loading..."
+msgstr "로딩 중..."
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:60
+msgid "No notifications yet"
+msgstr "알림이 없습니다"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:89
+msgid "Mark read"
+msgstr "읽음 처리"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:71
+msgid "Organization created"
+msgstr "조직이 생성되었습니다"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:82
+msgid "Organization deleted"
+msgstr "조직이 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:93
+msgid "Left organization"
+msgstr "조직에서 탈퇴했습니다"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:104
+msgid "Invitation sent"
+msgstr "초대가 발송되었습니다"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:115
+msgid "Member removed"
+msgstr "멤버가 제거되었습니다"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:123
+msgid "Invitation canceled"
+msgstr "초대가 취소되었습니다"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:131
+msgid "Invitation accepted"
+msgstr "초대가 수락되었습니다"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:180
+#: src/app/dashboard/(panel)/organizations/page.tsx:320
+msgid "Organizations"
+msgstr "조직"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:196
+msgid "Create Organization"
+msgstr "조직 생성"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:205
+msgid "My Organization"
+msgstr "내 조직"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:217
+msgid "my-organization (auto-generated if empty)"
+msgstr "my-organization (비어 있으면 자동 생성)"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:245
+msgid "No organizations yet. Create one to get started."
+msgstr "조직이 없습니다. 하나 만들어 시작하세요."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:252
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
+msgid "Organization"
+msgstr "조직"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:253
+#: src/app/dashboard/(panel)/organizations/page.tsx:369
+#: src/app/dashboard/(panel)/organizations/page.tsx:400
+#: src/app/dashboard/(panel)/organizations/page.tsx:465
+#: src/app/dashboard/(panel)/users/page.tsx:229
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:289
+msgid "Role"
+msgstr "역할"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:291
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
+msgid "Manage"
+msgstr "관리"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:341
+msgid "Members"
+msgstr "멤버"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:349
+msgid "Invite"
+msgstr "초대"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:358
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:278
+msgid "Email"
+msgstr "이메일"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:375
+msgid "Member"
+msgstr "멤버"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:376
+msgid "Admin"
+msgstr "관리자"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:381
+msgid "Send"
+msgstr "보내기"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:436
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:221
+msgid "Remove"
+msgstr "제거"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:457
+msgid "Pending Invitations"
+msgstr "대기 중인 초대"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:465
+msgid "Expires"
+msgstr "만료"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:484
+msgid "Danger Zone"
+msgstr "위험 영역"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:492
+msgid "Leave Organization"
+msgstr "조직 탈퇴"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:501
+msgid "Delete Organization"
+msgstr "조직 삭제"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:512
+msgid "Delete organization?"
+msgstr "조직을 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:513
+msgid "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
+msgstr "\"{name}\"을(를) 영구적으로 삭제하시겠습니까? 모든 멤버와 데이터가 제거됩니다. 되돌릴 수 없습니다."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:525
+msgid "Leave organization?"
+msgstr "조직에서 탈퇴하시겠습니까?"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:526
+msgid "Leave \"{name}\"? You will lose access to this organization."
+msgstr "\"{name}\"에서 탈퇴하시겠습니까? 이 조직에 대한 접근 권한을 잃게 됩니다."
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:527
+msgid "Leave"
+msgstr "탈퇴"
+
+#: src/app/dashboard/(panel)/page.tsx:31
+msgid "Dashboard"
+msgstr "대시보드"
+
+#: src/app/dashboard/(panel)/page.tsx:32
+msgid "Welcome to Indigo admin panel."
+msgstr "Indigo 관리자 패널에 오신 것을 환영합니다."
+
+#: src/app/dashboard/(panel)/page.tsx:44
+msgid "Pages"
+msgstr "페이지"
+
+#: src/app/dashboard/(panel)/page.tsx:51
+msgid "Blog Posts"
+msgstr "블로그 글"
+
+#: src/app/dashboard/(panel)/page.tsx:58
+#: src/app/dashboard/(panel)/settings/import/page.tsx:595
+msgid "Categories"
+msgstr "카테고리"
+
+#: src/app/dashboard/(panel)/page.tsx:65
+#: src/app/dashboard/(panel)/users/page.tsx:160
+msgid "Users"
+msgstr "사용자"
+
+#: src/app/dashboard/(panel)/page.tsx:72
+msgid "Media Files"
+msgstr "미디어 파일"
+
+#: src/app/dashboard/(panel)/page.tsx:84
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
+msgid "Active Subscriptions"
+msgstr "활성 구독"
+
+#: src/app/dashboard/(panel)/page.tsx:91
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
+msgid "MRR"
+msgstr "MRR"
+
+#: src/app/dashboard/(panel)/page.tsx:98
+msgid "Churn (30d)"
+msgstr "이탈률 (30일)"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:40
+msgid "Project created"
+msgstr "프로젝트가 생성되었습니다"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:49
+msgid "Project updated"
+msgstr "프로젝트가 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:58
+msgid "Project deleted"
+msgstr "프로젝트가 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:104
+msgid "Projects"
+msgstr "프로젝트"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:111
+#: src/app/dashboard/(panel)/projects/page.tsx:120
+#: src/components/admin/QuickActionsWidget.tsx:38
+msgid "New Project"
+msgstr "새 프로젝트"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:120
+msgid "Edit Project"
+msgstr "프로젝트 편집"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:129
+#: src/components/admin/PortfolioForm.tsx:357
+msgid "Project name"
+msgstr "프로젝트 이름"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:135
+#: src/components/admin/CategoryForm.tsx:384
+#: src/components/admin/PortfolioForm.tsx:474
+#: src/components/admin/ShowcaseForm.tsx:477
+msgid "Description"
+msgstr "설명"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:141
+msgid "Optional description"
+msgstr "선택적 설명"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:164
+msgid "Search projects..."
+msgstr "프로젝트 검색..."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:180
+msgid "No projects match your search."
+msgstr "검색과 일치하는 프로젝트가 없습니다."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:181
+msgid "No projects yet. Create one to get started."
+msgstr "프로젝트가 없습니다. 하나 만들어 시작하세요."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:190
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:58
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:131
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:64
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:55
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:114
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:58
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:280
+#: src/app/dashboard/(panel)/settings/import/page.tsx:593
+#: src/app/dashboard/(panel)/settings/support/page.tsx:119
+#: src/app/dashboard/(panel)/settings/support/page.tsx:250
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:272
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:205
+#: src/app/dashboard/(panel)/users/page.tsx:230
+#: src/components/admin/CategoryForm.tsx:455
+#: src/components/admin/CmsListView.tsx:749
+#: src/components/admin/PortfolioForm.tsx:559
+#: src/components/admin/PostForm.tsx:948
+#: src/components/admin/PostForm.tsx:952
+#: src/components/admin/ShowcaseForm.tsx:533
+#: src/components/admin/TermForm.tsx:268
+msgid "Status"
+msgstr "상태"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:220
+msgid "Archive"
+msgstr "보관"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:228
+#: src/components/admin/CmsListView.tsx:900
+msgid "Restore"
+msgstr "복원"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:262
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:106
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:182
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:158
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:104
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:75
+#: src/app/dashboard/(panel)/settings/support/page.tsx:175
+#: src/app/dashboard/(panel)/settings/support/page.tsx:311
+msgid "Previous"
+msgstr "이전"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:272
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:116
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:189
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:107
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:78
+#: src/app/dashboard/(panel)/settings/import/page.tsx:454
+#: src/app/dashboard/(panel)/settings/support/page.tsx:185
+#: src/app/dashboard/(panel)/settings/support/page.tsx:321
+msgid "Next"
+msgstr "다음"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:283
+msgid "Delete project?"
+msgstr "프로젝트를 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:284
+msgid "Delete \"{name}\"? This action cannot be undone."
+msgstr "\"{name}\"을(를) 삭제하시겠습니까? 되돌릴 수 없습니다."
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
+msgid "Affiliates"
+msgstr "제휴"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:37
+#: src/app/dashboard/(panel)/settings/support/page.tsx:87
+msgid "All Statuses"
+msgstr "모든 상태"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:39
+msgid "Suspended"
+msgstr "정지됨"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:40
+#: src/app/dashboard/(panel)/users/page.tsx:288
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:209
+msgid "Banned"
+msgstr "차단됨"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:47
+msgid "No affiliates found"
+msgstr "제휴를 찾을 수 없습니다"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:54
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:60
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
+msgid "Code"
+msgstr "코드"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:55
+msgid "Commission"
+msgstr "수수료"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:56
+msgid "Referrals"
+msgstr "추천"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:57
+msgid "Earnings"
+msgstr "수익"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:59
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:59
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
+msgid "Actions"
+msgstr "작업"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:81
+msgid "Suspend"
+msgstr "정지"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:89
+msgid "Activate"
+msgstr "활성화"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
+msgid "Canceled"
+msgstr "취소됨"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
+msgid "Payment Failed"
+msgstr "결제 실패"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
+msgid "Unpaid"
+msgstr "미결제"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
+msgid "Churned Subscriptions"
+msgstr "이탈 구독"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
+msgid "Search by organization..."
+msgstr "조직으로 검색..."
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
+msgid "No churned subscriptions found."
+msgstr "이탈 구독을 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:113
+msgid "Plan"
+msgstr "플랜"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:171
+msgid "Provider"
+msgstr "제공자"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
+msgid "Churn Date"
+msgstr "이탈 일자"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
+msgid "Subscription Start"
+msgstr "구독 시작일"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "Showing"
+msgstr "표시 중"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "to"
+msgstr "~"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "results"
+msgstr "건"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
+msgid "Discount Codes"
+msgstr "할인 코드"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
+msgid "No discount codes yet."
+msgstr "할인 코드가 없습니다."
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
+msgid "Value"
+msgstr "값"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
+msgid "Usage"
+msgstr "사용량"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
+msgid "Inactive"
+msgstr "비활성"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
+msgid "unlimited"
+msgstr "무제한"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
+msgid "Recent Transactions"
+msgstr "최근 거래"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
+msgid "No transactions yet."
+msgstr "거래가 없습니다."
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
+msgid "Amount"
+msgstr "금액"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
+#: src/app/dashboard/(panel)/settings/import/page.tsx:594
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:349
+#: src/components/admin/CmsListView.tsx:760
+msgid "Date"
+msgstr "날짜"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
+msgid "Revenue"
+msgstr "매출"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
+msgid "Transactions"
+msgstr "거래"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
+msgid "Revenue Over Time"
+msgstr "시간별 매출"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
+msgid "No revenue data for this period."
+msgstr "이 기간의 매출 데이터가 없습니다."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
+msgid "Search organizations..."
+msgstr "조직 검색..."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
+msgid "per page"
+msgstr "페이지당"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
+msgid "No subscriptions found."
+msgstr "구독을 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
+msgid "Period"
+msgstr "기간"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
+msgid "Total Revenue"
+msgstr "총 매출"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
+msgid "Trialing"
+msgstr "체험 중"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
+msgid "Trial"
+msgstr "체험"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
+msgid "Plan Distribution"
+msgstr "플랜 분포"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
+msgid "No subscriptions yet"
+msgstr "구독이 없습니다"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
+msgid "Churn Metrics"
+msgstr "이탈 지표"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
+msgid "Churn Rate (30d)"
+msgstr "이탈률 (30일)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
+msgid "Canceled (30d)"
+msgstr "취소됨 (30일)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
+msgid "Past Due (at risk)"
+msgstr "연체 (위험)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
+msgid "Unpaid (lost)"
+msgstr "미결제 (이탈)"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
+msgid "Total Ever Subscribed"
+msgstr "총 구독 이력"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:156
+msgid "Monitor revenue, track churn, and manage subscriptions."
+msgstr "매출 모니터링, 이탈 추적, 구독 관리를 수행합니다."
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:181
+msgid "Custom range"
+msgstr "사용자 지정 범위"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:187
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:285
+msgid "From"
+msgstr "시작"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:194
+msgid "To"
+msgstr "종료"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "Last"
+msgstr "최근"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "days"
+msgstr "일"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:235
+msgid "All time"
+msgstr "전체 기간"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:19
+msgid "Are you sure you want to delete this character?"
+msgstr "이 캐릭터를 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:29
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Characters"
+msgstr "캐릭터"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:31
+msgid "AI personas that users can chat with."
+msgstr "사용자가 대화할 수 있는 AI 페르소나입니다."
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:39
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
+msgid "New Character"
+msgstr "새 캐릭터"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:49
+msgid "No characters yet. Create your first AI persona."
+msgstr "캐릭터가 없습니다. 첫 번째 AI 페르소나를 만들어 보세요."
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
+msgid "Edit Character"
+msgstr "캐릭터 편집"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:186
+msgid "Tagline"
+msgstr "태그라인"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:189
+msgid "System Prompt"
+msgstr "시스템 프롬프트"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:192
+msgid "Personality (visible to users)"
+msgstr "성격 (사용자에게 표시)"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:195
+msgid "Greeting Message"
+msgstr "인사 메시지"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:198
+msgid "Avatar URL"
+msgstr "아바타 URL"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:203
+msgid "Character Traits"
+msgstr "캐릭터 특성"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
+msgid "Gender"
+msgstr "성별"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:206
+msgid "Sexuality"
+msgstr "성적 지향"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
+msgid "Ethnicity"
+msgstr "민족"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
+msgid "Personality"
+msgstr "성격"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
+msgid "Kink"
+msgstr "킨크"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
+msgid "Job"
+msgstr "직업"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
+msgid "Relationship"
+msgstr "관계"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:214
+msgid "Hobbies"
+msgstr "취미"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:220
+msgid "Visual Appearance"
+msgstr "외형"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
+msgid "Hair Color"
+msgstr "머리 색"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:223
+msgid "Hair Texture"
+msgstr "머리 질감"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
+msgid "Hair Style"
+msgstr "헤어 스타일"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
+msgid "Eye Color"
+msgstr "눈 색"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
+msgid "Skin"
+msgstr "피부"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
+msgid "Body Type"
+msgstr "체형"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:233
+msgid "Image Generation Settings"
+msgstr "이미지 생성 설정"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
+msgid "Model Preset"
+msgstr "모델 프리셋"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:255
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:329
+#: src/components/admin/ShowcaseForm.tsx:458
+msgid "Sort Order"
+msgstr "정렬 순서"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
+msgid "Token Cost Multiplier"
+msgstr "토큰 비용 배수"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:242
+msgid "Custom Negative Prompt"
+msgstr "커스텀 네거티브 프롬프트"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
+msgid "LoRA Config"
+msgstr "LoRA 설정"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:250
+msgid "Active (visible to users)"
+msgstr "활성 (사용자에게 표시)"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
+msgid "Create Character"
+msgstr "캐릭터 생성"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:325
+msgid "Save Changes"
+msgstr "변경사항 저장"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:24
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:12
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:20
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:23
+msgid "Conversations"
+msgstr "대화"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
+msgid "Browse all chat conversations"
+msgstr "모든 채팅 대화 탐색"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:32
+msgid "All statuses"
+msgstr "모든 상태"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:34
+msgid "Archived"
+msgstr "보관됨"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
+msgid "Deleted"
+msgstr "삭제됨"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:42
+msgid "No conversations found."
+msgstr "대화를 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:83
+msgid "Character"
+msgstr "캐릭터"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
+msgid "Messages"
+msgstr "메시지"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
+msgid "Tokens"
+msgstr "토큰"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:54
+msgid "Last Active"
+msgstr "마지막 활동"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:27
+msgid "Conversation"
+msgstr "대화"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:34
+msgid "No messages."
+msgstr "메시지가 없습니다."
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:15
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Flagged Messages"
+msgstr "신고된 메시지"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
+msgid "Messages blocked by content moderation"
+msgstr "콘텐츠 검토에 의해 차단된 메시지"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
+msgid "No flagged messages."
+msgstr "신고된 메시지가 없습니다."
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
+msgid "Reason"
+msgstr "사유"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
+msgid "Dismiss flag"
+msgstr "신고 해제"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
+msgid "Dismiss"
+msgstr "해제"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:13
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:24
+msgid "Total Messages"
+msgstr "전체 메시지"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:14
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
+msgid "Active Users (24h)"
+msgstr "활성 사용자 (24시간)"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Manage AI personas"
+msgstr "AI 페르소나 관리"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:20
+msgid "Browse all conversations"
+msgstr "모든 대화 탐색"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Review moderated content"
+msgstr "검토된 콘텐츠 확인"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:22
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:84
+msgid "AI Providers"
+msgstr "AI 제공자"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:22
+msgid "Manage LLM providers"
+msgstr "LLM 제공자 관리"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Analytics"
+msgstr "분석"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Usage statistics and charts"
+msgstr "사용 통계 및 차트"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Moderation"
+msgstr "콘텐츠 검토"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Keywords, action, and rate limits"
+msgstr "키워드, 작업 및 속도 제한"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:30
+msgid "Chat"
+msgstr "채팅"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:31
+msgid "AI character chat management"
+msgstr "AI 캐릭터 채팅 관리"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:67
+msgid "Delete this provider?"
+msgstr "이 제공자를 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:85
+msgid "Manage LLM provider credentials and routing"
+msgstr "LLM 제공자 자격 증명 및 라우팅 관리"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:89
+msgid "Add Provider"
+msgstr "제공자 추가"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
+msgid "Edit Provider"
+msgstr "제공자 편집"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
+msgid "New Provider"
+msgstr "새 제공자"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
+msgid "LLM (Text)"
+msgstr "LLM (텍스트)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:106
+msgid "Image"
+msgstr "이미지"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
+msgid "Video"
+msgstr "비디오"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
+msgid "Adapter"
+msgstr "어댑터"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:116
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:160
+msgid "Model"
+msgstr "모델"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:119
+msgid "Base URL (leave empty for OpenAI)"
+msgstr "Base URL (OpenAI의 경우 비워 두세요)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
+msgid "API Key"
+msgstr "API 키"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:122
+msgid "Leave empty to keep current"
+msgstr "현재 값을 유지하려면 비워 두세요"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
+#: src/app/dashboard/(panel)/settings/support/page.tsx:120
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:276
+msgid "Priority"
+msgstr "우선순위"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
+msgid "Max Concurrent"
+msgstr "최대 동시 처리"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
+msgid "Timeout (s)"
+msgstr "타임아웃 (초)"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:151
+msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "제공자가 설정되지 않았습니다. 하나를 추가하거나 .env에서 AI_API_KEY를 설정하세요."
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:187
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:224
+msgid "Test"
+msgstr "테스트"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
+msgid "Task Queues"
+msgstr "작업 큐"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
+msgid "BullMQ job queue status and failed job management"
+msgstr "BullMQ 작업 큐 상태 및 실패한 작업 관리"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
+msgid "No queues found. Workers may not be running."
+msgstr "큐를 찾을 수 없습니다. 워커가 실행 중이지 않을 수 있습니다."
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
+msgid "Waiting"
+msgstr "대기 중"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
+msgid "Done"
+msgstr "완료"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
+msgid "Failed"
+msgstr "실패"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
+msgid "Failed Jobs"
+msgstr "실패한 작업"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:175
+msgid "Attempts"
+msgstr "시도 횟수"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:208
+msgid "Retry"
+msgstr "재시도"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
+msgid "Tokens Consumed"
+msgstr "소비된 토큰"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:32
+msgid "Chat Analytics"
+msgstr "채팅 분석"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:33
+msgid "Usage statistics and trends"
+msgstr "사용 통계 및 추세"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:53
+msgid "Messages (30 days)"
+msgstr "메시지 (30일)"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:72
+msgid "Popular Characters"
+msgstr "인기 캐릭터"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:76
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:119
+msgid "No data yet"
+msgstr "데이터 없음"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:84
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:126
+msgid "Convs"
+msgstr "대화수"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
+msgid "Msgs"
+msgstr "메시지수"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
+msgid "Avg"
+msgstr "평균"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:115
+msgid "Most Active Users"
+msgstr "가장 활발한 사용자"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:162
+msgid "Provider Health (24h)"
+msgstr "제공자 상태 (24시간)"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:166
+msgid "No provider activity yet"
+msgstr "제공자 활동이 없습니다"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
+msgid "Requests"
+msgstr "요청"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:174
+msgid "Success"
+msgstr "성공"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
+msgid "Failures"
+msgstr "실패"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
+msgid "Avg ms"
+msgstr "평균 ms"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
+msgid "Rate"
+msgstr "비율"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:60
+msgid "Custom field created"
+msgstr "커스텀 필드가 생성되었습니다"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:69
+msgid "Custom field updated"
+msgstr "커스텀 필드가 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:78
+msgid "Custom field deleted"
+msgstr "커스텀 필드가 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:169
+msgid "Custom Fields"
+msgstr "커스텀 필드"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:181
+msgid "New Field"
+msgstr "새 필드"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:205
+msgid "e.g. Author Bio"
+msgstr "예: 저자 소개"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:210
+msgid "Field Type"
+msgstr "필드 유형"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:234
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:328
+msgid "Content Types"
+msgstr "콘텐츠 유형"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:276
+msgid "Choices (one per line)"
+msgstr "선택지 (줄당 하나)"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
+msgid "Option A\nOption B\nOption C"
+msgstr "옵션 A\n옵션 B\n옵션 C"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
+#: src/app/dashboard/(panel)/users/page.tsx:431
+msgid "Update"
+msgstr "업데이트"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:319
+msgid "No custom fields defined yet."
+msgstr "정의된 커스텀 필드가 없습니다."
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:389
+msgid "Delete custom field?"
+msgstr "커스텀 필드를 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
+msgid "Discount code created"
+msgstr "할인 코드가 생성되었습니다"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
+msgid "Discount code updated"
+msgstr "할인 코드가 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
+msgid "Discount code deleted"
+msgstr "할인 코드가 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
+msgid "New Code"
+msgstr "새 코드"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Percentage (0-100)"
+msgstr "퍼센트 (0-100)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Price (cents)"
+msgstr "가격 (센트)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
+msgid "Trial Days"
+msgstr "체험 기간 (일)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
+msgid "Trial Price (cents)"
+msgstr "체험 가격 (센트)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
+msgid "Max Uses (leave empty for unlimited)"
+msgstr "최대 사용 횟수 (무제한은 비워 두세요)"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
+msgid "Max Uses Per User"
+msgstr "사용자당 최대 사용 횟수"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
+msgid "No discount codes configured."
+msgstr "설정된 할인 코드가 없습니다."
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
+msgid "Uses"
+msgstr "사용 횟수"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
+msgid "Delete discount code?"
+msgstr "할인 코드를 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
+msgid "Code \"{code}\" will be permanently deleted."
+msgstr "코드 \"{code}\"이(가) 영구적으로 삭제됩니다."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:90
+msgid "Template saved"
+msgstr "템플릿이 저장되었습니다"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:98
+msgid "Template reset to default"
+msgstr "템플릿이 기본값으로 초기화되었습니다"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:142
+msgid "Edit: {label}"
+msgstr "편집: {label}"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:152
+msgid "Reset to Default"
+msgstr "기본값으로 초기화"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:174
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
+#: src/app/dashboard/(panel)/settings/support/page.tsx:118
+msgid "Subject"
+msgstr "제목"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:181
+msgid "Email subject line"
+msgstr "이메일 제목"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:187
+msgid "HTML Body"
+msgstr "HTML 본문"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:200
+msgid "Available Variables"
+msgstr "사용 가능한 변수"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:217
+#: src/app/dashboard/(panel)/settings/import/page.tsx:528
+#: src/components/admin/PostForm.tsx:829
+msgid "Preview"
+msgstr "미리보기"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:231
+msgid "Reset to default?"
+msgstr "기본값으로 초기화하시겠습니까?"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:232
+msgid "This will remove your customizations and revert to the file-based template."
+msgstr "사용자 지정 내용이 제거되고 파일 기반 템플릿으로 되돌아갑니다."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:233
+msgid "Reset"
+msgstr "초기화"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:295
+msgid "Email Templates"
+msgstr "이메일 템플릿"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:301
+msgid "Customize email templates. Overrides are stored in the database; unmodified templates use the default file."
+msgstr "이메일 템플릿을 커스터마이징합니다. 변경사항은 데이터베이스에 저장되며, 수정하지 않은 템플릿은 기본 파일을 사용합니다."
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:325
+msgid "Custom"
+msgstr "커스텀"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:325
+msgid "Default"
+msgstr "기본값"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:329
+msgid "Variables: {vars}"
+msgstr "변수: {vars}"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:123
+msgid "File size exceeds 50MB limit"
+msgstr "파일 크기가 50MB 제한을 초과합니다"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:150
+msgid "Failed to read file"
+msgstr "파일 읽기 실패"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:185
+msgid "Please select a file first"
+msgstr "먼저 파일을 선택해 주세요"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:221
+msgid "No items selected"
+msgstr "선택된 항목이 없습니다"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:300
+msgid "Import Content"
+msgstr "콘텐츠 가져오기"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:333
+msgid "Import Format"
+msgstr "가져오기 형식"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:366
+msgid "Select File"
+msgstr "파일 선택"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:392
+msgid "Click to change file"
+msgstr "클릭하여 파일 변경"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:399
+msgid "Click to select a file (max 50MB)"
+msgstr "클릭하여 파일 선택 (최대 50MB)"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:409
+msgid "Import Options"
+msgstr "가져오기 옵션"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:413
+msgid "Post Type"
+msgstr "글 유형"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:420
+msgid "Blog Post"
+msgstr "블로그 글"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:426
+msgid "Override Status"
+msgstr "상태 덮어쓰기"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:437
+msgid "Keep original status"
+msgstr "원래 상태 유지"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:438
+msgid "Import all as Draft"
+msgstr "모두 임시글로 가져오기"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:440
+msgid "Import all as Published"
+msgstr "모두 게시글로 가져오기"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:465
+msgid "Map CSV Columns"
+msgstr "CSV 열 매핑"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:467
+msgid "Map your CSV column headers to CMS fields. Only Title is required."
+msgstr "CSV 열 헤더를 CMS 필드에 매핑합니다. 제목만 필수입니다."
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:498
+msgid "-- Skip --"
+msgstr "-- 건너뛰기 --"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:517
+#: src/app/dashboard/(panel)/settings/import/page.tsx:671
+msgid "Back"
+msgstr "뒤로"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:544
+msgid "Warnings"
+msgstr "경고"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:562
+msgid "items selected"
+msgstr "항목 선택됨"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:570
+msgid "Deselect all"
+msgstr "전체 선택 해제"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:571
+msgid "Select all"
+msgstr "전체 선택"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:591
+#: src/components/admin/CategoryForm.tsx:353
+#: src/components/admin/CmsListView.tsx:743
+#: src/components/admin/PortfolioForm.tsx:377
+#: src/components/admin/ShowcaseForm.tsx:328
+msgid "Title"
+msgstr "제목"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:635
+#: src/components/admin/CategoryForm.tsx:465
+#: src/components/admin/CmsListView.tsx:777
+#: src/components/admin/PortfolioForm.tsx:569
+#: src/components/admin/PostForm.tsx:960
+#: src/components/admin/ShowcaseForm.tsx:543
+#: src/components/admin/TaxonomyOverview.tsx:22
+#: src/components/admin/TermForm.tsx:278
+msgid "Published"
+msgstr "게시됨"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:636
+#: src/components/admin/CategoryForm.tsx:463
+#: src/components/admin/PortfolioForm.tsx:567
+#: src/components/admin/PostForm.tsx:959
+#: src/components/admin/ShowcaseForm.tsx:541
+#: src/components/admin/TermForm.tsx:276
+msgid "Draft"
+msgstr "임시글"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:657
+msgid "No items found in this file"
+msgstr "이 파일에서 항목을 찾을 수 없습니다"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:687
+msgid "Importing..."
+msgstr "가져오는 중..."
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:688
+msgid "Import"
+msgstr "가져오기"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:688
+msgid "items"
+msgstr "항목"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:702
+msgid "Import Complete"
+msgstr "가져오기 완료"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:704
+msgid "items created"
+msgstr "항목 생성됨"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:706
+msgid "skipped"
+msgstr "건너뜀"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:717
+msgid "Errors"
+msgstr "오류"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:738
+msgid "Import More"
+msgstr "추가 가져오기"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:45
+msgid "Job queued for retry"
+msgstr "작업이 재시도 대기열에 추가되었습니다"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:54
+msgid "Job removed"
+msgstr "작업이 제거되었습니다"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:72
+msgid "Job Queue"
+msgstr "작업 큐"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:82
+msgid "Refresh"
+msgstr "새로고침"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:94
+msgid "No queues registered. Redis may not be configured."
+msgstr "등록된 큐가 없습니다. Redis가 설정되지 않았을 수 있습니다."
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:166
+msgid "No jobs with this status."
+msgstr "이 상태의 작업이 없습니다."
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:172
+msgid "ID"
+msgstr "ID"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:177
+msgid "Error"
+msgstr "오류"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:35
+msgid "Settings saved"
+msgstr "설정이 저장되었습니다"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:45
+msgid "Reset \"{key}\" to default"
+msgstr "\"{key}\"을(를) 기본값으로 초기화"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:59
+msgid "GA4 connection successful"
+msgstr "GA4 연결 성공"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:66
+msgid "Created 1 SEO override page"
+msgid_plural "Created {count} SEO override pages"
+msgstr[0] "SEO 재정의 페이지 1개 생성됨"
+msgstr[1] "SEO 재정의 페이지 {count}개 생성됨"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:199
+msgid "Settings"
+msgstr "설정"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:228
+msgid "Connect a GA4 property to display analytics on the dashboard. Requires a service account with Analytics read access."
+msgstr "대시보드에 분석 데이터를 표시하려면 GA4 속성을 연결하세요. Analytics 읽기 권한이 있는 서비스 계정이 필요합니다."
+
+#: src/app/dashboard/(panel)/settings/page.tsx:242
+#: src/app/dashboard/(panel)/settings/page.tsx:267
+msgid "Reset to default"
+msgstr "기본값으로 초기화"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:259
+msgid "Modified"
+msgstr "수정됨"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:299
+msgid "Test Connection"
+msgstr "연결 테스트"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:310
+#: src/components/admin/CmsListView.tsx:625
+#: src/components/admin/CmsListView.tsx:628
+msgid "SEO Overrides"
+msgstr "SEO 재정의"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:312
+msgid "Create CMS pages to override SEO metadata for coded routes (homepage, login, etc.)."
+msgstr "코드 라우트(홈페이지, 로그인 등)의 SEO 메타데이터를 재정의하는 CMS 페이지를 생성합니다."
+
+#: src/app/dashboard/(panel)/settings/page.tsx:321
+msgid "Manage SEO Overrides"
+msgstr "SEO 재정의 관리"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
+msgid "Chat closed"
+msgstr "채팅 종료됨"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
+msgid "Chat session not found."
+msgstr "채팅 세션을 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
+msgid "Live Chat"
+msgstr "실시간 채팅"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
+msgid "View Ticket"
+msgstr "티켓 보기"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
+msgid "Close Chat"
+msgstr "채팅 닫기"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
+msgid "Visitor"
+msgstr "방문자"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
+msgid "Chat email"
+msgstr "채팅 이메일"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
+#: src/app/dashboard/(panel)/settings/support/page.tsx:252
+msgid "Started"
+msgstr "시작일"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
+msgid "Reply as agent..."
+msgstr "상담원으로 답변..."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:69
+msgid "Total"
+msgstr "전체"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:97
+msgid "All Priorities"
+msgstr "모든 우선순위"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:112
+msgid "No tickets found."
+msgstr "티켓을 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:121
+msgid "Source"
+msgstr "출처"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:123
+msgid "Updated"
+msgstr "업데이트"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:227
+msgid "Active (non-closed)"
+msgstr "활성 (미종료)"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:228
+msgid "AI Active"
+msgstr "AI 활성"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:229
+msgid "Agent Active"
+msgstr "상담원 활성"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:230
+msgid "Escalated"
+msgstr "에스컬레이션"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:231
+msgid "Closed"
+msgstr "종료됨"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:243
+msgid "No active chats."
+msgstr "활성 채팅이 없습니다."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:249
+msgid "Visitor / User"
+msgstr "방문자 / 사용자"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:251
+msgid "Last Message"
+msgstr "마지막 메시지"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:348
+msgid "Support"
+msgstr "지원"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:360
+msgid "Tickets"
+msgstr "티켓"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:368
+msgid "Live Chats"
+msgstr "실시간 채팅"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:114
+msgid "Reply sent"
+msgstr "답변이 발송되었습니다"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:122
+msgid "Status updated"
+msgstr "상태가 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:130
+msgid "Assignment updated"
+msgstr "배정이 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:147
+msgid "Ticket not found."
+msgstr "티켓을 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:149
+msgid "Back to tickets"
+msgstr "티켓 목록으로"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
+msgid "Staff"
+msgstr "직원"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
+msgid "Customer"
+msgstr "고객"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:222
+msgid "Staff Reply"
+msgstr "직원 답변"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:231
+msgid "Type your reply..."
+msgstr "답변을 입력하세요..."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:243
+msgid "Send Reply"
+msgstr "답변 보내기"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:248
+msgid "This ticket is closed."
+msgstr "이 티켓은 종료되었습니다."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:251
+msgid "User feedback"
+msgstr "사용자 피드백"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
+msgid "Details"
+msgstr "상세 정보"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:291
+msgid "Assigned"
+msgstr "배정됨"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:300
+msgid "Change Status"
+msgstr "상태 변경"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:315
+msgid "Assignment"
+msgstr "배정"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:324
+msgid "Unassign"
+msgstr "배정 해제"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:328
+msgid "Not assigned"
+msgstr "미배정"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:39
+msgid "Webhook created"
+msgstr "Webhook이 생성되었습니다"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:48
+msgid "Webhook updated"
+msgstr "Webhook이 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:57
+msgid "Webhook deleted"
+msgstr "Webhook이 삭제되었습니다"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:64
+msgid "Test sent (status {status})"
+msgstr "테스트 발송 완료 (상태 {status})"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:114
+msgid "Webhooks"
+msgstr "Webhooks"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:119
+msgid "New Webhook"
+msgstr "새 Webhook"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:139
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:204
+msgid "URL"
+msgstr "URL"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:152
+msgid "Events"
+msgstr "이벤트"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:197
+msgid "No webhooks configured."
+msgstr "설정된 Webhook이 없습니다."
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:253
+msgid "Delete webhook?"
+msgstr "Webhook을 삭제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:254
+msgid "\"{name}\" will be permanently deleted."
+msgstr "\"{name}\"이(가) 영구적으로 삭제됩니다."
+
+#: src/app/dashboard/(panel)/users/page.tsx:80
+msgid "Role updated"
+msgstr "역할이 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/users/page.tsx:89
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:92
+msgid "User banned"
+msgstr "사용자가 차단되었습니다"
+
+#: src/app/dashboard/(panel)/users/page.tsx:97
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:100
+msgid "User unbanned"
+msgstr "사용자 차단이 해제되었습니다"
+
+#: src/app/dashboard/(panel)/users/page.tsx:105
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:108
+msgid "User anonymized"
+msgstr "사용자가 익명화되었습니다"
+
+#: src/app/dashboard/(panel)/users/page.tsx:196
+msgid "Search by name or email..."
+msgstr "이름 또는 이메일로 검색..."
+
+#: src/app/dashboard/(panel)/users/page.tsx:231
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:305
+msgid "Joined"
+msgstr "가입일"
+
+#: src/app/dashboard/(panel)/users/page.tsx:239
+msgid "No users found."
+msgstr "사용자를 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/users/page.tsx:239
+msgid "No users yet."
+msgstr "사용자가 없습니다."
+
+#: src/app/dashboard/(panel)/users/page.tsx:311
+msgid "Change role"
+msgstr "역할 변경"
+
+#: src/app/dashboard/(panel)/users/page.tsx:329
+#: src/app/dashboard/(panel)/users/page.tsx:447
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:231
+msgid "Unban"
+msgstr "차단 해제"
+
+#: src/app/dashboard/(panel)/users/page.tsx:329
+#: src/app/dashboard/(panel)/users/page.tsx:447
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:240
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:472
+msgid "Ban"
+msgstr "차단"
+
+#: src/app/dashboard/(panel)/users/page.tsx:342
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:248
+msgid "Export data (GDPR)"
+msgstr "데이터 내보내기 (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:354
+msgid "Anonymize (GDPR)"
+msgstr "익명화 (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:403
+msgid "Change Role"
+msgstr "역할 변경"
+
+#: src/app/dashboard/(panel)/users/page.tsx:406
+msgid "Change role for {name}"
+msgstr "{name}의 역할 변경"
+
+#: src/app/dashboard/(panel)/users/page.tsx:441
+msgid "Unban user?"
+msgstr "사용자 차단을 해제하시겠습니까?"
+
+#: src/app/dashboard/(panel)/users/page.tsx:441
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:470
+msgid "Ban user?"
+msgstr "사용자를 차단하시겠습니까?"
+
+#: src/app/dashboard/(panel)/users/page.tsx:444
+msgid "Unban {name}? They will regain access."
+msgstr "{name}의 차단을 해제하시겠습니까? 접근 권한이 복원됩니다."
+
+#: src/app/dashboard/(panel)/users/page.tsx:445
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:471
+msgid "Ban {name}? They will lose access."
+msgstr "{name}을(를) 차단하시겠습니까? 접근 권한이 제거됩니다."
+
+#: src/app/dashboard/(panel)/users/page.tsx:456
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:484
+msgid "Anonymize user? (GDPR)"
+msgstr "사용자를 익명화하시겠습니까? (GDPR)"
+
+#: src/app/dashboard/(panel)/users/page.tsx:460
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:259
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:488
+msgid "Anonymize"
+msgstr "익명화"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:80
+msgid "User updated"
+msgstr "사용자가 업데이트되었습니다"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:162
+msgid "User not found"
+msgstr "사용자를 찾을 수 없습니다"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:168
+msgid "Back to Users"
+msgstr "사용자 목록으로"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:222
+msgid "Profile"
+msgstr "프로필"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:251
+#: src/components/admin/CmsListView.tsx:601
+msgid "Export"
+msgstr "내보내기"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:334
+msgid "Login History"
+msgstr "로그인 이력"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:342
+msgid "No login sessions found."
+msgstr "로그인 세션을 찾을 수 없습니다."
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:350
+msgid "IP Address"
+msgstr "IP 주소"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:351
+msgid "User Agent"
+msgstr "User Agent"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:400
+msgid "Audit Trail"
+msgstr "감사 로그"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:408
+msgid "No activity recorded for this user."
+msgstr "이 사용자의 기록된 활동이 없습니다."
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "Light"
+msgstr "라이트"
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "Dark"
+msgstr "다크"
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "System"
+msgstr "시스템"
+
+#: src/components/admin/AdminSidebar.tsx:185
+msgid "Theme"
+msgstr "테마"
+
+#: src/components/admin/AdminSidebar.tsx:225
+msgid "Sign Out"
+msgstr "로그아웃"
+
+#: src/components/admin/AdminSidebar.tsx:248
+msgid "Expand panel"
+msgstr "패널 펼치기"
+
+#: src/components/admin/AdminSidebar.tsx:248
+msgid "Collapse panel"
+msgstr "패널 접기"
+
+#: src/components/admin/AdminSidebar.tsx:293
+#: src/components/admin/AdminSidebar.tsx:357
+msgid "View site"
+msgstr "사이트 보기"
+
+#: src/components/admin/CategoryForm.tsx:156
+msgid "Category created"
+msgstr "카테고리가 생성되었습니다"
+
+#: src/components/admin/CategoryForm.tsx:170
+msgid "Category updated"
+msgstr "카테고리가 업데이트되었습니다"
+
+#: src/components/admin/CategoryForm.tsx:284
+#: src/components/admin/QuickActionsWidget.tsx:34
+msgid "New Category"
+msgstr "새 카테고리"
+
+#: src/components/admin/CategoryForm.tsx:284
+msgid "Edit Category"
+msgstr "카테고리 편집"
+
+#: src/components/admin/CategoryForm.tsx:333
+msgid "Category name"
+msgstr "카테고리 이름"
+
+#: src/components/admin/CategoryForm.tsx:364
+msgid "Display title (can differ from name)"
+msgstr "표시 제목 (이름과 다를 수 있음)"
+
+#: src/components/admin/CategoryForm.tsx:369
+msgid "Icon"
+msgstr "아이콘"
+
+#: src/components/admin/CategoryForm.tsx:376
+msgid "Icon name or URL"
+msgstr "아이콘 이름 또는 URL"
+
+#: src/components/admin/CategoryForm.tsx:389
+msgid "Category description..."
+msgstr "카테고리 설명..."
+
+#: src/components/admin/CategoryForm.tsx:400
+#: src/components/admin/CmsListView.tsx:842
+#: src/components/admin/PortfolioForm.tsx:490
+#: src/components/admin/ShowcaseForm.tsx:493
+msgid "SEO"
+msgstr "SEO"
+
+#: src/components/admin/CategoryForm.tsx:444
+#: src/components/admin/PortfolioForm.tsx:548
+#: src/components/admin/ShowcaseForm.tsx:611
+msgid "Tags"
+msgstr "태그"
+
+#: src/components/admin/CategoryForm.tsx:471
+#: src/components/admin/TermForm.tsx:284
+msgid "Order"
+msgstr "순서"
+
+#: src/components/admin/CategoryForm.tsx:503
+#: src/components/admin/PortfolioForm.tsx:596
+#: src/components/admin/PostForm.tsx:687
+#: src/components/admin/ShowcaseForm.tsx:570
+#: src/components/admin/TermForm.tsx:296
+msgid "Language"
+msgstr "언어"
+
+#: src/components/admin/CategoryForm.tsx:530
+#: src/components/admin/PortfolioForm.tsx:623
+#: src/components/admin/PostForm.tsx:967
+#: src/components/admin/ShowcaseForm.tsx:597
+msgid "Publish Date"
+msgstr "게시일"
+
+#: src/components/admin/CmsListView.tsx:40
+msgctxt "General"
+msgid "Draft"
+msgstr "임시글"
+
+#: src/components/admin/CmsListView.tsx:41
+msgctxt "General"
+msgid "Published"
+msgstr "게시됨"
+
+#: src/components/admin/CmsListView.tsx:42
+msgctxt "General"
+msgid "Scheduled"
+msgstr "예약됨"
+
+#: src/components/admin/CmsListView.tsx:209
+#: src/components/admin/CmsListView.tsx:223
+#: src/components/admin/CmsListView.tsx:237
+#: src/components/admin/CmsListView.tsx:251
+#: src/components/admin/CmsListView.tsx:265
+msgid "Moved to trash"
+msgstr "휴지통으로 이동됨"
+
+#: src/components/admin/CmsListView.tsx:213
+#: src/components/admin/CmsListView.tsx:227
+#: src/components/admin/CmsListView.tsx:241
+#: src/components/admin/CmsListView.tsx:255
+#: src/components/admin/CmsListView.tsx:269
+msgid "Restored"
+msgstr "복원됨"
+
+#: src/components/admin/CmsListView.tsx:217
+#: src/components/admin/CmsListView.tsx:231
+#: src/components/admin/CmsListView.tsx:245
+#: src/components/admin/CmsListView.tsx:259
+#: src/components/admin/CmsListView.tsx:273
+msgid "Permanently deleted"
+msgstr "영구 삭제됨"
+
+#: src/components/admin/CmsListView.tsx:281
+#: src/components/admin/CmsListView.tsx:289
+#: src/components/admin/CmsListView.tsx:297
+#: src/components/admin/CmsListView.tsx:305
+msgid "Duplicated"
+msgstr "복제됨"
+
+#: src/components/admin/CmsListView.tsx:366
+msgid "Exported 1 item"
+msgid_plural "Exported {count} items"
+msgstr[0] "1개 항목 내보내기 완료"
+msgstr[1] "{count}개 항목 내보내기 완료"
+
+#: src/components/admin/CmsListView.tsx:569
+msgid "Toggle columns"
+msgstr "열 표시 전환"
+
+#: src/components/admin/CmsListView.tsx:572
+msgid "Columns"
+msgstr "열"
+
+#: src/components/admin/CmsListView.tsx:636
+#: src/components/admin/PostForm.tsx:814
+msgid "New {label}"
+msgstr "새 {label}"
+
+#: src/components/admin/CmsListView.tsx:678
+msgid "Search {label}..."
+msgstr "{label} 검색..."
+
+#: src/components/admin/CmsListView.tsx:697
+msgid "All langs"
+msgstr "모든 언어"
+
+#: src/components/admin/CmsListView.tsx:752
+msgid "Lang"
+msgstr "언어"
+
+#: src/components/admin/CmsListView.tsx:766
+msgid "Author"
+msgstr "작성자"
+
+#: src/components/admin/CmsListView.tsx:804
+msgid "No results found."
+msgstr "결과를 찾을 수 없습니다."
+
+#: src/components/admin/CmsListView.tsx:805
+msgid "No items yet. Create your first one."
+msgstr "항목이 없습니다. 첫 번째 항목을 만들어 보세요."
+
+#: src/components/admin/CmsListView.tsx:833
+msgid "(untitled)"
+msgstr "(제목 없음)"
+
+#: src/components/admin/CmsListView.tsx:838
+msgid "(homepage)"
+msgstr "(홈페이지)"
+
+#: src/components/admin/CmsListView.tsx:846
+msgid "This content is managed by a .mdx file and cannot be edited from the dashboard"
+msgstr "이 콘텐츠는 .mdx 파일로 관리되며 대시보드에서 편집할 수 없습니다"
+
+#: src/components/admin/CmsListView.tsx:847
+msgid ".mdx"
+msgstr ".mdx"
+
+#: src/components/admin/CmsListView.tsx:907
+msgid "Delete permanently"
+msgstr "영구 삭제"
+
+#: src/components/admin/CmsListView.tsx:918
+msgid "Duplicate"
+msgstr "복제"
+
+#: src/components/admin/CmsListView.tsx:933
+#: src/components/admin/CmsListView.tsx:991
+#: src/components/admin/CmsListView.tsx:1002
+msgid "Trash"
+msgstr "휴지통"
+
+#: src/components/admin/CmsListView.tsx:983
+msgid "Delete permanently?"
+msgstr "영구 삭제하시겠습니까?"
+
+#: src/components/admin/CmsListView.tsx:984
+#: src/components/admin/CmsListView.tsx:1000
+msgid "Move to trash?"
+msgstr "휴지통으로 이동하시겠습니까?"
+
+#: src/components/admin/CmsListView.tsx:988
+msgid "\"{title}\" will be permanently deleted. This cannot be undone."
+msgstr "\"{title}\"이(가) 영구적으로 삭제됩니다. 되돌릴 수 없습니다."
+
+#: src/components/admin/CmsListView.tsx:989
+msgid "\"{title}\" will be moved to trash."
+msgstr "\"{title}\"이(가) 휴지통으로 이동됩니다."
+
+#: src/components/admin/CmsListView.tsx:1001
+msgid "1 item will be moved to trash."
+msgid_plural "{count} items will be moved to trash."
+msgstr[0] "1개 항목이 휴지통으로 이동됩니다."
+msgstr[1] "{count}개 항목이 휴지통으로 이동됩니다."
+
+#: src/components/admin/CmsListView.tsx:1018
+msgid "Created 1 SEO override"
+msgid_plural "Created {count} SEO overrides"
+msgstr[0] "SEO 재정의 1개 생성됨"
+msgstr[1] "SEO 재정의 {count}개 생성됨"
+
+#: src/components/admin/CmsListView.tsx:1022
+msgid "All SEO overrides already exist"
+msgstr "모든 SEO 재정의가 이미 존재합니다"
+
+#: src/components/admin/PortfolioForm.tsx:162
+msgid "Portfolio item created"
+msgstr "포트폴리오 항목이 생성되었습니다"
+
+#: src/components/admin/PortfolioForm.tsx:176
+msgid "Portfolio item updated"
+msgstr "포트폴리오 항목이 업데이트되었습니다"
+
+#: src/components/admin/PortfolioForm.tsx:308
+msgid "New Portfolio Item"
+msgstr "새 포트폴리오 항목"
+
+#: src/components/admin/PortfolioForm.tsx:308
+msgid "Edit Portfolio Item"
+msgstr "포트폴리오 항목 편집"
+
+#: src/components/admin/PortfolioForm.tsx:388
+msgid "Display title"
+msgstr "표시 제목"
+
+#: src/components/admin/PortfolioForm.tsx:396
+msgid "Project Details"
+msgstr "프로젝트 상세"
+
+#: src/components/admin/PortfolioForm.tsx:400
+msgid "Client Name"
+msgstr "클라이언트 이름"
+
+#: src/components/admin/PortfolioForm.tsx:407
+msgid "Client or company name"
+msgstr "클라이언트 또는 회사 이름"
+
+#: src/components/admin/PortfolioForm.tsx:412
+msgid "Project URL"
+msgstr "프로젝트 URL"
+
+#: src/components/admin/PortfolioForm.tsx:424
+msgid "Tech Stack"
+msgstr "기술 스택"
+
+#: src/components/admin/PortfolioForm.tsx:455
+msgid "Type and press Enter or comma to add"
+msgstr "입력 후 Enter 또는 쉼표를 눌러 추가하세요"
+
+#: src/components/admin/PortfolioForm.tsx:460
+msgid "Completion Date"
+msgstr "완료일"
+
+#: src/components/admin/PortfolioForm.tsx:479
+msgid "Project description..."
+msgstr "프로젝트 설명..."
+
+#: src/components/admin/PortfolioForm.tsx:531
+msgid "Featured Image"
+msgstr "대표 이미지"
+
+#: src/components/admin/PostForm.tsx:100
+#: src/components/admin/PostForm.tsx:128
+msgid "None (top level)"
+msgstr "없음 (최상위)"
+
+#: src/components/admin/PostForm.tsx:112
+msgid "Search pages..."
+msgstr "페이지 검색..."
+
+#: src/components/admin/PostForm.tsx:146
+msgid "No pages found"
+msgstr "페이지를 찾을 수 없습니다"
+
+#: src/components/admin/PostForm.tsx:320
+msgid "{label} created"
+msgstr "{label} 생성됨"
+
+#: src/components/admin/PostForm.tsx:334
+msgid "{label} updated"
+msgstr "{label} 업데이트됨"
+
+#: src/components/admin/PostForm.tsx:725
+msgid "No categories yet."
+msgstr "카테고리가 없습니다."
+
+#: src/components/admin/PostForm.tsx:815
+msgid "Edit {label}"
+msgstr "{label} 편집"
+
+#: src/components/admin/PostForm.tsx:839
+msgid "Publish"
+msgstr "게시"
+
+#: src/components/admin/PostForm.tsx:890
+msgid "{label} title"
+msgstr "{label} 제목"
+
+#: src/components/admin/PostForm.tsx:916
+msgid "Add Media"
+msgstr "미디어 추가"
+
+#: src/components/admin/PostForm.tsx:923
+msgid "Start writing your content..."
+msgstr "콘텐츠 작성을 시작하세요..."
+
+#: src/components/admin/PostForm.tsx:961
+msgid "Scheduled"
+msgstr "예약됨"
+
+#: src/components/admin/PostForm.tsx:985
+msgid "Revisions"
+msgstr "수정 이력"
+
+#: src/components/admin/PostFormConfig.tsx:107
+msgid "Show panel"
+msgstr "패널 표시"
+
+#: src/components/admin/PostFormConfig.tsx:107
+msgid "Hide panel"
+msgstr "패널 숨기기"
+
+#: src/components/admin/PostFormConfig.tsx:168
+msgid "No panels"
+msgstr "패널 없음"
+
+#: src/components/admin/PostFormConfig.tsx:245
+msgid "Drag to reorder panels. Toggle visibility with the eye icon."
+msgstr "드래그하여 패널을 재정렬하세요. 눈 아이콘으로 표시 여부를 전환하세요."
+
+#: src/components/admin/PostFormConfig.tsx:250
+msgid "Content Panels"
+msgstr "콘텐츠 패널"
+
+#: src/components/admin/PostFormConfig.tsx:256
+msgid "Move to sidebar"
+msgstr "사이드바로 이동"
+
+#: src/components/admin/PostFormConfig.tsx:260
+msgid "Sidebar Panels"
+msgstr "사이드바 패널"
+
+#: src/components/admin/PostFormConfig.tsx:266
+msgid "Move to content"
+msgstr "콘텐츠로 이동"
+
+#: src/components/admin/PostFormConfig.tsx:285
+msgid "Configure panels"
+msgstr "패널 구성"
+
+#: src/components/admin/PostFormConfig.tsx:290
+msgid "Editor Layout"
+msgstr "편집기 레이아웃"
+
+#: src/components/admin/QuickActionsWidget.tsx:20
+msgid "Quick Actions"
+msgstr "빠른 작업"
+
+#: src/components/admin/QuickActionsWidget.tsx:26
+msgid "New Page"
+msgstr "새 페이지"
+
+#: src/components/admin/QuickActionsWidget.tsx:30
+msgid "New Post"
+msgstr "새 글"
+
+#: src/components/admin/QuickActionsWidget.tsx:46
+msgid "View Site"
+msgstr "사이트 보기"
+
+#: src/components/admin/ShowcaseForm.tsx:157
+msgid "Showcase item created"
+msgstr "쇼케이스 항목이 생성되었습니다"
+
+#: src/components/admin/ShowcaseForm.tsx:171
+msgid "Showcase item updated"
+msgstr "쇼케이스 항목이 업데이트되었습니다"
+
+#: src/components/admin/ShowcaseForm.tsx:287
+msgid "New Showcase Item"
+msgstr "새 쇼케이스 항목"
+
+#: src/components/admin/ShowcaseForm.tsx:287
+msgid "Edit Showcase Item"
+msgstr "쇼케이스 항목 편집"
+
+#: src/components/admin/ShowcaseForm.tsx:336
+msgid "Card title"
+msgstr "카드 제목"
+
+#: src/components/admin/ShowcaseForm.tsx:359
+msgid "Card Configuration"
+msgstr "카드 설정"
+
+#: src/components/admin/ShowcaseForm.tsx:363
+msgid "Card Type"
+msgstr "카드 유형"
+
+#: src/components/admin/ShowcaseForm.tsx:380
+msgid "Layout Variant"
+msgstr "레이아웃 변형"
+
+#: src/components/admin/ShowcaseForm.tsx:414
+msgid "Video Embed URL"
+msgstr "비디오 임베드 URL"
+
+#: src/components/admin/ShowcaseForm.tsx:429
+msgid "Image URL"
+msgstr "이미지 URL"
+
+#: src/components/admin/ShowcaseForm.tsx:444
+msgid "Thumbnail URL"
+msgstr "썸네일 URL"
+
+#: src/components/admin/ShowcaseForm.tsx:469
+msgid "Lower numbers appear first in the feed"
+msgstr "낮은 숫자가 피드에 먼저 표시됩니다"
+
+#: src/components/admin/ShowcaseForm.tsx:482
+msgid "Card description..."
+msgstr "카드 설명..."
+
+#: src/components/admin/TaxonomyOverview.tsx:16
+msgid "Total Tags"
+msgstr "전체 태그"
+
+#: src/components/admin/TaxonomyOverview.tsx:28
+msgid "Relationships"
+msgstr "관계"
+
+#: src/components/admin/TaxonomyOverview.tsx:34
+msgid "Orphaned"
+msgstr "미사용"
+
+#: src/components/admin/TaxonomyOverview.tsx:67
+msgid "Top Tags"
+msgstr "인기 태그"
+
+#: src/components/admin/TaxonomyOverview.tsx:73
+msgid "Tag"
+msgstr "태그"
+
+#: src/components/admin/TaxonomyOverview.tsx:74
+msgid "Posts"
+msgstr "글"
+
+#: src/components/admin/TermForm.tsx:91
+msgid "Tag created"
+msgstr "태그가 생성되었습니다"
+
+#: src/components/admin/TermForm.tsx:102
+msgid "Tag updated"
+msgstr "태그가 업데이트되었습니다"
+
+#: src/components/admin/TermForm.tsx:196
+msgid "New Tag"
+msgstr "새 태그"
+
+#: src/components/admin/TermForm.tsx:196
+msgid "Edit Tag"
+msgstr "태그 편집"
+
+#: src/components/admin/TermForm.tsx:243
+msgid "Tag name"
+msgstr "태그 이름"
+
+#: src/config/dashboard-widgets.tsx:33
+msgid "Recent Activity"
+msgstr "최근 활동"
+
+#: src/config/dashboard-widgets.tsx:40
+msgid "View all"
+msgstr "전체 보기"

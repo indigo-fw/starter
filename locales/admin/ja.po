@@ -1,0 +1,3060 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: indigo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-09T19:59:34.064Z\n"
+"PO-Revision-Date: 2026-04-09T19:59:34.064Z\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:49
+msgid "Activity Log"
+msgstr "アクティビティログ"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:60
+msgid "All types"
+msgstr "すべてのタイプ"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:70
+msgid "All actions"
+msgstr "すべてのアクション"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:84
+msgid "Filter by user..."
+msgstr "ユーザーで絞り込み..."
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:102
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:244
+#: src/app/dashboard/(panel)/forms/page.tsx:109
+#: src/app/dashboard/(panel)/users/page.tsx:214
+#: src/components/admin/AdminSidebar.tsx:177
+msgid "Search"
+msgstr "検索"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:115
+msgid "No activity recorded yet."
+msgstr "アクティビティはまだ記録されていません。"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:121
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:415
+msgid "Time"
+msgstr "時刻"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:122
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:416
+msgid "Action"
+msgstr "アクション"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:123
+#: src/app/dashboard/(panel)/organizations/page.tsx:399
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:49
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:125
+#: src/app/dashboard/(panel)/users/page.tsx:228
+#: src/components/admin/AdminSidebar.tsx:195
+msgid "User"
+msgstr "ユーザー"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:124
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:266
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:356
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:61
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:103
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:159
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:172
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:327
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:417
+msgid "Type"
+msgstr "タイプ"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:125
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:418
+msgid "Entity"
+msgstr "エンティティ"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:157
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:325
+#: src/app/dashboard/(panel)/forms/page.tsx:215
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:232
+#: src/app/dashboard/(panel)/media/page.tsx:309
+#: src/app/dashboard/(panel)/projects/page.tsx:265
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:109
+#: src/app/dashboard/(panel)/settings/import/page.tsx:421
+#: src/app/dashboard/(panel)/settings/support/page.tsx:178
+#: src/app/dashboard/(panel)/settings/support/page.tsx:314
+#: src/app/dashboard/(panel)/users/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:443
+#: src/components/admin/CmsListView.tsx:953
+msgid "Page"
+msgstr "ページ"
+
+#: src/app/dashboard/(panel)/cms/activity/page.tsx:157
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:325
+#: src/app/dashboard/(panel)/forms/page.tsx:215
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:232
+#: src/app/dashboard/(panel)/media/page.tsx:309
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+#: src/app/dashboard/(panel)/settings/import/page.tsx:561
+#: src/app/dashboard/(panel)/users/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:373
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:443
+#: src/components/admin/CmsListView.tsx:953
+msgid "of"
+msgstr "/"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:25
+msgid "Menu created"
+msgstr "メニューを作成しました"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:35
+msgid "Menu deleted"
+msgstr "メニューを削除しました"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:51
+msgid "Menus"
+msgstr "メニュー"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:58
+msgid "New Menu"
+msgstr "新規メニュー"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:70
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:73
+msgid "Menu name"
+msgstr "メニュー名"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:80
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:212
+#: src/app/dashboard/(panel)/organizations/page.tsx:187
+#: src/app/dashboard/(panel)/organizations/page.tsx:225
+#: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
+msgid "Create"
+msgstr "作成"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:87
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:114
+#: src/app/dashboard/(panel)/organizations/page.tsx:228
+#: src/app/dashboard/(panel)/organizations/page.tsx:474
+#: src/app/dashboard/(panel)/projects/page.tsx:151
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:136
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:306
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:184
+#: src/app/dashboard/(panel)/users/page.tsx:424
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:99
+msgid "No menus yet. Create your first one."
+msgstr "メニューはまだありません。最初のメニューを作成してください。"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:105
+#: src/app/dashboard/(panel)/forms/page.tsx:127
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:223
+#: src/app/dashboard/(panel)/organizations/page.tsx:199
+#: src/app/dashboard/(panel)/projects/page.tsx:123
+#: src/app/dashboard/(panel)/projects/page.tsx:189
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:56
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:177
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:101
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:158
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:195
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:325
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:173
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:129
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:203
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:267
+#: src/components/admin/CategoryForm.tsx:325
+#: src/components/admin/PortfolioForm.tsx:349
+#: src/components/admin/TermForm.tsx:235
+msgid "Name"
+msgstr "名前"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:106
+#: src/app/dashboard/(panel)/forms/page.tsx:128
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:235
+#: src/app/dashboard/(panel)/organizations/page.tsx:211
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:57
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:182
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:326
+#: src/app/dashboard/(panel)/settings/import/page.tsx:592
+#: src/components/admin/CategoryForm.tsx:338
+#: src/components/admin/CmsListView.tsx:769
+#: src/components/admin/PortfolioForm.tsx:362
+#: src/components/admin/ShowcaseForm.tsx:341
+#: src/components/admin/TermForm.tsx:248
+msgid "Slug"
+msgstr "スラッグ"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:120
+#: src/app/dashboard/(panel)/projects/page.tsx:236
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:365
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:231
+#: src/components/admin/CmsListView.tsx:926
+msgid "Edit"
+msgstr "編集"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:127
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:144
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:356
+#: src/app/dashboard/(panel)/forms/page.tsx:246
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:261
+#: src/app/dashboard/(panel)/media/page.tsx:293
+#: src/app/dashboard/(panel)/media/page.tsx:336
+#: src/app/dashboard/(panel)/notifications/page.tsx:98
+#: src/app/dashboard/(panel)/organizations/page.tsx:514
+#: src/app/dashboard/(panel)/projects/page.tsx:243
+#: src/app/dashboard/(panel)/projects/page.tsx:285
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:374
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:393
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:238
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:255
+#: src/components/admin/CmsListView.tsx:991
+msgid "Delete"
+msgstr "削除"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:142
+msgid "Delete menu?"
+msgstr "メニューを削除しますか？"
+
+#: src/app/dashboard/(panel)/cms/menus/page.tsx:143
+msgid "\"{name}\" and all its items will be permanently deleted."
+msgstr "\"{name}\"とすべての項目が完全に削除されます。"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:33
+msgid "Menu updated"
+msgstr "メニューを更新しました"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:59
+msgid "Edit Menu"
+msgstr "メニューを編集"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:81
+msgid "Update Name"
+msgstr "名前を更新"
+
+#: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:88
+msgid "Menu Items"
+msgstr "メニュー項目"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:50
+msgid "Redirect created"
+msgstr "リダイレクトを作成しました"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:52
+msgid "Chain detected: {chain}"
+msgstr "チェーンを検出: {chain}"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:68
+msgid "Redirect deleted"
+msgstr "リダイレクトを削除しました"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:104
+msgid "Redirects"
+msgstr "リダイレクト"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:119
+msgid "New Redirect"
+msgstr "新規リダイレクト"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:134
+msgid "Create Redirect"
+msgstr "リダイレクトを作成"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:139
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:264
+msgid "Old Slug"
+msgstr "旧スラッグ"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:147
+msgid "e.g. old-page-slug"
+msgstr "例: old-page-slug"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:154
+msgid "Content Type"
+msgstr "コンテンツタイプ"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:175
+msgid "Content ID"
+msgstr "コンテンツID"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:183
+msgid "UUID of target content"
+msgstr "対象コンテンツのUUID"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:190
+msgid "URL Prefix"
+msgstr "URLプレフィックス"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:198
+msgid "e.g. / or /blog"
+msgstr "例: / または /blog"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:226
+msgid "Search by slug or content type..."
+msgstr "スラッグまたはコンテンツタイプで検索..."
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:257
+msgid "No redirects found."
+msgstr "リダイレクトが見つかりません。"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:258
+msgid "No redirects yet."
+msgstr "リダイレクトはまだありません。"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:265
+msgid "Target"
+msgstr "ターゲット"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:267
+msgid "Prefix"
+msgstr "プレフィックス"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:268
+#: src/app/dashboard/(panel)/forms/page.tsx:132
+#: src/app/dashboard/(panel)/projects/page.tsx:191
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:117
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:174
+#: src/app/dashboard/(panel)/settings/support/page.tsx:122
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:280
+#: src/components/admin/CmsListView.tsx:788
+msgid "Created"
+msgstr "作成日"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:309
+msgid "Delete redirect"
+msgstr "リダイレクトを削除"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:326
+#: src/app/dashboard/(panel)/forms/page.tsx:216
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:233
+#: src/app/dashboard/(panel)/media/page.tsx:310
+#: src/app/dashboard/(panel)/users/page.tsx:374
+#: src/components/admin/CmsListView.tsx:954
+msgid "total"
+msgstr "合計"
+
+#: src/app/dashboard/(panel)/cms/redirects/page.tsx:352
+msgid "Delete redirect?"
+msgstr "リダイレクトを削除しますか？"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:44
+msgid "Form deleted"
+msgstr "フォームを削除しました"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:72
+msgid "Forms"
+msgstr "フォーム"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:77
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:197
+msgid "New Form"
+msgstr "新規フォーム"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:91
+msgid "Search forms..."
+msgstr "フォームを検索..."
+
+#: src/app/dashboard/(panel)/forms/page.tsx:121
+msgid "No forms found."
+msgstr "フォームが見つかりません。"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:121
+msgid "No forms yet. Create your first form."
+msgstr "フォームはまだありません。最初のフォームを作成してください。"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:129
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:292
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:38
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:47
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:61
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:175
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
+#: src/app/dashboard/(panel)/users/page.tsx:292
+msgid "Active"
+msgstr "有効"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:130
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:304
+msgid "Fields"
+msgstr "フィールド"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:131
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:133
+msgid "Submissions"
+msgstr "送信件数"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:160
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:201
+msgid "Yes"
+msgstr "はい"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:165
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:202
+msgid "No"
+msgstr "いいえ"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:188
+msgid "Edit form"
+msgstr "フォームを編集"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:197
+msgid "Delete form"
+msgstr "フォームを削除"
+
+#: src/app/dashboard/(panel)/forms/page.tsx:242
+msgid "Delete form?"
+msgstr "フォームを削除しますか？"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:99
+msgid "Form created"
+msgstr "フォームを作成しました"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:107
+msgid "Form saved"
+msgstr "フォームを保存しました"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:154
+msgid "Form name is required"
+msgstr "フォーム名は必須です"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:160
+msgid "At least one field with a label is required"
+msgstr "ラベル付きのフィールドが少なくとも1つ必要です"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:197
+msgid "Edit Form"
+msgstr "フォームを編集"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:211
+#: src/app/dashboard/(panel)/projects/page.tsx:148
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:165
+#: src/app/dashboard/(panel)/settings/page.tsx:212
+#: src/components/admin/CategoryForm.tsx:300
+#: src/components/admin/PortfolioForm.tsx:324
+#: src/components/admin/PostForm.tsx:853
+#: src/components/admin/ShowcaseForm.tsx:303
+#: src/components/admin/TermForm.tsx:212
+msgid "Save"
+msgstr "保存"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:219
+msgid "Form Settings"
+msgstr "フォーム設定"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:229
+msgid "e.g. Contact Form"
+msgstr "例: お問い合わせフォーム"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:241
+msgid "Auto-generated from name"
+msgstr "名前から自動生成"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:247
+msgid "Recipient Email"
+msgstr "送信先メールアドレス"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:253
+msgid "Notifications sent to this email"
+msgstr "このメールアドレスに通知が送信されます"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:259
+msgid "Success Message"
+msgstr "完了メッセージ"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:265
+msgid "Thank you!"
+msgstr "ありがとうございます！"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:271
+msgid "Honeypot Field Name"
+msgstr "ハニーポットフィールド名"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:277
+msgid "e.g. website (leave empty to disable)"
+msgstr "例: website（空欄で無効化）"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:281
+msgid "Hidden field to catch bots. Submissions with this field filled are rejected."
+msgstr "ボット検出用の隠しフィールドです。このフィールドが入力された送信は拒否されます。"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:295
+msgid "Inactive forms reject submissions"
+msgstr "無効なフォームは送信を拒否します"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:311
+msgid "Add Field"
+msgstr "フィールドを追加"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:333
+msgid "Move up"
+msgstr "上に移動"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:345
+msgid "Move down"
+msgstr "下に移動"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:374
+msgid "Label"
+msgstr "ラベル"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:382
+msgid "Field label"
+msgstr "フィールドラベル"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:388
+msgid "Placeholder"
+msgstr "プレースホルダー"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:396
+msgid "Placeholder text"
+msgstr "プレースホルダーテキスト"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:406
+msgid "Options (comma-separated)"
+msgstr "オプション（カンマ区切り）"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:414
+msgid "Option 1, Option 2, Option 3"
+msgstr "選択肢1, 選択肢2, 選択肢3"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:431
+msgid "Required"
+msgstr "必須"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:445
+msgid "Remove field"
+msgstr "フィールドを削除"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:456
+msgid "No fields yet. Click \"Add Field\" to start building your form."
+msgstr "フィールドはまだありません。\"フィールドを追加\"をクリックしてフォームの作成を開始してください。"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:464
+msgid "Embed"
+msgstr "埋め込み"
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:466
+msgid "Use this component to embed the form on any page:"
+msgstr "このコンポーネントを使用してフォームをページに埋め込みます："
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:472
+msgid "API endpoint for direct submissions:"
+msgstr "直接送信用のAPIエンドポイント："
+
+#: src/app/dashboard/(panel)/forms/[id]/page.tsx:509
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:111
+msgid "Form not found."
+msgstr "フォームが見つかりません。"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:41
+msgid "Submission deleted"
+msgstr "送信データを削除しました"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:70
+msgid "Export downloaded"
+msgstr "エクスポートをダウンロードしました"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:72
+#: src/components/admin/CmsListView.tsx:335
+#: src/components/admin/CmsListView.tsx:368
+msgid "Export failed"
+msgstr "エクスポートに失敗しました"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:144
+msgid "CSV"
+msgstr "CSV"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:151
+msgid "JSON"
+msgstr "JSON"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:165
+msgid "No submissions yet."
+msgstr "送信データはまだありません。"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:172
+msgid "Submitted"
+msgstr "送信日時"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:178
+msgid "IP"
+msgstr "IP"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:214
+msgid "Delete submission"
+msgstr "送信データを削除"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:259
+msgid "Delete submission?"
+msgstr "送信データを削除しますか？"
+
+#: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:260
+msgid "Delete this submission? This cannot be undone."
+msgstr "この送信データを削除しますか？この操作は取り消せません。"
+
+#: src/app/dashboard/(panel)/media/page.tsx:65
+msgid "File deleted"
+msgstr "ファイルを削除しました"
+
+#: src/app/dashboard/(panel)/media/page.tsx:92
+msgid "Upload failed"
+msgstr "アップロードに失敗しました"
+
+#: src/app/dashboard/(panel)/media/page.tsx:108
+msgid "Failed to upload {name}"
+msgstr "{name}のアップロードに失敗しました"
+
+#: src/app/dashboard/(panel)/media/page.tsx:113
+msgid "1 file uploaded"
+msgid_plural "{count} files uploaded"
+msgstr[0] "1件のファイルをアップロードしました"
+msgstr[1] "{count}件のファイルをアップロードしました"
+
+#: src/app/dashboard/(panel)/media/page.tsx:162
+#: src/components/admin/QuickActionsWidget.tsx:42
+msgid "Media Library"
+msgstr "メディアライブラリ"
+
+#: src/app/dashboard/(panel)/media/page.tsx:182
+msgid "Uploading..."
+msgstr "アップロード中..."
+
+#: src/app/dashboard/(panel)/media/page.tsx:182
+msgid "Upload"
+msgstr "アップロード"
+
+#: src/app/dashboard/(panel)/media/page.tsx:218
+msgid "No media files yet."
+msgstr "メディアファイルはまだありません。"
+
+#: src/app/dashboard/(panel)/media/page.tsx:224
+msgid "Upload your first file"
+msgstr "最初のファイルをアップロード"
+
+#: src/app/dashboard/(panel)/media/page.tsx:277
+msgid "Copy URL"
+msgstr "URLをコピー"
+
+#: src/app/dashboard/(panel)/media/page.tsx:334
+msgid "Delete file?"
+msgstr "ファイルを削除しますか？"
+
+#: src/app/dashboard/(panel)/media/page.tsx:335
+msgid "\"{name}\" will be deleted."
+msgstr "\"{name}\"が削除されます。"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:40
+msgid "Notifications"
+msgstr "通知"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:47
+msgid "Mark all read"
+msgstr "すべて既読にする"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:54
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:45
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:121
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
+msgid "Loading..."
+msgstr "読み込み中..."
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:60
+msgid "No notifications yet"
+msgstr "通知はまだありません"
+
+#: src/app/dashboard/(panel)/notifications/page.tsx:89
+msgid "Mark read"
+msgstr "既読にする"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:71
+msgid "Organization created"
+msgstr "組織を作成しました"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:82
+msgid "Organization deleted"
+msgstr "組織を削除しました"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:93
+msgid "Left organization"
+msgstr "組織を退出しました"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:104
+msgid "Invitation sent"
+msgstr "招待を送信しました"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:115
+msgid "Member removed"
+msgstr "メンバーを削除しました"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:123
+msgid "Invitation canceled"
+msgstr "招待をキャンセルしました"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:131
+msgid "Invitation accepted"
+msgstr "招待を承認しました"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:180
+#: src/app/dashboard/(panel)/organizations/page.tsx:320
+msgid "Organizations"
+msgstr "組織"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:196
+msgid "Create Organization"
+msgstr "組織を作成"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:205
+msgid "My Organization"
+msgstr "マイ組織"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:217
+msgid "my-organization (auto-generated if empty)"
+msgstr "my-organization（空欄の場合は自動生成）"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:245
+msgid "No organizations yet. Create one to get started."
+msgstr "組織はまだありません。作成して始めましょう。"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:252
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
+msgid "Organization"
+msgstr "組織"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:253
+#: src/app/dashboard/(panel)/organizations/page.tsx:369
+#: src/app/dashboard/(panel)/organizations/page.tsx:400
+#: src/app/dashboard/(panel)/organizations/page.tsx:465
+#: src/app/dashboard/(panel)/users/page.tsx:229
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:289
+msgid "Role"
+msgstr "ロール"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:291
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
+msgid "Manage"
+msgstr "管理"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:341
+msgid "Members"
+msgstr "メンバー"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:349
+msgid "Invite"
+msgstr "招待"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:358
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:278
+msgid "Email"
+msgstr "メール"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:375
+msgid "Member"
+msgstr "メンバー"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:376
+msgid "Admin"
+msgstr "管理者"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:381
+msgid "Send"
+msgstr "送信"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:436
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:221
+msgid "Remove"
+msgstr "削除"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:457
+msgid "Pending Invitations"
+msgstr "保留中の招待"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:465
+msgid "Expires"
+msgstr "有効期限"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:484
+msgid "Danger Zone"
+msgstr "危険な操作"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:492
+msgid "Leave Organization"
+msgstr "組織を退出"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:501
+msgid "Delete Organization"
+msgstr "組織を削除"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:512
+msgid "Delete organization?"
+msgstr "組織を削除しますか？"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:513
+msgid "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
+msgstr "\"{name}\"を完全に削除しますか？すべてのメンバーとデータが削除されます。この操作は取り消せません。"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:525
+msgid "Leave organization?"
+msgstr "組織を退出しますか？"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:526
+msgid "Leave \"{name}\"? You will lose access to this organization."
+msgstr "\"{name}\"を退出しますか？この組織へのアクセスを失います。"
+
+#: src/app/dashboard/(panel)/organizations/page.tsx:527
+msgid "Leave"
+msgstr "退出"
+
+#: src/app/dashboard/(panel)/page.tsx:31
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: src/app/dashboard/(panel)/page.tsx:32
+msgid "Welcome to Indigo admin panel."
+msgstr "Indigo管理パネルへようこそ。"
+
+#: src/app/dashboard/(panel)/page.tsx:44
+msgid "Pages"
+msgstr "ページ"
+
+#: src/app/dashboard/(panel)/page.tsx:51
+msgid "Blog Posts"
+msgstr "ブログ記事"
+
+#: src/app/dashboard/(panel)/page.tsx:58
+#: src/app/dashboard/(panel)/settings/import/page.tsx:595
+msgid "Categories"
+msgstr "カテゴリー"
+
+#: src/app/dashboard/(panel)/page.tsx:65
+#: src/app/dashboard/(panel)/users/page.tsx:160
+msgid "Users"
+msgstr "ユーザー"
+
+#: src/app/dashboard/(panel)/page.tsx:72
+msgid "Media Files"
+msgstr "メディアファイル"
+
+#: src/app/dashboard/(panel)/page.tsx:84
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
+msgid "Active Subscriptions"
+msgstr "有効なサブスクリプション"
+
+#: src/app/dashboard/(panel)/page.tsx:91
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
+msgid "MRR"
+msgstr "MRR"
+
+#: src/app/dashboard/(panel)/page.tsx:98
+msgid "Churn (30d)"
+msgstr "解約率（30日）"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:40
+msgid "Project created"
+msgstr "プロジェクトを作成しました"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:49
+msgid "Project updated"
+msgstr "プロジェクトを更新しました"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:58
+msgid "Project deleted"
+msgstr "プロジェクトを削除しました"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:104
+msgid "Projects"
+msgstr "プロジェクト"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:111
+#: src/app/dashboard/(panel)/projects/page.tsx:120
+#: src/components/admin/QuickActionsWidget.tsx:38
+msgid "New Project"
+msgstr "新規プロジェクト"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:120
+msgid "Edit Project"
+msgstr "プロジェクトを編集"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:129
+#: src/components/admin/PortfolioForm.tsx:357
+msgid "Project name"
+msgstr "プロジェクト名"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:135
+#: src/components/admin/CategoryForm.tsx:384
+#: src/components/admin/PortfolioForm.tsx:474
+#: src/components/admin/ShowcaseForm.tsx:477
+msgid "Description"
+msgstr "説明"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:141
+msgid "Optional description"
+msgstr "任意の説明"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:164
+msgid "Search projects..."
+msgstr "プロジェクトを検索..."
+
+#: src/app/dashboard/(panel)/projects/page.tsx:180
+msgid "No projects match your search."
+msgstr "検索に一致するプロジェクトがありません。"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:181
+msgid "No projects yet. Create one to get started."
+msgstr "プロジェクトはまだありません。作成して始めましょう。"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:190
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:58
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:131
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:64
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:55
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:114
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:58
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:280
+#: src/app/dashboard/(panel)/settings/import/page.tsx:593
+#: src/app/dashboard/(panel)/settings/support/page.tsx:119
+#: src/app/dashboard/(panel)/settings/support/page.tsx:250
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:272
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:205
+#: src/app/dashboard/(panel)/users/page.tsx:230
+#: src/components/admin/CategoryForm.tsx:455
+#: src/components/admin/CmsListView.tsx:749
+#: src/components/admin/PortfolioForm.tsx:559
+#: src/components/admin/PostForm.tsx:948
+#: src/components/admin/PostForm.tsx:952
+#: src/components/admin/ShowcaseForm.tsx:533
+#: src/components/admin/TermForm.tsx:268
+msgid "Status"
+msgstr "ステータス"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:220
+msgid "Archive"
+msgstr "アーカイブ"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:228
+#: src/components/admin/CmsListView.tsx:900
+msgid "Restore"
+msgstr "復元"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:262
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:106
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:182
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:158
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:104
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:75
+#: src/app/dashboard/(panel)/settings/support/page.tsx:175
+#: src/app/dashboard/(panel)/settings/support/page.tsx:311
+msgid "Previous"
+msgstr "前へ"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:272
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:116
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:189
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:107
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:78
+#: src/app/dashboard/(panel)/settings/import/page.tsx:454
+#: src/app/dashboard/(panel)/settings/support/page.tsx:185
+#: src/app/dashboard/(panel)/settings/support/page.tsx:321
+msgid "Next"
+msgstr "次へ"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:283
+msgid "Delete project?"
+msgstr "プロジェクトを削除しますか？"
+
+#: src/app/dashboard/(panel)/projects/page.tsx:284
+msgid "Delete \"{name}\"? This action cannot be undone."
+msgstr "\"{name}\"を削除しますか？この操作は取り消せません。"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
+msgid "Affiliates"
+msgstr "アフィリエイト"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:37
+#: src/app/dashboard/(panel)/settings/support/page.tsx:87
+msgid "All Statuses"
+msgstr "すべてのステータス"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:39
+msgid "Suspended"
+msgstr "停止中"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:40
+#: src/app/dashboard/(panel)/users/page.tsx:288
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:209
+msgid "Banned"
+msgstr "BAN済み"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:47
+msgid "No affiliates found"
+msgstr "アフィリエイトが見つかりません"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:54
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:60
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
+msgid "Code"
+msgstr "コード"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:55
+msgid "Commission"
+msgstr "コミッション"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:56
+msgid "Referrals"
+msgstr "紹介数"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:57
+msgid "Earnings"
+msgstr "収益"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:59
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:59
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
+msgid "Actions"
+msgstr "操作"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:81
+msgid "Suspend"
+msgstr "停止"
+
+#: src/app/dashboard/(panel)/settings/affiliates/page.tsx:89
+msgid "Activate"
+msgstr "有効化"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
+msgid "Canceled"
+msgstr "キャンセル済み"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
+msgid "Payment Failed"
+msgstr "支払い失敗"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
+msgid "Unpaid"
+msgstr "未払い"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
+msgid "Churned Subscriptions"
+msgstr "解約済みサブスクリプション"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
+msgid "Search by organization..."
+msgstr "組織で検索..."
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
+msgid "No churned subscriptions found."
+msgstr "解約済みサブスクリプションが見つかりません。"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:113
+msgid "Plan"
+msgstr "プラン"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:171
+msgid "Provider"
+msgstr "プロバイダー"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
+msgid "Churn Date"
+msgstr "解約日"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
+msgid "Subscription Start"
+msgstr "サブスクリプション開始日"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "Showing"
+msgstr "表示中"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "to"
+msgstr "〜"
+
+#: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "results"
+msgstr "件"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
+msgid "Discount Codes"
+msgstr "割引コード"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
+msgid "No discount codes yet."
+msgstr "割引コードはまだありません。"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
+msgid "Value"
+msgstr "値"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
+msgid "Usage"
+msgstr "使用状況"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:216
+msgid "Inactive"
+msgstr "無効"
+
+#: src/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
+msgid "unlimited"
+msgstr "無制限"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
+msgid "Recent Transactions"
+msgstr "最近の取引"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
+msgid "No transactions yet."
+msgstr "取引はまだありません。"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
+msgid "Amount"
+msgstr "金額"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
+#: src/app/dashboard/(panel)/settings/import/page.tsx:594
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:349
+#: src/components/admin/CmsListView.tsx:760
+msgid "Date"
+msgstr "日付"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
+msgid "Revenue"
+msgstr "収益"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
+msgid "Transactions"
+msgstr "取引"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
+msgid "Revenue Over Time"
+msgstr "収益推移"
+
+#: src/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
+msgid "No revenue data for this period."
+msgstr "この期間の収益データはありません。"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
+msgid "Search organizations..."
+msgstr "組織を検索..."
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
+msgid "per page"
+msgstr "件/ページ"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
+msgid "No subscriptions found."
+msgstr "サブスクリプションが見つかりません。"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
+msgid "Period"
+msgstr "期間"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
+msgid "Total Revenue"
+msgstr "総収益"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
+msgid "Trialing"
+msgstr "トライアル中"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
+msgid "Trial"
+msgstr "トライアル"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
+msgid "Plan Distribution"
+msgstr "プラン分布"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
+msgid "No subscriptions yet"
+msgstr "サブスクリプションはまだありません"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
+msgid "Churn Metrics"
+msgstr "解約指標"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
+msgid "Churn Rate (30d)"
+msgstr "解約率（30日）"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
+msgid "Canceled (30d)"
+msgstr "キャンセル（30日）"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
+msgid "Past Due (at risk)"
+msgstr "期限超過（リスクあり）"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
+msgid "Unpaid (lost)"
+msgstr "未払い（損失）"
+
+#: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
+msgid "Total Ever Subscribed"
+msgstr "累計サブスクリプション数"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:156
+msgid "Monitor revenue, track churn, and manage subscriptions."
+msgstr "収益の監視、解約の追跡、サブスクリプションの管理を行います。"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:181
+msgid "Custom range"
+msgstr "カスタム範囲"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:187
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:285
+msgid "From"
+msgstr "開始"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:194
+msgid "To"
+msgstr "終了"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "Last"
+msgstr "過去"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "days"
+msgstr "日間"
+
+#: src/app/dashboard/(panel)/settings/billing/page.tsx:235
+msgid "All time"
+msgstr "全期間"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:19
+msgid "Are you sure you want to delete this character?"
+msgstr "このキャラクターを削除してもよろしいですか？"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:29
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Characters"
+msgstr "キャラクター"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:31
+msgid "AI personas that users can chat with."
+msgstr "ユーザーがチャットできるAIペルソナです。"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:39
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
+msgid "New Character"
+msgstr "新規キャラクター"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:49
+msgid "No characters yet. Create your first AI persona."
+msgstr "キャラクターはまだありません。最初のAIペルソナを作成してください。"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
+msgid "Edit Character"
+msgstr "キャラクターを編集"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:186
+msgid "Tagline"
+msgstr "タグライン"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:189
+msgid "System Prompt"
+msgstr "システムプロンプト"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:192
+msgid "Personality (visible to users)"
+msgstr "パーソナリティ（ユーザーに表示）"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:195
+msgid "Greeting Message"
+msgstr "挨拶メッセージ"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:198
+msgid "Avatar URL"
+msgstr "アバターURL"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:203
+msgid "Character Traits"
+msgstr "キャラクター特性"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
+msgid "Gender"
+msgstr "性別"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:206
+msgid "Sexuality"
+msgstr "セクシュアリティ"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
+msgid "Ethnicity"
+msgstr "民族"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
+msgid "Personality"
+msgstr "パーソナリティ"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
+msgid "Kink"
+msgstr "キンク"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
+msgid "Job"
+msgstr "職業"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
+msgid "Relationship"
+msgstr "関係"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:214
+msgid "Hobbies"
+msgstr "趣味"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:220
+msgid "Visual Appearance"
+msgstr "外見"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
+msgid "Hair Color"
+msgstr "髪の色"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:223
+msgid "Hair Texture"
+msgstr "髪の質感"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
+msgid "Hair Style"
+msgstr "髪型"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
+msgid "Eye Color"
+msgstr "目の色"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
+msgid "Skin"
+msgstr "肌"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
+msgid "Body Type"
+msgstr "体型"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:233
+msgid "Image Generation Settings"
+msgstr "画像生成設定"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
+msgid "Model Preset"
+msgstr "モデルプリセット"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:255
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:329
+#: src/components/admin/ShowcaseForm.tsx:458
+msgid "Sort Order"
+msgstr "表示順"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
+msgid "Token Cost Multiplier"
+msgstr "トークンコスト倍率"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:242
+msgid "Custom Negative Prompt"
+msgstr "カスタムネガティブプロンプト"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
+msgid "LoRA Config"
+msgstr "LoRA設定"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:250
+msgid "Active (visible to users)"
+msgstr "有効（ユーザーに表示）"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
+msgid "Create Character"
+msgstr "キャラクターを作成"
+
+#: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:325
+msgid "Save Changes"
+msgstr "変更を保存"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:24
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:12
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:20
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:23
+msgid "Conversations"
+msgstr "会話"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
+msgid "Browse all chat conversations"
+msgstr "すべてのチャット会話を閲覧"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:32
+msgid "All statuses"
+msgstr "すべてのステータス"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:34
+msgid "Archived"
+msgstr "アーカイブ済み"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
+msgid "Deleted"
+msgstr "削除済み"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:42
+msgid "No conversations found."
+msgstr "会話が見つかりません。"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:83
+msgid "Character"
+msgstr "キャラクター"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
+msgid "Messages"
+msgstr "メッセージ"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
+msgid "Tokens"
+msgstr "トークン"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:54
+msgid "Last Active"
+msgstr "最終アクティブ"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:27
+msgid "Conversation"
+msgstr "会話"
+
+#: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:34
+msgid "No messages."
+msgstr "メッセージはありません。"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:15
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Flagged Messages"
+msgstr "フラグ付きメッセージ"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
+msgid "Messages blocked by content moderation"
+msgstr "コンテンツモデレーションによりブロックされたメッセージ"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
+msgid "No flagged messages."
+msgstr "フラグ付きメッセージはありません。"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
+msgid "Reason"
+msgstr "理由"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
+msgid "Dismiss flag"
+msgstr "フラグを解除"
+
+#: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
+msgid "Dismiss"
+msgstr "解除"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:13
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:24
+msgid "Total Messages"
+msgstr "総メッセージ数"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:14
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
+msgid "Active Users (24h)"
+msgstr "アクティブユーザー（24時間）"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Manage AI personas"
+msgstr "AIペルソナを管理"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:20
+msgid "Browse all conversations"
+msgstr "すべての会話を閲覧"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Review moderated content"
+msgstr "モデレーション済みコンテンツを確認"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:22
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:84
+msgid "AI Providers"
+msgstr "AIプロバイダー"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:22
+msgid "Manage LLM providers"
+msgstr "LLMプロバイダーを管理"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Analytics"
+msgstr "アナリティクス"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Usage statistics and charts"
+msgstr "利用統計とチャート"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Moderation"
+msgstr "モデレーション"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Keywords, action, and rate limits"
+msgstr "キーワード、アクション、レート制限"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:30
+msgid "Chat"
+msgstr "チャット"
+
+#: src/app/dashboard/(panel)/settings/chat/page.tsx:31
+msgid "AI character chat management"
+msgstr "AIキャラクターチャット管理"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:67
+msgid "Delete this provider?"
+msgstr "このプロバイダーを削除しますか？"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:85
+msgid "Manage LLM provider credentials and routing"
+msgstr "LLMプロバイダーの認証情報とルーティングを管理"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:89
+msgid "Add Provider"
+msgstr "プロバイダーを追加"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
+msgid "Edit Provider"
+msgstr "プロバイダーを編集"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
+msgid "New Provider"
+msgstr "新規プロバイダー"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
+msgid "LLM (Text)"
+msgstr "LLM（テキスト）"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:106
+msgid "Image"
+msgstr "画像"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
+msgid "Video"
+msgstr "動画"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
+msgid "Adapter"
+msgstr "アダプター"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:116
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:160
+msgid "Model"
+msgstr "モデル"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:119
+msgid "Base URL (leave empty for OpenAI)"
+msgstr "ベースURL（OpenAIの場合は空欄）"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
+msgid "API Key"
+msgstr "APIキー"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:122
+msgid "Leave empty to keep current"
+msgstr "現在の値を保持する場合は空欄"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
+#: src/app/dashboard/(panel)/settings/support/page.tsx:120
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:276
+msgid "Priority"
+msgstr "優先度"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
+msgid "Max Concurrent"
+msgstr "最大同時接続数"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
+msgid "Timeout (s)"
+msgstr "タイムアウト（秒）"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:151
+msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "プロバイダーが設定されていません。追加するか、.envにAI_API_KEYを設定してください。"
+
+#: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:187
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:224
+msgid "Test"
+msgstr "テスト"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
+msgid "Task Queues"
+msgstr "タスクキュー"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
+msgid "BullMQ job queue status and failed job management"
+msgstr "BullMQジョブキューのステータスと失敗ジョブの管理"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
+msgid "No queues found. Workers may not be running."
+msgstr "キューが見つかりません。ワーカーが実行されていない可能性があります。"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
+msgid "Waiting"
+msgstr "待機中"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
+msgid "Done"
+msgstr "完了"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
+msgid "Failed"
+msgstr "失敗"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
+msgid "Failed Jobs"
+msgstr "失敗したジョブ"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:175
+msgid "Attempts"
+msgstr "試行回数"
+
+#: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:208
+msgid "Retry"
+msgstr "再試行"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
+msgid "Tokens Consumed"
+msgstr "消費トークン数"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:32
+msgid "Chat Analytics"
+msgstr "チャットアナリティクス"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:33
+msgid "Usage statistics and trends"
+msgstr "利用統計とトレンド"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:53
+msgid "Messages (30 days)"
+msgstr "メッセージ（30日間）"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:72
+msgid "Popular Characters"
+msgstr "人気キャラクター"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:76
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:119
+msgid "No data yet"
+msgstr "データはまだありません"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:84
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:126
+msgid "Convs"
+msgstr "会話数"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
+msgid "Msgs"
+msgstr "メッセージ数"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
+msgid "Avg"
+msgstr "平均"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:115
+msgid "Most Active Users"
+msgstr "最もアクティブなユーザー"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:162
+msgid "Provider Health (24h)"
+msgstr "プロバイダー稼働状況（24時間）"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:166
+msgid "No provider activity yet"
+msgstr "プロバイダーのアクティビティはまだありません"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
+msgid "Requests"
+msgstr "リクエスト"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:174
+msgid "Success"
+msgstr "成功"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
+msgid "Failures"
+msgstr "失敗"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
+msgid "Avg ms"
+msgstr "平均ms"
+
+#: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
+msgid "Rate"
+msgstr "成功率"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:60
+msgid "Custom field created"
+msgstr "カスタムフィールドを作成しました"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:69
+msgid "Custom field updated"
+msgstr "カスタムフィールドを更新しました"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:78
+msgid "Custom field deleted"
+msgstr "カスタムフィールドを削除しました"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:169
+msgid "Custom Fields"
+msgstr "カスタムフィールド"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:181
+msgid "New Field"
+msgstr "新規フィールド"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:205
+msgid "e.g. Author Bio"
+msgstr "例: 著者プロフィール"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:210
+msgid "Field Type"
+msgstr "フィールドタイプ"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:234
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:328
+msgid "Content Types"
+msgstr "コンテンツタイプ"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:276
+msgid "Choices (one per line)"
+msgstr "選択肢（1行に1つ）"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
+msgid "Option A\nOption B\nOption C"
+msgstr "選択肢A\n選択肢B\n選択肢C"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
+#: src/app/dashboard/(panel)/users/page.tsx:431
+msgid "Update"
+msgstr "更新"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:319
+msgid "No custom fields defined yet."
+msgstr "カスタムフィールドはまだ定義されていません。"
+
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:389
+msgid "Delete custom field?"
+msgstr "カスタムフィールドを削除しますか？"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
+msgid "Discount code created"
+msgstr "割引コードを作成しました"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
+msgid "Discount code updated"
+msgstr "割引コードを更新しました"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
+msgid "Discount code deleted"
+msgstr "割引コードを削除しました"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
+msgid "New Code"
+msgstr "新規コード"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Percentage (0-100)"
+msgstr "パーセンテージ（0-100）"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Price (cents)"
+msgstr "価格（セント）"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
+msgid "Trial Days"
+msgstr "トライアル日数"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
+msgid "Trial Price (cents)"
+msgstr "トライアル価格（セント）"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
+msgid "Max Uses (leave empty for unlimited)"
+msgstr "最大使用回数（無制限の場合は空欄）"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
+msgid "Max Uses Per User"
+msgstr "ユーザーごとの最大使用回数"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
+msgid "No discount codes configured."
+msgstr "割引コードは設定されていません。"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
+msgid "Uses"
+msgstr "使用回数"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
+msgid "Delete discount code?"
+msgstr "割引コードを削除しますか？"
+
+#: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
+msgid "Code \"{code}\" will be permanently deleted."
+msgstr "コード\"{code}\"が完全に削除されます。"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:90
+msgid "Template saved"
+msgstr "テンプレートを保存しました"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:98
+msgid "Template reset to default"
+msgstr "テンプレートをデフォルトにリセットしました"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:142
+msgid "Edit: {label}"
+msgstr "編集: {label}"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:152
+msgid "Reset to Default"
+msgstr "デフォルトにリセット"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:174
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
+#: src/app/dashboard/(panel)/settings/support/page.tsx:118
+msgid "Subject"
+msgstr "件名"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:181
+msgid "Email subject line"
+msgstr "メールの件名"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:187
+msgid "HTML Body"
+msgstr "HTML本文"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:200
+msgid "Available Variables"
+msgstr "利用可能な変数"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:217
+#: src/app/dashboard/(panel)/settings/import/page.tsx:528
+#: src/components/admin/PostForm.tsx:829
+msgid "Preview"
+msgstr "プレビュー"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:231
+msgid "Reset to default?"
+msgstr "デフォルトにリセットしますか？"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:232
+msgid "This will remove your customizations and revert to the file-based template."
+msgstr "カスタマイズが削除され、ファイルベースのテンプレートに戻ります。"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:233
+msgid "Reset"
+msgstr "リセット"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:295
+msgid "Email Templates"
+msgstr "メールテンプレート"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:301
+msgid "Customize email templates. Overrides are stored in the database; unmodified templates use the default file."
+msgstr "メールテンプレートをカスタマイズします。オーバーライドはデータベースに保存され、未変更のテンプレートはデフォルトファイルを使用します。"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:325
+msgid "Custom"
+msgstr "カスタム"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:325
+msgid "Default"
+msgstr "デフォルト"
+
+#: src/app/dashboard/(panel)/settings/email-templates/page.tsx:329
+msgid "Variables: {vars}"
+msgstr "変数: {vars}"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:123
+msgid "File size exceeds 50MB limit"
+msgstr "ファイルサイズが50MBの制限を超えています"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:150
+msgid "Failed to read file"
+msgstr "ファイルの読み込みに失敗しました"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:185
+msgid "Please select a file first"
+msgstr "最初にファイルを選択してください"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:221
+msgid "No items selected"
+msgstr "項目が選択されていません"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:300
+msgid "Import Content"
+msgstr "コンテンツをインポート"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:333
+msgid "Import Format"
+msgstr "インポート形式"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:366
+msgid "Select File"
+msgstr "ファイルを選択"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:392
+msgid "Click to change file"
+msgstr "クリックしてファイルを変更"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:399
+msgid "Click to select a file (max 50MB)"
+msgstr "クリックしてファイルを選択（最大50MB）"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:409
+msgid "Import Options"
+msgstr "インポートオプション"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:413
+msgid "Post Type"
+msgstr "投稿タイプ"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:420
+msgid "Blog Post"
+msgstr "ブログ記事"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:426
+msgid "Override Status"
+msgstr "ステータスを上書き"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:437
+msgid "Keep original status"
+msgstr "元のステータスを維持"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:438
+msgid "Import all as Draft"
+msgstr "すべて下書きとしてインポート"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:440
+msgid "Import all as Published"
+msgstr "すべて公開としてインポート"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:465
+msgid "Map CSV Columns"
+msgstr "CSVカラムのマッピング"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:467
+msgid "Map your CSV column headers to CMS fields. Only Title is required."
+msgstr "CSVのカラムヘッダーをCMSフィールドにマッピングします。タイトルのみ必須です。"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:498
+msgid "-- Skip --"
+msgstr "-- スキップ --"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:517
+#: src/app/dashboard/(panel)/settings/import/page.tsx:671
+msgid "Back"
+msgstr "戻る"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:544
+msgid "Warnings"
+msgstr "警告"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:562
+msgid "items selected"
+msgstr "件選択中"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:570
+msgid "Deselect all"
+msgstr "すべて選択解除"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:571
+msgid "Select all"
+msgstr "すべて選択"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:591
+#: src/components/admin/CategoryForm.tsx:353
+#: src/components/admin/CmsListView.tsx:743
+#: src/components/admin/PortfolioForm.tsx:377
+#: src/components/admin/ShowcaseForm.tsx:328
+msgid "Title"
+msgstr "タイトル"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:635
+#: src/components/admin/CategoryForm.tsx:465
+#: src/components/admin/CmsListView.tsx:777
+#: src/components/admin/PortfolioForm.tsx:569
+#: src/components/admin/PostForm.tsx:960
+#: src/components/admin/ShowcaseForm.tsx:543
+#: src/components/admin/TaxonomyOverview.tsx:22
+#: src/components/admin/TermForm.tsx:278
+msgid "Published"
+msgstr "公開済み"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:636
+#: src/components/admin/CategoryForm.tsx:463
+#: src/components/admin/PortfolioForm.tsx:567
+#: src/components/admin/PostForm.tsx:959
+#: src/components/admin/ShowcaseForm.tsx:541
+#: src/components/admin/TermForm.tsx:276
+msgid "Draft"
+msgstr "下書き"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:657
+msgid "No items found in this file"
+msgstr "このファイルに項目が見つかりません"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:687
+msgid "Importing..."
+msgstr "インポート中..."
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:688
+msgid "Import"
+msgstr "インポート"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:688
+msgid "items"
+msgstr "件"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:702
+msgid "Import Complete"
+msgstr "インポート完了"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:704
+msgid "items created"
+msgstr "件作成"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:706
+msgid "skipped"
+msgstr "スキップ"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:717
+msgid "Errors"
+msgstr "エラー"
+
+#: src/app/dashboard/(panel)/settings/import/page.tsx:738
+msgid "Import More"
+msgstr "さらにインポート"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:45
+msgid "Job queued for retry"
+msgstr "ジョブを再試行キューに追加しました"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:54
+msgid "Job removed"
+msgstr "ジョブを削除しました"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:72
+msgid "Job Queue"
+msgstr "ジョブキュー"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:82
+msgid "Refresh"
+msgstr "更新"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:94
+msgid "No queues registered. Redis may not be configured."
+msgstr "キューが登録されていません。Redisが設定されていない可能性があります。"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:166
+msgid "No jobs with this status."
+msgstr "このステータスのジョブはありません。"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:172
+msgid "ID"
+msgstr "ID"
+
+#: src/app/dashboard/(panel)/settings/job-queue/page.tsx:177
+msgid "Error"
+msgstr "エラー"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:35
+msgid "Settings saved"
+msgstr "設定を保存しました"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:45
+msgid "Reset \"{key}\" to default"
+msgstr "\"{key}\"をデフォルトにリセットしました"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:59
+msgid "GA4 connection successful"
+msgstr "GA4の接続に成功しました"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:66
+msgid "Created 1 SEO override page"
+msgid_plural "Created {count} SEO override pages"
+msgstr[0] "1件のSEOオーバーライドページを作成しました"
+msgstr[1] "{count}件のSEOオーバーライドページを作成しました"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:199
+msgid "Settings"
+msgstr "設定"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:228
+msgid "Connect a GA4 property to display analytics on the dashboard. Requires a service account with Analytics read access."
+msgstr "GA4プロパティを接続してダッシュボードにアナリティクスを表示します。Analytics読み取り権限を持つサービスアカウントが必要です。"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:242
+#: src/app/dashboard/(panel)/settings/page.tsx:267
+msgid "Reset to default"
+msgstr "デフォルトにリセット"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:259
+msgid "Modified"
+msgstr "変更済み"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:299
+msgid "Test Connection"
+msgstr "接続テスト"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:310
+#: src/components/admin/CmsListView.tsx:625
+#: src/components/admin/CmsListView.tsx:628
+msgid "SEO Overrides"
+msgstr "SEOオーバーライド"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:312
+msgid "Create CMS pages to override SEO metadata for coded routes (homepage, login, etc.)."
+msgstr "コード化されたルート（ホームページ、ログインなど）のSEOメタデータをオーバーライドするCMSページを作成します。"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:321
+msgid "Manage SEO Overrides"
+msgstr "SEOオーバーライドを管理"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
+msgid "Chat closed"
+msgstr "チャットを終了しました"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
+msgid "Chat session not found."
+msgstr "チャットセッションが見つかりません。"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
+msgid "Live Chat"
+msgstr "ライブチャット"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
+msgid "View Ticket"
+msgstr "チケットを表示"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
+msgid "Close Chat"
+msgstr "チャットを終了"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
+msgid "Visitor"
+msgstr "訪問者"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
+msgid "Chat email"
+msgstr "チャットメール"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
+#: src/app/dashboard/(panel)/settings/support/page.tsx:252
+msgid "Started"
+msgstr "開始日時"
+
+#: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
+msgid "Reply as agent..."
+msgstr "エージェントとして返信..."
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:69
+msgid "Total"
+msgstr "合計"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:97
+msgid "All Priorities"
+msgstr "すべての優先度"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:112
+msgid "No tickets found."
+msgstr "チケットが見つかりません。"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:121
+msgid "Source"
+msgstr "ソース"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:123
+msgid "Updated"
+msgstr "更新日"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:227
+msgid "Active (non-closed)"
+msgstr "アクティブ（未クローズ）"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:228
+msgid "AI Active"
+msgstr "AI対応中"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:229
+msgid "Agent Active"
+msgstr "エージェント対応中"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:230
+msgid "Escalated"
+msgstr "エスカレーション済み"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:231
+msgid "Closed"
+msgstr "クローズ済み"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:243
+msgid "No active chats."
+msgstr "アクティブなチャットはありません。"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:249
+msgid "Visitor / User"
+msgstr "訪問者 / ユーザー"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:251
+msgid "Last Message"
+msgstr "最新メッセージ"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:348
+msgid "Support"
+msgstr "サポート"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:360
+msgid "Tickets"
+msgstr "チケット"
+
+#: src/app/dashboard/(panel)/settings/support/page.tsx:368
+msgid "Live Chats"
+msgstr "ライブチャット"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:114
+msgid "Reply sent"
+msgstr "返信を送信しました"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:122
+msgid "Status updated"
+msgstr "ステータスを更新しました"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:130
+msgid "Assignment updated"
+msgstr "担当者を更新しました"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:147
+msgid "Ticket not found."
+msgstr "チケットが見つかりません。"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:149
+msgid "Back to tickets"
+msgstr "チケット一覧に戻る"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
+msgid "Staff"
+msgstr "スタッフ"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
+msgid "Customer"
+msgstr "顧客"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:222
+msgid "Staff Reply"
+msgstr "スタッフの返信"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:231
+msgid "Type your reply..."
+msgstr "返信を入力..."
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:243
+msgid "Send Reply"
+msgstr "返信を送信"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:248
+msgid "This ticket is closed."
+msgstr "このチケットはクローズ済みです。"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:251
+msgid "User feedback"
+msgstr "ユーザーフィードバック"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
+msgid "Details"
+msgstr "詳細"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:291
+msgid "Assigned"
+msgstr "担当者"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:300
+msgid "Change Status"
+msgstr "ステータスを変更"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:315
+msgid "Assignment"
+msgstr "担当割り当て"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:324
+msgid "Unassign"
+msgstr "担当解除"
+
+#: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:328
+msgid "Not assigned"
+msgstr "未割り当て"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:39
+msgid "Webhook created"
+msgstr "Webhookを作成しました"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:48
+msgid "Webhook updated"
+msgstr "Webhookを更新しました"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:57
+msgid "Webhook deleted"
+msgstr "Webhookを削除しました"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:64
+msgid "Test sent (status {status})"
+msgstr "テスト送信完了（ステータス {status}）"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:114
+msgid "Webhooks"
+msgstr "Webhook"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:119
+msgid "New Webhook"
+msgstr "新規Webhook"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:139
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:204
+msgid "URL"
+msgstr "URL"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:152
+msgid "Events"
+msgstr "イベント"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:197
+msgid "No webhooks configured."
+msgstr "Webhookは設定されていません。"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:253
+msgid "Delete webhook?"
+msgstr "Webhookを削除しますか？"
+
+#: src/app/dashboard/(panel)/settings/webhooks/page.tsx:254
+msgid "\"{name}\" will be permanently deleted."
+msgstr "\"{name}\"が完全に削除されます。"
+
+#: src/app/dashboard/(panel)/users/page.tsx:80
+msgid "Role updated"
+msgstr "ロールを更新しました"
+
+#: src/app/dashboard/(panel)/users/page.tsx:89
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:92
+msgid "User banned"
+msgstr "ユーザーをBANしました"
+
+#: src/app/dashboard/(panel)/users/page.tsx:97
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:100
+msgid "User unbanned"
+msgstr "ユーザーのBANを解除しました"
+
+#: src/app/dashboard/(panel)/users/page.tsx:105
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:108
+msgid "User anonymized"
+msgstr "ユーザーを匿名化しました"
+
+#: src/app/dashboard/(panel)/users/page.tsx:196
+msgid "Search by name or email..."
+msgstr "名前またはメールで検索..."
+
+#: src/app/dashboard/(panel)/users/page.tsx:231
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:305
+msgid "Joined"
+msgstr "登録日"
+
+#: src/app/dashboard/(panel)/users/page.tsx:239
+msgid "No users found."
+msgstr "ユーザーが見つかりません。"
+
+#: src/app/dashboard/(panel)/users/page.tsx:239
+msgid "No users yet."
+msgstr "ユーザーはまだいません。"
+
+#: src/app/dashboard/(panel)/users/page.tsx:311
+msgid "Change role"
+msgstr "ロールを変更"
+
+#: src/app/dashboard/(panel)/users/page.tsx:329
+#: src/app/dashboard/(panel)/users/page.tsx:447
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:231
+msgid "Unban"
+msgstr "BAN解除"
+
+#: src/app/dashboard/(panel)/users/page.tsx:329
+#: src/app/dashboard/(panel)/users/page.tsx:447
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:240
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:472
+msgid "Ban"
+msgstr "BAN"
+
+#: src/app/dashboard/(panel)/users/page.tsx:342
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:248
+msgid "Export data (GDPR)"
+msgstr "データをエクスポート（GDPR）"
+
+#: src/app/dashboard/(panel)/users/page.tsx:354
+msgid "Anonymize (GDPR)"
+msgstr "匿名化（GDPR）"
+
+#: src/app/dashboard/(panel)/users/page.tsx:403
+msgid "Change Role"
+msgstr "ロールを変更"
+
+#: src/app/dashboard/(panel)/users/page.tsx:406
+msgid "Change role for {name}"
+msgstr "{name}のロールを変更"
+
+#: src/app/dashboard/(panel)/users/page.tsx:441
+msgid "Unban user?"
+msgstr "ユーザーのBANを解除しますか？"
+
+#: src/app/dashboard/(panel)/users/page.tsx:441
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:470
+msgid "Ban user?"
+msgstr "ユーザーをBANしますか？"
+
+#: src/app/dashboard/(panel)/users/page.tsx:444
+msgid "Unban {name}? They will regain access."
+msgstr "{name}のBANを解除しますか？アクセスが復元されます。"
+
+#: src/app/dashboard/(panel)/users/page.tsx:445
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:471
+msgid "Ban {name}? They will lose access."
+msgstr "{name}をBANしますか？アクセスが失われます。"
+
+#: src/app/dashboard/(panel)/users/page.tsx:456
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:484
+msgid "Anonymize user? (GDPR)"
+msgstr "ユーザーを匿名化しますか？（GDPR）"
+
+#: src/app/dashboard/(panel)/users/page.tsx:460
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:259
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:488
+msgid "Anonymize"
+msgstr "匿名化"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:80
+msgid "User updated"
+msgstr "ユーザーを更新しました"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:162
+msgid "User not found"
+msgstr "ユーザーが見つかりません"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:168
+msgid "Back to Users"
+msgstr "ユーザー一覧に戻る"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:222
+msgid "Profile"
+msgstr "プロフィール"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:251
+#: src/components/admin/CmsListView.tsx:601
+msgid "Export"
+msgstr "エクスポート"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:334
+msgid "Login History"
+msgstr "ログイン履歴"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:342
+msgid "No login sessions found."
+msgstr "ログインセッションが見つかりません。"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:350
+msgid "IP Address"
+msgstr "IPアドレス"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:351
+msgid "User Agent"
+msgstr "ユーザーエージェント"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:400
+msgid "Audit Trail"
+msgstr "監査ログ"
+
+#: src/app/dashboard/(panel)/users/[id]/page.tsx:408
+msgid "No activity recorded for this user."
+msgstr "このユーザーのアクティビティは記録されていません。"
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "Light"
+msgstr "ライト"
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "Dark"
+msgstr "ダーク"
+
+#: src/components/admin/AdminSidebar.tsx:51
+msgctxt "General"
+msgid "System"
+msgstr "システム"
+
+#: src/components/admin/AdminSidebar.tsx:185
+msgid "Theme"
+msgstr "テーマ"
+
+#: src/components/admin/AdminSidebar.tsx:225
+msgid "Sign Out"
+msgstr "サインアウト"
+
+#: src/components/admin/AdminSidebar.tsx:248
+msgid "Expand panel"
+msgstr "パネルを展開"
+
+#: src/components/admin/AdminSidebar.tsx:248
+msgid "Collapse panel"
+msgstr "パネルを折りたたむ"
+
+#: src/components/admin/AdminSidebar.tsx:293
+#: src/components/admin/AdminSidebar.tsx:357
+msgid "View site"
+msgstr "サイトを表示"
+
+#: src/components/admin/CategoryForm.tsx:156
+msgid "Category created"
+msgstr "カテゴリーを作成しました"
+
+#: src/components/admin/CategoryForm.tsx:170
+msgid "Category updated"
+msgstr "カテゴリーを更新しました"
+
+#: src/components/admin/CategoryForm.tsx:284
+#: src/components/admin/QuickActionsWidget.tsx:34
+msgid "New Category"
+msgstr "新規カテゴリー"
+
+#: src/components/admin/CategoryForm.tsx:284
+msgid "Edit Category"
+msgstr "カテゴリーを編集"
+
+#: src/components/admin/CategoryForm.tsx:333
+msgid "Category name"
+msgstr "カテゴリー名"
+
+#: src/components/admin/CategoryForm.tsx:364
+msgid "Display title (can differ from name)"
+msgstr "表示タイトル（名前と異なる場合があります）"
+
+#: src/components/admin/CategoryForm.tsx:369
+msgid "Icon"
+msgstr "アイコン"
+
+#: src/components/admin/CategoryForm.tsx:376
+msgid "Icon name or URL"
+msgstr "アイコン名またはURL"
+
+#: src/components/admin/CategoryForm.tsx:389
+msgid "Category description..."
+msgstr "カテゴリーの説明..."
+
+#: src/components/admin/CategoryForm.tsx:400
+#: src/components/admin/CmsListView.tsx:842
+#: src/components/admin/PortfolioForm.tsx:490
+#: src/components/admin/ShowcaseForm.tsx:493
+msgid "SEO"
+msgstr "SEO"
+
+#: src/components/admin/CategoryForm.tsx:444
+#: src/components/admin/PortfolioForm.tsx:548
+#: src/components/admin/ShowcaseForm.tsx:611
+msgid "Tags"
+msgstr "タグ"
+
+#: src/components/admin/CategoryForm.tsx:471
+#: src/components/admin/TermForm.tsx:284
+msgid "Order"
+msgstr "並び順"
+
+#: src/components/admin/CategoryForm.tsx:503
+#: src/components/admin/PortfolioForm.tsx:596
+#: src/components/admin/PostForm.tsx:687
+#: src/components/admin/ShowcaseForm.tsx:570
+#: src/components/admin/TermForm.tsx:296
+msgid "Language"
+msgstr "言語"
+
+#: src/components/admin/CategoryForm.tsx:530
+#: src/components/admin/PortfolioForm.tsx:623
+#: src/components/admin/PostForm.tsx:967
+#: src/components/admin/ShowcaseForm.tsx:597
+msgid "Publish Date"
+msgstr "公開日"
+
+#: src/components/admin/CmsListView.tsx:40
+msgctxt "General"
+msgid "Draft"
+msgstr "下書き"
+
+#: src/components/admin/CmsListView.tsx:41
+msgctxt "General"
+msgid "Published"
+msgstr "公開済み"
+
+#: src/components/admin/CmsListView.tsx:42
+msgctxt "General"
+msgid "Scheduled"
+msgstr "予約済み"
+
+#: src/components/admin/CmsListView.tsx:209
+#: src/components/admin/CmsListView.tsx:223
+#: src/components/admin/CmsListView.tsx:237
+#: src/components/admin/CmsListView.tsx:251
+#: src/components/admin/CmsListView.tsx:265
+msgid "Moved to trash"
+msgstr "ゴミ箱に移動しました"
+
+#: src/components/admin/CmsListView.tsx:213
+#: src/components/admin/CmsListView.tsx:227
+#: src/components/admin/CmsListView.tsx:241
+#: src/components/admin/CmsListView.tsx:255
+#: src/components/admin/CmsListView.tsx:269
+msgid "Restored"
+msgstr "復元しました"
+
+#: src/components/admin/CmsListView.tsx:217
+#: src/components/admin/CmsListView.tsx:231
+#: src/components/admin/CmsListView.tsx:245
+#: src/components/admin/CmsListView.tsx:259
+#: src/components/admin/CmsListView.tsx:273
+msgid "Permanently deleted"
+msgstr "完全に削除しました"
+
+#: src/components/admin/CmsListView.tsx:281
+#: src/components/admin/CmsListView.tsx:289
+#: src/components/admin/CmsListView.tsx:297
+#: src/components/admin/CmsListView.tsx:305
+msgid "Duplicated"
+msgstr "複製しました"
+
+#: src/components/admin/CmsListView.tsx:366
+msgid "Exported 1 item"
+msgid_plural "Exported {count} items"
+msgstr[0] "1件エクスポートしました"
+msgstr[1] "{count}件エクスポートしました"
+
+#: src/components/admin/CmsListView.tsx:569
+msgid "Toggle columns"
+msgstr "カラムの切り替え"
+
+#: src/components/admin/CmsListView.tsx:572
+msgid "Columns"
+msgstr "カラム"
+
+#: src/components/admin/CmsListView.tsx:636
+#: src/components/admin/PostForm.tsx:814
+msgid "New {label}"
+msgstr "新規{label}"
+
+#: src/components/admin/CmsListView.tsx:678
+msgid "Search {label}..."
+msgstr "{label}を検索..."
+
+#: src/components/admin/CmsListView.tsx:697
+msgid "All langs"
+msgstr "全言語"
+
+#: src/components/admin/CmsListView.tsx:752
+msgid "Lang"
+msgstr "言語"
+
+#: src/components/admin/CmsListView.tsx:766
+msgid "Author"
+msgstr "著者"
+
+#: src/components/admin/CmsListView.tsx:804
+msgid "No results found."
+msgstr "結果が見つかりません。"
+
+#: src/components/admin/CmsListView.tsx:805
+msgid "No items yet. Create your first one."
+msgstr "項目はまだありません。最初の項目を作成してください。"
+
+#: src/components/admin/CmsListView.tsx:833
+msgid "(untitled)"
+msgstr "（無題）"
+
+#: src/components/admin/CmsListView.tsx:838
+msgid "(homepage)"
+msgstr "（ホームページ）"
+
+#: src/components/admin/CmsListView.tsx:846
+msgid "This content is managed by a .mdx file and cannot be edited from the dashboard"
+msgstr "このコンテンツは.mdxファイルで管理されており、ダッシュボードから編集できません"
+
+#: src/components/admin/CmsListView.tsx:847
+msgid ".mdx"
+msgstr ".mdx"
+
+#: src/components/admin/CmsListView.tsx:907
+msgid "Delete permanently"
+msgstr "完全に削除"
+
+#: src/components/admin/CmsListView.tsx:918
+msgid "Duplicate"
+msgstr "複製"
+
+#: src/components/admin/CmsListView.tsx:933
+#: src/components/admin/CmsListView.tsx:991
+#: src/components/admin/CmsListView.tsx:1002
+msgid "Trash"
+msgstr "ゴミ箱"
+
+#: src/components/admin/CmsListView.tsx:983
+msgid "Delete permanently?"
+msgstr "完全に削除しますか？"
+
+#: src/components/admin/CmsListView.tsx:984
+#: src/components/admin/CmsListView.tsx:1000
+msgid "Move to trash?"
+msgstr "ゴミ箱に移動しますか？"
+
+#: src/components/admin/CmsListView.tsx:988
+msgid "\"{title}\" will be permanently deleted. This cannot be undone."
+msgstr "\"{title}\"が完全に削除されます。この操作は取り消せません。"
+
+#: src/components/admin/CmsListView.tsx:989
+msgid "\"{title}\" will be moved to trash."
+msgstr "\"{title}\"がゴミ箱に移動されます。"
+
+#: src/components/admin/CmsListView.tsx:1001
+msgid "1 item will be moved to trash."
+msgid_plural "{count} items will be moved to trash."
+msgstr[0] "1件がゴミ箱に移動されます。"
+msgstr[1] "{count}件がゴミ箱に移動されます。"
+
+#: src/components/admin/CmsListView.tsx:1018
+msgid "Created 1 SEO override"
+msgid_plural "Created {count} SEO overrides"
+msgstr[0] "1件のSEOオーバーライドを作成しました"
+msgstr[1] "{count}件のSEOオーバーライドを作成しました"
+
+#: src/components/admin/CmsListView.tsx:1022
+msgid "All SEO overrides already exist"
+msgstr "すべてのSEOオーバーライドは既に存在します"
+
+#: src/components/admin/PortfolioForm.tsx:162
+msgid "Portfolio item created"
+msgstr "ポートフォリオ項目を作成しました"
+
+#: src/components/admin/PortfolioForm.tsx:176
+msgid "Portfolio item updated"
+msgstr "ポートフォリオ項目を更新しました"
+
+#: src/components/admin/PortfolioForm.tsx:308
+msgid "New Portfolio Item"
+msgstr "新規ポートフォリオ項目"
+
+#: src/components/admin/PortfolioForm.tsx:308
+msgid "Edit Portfolio Item"
+msgstr "ポートフォリオ項目を編集"
+
+#: src/components/admin/PortfolioForm.tsx:388
+msgid "Display title"
+msgstr "表示タイトル"
+
+#: src/components/admin/PortfolioForm.tsx:396
+msgid "Project Details"
+msgstr "プロジェクト詳細"
+
+#: src/components/admin/PortfolioForm.tsx:400
+msgid "Client Name"
+msgstr "クライアント名"
+
+#: src/components/admin/PortfolioForm.tsx:407
+msgid "Client or company name"
+msgstr "クライアントまたは会社名"
+
+#: src/components/admin/PortfolioForm.tsx:412
+msgid "Project URL"
+msgstr "プロジェクトURL"
+
+#: src/components/admin/PortfolioForm.tsx:424
+msgid "Tech Stack"
+msgstr "技術スタック"
+
+#: src/components/admin/PortfolioForm.tsx:455
+msgid "Type and press Enter or comma to add"
+msgstr "入力してEnterまたはカンマで追加"
+
+#: src/components/admin/PortfolioForm.tsx:460
+msgid "Completion Date"
+msgstr "完了日"
+
+#: src/components/admin/PortfolioForm.tsx:479
+msgid "Project description..."
+msgstr "プロジェクトの説明..."
+
+#: src/components/admin/PortfolioForm.tsx:531
+msgid "Featured Image"
+msgstr "アイキャッチ画像"
+
+#: src/components/admin/PostForm.tsx:100
+#: src/components/admin/PostForm.tsx:128
+msgid "None (top level)"
+msgstr "なし（トップレベル）"
+
+#: src/components/admin/PostForm.tsx:112
+msgid "Search pages..."
+msgstr "ページを検索..."
+
+#: src/components/admin/PostForm.tsx:146
+msgid "No pages found"
+msgstr "ページが見つかりません"
+
+#: src/components/admin/PostForm.tsx:320
+msgid "{label} created"
+msgstr "{label}を作成しました"
+
+#: src/components/admin/PostForm.tsx:334
+msgid "{label} updated"
+msgstr "{label}を更新しました"
+
+#: src/components/admin/PostForm.tsx:725
+msgid "No categories yet."
+msgstr "カテゴリーはまだありません。"
+
+#: src/components/admin/PostForm.tsx:815
+msgid "Edit {label}"
+msgstr "{label}を編集"
+
+#: src/components/admin/PostForm.tsx:839
+msgid "Publish"
+msgstr "公開"
+
+#: src/components/admin/PostForm.tsx:890
+msgid "{label} title"
+msgstr "{label}のタイトル"
+
+#: src/components/admin/PostForm.tsx:916
+msgid "Add Media"
+msgstr "メディアを追加"
+
+#: src/components/admin/PostForm.tsx:923
+msgid "Start writing your content..."
+msgstr "コンテンツの作成を開始..."
+
+#: src/components/admin/PostForm.tsx:961
+msgid "Scheduled"
+msgstr "予約済み"
+
+#: src/components/admin/PostForm.tsx:985
+msgid "Revisions"
+msgstr "リビジョン"
+
+#: src/components/admin/PostFormConfig.tsx:107
+msgid "Show panel"
+msgstr "パネルを表示"
+
+#: src/components/admin/PostFormConfig.tsx:107
+msgid "Hide panel"
+msgstr "パネルを非表示"
+
+#: src/components/admin/PostFormConfig.tsx:168
+msgid "No panels"
+msgstr "パネルなし"
+
+#: src/components/admin/PostFormConfig.tsx:245
+msgid "Drag to reorder panels. Toggle visibility with the eye icon."
+msgstr "ドラッグしてパネルを並び替え。目のアイコンで表示を切り替えます。"
+
+#: src/components/admin/PostFormConfig.tsx:250
+msgid "Content Panels"
+msgstr "コンテンツパネル"
+
+#: src/components/admin/PostFormConfig.tsx:256
+msgid "Move to sidebar"
+msgstr "サイドバーに移動"
+
+#: src/components/admin/PostFormConfig.tsx:260
+msgid "Sidebar Panels"
+msgstr "サイドバーパネル"
+
+#: src/components/admin/PostFormConfig.tsx:266
+msgid "Move to content"
+msgstr "コンテンツに移動"
+
+#: src/components/admin/PostFormConfig.tsx:285
+msgid "Configure panels"
+msgstr "パネルを設定"
+
+#: src/components/admin/PostFormConfig.tsx:290
+msgid "Editor Layout"
+msgstr "エディターレイアウト"
+
+#: src/components/admin/QuickActionsWidget.tsx:20
+msgid "Quick Actions"
+msgstr "クイックアクション"
+
+#: src/components/admin/QuickActionsWidget.tsx:26
+msgid "New Page"
+msgstr "新規ページ"
+
+#: src/components/admin/QuickActionsWidget.tsx:30
+msgid "New Post"
+msgstr "新規投稿"
+
+#: src/components/admin/QuickActionsWidget.tsx:46
+msgid "View Site"
+msgstr "サイトを表示"
+
+#: src/components/admin/ShowcaseForm.tsx:157
+msgid "Showcase item created"
+msgstr "ショーケース項目を作成しました"
+
+#: src/components/admin/ShowcaseForm.tsx:171
+msgid "Showcase item updated"
+msgstr "ショーケース項目を更新しました"
+
+#: src/components/admin/ShowcaseForm.tsx:287
+msgid "New Showcase Item"
+msgstr "新規ショーケース項目"
+
+#: src/components/admin/ShowcaseForm.tsx:287
+msgid "Edit Showcase Item"
+msgstr "ショーケース項目を編集"
+
+#: src/components/admin/ShowcaseForm.tsx:336
+msgid "Card title"
+msgstr "カードタイトル"
+
+#: src/components/admin/ShowcaseForm.tsx:359
+msgid "Card Configuration"
+msgstr "カード設定"
+
+#: src/components/admin/ShowcaseForm.tsx:363
+msgid "Card Type"
+msgstr "カードタイプ"
+
+#: src/components/admin/ShowcaseForm.tsx:380
+msgid "Layout Variant"
+msgstr "レイアウトバリアント"
+
+#: src/components/admin/ShowcaseForm.tsx:414
+msgid "Video Embed URL"
+msgstr "動画埋め込みURL"
+
+#: src/components/admin/ShowcaseForm.tsx:429
+msgid "Image URL"
+msgstr "画像URL"
+
+#: src/components/admin/ShowcaseForm.tsx:444
+msgid "Thumbnail URL"
+msgstr "サムネイルURL"
+
+#: src/components/admin/ShowcaseForm.tsx:469
+msgid "Lower numbers appear first in the feed"
+msgstr "小さい数値がフィードの先頭に表示されます"
+
+#: src/components/admin/ShowcaseForm.tsx:482
+msgid "Card description..."
+msgstr "カードの説明..."
+
+#: src/components/admin/TaxonomyOverview.tsx:16
+msgid "Total Tags"
+msgstr "タグ合計"
+
+#: src/components/admin/TaxonomyOverview.tsx:28
+msgid "Relationships"
+msgstr "関連付け"
+
+#: src/components/admin/TaxonomyOverview.tsx:34
+msgid "Orphaned"
+msgstr "未使用"
+
+#: src/components/admin/TaxonomyOverview.tsx:67
+msgid "Top Tags"
+msgstr "人気タグ"
+
+#: src/components/admin/TaxonomyOverview.tsx:73
+msgid "Tag"
+msgstr "タグ"
+
+#: src/components/admin/TaxonomyOverview.tsx:74
+msgid "Posts"
+msgstr "投稿"
+
+#: src/components/admin/TermForm.tsx:91
+msgid "Tag created"
+msgstr "タグを作成しました"
+
+#: src/components/admin/TermForm.tsx:102
+msgid "Tag updated"
+msgstr "タグを更新しました"
+
+#: src/components/admin/TermForm.tsx:196
+msgid "New Tag"
+msgstr "新規タグ"
+
+#: src/components/admin/TermForm.tsx:196
+msgid "Edit Tag"
+msgstr "タグを編集"
+
+#: src/components/admin/TermForm.tsx:243
+msgid "Tag name"
+msgstr "タグ名"
+
+#: src/config/dashboard-widgets.tsx:33
+msgid "Recent Activity"
+msgstr "最近のアクティビティ"
+
+#: src/config/dashboard-widgets.tsx:40
+msgid "View all"
+msgstr "すべて表示"

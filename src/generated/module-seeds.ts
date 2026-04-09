@@ -5,7 +5,9 @@ import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { seedBilling } from '@/core-subscriptions/seed';
 import { seedAffiliates } from '@/core-affiliates/seed';
+import { seedStore, hasStoreData } from '@/core-store/seed';
 import { seedChatCharacters, hasChatData } from '@/core-chat/seed/characters';
+import { seedBooking, hasBookingData } from '@/core-booking/seed';
 
 export interface SeedContext {
   userIds: string[];
@@ -21,5 +23,7 @@ export interface ModuleSeed {
 export const MODULE_SEEDS: ModuleSeed[] = [
   { label: 'Billing demo data (users, orgs, subscriptions, tokens)', fn: seedBilling },
   { label: 'Affiliate demo data (referrals, commissions)', fn: seedAffiliates },
+  { label: 'Store demo products, shipping zones & tax rates', fn: seedStore, hasData: hasStoreData },
   { label: 'Chat demo characters', fn: seedChatCharacters, hasData: hasChatData },
+  { label: 'Booking demo data (services + schedules)', fn: seedBooking, hasData: hasBookingData },
 ];

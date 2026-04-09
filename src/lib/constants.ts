@@ -5,14 +5,44 @@ export const DAY_MS = 24 * 60 * 60 * 1000;
 export const DEFAULT_LOCALE = 'en';
 
 /** Supported locales */
-export const LOCALES = ['en', 'es', 'de'] as const;
+export const LOCALES = [
+  'en',
+  'de',
+  'es',
+  'fr',
+  'pt',
+  'it',
+  'nl',
+  'pl',
+  'cs',
+  'tr',
+  'ja',
+  'ko',
+  'sv',
+  'da',
+  'nb',
+  'fi',
+] as const;
 export type Locale = (typeof LOCALES)[number];
 
 /** Human-readable labels for each locale */
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: 'English',
-  es: 'Español',
   de: 'Deutsch',
+  es: 'Español',
+  fr: 'Français',
+  pt: 'Português',
+  it: 'Italiano',
+  nl: 'Nederlands',
+  pl: 'Polski',
+  cs: 'Čeština',
+  tr: 'Türkçe',
+  ja: '日本語',
+  ko: '한국어',
+  sv: 'Svenska',
+  da: 'Dansk',
+  nb: 'Norsk bokmål',
+  fi: 'Suomi',
 };
 
 /** Whether the site supports multiple languages. When false (single locale),

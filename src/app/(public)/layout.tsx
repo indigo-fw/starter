@@ -4,7 +4,7 @@ import '@/core/styles/frontend/index.css';
 import { Suspense } from 'react';
 import NextLink from 'next/link';
 import { Link } from '@/i18n/navigation';
-import { Rss, Search } from 'lucide-react';
+import { Rss, Search, ShoppingBag } from 'lucide-react';
 
 import { siteConfig } from '@/config/site';
 import { db } from '@/server/db';
@@ -26,6 +26,7 @@ import { AuthDialogs } from '@/components/public/AuthDialogs';
 import { PUBLIC_LAYOUT_WIDGETS } from '@/generated/module-widgets';
 import { getServerTranslations, type TranslationFn } from '@/lib/translations-server';
 import { LanguageSuggestionBanner } from '@/core/components/LanguageSuggestionBanner';
+import { CartWidget } from '@/core-store/components/CartWidget';
 import { getLanguageSuggestion } from '@/core/lib/language-suggestion';
 import { dataTranslations } from '@/lib/translations';
 
@@ -93,6 +94,7 @@ async function getMobileNavItems(
     })),
     { label: __('Portfolio'), url: localePath(contentRoutes.portfolio, locale) },
     { label: __('Showcase'), url: localePath(contentRoutes.showcase, locale) },
+    { label: __('Store'), url: localePath(contentRoutes.store, locale) },
     { label: __('Search'), url: localePath(contentRoutes.search, locale) },
   ];
 }
@@ -152,6 +154,9 @@ export default async function PublicLayout({
                       <Link href="/showcase" className="app-nav-link">
                         {__('Showcase')}
                       </Link>
+                      <Link href="/store" className="app-nav-link">
+                        {__('Store')}
+                      </Link>
                     </>
                   }
                 />
@@ -159,9 +164,13 @@ export default async function PublicLayout({
             }
             actions={
               <>
+                <Link href="/store" className="icon-btn" title={__('Store')}>
+                  <ShoppingBag className="h-4 w-4" />
+                </Link>
                 <Link href="/search" className="icon-btn" title={__('Search')}>
                   <Search className="h-4 w-4" />
                 </Link>
+                <CartWidget />
                 <LanguageSwitcher />
                 <ThemeToggle />
                 <UserMenu />
@@ -218,6 +227,7 @@ export default async function PublicLayout({
             <Link href="/blog" className="app-footer-link">{__('Blog')}</Link>
             <Link href="/portfolio" className="app-footer-link">{__('Portfolio')}</Link>
             <Link href="/showcase" className="app-footer-link">{__('Showcase')}</Link>
+            <Link href="/store" className="app-footer-link">{__('Store')}</Link>
             <Link href="/search" className="app-footer-link">{__('Search')}</Link>
           </div>
 

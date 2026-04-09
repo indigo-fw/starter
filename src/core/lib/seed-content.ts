@@ -81,7 +81,11 @@ function copyDir(sourceDir: string, targetDir: string): number {
     // Never overwrite existing files — dev edits are preserved
     if (existsSync(targetPath)) continue;
 
-    writeFileSync(targetPath, readFileSync(sourcePath, 'utf-8'), 'utf-8');
+    // Substitute [[CURRENT_DATE]] at copy time (one-time value, not a live variable).
+    // All other [[VAR]] placeholders stay as-is — resolved at render time from site.ts.
+    const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const content = readFileSync(sourcePath, 'utf-8').replace(/\[\[CURRENT_DATE\]\]/g, currentDate);
+    writeFileSync(targetPath, content, 'utf-8');
     count++;
   }
 

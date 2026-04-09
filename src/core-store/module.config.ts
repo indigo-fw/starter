@@ -17,7 +17,9 @@ const config: ModuleConfig = {
     '@/config/store-deps',
   ],
   jobs: [],
-  seed: [],
+  seed: [
+    { name: 'seedStore', from: '@/core-store/seed', label: 'Store demo products, shipping zones & tax rates', hasDataCheck: 'hasStoreData' },
+  ],
   layoutWidgets: [],
   pageWidgets: [],
   navItems: [],

@@ -43,6 +43,13 @@
       "when": 1775700000000,
       "tag": "0005_rename_text_to_content",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1775765103551,
+      "tag": "0006_dazzling_valeria_richards",
+      "breakpoints": true
     }
   ]
 }

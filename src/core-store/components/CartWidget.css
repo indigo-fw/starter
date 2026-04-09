@@ -1,0 +1,25 @@
+@layer components {
+  .cart-widget {
+    position: relative;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1rem;
+    height: 1rem;
+    padding: 0 0.25rem;
+    border-radius: 9999px;
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    background-color: var(--color-brand-500);
+    pointer-events: none;
+    transform: translate(25%, -25%);
+  }
+}

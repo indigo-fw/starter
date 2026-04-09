@@ -277,9 +277,14 @@ async function main() {
 
   let totalTranslated = 0;
 
+  // DeepL requires specific target language codes for some locales
+  const DEEPL_LANG_MAP = {
+    pt: 'PT-PT',
+    nb: 'NB',
+  };
+
   for (const locale of locales) {
-    // Map locale code to DeepL target lang
-    const deeplLang = locale.toUpperCase();
+    const deeplLang = DEEPL_LANG_MAP[locale] || locale.toUpperCase();
     console.log(`📦 ${locale.toUpperCase()}:`);
 
     for (const dir of [ADMIN_DIR, PUBLIC_DIR]) {

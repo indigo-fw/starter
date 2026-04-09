@@ -12,7 +12,7 @@ const mkdirAsync = promisify(fs.mkdir);
 const NAMESPACE_DELIMITER = '###__$$$';
 
 // Locales — keep in sync with src/lib/constants.ts
-const LOCALES = ['en', 'es', 'de'];
+const LOCALES = ['en', 'de', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'cs', 'tr', 'ja', 'ko', 'sv', 'da', 'nb', 'fi'];
 
 // Paths that classify a file as "admin" (everything else → public)
 const ADMIN_PATH_PREFIXES = [

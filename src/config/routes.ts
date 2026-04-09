@@ -99,6 +99,8 @@ export const contentRoutes = {
   showcase: '/showcase',
   pricing: '/pricing',
   search: '/search',
+  store: '/store',
+  cart: '/cart',
 } as const;
 
 // ─── API ─────────────────────────────────────────────────────────────────────
