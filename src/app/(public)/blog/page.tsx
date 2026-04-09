@@ -7,7 +7,6 @@ import { PostType } from '@/core/types/cms';
 import { PostCard } from '@/core/components/PostCard';
 import { BlogSidebar } from '@/components/public/BlogSidebar';
 import { db } from '@/server/db';
-import { getCodedRouteSEO } from '@/core/crud/page-seo';
 import { getCmsOverride } from '@/lib/cms-override';
 import { CmsContent } from '@/core/components';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
@@ -17,12 +16,13 @@ import { getServerTranslations } from '@/lib/translations-server';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const seo = await getCodedRouteSEO(db, 'blog', locale).catch(() => null);
+  const __ = await getServerTranslations();
+  const cms = await getCmsOverride(db, 'blog', locale).catch(() => null);
 
   return {
-    title: seo?.seoTitle || `Blog | ${siteConfig.name}`,
-    description: seo?.metaDescription || 'Latest blog posts',
-    ...(seo?.noindex && { robots: { index: false, follow: false } }),
+    title: cms?.seo.seoTitle || `${__('Blog')} | ${siteConfig.name}`,
+    description: cms?.seo.metaDescription || __('Latest blog posts'),
+    ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };
 }
 

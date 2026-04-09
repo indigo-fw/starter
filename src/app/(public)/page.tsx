@@ -21,7 +21,6 @@ import {
 
 import { siteConfig } from "@/config/site";
 import { db } from "@/server/db";
-import { getCodedRouteSEO } from "@/core/crud/page-seo";
 import { getCmsOverride } from "@/lib/cms-override";
 import { CmsContent } from "@/core/components";
 import { SHORTCODE_COMPONENTS } from "@/config/shortcodes";
@@ -30,11 +29,11 @@ import { getServerTranslations } from "@/lib/translations-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const seo = await getCodedRouteSEO(db, "", locale).catch(() => null);
+  const cms = await getCmsOverride(db, "", locale).catch(() => null);
   return {
-    title: seo?.seoTitle || `${siteConfig.name} — Demo`,
-    description: seo?.metaDescription || siteConfig.seo.description,
-    ...(seo?.noindex && { robots: { index: false, follow: false } }),
+    title: cms?.seo.seoTitle || `${siteConfig.name} — Demo`,
+    description: cms?.seo.metaDescription || siteConfig.seo.description,
+    ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };
 }
 
