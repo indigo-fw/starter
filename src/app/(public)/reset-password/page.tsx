@@ -1,11 +1,14 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getServerTranslations } from '@/lib/translations-server';
 import { ResetPasswordForm } from './ResetPasswordForm';
 
-export const metadata: Metadata = {
-  title: 'Reset Password',
-  description: 'Set a new password',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const __ = await getServerTranslations();
+  return {
+    title: __('Reset Password'),
+    description: __('Set a new password'),
+  };
+}
 
 export default async function ResetPasswordPage() {
   const __ = await getServerTranslations();

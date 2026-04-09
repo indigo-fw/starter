@@ -69,7 +69,7 @@ export default async function DemoHomePage() {
       title: __("Voice Calls"),
       description: __("Call AI characters — STT → LLM → TTS with per-minute billing."),
       href: "/chat",
-      badge: "New",
+      badge: __("New"),
     },
     {
       icon: LayoutDashboard,
@@ -268,28 +268,28 @@ export default async function DemoHomePage() {
             {[
               {
                 name: "core-chat",
-                desc: "AI character chat, image/video gen, voice calls",
+                desc: __("AI character chat, image/video gen, voice calls"),
                 free: false,
               },
               {
                 name: "core-billing",
-                desc: "Stripe subscriptions, tokens, discounts",
+                desc: __("Stripe subscriptions, tokens, discounts"),
                 free: true,
               },
               {
                 name: "core-support",
-                desc: "AI support chat + ticket system",
+                desc: __("AI support chat + ticket system"),
                 free: false,
               },
-              { name: "core-docs", desc: "Documentation system", free: true },
+              { name: "core-docs", desc: __("Documentation system"), free: true },
               {
                 name: "core-store",
-                desc: "E-commerce (products, cart, checkout)",
+                desc: __("E-commerce (products, cart, checkout)"),
                 free: false,
               },
               {
                 name: "core-affiliates",
-                desc: "Referral tracking, commissions",
+                desc: __("Referral tracking, commissions"),
                 free: false,
               },
             ].map((mod) => (
@@ -306,7 +306,7 @@ export default async function DemoHomePage() {
                 <span
                   className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${mod.free ? "bg-green-500/10 text-green-500" : "bg-(--surface-secondary) text-(--text-tertiary)"}`}
                 >
-                  {mod.free ? "Free" : "Premium"}
+                  {mod.free ? __("Free") : __("Premium")}
                 </span>
               </div>
             ))}

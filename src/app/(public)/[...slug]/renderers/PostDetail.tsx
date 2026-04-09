@@ -7,6 +7,7 @@ import { ShortcodeRenderer } from '@/core/components/ShortcodeRenderer';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { localePath } from '@/lib/locale';
 import { getLocale } from '@/lib/locale-server';
+import { getServerTranslations } from '@/lib/translations-server';
 import { getCachedPost, getCachedTRPC } from '../data';
 import { getAncestors } from '../queries';
 
@@ -18,6 +19,7 @@ interface Props {
 
 export async function PostDetail({ slug, postType, preview }: Props) {
   const locale = await getLocale();
+  const __ = await getServerTranslations();
   const post = await getCachedPost(slug, postType, locale, preview);
   const api = await getCachedTRPC();
 
@@ -39,7 +41,7 @@ export async function PostDetail({ slug, postType, preview }: Props) {
     <article className="mx-auto max-w-3xl px-4 py-12">
       {preview && (
         <div className="mb-6 rounded-md bg-yellow-50 dark:bg-yellow-500/15 border border-yellow-200 dark:border-yellow-500/30 px-4 py-2 text-sm text-yellow-800 dark:text-yellow-300">
-          Preview mode — this content is not yet published.
+          {__('Preview mode — this content is not yet published.')}
         </div>
       )}
 
@@ -75,7 +77,7 @@ export async function PostDetail({ slug, postType, preview }: Props) {
 
       {post.publishedAt && (
         <time className="mt-3 block text-sm text-(--text-muted)">
-          {new Date(post.publishedAt).toLocaleDateString('en-US', {
+          {new Date(post.publishedAt).toLocaleDateString(locale, {
             year: 'numeric',
             month: 'long',
             day: 'numeric',

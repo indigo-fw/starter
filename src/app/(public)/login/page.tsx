@@ -1,11 +1,14 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getServerTranslations } from '@/lib/translations-server';
 import { LoginForm } from './LoginForm';
 
-export const metadata: Metadata = {
-  title: 'Sign In',
-  description: 'Sign in to your account',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const __ = await getServerTranslations();
+  return {
+    title: __('Sign In'),
+    description: __('Sign in to your account'),
+  };
+}
 
 export default async function LoginPage() {
   const __ = await getServerTranslations();

@@ -3,16 +3,19 @@
 import { User, Settings, Shield, CreditCard, LifeBuoy, Link2 } from 'lucide-react';
 import { AccountSidebar } from '@/core/components/AccountSidebar';
 import { accountRoutes } from '@/config/routes';
-
-const ACCOUNT_NAV_ITEMS = [
-  { href: accountRoutes.home, label: 'Overview', icon: User, exact: true },
-  { href: accountRoutes.settings, label: 'Settings', icon: Settings },
-  { href: accountRoutes.security, label: 'Security', icon: Shield },
-  { href: accountRoutes.billing, label: 'Billing', icon: CreditCard },
-  { href: accountRoutes.support, label: 'Support', icon: LifeBuoy },
-  { href: accountRoutes.affiliates, label: 'Affiliates', icon: Link2 },
-];
+import { useTranslations } from '@/lib/translations';
 
 export function AccountNav() {
-  return <AccountSidebar navItems={ACCOUNT_NAV_ITEMS} />;
+  const __ = useTranslations();
+
+  const items = [
+    { href: accountRoutes.home, label: __('Overview'), icon: User, exact: true },
+    { href: accountRoutes.settings, label: __('Settings'), icon: Settings },
+    { href: accountRoutes.security, label: __('Security'), icon: Shield },
+    { href: accountRoutes.billing, label: __('Billing'), icon: CreditCard },
+    { href: accountRoutes.support, label: __('Support'), icon: LifeBuoy },
+    { href: accountRoutes.affiliates, label: __('Affiliates'), icon: Link2 },
+  ];
+
+  return <AccountSidebar navItems={items} />;
 }

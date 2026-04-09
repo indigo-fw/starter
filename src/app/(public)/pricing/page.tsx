@@ -5,10 +5,13 @@ import { FaqAccordion } from '@/core/components/FaqAccordion';
 import { publicAuthRoutes } from '@/config/routes';
 import { getServerTranslations } from '@/lib/translations-server';
 
-export const metadata: Metadata = {
-  title: 'Pricing',
-  description: 'Simple, transparent pricing for teams of all sizes.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const __ = await getServerTranslations();
+  return {
+    title: __('Pricing'),
+    description: __('Simple, transparent pricing for teams of all sizes.'),
+  };
+}
 
 export default async function PricingPage() {
   const __ = await getServerTranslations();

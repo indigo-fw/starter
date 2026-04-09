@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ShortcodeRenderer } from '@/core/components/ShortcodeRenderer';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { getLocale } from '@/lib/locale-server';
+import { getServerTranslations } from '@/lib/translations-server';
 import { getCachedShowcase } from '../data';
 
 interface Props {
@@ -11,13 +12,14 @@ interface Props {
 
 export async function ShowcaseDetail({ slug, preview }: Props) {
   const locale = await getLocale();
+  const __ = await getServerTranslations();
   const item = await getCachedShowcase(slug, locale, preview);
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12">
       {preview && (
         <div className="mb-6 rounded-md bg-yellow-50 dark:bg-yellow-500/15 border border-yellow-200 dark:border-yellow-500/30 px-4 py-2 text-sm text-yellow-800 dark:text-yellow-300">
-          Preview mode — this content is not yet published.
+          {__('Preview mode — this content is not yet published.')}
         </div>
       )}
 

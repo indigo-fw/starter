@@ -4,6 +4,7 @@ import { ShortcodeRenderer } from '@/core/components/ShortcodeRenderer';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { localePath } from '@/lib/locale';
 import { getLocale } from '@/lib/locale-server';
+import { getServerTranslations } from '@/lib/translations-server';
 import { getCachedCategory, getCachedTRPC } from '../data';
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 
 export async function CategoryDetail({ slug }: Props) {
   const locale = await getLocale();
+  const __ = await getServerTranslations();
   const cat = await getCachedCategory(slug, locale);
 
   // Sequential: listPublished needs cat.id from getBySlug above
@@ -38,7 +40,7 @@ export async function CategoryDetail({ slug }: Props) {
       {posts.results.length > 0 && (
         <div className="mt-10">
           <h2 className="text-xl font-semibold text-(--text-primary)">
-            Posts in this category
+            {__('Posts in this category')}
           </h2>
           <div className="mt-4 space-y-6">
             {posts.results.map((post) => (

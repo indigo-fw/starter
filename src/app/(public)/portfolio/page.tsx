@@ -8,10 +8,13 @@ import { getLocale } from '@/lib/locale-server';
 
 import { getServerTranslations } from '@/lib/translations-server';
 
-export const metadata: Metadata = {
-  title: `Portfolio | ${siteConfig.name}`,
-  description: 'Browse our portfolio of projects and case studies.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const __ = await getServerTranslations();
+  return {
+    title: `${__('Portfolio')} | ${siteConfig.name}`,
+    description: __('Browse our portfolio of projects and case studies.'),
+  };
+}
 
 export default async function PortfolioListPage() {
   const locale = await getLocale();
@@ -72,7 +75,7 @@ export default async function PortfolioListPage() {
                 )}
                 {item.completedAt && (
                   <p className="mt-2 text-xs text-(--text-muted)">
-                    {new Date(item.completedAt).toLocaleDateString('en-US', {
+                    {new Date(item.completedAt).toLocaleDateString(locale, {
                       year: 'numeric',
                       month: 'short',
                     })}
