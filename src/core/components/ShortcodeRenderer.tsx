@@ -1,5 +1,6 @@
 import { parseShortcodes } from '@/core/lib/shortcodes-parser';
 import { markdownToHtml } from '@/core/lib/markdown';
+import { resolveContentVars } from '@/core/lib/content-vars';
 
 /** Map of shortcode names to their React components. Passed by the project layer. */
 export type ShortcodeComponentMap = Record<
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export function ShortcodeRenderer({ content, components }: Props) {
-  const html = markdownToHtml(content);
+  const html = markdownToHtml(resolveContentVars(content));
   const segments = parseShortcodes(html);
 
   return (

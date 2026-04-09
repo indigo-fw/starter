@@ -47,15 +47,18 @@ export default function SearchClient({
   const [hasClientData, setHasClientData] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Skip tRPC fetch when SSR already provided data for this exact query+page.
+  // Once the user changes query or page, hasClientData flips and tRPC takes over.
+  const needsFetch = query.length >= 1 && (hasClientData || query !== initialQuery || page !== initialPage);
+
   const { data, isFetching } = trpc.contentSearch.fullTextSearch.useQuery(
     { query, lang: locale, page, pageSize },
     {
-      enabled: query.length >= 1,
+      enabled: needsFetch,
       placeholderData: (prev) => prev,
     },
   );
 
-  // Once tRPC returns data, always use client-side results from here on
   useEffect(() => {
     if (data) setHasClientData(true);
   }, [data]);
