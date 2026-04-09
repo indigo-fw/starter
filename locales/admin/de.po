@@ -124,7 +124,7 @@ msgstr "Menüs"
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:58
 msgid "New Menu"
-msgstr "Neue Speisekarte"
+msgstr "Neues Menü"
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:70
 #: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:73
@@ -158,7 +158,7 @@ msgstr "Abbrechen"
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:99
 msgid "No menus yet. Create your first one."
-msgstr "Es gibt noch keine Menüs. Erstelle dein erstes."
+msgstr "Es gibt noch keine Menüs. Erstellen Sie Ihr erstes."
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:105
 #: src/app/dashboard/(panel)/forms/page.tsx:127
@@ -196,7 +196,7 @@ msgstr "Name"
 #: src/components/admin/ShowcaseForm.tsx:341
 #: src/components/admin/TermForm.tsx:248
 msgid "Slug"
-msgstr "Schnecke"
+msgstr "Slug"
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:120
 #: src/app/dashboard/(panel)/projects/page.tsx:236
@@ -242,7 +242,7 @@ msgstr "Menü aktualisiert"
 
 #: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:59
 msgid "Edit Menu"
-msgstr "Menü „Bearbeiten“"
+msgstr "Menü bearbeiten"
 
 #: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:81
 msgid "Update Name"
@@ -279,7 +279,7 @@ msgstr "Weiterleitung erstellen"
 #: src/app/dashboard/(panel)/cms/redirects/page.tsx:139
 #: src/app/dashboard/(panel)/cms/redirects/page.tsx:264
 msgid "Old Slug"
-msgstr "Alte Schnecke"
+msgstr "Alter Slug"
 
 #: src/app/dashboard/(panel)/cms/redirects/page.tsx:147
 msgid "e.g. old-page-slug"
@@ -368,7 +368,7 @@ msgstr "Neues Formular"
 
 #: src/app/dashboard/(panel)/forms/page.tsx:91
 msgid "Search forms..."
-msgstr "Suchformulare..."
+msgstr "Formulare durchsuchen..."
 
 #: src/app/dashboard/(panel)/forms/page.tsx:121
 msgid "No forms found."
@@ -514,7 +514,7 @@ msgstr "Nach oben"
 
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:345
 msgid "Move down"
-msgstr "Nach unten scrollen"
+msgstr "Nach unten"
 
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:374
 msgid "Label"
@@ -575,7 +575,7 @@ msgstr "Beitrag gelöscht"
 
 #: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:70
 msgid "Export downloaded"
-msgstr "Exportieren heruntergeladen"
+msgstr "Export heruntergeladen"
 
 #: src/app/dashboard/(panel)/forms/[id]/submissions/page.tsx:72
 #: src/components/admin/CmsListView.tsx:335
@@ -630,8 +630,8 @@ msgstr "Das Hochladen von „{name}“ ist fehlgeschlagen"
 #: src/app/dashboard/(panel)/media/page.tsx:113
 msgid "1 file uploaded"
 msgid_plural "{count} files uploaded"
-msgstr[0] "1 file uploaded"
-msgstr[1] "{count} files uploaded"
+msgstr[0] "1 Datei hochgeladen"
+msgstr[1] "{count} Dateien hochgeladen"
 
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
@@ -652,7 +652,7 @@ msgstr "Noch keine Mediendateien."
 
 #: src/app/dashboard/(panel)/media/page.tsx:224
 msgid "Upload your first file"
-msgstr "Lade deine erste Datei hoch"
+msgstr "Laden Sie Ihre erste Datei hoch"
 
 #: src/app/dashboard/(panel)/media/page.tsx:277
 msgid "Copy URL"
@@ -688,11 +688,11 @@ msgstr "Noch keine Benachrichtigungen"
 
 #: src/app/dashboard/(panel)/notifications/page.tsx:89
 msgid "Mark read"
-msgstr "Mark las"
+msgstr "Als gelesen markieren"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:71
 msgid "Organization created"
-msgstr "Organisation gegründet"
+msgstr "Organisation erstellt"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:82
 msgid "Organization deleted"
@@ -700,7 +700,7 @@ msgstr "Organisation gelöscht"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:93
 msgid "Left organization"
-msgstr "Linke Organisation"
+msgstr "Organisation verlassen"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:104
 msgid "Invitation sent"
@@ -712,7 +712,7 @@ msgstr "Mitglied entfernt"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:123
 msgid "Invitation canceled"
-msgstr "Einladung abgesagt"
+msgstr "Einladung storniert"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:131
 msgid "Invitation accepted"
@@ -737,7 +737,7 @@ msgstr "meine-Organisation (wird automatisch generiert, wenn das Feld leer ist)"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:245
 msgid "No organizations yet. Create one to get started."
-msgstr "Es gibt noch keine Organisationen. Erstelle eine, um loszulegen."
+msgstr "Es gibt noch keine Organisationen. Erstellen Sie eine, um loszulegen."
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:252
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
@@ -828,7 +828,7 @@ msgstr "„{name}“ verlassen? Sie verlieren den Zugang zu dieser Organisation.
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:527
 msgid "Leave"
-msgstr "Gehen"
+msgstr "Verlassen"
 
 #: src/app/dashboard/(panel)/page.tsx:31
 msgid "Dashboard"
@@ -927,7 +927,7 @@ msgstr "Es wurden keine Projekte gefunden, die Ihrer Suche entsprechen."
 
 #: src/app/dashboard/(panel)/projects/page.tsx:181
 msgid "No projects yet. Create one to get started."
-msgstr "Noch keine Projekte. Erstelle eines, um loszulegen."
+msgstr "Noch keine Projekte. Erstellen Sie eines, um loszulegen."
 
 #: src/app/dashboard/(panel)/projects/page.tsx:190
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:58
@@ -1028,7 +1028,7 @@ msgstr "Code"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:55
 msgid "Commission"
-msgstr "Kommission"
+msgstr "Provision"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:56
 msgid "Referrals"
@@ -1036,7 +1036,7 @@ msgstr "Empfehlungen"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:57
 msgid "Earnings"
-msgstr "Ergebnis"
+msgstr "Einnahmen"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:59
 #: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:59
@@ -1054,7 +1054,7 @@ msgstr "Aktivieren"
 
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
 msgid "Canceled"
-msgstr "Abgesagt"
+msgstr "Gekündigt"
 
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
 msgid "Payment Failed"
@@ -1095,7 +1095,7 @@ msgstr "Kündigungsdatum"
 
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
 msgid "Subscription Start"
-msgstr "Abonnement starten"
+msgstr "Abonnementbeginn"
 
 #: src/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
@@ -1226,7 +1226,7 @@ msgstr "Kundenabwanderungsrate (30 Tage)"
 
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
 msgid "Canceled (30d)"
-msgstr "Abgesagt (vor 30 Tagen)"
+msgstr "Gekündigt (30 Tage)"
 
 #: src/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
 msgid "Past Due (at risk)"
@@ -1246,7 +1246,7 @@ msgstr "Umsätze überwachen, Kundenabwanderung verfolgen und Abonnements verwal
 
 #: src/app/dashboard/(panel)/settings/billing/page.tsx:181
 msgid "Custom range"
-msgstr "Individuelles Sortiment"
+msgstr "Benutzerdefinierter Zeitraum"
 
 #: src/app/dashboard/(panel)/settings/billing/page.tsx:187
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:285
@@ -1271,29 +1271,29 @@ msgstr "Gesamt"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:19
 msgid "Are you sure you want to delete this character?"
-msgstr "Are you sure you want to delete this character?"
+msgstr "Sind Sie sicher, dass Sie diesen Charakter löschen möchten?"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:29
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Characters"
-msgstr "Characters"
+msgstr "Charaktere"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:31
 msgid "AI personas that users can chat with."
-msgstr "AI personas that users can chat with."
+msgstr "KI-Persönlichkeiten, mit denen Benutzer chatten können."
 
 #: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:39
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
 msgid "New Character"
-msgstr "New Character"
+msgstr "Neuer Charakter"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/page.tsx:49
 msgid "No characters yet. Create your first AI persona."
-msgstr "No characters yet. Create your first AI persona."
+msgstr "Noch keine Charaktere. Erstellen Sie Ihre erste KI-Persönlichkeit."
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
 msgid "Edit Character"
-msgstr "Edit Character"
+msgstr "Charakter bearbeiten"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:186
 msgid "Tagline"
@@ -1301,39 +1301,39 @@ msgstr "Tagline"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:189
 msgid "System Prompt"
-msgstr "System Prompt"
+msgstr "System-Prompt"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:192
 msgid "Personality (visible to users)"
-msgstr "Personality (visible to users)"
+msgstr "Persönlichkeit (für Benutzer sichtbar)"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:195
 msgid "Greeting Message"
-msgstr "Greeting Message"
+msgstr "Begrüßungsnachricht"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:198
 msgid "Avatar URL"
-msgstr "Avatar URL"
+msgstr "Avatar-URL"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:203
 msgid "Character Traits"
-msgstr "Character Traits"
+msgstr "Charaktereigenschaften"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
 msgid "Gender"
-msgstr "Gender"
+msgstr "Geschlecht"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:206
 msgid "Sexuality"
-msgstr "Sexuality"
+msgstr "Sexualität"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
 msgid "Ethnicity"
-msgstr "Ethnicity"
+msgstr "Ethnizität"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
 msgid "Personality"
-msgstr "Personality"
+msgstr "Persönlichkeit"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
 msgid "Kink"
@@ -1341,51 +1341,51 @@ msgstr "Kink"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
 msgid "Job"
-msgstr "Job"
+msgstr "Beruf"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
 msgid "Relationship"
-msgstr "Relationship"
+msgstr "Beziehung"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:214
 msgid "Hobbies"
-msgstr "Hobbies"
+msgstr "Hobbys"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:220
 msgid "Visual Appearance"
-msgstr "Visual Appearance"
+msgstr "Äußeres Erscheinungsbild"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
 msgid "Hair Color"
-msgstr "Hair Color"
+msgstr "Haarfarbe"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:223
 msgid "Hair Texture"
-msgstr "Hair Texture"
+msgstr "Haarstruktur"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
 msgid "Hair Style"
-msgstr "Hair Style"
+msgstr "Frisur"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
 msgid "Eye Color"
-msgstr "Eye Color"
+msgstr "Augenfarbe"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
 msgid "Skin"
-msgstr "Skin"
+msgstr "Haut"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
 msgid "Body Type"
-msgstr "Body Type"
+msgstr "Körpertyp"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:233
 msgid "Image Generation Settings"
-msgstr "Image Generation Settings"
+msgstr "Bildgenerierung-Einstellungen"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
 msgid "Model Preset"
-msgstr "Model Preset"
+msgstr "Modell-Voreinstellung"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:255
@@ -1396,23 +1396,23 @@ msgstr "Sortierreihenfolge"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
 msgid "Token Cost Multiplier"
-msgstr "Token Cost Multiplier"
+msgstr "Token-Kostenmultiplikator"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:242
 msgid "Custom Negative Prompt"
-msgstr "Custom Negative Prompt"
+msgstr "Benutzerdefinierter Negativ-Prompt"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
 msgid "LoRA Config"
-msgstr "LoRA Config"
+msgstr "LoRA-Konfiguration"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:250
 msgid "Active (visible to users)"
-msgstr "Active (visible to users)"
+msgstr "Aktiv (für Benutzer sichtbar)"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
 msgid "Create Character"
-msgstr "Create Character"
+msgstr "Charakter erstellen"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:325
@@ -1424,36 +1424,36 @@ msgstr "Änderungen speichern"
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:20
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:23
 msgid "Conversations"
-msgstr "Conversations"
+msgstr "Unterhaltungen"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
 msgid "Browse all chat conversations"
-msgstr "Browse all chat conversations"
+msgstr "Alle Chat-Unterhaltungen durchsuchen"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:32
 msgid "All statuses"
-msgstr "All statuses"
+msgstr "Alle Status"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:34
 msgid "Archived"
-msgstr "Archived"
+msgstr "Archiviert"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
 msgid "Deleted"
-msgstr "Deleted"
+msgstr "Gelöscht"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:42
 msgid "No conversations found."
-msgstr "No conversations found."
+msgstr "Keine Unterhaltungen gefunden."
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:83
 msgid "Character"
-msgstr "Character"
+msgstr "Charakter"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
 msgid "Messages"
-msgstr "Messages"
+msgstr "Nachrichten"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
@@ -1462,80 +1462,80 @@ msgstr "Tokens"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:54
 msgid "Last Active"
-msgstr "Last Active"
+msgstr "Zuletzt aktiv"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:27
 msgid "Conversation"
-msgstr "Conversation"
+msgstr "Unterhaltung"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:34
 msgid "No messages."
-msgstr "No messages."
+msgstr "Keine Nachrichten."
 
 #: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:15
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Flagged Messages"
-msgstr "Flagged Messages"
+msgstr "Gemeldete Nachrichten"
 
 #: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
 msgid "Messages blocked by content moderation"
-msgstr "Messages blocked by content moderation"
+msgstr "Durch Inhaltsmoderation blockierte Nachrichten"
 
 #: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
 msgid "No flagged messages."
-msgstr "No flagged messages."
+msgstr "Keine gemeldeten Nachrichten."
 
 #: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
 msgid "Reason"
-msgstr "Reason"
+msgstr "Grund"
 
 #: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
 msgid "Dismiss flag"
-msgstr "Dismiss flag"
+msgstr "Meldung verwerfen"
 
 #: src/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
 msgid "Dismiss"
-msgstr "Dismiss"
+msgstr "Verwerfen"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:13
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:24
 msgid "Total Messages"
-msgstr "Total Messages"
+msgstr "Nachrichten gesamt"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:14
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
 msgid "Active Users (24h)"
-msgstr "Active Users (24h)"
+msgstr "Aktive Benutzer (24h)"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Manage AI personas"
-msgstr "Manage AI personas"
+msgstr "KI-Persönlichkeiten verwalten"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:20
 msgid "Browse all conversations"
-msgstr "Browse all conversations"
+msgstr "Alle Unterhaltungen durchsuchen"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Review moderated content"
-msgstr "Review moderated content"
+msgstr "Moderierte Inhalte prüfen"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:22
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:84
 msgid "AI Providers"
-msgstr "AI Providers"
+msgstr "KI-Anbieter"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:22
 msgid "Manage LLM providers"
-msgstr "Manage LLM providers"
+msgstr "LLM-Anbieter verwalten"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Analytics"
-msgstr "Analytics"
+msgstr "Statistiken"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Usage statistics and charts"
-msgstr "Usage statistics and charts"
+msgstr "Nutzungsstatistiken und Diagramme"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Moderation"
@@ -1543,7 +1543,7 @@ msgstr "Moderation"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Keywords, action, and rate limits"
-msgstr "Keywords, action, and rate limits"
+msgstr "Schlüsselwörter, Aktionen und Ratenlimits"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:30
 msgid "Chat"
@@ -1551,27 +1551,27 @@ msgstr "Chat"
 
 #: src/app/dashboard/(panel)/settings/chat/page.tsx:31
 msgid "AI character chat management"
-msgstr "AI character chat management"
+msgstr "KI-Charakter-Chat-Verwaltung"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:67
 msgid "Delete this provider?"
-msgstr "Delete this provider?"
+msgstr "Diesen Anbieter löschen?"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:85
 msgid "Manage LLM provider credentials and routing"
-msgstr "Manage LLM provider credentials and routing"
+msgstr "LLM-Anbieter-Zugangsdaten und Routing verwalten"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:89
 msgid "Add Provider"
-msgstr "Add Provider"
+msgstr "Anbieter hinzufügen"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
 msgid "Edit Provider"
-msgstr "Edit Provider"
+msgstr "Anbieter bearbeiten"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
 msgid "New Provider"
-msgstr "New Provider"
+msgstr "Neuer Anbieter"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
 msgid "LLM (Text)"
@@ -1592,20 +1592,20 @@ msgstr "Adapter"
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:116
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:160
 msgid "Model"
-msgstr "Model"
+msgstr "Modell"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:119
 msgid "Base URL (leave empty for OpenAI)"
-msgstr "Base URL (leave empty for OpenAI)"
+msgstr "Basis-URL (für OpenAI leer lassen)"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
 msgid "API Key"
-msgstr "API Key"
+msgstr "API-Schlüssel"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:122
 msgid "Leave empty to keep current"
-msgstr "Leave empty to keep current"
+msgstr "Leer lassen, um den aktuellen beizubehalten"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
@@ -1616,48 +1616,48 @@ msgstr "Priorität"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
 msgid "Max Concurrent"
-msgstr "Max Concurrent"
+msgstr "Max. gleichzeitig"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
 msgid "Timeout (s)"
-msgstr "Timeout (s)"
+msgstr "Zeitlimit (s)"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:151
 msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
-msgstr "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "Keine Anbieter konfiguriert. Fügen Sie einen hinzu oder setzen Sie AI_API_KEY in .env für einen schnellen Start."
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:187
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:224
 msgid "Test"
-msgstr "Test"
+msgstr "Testen"
 
 #: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
 msgid "Task Queues"
-msgstr "Task Queues"
+msgstr "Aufgabenwarteschlangen"
 
 #: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
 msgid "BullMQ job queue status and failed job management"
-msgstr "BullMQ job queue status and failed job management"
+msgstr "BullMQ-Auftragswarteschlange und Verwaltung fehlgeschlagener Aufträge"
 
 #: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
 msgid "No queues found. Workers may not be running."
-msgstr "No queues found. Workers may not be running."
+msgstr "Keine Warteschlangen gefunden. Worker sind möglicherweise nicht aktiv."
 
 #: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
 msgid "Waiting"
-msgstr "Waiting"
+msgstr "Wartend"
 
 #: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
 msgid "Done"
-msgstr "Done"
+msgstr "Erledigt"
 
 #: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
 msgid "Failed"
-msgstr "Failed"
+msgstr "Fehlgeschlagen"
 
 #: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
 msgid "Failed Jobs"
-msgstr "Failed Jobs"
+msgstr "Fehlgeschlagene Aufträge"
 
 #: src/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:175
@@ -1671,74 +1671,74 @@ msgstr "Erneut versuchen"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
 msgid "Tokens Consumed"
-msgstr "Tokens Consumed"
+msgstr "Verbrauchte Tokens"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:32
 msgid "Chat Analytics"
-msgstr "Chat Analytics"
+msgstr "Chat-Statistiken"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:33
 msgid "Usage statistics and trends"
-msgstr "Usage statistics and trends"
+msgstr "Nutzungsstatistiken und Trends"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:53
 msgid "Messages (30 days)"
-msgstr "Messages (30 days)"
+msgstr "Nachrichten (30 Tage)"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:72
 msgid "Popular Characters"
-msgstr "Popular Characters"
+msgstr "Beliebte Charaktere"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:76
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:119
 msgid "No data yet"
-msgstr "No data yet"
+msgstr "Noch keine Daten"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:84
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:126
 msgid "Convs"
-msgstr "Convs"
+msgstr "Unterh."
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
 msgid "Msgs"
-msgstr "Msgs"
+msgstr "Nachr."
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
 msgid "Avg"
-msgstr "Avg"
+msgstr "Durchschn."
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:115
 msgid "Most Active Users"
-msgstr "Most Active Users"
+msgstr "Aktivste Benutzer"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:162
 msgid "Provider Health (24h)"
-msgstr "Provider Health (24h)"
+msgstr "Anbieter-Status (24h)"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:166
 msgid "No provider activity yet"
-msgstr "No provider activity yet"
+msgstr "Noch keine Anbieteraktivität"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
 msgid "Requests"
-msgstr "Requests"
+msgstr "Anfragen"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:174
 msgid "Success"
-msgstr "Success"
+msgstr "Erfolg"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
 msgid "Failures"
-msgstr "Failures"
+msgstr "Fehler"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
 msgid "Avg ms"
-msgstr "Avg ms"
+msgstr "Durchschn. ms"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
 msgid "Rate"
-msgstr "Rate"
+msgstr "Quote"
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:60
 msgid "Custom field created"
@@ -1790,7 +1790,7 @@ Option C"
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:181
 #: src/app/dashboard/(panel)/users/page.tsx:431
 msgid "Update"
-msgstr "Aktualisierung"
+msgstr "Aktualisieren"
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:319
 msgid "No custom fields defined yet."
@@ -1838,7 +1838,7 @@ msgstr "Max. Anzahl der Verwendungen (für unbegrenzte Anzahl leer lassen)"
 
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
 msgid "Max Uses Per User"
-msgstr "Maximale Anzahl an Nutzern pro Benutzer"
+msgstr "Max. Nutzungen pro Benutzer"
 
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
 msgid "No discount codes configured."
@@ -1846,7 +1846,7 @@ msgstr "Es sind keine Rabattcodes eingerichtet."
 
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
 msgid "Uses"
-msgstr "Verwendungszwecke"
+msgstr "Nutzungen"
 
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
 msgid "Delete discount code?"
@@ -1942,7 +1942,7 @@ msgstr "Bitte wählen Sie zunächst eine Datei aus"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:221
 msgid "No items selected"
-msgstr "Es wurden keine Artikel ausgewählt"
+msgstr "Keine Elemente ausgewählt"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:300
 msgid "Import Content"
@@ -2015,7 +2015,7 @@ msgstr "Warnhinweise"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:562
 msgid "items selected"
-msgstr "Ausgewählte Artikel"
+msgstr "Elemente ausgewählt"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:570
 msgid "Deselect all"
@@ -2067,7 +2067,7 @@ msgstr "Importieren"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:688
 msgid "items"
-msgstr "Artikel"
+msgstr "Elemente"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:702
 msgid "Import Complete"
@@ -2075,7 +2075,7 @@ msgstr "Import abgeschlossen"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:704
 msgid "items created"
-msgstr "erstellte Elemente"
+msgstr "Elemente erstellt"
 
 #: src/app/dashboard/(panel)/settings/import/page.tsx:706
 msgid "skipped"
@@ -2095,7 +2095,7 @@ msgstr "Auftrag in der Warteschlange für einen erneuten Versuch"
 
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:54
 msgid "Job removed"
-msgstr "Stelle entfernt"
+msgstr "Auftrag entfernt"
 
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:72
 msgid "Job Queue"
@@ -2111,7 +2111,7 @@ msgstr "Es sind keine Warteschlangen registriert. Redis ist möglicherweise nich
 
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:166
 msgid "No jobs with this status."
-msgstr "Es gibt keine Stellenangebote mit diesem Status."
+msgstr "Keine Aufträge mit diesem Status."
 
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:172
 msgid "ID"
@@ -2136,8 +2136,8 @@ msgstr "GA4-Verbindung erfolgreich hergestellt"
 #: src/app/dashboard/(panel)/settings/page.tsx:66
 msgid "Created 1 SEO override page"
 msgid_plural "Created {count} SEO override pages"
-msgstr[0] "Created 1 SEO override page"
-msgstr[1] "Created {count} SEO override pages"
+msgstr[0] "1 SEO-Überschreibungsseite erstellt"
+msgstr[1] "{count} SEO-Überschreibungsseiten erstellt"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:199
 msgid "Settings"
@@ -2321,7 +2321,7 @@ msgstr "Dieses Ticket ist geschlossen."
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:251
 msgid "User feedback"
-msgstr "User feedback"
+msgstr "Benutzerfeedback"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
 msgid "Details"
@@ -2378,7 +2378,7 @@ msgstr "URL"
 
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:152
 msgid "Events"
-msgstr "Veranstaltungen"
+msgstr "Ereignisse"
 
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:197
 msgid "No webhooks configured."
@@ -2443,7 +2443,7 @@ msgstr "Entsperren"
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:240
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:472
 msgid "Ban"
-msgstr "Verbot"
+msgstr "Sperren"
 
 #: src/app/dashboard/(panel)/users/page.tsx:342
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:248
@@ -2493,7 +2493,7 @@ msgstr "Anonymisieren"
 
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:80
 msgid "User updated"
-msgstr "Vom Benutzer aktualisiert"
+msgstr "Benutzer aktualisiert"
 
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:162
 msgid "User not found"
@@ -2539,7 +2539,7 @@ msgstr "Für diesen Benutzer wurden keine Aktivitäten verzeichnet."
 #: src/components/admin/AdminSidebar.tsx:51
 msgctxt "General"
 msgid "Light"
-msgstr "Licht"
+msgstr "Hell"
 
 #: src/components/admin/AdminSidebar.tsx:51
 msgctxt "General"
@@ -2553,7 +2553,7 @@ msgstr "System"
 
 #: src/components/admin/AdminSidebar.tsx:185
 msgid "Theme"
-msgstr "Thema"
+msgstr "Design"
 
 #: src/components/admin/AdminSidebar.tsx:225
 msgid "Sign Out"
@@ -2561,11 +2561,11 @@ msgstr "Abmelden"
 
 #: src/components/admin/AdminSidebar.tsx:248
 msgid "Expand panel"
-msgstr "Fenster erweitern"
+msgstr "Panel ausklappen"
 
 #: src/components/admin/AdminSidebar.tsx:248
 msgid "Collapse panel"
-msgstr "Fenster ausblenden"
+msgstr "Panel einklappen"
 
 #: src/components/admin/AdminSidebar.tsx:293
 #: src/components/admin/AdminSidebar.tsx:357
@@ -2620,12 +2620,12 @@ msgstr "SEO"
 #: src/components/admin/PortfolioForm.tsx:548
 #: src/components/admin/ShowcaseForm.tsx:611
 msgid "Tags"
-msgstr "Stichworte"
+msgstr "Tags"
 
 #: src/components/admin/CategoryForm.tsx:471
 #: src/components/admin/TermForm.tsx:284
 msgid "Order"
-msgstr "Bestellung"
+msgstr "Reihenfolge"
 
 #: src/components/admin/CategoryForm.tsx:503
 #: src/components/admin/PortfolioForm.tsx:596
@@ -2671,7 +2671,7 @@ msgstr "In den Papierkorb verschoben"
 #: src/components/admin/CmsListView.tsx:255
 #: src/components/admin/CmsListView.tsx:269
 msgid "Restored"
-msgstr "Restauriert"
+msgstr "Wiederhergestellt"
 
 #: src/components/admin/CmsListView.tsx:217
 #: src/components/admin/CmsListView.tsx:231
@@ -2686,13 +2686,13 @@ msgstr "Endgültig gelöscht"
 #: src/components/admin/CmsListView.tsx:297
 #: src/components/admin/CmsListView.tsx:305
 msgid "Duplicated"
-msgstr "Doppelt"
+msgstr "Dupliziert"
 
 #: src/components/admin/CmsListView.tsx:366
 msgid "Exported 1 item"
 msgid_plural "Exported {count} items"
-msgstr[0] "Exported 1 item"
-msgstr[1] "Exported {count} items"
+msgstr[0] "1 Element exportiert"
+msgstr[1] "{count} Elemente exportiert"
 
 #: src/components/admin/CmsListView.tsx:569
 msgid "Toggle columns"
@@ -2705,11 +2705,11 @@ msgstr "Spalten"
 #: src/components/admin/CmsListView.tsx:636
 #: src/components/admin/PostForm.tsx:814
 msgid "New {label}"
-msgstr "Neues „{label}“"
+msgstr "Neues {label}"
 
 #: src/components/admin/CmsListView.tsx:678
 msgid "Search {label}..."
-msgstr "Suche auf {label}..."
+msgstr "{label} durchsuchen..."
 
 #: src/components/admin/CmsListView.tsx:697
 msgid "All langs"
@@ -2729,7 +2729,7 @@ msgstr "Es wurden keine Ergebnisse gefunden."
 
 #: src/components/admin/CmsListView.tsx:805
 msgid "No items yet. Create your first one."
-msgstr "Noch keine Einträge. Erstelle deinen ersten Eintrag."
+msgstr "Noch keine Einträge. Erstellen Sie Ihren ersten."
 
 #: src/components/admin/CmsListView.tsx:833
 msgid "(untitled)"
@@ -2741,7 +2741,7 @@ msgstr "(Startseite)"
 
 #: src/components/admin/CmsListView.tsx:846
 msgid "This content is managed by a .mdx file and cannot be edited from the dashboard"
-msgstr "This content is managed by a .mdx file and cannot be edited from the dashboard"
+msgstr "Dieser Inhalt wird über eine .mdx-Datei verwaltet und kann nicht im Dashboard bearbeitet werden"
 
 #: src/components/admin/CmsListView.tsx:847
 msgid ".mdx"
@@ -2781,14 +2781,14 @@ msgstr "„{title}“ wird in den Papierkorb verschoben."
 #: src/components/admin/CmsListView.tsx:1001
 msgid "1 item will be moved to trash."
 msgid_plural "{count} items will be moved to trash."
-msgstr[0] "1 item will be moved to trash."
-msgstr[1] "{count} items will be moved to trash."
+msgstr[0] "1 Element wird in den Papierkorb verschoben."
+msgstr[1] "{count} Elemente werden in den Papierkorb verschoben."
 
 #: src/components/admin/CmsListView.tsx:1018
 msgid "Created 1 SEO override"
 msgid_plural "Created {count} SEO overrides"
-msgstr[0] "Created 1 SEO override"
-msgstr[1] "Created {count} SEO overrides"
+msgstr[0] "1 SEO-Überschreibung erstellt"
+msgstr[1] "{count} SEO-Überschreibungen erstellt"
 
 #: src/components/admin/CmsListView.tsx:1022
 msgid "All SEO overrides already exist"
@@ -2857,7 +2857,7 @@ msgstr "Keine (oberste Ebene)"
 
 #: src/components/admin/PostForm.tsx:112
 msgid "Search pages..."
-msgstr "Suchseiten..."
+msgstr "Seiten durchsuchen..."
 
 #: src/components/admin/PostForm.tsx:146
 msgid "No pages found"
@@ -2877,7 +2877,7 @@ msgstr "Noch keine Kategorien."
 
 #: src/components/admin/PostForm.tsx:815
 msgid "Edit {label}"
-msgstr "Bearbeiten {label}"
+msgstr "{label} bearbeiten"
 
 #: src/components/admin/PostForm.tsx:839
 msgid "Publish"
@@ -2893,7 +2893,7 @@ msgstr "Medien hinzufügen"
 
 #: src/components/admin/PostForm.tsx:923
 msgid "Start writing your content..."
-msgstr "Fang an, deinen Text zu schreiben..."
+msgstr "Beginnen Sie mit dem Schreiben..."
 
 #: src/components/admin/PostForm.tsx:961
 msgid "Scheduled"
@@ -2901,7 +2901,7 @@ msgstr "Geplant"
 
 #: src/components/admin/PostForm.tsx:985
 msgid "Revisions"
-msgstr "Änderungen"
+msgstr "Revisionen"
 
 #: src/components/admin/PostFormConfig.tsx:107
 msgid "Show panel"
@@ -2909,11 +2909,11 @@ msgstr "Bedienfeld anzeigen"
 
 #: src/components/admin/PostFormConfig.tsx:107
 msgid "Hide panel"
-msgstr "Fenster ausblenden"
+msgstr "Panel einklappen"
 
 #: src/components/admin/PostFormConfig.tsx:168
 msgid "No panels"
-msgstr "Keine Paneele"
+msgstr "Keine Panels"
 
 #: src/components/admin/PostFormConfig.tsx:245
 msgid "Drag to reorder panels. Toggle visibility with the eye icon."
@@ -2929,11 +2929,11 @@ msgstr "In die Seitenleiste verschieben"
 
 #: src/components/admin/PostFormConfig.tsx:260
 msgid "Sidebar Panels"
-msgstr "Seitenleisten"
+msgstr "Seitenleisten-Panels"
 
 #: src/components/admin/PostFormConfig.tsx:266
 msgid "Move to content"
-msgstr "Zum Inhalt springen"
+msgstr "In den Inhaltsbereich verschieben"
 
 #: src/components/admin/PostFormConfig.tsx:285
 msgid "Configure panels"
@@ -2941,7 +2941,7 @@ msgstr "Bedienfelder konfigurieren"
 
 #: src/components/admin/PostFormConfig.tsx:290
 msgid "Editor Layout"
-msgstr "Layout-Editor"
+msgstr "Editor-Layout"
 
 #: src/components/admin/QuickActionsWidget.tsx:20
 msgid "Quick Actions"
@@ -2961,15 +2961,15 @@ msgstr "Zur Website"
 
 #: src/components/admin/ShowcaseForm.tsx:157
 msgid "Showcase item created"
-msgstr "Vorzeigeartikel erstellt"
+msgstr "Showcase-Element erstellt"
 
 #: src/components/admin/ShowcaseForm.tsx:171
 msgid "Showcase item updated"
-msgstr "Vorzeigeartikel aktualisiert"
+msgstr "Showcase-Element aktualisiert"
 
 #: src/components/admin/ShowcaseForm.tsx:287
 msgid "New Showcase Item"
-msgstr "Neues Produkt im Schaufenster"
+msgstr "Neues Showcase-Element"
 
 #: src/components/admin/ShowcaseForm.tsx:287
 msgid "Edit Showcase Item"
@@ -2989,7 +2989,7 @@ msgstr "Kartentyp"
 
 #: src/components/admin/ShowcaseForm.tsx:380
 msgid "Layout Variant"
-msgstr "Layout Variant"
+msgstr "Layoutvariante"
 
 #: src/components/admin/ShowcaseForm.tsx:414
 msgid "Video Embed URL"
@@ -3021,7 +3021,7 @@ msgstr "Beziehungen"
 
 #: src/components/admin/TaxonomyOverview.tsx:34
 msgid "Orphaned"
-msgstr "verwaist"
+msgstr "Verwaist"
 
 #: src/components/admin/TaxonomyOverview.tsx:67
 msgid "Top Tags"
