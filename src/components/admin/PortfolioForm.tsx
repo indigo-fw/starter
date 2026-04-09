@@ -41,7 +41,7 @@ interface PortfolioFormData extends Record<string, unknown> {
   name: string;
   slug: string;
   title: string;
-  text: string;
+  content: string;
   status: number;
   lang: string;
   metaDescription: string;
@@ -93,7 +93,7 @@ export function PortfolioForm({ portfolioId }: Props) {
   const initialFormData: PortfolioFormData = useMemo(() => {
     if (!item) {
       return {
-        name: '', slug: '', title: '', text: '', status: ContentStatus.DRAFT,
+        name: '', slug: '', title: '', content: '', status: ContentStatus.DRAFT,
         lang: DEFAULT_LOCALE, metaDescription: '', seoTitle: '',
         noindex: false, publishedAt: '', tagIds: [], fallbackToDefault: null,
         featuredImage: '', featuredImageAlt: '',
@@ -104,7 +104,7 @@ export function PortfolioForm({ portfolioId }: Props) {
       name: item.name,
       slug: item.slug,
       title: item.title,
-      text: item.text,
+      content: item.content,
       status: item.status,
       lang: item.lang ?? DEFAULT_LOCALE,
       metaDescription: item.metaDescription ?? '',
@@ -176,7 +176,7 @@ export function PortfolioForm({ portfolioId }: Props) {
       toast.success(__('Portfolio item updated'));
       utils.portfolio.list.invalidate();
       existingItem.refetch();
-      validateLinks(formData.text);
+      validateLinks(formData.content);
     },
     onError: (err) => handleSaveError(err, 'Failed to update portfolio item'),
   });
@@ -244,7 +244,7 @@ export function PortfolioForm({ portfolioId }: Props) {
         slug: formData.slug,
         lang: formData.lang,
         title: formData.title || formData.name,
-        text: formData.text,
+        content: formData.content,
         status: formData.status,
         metaDescription: formData.metaDescription || undefined,
         seoTitle: formData.seoTitle || undefined,
@@ -265,7 +265,7 @@ export function PortfolioForm({ portfolioId }: Props) {
         name: formData.name,
         slug: formData.slug,
         title: formData.title || formData.name,
-        text: formData.text,
+        content: formData.content,
         status: formData.status,
         metaDescription: formData.metaDescription || null,
         seoTitle: formData.seoTitle || null,
@@ -474,8 +474,8 @@ export function PortfolioForm({ portfolioId }: Props) {
                 {__('Description')}
               </label>
               <RichTextEditor
-                content={formData.text}
-                onChange={(v) => handleChange('text', v)}
+                content={formData.content}
+                onChange={(v) => handleChange('content', v)}
                 placeholder={__('Project description...')}
                 storageKey="portfolio"
                 onRequestLinkPicker={openLinkPicker}

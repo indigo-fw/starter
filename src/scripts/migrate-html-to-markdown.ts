@@ -44,22 +44,22 @@ async function migratePosts() {
 
 async function migrateCategories() {
   const cats = await db
-    .select({ id: cmsCategories.id, text: cmsCategories.text })
+    .select({ id: cmsCategories.id, content: cmsCategories.content })
     .from(cmsCategories);
 
   let converted = 0;
   for (const cat of cats) {
-    if (!cat.text || !looksLikeHtml(cat.text)) continue;
+    if (!cat.content || !looksLikeHtml(cat.content)) continue;
 
-    const md = htmlToMarkdown(cat.text);
-    if (md === cat.text) continue;
+    const md = htmlToMarkdown(cat.content);
+    if (md === cat.content) continue;
 
     converted++;
     if (DRY_RUN) {
-      console.log(`[DRY RUN] Category ${cat.id}: would convert (${cat.text.length} → ${md.length} chars)`);
+      console.log(`[DRY RUN] Category ${cat.id}: would convert (${cat.content.length} → ${md.length} chars)`);
     } else {
-      await db.update(cmsCategories).set({ text: md }).where(eq(cmsCategories.id, cat.id));
-      console.log(`Category ${cat.id}: converted (${cat.text.length} → ${md.length} chars)`);
+      await db.update(cmsCategories).set({ content: md }).where(eq(cmsCategories.id, cat.id));
+      console.log(`Category ${cat.id}: converted (${cat.content.length} → ${md.length} chars)`);
     }
   }
   console.log(`Categories: ${converted} of ${cats.length} converted${DRY_RUN ? ' (dry run)' : ''}`);

@@ -17,5 +17,6 @@ export {
 export { createRevision, getRevisions, pickSnapshot } from './content-revisions';
 export { resolveSlugRedirect } from './slug-redirects';
 export { wordSplitLike, getAffectedRows } from './drizzle-utils';
-export { getCodedRouteSEO } from './page-seo';
+export { getCodedRouteSEO, getCmsOverride } from './page-seo';
+export type { CodedRouteSEO, CmsOverride } from './page-seo';
 export { adminListInput, updateStatusInput, duplicateAsTranslationInput, exportBulkInput } from './router-schemas';

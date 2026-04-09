@@ -30,7 +30,7 @@ export async function GET(request: Request, { params }: RouteParams) {
         slug: cmsCategories.slug,
         lang: cmsCategories.lang,
         title: cmsCategories.title,
-        text: cmsCategories.text,
+        content: cmsCategories.content,
         icon: cmsCategories.icon,
         metaDescription: cmsCategories.metaDescription,
         seoTitle: cmsCategories.seoTitle,

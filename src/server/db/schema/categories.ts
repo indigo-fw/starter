@@ -20,7 +20,7 @@ export const cmsCategories = pgTable(
     slug: varchar('slug', { length: 255 }).notNull(),
     lang: varchar('lang', { length: 2 }).notNull().default('en'),
     title: varchar('title', { length: 255 }).notNull(),
-    text: text('text').notNull().default(''),
+    content: text('content').notNull().default(''),
     icon: varchar('icon', { length: 255 }),
     metaDescription: text('meta_description'),
     seoTitle: varchar('seo_title', { length: 255 }),

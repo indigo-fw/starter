@@ -123,7 +123,7 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
       slug: cat.slug,
       lang: 'en',
       title: cat.title,
-      text: cat.text,
+      content: cat.content,
       status: 1,
       order: cat.order,
       publishedAt: new Date(),
@@ -358,7 +358,7 @@ Yes. The admin panel includes a Tiptap-based rich text editor with support for h
       slug: 'indigo-website',
       lang: 'en',
       title: 'Indigo — Official Website',
-      text: `## Project Overview
+      content: `## Project Overview
 
 Built the official website and documentation for the Indigo open-source project. The site showcases the CMS features, provides getting-started guides, and hosts the project blog.
 
@@ -384,7 +384,7 @@ Built the official website and documentation for the Indigo open-source project.
       slug: 'ecommerce-dashboard',
       lang: 'en',
       title: 'E-Commerce Analytics Dashboard',
-      text: `## Project Overview
+      content: `## Project Overview
 
 Designed and built a real-time analytics dashboard for an e-commerce platform. The dashboard provides insights into sales, customer behavior, and inventory management.
 
@@ -409,7 +409,7 @@ Designed and built a real-time analytics dashboard for an e-commerce platform. T
       slug: 'mobile-banking-app',
       lang: 'en',
       title: 'Mobile Banking Application',
-      text: `## Project Overview
+      content: `## Project Overview
 
 Developed a cross-platform mobile banking application for FinTech Corp. The app enables customers to manage accounts, transfer funds, pay bills, and track spending with real-time notifications.
 
@@ -435,7 +435,7 @@ Developed a cross-platform mobile banking application for FinTech Corp. The app 
       slug: 'saas-analytics-platform',
       lang: 'en',
       title: 'SaaS Analytics Platform',
-      text: `## Project Overview
+      content: `## Project Overview
 
 Built a comprehensive analytics platform for DataViz Inc that processes millions of events daily. The platform provides real-time dashboards, custom report builders, and automated insights powered by machine learning.
 

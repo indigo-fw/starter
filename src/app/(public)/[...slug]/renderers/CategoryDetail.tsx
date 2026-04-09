@@ -29,9 +29,9 @@ export async function CategoryDetail({ slug }: Props) {
         {cat.title}
       </h1>
 
-      {cat.text && (
+      {cat.content && (
         <div className="prose prose-gray dark:prose-invert mt-6 max-w-none">
-          <ShortcodeRenderer content={cat.text} components={SHORTCODE_COMPONENTS} />
+          <ShortcodeRenderer content={cat.content} components={SHORTCODE_COMPONENTS} />
         </div>
       )}
 

@@ -21,7 +21,7 @@ export const cmsPortfolio = pgTable(
     slug: varchar('slug', { length: 255 }).notNull(),
     lang: varchar('lang', { length: 2 }).notNull().default('en'),
     title: varchar('title', { length: 255 }).notNull(),
-    text: text('text').notNull().default(''),
+    content: text('content').notNull().default(''),
     status: smallint('status').notNull().default(0),
     publishedAt: timestamp('published_at'),
     metaDescription: text('meta_description'),

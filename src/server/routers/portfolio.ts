@@ -45,7 +45,7 @@ const PORTFOLIO_SNAPSHOT_KEYS = [
   'name',
   'slug',
   'title',
-  'text',
+  'content',
   'status',
   'metaDescription',
   'seoTitle',
@@ -130,7 +130,7 @@ export const portfolioRouter = createTRPCRouter({
         slug: z.string().min(1).max(255),
         lang: z.string().min(2).max(2),
         title: z.string().min(1).max(255),
-        text: z.string().default(''),
+        content: z.string().default(''),
         status: z.number().int().default(ContentStatus.DRAFT),
         metaDescription: z.string().max(500).optional(),
         seoTitle: z.string().max(255).optional(),
@@ -172,7 +172,7 @@ export const portfolioRouter = createTRPCRouter({
           slug: itemInput.slug,
           lang: itemInput.lang,
           title: itemInput.title,
-          text: itemInput.text,
+          content: itemInput.content,
           status: itemInput.status,
           metaDescription: itemInput.metaDescription ?? null,
           seoTitle: itemInput.seoTitle ?? null,
@@ -227,7 +227,7 @@ export const portfolioRouter = createTRPCRouter({
           slug: copySlug,
           lang: original.lang,
           title: original.title + ' (Copy)',
-          text: original.text,
+          content: original.content,
           status: ContentStatus.DRAFT,
           metaDescription: original.metaDescription,
           seoTitle: original.seoTitle,
@@ -280,7 +280,7 @@ export const portfolioRouter = createTRPCRouter({
 
       let name = source.name;
       let title = source.title;
-      let text = source.text;
+      let content = source.content;
       let metaDescription = source.metaDescription;
       let seoTitle = source.seoTitle;
       let featuredImageAlt = source.featuredImageAlt;
@@ -289,10 +289,10 @@ export const portfolioRouter = createTRPCRouter({
         const sl = source.lang ?? 'en';
         const tl = input.targetLang;
         const safe = createFieldTranslator(tl, sl, logger);
-        [name, title, text, metaDescription, seoTitle, featuredImageAlt] = await Promise.all([
+        [name, title, content, metaDescription, seoTitle, featuredImageAlt] = await Promise.all([
           safe('name', name),
           safe('title', title),
-          safe('text', text),
+          safe('text', content),
           safe('metaDescription', metaDescription),
           safe('seoTitle', seoTitle),
           safe('featuredImageAlt', featuredImageAlt),
@@ -312,7 +312,7 @@ export const portfolioRouter = createTRPCRouter({
           slug,
           lang: input.targetLang,
           title,
-          text,
+          content,
           status: ContentStatus.DRAFT,
           metaDescription,
           seoTitle,
@@ -362,7 +362,7 @@ export const portfolioRouter = createTRPCRouter({
           name: cmsPortfolio.name,
           slug: cmsPortfolio.slug,
           title: cmsPortfolio.title,
-          text: cmsPortfolio.text,
+          content: cmsPortfolio.content,
           status: cmsPortfolio.status,
           lang: cmsPortfolio.lang,
           metaDescription: cmsPortfolio.metaDescription,
@@ -378,7 +378,7 @@ export const portfolioRouter = createTRPCRouter({
         .from(cmsPortfolio)
         .where(inArray(cmsPortfolio.id, input.ids));
 
-      const headers = ['id', 'name', 'slug', 'title', 'status', 'lang', 'clientName', 'projectUrl', 'techStack', 'completedAt', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'text'];
+      const headers = ['id', 'name', 'slug', 'title', 'status', 'lang', 'clientName', 'projectUrl', 'techStack', 'completedAt', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'content'];
       return serializeExport(items as Record<string, unknown>[], headers, input.format);
     }),
 
@@ -389,7 +389,7 @@ export const portfolioRouter = createTRPCRouter({
         name: z.string().min(1).max(255).optional(),
         slug: z.string().min(1).max(255).optional(),
         title: z.string().min(1).max(255).optional(),
-        text: z.string().optional(),
+        content: z.string().optional(),
         status: z.number().int().optional(),
         metaDescription: z.string().max(500).optional().nullable(),
         seoTitle: z.string().max(255).optional().nullable(),
@@ -616,7 +616,7 @@ export const portfolioRouter = createTRPCRouter({
           slug: cmsPortfolio.slug,
           lang: cmsPortfolio.lang,
           title: cmsPortfolio.title,
-          text: cmsPortfolio.text,
+          content: cmsPortfolio.content,
           status: cmsPortfolio.status,
           metaDescription: cmsPortfolio.metaDescription,
           seoTitle: cmsPortfolio.seoTitle,

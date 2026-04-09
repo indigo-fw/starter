@@ -45,7 +45,7 @@ const CATEGORY_SNAPSHOT_KEYS = [
   'name',
   'slug',
   'title',
-  'text',
+  'content',
   'status',
   'metaDescription',
   'seoTitle',
@@ -126,7 +126,7 @@ export const categoriesRouter = createTRPCRouter({
         slug: z.string().min(1).max(255),
         lang: z.string().min(2).max(2),
         title: z.string().min(1).max(255),
-        text: z.string().default(''),
+        content: z.string().default(''),
         status: z.number().int().default(ContentStatus.DRAFT),
         icon: z.string().max(255).optional(),
         metaDescription: z.string().max(500).optional(),
@@ -165,7 +165,7 @@ export const categoriesRouter = createTRPCRouter({
           slug: catInput.slug,
           lang: catInput.lang,
           title: catInput.title,
-          text: catInput.text,
+          content: catInput.content,
           status: catInput.status,
           icon: catInput.icon ?? null,
           metaDescription: catInput.metaDescription ?? null,
@@ -218,7 +218,7 @@ export const categoriesRouter = createTRPCRouter({
           slug: copySlug,
           lang: original.lang,
           title: original.title + ' (Copy)',
-          text: original.text,
+          content: original.content,
           status: ContentStatus.DRAFT,
           icon: original.icon,
           metaDescription: original.metaDescription,
@@ -269,7 +269,7 @@ export const categoriesRouter = createTRPCRouter({
 
       let name = source.name;
       let title = source.title;
-      let text = source.text;
+      let content = source.content;
       let metaDescription = source.metaDescription;
       let seoTitle = source.seoTitle;
 
@@ -277,10 +277,10 @@ export const categoriesRouter = createTRPCRouter({
         const sl = source.lang ?? 'en';
         const tl = input.targetLang;
         const safe = createFieldTranslator(tl, sl, logger);
-        [name, title, text, metaDescription, seoTitle] = await Promise.all([
+        [name, title, content, metaDescription, seoTitle] = await Promise.all([
           safe('name', name),
           safe('title', title),
-          safe('text', text),
+          safe('text', content),
           safe('metaDescription', metaDescription),
           safe('seoTitle', seoTitle),
         ]);
@@ -299,7 +299,7 @@ export const categoriesRouter = createTRPCRouter({
           slug,
           lang: input.targetLang,
           title,
-          text,
+          content,
           status: ContentStatus.DRAFT,
           icon: source.icon,
           metaDescription,
@@ -348,7 +348,7 @@ export const categoriesRouter = createTRPCRouter({
           name: cmsCategories.name,
           slug: cmsCategories.slug,
           title: cmsCategories.title,
-          text: cmsCategories.text,
+          content: cmsCategories.content,
           status: cmsCategories.status,
           lang: cmsCategories.lang,
           metaDescription: cmsCategories.metaDescription,
@@ -360,7 +360,7 @@ export const categoriesRouter = createTRPCRouter({
         .from(cmsCategories)
         .where(inArray(cmsCategories.id, input.ids));
 
-      const headers = ['id', 'name', 'slug', 'title', 'status', 'lang', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'text'];
+      const headers = ['id', 'name', 'slug', 'title', 'status', 'lang', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'content'];
       return serializeExport(cats as Record<string, unknown>[], headers, input.format);
     }),
 
@@ -371,7 +371,7 @@ export const categoriesRouter = createTRPCRouter({
         name: z.string().min(1).max(255).optional(),
         slug: z.string().min(1).max(255).optional(),
         title: z.string().min(1).max(255).optional(),
-        text: z.string().optional(),
+        content: z.string().optional(),
         status: z.number().int().optional(),
         icon: z.string().max(255).optional().nullable(),
         metaDescription: z.string().max(500).optional().nullable(),

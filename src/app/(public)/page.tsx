@@ -21,7 +21,9 @@ import {
 
 import { siteConfig } from "@/config/site";
 import { db } from "@/server/db";
-import { getCodedRouteSEO } from "@/core/crud/page-seo";
+import { getCmsOverride, getCodedRouteSEO } from "@/core/crud/page-seo";
+import { CmsContent } from "@/core/components";
+import { SHORTCODE_COMPONENTS } from "@/config/shortcodes";
 import { getLocale } from "@/lib/locale-server";
 import { getServerTranslations } from "@/lib/translations-server";
 
@@ -38,7 +40,9 @@ export async function generateMetadata(): Promise<Metadata> {
 const DEMO_CREDENTIALS = { email: "admin@example.com", password: "asdfasdf" };
 
 export default async function DemoHomePage() {
+  const locale = await getLocale();
   const __ = await getServerTranslations();
+  const cms = await getCmsOverride(db, "", locale).catch(() => null);
 
   const features = [
     {
@@ -343,6 +347,10 @@ export default async function DemoHomePage() {
           </p>
         </div>
       </section>
+
+      {cms?.content && (
+        <CmsContent content={cms.content} components={SHORTCODE_COMPONENTS} />
+      )}
     </div>
   );
 }

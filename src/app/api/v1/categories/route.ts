@@ -26,7 +26,7 @@ export async function GET(request: Request) {
           slug: cmsCategories.slug,
           lang: cmsCategories.lang,
           title: cmsCategories.title,
-          text: cmsCategories.text,
+          content: cmsCategories.content,
           icon: cmsCategories.icon,
           metaDescription: cmsCategories.metaDescription,
           seoTitle: cmsCategories.seoTitle,

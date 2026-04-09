@@ -40,7 +40,7 @@ interface CategoryFormData extends Record<string, unknown> {
   name: string;
   slug: string;
   title: string;
-  text: string;
+  content: string;
   status: number;
   lang: string;
   icon: string;
@@ -89,7 +89,7 @@ export function CategoryForm({ categoryId }: Props) {
   const initialFormData: CategoryFormData = useMemo(() => {
     if (!cat) {
       return {
-        name: '', slug: '', title: '', text: '', status: ContentStatus.DRAFT,
+        name: '', slug: '', title: '', content: '', status: ContentStatus.DRAFT,
         lang: DEFAULT_LOCALE, icon: '', order: 0, metaDescription: '', seoTitle: '',
         noindex: false, publishedAt: '', tagIds: [], fallbackToDefault: null,
       };
@@ -98,7 +98,7 @@ export function CategoryForm({ categoryId }: Props) {
       name: cat.name,
       slug: cat.slug,
       title: cat.title,
-      text: cat.text,
+      content: cat.content,
       status: cat.status,
       lang: cat.lang ?? DEFAULT_LOCALE,
       icon: cat.icon ?? '',
@@ -171,7 +171,7 @@ export function CategoryForm({ categoryId }: Props) {
       utils.categories.list.invalidate();
       existingCat.refetch();
       // Post-save link validation
-      validateLinks(formData.text);
+      validateLinks(formData.content);
     },
     onError: (err) => handleSaveError(err, 'Failed to update category'),
   });
@@ -228,7 +228,7 @@ export function CategoryForm({ categoryId }: Props) {
         slug: formData.slug,
         lang: formData.lang,
         title: formData.title || formData.name,
-        text: formData.text,
+        content: formData.content,
         status: formData.status,
         icon: formData.icon || undefined,
         order: formData.order,
@@ -245,7 +245,7 @@ export function CategoryForm({ categoryId }: Props) {
         name: formData.name,
         slug: formData.slug,
         title: formData.title || formData.name,
-        text: formData.text,
+        content: formData.content,
         status: formData.status,
         icon: formData.icon || null,
         order: formData.order,
@@ -384,8 +384,8 @@ export function CategoryForm({ categoryId }: Props) {
                 {__('Description')}
               </label>
               <RichTextEditor
-                content={formData.text}
-                onChange={(v) => handleChange('text', v)}
+                content={formData.content}
+                onChange={(v) => handleChange('content', v)}
                 placeholder={__('Category description...')}
                 storageKey="category"
                 onRequestLinkPicker={openLinkPicker}

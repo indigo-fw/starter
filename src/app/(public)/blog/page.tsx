@@ -7,7 +7,9 @@ import { PostType } from '@/core/types/cms';
 import { PostCard } from '@/core/components/PostCard';
 import { BlogSidebar } from '@/components/public/BlogSidebar';
 import { db } from '@/server/db';
-import { getCodedRouteSEO } from '@/core/crud/page-seo';
+import { getCmsOverride, getCodedRouteSEO } from '@/core/crud/page-seo';
+import { CmsContent } from '@/core/components';
+import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { getLocale } from '@/lib/locale-server';
 import { localePath } from '@/lib/locale';
 import { getServerTranslations } from '@/lib/translations-server';
@@ -33,6 +35,7 @@ export default async function BlogListPage({ searchParams }: Props) {
 
   const locale = await getLocale();
   const __ = await getServerTranslations();
+  const cms = await getCmsOverride(db, 'blog', locale).catch(() => null);
   let data;
   try {
     const api = await serverTRPC();
@@ -102,6 +105,10 @@ export default async function BlogListPage({ searchParams }: Props) {
           <BlogSidebar lang={locale} />
         </div>
       </div>
+
+      {cms?.content && (
+        <CmsContent content={cms.content} components={SHORTCODE_COMPONENTS} />
+      )}
     </div>
   );
 }

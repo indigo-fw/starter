@@ -154,12 +154,12 @@ export const SEED_IMAGES = [
 ];
 
 export const CATEGORIES_DATA = [
-  { name: 'Tutorials', slug: 'tutorials', title: 'Tutorials', text: 'Step-by-step guides and walkthroughs for developers of all skill levels. Learn practical techniques through hands-on examples and detailed explanations.', order: 1 },
-  { name: 'News', slug: 'news', title: 'News & Updates', text: 'Latest announcements, release notes, and industry news. Stay informed about new features, breaking changes, and ecosystem developments.', order: 2 },
-  { name: 'Development', slug: 'development', title: 'Development', text: 'Technical articles covering web development, software architecture, and programming best practices. Deep dives into TypeScript, React, and the T3 Stack.', order: 3 },
-  { name: 'Design', slug: 'design', title: 'Design & UX', text: 'User experience, interface design, and visual design patterns. Practical advice on creating intuitive and accessible digital products.', order: 4 },
-  { name: 'Business', slug: 'business', title: 'Business & SaaS', text: 'Entrepreneurship, SaaS growth strategies, and product management. Insights on building and scaling software businesses.', order: 5 },
-  { name: 'DevOps', slug: 'devops', title: 'DevOps & Infrastructure', text: 'Cloud infrastructure, CI/CD pipelines, containerization, and deployment strategies. Practical guides for reliable and scalable systems.', order: 6 },
+  { name: 'Tutorials', slug: 'tutorials', title: 'Tutorials', content: 'Step-by-step guides and walkthroughs for developers of all skill levels. Learn practical techniques through hands-on examples and detailed explanations.', order: 1 },
+  { name: 'News', slug: 'news', title: 'News & Updates', content: 'Latest announcements, release notes, and industry news. Stay informed about new features, breaking changes, and ecosystem developments.', order: 2 },
+  { name: 'Development', slug: 'development', title: 'Development', content: 'Technical articles covering web development, software architecture, and programming best practices. Deep dives into TypeScript, React, and the T3 Stack.', order: 3 },
+  { name: 'Design', slug: 'design', title: 'Design & UX', content: 'User experience, interface design, and visual design patterns. Practical advice on creating intuitive and accessible digital products.', order: 4 },
+  { name: 'Business', slug: 'business', title: 'Business & SaaS', content: 'Entrepreneurship, SaaS growth strategies, and product management. Insights on building and scaling software businesses.', order: 5 },
+  { name: 'DevOps', slug: 'devops', title: 'DevOps & Infrastructure', content: 'Cloud infrastructure, CI/CD pipelines, containerization, and deployment strategies. Practical guides for reliable and scalable systems.', order: 6 },
 ];
 
 export const TAGS_DATA = [

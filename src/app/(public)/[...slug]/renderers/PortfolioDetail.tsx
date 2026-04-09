@@ -74,9 +74,9 @@ export async function PortfolioDetail({ slug, preview }: Props) {
         </div>
       )}
 
-      {item.text && (
+      {item.content && (
         <div className="prose prose-gray dark:prose-invert mt-8 max-w-none">
-          <ShortcodeRenderer content={item.text} components={SHORTCODE_COMPONENTS} />
+          <ShortcodeRenderer content={item.content} components={SHORTCODE_COMPONENTS} />
         </div>
       )}
     </article>

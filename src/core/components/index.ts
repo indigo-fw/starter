@@ -37,6 +37,7 @@ export { TagCloud } from './TagCloud';
 export { DynamicNav } from './DynamicNav';
 export { ShortcodeRenderer } from './ShortcodeRenderer';
 export type { ShortcodeComponentMap } from './ShortcodeRenderer';
+export { CmsContent } from './CmsContent';
 export { FaqAccordion } from './FaqAccordion';
 export { AccountSidebar } from './AccountSidebar';
 export { PricingToggle } from './PricingToggle';
