@@ -379,6 +379,16 @@ export function CmsListView({ contentType }: Props) {
     [seoStatus]
   );
 
+  // MDX file overrides — show badge for content managed by .mdx files
+  const { data: mdxSlugsData } = trpc.cms.mdxManagedSlugs.useQuery(
+    { type: contentType.postType!, lang: langFilter || LOCALES[0] },
+    { enabled: isPostType }
+  );
+  const mdxManagedSlugs = useMemo(
+    () => new Set(mdxSlugsData ?? []),
+    [mdxSlugsData]
+  );
+
   // ── Unified data ──────────────────────────────────────
   const data = isPostType ? postList.data : isTagType ? tagList.data : isPortfolioType ? portfolioList.data : isShowcaseType ? showcaseList.data : catList.data;
   const counts = isPostType ? postCounts.data : isTagType ? tagCounts.data : isPortfolioType ? portfolioCounts.data : isShowcaseType ? showcaseCounts.data : catCounts.data;
@@ -830,6 +840,11 @@ export function CmsListView({ contentType }: Props) {
                           {contentType.canOverrideCodedRouteSEO && seoOverrideSlugs.has(item.slug) && (
                             <span className="inline-block rounded bg-brand-100 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.15)] px-1.5 py-0.5 text-[10px] font-semibold uppercase text-brand-700 dark:text-brand-400">
                               {__('SEO')}
+                            </span>
+                          )}
+                          {mdxManagedSlugs.has(item.slug) && (
+                            <span className="inline-block rounded bg-amber-100 dark:bg-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-amber-700 dark:text-amber-400" title={__('This content is managed by a .mdx file and cannot be edited from the dashboard')}>
+                              {__('.mdx')}
                             </span>
                           )}
                         </p>

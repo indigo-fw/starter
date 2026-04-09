@@ -152,6 +152,16 @@ export function findFileContent(slug: string, locale: string, defaultLocale = 'e
   return null;
 }
 
+/**
+ * Get a Set of slugs that have .mdx file overrides for a given locale.
+ * Used by admin endpoints to show "managed by .mdx" indicators.
+ * Returns slugs in the format used by the content type (e.g. 'about', 'blog/my-post').
+ */
+export function getMdxManagedSlugs(locale: string): Set<string> {
+  const items = loadAllFileContent();
+  return new Set(items.filter((i) => i.locale === locale).map((i) => i.slug));
+}
+
 /** Clear the content cache. */
 export function invalidateContentCache(): void {
   _cache = null;

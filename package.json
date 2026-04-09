@@ -17,6 +17,7 @@
     "init": "bun run src/scripts/init.ts",
     "promote": "bun run src/scripts/promote.ts",
     "change-password": "bun run src/scripts/change-password.ts",
+    "content:sync": "bun run src/scripts/content-sync.ts",
     "i18n": "bun scripts/i18n/generate-po-files.js && bun scripts/i18n/po-to-json.mjs",
     "i18n:translate": "bun scripts/i18n/generate-po-files.js && bun scripts/i18n/translate-po.mjs && bun scripts/i18n/po-to-json.mjs",
     "i18n:watch": "bun scripts/i18n/po-to-json.mjs watch",

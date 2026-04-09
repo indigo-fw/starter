@@ -13,6 +13,7 @@ import {
 } from '@/core/lib/seo-routes';
 import { cmsPosts, cmsCategories, cmsTerms, cmsTermRelationships, cmsPostAttachments } from '@/server/db/schema';
 import { ContentStatus, PostType } from '@/core/types/cms';
+import { getMdxManagedSlugs } from '@/core/lib/content-loader';
 import {
   buildAdminList,
   buildStatusCounts,
@@ -160,6 +161,33 @@ export const cmsRouter = createTRPCRouter({
         },
         eq(cmsPosts.type, input.type)
       );
+    }),
+
+  /** Get slugs that have .mdx file overrides (not editable in admin). */
+  mdxManagedSlugs: contentProcedure
+    .input(z.object({ type: z.number().int().min(1), lang: z.string().length(2) }))
+    .query(({ input }) => {
+      const ct = getContentTypeByPostType(input.type);
+      const allSlugs = getMdxManagedSlugs(input.lang);
+
+      // Filter to slugs that match this content type's URL prefix
+      // e.g. for blog (prefix '/blog/'), file slug 'blog/my-post' → extract 'my-post'
+      // for page (prefix '/'), file slug 'about' → keep 'about'
+      const prefix = ct?.urlPrefix;
+      const listSegment = ct?.listSegment;
+      const slugs: string[] = [];
+
+      for (const slug of allSlugs) {
+        if (prefix === '/') {
+          // Page type: only root-level slugs (no directory prefix)
+          if (!slug.includes('/')) slugs.push(slug);
+        } else if (listSegment && slug.startsWith(`${listSegment}/`)) {
+          // e.g. blog/my-post → my-post
+          slugs.push(slug.slice(listSegment.length + 1));
+        }
+      }
+
+      return slugs;
     }),
 
   /** Get single post by ID (with category + tag IDs) */

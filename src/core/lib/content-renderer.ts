@@ -13,7 +13,7 @@ export const getCachedCompiledContent = cache(
     const file = findFileContent(slug, locale, DEFAULT_LOCALE);
     if (!file) return null;
 
-    const cacheKey = `content:${locale}:${slug}:${file.updatedAt.getTime()}`;
+    const cacheKey = `content:${file.locale}:${slug}:${file.updatedAt.getTime()}`;
     const html = await compileMdx(file.content, cacheKey);
     return { html, content: file };
   },

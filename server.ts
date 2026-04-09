@@ -69,6 +69,16 @@ async function main() {
   const { initModuleDeps } = await import('./src/generated/module-server');
   await initModuleDeps();
 
+  // Sync .md content files to CMS (completes before server listens)
+  try {
+    const { syncContentFiles } = await import('./src/core/lib/content-sync');
+    const { db: syncDb } = await import('./src/server/db');
+    const { CONTENT_TYPES } = await import('./src/config/cms');
+    await syncContentFiles(syncDb, { contentTypes: CONTENT_TYPES });
+  } catch (err) {
+    console.error('Content sync failed:', err);
+  }
+
   // Register webhook delivery logger
   const { setWebhookDeliveryLogger } = await import('./src/core/lib/webhooks');
   const { logWebhookDelivery } = await import('./src/core/lib/webhook-delivery-log');

@@ -7,4 +7,7 @@ if [ "${AUTO_MIGRATE:-true}" = "true" ]; then
   bun run db:migrate || echo "Migration failed — continuing anyway"
 fi
 
+# Content sync runs at server startup (server.ts) — no separate step needed.
+# To run manually: bun run content:sync
+
 exec "$@"
