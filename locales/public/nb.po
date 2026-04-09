@@ -589,11 +589,11 @@ msgstr "Utforsk utstillingen vår — sveip gjennom videoer, bilder og historier
 
 #: src/app/(showcase)/showcase/search/page.tsx:66
 msgid "Results for \"{query}\""
-msgstr "Results for \"{query}\""
+msgstr "Resultater for \"{query}\""
 
 #: src/app/(showcase)/showcase/search/page.tsx:70
 msgid "No results found for \"{query}\""
-msgstr "No results found for \"{query}\""
+msgstr "Ingen resultater funnet for \"{query}\""
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "Use the search bar above or press"
@@ -2635,7 +2635,7 @@ msgstr "Slette rabattkode?"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
 msgid "Code \"{code}\" will be permanently deleted."
-msgstr "Code \"{code}\" will be permanently deleted."
+msgstr "Koden \"{code}\" vil bli permanent slettet."
 
 #: src/core-support/components/SupportChatWidget.tsx:275
 msgid "Hi! How can I help you today?"

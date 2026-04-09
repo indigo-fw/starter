@@ -550,7 +550,7 @@ msgstr "Fjern felt"
 
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:456
 msgid "No fields yet. Click \"Add Field\" to start building your form."
-msgstr "No fields yet. Click \"Add Field\" to start building your form."
+msgstr "Ingen felter enda. Klikk \"Legg til felt\" for \u00e5 begynne \u00e5 bygge skjemaet."
 
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:464
 msgid "Embed"
@@ -664,7 +664,7 @@ msgstr "Slette fil?"
 
 #: src/app/dashboard/(panel)/media/page.tsx:335
 msgid "\"{name}\" will be deleted."
-msgstr "\"{name}\" will be deleted."
+msgstr "\"{name}\" vil bli slettet."
 
 #: src/app/dashboard/(panel)/notifications/page.tsx:40
 msgid "Notifications"
@@ -816,7 +816,7 @@ msgstr "Slette organisasjon?"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:513
 msgid "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
-msgstr "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
+msgstr "Slette \"{name}\" permanent? Dette vil fjerne alle medlemmer og data. Denne handlingen kan ikke angres."
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:525
 msgid "Leave organization?"
@@ -824,7 +824,7 @@ msgstr "Forlate organisasjon?"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:526
 msgid "Leave \"{name}\"? You will lose access to this organization."
-msgstr "Leave \"{name}\"? You will lose access to this organization."
+msgstr "Forlate \"{name}\"? Du vil miste tilgang til denne organisasjonen."
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:527
 msgid "Leave"
@@ -994,7 +994,7 @@ msgstr "Slette prosjekt?"
 
 #: src/app/dashboard/(panel)/projects/page.tsx:284
 msgid "Delete \"{name}\"? This action cannot be undone."
-msgstr "Delete \"{name}\"? This action cannot be undone."
+msgstr "Slette \"{name}\"? Denne handlingen kan ikke angres."
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
@@ -1854,7 +1854,7 @@ msgstr "Slette rabattkode?"
 
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
 msgid "Code \"{code}\" will be permanently deleted."
-msgstr "Code \"{code}\" will be permanently deleted."
+msgstr "Koden \"{code}\" vil bli permanent slettet."
 
 #: src/app/dashboard/(panel)/settings/email-templates/page.tsx:90
 msgid "Template saved"
@@ -2127,7 +2127,7 @@ msgstr "Innstillinger lagret"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:45
 msgid "Reset \"{key}\" to default"
-msgstr "Reset \"{key}\" to default"
+msgstr "Tilbakestilt \"{key}\" til standard"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:59
 msgid "GA4 connection successful"
@@ -2390,7 +2390,7 @@ msgstr "Slette webhook?"
 
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:254
 msgid "\"{name}\" will be permanently deleted."
-msgstr "\"{name}\" will be permanently deleted."
+msgstr "\"{name}\" vil bli permanent slettet."
 
 #: src/app/dashboard/(panel)/users/page.tsx:80
 msgid "Role updated"
@@ -2772,11 +2772,11 @@ msgstr "Flytte til papirkurven?"
 
 #: src/components/admin/CmsListView.tsx:988
 msgid "\"{title}\" will be permanently deleted. This cannot be undone."
-msgstr "\"{title}\" will be permanently deleted. This cannot be undone."
+msgstr "\"{title}\" vil bli permanent slettet. Dette kan ikke angres."
 
 #: src/components/admin/CmsListView.tsx:989
 msgid "\"{title}\" will be moved to trash."
-msgstr "\"{title}\" will be moved to trash."
+msgstr "\"{title}\" vil bli flyttet til papirkurven."
 
 #: src/components/admin/CmsListView.tsx:1001
 msgid "1 item will be moved to trash."

@@ -76,9 +76,9 @@ describe('locale detection from pathname', () => {
   });
 
   it('does not match invalid locale codes', () => {
-    expect(detectLocale('/fr/blog')).toEqual({
+    expect(detectLocale('/xx/blog')).toEqual({
       locale: 'en',
-      strippedPath: '/fr/blog',
+      strippedPath: '/xx/blog',
     });
     expect(detectLocale('/dashboard/login')).toEqual({
       locale: 'en',

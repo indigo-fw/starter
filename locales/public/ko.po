@@ -14,53 +14,53 @@ msgstr ""
 
 #: src/app/(public)/account/page.tsx:23
 msgid "Welcome"
-msgstr "Welcome"
+msgstr "환영합니다"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "there"
-msgstr "there"
+msgstr "님"
 
 #: src/app/(public)/account/page.tsx:31
 msgid "Account Overview"
-msgstr "Account Overview"
+msgstr "계정 개요"
 
 #: src/app/(public)/account/page.tsx:51
 msgid "Profile Settings"
-msgstr "Profile Settings"
+msgstr "프로필 설정"
 
 #: src/app/(public)/account/page.tsx:52
 msgid "Update your name and profile information."
-msgstr "Update your name and profile information."
+msgstr "이름 및 프로필 정보를 수정합니다."
 
 #: src/app/(public)/account/page.tsx:55
 #: src/components/public/AccountNav.tsx:14
 #: src/components/public/UserMenu.tsx:112
 msgid "Security"
-msgstr "Security"
+msgstr "보안"
 
 #: src/app/(public)/account/page.tsx:56
 msgid "Change your password and manage sessions."
-msgstr "Change your password and manage sessions."
+msgstr "비밀번호를 변경하고 세션을 관리합니다."
 
 #: src/app/(public)/account/page.tsx:59
 #: src/components/public/AccountNav.tsx:15
 #: src/components/public/UserMenu.tsx:120
 msgid "Billing"
-msgstr "Billing"
+msgstr "결제"
 
 #: src/app/(public)/account/page.tsx:60
 msgid "Manage your subscription and payment methods."
-msgstr "Manage your subscription and payment methods."
+msgstr "구독 및 결제 수단을 관리합니다."
 
 #: src/app/(public)/account/page.tsx:63
 #: src/components/public/AccountNav.tsx:16
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:348
 msgid "Support"
-msgstr "Support"
+msgstr "지원"
 
 #: src/app/(public)/account/page.tsx:64
 msgid "View your support tickets or create a new one."
-msgstr "View your support tickets or create a new one."
+msgstr "지원 티켓을 확인하거나 새로 생성합니다."
 
 #: src/app/(public)/account/support/page.tsx:14
 #: src/app/(public)/account/support/[id]/page.tsx:33
@@ -68,7 +68,7 @@ msgstr "View your support tickets or create a new one."
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:33
 msgctxt "General"
 msgid "Open"
-msgstr "Open"
+msgstr "열림"
 
 #: src/app/(public)/account/support/page.tsx:15
 #: src/app/(public)/account/support/[id]/page.tsx:34
@@ -76,7 +76,7 @@ msgstr "Open"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:34
 msgctxt "General"
 msgid "Awaiting You"
-msgstr "Awaiting You"
+msgstr "고객 답변 대기"
 
 #: src/app/(public)/account/support/page.tsx:16
 #: src/app/(public)/account/support/[id]/page.tsx:35
@@ -84,7 +84,7 @@ msgstr "Awaiting You"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:35
 msgctxt "General"
 msgid "Awaiting Staff"
-msgstr "Awaiting Staff"
+msgstr "직원 답변 대기"
 
 #: src/app/(public)/account/support/page.tsx:17
 #: src/app/(public)/account/support/[id]/page.tsx:36
@@ -92,7 +92,7 @@ msgstr "Awaiting Staff"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:36
 msgctxt "General"
 msgid "Resolved"
-msgstr "Resolved"
+msgstr "해결됨"
 
 #: src/app/(public)/account/support/page.tsx:18
 #: src/app/(public)/account/support/[id]/page.tsx:37
@@ -100,31 +100,31 @@ msgstr "Resolved"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:37
 msgctxt "General"
 msgid "Closed"
-msgstr "Closed"
+msgstr "종료됨"
 
 #: src/app/(public)/account/support/page.tsx:30
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:30
 msgctxt "General"
 msgid "Low"
-msgstr "Low"
+msgstr "낮음"
 
 #: src/app/(public)/account/support/page.tsx:31
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:31
 msgctxt "General"
 msgid "Normal"
-msgstr "Normal"
+msgstr "보통"
 
 #: src/app/(public)/account/support/page.tsx:32
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:32
 msgctxt "General"
 msgid "High"
-msgstr "High"
+msgstr "높음"
 
 #: src/app/(public)/account/support/page.tsx:33
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:33
 msgctxt "General"
 msgid "Urgent"
-msgstr "Urgent"
+msgstr "긴급"
 
 #: src/app/(public)/blog/page.tsx:23
 #: src/app/(public)/blog/page.tsx:58
@@ -134,11 +134,11 @@ msgstr "Urgent"
 #: src/app/(showcase)/layout.tsx:52
 #: src/app/(showcase)/layout.tsx:74
 msgid "Blog"
-msgstr "Blog"
+msgstr "블로그"
 
 #: src/app/(public)/blog/page.tsx:24
 msgid "Latest blog posts"
-msgstr "Latest blog posts"
+msgstr "최신 블로그 글"
 
 #: src/app/(public)/blog/page.tsx:82
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:102
@@ -151,12 +151,12 @@ msgstr "Latest blog posts"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:175
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:311
 msgid "Previous"
-msgstr "Previous"
+msgstr "이전"
 
 #: src/app/(public)/blog/page.tsx:86
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:108
 msgid "Page {page} of {totalPages}"
-msgstr "Page {page} of {totalPages}"
+msgstr "{totalPages} 중 {page} 페이지"
 
 #: src/app/(public)/blog/page.tsx:93
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:115
@@ -169,54 +169,54 @@ msgstr "Page {page} of {totalPages}"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:185
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:321
 msgid "Next"
-msgstr "Next"
+msgstr "다음"
 
 #: src/app/(public)/blog/page.tsx:100
 msgid "No blog posts yet."
-msgstr "No blog posts yet."
+msgstr "아직 블로그 글이 없습니다."
 
 #: src/app/(public)/characters/page.tsx:8
 msgid "AI Characters — Browse & Chat"
-msgstr "AI Characters — Browse & Chat"
+msgstr "AI 캐릭터 — 탐색 및 채팅"
 
 #: src/app/(public)/characters/page.tsx:9
 msgid "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
-msgstr "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
+msgstr "독특한 성격을 가진 AI 캐릭터를 탐색하세요. 완벽한 대화 상대를 찾아 바로 채팅을 시작하세요."
 
 #: src/app/(public)/characters/page.tsx:11
 msgid "AI Characters"
-msgstr "AI Characters"
+msgstr "AI 캐릭터"
 
 #: src/app/(public)/characters/page.tsx:12
 msgid "Browse AI characters with unique personalities and start chatting."
-msgstr "Browse AI characters with unique personalities and start chatting."
+msgstr "독특한 성격의 AI 캐릭터를 탐색하고 채팅을 시작하세요."
 
 #: src/app/(public)/docs/page.tsx:22
 #: src/app/(public)/page.tsx:342
 msgid "Documentation"
-msgstr "Documentation"
+msgstr "문서"
 
 #: src/app/(public)/docs/page.tsx:23
 msgid "No documentation pages found yet."
-msgstr "No documentation pages found yet."
+msgstr "아직 문서 페이지가 없습니다."
 
 #: src/app/(public)/forgot-password/page.tsx:8
 #: src/app/(public)/forgot-password/page.tsx:18
 msgid "Forgot Password"
-msgstr "Forgot Password"
+msgstr "비밀번호 찾기"
 
 #: src/app/(public)/forgot-password/page.tsx:9
 msgid "Reset your password"
-msgstr "Reset your password"
+msgstr "비밀번호를 재설정합니다"
 
 #: src/app/(public)/forgot-password/page.tsx:19
 msgid "Enter your email to receive a reset link."
-msgstr "Enter your email to receive a reset link."
+msgstr "재설정 링크를 받으려면 이메일을 입력하세요."
 
 #: src/app/(public)/layout.tsx:34
 msgctxt "General"
 msgid "This page is available in {language}"
-msgstr "This page is available in {language}"
+msgstr "이 페이지는 {language}로 이용할 수 있습니다"
 
 #: src/app/(public)/layout.tsx:94
 #: src/app/(public)/layout.tsx:219
@@ -225,14 +225,14 @@ msgstr "This page is available in {language}"
 #: src/app/(showcase)/layout.tsx:53
 #: src/app/(showcase)/layout.tsx:77
 msgid "Portfolio"
-msgstr "Portfolio"
+msgstr "포트폴리오"
 
 #: src/app/(public)/layout.tsx:95
 #: src/app/(public)/layout.tsx:153
 #: src/app/(public)/layout.tsx:220
 #: src/app/(showcase)/showcase/page.tsx:12
 msgid "Showcase"
-msgstr "Showcase"
+msgstr "쇼케이스"
 
 #: src/app/(public)/layout.tsx:96
 #: src/app/(public)/layout.tsx:162
@@ -240,33 +240,33 @@ msgstr "Showcase"
 #: src/app/(showcase)/showcase/search/page.tsx:66
 #: src/components/public/BlogSidebar.tsx:77
 msgid "Search"
-msgstr "Search"
+msgstr "검색"
 
 #: src/app/(public)/layout.tsx:121
 msgid "Blog RSS"
-msgstr "Blog RSS"
+msgstr "블로그 RSS"
 
 #: src/app/(public)/layout.tsx:202
 #: src/components/public/BlogSidebar.tsx:91
 msgid "Categories"
-msgstr "Categories"
+msgstr "카테고리"
 
 #: src/app/(public)/layout.tsx:217
 msgid "Quick Links"
-msgstr "Quick Links"
+msgstr "빠른 링크"
 
 #: src/app/(public)/layout.tsx:226
 msgid "More"
-msgstr "More"
+msgstr "더보기"
 
 #: src/app/(public)/layout.tsx:229
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
 msgid "RSS Feed"
-msgstr "RSS Feed"
+msgstr "RSS 피드"
 
 #: src/app/(public)/layout.tsx:231
 msgid "Admin"
-msgstr "Admin"
+msgstr "관리자"
 
 #: src/app/(public)/layout.tsx:237
 msgid "Powered by Indigo"
@@ -277,61 +277,61 @@ msgstr "Powered by Indigo"
 #: src/components/public/AuthDialogs.tsx:24
 #: src/components/public/UserMenu.tsx:40
 msgid "Sign In"
-msgstr "Sign In"
+msgstr "로그인"
 
 #: src/app/(public)/login/page.tsx:9
 msgid "Sign in to your account"
-msgstr "Sign in to your account"
+msgstr "계정에 로그인하세요"
 
 #: src/app/(public)/login/page.tsx:19
 msgid "Welcome back! Sign in to your account."
-msgstr "Welcome back! Sign in to your account."
+msgstr "다시 오셨군요! 계정에 로그인하세요."
 
 #: src/app/(public)/page.tsx:50
 #: src/app/(public)/page.tsx:167
 msgid "Browse Characters"
-msgstr "Browse Characters"
+msgstr "캐릭터 탐색"
 
 #: src/app/(public)/page.tsx:51
 msgid "30 AI characters with filters, pagination, and video hover."
-msgstr "30 AI characters with filters, pagination, and video hover."
+msgstr "필터, 페이지네이션, 비디오 호버가 포함된 30개의 AI 캐릭터."
 
 #: src/app/(public)/page.tsx:56
 msgid "AI Chat"
-msgstr "AI Chat"
+msgstr "AI 채팅"
 
 #: src/app/(public)/page.tsx:57
 msgid "Real-time text chat with LLM streaming and typing animation."
-msgstr "Real-time text chat with LLM streaming and typing animation."
+msgstr "LLM 스트리밍 및 타이핑 애니메이션이 있는 실시간 텍스트 채팅."
 
 #: src/app/(public)/page.tsx:63
 msgid "Image Generation"
-msgstr "Image Generation"
+msgstr "이미지 생성"
 
 #: src/app/(public)/page.tsx:64
 msgid "Full keyword orchestration — type \"send me a photo\" in chat."
-msgstr "Full keyword orchestration — type \"send me a photo\" in chat."
+msgstr "전체 키워드 오케스트레이션 — 채팅에서 \"사진 보내줘\"를 입력하세요."
 
 #: src/app/(public)/page.tsx:69
 msgid "Voice Calls"
-msgstr "Voice Calls"
+msgstr "음성 통화"
 
 #: src/app/(public)/page.tsx:70
 msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
-msgstr "Call AI characters — STT → LLM → TTS with per-minute billing."
+msgstr "AI 캐릭터에게 전화 — STT → LLM → TTS, 분 단위 과금."
 
 #: src/app/(public)/page.tsx:72
 msgid "New"
-msgstr "New"
+msgstr "신규"
 
 #: src/app/(public)/page.tsx:76
 #: src/app/(public)/page.tsx:173
 msgid "Admin Dashboard"
-msgstr "Admin Dashboard"
+msgstr "관리자 대시보드"
 
 #: src/app/(public)/page.tsx:77
 msgid "Content, users, settings, analytics, provider management."
-msgstr "Content, users, settings, analytics, provider management."
+msgstr "콘텐츠, 사용자, 설정, 분석, 제공자 관리."
 
 #: src/app/(public)/page.tsx:82
 msgid "CMS"
@@ -339,297 +339,297 @@ msgstr "CMS"
 
 #: src/app/(public)/page.tsx:83
 msgid "Blog, pages, portfolio, categories, tags — config-driven."
-msgstr "Blog, pages, portfolio, categories, tags — config-driven."
+msgstr "블로그, 페이지, 포트폴리오, 카테고리, 태그 — 설정 기반."
 
 #: src/app/(public)/page.tsx:88
 msgid "Billing & Tokens"
-msgstr "Billing & Tokens"
+msgstr "결제 및 토큰"
 
 #: src/app/(public)/page.tsx:89
 msgid "Stripe subscriptions, token balance, discount codes."
-msgstr "Stripe subscriptions, token balance, discount codes."
+msgstr "Stripe 구독, 토큰 잔액, 할인 코드."
 
 #: src/app/(public)/page.tsx:94
 msgid "Organizations"
-msgstr "Organizations"
+msgstr "조직"
 
 #: src/app/(public)/page.tsx:95
 msgid "Multi-tenant with roles for billing scoping."
-msgstr "Multi-tenant with roles for billing scoping."
+msgstr "결제 범위 지정을 위한 역할이 있는 멀티 테넌트."
 
 #: src/app/(public)/page.tsx:100
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Moderation"
-msgstr "Moderation"
+msgstr "콘텐츠 검토"
 
 #: src/app/(public)/page.tsx:101
 msgid "Keyword filter + audit log + auto-block."
-msgstr "Keyword filter + audit log + auto-block."
+msgstr "키워드 필터 + 감사 로그 + 자동 차단."
 
 #: src/app/(public)/page.tsx:106
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Analytics"
-msgstr "Analytics"
+msgstr "분석"
 
 #: src/app/(public)/page.tsx:107
 msgid "Character stats, user activity, provider health."
-msgstr "Character stats, user activity, provider health."
+msgstr "캐릭터 통계, 사용자 활동, 제공자 상태."
 
 #: src/app/(public)/page.tsx:112
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:84
 msgid "AI Providers"
-msgstr "AI Providers"
+msgstr "AI 제공자"
 
 #: src/app/(public)/page.tsx:113
 msgid "DB-stored with encryption, round-robin, fallback."
-msgstr "DB-stored with encryption, round-robin, fallback."
+msgstr "암호화된 DB 저장, 라운드 로빈, 폴백."
 
 #: src/app/(public)/page.tsx:118
 msgid "Theme & Branding"
-msgstr "Theme & Branding"
+msgstr "테마 및 브랜딩"
 
 #: src/app/(public)/page.tsx:119
 msgid "OKLCH design tokens, dark mode, CSS variables."
-msgstr "OKLCH design tokens, dark mode, CSS variables."
+msgstr "OKLCH 디자인 토큰, 다크 모드, CSS 변수."
 
 #: src/app/(public)/page.tsx:130
 msgid "Live Demo — resets hourly"
-msgstr "Live Demo — resets hourly"
+msgstr "라이브 데모 — 매시간 초기화"
 
 #: src/app/(public)/page.tsx:138
 msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+msgstr "Next.js를 위한 완전한 SaaS 프레임워크 — CMS, 결제, 인증, 실시간, AI 채팅 및 모듈형 아키텍처."
 
 #: src/app/(public)/page.tsx:148
 msgid "Demo login"
-msgstr "Demo login"
+msgstr "데모 로그인"
 
 #: src/app/(public)/page.tsx:158
 msgid "Log in"
-msgstr "Log in"
+msgstr "로그인"
 
 #: src/app/(public)/page.tsx:183
 msgid "Explore the Features"
-msgstr "Explore the Features"
+msgstr "기능 살펴보기"
 
 #: src/app/(public)/page.tsx:186
 msgid "Click any card to see it in action. Everything is live and functional."
-msgstr "Click any card to see it in action. Everything is live and functional."
+msgstr "카드를 클릭하여 실제 동작을 확인하세요. 모든 기능이 실시간으로 작동합니다."
 
 #: src/app/(public)/page.tsx:213
 msgid "Explore"
-msgstr "Explore"
+msgstr "탐색"
 
 #: src/app/(public)/page.tsx:226
 msgid "Built With"
-msgstr "Built With"
+msgstr "기술 스택"
 
 #: src/app/(public)/page.tsx:260
 msgid "Modular Architecture"
-msgstr "Modular Architecture"
+msgstr "모듈형 아키텍처"
 
 #: src/app/(public)/page.tsx:263
 msgid "Install only what you need. Each module is a self-contained git subtree."
-msgstr "Install only what you need. Each module is a self-contained git subtree."
+msgstr "필요한 것만 설치하세요. 각 모듈은 독립적인 git subtree입니다."
 
 #: src/app/(public)/page.tsx:271
 msgid "AI character chat, image/video gen, voice calls"
-msgstr "AI character chat, image/video gen, voice calls"
+msgstr "AI 캐릭터 채팅, 이미지/비디오 생성, 음성 통화"
 
 #: src/app/(public)/page.tsx:276
 msgid "Stripe subscriptions, tokens, discounts"
-msgstr "Stripe subscriptions, tokens, discounts"
+msgstr "Stripe 구독, 토큰, 할인"
 
 #: src/app/(public)/page.tsx:281
 msgid "AI support chat + ticket system"
-msgstr "AI support chat + ticket system"
+msgstr "AI 지원 채팅 + 티켓 시스템"
 
 #: src/app/(public)/page.tsx:284
 msgid "Documentation system"
-msgstr "Documentation system"
+msgstr "문서 시스템"
 
 #: src/app/(public)/page.tsx:287
 msgid "E-commerce (products, cart, checkout)"
-msgstr "E-commerce (products, cart, checkout)"
+msgstr "전자상거래 (상품, 장바구니, 결제)"
 
 #: src/app/(public)/page.tsx:292
 msgid "Referral tracking, commissions"
-msgstr "Referral tracking, commissions"
+msgstr "추천 추적, 수수료"
 
 #: src/app/(public)/page.tsx:309
 msgid "Free"
-msgstr "Free"
+msgstr "무료"
 
 #: src/app/(public)/page.tsx:309
 msgid "Premium"
-msgstr "Premium"
+msgstr "프리미엄"
 
 #: src/app/(public)/page.tsx:326
 msgid "Ready to build?"
-msgstr "Ready to build?"
+msgstr "시작할 준비가 되셨나요?"
 
 #: src/app/(public)/page.tsx:329
 msgid "Clone, init, ship. It's that simple."
-msgstr "Clone, init, ship. It's that simple."
+msgstr "클론, 초기화, 배포. 이것만으로 충분합니다."
 
 #: src/app/(public)/page.tsx:336
 msgid "Clone on GitHub"
-msgstr "Clone on GitHub"
+msgstr "GitHub에서 클론"
 
 #: src/app/(public)/page.tsx:346
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
-msgstr "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
+msgstr "이중 라이선스: AGPL-3.0 (오픈 소스) 또는 상용 라이선스"
 
 #: src/app/(public)/portfolio/page.tsx:15
 msgid "Browse our portfolio of projects and case studies."
-msgstr "Browse our portfolio of projects and case studies."
+msgstr "프로젝트와 사례 연구 포트폴리오를 탐색하세요."
 
 #: src/app/(public)/portfolio/page.tsx:34
 msgid "Browse our projects and case studies."
-msgstr "Browse our projects and case studies."
+msgstr "프로젝트와 사례 연구를 살펴보세요."
 
 #: src/app/(public)/portfolio/page.tsx:89
 msgid "No portfolio items yet."
-msgstr "No portfolio items yet."
+msgstr "아직 포트폴리오 항목이 없습니다."
 
 #: src/app/(public)/pricing/page.tsx:11
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "요금제"
 
 #: src/app/(public)/pricing/page.tsx:12
 msgid "Simple, transparent pricing for teams of all sizes."
-msgstr "Simple, transparent pricing for teams of all sizes."
+msgstr "모든 규모의 팀을 위한 간단하고 투명한 요금제."
 
 #: src/app/(public)/pricing/page.tsx:23
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:20
 msgid "Simple, transparent pricing"
-msgstr "Simple, transparent pricing"
+msgstr "간단하고 투명한 요금제"
 
 #: src/app/(public)/pricing/page.tsx:25
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:22
 msgid "Choose the plan that fits your team. All plans include a 14-day free trial."
-msgstr "Choose the plan that fits your team. All plans include a 14-day free trial."
+msgstr "팀에 맞는 플랜을 선택하세요. 모든 플랜에 14일 무료 체험이 포함됩니다."
 
 #: src/app/(public)/pricing/page.tsx:33
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:30
 msgid "Frequently asked questions"
-msgstr "Frequently asked questions"
+msgstr "자주 묻는 질문"
 
 #: src/app/(public)/register/page.tsx:8
 #: src/app/(public)/register/page.tsx:29
 #: src/components/public/AuthDialogs.tsx:53
 msgid "Create Account"
-msgstr "Create Account"
+msgstr "계정 만들기"
 
 #: src/app/(public)/register/page.tsx:9
 msgid "Create a new account"
-msgstr "Create a new account"
+msgstr "새 계정 만들기"
 
 #: src/app/(public)/register/page.tsx:20
 msgid "Registration Closed"
-msgstr "Registration Closed"
+msgstr "회원가입 마감"
 
 #: src/app/(public)/register/page.tsx:21
 #: src/components/public/AuthDialogs.tsx:65
 msgid "Registration is currently not available. Please contact us for access."
-msgstr "Registration is currently not available. Please contact us for access."
+msgstr "현재 회원가입이 불가능합니다. 접근 권한은 문의해 주세요."
 
 #: src/app/(public)/register/page.tsx:30
 msgid "Start your journey with a free account."
-msgstr "Start your journey with a free account."
+msgstr "무료 계정으로 여정을 시작하세요."
 
 #: src/app/(public)/reset-password/page.tsx:8
 #: src/app/(public)/reset-password/page.tsx:18
 msgid "Reset Password"
-msgstr "Reset Password"
+msgstr "비밀번호 재설정"
 
 #: src/app/(public)/reset-password/page.tsx:9
 msgid "Set a new password"
-msgstr "Set a new password"
+msgstr "새 비밀번호 설정"
 
 #: src/app/(public)/reset-password/page.tsx:19
 msgid "Enter your new password below."
-msgstr "Enter your new password below."
+msgstr "아래에 새 비밀번호를 입력하세요."
 
 #: src/app/(public)/[...slug]/renderers/CategoryDetail.tsx:43
 msgid "Posts in this category"
-msgstr "Posts in this category"
+msgstr "이 카테고리의 글"
 
 #: src/app/(public)/[...slug]/renderers/PortfolioDetail.tsx:22
 #: src/app/(public)/[...slug]/renderers/PostDetail.tsx:44
 #: src/app/(public)/[...slug]/renderers/ShowcaseDetail.tsx:22
 msgid "Preview mode — this content is not yet published."
-msgstr "Preview mode — this content is not yet published."
+msgstr "미리보기 모드 — 이 콘텐츠는 아직 게시되지 않았습니다."
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:53
 msgid "Tag"
-msgstr "Tag"
+msgstr "태그"
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:124
 msgid "No content found with this tag."
-msgstr "No content found with this tag."
+msgstr "이 태그의 콘텐츠가 없습니다."
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:130
 msgid "Browse More Tags"
-msgstr "Browse More Tags"
+msgstr "더 많은 태그 탐색"
 
 #: src/app/(showcase)/layout.tsx:50
 msgid "Home"
-msgstr "Home"
+msgstr "홈"
 
 #: src/app/(showcase)/layout.tsx:51
 #: src/app/(showcase)/layout.tsx:71
 msgid "Feed"
-msgstr "Feed"
+msgstr "피드"
 
 #: src/app/(showcase)/showcase/page.tsx:13
 msgid "Explore our showcase — swipe through videos, images, and stories."
-msgstr "Explore our showcase — swipe through videos, images, and stories."
+msgstr "쇼케이스를 탐색하세요 — 비디오, 이미지, 스토리를 스와이프하세요."
 
 #: src/app/(showcase)/showcase/search/page.tsx:66
 msgid "Results for \"{query}\""
-msgstr "Results for \"{query}\""
+msgstr "\"{query}\" 검색 결과"
 
 #: src/app/(showcase)/showcase/search/page.tsx:70
 msgid "No results found for \"{query}\""
-msgstr "No results found for \"{query}\""
+msgstr "\"{query}\"에 대한 결과를 찾을 수 없습니다"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "Use the search bar above or press"
-msgstr "Use the search bar above or press"
+msgstr "위의 검색바를 사용하거나"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "to search."
-msgstr "to search."
+msgstr "을(를) 눌러 검색하세요."
 
 #: src/components/public/AccountNav.tsx:12
 msgid "Overview"
-msgstr "Overview"
+msgstr "개요"
 
 #: src/components/public/AccountNav.tsx:13
 #: src/components/public/UserMenu.tsx:104
 msgid "Settings"
-msgstr "Settings"
+msgstr "설정"
 
 #: src/components/public/AccountNav.tsx:17
 #: src/core-affiliates/components/AffiliateOverview.tsx:23
 #: src/core-affiliates/components/AffiliateOverview.tsx:36
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
-msgstr "Affiliates"
+msgstr "제휴"
 
 #: src/components/public/BlogSidebar.tsx:82
 msgid "Search posts..."
-msgstr "Search posts..."
+msgstr "글 검색..."
 
 #: src/components/public/BlogSidebar.tsx:112
 msgid "Tags"
-msgstr "Tags"
+msgstr "태그"
 
 #: src/components/public/CommentPanel.tsx:126
 msgid "Reply"
-msgstr "Reply"
+msgstr "답글"
 
 #: src/components/public/CommentPanel.tsx:134
 #: src/core/components/MediaPickerDialog.tsx:490
@@ -637,321 +637,321 @@ msgstr "Reply"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
 msgid "Delete"
-msgstr "Delete"
+msgstr "삭제"
 
 #: src/components/public/CommentPanel.tsx:147
 msgid "Reply..."
-msgstr "Reply..."
+msgstr "답글..."
 
 #: src/components/public/CommentPanel.tsx:168
 msgid "Hide"
-msgstr "Hide"
+msgstr "숨기기"
 
 #: src/components/public/CommentPanel.tsx:168
 msgid "reply"
 msgid_plural "replies"
-msgstr[0] "reply"
-msgstr[1] "replies"
+msgstr[0] "답글"
+msgstr[1] "답글"
 
 #: src/components/public/CommentPanel.tsx:327
 msgid "Comments"
-msgstr "Comments"
+msgstr "댓글"
 
 #: src/components/public/CommentPanel.tsx:345
 msgid "No comments yet. Be the first!"
-msgstr "No comments yet. Be the first!"
+msgstr "아직 댓글이 없습니다. 첫 번째 댓글을 남겨 보세요!"
 
 #: src/components/public/CommentPanel.tsx:376
 msgid "Add a comment..."
-msgstr "Add a comment..."
+msgstr "댓글을 입력하세요..."
 
 #: src/components/public/CommentPanel.tsx:395
 msgid "Sign in"
-msgstr "Sign in"
+msgstr "로그인"
 
 #: src/components/public/CommentPanel.tsx:397
 msgid "to comment"
-msgstr "to comment"
+msgstr "하여 댓글 작성"
 
 #: src/components/public/ContactForm.tsx:75
 msgid "Network error. Please try again."
-msgstr "Network error. Please try again."
+msgstr "네트워크 오류입니다. 다시 시도해 주세요."
 
 #: src/components/public/ContactForm.tsx:140
 msgid "Select..."
-msgstr "Select..."
+msgstr "선택..."
 
 #: src/components/public/ContactForm.tsx:217
 msgid "Submitting..."
-msgstr "Submitting..."
+msgstr "제출 중..."
 
 #: src/components/public/ContactForm.tsx:220
 msgid "Submit"
-msgstr "Submit"
+msgstr "제출"
 
 #: src/components/public/CreateOrgCard.tsx:39
 msgid "Create your organization"
-msgstr "Create your organization"
+msgstr "조직을 만드세요"
 
 #: src/components/public/CreateOrgCard.tsx:41
 msgid "Get started by creating an organization. You can invite team members later."
-msgstr "Get started by creating an organization. You can invite team members later."
+msgstr "조직을 만들어 시작하세요. 나중에 팀원을 초대할 수 있습니다."
 
 #: src/components/public/CreateOrgCard.tsx:47
 msgid "Organization name"
-msgstr "Organization name"
+msgstr "조직 이름"
 
 #: src/components/public/CreateOrgCard.tsx:54
 msgid "My Company"
-msgstr "My Company"
+msgstr "내 회사"
 
 #: src/components/public/CreateOrgCard.tsx:71
 msgid "Creating..."
-msgstr "Creating..."
+msgstr "생성 중..."
 
 #: src/components/public/CreateOrgCard.tsx:71
 msgid "Create Organization"
-msgstr "Create Organization"
+msgstr "조직 생성"
 
 #: src/components/public/ExpandableSearch.tsx:72
 msgid "Search (/)"
-msgstr "Search (/)"
+msgstr "검색 (/)"
 
 #: src/components/public/ExpandableSearch.tsx:91
 #: src/components/public/ExpandableSearch.tsx:111
 msgid "Search..."
-msgstr "Search..."
+msgstr "검색..."
 
 #: src/components/public/ShowcaseActionBar.tsx:93
 msgid "Sign in to react"
-msgstr "Sign in to react"
+msgstr "로그인하여 반응하기"
 
 #: src/components/public/ShowcaseActionBar.tsx:105
 msgid "Link copied"
-msgstr "Link copied"
+msgstr "링크가 복사되었습니다"
 
 #: src/components/public/ShowcaseFeed.tsx:244
 msgid "No showcase items yet."
-msgstr "No showcase items yet."
+msgstr "아직 쇼케이스 항목이 없습니다."
 
 #: src/components/public/SocialLoginButtons.tsx:30
 msgid "Continue with Google"
-msgstr "Continue with Google"
+msgstr "Google로 계속"
 
 #: src/components/public/SocialLoginButtons.tsx:41
 msgid "Continue with Discord"
-msgstr "Continue with Discord"
+msgstr "Discord로 계속"
 
 #: src/components/public/SubscribeOrTokens.tsx:34
 msgid "Subscribe"
-msgstr "Subscribe"
+msgstr "구독"
 
 #: src/components/public/UserMenu.tsx:46
 msgid "Sign Up"
-msgstr "Sign Up"
+msgstr "회원가입"
 
 #: src/components/public/UserMenu.tsx:96
 msgid "Account"
-msgstr "Account"
+msgstr "계정"
 
 #: src/components/public/UserMenu.tsx:129
 msgid "Sign Out"
-msgstr "Sign Out"
+msgstr "로그아웃"
 
 #: src/core/components/AutosaveIndicator.tsx:39
 msgid "Autosaved"
-msgstr "Autosaved"
+msgstr "자동 저장됨"
 
 #: src/core/components/AutosaveRecoveryBanner.tsx:36
 msgid "Unsaved changes recovered from"
-msgstr "Unsaved changes recovered from"
+msgstr "저장되지 않은 변경사항이 복구됨:"
 
 #: src/core/components/AutosaveRecoveryBanner.tsx:44
 #: src/core/components/BulkActionBar.tsx:62
 #: src/core/components/RevisionHistory.tsx:219
 msgid "Restore"
-msgstr "Restore"
+msgstr "복원"
 
 #: src/core/components/BrokenLinksBanner.tsx:23
 msgid "Broken internal links detected:"
-msgstr "Broken internal links detected:"
+msgstr "깨진 내부 링크 감지:"
 
 #: src/core/components/BulkActionBar.tsx:50
 msgid "Deselect all"
-msgstr "Deselect all"
+msgstr "전체 선택 해제"
 
 #: src/core/components/BulkActionBar.tsx:77
 msgid "Set status..."
-msgstr "Set status..."
+msgstr "상태 설정..."
 
 #: src/core/components/BulkActionBar.tsx:79
 msgid "Draft"
-msgstr "Draft"
+msgstr "임시글"
 
 #: src/core/components/BulkActionBar.tsx:80
 msgid "Published"
-msgstr "Published"
+msgstr "게시됨"
 
 #: src/core/components/BulkActionBar.tsx:91
 msgid "Export"
-msgstr "Export"
+msgstr "내보내기"
 
 #: src/core/components/BulkActionBar.tsx:118
 msgid "Move to Trash"
-msgstr "Move to Trash"
+msgstr "휴지통으로 이동"
 
 #: src/core/components/CommandPalette.tsx:76
 msgid "Navigation"
-msgstr "Navigation"
+msgstr "탐색"
 
 #: src/core/components/CommandPalette.tsx:88
 #: src/core/components/CommandPalette.tsx:229
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:79
 msgid "Content"
-msgstr "Content"
+msgstr "콘텐츠"
 
 #: src/core/components/CommandPalette.tsx:201
 msgid "Search pages, content, settings..."
-msgstr "Search pages, content, settings..."
+msgstr "페이지, 콘텐츠, 설정 검색..."
 
 #: src/core/components/CommandPalette.tsx:242
 #: src/core/components/InternalLinkDialog.tsx:77
 msgid "No results found"
-msgstr "No results found"
+msgstr "결과를 찾을 수 없습니다"
 
 #: src/core/components/CommandPalette.tsx:248
 msgid "Start typing to search..."
-msgstr "Start typing to search..."
+msgstr "검색어를 입력하세요..."
 
 #: src/core/components/ContentCalendar.tsx:89
 msgid "Calendar"
-msgstr "Calendar"
+msgstr "캘린더"
 
 #: src/core/components/ContentCalendar.tsx:167
 msgid "more"
-msgstr "more"
+msgstr "더보기"
 
 #: src/core/components/ContentStatusWidget.tsx:38
 msgid "Scheduled"
-msgstr "Scheduled"
+msgstr "예약됨"
 
 #: src/core/components/ContentStatusWidget.tsx:58
 msgid "Content Status"
-msgstr "Content Status"
+msgstr "콘텐츠 상태"
 
 #: src/core/components/CustomFieldsEditor.tsx:109
 msgid "Loading custom fields..."
-msgstr "Loading custom fields..."
+msgstr "커스텀 필드 로딩 중..."
 
 #: src/core/components/CustomFieldsEditor.tsx:121
 msgid "Custom Fields"
-msgstr "Custom Fields"
+msgstr "커스텀 필드"
 
 #: src/core/components/CustomFieldsEditor.tsx:142
 msgid "Saving custom fields..."
-msgstr "Saving custom fields..."
+msgstr "커스텀 필드 저장 중..."
 
 #: src/core/components/CustomFieldsEditor.tsx:195
 msgid "Enabled"
-msgstr "Enabled"
+msgstr "활성화"
 
 #: src/core/components/CustomFieldsEditor.tsx:207
 msgid "-- Select --"
-msgstr "-- Select --"
+msgstr "-- 선택 --"
 
 #: src/core/components/DashboardConfig.tsx:112
 msgid "Show widget"
-msgstr "Show widget"
+msgstr "위젯 표시"
 
 #: src/core/components/DashboardConfig.tsx:112
 msgid "Hide widget"
-msgstr "Hide widget"
+msgstr "위젯 숨기기"
 
 #: src/core/components/DashboardConfig.tsx:121
 msgid "Columns"
-msgstr "Columns"
+msgstr "열"
 
 #: src/core/components/DashboardConfig.tsx:214
 msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
-msgstr "Drag to reorder widgets. Toggle visibility with the eye icon."
+msgstr "드래그하여 위젯을 재정렬하세요. 눈 아이콘으로 표시 여부를 전환하세요."
 
 #: src/core/components/DashboardConfig.tsx:257
 msgid "Configure dashboard"
-msgstr "Configure dashboard"
+msgstr "대시보드 구성"
 
 #: src/core/components/DashboardConfig.tsx:262
 msgid "Dashboard Layout"
-msgstr "Dashboard Layout"
+msgstr "대시보드 레이아웃"
 
 #: src/core/components/editor/AiAssistMenu.tsx:31
 msgid "Rewrite"
-msgstr "Rewrite"
+msgstr "다시 쓰기"
 
 #: src/core/components/editor/AiAssistMenu.tsx:37
 msgid "Shorten"
-msgstr "Shorten"
+msgstr "줄이기"
 
 #: src/core/components/editor/AiAssistMenu.tsx:43
 msgid "Expand"
-msgstr "Expand"
+msgstr "확장"
 
 #: src/core/components/editor/AiAssistMenu.tsx:49
 msgid "Fix grammar"
-msgstr "Fix grammar"
+msgstr "문법 수정"
 
 #: src/core/components/editor/AiAssistMenu.tsx:55
 msgid "Translate to English"
-msgstr "Translate to English"
+msgstr "영어로 번역"
 
 #: src/core/components/editor/AiAssistMenu.tsx:97
 msgid "AI request failed"
-msgstr "AI request failed"
+msgstr "AI 요청 실패"
 
 #: src/core/components/editor/AiAssistMenu.tsx:202
 #: src/core/components/editor/EditorBubbleMenu.tsx:123
 msgid "AI Assist"
-msgstr "AI Assist"
+msgstr "AI 지원"
 
 #: src/core/components/editor/AiAssistMenu.tsx:216
 msgid "Thinking..."
-msgstr "Thinking..."
+msgstr "생각 중..."
 
 #: src/core/components/editor/AiAssistMenu.tsx:229
 msgid "Try again"
-msgstr "Try again"
+msgstr "다시 시도"
 
 #: src/core/components/editor/AiAssistMenu.tsx:247
 msgid "Apply"
-msgstr "Apply"
+msgstr "적용"
 
 #: src/core/components/editor/AiAssistMenu.tsx:254
 msgid "Discard"
-msgstr "Discard"
+msgstr "취소"
 
 #: src/core/components/editor/AiAssistMenu.tsx:290
 #: src/core/components/editor/AiAssistMenu.tsx:302
 msgid "Custom instruction..."
-msgstr "Custom instruction..."
+msgstr "사용자 지정 지시..."
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:75
 #: src/core/components/RichTextEditor.tsx:508
 msgid "Bold"
-msgstr "Bold"
+msgstr "굵게"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:82
 #: src/core/components/RichTextEditor.tsx:515
 msgid "Italic"
-msgstr "Italic"
+msgstr "기울임"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:89
 #: src/core/components/RichTextEditor.tsx:522
 msgid "Underline"
-msgstr "Underline"
+msgstr "밑줄"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:96
 #: src/core/components/RichTextEditor.tsx:529
 msgid "Strikethrough"
-msgstr "Strikethrough"
+msgstr "취소선"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:103
 #: src/core-affiliates/components/AffiliateOverview.tsx:71
@@ -960,219 +960,219 @@ msgstr "Strikethrough"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
 msgid "Code"
-msgstr "Code"
+msgstr "코드"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:113
 #: src/core/components/RichTextEditor.tsx:644
 msgid "Link"
-msgstr "Link"
+msgstr "링크"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:99
 msgid "Alt text"
-msgstr "Alt text"
+msgstr "대체 텍스트"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:109
 msgid "Align left"
-msgstr "Align left"
+msgstr "왼쪽 정렬"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:120
 msgid "Center"
-msgstr "Center"
+msgstr "가운데"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:132
 msgid "Align right"
-msgstr "Align right"
+msgstr "오른쪽 정렬"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:140
 msgid "Replace image"
-msgstr "Replace image"
+msgstr "이미지 교체"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:147
 msgid "Remove image"
-msgstr "Remove image"
+msgstr "이미지 제거"
 
 #: src/core/components/editor/slash-commands.ts:18
 #: src/core/components/RichTextEditor.tsx:546
 msgid "Heading 1"
-msgstr "Heading 1"
+msgstr "제목 1"
 
 #: src/core/components/editor/slash-commands.ts:19
 msgid "Large section heading"
-msgstr "Large section heading"
+msgstr "대형 섹션 제목"
 
 #: src/core/components/editor/slash-commands.ts:21
 #: src/core/components/editor/slash-commands.ts:30
 #: src/core/components/editor/slash-commands.ts:39
 msgid "Headings"
-msgstr "Headings"
+msgstr "제목"
 
 #: src/core/components/editor/slash-commands.ts:27
 #: src/core/components/RichTextEditor.tsx:553
 msgid "Heading 2"
-msgstr "Heading 2"
+msgstr "제목 2"
 
 #: src/core/components/editor/slash-commands.ts:28
 msgid "Medium section heading"
-msgstr "Medium section heading"
+msgstr "중형 섹션 제목"
 
 #: src/core/components/editor/slash-commands.ts:36
 #: src/core/components/RichTextEditor.tsx:560
 msgid "Heading 3"
-msgstr "Heading 3"
+msgstr "제목 3"
 
 #: src/core/components/editor/slash-commands.ts:37
 msgid "Small section heading"
-msgstr "Small section heading"
+msgstr "소형 섹션 제목"
 
 #: src/core/components/editor/slash-commands.ts:45
 #: src/core/components/RichTextEditor.tsx:570
 msgid "Bullet List"
-msgstr "Bullet List"
+msgstr "글머리 기호 목록"
 
 #: src/core/components/editor/slash-commands.ts:46
 msgid "Unordered list"
-msgstr "Unordered list"
+msgstr "순서 없는 목록"
 
 #: src/core/components/editor/slash-commands.ts:48
 #: src/core/components/editor/slash-commands.ts:57
 msgid "Lists"
-msgstr "Lists"
+msgstr "목록"
 
 #: src/core/components/editor/slash-commands.ts:54
 msgid "Numbered List"
-msgstr "Numbered List"
+msgstr "번호 목록"
 
 #: src/core/components/editor/slash-commands.ts:55
 msgid "Ordered list"
-msgstr "Ordered list"
+msgstr "순서 있는 목록"
 
 #: src/core/components/editor/slash-commands.ts:63
 msgid "Blockquote"
-msgstr "Blockquote"
+msgstr "인용구"
 
 #: src/core/components/editor/slash-commands.ts:64
 msgid "Quote block"
-msgstr "Quote block"
+msgstr "인용 블록"
 
 #: src/core/components/editor/slash-commands.ts:66
 #: src/core/components/editor/slash-commands.ts:75
 #: src/core/components/editor/slash-commands.ts:84
 #: src/core/components/editor/slash-commands.ts:93
 msgid "Blocks"
-msgstr "Blocks"
+msgstr "블록"
 
 #: src/core/components/editor/slash-commands.ts:72
 #: src/core/components/RichTextEditor.tsx:591
 msgid "Code Block"
-msgstr "Code Block"
+msgstr "코드 블록"
 
 #: src/core/components/editor/slash-commands.ts:73
 msgid "Fenced code block"
-msgstr "Fenced code block"
+msgstr "펜스 코드 블록"
 
 #: src/core/components/editor/slash-commands.ts:81
 #: src/core/components/RichTextEditor.tsx:597
 msgid "Horizontal Rule"
-msgstr "Horizontal Rule"
+msgstr "수평선"
 
 #: src/core/components/editor/slash-commands.ts:82
 msgid "Divider line"
-msgstr "Divider line"
+msgstr "구분선"
 
 #: src/core/components/editor/slash-commands.ts:90
 #: src/core/components/editor/TableMenu.tsx:138
 msgid "Table"
-msgstr "Table"
+msgstr "표"
 
 #: src/core/components/editor/slash-commands.ts:91
 msgid "Insert a table"
-msgstr "Insert a table"
+msgstr "표 삽입"
 
 #: src/core/components/editor/slash-commands.ts:101
 #: src/core/components/RichTextEditor.tsx:653
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:106
 msgid "Image"
-msgstr "Image"
+msgstr "이미지"
 
 #: src/core/components/editor/slash-commands.ts:102
 msgid "Upload or embed an image"
-msgstr "Upload or embed an image"
+msgstr "이미지 업로드 또는 삽입"
 
 #: src/core/components/editor/slash-commands.ts:104
 msgid "Media"
-msgstr "Media"
+msgstr "미디어"
 
 #: src/core/components/editor/TableMenu.tsx:71
 msgid "Add row above"
-msgstr "Add row above"
+msgstr "위에 행 추가"
 
 #: src/core/components/editor/TableMenu.tsx:77
 msgid "Add row below"
-msgstr "Add row below"
+msgstr "아래에 행 추가"
 
 #: src/core/components/editor/TableMenu.tsx:86
 msgid "Add column left"
-msgstr "Add column left"
+msgstr "왼쪽에 열 추가"
 
 #: src/core/components/editor/TableMenu.tsx:92
 msgid "Add column right"
-msgstr "Add column right"
+msgstr "오른쪽에 열 추가"
 
 #: src/core/components/editor/TableMenu.tsx:101
 msgid "Merge cells"
-msgstr "Merge cells"
+msgstr "셀 병합"
 
 #: src/core/components/editor/TableMenu.tsx:108
 msgid "Split cell"
-msgstr "Split cell"
+msgstr "셀 분할"
 
 #: src/core/components/editor/TableMenu.tsx:118
 msgid "Delete row"
-msgstr "Delete row"
+msgstr "행 삭제"
 
 #: src/core/components/editor/TableMenu.tsx:122
 msgid "Row"
-msgstr "Row"
+msgstr "행"
 
 #: src/core/components/editor/TableMenu.tsx:126
 msgid "Delete column"
-msgstr "Delete column"
+msgstr "열 삭제"
 
 #: src/core/components/editor/TableMenu.tsx:130
 msgid "Col"
-msgstr "Col"
+msgstr "열"
 
 #: src/core/components/editor/TableMenu.tsx:134
 msgid "Delete table"
-msgstr "Delete table"
+msgstr "표 삭제"
 
 #: src/core/components/FallbackRadio.tsx:21
 msgid "Language Fallback"
-msgstr "Language Fallback"
+msgstr "언어 대체"
 
 #: src/core/components/FallbackRadio.tsx:28
 msgid "Default"
-msgstr "Default"
+msgstr "기본값"
 
 #: src/core/components/FallbackRadio.tsx:31
 msgid "Show EN version for missing translations"
-msgstr "Show EN version for missing translations"
+msgstr "번역이 없는 경우 영문 버전 표시"
 
 #: src/core/components/FallbackRadio.tsx:32
 msgid "404 for missing translations"
-msgstr "404 for missing translations"
+msgstr "번역이 없는 경우 404 표시"
 
 #: src/core/components/FallbackRadio.tsx:39
 msgid "Always Fallback"
-msgstr "Always Fallback"
+msgstr "항상 대체"
 
 #: src/core/components/FallbackRadio.tsx:45
 msgid "Never Fallback"
-msgstr "Never Fallback"
+msgstr "대체 안함"
 
 #: src/core/components/FallbackRadio.tsx:49
 msgid "Controls whether this content is shown when visiting in a language without a translation"
-msgstr "Controls whether this content is shown when visiting in a language without a translation"
+msgstr "번역이 없는 언어로 방문할 때 이 콘텐츠를 표시할지 제어합니다"
 
 #: src/core/components/GA4Widget.tsx:183
 #: src/core/components/GA4Widget.tsx:214
@@ -1181,58 +1181,58 @@ msgstr "Google Analytics"
 
 #: src/core/components/GA4Widget.tsx:190
 msgid "Connect Google Analytics to see page views, sessions, and top pages."
-msgstr "Connect Google Analytics to see page views, sessions, and top pages."
+msgstr "Google Analytics를 연결하여 페이지뷰, 세션 및 인기 페이지를 확인하세요."
 
 #: src/core/components/GA4Widget.tsx:198
 msgid "Configure in Settings"
-msgstr "Configure in Settings"
+msgstr "설정에서 구성"
 
 #: src/core/components/GA4Widget.tsx:247
 msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
-msgstr "Failed to load analytics data. Check your GA4 configuration in Settings."
+msgstr "분석 데이터 로드에 실패했습니다. 설정에서 GA4 구성을 확인하세요."
 
 #: src/core/components/GA4Widget.tsx:259
 msgid "Page Views"
-msgstr "Page Views"
+msgstr "페이지뷰"
 
 #: src/core/components/GA4Widget.tsx:268
 msgid "Sessions"
-msgstr "Sessions"
+msgstr "세션"
 
 #: src/core/components/GA4Widget.tsx:279
 msgid "Daily Page Views"
-msgstr "Daily Page Views"
+msgstr "일별 페이지뷰"
 
 #: src/core/components/GA4Widget.tsx:290
 msgid "Top Pages"
-msgstr "Top Pages"
+msgstr "인기 페이지"
 
 #: src/core/components/GA4Widget.tsx:296
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:109
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:178
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:314
 msgid "Page"
-msgstr "Page"
+msgstr "페이지"
 
 #: src/core/components/GA4Widget.tsx:297
 msgid "Views"
-msgstr "Views"
+msgstr "조회수"
 
 #: src/core/components/InternalLinkDialog.tsx:54
 msgid "Insert Internal Link"
-msgstr "Insert Internal Link"
+msgstr "내부 링크 삽입"
 
 #: src/core/components/InternalLinkDialog.tsx:63
 msgid "Search pages, blog posts, categories..."
-msgstr "Search pages, blog posts, categories..."
+msgstr "페이지, 블로그 글, 카테고리 검색..."
 
 #: src/core/components/InternalLinkDialog.tsx:72
 msgid "Searching..."
-msgstr "Searching..."
+msgstr "검색 중..."
 
 #: src/core/components/InternalLinkDialog.tsx:81
 msgid "Type at least 2 characters to search"
-msgstr "Type at least 2 characters to search"
+msgstr "검색하려면 최소 2자를 입력하세요"
 
 #: src/core/components/InternalLinkDialog.tsx:117
 #: src/core/components/MediaPickerDialog.tsx:510
@@ -1242,127 +1242,127 @@ msgstr "Type at least 2 characters to search"
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:136
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "취소"
 
 #: src/core/components/MediaPickerButton.tsx:79
 msgid "Change"
-msgstr "Change"
+msgstr "변경"
 
 #: src/core/components/MediaPickerButton.tsx:92
 msgid "Select Image"
-msgstr "Select Image"
+msgstr "이미지 선택"
 
 #: src/core/components/MediaPickerButton.tsx:102
 #: src/core/components/MediaPickerDialog.tsx:448
 msgid "Alt Text"
-msgstr "Alt Text"
+msgstr "대체 텍스트"
 
 #: src/core/components/MediaPickerButton.tsx:108
 msgid "Describe the image..."
-msgstr "Describe the image..."
+msgstr "이미지를 설명하세요..."
 
 #: src/core/components/MediaPickerDialog.tsx:112
 msgid "Only image files are supported"
-msgstr "Only image files are supported"
+msgstr "이미지 파일만 지원됩니다"
 
 #: src/core/components/MediaPickerDialog.tsx:150
 msgid "Failed to upload {name}"
-msgstr "Failed to upload {name}"
+msgstr "{name} 업로드 실패"
 
 #: src/core/components/MediaPickerDialog.tsx:215
 msgid "Media Library"
-msgstr "Media Library"
+msgstr "미디어 라이브러리"
 
 #: src/core/components/MediaPickerDialog.tsx:225
 msgid "Search media..."
-msgstr "Search media..."
+msgstr "미디어 검색..."
 
 #: src/core/components/MediaPickerDialog.tsx:239
 msgid "All types"
-msgstr "All types"
+msgstr "모든 유형"
 
 #: src/core/components/MediaPickerDialog.tsx:240
 msgid "Images"
-msgstr "Images"
+msgstr "이미지"
 
 #: src/core/components/MediaPickerDialog.tsx:241
 msgid "Videos"
-msgstr "Videos"
+msgstr "비디오"
 
 #: src/core/components/MediaPickerDialog.tsx:242
 msgid "Documents"
-msgstr "Documents"
+msgstr "문서"
 
 #: src/core/components/MediaPickerDialog.tsx:243
 msgid "Other"
-msgstr "Other"
+msgstr "기타"
 
 #: src/core/components/MediaPickerDialog.tsx:256
 msgid "All users"
-msgstr "All users"
+msgstr "모든 사용자"
 
 #: src/core/components/MediaPickerDialog.tsx:283
 #: src/core/components/PostAttachments.tsx:153
 msgid "Upload"
-msgstr "Upload"
+msgstr "업로드"
 
 #: src/core/components/MediaPickerDialog.tsx:314
 msgid "Drop files to upload"
-msgstr "Drop files to upload"
+msgstr "파일을 드롭하여 업로드"
 
 #: src/core/components/MediaPickerDialog.tsx:329
 msgid "No images match your search."
-msgstr "No images match your search."
+msgstr "검색과 일치하는 이미지가 없습니다."
 
 #: src/core/components/MediaPickerDialog.tsx:330
 msgid "No images yet. Upload or drag files here."
-msgstr "No images yet. Upload or drag files here."
+msgstr "아직 이미지가 없습니다. 파일을 업로드하거나 여기에 드래그하세요."
 
 #: src/core/components/MediaPickerDialog.tsx:430
 #: src/core/components/SeoPreviewCard.tsx:121
 msgid "Title"
-msgstr "Title"
+msgstr "제목"
 
 #: src/core/components/MediaPickerDialog.tsx:442
 msgid "Image title"
-msgstr "Image title"
+msgstr "이미지 제목"
 
 #: src/core/components/MediaPickerDialog.tsx:460
 msgid "Describe the image"
-msgstr "Describe the image"
+msgstr "이미지 설명"
 
 #: src/core/components/MediaPickerDialog.tsx:466
 #: src/core/components/SeoPreviewCard.tsx:124
 msgid "Description"
-msgstr "Description"
+msgstr "설명"
 
 #: src/core/components/MediaPickerDialog.tsx:478
 msgid "Optional description"
-msgstr "Optional description"
+msgstr "선택적 설명"
 
 #: src/core/components/MediaPickerDialog.tsx:496
 msgid "Select an image to view details"
-msgstr "Select an image to view details"
+msgstr "이미지를 선택하여 상세 정보 보기"
 
 #: src/core/components/MediaPickerDialog.tsx:506
 msgid "No image selected"
-msgstr "No image selected"
+msgstr "선택된 이미지 없음"
 
 #: src/core/components/MediaPickerDialog.tsx:517
 msgid "Select"
-msgstr "Select"
+msgstr "선택"
 
 #: src/core/components/MediaPickerDialog.tsx:525
 msgid "Delete media file?"
-msgstr "Delete media file?"
+msgstr "미디어 파일을 삭제하시겠습니까?"
 
 #: src/core/components/MediaPickerDialog.tsx:526
 msgid "This file will be permanently deleted."
-msgstr "This file will be permanently deleted."
+msgstr "이 파일이 영구적으로 삭제됩니다."
 
 #: src/core/components/MenuBuilder.tsx:96
 msgid "Label"
-msgstr "Label"
+msgstr "라벨"
 
 #: src/core/components/MenuBuilder.tsx:104
 #: src/core/components/RichTextEditor.tsx:475
@@ -1371,123 +1371,123 @@ msgstr "URL"
 
 #: src/core/components/MenuBuilder.tsx:115
 msgid "New tab"
-msgstr "New tab"
+msgstr "새 탭"
 
 #: src/core/components/MenuBuilder.tsx:123
 msgid "Indent"
-msgstr "Indent"
+msgstr "들여쓰기"
 
 #: src/core/components/MenuBuilder.tsx:131
 msgid "Outdent"
-msgstr "Outdent"
+msgstr "내어쓰기"
 
 #: src/core/components/MenuBuilder.tsx:176
 msgid "Menu saved"
-msgstr "Menu saved"
+msgstr "메뉴가 저장되었습니다"
 
 #: src/core/components/MenuBuilder.tsx:325
 msgid "No menu items yet. Add one below."
-msgstr "No menu items yet. Add one below."
+msgstr "아직 메뉴 항목이 없습니다. 아래에서 추가하세요."
 
 #: src/core/components/MenuBuilder.tsx:332
 msgid "Add Item"
-msgstr "Add Item"
+msgstr "항목 추가"
 
 #: src/core/components/MenuBuilder.tsx:341
 msgid "Save Menu"
-msgstr "Save Menu"
+msgstr "메뉴 저장"
 
 #: src/core/components/NotificationBell.tsx:61
 #: src/core/components/NotificationBell.tsx:74
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "알림"
 
 #: src/core/components/NotificationBell.tsx:81
 msgid "Mark all read"
-msgstr "Mark all read"
+msgstr "모두 읽음 처리"
 
 #: src/core/components/NotificationBell.tsx:89
 msgid "No notifications"
-msgstr "No notifications"
+msgstr "알림 없음"
 
 #: src/core/components/NotificationBell.tsx:127
 msgid "View all notifications"
-msgstr "View all notifications"
+msgstr "모든 알림 보기"
 
 #: src/core/components/OrgSwitcher.tsx:46
 msgid "Switch organization"
-msgstr "Switch organization"
+msgstr "조직 전환"
 
 #: src/core/components/OrgSwitcher.tsx:58
 msgid "Personal"
-msgstr "Personal"
+msgstr "개인"
 
 #: src/core/components/OrgSwitcher.tsx:77
 msgid "Manage organizations"
-msgstr "Manage organizations"
+msgstr "조직 관리"
 
 #: src/core/components/PostAttachments.tsx:75
 msgid "Alt text updated"
-msgstr "Alt text updated"
+msgstr "대체 텍스트가 업데이트되었습니다"
 
 #: src/core/components/PostAttachments.tsx:84
 msgid "Attachment removed"
-msgstr "Attachment removed"
+msgstr "첨부 파일이 제거되었습니다"
 
 #: src/core/components/PostAttachments.tsx:133
 #: src/core/components/PostAttachments.tsx:146
 msgid "Attachments"
-msgstr "Attachments"
+msgstr "첨부 파일"
 
 #: src/core/components/PostAttachments.tsx:135
 msgid "Save the post first to add attachments."
-msgstr "Save the post first to add attachments."
+msgstr "첨부 파일을 추가하려면 먼저 글을 저장하세요."
 
 #: src/core/components/PostAttachments.tsx:169
 msgid "No attachments yet."
-msgstr "No attachments yet."
+msgstr "아직 첨부 파일이 없습니다."
 
 #: src/core/components/PostAttachments.tsx:202
 msgid "Edit alt text"
-msgstr "Edit alt text"
+msgstr "대체 텍스트 편집"
 
 #: src/core/components/PostAttachments.tsx:209
 msgid "Remove"
-msgstr "Remove"
+msgstr "제거"
 
 #: src/core/components/PostAttachments.tsx:229
 msgid "Edit Alt Text"
-msgstr "Edit Alt Text"
+msgstr "대체 텍스트 편집"
 
 #: src/core/components/PostAttachments.tsx:244
 msgid "Describe this file..."
-msgstr "Describe this file..."
+msgstr "이 파일을 설명하세요..."
 
 #: src/core/components/PostAttachments.tsx:264
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:95
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
 msgid "Save"
-msgstr "Save"
+msgstr "저장"
 
 #: src/core/components/RecentActivity.tsx:13
 msgid "created"
-msgstr "created"
+msgstr "생성됨"
 
 #: src/core/components/RecentActivity.tsx:14
 msgid "updated"
-msgstr "updated"
+msgstr "업데이트됨"
 
 #: src/core/components/RecentActivity.tsx:15
 msgid "deleted"
-msgstr "deleted"
+msgstr "삭제됨"
 
 #: src/core/components/RecentActivity.tsx:16
 msgid "restored"
-msgstr "restored"
+msgstr "복원됨"
 
 #: src/core/components/RecentActivity.tsx:17
 msgid "published"
-msgstr "published"
+msgstr "게시됨"
 
 #: src/core/components/RecentActivity.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:16
@@ -1496,166 +1496,166 @@ msgstr "published"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
 msgid "Loading..."
-msgstr "Loading..."
+msgstr "로딩 중..."
 
 #: src/core/components/RecentActivity.tsx:33
 msgid "No activity recorded yet."
-msgstr "No activity recorded yet."
+msgstr "기록된 활동이 없습니다."
 
 #: src/core/components/RecentActivity.tsx:44
 msgid "System"
-msgstr "System"
+msgstr "시스템"
 
 #: src/core/components/RevisionHistory.tsx:71
 msgid "Revision restored"
-msgstr "Revision restored"
+msgstr "수정 이력이 복원되었습니다"
 
 #: src/core/components/RevisionHistory.tsx:74
 msgid "Failed to restore revision"
-msgstr "Failed to restore revision"
+msgstr "수정 이력 복원 실패"
 
 #: src/core/components/RevisionHistory.tsx:93
 msgid "Revision History"
-msgstr "Revision History"
+msgstr "수정 이력"
 
 #: src/core/components/RevisionHistory.tsx:110
 msgid "Oldest"
-msgstr "Oldest"
+msgstr "오래된 순"
 
 #: src/core/components/RevisionHistory.tsx:111
 msgid "Newest"
-msgstr "Newest"
+msgstr "최신 순"
 
 #: src/core/components/RevisionHistory.tsx:119
 msgid "No revisions yet"
-msgstr "No revisions yet"
+msgstr "수정 이력이 없습니다"
 
 #: src/core/components/RevisionHistory.tsx:129
 msgid "(untitled)"
-msgstr "(untitled)"
+msgstr "(제목 없음)"
 
 #: src/core/components/RevisionHistory.tsx:158
 msgid "No changes in this revision"
-msgstr "No changes in this revision"
+msgstr "이 수정 이력에 변경사항이 없습니다"
 
 #: src/core/components/RevisionHistory.tsx:206
 msgid "Restore this version"
-msgstr "Restore this version"
+msgstr "이 버전 복원"
 
 #: src/core/components/RevisionHistory.tsx:217
 msgid "Restore revision?"
-msgstr "Restore revision?"
+msgstr "수정 이력을 복원하시겠습니까?"
 
 #: src/core/components/RevisionHistory.tsx:218
 msgid "Current state will be saved as a new revision before restoring."
-msgstr "Current state will be saved as a new revision before restoring."
+msgstr "복원 전 현재 상태가 새 수정 이력으로 저장됩니다."
 
 #: src/core/components/RevisionHistory.tsx:241
 msgid "Revisions"
-msgstr "Revisions"
+msgstr "수정 이력"
 
 #: src/core/components/RichTextEditor.tsx:247
 msgid "Insert"
-msgstr "Insert"
+msgstr "삽입"
 
 #: src/core/components/RichTextEditor.tsx:249
 msgid "Shortcodes"
-msgstr "Shortcodes"
+msgstr "숏코드"
 
 #: src/core/components/RichTextEditor.tsx:291
 msgid "Start writing or type / for commands..."
-msgstr "Start writing or type / for commands..."
+msgstr "작성을 시작하거나 /를 입력하여 명령어를 사용하세요..."
 
 #: src/core/components/RichTextEditor.tsx:349
 #: src/core/components/RichTextEditor.tsx:366
 #: src/core/components/RichTextEditor.tsx:758
 msgid "Image upload failed"
-msgstr "Image upload failed"
+msgstr "이미지 업로드 실패"
 
 #: src/core/components/RichTextEditor.tsx:536
 msgid "Inline Code"
-msgstr "Inline Code"
+msgstr "인라인 코드"
 
 #: src/core/components/RichTextEditor.tsx:577
 msgid "Ordered List"
-msgstr "Ordered List"
+msgstr "순서 있는 목록"
 
 #: src/core/components/RichTextEditor.tsx:584
 msgid "Quote"
-msgstr "Quote"
+msgstr "인용"
 
 #: src/core/components/RichTextEditor.tsx:610
 msgid "Insert Table"
-msgstr "Insert Table"
+msgstr "표 삽입"
 
 #: src/core/components/RichTextEditor.tsx:620
 msgid "Align Left"
-msgstr "Align Left"
+msgstr "왼쪽 정렬"
 
 #: src/core/components/RichTextEditor.tsx:627
 msgid "Align Center"
-msgstr "Align Center"
+msgstr "가운데 정렬"
 
 #: src/core/components/RichTextEditor.tsx:634
 msgid "Align Right"
-msgstr "Align Right"
+msgstr "오른쪽 정렬"
 
 #: src/core/components/RichTextEditor.tsx:649
 msgid "Internal Link"
-msgstr "Internal Link"
+msgstr "내부 링크"
 
 #: src/core/components/RichTextEditor.tsx:665
 msgid "Insert Block"
-msgstr "Insert Block"
+msgstr "블록 삽입"
 
 #: src/core/components/RichTextEditor.tsx:711
 msgid "Undo"
-msgstr "Undo"
+msgstr "실행 취소"
 
 #: src/core/components/RichTextEditor.tsx:718
 msgid "Redo"
-msgstr "Redo"
+msgstr "다시 실행"
 
 #: src/core/components/RichTextEditor.tsx:734
 msgid "Hide Preview"
-msgstr "Hide Preview"
+msgstr "미리보기 숨기기"
 
 #: src/core/components/RichTextEditor.tsx:734
 msgid "Show Preview"
-msgstr "Show Preview"
+msgstr "미리보기 표시"
 
 #: src/core/components/RichTextEditor.tsx:835
 msgid "Visual"
-msgstr "Visual"
+msgstr "비주얼"
 
 #: src/core/components/RichTextEditor.tsx:847
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:121
 msgid "Source"
-msgstr "Source"
+msgstr "소스"
 
 #: src/core/components/RichTextEditor.tsx:864
 msgid "Preview"
-msgstr "Preview"
+msgstr "미리보기"
 
 #: src/core/components/SEOFields.tsx:27
 msgid "SEO Title"
-msgstr "SEO Title"
+msgstr "SEO 제목"
 
 #: src/core/components/SEOFields.tsx:33
 msgid "Optional SEO title for {titleTag} tag"
-msgstr "Optional SEO title for {titleTag} tag"
+msgstr "{titleTag} 태그용 선택적 SEO 제목"
 
 #: src/core/components/SEOFields.tsx:40
 msgid "Falls back to Title if empty"
-msgstr "Falls back to Title if empty"
+msgstr "비어 있으면 제목을 사용합니다"
 
 #: src/core/components/SEOFields.tsx:46
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "메타 설명"
 
 #: src/core/components/SEOFields.tsx:51
 msgid "SEO meta description (max 160 chars)"
-msgstr "SEO meta description (max 160 chars)"
+msgstr "SEO 메타 설명 (최대 160자)"
 
 #: src/core/components/SEOFields.tsx:71
 msgid "Noindex"
@@ -1663,29 +1663,29 @@ msgstr "Noindex"
 
 #: src/core/components/SEOFields.tsx:74
 msgid "Exclude from search engine indexing (adds noindex meta tag)"
-msgstr "Exclude from search engine indexing (adds noindex meta tag)"
+msgstr "검색 엔진 색인에서 제외 (noindex 메타 태그 추가)"
 
 #: src/core/components/SeoOverridesDialog.tsx:120
 msgid "Create SEO Override Pages"
-msgstr "Create SEO Override Pages"
+msgstr "SEO 재정의 페이지 생성"
 
 #: src/core/components/SeoOverridesDialog.tsx:132
 msgid "Route"
-msgstr "Route"
+msgstr "라우트"
 
 #: src/core/components/SeoOverridesDialog.tsx:135
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:57
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:182
 msgid "Slug"
-msgstr "Slug"
+msgstr "슬러그"
 
 #: src/core/components/SeoOverridesDialog.tsx:205
 msgid "Create Selected"
-msgstr "Create Selected"
+msgstr "선택 항목 생성"
 
 #: src/core/components/SeoPreviewCard.tsx:27
 msgid "No image"
-msgstr "No image"
+msgstr "이미지 없음"
 
 #: src/core/components/SeoPreviewCard.tsx:41
 msgid "Google"
@@ -1701,19 +1701,19 @@ msgstr "Twitter / X"
 
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:35
 msgid "Edit {label}"
-msgstr "Edit {label}"
+msgstr "{label} 편집"
 
 #: src/core/components/SlideOver.tsx:102
 msgid "Close"
-msgstr "Close"
+msgstr "닫기"
 
 #: src/core/components/TagInput.tsx:197
 msgid "Type to add tags..."
-msgstr "Type to add tags..."
+msgstr "태그를 입력하세요..."
 
 #: src/core/components/TagInput.tsx:238
 msgid "Press Enter to create \""
-msgstr "Press Enter to create \""
+msgstr "Enter를 눌러 생성: \""
 
 #: src/core/components/TagInput.tsx:240
 msgid "\""
@@ -1721,91 +1721,91 @@ msgstr "\""
 
 #: src/core/components/TokenBalance.tsx:71
 msgid "Token balance"
-msgstr "Token balance"
+msgstr "토큰 잔액"
 
 #: src/core/components/TranslationBar.tsx:68
 msgid "Failed to create translation"
-msgstr "Failed to create translation"
+msgstr "번역 생성 실패"
 
 #: src/core/components/TranslationBar.tsx:76
 msgid "Language"
-msgstr "Language"
+msgstr "언어"
 
 #: src/core/components/TranslationBar.tsx:131
 msgid "Copy"
-msgstr "Copy"
+msgstr "복사"
 
 #: src/core/components/TranslationBar.tsx:140
 msgid "Copy & Translate"
-msgstr "Copy & Translate"
+msgstr "복사 및 번역"
 
 #: src/core/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
-msgstr "{succeeded} {action}, {failed} failed"
+msgstr "{succeeded} {action}, {failed} 실패"
 
 #: src/core/hooks/useBulkActions.ts:52
 msgid "1 item {action}"
 msgid_plural "{count} items {action}"
-msgstr[0] "1 item {action}"
-msgstr[1] "{count} items {action}"
+msgstr[0] "1개 항목 {action}"
+msgstr[1] "{count}개 항목 {action}"
 
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
-msgstr "Please check the form for errors"
+msgstr "폼의 오류를 확인해 주세요"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:38
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
 msgid "Manage"
-msgstr "Manage"
+msgstr "관리"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:28
 msgid "No affiliates yet."
-msgstr "No affiliates yet."
+msgstr "아직 제휴가 없습니다."
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:44
 msgid "Active Affiliates"
-msgstr "Active Affiliates"
+msgstr "활성 제휴"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:48
 msgid "Total Referrals"
-msgstr "Total Referrals"
+msgstr "총 추천"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:52
 msgid "Conversion Rate"
-msgstr "Conversion Rate"
+msgstr "전환율"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:56
 msgid "Total Earnings"
-msgstr "Total Earnings"
+msgstr "총 수익"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:64
 msgid "Top Affiliates"
-msgstr "Top Affiliates"
+msgstr "상위 제휴"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:70
 msgid "Affiliate"
-msgstr "Affiliate"
+msgstr "제휴"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:72
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:56
 msgid "Referrals"
-msgstr "Referrals"
+msgstr "추천"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:73
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:57
 msgid "Earnings"
-msgstr "Earnings"
+msgstr "수익"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:74
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:55
 msgid "Commission"
-msgstr "Commission"
+msgstr "수수료"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:37
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:87
 msgid "All Statuses"
-msgstr "All Statuses"
+msgstr "모든 상태"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:38
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
@@ -1817,19 +1817,19 @@ msgstr "All Statuses"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Active"
-msgstr "Active"
+msgstr "활성"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:39
 msgid "Suspended"
-msgstr "Suspended"
+msgstr "정지됨"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:40
 msgid "Banned"
-msgstr "Banned"
+msgstr "차단됨"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:47
 msgid "No affiliates found"
-msgstr "No affiliates found"
+msgstr "제휴를 찾을 수 없습니다"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:58
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:58
@@ -1845,327 +1845,327 @@ msgstr "No affiliates found"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:250
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:272
 msgid "Status"
-msgstr "Status"
+msgstr "상태"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:59
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:59
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
 msgid "Actions"
-msgstr "Actions"
+msgstr "작업"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:81
 msgid "Suspend"
-msgstr "Suspend"
+msgstr "정지"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:89
 msgid "Activate"
-msgstr "Activate"
+msgstr "활성화"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:19
 msgid "Are you sure you want to delete this character?"
-msgstr "Are you sure you want to delete this character?"
+msgstr "이 캐릭터를 삭제하시겠습니까?"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:29
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Characters"
-msgstr "Characters"
+msgstr "캐릭터"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:31
 msgid "AI personas that users can chat with."
-msgstr "AI personas that users can chat with."
+msgstr "사용자가 대화할 수 있는 AI 페르소나입니다."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:39
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
 msgid "New Character"
-msgstr "New Character"
+msgstr "새 캐릭터"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:49
 msgid "No characters yet. Create your first AI persona."
-msgstr "No characters yet. Create your first AI persona."
+msgstr "캐릭터가 없습니다. 첫 번째 AI 페르소나를 만들어 보세요."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:56
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:177
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:101
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:158
 msgid "Name"
-msgstr "Name"
+msgstr "이름"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:90
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Inactive"
-msgstr "Inactive"
+msgstr "비활성"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:170
 msgid "Edit Character"
-msgstr "Edit Character"
+msgstr "캐릭터 편집"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:186
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "태그라인"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:189
 msgid "System Prompt"
-msgstr "System Prompt"
+msgstr "시스템 프롬프트"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:192
 msgid "Personality (visible to users)"
-msgstr "Personality (visible to users)"
+msgstr "성격 (사용자에게 표시)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:195
 msgid "Greeting Message"
-msgstr "Greeting Message"
+msgstr "인사 메시지"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:198
 msgid "Avatar URL"
-msgstr "Avatar URL"
+msgstr "아바타 URL"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:203
 msgid "Character Traits"
-msgstr "Character Traits"
+msgstr "캐릭터 특성"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
 msgid "Gender"
-msgstr "Gender"
+msgstr "성별"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:206
 msgid "Sexuality"
-msgstr "Sexuality"
+msgstr "성적 지향"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
 msgid "Ethnicity"
-msgstr "Ethnicity"
+msgstr "민족"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
 msgid "Personality"
-msgstr "Personality"
+msgstr "성격"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
 msgid "Kink"
-msgstr "Kink"
+msgstr "킨크"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
 msgid "Job"
-msgstr "Job"
+msgstr "직업"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
 msgid "Relationship"
-msgstr "Relationship"
+msgstr "관계"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:214
 msgid "Hobbies"
-msgstr "Hobbies"
+msgstr "취미"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:220
 msgid "Visual Appearance"
-msgstr "Visual Appearance"
+msgstr "외형"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
 msgid "Hair Color"
-msgstr "Hair Color"
+msgstr "머리 색"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:223
 msgid "Hair Texture"
-msgstr "Hair Texture"
+msgstr "머리 질감"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
 msgid "Hair Style"
-msgstr "Hair Style"
+msgstr "헤어 스타일"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
 msgid "Eye Color"
-msgstr "Eye Color"
+msgstr "눈 색"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
 msgid "Skin"
-msgstr "Skin"
+msgstr "피부"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
 msgid "Body Type"
-msgstr "Body Type"
+msgstr "체형"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:233
 msgid "Image Generation Settings"
-msgstr "Image Generation Settings"
+msgstr "이미지 생성 설정"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
 msgid "Model Preset"
-msgstr "Model Preset"
+msgstr "모델 프리셋"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
 msgid "Sort Order"
-msgstr "Sort Order"
+msgstr "정렬 순서"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
 msgid "Token Cost Multiplier"
-msgstr "Token Cost Multiplier"
+msgstr "토큰 비용 배수"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:242
 msgid "Custom Negative Prompt"
-msgstr "Custom Negative Prompt"
+msgstr "커스텀 네거티브 프롬프트"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
 msgid "LoRA Config"
-msgstr "LoRA Config"
+msgstr "LoRA 설정"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:250
 msgid "Active (visible to users)"
-msgstr "Active (visible to users)"
+msgstr "활성 (사용자에게 표시)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
 msgid "Create Character"
-msgstr "Create Character"
+msgstr "캐릭터 생성"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:258
 msgid "Save Changes"
-msgstr "Save Changes"
+msgstr "변경사항 저장"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:24
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:12
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:23
 msgid "Conversations"
-msgstr "Conversations"
+msgstr "대화"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
 msgid "Browse all chat conversations"
-msgstr "Browse all chat conversations"
+msgstr "모든 채팅 대화 탐색"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:32
 msgid "All statuses"
-msgstr "All statuses"
+msgstr "모든 상태"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:34
 msgid "Archived"
-msgstr "Archived"
+msgstr "보관됨"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
 msgid "Deleted"
-msgstr "Deleted"
+msgstr "삭제됨"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:42
 msgid "No conversations found."
-msgstr "No conversations found."
+msgstr "대화를 찾을 수 없습니다."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:49
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:125
 msgid "User"
-msgstr "User"
+msgstr "사용자"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:83
 msgid "Character"
-msgstr "Character"
+msgstr "캐릭터"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
 msgid "Messages"
-msgstr "Messages"
+msgstr "메시지"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
 msgid "Tokens"
-msgstr "Tokens"
+msgstr "토큰"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:54
 msgid "Last Active"
-msgstr "Last Active"
+msgstr "마지막 활동"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:27
 msgid "Conversation"
-msgstr "Conversation"
+msgstr "대화"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:34
 msgid "No messages."
-msgstr "No messages."
+msgstr "메시지가 없습니다."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:15
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Flagged Messages"
-msgstr "Flagged Messages"
+msgstr "신고된 메시지"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
 msgid "Messages blocked by content moderation"
-msgstr "Messages blocked by content moderation"
+msgstr "콘텐츠 검토에 의해 차단된 메시지"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
 msgid "No flagged messages."
-msgstr "No flagged messages."
+msgstr "신고된 메시지가 없습니다."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
 msgid "Reason"
-msgstr "Reason"
+msgstr "사유"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
 msgid "Dismiss flag"
-msgstr "Dismiss flag"
+msgstr "신고 해제"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
 msgid "Dismiss"
-msgstr "Dismiss"
+msgstr "해제"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:13
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:24
 msgid "Total Messages"
-msgstr "Total Messages"
+msgstr "전체 메시지"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:14
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
 msgid "Active Users (24h)"
-msgstr "Active Users (24h)"
+msgstr "활성 사용자 (24시간)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Manage AI personas"
-msgstr "Manage AI personas"
+msgstr "AI 페르소나 관리"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 msgid "Browse all conversations"
-msgstr "Browse all conversations"
+msgstr "모든 대화 탐색"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Review moderated content"
-msgstr "Review moderated content"
+msgstr "검토된 콘텐츠 확인"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 msgid "Manage LLM providers"
-msgstr "Manage LLM providers"
+msgstr "LLM 제공자 관리"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Usage statistics and charts"
-msgstr "Usage statistics and charts"
+msgstr "사용 통계 및 차트"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Keywords, action, and rate limits"
-msgstr "Keywords, action, and rate limits"
+msgstr "키워드, 작업 및 속도 제한"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:30
 msgid "Chat"
-msgstr "Chat"
+msgstr "채팅"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:31
 msgid "AI character chat management"
-msgstr "AI character chat management"
+msgstr "AI 캐릭터 채팅 관리"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:67
 msgid "Delete this provider?"
-msgstr "Delete this provider?"
+msgstr "이 제공자를 삭제하시겠습니까?"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:85
 msgid "Manage LLM provider credentials and routing"
-msgstr "Manage LLM provider credentials and routing"
+msgstr "LLM 제공자 자격 증명 및 라우팅 관리"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:89
 msgid "Add Provider"
-msgstr "Add Provider"
+msgstr "제공자 추가"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
 msgid "Edit Provider"
-msgstr "Edit Provider"
+msgstr "제공자 편집"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:97
 msgid "New Provider"
-msgstr "New Provider"
+msgstr "새 제공자"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:103
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:159
@@ -2174,327 +2174,327 @@ msgstr "New Provider"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
 msgid "Type"
-msgstr "Type"
+msgstr "유형"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
 msgid "LLM (Text)"
-msgstr "LLM (Text)"
+msgstr "LLM (텍스트)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
 msgid "Video"
-msgstr "Video"
+msgstr "비디오"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
 msgid "Adapter"
-msgstr "Adapter"
+msgstr "어댑터"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:116
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:160
 msgid "Model"
-msgstr "Model"
+msgstr "모델"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:119
 msgid "Base URL (leave empty for OpenAI)"
-msgstr "Base URL (leave empty for OpenAI)"
+msgstr "Base URL (OpenAI의 경우 비워 두세요)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
 msgid "API Key"
-msgstr "API Key"
+msgstr "API 키"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:122
 msgid "Leave empty to keep current"
-msgstr "Leave empty to keep current"
+msgstr "현재 값을 유지하려면 비워 두세요"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:120
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:276
 msgid "Priority"
-msgstr "Priority"
+msgstr "우선순위"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
 msgid "Max Concurrent"
-msgstr "Max Concurrent"
+msgstr "최대 동시 처리"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
 msgid "Timeout (s)"
-msgstr "Timeout (s)"
+msgstr "타임아웃 (초)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:140
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Create"
-msgstr "Create"
+msgstr "생성"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:151
 msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
-msgstr "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "제공자가 설정되지 않았습니다. 하나를 추가하거나 .env에서 AI_API_KEY를 설정하세요."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:187
 msgid "Test"
-msgstr "Test"
+msgstr "테스트"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
 msgid "Task Queues"
-msgstr "Task Queues"
+msgstr "작업 큐"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
 msgid "BullMQ job queue status and failed job management"
-msgstr "BullMQ job queue status and failed job management"
+msgstr "BullMQ 작업 큐 상태 및 실패한 작업 관리"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
 msgid "No queues found. Workers may not be running."
-msgstr "No queues found. Workers may not be running."
+msgstr "큐를 찾을 수 없습니다. 워커가 실행 중이지 않을 수 있습니다."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
 msgid "Waiting"
-msgstr "Waiting"
+msgstr "대기 중"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
 msgid "Done"
-msgstr "Done"
+msgstr "완료"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
 msgid "Failed"
-msgstr "Failed"
+msgstr "실패"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
 msgid "Failed Jobs"
-msgstr "Failed Jobs"
+msgstr "실패한 작업"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
 msgid "Attempts"
-msgstr "Attempts"
+msgstr "시도 횟수"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
 msgid "Retry"
-msgstr "Retry"
+msgstr "재시도"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
 msgid "Tokens Consumed"
-msgstr "Tokens Consumed"
+msgstr "소비된 토큰"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:32
 msgid "Chat Analytics"
-msgstr "Chat Analytics"
+msgstr "채팅 분석"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:33
 msgid "Usage statistics and trends"
-msgstr "Usage statistics and trends"
+msgstr "사용 통계 및 추세"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:53
 msgid "Messages (30 days)"
-msgstr "Messages (30 days)"
+msgstr "메시지 (30일)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:72
 msgid "Popular Characters"
-msgstr "Popular Characters"
+msgstr "인기 캐릭터"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:76
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:119
 msgid "No data yet"
-msgstr "No data yet"
+msgstr "데이터 없음"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:84
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:126
 msgid "Convs"
-msgstr "Convs"
+msgstr "대화수"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
 msgid "Msgs"
-msgstr "Msgs"
+msgstr "메시지수"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
 msgid "Avg"
-msgstr "Avg"
+msgstr "평균"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:115
 msgid "Most Active Users"
-msgstr "Most Active Users"
+msgstr "가장 활발한 사용자"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:162
 msgid "Provider Health (24h)"
-msgstr "Provider Health (24h)"
+msgstr "제공자 상태 (24시간)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:166
 msgid "No provider activity yet"
-msgstr "No provider activity yet"
+msgstr "제공자 활동이 없습니다"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:171
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
 msgid "Provider"
-msgstr "Provider"
+msgstr "제공자"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
 msgid "Requests"
-msgstr "Requests"
+msgstr "요청"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:174
 msgid "Success"
-msgstr "Success"
+msgstr "성공"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
 msgid "Failures"
-msgstr "Failures"
+msgstr "실패"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
 msgid "Avg ms"
-msgstr "Avg ms"
+msgstr "평균 ms"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
 msgid "Rate"
-msgstr "Rate"
+msgstr "비율"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
 msgid "Canceled"
-msgstr "Canceled"
+msgstr "취소됨"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
 msgid "Payment Failed"
-msgstr "Payment Failed"
+msgstr "결제 실패"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
 msgid "Unpaid"
-msgstr "Unpaid"
+msgstr "미결제"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
 msgid "Churned Subscriptions"
-msgstr "Churned Subscriptions"
+msgstr "이탈 구독"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
 msgid "Search by organization..."
-msgstr "Search by organization..."
+msgstr "조직으로 검색..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
 msgid "No churned subscriptions found."
-msgstr "No churned subscriptions found."
+msgstr "이탈 구독을 찾을 수 없습니다."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
 msgid "Organization"
-msgstr "Organization"
+msgstr "조직"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:113
 msgid "Plan"
-msgstr "Plan"
+msgstr "플랜"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
 msgid "Churn Date"
-msgstr "Churn Date"
+msgstr "이탈 일자"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
 msgid "Subscription Start"
-msgstr "Subscription Start"
+msgstr "구독 시작일"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "Showing"
-msgstr "Showing"
+msgstr "표시 중"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "to"
-msgstr "to"
+msgstr "~"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "of"
-msgstr "of"
+msgstr "/"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "results"
-msgstr "results"
+msgstr "건"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
 msgid "Discount Codes"
-msgstr "Discount Codes"
+msgstr "할인 코드"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
 msgid "No discount codes yet."
-msgstr "No discount codes yet."
+msgstr "할인 코드가 없습니다."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
 msgid "Value"
-msgstr "Value"
+msgstr "값"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
 msgid "Usage"
-msgstr "Usage"
+msgstr "사용량"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
 msgid "unlimited"
-msgstr "unlimited"
+msgstr "무제한"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
 msgid "Recent Transactions"
-msgstr "Recent Transactions"
+msgstr "최근 거래"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
 msgid "No transactions yet."
-msgstr "No transactions yet."
+msgstr "거래가 없습니다."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
 msgid "Amount"
-msgstr "Amount"
+msgstr "금액"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
 msgid "Date"
-msgstr "Date"
+msgstr "날짜"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
 msgid "Revenue"
-msgstr "Revenue"
+msgstr "매출"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
 msgid "Transactions"
-msgstr "Transactions"
+msgstr "거래"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
 msgid "Revenue Over Time"
-msgstr "Revenue Over Time"
+msgstr "시간별 매출"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
 msgid "No revenue data for this period."
-msgstr "No revenue data for this period."
+msgstr "이 기간의 매출 데이터가 없습니다."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
 msgid "Active Subscriptions"
-msgstr "Active Subscriptions"
+msgstr "활성 구독"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
 msgid "Search organizations..."
-msgstr "Search organizations..."
+msgstr "조직 검색..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
 msgid "per page"
-msgstr "per page"
+msgstr "페이지당"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
 msgid "No subscriptions found."
-msgstr "No subscriptions found."
+msgstr "구독을 찾을 수 없습니다."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
 msgid "Period"
-msgstr "Period"
+msgstr "기간"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:117
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:122
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:280
 msgid "Created"
-msgstr "Created"
+msgstr "생성일"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
 msgid "MRR"
@@ -2502,160 +2502,160 @@ msgstr "MRR"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
 msgid "Total Revenue"
-msgstr "Total Revenue"
+msgstr "총 매출"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
 msgid "Trialing"
-msgstr "Trialing"
+msgstr "체험 중"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
 msgid "Trial"
-msgstr "Trial"
+msgstr "체험"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
 msgid "Plan Distribution"
-msgstr "Plan Distribution"
+msgstr "플랜 분포"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
 msgid "No subscriptions yet"
-msgstr "No subscriptions yet"
+msgstr "구독이 없습니다"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
 msgid "Churn Metrics"
-msgstr "Churn Metrics"
+msgstr "이탈 지표"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
 msgid "Churn Rate (30d)"
-msgstr "Churn Rate (30d)"
+msgstr "이탈률 (30일)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
 msgid "Canceled (30d)"
-msgstr "Canceled (30d)"
+msgstr "취소됨 (30일)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
 msgid "Past Due (at risk)"
-msgstr "Past Due (at risk)"
+msgstr "연체 (위험)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
 msgid "Unpaid (lost)"
-msgstr "Unpaid (lost)"
+msgstr "미결제 (이탈)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
 msgid "Total Ever Subscribed"
-msgstr "Total Ever Subscribed"
+msgstr "총 구독 이력"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:156
 msgid "Monitor revenue, track churn, and manage subscriptions."
-msgstr "Monitor revenue, track churn, and manage subscriptions."
+msgstr "매출 모니터링, 이탈 추적, 구독 관리를 수행합니다."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:181
 msgid "Custom range"
-msgstr "Custom range"
+msgstr "사용자 지정 범위"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:187
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:285
 msgid "From"
-msgstr "From"
+msgstr "시작"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:194
 msgid "To"
-msgstr "To"
+msgstr "종료"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "Last"
-msgstr "Last"
+msgstr "최근"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "days"
-msgstr "days"
+msgstr "일"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:235
 msgid "All time"
-msgstr "All time"
+msgstr "전체 기간"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
 msgid "Discount code created"
-msgstr "Discount code created"
+msgstr "할인 코드가 생성되었습니다"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
 msgid "Discount code updated"
-msgstr "Discount code updated"
+msgstr "할인 코드가 업데이트되었습니다"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
 msgid "Discount code deleted"
-msgstr "Discount code deleted"
+msgstr "할인 코드가 삭제되었습니다"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
 msgid "New Code"
-msgstr "New Code"
+msgstr "새 코드"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Percentage (0-100)"
-msgstr "Percentage (0-100)"
+msgstr "퍼센트 (0-100)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Price (cents)"
-msgstr "Price (cents)"
+msgstr "가격 (센트)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
 msgid "Trial Days"
-msgstr "Trial Days"
+msgstr "체험 기간 (일)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
 msgid "Trial Price (cents)"
-msgstr "Trial Price (cents)"
+msgstr "체험 가격 (센트)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
 msgid "Max Uses (leave empty for unlimited)"
-msgstr "Max Uses (leave empty for unlimited)"
+msgstr "최대 사용 횟수 (무제한은 비워 두세요)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
 msgid "Max Uses Per User"
-msgstr "Max Uses Per User"
+msgstr "사용자당 최대 사용 횟수"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Update"
-msgstr "Update"
+msgstr "업데이트"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
 msgid "No discount codes configured."
-msgstr "No discount codes configured."
+msgstr "설정된 할인 코드가 없습니다."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
 msgid "Uses"
-msgstr "Uses"
+msgstr "사용 횟수"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
 msgid "Edit"
-msgstr "Edit"
+msgstr "편집"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
 msgid "Delete discount code?"
-msgstr "Delete discount code?"
+msgstr "할인 코드를 삭제하시겠습니까?"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
 msgid "Code \"{code}\" will be permanently deleted."
-msgstr "Code \"{code}\" will be permanently deleted."
+msgstr "코드 \"{code}\"이(가) 영구적으로 삭제됩니다."
 
 #: src/core-support/components/SupportChatWidget.tsx:275
 msgid "Hi! How can I help you today?"
-msgstr "Hi! How can I help you today?"
+msgstr "안녕하세요! 무엇을 도와드릴까요?"
 
 #: src/core-support/components/SupportChatWidget.tsx:276
 msgid "Type your message..."
-msgstr "Type your message..."
+msgstr "메시지를 입력하세요..."
 
 #: src/core-support/components/SupportChatWidget.tsx:286
 msgid "Support Chat"
-msgstr "Support Chat"
+msgstr "지원 채팅"
 
 #: src/core-support/components/SupportChatWidget.tsx:333
 msgid "Support Agent"
-msgstr "Support Agent"
+msgstr "지원 상담원"
 
 #: src/core-support/components/SupportChatWidget.tsx:351
 msgid "Enter your email so our team can follow up:"
-msgstr "Enter your email so our team can follow up:"
+msgstr "팀이 후속 조치를 할 수 있도록 이메일을 입력하세요:"
 
 #: src/core-support/components/SupportChatWidget.tsx:361
 msgid "your@email.com"
@@ -2663,207 +2663,207 @@ msgstr "your@email.com"
 
 #: src/core-support/components/SupportChatWidget.tsx:366
 msgid "Connect with support"
-msgstr "Connect with support"
+msgstr "지원팀에 연결"
 
 #: src/core-support/components/SupportChatWidget.tsx:375
 msgid "Would you like to create a support ticket so our team can follow up?"
-msgstr "Would you like to create a support ticket so our team can follow up?"
+msgstr "지원 티켓을 생성하여 팀이 후속 조치를 하도록 하시겠습니까?"
 
 #: src/core-support/components/SupportChatWidget.tsx:378
 msgid "Create Support Ticket"
-msgstr "Create Support Ticket"
+msgstr "지원 티켓 생성"
 
 #: src/core-support/components/SupportChatWidget.tsx:385
 msgid "Thanks! Our team will follow up at your email soon."
-msgstr "Thanks! Our team will follow up at your email soon."
+msgstr "감사합니다! 곧 이메일로 후속 조치를 드리겠습니다."
 
 #: src/core-support/components/SupportChatWidget.tsx:391
 msgid "Your ticket has been created. Our team will follow up soon."
-msgstr "Your ticket has been created. Our team will follow up soon."
+msgstr "티켓이 생성되었습니다. 곧 팀에서 후속 조치를 드리겠습니다."
 
 #: src/core-support/components/SupportChatWidget.tsx:394
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
 msgid "View Ticket"
-msgstr "View Ticket"
+msgstr "티켓 보기"
 
 #: src/core-support/components/SupportChatWidget.tsx:427
 msgid "Talk to a human"
-msgstr "Talk to a human"
+msgstr "상담원과 대화"
 
 #: src/core-support/components/SupportChatWidget.tsx:434
 msgid "Start New Chat"
-msgstr "Start New Chat"
+msgstr "새 채팅 시작"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Close chat"
-msgstr "Close chat"
+msgstr "채팅 닫기"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Open chat"
-msgstr "Open chat"
+msgstr "채팅 열기"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
 msgid "Chat closed"
-msgstr "Chat closed"
+msgstr "채팅 종료됨"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
 msgid "Chat session not found."
-msgstr "Chat session not found."
+msgstr "채팅 세션을 찾을 수 없습니다."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
 msgid "Live Chat"
-msgstr "Live Chat"
+msgstr "실시간 채팅"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
 msgid "Close Chat"
-msgstr "Close Chat"
+msgstr "채팅 닫기"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
 msgid "Visitor"
-msgstr "Visitor"
+msgstr "방문자"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
 msgid "Chat email"
-msgstr "Chat email"
+msgstr "채팅 이메일"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:252
 msgid "Started"
-msgstr "Started"
+msgstr "시작일"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:118
 msgid "Subject"
-msgstr "Subject"
+msgstr "제목"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
 msgid "Reply as agent..."
-msgstr "Reply as agent..."
+msgstr "상담원으로 답변..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:69
 msgid "Total"
-msgstr "Total"
+msgstr "전체"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:97
 msgid "All Priorities"
-msgstr "All Priorities"
+msgstr "모든 우선순위"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:112
 msgid "No tickets found."
-msgstr "No tickets found."
+msgstr "티켓을 찾을 수 없습니다."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:123
 msgid "Updated"
-msgstr "Updated"
+msgstr "업데이트"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:227
 msgid "Active (non-closed)"
-msgstr "Active (non-closed)"
+msgstr "활성 (미종료)"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:228
 msgid "AI Active"
-msgstr "AI Active"
+msgstr "AI 활성"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:229
 msgid "Agent Active"
-msgstr "Agent Active"
+msgstr "상담원 활성"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:230
 msgid "Escalated"
-msgstr "Escalated"
+msgstr "에스컬레이션"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:231
 msgid "Closed"
-msgstr "Closed"
+msgstr "종료됨"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:243
 msgid "No active chats."
-msgstr "No active chats."
+msgstr "활성 채팅이 없습니다."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:249
 msgid "Visitor / User"
-msgstr "Visitor / User"
+msgstr "방문자 / 사용자"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:251
 msgid "Last Message"
-msgstr "Last Message"
+msgstr "마지막 메시지"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:360
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "티켓"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:368
 msgid "Live Chats"
-msgstr "Live Chats"
+msgstr "실시간 채팅"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:114
 msgid "Reply sent"
-msgstr "Reply sent"
+msgstr "답변이 발송되었습니다"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:122
 msgid "Status updated"
-msgstr "Status updated"
+msgstr "상태가 업데이트되었습니다"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:130
 msgid "Assignment updated"
-msgstr "Assignment updated"
+msgstr "배정이 업데이트되었습니다"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:147
 msgid "Ticket not found."
-msgstr "Ticket not found."
+msgstr "티켓을 찾을 수 없습니다."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:149
 msgid "Back to tickets"
-msgstr "Back to tickets"
+msgstr "티켓 목록으로"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
 msgid "Staff"
-msgstr "Staff"
+msgstr "직원"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:209
 msgid "Customer"
-msgstr "Customer"
+msgstr "고객"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:222
 msgid "Staff Reply"
-msgstr "Staff Reply"
+msgstr "직원 답변"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:231
 msgid "Type your reply..."
-msgstr "Type your reply..."
+msgstr "답변을 입력하세요..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:243
 msgid "Send Reply"
-msgstr "Send Reply"
+msgstr "답변 보내기"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:248
 msgid "This ticket is closed."
-msgstr "This ticket is closed."
+msgstr "이 티켓은 종료되었습니다."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:251
 msgid "User feedback"
-msgstr "User feedback"
+msgstr "사용자 피드백"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
 msgid "Details"
-msgstr "Details"
+msgstr "상세 정보"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:291
 msgid "Assigned"
-msgstr "Assigned"
+msgstr "배정됨"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:300
 msgid "Change Status"
-msgstr "Change Status"
+msgstr "상태 변경"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:315
 msgid "Assignment"
-msgstr "Assignment"
+msgstr "배정"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:324
 msgid "Unassign"
-msgstr "Unassign"
+msgstr "배정 해제"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:328
 msgid "Not assigned"
-msgstr "Not assigned"
+msgstr "미배정"
