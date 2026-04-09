@@ -8,7 +8,8 @@ Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS:
 
 - **Package manager:** `bun`
 - **Dev server:** `bun run dev` (custom server with Turbopack, port 3000)
-- **First-time setup:** `bun run init` — creates DB, migrations, superadmin, seeds all content
+- **First-time setup:** `bun run init` — creates DB, migrations, superadmin, seeds content templates to `content/`
+- **Content sync:** `bun run content:sync` — syncs `.md` files from `content/` to CMS database (also runs automatically on server start)
 - **Promote user:** `bun run promote <email>`
 - **Change password:** `bun run change-password <email>`
 - **Database:** `bun run db:generate` after schema changes, `bun run db:migrate` to apply, `bun run db:studio` for viewer

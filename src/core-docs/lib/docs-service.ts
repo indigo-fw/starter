@@ -3,7 +3,7 @@ import { ilikePattern } from '@/core/crud/drizzle-utils';
 import { db } from '@/server/db';
 import { cmsDocs } from '@/core-docs/schema/docs';
 import { loadFileDocs, loadFileDoc, stripHtml, markdownToPlainText, type FileDoc } from './docs-loader';
-import { compileMarkdownToHtml } from './mdx-compiler';
+import { compileMdx } from '@/core/lib/mdx-compiler';
 
 export interface UnifiedDoc {
   slug: string;
@@ -108,7 +108,7 @@ export async function getDocBySlug(slug: string): Promise<RenderedDoc | null> {
   const fileDoc = loadFileDoc(slug);
   if (fileDoc) {
     const cacheKey = `docs:${slug}:${fileDoc.updatedAt.getTime()}`;
-    const renderedBody = await compileMarkdownToHtml(fileDoc.content, cacheKey);
+    const renderedBody = await compileMdx(fileDoc.content, cacheKey);
     return { ...fileDocToUnified(fileDoc), renderedBody };
   }
 
@@ -203,7 +203,8 @@ export async function generateLlmExport(): Promise<string> {
     }
   }
 
-  return parts.join('\n');
+  const { resolveContentVars } = await import('@/core/lib/content-vars');
+  return resolveContentVars(parts.join('\n'));
 }
 
 /**

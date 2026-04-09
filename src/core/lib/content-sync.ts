@@ -203,7 +203,7 @@ export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise
   for (const file of files) {
     const { slug, locale, postType, contentTypeId, frontmatter, filePath, mtime } = file;
 
-    // Store raw content with {{VAR}} placeholders — resolved at render time by ShortcodeRenderer
+    // Store raw content with [[VAR]] placeholders — resolved at render time by resolveContentVars
     const title = frontmatter.title!;
     const content = file.content;
     const description = frontmatter.description ?? null;

@@ -2,6 +2,7 @@ import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { TRPCError } from '@trpc/server';
 import { serverTRPC } from '@/lib/trpc/server';
+import { resolveRecordVars } from '@/core/lib/content-vars';
 
 /** Rethrows NOT_FOUND TRPCErrors as Next.js notFound() for proper 404 handling. */
 function rethrowAsNotFound(err: unknown): never {
@@ -34,30 +35,35 @@ export const getCachedTRPC = cache(async () => {
 export const getCachedPost = cache(
   async (slug: string, type: number, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
-    return api.cms.getBySlug({ slug, type, lang, previewToken }).catch(rethrowAsNotFound);
+    const post = await api.cms.getBySlug({ slug, type, lang, previewToken }).catch(rethrowAsNotFound);
+    return resolveRecordVars(post);
   }
 );
 
 export const getCachedTag = cache(async (slug: string, lang: string) => {
   const api = await getCachedTRPC();
-  return api.tags.getBySlug({ slug, lang }).catch(rethrowAsNotFound);
+  const tag = await api.tags.getBySlug({ slug, lang }).catch(rethrowAsNotFound);
+  return resolveRecordVars(tag);
 });
 
 export const getCachedPortfolio = cache(
   async (slug: string, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
-    return api.portfolio.getBySlug({ slug, lang, previewToken }).catch(rethrowAsNotFound);
+    const item = await api.portfolio.getBySlug({ slug, lang, previewToken }).catch(rethrowAsNotFound);
+    return resolveRecordVars(item);
   }
 );
 
 export const getCachedShowcase = cache(
   async (slug: string, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
-    return api.showcase.getBySlug({ slug, lang, previewToken }).catch(rethrowAsNotFound);
+    const item = await api.showcase.getBySlug({ slug, lang, previewToken }).catch(rethrowAsNotFound);
+    return resolveRecordVars(item);
   }
 );
 
 export const getCachedCategory = cache(async (slug: string, lang: string) => {
   const api = await getCachedTRPC();
-  return api.categories.getBySlug({ slug, lang }).catch(rethrowAsNotFound);
+  const cat = await api.categories.getBySlug({ slug, lang }).catch(rethrowAsNotFound);
+  return resolveRecordVars(cat);
 });

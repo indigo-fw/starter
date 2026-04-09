@@ -33,7 +33,7 @@ export interface FileDoc {
 
 /**
  * Derive a human-readable title from a filename.
- * 'getting-started.md' → 'Getting Started'
+ * 'getting-started.mdx' → 'Getting Started'
  */
 function titleFromFilename(filename: string): string {
   return basename(filename, extname(filename))
@@ -42,7 +42,7 @@ function titleFromFilename(filename: string): string {
 }
 
 /**
- * Recursively load all .md and .mdx files from a directory.
+ * Recursively load all .mdx files from a directory.
  */
 function loadDir(dir: string, baseDir: string): FileDoc[] {
   if (!existsSync(dir)) return [];

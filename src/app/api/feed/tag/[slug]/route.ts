@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 import { siteConfig } from '@/config/site';
+import { resolveContentVars } from '@/core/lib/content-vars';
 import { db } from '@/server/db';
 import { cmsPosts, cmsTerms, cmsTermRelationships } from '@/server/db/schema';
 import { ContentStatus, PostType } from '@/core/types/cms';
@@ -90,10 +91,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
           ? new Date(post.publishedAt).toUTCString()
           : '';
         return `    <item>
-      <title>${escapeXml(post.title)}</title>
+      <title>${escapeXml(resolveContentVars(post.title))}</title>
       <link>${escapeXml(link)}</link>
       <guid isPermaLink="true">${escapeXml(link)}</guid>
-      ${post.metaDescription ? `<description>${escapeXml(post.metaDescription)}</description>` : ''}
+      ${post.metaDescription ? `<description>${escapeXml(resolveContentVars(post.metaDescription))}</description>` : ''}
       ${pubDate ? `<pubDate>${pubDate}</pubDate>` : ''}
     </item>`;
       })

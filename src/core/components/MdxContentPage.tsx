@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { FileContent } from '@/core/lib/content-loader';
+import { resolveContentVars } from '@/core/lib/content-vars';
 import '@/core/styles/mdx-components.css';
 
 interface Props {
@@ -29,7 +30,7 @@ export function MdxContentPage({ content, html }: Props) {
       )}
 
       <h1 className="text-3xl font-bold text-(--text-primary) sm:text-4xl">
-        {frontmatter.title}
+        {resolveContentVars(frontmatter.title ?? '')}
       </h1>
 
       {type === 'post' && frontmatter.date && (

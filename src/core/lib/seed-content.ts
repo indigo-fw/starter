@@ -2,13 +2,13 @@
  * Seed content — copies template .md files from core/seed-templates/{locale}/
  * to the project's content/{locale}/ directory.
  *
- * Files are copied verbatim — template variables like {{COMPANY_NAME}} stay
- * as-is in the files. The content sync script (content-sync.ts) resolves them
- * at DB-insert time using values from site.ts.
+ * Files are copied verbatim — template variables like [[COMPANY_NAME]] stay
+ * as-is in the files. The [[VAR]] placeholders are resolved at render time
+ * by resolveContentVars (from content-vars.ts) using values from site.ts.
  *
  * This means:
  *   - Devs can freely edit the .md files (variables stay as placeholders)
- *   - Changing company info in site.ts takes effect on next server restart
+ *   - Changing company info in site.ts takes effect immediately
  *   - No file overwrites on re-init
  */
 

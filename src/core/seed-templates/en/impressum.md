@@ -1,27 +1,27 @@
 ---
 title: Impressum (Legal Notice)
 type: page
-description: Impressum (Legal Notice) for {{SITE_NAME}}.
+description: Impressum (Legal Notice) for [[SITE_NAME]].
 noindex: true
 ---
 
 **Information pursuant to applicable EU commercial and media regulations**
 
 **Company:**
-{{COMPANY_NAME}}
+[[COMPANY_NAME]]
 
 **Address:**
-{{COMPANY_ADDRESS}}
+[[COMPANY_ADDRESS]]
 
 **Contact:**
-Email: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+Email: [[CONTACT_EMAIL]]
 
 **Registration Number:**
-{{COMPANY_ID}}
+[[COMPANY_ID]]
 
 **Responsible for content:**
-{{COMPANY_NAME}}
-{{COMPANY_ADDRESS}}
+[[COMPANY_NAME]]
+[[COMPANY_ADDRESS]]
 
 **EU Online Dispute Resolution:**
 The European Commission provides a platform for online dispute resolution (ODR):

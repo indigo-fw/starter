@@ -6,7 +6,7 @@ Documentation system supporting two content sources: CMS database and `.mdx` fil
 
 **core-docs owns:** Docs schema (cms_docs table), docs tRPC router, file-based loader, docs service, DocRenderer + DocSidebar components, docs layout CSS, LLM export.
 
-**core owns (shared):** MDX compiler (`@/core/lib/mdx-compiler`), MDX component styles (`@/core/styles/mdx-components.css`), MdxTabsHydrator (`@/core/components/MdxTabsHydrator`).
+**core owns (shared):** MDX compiler (`@/core/lib/mdx-compiler`), MDX component registry, MDX component styles (`@/core/styles/mdx-components.css`), MdxTabsHydrator (`@/core/components/MdxTabsHydrator`), content variable resolution (`@/core/lib/content-vars` — `[[VAR]]` syntax), file-based content loader + sync, frontmatter parser.
 
 **Project owns:** `docs/content/` directory (file-based docs), docs page route (`app/docs/`), LLM API route (`app/api/docs/llms.txt/`).
 
@@ -55,13 +55,17 @@ Available in all `.mdx` files (compiled to static HTML via rehype plugin in `@/c
 
 All components work both block-level and inline. Custom components can be registered via `registerMdxComponent()` from `@/core/lib/mdx-compiler`.
 
+## Content Variables
+
+`[[VAR]]` placeholders (e.g. `[[COMPANY_NAME]]`, `[[SITE_NAME]]`) are resolved at render time from `src/config/site.ts` via `resolveContentVars()`. Works in both CMS content and `.mdx` files.
+
 ## Architecture
 
-- **Compiler:** `@/core/lib/mdx-compiler` — unified pipeline: remark-parse → remark-mdx → remark-gfm → remark-rehype → rehypeMdxComponents → rehype-slug → rehype-stringify. LRU-cached by slug + mtime.
+- **Compiler:** `@/core/lib/mdx-compiler` — unified pipeline: remark-parse → remark-mdx → remark-gfm → remark-rehype → rehypeMdxComponents → rehype-slug → rehype-stringify. Resolves `[[VAR]]` before compilation. LRU-cached by slug + mtime.
 - **Service:** `lib/docs-service.ts` — `getDocBySlug()` returns `RenderedDoc` (with compiled `renderedBody`). `getAllDocs()` returns `UnifiedDoc[]` (no compilation, used for nav/search/export).
-- **Rendering:** Page is server-rendered (async RSC). `DocRenderer` outputs static HTML. `MdxTabsHydrator` (client) adds tab switching via event delegation.
+- **Rendering:** Page is server-rendered (async RSC). `DocRenderer` outputs static HTML. `MdxTabsHydrator` (from core) adds tab switching via event delegation.
 - **Progressive enhancement:** Tabs are all visible without JS. `js-tabs-ready` class added by hydrator enables tab switching.
-- **CSS:** `@/core/styles/mdx-components.css` (callouts, tabs, steps, badges) + `styles/docs.css` (docs layout).
+- **CSS:** `@/core/styles/mdx-components.css` (callouts, tabs, steps, badges) + `styles/docs.css` (docs layout only).
 - **Request dedup:** `data.ts` wraps fetchers with `React.cache()` so `generateMetadata` and page share one compilation.
 
 ## Key Endpoints

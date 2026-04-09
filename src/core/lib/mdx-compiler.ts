@@ -8,6 +8,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeStringify from 'rehype-stringify';
 import type { Root, Element, ElementContent } from 'hast';
 import { visit } from 'unist-util-visit';
+import { resolveContentVars } from '@/core/lib/content-vars';
 
 // ─── MDX Component Registry ────────────────────────────────────────────────
 
@@ -177,6 +178,7 @@ export function invalidateCompileCache(): void {
 
 /**
  * Compile MDX source to HTML string.
+ * Resolves [[VAR]] content variables before compilation.
  * Uses a unified remark→rehype pipeline. MDX JSX elements are transformed
  * to semantic HTML via the component registry — no React runtime needed.
  */
@@ -190,7 +192,8 @@ export async function compileMdx(
   }
 
   try {
-    const result = await mdxProcessor.process(source);
+    const resolved = resolveContentVars(source);
+    const result = await mdxProcessor.process(resolved);
     const html = String(result);
     if (cacheKey) setCache(cacheKey, html);
     return html;

@@ -6,6 +6,7 @@ import { siteConfig } from '@/config/site';
 import { getLocale } from '@/lib/locale-server';
 import { resolveSlugRedirect } from '@/core/crud/slug-redirects';
 import { getCachedCompiledContent } from '@/core/lib/content-renderer';
+import { resolveContentVars } from '@/core/lib/content-vars';
 import { MdxContentPage } from '@/core/components/MdxContentPage';
 import { MdxTabsHydrator } from '@/core/components/MdxTabsHydrator';
 import { resolveSlug } from './resolve';
@@ -29,9 +30,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (fileResult) {
     const { content } = fileResult;
     const fm = content.frontmatter;
+    const title = resolveContentVars(fm.seoTitle ?? `${fm.title ?? fullSlug} | ${siteConfig.name}`);
+    const description = fm.description ? resolveContentVars(fm.description) : undefined;
     return {
-      title: fm.seoTitle ?? `${fm.title ?? fullSlug} | ${siteConfig.name}`,
-      description: fm.description ?? undefined,
+      title,
+      description,
       robots: fm.noindex ? { index: false, follow: false } : undefined,
       ...(fm.image && {
         openGraph: {

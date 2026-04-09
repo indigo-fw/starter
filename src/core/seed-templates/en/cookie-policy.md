@@ -1,13 +1,13 @@
 ---
 title: Cookie Policy
 type: page
-description: Cookie Policy for {{SITE_NAME}}.
+description: Cookie Policy for [[SITE_NAME]].
 noindex: true
 ---
 
-**Date of Revision:** {{CURRENT_DATE}}
+**Date of Revision:** [[CURRENT_DATE]]
 
-{{SITE_NAME}} (the "Service"), operated by {{COMPANY_NAME}}, {{COMPANY_ADDRESS}}, uses cookies and similar tracking technologies. This Cookie Policy explains what cookies are, how we use them, your choices regarding cookies, and further information about cookies.
+[[SITE_NAME]] (the "Service"), operated by [[COMPANY_NAME]], [[COMPANY_ADDRESS]], uses cookies and similar tracking technologies. This Cookie Policy explains what cookies are, how we use them, your choices regarding cookies, and further information about cookies.
 
 **1. What are cookies?**
 
@@ -92,4 +92,4 @@ We may update this Cookie Policy from time to time. We will notify you of any ma
 
 **7. Contact**
 
-If you have any questions about our use of cookies, please contact us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+If you have any questions about our use of cookies, please contact us at [[CONTACT_EMAIL]].

@@ -1,13 +1,13 @@
 ---
 title: Privacy Policy
 type: page
-description: Privacy Policy for {{SITE_NAME}}.
+description: Privacy Policy for [[SITE_NAME]].
 noindex: true
 ---
 
-**Date of Revision:** {{CURRENT_DATE}}
+**Date of Revision:** [[CURRENT_DATE]]
 
-{{SITE_NAME}} (the "Service") is operated by {{COMPANY_NAME}}, address: {{COMPANY_ADDRESS}}. {{SITE_NAME}} is an online platform that provides digital services and content. Parts of the Services may require you to create a user account.
+[[SITE_NAME]] (the "Service") is operated by [[COMPANY_NAME]], address: [[COMPANY_ADDRESS]]. [[SITE_NAME]] is an online platform that provides digital services and content. Parts of the Services may require you to create a user account.
 
 We are committed to respecting your privacy, and these Services will always be provided with your consent. In this document, we provide clear information on how your data is processed when you visit the Website and use our Services.
 
@@ -23,24 +23,24 @@ For purposes of this Privacy Policy, "you" and "your" means you as the user of t
 
 "Processing" means any operation performed on Personal Data, whether or not by automated means, such as collection, recording, organization, structuring, storage, adaptation, retrieval, consultation, use, disclosure by transmission, dissemination, alignment, restriction, erasure, or destruction.
 
-"Services" means all features and functionality provided by {{SITE_NAME}}.
+"Services" means all features and functionality provided by [[SITE_NAME]].
 
-"Subscription" means an arrangement between {{SITE_NAME}} and you to enable you to use the Services.
+"Subscription" means an arrangement between [[SITE_NAME]] and you to enable you to use the Services.
 
 "User" means a person who has registered for and is using the Service.
 
 "Visitor" means anyone browsing the Website without a valid Subscription.
 
-"Website" means {{SITE_NAME}}, accessible at {{SITE_URL}}.
+"Website" means [[SITE_NAME]], accessible at [[SITE_URL]].
 
 **2. Data Controller**
 
 The data controller for the purposes of the General Data Protection Regulation (EU) 2016/679 ("GDPR") and applicable data protection laws is:
 
-**{{COMPANY_NAME}}**
-{{COMPANY_ADDRESS}}
-Registration Number: {{COMPANY_ID}}
-Email: {{CONTACT_EMAIL}}
+**[[COMPANY_NAME]]**
+[[COMPANY_ADDRESS]]
+Registration Number: [[COMPANY_ID]]
+Email: [[CONTACT_EMAIL]]
 
 The data controller is responsible for determining the purposes and means of processing your Personal Data. If you have any questions about this Privacy Policy, including any requests to exercise your legal rights, please contact us at the email address above.
 
@@ -132,13 +132,13 @@ We will only send you marketing communications where we have a lawful basis to d
 
 **8. Third-Party Marketing**
 
-We will obtain your express opt-in consent before sharing your Personal Data with any company outside {{COMPANY_NAME}} for marketing purposes.
+We will obtain your express opt-in consent before sharing your Personal Data with any company outside [[COMPANY_NAME]] for marketing purposes.
 
-You can ask us or third parties to stop sending marketing messages at any time by following the opt-out links on any marketing message or by contacting us at {{CONTACT_EMAIL}}.
+You can ask us or third parties to stop sending marketing messages at any time by following the opt-out links on any marketing message or by contacting us at [[CONTACT_EMAIL]].
 
 **9. Sharing Your Personal Information**
 
-{{SITE_NAME}} may share your information with:
+[[SITE_NAME]] may share your information with:
 
 a) Service providers we work with to deliver the Services (hosting, payment processing, analytics);
 
@@ -166,7 +166,7 @@ Our service providers that may process data outside the EEA include cloud hostin
 
 We use automated content moderation tools to detect content that may violate our Terms of Service or applicable law. These tools may flag content for human review or automatically restrict content or accounts.
 
-You have the right not to be subject to a decision based solely on automated processing that produces legal effects concerning you or similarly significantly affects you (Art. 22 GDPR). If you believe an automated decision has been made about you in error, you may contact us to request human review at {{CONTACT_EMAIL}}.
+You have the right not to be subject to a decision based solely on automated processing that produces legal effects concerning you or similarly significantly affects you (Art. 22 GDPR). If you believe an automated decision has been made about you in error, you may contact us to request human review at [[CONTACT_EMAIL]].
 
 **12. Sensitive Information**
 
@@ -174,7 +174,7 @@ We will never ask you to provide Personal Data revealing racial or ethnic origin
 
 **13. Your Rights Under the GDPR**
 
-You have the following rights regarding your Personal Data. To exercise any of these rights, please contact us at {{CONTACT_EMAIL}}.
+You have the following rights regarding your Personal Data. To exercise any of these rights, please contact us at [[CONTACT_EMAIL]].
 
 **13.1 Right of Access (Art. 15)**
 
@@ -218,7 +218,7 @@ You have the right to withdraw your consent at any time. Withdrawal does not aff
 
 If you withdraw consent, we may not be able to provide the Services to you and will take reasonable steps to delete your account and the Personal Data we have collected.
 
-You can withdraw consent by contacting us at {{CONTACT_EMAIL}}.
+You can withdraw consent by contacting us at [[CONTACT_EMAIL]].
 
 **13.8 Right to Lodge a Complaint (Art. 77)**
 
@@ -242,7 +242,7 @@ Retention periods may be adjusted based on evolving business or regulatory requi
 
 **15. Personal Information of Minors**
 
-{{SITE_NAME}} does not provide Services to or collect personal information from anyone under the age of majority in their jurisdiction. If we learn that we have collected personal information from an individual who is underage, we will delete the information as soon as possible and block the user.
+[[SITE_NAME]] does not provide Services to or collect personal information from anyone under the age of majority in their jurisdiction. If we learn that we have collected personal information from an individual who is underage, we will delete the information as soon as possible and block the user.
 
 **16. Data Security**
 
@@ -256,7 +256,7 @@ The Website may include links to third-party websites, plug-ins, and application
 
 **18. Merger or Acquisition**
 
-If {{SITE_NAME}} merges with or is acquired by another company, or sells all or a portion of its assets, your Personal Data may be disclosed to our advisers and any prospective purchaser's advisers, and may be among the assets transferred. However, Personal Data will always remain subject to this Privacy Policy.
+If [[SITE_NAME]] merges with or is acquired by another company, or sells all or a portion of its assets, your Personal Data may be disclosed to our advisers and any prospective purchaser's advisers, and may be among the assets transferred. However, Personal Data will always remain subject to this Privacy Policy.
 
 **19. Changes to This Privacy Policy**
 
@@ -272,6 +272,6 @@ We try to respond to all legitimate requests within one month. Occasionally it m
 
 For all privacy-related matters, including exercising your rights:
 
-**{{COMPANY_NAME}}**
-{{COMPANY_ADDRESS}}
-Email: {{CONTACT_EMAIL}}
+**[[COMPANY_NAME]]**
+[[COMPANY_ADDRESS]]
+Email: [[CONTACT_EMAIL]]

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { siteConfig } from '@/config/site';
+import { resolveContentVars } from '@/core/lib/content-vars';
 import { getCachedDoc, getCachedNavigation } from '../data';
 import { DocRenderer } from '@/core-docs/components/DocRenderer';
 import { DocSidebar } from '@/core-docs/components/DocSidebar';
@@ -19,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!doc) return {};
 
-  const title = `${doc.metaTitle ?? doc.title} — ${siteConfig.name} Docs`;
-  const description = doc.metaDescription ?? `${doc.title} documentation for ${siteConfig.name}`;
+  const title = resolveContentVars(`${doc.metaTitle ?? doc.title} — ${siteConfig.name} Docs`);
+  const description = resolveContentVars(doc.metaDescription ?? `${doc.title} documentation for ${siteConfig.name}`);
 
   return {
     title,
