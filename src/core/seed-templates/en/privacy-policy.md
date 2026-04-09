@@ -1,4 +1,9 @@
-# Privacy Policy
+---
+title: Privacy Policy
+type: page
+description: Privacy Policy for {{SITE_NAME}}.
+noindex: true
+---
 
 **Date of Revision:** {{CURRENT_DATE}}
 

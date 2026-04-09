@@ -1,4 +1,9 @@
-# Impressum (Legal Notice)
+---
+title: Impressum (Legal Notice)
+type: page
+description: Impressum (Legal Notice) for {{SITE_NAME}}.
+noindex: true
+---
 
 **Information pursuant to applicable EU commercial and media regulations**
 

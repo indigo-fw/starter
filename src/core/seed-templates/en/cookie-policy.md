@@ -1,4 +1,9 @@
-# Cookie Policy
+---
+title: Cookie Policy
+type: page
+description: Cookie Policy for {{SITE_NAME}}.
+noindex: true
+---
 
 **Date of Revision:** {{CURRENT_DATE}}
 

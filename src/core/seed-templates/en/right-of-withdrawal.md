@@ -1,4 +1,9 @@
-# Right of Withdrawal
+---
+title: Right of Withdrawal
+type: page
+description: Right of Withdrawal for {{SITE_NAME}}.
+noindex: true
+---
 
 **Date of Revision:** {{CURRENT_DATE}}
 

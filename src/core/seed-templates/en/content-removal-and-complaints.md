@@ -1,4 +1,9 @@
-# Content Removal and Complaints Policy
+---
+title: Content Removal and Complaints Policy
+type: page
+description: Content Removal and Complaints Policy for {{SITE_NAME}}.
+noindex: true
+---
 
 **Date of Revision:** {{CURRENT_DATE}}
 

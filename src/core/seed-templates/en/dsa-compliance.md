@@ -1,4 +1,9 @@
-# Digital Services Act (DSA) Compliance
+---
+title: Digital Services Act (DSA) Compliance
+type: page
+description: Digital Services Act (DSA) Compliance for {{SITE_NAME}}.
+noindex: true
+---
 
 **Date of Revision:** {{CURRENT_DATE}}
 

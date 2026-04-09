@@ -147,54 +147,28 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
 
   log('  🏷️', `${tagRecords.length} tags created.`);
 
-  // ── 7c. Legal pages (from templates) ────────────────────────────
+  // ── 7c. Legal pages (from seed templates → content/ files) ──────
+  //
+  // Templates live in core/seed-templates/{locale}/.
+  // The init script copies them to content/{locale}/ with variable substitution.
+  // The runtime content sync (server.ts) then inserts them into the CMS.
 
-  const templateDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'seed-templates', 'en');
-  let legalPageCount = 0;
+  const { seedContentFiles, contentFilesExist } = await import('@/core/lib/seed-content');
 
-  if (fs.existsSync(templateDir)) {
-    const templateFiles = fs.readdirSync(templateDir).filter((f: string) => f.endsWith('.md')).sort();
-
-    for (const filename of templateFiles) {
-      const filePath = path.join(templateDir, filename);
-      let fileContent = fs.readFileSync(filePath, 'utf-8');
-
-      // Replace placeholders
-      fileContent = fileContent
-        .replace(/\{\{SITE_NAME\}\}/g, companyInfo.siteName)
-        .replace(/\{\{SITE_URL\}\}/g, companyInfo.siteUrl)
-        .replace(/\{\{COMPANY_NAME\}\}/g, companyInfo.companyName)
-        .replace(/\{\{COMPANY_ADDRESS\}\}/g, companyInfo.companyAddress)
-        .replace(/\{\{COMPANY_ID\}\}/g, companyInfo.companyId)
-        .replace(/\{\{COMPANY_JURISDICTION\}\}/g, companyInfo.companyJurisdiction)
-        .replace(/\{\{CONTACT_EMAIL\}\}/g, companyInfo.contactEmail)
-        .replace(/\{\{CURRENT_DATE\}\}/g, formatDate(new Date()));
-
-      // Extract title from first line (remove # prefix)
-      const lines = fileContent.split('\n');
-      const title = (lines[0] ?? '').replace(/^#\s+/, '').trim();
-      const content = lines.slice(1).join('\n').trim();
-      const slug = filename.replace(/\.md$/, '');
-
-      await db.insert(cmsPosts).values({
-        type: 1, // PAGE
-        status: 1,
-        lang: 'en',
-        slug,
-        title,
-        content,
-        metaDescription: `${title} for ${companyInfo.siteName}.`,
-        noindex: true,
-        publishedAt: new Date(),
-        previewToken: token(),
-      });
-
-      legalPageCount++;
-    }
-
-    log('  📜', `${legalPageCount} legal pages created from templates.`);
+  if (!contentFilesExist()) {
+    const count = seedContentFiles({
+      SITE_NAME: companyInfo.siteName,
+      SITE_URL: companyInfo.siteUrl,
+      COMPANY_NAME: companyInfo.companyName,
+      COMPANY_ADDRESS: companyInfo.companyAddress,
+      COMPANY_ID: companyInfo.companyId,
+      COMPANY_JURISDICTION: companyInfo.companyJurisdiction,
+      CONTACT_EMAIL: companyInfo.contactEmail,
+      CURRENT_DATE: formatDate(new Date()),
+    });
+    log('  📜', `${count} legal page templates written to content/. They will sync to DB on server start.`);
   } else {
-    log('  ⚠️', 'No seed-templates/en/ directory found. Skipping legal pages.');
+    log('  ⏭️', 'content/ directory already has .md files. Skipping template seeding.');
   }
 
   // ── 7d. Standard pages (3) ──────────────────────────────────────
@@ -697,7 +671,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
   // ── Summary ─────────────────────────────────────────────────────
 
   console.log('');
-  log('✅', `Content seeded: ${categoryRecords.length} categories, ${tagRecords.length} tags, ${legalPageCount} legal pages, 3 standard pages, ${allBlogPosts.length} blog posts, ${portfolioRecords.length} portfolio items, ${showcaseRecords.length} showcase items.`);
+  log('✅', `Content seeded: ${categoryRecords.length} categories, ${tagRecords.length} tags, 3 standard pages, ${allBlogPosts.length} blog posts, ${portfolioRecords.length} portfolio items, ${showcaseRecords.length} showcase items.`);
 
   return {
     categoryIds: categoryRecords.map((r) => r.id),

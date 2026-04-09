@@ -1,4 +1,9 @@
-# Terms of Service
+---
+title: Terms of Service
+type: page
+description: Terms of Service for {{SITE_NAME}}.
+noindex: true
+---
 
 **Date of Revision:** {{CURRENT_DATE}}
 

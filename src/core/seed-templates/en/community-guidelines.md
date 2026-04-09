@@ -1,4 +1,9 @@
-# Community Guidelines
+---
+title: Community Guidelines
+type: page
+description: Community Guidelines for {{SITE_NAME}}.
+noindex: true
+---
 
 **Date of Revision:** {{CURRENT_DATE}}
 

@@ -1,4 +1,9 @@
-# Copyright and Intellectual Property Policy
+---
+title: Copyright and Intellectual Property Policy
+type: page
+description: Copyright and Intellectual Property Policy for {{SITE_NAME}}.
+noindex: true
+---
 
 **Date of Revision:** {{CURRENT_DATE}}
 
