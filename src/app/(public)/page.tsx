@@ -21,7 +21,8 @@ import {
 
 import { siteConfig } from "@/config/site";
 import { db } from "@/server/db";
-import { getCmsOverride, getCodedRouteSEO } from "@/core/crud/page-seo";
+import { getCodedRouteSEO } from "@/core/crud/page-seo";
+import { getCmsOverride } from "@/lib/cms-override";
 import { CmsContent } from "@/core/components";
 import { SHORTCODE_COMPONENTS } from "@/config/shortcodes";
 import { getLocale } from "@/lib/locale-server";
