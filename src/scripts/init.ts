@@ -406,7 +406,24 @@ async function ensureSuperadmin(
 
 // ─── Step 6: Company info ──────────────────────────────────────────────────
 
+function readSiteDefaults(): Record<string, string> {
+  const siteFile = path.resolve("src/config/site.ts");
+  if (!fs.existsSync(siteFile)) return {};
+  const content = fs.readFileSync(siteFile, "utf-8");
+  const defaults: Record<string, string> = {};
+  // Parse siteDefaults object values (simple single-line string literals)
+  const match = content.match(/siteDefaults\s*=\s*\{([\s\S]*?)\}\s*as\s*const/);
+  if (!match) return defaults;
+  for (const line of match[1].split("\n")) {
+    const m = line.match(/^\s*(\w+):\s*'([^']*)'/);
+    if (m) defaults[m[1]] = m[2];
+  }
+  return defaults;
+}
+
 async function promptCompanyInfo(): Promise<CompanyInfo> {
+  const d = readSiteDefaults();
+
   if (!AUTO_YES) {
     log("🏢", "Company info (used in legal page templates)...");
     console.log("");
@@ -415,37 +432,37 @@ async function promptCompanyInfo(): Promise<CompanyInfo> {
   const siteName = await ask(
     "  Site name: ",
     process.env.NEXT_PUBLIC_SITE_NAME,
-    "Indigo",
+    d.siteName ?? "Indigo",
   );
   const siteUrl = await ask(
     "  Site URL: ",
     process.env.NEXT_PUBLIC_APP_URL,
-    "http://localhost:3000",
+    d.siteUrl ?? "http://localhost:3000",
   );
   const companyName = await ask(
     '  Company legal name (e.g. "Acme Corp s.r.o."): ',
     undefined,
-    "Indigo Inc.",
+    d.companyName ?? "Indigo Inc.",
   );
   const companyAddress = await ask(
     "  Company address: ",
     undefined,
-    "123 Main Street, City, Country",
+    d.companyAddress ?? "123 Main Street, City, Country",
   );
   const companyId = await ask(
     "  Company registration number: ",
     undefined,
-    "N/A",
+    d.companyId ?? "N/A",
   );
   const companyJurisdiction = await ask(
     '  Governing law jurisdiction (e.g. "the Slovak Republic"): ',
     undefined,
-    "the United States",
+    d.companyJurisdiction ?? "the United States",
   );
   const contactEmail = await ask(
     "  Contact email: ",
     undefined,
-    "info@example.com",
+    d.contactEmail ?? "info@example.com",
   );
 
   if (!AUTO_YES) console.log("");
@@ -460,7 +477,44 @@ async function promptCompanyInfo(): Promise<CompanyInfo> {
   };
 }
 
-// ─── Step 7: Update .env with site values ───────────────────────────────────
+// ─── Step 7: Update .env and site.ts with company values ─────────────────────
+
+function updateSiteConfig(companyInfo: CompanyInfo) {
+  const siteFile = path.resolve("src/config/site.ts");
+  if (!fs.existsSync(siteFile)) return;
+
+  let content = fs.readFileSync(siteFile, "utf-8");
+  let changed = false;
+
+  const updates: Record<string, string> = {
+    siteName: companyInfo.siteName,
+    siteUrl: companyInfo.siteUrl,
+    contactEmail: companyInfo.contactEmail,
+    companyName: companyInfo.companyName,
+    companyAddress: companyInfo.companyAddress,
+    companyId: companyInfo.companyId,
+    companyJurisdiction: companyInfo.companyJurisdiction,
+  };
+
+  for (const [key, value] of Object.entries(updates)) {
+    // Match: key: 'old value', (inside siteDefaults)
+    const escaped = value.replace(/'/g, "\\'");
+    const regex = new RegExp(`(${key}:\\s*)'[^']*'`);
+    if (regex.test(content)) {
+      const newLine = `$1'${escaped}'`;
+      const updated = content.replace(regex, newLine);
+      if (updated !== content) {
+        content = updated;
+        changed = true;
+      }
+    }
+  }
+
+  if (changed) {
+    fs.writeFileSync(siteFile, content);
+    log("📝", "src/config/site.ts updated with company info.");
+  }
+}
 
 function updateEnvFile(companyInfo: CompanyInfo) {
   if (!fs.existsSync(ENV_PATH)) return;
@@ -598,6 +652,7 @@ async function main() {
 
       // Step 7
       updateEnvFile(companyInfo);
+      updateSiteConfig(companyInfo);
 
       // Step 8
       await seedOptions(db, companyInfo);

@@ -19,9 +19,34 @@ import { createRevision, pickSnapshot } from '@/core/crud/content-revisions';
 import { createLogger } from '@/core/lib/logger';
 import { PostType, ContentStatus } from '@/core/types/cms';
 import { cmsPosts } from '@/server/db/schema/cms';
+import { siteDefaults, clientEnv } from '@/config/site';
 import type { DbClient } from '@/server/db';
 
 const logger = createLogger('content-sync');
+
+// ─── Template Variable Resolution ───────────────────────────────────────────
+
+/**
+ * Build the variable map from site.ts config values.
+ * These replace {{VAR}} placeholders in .md content at DB-insert time.
+ */
+function buildVarMap(): Record<string, string> {
+  return {
+    SITE_NAME: clientEnv.siteName,
+    SITE_URL: clientEnv.appUrl,
+    COMPANY_NAME: siteDefaults.companyName,
+    COMPANY_ADDRESS: siteDefaults.companyAddress,
+    COMPANY_ID: siteDefaults.companyId,
+    COMPANY_JURISDICTION: siteDefaults.companyJurisdiction,
+    CONTACT_EMAIL: siteDefaults.contactEmail,
+    CURRENT_DATE: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+  };
+}
+
+/** Replace {{VAR}} placeholders in a string with values from site.ts. */
+function resolveVars(text: string, vars: Record<string, string>): string {
+  return text.replace(/\{\{(\w+)\}\}/g, (match, key) => vars[key] ?? match);
+}
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -186,6 +211,7 @@ export interface SyncResult {
 export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise<SyncResult> {
   const { dryRun, contentTypes } = opts;
   const { dirToPostType, dirToContentType, validDirs } = buildDirMapping(contentTypes);
+  const vars = buildVarMap();
 
   const files = scanMdFiles(dirToPostType, dirToContentType, validDirs);
   if (files.length === 0) {
@@ -200,7 +226,13 @@ export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise
   let skipped = 0;
 
   for (const file of files) {
-    const { slug, locale, postType, contentTypeId, frontmatter, content, filePath, mtime } = file;
+    const { slug, locale, postType, contentTypeId, frontmatter, filePath, mtime } = file;
+
+    // Resolve {{VAR}} placeholders from site.ts at insert time
+    const title = resolveVars(frontmatter.title!, vars);
+    const content = resolveVars(file.content, vars);
+    const description = frontmatter.description ? resolveVars(frontmatter.description, vars) : null;
+    const seoTitle = frontmatter.seoTitle ? resolveVars(frontmatter.seoTitle, vars) : null;
 
     const [existing] = await db
       .select()
@@ -222,10 +254,10 @@ export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise
           status: ContentStatus.PUBLISHED,
           lang: locale,
           slug,
-          title: frontmatter.title!,
+          title,
           content,
-          metaDescription: frontmatter.description ?? null,
-          seoTitle: frontmatter.seoTitle ?? null,
+          metaDescription: description,
+          seoTitle,
           featuredImage: frontmatter.image ?? null,
           featuredImageAlt: frontmatter.imageAlt ?? null,
           noindex: frontmatter.noindex ?? false,
@@ -250,10 +282,10 @@ export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise
       await db
         .update(cmsPosts)
         .set({
-          title: frontmatter.title!,
+          title,
           content,
-          metaDescription: frontmatter.description ?? existing.metaDescription,
-          seoTitle: frontmatter.seoTitle ?? existing.seoTitle,
+          metaDescription: description ?? existing.metaDescription,
+          seoTitle: seoTitle ?? existing.seoTitle,
           featuredImage: frontmatter.image ?? existing.featuredImage,
           featuredImageAlt: frontmatter.imageAlt ?? existing.featuredImageAlt,
           noindex: frontmatter.noindex ?? existing.noindex,

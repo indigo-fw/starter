@@ -1,9 +1,13 @@
 /** Site configuration — branding and defaults */
 
 export const siteDefaults = {
-  siteName: 'Indigo',
-  siteUrl: 'http://localhost:3000',
-  contactEmail: 'admin@indigo-fw.dev',
+  siteName: "Indigo",
+  siteUrl: "http://localhost:3000",
+  contactEmail: "info@indigo-fw.dev",
+  companyName: "Indigo Inc.",
+  companyAddress: "123 Main Street, City, Country",
+  companyId: "N/A",
+  companyJurisdiction: "the United States",
 } as const;
 
 export const clientEnv = {
@@ -13,13 +17,13 @@ export const clientEnv = {
 
 export const siteConfig = {
   name: clientEnv.siteName,
-  description: 'AI Agent-driven T3 SaaS starter with integrated CMS',
+  description: "AI Agent-driven T3 SaaS starter with integrated CMS",
   url: clientEnv.appUrl,
 
   seo: {
     title: `${clientEnv.siteName} — AI Agent-driven T3 SaaS Starter`,
     description:
-      'Open-source SaaS starter kit with integrated CMS, built on Next.js, tRPC, Drizzle, and Better Auth. Multi-tenancy, Stripe billing, real-time WebSocket, and more.',
+      "Open-source SaaS starter kit with integrated CMS, built on Next.js, tRPC, Drizzle, and Better Auth. Multi-tenancy, Stripe billing, real-time WebSocket, and more.",
   },
 
   /** Auto-detect locale from Accept-Language and redirect to matching prefix.

@@ -150,25 +150,16 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
   // ── 7c. Legal pages (from seed templates → content/ files) ──────
   //
   // Templates live in core/seed-templates/{locale}/.
-  // The init script copies them to content/{locale}/ with variable substitution.
-  // The runtime content sync (server.ts) then inserts them into the CMS.
+  // Init copies them verbatim to content/{locale}/ (variables like {{COMPANY_NAME}} stay as-is).
+  // The content sync (server.ts) resolves variables from site.ts at DB-insert time.
 
-  const { seedContentFiles, contentFilesExist } = await import('@/core/lib/seed-content');
+  const { seedContentFiles } = await import('@/core/lib/seed-content');
+  const seededCount = seedContentFiles();
 
-  if (!contentFilesExist()) {
-    const count = seedContentFiles({
-      SITE_NAME: companyInfo.siteName,
-      SITE_URL: companyInfo.siteUrl,
-      COMPANY_NAME: companyInfo.companyName,
-      COMPANY_ADDRESS: companyInfo.companyAddress,
-      COMPANY_ID: companyInfo.companyId,
-      COMPANY_JURISDICTION: companyInfo.companyJurisdiction,
-      CONTACT_EMAIL: companyInfo.contactEmail,
-      CURRENT_DATE: formatDate(new Date()),
-    });
-    log('  📜', `${count} legal page templates written to content/. They will sync to DB on server start.`);
+  if (seededCount > 0) {
+    log('  📜', `${seededCount} legal page templates copied to content/. Variables resolve from site.ts on server start.`);
   } else {
-    log('  ⏭️', 'content/ directory already has .md files. Skipping template seeding.');
+    log('  ⏭️', 'Legal page templates already exist in content/. Skipping.');
   }
 
   // ── 7d. Standard pages (3) ──────────────────────────────────────
