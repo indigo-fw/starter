@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join, relative, extname, basename } from 'path';
 import { createLogger } from '@/core/lib/logger';
+import { parseFrontmatter } from '@/core/lib/frontmatter';
 
 const logger = createLogger('docs-loader');
 
@@ -23,41 +24,11 @@ export interface FileDoc {
   /** Raw content (markdown or MDX) without frontmatter */
   content: string;
   /** File format */
-  format: 'md' | 'mdx';
+  format: 'mdx';
   /** File path relative to docs root */
   filePath: string;
   /** Last modified timestamp */
   updatedAt: Date;
-}
-
-/**
- * Parse YAML-style frontmatter from markdown content.
- * Returns frontmatter object and content without frontmatter block.
- */
-function parseFrontmatter(raw: string): { frontmatter: DocFrontmatter; content: string } {
-  const match = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
-  if (!match) return { frontmatter: {}, content: raw };
-
-  const frontmatter: DocFrontmatter = {};
-  const lines = match[1].split('\n');
-  for (const line of lines) {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) continue;
-    const key = line.slice(0, colonIdx).trim();
-    let value: string | number | boolean = line.slice(colonIdx + 1).trim();
-    // Strip quotes
-    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
-    }
-    // Parse numbers and booleans
-    if (value === 'true') value = true as unknown as string;
-    else if (value === 'false') value = false as unknown as string;
-    else if (/^\d+$/.test(value)) value = parseInt(value, 10) as unknown as string;
-
-    (frontmatter as Record<string, unknown>)[key] = value;
-  }
-
-  return { frontmatter, content: match[2] };
 }
 
 /**
@@ -88,18 +59,18 @@ function loadDir(dir: string, baseDir: string): FileDoc[] {
     }
 
     const ext = extname(entry).toLowerCase();
-    if (ext !== '.md' && ext !== '.mdx') continue;
+    if (ext !== '.mdx') continue;
 
     try {
       const raw = readFileSync(fullPath, 'utf-8');
-      const { frontmatter, content } = parseFrontmatter(raw);
+      const { frontmatter, content } = parseFrontmatter<DocFrontmatter>(raw);
 
       // Build slug from relative path (strip extension)
       const relPath = relative(baseDir, fullPath);
       let slug = relPath
         .replace(/\\/g, '/')
-        .replace(/\.(mdx?|md)$/, '')
-        .replace(/\/index$/, ''); // index.md → parent slug
+        .replace(/\.mdx$/, '')
+        .replace(/\/index$/, ''); // index.mdx → parent slug
 
       // Remove leading number prefixes used for ordering (e.g. '01-getting-started' → 'getting-started')
       slug = slug
@@ -114,7 +85,7 @@ function loadDir(dir: string, baseDir: string): FileDoc[] {
           title: frontmatter.title ?? titleFromFilename(entry),
         },
         content,
-        format: ext === '.mdx' ? 'mdx' : 'md',
+        format: 'mdx' as const,
         filePath: relPath.replace(/\\/g, '/'),
         updatedAt: stat.mtime,
       });

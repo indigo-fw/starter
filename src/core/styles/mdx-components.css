@@ -1,0 +1,314 @@
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* ===================== Callout ===================== */
+  .docs-callout {
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .docs-callout-title {
+    margin: 0 0 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .docs-callout-body > :first-child {
+    margin-top: 0;
+  }
+
+  .docs-callout-body > :last-child {
+    margin-bottom: 0;
+  }
+
+  .docs-callout-info {
+    background-color: oklch(0.95 0.02 240);
+    border-left: 3px solid oklch(0.55 0.15 240);
+  }
+
+  .docs-callout-tip {
+    background-color: oklch(0.95 0.02 155);
+    border-left: 3px solid oklch(0.55 0.15 155);
+  }
+
+  .docs-callout-warning {
+    background-color: oklch(0.95 0.03 80);
+    border-left: 3px solid oklch(0.65 0.18 80);
+  }
+
+  .docs-callout-danger {
+    background-color: oklch(0.95 0.02 25);
+    border-left: 3px solid oklch(0.60 0.18 25);
+  }
+
+  html.dark .docs-callout-info {
+    background-color: oklch(0.22 0.02 240);
+    border-left-color: oklch(0.50 0.12 240);
+  }
+
+  html.dark .docs-callout-tip {
+    background-color: oklch(0.22 0.02 155);
+    border-left-color: oklch(0.50 0.12 155);
+  }
+
+  html.dark .docs-callout-warning {
+    background-color: oklch(0.22 0.03 80);
+    border-left-color: oklch(0.55 0.15 80);
+  }
+
+  html.dark .docs-callout-danger {
+    background-color: oklch(0.22 0.02 25);
+    border-left-color: oklch(0.50 0.15 25);
+  }
+
+  /* ===================== Code Tabs ===================== */
+  .docs-code-tabs {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .docs-code-tabs-bar {
+    display: flex;
+    gap: 0;
+    background-color: var(--surface-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .docs-tab-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+  }
+
+  .docs-tab-button:hover {
+    color: var(--text-primary);
+  }
+
+  .docs-tab-button.is-active {
+    color: var(--text-primary);
+    border-bottom-color: var(--brand-primary);
+  }
+
+  /*
+   * Progressive enhancement: tabs are ALL visible by default (no-JS fallback).
+   * The inline .docs-tab-button labels act as section headings.
+   * Once JS hydrates, .js-tabs-ready is added and only the active tab shows.
+   */
+  .docs-tab {
+    display: block;
+  }
+
+  .js-tabs-ready .docs-tab {
+    display: none;
+  }
+
+  .js-tabs-ready .docs-tab.is-active {
+    display: block;
+  }
+
+  /* Hide inline tab labels once JS builds the proper tab bar */
+  .js-tabs-ready .docs-tab > .docs-tab-button {
+    display: none;
+  }
+
+  /* No-JS: style the inline button as a label, not interactive */
+  .docs-tab > .docs-tab-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--surface-secondary);
+    border: none;
+    border-bottom: 1px solid var(--border-subtle);
+    cursor: default;
+  }
+
+  .docs-tab-content {
+    padding: 0;
+  }
+
+  .docs-tab-content > pre {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+  }
+
+  /* ===================== Steps ===================== */
+  .docs-steps {
+    list-style: none;
+    padding-left: 0;
+    margin: 1.5rem 0;
+    counter-reset: docs-step;
+  }
+
+  .docs-step {
+    position: relative;
+    padding-left: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-left: 2px solid var(--border-subtle);
+    margin-left: 0.875rem;
+    counter-increment: docs-step;
+  }
+
+  .docs-step:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0;
+  }
+
+  .docs-step::before {
+    content: counter(docs-step);
+    position: absolute;
+    left: -0.9375rem;
+    top: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-color: var(--brand-primary);
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .docs-step-title {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .docs-step-body > :first-child {
+    margin-top: 0;
+  }
+
+  .docs-step-body > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* ===================== Badge ===================== */
+  .docs-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.125rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .docs-badge-default {
+    background-color: var(--surface-secondary);
+    color: var(--text-secondary);
+  }
+
+  .docs-badge-success {
+    background-color: oklch(0.93 0.04 155);
+    color: oklch(0.35 0.12 155);
+  }
+
+  .docs-badge-warning {
+    background-color: oklch(0.93 0.05 80);
+    color: oklch(0.40 0.15 80);
+  }
+
+  .docs-badge-danger {
+    background-color: oklch(0.93 0.04 25);
+    color: oklch(0.40 0.15 25);
+  }
+
+  html.dark .docs-badge-success {
+    background-color: oklch(0.25 0.04 155);
+    color: oklch(0.75 0.10 155);
+  }
+
+  html.dark .docs-badge-warning {
+    background-color: oklch(0.25 0.04 80);
+    color: oklch(0.75 0.10 80);
+  }
+
+  html.dark .docs-badge-danger {
+    background-color: oklch(0.25 0.04 25);
+    color: oklch(0.75 0.10 25);
+  }
+
+  /* ===================== Admonitions (GH-style) ===================== */
+  .docs-admonition {
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.9375rem;
+  }
+
+  .docs-admonition-note {
+    background-color: oklch(0.95 0.02 240);
+    border-left: 3px solid oklch(0.55 0.15 240);
+  }
+
+  .docs-admonition-warning {
+    background-color: oklch(0.95 0.03 80);
+    border-left: 3px solid oklch(0.65 0.18 80);
+  }
+
+  .docs-admonition-tip {
+    background-color: oklch(0.95 0.02 155);
+    border-left: 3px solid oklch(0.55 0.15 155);
+  }
+
+  .docs-admonition-important {
+    background-color: oklch(0.95 0.02 303);
+    border-left: 3px solid oklch(0.55 0.15 303);
+  }
+
+  .docs-admonition-caution {
+    background-color: oklch(0.95 0.02 25);
+    border-left: 3px solid oklch(0.60 0.18 25);
+  }
+
+  html.dark .docs-admonition-note {
+    background-color: oklch(0.22 0.02 240);
+  }
+
+  html.dark .docs-admonition-warning {
+    background-color: oklch(0.22 0.03 80);
+  }
+
+  html.dark .docs-admonition-tip {
+    background-color: oklch(0.22 0.02 155);
+  }
+
+  html.dark .docs-admonition-important {
+    background-color: oklch(0.22 0.02 303);
+  }
+
+  html.dark .docs-admonition-caution {
+    background-color: oklch(0.22 0.02 25);
+  }
+
+  /* ===================== Compile error ===================== */
+  .docs-compile-error {
+    border: 1px solid oklch(0.60 0.18 25);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    background-color: oklch(0.95 0.02 25);
+  }
+
+  .docs-compile-error pre {
+    font-size: 0.8125rem;
+    overflow-x: auto;
+  }
+}

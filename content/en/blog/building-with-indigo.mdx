@@ -1,0 +1,128 @@
+---
+title: Building Your First App with Indigo
+type: post
+description: A step-by-step guide to building a SaaS application with the Indigo framework.
+date: 2026-04-01
+category: tutorials
+tags: [getting-started, tutorial, saas]
+image: /images/blog/building-with-indigo.jpg
+imageAlt: Code editor showing Indigo project structure
+---
+
+# Building Your First App with Indigo
+
+So you've decided to build a SaaS. Good choice — and even better choice picking Indigo as your framework. Let's walk through building a real application from zero to deployed.
+
+<Callout type="info">
+This guide assumes you have Bun installed and a PostgreSQL database available. See the [installation docs](/docs/getting-started/installation) for prerequisites.
+</Callout>
+
+## Clone and Initialize
+
+<Steps>
+<Step title="Clone the starter">
+
+```bash
+git clone https://github.com/indigo-fw/starter my-saas
+cd my-saas
+bun install
+```
+
+</Step>
+<Step title="Configure your environment">
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your database URL and a secret:
+
+```env
+DATABASE_URL=postgresql://user:pass@localhost:5432/my_saas
+BETTER_AUTH_SECRET=your-secret-here
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_NAME=My SaaS
+```
+
+</Step>
+<Step title="Initialize the database">
+
+```bash
+bun run init
+```
+
+This creates tables, runs migrations, prompts for a superadmin account, and seeds default content.
+
+</Step>
+<Step title="Start development">
+
+```bash
+bun run dev
+```
+
+Open [localhost:3000](http://localhost:3000). Your app is running.
+
+</Step>
+</Steps>
+
+## Add Features with Modules
+
+Indigo's module system lets you install features without writing boilerplate:
+
+<CodeTabs>
+<Tab label="Support Chat">
+
+```bash
+bun run indigo add core-support
+bun run db:generate && bun run db:migrate
+```
+
+Adds AI-powered support chat with ticket escalation and live agent takeover.
+
+</Tab>
+<Tab label="Subscriptions">
+
+```bash
+bun run indigo add core-payments
+bun run indigo add core-subscriptions
+bun run db:generate && bun run db:migrate
+```
+
+Adds Stripe billing, subscription plans, token-based metering, and dunning.
+
+</Tab>
+<Tab label="E-Commerce">
+
+```bash
+bun run indigo add core-payments
+bun run indigo add core-store
+bun run db:generate && bun run db:migrate
+```
+
+Adds products, variants, cart, checkout, orders, shipping zones, and EU VAT.
+
+</Tab>
+</CodeTabs>
+
+## Deploy
+
+When you're ready, deploy to a $4/month VPS:
+
+```bash
+# On your server
+docker compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml exec app bun run init
+```
+
+See the [deployment guide](/docs/guides/deployment) for the full setup with Cloudflare CDN and GitHub Actions CI/CD.
+
+<Callout type="warning">
+Always use `openssl rand -hex 32` to generate production secrets. Never reuse development values.
+</Callout>
+
+## What's Next
+
+- Customize the public theme in `src/core/styles/tokens-public.css`
+- Add content types in `src/config/cms.ts`
+- Build custom tRPC routers in `src/server/routers/`
+- Create your own module with `src/core-mymodule/`

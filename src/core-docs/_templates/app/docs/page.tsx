@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getCachedNavigation } from './data';
+import '@/core/styles/mdx-components.css';
 import '@/core-docs/styles/docs.css';
 
 /**

@@ -5,6 +5,7 @@ import { getCachedDoc, getCachedNavigation } from '../data';
 import { DocRenderer } from '@/core-docs/components/DocRenderer';
 import { DocSidebar } from '@/core-docs/components/DocSidebar';
 import { DocsTabsHydrator } from '@/core-docs/components/DocsTabsHydrator';
+import '@/core/styles/mdx-components.css';
 import '@/core-docs/styles/docs.css';
 
 interface Props {

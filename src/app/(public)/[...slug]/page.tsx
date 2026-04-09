@@ -5,6 +5,9 @@ import { CONTENT_TYPES } from '@/config/cms';
 import { siteConfig } from '@/config/site';
 import { getLocale } from '@/lib/locale-server';
 import { resolveSlugRedirect } from '@/core/crud/slug-redirects';
+import { getCachedCompiledContent } from '@/core/lib/content-renderer';
+import { MdxContentPage } from '@/core/components/MdxContentPage';
+import { MdxTabsHydrator } from '@/core/components/MdxTabsHydrator';
 import { resolveSlug } from './resolve';
 import { getContentRenderer } from './renderer-registry';
 import './register-renderers';
@@ -15,17 +18,34 @@ interface Props {
 }
 
 // ── Metadata ──
-// Uses React.cache()-wrapped fetchers from data.ts so the same DB row
-// is shared with the renderer below — no double query per request.
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const locale = await getLocale();
+  const fullSlug = slug.join('/');
+
+  // File-based MDX content takes priority
+  const fileResult = await getCachedCompiledContent(fullSlug, locale);
+  if (fileResult) {
+    const { content } = fileResult;
+    const fm = content.frontmatter;
+    return {
+      title: fm.seoTitle ?? `${fm.title ?? fullSlug} | ${siteConfig.name}`,
+      description: fm.description ?? undefined,
+      robots: fm.noindex ? { index: false, follow: false } : undefined,
+      ...(fm.image && {
+        openGraph: {
+          images: [{ url: fm.image, alt: fm.imageAlt ?? fm.title ?? '' }],
+        },
+      }),
+    };
+  }
+
+  // Fall through to DB-based renderer
   const resolved = resolveSlug(slug);
   if (!resolved) return {};
 
-  const locale = await getLocale();
   const baseUrl = siteConfig.url;
-
   const renderer = getContentRenderer(resolved.contentType.id);
   if (!renderer) return {};
 
@@ -42,6 +62,20 @@ export default async function CatchAllPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const { preview, page: pageParam } = await searchParams;
   const currentPage = Math.max(1, parseInt(pageParam ?? '1', 10) || 1);
+  const locale = await getLocale();
+  const fullSlug = slug.join('/');
+
+  // File-based MDX content takes priority
+  const fileResult = await getCachedCompiledContent(fullSlug, locale);
+  if (fileResult) {
+    return (
+      <MdxTabsHydrator>
+        <MdxContentPage content={fileResult.content} html={fileResult.html} />
+      </MdxTabsHydrator>
+    );
+  }
+
+  // Fall through to DB-based renderer
   const resolved = resolveSlug(slug);
 
   if (!resolved) {
@@ -61,8 +95,6 @@ export default async function CatchAllPage({ params, searchParams }: Props) {
 
   const renderer = getContentRenderer(resolved.contentType.id);
   if (!renderer) notFound();
-
-  const locale = await getLocale();
 
   try {
     return await renderer.render({

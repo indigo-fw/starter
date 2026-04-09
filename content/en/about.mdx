@@ -1,0 +1,77 @@
+---
+title: About Indigo
+type: page
+description: Indigo is an open-source, AI agent-driven SaaS framework built on Next.js, tRPC, and Drizzle ORM.
+seoTitle: About — Indigo Framework
+---
+
+# About Indigo
+
+Indigo is an open-source SaaS framework for building modern web applications. Clone the starter, install the modules you need, and ship.
+
+<Callout type="tip">
+Indigo is designed for technical professionals who know what they want — not a page builder, but a complete engine.
+</Callout>
+
+## What's Included
+
+<Steps>
+<Step title="CMS & Content">
+
+Full-featured content management with blog, pages, portfolio, categories, tags, and custom fields. Rich text editor with shortcode support.
+
+</Step>
+<Step title="Auth & Organizations">
+
+Better Auth integration with email/password, social login, organizations, RBAC, and team management.
+
+</Step>
+<Step title="Payments & Subscriptions">
+
+Stripe integration with subscription plans, token-based billing, discounts, and dunning. Crypto payments available as a module.
+
+</Step>
+<Step title="AI Infrastructure">
+
+Built-in AI support chat, content generation, and SEO optimization. Extensible provider system for any LLM.
+
+</Step>
+</Steps>
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16 (App Router) |
+| API | tRPC |
+| Database | PostgreSQL + Drizzle ORM |
+| Auth | Better Auth |
+| Payments | Stripe |
+| Package Manager | Bun |
+
+## Open Source
+
+The core framework and essential modules are free and open source. Premium modules (support chat, affiliates, AI writer, e-commerce) are available for purchase.
+
+<CodeTabs>
+<Tab label="Quick Start">
+
+```bash
+git clone https://github.com/indigo-fw/starter my-app
+cd my-app
+bun install
+bun run init
+bun run dev
+```
+
+</Tab>
+<Tab label="Add a Module">
+
+```bash
+bun run indigo add core-support
+bun run db:generate
+bun run db:migrate
+```
+
+</Tab>
+</CodeTabs>

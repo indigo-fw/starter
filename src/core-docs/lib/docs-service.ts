@@ -17,14 +17,14 @@ export interface UnifiedDoc {
   parentSlug: string | null;
   metaTitle: string | null;
   metaDescription: string | null;
-  /** 'cms' | 'md' | 'mdx' */
+  /** 'cms' | 'mdx' */
   source: string;
   updatedAt: Date;
 }
 
 /** UnifiedDoc with pre-rendered HTML — returned by getDocBySlug only. */
 export interface RenderedDoc extends UnifiedDoc {
-  /** Pre-rendered HTML (compiled from md/mdx, or same as body for CMS) */
+  /** Pre-rendered HTML (compiled from mdx, or same as body for CMS) */
   renderedBody: string;
 }
 
@@ -107,8 +107,8 @@ export async function getDocBySlug(slug: string): Promise<RenderedDoc | null> {
   // Check file-based first (takes priority)
   const fileDoc = loadFileDoc(slug);
   if (fileDoc) {
-    const cacheKey = `${slug}:${fileDoc.format}:${fileDoc.updatedAt.getTime()}`;
-    const renderedBody = await compileMarkdownToHtml(fileDoc.content, fileDoc.format, cacheKey);
+    const cacheKey = `docs:${slug}:${fileDoc.updatedAt.getTime()}`;
+    const renderedBody = await compileMarkdownToHtml(fileDoc.content, cacheKey);
     return { ...fileDocToUnified(fileDoc), renderedBody };
   }
 

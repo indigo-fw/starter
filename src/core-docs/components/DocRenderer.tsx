@@ -21,7 +21,7 @@ interface DocRendererProps {
 
 /**
  * Renders a documentation page.
- * All sources (CMS, .md, .mdx) provide pre-rendered HTML via `renderedBody`.
+ * All sources (CMS and .mdx files) provide pre-rendered HTML via `renderedBody`.
  */
 export function DocRenderer({ doc }: DocRendererProps) {
   const html = parseAdmonitions(doc.renderedBody);
