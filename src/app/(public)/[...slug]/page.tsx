@@ -30,8 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (fileResult) {
     const { content } = fileResult;
     const fm = content.frontmatter;
-    const title = resolveContentVars(fm.seoTitle ?? `${fm.title ?? fullSlug} | ${siteConfig.name}`);
+    const seoTitle = fm.seoTitle ? resolveContentVars(fm.seoTitle) : null;
     const description = fm.description ? resolveContentVars(fm.description) : undefined;
+    // If seoTitle contains template vars, resolve via buildPageTitle; otherwise let layout template handle it
+    const { buildPageTitle } = await import('@/core/lib/content/title-template');
+    const title = seoTitle?.includes('{')
+      ? { absolute: buildPageTitle({ configTemplate: seoTitle, seoTitle: null, fallbackTitle: '', sitename: siteConfig.name }) }
+      : (seoTitle ?? resolveContentVars(fm.title ?? fullSlug));
     return {
       title,
       description,

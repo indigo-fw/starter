@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 
-import { siteConfig } from '@/config/site';
 import { getServerTranslations } from '@/lib/translations-server';
 import '@/core-store/components/product/store-grid.css';
 import '@/core-store/components/cart/store-cart.css';
@@ -10,7 +9,7 @@ import { CartPageClient } from './CartPageClient';
 export async function generateMetadata(): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: `${__('Cart')} | ${siteConfig.name}`,
+    title: __('Cart'),
     description: __('Your shopping cart'),
   };
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { siteConfig } from '@/config/site';
 import { serverTRPC } from '@/lib/trpc/server';
 import '@/core-store/components/product/store-grid.css';
 import '@/core-store/components/product/store-detail.css';
@@ -18,11 +17,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const api = await serverTRPC();
     const product = await api.storeProducts.getBySlug({ slug });
     return {
-      title: `${product.metaTitle || product.name} | ${siteConfig.name}`,
+      title: product.metaTitle || product.name,
       description: product.metaDescription || product.shortDescription || product.name,
     };
   } catch {
-    return { title: `Product | ${siteConfig.name}` };
+    return { title: 'Product' };
   }
 }
 

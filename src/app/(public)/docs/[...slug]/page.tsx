@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!doc) return {};
 
-  const title = resolveContentVars(`${doc.metaTitle ?? doc.title} — ${siteConfig.name} Docs`);
+  const title = resolveContentVars(`${doc.metaTitle ?? doc.title} | ${siteConfig.name} Docs`);
   const description = resolveContentVars(doc.metaDescription ?? `${doc.title} documentation for ${siteConfig.name}`);
 
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: {
       canonical: `${siteConfig.url}/docs/${slug}`,

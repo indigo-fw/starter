@@ -11,7 +11,6 @@
 
 import React from 'react';
 
-import { siteConfig } from '@/config/site';
 import { registerContentRenderer } from './renderer-registry';
 import {
   getCachedPost,
@@ -43,7 +42,7 @@ registerContentRenderer('page', {
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/');
 
     const metadata: import('next').Metadata = {
-      title: post.seoTitle ?? `${post.title} | ${siteConfig.name}`,
+      title: post.seoTitle ? { absolute: post.seoTitle } : post.title,
       description: post.metaDescription ?? undefined,
       robots: post.noindex ? { index: false, follow: false } : undefined,
       ...(languages && { alternates: { languages } }),
@@ -72,7 +71,7 @@ registerContentRenderer('blog', {
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/blog/');
 
     const metadata: import('next').Metadata = {
-      title: post.seoTitle ?? `${post.title} | ${siteConfig.name}`,
+      title: post.seoTitle ? { absolute: post.seoTitle } : post.title,
       description: post.metaDescription ?? undefined,
       robots: post.noindex ? { index: false, follow: false } : undefined,
       ...(languages && { alternates: { languages } }),
@@ -98,7 +97,7 @@ registerContentRenderer('tag', {
   async generateMetadata({ slug, locale }) {
     const tag = await getCachedTag(slug, locale);
     return {
-      title: `${tag.name} | ${siteConfig.name}`,
+      title: tag.name,
       description: `Browse all posts tagged with "${tag.name}".`,
     };
   },
@@ -116,7 +115,7 @@ registerContentRenderer('portfolio', {
     const siblings = await getPortfolioTranslationSiblings(item.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/portfolio/');
     return {
-      title: item.seoTitle ?? `${item.title} | ${siteConfig.name}`,
+      title: item.seoTitle ? { absolute: item.seoTitle } : item.title,
       description: item.metaDescription ?? undefined,
       robots: item.noindex ? { index: false, follow: false } : undefined,
       ...(languages && { alternates: { languages } }),
@@ -141,7 +140,7 @@ registerContentRenderer('showcase', {
     const siblings = await getShowcaseTranslationSiblings(item.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/showcase/');
     return {
-      title: item.seoTitle ?? `${item.title} | ${siteConfig.name}`,
+      title: item.seoTitle ? { absolute: item.seoTitle } : item.title,
       description: item.metaDescription ?? undefined,
       robots: item.noindex ? { index: false, follow: false } : undefined,
       ...(languages && { alternates: { languages } }),
@@ -166,7 +165,7 @@ registerContentRenderer('category', {
     const siblings = await getCategoryTranslationSiblings(cat.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/category/');
     return {
-      title: cat.seoTitle ?? `${cat.title} | ${siteConfig.name}`,
+      title: cat.seoTitle ? { absolute: cat.seoTitle } : cat.title,
       description: cat.metaDescription ?? undefined,
       robots: cat.noindex ? { index: false, follow: false } : undefined,
       ...(languages && { alternates: { languages } }),

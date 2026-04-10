@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { siteConfig } from '@/config/site';
 import { serverTRPC } from '@/lib/trpc/server';
 import { getServerTranslations } from '@/lib/translations-server';
 import '@/core-store/components/product/store-grid.css';
@@ -16,7 +15,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: `${__('Order Details')} | ${siteConfig.name}`,
+    title: __('Order Details'),
   };
 }
 

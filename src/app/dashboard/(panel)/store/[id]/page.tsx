@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   ArrowLeft,
+  ChevronDown,
   Loader2,
   Plus,
   Save,
@@ -18,6 +19,10 @@ import { toast } from '@/store/toast-store';
 import { cn } from '@/lib/utils';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { MediaPickerButton } from '@/core/components/media/MediaPickerButton';
+import { useCmsAutosave } from '@/core/hooks/useCmsAutosave';
+import { narrowRecoveredData } from '@/core/hooks/useCmsFormState';
+import AutosaveIndicator from '@/core/components/cms/AutosaveIndicator';
+import AutosaveRecoveryBanner from '@/core/components/cms/AutosaveRecoveryBanner';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -41,6 +46,49 @@ function emptyVariant(): VariantFormData {
 function formatPrice(cents: number | null | undefined, currency = 'EUR'): string {
   if (cents == null) return '—';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(cents / 100);
+}
+
+// ---------------------------------------------------------------------------
+// Collapsible card wrapper
+// ---------------------------------------------------------------------------
+
+function CollapsibleCard({ title, defaultOpen = true, children }: { title: string; defaultOpen?: boolean; children: React.ReactNode }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="card mt-4">
+      <button type="button" onClick={() => setOpen(!open)} className="flex w-full items-center justify-between p-4 text-left">
+        <h2 className="text-base font-semibold text-(--text-primary)">{title}</h2>
+        <ChevronDown className={cn('h-4 w-4 text-(--text-muted) transition-transform', open && 'rotate-180')} />
+      </button>
+      {open && <div className="px-6 pb-6">{children}</div>}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Autosave form data shape
+// ---------------------------------------------------------------------------
+
+interface ProductFormData extends Record<string, unknown> {
+  name: string;
+  slug: string;
+  type: string;
+  status: string;
+  description: string;
+  shortDescription: string;
+  priceCents: number;
+  comparePriceCents: number;
+  sku: string;
+  trackInventory: boolean;
+  stockQuantity: number;
+  weightGrams: number;
+  taxClass: string;
+  requiresShipping: boolean;
+  featuredImage: string;
+  metaTitle: string;
+  metaDescription: string;
+  digitalFileUrl: string;
+  downloadLimit: number;
 }
 
 // ---------------------------------------------------------------------------
@@ -117,8 +165,47 @@ function ProductFormInner({ product }: { product: ProductData }) {
   const [newVariant, setNewVariant] = useState<VariantFormData>(emptyVariant());
   const [deleteVariantId, setDeleteVariantId] = useState<string | null>(null);
 
+  // ---------------------------------------------------------------------------
+  // Autosave: build a single formData object from all fields
+  // ---------------------------------------------------------------------------
+
+  const initialFormData: ProductFormData = useMemo(() => ({
+    name: product.name,
+    slug: product.slug,
+    type: product.type,
+    status: product.status,
+    description: product.description ?? '',
+    shortDescription: product.shortDescription ?? '',
+    priceCents: product.priceCents ?? 0,
+    comparePriceCents: product.comparePriceCents ?? 0,
+    sku: product.sku ?? '',
+    trackInventory: product.trackInventory,
+    stockQuantity: product.stockQuantity ?? 0,
+    weightGrams: product.weightGrams ?? 0,
+    taxClass: product.taxClass,
+    requiresShipping: product.requiresShipping,
+    featuredImage: product.featuredImage ?? '',
+    metaTitle: product.metaTitle ?? '',
+    metaDescription: product.metaDescription ?? '',
+    digitalFileUrl: product.digitalFileUrl ?? '',
+    downloadLimit: product.downloadLimit ?? 0,
+  }), [product]);
+
+  const formData: ProductFormData = useMemo(() => ({
+    name, slug, type, status, description, shortDescription,
+    priceCents, comparePriceCents, sku, trackInventory, stockQuantity,
+    weightGrams, taxClass, requiresShipping, featuredImage,
+    metaTitle, metaDescription, digitalFileUrl, downloadLimit,
+  }), [
+    name, slug, type, status, description, shortDescription,
+    priceCents, comparePriceCents, sku, trackInventory, stockQuantity,
+    weightGrams, taxClass, requiresShipping, featuredImage,
+    metaTitle, metaDescription, digitalFileUrl, downloadLimit,
+  ]);
+
   const updateProduct = trpc.storeProducts.update.useMutation({
     onSuccess: () => {
+      clearAutosave(formData);
       toast.success(__('Product saved'));
       utils.storeProducts.adminGet.invalidate({ id: product.id });
     },
@@ -152,7 +239,57 @@ function ProductFormInner({ product }: { product: ProductData }) {
     onError: (err) => toast.error(err.message),
   });
 
-  const isPending = updateProduct.isPending;
+  const isSaving = updateProduct.isPending;
+
+  // ---------------------------------------------------------------------------
+  // Autosave hook
+  // ---------------------------------------------------------------------------
+
+  const {
+    isDirty,
+    recoveredData,
+    acceptRecovery,
+    dismissRecovery,
+    lastAutosaveAt,
+    clearAutosave,
+  } = useCmsAutosave<ProductFormData>({
+    contentTypeId: 'store-product',
+    contentId: product.id,
+    formData,
+    initialData: initialFormData,
+    dbUpdatedAt: (product as unknown as { updatedAt?: string | null }).updatedAt ?? null,
+    saving: isSaving,
+    loading: false,
+  });
+
+  // ---------------------------------------------------------------------------
+  // Recovery handler
+  // ---------------------------------------------------------------------------
+
+  const handleRestore = useCallback(() => {
+    if (!recoveredData) return;
+    const restored = narrowRecoveredData(recoveredData.formData, initialFormData);
+    setName(restored.name);
+    setSlug(restored.slug);
+    setType(restored.type as typeof type);
+    setStatus(restored.status as typeof status);
+    setDescription(restored.description);
+    setShortDescription(restored.shortDescription);
+    setPriceCents(restored.priceCents);
+    setComparePriceCents(restored.comparePriceCents);
+    setSku(restored.sku);
+    setTrackInventory(restored.trackInventory);
+    setStockQuantity(restored.stockQuantity);
+    setWeightGrams(restored.weightGrams);
+    setTaxClass(restored.taxClass);
+    setRequiresShipping(restored.requiresShipping);
+    setFeaturedImage(restored.featuredImage);
+    setMetaTitle(restored.metaTitle);
+    setMetaDescription(restored.metaDescription);
+    setDigitalFileUrl(restored.digitalFileUrl);
+    setDownloadLimit(restored.downloadLimit);
+    acceptRecovery();
+  }, [recoveredData, acceptRecovery, initialFormData]);
 
   // Field validation
   const errors: Record<string, string> = {};
@@ -163,7 +300,8 @@ function ProductFormInner({ product }: { product: ProductData }) {
   function handleSave() {
     if (Object.keys(errors).length > 0) {
       toast.error(Object.values(errors)[0]!);
-      return; }
+      return;
+    }
     updateProduct.mutate({
       id: product.id,
       name: name.trim(),
@@ -216,6 +354,7 @@ function ProductFormInner({ product }: { product: ProductData }) {
             <h1 className="text-2xl font-bold text-(--text-primary)">{__('Edit Product')}</h1>
           </div>
           <div className="flex items-center gap-2">
+            <AutosaveIndicator isDirty={isDirty} lastAutosaveAt={lastAutosaveAt} />
             <button
               onClick={() => setShowDelete(true)}
               className="btn btn-danger"
@@ -225,20 +364,31 @@ function ProductFormInner({ product }: { product: ProductData }) {
             </button>
             <button
               onClick={handleSave}
-              disabled={isPending}
+              disabled={isSaving || !isDirty}
               className="btn btn-primary disabled:opacity-50"
             >
-              {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+              {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               {__('Save')}
+              {isDirty && <span className="ml-1 inline-block h-2 w-2 rounded-full bg-white/70" />}
             </button>
           </div>
         </div>
       </header>
       <main className="dash-main"><div className="dash-inner">
-        {/* Main form */}
-        <div className="card mt-4 p-6">
-          <h2 className="h2">{__('Product Details')}</h2>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {/* Autosave recovery banner */}
+        {recoveredData && (
+          <div className="mt-4">
+            <AutosaveRecoveryBanner
+              savedAt={recoveredData.savedAt}
+              onRestore={handleRestore}
+              onDismiss={dismissRecovery}
+            />
+          </div>
+        )}
+
+        {/* Product Details */}
+        <CollapsibleCard title={__('Product Details')}>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="label">{__('Name')} *</label>
               <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={cn('input', errors.name && 'border-red-500')} />
@@ -274,12 +424,11 @@ function ProductFormInner({ product }: { product: ProductData }) {
               <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="textarea" rows={6} />
             </div>
           </div>
-        </div>
+        </CollapsibleCard>
 
         {/* Pricing */}
-        <div className="card mt-4 p-6">
-          <h2 className="h2">{__('Pricing')}</h2>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <CollapsibleCard title={__('Pricing')}>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="label">{__('Price (EUR)')}</label>
               <input
@@ -314,12 +463,11 @@ function ProductFormInner({ product }: { product: ProductData }) {
               </select>
             </div>
           </div>
-        </div>
+        </CollapsibleCard>
 
         {/* Inventory & Shipping */}
-        <div className="card mt-4 p-6">
-          <h2 className="h2">{__('Inventory & Shipping')}</h2>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <CollapsibleCard title={__('Inventory & Shipping')}>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="flex items-center gap-2">
               <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-(--text-secondary)">
                 <input type="checkbox" checked={trackInventory} onChange={(e) => setTrackInventory(e.target.checked)} className="h-4 w-4 rounded border-(--border-primary)" />
@@ -341,12 +489,11 @@ function ProductFormInner({ product }: { product: ProductData }) {
               </label>
             </div>
           </div>
-        </div>
+        </CollapsibleCard>
 
         {/* Media & SEO */}
-        <div className="card mt-4 p-6">
-          <h2 className="h2">{__('Media & SEO')}</h2>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <CollapsibleCard title={__('Media & SEO')}>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <label className="label">{__('Featured Image')}</label>
               <MediaPickerButton
@@ -363,13 +510,12 @@ function ProductFormInner({ product }: { product: ProductData }) {
               <input type="text" value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="input" maxLength={500} />
             </div>
           </div>
-        </div>
+        </CollapsibleCard>
 
         {/* Digital product fields */}
         {(type === 'digital') && (
-          <div className="card mt-4 p-6">
-            <h2 className="h2">{__('Digital Product')}</h2>
-            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <CollapsibleCard title={__('Digital Product')}>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className="label">{__('File URL')} *</label>
                 <input type="text" value={digitalFileUrl} onChange={(e) => setDigitalFileUrl(e.target.value)} className={cn('input', errors.digitalFileUrl && 'border-red-500')} placeholder="https://..." />
@@ -380,14 +526,13 @@ function ProductFormInner({ product }: { product: ProductData }) {
                 <input type="number" value={downloadLimit || ''} onChange={(e) => setDownloadLimit(parseInt(e.target.value) || 0)} className="input" placeholder={__('Unlimited')} />
               </div>
             </div>
-          </div>
+          </CollapsibleCard>
         )}
 
         {/* Variants (for variable products) */}
         {type === 'variable' && (
-          <div className="card mt-4 p-6">
-            <div className="flex items-center justify-between">
-              <h2 className="h2">{__('Variants')}</h2>
+          <CollapsibleCard title={__('Variants')}>
+            <div className="flex items-center justify-end">
               <button onClick={() => setAddingVariant(true)} className="btn btn-secondary">
                 <Plus className="h-4 w-4" />
                 {__('Add Variant')}
@@ -476,7 +621,7 @@ function ProductFormInner({ product }: { product: ProductData }) {
                 </div>
               </div>
             )}
-          </div>
+          </CollapsibleCard>
         )}
 
         {/* Delete product dialog */}

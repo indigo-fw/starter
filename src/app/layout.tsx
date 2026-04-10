@@ -18,9 +18,14 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+import { siteConfig } from '@/config/site';
+
 export const metadata: Metadata = {
-  title: 'Indigo',
-  description: 'Agent-driven headless CMS for T3 Stack',
+  title: {
+    default: siteConfig.seo.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.seo.description,
 };
 
 export default async function RootLayout({

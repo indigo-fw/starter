@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { Package, ArrowRight } from 'lucide-react';
 
-import { siteConfig } from '@/config/site';
 import { serverTRPC } from '@/lib/trpc/server';
 import { getServerTranslations } from '@/lib/translations-server';
 import '@/core-store/components/product/store-grid.css';
@@ -14,7 +13,7 @@ import { ProductCard } from './ProductCard';
 export async function generateMetadata(): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: `${__('Store')} | ${siteConfig.name}`,
+    title: __('Store'),
     description: __('Browse our products'),
   };
 }

@@ -2,12 +2,14 @@ import { Link } from '@/i18n/navigation';
 import type { Metadata } from 'next';
 
 import { siteConfig } from '@/config/site';
+import { getContentType } from '@/config/cms';
 import { serverTRPC } from '@/lib/trpc/server';
 import { PostType } from '@/core/types/cms';
 import { PostCard } from '@/core/components/PostCard';
 import { BlogSidebar } from '@/components/public/BlogSidebar';
 import { db } from '@/server/db';
 import { getCmsOverride } from '@/lib/cms-override';
+import { buildPageTitle } from '@/core/lib/content/title-template';
 import { CmsContent } from '@/core/components';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { getLocale } from '@/lib/locale-server';
@@ -21,13 +23,17 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const __ = await getServerTranslations();
   const cms = await getCmsOverride(db, 'blog', locale).catch(() => null);
 
-  const section = cms?.seo.seoTitle || __('Blog');
-  const title = page > 1
-    ? `${section} - ${__('Page')} ${page} | ${siteConfig.name}`
-    : `${section} | ${siteConfig.name}`;
+  const ct = getContentType('blog')!;
+  const title = buildPageTitle({
+    configTemplate: ct.titleTemplate,
+    seoTitle: cms?.seo.seoTitle,
+    fallbackTitle: __('Blog'),
+    sitename: siteConfig.name,
+    page,
+  });
 
   return {
-    title,
+    title: { absolute: title },
     description: cms?.seo.metaDescription || __('Latest blog posts'),
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };
