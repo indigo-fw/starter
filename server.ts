@@ -80,6 +80,11 @@ async function main() {
     console.error('Content sync failed:', err);
   }
 
+  // Preload content variables cache + set up cross-instance invalidation via Redis
+  const { preloadContentVars, initContentVarsSync } = await import('./src/core/lib/content-vars');
+  await preloadContentVars();
+  await initContentVarsSync();
+
   // Register webhook delivery logger
   const { setWebhookDeliveryLogger } = await import('./src/core/lib/webhooks');
   const { logWebhookDelivery } = await import('./src/core/lib/webhook-delivery-log');

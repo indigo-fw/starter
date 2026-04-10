@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { useRouter } from '@/i18n/navigation';
+import { useBlankTranslations } from '@/lib/translations';
 import './CartWidget.css';
 
 function getSessionId(): string {
@@ -16,6 +17,7 @@ function getSessionId(): string {
 }
 
 export function CartWidget() {
+  const __ = useBlankTranslations();
   const router = useRouter();
   const sessionIdRef = useRef('');
 
@@ -34,12 +36,14 @@ export function CartWidget() {
     <button
       type="button"
       className="icon-btn cart-widget"
-      title="Cart"
+      title={__('Cart')}
       onClick={() => router.push('/cart')}
     >
       <ShoppingCart className="h-4 w-4" />
       {itemCount > 0 && (
-        <span className="cart-badge">{itemCount > 99 ? '99+' : itemCount}</span>
+        <span className="cart-badge" aria-label={__('items in cart')}>
+          {itemCount > 99 ? '99+' : itemCount}
+        </span>
       )}
     </button>
   );

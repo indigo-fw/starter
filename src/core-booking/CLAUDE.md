@@ -4,7 +4,7 @@ Paid module. Booking/scheduling system — services, availability, appointments,
 
 ## Module Boundary
 
-**core-booking owns:** Service schema, availability (schedules + overrides), booking schema + events + reminders, all booking routers, availability/booking/reminder services, background worker.
+**core-booking owns:** Service schema, availability (schedules + overrides), booking schema + events + reminders, all booking routers, availability/booking/reminder/ical services, background worker.
 
 **Project owns:** Admin pages (`/dashboard/settings/bookings/`), public booking pages, dependency wiring (`config/booking-deps.ts`), webhook handler for payment completion (if using paid bookings).
 
@@ -22,6 +22,7 @@ Paid module. Booking/scheduling system — services, availability, appointments,
 - **sendNotification** — notify customer on booking status changes, reminders
 - **enqueueTemplateEmail** — booking confirmation, reminder, cancellation emails
 - **createPaymentCheckout** — optional: create payment session for paid bookings (via core-payments)
+- **getOrganizationName** — optional: org name for iCal ORGANIZER field
 
 ## Service Types
 
@@ -47,12 +48,26 @@ Paid module. Booking/scheduling system — services, availability, appointments,
 - **Recurring schedules:** Weekly pattern (day_of_week + start/end time)
 - **Date overrides:** Holiday closures, special hours for specific dates
 - **Slot generation:** Duration + buffer minutes, respects capacity limits
+- **Timezone-aware:** All slot times computed in the service's timezone, stored as UTC
 - **Advance booking:** Min/max advance hours configurable per service
+- **Batch queries:** `getAvailableDatesInRange` uses 3 queries for the entire range (not N per day)
+
+## Race Condition Protection
+
+- **Booking creation:** Uses `SELECT FOR UPDATE` inside a transaction to lock overlapping bookings before capacity check — prevents double-booking
+- **Booking number:** Retry loop (up to 5 attempts) handles concurrent inserts hitting the unique constraint
+- **Status updates:** Booking update + event log wrapped in a single transaction
+
+## Calendar Integration
+
+- **iCal (.ics):** `generateIcal()` produces a VEVENT with VALARM reminders (24h + 1h)
+- **Google Calendar:** `generateGoogleCalendarUrl()` generates a direct "Add to Calendar" link
+- **Router:** `bookings.getIcal` endpoint returns both iCal content and Google Calendar URL
 
 ## Background Worker
 
 `startBookingWorker()` runs every 60s:
-- Process due reminders (email + in-app notification)
+- Process due reminders (batch JOIN query — no N+1)
 - Auto-cancel expired pending bookings
 
 ## Wiring Into a Project

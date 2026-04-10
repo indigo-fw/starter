@@ -1,4 +1,4 @@
-import { count } from 'drizzle-orm';
+import { count, eq } from 'drizzle-orm';
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { bookingServices } from '@/core-booking/schema/services';
 import { bookingSchedules } from '@/core-booking/schema/availability';
@@ -17,10 +17,13 @@ export async function seedBooking(
     return {};
   }
 
-  // Idempotency check
-  const [existing] = await db.select({ count: count() }).from(bookingServices);
+  // Idempotency check — scoped to org
+  const [existing] = await db
+    .select({ count: count() })
+    .from(bookingServices)
+    .where(eq(bookingServices.organizationId, orgId));
   if ((existing?.count ?? 0) > 0) {
-    console.log('  Booking services already exist. Skipping.');
+    console.log('  Booking services already exist for this org. Skipping.');
     return {};
   }
 

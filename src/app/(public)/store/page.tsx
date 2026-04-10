@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Link } from '@/i18n/navigation';
 import { Package } from 'lucide-react';
 
 import { siteConfig } from '@/config/site';
@@ -39,10 +40,18 @@ export default async function StorePage({ searchParams }: Props) {
     data = null;
   }
 
+  const cardTranslations = {
+    sale: __('Sale'),
+    digital: __('Digital'),
+    fromVariants: __('From variants'),
+  };
+
   return (
     <div className="app-container py-12">
-      <h1 className="text-3xl font-bold text-(--text-primary) mb-2">{__('Store')}</h1>
-      <p className="text-(--text-muted) mb-8">{__('Browse our products')}</p>
+      <div className="store-header">
+        <h1 className="store-title">{__('Store')}</h1>
+        <p className="store-subtitle">{__('Browse our products')}</p>
+      </div>
 
       <StoreToolbar currentSort={sort} currentSearch={search ?? ''} />
 
@@ -50,39 +59,51 @@ export default async function StorePage({ searchParams }: Props) {
         <>
           <div className="store-grid">
             {data.results.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} translations={cardTranslations} />
             ))}
           </div>
 
           {data.totalPages > 1 && (
-            <div className="pagination mt-8">
+            <div className="pagination mt-10">
               {page > 1 && (
-                <a
-                  href={`/store?page=${page - 1}${sort !== 'newest' ? `&sort=${sort}` : ''}${search ? `&q=${search}` : ''}`}
+                <Link
+                  href={{ pathname: '/store', query: {
+                    ...(page > 2 ? { page: String(page - 1) } : {}),
+                    ...(sort !== 'newest' ? { sort } : {}),
+                    ...(search ? { q: search } : {}),
+                  }}}
                   className="pagination-btn"
                 >
                   {__('Previous')}
-                </a>
+                </Link>
               )}
               <span className="pagination-info">
                 {__('Page {page} of {totalPages}', { page, totalPages: data.totalPages })}
               </span>
               {page < data.totalPages && (
-                <a
-                  href={`/store?page=${page + 1}${sort !== 'newest' ? `&sort=${sort}` : ''}${search ? `&q=${search}` : ''}`}
+                <Link
+                  href={{ pathname: '/store', query: {
+                    page: String(page + 1),
+                    ...(sort !== 'newest' ? { sort } : {}),
+                    ...(search ? { q: search } : {}),
+                  }}}
                   className="pagination-btn"
                 >
                   {__('Next')}
-                </a>
+                </Link>
               )}
             </div>
           )}
         </>
       ) : (
-        <div className="cart-empty">
-          <Package className="h-16 w-16 cart-empty-icon" />
-          <p className="cart-empty-title">{__('No products found')}</p>
-          <p className="cart-empty-text">{search ? __('Try a different search term') : __('Check back soon for new products')}</p>
+        <div className="store-empty">
+          <Package className="h-16 w-16 store-empty-icon" />
+          <p className="store-empty-title">
+            {search ? __('No products found') : __('Coming soon')}
+          </p>
+          <p className="store-empty-text">
+            {search ? __('Try a different search term') : __('Check back soon for new products')}
+          </p>
         </div>
       )}
     </div>

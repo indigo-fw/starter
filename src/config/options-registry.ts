@@ -1,9 +1,11 @@
 import type { OptionDefinition } from '@/core/config/options';
+import { siteDefaults } from '@/config/site';
 
 export type { OptionDefinition } from '@/core/config/options';
 
 export const GROUP_LABELS: Record<string, string> = {
   general: 'General',
+  company: 'Company Info',
   branding: 'Branding',
   email: 'Email Branding',
   social: 'Social & Analytics',
@@ -18,6 +20,15 @@ export const OPTION_REGISTRY: OptionDefinition[] = [
   { key: 'site.tagline', label: 'Tagline', group: 'general', type: 'text', defaultValue: '' },
   { key: 'site.description', label: 'Description', group: 'general', type: 'textarea', defaultValue: '' },
   { key: 'site.url', label: 'Site URL', group: 'general', type: 'url', defaultValue: '' },
+
+  // ─── Company Info (used in legal pages via [[VAR]] content variables) ────────
+  // Empty defaults = not stored in DB until explicitly set.
+  // Placeholders show site.ts fallback values. DB value overrides site.ts when set.
+  { key: 'company.name', label: 'Company Legal Name', description: 'Used as [[COMPANY_NAME]] in content. Falls back to site.ts when empty.', group: 'company', type: 'text', defaultValue: '', placeholder: siteDefaults.companyName },
+  { key: 'company.address', label: 'Company Address', description: 'Used as [[COMPANY_ADDRESS]] in content', group: 'company', type: 'text', defaultValue: '', placeholder: siteDefaults.companyAddress },
+  { key: 'company.id', label: 'Registration Number', description: 'Used as [[COMPANY_ID]] in content', group: 'company', type: 'text', defaultValue: '', placeholder: siteDefaults.companyId },
+  { key: 'company.jurisdiction', label: 'Governing Law Jurisdiction', description: 'Used as [[COMPANY_JURISDICTION]] in content', group: 'company', type: 'text', defaultValue: '', placeholder: siteDefaults.companyJurisdiction },
+  { key: 'company.contact_email', label: 'Contact Email', description: 'Used as [[CONTACT_EMAIL]] in content', group: 'company', type: 'text', defaultValue: '', placeholder: siteDefaults.contactEmail },
 
   // ─── Branding ───────────────────────────────────────────────────────────────
   { key: 'site.logo', label: 'Logo URL', group: 'branding', type: 'url', defaultValue: '' },

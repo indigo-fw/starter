@@ -6,7 +6,7 @@ import { bookings, bookingEvents } from '@/core-booking/schema/bookings';
 import { bookingServices } from '@/core-booking/schema/services';
 import { createBooking, cancelBooking, updateBookingStatus } from '@/core-booking/lib/booking-service';
 import { isSlotAvailable } from '@/core-booking/lib/availability-service';
-import { getBookingDeps } from '@/core-booking/deps';
+import { generateIcal, generateGoogleCalendarUrl } from '@/core-booking/lib/ical-service';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 
@@ -222,6 +222,41 @@ export const bookingBookingsRouter = createTRPCRouter({
         .limit(50);
 
       return { ...booking, events };
+    }),
+
+  /** Get iCal file content for a booking */
+  getIcal: protectedProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      const [booking] = await ctx.db
+        .select()
+        .from(bookings)
+        .where(and(eq(bookings.id, input.id), eq(bookings.userId, userId)))
+        .limit(1);
+
+      if (!booking) throw new TRPCError({ code: 'NOT_FOUND', message: 'Booking not found' });
+
+      const ical = generateIcal({
+        id: booking.id,
+        bookingNumber: booking.bookingNumber,
+        startTime: booking.startTime,
+        endTime: booking.endTime,
+        serviceSnapshot: booking.serviceSnapshot as Record<string, unknown> | null,
+        customerNote: booking.customerNote,
+        priceCents: booking.priceCents,
+        currency: booking.currency,
+      });
+
+      const googleCalendarUrl = generateGoogleCalendarUrl({
+        startTime: booking.startTime,
+        endTime: booking.endTime,
+        serviceSnapshot: booking.serviceSnapshot as Record<string, unknown> | null,
+        bookingNumber: booking.bookingNumber,
+      });
+
+      return { ical, googleCalendarUrl };
     }),
 
   /** Cancel own booking */

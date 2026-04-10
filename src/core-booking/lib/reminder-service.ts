@@ -1,7 +1,6 @@
 import { and, eq, lt, lte } from 'drizzle-orm';
 import { db } from '@/server/db';
-import { bookingReminders } from '@/core-booking/schema/bookings';
-import { bookings } from '@/core-booking/schema/bookings';
+import { bookingReminders, bookings } from '@/core-booking/schema/bookings';
 import { bookingServices } from '@/core-booking/schema/services';
 import { getBookingDeps } from '@/core-booking/deps';
 import { createLogger } from '@/core/lib/logger';
@@ -11,19 +10,28 @@ const logger = createLogger('booking-reminders');
 /**
  * Process due reminders — called by the background worker.
  *
- * Finds all scheduled reminders where scheduledAt <= now,
- * sends notification/email, marks as sent.
+ * Uses a single JOIN query to fetch reminders with booking + service data,
+ * avoiding N+1 queries per reminder.
  */
 export async function processDueReminders(): Promise<number> {
   const now = new Date();
 
+  // Single query: reminders JOIN bookings JOIN services
   const dueReminders = await db
     .select({
-      id: bookingReminders.id,
-      bookingId: bookingReminders.bookingId,
-      type: bookingReminders.type,
+      reminderId: bookingReminders.id,
+      reminderType: bookingReminders.type,
+      bookingId: bookings.id,
+      bookingNumber: bookings.bookingNumber,
+      bookingStatus: bookings.status,
+      userId: bookings.userId,
+      guestEmail: bookings.guestEmail,
+      startTime: bookings.startTime,
+      serviceName: bookingServices.name,
     })
     .from(bookingReminders)
+    .innerJoin(bookings, eq(bookingReminders.bookingId, bookings.id))
+    .innerJoin(bookingServices, eq(bookings.serviceId, bookingServices.id))
     .where(and(
       eq(bookingReminders.status, 'scheduled'),
       lte(bookingReminders.scheduledAt, now),
@@ -37,72 +45,48 @@ export async function processDueReminders(): Promise<number> {
 
   for (const reminder of dueReminders) {
     try {
-      // Fetch booking details
-      const [booking] = await db
-        .select({
-          id: bookings.id,
-          status: bookings.status,
-          userId: bookings.userId,
-          guestEmail: bookings.guestEmail,
-          guestName: bookings.guestName,
-          startTime: bookings.startTime,
-          serviceId: bookings.serviceId,
-          bookingNumber: bookings.bookingNumber,
-        })
-        .from(bookings)
-        .where(eq(bookings.id, reminder.bookingId))
-        .limit(1);
-
-      // Skip if booking is cancelled/completed/no-show
-      if (!booking || booking.status === 'cancelled' || booking.status === 'completed' || booking.status === 'no_show') {
+      // Skip if booking is in a terminal state
+      if (reminder.bookingStatus === 'cancelled' || reminder.bookingStatus === 'completed' || reminder.bookingStatus === 'no_show') {
         await db.update(bookingReminders)
           .set({ status: 'failed' })
-          .where(eq(bookingReminders.id, reminder.id));
+          .where(eq(bookingReminders.id, reminder.reminderId));
         continue;
       }
 
-      // Get service name
-      const [service] = await db
-        .select({ name: bookingServices.name })
-        .from(bookingServices)
-        .where(eq(bookingServices.id, booking.serviceId))
-        .limit(1);
-
-      const serviceName = service?.name ?? 'your appointment';
-      const timeLabel = reminder.type === '24h' ? 'tomorrow' : 'in 1 hour';
+      const serviceName = reminder.serviceName ?? 'your appointment';
+      const timeLabel = reminder.reminderType === '24h' ? 'tomorrow' : 'in 1 hour';
 
       // Send in-app notification
-      if (booking.userId) {
+      if (reminder.userId) {
         deps.sendNotification({
-          userId: booking.userId,
+          userId: reminder.userId,
           title: 'Booking Reminder',
           body: `Your booking for ${serviceName} starts ${timeLabel}.`,
-          actionUrl: `/account/bookings/${booking.id}`,
+          actionUrl: `/account/bookings/${reminder.bookingId}`,
         });
       }
 
       // Send email reminder
-      const email = booking.guestEmail;
-      if (email) {
-        await deps.enqueueTemplateEmail(email, 'booking-reminder', {
-          bookingNumber: booking.bookingNumber,
+      if (reminder.guestEmail) {
+        await deps.enqueueTemplateEmail(reminder.guestEmail, 'booking-reminder', {
+          bookingNumber: reminder.bookingNumber,
           serviceName,
-          startTime: booking.startTime.toISOString(),
-          reminderType: reminder.type,
+          startTime: reminder.startTime.toISOString(),
+          reminderType: reminder.reminderType,
         });
       }
 
       // Mark as sent
       await db.update(bookingReminders)
         .set({ status: 'sent', sentAt: now })
-        .where(eq(bookingReminders.id, reminder.id));
+        .where(eq(bookingReminders.id, reminder.reminderId));
 
       sentCount++;
     } catch (err) {
-      logger.error(`Failed to process reminder ${reminder.id}`, err instanceof Error ? { error: err.message } : undefined);
+      logger.error(`Failed to process reminder ${reminder.reminderId}`, err instanceof Error ? { error: err.message } : undefined);
       await db.update(bookingReminders)
         .set({ status: 'failed' })
-        .where(eq(bookingReminders.id, reminder.id));
+        .where(eq(bookingReminders.id, reminder.reminderId));
     }
   }
 

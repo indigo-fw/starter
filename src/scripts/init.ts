@@ -406,23 +406,22 @@ async function ensureSuperadmin(
 
 // ─── Step 6: Company info ──────────────────────────────────────────────────
 
-function readSiteDefaults(): Record<string, string> {
-  const siteFile = path.resolve("src/config/site.ts");
-  if (!fs.existsSync(siteFile)) return {};
-  const content = fs.readFileSync(siteFile, "utf-8");
-  const defaults: Record<string, string> = {};
-  // Parse siteDefaults object values (simple single-line string literals)
-  const match = content.match(/siteDefaults\s*=\s*\{([\s\S]*?)\}\s*as\s*const/);
-  if (!match) return defaults;
-  for (const line of match[1].split("\n")) {
-    const m = line.match(/^\s*(\w+):\s*'([^']*)'/);
-    if (m) defaults[m[1]] = m[2];
+async function readCurrentOptions(db: ReturnType<typeof drizzle>): Promise<Record<string, string>> {
+  try {
+    const { cmsOptions } = await import("../server/db/schema/cms");
+    const rows = await db.select().from(cmsOptions).limit(100);
+    const opts: Record<string, string> = {};
+    for (const row of rows) {
+      if (typeof row.value === 'string') opts[row.key] = row.value;
+    }
+    return opts;
+  } catch {
+    return {};
   }
-  return defaults;
 }
 
-async function promptCompanyInfo(): Promise<CompanyInfo> {
-  const d = readSiteDefaults();
+async function promptCompanyInfo(db: ReturnType<typeof drizzle>): Promise<CompanyInfo> {
+  const opts = await readCurrentOptions(db);
 
   if (!AUTO_YES) {
     log("🏢", "Company info (used in legal page templates)...");
@@ -432,37 +431,37 @@ async function promptCompanyInfo(): Promise<CompanyInfo> {
   const siteName = await ask(
     "  Site name: ",
     process.env.NEXT_PUBLIC_SITE_NAME,
-    d.siteName ?? "Indigo",
+    opts['site.name'] ?? "Indigo",
   );
   const siteUrl = await ask(
     "  Site URL: ",
     process.env.NEXT_PUBLIC_APP_URL,
-    d.siteUrl ?? "http://localhost:3000",
+    opts['site.url'] ?? "http://localhost:3000",
   );
   const companyName = await ask(
     '  Company legal name (e.g. "Acme Corp s.r.o."): ',
     undefined,
-    d.companyName ?? "Indigo Inc.",
+    opts['company.name'] ?? "Indigo Inc.",
   );
   const companyAddress = await ask(
     "  Company address: ",
     undefined,
-    d.companyAddress ?? "123 Main Street, City, Country",
+    opts['company.address'] ?? "123 Main Street, City, Country",
   );
   const companyId = await ask(
     "  Company registration number: ",
     undefined,
-    d.companyId ?? "N/A",
+    opts['company.id'] ?? "N/A",
   );
   const companyJurisdiction = await ask(
     '  Governing law jurisdiction (e.g. "the Slovak Republic"): ',
     undefined,
-    d.companyJurisdiction ?? "the United States",
+    opts['company.jurisdiction'] ?? "the United States",
   );
   const contactEmail = await ask(
     "  Contact email: ",
     undefined,
-    d.contactEmail ?? "info@example.com",
+    opts['company.contact_email'] ?? "info@example.com",
   );
 
   if (!AUTO_YES) console.log("");
@@ -477,44 +476,7 @@ async function promptCompanyInfo(): Promise<CompanyInfo> {
   };
 }
 
-// ─── Step 7: Update .env and site.ts with company values ─────────────────────
-
-function updateSiteConfig(companyInfo: CompanyInfo) {
-  const siteFile = path.resolve("src/config/site.ts");
-  if (!fs.existsSync(siteFile)) return;
-
-  let content = fs.readFileSync(siteFile, "utf-8");
-  let changed = false;
-
-  const updates: Record<string, string> = {
-    siteName: companyInfo.siteName,
-    siteUrl: companyInfo.siteUrl,
-    contactEmail: companyInfo.contactEmail,
-    companyName: companyInfo.companyName,
-    companyAddress: companyInfo.companyAddress,
-    companyId: companyInfo.companyId,
-    companyJurisdiction: companyInfo.companyJurisdiction,
-  };
-
-  for (const [key, value] of Object.entries(updates)) {
-    // Match: key: 'old value', (inside siteDefaults)
-    const escaped = value.replace(/'/g, "\\'");
-    const regex = new RegExp(`(${key}:\\s*)'[^']*'`);
-    if (regex.test(content)) {
-      const newLine = `$1'${escaped}'`;
-      const updated = content.replace(regex, newLine);
-      if (updated !== content) {
-        content = updated;
-        changed = true;
-      }
-    }
-  }
-
-  if (changed) {
-    fs.writeFileSync(siteFile, content);
-    log("📝", "src/config/site.ts updated with company info.");
-  }
-}
+// ─── Step 7: Update .env with site values ───────────────────────────────────
 
 function updateEnvFile(companyInfo: CompanyInfo) {
   if (!fs.existsSync(ENV_PATH)) return;
@@ -558,7 +520,21 @@ async function seedOptions(
   const [existing] = await db.select({ count: count() }).from(cmsOptions);
 
   if ((existing?.count ?? 0) > 0) {
-    log("⏭️", "Options already seeded.");
+    // Options exist — still upsert company info in case it changed
+    const companyOpts: Record<string, unknown> = {
+      "site.name": companyInfo.siteName,
+      "site.url": companyInfo.siteUrl,
+      "company.name": companyInfo.companyName,
+      "company.address": companyInfo.companyAddress,
+      "company.id": companyInfo.companyId,
+      "company.jurisdiction": companyInfo.companyJurisdiction,
+      "company.contact_email": companyInfo.contactEmail,
+    };
+    for (const [key, value] of Object.entries(companyOpts)) {
+      await db.insert(cmsOptions).values({ key, value, updatedAt: new Date() })
+        .onConflictDoUpdate({ target: cmsOptions.key, set: { value, updatedAt: new Date() } });
+    }
+    log("⏭️", "Options already seeded. Company info updated.");
     return;
   }
 
@@ -576,6 +552,12 @@ async function seedOptions(
     "site.analytics.ga_id": "",
     "site.posts_per_page": 10,
     "site.allow_registration": true,
+    // Company info (used as [[VAR]] content variables in legal pages)
+    "company.name": companyInfo.companyName,
+    "company.address": companyInfo.companyAddress,
+    "company.id": companyInfo.companyId,
+    "company.jurisdiction": companyInfo.companyJurisdiction,
+    "company.contact_email": companyInfo.contactEmail,
   };
 
   for (const [key, value] of Object.entries(defaults)) {
@@ -648,11 +630,10 @@ async function main() {
       log("⏭️", "Nothing to do.");
     } else {
       // Step 6
-      const companyInfo = await promptCompanyInfo();
+      const companyInfo = await promptCompanyInfo(db);
 
       // Step 7
       updateEnvFile(companyInfo);
-      updateSiteConfig(companyInfo);
 
       // Step 8
       await seedOptions(db, companyInfo);

@@ -4,7 +4,7 @@ import { and, eq, gte, lte } from 'drizzle-orm';
 import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
 import { bookingServices } from '@/core-booking/schema/services';
 import { bookingSchedules, bookingOverrides } from '@/core-booking/schema/availability';
-import { getAvailableSlots } from '@/core-booking/lib/availability-service';
+import { getAvailableSlots, getAvailableDatesInRange } from '@/core-booking/lib/availability-service';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 
 const bookingAdminProcedure = sectionProcedure('settings');
@@ -33,25 +33,7 @@ export const bookingAvailabilityRouter = createTRPCRouter({
       to: z.string().regex(dateRegex, 'Must be YYYY-MM-DD'),
     }))
     .query(async ({ input }) => {
-      const start = new Date(input.from);
-      const end = new Date(input.to);
-      const maxDays = 62; // ~2 months max
-
-      const dates: string[] = [];
-      const current = new Date(start);
-      let dayCount = 0;
-
-      while (current <= end && dayCount < maxDays) {
-        const dateStr = current.toISOString().slice(0, 10);
-        const slots = await getAvailableSlots(input.serviceId, dateStr);
-        if (slots.length > 0) {
-          dates.push(dateStr);
-        }
-        current.setDate(current.getDate() + 1);
-        dayCount++;
-      }
-
-      return dates;
+      return getAvailableDatesInRange(input.serviceId, input.from, input.to);
     }),
 
   // ─── Admin: Schedule management ─────────────────────────────────────────

@@ -51,6 +51,12 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+    ],
+  },
+
   // Note: /forgot-password and /reset-password are now customer-facing pages
   // in (public)/ — no redirects needed.
 };

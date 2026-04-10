@@ -18,6 +18,7 @@ interface OptionItem {
   group: string;
   type: 'text' | 'url' | 'number' | 'boolean' | 'textarea' | 'json';
   defaultValue: string | number | boolean;
+  placeholder?: string;
   currentValue: unknown;
   isCustom: boolean;
 }
@@ -187,6 +188,7 @@ export default function SettingsPage() {
             value={(value as string) ?? ''}
             onChange={(e) => setValue(item.key, e.target.value)}
             className={inputClass}
+            placeholder={item.placeholder ?? undefined}
           />
         );
     }

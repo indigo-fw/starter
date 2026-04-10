@@ -1,7 +1,9 @@
 'use client';
 
-import { useRouter } from '@/i18n/navigation';
 import { useState, useTransition } from 'react';
+import { Search } from 'lucide-react';
+import { useRouter } from '@/i18n/navigation';
+import { useBlankTranslations } from '@/lib/translations';
 
 export function StoreToolbar({
   currentSort,
@@ -10,6 +12,7 @@ export function StoreToolbar({
   currentSort: string;
   currentSearch: string;
 }) {
+  const __ = useBlankTranslations();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [search, setSearch] = useState(currentSearch);
@@ -24,19 +27,23 @@ export function StoreToolbar({
     return `/store${qs ? `?${qs}` : ''}` as '/store';
   }
 
+  function handleSearch() {
+    startTransition(() => router.push(buildUrl({ q: search })));
+  }
+
   return (
     <div className="store-toolbar">
       <div className="store-search">
+        <Search className="store-search-icon" />
         <input
           type="search"
-          placeholder="Search products..."
+          placeholder={__('Search products...')}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              startTransition(() => router.push(buildUrl({ q: search })));
-            }
+            if (e.key === 'Enter') handleSearch();
           }}
+          aria-label={__('Search products')}
         />
       </div>
       <select
@@ -45,14 +52,15 @@ export function StoreToolbar({
         onChange={(e) => {
           startTransition(() => router.push(buildUrl({ sort: e.target.value })));
         }}
+        aria-label={__('Sort by')}
       >
-        <option value="newest">Newest</option>
-        <option value="price_asc">Price: Low to High</option>
-        <option value="price_desc">Price: High to Low</option>
-        <option value="name">Name</option>
+        <option value="newest">{__('Newest')}</option>
+        <option value="price_asc">{__('Price: Low to High')}</option>
+        <option value="price_desc">{__('Price: High to Low')}</option>
+        <option value="name">{__('Name')}</option>
       </select>
       {isPending && (
-        <span className="text-sm text-(--text-muted)">Loading...</span>
+        <div className="store-loading-dot" aria-label={__('Loading')} />
       )}
     </div>
   );

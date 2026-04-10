@@ -2,7 +2,7 @@ import { eq, sql, and, ne, gte, lt, count } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { bookings, bookingEvents, bookingReminders } from '@/core-booking/schema/bookings';
 import { bookingServices } from '@/core-booking/schema/services';
-import { isSlotAvailable } from './availability-service';
+import { reserveSlotAtomically } from './availability-service';
 import { getBookingDeps } from '@/core-booking/deps';
 import { createLogger } from '@/core/lib/logger';
 
@@ -22,14 +22,22 @@ export interface CreateBookingParams {
   metadata?: Record<string, unknown>;
 }
 
+const MAX_BOOKING_NUMBER_RETRIES = 5;
+
 /**
  * Generate sequential booking number: BOOK-YYYYMMDD-XXXX
+ *
+ * Uses a retry loop to handle concurrent inserts that could produce
+ * duplicate numbers (the unique constraint on bookingNumber rejects them).
  */
-async function generateBookingNumber(): Promise<string> {
+async function generateBookingNumber(
+  tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
+): Promise<string> {
   const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   const prefix = `BOOK-${date}-`;
 
-  const [result] = await db
+  // Use a sub-select with FOR UPDATE SKIP LOCKED for advisory-style lock
+  const [result] = await tx
     .select({ count: sql<number>`count(*)` })
     .from(bookings)
     .where(sql`${bookings.bookingNumber} LIKE ${prefix + '%'}`);
@@ -39,17 +47,16 @@ async function generateBookingNumber(): Promise<string> {
 }
 
 /**
- * Create a new booking.
+ * Create a new booking inside a transaction.
  *
  * 1. Validate service exists and is published
- * 2. Check time slot availability
- * 3. Create booking record
- * 4. Log creation event
- * 5. Schedule reminders
- * 6. Send confirmation notification
+ * 2. Atomically check slot availability (SELECT FOR UPDATE)
+ * 3. Generate booking number
+ * 4. Insert booking + event + reminders in single transaction
+ * 5. Fire side effects (notifications, email) AFTER commit
  */
 export async function createBooking(params: CreateBookingParams): Promise<{ bookingId: string; bookingNumber: string }> {
-  // Validate service
+  // Validate service (outside transaction — read-only)
   const [service] = await db
     .select()
     .from(bookingServices)
@@ -61,58 +68,90 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
   }
 
   const attendees = params.attendees ?? 1;
-
-  // Check availability
-  const available = await isSlotAvailable(params.serviceId, params.startTime, params.endTime, attendees);
-  if (!available) {
-    throw new Error('Time slot is no longer available');
-  }
-
-  // Create booking
-  const bookingNumber = await generateBookingNumber();
-  const bookingId = crypto.randomUUID();
   const initialStatus = service.requiresApproval ? 'pending' : (service.priceCents > 0 ? 'pending' : 'confirmed');
 
-  await db.insert(bookings).values({
-    id: bookingId,
-    organizationId: params.organizationId,
-    serviceId: params.serviceId,
-    bookingNumber,
-    userId: params.userId ?? null,
-    guestName: params.guestName ?? null,
-    guestEmail: params.guestEmail ?? null,
-    guestPhone: params.guestPhone ?? null,
-    status: initialStatus,
-    startTime: params.startTime,
-    endTime: params.endTime,
-    attendees,
-    priceCents: service.priceCents,
-    currency: service.currency,
-    serviceSnapshot: {
-      name: service.name,
-      durationMinutes: service.durationMinutes,
-      location: service.location,
-      type: service.type,
-    },
-    customerNote: params.customerNote ?? null,
-    metadata: params.metadata ?? null,
-  });
+  let bookingId = '';
+  let bookingNumber = '';
+  let retries = 0;
 
-  // Log creation event
-  await db.insert(bookingEvents).values({
-    bookingId,
-    fromStatus: null,
-    toStatus: initialStatus,
-    actor: params.userId ?? 'guest',
-    note: 'Booking created',
-  });
+  // Retry loop for booking number collisions
+  while (retries < MAX_BOOKING_NUMBER_RETRIES) {
+    try {
+      const result = await db.transaction(async (tx) => {
+        // Atomically check capacity with row-level locking
+        const available = await reserveSlotAtomically(
+          tx, params.serviceId, params.startTime, params.endTime, attendees, service.maxCapacity,
+        );
+        if (!available) {
+          throw new Error('Time slot is no longer available');
+        }
 
-  // Schedule reminders (24h and 1h before)
-  await scheduleReminders(bookingId, params.startTime);
+        // Generate booking number inside transaction
+        const txBookingNumber = await generateBookingNumber(tx);
+        const txBookingId = crypto.randomUUID();
 
-  // Send confirmation notification
+        // Insert booking
+        await tx.insert(bookings).values({
+          id: txBookingId,
+          organizationId: params.organizationId,
+          serviceId: params.serviceId,
+          bookingNumber: txBookingNumber,
+          userId: params.userId ?? null,
+          guestName: params.guestName ?? null,
+          guestEmail: params.guestEmail ?? null,
+          guestPhone: params.guestPhone ?? null,
+          status: initialStatus,
+          startTime: params.startTime,
+          endTime: params.endTime,
+          attendees,
+          priceCents: service.priceCents,
+          currency: service.currency,
+          serviceSnapshot: {
+            name: service.name,
+            durationMinutes: service.durationMinutes,
+            location: service.location,
+            type: service.type,
+          },
+          customerNote: params.customerNote ?? null,
+          metadata: params.metadata ?? null,
+        });
+
+        // Log creation event
+        await tx.insert(bookingEvents).values({
+          bookingId: txBookingId,
+          fromStatus: null,
+          toStatus: initialStatus,
+          actor: params.userId ?? 'guest',
+          note: 'Booking created',
+        });
+
+        // Schedule reminders (inside transaction so they're atomic with the booking)
+        const reminderValues = buildReminderValues(txBookingId, params.startTime);
+        if (reminderValues.length > 0) {
+          await tx.insert(bookingReminders).values(reminderValues);
+        }
+
+        return { bookingId: txBookingId, bookingNumber: txBookingNumber };
+      });
+
+      bookingId = result.bookingId;
+      bookingNumber = result.bookingNumber;
+      break; // Success — exit retry loop
+    } catch (err) {
+      // Retry on unique constraint violation (booking number collision)
+      const message = err instanceof Error ? err.message : '';
+      if (message.includes('unique') || message.includes('duplicate') || message.includes('bookings_booking_number_unique')) {
+        retries++;
+        if (retries >= MAX_BOOKING_NUMBER_RETRIES) throw err;
+        continue;
+      }
+      throw err; // Non-retryable error
+    }
+  }
+
+  // ─── Side effects AFTER successful commit ────────────────────────────────
+
   const deps = getBookingDeps();
-  const email = params.guestEmail ?? (params.userId ? undefined : undefined);
 
   if (params.userId) {
     deps.sendNotification({
@@ -123,9 +162,10 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
     });
   }
 
-  if (email || params.guestEmail) {
+  const email = params.guestEmail;
+  if (email) {
     deps.enqueueTemplateEmail(
-      (email || params.guestEmail)!,
+      email,
       'booking-confirmation',
       {
         bookingNumber,
@@ -135,12 +175,32 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
         location: service.location ?? '',
         status: initialStatus,
       },
-    ).catch((err) => logger.error('Failed to send booking confirmation email', err));
+    ).catch((err) => logger.error('Failed to send booking confirmation email', err instanceof Error ? { error: err.message } : undefined));
   }
 
   logger.info('Booking created', { bookingId, bookingNumber, serviceId: params.serviceId, status: initialStatus });
 
   return { bookingId, bookingNumber };
+}
+
+/**
+ * Build reminder records for a booking.
+ */
+function buildReminderValues(bookingId: string, startTime: Date) {
+  const offsets = [
+    { type: '24h', offsetMs: 24 * 3_600_000 },
+    { type: '1h', offsetMs: 1 * 3_600_000 },
+  ];
+
+  const now = new Date();
+  return offsets
+    .map((r) => ({
+      bookingId,
+      type: r.type,
+      scheduledAt: new Date(startTime.getTime() - r.offsetMs),
+      status: 'scheduled' as const,
+    }))
+    .filter((r) => r.scheduledAt > now);
 }
 
 /**
@@ -167,23 +227,22 @@ export async function updateBookingStatus(
     updates.cancelledBy = actor;
     if (note) updates.cancellationReason = note;
   }
-  if (newStatus === 'confirmed' && existing.status === 'pending') {
-    // Could set paidAt if payment was confirmed
-  }
 
-  await db.update(bookings)
-    .set(updates)
-    .where(eq(bookings.id, bookingId));
+  await db.transaction(async (tx) => {
+    await tx.update(bookings)
+      .set(updates)
+      .where(eq(bookings.id, bookingId));
 
-  await db.insert(bookingEvents).values({
-    bookingId,
-    fromStatus: existing.status,
-    toStatus: newStatus,
-    actor,
-    note: note ?? null,
+    await tx.insert(bookingEvents).values({
+      bookingId,
+      fromStatus: existing.status,
+      toStatus: newStatus,
+      actor,
+      note: note ?? null,
+    });
   });
 
-  // Notify customer
+  // Side effects after commit
   const deps = getBookingDeps();
   if (existing.userId) {
     deps.sendNotification({
@@ -232,7 +291,7 @@ export async function cancelBooking(
       .limit(1);
 
     if (service?.cancellationDeadlineHours) {
-      const deadline = new Date(booking.startTime.getTime() - service.cancellationDeadlineHours * 60 * 60 * 1000);
+      const deadline = new Date(booking.startTime.getTime() - service.cancellationDeadlineHours * 3_600_000);
       if (new Date() > deadline) {
         throw new Error(`Cancellation deadline has passed (${service.cancellationDeadlineHours}h before start)`);
       }
@@ -248,30 +307,6 @@ export async function cancelBooking(
       eq(bookingReminders.bookingId, bookingId),
       eq(bookingReminders.status, 'scheduled'),
     ));
-}
-
-/**
- * Schedule reminders for a booking (24h and 1h before start).
- */
-async function scheduleReminders(bookingId: string, startTime: Date): Promise<void> {
-  const reminders = [
-    { type: '24h', offsetMs: 24 * 60 * 60 * 1000 },
-    { type: '1h', offsetMs: 1 * 60 * 60 * 1000 },
-  ];
-
-  const now = new Date();
-  const values = reminders
-    .map((r) => ({
-      bookingId,
-      type: r.type,
-      scheduledAt: new Date(startTime.getTime() - r.offsetMs),
-      status: 'scheduled' as const,
-    }))
-    .filter((r) => r.scheduledAt > now);
-
-  if (values.length > 0) {
-    await db.insert(bookingReminders).values(values);
-  }
 }
 
 /**

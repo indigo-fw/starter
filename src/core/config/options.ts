@@ -7,4 +7,6 @@ export interface OptionDefinition {
   group: string;
   type: 'text' | 'url' | 'number' | 'boolean' | 'textarea' | 'json';
   defaultValue: string | number | boolean;
+  /** Placeholder text shown when field is empty (e.g. code-level fallback from site.ts) */
+  placeholder?: string;
 }

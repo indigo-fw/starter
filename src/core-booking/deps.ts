@@ -34,6 +34,12 @@ export interface BookingDeps {
     customerEmail?: string;
     metadata: Record<string, string>;
   }) => Promise<string>;
+
+  /**
+   * Optional: get the organization display name (used in iCal ORGANIZER field).
+   * Falls back to omitting the organizer if not provided.
+   */
+  getOrganizationName?: (organizationId: string) => Promise<string | null>;
 }
 
 let _deps: BookingDeps | null = null;

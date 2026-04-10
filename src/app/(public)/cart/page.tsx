@@ -18,7 +18,7 @@ export default async function CartPage() {
   const __ = await getServerTranslations();
   return (
     <div className="app-container py-12">
-      <h1 className="text-3xl font-bold text-(--text-primary) mb-8">{__('Shopping Cart')}</h1>
+      <h1 className="store-title" style={{ marginBottom: '2rem' }}>{__('Shopping Cart')}</h1>
       <CartPageClient />
     </div>
   );
