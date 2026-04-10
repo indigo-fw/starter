@@ -4,9 +4,9 @@
 import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatMessages } from '@/core-chat/schema/messages';
-import { ProviderManager } from '@/core-chat/lib/provider-manager';
-import { buildContext } from '@/core-chat/lib/context-builder';
-import { getGreeting } from '@/core-chat/lib/greetings';
+import { ProviderManager } from '@/core-chat/lib/ai/provider-manager';
+import { buildContext } from '@/core-chat/lib/ai/context-builder';
+import { getGreeting } from '@/core-chat/lib/ai/greetings';
 import { splitSentences } from './sentence-splitter';
 import { createWavBuffer } from './audio-utils';
 import { MessageRole, MessageStatus, ChatWsEvent } from '@/core-chat/lib/types';

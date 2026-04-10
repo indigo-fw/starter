@@ -3,15 +3,15 @@ import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatProviders, type ChatProvider } from '@/core-chat/schema/providers';
 import { chatProviderLogs } from '@/core-chat/schema/provider-logs';
-import { decrypt } from './encryption';
-import { getLlmAdapter, getImageAdapter, getVideoAdapter, getTtsAdapter, getSttAdapter } from './adapters/registry';
-import { ProviderClientError } from './adapters/types';
+import { decrypt } from '../encryption';
+import { getLlmAdapter, getImageAdapter, getVideoAdapter, getTtsAdapter, getSttAdapter } from '../adapters/registry';
+import { ProviderClientError } from '../adapters/types';
 import type {
   LlmMessage, LlmResponse, AdapterResponse,
   ImageRequest, ImageResponse,
   VideoRequest, VideoResponse,
   TtsResponse, SttResponse,
-} from './adapters/types';
+} from '../adapters/types';
 
 const logger = createLogger('chat-provider-mgr');
 

@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 
 import { siteConfig } from '@/config/site';
 import { getServerTranslations } from '@/lib/translations-server';
-import '@/core-store/components/store-grid.css';
-import '@/core-store/components/store-cart.css';
+import '@/core-store/components/product/store-grid.css';
+import '@/core-store/components/cart/store-cart.css';
 
 import { CartPageClient } from './CartPageClient';
 

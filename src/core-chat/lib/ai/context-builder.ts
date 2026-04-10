@@ -5,8 +5,8 @@ import { chatConversationSummaries } from '@/core-chat/schema/messages';
 import { chatCharacters, type ChatCharacter } from '@/core-chat/schema/characters';
 import { chatConversations, type ChatConversation } from '@/core-chat/schema/conversations';
 import { composeSystemPrompt } from './system-prompt';
-import { MessageRole } from './types';
-import type { LlmMessage } from './adapters/types';
+import { MessageRole } from '../types';
+import type { LlmMessage } from '../adapters/types';
 
 /**
  * Build the LLM message context for a conversation.

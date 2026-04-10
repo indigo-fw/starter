@@ -5,7 +5,7 @@ import { createTRPCRouter, superadminProcedure } from '@/server/trpc';
 import { db } from '@/server/db';
 import { chatProviders } from '@/core-chat/schema/providers';
 import { encrypt, decrypt, maskApiKey, isEncryptionConfigured } from '@/core-chat/lib/encryption';
-import { ProviderManager } from '@/core-chat/lib/provider-manager';
+import { ProviderManager } from '@/core-chat/lib/ai/provider-manager';
 import { getLlmAdapter, getImageAdapter, getVideoAdapter } from '@/core-chat/lib/adapters/registry';
 import { ProviderType } from '@/core-chat/lib/adapters/types';
 import { parsePagination, paginatedResult } from '@/core/crud';

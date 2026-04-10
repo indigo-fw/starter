@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { composeSystemPrompt } from '../lib/system-prompt';
+import { composeSystemPrompt } from '../lib/ai/system-prompt';
 
 describe('composeSystemPrompt', () => {
   const base = {

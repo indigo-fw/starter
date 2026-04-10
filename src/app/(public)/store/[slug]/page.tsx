@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 
 import { siteConfig } from '@/config/site';
 import { serverTRPC } from '@/lib/trpc/server';
-import '@/core-store/components/store-grid.css';
-import '@/core-store/components/store-detail.css';
+import '@/core-store/components/product/store-grid.css';
+import '@/core-store/components/product/store-detail.css';
 
 import { ProductDetailClient } from './ProductDetailClient';
 

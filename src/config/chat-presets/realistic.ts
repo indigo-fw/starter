@@ -13,7 +13,7 @@ import { realisticConfig, realisticVisualOverrides } from '@/core-chat/lib/image
 import { mergeVisuals } from '@/core-chat/lib/image/presets/merge-visuals';
 import { registerPreset } from '@/core-chat/lib/image/presets/registry';
 import type { ModelPreset } from '@/core-chat/lib/image/types';
-import * as baseVisuals from '@/core-chat/lib/visual-enums';
+import * as baseVisuals from '@/core-chat/lib/character/visual-enums';
 
 // ─── Project visual overrides (add your customizations here) ────────────────
 

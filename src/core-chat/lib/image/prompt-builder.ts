@@ -1,12 +1,12 @@
 import type { SelectedTraits, ImagePromptData, ModelPreset } from './types';
-import { resolvePromptById, resolveNamedPrompt } from '@/core-chat/lib/visual-enum-utils';
+import { resolvePromptById, resolveNamedPrompt } from '@/core-chat/lib/character/visual-enum-utils';
 import {
   VISUAL_OUTFIT, VISUAL_ACCESSORIES, VISUAL_POSE, VISUAL_EXPRESSION,
   VISUAL_LOCATION, VISUAL_LIGHTING, VISUAL_PERSPECTIVE, VISUAL_ETHNICITY,
   VISUAL_HAIRCOLOR, VISUAL_HAIRTEXTURE, VISUAL_HAIRSTYLE, VISUAL_EYESCOLOR,
   VISUAL_SKIN, VISUAL_BODYDESCRIPTION, VISUAL_COLORS, VISUAL_GENDER,
   VISUAL_QUALITY, VISUAL_NEGATIVE,
-} from '@/core-chat/lib/visual-enums';
+} from '@/core-chat/lib/character/visual-enums';
 
 // ─── Shorthand ──────────────────────────────────────────────────────────────
 

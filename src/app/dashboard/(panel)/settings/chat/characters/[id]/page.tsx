@@ -10,11 +10,11 @@ import {
   CHARACTER_GENDER, CHARACTER_SEXUALITY, CHARACTER_ETHNICITY,
   CHARACTER_PERSONALITY, CHARACTER_KINK, CHARACTER_JOB,
   CHARACTER_HOBBY, CHARACTER_RELATIONSHIP,
-} from '@/core-chat/lib/character-enums';
+} from '@/core-chat/lib/character/character-enums';
 import {
   VISUAL_HAIRCOLOR, VISUAL_HAIRTEXTURE, VISUAL_HAIRSTYLE,
   VISUAL_EYESCOLOR, VISUAL_SKIN, VISUAL_BODYDESCRIPTION,
-} from '@/core-chat/lib/visual-enums';
+} from '@/core-chat/lib/character/visual-enums';
 
 type EnumMap = ReadonlyMap<number, { id: number; key: string; title: string }>;
 

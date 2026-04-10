@@ -23,7 +23,7 @@ import {
   VISUAL_BODYDESCRIPTION,
   VISUAL_AGE,
   VISUAL_COLORS,
-} from '@/core-chat/lib/visual-enums';
+} from '@/core-chat/lib/character/visual-enums';
 import { buildEnumIndex, findAllMatches } from './enum-index';
 import { configureColorSets } from './normalizer';
 import { configurePipeline } from './orchestrator';

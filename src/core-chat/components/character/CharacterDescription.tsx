@@ -5,7 +5,7 @@ import {
   CHARACTER_GENDER, CHARACTER_PERSONALITY, CHARACTER_KINK,
   CHARACTER_JOB, CHARACTER_HOBBY, CHARACTER_RELATIONSHIP,
   resolveConfigItem, resolveConfigItems,
-} from '@/core-chat/lib/character-enums';
+} from '@/core-chat/lib/character/character-enums';
 
 interface CharacterDescriptionProps {
   genderId?: number | null;

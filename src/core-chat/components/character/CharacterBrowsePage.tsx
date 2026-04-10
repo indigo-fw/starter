@@ -6,7 +6,7 @@ import { trpc } from '@/lib/trpc/client';
 import { useBlankTranslations } from '@/lib/translations';
 import { CharacterGridCard } from './CharacterGridCard';
 import { CharacterFilterBar } from './CharacterFilterBar';
-import { PreferenceDialog, hasSetPreferences } from './PreferenceDialog';
+import { PreferenceDialog, hasSetPreferences } from '../PreferenceDialog';
 import { Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

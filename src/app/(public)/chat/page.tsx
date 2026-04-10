@@ -1,7 +1,7 @@
 'use client';
 
-import { ChatLayout } from '@/core-chat/components/ChatLayout';
-import { ChatErrorBoundary } from '@/core-chat/components/ChatErrorBoundary';
+import { ChatLayout } from '@/core-chat/components/chat/ChatLayout';
+import { ChatErrorBoundary } from '@/core-chat/components/chat/ChatErrorBoundary';
 
 /**
  * /chat — Landing page (no conversation selected).

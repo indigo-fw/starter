@@ -172,7 +172,7 @@ export const conversationRouter = createTRPCRouter({
       }).returning();
 
       // Insert personality-specific greeting
-      const { getGreeting } = await import('@/core-chat/lib/greetings');
+      const { getGreeting } = await import('@/core-chat/lib/ai/greetings');
       const greeting = getGreeting(character.personalityId, null, character.greeting);
       if (greeting) {
         await db.insert(chatMessages).values({
@@ -272,7 +272,7 @@ export const conversationRouter = createTRPCRouter({
         .limit(1);
 
       if (character) {
-        const { getGreeting } = await import('@/core-chat/lib/greetings');
+        const { getGreeting } = await import('@/core-chat/lib/ai/greetings');
         const greeting = getGreeting(character.personalityId, null, character.greeting);
         await db.insert(chatMessages).values({
           id: crypto.randomUUID(),

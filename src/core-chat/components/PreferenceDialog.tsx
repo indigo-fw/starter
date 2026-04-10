@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useBlankTranslations } from '@/lib/translations';
-import { CHARACTER_GENDER } from '@/core-chat/lib/character-enums';
+import { CHARACTER_GENDER } from '@/core-chat/lib/character/character-enums';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

@@ -1,5 +1,5 @@
-import '@/core-store/components/store-grid.css';
-import '@/core-store/components/store-cart.css';
+import '@/core-store/components/product/store-grid.css';
+import '@/core-store/components/cart/store-cart.css';
 
 export default function CartLoading() {
   return (

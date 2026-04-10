@@ -14,7 +14,7 @@ import {
   VISUAL_LOCATION,
   VISUAL_OUTFIT,
   VISUAL_PERSPECTIVE,
-} from '@/core-chat/lib/visual-enums';
+} from '@/core-chat/lib/character/visual-enums';
 import { Coverage } from './types';
 import type { EnumEntry, EnumMatch, SelectedTraits } from './types';
 

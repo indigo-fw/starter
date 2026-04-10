@@ -2,7 +2,7 @@
 // Each category is a plain object keyed by name.
 
 // Coverage is defined in image/types.ts — imported here for use in entries.
-import { Coverage, type CoverageValue } from './image/types';
+import { Coverage, type CoverageValue } from '../image/types';
 export { type CoverageValue };
 
 // ---------------------------------------------------------------------------

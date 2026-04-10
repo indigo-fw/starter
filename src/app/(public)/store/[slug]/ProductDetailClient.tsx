@@ -5,9 +5,9 @@ import { Download, Truck } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { useBlankTranslations } from '@/lib/translations';
 import { formatPrice } from '@/core-store/lib/store-utils';
-import { ProductGallery } from '@/core-store/components/ProductGallery';
-import { VariantSelector } from '@/core-store/components/VariantSelector';
-import { AddToCartForm } from '@/core-store/components/AddToCartForm';
+import { ProductGallery } from '@/core-store/components/product/ProductGallery';
+import { VariantSelector } from '@/core-store/components/product/VariantSelector';
+import { AddToCartForm } from '@/core-store/components/cart/AddToCartForm';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 

@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation';
 import { siteConfig } from '@/config/site';
 import { getServerTranslations } from '@/lib/translations-server';
 import { serverTRPC } from '@/lib/trpc/server';
-import '@/core-store/components/store-grid.css';
-import '@/core-store/components/store-cart.css';
+import '@/core-store/components/product/store-grid.css';
+import '@/core-store/components/cart/store-cart.css';
 
 import { CheckoutForm } from './CheckoutForm';
 

@@ -10,7 +10,7 @@ import {
   DEFAULT_SEXUALITY_ID,
   resolveConfigItem,
   resolveConfigItems,
-} from './character-enums';
+} from '../character/character-enums';
 
 // ─── Base system prompt templates ───────────────────────────────────────────
 

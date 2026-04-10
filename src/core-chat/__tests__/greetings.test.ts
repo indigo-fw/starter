@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getGreeting } from '../lib/greetings';
+import { getGreeting } from '../lib/ai/greetings';
 
 describe('getGreeting', () => {
   it('returns custom greeting when provided', () => {

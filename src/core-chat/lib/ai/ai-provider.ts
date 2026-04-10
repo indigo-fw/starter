@@ -1,5 +1,5 @@
 import { ProviderManager } from './provider-manager';
-import type { LlmMessage, LlmResponse, AdapterResponse, ImageResponse, VideoResponse } from './adapters/types';
+import type { LlmMessage, LlmResponse, AdapterResponse, ImageResponse, VideoResponse } from '../adapters/types';
 
 /**
  * Streaming LLM response from DB-configured providers.

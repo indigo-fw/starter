@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { resolvePromptById, resolveNamedPrompt, buildIdMap } from '../lib/visual-enum-utils';
-import { VISUAL_GENDER, VISUAL_QUALITY } from '../lib/visual-enums';
+import { resolvePromptById, resolveNamedPrompt, buildIdMap } from '../lib/character/visual-enum-utils';
+import { VISUAL_GENDER, VISUAL_QUALITY } from '../lib/character/visual-enums';
 
 describe('resolvePromptById', () => {
   it('finds entry by ID', () => {

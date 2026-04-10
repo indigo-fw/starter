@@ -1,4 +1,4 @@
-import '@/core-store/components/store-grid.css';
+import '@/core-store/components/product/store-grid.css';
 
 export default function StoreLoading() {
   return (

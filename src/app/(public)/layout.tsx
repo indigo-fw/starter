@@ -26,7 +26,7 @@ import { AuthDialogs } from '@/components/public/AuthDialogs';
 import { PUBLIC_LAYOUT_WIDGETS } from '@/generated/module-widgets';
 import { getServerTranslations, type TranslationFn } from '@/lib/translations-server';
 import { LanguageSuggestionBanner } from '@/core/components/i18n/LanguageSuggestionBanner';
-import { CartWidget } from '@/core-store/components/CartWidget';
+import { CartWidget } from '@/core-store/components/cart/CartWidget';
 import { getLanguageSuggestion } from '@/core/lib/i18n/language-suggestion';
 import { dataTranslations } from '@/lib/translations';
 

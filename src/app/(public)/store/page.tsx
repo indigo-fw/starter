@@ -6,7 +6,7 @@ import { Package, ArrowRight } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import { serverTRPC } from '@/lib/trpc/server';
 import { getServerTranslations } from '@/lib/translations-server';
-import '@/core-store/components/store-grid.css';
+import '@/core-store/components/product/store-grid.css';
 
 import { StoreToolbar } from './StoreToolbar';
 import { ProductCard } from './ProductCard';
