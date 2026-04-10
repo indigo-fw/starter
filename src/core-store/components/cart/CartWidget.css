@@ -1,4 +1,8 @@
 @layer components {
+  /* ── Cart Widget — overridable variables ──
+   *   --store-badge-bg    Cart count badge background (default: --color-brand-500)
+   */
+
   .cart-widget {
     position: relative;
   }
@@ -18,7 +22,7 @@
     font-weight: 700;
     line-height: 1;
     color: white;
-    background-color: var(--color-brand-500);
+    background-color: var(--store-badge-bg, var(--color-brand-500));
     pointer-events: none;
     transform: translate(25%, -25%);
   }

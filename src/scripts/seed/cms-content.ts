@@ -94,7 +94,17 @@ export async function seedMedia(db: PostgresJsDatabase): Promise<MediaRecord[]> 
 
 // ─── Step 7: Seed Content ──────────────────────────────────────────────────
 
-export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: CompanyInfo): Promise<CmsContentResult> {
+export interface SeedCmsOptions {
+  /** Seed blog posts (101 demo posts). Default: true */
+  blogs?: boolean;
+  /** Seed portfolio items (4 demo items). Default: true */
+  portfolio?: boolean;
+  /** Seed showcase items. Default: true */
+  showcase?: boolean;
+}
+
+export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: CompanyInfo, opts: SeedCmsOptions = {}): Promise<CmsContentResult> {
+  const { blogs = true, portfolio: seedPortfolio = true, showcase: seedShowcase = true } = opts;
   const { cmsPosts } = await import('../../server/db/schema/cms');
   const { cmsCategories } = await import('../../server/db/schema/categories');
   const { cmsTermRelationships } = await import('../../server/db/schema/term-relationships');
@@ -162,120 +172,21 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
     log('  ⏭️', 'Legal page templates already exist in content/. Skipping.');
   }
 
-  // ── 7d. Standard pages (3) ──────────────────────────────────────
-
-  await db.insert(cmsPosts).values({
-    type: 1,
-    status: 1,
-    lang: 'en',
-    slug: 'welcome',
-    title: 'Welcome to Indigo',
-    content: `## Your CMS is ready!
-
-This is a sample page created by the init script. You can edit or delete it from the [admin panel](/dashboard/cms/pages).
-
-### Getting Started
-
-- Create pages and blog posts from the dashboard
-- Upload media files to the media library
-- Configure site settings under Settings
-- Manage users and roles from the Users section
-- Set up categories and tags to organize your content
-
-Check out the [blog](/blog) for your latest posts, or explore the [portfolio](/portfolio) to see project showcases.`,
-    metaDescription: `Welcome to ${companyInfo.siteName} — an agent-driven headless CMS for T3 Stack.`,
-    publishedAt: new Date(),
-    previewToken: token(),
-  });
-
-  await db.insert(cmsPosts).values({
-    type: 1,
-    status: 1,
-    lang: 'en',
-    slug: 'about',
-    title: 'About Indigo',
-    content: `## What is Indigo?
-
-Indigo is an open-source, agent-driven headless CMS built on the T3 Stack. It combines Next.js, tRPC, Drizzle ORM, and Better Auth into a cohesive content management system that is optimized for AI-assisted development.
-
-### Key Features
-
-- **Agent-Driven Development** — CLAUDE.md serves as the comprehensive project guide, enabling AI agents to understand and modify the codebase effectively
-- **Modern Stack** — Built with Next.js 16, TypeScript, and Tailwind CSS v4
-- **Flexible Content** — Pages, blog posts, portfolio items, showcase cards, categories, and tags
-- **Role-Based Access** — User, editor, admin, and superadmin roles with policy-based permissions
-- **Media Management** — Upload, organize, and serve media files with automatic thumbnails
-- **SEO Optimized** — Meta descriptions, OG images, JSON-LD, dynamic sitemaps, and slug redirects
-- **SaaS Primitives** — Organizations, Stripe billing, notifications, WebSocket real-time
-
-### Open Source
-
-Indigo is open source (AGPL-3.0) and available on GitHub. Commercial licenses available for proprietary use. Contributions are welcome!`,
-    metaDescription: 'Indigo is an open-source, agent-driven headless CMS built on the T3 Stack (Next.js + tRPC + Drizzle).',
-    seoTitle: 'About Indigo — Agent-Driven Headless CMS',
-    publishedAt: new Date(),
-    previewToken: token(),
-  });
-
-  await db.insert(cmsPosts).values({
-    type: 1,
-    status: 1,
-    lang: 'en',
-    slug: 'faq',
-    title: 'Frequently Asked Questions',
-    content: `## General Questions
-
-### What is Indigo?
-
-Indigo is an open-source, AI agent-driven CMS and SaaS starter built on the T3 Stack (Next.js, tRPC, Drizzle ORM, Better Auth). It provides a complete content management system with SaaS primitives like organizations, billing, and real-time notifications.
-
-### Who is Indigo for?
-
-Indigo is designed for developers and teams building SaaS products, marketing sites, blogs, or any content-driven application. It is especially well-suited for projects that leverage AI-assisted development workflows.
-
-### Is Indigo free to use?
-
-Yes. Indigo is open source under the AGPL-3.0 license. You can use it freely for any project. Commercial licenses are available if you need proprietary deployment without the AGPL requirements.
-
-## Technical Questions
-
-### What tech stack does Indigo use?
-
-Indigo is built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, tRPC, Drizzle ORM, PostgreSQL, and Better Auth. It also supports Redis for caching and rate limiting, BullMQ for background jobs, and WebSockets for real-time features.
-
-### How do I deploy Indigo?
-
-Indigo can be deployed anywhere that supports Node.js. Popular choices include Vercel, Railway, Fly.io, and any VPS with Docker. You will need a PostgreSQL database and optionally Redis for full functionality.
-
-### Can I customize the design?
-
-Absolutely. Indigo uses an OKLCH design token system with Tailwind CSS v4. You can rebrand the entire application by changing a few CSS custom properties for hue, lightness, and chroma values.
-
-## Content Management
-
-### What content types are supported?
-
-Out of the box, Indigo supports pages, blog posts, portfolio items, showcase cards, categories, and tags. The content type registry is config-driven, so adding new types requires minimal code changes.
-
-### Does Indigo support multiple languages?
-
-Yes. Indigo has built-in i18n with proxy-rewrite locale routing, translation groups for content, and a translation bar in the admin panel. Add new locales by updating a single config array.
-
-### Can I use a rich text editor?
-
-Yes. The admin panel includes a Tiptap-based rich text editor with support for headings, lists, images, links, code blocks, and custom shortcodes. Content is stored as Markdown for portability.`,
-    metaDescription: 'Frequently asked questions about Indigo — installation, customization, content management, and deployment.',
-    seoTitle: 'FAQ — Indigo',
-    publishedAt: new Date(),
-    previewToken: token(),
-  });
-
-  log('  📄', '3 standard pages created (Welcome, About, FAQ).');
+  // ── 7d. Standard pages (Welcome, About, FAQ) ───────────────────
+  //
+  // These are now .md templates in core/_templates/content/en/.
+  // The seedContentFiles() call above copies them to content/en/.
+  // The content sync (server.ts) will insert them into the DB on startup.
+  log('  📄', 'Standard pages (Welcome, About, FAQ) included in content templates.');
 
   // ── 7e. Blog posts (101) ────────────────────────────────────────
 
   const BATCH_SIZE = 20;
   const allBlogPosts: Array<{ id: string; categoryIdx: number; tagIndices: number[] }> = [];
+
+  if (!blogs) {
+    log('  ⏭️', 'Skipping blog posts.');
+  } else {
 
   for (let batchStart = 0; batchStart < 101; batchStart += BATCH_SIZE) {
     const batchEnd = Math.min(batchStart + BATCH_SIZE, 101);
@@ -314,10 +225,16 @@ Yes. The admin panel includes a Tiptap-based rich text editor with support for h
   }
 
   log('  📰', `${allBlogPosts.length} blog posts created (90 published, 3 scheduled, 8 drafts).`);
+  } // end blogs
 
   // ── 7f. Portfolio items (4) ─────────────────────────────────────
 
-  const portfolioRecords = await db.insert(cmsPortfolio).values([
+  const portfolioRecords: Array<{ id: string }> = [];
+
+  if (!seedPortfolio) {
+    log('  ⏭️', 'Skipping portfolio items.');
+  } else {
+  const inserted = await db.insert(cmsPortfolio).values([
     {
       name: 'Indigo Website',
       slug: 'indigo-website',
@@ -424,11 +341,18 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     },
   ]).returning();
 
-  log('  💼', `${portfolioRecords.length} portfolio items created.`);
+  log('  💼', `${inserted.length} portfolio items created.`);
+  portfolioRecords.push(...inserted);
+  } // end portfolio
 
   // ── 7g. Showcase items (5) ──────────────────────────────────────
 
-  const showcaseRecords = await db.insert(cmsShowcase).values([
+  const showcaseRecords: Array<{ id: string }> = [];
+
+  if (!seedShowcase) {
+    log('  ⏭️', 'Skipping showcase items.');
+  } else {
+  const inserted = await db.insert(cmsShowcase).values([
     // 1 — shorts, richtext
     {
       title: 'Welcome to Indigo',
@@ -579,7 +503,9 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     },
   ]).returning();
 
-  log('  🎴', `${showcaseRecords.length} showcase items created.`);
+  log('  🎴', `${inserted.length} showcase items created.`);
+  showcaseRecords.push(...inserted);
+  } // end showcase
 
   // ── 7h. Relationships ───────────────────────────────────────────
 

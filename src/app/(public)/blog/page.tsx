@@ -14,13 +14,20 @@ import { getLocale } from '@/lib/locale-server';
 import { localePath } from '@/lib/locale';
 import { getServerTranslations } from '@/lib/translations-server';
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const params = await searchParams;
+  const page = Math.max(1, parseInt(params.page ?? '1', 10) || 1);
   const locale = await getLocale();
   const __ = await getServerTranslations();
   const cms = await getCmsOverride(db, 'blog', locale).catch(() => null);
 
+  const section = cms?.seo.seoTitle || __('Blog');
+  const title = page > 1
+    ? `${section} - ${__('Page')} ${page} | ${siteConfig.name}`
+    : `${section} | ${siteConfig.name}`;
+
   return {
-    title: cms?.seo.seoTitle || `${__('Blog')} | ${siteConfig.name}`,
+    title,
     description: cms?.seo.metaDescription || __('Latest blog posts'),
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };

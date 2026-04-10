@@ -5,14 +5,19 @@ import { Link } from '@/i18n/navigation';
 import { siteConfig } from '@/config/site';
 import { serverTRPC } from '@/lib/trpc/server';
 import { getLocale } from '@/lib/locale-server';
-
+import { db } from '@/server/db';
+import { getCmsOverride } from '@/lib/cms-override';
 import { getServerTranslations } from '@/lib/translations-server';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const __ = await getServerTranslations();
+  const cms = await getCmsOverride(db, 'portfolio', locale).catch(() => null);
+
   return {
-    title: `${__('Portfolio')} | ${siteConfig.name}`,
-    description: __('Browse our portfolio of projects and case studies.'),
+    title: cms?.seo.seoTitle || `${__('Portfolio')} | ${siteConfig.name}`,
+    description: cms?.seo.metaDescription || __('Browse our portfolio of projects and case studies.'),
+    ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };
 }
 

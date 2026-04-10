@@ -7,10 +7,16 @@ import { ShowcaseFeed } from '@/components/public/ShowcaseFeed';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { getServerTranslations } = await import('@/lib/translations-server');
+  const { db } = await import('@/server/db');
+  const { getCmsOverride } = await import('@/lib/cms-override');
   const __ = await getServerTranslations();
+  const locale = await getLocale();
+  const cms = await getCmsOverride(db, 'showcase', locale).catch(() => null);
+
   return {
-    title: `${__('Showcase')} | ${siteConfig.name}`,
-    description: __('Explore our showcase — swipe through videos, images, and stories.'),
+    title: cms?.seo.seoTitle || `${__('Showcase')} | ${siteConfig.name}`,
+    description: cms?.seo.metaDescription || __('Explore our showcase — swipe through videos, images, and stories.'),
+    ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };
 }
 

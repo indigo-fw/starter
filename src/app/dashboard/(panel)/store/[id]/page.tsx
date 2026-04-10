@@ -17,6 +17,7 @@ import { adminPanel } from '@/config/routes';
 import { toast } from '@/store/toast-store';
 import { cn } from '@/lib/utils';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { MediaPickerButton } from '@/core/components/media/MediaPickerButton';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -153,8 +154,16 @@ function ProductFormInner({ product }: { product: ProductData }) {
 
   const isPending = updateProduct.isPending;
 
+  // Field validation
+  const errors: Record<string, string> = {};
+  if (!name.trim()) errors.name = __('Name is required');
+  if (priceCents < 0) errors.priceCents = __('Price cannot be negative');
+  if (type === 'digital' && !digitalFileUrl.trim()) errors.digitalFileUrl = __('File URL is required for digital products');
+
   function handleSave() {
-    if (!name.trim()) { toast.error(__('Name is required')); return; }
+    if (Object.keys(errors).length > 0) {
+      toast.error(Object.values(errors)[0]!);
+      return; }
     updateProduct.mutate({
       id: product.id,
       name: name.trim(),
@@ -232,7 +241,8 @@ function ProductFormInner({ product }: { product: ProductData }) {
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="label">{__('Name')} *</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="input" />
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={cn('input', errors.name && 'border-red-500')} />
+              {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
             </div>
             <div>
               <label className="label">{__('Slug')}</label>
@@ -338,8 +348,11 @@ function ProductFormInner({ product }: { product: ProductData }) {
           <h2 className="h2">{__('Media & SEO')}</h2>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <label className="label">{__('Featured Image URL')}</label>
-              <input type="text" value={featuredImage} onChange={(e) => setFeaturedImage(e.target.value)} className="input" placeholder="https://..." />
+              <label className="label">{__('Featured Image')}</label>
+              <MediaPickerButton
+                value={featuredImage || undefined}
+                onChange={(url) => setFeaturedImage(url)}
+              />
             </div>
             <div>
               <label className="label">{__('Meta Title')}</label>
@@ -358,8 +371,9 @@ function ProductFormInner({ product }: { product: ProductData }) {
             <h2 className="h2">{__('Digital Product')}</h2>
             <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <label className="label">{__('File URL')}</label>
-                <input type="text" value={digitalFileUrl} onChange={(e) => setDigitalFileUrl(e.target.value)} className="input" placeholder="https://..." />
+                <label className="label">{__('File URL')} *</label>
+                <input type="text" value={digitalFileUrl} onChange={(e) => setDigitalFileUrl(e.target.value)} className={cn('input', errors.digitalFileUrl && 'border-red-500')} placeholder="https://..." />
+                {errors.digitalFileUrl && <p className="text-xs text-red-500 mt-1">{errors.digitalFileUrl}</p>}
               </div>
               <div>
                 <label className="label">{__('Download Limit')}</label>

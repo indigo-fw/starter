@@ -28,22 +28,55 @@ interface AddressFields {
   phone: string;
 }
 
+type FieldErrors = Partial<Record<keyof AddressFields, string>>;
+
 const emptyAddress: AddressFields = {
   firstName: '', lastName: '', company: '', address1: '', address2: '',
   city: '', state: '', postalCode: '', country: 'DE', phone: '',
 };
 
+const REQUIRED_FIELDS: (keyof AddressFields)[] = ['firstName', 'lastName', 'address1', 'city', 'postalCode'];
+
+const FIELD_LABELS: Record<string, string> = {
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  address1: 'Address',
+  city: 'City',
+  postalCode: 'Postal Code',
+};
+
+function validateAddress(address: AddressFields, __: (s: string) => string): FieldErrors {
+  const errors: FieldErrors = {};
+  for (const field of REQUIRED_FIELDS) {
+    if (!address[field].trim()) {
+      errors[field] = __('This field is required');
+    }
+  }
+  return errors;
+}
+
+function FieldError({ error }: { error?: string }) {
+  if (!error) return null;
+  return <p className="checkout-field-error">{error}</p>;
+}
+
 function AddressForm({
   address,
   onChange,
   label,
+  errors,
+  showErrors,
 }: {
   address: AddressFields;
   onChange: (a: AddressFields) => void;
   label: string;
+  errors: FieldErrors;
+  showErrors: boolean;
 }) {
   const __ = useBlankTranslations();
   const set = (field: keyof AddressFields, value: string) => onChange({ ...address, [field]: value });
+  const err = (field: keyof AddressFields) => showErrors ? errors[field] : undefined;
+  const errClass = (field: keyof AddressFields) => err(field) ? ' checkout-field-invalid' : '';
 
   return (
     <fieldset className="checkout-fieldset">
@@ -51,11 +84,13 @@ function AddressForm({
       <div className="checkout-row">
         <div className="checkout-field">
           <label className="label">{__('First Name')} *</label>
-          <input className="input" required value={address.firstName} onChange={(e) => set('firstName', e.target.value)} />
+          <input className={`input${errClass('firstName')}`} value={address.firstName} onChange={(e) => set('firstName', e.target.value)} />
+          <FieldError error={err('firstName')} />
         </div>
         <div className="checkout-field">
           <label className="label">{__('Last Name')} *</label>
-          <input className="input" required value={address.lastName} onChange={(e) => set('lastName', e.target.value)} />
+          <input className={`input${errClass('lastName')}`} value={address.lastName} onChange={(e) => set('lastName', e.target.value)} />
+          <FieldError error={err('lastName')} />
         </div>
       </div>
       <div className="checkout-field">
@@ -64,7 +99,8 @@ function AddressForm({
       </div>
       <div className="checkout-field">
         <label className="label">{__('Address')} *</label>
-        <input className="input" required value={address.address1} onChange={(e) => set('address1', e.target.value)} />
+        <input className={`input${errClass('address1')}`} value={address.address1} onChange={(e) => set('address1', e.target.value)} />
+        <FieldError error={err('address1')} />
       </div>
       <div className="checkout-field">
         <label className="label">{__('Address line 2')}</label>
@@ -73,17 +109,19 @@ function AddressForm({
       <div className="checkout-row">
         <div className="checkout-field">
           <label className="label">{__('City')} *</label>
-          <input className="input" required value={address.city} onChange={(e) => set('city', e.target.value)} />
+          <input className={`input${errClass('city')}`} value={address.city} onChange={(e) => set('city', e.target.value)} />
+          <FieldError error={err('city')} />
         </div>
         <div className="checkout-field">
           <label className="label">{__('Postal Code')} *</label>
-          <input className="input" required value={address.postalCode} onChange={(e) => set('postalCode', e.target.value)} />
+          <input className={`input${errClass('postalCode')}`} value={address.postalCode} onChange={(e) => set('postalCode', e.target.value)} />
+          <FieldError error={err('postalCode')} />
         </div>
       </div>
       <div className="checkout-row">
         <div className="checkout-field">
           <label className="label">{__('Country')} *</label>
-          <select className="input" required value={address.country} onChange={(e) => set('country', e.target.value)}>
+          <select className="input" value={address.country} onChange={(e) => set('country', e.target.value)}>
             {COUNTRIES.map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}
           </select>
         </div>
@@ -102,10 +140,15 @@ export function CheckoutForm() {
   const [shipping, setShipping] = useState<AddressFields>(emptyAddress);
   const [customerNote, setCustomerNote] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [showErrors, setShowErrors] = useState(false);
+  const [selectedShippingRate, setSelectedShippingRate] = useState<string | undefined>();
 
   useEffect(() => {
     sessionIdRef.current = getCartSessionId();
   }, []);
+
+  const fieldErrors = validateAddress(shipping, __);
+  const hasFieldErrors = Object.keys(fieldErrors).length > 0;
 
   const { data: cart } = trpc.storeCart.get.useQuery(
     { sessionId: sessionIdRef.current || undefined },
@@ -113,7 +156,7 @@ export function CheckoutForm() {
   );
 
   const { data: totals } = trpc.storeCheckout.calculateTotals.useQuery(
-    { country: shipping.country },
+    { country: shipping.country, shippingRateId: selectedShippingRate },
     { enabled: !!shipping.country },
   );
 
@@ -122,14 +165,12 @@ export function CheckoutForm() {
     { enabled: !!shipping.country },
   );
 
-  const [selectedShippingRate, setSelectedShippingRate] = useState<string | undefined>();
-
   const placeOrder = trpc.storeCheckout.placeOrder.useMutation({
     onSuccess: (result) => {
       if (result.checkoutUrl) {
         window.location.href = result.checkoutUrl;
       } else {
-        window.location.href = `/account?order=${result.orderNumber}`;
+        window.location.href = `/account/orders/${result.orderId}`;
       }
     },
     onError: (err) => {
@@ -140,42 +181,42 @@ export function CheckoutForm() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    setShowErrors(true);
 
-    if (!shipping.firstName || !shipping.lastName || !shipping.address1 || !shipping.city || !shipping.postalCode) {
-      setError(__('Please fill in all required fields'));
-      return;
-    }
+    if (hasFieldErrors) return;
 
     placeOrder.mutate({
       shippingAddress: {
-        firstName: shipping.firstName,
-        lastName: shipping.lastName,
-        company: shipping.company || undefined,
-        address1: shipping.address1,
-        address2: shipping.address2 || undefined,
-        city: shipping.city,
-        state: shipping.state || undefined,
-        postalCode: shipping.postalCode,
+        firstName: shipping.firstName.trim(),
+        lastName: shipping.lastName.trim(),
+        company: shipping.company.trim() || undefined,
+        address1: shipping.address1.trim(),
+        address2: shipping.address2.trim() || undefined,
+        city: shipping.city.trim(),
+        state: shipping.state.trim() || undefined,
+        postalCode: shipping.postalCode.trim(),
         country: shipping.country,
-        phone: shipping.phone || undefined,
+        phone: shipping.phone.trim() || undefined,
       },
       shippingRateId: selectedShippingRate,
-      customerNote: customerNote || undefined,
+      customerNote: customerNote.trim() || undefined,
     });
   }
 
-  const subtotal = cart?.subtotalCents ?? 0;
+  const subtotal = totals?.subtotalCents ?? cart?.subtotalCents ?? 0;
   const shippingCost = totals?.shippingCents ?? 0;
   const tax = totals?.taxCents ?? 0;
-  const total = subtotal + shippingCost + tax;
+  const total = totals?.totalCents ?? subtotal;
 
   return (
-    <form onSubmit={handleSubmit} className="cart-page">
+    <form onSubmit={handleSubmit} className="cart-page" noValidate>
       <div className="checkout-main">
         <AddressForm
           address={shipping}
           onChange={setShipping}
           label={__('Shipping Address')}
+          errors={fieldErrors}
+          showErrors={showErrors}
         />
 
         {shippingOptions && shippingOptions.length > 0 && (
@@ -248,7 +289,7 @@ export function CheckoutForm() {
 
         {error && (
           <div className="checkout-error">
-            <AlertCircle className="h-4 w-4" />
+            <AlertCircle className="h-4 w-4 flex-shrink-0" />
             {error}
           </div>
         )}

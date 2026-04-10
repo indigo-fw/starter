@@ -677,9 +677,17 @@ async function main() {
         console.log("");
         log("📋", "What to seed:");
         const wantCms = await confirm(
-          "  Seed CMS content (pages, blog, portfolio, showcase)?",
+          "  Seed CMS content (categories, tags, content templates)?",
           true,
         );
+        let wantBlogs = false;
+        let wantPortfolio = false;
+        let wantShowcase = false;
+        if (wantCms) {
+          wantBlogs = await confirm("    Seed demo blog posts (101)?", true);
+          wantPortfolio = await confirm("    Seed demo portfolio items (4)?", true);
+          wantShowcase = await confirm("    Seed demo showcase items?", true);
+        }
 
         const MODULE_SEEDS = await getModuleSeeds();
         const hasModuleSeeds = MODULE_SEEDS.length > 0;
@@ -725,7 +733,11 @@ async function main() {
 
         if (wantCms) {
           await seedMedia(db);
-          cmsResult = await seedCmsContent(db, companyInfo);
+          cmsResult = await seedCmsContent(db, companyInfo, {
+            blogs: wantBlogs,
+            portfolio: wantPortfolio,
+            showcase: wantShowcase,
+          });
         }
 
         let seedContext = { userIds: [] as string[], orgIds: [] as string[] };

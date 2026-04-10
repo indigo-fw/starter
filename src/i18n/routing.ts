@@ -58,6 +58,7 @@ export const routing = defineRouting({
     '/account/support/new': '/account/support/new',
     '/account/support/[id]': '/account/support/[id]',
     '/account/affiliates': '/account/affiliates',
+    '/account/orders/[id]': '/account/orders/[id]',
   },
 });
 

@@ -1,6 +1,16 @@
 @layer theme, base, components, utilities;
 
 @layer components {
+  /* ── Store Grid — overridable variables (set on ancestor to customize) ──
+   *
+   *   --store-sale-bg         Sale badge background     (default: --color-danger-600)
+   *   --store-card-bg         Card background           (default: --surface-secondary)
+   *   --store-card-border     Card border               (default: --border-subtle)
+   *   --store-card-hover      Card hover border         (default: --border-primary)
+   *   --store-focus-ring      Search/input focus ring    (default: brand hue glow)
+   *   --store-cta-color       Hero CTA + active tab     (default: --color-brand-500)
+   */
+
   /* ══════════════════════════════════════════════════════════════════════
      Skeletons
      ══════════════════════════════════════════════════════════════════════ */
@@ -115,8 +125,8 @@
     display: flex;
     flex-direction: column;
     border-radius: var(--radius-xl);
-    background-color: var(--surface-secondary);
-    border: 1px solid var(--border-subtle);
+    background-color: var(--store-card-bg, var(--surface-secondary));
+    border: 1px solid var(--store-card-border, var(--border-subtle));
     overflow: hidden;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     text-decoration: none;
@@ -124,7 +134,7 @@
   }
 
   .product-card:hover {
-    border-color: var(--border-primary);
+    border-color: var(--store-card-hover, var(--border-primary));
     box-shadow: var(--shadow-lg);
     transform: translateY(-2px);
   }
@@ -229,12 +239,12 @@
   }
 
   .product-card-badge-sale {
-    background-color: oklch(0.58 0.22 25);
+    background-color: var(--store-sale-bg, var(--color-danger-600));
     color: white;
   }
 
   .product-card-badge-digital {
-    background-color: var(--color-accent-600);
+    background-color: var(--store-digital-badge-bg, var(--color-accent-600));
     color: white;
   }
 
@@ -287,7 +297,7 @@
 
   .store-search input:focus {
     border-color: var(--color-brand-400);
-    box-shadow: 0 0 0 3px oklch(0.7 0.15 350 / 0.12);
+    box-shadow: var(--store-focus-ring, 0 0 0 3px oklch(0.7 0.15 var(--brand-hue) / 0.12));
   }
 
   .store-sort {
@@ -311,7 +321,7 @@
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 9999px;
-    background-color: var(--color-brand-500);
+    background-color: var(--store-cta-color, var(--color-brand-500));
     animation: store-shimmer 1s ease-in-out infinite alternate;
   }
 
@@ -519,7 +529,7 @@
     margin-top: 0.25rem;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--color-brand-500);
+    color: var(--store-cta-color, var(--color-brand-500));
     transition: gap 0.2s ease;
   }
 
@@ -557,8 +567,8 @@
   }
 
   .store-category-tab[data-active='true'] {
-    border-color: var(--color-brand-500);
-    background-color: var(--color-brand-500);
+    border-color: var(--store-cta-color, var(--color-brand-500));
+    background-color: var(--store-cta-color, var(--color-brand-500));
     color: white;
   }
 }

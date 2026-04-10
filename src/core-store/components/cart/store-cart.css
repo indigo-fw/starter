@@ -1,6 +1,17 @@
 @layer theme, base, components, utilities;
 
 @layer components {
+  /* ── Store Cart — overridable variables (set on ancestor to customize) ──
+   *
+   *   --store-checkout-bg       Checkout button bg         (default: --color-brand-500)
+   *   --store-checkout-hover    Checkout button hover bg   (default: --color-brand-600)
+   *   --store-checkout-login-bg Sign-in button bg          (default: --color-accent-600)
+   *   --store-remove-hover      Remove item hover color    (default: --color-danger-600)
+   *   --store-error-color       Error text color           (default: --color-danger-600)
+   *   --store-error-bg          Error background           (default: --color-danger-50)
+   *   --store-success-color     Success banner color       (default: --color-success-600)
+   */
+
   /* ══════════════════════════════════════════════════════════════════════
      Store — Cart Page
      ══════════════════════════════════════════════════════════════════════ */
@@ -109,7 +120,7 @@
   }
 
   .cart-item-remove:hover {
-    color: oklch(0.58 0.22 25);
+    color: var(--store-remove-hover, var(--color-danger-600));
   }
 
   .cart-item-remove:disabled {
@@ -168,7 +179,7 @@
     height: 3rem;
     border-radius: var(--radius-lg);
     border: none;
-    background-color: var(--color-brand-500);
+    background-color: var(--store-checkout-bg, var(--color-brand-500));
     color: white;
     font-size: 1rem;
     font-weight: 600;
@@ -178,7 +189,7 @@
   }
 
   .btn-checkout:hover {
-    background-color: var(--color-brand-600);
+    background-color: var(--store-checkout-hover, var(--color-brand-600));
   }
 
   .btn-checkout:active {
@@ -186,11 +197,11 @@
   }
 
   .btn-checkout-login {
-    background-color: var(--color-accent-600);
+    background-color: var(--store-checkout-login-bg, var(--color-accent-600));
   }
 
   .btn-checkout-login:hover {
-    background-color: var(--color-accent-700);
+    background-color: var(--store-checkout-login-hover, var(--color-accent-700));
   }
 
   .cart-continue {
@@ -272,16 +283,16 @@
   }
 
   .checkout-shipping-option:hover {
-    border-color: var(--color-brand-400);
+    border-color: var(--store-checkout-bg, var(--color-brand-400));
   }
 
   .checkout-shipping-option:has(input:checked) {
-    border-color: var(--color-brand-500);
-    background-color: oklch(0.7 0.15 350 / 0.05);
+    border-color: var(--store-checkout-bg, var(--color-brand-500));
+    background-color: oklch(0.7 0.15 var(--brand-hue) / 0.05);
   }
 
   .checkout-shipping-option input[type='radio'] {
-    accent-color: var(--color-brand-500);
+    accent-color: var(--store-checkout-bg, var(--color-brand-500));
   }
 
   .checkout-shipping-option-info {
@@ -313,8 +324,8 @@
     gap: 0.5rem;
     padding: 0.75rem;
     border-radius: var(--radius-lg);
-    background-color: oklch(0.58 0.22 25 / 0.08);
-    color: oklch(0.58 0.22 25);
+    background-color: var(--store-error-bg, var(--color-danger-50));
+    color: var(--store-error-color, var(--color-danger-600));
     font-size: 0.875rem;
     font-weight: 500;
   }
@@ -322,5 +333,165 @@
   .btn-checkout:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  /* ── Field Validation ───────────────────────────────────────────── */
+
+  .checkout-field-error {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--store-error-color, var(--color-danger-600));
+    margin-top: 0.125rem;
+  }
+
+  .checkout-field-invalid {
+    border-color: var(--store-error-color, var(--color-danger-500)) !important;
+  }
+
+  .checkout-field-invalid:focus {
+    /* danger hue 25 — matches --color-danger scale */
+    box-shadow: 0 0 0 3px oklch(0.60 0.22 25 / 0.12);
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     Store — Order Confirmation / Detail
+     ══════════════════════════════════════════════════════════════════════ */
+
+  .order-success-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    border-radius: var(--radius-xl);
+    /* success hue 145 — matches --color-success scale */
+    background-color: oklch(0.60 0.16 145 / 0.08);
+    border: 1px solid oklch(0.60 0.16 145 / 0.2);
+    color: var(--store-success-color, var(--color-success-600));
+    margin-bottom: 1.5rem;
+  }
+
+  .order-success-title {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .order-success-text {
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin-top: 0.125rem;
+  }
+
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .order-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .order-section-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .order-downloads {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .order-download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--store-checkout-bg, var(--color-brand-500));
+    color: var(--store-checkout-bg, var(--color-brand-500));
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    width: fit-content;
+  }
+
+  .order-download-link:hover {
+    background-color: var(--store-checkout-bg, var(--color-brand-500));
+    color: white;
+  }
+
+  .order-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border-subtle);
+  }
+
+  .order-timeline-item {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    position: relative;
+  }
+
+  .order-timeline-dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 9999px;
+    background-color: var(--border-primary);
+    position: absolute;
+    left: -1.325rem;
+    top: 1rem;
+  }
+
+  .order-timeline-item:first-child .order-timeline-dot {
+    background-color: var(--store-checkout-bg, var(--color-brand-500));
+  }
+
+  .order-timeline-status {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: capitalize;
+  }
+
+  .order-timeline-note {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-top: 0.125rem;
+  }
+
+  .order-timeline-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  .order-tracking-link {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--store-checkout-bg, var(--color-brand-500));
+    text-decoration: none;
+    margin-top: 0.25rem;
+  }
+
+  .order-tracking-link:hover {
+    text-decoration: underline;
   }
 }

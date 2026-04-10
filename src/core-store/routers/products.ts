@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { and, count, desc, eq, isNull, sql } from 'drizzle-orm';
+import { and, count, desc, eq, inArray, isNull, sql } from 'drizzle-orm';
 import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
 import { storeProducts, storeProductVariants, storeVariantGroups, storeProductImages, storeCategories, storeProductCategories } from '@/core-store/schema/products';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
@@ -32,12 +32,37 @@ export const storeProductsRouter = createTRPCRouter({
         conditions.push(sql`${storeProducts.name} ILIKE ${'%' + input.search + '%'}`);
       }
 
+      // Category filter: find product IDs in the category, then filter
+      if (input.categorySlug) {
+        const [cat] = await ctx.db
+          .select({ id: storeCategories.id })
+          .from(storeCategories)
+          .where(eq(storeCategories.slug, input.categorySlug))
+          .limit(1);
+
+        if (cat) {
+          const catProductIds = await ctx.db
+            .select({ productId: storeProductCategories.productId })
+            .from(storeProductCategories)
+            .where(eq(storeProductCategories.categoryId, cat.id))
+            .limit(500);
+
+          const ids = catProductIds.map((r) => r.productId);
+          if (ids.length > 0) {
+            conditions.push(inArray(storeProducts.id, ids));
+          } else {
+            // No products in this category — force empty result
+            conditions.push(sql`false`);
+          }
+        } else {
+          conditions.push(sql`false`);
+        }
+      }
+
       const orderBy = input.sort === 'price_asc' ? storeProducts.priceCents
         : input.sort === 'price_desc' ? desc(storeProducts.priceCents)
         : input.sort === 'name' ? storeProducts.name
         : desc(storeProducts.createdAt);
-
-      // TODO: category filter via join on storeProductCategories
 
       const [items, [countRow]] = await Promise.all([
         ctx.db

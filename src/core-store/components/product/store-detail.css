@@ -1,6 +1,17 @@
 @layer theme, base, components, utilities;
 
 @layer components {
+  /* ── Store Detail — overridable variables (set on ancestor to customize) ──
+   *
+   *   --store-discount-color     Discount badge text      (default: --color-danger-600)
+   *   --store-discount-bg        Discount badge bg        (default: --color-danger-50)
+   *   --store-variant-active-bg  Selected variant bg      (default: --color-brand-500)
+   *   --store-atc-bg             Add-to-cart button bg    (default: --color-brand-500)
+   *   --store-atc-hover          Add-to-cart hover bg     (default: --color-brand-600)
+   *   --store-digital-bg         Digital badge bg (light) (default: --color-accent-100)
+   *   --store-digital-color      Digital badge text       (default: --color-accent-700)
+   */
+
   /* ══════════════════════════════════════════════════════════════════════
      Store — Product Detail
      ══════════════════════════════════════════════════════════════════════ */
@@ -61,7 +72,7 @@
 
   .product-gallery-thumb:hover,
   .product-gallery-thumb[data-active='true'] {
-    border-color: var(--color-brand-500);
+    border-color: var(--store-atc-bg, var(--color-brand-500));
   }
 
   .product-gallery-thumb img {
@@ -107,8 +118,8 @@
   .product-info-discount {
     font-size: 0.8125rem;
     font-weight: 700;
-    color: oklch(0.58 0.22 25);
-    background-color: oklch(0.58 0.22 25 / 0.1);
+    color: var(--store-discount-color, var(--color-danger-600));
+    background-color: var(--store-discount-bg, var(--color-danger-50));
     padding: 0.125rem 0.5rem;
     border-radius: var(--radius-full);
   }
@@ -171,13 +182,13 @@
   }
 
   .variant-option:hover {
-    border-color: var(--color-brand-400);
+    border-color: var(--store-variant-active-bg, var(--color-brand-400));
     color: var(--text-primary);
   }
 
   .variant-option[data-selected='true'] {
-    border-color: var(--color-brand-500);
-    background-color: var(--color-brand-500);
+    border-color: var(--store-variant-active-bg, var(--color-brand-500));
+    background-color: var(--store-variant-active-bg, var(--color-brand-500));
     color: white;
   }
 
@@ -206,7 +217,7 @@
     padding-inline: 1.5rem;
     border-radius: var(--radius-lg);
     border: none;
-    background-color: var(--color-brand-500);
+    background-color: var(--store-atc-bg, var(--color-brand-500));
     color: white;
     font-size: 0.9375rem;
     font-weight: 600;
@@ -215,7 +226,7 @@
   }
 
   .btn-add-to-cart:hover:not(:disabled) {
-    background-color: var(--color-brand-600);
+    background-color: var(--store-atc-hover, var(--color-brand-600));
   }
 
   .btn-add-to-cart:active:not(:disabled) {
@@ -235,9 +246,9 @@
     width: 100%;
     height: 2.375rem;
     border-radius: var(--radius-lg);
-    border: 1.5px solid var(--color-brand-500);
+    border: 1.5px solid var(--store-atc-bg, var(--color-brand-500));
     background: transparent;
-    color: var(--color-brand-500);
+    color: var(--store-atc-bg, var(--color-brand-500));
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
@@ -245,7 +256,7 @@
   }
 
   .btn-view-cart:hover {
-    background-color: var(--color-brand-500);
+    background-color: var(--store-atc-bg, var(--color-brand-500));
     color: white;
   }
 
@@ -280,12 +291,12 @@
   }
 
   .product-type-badge-digital {
-    background-color: oklch(0.92 0.04 303);
-    color: var(--color-accent-700);
+    background-color: var(--store-digital-bg, var(--color-accent-100));
+    color: var(--store-digital-color, var(--color-accent-700));
   }
 
   html.dark .product-type-badge-digital {
-    background-color: oklch(0.28 0.06 303);
-    color: oklch(0.78 0.12 303);
+    --store-digital-bg: oklch(0.28 0.06 var(--accent-hue));
+    --store-digital-color: var(--color-accent-300);
   }
 }
