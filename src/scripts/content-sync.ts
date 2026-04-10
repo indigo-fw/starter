@@ -13,6 +13,7 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 
 import * as schema from '@/server/db/schema';
 import { CONTENT_TYPES } from '@/config/cms';
+import { LOCALES } from '@/lib/constants';
 import { syncContentFiles } from '@/core/lib/content-sync';
 
 const args = process.argv.slice(2);
@@ -33,6 +34,7 @@ async function main() {
   const result = await syncContentFiles(db, {
     dryRun,
     contentTypes: CONTENT_TYPES,
+    locales: LOCALES,
   });
 
   console.log(`\n✅ Done: ${result.created} created, ${result.updated} updated, ${result.skipped} skipped`);

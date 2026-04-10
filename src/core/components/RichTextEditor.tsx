@@ -37,11 +37,13 @@ import {
   Table as TableIcon,
   PanelRightOpen,
   PanelRightClose,
+  Braces,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { useAdminTranslations } from '@/core/lib/translations';
 import { htmlToMarkdown, markdownToHtml } from '@/core/lib/markdown';
+import { getContentVarDefs } from '@/core/lib/content-vars';
 import { toast } from '@/core/store/toast-store';
 import type { EditorHandle } from '@/core/hooks/useLinkPicker';
 import type { ShortcodeConfig } from '@/core/types/shortcodes';
@@ -152,6 +154,7 @@ export function RichTextEditor({
   });
   const __ = useAdminTranslations();
   const [shortcodeMenuOpen, setShortcodeMenuOpen] = useState(false);
+  const [varsMenuOpen, setVarsMenuOpen] = useState(false);
   const [aiAssistOpen, setAiAssistOpen] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewMarkdown, setPreviewMarkdown] = useState(content);
@@ -656,12 +659,44 @@ export function RichTextEditor({
 
           <ToolbarDivider />
 
+          {/* Content variables dropdown — inserts [[VAR]] placeholders */}
+          <div className="editor-toolbar-menu relative">
+            <ToolbarButton
+              onClick={() => { setVarsMenuOpen(!varsMenuOpen); setShortcodeMenuOpen(false); }}
+              title={__('Insert Variable')}
+            >
+              <Braces className={iconSize} />
+            </ToolbarButton>
+            {varsMenuOpen && (
+              <div className="absolute left-0 top-full z-10 mt-1 w-52 rounded-md border border-(--border-primary) bg-(--surface-primary) py-1 shadow-lg">
+                {getContentVarDefs().map((v) => (
+                  <button
+                    key={v.key}
+                    type="button"
+                    className="flex w-full items-center justify-between gap-2 px-3 py-1.5 text-left text-sm text-(--text-secondary) hover:bg-(--surface-secondary)"
+                    title={v.value}
+                    onClick={() => {
+                      if (!editor) return;
+                      editor.chain().focus().insertContent(`[[${v.key}]]`).run();
+                      setVarsMenuOpen(false);
+                    }}
+                  >
+                    <span>{__(v.label)}</span>
+                    <span className="truncate text-xs text-(--text-muted)">{v.value}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <ToolbarDivider />
+
           {/* Shortcode insert dropdown (only shown when shortcodes config provided) */}
           {shortcodes && shortcodes.registry.length > 0 && (
             <>
               <div className="editor-toolbar-menu relative">
                 <ToolbarButton
-                  onClick={() => setShortcodeMenuOpen(!shortcodeMenuOpen)}
+                  onClick={() => { setShortcodeMenuOpen(!shortcodeMenuOpen); setVarsMenuOpen(false); }}
                   title={__('Insert Block')}
                 >
                   <Blocks className={iconSize} />

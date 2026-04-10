@@ -95,6 +95,7 @@ function scanMdFiles(
   dirToPostType: Record<string, number>,
   dirToContentType: Record<string, string>,
   validDirs: Set<string>,
+  allowedLocales?: ReadonlySet<string>,
 ): FileEntry[] {
   if (!existsSync(CONTENT_DIR)) return [];
 
@@ -103,6 +104,7 @@ function scanMdFiles(
   for (const localeDir of readdirSync(CONTENT_DIR)) {
     const localePath = join(CONTENT_DIR, localeDir);
     if (!statSync(localePath).isDirectory()) continue;
+    if (allowedLocales && !allowedLocales.has(localeDir)) continue;
     scanDir(localePath, localePath, localeDir, entries, dirToPostType, dirToContentType, validDirs);
   }
 
@@ -174,6 +176,8 @@ export interface SyncOptions {
   dryRun?: boolean;
   /** Content type declarations from cms.ts config */
   contentTypes: readonly ContentTypeEntry[];
+  /** Only sync these locales. If omitted, syncs all locale dirs found in content/. */
+  locales?: readonly string[];
 }
 
 export interface SyncResult {
@@ -187,10 +191,11 @@ export interface SyncResult {
  * Called at server startup and available as a CLI command.
  */
 export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise<SyncResult> {
-  const { dryRun, contentTypes } = opts;
+  const { dryRun, contentTypes, locales } = opts;
   const { dirToPostType, dirToContentType, validDirs } = buildDirMapping(contentTypes);
+  const allowedLocales = locales ? new Set(locales) : undefined;
 
-  const files = scanMdFiles(dirToPostType, dirToContentType, validDirs);
+  const files = scanMdFiles(dirToPostType, dirToContentType, validDirs, allowedLocales);
   if (files.length === 0) {
     logger.info('No .md files found in content/');
     return { created: 0, updated: 0, skipped: 0 };

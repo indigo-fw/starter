@@ -74,7 +74,8 @@ async function main() {
     const { syncContentFiles } = await import('./src/core/lib/content-sync');
     const { db: syncDb } = await import('./src/server/db');
     const { CONTENT_TYPES } = await import('./src/config/cms');
-    await syncContentFiles(syncDb, { contentTypes: CONTENT_TYPES });
+    const { LOCALES } = await import('./src/lib/constants');
+    await syncContentFiles(syncDb, { contentTypes: CONTENT_TYPES, locales: LOCALES });
   } catch (err) {
     console.error('Content sync failed:', err);
   }

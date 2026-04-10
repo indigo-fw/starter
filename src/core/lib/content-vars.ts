@@ -29,6 +29,30 @@ function getVars(): Record<string, string> {
   return _vars;
 }
 
+/** Variable definition for UI display (editor toolbar, documentation). */
+export interface ContentVarDef {
+  /** Variable key (e.g. 'COMPANY_NAME') */
+  key: string;
+  /** Human-readable label */
+  label: string;
+  /** Current resolved value (for preview) */
+  value: string;
+}
+
+/** List of all available content variables with labels and current values. */
+export function getContentVarDefs(): ContentVarDef[] {
+  const vars = getVars();
+  return [
+    { key: 'SITE_NAME', label: 'Site Name', value: vars.SITE_NAME },
+    { key: 'SITE_URL', label: 'Site URL', value: vars.SITE_URL },
+    { key: 'COMPANY_NAME', label: 'Company Name', value: vars.COMPANY_NAME },
+    { key: 'COMPANY_ADDRESS', label: 'Company Address', value: vars.COMPANY_ADDRESS },
+    { key: 'COMPANY_ID', label: 'Company ID', value: vars.COMPANY_ID },
+    { key: 'COMPANY_JURISDICTION', label: 'Jurisdiction', value: vars.COMPANY_JURISDICTION },
+    { key: 'CONTACT_EMAIL', label: 'Contact Email', value: vars.CONTACT_EMAIL },
+  ];
+}
+
 /**
  * Replace [[VAR]] placeholders in a string with site config values.
  * Fast path: skips regex if no `[[` found in the string.

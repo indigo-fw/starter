@@ -14,6 +14,7 @@ import {
 import { cmsPosts, cmsCategories, cmsTerms, cmsTermRelationships, cmsPostAttachments } from '@/server/db/schema';
 import { ContentStatus, PostType } from '@/core/types/cms';
 import { getMdxManagedSlugs } from '@/core/lib/content-loader';
+import { getContentVarDefs } from '@/core/lib/content-vars';
 import {
   buildAdminList,
   buildStatusCounts,
@@ -189,6 +190,11 @@ export const cmsRouter = createTRPCRouter({
 
       return slugs;
     }),
+
+  /** Get available content variables for the editor toolbar. */
+  contentVars: contentProcedure.query(() => {
+    return getContentVarDefs();
+  }),
 
   /** Get single post by ID (with category + tag IDs) */
   get: contentProcedure
