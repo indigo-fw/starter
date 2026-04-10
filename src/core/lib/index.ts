@@ -1,21 +1,37 @@
-// Engine lib — shared utilities
+// Engine lib — shared utilities (re-exports from subdirectories)
+
+// Fundamentals (flat)
 export { slugify, slugifyFilename } from './slug';
-export { htmlToMarkdown, markdownToHtml } from './markdown';
 export { logAudit } from './audit';
 export type { LogAuditParams } from './audit';
-export { dispatchWebhook } from './webhooks';
-export { useBlankTranslations, dataTranslations } from './translations';
-export { parseShortcodes } from './shortcodes-parser';
-export { prepareForEditor, serializeForStorage } from './shortcode-utils';
-export { createQueue, createWorker, getQueues, shutdownAllWorkers } from './queue';
-export { applyRateLimit } from './trpc-rate-limit';
-export { validateApiKey, checkRateLimit as checkApiRateLimit, apiHeaders } from './api-auth';
 export { SEO_OVERRIDE_ROUTES, SEO_OVERRIDE_SLUGS } from './seo-routes';
-export { getGA4Config, runGA4Report } from './ga4';
-export { anonymizeUser, exportUserData } from './gdpr';
-export { localePath } from './locale';
-export { getLocale } from './locale-server';
-export { useWebSocket, useChannel } from './ws-client';
-export { WS_CHANNELS } from './ws-channels';
 export { getStats, invalidateStats, clearStatsCache } from './stats-cache';
-export { withApiRoute, parseApiPagination, paginatedApiResponse } from './api-route';
+
+// Markdown
+export { htmlToMarkdown, markdownToHtml } from './markdown/markdown';
+export { parseShortcodes } from './markdown/shortcodes-parser';
+export { prepareForEditor, serializeForStorage } from './markdown/shortcode-utils';
+
+// i18n
+export { localePath } from './i18n/locale';
+export { getLocale } from './i18n/locale-server';
+export { useBlankTranslations, dataTranslations } from './i18n/translations';
+
+// Infra
+export { createQueue, createWorker, getQueues, shutdownAllWorkers } from './infra/queue';
+
+// API
+export { applyRateLimit } from './api/trpc-rate-limit';
+export { validateApiKey, checkRateLimit as checkApiRateLimit, apiHeaders } from './api/api-auth';
+export { withApiRoute, parseApiPagination, paginatedApiResponse } from './api/api-route';
+
+// Webhooks
+export { dispatchWebhook } from './webhooks/webhooks';
+
+// Analytics
+export { getGA4Config, runGA4Report } from './analytics/ga4';
+export { anonymizeUser, exportUserData } from './analytics/gdpr';
+
+// Realtime
+export { useWebSocket, useChannel } from './realtime/ws-client';
+export { WS_CHANNELS } from './realtime/ws-channels';

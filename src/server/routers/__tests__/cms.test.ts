@@ -12,11 +12,11 @@ vi.mock('@/lib/auth', () => ({
   },
 }));
 
-vi.mock('@/core/lib/redis', () => ({
+vi.mock('@/core/lib/infra/redis', () => ({
   getRedis: vi.fn().mockReturnValue(null),
 }));
 
-vi.mock('@/core/lib/trpc-rate-limit', () => ({
+vi.mock('@/core/lib/api/trpc-rate-limit', () => ({
   applyRateLimit: vi.fn().mockResolvedValue(undefined),
 }));
 
@@ -93,7 +93,7 @@ vi.mock('@/core/lib/audit', () => ({
   logAudit: vi.fn(),
 }));
 
-vi.mock('@/core/lib/webhooks', () => ({
+vi.mock('@/core/lib/webhooks/webhooks', () => ({
   dispatchWebhook: vi.fn(),
 }));
 
@@ -123,7 +123,7 @@ vi.mock('@/lib/constants', () => ({
   DEFAULT_LOCALE: 'en',
 }));
 
-vi.mock('@/core/lib/logger', () => ({
+vi.mock('@/core/lib/infra/logger', () => ({
   createLogger: vi.fn().mockReturnValue({
     info: vi.fn(),
     error: vi.fn(),
@@ -212,7 +212,7 @@ import { getTermRelationships, syncTermRelationships, resolveTagsForPosts } from
 import { updateWithRevision } from '@/core/crud/cms-helpers';
 import { softDelete, softRestore } from '@/core/crud/admin-crud';
 import { logAudit } from '@/core/lib/audit';
-import { dispatchWebhook } from '@/core/lib/webhooks';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { createMockCtx } from './test-helpers';
 
 const MOCK_POST = {

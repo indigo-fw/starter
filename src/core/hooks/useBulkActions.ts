@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { toast } from '@/core/store/toast-store';
 
 interface BulkActionsMutations {

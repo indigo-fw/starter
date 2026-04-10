@@ -5,7 +5,7 @@ import { ZodError } from 'zod';
 import { auth } from '@/lib/auth';
 import { type AdminSection, Policy, Role, type UserRole } from '@/core/policy';
 import { db } from '@/server/db';
-import { applyRateLimit } from '@/core/lib/trpc-rate-limit';
+import { applyRateLimit } from '@/core/lib/api/trpc-rate-limit';
 import { isEmailVerificationRequired } from '@/lib/email-verification';
 
 /**

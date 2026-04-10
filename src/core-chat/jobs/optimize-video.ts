@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
-import { createQueue, createWorker } from '@/core/lib/queue';
-import { createLogger } from '@/core/lib/logger';
+import { createQueue, createWorker } from '@/core/lib/infra/queue';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatMedia } from '@/core-chat/schema/media';
 import { getStorage } from '@/core/storage';

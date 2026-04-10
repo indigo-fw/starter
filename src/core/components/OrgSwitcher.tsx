@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Building2, ChevronDown, Plus } from 'lucide-react';
 
 import { trpc } from '@/lib/trpc/client';
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { cn } from '@/lib/utils';
 
 interface OrgSwitcherProps {

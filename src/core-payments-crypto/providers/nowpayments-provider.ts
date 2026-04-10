@@ -5,7 +5,7 @@ import { TransactionStatus } from '@/core-payments/types/payment';
 import { db } from '@/server/db';
 import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { getPaymentsDeps } from '@/core-payments/deps';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('nowpayments');
 

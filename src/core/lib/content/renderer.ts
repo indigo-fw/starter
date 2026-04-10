@@ -1,6 +1,6 @@
 import { cache } from 'react';
-import { compileMdx } from '@/core/lib/mdx-compiler';
-import { findFileContent, type FileContent } from '@/core/lib/content-loader';
+import { compileMdx } from '@/core/lib/markdown/mdx-compiler';
+import { findFileContent, type FileContent } from '@/core/lib/content/loader';
 import { DEFAULT_LOCALE } from '@/lib/constants';
 
 /**

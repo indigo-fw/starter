@@ -2,7 +2,7 @@ import { eq, and } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { storeCarts, storeCartItems } from '@/core-store/schema/orders';
 import { storeProducts, storeProductVariants } from '@/core-store/schema/products';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('store-cart');
 

@@ -1,4 +1,4 @@
 export {
   getServerTranslations,
   type TranslationFn,
-} from '@/core/lib/translations-server';
+} from '@/core/lib/i18n/translations-server';

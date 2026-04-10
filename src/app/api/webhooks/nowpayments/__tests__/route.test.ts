@@ -66,7 +66,7 @@ vi.mock('@/core/types/notifications', () => ({
 }));
 
 // Mock logger
-vi.mock('@/core/lib/logger', () => ({
+vi.mock('@/core/lib/infra/logger', () => ({
   createLogger: () => ({
     info: vi.fn(),
     warn: vi.fn(),

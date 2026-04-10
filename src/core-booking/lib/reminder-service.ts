@@ -3,7 +3,7 @@ import { db } from '@/server/db';
 import { bookingReminders, bookings, bookingEvents } from '@/core-booking/schema/bookings';
 import { bookingServices } from '@/core-booking/schema/services';
 import { getBookingDeps } from '@/core-booking/deps';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('booking-reminders');
 

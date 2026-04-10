@@ -20,7 +20,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Plus, Trash2, Loader2, ChevronRight } from 'lucide-react';
 
 import { trpc } from '@/lib/trpc/client';
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { toast } from '@/core/store/toast-store';
 
 interface MenuItem {

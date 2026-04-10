@@ -1,5 +1,5 @@
 import { eq, sql } from 'drizzle-orm';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatVoiceCalls } from '@/core-chat/schema/voice-calls';
 import { getChatDeps } from '@/core-chat/deps';

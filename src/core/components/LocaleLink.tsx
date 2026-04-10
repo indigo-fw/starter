@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useLocale } from '@/core/hooks/useLocale';
-import { localePath } from '@/core/lib/locale';
+import { localePath } from '@/core/lib/i18n/locale';
 import type { ComponentProps } from 'react';
 
 type LocaleLinkProps = Omit<ComponentProps<typeof Link>, 'href'> & {

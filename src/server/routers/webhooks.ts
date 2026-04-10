@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { cmsWebhooks, cmsWebhookDeliveries } from '@/server/db/schema';
 import { fetchOrNotFound, parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { logAudit } from '@/core/lib/audit';
-import { getDeliveryStats } from '@/core/lib/webhook-delivery-log';
+import { getDeliveryStats } from '@/core/lib/webhooks/delivery-log';
 import { createTRPCRouter, sectionProcedure } from '../trpc';
 
 const settingsProcedure = sectionProcedure('settings');

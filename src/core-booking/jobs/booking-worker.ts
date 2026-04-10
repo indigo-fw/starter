@@ -1,5 +1,5 @@
-import { createQueue, createWorker } from '@/core/lib/queue';
-import { createLogger } from '@/core/lib/logger';
+import { createQueue, createWorker } from '@/core/lib/infra/queue';
+import { createLogger } from '@/core/lib/infra/logger';
 import { processDueReminders, cancelExpiredBookings } from '@/core-booking/lib/reminder-service';
 
 const logger = createLogger('booking-worker');

@@ -14,9 +14,9 @@ import { join, relative, extname, basename } from 'path';
 import crypto from 'crypto';
 import { eq, and } from 'drizzle-orm';
 
-import { parseFrontmatter } from '@/core/lib/frontmatter';
+import { parseFrontmatter } from '@/core/lib/content/frontmatter';
 import { createRevision, pickSnapshot } from '@/core/crud/content-revisions';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { PostType, ContentStatus } from '@/core/types/cms';
 import { cmsPosts } from '@/server/db/schema/cms';
 import type { DbClient } from '@/server/db';

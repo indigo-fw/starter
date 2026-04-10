@@ -1,4 +1,4 @@
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import type { SttAdapter, SttRequest, SttResponse, AdapterResponse } from './types';
 
 const logger = createLogger('elevenlabs-stt');

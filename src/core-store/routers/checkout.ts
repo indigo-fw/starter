@@ -8,7 +8,7 @@ import { calculateOrderTax } from '@/core-store/lib/tax-service';
 import { getShippingOptions } from '@/core-store/lib/shipping-service';
 import { createOrder, assignInvoiceNumber, updateOrderStatus } from '@/core-store/lib/order-service';
 import { getStoreDeps } from '@/core-store/deps';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('store-checkout');
 

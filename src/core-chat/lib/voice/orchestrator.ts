@@ -1,7 +1,7 @@
 /**
  * Voice call orchestrator — STT → LLM → TTS pipeline.
  */
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatMessages } from '@/core-chat/schema/messages';
 import { ProviderManager } from '@/core-chat/lib/provider-manager';

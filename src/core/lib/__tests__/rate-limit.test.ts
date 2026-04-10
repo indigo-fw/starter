@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { checkRateLimit, type RateLimitConfig } from '../rate-limit';
+import { checkRateLimit, type RateLimitConfig } from '../infra/rate-limit';
 
 const defaultConfig: RateLimitConfig = {
   windowMs: 60_000,

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import type { ShortcodeDef } from '@/core/types/shortcodes';
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { Dialog } from '@/core/components/Dialog';
 
 interface Props {

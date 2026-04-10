@@ -1,6 +1,6 @@
 import { eq, desc, and, gt } from 'drizzle-orm';
-import { createQueue, createWorker } from '@/core/lib/queue';
-import { createLogger } from '@/core/lib/logger';
+import { createQueue, createWorker } from '@/core/lib/infra/queue';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatMessages, chatConversationSummaries } from '@/core-chat/schema/messages';
 import { chatConversations } from '@/core-chat/schema/conversations';

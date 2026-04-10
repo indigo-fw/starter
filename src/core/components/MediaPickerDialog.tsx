@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { trpc } from "@/lib/trpc/client";
-import { useAdminTranslations } from "@/core/lib/translations";
+import { useAdminTranslations } from "@/core/lib/i18n/translations";
 import { FileType } from "@/core/types/cms";
 import { toast } from "@/core/store/toast-store";
 import { cn } from "@/lib/utils";

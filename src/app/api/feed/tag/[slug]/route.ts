@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 import { siteConfig } from '@/config/site';
-import { resolveContentVars } from '@/core/lib/content-vars';
+import { resolveContentVars } from '@/core/lib/content/vars';
 import { db } from '@/server/db';
 import { cmsPosts, cmsTerms, cmsTermRelationships } from '@/server/db/schema';
 import { ContentStatus, PostType } from '@/core/types/cms';

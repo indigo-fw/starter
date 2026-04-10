@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createTRPCRouter, superadminProcedure } from '@/server/trpc';
-import { getQueues } from '@/core/lib/queue';
+import { getQueues } from '@/core/lib/infra/queue';
 
 /**
  * Admin task queue visibility. Superadmin only.

@@ -5,7 +5,7 @@ import { BarChart3, Eye, Users, ExternalLink, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
 import { trpc } from '@/lib/trpc/client';
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { cn } from '@/lib/utils';
 
 /* ── Simple SVG line chart (no external chart library) ───────────────────── */

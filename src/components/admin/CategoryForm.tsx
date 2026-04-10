@@ -12,7 +12,7 @@ import { useSession } from '@/lib/auth-client';
 import { ContentStatus } from '@/core/types/cms';
 import { toast } from '@/store/toast-store';
 import { DEFAULT_LOCALE, LOCALES, LOCALE_LABELS, IS_MULTILINGUAL } from '@/lib/constants';
-import { convertUTCToLocal, convertLocalToUTC } from '@/core/lib/datetime';
+import { convertUTCToLocal, convertLocalToUTC } from '@/core/lib/infra/datetime';
 import { useCmsFormState, narrowRecoveredData } from '@/core/hooks/useCmsFormState';
 import { useSlugAutoGenerate } from '@/core/hooks/useSlugAutoGenerate';
 import { useLinkPicker } from '@/core/hooks/useLinkPicker';

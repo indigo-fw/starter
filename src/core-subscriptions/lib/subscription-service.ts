@@ -1,7 +1,7 @@
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { saasSubscriptions } from '@/core-subscriptions/schema/subscriptions';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('subscription-service');
 

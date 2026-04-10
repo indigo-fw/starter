@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { compileMdx } from '@/core/lib/mdx-compiler';
+import { compileMdx } from '@/core/lib/markdown/mdx-compiler';
 
 describe('mdx-compiler', () => {
   describe('basic markdown rendering', () => {

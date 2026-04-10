@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useAdminTranslations } from '@/lib/translations';
 import { trpc } from '@/lib/trpc/client';
-import { useChannel } from '@/core/lib/ws-client';
+import { useChannel } from '@/core/lib/realtime/ws-client';
 
 interface TokenBalanceProps {
   /** Where clicking the badge navigates */

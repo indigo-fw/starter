@@ -1,5 +1,5 @@
 /**
- * @deprecated Use compileMdx() directly from @/core/lib/mdx-compiler instead.
+ * @deprecated Use compileMdx() directly from @/core/lib/markdown/mdx-compiler instead.
  * This re-export exists for backwards compatibility only.
  */
-export { compileMdx as compileMarkdownToHtml, invalidateCompileCache } from '@/core/lib/mdx-compiler';
+export { compileMdx as compileMarkdownToHtml, invalidateCompileCache } from '@/core/lib/markdown/mdx-compiler';

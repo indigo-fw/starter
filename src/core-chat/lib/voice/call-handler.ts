@@ -2,7 +2,7 @@
  * Voice call state machine.
  * Manages per-call lifecycle: IDLE → GREETING → ACTIVE → ENDED.
  */
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { eq } from 'drizzle-orm';
 import { chatMessages } from '@/core-chat/schema/messages';

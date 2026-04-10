@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Loader2, Send } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
-import { useChannel } from '@/core/lib/ws-client';
+import { useChannel } from '@/core/lib/realtime/ws-client';
 import { accountRoutes } from '@/config/routes';
 import { cn } from '@/lib/utils';
 import { useBlankTranslations, dataTranslations } from '@/lib/translations';

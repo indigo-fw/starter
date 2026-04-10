@@ -1,5 +1,5 @@
 import { eq, and, desc } from 'drizzle-orm';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatProviders, type ChatProvider } from '@/core-chat/schema/providers';
 import { chatProviderLogs } from '@/core-chat/schema/provider-logs';

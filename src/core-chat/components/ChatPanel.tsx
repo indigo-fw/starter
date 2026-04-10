@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { trpc } from '@/lib/trpc/client';
 import { useBlankTranslations } from '@/lib/translations';
-import { useChannel, useWebSocket } from '@/core/lib/ws-client';
+import { useChannel, useWebSocket } from '@/core/lib/realtime/ws-client';
 import { ChatMessage, type ChatMessageData } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { TypingIndicator } from './TypingIndicator';

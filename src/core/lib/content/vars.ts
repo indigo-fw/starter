@@ -129,7 +129,7 @@ export function invalidateContentVarsCache(): void {
  */
 export async function initContentVarsSync(): Promise<void> {
   try {
-    const { getPublisher, getSubscriber } = await import('@/core/lib/redis');
+    const { getPublisher, getSubscriber } = await import('@/core/lib/infra/redis');
     _publisher = getPublisher();
 
     const sub = getSubscriber();

@@ -1,9 +1,9 @@
 import { TRPCError } from '@trpc/server';
-import { getRedis } from '@/core/lib/redis';
+import { getRedis } from '@/core/lib/infra/redis';
 import {
   checkRateLimit,
   type RateLimitConfig,
-} from '@/core/lib/rate-limit';
+} from '@/core/lib/infra/rate-limit';
 
 /** 100 requests per minute for unauthenticated callers */
 export const PUBLIC_RATE_LIMIT: RateLimitConfig = {

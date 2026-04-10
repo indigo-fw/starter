@@ -4,7 +4,7 @@ import { bookings, bookingEvents, bookingReminders } from '@/core-booking/schema
 import { bookingServices } from '@/core-booking/schema/services';
 import { reserveSlotAtomically } from './availability-service';
 import { getBookingDeps } from '@/core-booking/deps';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('booking-service');
 

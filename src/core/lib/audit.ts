@@ -1,6 +1,6 @@
 import type { DbClient } from '@/server/db';
 import { cmsAuditLog } from '@/server/db/schema/audit';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const log = createLogger('audit');
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useWebSocket, useChannel } from '@/core/lib/ws-client';
+import { useWebSocket, useChannel } from '@/core/lib/realtime/ws-client';
 import { ChatWsEvent } from '@/core-chat/lib/types';
 
 export type VoiceCallState = 'idle' | 'ringing' | 'connecting' | 'active' | 'ended';

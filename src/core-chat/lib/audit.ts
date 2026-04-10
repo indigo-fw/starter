@@ -1,5 +1,5 @@
 import { eq, and, gte, count as drizzleCount } from 'drizzle-orm';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatAuditLog } from '@/core-chat/schema/audit';
 

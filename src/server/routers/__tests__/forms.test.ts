@@ -12,11 +12,11 @@ vi.mock('@/lib/auth', () => ({
   },
 }));
 
-vi.mock('@/core/lib/redis', () => ({
+vi.mock('@/core/lib/infra/redis', () => ({
   getRedis: vi.fn().mockReturnValue(null),
 }));
 
-vi.mock('@/core/lib/trpc-rate-limit', () => ({
+vi.mock('@/core/lib/api/trpc-rate-limit', () => ({
   applyRateLimit: vi.fn().mockResolvedValue(undefined),
 }));
 
@@ -39,7 +39,7 @@ vi.mock('@/core/lib/audit', () => ({
   logAudit: vi.fn(),
 }));
 
-vi.mock('@/core/lib/logger', () => ({
+vi.mock('@/core/lib/infra/logger', () => ({
   createLogger: vi.fn().mockReturnValue({
     info: vi.fn(),
     error: vi.fn(),

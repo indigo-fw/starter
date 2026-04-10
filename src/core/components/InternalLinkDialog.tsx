@@ -4,7 +4,7 @@ import { memo, useRef, useState, useEffect } from 'react';
 
 import { FileText, Search } from 'lucide-react';
 
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { trpc } from '@/lib/trpc/client';
 import { cn } from '@/lib/utils';
 import { Dialog } from '@/core/components/Dialog';

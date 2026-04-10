@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Copy, Languages, Loader2, Plus } from 'lucide-react';
 
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { toast } from '@/core/store/toast-store';
 import { cn } from '@/lib/utils';
 

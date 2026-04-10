@@ -3,9 +3,9 @@ import { and, eq, isNull } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
-import { withApiRoute } from '@/core/lib/api-route';
+import { withApiRoute } from '@/core/lib/api/api-route';
 import { NextResponse } from 'next/server';
-import { apiHeaders } from '@/core/lib/api-auth';
+import { apiHeaders } from '@/core/lib/api/api-auth';
 
 interface RouteParams {
   params: Promise<{ slug: string }>;

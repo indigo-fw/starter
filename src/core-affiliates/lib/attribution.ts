@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { saasUserAcquisitions } from '@/core-affiliates/schema/attributions';
 

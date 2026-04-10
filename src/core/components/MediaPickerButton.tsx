@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { ImageIcon, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { FileType } from '@/core/types/cms';
 import { MediaPickerDialog } from './MediaPickerDialog';
 import type { MediaPickerDialogProps } from './MediaPickerDialog';

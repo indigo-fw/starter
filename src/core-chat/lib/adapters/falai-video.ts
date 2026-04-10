@@ -1,4 +1,4 @@
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import type { VideoAdapter, VideoRequest, VideoResponse, AdapterResponse } from './types';
 import { ProviderClientError } from './types';
 

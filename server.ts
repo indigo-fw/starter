@@ -71,7 +71,7 @@ async function main() {
 
   // Sync .md content files to CMS (completes before server listens)
   try {
-    const { syncContentFiles } = await import('./src/core/lib/content-sync');
+    const { syncContentFiles } = await import('./src/core/lib/content/sync');
     const { db: syncDb } = await import('./src/server/db');
     const { CONTENT_TYPES } = await import('./src/config/cms');
     const { LOCALES } = await import('./src/lib/constants');
@@ -81,13 +81,13 @@ async function main() {
   }
 
   // Preload content variables cache + set up cross-instance invalidation via Redis
-  const { preloadContentVars, initContentVarsSync } = await import('./src/core/lib/content-vars');
+  const { preloadContentVars, initContentVarsSync } = await import('./src/core/lib/content/vars');
   await preloadContentVars();
   await initContentVarsSync();
 
   // Register webhook delivery logger
-  const { setWebhookDeliveryLogger } = await import('./src/core/lib/webhooks');
-  const { logWebhookDelivery } = await import('./src/core/lib/webhook-delivery-log');
+  const { setWebhookDeliveryLogger } = await import('./src/core/lib/webhooks/webhooks');
+  const { logWebhookDelivery } = await import('./src/core/lib/webhooks/delivery-log');
   const { db: appDb } = await import('./src/server/db');
   const { cmsWebhookDeliveries } = await import('./src/server/db/schema/webhook-deliveries');
   setWebhookDeliveryLogger((entry) => {
@@ -100,7 +100,7 @@ async function main() {
     const { startContentWorker } = await import(
       './src/server/jobs/content/index'
     );
-    const { startWebhookWorker } = await import('./src/core/lib/webhooks');
+    const { startWebhookWorker } = await import('./src/core/lib/webhooks/webhooks');
     const { startModuleWorkers } = await import('./src/generated/module-server');
     const { startMediaWorker } = await import('./src/server/jobs/media/index');
     startEmailWorker();
@@ -111,10 +111,10 @@ async function main() {
     console.log('BullMQ workers ready (email + content + webhook + module + media workers started)');
 
     // Schedule dunning checks (daily)
-    const { getRedis } = await import('./src/core/lib/redis');
+    const { getRedis } = await import('./src/core/lib/infra/redis');
     const redis = getRedis();
     if (redis) {
-      const { createQueue, createWorker } = await import('./src/core/lib/queue');
+      const { createQueue, createWorker } = await import('./src/core/lib/infra/queue');
       const dunningQueue = createQueue('dunning');
       if (dunningQueue) {
         await dunningQueue.add('check', {}, {
@@ -138,7 +138,7 @@ async function main() {
       }
       console.log('Maintenance worker ready (daily at 3 AM)');
     } else {
-      const { startDbQueueWorker, enqueueTask } = await import('./src/core/lib/db-queue');
+      const { startDbQueueWorker, enqueueTask } = await import('./src/core/lib/infra/db-queue');
 
       // Seed initial dunning task (idempotent — pollAndProcess skips if one is already pending)
       await enqueueTask('dunning', { action: 'check' }).catch(() => {});
@@ -183,7 +183,7 @@ async function main() {
 
     // Recover stale DB queue tasks on startup
     try {
-      const { recoverStaleTasks } = await import('./src/core/lib/db-queue');
+      const { recoverStaleTasks } = await import('./src/core/lib/infra/db-queue');
       const recovered = await recoverStaleTasks();
       if (recovered > 0) console.log(`Recovered ${recovered} stale DB queue tasks`);
     } catch {
@@ -212,7 +212,7 @@ async function main() {
       }
     }
 
-    const { shutdownAllWorkers } = await import('./src/core/lib/queue');
+    const { shutdownAllWorkers } = await import('./src/core/lib/infra/queue');
     await shutdownAllWorkers();
     server.close(() => {
       console.log('Server closed');

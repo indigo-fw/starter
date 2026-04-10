@@ -22,12 +22,12 @@ vi.mock('@/server/db/schema', () => ({
   cmsOptions: { key: 'key', value: 'value' },
 }));
 
-vi.mock('@/core/lib/queue', () => ({
+vi.mock('@/core/lib/infra/queue', () => ({
   createQueue: vi.fn().mockReturnValue(null),
   createWorker: vi.fn().mockReturnValue(null),
 }));
 
-vi.mock('@/core/lib/logger', () => ({
+vi.mock('@/core/lib/infra/logger', () => ({
   createLogger: vi.fn().mockReturnValue({
     info: vi.fn(),
     warn: vi.fn(),

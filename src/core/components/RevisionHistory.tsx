@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { History, RotateCcw } from 'lucide-react';
 
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { computeFieldDiffs } from '@/core/lib/revision-diff';
 import type { FieldDiff } from '@/core/lib/revision-diff';
 import { trpc } from '@/lib/trpc/client';

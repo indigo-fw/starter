@@ -1,4 +1,4 @@
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('chat-translation');
 

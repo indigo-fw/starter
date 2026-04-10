@@ -11,7 +11,7 @@ import {
 import { Loader2 } from 'lucide-react';
 
 import { trpc } from '@/lib/trpc/client';
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 
 export interface CustomFieldsEditorHandle {
   save: (contentId: string) => Promise<void>;

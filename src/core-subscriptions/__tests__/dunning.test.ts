@@ -89,7 +89,7 @@ vi.mock('@/server/db/schema/audit', () => ({
   },
 }));
 
-vi.mock('@/core/lib/logger', () => ({
+vi.mock('@/core/lib/infra/logger', () => ({
   createLogger: vi.fn().mockReturnValue({
     info: vi.fn(),
     error: vi.fn(),

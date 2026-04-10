@@ -6,7 +6,7 @@ import { FileText, Search } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { IS_ACTIVE, activeAria } from '@/core/lib/active-props';
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { trpc } from '@/lib/trpc/client';
 import { useKeyboardShortcuts } from '@/core/hooks/useKeyboardShortcuts';
 

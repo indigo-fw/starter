@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Download, Loader2, Trash2, Undo2 } from 'lucide-react';
 
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { ContentStatus } from '@/core/types/cms';
 
 interface BulkActionBarProps {

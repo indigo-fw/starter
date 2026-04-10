@@ -6,9 +6,9 @@ import { saasSupportChatSessions, saasSupportChatMessages } from '@/core-support
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { getSupportDeps } from '@/core-support/deps';
 import { supportChatConfig } from '@/core-support/config';
-import { createLogger } from '@/core/lib/logger';
-import { getRedis } from '@/core/lib/redis';
-import { checkRateLimit } from '@/core/lib/rate-limit';
+import { createLogger } from '@/core/lib/infra/logger';
+import { getRedis } from '@/core/lib/infra/redis';
+import { checkRateLimit } from '@/core/lib/infra/rate-limit';
 
 const logger = createLogger('support-chat');
 

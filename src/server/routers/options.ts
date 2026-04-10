@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { env } from '@/lib/env';
 import { cmsOptions } from '@/server/db/schema';
 import { OPTION_REGISTRY } from '@/config/options-registry';
-import { invalidateContentVarsCache } from '@/core/lib/content-vars';
+import { invalidateContentVarsCache } from '@/core/lib/content/vars';
 import { createTRPCRouter, sectionProcedure, staffProcedure } from '../trpc';
 
 const settingsProcedure = sectionProcedure('settings');

@@ -1,7 +1,7 @@
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { storeShippingZones, storeShippingRates } from '@/core-store/schema/shipping-tax';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('store-shipping');
 

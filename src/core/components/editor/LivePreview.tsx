@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { markdownToHtml } from '@/core/lib/markdown';
+import { markdownToHtml } from '@/core/lib/markdown/markdown';
 
 interface Props {
   content: string;

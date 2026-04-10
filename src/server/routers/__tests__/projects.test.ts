@@ -6,11 +6,11 @@ vi.mock('@/lib/auth', () => ({
   },
 }));
 
-vi.mock('@/core/lib/redis', () => ({
+vi.mock('@/core/lib/infra/redis', () => ({
   getRedis: vi.fn().mockReturnValue(null),
 }));
 
-vi.mock('@/core/lib/trpc-rate-limit', () => ({
+vi.mock('@/core/lib/api/trpc-rate-limit', () => ({
   applyRateLimit: vi.fn().mockResolvedValue(undefined),
 }));
 

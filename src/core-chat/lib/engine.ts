@@ -1,6 +1,6 @@
 import { eq, sql, desc, and } from 'drizzle-orm';
-import { createLogger } from '@/core/lib/logger';
-import { createQueue, createWorker } from '@/core/lib/queue';
+import { createLogger } from '@/core/lib/infra/logger';
+import { createQueue, createWorker } from '@/core/lib/infra/queue';
 import { db } from '@/server/db';
 import { chatMessages } from '@/core-chat/schema/messages';
 import { chatConversations } from '@/core-chat/schema/conversations';
@@ -17,7 +17,7 @@ import { buildImagePrompt } from './image/prompt-builder';
 import { detectNsfw } from './image/nsfw-detector';
 import { getPreset, getDefaultPreset } from './image/presets/registry';
 import { enqueueSummarize } from '@/core-chat/jobs/summarize';
-import { dispatchWebhook } from '@/core/lib/webhooks';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { ChatWsEvent, MessageRole, MessageStatus } from './types';
 import type { ChatCharacter } from '@/core-chat/schema/characters';
 

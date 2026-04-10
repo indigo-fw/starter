@@ -118,7 +118,7 @@ vi.mock('@/core/types/notifications', () => ({
   NotificationCategory: { BILLING: 'billing' },
 }));
 
-vi.mock('@/core/lib/logger', () => ({
+vi.mock('@/core/lib/infra/logger', () => ({
   createLogger: () => ({
     info: vi.fn(),
     warn: vi.fn(),

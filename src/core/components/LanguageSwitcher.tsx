@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { LOCALES, DEFAULT_LOCALE, LOCALE_LABELS, IS_MULTILINGUAL } from '@/lib/constants';
-import { localePath } from '@/core/lib/locale';
+import { localePath } from '@/core/lib/i18n/locale';
 import { useLocale } from '@/core/hooks/useLocale';
 import type { Locale } from '@/lib/constants';
 import { Globe } from 'lucide-react';

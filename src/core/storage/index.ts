@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const log = createLogger('storage');
 

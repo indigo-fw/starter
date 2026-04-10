@@ -10,10 +10,10 @@ import { getChatConfig } from '@/core-chat/config';
 import { moderateContent } from '@/core-chat/lib/moderation';
 import { enqueueAiResponse } from '@/core-chat/lib/engine';
 import { ChatWsEvent, CensorType, ConversationStatus, MessageRole, MessageStatus } from '@/core-chat/lib/types';
-import { createLogger } from '@/core/lib/logger';
-import { getRedis } from '@/core/lib/redis';
+import { createLogger } from '@/core/lib/infra/logger';
+import { getRedis } from '@/core/lib/infra/redis';
 import { logAuditEvent, checkAutoBlock } from '@/core-chat/lib/audit';
-import { checkRateLimit, type RateLimitConfig } from '@/core/lib/rate-limit';
+import { checkRateLimit, type RateLimitConfig } from '@/core/lib/infra/rate-limit';
 
 const logger = createLogger('chat-messages');
 

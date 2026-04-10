@@ -2,7 +2,7 @@
 
 import { memo, useEffect, useState } from 'react';
 
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 
 interface AutosaveIndicatorProps {
   lastAutosaveAt: number | null;

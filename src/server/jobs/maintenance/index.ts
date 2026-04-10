@@ -1,8 +1,8 @@
 import { and, lt, lte, isNotNull, inArray } from 'drizzle-orm';
 
-import { createQueue, createWorker } from '@/core/lib/queue';
+import { createQueue, createWorker } from '@/core/lib/infra/queue';
 import { getStorage } from '@/core/storage';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { cmsMedia } from '@/server/db/schema/media';
 import { cmsPosts, cmsPostAttachments } from '@/server/db/schema/cms';

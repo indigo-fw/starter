@@ -1,4 +1,4 @@
-import type { Logger } from '@/core/lib/logger';
+import type { Logger } from '@/core/lib/infra/logger';
 
 import { translate } from './translation-service';
 

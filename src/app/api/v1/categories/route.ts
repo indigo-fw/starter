@@ -3,7 +3,7 @@ import { and, asc, count as drizzleCount, eq, isNull } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { cmsCategories } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
-import { withApiRoute, parseApiPagination, paginatedApiResponse } from '@/core/lib/api-route';
+import { withApiRoute, parseApiPagination, paginatedApiResponse } from '@/core/lib/api/api-route';
 
 export async function GET(request: Request) {
   return withApiRoute(request, async (url) => {

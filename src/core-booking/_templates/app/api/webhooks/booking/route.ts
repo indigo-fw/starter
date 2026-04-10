@@ -12,7 +12,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { bookings } from '@/core-booking/schema/bookings';
 import { updateBookingStatus } from '@/core-booking/lib/booking-service';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('booking-webhook');
 

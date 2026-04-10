@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth';
 import { serverTRPC } from '@/lib/trpc/server';
 import { CreateOrgCard } from '@/components/public/CreateOrgCard';
 import { accountRoutes } from '@/config/routes';
-import { getServerTranslations } from '@/core/lib/translations-server';
+import { getServerTranslations } from '@/core/lib/i18n/translations-server';
 
 export default async function AccountPage() {
   const __ = await getServerTranslations();

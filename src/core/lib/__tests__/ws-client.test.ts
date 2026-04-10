@@ -42,7 +42,7 @@ class MockWebSocket {
 
 // Import ws-client module (uses module-level state)
 async function loadWsClient() {
-  const mod = await import('../ws-client');
+  const mod = await import('../realtime/ws-client');
   return mod;
 }
 

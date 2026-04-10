@@ -3,7 +3,7 @@ import { asMock } from '@/test-utils';
 
 // --- Mocks ---
 
-vi.mock('@/core/lib/logger', () => ({
+vi.mock('@/core/lib/infra/logger', () => ({
   createLogger: () => ({
     info: vi.fn(),
     error: vi.fn(),
@@ -54,7 +54,7 @@ import {
   pollAndProcess,
   startDbQueueWorker,
   recoverStaleTasks,
-} from '../db-queue';
+} from '../infra/db-queue';
 
 // --- Helpers ---
 

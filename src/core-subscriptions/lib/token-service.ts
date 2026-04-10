@@ -1,7 +1,7 @@
 import { eq, sql, and, gte, desc } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { saasTokenBalances, saasTokenTransactions } from '@/core-subscriptions/schema/subscriptions';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('token-service');
 

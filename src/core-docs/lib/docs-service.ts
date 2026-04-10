@@ -3,7 +3,7 @@ import { ilikePattern } from '@/core/crud/drizzle-utils';
 import { db } from '@/server/db';
 import { cmsDocs } from '@/core-docs/schema/docs';
 import { loadFileDocs, loadFileDoc, stripHtml, markdownToPlainText, type FileDoc } from './docs-loader';
-import { compileMdx } from '@/core/lib/mdx-compiler';
+import { compileMdx } from '@/core/lib/markdown/mdx-compiler';
 
 export interface UnifiedDoc {
   slug: string;
@@ -203,7 +203,7 @@ export async function generateLlmExport(): Promise<string> {
     }
   }
 
-  const { resolveContentVars } = await import('@/core/lib/content-vars');
+  const { resolveContentVars } = await import('@/core/lib/content/vars');
   return resolveContentVars(parts.join('\n'));
 }
 

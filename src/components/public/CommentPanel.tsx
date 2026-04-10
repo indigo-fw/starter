@@ -8,7 +8,7 @@ import { ChevronDown, Loader2, Send, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { trpc } from '@/lib/trpc/client';
 import { useSession } from '@/lib/auth-client';
-import { formatRelativeTime } from '@/core/lib/datetime';
+import { formatRelativeTime } from '@/core/lib/infra/datetime';
 import { toast } from '@/store/toast-store';
 import { useTranslations } from '@/lib/translations';
 

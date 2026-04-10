@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 import { X } from 'lucide-react';
 
-import { useAdminTranslations } from '@/core/lib/translations';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
 
 interface BrokenLinksBannerProps {
   urls: string[];

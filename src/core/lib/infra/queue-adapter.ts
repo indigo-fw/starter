@@ -1,5 +1,5 @@
-import { getRedis } from '@/core/lib/redis';
-import { createLogger } from '@/core/lib/logger';
+import { getRedis } from '@/core/lib/infra/redis';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const log = createLogger('queue-adapter');
 

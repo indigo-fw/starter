@@ -11,7 +11,7 @@
  * `dataTranslations(namespace)` — module-scope extraction marker (identity at runtime).
  *
  * For server components, use `getServerTranslations` from
- * `@/core/lib/translations-server` (or the re-export at `@/lib/translations-server`).
+ * `@/core/lib/i18n/translations-server` (or the re-export at `@/lib/translations-server`).
  *
  * The PO→JSON pipeline replaces dots with @@@ in keys, so we apply the same
  * transform at lookup time to match.

@@ -1,6 +1,6 @@
 import { eq, and, lt, isNull, isNotNull, notInArray, sql } from 'drizzle-orm';
-import { createQueue, createWorker } from '@/core/lib/queue';
-import { createLogger } from '@/core/lib/logger';
+import { createQueue, createWorker } from '@/core/lib/infra/queue';
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatConversations } from '@/core-chat/schema/conversations';
 import { chatMedia } from '@/core-chat/schema/media';

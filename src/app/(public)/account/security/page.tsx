@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { trpc } from '@/lib/trpc/client';
-import { formatRelativeTime } from '@/core/lib/datetime';
+import { formatRelativeTime } from '@/core/lib/infra/datetime';
 import { useBlankTranslations } from '@/lib/translations';
 
 export default function AccountSecurityPage() {

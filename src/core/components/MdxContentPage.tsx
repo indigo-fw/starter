@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import type { FileContent } from '@/core/lib/content-loader';
-import { resolveContentVars } from '@/core/lib/content-vars';
+import type { FileContent } from '@/core/lib/content/loader';
+import { resolveContentVars } from '@/core/lib/content/vars';
 import '@/core/styles/mdx-components.css';
 
 interface Props {

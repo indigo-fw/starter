@@ -5,9 +5,9 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { auth } from '@/lib/auth';
 import { user, session } from '@/server/db/schema/auth';
 import { logAudit } from '@/core/lib/audit';
-import { detectGeo } from '@/core/lib/geo';
-import { extractRequestContext } from '@/core/lib/request-context';
-import { createLogger } from '@/core/lib/logger';
+import { detectGeo } from '@/core/lib/analytics/geo';
+import { extractRequestContext } from '@/core/lib/api/request-context';
+import { createLogger } from '@/core/lib/infra/logger';
 import { runHook } from '@/core/lib/module-hooks';
 
 const geoLog = createLogger('geo-sync');
@@ -133,7 +133,7 @@ export const authRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
       const mode = input?.mode ?? 'full';
-      const { anonymizeUser } = await import('@/core/lib/gdpr');
+      const { anonymizeUser } = await import('@/core/lib/analytics/gdpr');
 
       try {
         await anonymizeUser(ctx.db, userId, userId, mode);

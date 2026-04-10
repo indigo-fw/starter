@@ -8,7 +8,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeStringify from 'rehype-stringify';
 import type { Root, Element, ElementContent } from 'hast';
 import { visit } from 'unist-util-visit';
-import { resolveContentVars } from '@/core/lib/content-vars';
+import { resolveContentVars } from '@/core/lib/content/vars';
 
 // ─── MDX Component Registry ────────────────────────────────────────────────
 

@@ -41,8 +41,8 @@ import {
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { useAdminTranslations } from '@/core/lib/translations';
-import { htmlToMarkdown, markdownToHtml } from '@/core/lib/markdown';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
+import { htmlToMarkdown, markdownToHtml } from '@/core/lib/markdown/markdown';
 import { trpc } from '@/lib/trpc/client';
 import { toast } from '@/core/store/toast-store';
 import type { EditorHandle } from '@/core/hooks/useLinkPicker';

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useTransition } from 'react';
 import { X } from 'lucide-react';
-import { localePath } from '@/core/lib/locale';
+import { localePath } from '@/core/lib/i18n/locale';
 import { useLocale } from '@/core/hooks/useLocale';
 import { usePathname } from 'next/navigation';
 

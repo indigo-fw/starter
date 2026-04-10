@@ -12,7 +12,7 @@ import { resolveOrgId } from '@/server/lib/resolve-org';
 import { sendNotification, sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { supportChatConfig } from '@/core-support/config';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { registerChannelAuthorizer } from '@/core/lib/module-hooks';
 import { Policy } from '@/core/policy';
 

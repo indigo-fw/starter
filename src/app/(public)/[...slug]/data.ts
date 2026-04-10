@@ -2,7 +2,7 @@ import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { TRPCError } from '@trpc/server';
 import { serverTRPC } from '@/lib/trpc/server';
-import { resolveRecordVars } from '@/core/lib/content-vars';
+import { resolveRecordVars } from '@/core/lib/content/vars';
 
 /** Rethrows NOT_FOUND TRPCErrors as Next.js notFound() for proper 404 handling. */
 function rethrowAsNotFound(err: unknown): never {

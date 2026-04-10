@@ -1,6 +1,6 @@
-import { parseShortcodes } from '@/core/lib/shortcodes-parser';
-import { markdownToHtml } from '@/core/lib/markdown';
-import { resolveContentVars } from '@/core/lib/content-vars';
+import { parseShortcodes } from '@/core/lib/markdown/shortcodes-parser';
+import { markdownToHtml } from '@/core/lib/markdown/markdown';
+import { resolveContentVars } from '@/core/lib/content/vars';
 
 /** Map of shortcode names to their React components. Passed by the project layer. */
 export type ShortcodeComponentMap = Record<

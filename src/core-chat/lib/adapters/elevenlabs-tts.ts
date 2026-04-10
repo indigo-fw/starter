@@ -1,4 +1,4 @@
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import type { TtsAdapter, TtsRequest, TtsResponse, AdapterResponse } from './types';
 
 const logger = createLogger('elevenlabs-tts');

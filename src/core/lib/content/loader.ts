@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join, relative, extname, basename } from 'path';
-import { createLogger } from '@/core/lib/logger';
-import { parseFrontmatter } from '@/core/lib/frontmatter';
+import { createLogger } from '@/core/lib/infra/logger';
+import { parseFrontmatter } from '@/core/lib/content/frontmatter';
 
 const logger = createLogger('content-loader');
 

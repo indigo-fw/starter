@@ -3,7 +3,7 @@ import { db } from '@/server/db';
 import { saasDiscountCodes, saasDiscountUsages } from '@/core-subscriptions/schema/subscriptions';
 import { DiscountType } from '@/core-payments/types/payment';
 import type { DiscountDefinition, DiscountValidationResult } from '@/core-payments/types/payment';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('discount-service');
 

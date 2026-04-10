@@ -5,7 +5,7 @@ import { role } from 'better-auth/plugins/access';
 
 import { eq, and, count, isNull } from 'drizzle-orm';
 import { Role } from '@/core/policy';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { slugify } from '@/core/lib/slug';
 import { db } from '@/server/db';
 import { organization as organizationTable, member } from '@/server/db/schema/organization';

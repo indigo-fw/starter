@@ -6,15 +6,15 @@ import crypto from 'crypto';
 import { getContentTypeByPostType } from '@/config/cms';
 import { env } from '@/lib/env';
 import { LOCALES } from '@/lib/constants';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import {
   SEO_OVERRIDE_ROUTES,
   SEO_OVERRIDE_SLUGS,
 } from '@/core/lib/seo-routes';
 import { cmsPosts, cmsCategories, cmsTerms, cmsTermRelationships, cmsPostAttachments } from '@/server/db/schema';
 import { ContentStatus, PostType } from '@/core/types/cms';
-import { getMdxManagedSlugs } from '@/core/lib/content-loader';
-import { getContentVarDefs } from '@/core/lib/content-vars';
+import { getMdxManagedSlugs } from '@/core/lib/content/loader';
+import { getContentVarDefs } from '@/core/lib/content/vars';
 import {
   buildAdminList,
   buildStatusCounts,
@@ -38,7 +38,7 @@ import {
 } from '@/core/crud/taxonomy-helpers';
 import { logAudit } from '@/core/lib/audit';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
-import { dispatchWebhook } from '@/core/lib/webhooks';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { getStorage } from '@/core/storage';
 import { sendBulkNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';

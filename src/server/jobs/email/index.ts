@@ -7,8 +7,8 @@ import { inArray } from 'drizzle-orm';
 
 import { db as appDb } from '@/server/db';
 import { cmsOptions } from '@/server/db/schema';
-import { createQueue, createWorker } from '@/core/lib/queue';
-import { createLogger } from '@/core/lib/logger';
+import { createQueue, createWorker } from '@/core/lib/infra/queue';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('Email');
 

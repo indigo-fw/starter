@@ -2,7 +2,7 @@
  * Chat-specific WebSocket message handlers.
  * Handles typing indicators, presence, and join/leave for conversations.
  */
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('chat-ws');
 

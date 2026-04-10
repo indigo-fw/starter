@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { siteConfig } from '@/config/site';
-import { resolveContentVars } from '@/core/lib/content-vars';
+import { resolveContentVars } from '@/core/lib/content/vars';
 import { getCachedDoc, getCachedNavigation } from '../data';
 import { DocRenderer } from '@/core-docs/components/DocRenderer';
 import { DocSidebar } from '@/core-docs/components/DocSidebar';

@@ -10,11 +10,11 @@ vi.mock('@/lib/auth', () => ({
   },
 }));
 
-vi.mock('@/core/lib/redis', () => ({
+vi.mock('@/core/lib/infra/redis', () => ({
   getRedis: vi.fn().mockReturnValue(null),
 }));
 
-vi.mock('@/core/lib/trpc-rate-limit', () => ({
+vi.mock('@/core/lib/api/trpc-rate-limit', () => ({
   applyRateLimit: vi.fn().mockResolvedValue(undefined),
 }));
 
@@ -22,7 +22,7 @@ vi.mock('@/core/lib/audit', () => ({
   logAudit: vi.fn(),
 }));
 
-vi.mock('@/core/lib/gdpr', () => ({
+vi.mock('@/core/lib/analytics/gdpr', () => ({
   anonymizeUser: vi.fn().mockResolvedValue(undefined),
 }));
 
@@ -52,7 +52,7 @@ vi.mock('@/lib/env', () => ({
 import { asMock } from '@/test-utils';
 import { authRouter } from '../auth';
 import { auth } from '@/lib/auth';
-import { anonymizeUser } from '@/core/lib/gdpr';
+import { anonymizeUser } from '@/core/lib/analytics/gdpr';
 import { createMockDb } from './test-helpers';
 
 // Auth tests use role:'user' and email:'test@test.com' — differs from the

@@ -5,7 +5,7 @@ import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { member } from '@/server/db/schema/organization';
 import { user } from '@/server/db/schema/auth';
 import { cmsAuditLog } from '@/server/db/schema/audit';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 import { logAudit } from '@/core/lib/audit';
 import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
 

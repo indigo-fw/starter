@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { Policy } from '@/core/policy';
 import { db } from '@/server/db';
-import { exportUserData } from '@/core/lib/gdpr';
+import { exportUserData } from '@/core/lib/analytics/gdpr';
 
 interface RouteParams {
   params: Promise<{ userId: string }>;

@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
 import { callAi } from '@/core-ai-writer/lib/ai-client';
 import { PROMPTS } from '@/core-ai-writer/lib/prompts';
-import { createLogger } from '@/core/lib/logger';
+import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('ai-writer');
 

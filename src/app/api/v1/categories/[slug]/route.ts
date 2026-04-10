@@ -4,8 +4,8 @@ import { NextResponse } from 'next/server';
 import { db } from '@/server/db';
 import { cmsCategories } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
-import { withApiRoute } from '@/core/lib/api-route';
-import { apiHeaders } from '@/core/lib/api-auth';
+import { withApiRoute } from '@/core/lib/api/api-route';
+import { apiHeaders } from '@/core/lib/api/api-auth';
 
 interface RouteParams {
   params: Promise<{ slug: string }>;

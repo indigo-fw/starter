@@ -27,7 +27,7 @@ import { PUBLIC_LAYOUT_WIDGETS } from '@/generated/module-widgets';
 import { getServerTranslations, type TranslationFn } from '@/lib/translations-server';
 import { LanguageSuggestionBanner } from '@/core/components/LanguageSuggestionBanner';
 import { CartWidget } from '@/core-store/components/CartWidget';
-import { getLanguageSuggestion } from '@/core/lib/language-suggestion';
+import { getLanguageSuggestion } from '@/core/lib/i18n/language-suggestion';
 import { dataTranslations } from '@/lib/translations';
 
 // Extraction marker — ensures the language suggestion key appears in public PO files
