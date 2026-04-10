@@ -463,6 +463,26 @@ async function promptCompanyInfo(db: ReturnType<typeof drizzle>): Promise<Compan
     undefined,
     opts['company.contact_email'] ?? "info@example.com",
   );
+  const companyVat = await ask(
+    "  VAT number (optional): ",
+    undefined,
+    opts['company.vat'] ?? "",
+  );
+  const companyPhone = await ask(
+    "  Phone number (optional): ",
+    undefined,
+    opts['company.phone'] ?? "",
+  );
+  const companyCountry = await ask(
+    "  Country: ",
+    undefined,
+    opts['company.country'] ?? "",
+  );
+  const supportEmail = await ask(
+    "  Support email (leave empty to use contact email): ",
+    undefined,
+    opts['company.support_email'] ?? "",
+  );
 
   if (!AUTO_YES) console.log("");
   return {
@@ -473,6 +493,10 @@ async function promptCompanyInfo(db: ReturnType<typeof drizzle>): Promise<Compan
     companyId,
     companyJurisdiction,
     contactEmail,
+    companyVat,
+    companyPhone,
+    companyCountry,
+    supportEmail,
   };
 }
 
@@ -529,6 +553,10 @@ async function seedOptions(
       "company.id": companyInfo.companyId,
       "company.jurisdiction": companyInfo.companyJurisdiction,
       "company.contact_email": companyInfo.contactEmail,
+      "company.vat": companyInfo.companyVat,
+      "company.phone": companyInfo.companyPhone,
+      "company.country": companyInfo.companyCountry,
+      "company.support_email": companyInfo.supportEmail,
     };
     for (const [key, value] of Object.entries(companyOpts)) {
       await db.insert(cmsOptions).values({ key, value, updatedAt: new Date() })
@@ -558,6 +586,10 @@ async function seedOptions(
     "company.id": companyInfo.companyId,
     "company.jurisdiction": companyInfo.companyJurisdiction,
     "company.contact_email": companyInfo.contactEmail,
+    "company.vat": companyInfo.companyVat,
+    "company.phone": companyInfo.companyPhone,
+    "company.country": companyInfo.companyCountry,
+    "company.support_email": companyInfo.supportEmail,
   };
 
   for (const [key, value] of Object.entries(defaults)) {

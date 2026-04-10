@@ -15,7 +15,7 @@
 
 import { db } from '@/server/db';
 import { cmsOptions } from '@/server/db/schema/cms';
-import { inArray } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import { clientEnv, siteDefaults } from '@/config/site';
 
 // ─── Cached Options Fetch ───────────────────────────────────────────────────
@@ -24,19 +24,26 @@ const CACHE_TTL = 60 * 60 * 1000; // 1 hour — invalidated on save via invalida
 
 let _cache: { vars: Record<string, string>; ts: number } | null = null;
 
+/** Built-in option keys that map to content variables. */
 const OPTION_KEYS = [
   'site.name', 'site.url',
   'company.name', 'company.address', 'company.id',
   'company.jurisdiction', 'company.contact_email',
+  'company.vat', 'company.phone', 'company.country',
+  'company.support_email',
 ] as const;
 
 async function fetchVarsFromDb(): Promise<Record<string, string>> {
   try {
+    const { like } = await import('drizzle-orm');
     const rows = await db
       .select({ key: cmsOptions.key, value: cmsOptions.value })
       .from(cmsOptions)
-      .where(inArray(cmsOptions.key, [...OPTION_KEYS]))
-      .limit(OPTION_KEYS.length);
+      .where(
+        // Fetch built-in option keys + any custom variable keys (var.*)
+        sql`${cmsOptions.key} = ANY(${[...OPTION_KEYS]}) OR ${cmsOptions.key} LIKE 'var.%'`
+      )
+      .limit(200);
 
     const opts: Record<string, string> = {};
     for (const row of rows) {
@@ -50,15 +57,32 @@ async function fetchVarsFromDb(): Promise<Record<string, string>> {
 }
 
 function buildVarMap(opts: Record<string, string>): Record<string, string> {
-  return {
+  const vars: Record<string, string> = {
+    // Site
     SITE_NAME: opts['site.name'] || clientEnv.siteName,
     SITE_URL: opts['site.url'] || clientEnv.appUrl,
+    // Company
     COMPANY_NAME: opts['company.name'] || siteDefaults.companyName,
     COMPANY_ADDRESS: opts['company.address'] || siteDefaults.companyAddress,
     COMPANY_ID: opts['company.id'] || siteDefaults.companyId,
     COMPANY_JURISDICTION: opts['company.jurisdiction'] || siteDefaults.companyJurisdiction,
     CONTACT_EMAIL: opts['company.contact_email'] || siteDefaults.contactEmail,
+    COMPANY_VAT: opts['company.vat'] || '',
+    COMPANY_PHONE: opts['company.phone'] || '',
+    COMPANY_COUNTRY: opts['company.country'] || '',
+    SUPPORT_EMAIL: opts['company.support_email'] || opts['company.contact_email'] || siteDefaults.contactEmail,
+    // Auto-generated
+    CURRENT_YEAR: new Date().getFullYear().toString(),
   };
+
+  // Custom variables: var.MY_THING → [[MY_THING]]
+  for (const [key, value] of Object.entries(opts)) {
+    if (key.startsWith('var.')) {
+      vars[key.slice(4).toUpperCase()] = value;
+    }
+  }
+
+  return vars;
 }
 
 /**
@@ -129,18 +153,40 @@ export interface ContentVarDef {
   value: string;
 }
 
-/** List of all available content variables with labels and current values. */
+/** Built-in variable definitions with human-readable labels. */
+const BUILTIN_VAR_LABELS: Record<string, string> = {
+  SITE_NAME: 'Site Name',
+  SITE_URL: 'Site URL',
+  COMPANY_NAME: 'Company Name',
+  COMPANY_ADDRESS: 'Company Address',
+  COMPANY_ID: 'Company ID',
+  COMPANY_JURISDICTION: 'Jurisdiction',
+  CONTACT_EMAIL: 'Contact Email',
+  COMPANY_VAT: 'VAT Number',
+  COMPANY_PHONE: 'Phone',
+  COMPANY_COUNTRY: 'Country',
+  SUPPORT_EMAIL: 'Support Email',
+  CURRENT_YEAR: 'Current Year',
+};
+
+/**
+ * List of all available content variables with labels and current values.
+ * Includes built-in variables and any custom variables (var.* options).
+ */
 export function getContentVarDefs(): ContentVarDef[] {
   const vars = getVarsSync();
-  return [
-    { key: 'SITE_NAME', label: 'Site Name', value: vars.SITE_NAME },
-    { key: 'SITE_URL', label: 'Site URL', value: vars.SITE_URL },
-    { key: 'COMPANY_NAME', label: 'Company Name', value: vars.COMPANY_NAME },
-    { key: 'COMPANY_ADDRESS', label: 'Company Address', value: vars.COMPANY_ADDRESS },
-    { key: 'COMPANY_ID', label: 'Company ID', value: vars.COMPANY_ID },
-    { key: 'COMPANY_JURISDICTION', label: 'Jurisdiction', value: vars.COMPANY_JURISDICTION },
-    { key: 'CONTACT_EMAIL', label: 'Contact Email', value: vars.CONTACT_EMAIL },
-  ];
+  const defs: ContentVarDef[] = [];
+
+  for (const [key, value] of Object.entries(vars)) {
+    if (!value && !BUILTIN_VAR_LABELS[key]) continue; // skip empty custom vars
+    defs.push({
+      key,
+      label: BUILTIN_VAR_LABELS[key] ?? key, // custom vars use their key as label
+      value,
+    });
+  }
+
+  return defs;
 }
 
 // ─── Resolution Functions ───────────────────────────────────────────────────

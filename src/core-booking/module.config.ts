@@ -41,6 +41,7 @@ const config: ModuleConfig = {
   ],
   projectFiles: [
     'config/booking-deps.ts',
+    'app/api/webhooks/booking/route.ts',
   ],
 };
 

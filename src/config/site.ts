@@ -8,6 +8,10 @@ export const siteDefaults = {
   companyAddress: "123 Main Street, City, Country",
   companyId: "N/A",
   companyJurisdiction: "the United States",
+  companyVat: "",
+  companyPhone: "",
+  companyCountry: "",
+  supportEmail: "",
 } as const;
 
 export const clientEnv = {

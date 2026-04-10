@@ -22,7 +22,9 @@ const config: ModuleConfig = {
   ],
   layoutWidgets: [],
   pageWidgets: [],
-  navItems: [],
+  navItems: [
+    { groupId: 'content', name: 'Store', href: '/dashboard/store', icon: 'ShoppingBag' },
+  ],
   projectFiles: [
     'config/store-deps.ts',
   ],

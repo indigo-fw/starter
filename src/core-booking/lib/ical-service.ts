@@ -1,12 +1,12 @@
-import type { Booking } from '@/core-booking/schema/bookings';
-
 /**
- * Generate an iCalendar (.ics) string for a booking.
+ * iCalendar (.ics) generation for booking events.
  *
- * Produces a VEVENT that can be imported into Google Calendar, Apple Calendar,
- * Outlook, etc. Also suitable for attaching to confirmation emails.
+ * Produces RFC 5545 compliant VCALENDAR with VEVENT and VALARM components.
+ * All datetimes use UTC (DTSTART/DTEND with Z suffix) which is universally
+ * supported. VTIMEZONE blocks are not needed for UTC-only events.
  */
-export function generateIcal(booking: {
+
+export interface IcalBookingInput {
   id: string;
   bookingNumber: string;
   startTime: Date;
@@ -15,7 +15,21 @@ export function generateIcal(booking: {
   customerNote?: string | null;
   priceCents: number;
   currency: string;
-}, organizationName?: string): string {
+}
+
+export interface IcalOptions {
+  organizationName?: string;
+  organizerEmail?: string;
+  attendeeEmail?: string;
+}
+
+/**
+ * Generate an iCalendar (.ics) string for a booking.
+ *
+ * Includes two VALARM reminders (24h and 1h before) that trigger
+ * native calendar notifications on the client device.
+ */
+export function generateIcal(booking: IcalBookingInput, options: IcalOptions = {}): string {
   const snapshot = booking.serviceSnapshot ?? {};
   const summary = (snapshot.name as string) ?? 'Booking';
   const location = (snapshot.location as string) ?? '';
@@ -24,35 +38,60 @@ export function generateIcal(booking: {
   const now = new Date();
   const uid = `${booking.id}@booking`;
 
-  return [
+  const lines: string[] = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//Indigo//core-booking//EN',
     'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
+    'METHOD:REQUEST',
     'BEGIN:VEVENT',
     `UID:${uid}`,
     `DTSTAMP:${formatIcalDate(now)}`,
     `DTSTART:${formatIcalDate(booking.startTime)}`,
     `DTEND:${formatIcalDate(booking.endTime)}`,
     `SUMMARY:${escapeIcalText(summary)}`,
-    location ? `LOCATION:${escapeIcalText(location)}` : '',
-    `DESCRIPTION:${escapeIcalText(description)}`,
-    organizationName ? `ORGANIZER;CN=${escapeIcalText(organizationName)}:MAILTO:noreply@example.com` : '',
-    `STATUS:CONFIRMED`,
+  ];
+
+  if (location) {
+    lines.push(`LOCATION:${escapeIcalText(location)}`);
+  }
+
+  lines.push(`DESCRIPTION:${escapeIcalText(description)}`);
+
+  // Organizer
+  if (options.organizerEmail) {
+    const cn = options.organizationName ? `;CN=${escapeIcalText(options.organizationName)}` : '';
+    lines.push(`ORGANIZER${cn}:MAILTO:${options.organizerEmail}`);
+  }
+
+  // Attendee (the person who booked)
+  if (options.attendeeEmail) {
+    lines.push(`ATTENDEE;RSVP=TRUE;PARTSTAT=ACCEPTED:MAILTO:${options.attendeeEmail}`);
+  }
+
+  lines.push('STATUS:CONFIRMED');
+
+  // VALARM: 1 hour before
+  lines.push(
     'BEGIN:VALARM',
     'TRIGGER:-PT1H',
     'ACTION:DISPLAY',
-    'DESCRIPTION:Booking reminder',
+    `DESCRIPTION:${escapeIcalText(summary)} starts in 1 hour`,
     'END:VALARM',
+  );
+
+  // VALARM: 24 hours before
+  lines.push(
     'BEGIN:VALARM',
     'TRIGGER:-P1D',
     'ACTION:DISPLAY',
-    'DESCRIPTION:Booking reminder (24h)',
+    `DESCRIPTION:${escapeIcalText(summary)} is tomorrow`,
     'END:VALARM',
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].filter(Boolean).join('\r\n');
+  );
+
+  lines.push('END:VEVENT', 'END:VCALENDAR');
+
+  return lines.join('\r\n');
 }
 
 /**
@@ -64,7 +103,7 @@ function formatIcalDate(date: Date): string {
 }
 
 /**
- * Escape text for iCalendar field values.
+ * Escape text for iCalendar field values per RFC 5545.
  */
 function escapeIcalText(text: string): string {
   return text
@@ -77,15 +116,8 @@ function escapeIcalText(text: string): string {
 /**
  * Build a human-readable description for the calendar event.
  */
-function buildDescription(booking: {
-  bookingNumber: string;
-  priceCents: number;
-  currency: string;
-  customerNote?: string | null;
-}): string {
-  const lines: string[] = [
-    `Booking: ${booking.bookingNumber}`,
-  ];
+function buildDescription(booking: IcalBookingInput): string {
+  const lines: string[] = [`Booking: ${booking.bookingNumber}`];
 
   if (booking.priceCents > 0) {
     const amount = (booking.priceCents / 100).toFixed(2);
@@ -100,7 +132,7 @@ function buildDescription(booking: {
 }
 
 /**
- * Generate a Google Calendar link for a booking.
+ * Generate a Google Calendar "Add to Calendar" URL.
  */
 export function generateGoogleCalendarUrl(booking: {
   startTime: Date;

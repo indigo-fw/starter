@@ -66,6 +66,13 @@ export const adminPanel = {
   settingsSupportDetail: (id: string) => `${DASHBOARD_PREFIX}/settings/support/${id}`,
   settingsSupportChat: (id: string) => `${DASHBOARD_PREFIX}/settings/support/chat/${id}`,
   settingsAffiliates: `${DASHBOARD_PREFIX}/settings/affiliates`,
+
+  // Store
+  storeProducts: `${DASHBOARD_PREFIX}/store`,
+  storeProductDetail: (id: string) => `${DASHBOARD_PREFIX}/store/${id}`,
+  storeProductNew: `${DASHBOARD_PREFIX}/store/new`,
+  storeOrders: `${DASHBOARD_PREFIX}/store/orders`,
+  storeOrderDetail: (id: string) => `${DASHBOARD_PREFIX}/store/orders/${id}`,
 } as const;
 
 // ─── Customer-facing auth ────────────────────────────────────────────────────

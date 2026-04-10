@@ -1,6 +1,6 @@
-import { and, eq, lt, lte } from 'drizzle-orm';
+import { and, eq, lt, lte, sql } from 'drizzle-orm';
 import { db } from '@/server/db';
-import { bookingReminders, bookings } from '@/core-booking/schema/bookings';
+import { bookingReminders, bookings, bookingEvents } from '@/core-booking/schema/bookings';
 import { bookingServices } from '@/core-booking/schema/services';
 import { getBookingDeps } from '@/core-booking/deps';
 import { createLogger } from '@/core/lib/logger';
@@ -101,11 +101,12 @@ export async function processDueReminders(): Promise<number> {
  * Auto-cancel expired pending bookings.
  *
  * Bookings in 'pending' status that have passed their start time
- * are automatically cancelled.
+ * are automatically cancelled. Uses batch updates to minimize queries.
  */
 export async function cancelExpiredBookings(): Promise<number> {
   const now = new Date();
 
+  // Find expired booking IDs
   const expired = await db
     .select({ id: bookings.id })
     .from(bookings)
@@ -117,20 +118,43 @@ export async function cancelExpiredBookings(): Promise<number> {
 
   if (expired.length === 0) return 0;
 
-  for (const booking of expired) {
-    await db.update(bookings)
-      .set({ status: 'cancelled', cancelledAt: now, cancelledBy: 'system', cancellationReason: 'Expired — not confirmed before start time', updatedAt: now })
-      .where(eq(bookings.id, booking.id));
+  const expiredIds = expired.map((b) => b.id);
 
-    // Cancel pending reminders
-    await db.update(bookingReminders)
-      .set({ status: 'failed' })
-      .where(and(
-        eq(bookingReminders.bookingId, booking.id),
-        eq(bookingReminders.status, 'scheduled'),
-      ));
+  // Batch update: cancel all expired bookings in one query
+  await db.update(bookings)
+    .set({
+      status: 'cancelled',
+      cancelledAt: now,
+      cancelledBy: 'system',
+      cancellationReason: 'Expired — not confirmed before start time',
+      updatedAt: now,
+    })
+    .where(and(
+      eq(bookings.status, 'pending'),
+      lt(bookings.startTime, now),
+    ));
+
+  // Batch cancel all pending reminders for these bookings
+  await db.update(bookingReminders)
+    .set({ status: 'failed' })
+    .where(and(
+      sql`${bookingReminders.bookingId} IN (${sql.join(expiredIds.map((id) => sql`${id}`), sql`, `)})`,
+      eq(bookingReminders.status, 'scheduled'),
+    ));
+
+  // Log audit events (these are cheap inserts, batch them)
+  const eventValues = expiredIds.map((id) => ({
+    bookingId: id,
+    fromStatus: 'pending',
+    toStatus: 'cancelled',
+    actor: 'system',
+    note: 'Auto-cancelled: not confirmed before start time',
+  }));
+
+  if (eventValues.length > 0) {
+    await db.insert(bookingEvents).values(eventValues);
   }
 
-  logger.info(`Auto-cancelled ${expired.length} expired pending bookings`);
-  return expired.length;
+  logger.info(`Auto-cancelled ${expiredIds.length} expired pending bookings`);
+  return expiredIds.length;
 }

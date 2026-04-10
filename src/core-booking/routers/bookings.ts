@@ -121,6 +121,7 @@ export const bookingBookingsRouter = createTRPCRouter({
         startTime: new Date(input.startTime),
         endTime: new Date(input.endTime),
         userId: ctx.session.user.id,
+        userEmail: ctx.session.user.email,
         attendees: input.attendees,
         customerNote: input.customerNote,
         metadata: input.metadata,
@@ -238,7 +239,7 @@ export const bookingBookingsRouter = createTRPCRouter({
 
       if (!booking) throw new TRPCError({ code: 'NOT_FOUND', message: 'Booking not found' });
 
-      const ical = generateIcal({
+      const icalInput = {
         id: booking.id,
         bookingNumber: booking.bookingNumber,
         startTime: booking.startTime,
@@ -247,6 +248,10 @@ export const bookingBookingsRouter = createTRPCRouter({
         customerNote: booking.customerNote,
         priceCents: booking.priceCents,
         currency: booking.currency,
+      };
+
+      const ical = generateIcal(icalInput, {
+        attendeeEmail: ctx.session.user.email,
       });
 
       const googleCalendarUrl = generateGoogleCalendarUrl({

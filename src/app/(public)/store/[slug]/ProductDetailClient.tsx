@@ -1,25 +1,15 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { ShoppingCart, Check, Package, Download, Truck, ArrowRight } from 'lucide-react';
-import { trpc } from '@/lib/trpc/client';
-import { Link, useRouter } from '@/i18n/navigation';
+import { useState, useCallback } from 'react';
+import { Download, Truck } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 import { useBlankTranslations } from '@/lib/translations';
+import { formatPrice } from '@/core-store/lib/store-utils';
+import { ProductGallery } from '@/core-store/components/ProductGallery';
+import { VariantSelector } from '@/core-store/components/VariantSelector';
+import { AddToCartForm } from '@/core-store/components/AddToCartForm';
 
-function formatPrice(cents: number | null | undefined, currency = 'EUR'): string {
-  if (cents == null) return '';
-  return new Intl.NumberFormat('en', { style: 'currency', currency, minimumFractionDigits: 2 }).format(cents / 100);
-}
-
-function getSessionId(): string {
-  if (typeof document === 'undefined') return '';
-  const match = document.cookie.match(/(?:^|; )cart_session=([^;]*)/);
-  if (match) return match[1]!;
-  const id = crypto.randomUUID();
-  document.cookie = `cart_session=${id};path=/;max-age=${60 * 60 * 24 * 365};SameSite=Lax`;
-  return id;
-}
+// ─── Types ──────────────────────────────────────────────────────────────────
 
 interface Variant {
   id: string;
@@ -31,17 +21,6 @@ interface Variant {
   options: unknown;
   image: string | null;
   isDefault: boolean;
-}
-
-interface VariantGroup {
-  id: string;
-  name: string;
-}
-
-interface ProductImage {
-  id: string;
-  url: string;
-  alt: string | null;
 }
 
 interface Product {
@@ -60,27 +39,28 @@ interface Product {
   requiresShipping: boolean;
   featuredImage: string | null;
   variants: Variant[];
-  images: ProductImage[];
-  variantGroups: VariantGroup[];
+  images: { id: string; url: string; alt: string | null }[];
+  variantGroups: { id: string; name: string }[];
 }
+
+// ─── Component ──────────────────────────────────────────────────────────────
 
 export function ProductDetailClient({ product }: { product: Product }) {
   const __ = useBlankTranslations();
-  const router = useRouter();
   const isVariable = product.type === 'variable' && product.variants.length > 0;
   const isDigital = product.type === 'digital';
 
-  // Build unique option values per group
+  // Build option groups from variant data
   const optionGroups = product.variantGroups.map((group) => {
     const values = [...new Set(
       product.variants
         .map((v) => (v.options as Record<string, string>)[group.name])
-        .filter(Boolean)
+        .filter(Boolean),
     )];
     return { name: group.name, values };
   });
 
-  // Selection state
+  // Default selections from default variant
   const defaultVariant = product.variants.find((v) => v.isDefault) ?? product.variants[0];
   const defaultSelections: Record<string, string> = {};
   if (defaultVariant) {
@@ -90,16 +70,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
   }
 
   const [selections, setSelections] = useState<Record<string, string>>(defaultSelections);
-  const [quantity, setQuantity] = useState(1);
-  const [added, setAdded] = useState(false);
-  const [mainImage, setMainImage] = useState(product.featuredImage);
-  const sessionIdRef = useRef('');
 
-  useEffect(() => {
-    sessionIdRef.current = getSessionId();
-  }, []);
-
-  // Find selected variant
+  // Find the variant matching current selections
   const selectedVariant = isVariable
     ? product.variants.find((v) => {
         const opts = v.options as Record<string, string>;
@@ -111,38 +83,26 @@ export function ProductDetailClient({ product }: { product: Product }) {
   const activeComparePriceCents = isVariable ? selectedVariant?.comparePriceCents : product.comparePriceCents;
   const activeSku = isVariable ? (selectedVariant?.sku ?? product.sku) : product.sku;
 
-  // Gallery images
-  const allImages = [
-    ...(product.featuredImage ? [{ url: product.featuredImage, alt: product.name }] : []),
-    ...product.images.filter((img) => img.url !== product.featuredImage),
-  ];
-
-  const utils = trpc.useUtils();
-  const addToCart = trpc.storeCart.addItem.useMutation({
-    onSuccess: () => {
-      utils.storeCart.get.invalidate();
-      setAdded(true);
-      setTimeout(() => setAdded(false), 2500);
-    },
-  });
-
-  function handleAddToCart() {
-    addToCart.mutate({
-      sessionId: sessionIdRef.current || undefined,
-      productId: product.id,
-      variantId: selectedVariant?.id,
-      quantity,
-    });
-  }
-
-  // Discount percentage
   const discountPct = activeComparePriceCents && activePriceCents && activeComparePriceCents > activePriceCents
     ? Math.round((1 - activePriceCents / activeComparePriceCents) * 100)
     : null;
 
+  // Gallery needs to update when variant with image is selected
+  const galleryRef = { current: null as ((url: string) => void) | null };
+
+  const handleVariantSelect = useCallback((name: string, value: string) => {
+    const next = { ...selections, [name]: value };
+    setSelections(next);
+    // If the new variant has a specific image, switch to it
+    const v = product.variants.find((vr) => {
+      const opts = vr.options as Record<string, string>;
+      return optionGroups.every((g) => opts[g.name] === next[g.name]);
+    });
+    if (v?.image) galleryRef.current?.(v.image);
+  }, [selections, product.variants, optionGroups]);
+
   return (
     <>
-      {/* ── Breadcrumb ── */}
       <nav className="store-breadcrumb" aria-label={__('Breadcrumb')}>
         <Link href="/store">{__('Store')}</Link>
         <span aria-hidden="true">/</span>
@@ -150,43 +110,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
       </nav>
 
       <div className="product-detail">
-        {/* ── Gallery ── */}
-        <div className="product-gallery">
-          <div className="product-gallery-main">
-            {mainImage ? (
-              <Image
-                src={mainImage}
-                alt={product.name}
-                width={600}
-                height={600}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
-            ) : (
-              <div className="product-card-image-placeholder" style={{ height: '100%' }}>
-                <Package className="h-16 w-16" />
-              </div>
-            )}
-          </div>
-          {allImages.length > 1 && (
-            <div className="product-gallery-thumbs">
-              {allImages.map((img, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  className="product-gallery-thumb"
-                  data-active={mainImage === img.url ? 'true' : undefined}
-                  onClick={() => setMainImage(img.url)}
-                  aria-label={img.alt ?? `${__('Image')} ${i + 1}`}
-                >
-                  <Image src={img.url} alt={img.alt ?? ''} width={64} height={64} />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        <ProductGallery
+          featuredImage={product.featuredImage}
+          images={product.images}
+          productName={product.name}
+        />
 
-        {/* ── Info ── */}
         <div className="product-info">
           {isDigital && (
             <span className="product-type-badge product-type-badge-digital">
@@ -209,9 +138,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </span>
             )}
             {discountPct && (
-              <span className="product-info-discount">
-                −{discountPct}%
-              </span>
+              <span className="product-info-discount">−{discountPct}%</span>
             )}
           </div>
 
@@ -219,82 +146,22 @@ export function ProductDetailClient({ product }: { product: Product }) {
             <p className="product-info-description">{product.shortDescription}</p>
           )}
 
-          {/* ── Variant selectors ── */}
-          {isVariable && optionGroups.map((group) => (
-            <div key={group.name} className="variant-group">
-              <span className="variant-group-label">
-                {group.name}: <strong>{selections[group.name]}</strong>
-              </span>
-              <div className="variant-options">
-                {group.values.map((value) => (
-                  <button
-                    key={value}
-                    type="button"
-                    className="variant-option"
-                    data-selected={selections[group.name] === value ? 'true' : undefined}
-                    onClick={() => {
-                      const next = { ...selections, [group.name]: value };
-                      setSelections(next);
-                      const v = product.variants.find((vr) => {
-                        const opts = vr.options as Record<string, string>;
-                        return optionGroups.every((g) => opts[g.name] === next[g.name]);
-                      });
-                      if (v?.image) setMainImage(v.image);
-                    }}
-                  >
-                    {value}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
+          {isVariable && (
+            <VariantSelector
+              optionGroups={optionGroups}
+              selections={selections}
+              onSelect={handleVariantSelect}
+            />
+          )}
 
-          {/* ── Add to cart ── */}
-          <div className="add-to-cart-section">
-            <div className="add-to-cart-row">
-              <div className="quantity-control">
-                <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label={__('Decrease quantity')}>−</button>
-                <span aria-label={__('Quantity')}>{quantity}</span>
-                <button type="button" onClick={() => setQuantity(Math.min(99, quantity + 1))} aria-label={__('Increase quantity')}>+</button>
-              </div>
-              <button
-                type="button"
-                className="btn-add-to-cart"
-                onClick={handleAddToCart}
-                disabled={addToCart.isPending || (isVariable && !selectedVariant)}
-              >
-                {added ? (
-                  <>
-                    <Check className="h-4 w-4" />
-                    {__('Added to cart!')}
-                  </>
-                ) : addToCart.isPending ? (
-                  <span className="btn-loading-dots">{__('Adding...')}</span>
-                ) : (
-                  <>
-                    <ShoppingCart className="h-4 w-4" />
-                    {__('Add to Cart')}
-                  </>
-                )}
-              </button>
-            </div>
-            {added && (
-              <button
-                type="button"
-                className="btn-view-cart"
-                onClick={() => router.push('/cart')}
-              >
-                {__('View Cart')}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
+          <AddToCartForm
+            productId={product.id}
+            variantId={selectedVariant?.id}
+            disabled={isVariable && !selectedVariant}
+          />
 
-          {/* ── Meta ── */}
           <div className="product-meta-list">
-            {activeSku && (
-              <span>{__('SKU')}: {activeSku}</span>
-            )}
+            {activeSku && <span>{__('SKU')}: {activeSku}</span>}
             {isDigital && (
               <span><Download className="h-3.5 w-3.5" /> {__('Instant digital download')}</span>
             )}
@@ -306,7 +173,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
             )}
           </div>
 
-          {/* ── Full description ── */}
           {product.description && (
             <div className="product-description-full">
               <h2 className="product-description-heading">{__('Description')}</h2>

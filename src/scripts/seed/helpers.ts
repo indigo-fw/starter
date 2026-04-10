@@ -17,6 +17,10 @@ export interface CompanyInfo {
   companyId: string;
   companyJurisdiction: string;
   contactEmail: string;
+  companyVat: string;
+  companyPhone: string;
+  companyCountry: string;
+  supportEmail: string;
 }
 
 // ─── CLI Helpers ───────────────────────────────────────────────────────────

@@ -18,176 +18,122 @@ export interface TimeSlot {
 /**
  * Convert a local time on a specific date in a timezone to a UTC Date.
  *
- * Uses Intl.DateTimeFormat to resolve the UTC offset for the given timezone
- * on the given date, then applies it. This handles DST transitions correctly.
+ * Strategy: construct the wall-clock datetime in the target timezone by
+ * using Intl.DateTimeFormat to compute the actual UTC offset, including
+ * DST rules. Handles the spring-forward gap by clamping to the next
+ * valid time, and the fall-back overlap by using the first occurrence.
  */
-function localToUtc(date: string, time: string, timezone: string): Date {
+export function localToUtc(date: string, time: string, timezone: string): Date {
+  // Parse local wall-clock components
   const [h, m] = time.split(':').map(Number) as [number, number];
+  const [year, month, day] = date.split('-').map(Number) as [number, number, number];
 
-  // Build a Date that *represents* the wall-clock time in the target timezone.
-  // We parse as UTC first, then adjust by the timezone's offset on that date.
-  const naive = new Date(`${date}T${time}:00Z`);
+  // Build a trial UTC date (pretend the local time is UTC)
+  const trialUtc = new Date(Date.UTC(year, month - 1, day, h, m, 0));
 
-  // Resolve the timezone's UTC offset at this approximate instant.
-  // We use the naive UTC date to get the offset — close enough for DST lookup.
-  const offsetMs = getTimezoneOffsetMs(naive, timezone);
+  // Get the offset at this trial instant
+  const offset1 = getUtcOffsetMinutes(trialUtc, timezone);
 
-  // Local time = UTC + offset → UTC = local - offset
-  return new Date(naive.getTime() - offsetMs);
+  // Apply offset: UTC = local - offset
+  const attempt = new Date(trialUtc.getTime() - offset1 * 60_000);
+
+  // Verify: the offset at our computed UTC instant might differ (DST boundary).
+  // Re-check to converge.
+  const offset2 = getUtcOffsetMinutes(attempt, timezone);
+
+  if (offset1 === offset2) {
+    return attempt;
+  }
+
+  // The offsets differ — we're near a DST transition.
+  // Re-apply with the corrected offset.
+  const corrected = new Date(trialUtc.getTime() - offset2 * 60_000);
+
+  // Final check: if the local time doesn't exist (spring-forward gap),
+  // the corrected time will map to a different local time. In that case,
+  // snap forward to the first valid time after the gap.
+  const offset3 = getUtcOffsetMinutes(corrected, timezone);
+  if (offset2 !== offset3) {
+    // We're in the gap — use the later offset (post-transition)
+    const laterOffset = Math.max(offset2, offset3);
+    return new Date(trialUtc.getTime() - laterOffset * 60_000);
+  }
+
+  return corrected;
 }
 
 /**
- * Get the UTC offset in milliseconds for a timezone at a given instant.
- * Positive = ahead of UTC (e.g., +02:00 → +7200000).
+ * Get the UTC offset in minutes for a timezone at a given UTC instant.
+ * Positive = ahead of UTC (e.g., CET = +60).
+ *
+ * Uses Intl.DateTimeFormat to get the local time in the target timezone,
+ * then computes the difference from UTC.
  */
-function getTimezoneOffsetMs(at: Date, timezone: string): number {
-  // Format parts in the target timezone and in UTC, compare
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: timezone,
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit',
-    hour12: false,
-  });
-  const utcFormatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'UTC',
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit',
-    hour12: false,
-  });
+function getUtcOffsetMinutes(utcDate: Date, timezone: string): number {
+  // Format the date in both UTC and target timezone, extract components
+  const utcParts = extractDateParts(utcDate, 'UTC');
+  const localParts = extractDateParts(utcDate, timezone);
 
-  const localParts = partsToDate(formatter.formatToParts(at));
-  const utcParts = partsToDate(utcFormatter.formatToParts(at));
+  const utcMinutes = datePartsToMinutesSinceEpoch(utcParts);
+  const localMinutes = datePartsToMinutesSinceEpoch(localParts);
 
-  return localParts.getTime() - utcParts.getTime();
+  return localMinutes - utcMinutes;
 }
 
-function partsToDate(parts: Intl.DateTimeFormatPart[]): Date {
+interface DateParts {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+}
+
+function extractDateParts(date: Date, timezone: string): DateParts {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: timezone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).formatToParts(date);
+
   const map: Record<string, string> = {};
   for (const p of parts) {
     if (p.type !== 'literal') map[p.type] = p.value;
   }
-  // Handle "24:00" edge case from some formatters
-  const hour = map.hour === '24' ? '00' : map.hour;
-  return new Date(`${map.year}-${map.month}-${map.day}T${hour}:${map.minute}:${map.second}Z`);
+
+  return {
+    year: Number(map.year),
+    month: Number(map.month),
+    day: Number(map.day),
+    hour: map.hour === '24' ? 0 : Number(map.hour),
+    minute: Number(map.minute),
+  };
+}
+
+function datePartsToMinutesSinceEpoch(p: DateParts): number {
+  // Convert to a comparable minute-level timestamp
+  // Using a simple formula: approximate days since epoch * 1440 + minutes
+  const d = Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute) / 60_000;
+  return d;
 }
 
 /**
  * Get the day of week for a date string in a specific timezone.
  */
 function getDayOfWeekInTimezone(date: string, timezone: string): number {
-  const d = new Date(`${date}T12:00:00Z`); // noon UTC to avoid date boundary issues
+  const [year, month, day] = date.split('-').map(Number) as [number, number, number];
+  // Use noon UTC to avoid any date boundary ambiguity
+  const d = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
   const formatter = new Intl.DateTimeFormat('en-US', { timeZone: timezone, weekday: 'short' });
   const weekday = formatter.format(d);
   const map: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-  return map[weekday] ?? d.getUTCDay();
+  return map[weekday] ?? 0;
 }
 
-// ─── Single-day slot computation ───────────────────────────────────────────
-
-/**
- * Get available time slots for a service on a specific date.
- *
- * Uses the service's timezone to correctly convert local schedule times to UTC.
- */
-export async function getAvailableSlots(
-  serviceId: string,
-  date: string, // YYYY-MM-DD
-): Promise<TimeSlot[]> {
-  const [service] = await db
-    .select()
-    .from(bookingServices)
-    .where(eq(bookingServices.id, serviceId))
-    .limit(1);
-
-  if (!service || service.status !== 'published' || service.deletedAt) return [];
-
-  // Fetch schedule + override in parallel
-  const dayOfWeek = getDayOfWeekInTimezone(date, service.timezone);
-
-  const [scheduleRows, [override]] = await Promise.all([
-    db.select().from(bookingSchedules)
-      .where(and(
-        eq(bookingSchedules.serviceId, serviceId),
-        eq(bookingSchedules.dayOfWeek, dayOfWeek),
-        eq(bookingSchedules.isActive, true),
-      ))
-      .limit(10),
-    db.select().from(bookingOverrides)
-      .where(and(
-        eq(bookingOverrides.serviceId, serviceId),
-        eq(bookingOverrides.date, date),
-      ))
-      .limit(1),
-  ]);
-
-  if (override?.isUnavailable) return [];
-
-  // Determine working hours
-  let startTime: string | null = null;
-  let endTime: string | null = null;
-
-  if (override?.startTime && override?.endTime) {
-    startTime = override.startTime;
-    endTime = override.endTime;
-  } else if (scheduleRows.length > 0) {
-    startTime = scheduleRows.reduce((min, s) => s.startTime < min ? s.startTime : min, scheduleRows[0]!.startTime);
-    endTime = scheduleRows.reduce((max, s) => s.endTime > max ? s.endTime : max, scheduleRows[0]!.endTime);
-  }
-
-  if (!startTime || !endTime) return [];
-
-  // Generate UTC slots from local times
-  const slots = generateSlotsUtc(date, startTime, endTime, service);
-  if (slots.length === 0) return [];
-
-  // Fetch existing bookings for this time range
-  const rangeStart = slots[0]!.startTime;
-  const rangeEnd = slots[slots.length - 1]!.endTime;
-
-  const existingBookings = await db
-    .select({
-      startTime: bookings.startTime,
-      endTime: bookings.endTime,
-      attendees: bookings.attendees,
-    })
-    .from(bookings)
-    .where(and(
-      eq(bookings.serviceId, serviceId),
-      ne(bookings.status, 'cancelled'),
-      ne(bookings.status, 'no_show'),
-      lt(bookings.startTime, rangeEnd),
-      gte(bookings.endTime, rangeStart),
-    ))
-    .limit(500);
-
-  // Filter by capacity, advance window, and past slots
-  const now = new Date();
-  const availableSlots: TimeSlot[] = [];
-
-  for (const slot of slots) {
-    if (slot.startTime <= now) continue;
-
-    if (service.minAdvanceHours) {
-      const earliest = new Date(now.getTime() + service.minAdvanceHours * 3_600_000);
-      if (slot.startTime < earliest) continue;
-    }
-    if (service.maxAdvanceHours) {
-      const latest = new Date(now.getTime() + service.maxAdvanceHours * 3_600_000);
-      if (slot.startTime > latest) continue;
-    }
-
-    const bookedCapacity = existingBookings
-      .filter((b) => b.startTime < slot.endTime && b.endTime > slot.startTime)
-      .reduce((sum, b) => sum + b.attendees, 0);
-
-    const availableCapacity = service.maxCapacity - bookedCapacity;
-    if (availableCapacity > 0) {
-      availableSlots.push({ ...slot, availableCapacity });
-    }
-  }
-
-  return availableSlots;
-}
+// ─── Slot generation ───────────────────────────────────────────────────────
 
 /**
  * Generate time slots in UTC from local schedule times.
@@ -196,7 +142,7 @@ function generateSlotsUtc(
   date: string,
   startTime: string,
   endTime: string,
-  service: BookingService,
+  service: Pick<BookingService, 'durationMinutes' | 'bufferMinutes' | 'timezone'>,
 ): { startTime: Date; endTime: Date }[] {
   const [startH, startM] = startTime.split(':').map(Number) as [number, number];
   const [endH, endM] = endTime.split(':').map(Number) as [number, number];
@@ -229,31 +175,75 @@ function minutesToTime(minutes: number): string {
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }
 
-// ─── Batch multi-day availability (for calendar views) ─────────────────────
+// ─── Capacity filter (shared logic) ────────────────────────────────────────
+
+interface BookingWindow {
+  startTime: Date;
+  endTime: Date;
+  attendees: number;
+}
 
 /**
- * Get available dates for a service in a date range.
- *
- * Uses 3 batch queries instead of N sequential calls:
- * 1. All schedules for this service
- * 2. All overrides in the date range
- * 3. All bookings overlapping the date range
- *
- * Then computes slots in memory.
+ * Compute booked capacity for a slot by counting overlapping bookings.
+ * A booking overlaps if it starts before the slot ends AND ends after the slot starts.
  */
-export async function getAvailableDatesInRange(
+function getBookedCapacity(
+  slot: { startTime: Date; endTime: Date },
+  existingBookings: BookingWindow[],
+): number {
+  let capacity = 0;
+  for (const b of existingBookings) {
+    if (b.startTime < slot.endTime && b.endTime > slot.startTime) {
+      capacity += b.attendees;
+    }
+  }
+  return capacity;
+}
+
+/**
+ * Filter slots by capacity, advance window, and past-time rules.
+ */
+function filterAvailableSlots(
+  slots: { startTime: Date; endTime: Date }[],
+  existingBookings: BookingWindow[],
+  service: Pick<BookingService, 'maxCapacity' | 'minAdvanceHours' | 'maxAdvanceHours'>,
+  now: Date,
+): TimeSlot[] {
+  const result: TimeSlot[] = [];
+
+  for (const slot of slots) {
+    if (slot.startTime <= now) continue;
+
+    if (service.minAdvanceHours) {
+      const earliest = new Date(now.getTime() + service.minAdvanceHours * 3_600_000);
+      if (slot.startTime < earliest) continue;
+    }
+    if (service.maxAdvanceHours) {
+      const latest = new Date(now.getTime() + service.maxAdvanceHours * 3_600_000);
+      if (slot.startTime > latest) continue;
+    }
+
+    const bookedCapacity = getBookedCapacity(slot, existingBookings);
+    const availableCapacity = service.maxCapacity - bookedCapacity;
+    if (availableCapacity > 0) {
+      result.push({ ...slot, availableCapacity });
+    }
+  }
+
+  return result;
+}
+
+// ─── Single-day slot computation ───────────────────────────────────────────
+
+/**
+ * Get available time slots for a service on a specific date.
+ *
+ * Uses the service's timezone to correctly convert local schedule times to UTC.
+ */
+export async function getAvailableSlots(
   serviceId: string,
-  from: string,
-  to: string,
-): Promise<string[]> {
-  const maxDays = 62;
-
-  // Validate dates
-  const startDate = new Date(from);
-  const endDate = new Date(to);
-  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return [];
-
-  // Fetch service
+  date: string, // YYYY-MM-DD
+): Promise<TimeSlot[]> {
   const [service] = await db
     .select()
     .from(bookingServices)
@@ -262,8 +252,92 @@ export async function getAvailableDatesInRange(
 
   if (!service || service.status !== 'published' || service.deletedAt) return [];
 
-  // Batch fetch: schedules, overrides, and bookings — all in parallel
-  // Compute the UTC range that covers the entire local date range
+  const dayOfWeek = getDayOfWeekInTimezone(date, service.timezone);
+
+  const [scheduleRows, [override]] = await Promise.all([
+    db.select().from(bookingSchedules)
+      .where(and(
+        eq(bookingSchedules.serviceId, serviceId),
+        eq(bookingSchedules.dayOfWeek, dayOfWeek),
+        eq(bookingSchedules.isActive, true),
+      ))
+      .limit(10),
+    db.select().from(bookingOverrides)
+      .where(and(
+        eq(bookingOverrides.serviceId, serviceId),
+        eq(bookingOverrides.date, date),
+      ))
+      .limit(1),
+  ]);
+
+  if (override?.isUnavailable) return [];
+
+  let startTime: string | null = null;
+  let endTime: string | null = null;
+
+  if (override?.startTime && override?.endTime) {
+    startTime = override.startTime;
+    endTime = override.endTime;
+  } else if (scheduleRows.length > 0) {
+    startTime = scheduleRows.reduce((min, s) => s.startTime < min ? s.startTime : min, scheduleRows[0]!.startTime);
+    endTime = scheduleRows.reduce((max, s) => s.endTime > max ? s.endTime : max, scheduleRows[0]!.endTime);
+  }
+
+  if (!startTime || !endTime) return [];
+
+  const slots = generateSlotsUtc(date, startTime, endTime, service);
+  if (slots.length === 0) return [];
+
+  const rangeStart = slots[0]!.startTime;
+  const rangeEnd = slots[slots.length - 1]!.endTime;
+
+  const existingBookings = await db
+    .select({
+      startTime: bookings.startTime,
+      endTime: bookings.endTime,
+      attendees: bookings.attendees,
+    })
+    .from(bookings)
+    .where(and(
+      eq(bookings.serviceId, serviceId),
+      ne(bookings.status, 'cancelled'),
+      ne(bookings.status, 'no_show'),
+      lt(bookings.startTime, rangeEnd),
+      gte(bookings.endTime, rangeStart),
+    ))
+    .limit(500);
+
+  return filterAvailableSlots(slots, existingBookings, service, new Date());
+}
+
+// ─── Batch multi-day availability (for calendar views) ─────────────────────
+
+/**
+ * Get available dates for a service in a date range.
+ *
+ * Uses 3 batch queries (schedules, overrides, bookings), then computes
+ * all slots in memory with binary-search overlap detection.
+ */
+export async function getAvailableDatesInRange(
+  serviceId: string,
+  from: string,
+  to: string,
+): Promise<string[]> {
+  const maxDays = 62;
+
+  const startDate = new Date(from);
+  const endDate = new Date(to);
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return [];
+
+  const [service] = await db
+    .select()
+    .from(bookingServices)
+    .where(eq(bookingServices.id, serviceId))
+    .limit(1);
+
+  if (!service || service.status !== 'published' || service.deletedAt) return [];
+
+  // UTC range covering the entire local date range
   const rangeStartUtc = localToUtc(from, '00:00', service.timezone);
   const rangeEndUtc = localToUtc(to, '23:59', service.timezone);
 
@@ -308,7 +382,6 @@ export async function getAvailableDatesInRange(
     schedulesByDay.set(s.dayOfWeek, arr);
   }
 
-  // Iterate each date in range
   const now = new Date();
   const dates: string[] = [];
   const current = new Date(startDate);
@@ -318,51 +391,37 @@ export async function getAvailableDatesInRange(
     const dateStr = current.toISOString().slice(0, 10);
     const override = overridesByDate.get(dateStr);
 
-    if (override?.isUnavailable) {
-      current.setDate(current.getDate() + 1);
-      dayCount++;
-      continue;
-    }
+    if (!override?.isUnavailable) {
+      let localStart: string | null = null;
+      let localEnd: string | null = null;
 
-    // Determine working hours
-    let localStart: string | null = null;
-    let localEnd: string | null = null;
-
-    if (override?.startTime && override?.endTime) {
-      localStart = override.startTime;
-      localEnd = override.endTime;
-    } else {
-      const dayOfWeek = getDayOfWeekInTimezone(dateStr, service.timezone);
-      const daySchedules = schedulesByDay.get(dayOfWeek);
-      if (daySchedules && daySchedules.length > 0) {
-        localStart = daySchedules.reduce((min, s) => s.startTime < min ? s.startTime : min, daySchedules[0]!.startTime);
-        localEnd = daySchedules.reduce((max, s) => s.endTime > max ? s.endTime : max, daySchedules[0]!.endTime);
+      if (override?.startTime && override?.endTime) {
+        localStart = override.startTime;
+        localEnd = override.endTime;
+      } else {
+        const dayOfWeek = getDayOfWeekInTimezone(dateStr, service.timezone);
+        const daySchedules = schedulesByDay.get(dayOfWeek);
+        if (daySchedules && daySchedules.length > 0) {
+          localStart = daySchedules.reduce((min, s) => s.startTime < min ? s.startTime : min, daySchedules[0]!.startTime);
+          localEnd = daySchedules.reduce((max, s) => s.endTime > max ? s.endTime : max, daySchedules[0]!.endTime);
+        }
       }
-    }
 
-    if (localStart && localEnd) {
-      // Generate slots and check if any are available
-      const slots = generateSlotsUtc(dateStr, localStart, localEnd, service);
-      const hasAvailable = slots.some((slot) => {
-        if (slot.startTime <= now) return false;
+      if (localStart && localEnd) {
+        const slots = generateSlotsUtc(dateStr, localStart, localEnd, service);
+        const hasAvailable = slots.some((slot) => {
+          if (slot.startTime <= now) return false;
+          if (service.minAdvanceHours) {
+            if (slot.startTime < new Date(now.getTime() + service.minAdvanceHours * 3_600_000)) return false;
+          }
+          if (service.maxAdvanceHours) {
+            if (slot.startTime > new Date(now.getTime() + service.maxAdvanceHours * 3_600_000)) return false;
+          }
+          return getBookedCapacity(slot, allBookings) < service.maxCapacity;
+        });
 
-        if (service.minAdvanceHours) {
-          const earliest = new Date(now.getTime() + service.minAdvanceHours * 3_600_000);
-          if (slot.startTime < earliest) return false;
-        }
-        if (service.maxAdvanceHours) {
-          const latest = new Date(now.getTime() + service.maxAdvanceHours * 3_600_000);
-          if (slot.startTime > latest) return false;
-        }
-
-        const bookedCapacity = allBookings
-          .filter((b) => b.startTime < slot.endTime && b.endTime > slot.startTime)
-          .reduce((sum, b) => sum + b.attendees, 0);
-
-        return (service.maxCapacity - bookedCapacity) > 0;
-      });
-
-      if (hasAvailable) dates.push(dateStr);
+        if (hasAvailable) dates.push(dateStr);
+      }
     }
 
     current.setDate(current.getDate() + 1);
@@ -414,11 +473,10 @@ export async function isSlotAvailable(
 }
 
 /**
- * Atomically check availability and reserve a slot within a transaction.
- * Uses SELECT ... FOR UPDATE to prevent double-booking race conditions.
+ * Atomically check availability and lock the slot within a transaction.
+ * Uses Drizzle's native .for('update') to prevent double-booking.
  *
- * Returns the total booked capacity (including the new booking) if available,
- * or null if the slot is full.
+ * Returns true if the slot has enough capacity for the requested attendees.
  */
 export async function reserveSlotAtomically(
   tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
@@ -428,18 +486,21 @@ export async function reserveSlotAtomically(
   attendees: number,
   maxCapacity: number,
 ): Promise<boolean> {
-  // Lock overlapping bookings for this service to prevent concurrent inserts
-  // from exceeding capacity. FOR UPDATE locks the rows until transaction commits.
-  const [result] = await tx.execute(sql`
-    SELECT COALESCE(SUM(attendees), 0)::int AS total
-    FROM bookings
-    WHERE service_id = ${serviceId}
-      AND status NOT IN ('cancelled', 'no_show')
-      AND start_time < ${endTime}
-      AND end_time > ${startTime}
-    FOR UPDATE
-  `) as unknown as [{ total: number }];
+  // Lock overlapping bookings with FOR UPDATE to prevent concurrent inserts
+  // from exceeding capacity. Rows stay locked until transaction commits.
+  const overlapping = await tx
+    .select({ attendees: bookings.attendees })
+    .from(bookings)
+    .where(and(
+      eq(bookings.serviceId, serviceId),
+      ne(bookings.status, 'cancelled'),
+      ne(bookings.status, 'no_show'),
+      lt(bookings.startTime, endTime),
+      gte(bookings.endTime, startTime),
+    ))
+    .for('update')
+    .limit(500);
 
-  const bookedCapacity = result?.total ?? 0;
+  const bookedCapacity = overlapping.reduce((sum, b) => sum + b.attendees, 0);
   return (bookedCapacity + attendees) <= maxCapacity;
 }

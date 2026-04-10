@@ -14,6 +14,8 @@ export interface CreateBookingParams {
   startTime: Date;
   endTime: Date;
   userId?: string;
+  /** Email for the booking customer (pass from session for logged-in users) */
+  userEmail?: string;
   guestName?: string;
   guestEmail?: string;
   guestPhone?: string;
@@ -26,9 +28,6 @@ const MAX_BOOKING_NUMBER_RETRIES = 5;
 
 /**
  * Generate sequential booking number: BOOK-YYYYMMDD-XXXX
- *
- * Uses a retry loop to handle concurrent inserts that could produce
- * duplicate numbers (the unique constraint on bookingNumber rejects them).
  */
 async function generateBookingNumber(
   tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
@@ -36,7 +35,6 @@ async function generateBookingNumber(
   const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   const prefix = `BOOK-${date}-`;
 
-  // Use a sub-select with FOR UPDATE SKIP LOCKED for advisory-style lock
   const [result] = await tx
     .select({ count: sql<number>`count(*)` })
     .from(bookings)
@@ -50,7 +48,7 @@ async function generateBookingNumber(
  * Create a new booking inside a transaction.
  *
  * 1. Validate service exists and is published
- * 2. Atomically check slot availability (SELECT FOR UPDATE)
+ * 2. Atomically check slot availability (SELECT FOR UPDATE via Drizzle)
  * 3. Generate booking number
  * 4. Insert booking + event + reminders in single transaction
  * 5. Fire side effects (notifications, email) AFTER commit
@@ -86,11 +84,9 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
           throw new Error('Time slot is no longer available');
         }
 
-        // Generate booking number inside transaction
         const txBookingNumber = await generateBookingNumber(tx);
         const txBookingId = crypto.randomUUID();
 
-        // Insert booking
         await tx.insert(bookings).values({
           id: txBookingId,
           organizationId: params.organizationId,
@@ -116,7 +112,6 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
           metadata: params.metadata ?? null,
         });
 
-        // Log creation event
         await tx.insert(bookingEvents).values({
           bookingId: txBookingId,
           fromStatus: null,
@@ -125,7 +120,7 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
           note: 'Booking created',
         });
 
-        // Schedule reminders (inside transaction so they're atomic with the booking)
+        // Schedule reminders atomically with the booking
         const reminderValues = buildReminderValues(txBookingId, params.startTime);
         if (reminderValues.length > 0) {
           await tx.insert(bookingReminders).values(reminderValues);
@@ -136,16 +131,15 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
 
       bookingId = result.bookingId;
       bookingNumber = result.bookingNumber;
-      break; // Success — exit retry loop
+      break;
     } catch (err) {
-      // Retry on unique constraint violation (booking number collision)
       const message = err instanceof Error ? err.message : '';
       if (message.includes('unique') || message.includes('duplicate') || message.includes('bookings_booking_number_unique')) {
         retries++;
         if (retries >= MAX_BOOKING_NUMBER_RETRIES) throw err;
         continue;
       }
-      throw err; // Non-retryable error
+      throw err;
     }
   }
 
@@ -162,7 +156,8 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
     });
   }
 
-  const email = params.guestEmail;
+  // Send email to whichever address we have — user email or guest email
+  const email = params.guestEmail ?? params.userEmail;
   if (email) {
     deps.enqueueTemplateEmail(
       email,
@@ -282,7 +277,6 @@ export async function cancelBooking(
     throw new Error(`Cannot cancel a ${booking.status} booking`);
   }
 
-  // Check cancellation deadline (skip for admins)
   if (!isAdmin) {
     const [service] = await db
       .select({ cancellationDeadlineHours: bookingServices.cancellationDeadlineHours })
@@ -300,7 +294,6 @@ export async function cancelBooking(
 
   await updateBookingStatus(bookingId, 'cancelled', actor, reason);
 
-  // Cancel pending reminders
   await db.update(bookingReminders)
     .set({ status: 'failed' })
     .where(and(

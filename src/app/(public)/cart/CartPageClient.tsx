@@ -7,19 +7,7 @@ import { trpc } from '@/lib/trpc/client';
 import { Link } from '@/i18n/navigation';
 import { useSession } from '@/lib/auth-client';
 import { useBlankTranslations } from '@/lib/translations';
-
-function formatPrice(cents: number, currency = 'EUR'): string {
-  return new Intl.NumberFormat('en', { style: 'currency', currency, minimumFractionDigits: 2 }).format(cents / 100);
-}
-
-function getSessionId(): string {
-  if (typeof document === 'undefined') return '';
-  const match = document.cookie.match(/(?:^|; )cart_session=([^;]*)/);
-  if (match) return match[1]!;
-  const id = crypto.randomUUID();
-  document.cookie = `cart_session=${id};path=/;max-age=${60 * 60 * 24 * 365};SameSite=Lax`;
-  return id;
-}
+import { formatPrice, getCartSessionId } from '@/core-store/lib/store-utils';
 
 /* ── Skeleton ── */
 
@@ -57,7 +45,7 @@ export function CartPageClient() {
   const sessionIdRef = useRef('');
 
   useEffect(() => {
-    sessionIdRef.current = getSessionId();
+    sessionIdRef.current = getCartSessionId();
   }, []);
 
   const utils = trpc.useUtils();
@@ -178,10 +166,10 @@ export function CartPageClient() {
         </div>
 
         {isLoggedIn ? (
-          <button type="button" className="btn-checkout">
+          <Link href="/checkout" className="btn-checkout">
             <Lock className="h-4 w-4" />
             {__('Proceed to Checkout')}
-          </button>
+          </Link>
         ) : (
           <Link href="/login" className="btn-checkout btn-checkout-login">
             <LogIn className="h-4 w-4" />

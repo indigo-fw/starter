@@ -3,6 +3,7 @@ import { count } from 'drizzle-orm';
 
 import { storeProducts, storeProductVariants, storeVariantGroups, storeProductImages, storeCategories, storeProductCategories } from './schema/products';
 import { storeShippingZones, storeShippingRates, storeTaxRates } from './schema/shipping-tax';
+import { placeholderImage } from './lib/placeholder-image';
 
 // ─── IDs (deterministic for idempotent seeding) ───────────────────────────
 
@@ -63,7 +64,7 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
       weightGrams: 220,
       taxClass: 'standard',
       requiresShipping: true,
-      featuredImage: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop',
+      featuredImage: placeholderImage('Classic Logo T-Shirt'),
       metaTitle: 'Classic Logo T-Shirt — Premium Organic Cotton',
       metaDescription: 'Soft organic cotton t-shirt with embroidered logo. Available in multiple sizes and colors.',
       sortOrder: 0,
@@ -85,7 +86,7 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
       weightGrams: 650,
       taxClass: 'standard',
       requiresShipping: true,
-      featuredImage: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=600&fit=crop',
+      featuredImage: placeholderImage('Developer Hoodie'),
       metaTitle: 'Developer Hoodie — Heavyweight Fleece',
       metaDescription: 'Premium hoodie for developers. Heavyweight fleece with cable routing and kangaroo pocket.',
       sortOrder: 1,
@@ -107,7 +108,7 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
       weightGrams: 100,
       taxClass: 'standard',
       requiresShipping: true,
-      featuredImage: 'https://images.unsplash.com/photo-1588850561407-ed78c334e67a?w=600&h=600&fit=crop',
+      featuredImage: placeholderImage('Snapback Cap'),
       sortOrder: 2,
     },
     // 4. Ceramic Mug (simple)
@@ -127,7 +128,7 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
       weightGrams: 400,
       taxClass: 'standard',
       requiresShipping: true,
-      featuredImage: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop',
+      featuredImage: placeholderImage('Ceramic Coffee Mug'),
       sortOrder: 3,
     },
     // 5. E-Book (digital)
@@ -147,7 +148,7 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
       requiresShipping: false,
       digitalFileUrl: '/downloads/building-saas-with-indigo.pdf',
       downloadLimit: 5,
-      featuredImage: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=600&fit=crop',
+      featuredImage: placeholderImage('SaaS E-Book'),
       metaTitle: 'Building SaaS with Indigo — E-Book (PDF)',
       metaDescription: 'Learn to build production SaaS with Indigo. 280 pages covering auth, billing, multi-tenancy, and more.',
       sortOrder: 4,
@@ -170,7 +171,7 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
       requiresShipping: false,
       digitalFileUrl: '/downloads/starter-template-pack.zip',
       downloadLimit: 3,
-      featuredImage: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=600&fit=crop',
+      featuredImage: placeholderImage('Starter Template Pack'),
       sortOrder: 5,
     },
     // 7. Icon Set (digital)
@@ -190,7 +191,7 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
       requiresShipping: false,
       digitalFileUrl: '/downloads/premium-icon-set.zip',
       downloadLimit: 5,
-      featuredImage: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&h=600&fit=crop',
+      featuredImage: placeholderImage('Premium Icon Set'),
       sortOrder: 6,
     },
     // 8. Sticker Pack (simple, low-price)
@@ -210,7 +211,7 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
       weightGrams: 50,
       taxClass: 'standard',
       requiresShipping: true,
-      featuredImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=600&fit=crop',
+      featuredImage: placeholderImage('Developer Sticker Pack'),
       sortOrder: 7,
     },
   ]).onConflictDoNothing();
@@ -297,12 +298,12 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
   // ─── Product Images (gallery) ─────────────────────────────────────────
 
   await db.insert(storeProductImages).values([
-    { productId: PROD_TSHIRT, url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop', alt: 'Classic Logo T-Shirt front', sortOrder: 0 },
-    { productId: PROD_TSHIRT, url: 'https://images.unsplash.com/photo-1503341504253-dff4f94032fc?w=800&h=800&fit=crop', alt: 'Classic Logo T-Shirt detail', sortOrder: 1 },
-    { productId: PROD_HOODIE, url: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop', alt: 'Developer Hoodie front', sortOrder: 0 },
-    { productId: PROD_HOODIE, url: 'https://images.unsplash.com/photo-1578768079470-0a4536f4b960?w=800&h=800&fit=crop', alt: 'Developer Hoodie detail', sortOrder: 1 },
-    { productId: PROD_CAP, url: 'https://images.unsplash.com/photo-1588850561407-ed78c334e67a?w=800&h=800&fit=crop', alt: 'Snapback Cap', sortOrder: 0 },
-    { productId: PROD_MUG, url: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&h=800&fit=crop', alt: 'Ceramic Coffee Mug', sortOrder: 0 },
+    { productId: PROD_TSHIRT, url: placeholderImage('T-Shirt Front', 800), alt: 'Classic Logo T-Shirt front', sortOrder: 0 },
+    { productId: PROD_TSHIRT, url: placeholderImage('T-Shirt Back', 800), alt: 'Classic Logo T-Shirt back', sortOrder: 1 },
+    { productId: PROD_HOODIE, url: placeholderImage('Hoodie Front', 800), alt: 'Developer Hoodie front', sortOrder: 0 },
+    { productId: PROD_HOODIE, url: placeholderImage('Hoodie Back', 800), alt: 'Developer Hoodie back', sortOrder: 1 },
+    { productId: PROD_CAP, url: placeholderImage('Cap Side', 800), alt: 'Snapback Cap', sortOrder: 0 },
+    { productId: PROD_MUG, url: placeholderImage('Mug Side', 800), alt: 'Ceramic Coffee Mug', sortOrder: 0 },
   ]).onConflictDoNothing();
 
   // ─── Shipping Zones ───────────────────────────────────────────────────
