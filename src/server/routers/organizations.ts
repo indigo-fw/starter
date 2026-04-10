@@ -5,10 +5,10 @@ import { TRPCError } from '@trpc/server';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { organization, member, invitation } from '@/server/db/schema';
 import { auth } from '@/lib/auth';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { sendNotification, sendBulkNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { runGuard } from '@/core/lib/module-hooks';
+import { runGuard } from '@/core/lib/module/module-hooks';
 
 export const organizationsRouter = createTRPCRouter({
   /** List organizations the current user is a member of */

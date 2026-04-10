@@ -87,7 +87,7 @@ vi.mock('@/core/crud/taxonomy-helpers', () => ({
   deleteTermRelationshipsByTerm: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -161,7 +161,7 @@ import {
   deleteTermRelationshipsByTerm,
 } from '@/core/crud/taxonomy-helpers';
 import { updateWithRevision } from '@/core/crud/cms-helpers';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { createMockCtx } from './test-helpers';
 
 const MOCK_CATEGORY = {

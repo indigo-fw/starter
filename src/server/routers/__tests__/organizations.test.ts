@@ -30,7 +30,7 @@ vi.mock('@/core/lib/api/trpc-rate-limit', () => ({
   applyRateLimit: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -60,7 +60,7 @@ vi.mock('@/core-subscriptions/lib/feature-gate', () => ({
 
 import { organizationsRouter } from '../organizations';
 import { auth } from '@/lib/auth';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { sendNotification, sendBulkNotification } from '@/server/lib/notifications';
 
 // Typed access to nested mock functions — vi.mocked() cannot traverse nested

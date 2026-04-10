@@ -5,7 +5,7 @@ import { TRPCError } from '@trpc/server';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import type { Context } from '../trpc';
 import { saasProjects, member } from '@/server/db/schema';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 
 async function requireMember(

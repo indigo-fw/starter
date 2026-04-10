@@ -1,9 +1,9 @@
 import crypto from 'crypto';
 import { z } from 'zod';
 
-import { slugify } from '@/core/lib/slug';
+import { slugify } from '@/core/lib/content/slug';
 import { cmsPosts } from '@/server/db/schema';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { parseCSV } from '@/core-import/lib/importers/csv';
 import { parseGhostJSON } from '@/core-import/lib/importers/ghost';
 import { parseWordPressWXR } from '@/core-import/lib/importers/wordpress';

@@ -5,7 +5,7 @@ import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server
 import { saasTickets, saasTicketMessages } from '@/core-support/schema/support-tickets';
 import { user } from '@/server/db/schema/auth';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { sendNotification, sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { resolveOrgId } from '@/server/lib/resolve-org';

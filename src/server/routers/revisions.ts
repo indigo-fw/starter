@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { cmsPosts, cmsCategories, cmsContentRevisions } from '@/server/db/schema';
 import { getRevisions } from '@/core/crud/content-revisions';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { createTRPCRouter, sectionProcedure } from '../trpc';
 
 const contentProcedure = sectionProcedure('content');

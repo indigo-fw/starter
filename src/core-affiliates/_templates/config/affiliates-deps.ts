@@ -6,7 +6,7 @@ import { setAffiliatesDeps } from '@/core-affiliates/deps';
 import { recordConversion } from '@/core-affiliates/lib/affiliates';
 import { captureAttribution } from '@/core-affiliates/lib/attribution';
 import { saasPaymentTransactions } from '@/core-payments/schema/payments';
-import { registerHook } from '@/core/lib/module-hooks';
+import { registerHook } from '@/core/lib/module/module-hooks';
 
 setAffiliatesDeps({
   paymentTransactionsTable: saasPaymentTransactions,

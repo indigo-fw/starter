@@ -36,7 +36,7 @@ import {
   deleteAllTermRelationships,
   resolveTagsForPosts,
 } from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
 import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { getStorage } from '@/core/storage';

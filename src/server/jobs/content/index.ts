@@ -5,7 +5,7 @@ import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema/cms';
 import { cmsCategories } from '@/server/db/schema/categories';
 import { ContentStatus } from '@/core/types/cms';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 
 const _contentQueue = createQueue('content-publish');

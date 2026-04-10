@@ -47,6 +47,7 @@ import { trpc } from '@/lib/trpc/client';
 import { toast } from '@/core/store/toast-store';
 import type { EditorHandle } from '@/core/hooks/useLinkPicker';
 import type { ShortcodeConfig } from '@/core/types/shortcodes';
+import { ContentVariableNode, prepareVarsForEditor, serializeVarsForStorage } from './editor/ContentVariableNode';
 import { ResizableImage } from './editor/ResizableImage';
 import { DragHandle } from './editor/DragHandle';
 import { createSlashCommandExtension } from './editor/slash-commands';
@@ -131,6 +132,11 @@ function ToolbarDivider() {
 }
 
 const identity = (html: string) => html;
+
+/** Serialize editor HTML to markdown, handling shortcodes and content variables. */
+function editorToMarkdown(html: string, scSerialize: (html: string) => string): string {
+  return htmlToMarkdown(serializeVarsForStorage(scSerialize(html)));
+}
 
 export function RichTextEditor({
   content,
@@ -311,14 +317,15 @@ export function RichTextEditor({
         },
       }),
       ...(shortcodes?.extension ? [shortcodes.extension] : []),
+      ContentVariableNode,
     ],
-    content: scPrepareRef.current(markdownToHtml(content)),
+    content: prepareVarsForEditor(scPrepareRef.current(markdownToHtml(content))),
     onUpdate: ({ editor: e }) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
 
       if (showPreviewRef.current) {
         // Preview open: convert immediately for live preview, reuse for debounced form update
-        const md = htmlToMarkdown(scSerializeRef.current(e.getHTML()));
+        const md = editorToMarkdown(e.getHTML(), scSerializeRef.current);
         setPreviewMarkdown(md);
         lastEmittedContent.current = md;
         // Debounce only the parent onChange (to avoid excessive form re-renders)
@@ -328,7 +335,7 @@ export function RichTextEditor({
       } else {
         // No preview: defer everything to debounce
         debounceRef.current = setTimeout(() => {
-          const md = htmlToMarkdown(scSerializeRef.current(e.getHTML()));
+          const md = editorToMarkdown(e.getHTML(), scSerializeRef.current);
           lastEmittedContent.current = md;
           onChangeRef.current(md);
         }, 300);
@@ -385,7 +392,7 @@ export function RichTextEditor({
     lastEmittedContent.current = content;
     if (mode === 'source') setSourceValue(content);
     setPreviewMarkdown(content);
-    editor.commands.setContent(scPrepareRef.current(markdownToHtml(content)), {
+    editor.commands.setContent(prepareVarsForEditor(scPrepareRef.current(markdownToHtml(content))), {
       emitUpdate: false,
     });
   }, [editor, content, mode]);
@@ -452,7 +459,7 @@ export function RichTextEditor({
         clearTimeout(debounceRef.current);
         debounceRef.current = null;
       }
-      const md = htmlToMarkdown(scSerializeRef.current(editor.getHTML()));
+      const md = editorToMarkdown(editor.getHTML(), scSerializeRef.current);
       setSourceValue(md);
       lastEmittedContent.current = md;
       onChangeRef.current(md);
@@ -460,10 +467,10 @@ export function RichTextEditor({
       try { localStorage.setItem('cms-editor-mode', 'source'); } catch { /* quota */ }
     } else {
       // Source → WYSIWYG: suppress emitUpdate to avoid double-fire
-      editor.commands.setContent(scPrepareRef.current(markdownToHtml(sourceValue)), {
+      editor.commands.setContent(prepareVarsForEditor(scPrepareRef.current(markdownToHtml(sourceValue))), {
         emitUpdate: false,
       });
-      const md = htmlToMarkdown(scSerializeRef.current(editor.getHTML()));
+      const md = editorToMarkdown(editor.getHTML(), scSerializeRef.current);
       lastEmittedContent.current = md;
       onChangeRef.current(md);
       setMode('wysiwyg');
@@ -679,7 +686,10 @@ export function RichTextEditor({
                       title={v.value}
                       onClick={() => {
                         if (!editor) return;
-                        editor.chain().focus().insertContent(`[[${v.key}]]`).run();
+                        editor.chain().focus().insertContent({
+                          type: 'contentVariable',
+                          attrs: { variableName: v.key },
+                        }).run();
                         setVarsMenuOpen(false);
                       }}
                     >
@@ -764,7 +774,7 @@ export function RichTextEditor({
             onClick={() => {
               if (!showPreview && editor && mode === 'wysiwyg') {
                 // Sync preview with current editor content when toggling on
-                setPreviewMarkdown(htmlToMarkdown(scSerializeRef.current(editor.getHTML())));
+                setPreviewMarkdown(editorToMarkdown(editor.getHTML(), scSerializeRef.current));
               }
               setShowPreview(!showPreview);
             }}

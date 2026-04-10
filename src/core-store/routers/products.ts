@@ -4,7 +4,7 @@ import { and, count, desc, eq, isNull, sql } from 'drizzle-orm';
 import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
 import { storeProducts, storeProductVariants, storeVariantGroups, storeProductImages, storeCategories, storeProductCategories } from '@/core-store/schema/products';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { slugify } from '@/core/lib/slug';
+import { slugify } from '@/core/lib/content/slug';
 
 const storeAdminProcedure = sectionProcedure('settings');
 

@@ -6,7 +6,7 @@ import { db } from '@/server/db';
 import { member as memberTable } from '@/server/db/schema/organization';
 import { user as userTable } from '@/server/db/schema/auth';
 import { Policy } from '@/core/policy';
-import { authorizeChannel } from '@/core/lib/module-hooks';
+import { authorizeChannel } from '@/core/lib/module/module-hooks';
 
 interface AuthenticatedSocket extends WebSocket {
   userId?: string;
@@ -149,7 +149,7 @@ async function handleMessage(ws: AuthenticatedSocket, msg: { type: string; chann
     }
     default: {
       // Delegate unhandled message types to module hooks (e.g., voice calls)
-      import('@/core/lib/module-hooks').then(({ runHook }) => {
+      import('@/core/lib/module/module-hooks').then(({ runHook }) => {
         runHook('ws.message', ws.userId, msg).catch(() => {});
       }).catch(() => {});
       break;

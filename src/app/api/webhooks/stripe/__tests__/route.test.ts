@@ -80,11 +80,11 @@ vi.mock('@/core/lib/email-list/index', () => ({
   tagSubscriber: vi.fn(),
 }));
 
-vi.mock('@/core/lib/stats-cache', () => ({
+vi.mock('@/core/lib/infra/stats-cache', () => ({
   invalidateStats: vi.fn(),
 }));
 
-vi.mock('@/core/lib/module-hooks', () => ({
+vi.mock('@/core/lib/module/module-hooks', () => ({
   runHook: vi.fn(),
 }));
 
@@ -105,7 +105,7 @@ vi.mock('@/config/plans', () => ({
   }),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -129,7 +129,7 @@ vi.mock('@/core/lib/infra/logger', () => ({
 import { POST } from '../route';
 import { getProvider } from '@/core-payments/lib/factory';
 import { sendOrgNotification } from '@/server/lib/notifications';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { asMock } from '@/test-utils';
 
 function makeRequest(body: string, signature = 'sig_valid') {

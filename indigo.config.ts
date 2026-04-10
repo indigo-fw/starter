@@ -6,7 +6,7 @@
  * After editing manually: bun run indigo:sync
  */
 
-import type { ModuleConfig } from '@/core/lib/module-config';
+import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 // ─── Installed modules (managed by `bun run indigo add/remove`) ─────────────
 import corePayments from './src/core-payments/module.config';

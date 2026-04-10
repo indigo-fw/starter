@@ -1,11 +1,7 @@
 // Engine lib — shared utilities (re-exports from subdirectories)
 
-// Fundamentals (flat)
-export { slugify, slugifyFilename } from './slug';
-export { logAudit } from './audit';
-export type { LogAuditParams } from './audit';
-export { SEO_OVERRIDE_ROUTES, SEO_OVERRIDE_SLUGS } from './seo-routes';
-export { getStats, invalidateStats, clearStatsCache } from './stats-cache';
+// Content
+export { slugify, slugifyFilename } from './content/slug';
 
 // Markdown
 export { htmlToMarkdown, markdownToHtml } from './markdown/markdown';
@@ -18,7 +14,10 @@ export { getLocale } from './i18n/locale-server';
 export { useBlankTranslations, dataTranslations } from './i18n/translations';
 
 // Infra
+export { logAudit } from './infra/audit';
+export type { LogAuditParams } from './infra/audit';
 export { createQueue, createWorker, getQueues, shutdownAllWorkers } from './infra/queue';
+export { getStats, invalidateStats, clearStatsCache } from './infra/stats-cache';
 
 // API
 export { applyRateLimit } from './api/trpc-rate-limit';
@@ -35,3 +34,6 @@ export { anonymizeUser, exportUserData } from './analytics/gdpr';
 // Realtime
 export { useWebSocket, useChannel } from './realtime/ws-client';
 export { WS_CHANNELS } from './realtime/ws-channels';
+
+// SEO
+export { SEO_OVERRIDE_ROUTES, SEO_OVERRIDE_SLUGS } from './seo-routes';

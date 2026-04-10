@@ -85,7 +85,7 @@ vi.mock('@/core/crud/admin-crud', () => ({
   ),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -114,7 +114,7 @@ vi.mock('@/core-subscriptions/lib/discount-service', () => ({
   getActiveDiscount: vi.fn().mockResolvedValue(null),
 }));
 
-vi.mock('@/core/lib/stats-cache', () => ({
+vi.mock('@/core/lib/infra/stats-cache', () => ({
   getStats: vi.fn().mockImplementation((_key: string, fetchFn: () => Promise<unknown>) => fetchFn()),
 }));
 

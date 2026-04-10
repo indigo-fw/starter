@@ -18,7 +18,7 @@ vi.mock('@/core/lib/api/trpc-rate-limit', () => ({
   applyRateLimit: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 

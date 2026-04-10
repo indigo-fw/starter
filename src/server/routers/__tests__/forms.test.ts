@@ -35,7 +35,7 @@ vi.mock('@/core/policy', () => ({
   },
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -48,7 +48,7 @@ vi.mock('@/core/lib/infra/logger', () => ({
   }),
 }));
 
-vi.mock('@/core/lib/slug', () => ({
+vi.mock('@/core/lib/content/slug', () => ({
   slugify: vi.fn((s: string) => s.toLowerCase().replace(/\s+/g, '-')),
 }));
 
@@ -132,7 +132,7 @@ vi.mock('@/lib/env', () => ({
 import { asMock } from '@/test-utils';
 import { formsRouter } from '../forms';
 import { fetchOrNotFound, ensureSlugUnique } from '@/core/crud/admin-crud';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { createMockCtx } from './test-helpers';
 
 // ---------------------------------------------------------------------------
@@ -299,7 +299,7 @@ describe('formsRouter', () => {
     });
 
     it('auto-generates slug from name when not provided', async () => {
-      const { slugify } = await import('@/core/lib/slug');
+      const { slugify } = await import('@/core/lib/content/slug');
       const created = { ...MOCK_FORM, id: 'new-form-uuid-2', name: 'My Form', slug: 'my-form' };
       const ctx = createMockCtx();
       ctx.db._chains.insert.returning.mockResolvedValue([created]);

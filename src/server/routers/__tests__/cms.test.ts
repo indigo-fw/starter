@@ -89,7 +89,7 @@ vi.mock('@/core/crud/taxonomy-helpers', () => ({
   ),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -211,7 +211,7 @@ import { buildStatusCounts, fetchOrNotFound } from '@/core/crud/admin-crud';
 import { getTermRelationships, syncTermRelationships, resolveTagsForPosts } from '@/core/crud/taxonomy-helpers';
 import { updateWithRevision } from '@/core/crud/cms-helpers';
 import { softDelete, softRestore } from '@/core/crud/admin-crud';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { createMockCtx } from './test-helpers';
 

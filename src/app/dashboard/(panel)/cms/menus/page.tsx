@@ -8,7 +8,7 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { toast } from '@/store/toast-store';
 import { adminPanel } from '@/config/routes';
-import { slugify } from '@/core/lib/slug';
+import { slugify } from '@/core/lib/content/slug';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 export default function MenusPage() {

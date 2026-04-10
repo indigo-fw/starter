@@ -9,7 +9,7 @@ import { resolveOrgId } from '@/server/lib/resolve-org';
 import { sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { enqueueTemplateEmail } from '@/server/jobs/email/index';
-import { registerHook } from '@/core/lib/module-hooks';
+import { registerHook } from '@/core/lib/module/module-hooks';
 
 setSubscriptionsDeps({
   getPlans: () => PLANS,

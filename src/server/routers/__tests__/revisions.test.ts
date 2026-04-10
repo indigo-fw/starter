@@ -80,7 +80,7 @@ vi.mock('@/core/crud/content-revisions', () => ({
   getRevisions: vi.fn().mockResolvedValue([]),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -128,7 +128,7 @@ vi.mock('@/lib/env', () => ({
 import { asMock } from '@/test-utils';
 import { revisionsRouter } from '../revisions';
 import { getRevisions } from '@/core/crud/content-revisions';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { createMockCtx } from './test-helpers';
 
 // ---------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
 import { bookingServices } from '@/core-booking/schema/services';
 import { bookingSchedules, bookingOverrides } from '@/core-booking/schema/availability';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { slugify } from '@/core/lib/slug';
+import { slugify } from '@/core/lib/content/slug';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 
 const bookingAdminProcedure = sectionProcedure('settings');

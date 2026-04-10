@@ -50,7 +50,7 @@ vi.mock('drizzle-orm', () => ({
 }));
 
 // Mock audit
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -77,7 +77,7 @@ vi.mock('@/core/lib/infra/logger', () => ({
 import { POST } from '../route';
 import { getProvider } from '@/core-payments/lib/factory';
 import { sendOrgNotification } from '@/server/lib/notifications';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { asMock } from '@/test-utils';
 
 function makeRequest(body = '{}') {

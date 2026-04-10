@@ -3,7 +3,7 @@ import sharp from 'sharp';
 import { auth } from '@/lib/auth';
 import { Policy } from '@/core/policy';
 import { getStorage } from '@/core/storage';
-import { slugifyFilename } from '@/core/lib/slug';
+import { slugifyFilename } from '@/core/lib/content/slug';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);

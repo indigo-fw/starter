@@ -1,4 +1,4 @@
-import type { ModuleConfig } from '@/core/lib/module-config';
+import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-docs',

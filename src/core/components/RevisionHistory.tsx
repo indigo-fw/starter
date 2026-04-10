@@ -5,8 +5,8 @@ import { useCallback, useMemo, useState } from 'react';
 import { History, RotateCcw } from 'lucide-react';
 
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
-import { computeFieldDiffs } from '@/core/lib/revision-diff';
-import type { FieldDiff } from '@/core/lib/revision-diff';
+import { computeFieldDiffs } from '@/core/lib/content/revision-diff';
+import type { FieldDiff } from '@/core/lib/content/revision-diff';
 import { trpc } from '@/lib/trpc/client';
 import { toast } from '@/core/store/toast-store';
 import { Dialog } from '@/core/components/Dialog';

@@ -4,11 +4,11 @@ import { eq, and, ne } from 'drizzle-orm';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { auth } from '@/lib/auth';
 import { user, session } from '@/server/db/schema/auth';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { detectGeo } from '@/core/lib/analytics/geo';
 import { extractRequestContext } from '@/core/lib/api/request-context';
 import { createLogger } from '@/core/lib/infra/logger';
-import { runHook } from '@/core/lib/module-hooks';
+import { runHook } from '@/core/lib/module/module-hooks';
 
 const geoLog = createLogger('geo-sync');
 

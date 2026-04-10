@@ -82,7 +82,7 @@ vi.mock('@/core/lib/analytics/gdpr', () => ({
   anonymizeUser: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -137,7 +137,7 @@ import { asMock } from '@/test-utils';
 import { usersRouter } from '../users';
 import { fetchOrNotFound } from '@/core/crud/admin-crud';
 import { anonymizeUser } from '@/core/lib/analytics/gdpr';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { isSuperAdmin } from '@/core/policy';
 import { createMockCtx } from './test-helpers';
 

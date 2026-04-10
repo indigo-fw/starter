@@ -7,8 +7,8 @@ import {
   cmsCustomFieldDefinitions,
   cmsCustomFieldValues,
 } from '@/server/db/schema';
-import { slugify } from '@/core/lib/slug';
-import { logAudit } from '@/core/lib/audit';
+import { slugify } from '@/core/lib/content/slug';
+import { logAudit } from '@/core/lib/infra/audit';
 
 const proc = sectionProcedure('content');
 

@@ -21,7 +21,7 @@ import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
 import { sendNotification } from '@/server/lib/notifications';
 import { broadcastToChannel, sendToUser } from '@/server/lib/ws';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { registerChannelAuthorizer, registerHook, registerHealthCheck } from '@/core/lib/module-hooks';
+import { registerChannelAuthorizer, registerHook, registerHealthCheck } from '@/core/lib/module/module-hooks';
 import { Policy } from '@/core/policy';
 import { db } from '@/server/db';
 import { eq } from 'drizzle-orm';

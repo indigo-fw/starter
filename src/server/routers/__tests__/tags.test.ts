@@ -86,11 +86,11 @@ vi.mock('@/core/crud/taxonomy-helpers', () => ({
   ),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
-vi.mock('@/core/lib/slug', () => ({
+vi.mock('@/core/lib/content/slug', () => ({
   slugify: vi.fn().mockImplementation((name: string) =>
     name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
   ),
@@ -140,8 +140,8 @@ import {
   fetchOrNotFound,
 } from '@/core/crud/admin-crud';
 import { deleteTermRelationshipsByTerm } from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/audit';
-import { slugify } from '@/core/lib/slug';
+import { logAudit } from '@/core/lib/infra/audit';
+import { slugify } from '@/core/lib/content/slug';
 import { createMockCtx } from './test-helpers';
 
 const MOCK_TAG = {

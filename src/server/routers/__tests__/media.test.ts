@@ -41,11 +41,11 @@ vi.mock('@/core/storage', () => ({
   }),
 }));
 
-vi.mock('@/core/lib/slug', () => ({
+vi.mock('@/core/lib/content/slug', () => ({
   slugifyFilename: vi.fn((name: string) => name.toLowerCase().replace(/\s+/g, '-')),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -98,8 +98,8 @@ vi.mock('@/lib/env', () => ({
 import { asMock } from '@/test-utils';
 import { mediaRouter } from '../media';
 import { getStorage, type StorageProvider } from '@/core/storage';
-import { slugifyFilename } from '@/core/lib/slug';
-import { logAudit } from '@/core/lib/audit';
+import { slugifyFilename } from '@/core/lib/content/slug';
+import { logAudit } from '@/core/lib/infra/audit';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { createMockCtx } from './test-helpers';
 

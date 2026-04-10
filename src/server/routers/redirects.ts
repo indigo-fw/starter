@@ -3,7 +3,7 @@ import { and, count as drizzleCount, desc, eq, inArray, like, or } from 'drizzle
 import { z } from 'zod';
 
 import { cmsSlugRedirects, cmsPosts, cmsCategories } from '@/server/db/schema';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { createTRPCRouter, sectionProcedure } from '../trpc';
 

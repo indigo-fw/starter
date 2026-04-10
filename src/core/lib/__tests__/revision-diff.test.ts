@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { computeLineDiff, computeFieldDiffs } from '../revision-diff';
+import { computeLineDiff, computeFieldDiffs } from '../content/revision-diff';
 
 describe('computeLineDiff', () => {
   it('returns unchanged for identical text', () => {

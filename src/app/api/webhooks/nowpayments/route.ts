@@ -4,13 +4,13 @@ import { saasSubscriptionEvents } from '@/server/db/schema';
 import { getProvider } from '@/core-payments/lib/factory';
 import { activateSubscription } from '@/core-subscriptions/lib/subscription-service';
 import { finalizeUsage } from '@/core-subscriptions/lib/discount-service';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { createLogger } from '@/core/lib/infra/logger';
 import { adminPanel } from '@/config/routes';
-import { invalidateStats } from '@/core/lib/stats-cache';
-import { runHook } from '@/core/lib/module-hooks';
+import { invalidateStats } from '@/core/lib/infra/stats-cache';
+import { runHook } from '@/core/lib/module/module-hooks';
 
 const logger = createLogger('nowpayments-webhook');
 

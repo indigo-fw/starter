@@ -31,7 +31,7 @@ import {
   getTermRelationships,
   syncTermRelationships,
 } from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import {
   createTRPCRouter,
   publicProcedure,

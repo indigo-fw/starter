@@ -35,7 +35,7 @@ vi.mock('@/core/crud/admin-crud', () => ({
   ),
 }));
 
-vi.mock('@/core/lib/slug', () => ({
+vi.mock('@/core/lib/content/slug', () => ({
   slugify: vi.fn().mockImplementation((text: string) => text.toLowerCase().replace(/\s+/g, '-')),
 }));
 

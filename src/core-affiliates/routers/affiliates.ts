@@ -5,8 +5,8 @@ import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server
 import { saasAffiliates, saasReferrals, saasAffiliateEvents } from '@/core-affiliates/schema/affiliates';
 import { user } from '@/server/db/schema/auth';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { getStats as getCachedStats } from '@/core/lib/stats-cache';
-import { logAudit } from '@/core/lib/audit';
+import { getStats as getCachedStats } from '@/core/lib/infra/stats-cache';
+import { logAudit } from '@/core/lib/infra/audit';
 
 function generateAffiliateCode(): string {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';

@@ -6,7 +6,7 @@ import { member } from '@/server/db/schema/organization';
 import { user } from '@/server/db/schema/auth';
 import { cmsAuditLog } from '@/server/db/schema/audit';
 import { createLogger } from '@/core/lib/infra/logger';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
 
 

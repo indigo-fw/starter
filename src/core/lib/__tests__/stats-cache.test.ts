@@ -9,7 +9,7 @@ vi.mock('@/core/lib/infra/logger', () => ({
   }),
 }));
 
-import { getStats, invalidateStats, clearStatsCache } from '../stats-cache';
+import { getStats, invalidateStats, clearStatsCache } from '../infra/stats-cache';
 
 describe('stats-cache', () => {
   beforeEach(() => {

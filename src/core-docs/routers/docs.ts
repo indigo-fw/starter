@@ -6,7 +6,7 @@ import { cmsDocs } from '@/core-docs/schema/docs';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { stripHtml } from '@/core-docs/lib/docs-loader';
 import { getDocBySlug, getDocsNavigation, searchDocs, generateLlmExport } from '@/core-docs/lib/docs-service';
-import { slugify } from '@/core/lib/slug';
+import { slugify } from '@/core/lib/content/slug';
 
 const docsAdminProcedure = sectionProcedure('content');
 

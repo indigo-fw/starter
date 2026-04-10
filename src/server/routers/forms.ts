@@ -2,9 +2,9 @@ import { TRPCError } from '@trpc/server';
 import { and, desc, eq, ilike, or, sql, count as drizzleCount } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { slugify } from '@/core/lib/slug';
+import { slugify } from '@/core/lib/content/slug';
 import { cmsForms, cmsFormSubmissions } from '@/server/db/schema';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import {
   ensureSlugUnique,
   parsePagination,

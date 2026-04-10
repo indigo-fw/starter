@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { extractInternalLinks } from '../extract-internal-links';
+import { extractInternalLinks } from '../markdown/extract-internal-links';
 
 describe('extractInternalLinks', () => {
   it('extracts relative links from markdown', () => {

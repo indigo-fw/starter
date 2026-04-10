@@ -98,7 +98,7 @@ vi.mock('@/core/lib/infra/logger', () => ({
   }),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -133,7 +133,7 @@ vi.mock('@/core-subscriptions/deps', () => ({
 // ---------------------------------------------------------------------------
 
 import { checkExpiringSubscriptions, checkExpiredSubscriptions, runDunningChecks } from '@/core-subscriptions/lib/dunning';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 
 // ---------------------------------------------------------------------------
 // Helpers

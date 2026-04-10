@@ -20,8 +20,8 @@ import {
   deleteTermRelationshipsByTerm,
   resolveTagsForPosts,
 } from '@/core/crud/taxonomy-helpers';
-import { slugify } from '@/core/lib/slug';
-import { logAudit } from '@/core/lib/audit';
+import { slugify } from '@/core/lib/content/slug';
+import { logAudit } from '@/core/lib/infra/audit';
 import {
   createTRPCRouter,
   publicProcedure,

@@ -18,7 +18,7 @@ import {
 } from '@/core-subscriptions/schema/subscriptions';
 import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { organization } from '@/server/db/schema/organization';
-import { getStats as getCachedStats } from '@/core/lib/stats-cache';
+import { getStats as getCachedStats } from '@/core/lib/infra/stats-cache';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { user } from '@/server/db/schema/auth';
 import {

@@ -20,7 +20,7 @@ vi.mock('@/core/lib/api/trpc-rate-limit', () => ({
   applyRateLimit: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -118,7 +118,7 @@ vi.mock('@/server/lib/resolve-org', () => ({
 
 import { asMock } from '@/test-utils';
 import { supportRouter } from '@/core-support/routers/support';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { sendNotification, sendOrgNotification } from '@/server/lib/notifications';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 

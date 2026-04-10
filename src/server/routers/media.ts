@@ -4,10 +4,10 @@ import { z } from 'zod';
 
 import { cmsMedia } from '@/server/db/schema';
 import { getStorage } from '@/core/storage';
-import { slugifyFilename } from '@/core/lib/slug';
+import { slugifyFilename } from '@/core/lib/content/slug';
 import { FileType } from '@/core/types/cms';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { enqueueMediaProcessing } from '@/server/jobs/media/index';
 import {
   createTRPCRouter,

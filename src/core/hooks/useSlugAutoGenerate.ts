@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { slugify } from '@/core/lib/slug';
+import { slugify } from '@/core/lib/content/slug';
 
 /**
  * Auto-generates a slug from a source value (typically title/name) when creating new content.

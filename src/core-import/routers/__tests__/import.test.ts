@@ -36,7 +36,7 @@ vi.mock('@/core/policy', () => ({
   isSuperAdmin: vi.fn((role: string) => role === 'superadmin'),
 }));
 
-vi.mock('@/core/lib/audit', () => ({
+vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
@@ -90,7 +90,7 @@ vi.mock('@/core/crud/admin-crud', () => ({
   ),
 }));
 
-vi.mock('@/core/lib/slug', () => ({
+vi.mock('@/core/lib/content/slug', () => ({
   slugify: vi.fn((s: string) =>
     s
       .toLowerCase()
@@ -143,7 +143,7 @@ import { importRouter } from '@/core-import/routers/import';
 import { parseCSV } from '@/core-import/lib/importers/csv';
 import { parseGhostJSON } from '@/core-import/lib/importers/ghost';
 import { parseWordPressWXR } from '@/core-import/lib/importers/wordpress';
-import { logAudit } from '@/core/lib/audit';
+import { logAudit } from '@/core/lib/infra/audit';
 import { createMockCtx } from '@/server/routers/__tests__/test-helpers';
 
 // ---------------------------------------------------------------------------
