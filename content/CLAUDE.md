@@ -16,7 +16,7 @@ Legal/static pages synced to `cms_posts` on server startup via `syncContentFiles
 Rich content rendered at request time with JSX components. Takes priority over CMS DB content with the same slug.
 
 - **Components:** `<Callout>`, `<CodeTabs>/<Tab>`, `<Steps>/<Step>`, `<Badge>`
-- **Compiled** via unified remark→rehype pipeline in `@/core/lib/mdx-compiler`
+- **Compiled** via unified remark→rehype pipeline in `@/core/lib/markdown/mdx-compiler`
 - **Admin badge:** shows ".mdx" in CMS list for overridden slugs
 
 ## Content Variables
@@ -37,7 +37,7 @@ Changing values in `site.ts` takes effect immediately — no re-sync needed.
 
 ## Seeding
 
-`bun run init` copies templates from `src/core/seed-templates/{locale}/` to `content/{locale}/`. Files are copied verbatim with `[[VAR]]` placeholders. Never overwrites existing files.
+`bun run init` copies templates from `src/core/_templates/content/{locale}/` to `content/{locale}/`. Files are copied verbatim with `[[VAR]]` placeholders. Never overwrites existing files.
 
 ## Structure
 

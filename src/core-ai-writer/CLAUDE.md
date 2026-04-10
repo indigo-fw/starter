@@ -11,7 +11,7 @@ Paid module. AI-powered content generation, SEO optimization, translation, and i
 ## Import Rules
 
 - Imports from `@/server/trpc` (framework convention)
-- Imports from `@/core/lib/logger` (core utility)
+- Imports from `@/core/lib/infra/logger` (core utility)
 - Imports from `@/lib/env` (dynamic, for AI_API_KEY)
 - No deps.ts needed — no project-specific behavior to inject
 - Project imports from `@/core-ai-writer/*`

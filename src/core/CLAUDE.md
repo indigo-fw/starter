@@ -44,7 +44,7 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - **Content variables:** `resolveContentVars()` — replaces `[[VAR]]` placeholders with `site.ts` values at render time. Fast path skips if no `[[` present
 - **MDX compiler:** `compileMdx()` — unified remark→rehype pipeline with component registry (`registerMdxComponent()`). LRU-cached
 - **Content sync:** `syncContentFiles()` — syncs `.md` files from `content/{locale}/` to CMS DB. File mtime vs DB updatedAt, revision on update
-- **Seed content:** `seedContentFiles()` — copies `core/seed-templates/` to `content/` on init (skips existing)
+- **Seed content:** `seedContentFiles()` — copies `core/_templates/content/` to `content/` on init (skips existing)
 - **Frontmatter:** `parseFrontmatter<T>()` — shared YAML parser for `.md`/`.mdx` files
 - **Audit:** `logAudit()` — fire-and-forget, logs errors via logger. Never silently swallow fire-and-forget errors
 - **Webhooks:** `dispatchWebhook()` — fire-and-forget, logs failures
@@ -63,7 +63,7 @@ import { useBlankTranslations } from '@/lib/translations';
 const __ = useBlankTranslations();
 
 // Server components:
-import { getServerTranslations } from '@/core/lib/translations-server';
+import { getServerTranslations } from '@/core/lib/i18n/translations-server';
 const __ = await getServerTranslations();
 
 // All user-visible text must be wrapped:
@@ -82,7 +82,7 @@ Two pipelines for file-based content, determined by file extension:
 
 **Content variables:** `[[COMPANY_NAME]]`, `[[SITE_NAME]]`, `[[CONTACT_EMAIL]]`, etc. Stored as-is in DB, resolved at render time by `resolveContentVars()` using values from `site.ts`. Works in both `.md` (via ShortcodeRenderer) and `.mdx` (via MDX compiler).
 
-**Seed templates:** `core/seed-templates/{locale}/*.md` → copied to `content/{locale}/` on `bun run init`. Never overwrites existing files. Variables stay as `[[VAR]]` placeholders.
+**Seed templates:** `core/_templates/content/{locale}/*.md` → copied to `content/{locale}/` on `bun run init`. Never overwrites existing files. Variables stay as `[[VAR]]` placeholders.
 
 **Directory structure:**
 ```

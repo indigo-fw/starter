@@ -29,7 +29,7 @@ src/core-mymodule/
 Every module needs a `module.config.ts` that self-describes its capabilities:
 
 ```typescript
-import type { ModuleConfig } from '@/core/lib/module-config';
+import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-mymodule',
@@ -158,7 +158,7 @@ The project wires deps in `src/config/*-deps.ts`, imported as side-effects in `s
 Use the hook registry for loose coupling between modules:
 
 ```typescript
-import { registerHook, runHook } from '@/core/lib/module-hooks';
+import { registerHook, runHook } from '@/core/lib/module/module-hooks';
 
 // Register (in your deps/init file)
 registerHook('mymodule.event', async (userId, data) => {
