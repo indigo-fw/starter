@@ -5,7 +5,7 @@ import { Check, Loader2 } from 'lucide-react';
 
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { trpc } from '@/lib/trpc/client';
-import { Dialog } from '@/core/components/Dialog';
+import { Dialog } from '@/core/components/overlays/Dialog';
 
 interface SelectedRoute {
   slug: string;

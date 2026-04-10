@@ -7,10 +7,10 @@ import { Clock } from 'lucide-react';
 import type { DashboardWidgetDef } from '@/core/config/dashboard-widgets';
 import { useAdminTranslations } from '@/lib/translations';
 import { adminPanel } from '@/config/routes';
-import GA4Widget from '@/core/components/GA4Widget';
-import RecentActivity from '@/core/components/RecentActivity';
-import ContentStatusWidget from '@/core/components/ContentStatusWidget';
-import type { ContentStatusEntry } from '@/core/components/ContentStatusWidget';
+import GA4Widget from '@/core/components/dashboard/GA4Widget';
+import RecentActivity from '@/core/components/dashboard/RecentActivity';
+import ContentStatusWidget from '@/core/components/dashboard/ContentStatusWidget';
+import type { ContentStatusEntry } from '@/core/components/dashboard/ContentStatusWidget';
 import { PostType } from '@/core/types/cms';
 import QuickActionsWidget from '@/components/admin/QuickActionsWidget';
 

@@ -21,7 +21,7 @@ import { GripVertical, Eye, EyeOff, Settings2 } from 'lucide-react';
 
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { cn } from '@/lib/utils';
-import { SlideOver } from '@/core/components/SlideOver';
+import { SlideOver } from '@/core/components/overlays/SlideOver';
 import { usePreferencesStore } from '@/core/store/preferences-store';
 
 interface WidgetDef {

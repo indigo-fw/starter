@@ -27,13 +27,13 @@ import { LOCALES, LOCALE_LABELS, IS_MULTILINGUAL } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { toast } from '@/store/toast-store';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
-import { SeoOverridesDialog } from '@/core/components/SeoOverridesDialog';
+import { SeoOverridesDialog } from '@/core/components/seo/SeoOverridesDialog';
 import { TaxonomyOverview } from '@/components/admin/TaxonomyOverview';
 import { useListViewState, SortIcon } from '@/core/hooks/useListViewState';
 import { useBulkSelection } from '@/core/hooks/useBulkSelection';
 import { useBulkActions } from '@/core/hooks/useBulkActions';
 import { useColumnVisibility } from '@/core/hooks/useColumnVisibility';
-import BulkActionBar from '@/core/components/BulkActionBar';
+import BulkActionBar from '@/core/components/cms/BulkActionBar';
 
 const _d = dataTranslations('General');
 const STATUS_LABELS: Record<number, string> = {

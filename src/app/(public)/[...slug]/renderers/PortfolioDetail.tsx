@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ShortcodeRenderer } from '@/core/components/ShortcodeRenderer';
+import { ShortcodeRenderer } from '@/core/components/content/ShortcodeRenderer';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { getLocale } from '@/lib/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';

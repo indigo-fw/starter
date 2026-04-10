@@ -3,7 +3,7 @@
 import { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
 
-import { ContentCalendar } from '@/core/components/ContentCalendar';
+import { ContentCalendar } from '@/core/components/cms/ContentCalendar';
 import { adminPanel } from '@/config/routes';
 import { getContentType, getContentTypeByPostType } from '@/config/cms';
 

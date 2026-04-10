@@ -2,7 +2,7 @@
 
 import { Suspense } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { Dialog } from '@/core/components/Dialog';
+import { Dialog } from '@/core/components/overlays/Dialog';
 import { useAuthDialogStore } from '@/store/auth-dialog-store';
 import { LoginForm } from '@/app/(public)/login/LoginForm';
 import { RegisterForm } from '@/app/(public)/register/RegisterForm';

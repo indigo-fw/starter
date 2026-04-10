@@ -16,9 +16,9 @@ import { siteConfig } from '@/config/site';
 import { adminRoutes, adminPanel } from '@/config/routes';
 import { navigation, isNavGroup, getActiveSectionId, flatNavItems } from '@/config/admin-nav';
 import type { NavChild } from '@/config/admin-nav';
-import { CommandPalette, useCommandPaletteShortcut } from '@/core/components/CommandPalette';
-import { NotificationBell } from '@/core/components/NotificationBell';
-import { OrgSwitcher } from '@/core/components/OrgSwitcher';
+import { CommandPalette, useCommandPaletteShortcut } from '@/core/components/dashboard/CommandPalette';
+import { NotificationBell } from '@/core/components/dashboard/NotificationBell';
+import { OrgSwitcher } from '@/core/components/dashboard/OrgSwitcher';
 import { TokenBalance } from '@/core/components/TokenBalance';
 import { ORGANIZATIONS_VISIBLE } from '@/lib/constants';
 

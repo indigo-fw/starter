@@ -1,43 +1,73 @@
-// Engine components — shared CMS admin components
+// Engine components — shared CMS admin components (re-exports from subdirectories)
 
-export { default as CmsFormShell } from './CmsFormShell';
+// CMS editing
+export { default as CmsFormShell } from './cms/CmsFormShell';
+export { CustomFieldsEditor } from './cms/CustomFieldsEditor';
+export type { CustomFieldsEditorHandle, FieldRenderer } from './cms/CustomFieldsEditor';
+export { RevisionHistory } from './cms/RevisionHistory';
+export { default as BulkActionBar } from './cms/BulkActionBar';
+export { TagInput } from './cms/TagInput';
+export { FallbackRadio } from './cms/FallbackRadio';
+export { MenuBuilder } from './cms/MenuBuilder';
+export { ContentCalendar } from './cms/ContentCalendar';
+export { default as AutosaveIndicator } from './cms/AutosaveIndicator';
+export { default as AutosaveRecoveryBanner } from './cms/AutosaveRecoveryBanner';
+export { default as BrokenLinksBanner } from './cms/BrokenLinksBanner';
+
+// Content rendering
+export { ShortcodeRenderer } from './content/ShortcodeRenderer';
+export type { ShortcodeComponentMap } from './content/ShortcodeRenderer';
+export { CmsContent } from './content/CmsContent';
+export { MdxContentPage } from './content/MdxContentPage';
+export { MdxTabsHydrator } from './content/MdxTabsHydrator';
+
+// Overlays
+export { Dialog } from './overlays/Dialog';
+export { ConfirmDialog } from './overlays/ConfirmDialog';
+export { default as InternalLinkDialog, type TypeConfig as InternalLinkTypeConfig } from './overlays/InternalLinkDialog';
+export { SlideOver } from './overlays/SlideOver';
+export { Lightbox } from './overlays/Lightbox';
+
+// SEO
+export { SEOFields } from './seo/SEOFields';
+export { SeoOverridesDialog } from './seo/SeoOverridesDialog';
+export { SeoPreviewCard } from './seo/SeoPreviewCard';
+
+// Media
+export { MediaPickerDialog } from './media/MediaPickerDialog';
+export { MediaPickerButton } from './media/MediaPickerButton';
+export { PostAttachments } from './media/PostAttachments';
+
+// Dashboard
+export { DashboardShell } from './dashboard/DashboardShell';
+export { DashboardConfig } from './dashboard/DashboardConfig';
+export { default as ContentStatusWidget } from './dashboard/ContentStatusWidget';
+export type { ContentStatusEntry, ContentStatusWidgetProps } from './dashboard/ContentStatusWidget';
+export { default as RecentActivity } from './dashboard/RecentActivity';
+export { default as GA4Widget } from './dashboard/GA4Widget';
+export { default as StatCard } from './dashboard/StatCard';
+export { CommandPalette } from './dashboard/CommandPalette';
+export { NotificationBell } from './dashboard/NotificationBell';
+export { OrgSwitcher } from './dashboard/OrgSwitcher';
+export { PreferencesHydrator } from './dashboard/PreferencesHydrator';
+
+// i18n
+export { LocaleLink } from './i18n/LocaleLink';
+export { LanguageSwitcher } from './i18n/LanguageSwitcher';
+export { LanguageSuggestionBanner } from './i18n/LanguageSuggestionBanner';
+export { TranslationBar } from './i18n/TranslationBar';
+
+// Flat (standalone)
 export { RichTextEditor } from './RichTextEditor';
-export { SEOFields } from './SEOFields';
-export { TagInput } from './TagInput';
-export { MediaPickerDialog } from './MediaPickerDialog';
-export { CustomFieldsEditor } from './CustomFieldsEditor';
-export type { CustomFieldsEditorHandle, FieldRenderer } from './CustomFieldsEditor';
-export { RevisionHistory } from './RevisionHistory';
-export { default as BulkActionBar } from './BulkActionBar';
-export { Dialog } from './Dialog';
-export { ConfirmDialog } from './ConfirmDialog';
 export { Toaster } from './Toaster';
-export { default as InternalLinkDialog, type TypeConfig as InternalLinkTypeConfig } from './InternalLinkDialog';
-export { FallbackRadio } from './FallbackRadio';
-export { DashboardShell } from './DashboardShell';
-export { LocaleLink } from './LocaleLink';
-export { LanguageSwitcher } from './LanguageSwitcher';
-export { PreferencesHydrator } from './PreferencesHydrator';
-export { MenuBuilder } from './MenuBuilder';
-export { default as RecentActivity } from './RecentActivity';
-export { default as ContentStatusWidget } from './ContentStatusWidget';
-export type { ContentStatusEntry, ContentStatusWidgetProps } from './ContentStatusWidget';
 export { MobileMenu } from './MobileMenu';
 export { ThemeToggle } from './ThemeToggle';
-export { NotificationBell } from './NotificationBell';
-export { PostAttachments } from './PostAttachments';
-export { default as GA4Widget } from './GA4Widget';
-export { OrgSwitcher } from './OrgSwitcher';
-export { ContentCalendar } from './ContentCalendar';
-export { TranslationBar } from './TranslationBar';
-export { SeoOverridesDialog } from './SeoOverridesDialog';
-export { DashboardConfig } from './DashboardConfig';
+export { ThemeInit } from './ThemeInit';
 export { PostCard } from './PostCard';
 export { TagCloud } from './TagCloud';
 export { DynamicNav } from './DynamicNav';
-export { ShortcodeRenderer } from './ShortcodeRenderer';
-export type { ShortcodeComponentMap } from './ShortcodeRenderer';
-export { CmsContent } from './CmsContent';
 export { FaqAccordion } from './FaqAccordion';
 export { AccountSidebar } from './AccountSidebar';
 export { PricingToggle } from './PricingToggle';
+export { TokenBalance } from './TokenBalance';
+export { GeoSyncer } from './GeoSyncer';

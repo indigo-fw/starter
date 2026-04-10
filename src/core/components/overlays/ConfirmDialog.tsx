@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog } from '@/core/components/Dialog';
+import { Dialog } from '@/core/components/overlays/Dialog';
 
 interface Props {
   open: boolean;

@@ -17,8 +17,8 @@ import { useAdminTranslations } from "@/core/lib/i18n/translations";
 import { FileType } from "@/core/types/cms";
 import { toast } from "@/core/store/toast-store";
 import { cn } from "@/lib/utils";
-import { Dialog } from "@/core/components/Dialog";
-import { ConfirmDialog } from "@/core/components/ConfirmDialog";
+import { Dialog } from "@/core/components/overlays/Dialog";
+import { ConfirmDialog } from "@/core/components/overlays/ConfirmDialog";
 
 export interface MediaPickerDialogProps {
   open: boolean;

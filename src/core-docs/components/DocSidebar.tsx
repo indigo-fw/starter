@@ -1,6 +1,6 @@
 'use client';
 
-import { LocaleLink as Link } from '@/core/components/LocaleLink';
+import { LocaleLink as Link } from '@/core/components/i18n/LocaleLink';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import type { DocNavItem } from '@/core-docs/lib/docs-service';

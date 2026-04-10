@@ -21,7 +21,7 @@ import { GripVertical, Eye, EyeOff, Settings2, ArrowRight } from 'lucide-react';
 
 import { useAdminTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
-import { SlideOver } from '@/core/components/SlideOver';
+import { SlideOver } from '@/core/components/overlays/SlideOver';
 import { usePreferencesStore } from '@/core/store/preferences-store';
 import {
   ALL_PANELS,

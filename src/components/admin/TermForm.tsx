@@ -15,9 +15,9 @@ import { useCmsFormState, narrowRecoveredData } from '@/core/hooks/useCmsFormSta
 import { useSlugAutoGenerate } from '@/core/hooks/useSlugAutoGenerate';
 import { useCmsAutosave } from '@/core/hooks/useCmsAutosave';
 import { useKeyboardShortcuts } from '@/core/hooks/useKeyboardShortcuts';
-import AutosaveIndicator from '@/core/components/AutosaveIndicator';
-import AutosaveRecoveryBanner from '@/core/components/AutosaveRecoveryBanner';
-import CmsFormShell from '@/core/components/CmsFormShell';
+import AutosaveIndicator from '@/core/components/cms/AutosaveIndicator';
+import AutosaveRecoveryBanner from '@/core/components/cms/AutosaveRecoveryBanner';
+import CmsFormShell from '@/core/components/cms/CmsFormShell';
 
 interface TermFormData extends Record<string, unknown> {
   name: string;

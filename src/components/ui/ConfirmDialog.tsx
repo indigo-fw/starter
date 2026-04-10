@@ -1,1 +1,1 @@
-export { ConfirmDialog } from '@/core/components/ConfirmDialog';
+export { ConfirmDialog } from '@/core/components/overlays/ConfirmDialog';

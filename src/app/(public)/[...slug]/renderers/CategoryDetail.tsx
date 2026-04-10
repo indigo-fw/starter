@@ -1,6 +1,6 @@
 import { PostType } from '@/core/types/cms';
 import { PostCard } from '@/core/components/PostCard';
-import { ShortcodeRenderer } from '@/core/components/ShortcodeRenderer';
+import { ShortcodeRenderer } from '@/core/components/content/ShortcodeRenderer';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { localePath } from '@/lib/locale';
 import { getLocale } from '@/lib/locale-server';

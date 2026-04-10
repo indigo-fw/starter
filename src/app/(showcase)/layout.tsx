@@ -7,7 +7,7 @@ import { Compass, BookOpen, Briefcase, Home } from 'lucide-react';
 
 import { siteConfig } from '@/config/site';
 import { ThemeToggle } from '@/core/components/ThemeToggle';
-import { LanguageSwitcher } from '@/core/components/LanguageSwitcher';
+import { LanguageSwitcher } from '@/core/components/i18n/LanguageSwitcher';
 import { UserMenu } from '@/components/public/UserMenu';
 import { SubscribeOrTokens } from '@/components/public/SubscribeOrTokens';
 import { ExpandableSearch } from '@/components/public/ExpandableSearch';

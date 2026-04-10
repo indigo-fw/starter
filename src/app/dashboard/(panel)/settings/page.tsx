@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { toast } from '@/store/toast-store';
-import { SeoOverridesDialog } from '@/core/components/SeoOverridesDialog';
+import { SeoOverridesDialog } from '@/core/components/seo/SeoOverridesDialog';
 import { LOCALES, LOCALE_LABELS } from '@/lib/constants';
 import { GROUP_LABELS } from '@/config/options-registry';
 

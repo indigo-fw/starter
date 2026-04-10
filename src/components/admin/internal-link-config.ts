@@ -1,6 +1,6 @@
 import { FileText, FolderOpen, Tag } from 'lucide-react';
 
-import type { TypeConfig } from '@/core/components/InternalLinkDialog';
+import type { TypeConfig } from '@/core/components/overlays/InternalLinkDialog';
 
 export const INTERNAL_LINK_TYPE_CONFIG: TypeConfig = {
   page: { label: 'Page', icon: FileText, color: 'bg-brand-600' },

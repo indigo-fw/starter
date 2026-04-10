@@ -9,8 +9,8 @@ import { computeFieldDiffs } from '@/core/lib/content/revision-diff';
 import type { FieldDiff } from '@/core/lib/content/revision-diff';
 import { trpc } from '@/lib/trpc/client';
 import { toast } from '@/core/store/toast-store';
-import { Dialog } from '@/core/components/Dialog';
-import { ConfirmDialog } from '@/core/components/ConfirmDialog';
+import { Dialog } from '@/core/components/overlays/Dialog';
+import { ConfirmDialog } from '@/core/components/overlays/ConfirmDialog';
 import { cn } from '@/lib/utils';
 
 interface Props {

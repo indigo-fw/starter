@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useBlankTranslations } from '@/lib/translations';
 import { MessageRole, MessageStatus, CensorType } from '@/core-chat/lib/types';
-import { Lightbox } from '@/core/components/Lightbox';
+import { Lightbox } from '@/core/components/overlays/Lightbox';
 import { NsfwBlurOverlay } from './NsfwBlurOverlay';
 import { CensoredMessage } from './CensoredMessage';
 import { SmartProgress } from './SmartProgress';

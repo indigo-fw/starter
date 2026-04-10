@@ -8,8 +8,8 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { PostType } from '@/core/types/cms';
 import { adminPanel } from '@/config/routes';
-import StatCard from '@/core/components/StatCard';
-import { DashboardConfig } from '@/core/components/DashboardConfig';
+import StatCard from '@/core/components/dashboard/StatCard';
+import { DashboardConfig } from '@/core/components/dashboard/DashboardConfig';
 import { DASHBOARD_WIDGETS, DEFAULT_WIDGET_ORDER, DEFAULT_HIDDEN_WIDGETS } from '@/config/dashboard-widgets';
 import { DashboardWidgetGrid } from '@/components/admin/DashboardWidgetGrid';
 

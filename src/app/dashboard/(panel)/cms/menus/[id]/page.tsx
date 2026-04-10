@@ -8,7 +8,7 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { toast } from '@/store/toast-store';
 import { adminPanel } from '@/config/routes';
-import { MenuBuilder } from '@/core/components/MenuBuilder';
+import { MenuBuilder } from '@/core/components/cms/MenuBuilder';
 
 interface Props {
   params: Promise<{ id: string }>;

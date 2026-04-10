@@ -1,4 +1,4 @@
-import type { ShortcodeComponentMap } from '@/core/components/ShortcodeRenderer';
+import type { ShortcodeComponentMap } from '@/core/components/content/ShortcodeRenderer';
 import { CalloutBlock } from '@/core/components/shortcodes/CalloutBlock';
 import { CtaBlock } from '@/core/components/shortcodes/CtaBlock';
 import { YoutubeEmbed } from '@/core/components/shortcodes/YoutubeEmbed';

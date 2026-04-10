@@ -1,9 +1,9 @@
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { count } from 'drizzle-orm';
 
-import { storeProducts, storeProductVariants, storeVariantGroups, storeProductImages, storeCategories, storeProductCategories } from './schema/products';
-import { storeShippingZones, storeShippingRates, storeTaxRates } from './schema/shipping-tax';
-import { placeholderImage } from './lib/placeholder-image';
+import { storeProducts, storeProductVariants, storeVariantGroups, storeProductImages, storeCategories, storeProductCategories } from '../schema/products';
+import { storeShippingZones, storeShippingRates, storeTaxRates } from '../schema/shipping-tax';
+import { placeholderImage } from '../lib/placeholder-image';
 
 // ─── IDs (deterministic for idempotent seeding) ───────────────────────────
 
