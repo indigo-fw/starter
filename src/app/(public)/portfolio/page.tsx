@@ -18,12 +18,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const ct = getContentType('portfolio')!;
 
   return {
-    title: { absolute: buildPageTitle({
+    title: buildPageTitle({
       configTemplate: ct.titleTemplate,
       seoTitle: cms?.seo.seoTitle,
       fallbackTitle: __('Portfolio'),
       sitename: siteConfig.name,
-    }) },
+    }),
     description: cms?.seo.metaDescription || __('Browse our portfolio of projects and case studies.'),
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };

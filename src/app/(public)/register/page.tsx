@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { getServerTranslations } from '@/lib/translations-server';
+import { siteConfig } from '@/config/site';
 import { RegisterForm } from './RegisterForm';
 
 export async function generateMetadata(): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: __('Create Account'),
+    title: `${__('Create Account')} | ${siteConfig.name}`,
     description: __('Create a new account'),
   };
 }

@@ -33,7 +33,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   });
 
   return {
-    title: { absolute: title },
+    title,
     description: cms?.seo.metaDescription || __('Latest blog posts'),
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };

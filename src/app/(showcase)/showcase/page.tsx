@@ -17,12 +17,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const ct = getContentType('showcase')!;
 
   return {
-    title: { absolute: buildPageTitle({
+    title: buildPageTitle({
       configTemplate: ct.titleTemplate,
       seoTitle: cms?.seo.seoTitle,
       fallbackTitle: __('Showcase'),
       sitename: siteConfig.name,
-    }) },
+    }),
     description: cms?.seo.metaDescription || __('Explore our showcase — swipe through videos, images, and stories.'),
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };

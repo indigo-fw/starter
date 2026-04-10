@@ -21,10 +21,7 @@ const geistMono = Geist_Mono({
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.seo.title,
-    template: `%s | ${siteConfig.name}`,
-  },
+  title: siteConfig.seo.title,
   description: siteConfig.seo.description,
 };
 

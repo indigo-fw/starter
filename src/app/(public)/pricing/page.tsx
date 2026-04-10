@@ -4,11 +4,12 @@ import { PricingToggle } from '@/core/components/pricing/PricingToggle';
 import { FaqAccordion } from '@/core/components/pricing/FaqAccordion';
 import { publicAuthRoutes } from '@/config/routes';
 import { getServerTranslations } from '@/lib/translations-server';
+import { siteConfig } from '@/config/site';
 
 export async function generateMetadata(): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: __('Pricing'),
+    title: `${__('Pricing')} | ${siteConfig.name}`,
     description: __('Simple, transparent pricing for teams of all sizes.'),
   };
 }

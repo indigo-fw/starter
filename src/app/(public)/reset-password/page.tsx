@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { getServerTranslations } from '@/lib/translations-server';
+import { siteConfig } from '@/config/site';
 import { ResetPasswordForm } from './ResetPasswordForm';
 
 export async function generateMetadata(): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: __('Reset Password'),
+    title: `${__('Reset Password')} | ${siteConfig.name}`,
     description: __('Set a new password'),
   };
 }

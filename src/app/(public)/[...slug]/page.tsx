@@ -32,11 +32,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const fm = content.frontmatter;
     const seoTitle = fm.seoTitle ? resolveContentVars(fm.seoTitle) : null;
     const description = fm.description ? resolveContentVars(fm.description) : undefined;
-    // If seoTitle contains template vars, resolve via buildPageTitle; otherwise let layout template handle it
     const { buildPageTitle } = await import('@/core/lib/content/title-template');
+    // Template seoTitle is already complete after resolution; plain seoTitle/title gets site name suffix
     const title = seoTitle?.includes('{')
-      ? { absolute: buildPageTitle({ configTemplate: seoTitle, seoTitle: null, fallbackTitle: '', sitename: siteConfig.name }) }
-      : (seoTitle ?? resolveContentVars(fm.title ?? fullSlug));
+      ? buildPageTitle({ configTemplate: seoTitle, seoTitle: null, fallbackTitle: '', sitename: siteConfig.name })
+      : `${seoTitle ?? resolveContentVars(fm.title ?? fullSlug)} | ${siteConfig.name}`;
     return {
       title,
       description,

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 import { getServerTranslations } from '@/lib/translations-server';
+import { siteConfig } from '@/config/site';
 import { serverTRPC } from '@/lib/trpc/server';
 import '@/core-store/components/product/store-grid.css';
 import '@/core-store/components/cart/store-cart.css';
@@ -11,7 +12,7 @@ import { CheckoutForm } from './CheckoutForm';
 export async function generateMetadata(): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: __('Checkout'),
+    title: `${__('Checkout')} | ${siteConfig.name}`,
     description: __('Complete your order'),
   };
 }

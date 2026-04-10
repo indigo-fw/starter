@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const cms = await getCmsOverride(db, "", locale).catch(() => null);
   return {
-    title: { absolute: cms?.seo.seoTitle || siteConfig.seo.title },
+    title: cms?.seo.seoTitle || siteConfig.seo.title,
     description: cms?.seo.metaDescription || siteConfig.seo.description,
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
   };

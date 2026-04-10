@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { serverTRPC } from '@/lib/trpc/server';
 import { getServerTranslations } from '@/lib/translations-server';
+import { siteConfig } from '@/config/site';
 import '@/core-store/components/product/store-grid.css';
 import '@/core-store/components/cart/store-cart.css';
 
@@ -15,7 +16,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: __('Order Details'),
+    title: `${__('Order Details')} | ${siteConfig.name}`,
   };
 }
 

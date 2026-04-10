@@ -5,6 +5,7 @@ import { Package, ArrowRight } from 'lucide-react';
 
 import { serverTRPC } from '@/lib/trpc/server';
 import { getServerTranslations } from '@/lib/translations-server';
+import { siteConfig } from '@/config/site';
 import '@/core-store/components/product/store-grid.css';
 
 import { StoreToolbar } from './StoreToolbar';
@@ -13,7 +14,7 @@ import { ProductCard } from './ProductCard';
 export async function generateMetadata(): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
-    title: __('Store'),
+    title: `${__('Store')} | ${siteConfig.name}`,
     description: __('Browse our products'),
   };
 }
