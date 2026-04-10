@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { PRICING_PLANS, PRICING_FAQ } from '@/config/pricing';
-import { PricingToggle } from '@/core/components/PricingToggle';
-import { FaqAccordion } from '@/core/components/FaqAccordion';
+import { PricingToggle } from '@/core/components/pricing/PricingToggle';
+import { FaqAccordion } from '@/core/components/pricing/FaqAccordion';
 import { publicAuthRoutes } from '@/config/routes';
 import { getServerTranslations } from '@/lib/translations-server';
 
