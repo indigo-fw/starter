@@ -93,23 +93,24 @@ docs/content/                  → runtime .mdx docs (core-docs module)
 
 ## CSS Conventions
 
-- **CSS class naming:** layout → `app-*` prefix (`app-header`, `app-section`, `app-container`). Components → no prefix (`.btn`, `.card`, `.input`). Dashboard → `dash-*`. Modules → module prefix (`support-chat-*`). All kebab-case.
-- **App layout:** `.app-wrapper[data-page]` > `.app-header` > `.app-toolbar` + `.app-main` + `.app-footer`. Override per route via `--page-bg` and `[data-page]` CSS selectors. See `app-layout.css`.
-- **Layout utilities:** `.app-container` (80rem, centered, padded — defined in `globals.css`), `.app-container-narrow` (48rem), `.app-section` / `.app-section-alt` (vertical rhythm). Never use Tailwind's `container`.
-- **Shared components:** `shared-components.css` (loaded globally) owns `.btn`, `.input`, `.select`, `.textarea`, `.label`, `.card`. Route-specific variants in `admin.css` (`.btn-danger`) or `frontend/forms.css` (`.btn-ghost`).
-- **Modifiers:** separate class (`.btn-primary`, `.btn-sm`), not BEM (`--primary`). State via `IS_ACTIVE` constant + `activeAria(isActive, role)` from `@/core/lib/active-props` — couples `.is-active` class with correct ARIA attributes (`aria-current="page"` for `'nav'`, `role="tab" aria-selected` for `'tab'`, `role="option" aria-selected` for `'option'`). Parent containers need `role="tablist"` or `role="listbox"` respectively.
-- **Table classes:** prefixed `.table-th`, `.table-td`, `.table-tr` (not bare `.th`/`.td`/`.tr`).
-- **Dark mode:** always `html.dark { }` selector. Never `dark:` Tailwind modifier (breaks oklch alpha tints). Co-locate dark overrides in same file as light mode.
-- **Shared styles:** `shared-components.css` (loaded globally via `globals.css`) owns `.btn`, `.input`, `.select`, `.textarea`, `.label` base + dark overrides. Route-specific variants in `admin.css` (`.btn-danger`, `.btn-sm`) or `frontend/forms.css` (`.btn-ghost`).
-- **Tokens:** `--gradient-brand-subtle`, `--focus-ring-accent`, `--border-table`, `--hover-tint-dark` — use these instead of hardcoding oklch values.
+- **Class naming:** layout → `app-*` prefix. Components → no prefix (`.btn`, `.card`, `.icon-btn`). Dashboard → `dash-*`. Modules → module prefix (`support-chat-*`). All kebab-case.
+- **App layout:** `.app-wrapper[data-page]` > `.app-header` > `.app-toolbar` + `.app-main` + `.app-footer`. Compose from lego components: `<AppNav />`, `<AppFooter />`, `<AppSidebar />`. See `app-layout.css`.
+- **Layout utilities:** `.app-container` (80rem, centered, padded — `globals.css`), `.app-container-narrow` (48rem), `.app-section` / `.app-section-alt` (vertical rhythm). Never use Tailwind's `container`.
+- **Component CSS co-location:** layout components have CSS next to their TSX (AppNav.css, AppFooter.css, AppSidebar.css, MobileMenu.css). CSS loads only when the component renders.
+- **Component-level CSS variables:** `var(--component-var, var(--token))` pattern. Override just one component without affecting the global token. Vars don't exist by default — set in page CSS or tokens.css. Full API documented in `app-layout.css` header comment.
+- **Dark mode tokens:** centralized in `tokens.css`. Component CSS files have NO `html.dark` blocks — they use tokens that change in dark mode. Force dark per route: `data-theme="dark"` on `.app-wrapper`.
+- **Per-page overrides:** `data-page` attribute on `.app-wrapper`. Target in co-located CSS: `.app-wrapper[data-page="showcase"] { --page-bg: oklch(0 0 0); }`
+- **Shared components:** `shared-components.css` (loaded globally) owns `.btn`, `.btn-primary`, `.btn-secondary`, `.icon-btn`, `.input`, `.select`, `.textarea`, `.label`. Route-specific variants in `admin.css` (`.btn-danger`) or `frontend/forms.css` (`.btn-ghost`).
+- **Modifiers:** separate class (`.btn-primary`, `.btn-sm`), not BEM (`--primary`). State via `IS_ACTIVE` constant + `activeAria(isActive, role)` from `@/core/lib/active-props`.
+- **Table classes:** prefixed `.table-th`, `.table-td`, `.table-tr`.
+- **Tokens:** all colors via design tokens — never hardcode oklch values in component CSS. `tokens.css` → `tokens-public.css` → `tokens-admin.css`.
 
 ## CSS Gotchas
 
 - **OKLCH traps:** `oklch(L C var(--brand-hue) / alpha)` works. `oklch(from ...)` does NOT work with Lightning CSS. `color-mix()` is wrong for alpha tints
 - **Tailwind v4 opacity:** `/80` modifier compiles to `color-mix()` — use literal `oklch(L C H / alpha)` instead
 - **Layer order:** `@layer theme, base, components, utilities;` — every CSS file must declare this
-- **Hues:** brand `350` (pink), accent `303` (purple), gray `260`/`265` (cool blue-violet) — all independent
-- **Token inheritance:** `tokens.css` (global defaults) → `tokens-public.css` (public overrides) → `tokens-admin.css` (admin overrides)
+- **Dark mode in component CSS:** don't add `html.dark` blocks — use tokens from `tokens.css` that already change in dark mode. Only `tokens.css` and `globals.css` (scrollbars) have `html.dark` selectors
 - **Admin CSS isolation:** loaded only in dashboard route — no scoping needed, class names can match content CSS
 
 **To rebrand:** (1) In `tokens.css`: replace hue `350` (brand) and `303` (accent); update `--brand-hue`, `--accent-hue`, `--gradient-brand`. (2) Public overrides in `tokens-public.css`. (3) Admin overrides in `tokens-admin.css`. (4) Update hardcoded `260` in dark surface tokens and `admin.css`.

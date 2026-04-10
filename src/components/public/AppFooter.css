@@ -1,11 +1,16 @@
 @layer theme, base, components, utilities;
 
 @layer components {
-  /* ── App Footer ── */
+  /* ── App Footer ──
+   *
+   * Overridable variables (set on ancestor to customize):
+   *   --app-footer-bg        Footer background (default: --surface-footer)
+   *   --app-footer-border    Footer top border (default: --border-subtle)
+   */
 
   .app-footer {
-    border-top: 1px solid var(--border-subtle);
-    background-color: var(--surface-footer);
+    border-top: 1px solid var(--app-footer-border, var(--border-subtle));
+    background-color: var(--app-footer-bg, var(--surface-footer));
   }
 
   .app-footer .app-toolbar {

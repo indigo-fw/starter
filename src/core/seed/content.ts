@@ -16,7 +16,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSy
 import { join, dirname, extname } from 'path';
 import { fileURLToPath } from 'url';
 
-const TEMPLATES_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'seed-templates');
+const TEMPLATES_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '_templates', 'content');
 const CONTENT_DIR = join(process.cwd(), 'content');
 
 /**

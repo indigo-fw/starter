@@ -13,11 +13,18 @@ noindex: true
 **Address:**
 [[COMPANY_ADDRESS]]
 
+**Country:**
+[[COMPANY_COUNTRY]]
+
 **Contact:**
 Email: [[CONTACT_EMAIL]]
+Phone: [[COMPANY_PHONE]]
 
 **Registration Number:**
 [[COMPANY_ID]]
+
+**VAT ID:**
+[[COMPANY_VAT]]
 
 **Responsible for content:**
 [[COMPANY_NAME]]

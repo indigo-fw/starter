@@ -35,7 +35,6 @@ const OPTION_KEYS = [
 
 async function fetchVarsFromDb(): Promise<Record<string, string>> {
   try {
-    const { like } = await import('drizzle-orm');
     const rows = await db
       .select({ key: cmsOptions.key, value: cmsOptions.value })
       .from(cmsOptions)
@@ -67,10 +66,10 @@ function buildVarMap(opts: Record<string, string>): Record<string, string> {
     COMPANY_ID: opts['company.id'] || siteDefaults.companyId,
     COMPANY_JURISDICTION: opts['company.jurisdiction'] || siteDefaults.companyJurisdiction,
     CONTACT_EMAIL: opts['company.contact_email'] || siteDefaults.contactEmail,
-    COMPANY_VAT: opts['company.vat'] || '',
-    COMPANY_PHONE: opts['company.phone'] || '',
-    COMPANY_COUNTRY: opts['company.country'] || '',
-    SUPPORT_EMAIL: opts['company.support_email'] || opts['company.contact_email'] || siteDefaults.contactEmail,
+    COMPANY_VAT: opts['company.vat'] || siteDefaults.companyVat,
+    COMPANY_PHONE: opts['company.phone'] || siteDefaults.companyPhone,
+    COMPANY_COUNTRY: opts['company.country'] || siteDefaults.companyCountry,
+    SUPPORT_EMAIL: opts['company.support_email'] || siteDefaults.supportEmail || opts['company.contact_email'] || siteDefaults.contactEmail,
     // Auto-generated
     CURRENT_YEAR: new Date().getFullYear().toString(),
   };

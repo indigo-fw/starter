@@ -153,7 +153,7 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
   // Init copies them verbatim to content/{locale}/ (variables like [[COMPANY_NAME]] stay as-is).
   // The content sync (server.ts) resolves variables from site.ts at DB-insert time.
 
-  const { seedContentFiles } = await import('@/core/lib/seed-content');
+  const { seedContentFiles } = await import('@/core/seed/content');
   const seededCount = seedContentFiles();
 
   if (seededCount > 0) {

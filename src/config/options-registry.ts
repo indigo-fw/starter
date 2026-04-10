@@ -29,6 +29,10 @@ export const OPTION_REGISTRY: OptionDefinition[] = [
   { key: 'company.id', label: 'Registration Number', description: 'Used as [[COMPANY_ID]] in content', group: 'company', type: 'text', defaultValue: '', placeholder: siteDefaults.companyId },
   { key: 'company.jurisdiction', label: 'Governing Law Jurisdiction', description: 'Used as [[COMPANY_JURISDICTION]] in content', group: 'company', type: 'text', defaultValue: '', placeholder: siteDefaults.companyJurisdiction },
   { key: 'company.contact_email', label: 'Contact Email', description: 'Used as [[CONTACT_EMAIL]] in content', group: 'company', type: 'text', defaultValue: '', placeholder: siteDefaults.contactEmail },
+  { key: 'company.vat', label: 'VAT Number', description: 'Used as [[COMPANY_VAT]] in content (EU requirement)', group: 'company', type: 'text', defaultValue: '' },
+  { key: 'company.phone', label: 'Phone Number', description: 'Used as [[COMPANY_PHONE]] in content', group: 'company', type: 'text', defaultValue: '' },
+  { key: 'company.country', label: 'Country', description: 'Used as [[COMPANY_COUNTRY]] in content', group: 'company', type: 'text', defaultValue: '' },
+  { key: 'company.support_email', label: 'Support Email', description: 'Used as [[SUPPORT_EMAIL]] in content. Falls back to Contact Email.', group: 'company', type: 'text', defaultValue: '' },
 
   // ─── Branding ───────────────────────────────────────────────────────────────
   { key: 'site.logo', label: 'Logo URL', group: 'branding', type: 'url', defaultValue: '' },

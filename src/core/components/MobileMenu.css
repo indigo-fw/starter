@@ -1,7 +1,11 @@
 @layer theme, base, components, utilities;
 
 @layer components {
-  /* ── Mobile Nav — slide-out drawer ── */
+  /* ── Mobile Nav — slide-out drawer ──
+   *
+   * Overridable variables (set on ancestor to customize):
+   *   --app-mobile-drawer-bg   Drawer background (default: --surface-primary)
+   */
 
   .app-mobile-overlay {
     position: fixed;
@@ -18,7 +22,7 @@
     z-index: 50;
     width: 280px;
     max-width: 80vw;
-    background-color: var(--surface-primary);
+    background-color: var(--app-mobile-drawer-bg, var(--surface-primary));
     box-shadow: var(--shadow-lg);
     display: flex;
     flex-direction: column;

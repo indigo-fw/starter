@@ -1,7 +1,13 @@
 @layer theme, base, components, utilities;
 
 @layer components {
-  /* ── App Nav — horizontal toolbar content (logo, links, actions) ── */
+  /* ── App Nav — horizontal toolbar content (logo, links, actions) ──
+   *
+   * Overridable variables (set on ancestor to customize):
+   *   --app-logo-hover       Logo hover color (default: --color-brand-500)
+   *   --app-nav-hover-bg     Nav link hover background (default: --surface-secondary)
+   *   --app-search-bg        Search overlay background (default: --surface-primary)
+   */
 
   .app-logo {
     font-size: 1.125rem;
@@ -12,7 +18,7 @@
   }
 
   .app-logo:hover {
-    color: var(--color-brand-500);
+    color: var(--app-logo-hover, var(--color-brand-500));
   }
 
   .app-nav {
@@ -34,7 +40,7 @@
   }
 
   .app-nav-link:hover {
-    background-color: var(--surface-secondary);
+    background-color: var(--app-nav-hover-bg, var(--surface-secondary));
     color: var(--text-primary);
   }
 
@@ -79,7 +85,7 @@
     gap: 0.5rem;
     padding-inline: 1rem;
     border-bottom: 1px solid var(--border-primary);
-    background-color: var(--surface-primary);
+    background-color: var(--app-search-bg, var(--surface-primary));
   }
 
   .app-search-input {

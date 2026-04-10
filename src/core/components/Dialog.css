@@ -1,13 +1,19 @@
 @layer theme, base, components, utilities;
 
 @layer components {
-  /* ── Dialog (visual only — structural in overlay.css) ── */
+  /* ── Dialog (visual only — structural in overlay.css) ──
+   *
+   * Overridable variables (set on ancestor to customize):
+   *   --dialog-bg       Panel background (default: --surface-dialog)
+   *   --dialog-border   Panel border (default: --border-primary)
+   *   --dialog-shadow   Panel shadow (default: --shadow-dialog)
+   */
 
   .dialog-panel {
-    background-color: var(--surface-dialog);
-    border: 1px solid var(--border-primary);
+    background-color: var(--dialog-bg, var(--surface-dialog));
+    border: 1px solid var(--dialog-border, var(--border-primary));
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-dialog);
+    box-shadow: var(--dialog-shadow, var(--shadow-dialog));
   }
 
   .dialog-header {

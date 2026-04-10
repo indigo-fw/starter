@@ -1,10 +1,17 @@
 @layer theme, base, components, utilities;
 
 /*
- * Shared Components — loaded globally via tokens.css.
- * Button base, form inputs, and common patterns used across admin and public.
+ * Shared Components — loaded globally via globals.css.
+ * Button base, icon button, form inputs — used across admin and public.
  * Route-specific variants live in admin.css (btn-danger, btn-sm, input-sm)
  * or frontend/forms.css (btn-ghost).
+ *
+ * Overridable variables:
+ *   --icon-btn-hover-bg   Icon button hover background (default: --surface-hover)
+ *
+ * Component-specific tokens (defined in tokens.css):
+ *   --input-bg, --input-border              Form input colors
+ *   --btn-secondary-bg, --btn-secondary-border, --btn-secondary-hover
  */
 
 @layer components {
@@ -80,7 +87,7 @@
   }
 
   .icon-btn:hover {
-    background-color: var(--surface-hover);
+    background-color: var(--icon-btn-hover-bg, var(--surface-hover));
     color: var(--text-primary);
   }
 

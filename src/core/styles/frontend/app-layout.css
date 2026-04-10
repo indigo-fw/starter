@@ -6,19 +6,19 @@
    * Minimal layout skeleton for all public-facing routes.
    * Component-specific styles live next to their TSX files:
    *
-   *   AppNav.css       — logo, nav links, spacer, actions, icon buttons, search
+   *   AppNav.css       — logo, nav links, spacer, actions, search
    *   AppFooter.css    — footer grid, links, columns, bottom bar
    *   AppSidebar.css   — slide-out overlay sidebar
    *   MobileMenu.css   — mobile drawer nav
    *
    * Naming convention:
    *   Layout (page structure)  → app-* prefix
-   *   Components (UI elements) → no prefix (btn, card, input)
+   *   Components (UI elements) → no prefix (btn, card, icon-btn)
    *   Dashboard                → dash-* prefix
    *   Modules                  → module prefix (support-chat-*, store-*)
    *
    * Structure — compose like lego in each layout.tsx:
-   *   .app-wrapper[data-page]
+   *   .app-wrapper[data-page][data-theme?]
    *     .app-header > .app-toolbar     ← always present
    *       <AppNav />                   ← or <AppRailNav />, <AppCompactNav />
    *     <AppSidebar />                 ← optional
@@ -27,12 +27,33 @@
    *       .app-section / .app-section-alt  ← vertical rhythm (in layout.css)
    *     <AppFooter />                  ← optional
    *
-   * Per-page overrides via data-page:
+   * Per-page overrides via data-page (co-located CSS):
    *   .app-wrapper[data-page="showcase"] { --page-bg: oklch(0 0 0); }
    *
-   * CSS custom properties on .app-wrapper:
-   *   --page-bg          .app-main background (default: transparent)
-   *   --app-header-h     Header height (default: 3.5rem)
+   * Force dark mode via data-theme (tokens cascade from tokens.css):
+   *   <div class="app-wrapper" data-page="showcase" data-theme="dark">
+   *
+   * ── Component-level CSS variables ──
+   *
+   * Each component exposes overridable vars with token fallbacks:
+   *   var(--component-var, var(--token))
+   *
+   * These vars don't exist by default — set them in page CSS or tokens.css
+   * to override just that component without affecting the global token.
+   *
+   * Skeleton variables:
+   *   --page-bg              .app-main background (default: transparent)
+   *   --app-header-h         Header height (default: 3.5rem)
+   *   --app-header-bg        Header background (default: --surface-header)
+   *   --app-header-border    Header border (default: --border-primary)
+   *
+   * See each component CSS file for its full variable API:
+   *   AppNav.css       → --app-logo-hover, --app-nav-hover-bg, --app-search-bg
+   *   AppFooter.css    → --app-footer-bg, --app-footer-border
+   *   AppSidebar.css   → --app-sidebar-bg, --app-sidebar-hover-bg, --app-sidebar-active-bg
+   *   MobileMenu.css   → --app-mobile-drawer-bg
+   *   Dialog.css       → --dialog-bg, --dialog-border, --dialog-shadow
+   *   shared-components.css → --icon-btn-hover-bg
    */
 
   .app-wrapper {
@@ -45,8 +66,8 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    border-bottom: 1px solid var(--border-primary);
-    background-color: var(--surface-header);
+    border-bottom: 1px solid var(--app-header-border, var(--border-primary));
+    background-color: var(--app-header-bg, var(--surface-header));
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
