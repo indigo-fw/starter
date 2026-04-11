@@ -28,7 +28,9 @@ export const siteConfig = {
     title: `${clientEnv.siteName} — AI Agent-driven T3 SaaS Starter`,
     description:
       "Open-source SaaS starter kit with integrated CMS, built on Next.js, tRPC, Drizzle, and Better Auth. Multi-tenancy, Stripe billing, real-time WebSocket, and more.",
-    /** Default OG image for pages without a featured image (absolute URL or path relative to public/) */
+    /** Default OG image for pages without a featured image.
+     * Recommended: 1200x630px (1.91:1), JPG/PNG/WebP, under 1MB.
+     * Path relative to public/ or absolute URL. */
     defaultOgImage: '/og-default.png',
   },
 

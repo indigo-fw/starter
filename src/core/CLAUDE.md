@@ -64,7 +64,9 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - **Skeleton:** `<Skeleton variant="line|circle|card" count={N}>` — loading placeholder with pulse animation
 - **Avatar:** `<Avatar src={url} name="John" size="md">` — image with initials fallback, sizes xs/sm/md/lg/xl
 - **Structured data:** `<StructuredData data={jsonLd} />` — renders `<script type="application/ld+json">`
-- **Canonical URLs:** `setCanonicalConfig()` + `buildCanonicalUrl(path, locale)` + `buildAlternates(path, locales)` — locale-aware absolute URLs for SEO metadata
+- **Canonical URLs:** `setCanonicalConfig()` + `buildCanonicalUrl(path, locale)` + `buildAlternates(path, locales)` — locale-aware absolute URLs for SEO metadata. Wire via `src/config/canonical-init.ts` (side-effect import)
+- **JSON-LD builders:** `buildArticleJsonLd()` (Article/BlogPosting with multi-author), `buildBreadcrumbJsonLd()` (hierarchical pages), `buildOrganizationJsonLd()` (root layout) — all in `seo/json-ld.ts`
+- **Post authors:** `syncPostAuthors(db, postId, userIds)` + `getPostAuthorIds()` + `getPostAuthorNames()` + `batchGetPostAuthorNames()` — junction table helpers for `cms_post_authors`. Separate from `authorId` (internal creator)
 
 ## Translations
 

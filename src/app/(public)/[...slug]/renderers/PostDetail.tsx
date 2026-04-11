@@ -43,7 +43,7 @@ export async function PostDetail({ slug, postType, preview }: Props) {
     isPage && post.parentId
       ? getAncestors(post.id).catch(() => [])
       : Promise.resolve([]),
-    contentType.authorInJsonLd
+    contentType.postFormFields?.authors
       ? getPostAuthorNames(db, post.id).catch(() => [])
       : Promise.resolve([]),
   ]);
@@ -165,7 +165,7 @@ export async function PostDetail({ slug, postType, preview }: Props) {
           imageAlt: post.featuredImageAlt,
           publishedAt: post.publishedAt,
           updatedAt: post.updatedAt,
-          authorNames: authorNames.length > 0 ? authorNames : undefined,
+          authorNames: contentType.authorInJsonLd && authorNames.length > 0 ? authorNames : undefined,
           siteName: siteConfig.name,
           siteUrl: siteConfig.url,
           type: isBlog ? 'BlogPosting' : 'Article',

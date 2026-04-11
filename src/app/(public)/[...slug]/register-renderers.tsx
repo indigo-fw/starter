@@ -53,6 +53,7 @@ registerContentRenderer('page', {
         ...(languages && { languages }),
       },
       openGraph: {
+        type: 'article',
         locale,
         ...(post.featuredImage && {
           images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
@@ -83,6 +84,7 @@ registerContentRenderer('blog', {
         ...(languages && { languages }),
       },
       openGraph: {
+        type: 'article',
         locale,
         ...(post.featuredImage && {
           images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
@@ -130,6 +132,7 @@ registerContentRenderer('portfolio', {
         ...(languages && { languages }),
       },
       openGraph: {
+        type: 'article',
         locale,
         ...(item.featuredImage && {
           images: [{ url: item.featuredImage, alt: item.featuredImageAlt ?? item.title }],
@@ -159,6 +162,7 @@ registerContentRenderer('showcase', {
         ...(languages && { languages }),
       },
       openGraph: {
+        type: 'article',
         locale,
         ...(item.thumbnailUrl && {
           images: [{ url: item.thumbnailUrl, alt: item.title }],

@@ -50,6 +50,23 @@ Supports preview mode via `?preview=<token>`.
 
 `src/app/sitemap.ts` uses `generateSitemap()` from `@/core/lib/seo/sitemap`. Project defines `STATIC_PAGES` + `CONTENT_FETCHERS` arrays. Adding a new content type = adding a fetcher entry with its DB query.
 
+## SEO Metadata
+
+Root layout (`src/app/layout.tsx`) provides defaults: OG type/siteName/locale/image, Twitter Card, `metadataBase`, Organization JSON-LD. Content renderers override per page: canonical URL (via `buildCanonicalUrl()`), `openGraph.locale`, hreflang alternates with x-default.
+
+**Canonical init:** `src/config/canonical-init.ts` — side-effect that calls `setCanonicalConfig()`. Imported in `register-renderers.tsx` (catch-all tree) and home `page.tsx`.
+
+**Auto JSON-LD in PostDetail:** If post has no manual `jsonLd`, auto-generates Article (pages) or BlogPosting (blog) with title, description, dates, image, publisher. Includes `author` array when `contentType.authorInJsonLd` is true and `cms_post_authors` has entries. BreadcrumbList auto-generated for hierarchical pages with ancestors.
+
+**Web Vitals:** `src/components/WebVitals.tsx` — reports CLS/INP/LCP/FCP/TTFB to `NEXT_PUBLIC_VITALS_ENDPOINT` via `sendBeacon`. Console log in dev if no endpoint configured.
+
 ## PostForm Panel System
 
-Form panels (SEO, Categories, Tags, Featured Image, etc.) are reorderable via dnd-kit and hideable via config SlideOver. Panels draggable between main/sidebar columns. Panel definitions in `src/config/post-form-panels.ts`. Order/visibility persisted via user preferences.
+Form panels (SEO, Categories, Tags, Featured Image, Authors, etc.) are reorderable via dnd-kit and hideable via config SlideOver. Panels draggable between main/sidebar columns. Panel definitions in `src/config/post-form-panels.ts`. Order/visibility persisted via user preferences.
+
+**Config-gated panels** (controlled by `postFormFields` in `src/config/cms.ts`):
+- `featuredImage` — image picker (used in OG/Twitter Cards)
+- `jsonLd` — manual JSON-LD override (auto-generated if blank)
+- `authors` — multi-select author picker with debounced search. Auto-populates current user for new posts. Selected authors persist across searches via ref cache. Order preserved in `cms_post_authors` junction table.
+
+**Author display:** Byline shown in PostDetail when `postFormFields.authors` is true. JSON-LD `author` field included when `authorInJsonLd` is also true. These are independent flags — a content type can show bylines without structured data.

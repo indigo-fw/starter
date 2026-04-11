@@ -239,13 +239,21 @@ export function PostForm({ contentType, postId }: Props) {
     { enabled: !!session },
   );
 
-  // Author picker
+  // Author picker with debounced search
   const hasAuthors = !!contentType.postFormFields?.authors;
   const [authorSearch, setAuthorSearch] = useState('');
+  const debouncedAuthorSearch = useDebounced(authorSearch, 300);
   const authorCandidates = trpc.cms.authorCandidates.useQuery(
-    { search: authorSearch || undefined },
+    { search: debouncedAuthorSearch || undefined },
     { enabled: hasAuthors && !!session, placeholderData: (prev) => prev },
   );
+  // Cache author {id, name} so selected users remain visible during search
+  const authorCacheRef = useRef(new Map<string, { id: string; name: string }>());
+  if (authorCandidates.data) {
+    for (const u of authorCandidates.data) {
+      authorCacheRef.current.set(u.id, { id: u.id, name: u.name });
+    }
+  }
 
   // Page tree for parent page selector (pages only)
   const isPageType = contentType.postType === PostType.PAGE;
@@ -793,8 +801,18 @@ export function PostForm({ contentType, postId }: Props) {
           lockFileType
         />
       ) : null,
-    authors: () =>
-      hasAuthors ? (
+    authors: () => {
+      if (!hasAuthors) return null;
+      const candidates = authorCandidates.data ?? [];
+      // Selected users from cache (persists across searches)
+      const selectedUsers = formData.authorIds
+        .map((id) => authorCacheRef.current.get(id))
+        .filter(Boolean) as { id: string; name: string }[];
+      // Unselected users from current search results
+      const selectedSet = new Set(formData.authorIds);
+      const unselectedUsers = candidates.filter((u) => !selectedSet.has(u.id));
+
+      return (
         <div className="space-y-2">
           <input
             type="text"
@@ -804,26 +822,43 @@ export function PostForm({ contentType, postId }: Props) {
             className="input w-full text-sm"
           />
           <div className="max-h-48 space-y-1.5 overflow-y-auto">
-            {authorCandidates.isLoading ? (
+            {authorCandidates.isLoading && candidates.length === 0 && selectedUsers.length === 0 ? (
               <Loader2 className="h-4 w-4 animate-spin text-(--text-muted)" />
-            ) : (authorCandidates.data ?? []).length === 0 ? (
+            ) : selectedUsers.length === 0 && unselectedUsers.length === 0 ? (
               <p className="text-xs text-(--text-muted)">{__('No users found.')}</p>
             ) : (
-              (authorCandidates.data ?? []).map((u) => (
-                <label key={u.id} className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={formData.authorIds.includes(u.id)}
-                    onChange={() => toggleAuthor(u.id)}
-                    className="rounded border-(--border-primary)"
-                  />
-                  {u.name}
-                </label>
-              ))
+              <>
+                {selectedUsers.map((u) => (
+                  <label key={u.id} className="flex items-center gap-2 text-sm font-medium">
+                    <input
+                      type="checkbox"
+                      checked
+                      onChange={() => toggleAuthor(u.id)}
+                      className="rounded border-(--border-primary)"
+                    />
+                    {u.name}
+                  </label>
+                ))}
+                {selectedUsers.length > 0 && unselectedUsers.length > 0 && (
+                  <hr className="border-(--border-primary)" />
+                )}
+                {unselectedUsers.map((u) => (
+                  <label key={u.id} className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={false}
+                      onChange={() => toggleAuthor(u.id)}
+                      className="rounded border-(--border-primary)"
+                    />
+                    {u.name}
+                  </label>
+                ))}
+              </>
             )}
           </div>
         </div>
-      ) : null,
+      );
+    },
   };
 
   // Panel label lookup
@@ -1112,4 +1147,13 @@ export function PostForm({ contentType, postId }: Props) {
       />
     </CmsFormShell>
   );
+}
+
+function useDebounced(value: string, delay: number): string {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+  return debounced;
 }

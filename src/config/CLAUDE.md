@@ -40,9 +40,21 @@ Core's `CustomFieldsEditor` accepts optional `fieldRenderers` prop — pass cust
 
 `src/config/email-deps.ts` — calls `setEmailDeps()` to wire DB branding lookup + template overrides to the core email engine. Imported as a side-effect in `server.ts` before starting the email worker. Customize branding by editing the `getBranding()` function (queries `cmsOptions` for site name, logo, brand color, etc.).
 
+## SEO & Metadata
+
+**Site config** (`src/config/site.ts`):
+- `seo.defaultOgImage` — fallback OG image for pages without featured image (path relative to `public/` or absolute URL)
+- `social.twitter` — Twitter/X handle for `twitter:site` meta tag (e.g. `'@indigo_fw'`). Empty = omitted.
+
+**Content type fields** (`src/config/cms.ts` → `postFormFields`):
+- `authors: true` — show multi-author picker in PostForm. Authors stored in `cms_post_authors` junction table.
+- `authorInJsonLd: true` — include author names in auto-generated Article/BlogPosting JSON-LD. Independent from `authors` (byline display).
+
+**Canonical URLs:** `src/config/canonical-init.ts` wires `setCanonicalConfig()` with site URL + locale config. Imported as side-effect where canonical URLs are built.
+
 ## Sitemap
 
-Content fetchers live in `src/app/sitemap.ts` (`CONTENT_FETCHERS` array). Static pages and fetchers pass into `generateSitemap()` from `@/core/lib/seo/sitemap`. Adding a content type = adding a fetcher entry.
+Content fetchers live in `src/app/sitemap.ts` (`CONTENT_FETCHERS` array). Static pages and fetchers pass into `generateSitemap()` from `@/core/lib/seo/sitemap`. Adding a content type = adding a fetcher entry. Sitemap includes x-default hreflang for multilingual sites.
 
 ## Maintenance Tasks
 
