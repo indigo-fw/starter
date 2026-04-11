@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { ArrowLeft, Loader2, Save } from 'lucide-react';
@@ -82,54 +82,67 @@ function MultiEnumSelect({ label, value, onChange, enumMap }: {
   );
 }
 
-export default function CharacterEditPage() {
-  const __ = useAdminTranslations();
-  const params = useParams<{ id: string }>();
-  const router = useRouter();
-  const isNew = params.id === 'new';
+interface CharacterData {
+  id: string;
+  name: string; slug: string; tagline: string | null;
+  systemPrompt: string; personality: string | null;
+  avatarUrl: string | null; greeting: string | null;
+  modelPreset: string | null;
+  genderId: number | null; sexualityId: number | null;
+  ethnicityId: number | null; personalityId: number | null;
+  kinkId: number | null; jobId: number | null;
+  hobbies: unknown; relationshipId: number | null;
+  hairColorId: number | null; hairTextureId: number | null;
+  hairStyleId: number | null; eyesColorId: number | null;
+  skinId: number | null; bodyDescriptionId: number | null;
+  customNegative: string | null; loraConfig: string | null;
+  isActive: boolean; sortOrder: number; tokenCostMultiplier: number;
+}
 
-  const { data: character, isLoading } = trpc.characters.get.useQuery(
-    { id: params.id }, { enabled: !isNew },
-  );
+function buildInitialForm(character?: CharacterData) {
+  if (!character) {
+    return {
+      name: '', slug: '', tagline: '', systemPrompt: '', personality: '',
+      avatarUrl: '', greeting: '', modelPreset: '',
+      genderId: null as number | null, sexualityId: null as number | null,
+      ethnicityId: null as number | null, personalityId: null as number | null,
+      kinkId: null as number | null, jobId: null as number | null,
+      hobbies: [] as number[], relationshipId: null as number | null,
+      hairColorId: null as number | null, hairTextureId: null as number | null,
+      hairStyleId: null as number | null, eyesColorId: null as number | null,
+      skinId: null as number | null, bodyDescriptionId: null as number | null,
+      customNegative: '', loraConfig: '',
+      isActive: true, sortOrder: 0, tokenCostMultiplier: 1.0,
+    };
+  }
+  return {
+    name: character.name, slug: character.slug, tagline: character.tagline ?? '',
+    systemPrompt: character.systemPrompt, personality: character.personality ?? '',
+    avatarUrl: character.avatarUrl ?? '', greeting: character.greeting ?? '',
+    modelPreset: character.modelPreset ?? '',
+    genderId: character.genderId, sexualityId: character.sexualityId,
+    ethnicityId: character.ethnicityId, personalityId: character.personalityId,
+    kinkId: character.kinkId, jobId: character.jobId,
+    hobbies: (character.hobbies as number[]) ?? [],
+    relationshipId: character.relationshipId,
+    hairColorId: character.hairColorId, hairTextureId: character.hairTextureId,
+    hairStyleId: character.hairStyleId, eyesColorId: character.eyesColorId,
+    skinId: character.skinId, bodyDescriptionId: character.bodyDescriptionId,
+    customNegative: character.customNegative ?? '', loraConfig: character.loraConfig ?? '',
+    isActive: character.isActive, sortOrder: character.sortOrder,
+    tokenCostMultiplier: character.tokenCostMultiplier,
+  };
+}
+
+/** Form body — keyed by character ID so React resets state when data arrives. */
+function CharacterForm({ character, isNew }: { character?: CharacterData; isNew: boolean }) {
+  const __ = useAdminTranslations();
+  const router = useRouter();
+  const params = useParams<{ id: string }>();
   const createMutation = trpc.characters.create.useMutation();
   const updateMutation = trpc.characters.update.useMutation();
 
-  const [form, setForm] = useState({
-    name: '', slug: '', tagline: '', systemPrompt: '', personality: '',
-    avatarUrl: '', greeting: '', modelPreset: '',
-    genderId: null as number | null, sexualityId: null as number | null,
-    ethnicityId: null as number | null, personalityId: null as number | null,
-    kinkId: null as number | null, jobId: null as number | null,
-    hobbies: [] as number[], relationshipId: null as number | null,
-    hairColorId: null as number | null, hairTextureId: null as number | null,
-    hairStyleId: null as number | null, eyesColorId: null as number | null,
-    skinId: null as number | null, bodyDescriptionId: null as number | null,
-    customNegative: '', loraConfig: '',
-    isActive: true, sortOrder: 0, tokenCostMultiplier: 1.0,
-  });
-
-  useEffect(() => {
-    if (character) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- populating form from server data on load
-      setForm({
-        name: character.name, slug: character.slug, tagline: character.tagline ?? '',
-        systemPrompt: character.systemPrompt, personality: character.personality ?? '',
-        avatarUrl: character.avatarUrl ?? '', greeting: character.greeting ?? '',
-        modelPreset: character.modelPreset ?? '',
-        genderId: character.genderId, sexualityId: character.sexualityId,
-        ethnicityId: character.ethnicityId, personalityId: character.personalityId,
-        kinkId: character.kinkId, jobId: character.jobId,
-        hobbies: (character.hobbies as number[]) ?? [],
-        relationshipId: character.relationshipId,
-        hairColorId: character.hairColorId, hairTextureId: character.hairTextureId,
-        hairStyleId: character.hairStyleId, eyesColorId: character.eyesColorId,
-        skinId: character.skinId, bodyDescriptionId: character.bodyDescriptionId,
-        customNegative: character.customNegative ?? '', loraConfig: character.loraConfig ?? '',
-        isActive: character.isActive, sortOrder: character.sortOrder,
-        tokenCostMultiplier: character.tokenCostMultiplier,
-      });
-    }
-  }, [character]);
+  const [form, setForm] = useState(() => buildInitialForm(character));
 
   function set<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -158,6 +171,108 @@ export default function CharacterEditPage() {
   }
 
   const isSaving = createMutation.isPending || updateMutation.isPending;
+
+  return (
+    <div className="space-y-5">
+      {/* Basic info */}
+      <div className="grid grid-cols-2 gap-4">
+        <label className="space-y-1"><span className="label">{__('Name')}</span>
+          <input type="text" value={form.name} onChange={(e) => {
+            set('name', e.target.value);
+            if (isNew) set('slug', e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+          }} className="input w-full" /></label>
+        <label className="space-y-1"><span className="label">{__('Slug')}</span>
+          <input type="text" value={form.slug} onChange={(e) => set('slug', e.target.value)} className="input w-full font-mono" /></label>
+      </div>
+
+      <label className="block space-y-1"><span className="label">{__('Tagline')}</span>
+        <input type="text" value={form.tagline} onChange={(e) => set('tagline', e.target.value)} className="input w-full" /></label>
+
+      <label className="block space-y-1"><span className="label">{__('System Prompt')}</span>
+        <textarea value={form.systemPrompt} onChange={(e) => set('systemPrompt', e.target.value)} rows={5} className="textarea w-full" /></label>
+
+      <label className="block space-y-1"><span className="label">{__('Personality (visible to users)')}</span>
+        <textarea value={form.personality} onChange={(e) => set('personality', e.target.value)} rows={2} className="textarea w-full" /></label>
+
+      <label className="block space-y-1"><span className="label">{__('Greeting Message')}</span>
+        <textarea value={form.greeting} onChange={(e) => set('greeting', e.target.value)} rows={2} className="textarea w-full" /></label>
+
+      <label className="block space-y-1"><span className="label">{__('Avatar URL')}</span>
+        <input type="text" value={form.avatarUrl} onChange={(e) => set('avatarUrl', e.target.value)} className="input w-full" /></label>
+
+      {/* Character traits */}
+      <div className="border-t border-(--border-primary) pt-5">
+        <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Character Traits')}</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+          <EnumSelect label={__('Gender')} value={form.genderId} onChange={(v) => set('genderId', v)} enumMap={CHARACTER_GENDER} />
+          <EnumSelect label={__('Sexuality')} value={form.sexualityId} onChange={(v) => set('sexualityId', v)} enumMap={CHARACTER_SEXUALITY} />
+          <EnumSelect label={__('Ethnicity')} value={form.ethnicityId} onChange={(v) => set('ethnicityId', v)} enumMap={CHARACTER_ETHNICITY} />
+          <EnumSelect label={__('Personality')} value={form.personalityId} onChange={(v) => set('personalityId', v)} enumMap={CHARACTER_PERSONALITY} />
+          <EnumSelect label={__('Kink')} value={form.kinkId} onChange={(v) => set('kinkId', v)} enumMap={CHARACTER_KINK} />
+          <EnumSelect label={__('Job')} value={form.jobId} onChange={(v) => set('jobId', v)} enumMap={CHARACTER_JOB} />
+          <EnumSelect label={__('Relationship')} value={form.relationshipId} onChange={(v) => set('relationshipId', v)} enumMap={CHARACTER_RELATIONSHIP} />
+        </div>
+        <div className="mt-4">
+          <MultiEnumSelect label={__('Hobbies')} value={form.hobbies} onChange={(v) => set('hobbies', v)} enumMap={CHARACTER_HOBBY} />
+        </div>
+      </div>
+
+      {/* Visual appearance (for image generation) */}
+      <div className="border-t border-(--border-primary) pt-5">
+        <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Visual Appearance')}</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+          <VisualEnumSelect label={__('Hair Color')} value={form.hairColorId} onChange={(v) => set('hairColorId', v)} options={visualEnumOptions(VISUAL_HAIRCOLOR as Record<string, { id: number; label: string }>)} />
+          <VisualEnumSelect label={__('Hair Texture')} value={form.hairTextureId} onChange={(v) => set('hairTextureId', v)} options={visualEnumOptions(VISUAL_HAIRTEXTURE as Record<string, { id: number; label: string }>)} />
+          <VisualEnumSelect label={__('Hair Style')} value={form.hairStyleId} onChange={(v) => set('hairStyleId', v)} options={visualEnumOptions(VISUAL_HAIRSTYLE as Record<string, { id: number; label: string }>)} />
+          <VisualEnumSelect label={__('Eye Color')} value={form.eyesColorId} onChange={(v) => set('eyesColorId', v)} options={visualEnumOptions(VISUAL_EYESCOLOR as Record<string, { id: number; label: string }>)} />
+          <VisualEnumSelect label={__('Skin')} value={form.skinId} onChange={(v) => set('skinId', v)} options={visualEnumOptions(VISUAL_SKIN as Record<string, { id: number; label: string }>)} />
+          <VisualEnumSelect label={__('Body Type')} value={form.bodyDescriptionId} onChange={(v) => set('bodyDescriptionId', v)} options={visualEnumOptions(VISUAL_BODYDESCRIPTION as Record<string, { id: number; label: string }>)} />
+        </div>
+      </div>
+
+      {/* Image generation settings */}
+      <div className="border-t border-(--border-primary) pt-5">
+        <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Image Generation Settings')}</h2>
+        <div className="grid grid-cols-3 gap-4">
+          <label className="space-y-1"><span className="label">{__('Model Preset')}</span>
+            <input type="text" value={form.modelPreset} onChange={(e) => set('modelPreset', e.target.value)} placeholder="default-realistic" className="input w-full" /></label>
+          <label className="space-y-1"><span className="label">{__('Sort Order')}</span>
+            <input type="number" value={form.sortOrder} onChange={(e) => set('sortOrder', parseInt(e.target.value) || 0)} className="input w-full" /></label>
+          <label className="space-y-1"><span className="label">{__('Token Cost Multiplier')}</span>
+            <input type="number" step="0.1" value={form.tokenCostMultiplier} onChange={(e) => set('tokenCostMultiplier', parseFloat(e.target.value) || 1.0)} className="input w-full" /></label>
+        </div>
+        <div className="mt-3"><label className="block space-y-1"><span className="label">{__('Custom Negative Prompt')}</span>
+          <input type="text" value={form.customNegative} onChange={(e) => set('customNegative', e.target.value)} className="input w-full" /></label></div>
+        <div className="mt-3"><label className="block space-y-1"><span className="label">{__('LoRA Config')}</span>
+          <input type="text" value={form.loraConfig} onChange={(e) => set('loraConfig', e.target.value)} placeholder="<lora:model:0.8>" className="input w-full font-mono" /></label></div>
+      </div>
+
+      <label className="flex items-center gap-2">
+        <input type="checkbox" checked={form.isActive} onChange={(e) => set('isActive', e.target.checked)} className="rounded" />
+        <span className="text-sm text-(--text-secondary)">{__('Active (visible to users)')}</span>
+      </label>
+
+      <div className="flex justify-end pt-4 border-t border-(--border-primary)">
+        <button onClick={handleSave} disabled={isSaving || !form.name || !form.slug || !form.systemPrompt}
+          className={cn('btn btn-primary flex items-center gap-2 text-sm', 'disabled:opacity-50')}>
+          {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+          {isNew ? __('Create Character') : __('Save Changes')}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default function CharacterEditPage() {
+  const __ = useAdminTranslations();
+  const params = useParams<{ id: string }>();
+  const router = useRouter();
+  const isNew = params.id === 'new';
+
+  const { data: character, isLoading } = trpc.characters.get.useQuery(
+    { id: params.id }, { enabled: !isNew },
+  );
+
   if (!isNew && isLoading) return <div className="flex justify-center py-12"><Loader2 className="animate-spin text-(--text-tertiary)" size={24} /></div>;
 
   return (
@@ -172,93 +287,7 @@ export default function CharacterEditPage() {
         </h1>
       </div>
 
-      <div className="space-y-5">
-        {/* Basic info */}
-        <div className="grid grid-cols-2 gap-4">
-          <label className="space-y-1"><span className="label">{__('Name')}</span>
-            <input type="text" value={form.name} onChange={(e) => {
-              set('name', e.target.value);
-              if (isNew) set('slug', e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
-            }} className="input w-full" /></label>
-          <label className="space-y-1"><span className="label">{__('Slug')}</span>
-            <input type="text" value={form.slug} onChange={(e) => set('slug', e.target.value)} className="input w-full font-mono" /></label>
-        </div>
-
-        <label className="block space-y-1"><span className="label">{__('Tagline')}</span>
-          <input type="text" value={form.tagline} onChange={(e) => set('tagline', e.target.value)} className="input w-full" /></label>
-
-        <label className="block space-y-1"><span className="label">{__('System Prompt')}</span>
-          <textarea value={form.systemPrompt} onChange={(e) => set('systemPrompt', e.target.value)} rows={5} className="textarea w-full" /></label>
-
-        <label className="block space-y-1"><span className="label">{__('Personality (visible to users)')}</span>
-          <textarea value={form.personality} onChange={(e) => set('personality', e.target.value)} rows={2} className="textarea w-full" /></label>
-
-        <label className="block space-y-1"><span className="label">{__('Greeting Message')}</span>
-          <textarea value={form.greeting} onChange={(e) => set('greeting', e.target.value)} rows={2} className="textarea w-full" /></label>
-
-        <label className="block space-y-1"><span className="label">{__('Avatar URL')}</span>
-          <input type="text" value={form.avatarUrl} onChange={(e) => set('avatarUrl', e.target.value)} className="input w-full" /></label>
-
-        {/* Character traits */}
-        <div className="border-t border-(--border-primary) pt-5">
-          <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Character Traits')}</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            <EnumSelect label={__('Gender')} value={form.genderId} onChange={(v) => set('genderId', v)} enumMap={CHARACTER_GENDER} />
-            <EnumSelect label={__('Sexuality')} value={form.sexualityId} onChange={(v) => set('sexualityId', v)} enumMap={CHARACTER_SEXUALITY} />
-            <EnumSelect label={__('Ethnicity')} value={form.ethnicityId} onChange={(v) => set('ethnicityId', v)} enumMap={CHARACTER_ETHNICITY} />
-            <EnumSelect label={__('Personality')} value={form.personalityId} onChange={(v) => set('personalityId', v)} enumMap={CHARACTER_PERSONALITY} />
-            <EnumSelect label={__('Kink')} value={form.kinkId} onChange={(v) => set('kinkId', v)} enumMap={CHARACTER_KINK} />
-            <EnumSelect label={__('Job')} value={form.jobId} onChange={(v) => set('jobId', v)} enumMap={CHARACTER_JOB} />
-            <EnumSelect label={__('Relationship')} value={form.relationshipId} onChange={(v) => set('relationshipId', v)} enumMap={CHARACTER_RELATIONSHIP} />
-          </div>
-          <div className="mt-4">
-            <MultiEnumSelect label={__('Hobbies')} value={form.hobbies} onChange={(v) => set('hobbies', v)} enumMap={CHARACTER_HOBBY} />
-          </div>
-        </div>
-
-        {/* Visual appearance (for image generation) */}
-        <div className="border-t border-(--border-primary) pt-5">
-          <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Visual Appearance')}</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            <VisualEnumSelect label={__('Hair Color')} value={form.hairColorId} onChange={(v) => set('hairColorId', v)} options={visualEnumOptions(VISUAL_HAIRCOLOR as Record<string, { id: number; label: string }>)} />
-            <VisualEnumSelect label={__('Hair Texture')} value={form.hairTextureId} onChange={(v) => set('hairTextureId', v)} options={visualEnumOptions(VISUAL_HAIRTEXTURE as Record<string, { id: number; label: string }>)} />
-            <VisualEnumSelect label={__('Hair Style')} value={form.hairStyleId} onChange={(v) => set('hairStyleId', v)} options={visualEnumOptions(VISUAL_HAIRSTYLE as Record<string, { id: number; label: string }>)} />
-            <VisualEnumSelect label={__('Eye Color')} value={form.eyesColorId} onChange={(v) => set('eyesColorId', v)} options={visualEnumOptions(VISUAL_EYESCOLOR as Record<string, { id: number; label: string }>)} />
-            <VisualEnumSelect label={__('Skin')} value={form.skinId} onChange={(v) => set('skinId', v)} options={visualEnumOptions(VISUAL_SKIN as Record<string, { id: number; label: string }>)} />
-            <VisualEnumSelect label={__('Body Type')} value={form.bodyDescriptionId} onChange={(v) => set('bodyDescriptionId', v)} options={visualEnumOptions(VISUAL_BODYDESCRIPTION as Record<string, { id: number; label: string }>)} />
-          </div>
-        </div>
-
-        {/* Image generation settings */}
-        <div className="border-t border-(--border-primary) pt-5">
-          <h2 className="text-sm font-semibold text-(--text-primary) mb-3">{__('Image Generation Settings')}</h2>
-          <div className="grid grid-cols-3 gap-4">
-            <label className="space-y-1"><span className="label">{__('Model Preset')}</span>
-              <input type="text" value={form.modelPreset} onChange={(e) => set('modelPreset', e.target.value)} placeholder="default-realistic" className="input w-full" /></label>
-            <label className="space-y-1"><span className="label">{__('Sort Order')}</span>
-              <input type="number" value={form.sortOrder} onChange={(e) => set('sortOrder', parseInt(e.target.value) || 0)} className="input w-full" /></label>
-            <label className="space-y-1"><span className="label">{__('Token Cost Multiplier')}</span>
-              <input type="number" step="0.1" value={form.tokenCostMultiplier} onChange={(e) => set('tokenCostMultiplier', parseFloat(e.target.value) || 1.0)} className="input w-full" /></label>
-          </div>
-          <div className="mt-3"><label className="block space-y-1"><span className="label">{__('Custom Negative Prompt')}</span>
-            <input type="text" value={form.customNegative} onChange={(e) => set('customNegative', e.target.value)} className="input w-full" /></label></div>
-          <div className="mt-3"><label className="block space-y-1"><span className="label">{__('LoRA Config')}</span>
-            <input type="text" value={form.loraConfig} onChange={(e) => set('loraConfig', e.target.value)} placeholder="<lora:model:0.8>" className="input w-full font-mono" /></label></div>
-        </div>
-
-        <label className="flex items-center gap-2">
-          <input type="checkbox" checked={form.isActive} onChange={(e) => set('isActive', e.target.checked)} className="rounded" />
-          <span className="text-sm text-(--text-secondary)">{__('Active (visible to users)')}</span>
-        </label>
-      </div>
-
-      <div className="flex justify-end pt-4 border-t border-(--border-primary)">
-        <button onClick={handleSave} disabled={isSaving || !form.name || !form.slug || !form.systemPrompt}
-          className={cn('btn btn-primary flex items-center gap-2 text-sm', 'disabled:opacity-50')}>
-          {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-          {isNew ? __('Create Character') : __('Save Changes')}
-        </button>
-      </div>
+      <CharacterForm key={character?.id ?? 'new'} character={character} isNew={isNew} />
     </div>
   );
 }

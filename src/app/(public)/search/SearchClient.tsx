@@ -45,9 +45,11 @@ export default function SearchClient({
   const [page, setPage] = useState(initialPage);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Once the user changes query or page from initial SSR values, tRPC takes over.
-  const hasClientDrift = query !== initialQuery || page !== initialPage;
-  const needsFetch = query.length >= 1 && hasClientDrift;
+  // tRPC takes over once query or page diverge from SSR-provided values.
+  // Once tRPC returns data, we also use it even if the user navigates back to
+  // the original query+page (data !== undefined means tRPC has fetched).
+  const hasDrift = query !== initialQuery || page !== initialPage;
+  const needsFetch = query.length >= 1 && hasDrift;
 
   const { data, isFetching } = trpc.contentSearch.fullTextSearch.useQuery(
     { query, lang: locale, page, pageSize },
@@ -57,13 +59,16 @@ export default function SearchClient({
     },
   );
 
+  // Once data has been fetched, prefer tRPC results even if drift goes away.
+  const useClientData = hasDrift || data !== undefined;
+
   // tRPC results don't include locale prefix — apply it
   const tRPCResults = (data?.results ?? []).map((r) => ({
     ...r,
     url: localePath(r.url, locale),
   }));
-  const results = hasClientDrift ? tRPCResults : initialResults;
-  const total = hasClientDrift ? (data?.total ?? 0) : initialTotal;
+  const results = useClientData ? tRPCResults : initialResults;
+  const total = useClientData ? (data?.total ?? 0) : initialTotal;
   const totalPages = Math.ceil(total / pageSize);
 
   // Sync URL when query/page changes (without full navigation)

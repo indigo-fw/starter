@@ -7,18 +7,25 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeStringify from 'rehype-stringify';
 import type { Root, Element, ElementContent } from 'hast';
+import type { MdxJsxAttribute, MdxJsxExpressionAttribute, MdxJsxFlowElementHast, MdxJsxTextElementHast } from 'mdast-util-mdx-jsx';
+import type { Parent } from 'unist';
 import { visit } from 'unist-util-visit';
 import { resolveContentVars } from '@/core/lib/content/vars';
 
 // ─── MDX Component Registry ────────────────────────────────────────────────
+
+/** An MDX JSX node as seen by the rehype plugin (hast tree). */
+type MdxJsxNode = MdxJsxFlowElementHast | MdxJsxTextElementHast;
+
+/** Attribute array from MDX JSX nodes. */
+type MdxJsxAttributes = Array<MdxJsxAttribute | MdxJsxExpressionAttribute>;
 
 /**
  * An MDX component transform: receives the JSX node, returns an hast Element.
  * Return null to skip (falls through to unknown-component fallback).
  */
 export type MdxComponentTransform = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- MDX JSX attribute nodes have complex union types
-  node: { name: string; attributes: any[]; children: ElementContent[] },
+  node: { name: string; attributes: MdxJsxAttributes; children: ElementContent[] },
   helpers: { h: typeof h; text: typeof text; getAttr: typeof getAttr },
 ) => Element | null;
 
@@ -93,26 +100,27 @@ function rehypeMdxComponents() {
   return (tree: Root) => {
     const helpers = { h, text, getAttr };
     for (const nodeType of ['mdxJsxFlowElement', 'mdxJsxTextElement'] as const) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- unist-util-visit node types not narrowed for mdx
-      visit(tree, nodeType, (node: any, index, parent) => {
+      visit(tree, nodeType, (node: MdxJsxNode, index, parent: Parent | undefined) => {
         if (!parent || index == null) return;
 
-        const transform = node.name ? _componentRegistry.get(node.name) : undefined;
+        const { name } = node;
+        if (!name) return;
+
+        const transform = _componentRegistry.get(name);
         let replacement: Element | null = null;
 
         if (transform) {
           replacement = transform(
-            { name: node.name, attributes: node.attributes, children: node.children },
+            { name, attributes: node.attributes, children: node.children },
             helpers,
           );
-        } else if (node.name) {
+        } else {
           // Unknown: wrap in span to prevent serializer crash
-          replacement = h('span', { 'data-mdx-component': node.name }, node.children as ElementContent[]);
+          replacement = h('span', { 'data-mdx-component': name }, node.children);
         }
 
         if (replacement) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- parent.children mutation required by unist visitor
-          (parent as any).children[index] = replacement;
+          parent.children[index] = replacement;
         }
       });
     }
@@ -122,11 +130,9 @@ function rehypeMdxComponents() {
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 /** Get a string attribute from an MDX JSX node. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- MDX JSX attribute types are complex unions
-export function getAttr(node: { attributes?: any[] }, name: string): string | undefined {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const attr = node.attributes?.find((a: any) => a.name === name);
-  return attr?.value ?? undefined;
+export function getAttr(node: { attributes?: MdxJsxAttributes }, name: string): string | undefined {
+  const attr = node.attributes?.find((a): a is MdxJsxAttribute => a.type === 'mdxJsxAttribute' && a.name === name);
+  return typeof attr?.value === 'string' ? attr.value : undefined;
 }
 
 /** Create an hast element node. */

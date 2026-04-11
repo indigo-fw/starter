@@ -91,16 +91,14 @@ export function ProductDetailClient({ product }: { product: Product }) {
   const galleryRef = useRef<((url: string) => void) | null>(null);
 
   const handleVariantSelect = (name: string, value: string) => {
-    setSelections((prev) => {
-      const next = { ...prev, [name]: value };
-      // If the new variant has a specific image, switch to it
-      const v = product.variants.find((vr) => {
-        const opts = vr.options as Record<string, string>;
-        return optionGroups.every((g) => opts[g.name] === next[g.name]);
-      });
-      if (v?.image) galleryRef.current?.(v.image);
-      return next;
+    const next = { ...selections, [name]: value };
+    setSelections(next);
+    // If the new variant has a specific image, switch to it
+    const v = product.variants.find((vr) => {
+      const opts = vr.options as Record<string, string>;
+      return optionGroups.every((g) => opts[g.name] === next[g.name]);
     });
+    if (v?.image) galleryRef.current?.(v.image);
   };
 
   return (
