@@ -27,7 +27,6 @@ export const SIDEBAR_PANELS: PostFormPanelDef[] = [
   { id: 'categories', label: 'Categories', column: 'sidebar' },
   { id: 'tags', label: 'Tags', column: 'sidebar' },
   { id: 'featured-image', label: 'Featured Image', column: 'sidebar' },
-  { id: 'authors', label: 'Authors', column: 'sidebar' },
 ];
 
 export const ALL_PANELS: PostFormPanelDef[] = [...MAIN_PANELS, ...SIDEBAR_PANELS];

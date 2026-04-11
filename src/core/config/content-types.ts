@@ -37,12 +37,12 @@ export interface ContentTypeDeclaration {
   postFormFields?: {
     featuredImage?: boolean;
     jsonLd?: boolean;
-    /** Show public author picker in the post editor */
+    /** Show public author picker (requires core-authors module) */
     authors?: boolean;
   };
   /** Fallback description for list page metadata */
   listDescription?: string;
-  /** Include author name in JSON-LD structured data (Article/BlogPosting). Default: false */
+  /** Include author names in JSON-LD structured data (requires core-authors module) */
   authorInJsonLd?: boolean;
   /**
    * Optional sitemap config. When present, sitemap.ts will call fetchEntries()

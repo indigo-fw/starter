@@ -47,8 +47,8 @@ Core's `CustomFieldsEditor` accepts optional `fieldRenderers` prop — pass cust
 - `social.twitter` — Twitter/X handle for `twitter:site` meta tag (e.g. `'@indigo_fw'`). Empty = omitted.
 
 **Content type fields** (`src/config/cms.ts` → `postFormFields`):
-- `authors: true` — show multi-author picker in PostForm. Authors stored in `cms_post_authors` junction table.
-- `authorInJsonLd: true` — include author names in auto-generated Article/BlogPosting JSON-LD. Independent from `authors` (byline display).
+- `featuredImage: true` — show featured image picker
+- `jsonLd: true` — show manual JSON-LD override field
 
 **Canonical URLs:** `src/config/canonical-init.ts` wires `setCanonicalConfig()` with site URL + locale config. Imported as side-effect where canonical URLs are built.
 

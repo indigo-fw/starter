@@ -26,6 +26,7 @@ import { voiceRouter } from '@/core-chat/routers/voice';
 import { bookingServicesRouter } from '@/core-booking/routers/services';
 import { bookingAvailabilityRouter } from '@/core-booking/routers/availability';
 import { bookingBookingsRouter } from '@/core-booking/routers/bookings';
+import { authorsRouter } from '@/core-authors/routers/authors';
 
 export const moduleRouters = {
   billing: billingRouter,
@@ -53,4 +54,5 @@ export const moduleRouters = {
   bookingServices: bookingServicesRouter,
   bookingAvailability: bookingAvailabilityRouter,
   bookings: bookingBookingsRouter,
+  authors: authorsRouter,
 } as const;

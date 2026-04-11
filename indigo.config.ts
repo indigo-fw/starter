@@ -20,6 +20,7 @@ import coreDocs from './src/core-docs/module.config';
 import coreStore from './src/core-store/module.config';
 import coreChat from './src/core-chat/module.config';
 import coreBooking from './src/core-booking/module.config';
+import coreAuthors from './src/core-authors/module.config';
 
 const modules: ModuleConfig[] = [
   corePayments,
@@ -33,6 +34,7 @@ const modules: ModuleConfig[] = [
   coreStore,
   coreChat,
   coreBooking,
+  coreAuthors,
 ];
 
 export default modules;

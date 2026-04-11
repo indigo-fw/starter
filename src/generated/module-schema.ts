@@ -24,3 +24,4 @@ export * from '@/core-chat/schema/user-preferences';
 export * from '@/core-booking/schema/services';
 export * from '@/core-booking/schema/availability';
 export * from '@/core-booking/schema/bookings';
+export * from '@/core-authors/schema/authors';

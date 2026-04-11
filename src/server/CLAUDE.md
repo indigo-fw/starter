@@ -26,7 +26,7 @@
 - **Token race-safety:** `deductTokens()` uses atomic `UPDATE WHERE balance >= amount` — never do read-then-write
 - **Billing is provider-agnostic:** Stripe + NOWPayments via `registerPaymentProvider()` factory. Org-scoped (not user-scoped). Disabled if no provider keys configured
 - **`cms_term_relationships`:** Polymorphic M:N — `taxonomyId` discriminator decides what `termId` points to (`'category'` → `cms_categories`, `'tag'` → `cms_terms`). No FK on termId (app-level enforcement)
-- **`cms_post_authors`:** Dedicated junction table for public/editorial authors (separate from `cmsPosts.authorId` which tracks internal creator). `postId` (UUID FK) + `userId` (TEXT FK) + `order` (SMALLINT). Use `syncPostAuthors()` / `getPostAuthorNames()` from `@/core/crud/post-author-helpers`. Gated by `contentType.postFormFields.authors`
+- **Post author:** `cmsPosts.authorId` auto-set to creating user. PostDetail resolves author name via `user` table join for byline + JSON-LD. Multi-author support planned for `core-news` module
 
 ## SERVER_ROLE (Production Scaling)
 

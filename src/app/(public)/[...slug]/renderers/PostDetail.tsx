@@ -8,13 +8,13 @@ import { StructuredData } from '@/core/components/seo/StructuredData';
 import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@/core/lib/seo/json-ld';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { siteConfig } from '@/config/site';
-import { getContentTypeByPostType } from '@/config/cms';
 import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
 import { getLocale } from '@/lib/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';
 import { localePath } from '@/lib/locale';
 import { db } from '@/server/db';
-import { getPostAuthorNames } from '@/core/crud/post-author-helpers';
+import { user } from '@/server/db/schema/auth';
+import { eq } from 'drizzle-orm';
 import { getCachedPost, getCachedTRPC } from '../data';
 import { getAncestors } from '../queries';
 
@@ -30,12 +30,11 @@ export async function PostDetail({ slug, postType, preview }: Props) {
   const post = await getCachedPost(slug, postType, locale, preview);
   const api = await getCachedTRPC();
 
-  const contentType = getContentTypeByPostType(postType);
   const isBlog = postType === PostType.BLOG;
   const isPage = postType === PostType.PAGE;
 
-  // Parallel: tags + related posts + ancestors + authors
-  const [postTags, relatedPosts, ancestors, authorNames] = await Promise.all([
+  // Parallel: tags + related posts + ancestors + author name
+  const [postTags, relatedPosts, ancestors, authorName] = await Promise.all([
     api.tags.getForObject({ objectId: post.id }).catch(() => [] as { id: string; name: string; slug: string }[]),
     isBlog
       ? api.cms.getRelatedPosts({ postId: post.id, lang: locale, limit: 4 }).catch(() => [])
@@ -43,9 +42,10 @@ export async function PostDetail({ slug, postType, preview }: Props) {
     isPage && post.parentId
       ? getAncestors(post.id).catch(() => [])
       : Promise.resolve([]),
-    contentType.postFormFields?.authors
-      ? getPostAuthorNames(db, post.id).catch(() => [])
-      : Promise.resolve([]),
+    post.authorId
+      ? db.select({ name: user.name }).from(user).where(eq(user.id, post.authorId)).limit(1)
+          .then((rows) => rows[0]?.name ?? null).catch(() => null)
+      : Promise.resolve(null),
   ]);
 
   return (
@@ -86,12 +86,10 @@ export async function PostDetail({ slug, postType, preview }: Props) {
         {post.title}
       </h1>
 
-      {(post.publishedAt || authorNames.length > 0) && (
+      {(post.publishedAt || authorName) && (
         <div className="mt-3 flex flex-wrap items-center gap-x-2 text-sm text-(--text-muted)">
-          {authorNames.length > 0 && (
-            <span>{authorNames.join(', ')}</span>
-          )}
-          {authorNames.length > 0 && post.publishedAt && (
+          {authorName && <span>{authorName}</span>}
+          {authorName && post.publishedAt && (
             <span aria-hidden="true">&middot;</span>
           )}
           {post.publishedAt && (
@@ -165,7 +163,7 @@ export async function PostDetail({ slug, postType, preview }: Props) {
           imageAlt: post.featuredImageAlt,
           publishedAt: post.publishedAt,
           updatedAt: post.updatedAt,
-          authorNames: contentType.authorInJsonLd && authorNames.length > 0 ? authorNames : undefined,
+          authorNames: authorName ? [authorName] : undefined,
           locale,
           siteName: siteConfig.name,
           siteUrl: siteConfig.url,

@@ -67,6 +67,5 @@ Form panels (SEO, Categories, Tags, Featured Image, Authors, etc.) are reorderab
 **Config-gated panels** (controlled by `postFormFields` in `src/config/cms.ts`):
 - `featuredImage` — image picker (used in OG/Twitter Cards)
 - `jsonLd` — manual JSON-LD override (auto-generated if blank)
-- `authors` — multi-select author picker with debounced search. Auto-populates current user for new posts. Selected authors persist across searches via ref cache. Order preserved in `cms_post_authors` junction table.
 
-**Author display:** Byline shown in PostDetail when `postFormFields.authors` is true. JSON-LD `author` field included when `authorInJsonLd` is also true. These are independent flags — a content type can show bylines without structured data.
+**Author display:** PostDetail shows creating user's name as byline (from `cmsPosts.authorId` → `user.name`). Included in auto-generated JSON-LD. No admin picker — author is whoever created the post. Multi-author support planned for `core-news` module.

@@ -14,7 +14,8 @@ export const MODULE_NAV_ITEMS: ModuleNavItem[] = [
   { groupId: 'settings', name: 'Support', href: '/dashboard/settings/support', icon: 'LifeBuoy' },
   { groupId: 'billing', name: 'Affiliates', href: '/dashboard/settings/affiliates', icon: 'Link2' },
   { groupId: 'settings', name: 'Import', href: '/dashboard/settings/import', icon: 'Upload' },
+  { groupId: 'content', name: 'Store', href: '/dashboard/store', icon: 'ShoppingBag' },
   { groupId: 'settings', name: 'Chat', href: '/dashboard/settings/chat', icon: 'MessageCircle' },
   { groupId: 'settings', name: 'Bookings', href: '/dashboard/settings/bookings', icon: 'CalendarCheck' },
-  { groupId: 'content', name: 'Store', href: '/dashboard/store', icon: 'ShoppingBag' },
+  { groupId: 'content', name: 'Authors', href: '/dashboard/authors', icon: 'Users' },
 ];

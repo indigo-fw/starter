@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, desc, eq, gte, ilike, inArray, isNotNull, isNull, lte, ne, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, inArray, isNotNull, isNull, lte, ne, sql } from 'drizzle-orm';
 import { z } from 'zod';
 import crypto from 'crypto';
 
@@ -36,7 +36,6 @@ import {
   deleteAllTermRelationships,
   resolveTagsForPosts,
 } from '@/core/crud/taxonomy-helpers';
-import { syncPostAuthors, getPostAuthorIds } from '@/core/crud/post-author-helpers';
 import { logAudit } from '@/core/lib/infra/audit';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
 import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
@@ -198,22 +197,6 @@ export const cmsRouter = createTRPCRouter({
     return getContentVarDefs();
   }),
 
-  /** List users eligible as post authors (for the author picker). */
-  authorCandidates: contentProcedure
-    .input(z.object({ search: z.string().max(100).optional() }).optional())
-    .query(async ({ ctx, input }) => {
-      const conditions = [];
-      if (input?.search) {
-        conditions.push(ilike(user.name, `%${input.search}%`));
-      }
-      return ctx.db
-        .select({ id: user.id, name: user.name, image: user.image })
-        .from(user)
-        .where(conditions.length > 0 ? and(...conditions) : undefined)
-        .orderBy(asc(user.name))
-        .limit(50);
-    }),
-
   /** Get single post by ID (with category + tag IDs) */
   get: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
@@ -222,10 +205,7 @@ export const cmsRouter = createTRPCRouter({
         ctx.db, cmsPosts, input.id, 'Post'
       );
 
-      const [rels, authorIds] = await Promise.all([
-        getTermRelationships(ctx.db, post.id),
-        getPostAuthorIds(ctx.db, post.id),
-      ]);
+      const rels = await getTermRelationships(ctx.db, post.id);
       const categoryIds = rels
         .filter((r) => r.taxonomyId === 'category')
         .map((r) => r.termId);
@@ -233,7 +213,7 @@ export const cmsRouter = createTRPCRouter({
         .filter((r) => r.taxonomyId === 'tag')
         .map((r) => r.termId);
 
-      return { ...post, categoryIds, tagIds, authorIds };
+      return { ...post, categoryIds, tagIds };
     }),
 
   /** Create a new post */
@@ -258,11 +238,10 @@ export const cmsRouter = createTRPCRouter({
         parentId: z.string().uuid().optional(),
         categoryIds: z.array(z.string().uuid()).max(20).optional(),
         tagIds: z.array(z.string().uuid()).max(50).optional(),
-        authorIds: z.array(z.string()).max(20).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const { categoryIds, tagIds, authorIds, ...postInput } = input;
+      const { categoryIds, tagIds, ...postInput } = input;
       const contentType = getContentTypeByPostType(postInput.type);
 
       await ensureSlugUnique(
@@ -312,9 +291,6 @@ export const cmsRouter = createTRPCRouter({
       if (tagIds?.length && post) {
         await syncTermRelationships(ctx.db, post.id, 'tag', tagIds);
       }
-      if (authorIds && post) {
-        await syncPostAuthors(ctx.db, post.id, authorIds);
-      }
 
       logAudit({
         db: ctx.db,
@@ -356,11 +332,10 @@ export const cmsRouter = createTRPCRouter({
         parentId: z.string().uuid().optional().nullable(),
         categoryIds: z.array(z.string().uuid()).max(20).optional(),
         tagIds: z.array(z.string().uuid()).max(50).optional(),
-        authorIds: z.array(z.string()).max(20).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const { id, categoryIds, tagIds, authorIds, ...updates } = input;
+      const { id, categoryIds, tagIds, ...updates } = input;
 
       const [existing] = await ctx.db
         .select()
@@ -424,9 +399,6 @@ export const cmsRouter = createTRPCRouter({
       }
       if (tagIds !== undefined) {
         await syncTermRelationships(ctx.db, id, 'tag', tagIds);
-      }
-      if (authorIds !== undefined) {
-        await syncPostAuthors(ctx.db, id, authorIds);
       }
 
       logAudit({

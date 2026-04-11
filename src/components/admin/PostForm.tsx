@@ -195,7 +195,6 @@ interface PostFormData extends Record<string, unknown> {
   publishedAt: string;
   categoryIds: string[];
   tagIds: string[];
-  authorIds: string[];
   parentId: string | null;
   fallbackToDefault: boolean | null;
 }
@@ -239,22 +238,6 @@ export function PostForm({ contentType, postId }: Props) {
     { enabled: !!session },
   );
 
-  // Author picker with debounced search
-  const hasAuthors = !!contentType.postFormFields?.authors;
-  const [authorSearch, setAuthorSearch] = useState('');
-  const debouncedAuthorSearch = useDebounced(authorSearch, 300);
-  const authorCandidates = trpc.cms.authorCandidates.useQuery(
-    { search: debouncedAuthorSearch || undefined },
-    { enabled: hasAuthors && !!session, placeholderData: (prev) => prev },
-  );
-  // Cache author {id, name} so selected users remain visible during search
-  const authorCacheRef = useRef(new Map<string, { id: string; name: string }>());
-  if (authorCandidates.data) {
-    for (const u of authorCandidates.data) {
-      authorCacheRef.current.set(u.id, { id: u.id, name: u.name });
-    }
-  }
-
   // Page tree for parent page selector (pages only)
   const isPageType = contentType.postType === PostType.PAGE;
   const pageTree = trpc.cms.getPageTree.useQuery(
@@ -277,9 +260,7 @@ export function PostForm({ contentType, postId }: Props) {
         title: '', slug: '', content: '', status: ContentStatus.DRAFT,
         lang: DEFAULT_LOCALE, metaDescription: '', seoTitle: '',
         featuredImage: '', featuredImageAlt: '', jsonLd: '', noindex: false,
-        publishedAt: '', categoryIds: [], tagIds: [],
-        authorIds: [],
-        parentId: null,
+        publishedAt: '', categoryIds: [], tagIds: [], parentId: null,
         fallbackToDefault: null,
       };
     }
@@ -298,7 +279,6 @@ export function PostForm({ contentType, postId }: Props) {
       publishedAt: post.publishedAt ? convertUTCToLocal(post.publishedAt) : '',
       categoryIds: post.categoryIds ?? [],
       tagIds: post.tagIds ?? [],
-      authorIds: post.authorIds ?? [],
       parentId: post.parentId ?? null,
       fallbackToDefault: post.fallbackToDefault ?? null,
     };
@@ -317,18 +297,6 @@ export function PostForm({ contentType, postId }: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
-
-  // Auto-populate current user as author for new posts
-  useEffect(() => {
-    if (isNew && hasAuthors && session?.user?.id) {
-      setFormData((prev) =>
-        prev.authorIds.length === 0
-          ? { ...prev, authorIds: [session.user.id] }
-          : prev
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNew, hasAuthors, session?.user?.id]);
 
   // Auto-generate slug from title (new posts only)
   useSlugAutoGenerate(formData.title, isNew, slugManual, (s) =>
@@ -449,7 +417,6 @@ export function PostForm({ contentType, postId }: Props) {
         parentId: formData.parentId ?? undefined,
         categoryIds: formData.categoryIds.length > 0 ? formData.categoryIds : undefined,
         tagIds: formData.tagIds.length > 0 ? formData.tagIds : undefined,
-        authorIds: hasAuthors ? formData.authorIds : undefined,
         fallbackToDefault: formData.fallbackToDefault ?? undefined,
       });
     } else {
@@ -469,7 +436,6 @@ export function PostForm({ contentType, postId }: Props) {
         parentId: formData.parentId,
         categoryIds: formData.categoryIds,
         tagIds: formData.tagIds,
-        authorIds: hasAuthors ? formData.authorIds : undefined,
         fallbackToDefault: formData.fallbackToDefault,
       });
     }
@@ -492,15 +458,6 @@ export function PostForm({ contentType, postId }: Props) {
       formData.categoryIds.includes(catId)
         ? formData.categoryIds.filter((id) => id !== catId)
         : [...formData.categoryIds, catId]
-    );
-  }
-
-  function toggleAuthor(userId: string) {
-    handleChange(
-      'authorIds',
-      formData.authorIds.includes(userId)
-        ? formData.authorIds.filter((id) => id !== userId)
-        : [...formData.authorIds, userId]
     );
   }
 
@@ -801,64 +758,6 @@ export function PostForm({ contentType, postId }: Props) {
           lockFileType
         />
       ) : null,
-    authors: () => {
-      if (!hasAuthors) return null;
-      const candidates = authorCandidates.data ?? [];
-      // Selected users from cache (persists across searches)
-      const selectedUsers = formData.authorIds
-        .map((id) => authorCacheRef.current.get(id))
-        .filter(Boolean) as { id: string; name: string }[];
-      // Unselected users from current search results
-      const selectedSet = new Set(formData.authorIds);
-      const unselectedUsers = candidates.filter((u) => !selectedSet.has(u.id));
-
-      return (
-        <div className="space-y-2">
-          <input
-            type="text"
-            value={authorSearch}
-            onChange={(e) => setAuthorSearch(e.target.value)}
-            placeholder={__('Search users...')}
-            className="input w-full text-sm"
-          />
-          <div className="max-h-48 space-y-1.5 overflow-y-auto">
-            {authorCandidates.isLoading && candidates.length === 0 && selectedUsers.length === 0 ? (
-              <Loader2 className="h-4 w-4 animate-spin text-(--text-muted)" />
-            ) : selectedUsers.length === 0 && unselectedUsers.length === 0 ? (
-              <p className="text-xs text-(--text-muted)">{__('No users found.')}</p>
-            ) : (
-              <>
-                {selectedUsers.map((u) => (
-                  <label key={u.id} className="flex items-center gap-2 text-sm font-medium">
-                    <input
-                      type="checkbox"
-                      checked
-                      onChange={() => toggleAuthor(u.id)}
-                      className="rounded border-(--border-primary)"
-                    />
-                    {u.name}
-                  </label>
-                ))}
-                {selectedUsers.length > 0 && unselectedUsers.length > 0 && (
-                  <hr className="border-(--border-primary)" />
-                )}
-                {unselectedUsers.map((u) => (
-                  <label key={u.id} className="flex items-center gap-2 text-sm">
-                    <input
-                      type="checkbox"
-                      checked={false}
-                      onChange={() => toggleAuthor(u.id)}
-                      className="rounded border-(--border-primary)"
-                    />
-                    {u.name}
-                  </label>
-                ))}
-              </>
-            )}
-          </div>
-        </div>
-      );
-    },
   };
 
   // Panel label lookup
@@ -1147,13 +1046,4 @@ export function PostForm({ contentType, postId }: Props) {
       />
     </CmsFormShell>
   );
-}
-
-function useDebounced(value: string, delay: number): string {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-  return debounced;
 }
