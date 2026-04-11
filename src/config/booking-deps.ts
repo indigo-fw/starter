@@ -5,7 +5,7 @@
 import { setBookingDeps } from '@/core-booking/deps';
 import { sendNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { enqueueTemplateEmail } from '@/server/jobs/email/index';
+import { enqueueTemplateEmail } from '@/core/lib/email';
 
 setBookingDeps({
   sendNotification({ userId, title, body, actionUrl }) {
@@ -21,7 +21,7 @@ setBookingDeps({
 
   enqueueTemplateEmail(to, template, data) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return enqueueTemplateEmail(to, template as any, data as Record<string, string>);
+    return enqueueTemplateEmail(to, template, data as Record<string, string>);
   },
 
   // Uncomment to enable paid bookings via core-payments:

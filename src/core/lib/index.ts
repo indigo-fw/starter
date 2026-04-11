@@ -37,3 +37,36 @@ export { WS_CHANNELS } from './realtime/ws-channels';
 
 // SEO
 export { SEO_OVERRIDE_ROUTES, SEO_OVERRIDE_SLUGS } from './seo-routes';
+export { generateSitemap } from './seo/sitemap';
+export type { SitemapConfig, SitemapStaticPage, SitemapFetcher } from './seo/sitemap';
+
+// RSS
+export { escapeXml, generateRssFeed, createRssResponse } from './content/rss';
+export type { RssFeedConfig, RssFeedItem } from './content/rss';
+
+// Search triggers
+export { applySearchTriggers, buildSearchTriggerSql, buildBackfillSql, buildTsConfigFunction, DEFAULT_LANGUAGE_MAP } from './infra/search-triggers';
+export type { SearchTriggerTable } from './infra/search-triggers';
+
+// Email
+export { setEmailDeps, enqueueTemplateEmail, enqueueEmail, startEmailWorker } from './email';
+export type { EmailDeps, EmailBranding } from './email';
+
+// Cron
+export { registerCronJob, startCronScheduler } from './infra/cron';
+
+// Maintenance
+export { registerMaintenanceTask, runAllMaintenanceTasks } from './infra/maintenance';
+
+// Scheduled content publishing
+export { registerScheduledPublishTarget, processScheduledContent, startContentPublishWorker } from './content/scheduled-publish';
+
+// Health check
+export { createHealthHandler } from './api/health';
+export type { HealthCheckDef } from './api/health';
+
+// Consent
+export { useConsent, ConsentProvider } from './consent/context';
+export type { ConsentCategory, ConsentState } from './consent/types';
+export { CONSENT_CATEGORIES, DEFAULT_CONSENT } from './consent/types';
+export { getStoredConsent, setStoredConsent, hasConsentChoice } from './consent/storage';

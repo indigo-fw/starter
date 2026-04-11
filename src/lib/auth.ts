@@ -10,7 +10,7 @@ import { slugify } from '@/core/lib/content/slug';
 import { db } from '@/server/db';
 import { organization as organizationTable, member } from '@/server/db/schema/organization';
 import { saasSupportChatSessions } from '@/core-support/schema/support-chat';
-import { enqueueTemplateEmail } from '@/server/jobs/email';
+import { enqueueTemplateEmail } from '@/core/lib/email';
 import { syncSubscriber } from '@/core/lib/email-list/index';
 
 const log = createLogger('auth');
@@ -158,7 +158,7 @@ function createAuth() {
         creatorRole: 'owner',
         membershipLimit: 100,
         sendInvitationEmail: async ({ invitation, organization: org }) => {
-          const { enqueueTemplateEmail } = await import('@/server/jobs/email');
+          const { enqueueTemplateEmail } = await import('@/core/lib/email');
           const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
           await enqueueTemplateEmail(invitation.email, 'invitation', {
             organizationName: org.name,

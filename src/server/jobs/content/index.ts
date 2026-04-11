@@ -1,93 +1,54 @@
 import { and, eq, lte, isNull } from 'drizzle-orm';
 
-import { createQueue, createWorker } from '@/core/lib/infra/queue';
+import { registerScheduledPublishTarget } from '@/core/lib/content/scheduled-publish';
 import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema/cms';
 import { cmsCategories } from '@/server/db/schema/categories';
 import { ContentStatus } from '@/core/types/cms';
-import { logAudit } from '@/core/lib/infra/audit';
-import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 
-const _contentQueue = createQueue('content-publish');
+// Re-export the core worker starter for backward compatibility
+export { startContentPublishWorker as startContentWorker } from '@/core/lib/content/scheduled-publish';
 
-export async function processScheduledContent(): Promise<void> {
-  const now = new Date();
+// ---------------------------------------------------------------------------
+// Register content types for scheduled publishing
+// ---------------------------------------------------------------------------
 
-  // Publish scheduled posts
-  const posts = await db
-    .select({ id: cmsPosts.id, title: cmsPosts.title })
-    .from(cmsPosts)
-    .where(
-      and(
-        eq(cmsPosts.status, ContentStatus.SCHEDULED),
-        lte(cmsPosts.publishedAt, now),
-        isNull(cmsPosts.deletedAt)
-      )
-    );
+registerScheduledPublishTarget({
+  name: 'posts',
+  entityType: 'post',
+  webhookEventPrefix: 'post',
 
-  for (const post of posts) {
-    await db
-      .update(cmsPosts)
-      .set({ status: ContentStatus.PUBLISHED })
-      .where(eq(cmsPosts.id, post.id));
+  findScheduled: () =>
+    db
+      .select({ id: cmsPosts.id, title: cmsPosts.title })
+      .from(cmsPosts)
+      .where(
+        and(
+          eq(cmsPosts.status, ContentStatus.SCHEDULED),
+          lte(cmsPosts.publishedAt, new Date()),
+          isNull(cmsPosts.deletedAt)
+        )
+      ),
+  publish: (id) =>
+    db.update(cmsPosts).set({ status: ContentStatus.PUBLISHED }).where(eq(cmsPosts.id, id)).then(() => {}),
+});
 
-    logAudit({
-      db,
-      userId: 'system',
-      action: 'publish',
-      entityType: 'post',
-      entityId: post.id,
-      entityTitle: post.title,
-      metadata: { auto: true },
-    });
+registerScheduledPublishTarget({
+  name: 'categories',
+  entityType: 'category',
+  webhookEventPrefix: 'category',
 
-    dispatchWebhook(db, 'post.published', { id: post.id, title: post.title });
-  }
-
-  // Publish scheduled categories
-  const cats = await db
-    .select({ id: cmsCategories.id, name: cmsCategories.name })
-    .from(cmsCategories)
-    .where(
-      and(
-        eq(cmsCategories.status, ContentStatus.SCHEDULED),
-        lte(cmsCategories.publishedAt, now),
-        isNull(cmsCategories.deletedAt)
-      )
-    );
-
-  for (const cat of cats) {
-    await db
-      .update(cmsCategories)
-      .set({ status: ContentStatus.PUBLISHED })
-      .where(eq(cmsCategories.id, cat.id));
-
-    logAudit({
-      db,
-      userId: 'system',
-      action: 'publish',
-      entityType: 'category',
-      entityId: cat.id,
-      entityTitle: cat.name,
-      metadata: { auto: true },
-    });
-
-    dispatchWebhook(db, 'category.published', {
-      id: cat.id,
-      name: cat.name,
-    });
-  }
-
-  if (posts.length > 0 || cats.length > 0) {
-    console.log(
-      `[content] Auto-published ${posts.length} posts, ${cats.length} categories`
-    );
-  }
-}
-
-/** Initialize content publish worker (call from server.ts when BullMQ is enabled) */
-export function startContentWorker(): void {
-  createWorker('content-publish', async () => {
-    await processScheduledContent();
-  });
-}
+  findScheduled: () =>
+    db
+      .select({ id: cmsCategories.id, title: cmsCategories.name })
+      .from(cmsCategories)
+      .where(
+        and(
+          eq(cmsCategories.status, ContentStatus.SCHEDULED),
+          lte(cmsCategories.publishedAt, new Date()),
+          isNull(cmsCategories.deletedAt)
+        )
+      ),
+  publish: (id) =>
+    db.update(cmsCategories).set({ status: ContentStatus.PUBLISHED }).where(eq(cmsCategories.id, id)).then(() => {}),
+});

@@ -6,22 +6,6 @@ import path from 'node:path';
 // Mocks — BEFORE imports
 // ---------------------------------------------------------------------------
 
-vi.mock('@/server/db', () => ({
-  db: {
-    select: vi.fn().mockReturnValue({
-      from: vi.fn().mockReturnValue({
-        where: vi.fn().mockReturnValue({
-          limit: vi.fn().mockResolvedValue([]),
-        }),
-      }),
-    }),
-  },
-}));
-
-vi.mock('@/server/db/schema', () => ({
-  cmsOptions: { key: 'key', value: 'value' },
-}));
-
 vi.mock('@/core/lib/infra/queue', () => ({
   createQueue: vi.fn().mockReturnValue(null),
   createWorker: vi.fn().mockReturnValue(null),
@@ -47,7 +31,24 @@ vi.mock('nodemailer', () => ({
 // Imports (after mocks)
 // ---------------------------------------------------------------------------
 
-import { renderTemplate } from '../index';
+import { renderTemplate } from '@/core/lib/email';
+import type { EmailBranding } from '@/core/lib/email';
+
+// ---------------------------------------------------------------------------
+// Test branding (no DB)
+// ---------------------------------------------------------------------------
+
+const TEST_BRANDING: EmailBranding = {
+  siteName: 'Indigo',
+  siteUrl: 'http://localhost:3000',
+  contactEmail: 'noreply@localhost',
+  logoUrl: '',
+  brandColor: '#e91e63',
+};
+
+function render(template: string, data: Record<string, string>, locale = 'en') {
+  return renderTemplate(template, data, locale, TEST_BRANDING);
+}
 
 // ---------------------------------------------------------------------------
 // Helpers — read actual template files from disk
@@ -78,11 +79,9 @@ describe('email rendering pipeline', () => {
 
   describe('layout wrapping', () => {
     it('wraps template body in layout.html', async () => {
-      const { html } = await renderTemplate('welcome', { appUrl: 'https://example.com' });
+      const { html } = await render('welcome', { appUrl: 'https://example.com' });
 
-      // Layout markers present
       expect(html).toContain('<!DOCTYPE html>');
-      // All layout placeholders should be replaced
       expect(html).not.toContain('{{CONTENT}}');
       expect(html).not.toContain('{{SITE_NAME}}');
       expect(html).not.toContain('{{SITE_URL}}');
@@ -92,8 +91,7 @@ describe('email rendering pipeline', () => {
     });
 
     it('renders text-only header when no logo configured', async () => {
-      // Default: no logo in DB → text-only header
-      const { html } = await renderTemplate('welcome', { appUrl: 'https://example.com' });
+      const { html } = await render('welcome', { appUrl: 'https://example.com' });
 
       expect(html).toContain('font-size:20px');
       expect(html).toContain('font-weight:700');
@@ -103,7 +101,7 @@ describe('email rendering pipeline', () => {
 
   describe('subject extraction', () => {
     it('extracts subject from <!-- subject: ... --> comment', async () => {
-      const { subject } = await renderTemplate('password-reset', {
+      const { subject } = await render('password-reset', {
         name: 'Alice',
         resetUrl: 'https://example.com/reset',
       });
@@ -113,7 +111,7 @@ describe('email rendering pipeline', () => {
     });
 
     it('interpolates variables in subject line', async () => {
-      const { subject } = await renderTemplate('invitation', {
+      const { subject } = await render('invitation', {
         organizationName: 'Acme Corp',
         inviteUrl: 'https://example.com/invite',
       });
@@ -124,7 +122,7 @@ describe('email rendering pipeline', () => {
 
   describe('preheader injection', () => {
     it('injects hidden preheader span when template has preheader', async () => {
-      const { html } = await renderTemplate('verify-email', {
+      const { html } = await render('verify-email', {
         name: 'Bob',
         verifyUrl: 'https://example.com/verify',
       });
@@ -134,16 +132,13 @@ describe('email rendering pipeline', () => {
     });
 
     it('does not inject preheader span when subject comment is removed', async () => {
-      // All current templates have preheaders. Verify a different template's
-      // preheader doesn't bleed into another render.
-      const { html: html1 } = await renderTemplate('verify-email', {
+      const { html: html1 } = await render('verify-email', {
         name: 'A', verifyUrl: 'https://x.com',
       });
-      const { html: html2 } = await renderTemplate('password-reset', {
+      const { html: html2 } = await render('password-reset', {
         name: 'A', resetUrl: 'https://x.com',
       });
 
-      // Each render should contain its OWN preheader, not the other's
       expect(html1).toContain('One quick step');
       expect(html1).not.toContain('Click the link to set a new password');
       expect(html2).toContain('Click the link to set a new password');
@@ -153,7 +148,7 @@ describe('email rendering pipeline', () => {
 
   describe('HTML escaping', () => {
     it('escapes {{key}} double-brace values', async () => {
-      const { html } = await renderTemplate('verify-email', {
+      const { html } = await render('verify-email', {
         name: '<script>alert("xss")</script>',
         verifyUrl: 'https://example.com/verify',
       });
@@ -164,39 +159,33 @@ describe('email rendering pipeline', () => {
 
     it('does NOT escape {{{key}}} triple-brace values (URLs)', async () => {
       const url = 'https://example.com/verify?token=abc&user=1';
-      const { html } = await renderTemplate('verify-email', {
+      const { html } = await render('verify-email', {
         name: 'Bob',
         verifyUrl: url,
       });
 
-      // Triple-brace URL should be raw — href should work
       expect(html).toContain(`href="${url}"`);
-      // The & in the URL should NOT be escaped to &amp;
       expect(html).toContain('token=abc&user=1');
     });
   });
 
   describe('branding injection', () => {
-    it('injects default branding when DB returns nothing', async () => {
-      const { html } = await renderTemplate('welcome', {
+    it('injects provided branding', async () => {
+      const { html } = await render('welcome', {
         appUrl: 'https://example.com',
       });
 
-      // Default brand color
       expect(html).toContain('#e91e63');
-      // Default site name
       expect(html).toContain('Indigo');
     });
   });
 
   describe('locale fallback', () => {
     it('renders en template when requested locale does not exist', async () => {
-      // No emails/de/ directory exists, should fall back to emails/en/
-      const { subject } = await renderTemplate('welcome', {
+      const { subject } = await render('welcome', {
         appUrl: 'https://example.com',
       }, 'de');
 
-      // Should get the English subject
       expect(subject).toContain('Welcome');
     });
   });

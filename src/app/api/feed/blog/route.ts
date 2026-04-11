@@ -1,23 +1,14 @@
-import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 import { siteConfig } from '@/config/site';
 import { resolveContentVars } from '@/core/lib/content/vars';
+import { generateRssFeed, createRssResponse } from '@/core/lib/content/rss';
 import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema';
 import { ContentStatus, PostType } from '@/core/types/cms';
 import { and, desc, eq, isNull } from 'drizzle-orm';
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
 import type { Locale } from '@/lib/constants';
-
-function escapeXml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
 
 export async function GET(request: NextRequest) {
   try {
@@ -28,7 +19,6 @@ export async function GET(request: NextRequest) {
 
     const posts = await db
       .select({
-        id: cmsPosts.id,
         title: cmsPosts.title,
         slug: cmsPosts.slug,
         metaDescription: cmsPosts.metaDescription,
@@ -48,42 +38,24 @@ export async function GET(request: NextRequest) {
 
     const linkPrefix = lang === DEFAULT_LOCALE ? '' : `/${lang}`;
 
-    const items = posts
-      .map((post) => {
-        const link = `${siteConfig.url}${linkPrefix}/blog/${post.slug}`;
-        const pubDate = post.publishedAt
-          ? new Date(post.publishedAt).toUTCString()
-          : '';
-        return `    <item>
-      <title>${escapeXml(resolveContentVars(post.title))}</title>
-      <link>${escapeXml(link)}</link>
-      <guid isPermaLink="true">${escapeXml(link)}</guid>
-      ${post.metaDescription ? `<description>${escapeXml(resolveContentVars(post.metaDescription))}</description>` : ''}
-      ${pubDate ? `<pubDate>${pubDate}</pubDate>` : ''}
-    </item>`;
-      })
-      .join('\n');
-
-    const feedUrl = `${siteConfig.url}/api/feed/blog${lang !== DEFAULT_LOCALE ? `?lang=${lang}` : ''}`;
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Blog | ${escapeXml(siteConfig.name)}</title>
-    <link>${escapeXml(siteConfig.url)}${linkPrefix}/blog</link>
-    <description>${escapeXml(siteConfig.description)}</description>
-    <language>${lang}</language>
-    <atom:link href="${escapeXml(feedUrl)}" rel="self" type="application/rss+xml" />
-${items}
-  </channel>
-</rss>`;
-
-    return new NextResponse(xml, {
-      headers: {
-        'Content-Type': 'application/rss+xml; charset=utf-8',
-        'Cache-Control': 'public, max-age=600, s-maxage=600',
+    const xml = generateRssFeed(
+      {
+        title: `Blog | ${siteConfig.name}`,
+        link: `${siteConfig.url}${linkPrefix}/blog`,
+        description: siteConfig.description,
+        language: lang,
+        feedUrl: `${siteConfig.url}/api/feed/blog${lang !== DEFAULT_LOCALE ? `?lang=${lang}` : ''}`,
       },
-    });
+      posts.map((post) => ({
+        title: resolveContentVars(post.title),
+        link: `${siteConfig.url}${linkPrefix}/blog/${post.slug}`,
+        description: post.metaDescription ? resolveContentVars(post.metaDescription) : undefined,
+        pubDate: post.publishedAt ?? undefined,
+      })),
+    );
+
+    return createRssResponse(xml);
   } catch {
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return new Response('Internal Server Error', { status: 500 });
   }
 }

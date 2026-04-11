@@ -50,6 +50,15 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - **Webhooks:** `dispatchWebhook()` — fire-and-forget, logs failures
 - **API routes:** `withApiRoute(request, handler)` for REST v1 — wraps auth + rate-limit + try/catch
 - **Tokens:** `addTokens()`, `deductTokens()` — race-safe atomic deduction (UPDATE WHERE balance >= amount)
+- **Email:** `enqueueTemplateEmail(to, template, vars, locale)` / `enqueueEmail({ to, subject, html })` — BullMQ queue with SMTP fallback. Wire branding via `setEmailDeps()` in `src/config/email-deps.ts`. Core templates in `_templates/emails/`
+- **RSS:** `generateRssFeed(config, items)` + `createRssResponse(xml)` — RSS 2.0 XML builder. `escapeXml()` for safe XML strings
+- **Sitemap:** `generateSitemap(config, staticPages, fetchers)` — builds Next.js MetadataRoute.Sitemap with multilingual support. Project passes fetcher callbacks, core handles locale iteration + hreflang
+- **Search triggers:** `applySearchTriggers(sql, configs)` — builds PG tsvector triggers + backfills. Project defines table configs, core generates SQL
+- **Cron:** `registerCronJob({ name, pattern, handler })` + `startCronScheduler()` — handles BullMQ repeatable vs DB-queue fallback. Register before calling start
+- **Maintenance:** `registerMaintenanceTask(name, fn)` + `runAllMaintenanceTasks()` — sequential execution with independent error handling per task
+- **Scheduled publish:** `registerScheduledPublishTarget(target)` — auto-publishes scheduled content. Core handles audit logging + webhook dispatch
+- **Health check:** `createHealthHandler(checks)` — factory for `/api/health` endpoint. Runs provided checks + module health hooks. Returns healthy/degraded/unhealthy
+- **Cookie consent:** `<ConsentProvider>` + `<CookieConsent />` + `<ConsentGate category="analytics">`. `useConsent()` hook for programmatic access. localStorage + cookie persistence
 
 ## Translations
 

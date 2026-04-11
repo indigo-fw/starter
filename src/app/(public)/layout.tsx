@@ -29,6 +29,8 @@ import { LanguageSuggestionBanner } from '@/core/components/i18n/LanguageSuggest
 import { CartWidget } from '@/core-store/components/cart/CartWidget';
 import { getLanguageSuggestion } from '@/core/lib/i18n/language-suggestion';
 import { dataTranslations } from '@/lib/translations';
+import { ConsentProvider } from '@/core/lib/consent/context';
+import { CookieConsent } from '@/core/components/consent/CookieConsent';
 
 // Extraction marker — ensures the language suggestion key appears in public PO files
 const _d = dataTranslations('General');
@@ -113,6 +115,7 @@ export default async function PublicLayout({
   const mobileItems = await getMobileNavItems(categories, locale, __);
 
   return (
+    <ConsentProvider>
     <div className="app-wrapper" data-page="public">
       <Suspense fallback={null}>
         {PUBLIC_LAYOUT_WIDGETS.map((Widget, i) => <Widget key={i} />)}
@@ -247,6 +250,8 @@ export default async function PublicLayout({
           <span>{__('Powered by Indigo')}</span>
         </div>
       </AppFooter>
+      <CookieConsent privacyPolicyUrl="/privacy-policy" />
     </div>
+    </ConsentProvider>
   );
 }

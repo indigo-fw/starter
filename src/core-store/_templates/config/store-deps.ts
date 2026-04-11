@@ -6,7 +6,7 @@ import { setStoreDeps } from '@/core-store/deps';
 import { getProvider } from '@/core-payments/lib/factory';
 import { sendNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { enqueueTemplateEmail } from '@/server/jobs/email/index';
+import { enqueueTemplateEmail } from '@/core/lib/email';
 
 setStoreDeps({
   async createPaymentCheckout({ orderId, orderNumber: _orderNumber, totalCents: _totalCents, currency: _currency, customerEmail, providerId, metadata }) {
@@ -41,6 +41,6 @@ setStoreDeps({
 
   enqueueTemplateEmail(to, template, data) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return enqueueTemplateEmail(to, template as any, data as Record<string, string>);
+    return enqueueTemplateEmail(to, template, data as Record<string, string>);
   },
 });

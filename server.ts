@@ -98,92 +98,46 @@ async function main() {
     logWebhookDelivery(appDb, cmsWebhookDeliveries, entry);
   });
 
-  // Initialize BullMQ workers
+  // Initialize BullMQ workers + cron jobs
   if (enableWorkers) {
-    const { startEmailWorker } = await import('./src/server/jobs/email/index');
-    const { startContentWorker } = await import(
-      './src/server/jobs/content/index'
-    );
+    await import('./src/config/email-deps');
+    const { startEmailWorker } = await import('./src/core/lib/email');
+    await import('./src/server/jobs/content/index'); // registers scheduled publish targets
+    const { startContentPublishWorker } = await import('./src/core/lib/content/scheduled-publish');
     const { startWebhookWorker } = await import('./src/core/lib/webhooks/webhooks');
     const { startModuleWorkers } = await import('./src/generated/module-server');
     const { startMediaWorker } = await import('./src/server/jobs/media/index');
     startEmailWorker();
-    startContentWorker();
+    startContentPublishWorker();
     startWebhookWorker();
     await startModuleWorkers();
     startMediaWorker();
     console.log('BullMQ workers ready (email + content + webhook + module + media workers started)');
 
-    // Schedule dunning checks (daily)
-    const { getRedis } = await import('./src/core/lib/infra/redis');
-    const redis = getRedis();
-    if (redis) {
-      const { createQueue, createWorker } = await import('./src/core/lib/infra/queue');
-      const dunningQueue = createQueue('dunning');
-      if (dunningQueue) {
-        await dunningQueue.add('check', {}, {
-          repeat: { pattern: '0 8 * * *' }, // Daily at 8 AM
-        });
-        createWorker('dunning', async () => {
-          const { runDunningChecks } = await import('./src/core-subscriptions/lib/dunning');
-          await runDunningChecks();
-        });
-        console.log('Dunning worker ready (daily at 8 AM)');
-      }
+    // Register maintenance tasks (side-effect import)
+    await import('./src/server/jobs/maintenance/index');
 
-      // Schedule maintenance (daily at 3 AM)
-      const { startMaintenanceWorker } = await import('./src/server/jobs/maintenance/index');
-      startMaintenanceWorker();
-      const maintenanceQueue = createQueue('maintenance');
-      if (maintenanceQueue) {
-        await maintenanceQueue.add('run', {}, {
-          repeat: { pattern: '0 3 * * *' }, // Daily at 3 AM
-        });
-      }
-      console.log('Maintenance worker ready (daily at 3 AM)');
-    } else {
-      const { startDbQueueWorker, enqueueTask } = await import('./src/core/lib/infra/db-queue');
+    // Register cron jobs
+    const { registerCronJob, startCronScheduler } = await import('./src/core/lib/infra/cron');
+    const { runAllMaintenanceTasks } = await import('./src/core/lib/infra/maintenance');
 
-      // Seed initial dunning task (idempotent — pollAndProcess skips if one is already pending)
-      await enqueueTask('dunning', { action: 'check' }).catch(() => {});
+    registerCronJob({
+      name: 'maintenance',
+      pattern: '0 3 * * *',
+      handler: runAllMaintenanceTasks,
+    });
 
-      startDbQueueWorker('dunning', async () => {
+    registerCronJob({
+      name: 'dunning',
+      pattern: '0 8 * * *',
+      handler: async () => {
         const { runDunningChecks } = await import('./src/core-subscriptions/lib/dunning');
         await runDunningChecks();
+      },
+    });
 
-        // Re-enqueue for next day at ~8 AM UTC
-        try {
-          const tomorrow8am = new Date();
-          tomorrow8am.setUTCDate(tomorrow8am.getUTCDate() + 1);
-          tomorrow8am.setUTCHours(8, 0, 0, 0);
-          await enqueueTask('dunning', { action: 'check' }, {
-            runAfter: tomorrow8am,
-          });
-        } catch (err) {
-          // Fallback: re-enqueue for 24h from now so the chain doesn't break
-          console.error('Failed to re-enqueue dunning task, using fallback', err);
-          await enqueueTask('dunning', { action: 'check' }, {
-            runAfter: new Date(Date.now() + 24 * 60 * 60 * 1000),
-          }).catch(() => {});
-        }
-      }, 60_000);
-      console.log('Dunning DB queue worker ready (daily ~8 AM UTC)');
-
-      // Maintenance via DB queue (daily at ~3 AM UTC)
-      await enqueueTask('maintenance', { action: 'run' }).catch(() => {});
-      startDbQueueWorker('maintenance', async () => {
-        const { runMaintenance } = await import('./src/server/jobs/maintenance/index');
-        await runMaintenance();
-
-        const tomorrow3am = new Date();
-        tomorrow3am.setUTCDate(tomorrow3am.getUTCDate() + 1);
-        tomorrow3am.setUTCHours(3, 0, 0, 0);
-        await enqueueTask('maintenance', { action: 'run' }, {
-          runAfter: tomorrow3am,
-        }).catch(() => {});
-      }, 60_000);
-      console.log('Maintenance DB queue worker ready (daily ~3 AM UTC)');
-    }
+    await startCronScheduler();
+    console.log('Cron scheduler ready (maintenance at 3 AM, dunning at 8 AM)');
 
     // Recover stale DB queue tasks on startup
     try {

@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 
 import { db } from '@/server/db';
 import { cmsForms, cmsFormSubmissions } from '@/server/db/schema';
-import { enqueueEmail } from '@/server/jobs/email/index';
+import { enqueueEmail } from '@/core/lib/email';
 import { getRedis } from '@/core/lib/infra/redis';
 import { checkRateLimit } from '@/core/lib/infra/rate-limit';
 

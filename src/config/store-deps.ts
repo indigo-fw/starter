@@ -6,7 +6,7 @@ import { setStoreDeps } from '@/core-store/deps';
 import { getProvider } from '@/core-payments/lib/factory';
 import { sendNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { enqueueTemplateEmail } from '@/server/jobs/email/index';
+import { enqueueTemplateEmail } from '@/core/lib/email';
 import { updateOrderStatus } from '@/core-store/lib/order-service';
 import { createLogger } from '@/core/lib/infra/logger';
 
@@ -49,6 +49,6 @@ setStoreDeps({
   },
 
   enqueueTemplateEmail(to, template, data) {
-    return enqueueTemplateEmail(to, template as import('@/server/jobs/email/index').TemplateName, data as Record<string, string>);
+    return enqueueTemplateEmail(to, template, data as Record<string, string>);
   },
 });

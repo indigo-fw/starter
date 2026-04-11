@@ -71,3 +71,7 @@ export { AccountSidebar } from './AccountSidebar';
 export { PricingToggle } from './pricing/PricingToggle';
 export { TokenBalance } from './TokenBalance';
 export { GeoSyncer } from './GeoSyncer';
+
+// Consent
+export { CookieConsent } from './consent/CookieConsent';
+export { ConsentGate } from './consent/ConsentGate';
