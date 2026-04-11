@@ -195,6 +195,7 @@ interface PostFormData extends Record<string, unknown> {
   publishedAt: string;
   categoryIds: string[];
   tagIds: string[];
+  authorIds: string[];
   parentId: string | null;
   fallbackToDefault: boolean | null;
 }
@@ -238,6 +239,14 @@ export function PostForm({ contentType, postId }: Props) {
     { enabled: !!session },
   );
 
+  // Author picker
+  const hasAuthors = !!contentType.postFormFields?.authors;
+  const [authorSearch, setAuthorSearch] = useState('');
+  const authorCandidates = trpc.cms.authorCandidates.useQuery(
+    { search: authorSearch || undefined },
+    { enabled: hasAuthors && !!session, placeholderData: (prev) => prev },
+  );
+
   // Page tree for parent page selector (pages only)
   const isPageType = contentType.postType === PostType.PAGE;
   const pageTree = trpc.cms.getPageTree.useQuery(
@@ -260,7 +269,9 @@ export function PostForm({ contentType, postId }: Props) {
         title: '', slug: '', content: '', status: ContentStatus.DRAFT,
         lang: DEFAULT_LOCALE, metaDescription: '', seoTitle: '',
         featuredImage: '', featuredImageAlt: '', jsonLd: '', noindex: false,
-        publishedAt: '', categoryIds: [], tagIds: [], parentId: null,
+        publishedAt: '', categoryIds: [], tagIds: [],
+        authorIds: [],
+        parentId: null,
         fallbackToDefault: null,
       };
     }
@@ -279,6 +290,7 @@ export function PostForm({ contentType, postId }: Props) {
       publishedAt: post.publishedAt ? convertUTCToLocal(post.publishedAt) : '',
       categoryIds: post.categoryIds ?? [],
       tagIds: post.tagIds ?? [],
+      authorIds: post.authorIds ?? [],
       parentId: post.parentId ?? null,
       fallbackToDefault: post.fallbackToDefault ?? null,
     };
@@ -297,6 +309,18 @@ export function PostForm({ contentType, postId }: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
+
+  // Auto-populate current user as author for new posts
+  useEffect(() => {
+    if (isNew && hasAuthors && session?.user?.id) {
+      setFormData((prev) =>
+        prev.authorIds.length === 0
+          ? { ...prev, authorIds: [session.user.id] }
+          : prev
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNew, hasAuthors, session?.user?.id]);
 
   // Auto-generate slug from title (new posts only)
   useSlugAutoGenerate(formData.title, isNew, slugManual, (s) =>
@@ -417,6 +441,7 @@ export function PostForm({ contentType, postId }: Props) {
         parentId: formData.parentId ?? undefined,
         categoryIds: formData.categoryIds.length > 0 ? formData.categoryIds : undefined,
         tagIds: formData.tagIds.length > 0 ? formData.tagIds : undefined,
+        authorIds: hasAuthors ? formData.authorIds : undefined,
         fallbackToDefault: formData.fallbackToDefault ?? undefined,
       });
     } else {
@@ -436,6 +461,7 @@ export function PostForm({ contentType, postId }: Props) {
         parentId: formData.parentId,
         categoryIds: formData.categoryIds,
         tagIds: formData.tagIds,
+        authorIds: hasAuthors ? formData.authorIds : undefined,
         fallbackToDefault: formData.fallbackToDefault,
       });
     }
@@ -458,6 +484,15 @@ export function PostForm({ contentType, postId }: Props) {
       formData.categoryIds.includes(catId)
         ? formData.categoryIds.filter((id) => id !== catId)
         : [...formData.categoryIds, catId]
+    );
+  }
+
+  function toggleAuthor(userId: string) {
+    handleChange(
+      'authorIds',
+      formData.authorIds.includes(userId)
+        ? formData.authorIds.filter((id) => id !== userId)
+        : [...formData.authorIds, userId]
     );
   }
 
@@ -757,6 +792,37 @@ export function PostForm({ contentType, postId }: Props) {
           showAltInput
           lockFileType
         />
+      ) : null,
+    authors: () =>
+      hasAuthors ? (
+        <div className="space-y-2">
+          <input
+            type="text"
+            value={authorSearch}
+            onChange={(e) => setAuthorSearch(e.target.value)}
+            placeholder={__('Search users...')}
+            className="input w-full text-sm"
+          />
+          <div className="max-h-48 space-y-1.5 overflow-y-auto">
+            {authorCandidates.isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin text-(--text-muted)" />
+            ) : (authorCandidates.data ?? []).length === 0 ? (
+              <p className="text-xs text-(--text-muted)">{__('No users found.')}</p>
+            ) : (
+              (authorCandidates.data ?? []).map((u) => (
+                <label key={u.id} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={formData.authorIds.includes(u.id)}
+                    onChange={() => toggleAuthor(u.id)}
+                    className="rounded border-(--border-primary)"
+                  />
+                  {u.name}
+                </label>
+              ))
+            )}
+          </div>
+        </div>
       ) : null,
   };
 

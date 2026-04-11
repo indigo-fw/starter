@@ -2,6 +2,7 @@ import { TRPCError } from '@trpc/server';
 import { and, desc, eq, ilike, inArray, isNull, or, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { cmsTerms, cmsTermRelationships } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
 import {
@@ -122,7 +123,7 @@ export const tagsRouter = createTRPCRouter({
       z.object({
         name: z.string().min(1).max(255),
         slug: z.string().max(255).optional(),
-        lang: z.string().min(2).max(2).default('en'),
+        lang: z.string().min(2).max(2).default(DEFAULT_LOCALE),
         status: z.number().int().default(ContentStatus.PUBLISHED),
         order: z.number().int().default(0),
       })
@@ -274,7 +275,7 @@ export const tagsRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string().min(1).max(255),
-        lang: z.string().min(2).max(2).default('en'),
+        lang: z.string().min(2).max(2).default(DEFAULT_LOCALE),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -350,7 +351,7 @@ export const tagsRouter = createTRPCRouter({
     .input(
       z.object({
         slug: z.string().max(255),
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -378,7 +379,7 @@ export const tagsRouter = createTRPCRouter({
   listPublished: publicProcedure
     .input(
       z.object({
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         page: z.number().int().min(1).default(1),
         pageSize: z.number().int().min(1).max(100).default(100),
       })
@@ -416,7 +417,7 @@ export const tagsRouter = createTRPCRouter({
     .input(
       z.object({
         query: z.string().min(1).max(200),
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         limit: z.number().int().min(1).max(50).default(10),
       })
     )
@@ -465,7 +466,7 @@ export const tagsRouter = createTRPCRouter({
   listPopular: publicProcedure
     .input(
       z.object({
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         limit: z.number().int().min(1).max(50).default(20),
       })
     )

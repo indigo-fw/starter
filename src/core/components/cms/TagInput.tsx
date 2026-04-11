@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { X, Loader2 } from 'lucide-react';
 
 import { trpc } from '@/lib/trpc/client';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
 
 interface Props {
@@ -18,7 +19,7 @@ interface TagOption {
   slug: string;
 }
 
-export function TagInput({ selectedTagIds, onChange, lang = 'en' }: Props) {
+export function TagInput({ selectedTagIds, onChange, lang = DEFAULT_LOCALE }: Props) {
   const __ = useAdminTranslations();
   const [inputValue, setInputValue] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);

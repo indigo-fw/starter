@@ -104,7 +104,7 @@ describe('buildAlternates', () => {
     const result = buildAlternates(BASE_URL, siblings, 'en', 'my-post', '/blog/');
     expect(result).toBeDefined();
     expect(result!['fr']).toBeUndefined();
-    expect(Object.keys(result!)).toHaveLength(2); // en + de only
+    expect(Object.keys(result!)).toHaveLength(3); // en + de + x-default
   });
 
   it('returns undefined when only current locale has content', () => {

@@ -11,6 +11,7 @@ import { count } from 'drizzle-orm';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import {
   type CompanyInfo,
   SEED_IMAGES,
@@ -128,7 +129,7 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
     CATEGORIES_DATA.map((cat) => ({
       name: cat.name,
       slug: cat.slug,
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       title: cat.title,
       content: cat.content,
       status: 1,
@@ -147,7 +148,7 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
       taxonomyId: 'tag',
       name: tagName,
       slug: simpleSlugify(tagName),
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       status: 1,
     }))
   ).returning();
@@ -197,7 +198,7 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
       batchData.map((post) => ({
         type: 2, // BLOG
         status: post.status,
-        lang: 'en',
+        lang: DEFAULT_LOCALE,
         slug: post.slug,
         title: post.title,
         content: post.content,
@@ -235,7 +236,7 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
     {
       name: 'Indigo Website',
       slug: 'indigo-website',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       title: 'Indigo — Official Website',
       content: `## Project Overview
 
@@ -261,7 +262,7 @@ Built the official website and documentation for the Indigo open-source project.
     {
       name: 'E-Commerce Dashboard',
       slug: 'ecommerce-dashboard',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       title: 'E-Commerce Analytics Dashboard',
       content: `## Project Overview
 
@@ -286,7 +287,7 @@ Designed and built a real-time analytics dashboard for an e-commerce platform. T
     {
       name: 'Mobile Banking App',
       slug: 'mobile-banking-app',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       title: 'Mobile Banking Application',
       content: `## Project Overview
 
@@ -312,7 +313,7 @@ Developed a cross-platform mobile banking application for FinTech Corp. The app 
     {
       name: 'SaaS Analytics Platform',
       slug: 'saas-analytics-platform',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       title: 'SaaS Analytics Platform',
       content: `## Project Overview
 
@@ -354,7 +355,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'Welcome to Indigo',
       slug: 'welcome-to-indigo',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: `## Build SaaS apps faster\n\nIndigo is a complete framework for shipping production-ready SaaS applications. Auth, billing, CMS, real-time — all wired up.\n\nScroll down to see what's inside.`,
       cardType: 'richtext',
       variant: 'shorts',
@@ -368,7 +369,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'Ship in Days, Not Months',
       slug: 'ship-in-days-not-months',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: 'Stop wiring boilerplate. Start with auth, orgs, billing, and a CMS that actually works.',
       cardType: 'image',
       variant: 'shorts',
@@ -384,7 +385,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'See It in Action',
       slug: 'see-it-in-action',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: 'A quick walkthrough of the Indigo dashboard — content management, org settings, and the module system.',
       cardType: 'video',
       variant: 'contained',
@@ -399,7 +400,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'Modular by Design',
       slug: 'modular-by-design',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: `## Install only what you need\n\n\`bun run indigo add core-support\`\n\nEach module brings its own schema, routes, admin UI, and seed data. Remove what you don't need — no dead code, no bloat.\n\n- **core-payments** — Stripe, crypto\n- **core-support** — AI chat, tickets\n- **core-docs** — documentation system\n- **core-store** — full e-commerce`,
       cardType: 'richtext',
       variant: 'contained',
@@ -413,7 +414,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'Built for Teams',
       slug: 'built-for-teams',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: 'Multi-tenancy, RBAC, org-scoped data, and real-time presence — everything you need for collaborative SaaS applications.',
       cardType: 'image',
       variant: 'full',
@@ -429,7 +430,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'What Our Users Say',
       slug: 'what-our-users-say',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: `> "We went from zero to a paying product in two weeks. The module system meant we didn't have to build auth, billing, or the admin panel from scratch."\n\n— **Alex Rivera**, Founder at LaunchFast\n\n> "Finally a framework that treats CMS as a first-class citizen, not an afterthought."\n\n— **Maria Chen**, Head of Content at DataFlow`,
       cardType: 'richtext',
       variant: 'shorts',
@@ -443,7 +444,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'AI-Powered Workflows',
       slug: 'ai-powered-workflows',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: `## Content meets intelligence\n\nIndigo integrates AI at the infrastructure level:\n\n- **AI Writer** — generate blog posts, SEO meta, translations\n- **AI Support** — chatbot with live agent takeover\n- **Smart fields** — auto-generate alt text, summaries, tags\n\nBring your own provider or use the built-in OpenAI/Anthropic adapters.`,
       cardType: 'richtext',
       variant: 'full',
@@ -457,7 +458,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'Production-Ready Infrastructure',
       slug: 'production-ready-infrastructure',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: 'WebSockets, BullMQ job queues, Redis pub/sub, S3 storage — the boring stuff, done right, so you can focus on your product.',
       cardType: 'image',
       variant: 'contained',
@@ -473,7 +474,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'Get Started',
       slug: 'get-started',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: `## Clone. Init. Ship.\n\n\`\`\`bash\ngit clone https://github.com/indigo-fw/starter my-app\ncd my-app && bun install\nbun run init\nbun run dev\n\`\`\`\n\nYou'll have a running app with auth, CMS, and a dashboard in under 5 minutes.`,
       cardType: 'richtext',
       variant: 'shorts',
@@ -487,7 +488,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
     {
       title: 'Deep Dive: Module System',
       slug: 'deep-dive-module-system',
-      lang: 'en',
+      lang: DEFAULT_LOCALE,
       description: 'How the module system works under the hood — from indigo.config.ts to generated glue files.',
       cardType: 'video',
       variant: 'full',

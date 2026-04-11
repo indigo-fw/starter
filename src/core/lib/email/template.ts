@@ -7,6 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { createLogger } from '../infra/logger';
 
 const logger = createLogger('Email');
@@ -92,7 +93,7 @@ const _templateCache = new Map<string, ParsedTemplate>();
  */
 export function loadTemplateFile(
   template: string,
-  locale = 'en',
+  locale = DEFAULT_LOCALE,
   templatesDir?: string,
 ): ParsedTemplate {
   const cacheKey = `${locale}:${template}`;
@@ -105,8 +106,8 @@ export function loadTemplateFile(
   const templatePath = path.join(emailsDir, locale, `${template}.html`);
 
   let raw: string;
-  if (locale !== 'en' && !fs.existsSync(templatePath)) {
-    const fallbackPath = path.join(emailsDir, 'en', `${template}.html`);
+  if (locale !== DEFAULT_LOCALE && !fs.existsSync(templatePath)) {
+    const fallbackPath = path.join(emailsDir, DEFAULT_LOCALE, `${template}.html`);
     raw = fs.readFileSync(fallbackPath, 'utf-8');
   } else {
     raw = fs.readFileSync(templatePath, 'utf-8');

@@ -23,7 +23,7 @@ import { adminPanel } from '@/config/routes';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations, dataTranslations } from '@/lib/translations';
 import { ContentStatus } from '@/core/types/cms';
-import { LOCALES, LOCALE_LABELS, IS_MULTILINGUAL } from '@/lib/constants';
+import { DEFAULT_LOCALE, LOCALES, LOCALE_LABELS, IS_MULTILINGUAL } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { toast } from '@/store/toast-store';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
@@ -381,7 +381,7 @@ export function CmsListView({ contentType }: Props) {
 
   // MDX file overrides — show badge for content managed by .mdx files
   const { data: mdxSlugsData } = trpc.cms.mdxManagedSlugs.useQuery(
-    { type: contentType.postType!, lang: langFilter || LOCALES[0] },
+    { type: contentType.postType!, lang: langFilter || DEFAULT_LOCALE },
     { enabled: isPostType }
   );
   const mdxManagedSlugs = useMemo(

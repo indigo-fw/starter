@@ -15,7 +15,8 @@ interface ArticleJsonLdInput {
   imageAlt?: string | null;
   publishedAt?: Date | string | null;
   updatedAt?: Date | string | null;
-  authorName?: string | null;
+  /** Single author name or array of author names */
+  authorNames?: string[];
   siteName: string;
   siteUrl: string;
   /** 'Article' | 'BlogPosting' | 'NewsArticle' */
@@ -62,8 +63,9 @@ export function buildArticleJsonLd(input: ArticleJsonLdInput): Record<string, un
   }
   if (input.publishedAt) data.datePublished = toISOString(input.publishedAt);
   if (input.updatedAt) data.dateModified = toISOString(input.updatedAt);
-  if (input.authorName) {
-    data.author = { '@type': 'Person', name: input.authorName };
+  if (input.authorNames?.length) {
+    const persons = input.authorNames.map((name) => ({ '@type': 'Person', name }));
+    data.author = persons.length === 1 ? persons[0] : persons;
   }
 
   return data;

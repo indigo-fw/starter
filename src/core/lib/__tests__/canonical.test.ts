@@ -44,6 +44,7 @@ describe('buildAlternates', () => {
       en: 'https://example.com/blog',
       de: 'https://example.com/de/blog',
       fr: 'https://example.com/fr/blog',
+      'x-default': 'https://example.com/blog',
     });
   });
 

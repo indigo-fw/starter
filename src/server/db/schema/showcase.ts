@@ -1,3 +1,4 @@
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import {
   boolean,
   index,
@@ -18,7 +19,7 @@ export const cmsShowcase = pgTable(
     id: uuid('id').primaryKey().defaultRandom(),
     title: varchar('title', { length: 255 }).notNull(),
     slug: varchar('slug', { length: 255 }).notNull(),
-    lang: varchar('lang', { length: 2 }).notNull().default('en'),
+    lang: varchar('lang', { length: 2 }).notNull().default(DEFAULT_LOCALE),
     description: text('description').notNull().default(''),
     cardType: varchar('card_type', { length: 20 }).notNull().default('richtext'),
     variant: varchar('variant', { length: 20 }).notNull().default('full'),

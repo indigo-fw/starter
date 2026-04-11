@@ -82,6 +82,11 @@ vi.mock('@/core/crud/cms-helpers', () => ({
   updateWithRevision: vi.fn().mockResolvedValue(undefined),
 }));
 
+vi.mock('@/core/crud/post-author-helpers', () => ({
+  getPostAuthorIds: vi.fn().mockResolvedValue([]),
+  syncPostAuthors: vi.fn().mockResolvedValue(undefined),
+}));
+
 vi.mock('@/core/crud/taxonomy-helpers', () => ({
   syncTermRelationships: vi.fn().mockResolvedValue(undefined),
   getTermRelationships: vi.fn().mockResolvedValue([]),

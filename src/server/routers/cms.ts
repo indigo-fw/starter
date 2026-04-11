@@ -1,11 +1,11 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, desc, eq, gte, inArray, isNotNull, isNull, lte, ne, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, ilike, inArray, isNotNull, isNull, lte, ne, sql } from 'drizzle-orm';
 import { z } from 'zod';
 import crypto from 'crypto';
 
 import { getContentTypeByPostType } from '@/config/cms';
 import { env } from '@/lib/env';
-import { LOCALES } from '@/lib/constants';
+import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
 import { createLogger } from '@/core/lib/infra/logger';
 import {
   SEO_OVERRIDE_ROUTES,
@@ -36,6 +36,7 @@ import {
   deleteAllTermRelationships,
   resolveTagsForPosts,
 } from '@/core/crud/taxonomy-helpers';
+import { syncPostAuthors, getPostAuthorIds } from '@/core/crud/post-author-helpers';
 import { logAudit } from '@/core/lib/infra/audit';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
 import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
@@ -197,6 +198,22 @@ export const cmsRouter = createTRPCRouter({
     return getContentVarDefs();
   }),
 
+  /** List users eligible as post authors (for the author picker). */
+  authorCandidates: contentProcedure
+    .input(z.object({ search: z.string().max(100).optional() }).optional())
+    .query(async ({ ctx, input }) => {
+      const conditions = [];
+      if (input?.search) {
+        conditions.push(ilike(user.name, `%${input.search}%`));
+      }
+      return ctx.db
+        .select({ id: user.id, name: user.name, image: user.image })
+        .from(user)
+        .where(conditions.length > 0 ? and(...conditions) : undefined)
+        .orderBy(asc(user.name))
+        .limit(50);
+    }),
+
   /** Get single post by ID (with category + tag IDs) */
   get: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
@@ -205,7 +222,10 @@ export const cmsRouter = createTRPCRouter({
         ctx.db, cmsPosts, input.id, 'Post'
       );
 
-      const rels = await getTermRelationships(ctx.db, post.id);
+      const [rels, authorIds] = await Promise.all([
+        getTermRelationships(ctx.db, post.id),
+        getPostAuthorIds(ctx.db, post.id),
+      ]);
       const categoryIds = rels
         .filter((r) => r.taxonomyId === 'category')
         .map((r) => r.termId);
@@ -213,7 +233,7 @@ export const cmsRouter = createTRPCRouter({
         .filter((r) => r.taxonomyId === 'tag')
         .map((r) => r.termId);
 
-      return { ...post, categoryIds, tagIds };
+      return { ...post, categoryIds, tagIds, authorIds };
     }),
 
   /** Create a new post */
@@ -238,10 +258,11 @@ export const cmsRouter = createTRPCRouter({
         parentId: z.string().uuid().optional(),
         categoryIds: z.array(z.string().uuid()).max(20).optional(),
         tagIds: z.array(z.string().uuid()).max(50).optional(),
+        authorIds: z.array(z.string()).max(20).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const { categoryIds, tagIds, ...postInput } = input;
+      const { categoryIds, tagIds, authorIds, ...postInput } = input;
       const contentType = getContentTypeByPostType(postInput.type);
 
       await ensureSlugUnique(
@@ -291,6 +312,9 @@ export const cmsRouter = createTRPCRouter({
       if (tagIds?.length && post) {
         await syncTermRelationships(ctx.db, post.id, 'tag', tagIds);
       }
+      if (authorIds && post) {
+        await syncPostAuthors(ctx.db, post.id, authorIds);
+      }
 
       logAudit({
         db: ctx.db,
@@ -332,10 +356,11 @@ export const cmsRouter = createTRPCRouter({
         parentId: z.string().uuid().optional().nullable(),
         categoryIds: z.array(z.string().uuid()).max(20).optional(),
         tagIds: z.array(z.string().uuid()).max(50).optional(),
+        authorIds: z.array(z.string()).max(20).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const { id, categoryIds, tagIds, ...updates } = input;
+      const { id, categoryIds, tagIds, authorIds, ...updates } = input;
 
       const [existing] = await ctx.db
         .select()
@@ -399,6 +424,9 @@ export const cmsRouter = createTRPCRouter({
       }
       if (tagIds !== undefined) {
         await syncTermRelationships(ctx.db, id, 'tag', tagIds);
+      }
+      if (authorIds !== undefined) {
+        await syncPostAuthors(ctx.db, id, authorIds);
       }
 
       logAudit({
@@ -702,7 +730,7 @@ export const cmsRouter = createTRPCRouter({
       let featuredImageAlt = source.featuredImageAlt;
 
       if (input.autoTranslate && env.DEEPL_API_KEY) {
-        const sl = source.lang ?? 'en';
+        const sl = source.lang ?? DEFAULT_LOCALE;
         const tl = input.targetLang;
         const safe = createFieldTranslator(tl, sl, logger);
         [title, content, metaDescription, seoTitle, featuredImageAlt] = await Promise.all([
@@ -842,7 +870,7 @@ export const cmsRouter = createTRPCRouter({
 
   /** Get page tree (hierarchical pages) */
   getPageTree: contentProcedure
-    .input(z.object({ lang: z.string().max(2).default('en') }))
+    .input(z.object({ lang: z.string().max(2).default(DEFAULT_LOCALE) }))
     .query(async ({ ctx, input }) => {
       const pages = await ctx.db
         .select({
@@ -885,7 +913,7 @@ export const cmsRouter = createTRPCRouter({
       z.object({
         slug: z.string().max(255),
         type: z.number().int().min(1),
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         previewToken: z.string().max(64).optional(),
       })
     )
@@ -938,7 +966,7 @@ export const cmsRouter = createTRPCRouter({
     .input(
       z.object({
         type: z.number().int().min(1),
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         categoryId: z.string().uuid().optional(),
         tagId: z.string().uuid().optional(),
         page: z.number().int().min(1).default(1),
@@ -1148,7 +1176,7 @@ export const cmsRouter = createTRPCRouter({
     .input(
       z.object({
         postId: z.string().uuid(),
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         limit: z.number().int().min(1).max(10).default(4),
       })
     )

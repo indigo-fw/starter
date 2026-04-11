@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
 import { callAi } from '@/core-ai-writer/lib/ai-client';
 import { PROMPTS } from '@/core-ai-writer/lib/prompts';
@@ -42,7 +43,7 @@ export const aiWriterRouter = createTRPCRouter({
       topic: z.string().min(3).max(1000),
       tone: z.enum(['professional', 'casual', 'technical', 'friendly']).default('professional'),
       length: z.enum(['short', 'medium', 'long']).default('medium'),
-      language: z.string().max(10).default('en'),
+      language: z.string().max(10).default(DEFAULT_LOCALE),
     }))
     .mutation(async ({ input }) => {
       const lengthGuide = {
@@ -72,7 +73,7 @@ export const aiWriterRouter = createTRPCRouter({
   generateOutline: writerProcedure
     .input(z.object({
       topic: z.string().min(3).max(500),
-      language: z.string().max(10).default('en'),
+      language: z.string().max(10).default(DEFAULT_LOCALE),
     }))
     .mutation(async ({ input }) => {
       const result = await callAi({
@@ -99,7 +100,7 @@ export const aiWriterRouter = createTRPCRouter({
     .input(z.object({
       title: z.string().max(500),
       content: z.string().min(10).max(50000),
-      language: z.string().max(10).default('en'),
+      language: z.string().max(10).default(DEFAULT_LOCALE),
     }))
     .mutation(async ({ input }) => {
       // Strip HTML for cleaner analysis

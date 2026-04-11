@@ -6,6 +6,7 @@ import { inArray } from 'drizzle-orm';
 
 import { db as appDb } from '@/server/db';
 import { cmsOptions } from '@/server/db/schema';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { setEmailDeps, FROM_EMAIL } from '@/core/lib/email';
 import type { EmailBranding } from '@/core/lib/email';
 
@@ -75,8 +76,8 @@ async function getTemplateOverride(
   locale: string,
 ): Promise<{ subject: string; html: string } | null> {
   const localeKey = `email.template.${locale}.${template}`;
-  const baseKey = `email.template.en.${template}`;
-  const keysToCheck = locale !== 'en' ? [localeKey, baseKey] : [baseKey];
+  const baseKey = `email.template.${DEFAULT_LOCALE}.${template}`;
+  const keysToCheck = locale !== DEFAULT_LOCALE ? [localeKey, baseKey] : [baseKey];
 
   const rows = await appDb
     .select({ key: cmsOptions.key, value: cmsOptions.value })

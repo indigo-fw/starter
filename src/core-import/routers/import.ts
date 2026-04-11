@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { z } from 'zod';
 
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { slugify } from '@/core/lib/content/slug';
 import { cmsPosts } from '@/server/db/schema';
 import { logAudit } from '@/core/lib/infra/audit';
@@ -114,7 +115,7 @@ export const importRouter = createTRPCRouter({
               content: item.content,
               type,
               status,
-              lang: 'en',
+              lang: DEFAULT_LOCALE,
               publishedAt: item.publishedAt
                 ? new Date(item.publishedAt)
                 : status === ContentStatus.PUBLISHED

@@ -19,7 +19,7 @@ describe('localePath', () => {
 
   it('normalizes paths without leading slash', () => {
     expect(localePath('blog/my-post', 'de')).toBe('/de/blog/my-post');
-    expect(localePath('blog/my-post', 'en')).toBe('blog/my-post');
+    expect(localePath('blog/my-post', 'en')).toBe('/blog/my-post');
   });
 
   it('handles single-segment paths', () => {

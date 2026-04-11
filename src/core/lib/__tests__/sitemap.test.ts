@@ -41,6 +41,7 @@ describe('generateSitemap', () => {
     expect(entries[0].alternates?.languages).toEqual({
       en: 'https://example.com/about',
       de: 'https://example.com/de/about',
+      'x-default': 'https://example.com/about',
     });
   });
 

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import crypto from 'crypto';
 
 import { env } from '@/lib/env';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { createLogger } from '@/core/lib/infra/logger';
 import { cmsShowcase } from '@/server/db/schema';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
@@ -279,7 +280,7 @@ export const showcaseRouter = createTRPCRouter({
       let seoTitle = source.seoTitle;
 
       if (input.autoTranslate && env.DEEPL_API_KEY) {
-        const sl = source.lang ?? 'en';
+        const sl = source.lang ?? DEFAULT_LOCALE;
         const tl = input.targetLang;
         const safe = createFieldTranslator(tl, sl, logger);
         [title, description, metaDescription, seoTitle] = await Promise.all([
@@ -516,7 +517,7 @@ export const showcaseRouter = createTRPCRouter({
     .input(
       z.object({
         slug: z.string().max(255),
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         previewToken: z.string().max(64).optional(),
       })
     )
@@ -568,7 +569,7 @@ export const showcaseRouter = createTRPCRouter({
   listPublished: publicProcedure
     .input(
       z.object({
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         page: z.number().int().min(1).default(1),
         pageSize: z.number().int().min(1).max(100).default(100),
       })

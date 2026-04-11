@@ -7,6 +7,7 @@ import { cmsPortfolio } from '@/server/db/schema/portfolio';
 import { cmsShowcase } from '@/server/db/schema/showcase';
 import { cmsTerms } from '@/server/db/schema/terms';
 import { ContentStatus } from '@/core/types/cms';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { CONTENT_TYPES } from '@/config/cms';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { ilikePattern } from '@/core/crud/drizzle-utils';
@@ -220,7 +221,7 @@ export const contentSearchRouter = createTRPCRouter({
     .input(
       z.object({
         query: z.string().min(1).max(200),
-        lang: z.string().max(2).default('en'),
+        lang: z.string().max(2).default(DEFAULT_LOCALE),
         page: z.number().int().min(1).default(1),
         pageSize: z.number().int().min(1).max(50).default(10),
       })

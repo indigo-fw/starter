@@ -122,6 +122,13 @@ export async function proxy(request: NextRequest) {
   const segments = pathname.split('/');
   const firstSegment = segments[1]; // segments[0] is '' (leading slash)
 
+  // Normalize uppercase locale codes (e.g. /DE/blog → /de/blog)
+  if (firstSegment && NON_DEFAULT_LOCALE_SET.has(firstSegment.toLowerCase()) && firstSegment !== firstSegment.toLowerCase()) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${firstSegment.toLowerCase()}${segments.slice(2).length ? '/' + segments.slice(2).join('/') : ''}`;
+    return NextResponse.redirect(url, 301);
+  }
+
   if (firstSegment && NON_DEFAULT_LOCALE_SET.has(firstSegment)) {
     const locale = firstSegment as Locale;
     // Strip the locale prefix: /de/blog/post → /blog/post

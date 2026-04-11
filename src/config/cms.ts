@@ -51,7 +51,8 @@ const contentTypesDef = [
     adminCapability: 'section.content',
     titleTemplate: '%TITLE%[ - %PAGE_LABEL% %PAGE%] | %SITENAME%',
     sitemapSlug: 'cms-blog',
-    postFormFields: { featuredImage: true, jsonLd: true },
+    postFormFields: { featuredImage: true, jsonLd: true, authors: true },
+    authorInJsonLd: true,
   },
   {
     id: 'category',

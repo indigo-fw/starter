@@ -5,6 +5,7 @@ export * from './categories';
 export * from './media';
 export * from './terms';
 export * from './term-relationships';
+export * from './post-authors';
 export * from './menu';
 export * from './audit';
 export * from './webhooks';

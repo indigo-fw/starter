@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join, relative, extname, basename } from 'path';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { createLogger } from '@/core/lib/infra/logger';
 import { parseFrontmatter } from '@/core/lib/content/frontmatter';
 
@@ -139,7 +140,7 @@ export function loadAllFileContent(): FileContent[] {
  * Falls back to the default locale if no locale-specific file exists.
  * Returns null if not found in either (CMS should be queried as fallback).
  */
-export function findFileContent(slug: string, locale: string, defaultLocale = 'en'): FileContent | null {
+export function findFileContent(slug: string, locale: string, defaultLocale = DEFAULT_LOCALE): FileContent | null {
   const items = loadAllFileContent();
 
   // Try exact locale first

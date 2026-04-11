@@ -1,6 +1,6 @@
 import { CONTENT_TYPES } from '@/config/cms';
 import { localePath } from '@/lib/locale';
-import { LOCALES, IS_MULTILINGUAL } from '@/lib/constants';
+import { LOCALES, DEFAULT_LOCALE, IS_MULTILINGUAL } from '@/lib/constants';
 import type { Locale } from '@/lib/constants';
 import type { ContentTypeDeclaration } from '@/config/cms';
 
@@ -68,7 +68,7 @@ export function buildAlternates(
   if (Object.keys(languages).length <= 1) return undefined;
 
   // x-default: fallback for unmatched languages → default locale version
-  const defaultLocale = LOCALES[0];
+  const defaultLocale = DEFAULT_LOCALE;
   if (currentLocale === defaultLocale) {
     // Current page IS the default locale version
     languages['x-default'] = languages[defaultLocale]!;

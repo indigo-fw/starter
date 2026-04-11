@@ -1,3 +1,4 @@
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import {
   boolean,
   index,
@@ -18,7 +19,7 @@ export const cmsCategories = pgTable(
     id: uuid('id').primaryKey().defaultRandom(),
     name: varchar('name', { length: 255 }).notNull(),
     slug: varchar('slug', { length: 255 }).notNull(),
-    lang: varchar('lang', { length: 2 }).notNull().default('en'),
+    lang: varchar('lang', { length: 2 }).notNull().default(DEFAULT_LOCALE),
     title: varchar('title', { length: 255 }).notNull(),
     content: text('content').notNull().default(''),
     icon: varchar('icon', { length: 255 }),

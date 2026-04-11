@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 export function useListViewState<
   TTab extends string,
   TSort extends string,
@@ -13,10 +14,10 @@ export function useListViewState<
   sortKeys: ReadonlySet<TSort>;
   defaultTab: TTab;
   defaultSort: TSort;
-  /** Available locale codes for language filtering. Defaults to ['en']. */
+  /** Available locale codes for language filtering. Defaults to [DEFAULT_LOCALE]. */
   locales?: readonly string[];
 }) {
-  const { tabs, sortKeys, defaultTab, defaultSort, locales = ['en'] } = config;
+  const { tabs, sortKeys, defaultTab, defaultSort, locales = [DEFAULT_LOCALE] } = config;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
