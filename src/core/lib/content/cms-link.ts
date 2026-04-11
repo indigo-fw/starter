@@ -130,7 +130,8 @@ export function isPassthroughHref(href: string): boolean {
 
 // ─── URI Parser ─────────────────────────────────────────────────────────────
 
-const UUID_RE =
+/** UUID v4 pattern — used to auto-detect ID vs slug in cms:// URIs and href. */
+export const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /** Regex to detect cms:// URIs in a string. */
@@ -488,29 +489,18 @@ async function findBySlugInLocale(
       .limit(1),
   ]);
 
-  // Priority: pages (type=1) > blog (type=2) > other post types > category > portfolio > showcase > tag
-  for (const p of posts) {
-    const ctId = _config.postTypeMap[p.type];
-    if (ctId === 'page') {
-      return {
-        id: p.id,
-        slug: p.slug,
-        lang: p.lang,
-        title: p.title,
-        contentTypeId: 'page',
-        translationGroup: p.translationGroup,
-      };
-    }
-  }
-  for (const p of posts) {
-    const ctId = _config.postTypeMap[p.type] ?? 'page';
+  // Priority: pages first, then other post types, then non-post tables
+  if (posts.length) {
+    // Prefer page over blog if same slug exists in both
+    const page = posts.find((p) => _config.postTypeMap[p.type] === 'page');
+    const pick = page ?? posts[0];
     return {
-      id: p.id,
-      slug: p.slug,
-      lang: p.lang,
-      title: p.title,
-      contentTypeId: ctId,
-      translationGroup: p.translationGroup,
+      id: pick.id,
+      slug: pick.slug,
+      lang: pick.lang,
+      title: pick.title,
+      contentTypeId: _config.postTypeMap[pick.type] ?? 'page',
+      translationGroup: pick.translationGroup,
     };
   }
   if (categories[0]) {

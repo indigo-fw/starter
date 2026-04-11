@@ -39,6 +39,7 @@ import {
 import { logAudit } from '@/core/lib/infra/audit';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
 import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
+import { broadcastCmsLinkInvalidation } from '@/core/lib/content/cms-link';
 import { getStorage } from '@/core/storage';
 import { sendBulkNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
@@ -300,6 +301,7 @@ export const cmsRouter = createTRPCRouter({
         entityTitle: post!.title,
       });
       dispatchWebhook(ctx.db, 'post.created', { id: post!.id, title: post!.title, type: post!.type });
+      broadcastCmsLinkInvalidation();
 
       // Notify staff when content is created as published
       if (post!.status === ContentStatus.PUBLISHED) {
@@ -408,6 +410,7 @@ export const cmsRouter = createTRPCRouter({
         entityTitle: updates.title ?? existing.title,
       });
       dispatchWebhook(ctx.db, 'post.updated', { id, title: updates.title ?? existing.title });
+      broadcastCmsLinkInvalidation();
 
       // Notify staff when content status changes to published
       if (
@@ -493,6 +496,7 @@ export const cmsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       await softDelete(ctx.db, crudCols, input.id);
+      broadcastCmsLinkInvalidation();
       return { success: true };
     }),
 
@@ -501,6 +505,7 @@ export const cmsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       await softRestore(ctx.db, crudCols, input.id);
+      broadcastCmsLinkInvalidation();
       return { success: true };
     }),
 

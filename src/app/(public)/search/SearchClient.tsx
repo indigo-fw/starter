@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import NextLink from 'next/link';
+import { Link } from '@/components/Link';
 import { Loader2, Search } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { useBlankTranslations } from '@/lib/translations';
@@ -167,12 +167,12 @@ export default function SearchClient({
       <div className="mt-6 space-y-6">
         {results.map((result) => (
           <article key={result.id} className="animate-in fade-in duration-200">
-            <NextLink
+            <Link
               href={result.url}
               className="text-lg font-medium text-brand-700 dark:text-brand-400 hover:underline"
             >
               {result.title}
-            </NextLink>
+            </Link>
             <p className="mt-0.5 text-xs text-green-700 dark:text-green-400">
               {result.url}
             </p>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { ArrowLeft, Loader2, Send } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { useChannel } from '@/core/lib/realtime/ws-client';

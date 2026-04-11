@@ -9,13 +9,9 @@ import {
   isStaticRoute,
   isPassthroughHref,
   parseCmsUri,
+  UUID_RE,
 } from '@/core/lib/content/cms-link';
 import type { Locale } from '@/lib/constants';
-
-// ─── Href Detection ─────────────────────────────────────────────────────────
-
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /** What kind of href was detected. */
 const HrefKind = {
@@ -130,7 +126,7 @@ export interface CmsLinkBaseProps<TPath extends string = string>
    *   - External: `https://...` — passed through as-is
    *   - Dashboard: `/dashboard/...` — passed through, no locale prefix
    */
-  href?: TPath | `/${string}` | `cms://${string}`;
+  href?: TPath | `/${string}` | `cms://${string}` | (string & {});
   /** Explicit content UUID — skips auto-detection, goes straight to ID lookup. */
   id?: string;
   /** Explicit content slug — skips auto-detection, goes straight to slug lookup. */

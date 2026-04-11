@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { signUp } from '@/lib/auth-client';
 import { SocialLoginButtons } from '@/components/public/SocialLoginButtons';
 import { accountRoutes, publicAuthRoutes } from '@/config/routes';

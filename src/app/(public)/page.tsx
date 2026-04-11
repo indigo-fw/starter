@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import NextLink from "next/link";
+import { Link } from "@/components/Link";
 import {
   MessageCircle,
   LayoutDashboard,
@@ -151,27 +151,27 @@ export default async function DemoHomePage() {
                 {DEMO_CREDENTIALS.email} / {DEMO_CREDENTIALS.password}
               </div>
             </div>
-            <NextLink
+            <Link
               href="/dashboard/login"
               className="btn btn-primary rounded-lg px-4 py-2 text-xs font-semibold"
             >
               {__("Log in")} →
-            </NextLink>
+            </Link>
           </div>
 
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <NextLink
+            <Link
               href="/characters"
               className="btn btn-primary rounded-xl px-6 py-3 text-sm font-semibold shadow-lg shadow-brand-500/20"
             >
               {__("Browse Characters")}
-            </NextLink>
-            <NextLink
+            </Link>
+            <Link
               href="/dashboard"
               className="btn btn-secondary rounded-xl px-6 py-3 text-sm font-semibold"
             >
               {__("Admin Dashboard")}
-            </NextLink>
+            </Link>
           </div>
         </div>
       </section>
@@ -190,7 +190,7 @@ export default async function DemoHomePage() {
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {features.map((f) => (
-              <NextLink
+              <Link
                 key={f.href + f.title}
                 href={f.href}
                 className="group relative p-5 rounded-xl border border-(--border-primary) bg-(--surface-primary) hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all"
@@ -213,7 +213,7 @@ export default async function DemoHomePage() {
                   <span>{__("Explore")}</span>
                   <ArrowRight size={12} />
                 </div>
-              </NextLink>
+              </Link>
             ))}
           </div>
         </div>

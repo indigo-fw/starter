@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Download, Truck } from 'lucide-react';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
 import { useBlankTranslations } from '@/lib/translations';
 import { formatPrice } from '@/core-store/lib/store-utils';
 import { ProductGallery } from '@/core-store/components/product/ProductGallery';

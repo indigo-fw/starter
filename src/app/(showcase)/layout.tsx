@@ -2,7 +2,8 @@ import '@/core/styles/tokens-public.css';
 import '@/core/styles/frontend/index.css';
 import './showcase.css';
 
-import { Link, getPathname } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
+import { getPathname } from '@/i18n/navigation';
 import { Compass, BookOpen, Briefcase, Home } from 'lucide-react';
 
 import { siteConfig } from '@/config/site';

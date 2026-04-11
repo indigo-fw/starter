@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { Sparkles } from 'lucide-react';
 import { useSession } from '@/lib/auth-client';
 import { trpc } from '@/lib/trpc/client';

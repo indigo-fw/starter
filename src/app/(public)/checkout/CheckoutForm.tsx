@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Lock, Loader2, AlertCircle } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
 import { useBlankTranslations } from '@/lib/translations';
 import { formatPrice, getCartSessionId } from '@/core-store/lib/store-utils';
 

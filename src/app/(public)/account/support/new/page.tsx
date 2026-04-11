@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { accountRoutes } from '@/config/routes';

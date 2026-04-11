@@ -1,7 +1,7 @@
 'use client';
 
 import { CheckCircle, Clock, Package, Truck, Download, ArrowLeft } from 'lucide-react';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
 import { useBlankTranslations } from '@/lib/translations';
 import { formatPrice } from '@/core-store/lib/store-utils';
 

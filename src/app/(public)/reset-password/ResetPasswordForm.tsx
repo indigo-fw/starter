@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { authClient } from '@/lib/auth-client';
 import { publicAuthRoutes } from '@/config/routes';
 import { useBlankTranslations } from '@/lib/translations';

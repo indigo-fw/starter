@@ -3,7 +3,7 @@
 import './AppSidebar.css';
 
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';

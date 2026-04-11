@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { useSession, signOut } from '@/lib/auth-client';
 import { User, Settings, Shield, CreditCard, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { ChevronDown, Loader2, Send, X } from 'lucide-react';
 
 import { cn } from '@/lib/utils';

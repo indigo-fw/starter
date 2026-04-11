@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { requestPasswordReset } from './actions';
 import { publicAuthRoutes } from '@/config/routes';
 import { useBlankTranslations } from '@/lib/translations';
