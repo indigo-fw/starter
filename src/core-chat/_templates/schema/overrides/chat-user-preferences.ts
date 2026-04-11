@@ -7,7 +7,7 @@
  * To use: copy this file to src/schema/overrides/chat-user-preferences.ts
  * Then run: bun run indigo:sync
  */
-import { pgTable, varchar } from 'drizzle-orm/pg-core';
+import { pgTable } from 'drizzle-orm/pg-core';
 import { chatUserPreferenceColumns } from '@/core-chat/schema/user-preferences';
 
 export const chatUserPreferences = pgTable('chat_user_preferences', {

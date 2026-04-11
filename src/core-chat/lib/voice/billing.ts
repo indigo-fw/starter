@@ -29,7 +29,7 @@ export async function deductMinute(
     }).where(eq(chatVoiceCalls.id, callId));
 
     return newBalance;
-  } catch (err) {
+  } catch {
     logger.warn('Voice call billing failed (insufficient tokens)', { callId });
     return -1;
   }

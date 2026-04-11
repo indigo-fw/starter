@@ -8,7 +8,7 @@ import { encrypt, decrypt, maskApiKey, isEncryptionConfigured } from '@/core-cha
 import { ProviderManager } from '@/core-chat/lib/ai/provider-manager';
 import { getLlmAdapter, getImageAdapter, getVideoAdapter } from '@/core-chat/lib/adapters/registry';
 import { ProviderType } from '@/core-chat/lib/adapters/types';
-import { parsePagination, paginatedResult } from '@/core/crud';
+import { parsePagination } from '@/core/crud';
 
 export const providerRouter = createTRPCRouter({
   /** List providers (masked keys) */
@@ -18,7 +18,7 @@ export const providerRouter = createTRPCRouter({
       pageSize: z.number().int().min(1).max(50).default(20),
     }))
     .query(async ({ input }) => {
-      const { page, pageSize, offset } = parsePagination(input);
+      const { page: _page, pageSize, offset } = parsePagination(input);
 
       const items = await db
         .select()

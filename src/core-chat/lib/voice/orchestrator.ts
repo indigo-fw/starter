@@ -9,8 +9,7 @@ import { buildContext } from '@/core-chat/lib/ai/context-builder';
 import { getGreeting } from '@/core-chat/lib/ai/greetings';
 import { splitSentences } from './sentence-splitter';
 import { createWavBuffer } from './audio-utils';
-import { MessageRole, MessageStatus, ChatWsEvent } from '@/core-chat/lib/types';
-import { getChatDeps } from '@/core-chat/deps';
+import { MessageRole, MessageStatus } from '@/core-chat/lib/types';
 import type { ChatCharacter } from '@/core-chat/schema/characters';
 
 const logger = createLogger('voice-orchestrator');
@@ -95,7 +94,7 @@ export async function runVoicePipeline(
       fullResponse += chunk;
 
       // Split into sentences for TTS streaming
-      const { sentences, remainder } = splitSentences(fullResponse);
+      const { sentences, remainder: _remainder } = splitSentences(fullResponse);
 
       // Synthesize new complete sentences
       for (let i = sentenceBuffer.length; i < sentences.length; i++) {

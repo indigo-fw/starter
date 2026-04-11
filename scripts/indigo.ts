@@ -17,7 +17,7 @@
 
 import { execSync } from 'child_process';
 import { existsSync, readFileSync, writeFileSync, cpSync, rmSync, readdirSync, rmdirSync } from 'fs';
-import { resolve, join, dirname } from 'path';
+import { resolve, dirname } from 'path';
 import { REGISTRY, getRegistryEntry } from './indigo/registry';
 
 const root = process.cwd();
@@ -149,7 +149,7 @@ function scaffoldTemplates(id: string) {
   cpSync(templatesDir, resolve(root, 'src'), { recursive: true, force: false });
 }
 
-async function cleanupScaffoldedFiles(id: string) {
+async function _cleanupScaffoldedFiles(id: string) {
   const projectFiles = await getModuleProjectFiles(id);
 
   for (const relPath of projectFiles) {

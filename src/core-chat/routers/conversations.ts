@@ -9,7 +9,7 @@ import { chatMessages } from '@/core-chat/schema/messages';
 import { getChatDeps } from '@/core-chat/deps';
 import { getChatConfig } from '@/core-chat/config';
 import { ConversationStatus, MessageRole, MessageStatus } from '@/core-chat/lib/types';
-import { parsePagination, paginatedResult } from '@/core/crud';
+import { parsePagination } from '@/core/crud';
 
 export const conversationRouter = createTRPCRouter({
   /** List user's conversations with character info */
@@ -22,7 +22,7 @@ export const conversationRouter = createTRPCRouter({
     }))
     .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
-      const { page, pageSize, offset } = parsePagination(input);
+      const { page: _page, pageSize, offset } = parsePagination(input);
 
       const items = await db
         .select({

@@ -11,8 +11,6 @@ import { count } from 'drizzle-orm';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
 import {
   type CompanyInfo,
   SEED_IMAGES,
@@ -20,7 +18,6 @@ import {
   TAGS_DATA,
   createPlaceholderPng,
   simpleSlugify,
-  formatDate,
   generateBlogPost,
   log,
   token,

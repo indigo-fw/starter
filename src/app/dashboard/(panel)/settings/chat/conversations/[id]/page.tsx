@@ -5,7 +5,6 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { ChatMessage } from '@/core-chat/components/chat/ChatMessage';
-import { cn } from '@/lib/utils';
 
 export default function AdminConversationDetailPage() {
   const __ = useAdminTranslations();

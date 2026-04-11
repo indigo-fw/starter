@@ -20,7 +20,7 @@ import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { organization } from '@/server/db/schema/organization';
 import { getStats as getCachedStats } from '@/core/lib/infra/stats-cache';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { user } from '@/server/db/schema/auth';
+import { user as _user } from '@/server/db/schema/auth';
 import {
   getTokenBalanceRecord,
   addTokens,

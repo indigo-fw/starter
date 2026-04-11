@@ -2,7 +2,7 @@ import { createLogger } from '@/core/lib/infra/logger';
 import type { ImageAdapter, ImageRequest, ImageResponse, AdapterResponse } from './types';
 import { ProviderClientError } from './types';
 
-const logger = createLogger('openai-image');
+const _logger = createLogger('openai-image');
 const DEFAULT_API_URL = 'https://api.openai.com/v1/images/generations';
 
 /**

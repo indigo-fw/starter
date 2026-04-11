@@ -9,7 +9,7 @@ interface CensoredMessageProps {
   reason?: string;
 }
 
-export function CensoredMessage({ censorType, reason }: CensoredMessageProps) {
+export function CensoredMessage({ censorType, reason: _reason }: CensoredMessageProps) {
   const __ = useBlankTranslations();
 
   if (censorType === CensorType.CENSORED_IMAGE) {

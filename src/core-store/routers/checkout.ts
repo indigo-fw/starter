@@ -6,7 +6,7 @@ import { storeCarts } from '@/core-store/schema/orders';
 import { getCartWithItems } from '@/core-store/lib/cart-service';
 import { calculateOrderTax } from '@/core-store/lib/tax-service';
 import { getShippingOptions } from '@/core-store/lib/shipping-service';
-import { createOrder, assignInvoiceNumber, updateOrderStatus } from '@/core-store/lib/order-service';
+import { createOrder, assignInvoiceNumber } from '@/core-store/lib/order-service';
 import { getStoreDeps } from '@/core-store/deps';
 import { createLogger } from '@/core/lib/infra/logger';
 

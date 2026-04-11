@@ -30,7 +30,7 @@ test.describe('Store Flow', () => {
     }
 
     // ── 3. Click first product → product detail ──
-    const firstCardName = await cards.first().locator('.product-card-name').textContent();
+    const _firstCardName = await cards.first().locator('.product-card-name').textContent();
     await cards.first().click();
     await expect(page).toHaveURL(/\/store\/.+/);
     await expect(page.locator('.product-info-title')).toBeVisible();

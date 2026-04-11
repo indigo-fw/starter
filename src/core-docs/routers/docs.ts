@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { eq, desc, asc, count, and } from 'drizzle-orm';
+import { eq, asc, count, and } from 'drizzle-orm';
 import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
 import { cmsDocs } from '@/core-docs/schema/docs';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';

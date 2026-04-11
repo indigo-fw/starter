@@ -1,7 +1,7 @@
 import type { ImageAdapter, ImageRequest, ImageResponse, AdapterResponse } from '../types';
 
 // Minimal valid 1x1 red PNG (68 bytes)
-const MOCK_PNG_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
+const _MOCK_PNG_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
 
 // Placeholder SVG image with text (more useful for dev than a 1x1 pixel)
 function createPlaceholderSvg(width: number, height: number, prompt: string): string {

@@ -13,7 +13,7 @@ import { createLogger } from '@/core/lib/infra/logger';
 const logger = createLogger('store-deps');
 
 setStoreDeps({
-  async createPaymentCheckout({ orderId, orderNumber, totalCents, currency, customerEmail, providerId, metadata }) {
+  async createPaymentCheckout({ orderId, orderNumber: _orderNumber, totalCents: _totalCents, currency: _currency, customerEmail, providerId, metadata }) {
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
     const provider = await getProvider(providerId);
 

@@ -8,7 +8,6 @@ import {
   Clock,
   Loader2,
   MapPin,
-  Package,
   Save,
   Truck,
 } from 'lucide-react';

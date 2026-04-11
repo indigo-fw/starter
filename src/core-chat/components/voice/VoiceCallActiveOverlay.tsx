@@ -45,7 +45,7 @@ export function VoiceCallActiveOverlay({
       {/* Subtitle */}
       {subtitle && (
         <p className="text-sm text-white/70 mt-4 max-w-sm text-center italic">
-          "{subtitle}"
+          &ldquo;{subtitle}&rdquo;
         </p>
       )}
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { useRouter } from '@/i18n/navigation';
@@ -11,14 +11,10 @@ import './CartWidget.css';
 export function CartWidget() {
   const __ = useBlankTranslations();
   const router = useRouter();
-  const sessionIdRef = useRef('');
-
-  useEffect(() => {
-    sessionIdRef.current = getCartSessionId();
-  }, []);
+  const [sessionId] = useState(() => typeof window !== 'undefined' ? getCartSessionId() : '');
 
   const { data } = trpc.storeCart.get.useQuery(
-    { sessionId: sessionIdRef.current || undefined },
+    { sessionId: sessionId || undefined },
     { refetchOnWindowFocus: true, staleTime: 30_000 },
   );
 

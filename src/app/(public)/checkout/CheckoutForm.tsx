@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Lock, Loader2, AlertCircle } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { Link } from '@/components/Link';
@@ -37,7 +37,7 @@ const emptyAddress: AddressFields = {
 
 const REQUIRED_FIELDS: (keyof AddressFields)[] = ['firstName', 'lastName', 'address1', 'city', 'postalCode'];
 
-const FIELD_LABELS: Record<string, string> = {
+const _FIELD_LABELS: Record<string, string> = {
   firstName: 'First Name',
   lastName: 'Last Name',
   address1: 'Address',
@@ -136,22 +136,18 @@ function AddressForm({
 
 export function CheckoutForm() {
   const __ = useBlankTranslations();
-  const sessionIdRef = useRef('');
+  const [sessionId] = useState(() => typeof window !== 'undefined' ? getCartSessionId() : '');
   const [shipping, setShipping] = useState<AddressFields>(emptyAddress);
   const [customerNote, setCustomerNote] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [showErrors, setShowErrors] = useState(false);
   const [selectedShippingRate, setSelectedShippingRate] = useState<string | undefined>();
 
-  useEffect(() => {
-    sessionIdRef.current = getCartSessionId();
-  }, []);
-
   const fieldErrors = validateAddress(shipping, __);
   const hasFieldErrors = Object.keys(fieldErrors).length > 0;
 
   const { data: cart } = trpc.storeCart.get.useQuery(
-    { sessionId: sessionIdRef.current || undefined },
+    { sessionId: sessionId || undefined },
     { staleTime: 10_000 },
   );
 

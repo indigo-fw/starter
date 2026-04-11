@@ -43,13 +43,11 @@ export default function SearchClient({
   const [inputValue, setInputValue] = useState(initialQuery);
   const [query, setQuery] = useState(initialQuery);
   const [page, setPage] = useState(initialPage);
-  // Tracks whether tRPC has ever fetched — once true, always prefer tRPC data
-  const [hasClientData, setHasClientData] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Skip tRPC fetch when SSR already provided data for this exact query+page.
-  // Once the user changes query or page, hasClientData flips and tRPC takes over.
-  const needsFetch = query.length >= 1 && (hasClientData || query !== initialQuery || page !== initialPage);
+  // Once the user changes query or page from initial SSR values, tRPC takes over.
+  const hasClientDrift = query !== initialQuery || page !== initialPage;
+  const needsFetch = query.length >= 1 && hasClientDrift;
 
   const { data, isFetching } = trpc.contentSearch.fullTextSearch.useQuery(
     { query, lang: locale, page, pageSize },
@@ -59,17 +57,13 @@ export default function SearchClient({
     },
   );
 
-  useEffect(() => {
-    if (data) setHasClientData(true);
-  }, [data]);
-
   // tRPC results don't include locale prefix — apply it
   const tRPCResults = (data?.results ?? []).map((r) => ({
     ...r,
     url: localePath(r.url, locale),
   }));
-  const results = hasClientData ? tRPCResults : initialResults;
-  const total = hasClientData ? (data?.total ?? 0) : initialTotal;
+  const results = hasClientDrift ? tRPCResults : initialResults;
+  const total = hasClientDrift ? (data?.total ?? 0) : initialTotal;
   const totalPages = Math.ceil(total / pageSize);
 
   // Sync URL when query/page changes (without full navigation)

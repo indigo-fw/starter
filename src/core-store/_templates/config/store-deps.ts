@@ -9,7 +9,7 @@ import { NotificationType, NotificationCategory } from '@/core/types/notificatio
 import { enqueueTemplateEmail } from '@/server/jobs/email/index';
 
 setStoreDeps({
-  async createPaymentCheckout({ orderId, orderNumber, totalCents, currency, customerEmail, providerId, metadata }) {
+  async createPaymentCheckout({ orderId, orderNumber: _orderNumber, totalCents: _totalCents, currency: _currency, customerEmail, providerId, metadata }) {
     const provider = await getProvider(providerId);
     if (!provider) throw new Error(`Payment provider "${providerId}" not available`);
 

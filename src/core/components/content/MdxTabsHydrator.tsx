@@ -41,7 +41,6 @@ export function MdxTabsHydrator({ children }: { children: React.ReactNode }) {
 
     root.addEventListener('click', handleClick);
     return () => root.removeEventListener('click', handleClick);
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- hydrate once on mount; content is server-rendered and stable
   }, []);
 
   return <div ref={ref}>{children}</div>;

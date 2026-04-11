@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { ShoppingCart, Trash2, Minus, Plus, Lock, LogIn } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
@@ -42,15 +42,11 @@ export function CartPageClient() {
   const __ = useBlankTranslations();
   const { data: session } = useSession();
   const isLoggedIn = !!session?.user;
-  const sessionIdRef = useRef('');
-
-  useEffect(() => {
-    sessionIdRef.current = getCartSessionId();
-  }, []);
+  const [sessionId] = useState(() => typeof window !== 'undefined' ? getCartSessionId() : '');
 
   const utils = trpc.useUtils();
   const { data: cart, isLoading } = trpc.storeCart.get.useQuery(
-    { sessionId: sessionIdRef.current || undefined },
+    { sessionId: sessionId || undefined },
     { staleTime: 10_000 },
   );
 

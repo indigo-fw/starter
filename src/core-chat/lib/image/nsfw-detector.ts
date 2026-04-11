@@ -1,4 +1,3 @@
-import type { SelectedTraits } from './types';
 
 // ─── NSFW keyword set ───────────────────────────────────────────────────────
 

@@ -119,7 +119,7 @@ export function composeSystemPrompt(opts: SystemPromptOpts): string {
   const currentTime = formatCurrentTime(opts.userTimezone);
 
   const template = opts.isVoiceCall ? VOICE_SYSTEM_PROMPT : BASE_SYSTEM_PROMPT;
-  let prompt = template
+  const prompt = template
     .replace('%%%name%%%', opts.characterName)
     .replace('%%%age%%%', '25') // Default age — can be made configurable
     .replace('%%%current_time%%%', currentTime)

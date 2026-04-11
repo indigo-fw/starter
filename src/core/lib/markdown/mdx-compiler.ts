@@ -17,6 +17,7 @@ import { resolveContentVars } from '@/core/lib/content/vars';
  * Return null to skip (falls through to unknown-component fallback).
  */
 export type MdxComponentTransform = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- MDX JSX attribute nodes have complex union types
   node: { name: string; attributes: any[]; children: ElementContent[] },
   helpers: { h: typeof h; text: typeof text; getAttr: typeof getAttr },
 ) => Element | null;
@@ -92,6 +93,7 @@ function rehypeMdxComponents() {
   return (tree: Root) => {
     const helpers = { h, text, getAttr };
     for (const nodeType of ['mdxJsxFlowElement', 'mdxJsxTextElement'] as const) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- unist-util-visit node types not narrowed for mdx
       visit(tree, nodeType, (node: any, index, parent) => {
         if (!parent || index == null) return;
 
@@ -109,6 +111,7 @@ function rehypeMdxComponents() {
         }
 
         if (replacement) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- parent.children mutation required by unist visitor
           (parent as any).children[index] = replacement;
         }
       });
@@ -119,7 +122,9 @@ function rehypeMdxComponents() {
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 /** Get a string attribute from an MDX JSX node. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- MDX JSX attribute types are complex unions
 export function getAttr(node: { attributes?: any[] }, name: string): string | undefined {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const attr = node.attributes?.find((a: any) => a.name === name);
   return attr?.value ?? undefined;
 }

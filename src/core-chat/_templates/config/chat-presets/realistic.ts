@@ -26,7 +26,7 @@ const projectVisualOverrides = {
 
 // ─── Merge: base → builtin realistic → project overrides ───────────────────
 
-const mergedVisuals = mergeVisuals(
+const _mergedVisuals = mergeVisuals(
   baseVisuals as unknown as Record<string, Record<string, unknown>>,
   { ...realisticVisualOverrides, ...projectVisualOverrides },
 );

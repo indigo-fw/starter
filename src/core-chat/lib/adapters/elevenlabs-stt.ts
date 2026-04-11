@@ -1,7 +1,4 @@
-import { createLogger } from '@/core/lib/infra/logger';
 import type { SttAdapter, SttRequest, SttResponse, AdapterResponse } from './types';
-
-const logger = createLogger('elevenlabs-stt');
 
 const DEFAULT_API_URL = 'https://api.elevenlabs.io/v1';
 

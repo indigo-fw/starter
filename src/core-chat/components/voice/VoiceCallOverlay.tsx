@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useBlankTranslations } from '@/lib/translations';
-import { Phone, X, Loader2 } from 'lucide-react';
+import { Phone, X } from 'lucide-react';
 
 interface VoiceCallOverlayProps {
   characterName: string;

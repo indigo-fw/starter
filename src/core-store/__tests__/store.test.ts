@@ -75,7 +75,7 @@ const RATE_ID = 'c2c2c2c2-d3d3-4e4e-8f5f-a6a6a6a6a6a6';
 const CART_ID = 'd3d3d3d3-e4e4-4f5f-8a6a-b7b7b7b7b7b7';
 const ITEM_ID = 'e4e4e4e4-f5f5-4a6a-8b7b-c8c8c8c8c8c8';
 const VARIANT_ID = 'f5f5f5f5-a6a6-4b7b-8c8c-d9d9d9d9d9d9';
-const CAT_ID = '11111111-2222-4333-8444-555555555555';
+const _CAT_ID = '11111111-2222-4333-8444-555555555555';
 const DL_TOKEN = '22222222-3333-4444-8555-666666666666';
 
 // ─── Service mocks ──────���───────────────────────────────────────────────────
@@ -354,7 +354,7 @@ describe('storeCartRouter', () => {
     it('returns cart for anonymous session', async () => {
       const ctx = createPublicCtx();
       const caller = storeCartRouter.createCaller(ctx as never);
-      const result = await caller.get({ sessionId: 'anon-123' });
+      const _result = await caller.get({ sessionId: 'anon-123' });
 
       expect(mockGetOrCreateCart).toHaveBeenCalledWith(null, 'anon-123');
     });

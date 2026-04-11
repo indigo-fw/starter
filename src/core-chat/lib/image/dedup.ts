@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import { eq, and, isNull } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { chatMedia } from '@/core-chat/schema/media';
 
@@ -19,7 +19,7 @@ export function computeMediaHash(keywords: string[], characterId: string): strin
  */
 export async function findDuplicate(
   contentHash: string,
-  characterId: string,
+  _characterId: string,
 ): Promise<{ id: string; filepath: string } | null> {
   const [existing] = await db
     .select({ id: chatMedia.id, filepath: chatMedia.filepath })

@@ -1,4 +1,4 @@
-import { boolean, index, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { boolean, index, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
 // ─── chat_voice_calls ───────────────────────────────────────────────────────
 // Durable record of voice calls for billing and crash recovery.

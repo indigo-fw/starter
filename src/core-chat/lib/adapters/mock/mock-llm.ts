@@ -13,7 +13,7 @@ const MOCK_RESPONSES = [
  * Returns random pre-written responses with a realistic delay.
  */
 export class MockLlmAdapter implements LlmAdapter {
-  async complete(request: LlmRequest): Promise<AdapterResponse<LlmResponse>> {
+  async complete(_request: LlmRequest): Promise<AdapterResponse<LlmResponse>> {
     await delay(500 + Math.random() * 500);
     const text = pickRandom(MOCK_RESPONSES);
 
@@ -23,7 +23,7 @@ export class MockLlmAdapter implements LlmAdapter {
     };
   }
 
-  async *stream(request: LlmRequest): AsyncGenerator<string> {
+  async *stream(_request: LlmRequest): AsyncGenerator<string> {
     const text = pickRandom(MOCK_RESPONSES);
     const words = text.split(' ');
 

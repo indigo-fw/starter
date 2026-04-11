@@ -4,15 +4,17 @@ import { useState } from 'react';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { Loader2, MessageCircle, Users, Zap, TrendingUp } from 'lucide-react';
-import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const COLORS = ['#ec4899', '#8b5cf6', '#3b82f6', '#10b981', '#f59e0b'];
 
 export default function ChatStatsPage() {
   const __ = useAdminTranslations();
 
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-  const now = new Date().toISOString();
+  const [{ thirtyDaysAgo, now }] = useState(() => ({
+    thirtyDaysAgo: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+    now: new Date().toISOString(),
+  }));
 
   const { data: overview } = trpc.chatAdmin.overview.useQuery();
   const { data: charStats, isLoading: charLoading } = trpc.chatAdmin.characterStats.useQuery({ limit: 10 });

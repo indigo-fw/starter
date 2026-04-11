@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { eq, and, isNull, asc, desc, count as drizzleCount } from 'drizzle-orm';
-import { TRPCError } from '@trpc/server';
 import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
 import { db } from '@/server/db';
 import { chatCharacters } from '@/core-chat/schema/characters';

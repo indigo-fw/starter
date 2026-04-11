@@ -150,8 +150,8 @@ const mockPlans = [
 const mockBillingDeps = {
   getPlans: () => mockPlans,
   getPlan: (id: string) => mockPlans.find((p: { id: string }) => p.id === id),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getPlanByProviderPriceId: (_providerId: string, priceId: string) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockPlans.find((p: any) => {
       const prices = p.providerPrices?.['stripe'];
       if (!prices) return false;

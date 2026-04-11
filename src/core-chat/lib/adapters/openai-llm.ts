@@ -2,7 +2,7 @@ import { createLogger } from '@/core/lib/infra/logger';
 import type { LlmAdapter, LlmRequest, LlmResponse, AdapterResponse } from './types';
 import { ProviderClientError } from './types';
 
-const logger = createLogger('openai-llm');
+const _logger = createLogger('openai-llm');
 const DEFAULT_API_URL = 'https://api.openai.com/v1/chat/completions';
 
 /**

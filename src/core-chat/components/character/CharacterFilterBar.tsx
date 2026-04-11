@@ -2,7 +2,7 @@
 
 import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
-import { CHARACTER_GENDER, CHARACTER_ETHNICITY, CHARACTER_PERSONALITY } from '@/core-chat/lib/character/character-enums';
+import { CHARACTER_GENDER, CHARACTER_PERSONALITY } from '@/core-chat/lib/character/character-enums';
 import { X } from 'lucide-react';
 
 interface FilterCounts {

@@ -1,7 +1,4 @@
-import { createLogger } from '@/core/lib/infra/logger';
 import type { TtsAdapter, TtsRequest, TtsResponse, AdapterResponse } from './types';
-
-const logger = createLogger('elevenlabs-tts');
 
 const DEFAULT_API_URL = 'https://api.elevenlabs.io/v1';
 const DEFAULT_MODEL = 'eleven_flash_v2_5';

@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
 
 interface CharacterGridCardProps {

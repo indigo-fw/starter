@@ -13,7 +13,7 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params: _params }: Props): Promise<Metadata> {
   const __ = await getServerTranslations();
   return {
     title: `${__('Order Details')} | ${siteConfig.name}`,

@@ -3,7 +3,6 @@ import { createQueue, createWorker } from '@/core/lib/infra/queue';
 import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatMessages, chatConversationSummaries } from '@/core-chat/schema/messages';
-import { chatConversations } from '@/core-chat/schema/conversations';
 import { completeAi } from '@/core-chat/lib/ai/ai-provider';
 import { MessageRole } from '@/core-chat/lib/types';
 

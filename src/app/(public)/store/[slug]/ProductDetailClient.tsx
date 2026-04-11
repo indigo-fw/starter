@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useRef } from 'react';
 import { Download, Truck } from 'lucide-react';
 import { Link } from '@/components/Link';
 import { useBlankTranslations } from '@/lib/translations';
@@ -88,18 +88,20 @@ export function ProductDetailClient({ product }: { product: Product }) {
     : null;
 
   // Gallery needs to update when variant with image is selected
-  const galleryRef = { current: null as ((url: string) => void) | null };
+  const galleryRef = useRef<((url: string) => void) | null>(null);
 
-  const handleVariantSelect = useCallback((name: string, value: string) => {
-    const next = { ...selections, [name]: value };
-    setSelections(next);
-    // If the new variant has a specific image, switch to it
-    const v = product.variants.find((vr) => {
-      const opts = vr.options as Record<string, string>;
-      return optionGroups.every((g) => opts[g.name] === next[g.name]);
+  const handleVariantSelect = (name: string, value: string) => {
+    setSelections((prev) => {
+      const next = { ...prev, [name]: value };
+      // If the new variant has a specific image, switch to it
+      const v = product.variants.find((vr) => {
+        const opts = vr.options as Record<string, string>;
+        return optionGroups.every((g) => opts[g.name] === next[g.name]);
+      });
+      if (v?.image) galleryRef.current?.(v.image);
+      return next;
     });
-    if (v?.image) galleryRef.current?.(v.image);
-  }, [selections, product.variants, optionGroups]);
+  };
 
   return (
     <>

@@ -1,11 +1,9 @@
-import { eq, and, lt, isNull, isNotNull, notInArray, sql } from 'drizzle-orm';
+import { eq, and, lt, isNotNull } from 'drizzle-orm';
 import { createQueue, createWorker } from '@/core/lib/infra/queue';
 import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { chatConversations } from '@/core-chat/schema/conversations';
 import { chatMedia } from '@/core-chat/schema/media';
-import { chatMessages } from '@/core-chat/schema/messages';
-import { chatCharacters } from '@/core-chat/schema/characters';
 import { chatVoiceCalls } from '@/core-chat/schema/voice-calls';
 import { ConversationStatus } from '@/core-chat/lib/types';
 

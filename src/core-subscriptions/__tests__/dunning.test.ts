@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // vi.hoisted ensures these are available when vi.mock factories run (hoisted above mocks)
 const {
-  mockSelectFn, mockUpdateWhereMock, mockUpdateSetMock, mockUpdateMock, mockDb,
+  mockSelectFn, mockUpdateWhereMock: _mockUpdateWhereMock, mockUpdateSetMock, mockUpdateMock: _mockUpdateMock, mockDb,
   selectState, innerJoinState,
 } = vi.hoisted(() => {
   const selectState = { sequence: [] as unknown[][], callIdx: 0 };

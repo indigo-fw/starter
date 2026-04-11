@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
-import { TRPCError } from '@trpc/server';
 import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
 import { db } from '@/server/db';
 import { chatConversations } from '@/core-chat/schema/conversations';

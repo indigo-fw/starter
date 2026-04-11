@@ -1,7 +1,3 @@
-import { eq, and, gte, count as drizzleCount } from 'drizzle-orm';
-import { db } from '@/server/db';
-import { chatMessages } from '@/core-chat/schema/messages';
-import { chatConversations } from '@/core-chat/schema/conversations';
 import { getChatDeps } from '@/core-chat/deps';
 import { BlockType } from './types';
 import type { ResponseType } from './types';

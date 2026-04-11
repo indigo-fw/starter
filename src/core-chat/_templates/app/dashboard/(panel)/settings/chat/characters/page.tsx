@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import Link from 'next/link';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
@@ -31,13 +31,13 @@ export default function CharactersPage() {
             {__('AI personas that users can chat with.')}
           </p>
         </div>
-        <a
+        <Link
           href="/dashboard/settings/chat/characters/new"
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-500 text-white text-sm font-medium hover:bg-brand-600 transition-colors"
         >
           <Plus size={16} />
           {__('New Character')}
-        </a>
+        </Link>
       </div>
 
       {isLoading ? (

@@ -177,8 +177,8 @@ async function processTextResponse(
   deps: ReturnType<typeof getChatDeps>,
   config: ReturnType<typeof getChatConfig>,
   tempId: string,
-  cost: number,
-  organizationId: string,
+  _cost: number,
+  _organizationId: string,
 ): Promise<void> {
   const context = await buildContext(conversationId, character, config.contextMessageLimit, {
     userName: conv.userName,

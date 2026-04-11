@@ -8,7 +8,7 @@ import { PLANS, getPlan, getPlanByProviderPriceId, getProviderPriceId } from '@/
 import { resolveOrgId } from '@/server/lib/resolve-org';
 import { sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { enqueueTemplateEmail } from '@/server/jobs/email/index';
+import { enqueueTemplateEmail, type TemplateName } from '@/server/jobs/email/index';
 import { registerHook } from '@/core/lib/module/module-hooks';
 
 setSubscriptionsDeps({
@@ -32,7 +32,7 @@ setSubscriptionsDeps({
   },
 
   enqueueTemplateEmail(to, template, data) {
-    return enqueueTemplateEmail(to, template as any, data as Record<string, string>);
+    return enqueueTemplateEmail(to, template as TemplateName, data as Record<string, string>);
   },
 
   broadcastEvent(channel, type, payload) {

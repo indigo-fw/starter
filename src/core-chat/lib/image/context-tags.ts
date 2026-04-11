@@ -10,7 +10,7 @@ import {
   VISUAL_OUTFIT,
   VISUAL_POSE,
 } from '@/core-chat/lib/character/visual-enums';
-import { getEntryContextTags } from '@/core-chat/lib/character/visual-enum-utils';
+import { getEntryContextTags as _getEntryContextTags } from '@/core-chat/lib/character/visual-enum-utils';
 
 type VisualEnum = Record<string, { id: number; contextTags?: readonly string[] }>;
 

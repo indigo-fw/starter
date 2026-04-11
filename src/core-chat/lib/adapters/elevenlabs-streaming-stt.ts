@@ -1,6 +1,3 @@
-import { createLogger } from '@/core/lib/infra/logger';
-
-const logger = createLogger('elevenlabs-streaming-stt');
 
 /**
  * ElevenLabs Scribe Realtime — WebSocket-based streaming STT.

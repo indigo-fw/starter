@@ -8,8 +8,8 @@ import { getLlmAdapter, getImageAdapter, getVideoAdapter, getTtsAdapter, getSttA
 import { ProviderClientError } from '../adapters/types';
 import type {
   LlmMessage, LlmResponse, AdapterResponse,
-  ImageRequest, ImageResponse,
-  VideoRequest, VideoResponse,
+  ImageResponse,
+  VideoResponse,
   TtsResponse, SttResponse,
 } from '../adapters/types';
 

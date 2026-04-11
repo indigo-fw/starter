@@ -4,7 +4,7 @@
  */
 import { createLogger } from '@/core/lib/infra/logger';
 
-const logger = createLogger('chat-ws');
+const _logger = createLogger('chat-ws');
 
 // ─── Presence tracking ──────────────────────────────────────────────────────
 

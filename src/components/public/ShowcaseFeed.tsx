@@ -263,7 +263,7 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
           const uReaction = userReactions?.[item.id] ?? null;
           const v = (item.variant || 'full') as ShowcaseVariant;
           const cfg = VARIANT_CONFIG[v];
-          const isConstrained = v !== 'full';
+          const _isConstrained = v !== 'full';
 
           return (
             <div

@@ -4,8 +4,6 @@ import type { Server } from 'http';
 import { eq, and } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { member as memberTable } from '@/server/db/schema/organization';
-import { user as userTable } from '@/server/db/schema/auth';
-import { Policy } from '@/core/policy';
 import { authorizeChannel } from '@/core/lib/module/module-hooks';
 
 interface AuthenticatedSocket extends WebSocket {

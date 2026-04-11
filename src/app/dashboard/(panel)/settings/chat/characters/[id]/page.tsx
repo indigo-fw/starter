@@ -110,6 +110,7 @@ export default function CharacterEditPage() {
 
   useEffect(() => {
     if (character) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- populating form from server data on load
       setForm({
         name: character.name, slug: character.slug, tagline: character.tagline ?? '',
         systemPrompt: character.systemPrompt, personality: character.personality ?? '',
