@@ -9,6 +9,7 @@ import { generateSitemap } from '@/core/lib/seo/sitemap';
 import type { SitemapStaticPage, SitemapFetcher } from '@/core/lib/seo/sitemap';
 import { db } from '@/server/db';
 import { cmsPosts, cmsCategories, cmsPortfolio, cmsShowcase, cmsTerms } from '@/server/db/schema';
+import { cmsAuthors } from '@/core-authors/schema/authors';
 
 export const dynamic = 'force-dynamic';
 
@@ -82,6 +83,15 @@ const CONTENT_FETCHERS: SitemapFetcher[] = [
       db.select({ slug: cmsShowcase.slug, updatedAt: cmsShowcase.updatedAt }).from(cmsShowcase)
         .where(and(eq(cmsShowcase.status, ContentStatus.PUBLISHED), eq(cmsShowcase.lang, locale), isNull(cmsShowcase.deletedAt)))
         .orderBy(desc(cmsShowcase.createdAt)).limit(500),
+  },
+  // core-authors: author profile pages (locale-independent — same profile for all languages)
+  {
+    urlPrefix: '/author/',
+    priority: 0.5,
+    changeFrequency: 'monthly',
+    fetch: () =>
+      db.select({ slug: cmsAuthors.slug, updatedAt: cmsAuthors.updatedAt }).from(cmsAuthors)
+        .orderBy(cmsAuthors.name).limit(500),
   },
 ];
 

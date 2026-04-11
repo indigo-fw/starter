@@ -218,40 +218,50 @@ export const authorsRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
-      const postIds = await ctx.db
-        .select({ objectId: cmsAuthorRelationships.objectId })
-        .from(cmsAuthorRelationships)
-        .where(eq(cmsAuthorRelationships.authorId, input.authorId));
-
-      if (postIds.length === 0) return paginatedResult([], 0, page, pageSize);
-
-      const ids = postIds.map((r) => r.objectId);
-      const { inArray } = await import('drizzle-orm');
-
-      const where = and(
-        inArray(cmsPosts.id, ids),
-        eq(cmsPosts.status, ContentStatus.PUBLISHED),
-        eq(cmsPosts.lang, input.lang),
-        isNull(cmsPosts.deletedAt),
-      );
+      const baseQuery = ctx.db
+        .select({
+          id: cmsPosts.id,
+          type: cmsPosts.type,
+          title: cmsPosts.title,
+          slug: cmsPosts.slug,
+          metaDescription: cmsPosts.metaDescription,
+          featuredImage: cmsPosts.featuredImage,
+          publishedAt: cmsPosts.publishedAt,
+        })
+        .from(cmsPosts)
+        .innerJoin(
+          cmsAuthorRelationships,
+          eq(cmsPosts.id, cmsAuthorRelationships.objectId),
+        )
+        .where(
+          and(
+            eq(cmsAuthorRelationships.authorId, input.authorId),
+            eq(cmsPosts.status, ContentStatus.PUBLISHED),
+            eq(cmsPosts.lang, input.lang),
+            isNull(cmsPosts.deletedAt),
+          ),
+        );
 
       const [items, [countRow]] = await Promise.all([
-        ctx.db
-          .select({
-            id: cmsPosts.id,
-            type: cmsPosts.type,
-            title: cmsPosts.title,
-            slug: cmsPosts.slug,
-            metaDescription: cmsPosts.metaDescription,
-            featuredImage: cmsPosts.featuredImage,
-            publishedAt: cmsPosts.publishedAt,
-          })
-          .from(cmsPosts)
-          .where(where)
+        baseQuery
           .orderBy(desc(cmsPosts.publishedAt))
           .offset(offset)
           .limit(pageSize),
-        ctx.db.select({ count: count() }).from(cmsPosts).where(where),
+        ctx.db
+          .select({ count: count() })
+          .from(cmsPosts)
+          .innerJoin(
+            cmsAuthorRelationships,
+            eq(cmsPosts.id, cmsAuthorRelationships.objectId),
+          )
+          .where(
+            and(
+              eq(cmsAuthorRelationships.authorId, input.authorId),
+              eq(cmsPosts.status, ContentStatus.PUBLISHED),
+              eq(cmsPosts.lang, input.lang),
+              isNull(cmsPosts.deletedAt),
+            ),
+          ),
       ]);
 
       return paginatedResult(items, countRow?.count ?? 0, page, pageSize);
@@ -263,4 +273,13 @@ export const authorsRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       return getAuthorsForObject(ctx.db, input.objectId, input.contentType);
     }),
+
+  /** List all author slugs + updatedAt for sitemap generation */
+  sitemapEntries: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db
+      .select({ slug: cmsAuthors.slug, updatedAt: cmsAuthors.updatedAt })
+      .from(cmsAuthors)
+      .orderBy(asc(cmsAuthors.name))
+      .limit(1000);
+  }),
 });
