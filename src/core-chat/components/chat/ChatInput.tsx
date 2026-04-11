@@ -146,7 +146,6 @@ export function ChatInput({
             placeholder={placeholder ?? __('Type a message...')}
             disabled={disabled}
             rows={1}
-            role="textbox"
             aria-label={__('Message input')}
             className={cn(
               'w-full resize-none rounded-xl border border-(--border-primary) bg-(--surface-secondary)',

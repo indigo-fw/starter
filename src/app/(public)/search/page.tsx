@@ -4,6 +4,7 @@ import { cmsPosts } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
 import { CONTENT_TYPES } from '@/config/cms';
 import { siteConfig } from '@/config/site';
+import { getCmsOverride } from '@/lib/cms-override';
 import { and, desc, eq, ilike, isNull, or, sql } from 'drizzle-orm';
 import { ilikePattern } from '@/core/crud/drizzle-utils';
 import { getLocale } from '@/lib/locale-server';
@@ -12,9 +13,12 @@ import { getServerTranslations } from '@/lib/translations-server';
 import SearchClient from './SearchClient';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const __ = await getServerTranslations();
+  const cms = await getCmsOverride(db, 'search', locale).catch(() => null);
   return {
-    title: `${__('Search')} | ${siteConfig.name}`,
+    title: cms?.seo.seoTitle || `${__('Search')} | ${siteConfig.name}`,
+    description: cms?.seo.metaDescription || undefined,
     robots: { index: false, follow: true },
   };
 }

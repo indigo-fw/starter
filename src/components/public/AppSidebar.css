@@ -15,7 +15,6 @@
     z-index: 40;
     background-color: var(--surface-overlay);
     backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
   }
 
   .app-sidebar {
