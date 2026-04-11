@@ -2,7 +2,7 @@
 title: O [[SITE_NAME]]
 type: page
 description: "[[SITE_NAME]] je open-source, agentově řízený headless CMS postavený na T3 Stacku (Next.js + tRPC + Drizzle)."
-seoTitle: "O [[SITE_NAME]] | Agentově řízený headless CMS"
+seoTitle: "O {sitename} | Agentově řízený headless CMS"
 noindex: false
 ---
 

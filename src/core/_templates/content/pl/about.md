@@ -2,7 +2,7 @@
 title: O [[SITE_NAME]]
 type: page
 description: "[[SITE_NAME]] to otwartoźródłowy, sterowany przez agentów AI, headless CMS zbudowany na T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "O [[SITE_NAME]] | Headless CMS sterowany przez agentów AI"
+seoTitle: "O {sitename} | Headless CMS sterowany przez agentów AI"
 noindex: false
 ---
 

@@ -2,17 +2,18 @@
  * Resolve a content type's titleTemplate into a final title string.
  *
  * Template syntax:
- *   {title}     — page/section title
- *   {sitename}  — site name from config
- *   {page}      — page number (only for paginated lists)
- *   [...]       — conditional block, only rendered when all vars inside are present
- *                  e.g. [ - Page {page}] only appears when page > 1
+ *   {title}      — page/section title
+ *   {sitename}   — site name from config
+ *   {page}       — page number (only for paginated lists)
+ *   {pageLabel}  — translated "Page" word (e.g. "Page", "Seite", "Página")
+ *   [...]        — conditional block, only rendered when {page} > 1
  *
  * Examples:
- *   '{title}[ - Page {page}] | {sitename}'
+ *   '{title}[ - {pageLabel} {page}] | {sitename}'
  *   Page 1: 'Blog | Indigo'
  *   Page 2: 'Blog - Page 2 | Indigo'
  */
+
 /**
  * Build a page title from a content type config + optional DB seoTitle override.
  *
@@ -25,12 +26,14 @@ export function buildPageTitle(opts: {
   fallbackTitle: string;
   sitename: string;
   page?: number;
+  /** Translated "Page" label for the config template fallback (e.g. __('Page')) */
+  pageLabel?: string;
 }): string {
-  const { configTemplate, seoTitle, fallbackTitle, sitename, page } = opts;
+  const { configTemplate, seoTitle, fallbackTitle, sitename, page, pageLabel } = opts;
   const isTemplate = !!seoTitle?.includes('{');
   return resolveTitleTemplate(
     isTemplate ? seoTitle! : configTemplate,
-    { title: isTemplate ? '' : (seoTitle || fallbackTitle), sitename, page },
+    { title: isTemplate ? '' : (seoTitle || fallbackTitle), sitename, page, pageLabel },
   );
 }
 
@@ -40,15 +43,14 @@ export function resolveTitleTemplate(
     title: string;
     sitename: string;
     page?: number;
+    pageLabel?: string;
   },
 ): string {
   let result = template;
 
-  // Resolve conditional blocks: [...{page}...] → only if page > 1
+  // Resolve conditional blocks: [...] → only rendered when {page} > 1
   result = result.replace(/\[([^\]]*)\]/g, (_, inner: string) => {
-    // Check if the block references {page} — only show if page > 1
     if (inner.includes('{page}') && (!vars.page || vars.page <= 1)) return '';
-    // Resolve vars inside the block
     return resolveVars(inner, vars);
   });
 
@@ -60,10 +62,11 @@ export function resolveTitleTemplate(
 
 function resolveVars(
   text: string,
-  vars: { title: string; sitename: string; page?: number },
+  vars: { title: string; sitename: string; page?: number; pageLabel?: string },
 ): string {
   return text
     .replace(/\{title\}/g, vars.title)
     .replace(/\{sitename\}/g, vars.sitename)
+    .replace(/\{pageLabel\}/g, vars.pageLabel ?? '')
     .replace(/\{page\}/g, String(vars.page ?? ''));
 }

@@ -2,7 +2,7 @@
 title: Om [[SITE_NAME]]
 type: page
 description: "[[SITE_NAME]] er et agentdrevet headless CMS med åben kildekode, bygget på T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "Om [[SITE_NAME]] | Agentdrevet headless CMS"
+seoTitle: "Om {sitename} | Agentdrevet headless CMS"
 noindex: false
 ---
 

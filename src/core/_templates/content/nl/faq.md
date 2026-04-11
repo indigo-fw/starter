@@ -2,7 +2,7 @@
 title: Veelgestelde vragen
 type: page
 description: Veelgestelde vragen over [[SITE_NAME]] — installatie, aanpassing, contentbeheer en deployment.
-seoTitle: "Veelgestelde vragen | [[SITE_NAME]]"
+seoTitle: "Veelgestelde vragen | {sitename}"
 noindex: false
 ---
 

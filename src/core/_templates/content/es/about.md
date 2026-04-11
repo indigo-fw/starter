@@ -2,7 +2,7 @@
 title: Acerca de [[SITE_NAME]]
 type: page
 description: "[[SITE_NAME]] es un CMS headless de código abierto impulsado por agentes, construido sobre el T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "Acerca de [[SITE_NAME]] | CMS Headless impulsado por agentes"
+seoTitle: "Acerca de {sitename} | CMS Headless impulsado por agentes"
 noindex: false
 ---
 

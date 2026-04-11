@@ -2,7 +2,7 @@
 title: "[[SITE_NAME]] Hakkında"
 type: page
 description: "[[SITE_NAME]], T3 Stack (Next.js + tRPC + Drizzle) üzerine inşa edilmiş açık kaynaklı, ajan odaklı bir headless CMS'dir."
-seoTitle: "[[SITE_NAME]] Hakkında | Ajan Odaklı Headless CMS"
+seoTitle: "{sitename} Hakkında | Ajan Odaklı Headless CMS"
 noindex: false
 ---
 

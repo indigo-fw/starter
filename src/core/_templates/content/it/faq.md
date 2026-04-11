@@ -2,7 +2,7 @@
 title: Domande frequenti
 type: page
 description: Domande frequenti su [[SITE_NAME]] — installazione, personalizzazione, gestione dei contenuti e distribuzione.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

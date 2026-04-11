@@ -2,7 +2,7 @@
 title: Vanliga frågor
 type: page
 description: Vanliga frågor om [[SITE_NAME]] — installation, anpassning, innehållshantering och driftsättning.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

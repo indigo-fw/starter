@@ -2,7 +2,7 @@
 title: Häufig gestellte Fragen
 type: page
 description: Häufig gestellte Fragen zu [[SITE_NAME]] — Installation, Anpassung, Inhaltsverwaltung und Bereitstellung.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

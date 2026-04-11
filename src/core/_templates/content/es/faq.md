@@ -2,7 +2,7 @@
 title: Preguntas frecuentes
 type: page
 description: Preguntas frecuentes sobre [[SITE_NAME]] — instalación, personalización, gestión de contenidos y despliegue.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

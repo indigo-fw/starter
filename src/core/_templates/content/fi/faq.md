@@ -2,7 +2,7 @@
 title: Usein kysytyt kysymykset
 type: page
 description: Usein kysytyt kysymykset sivustosta [[SITE_NAME]] — asennus, mukauttaminen, sisällönhallinta ja käyttöönotto.
-seoTitle: "UKK | [[SITE_NAME]]"
+seoTitle: "UKK | {sitename}"
 noindex: false
 ---
 

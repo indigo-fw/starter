@@ -2,7 +2,7 @@
 title: Ofte stillede spørgsmål
 type: page
 description: Ofte stillede spørgsmål om [[SITE_NAME]] — installation, tilpasning, indholdsstyring og udrulning.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

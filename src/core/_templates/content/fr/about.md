@@ -2,7 +2,7 @@
 title: À propos de [[SITE_NAME]]
 type: page
 description: "[[SITE_NAME]] est un CMS headless open source piloté par agents, construit sur le T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "À propos de [[SITE_NAME]] | CMS Headless piloté par agents"
+seoTitle: "À propos de {sitename} | CMS Headless piloté par agents"
 noindex: false
 ---
 

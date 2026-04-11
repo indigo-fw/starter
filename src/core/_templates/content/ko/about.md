@@ -2,7 +2,7 @@
 title: [[SITE_NAME]] 소개
 type: page
 description: "[[SITE_NAME]]은 T3 Stack(Next.js + tRPC + Drizzle) 기반의 오픈 소스 에이전트 중심 헤드리스 CMS입니다."
-seoTitle: "[[SITE_NAME]] 소개 | 에이전트 중심 헤드리스 CMS"
+seoTitle: "{sitename} 소개 | 에이전트 중심 헤드리스 CMS"
 noindex: false
 ---
 

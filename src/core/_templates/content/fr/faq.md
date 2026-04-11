@@ -2,7 +2,7 @@
 title: Foire aux questions
 type: page
 description: Questions fréquemment posées sur [[SITE_NAME]] — installation, personnalisation, gestion de contenu et déploiement.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

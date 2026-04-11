@@ -2,7 +2,7 @@
 title: "[[SITE_NAME]]について"
 type: page
 description: "[[SITE_NAME]]は、T3 Stack（Next.js + tRPC + Drizzle）上に構築されたオープンソースのエージェント駆動型ヘッドレスCMSです。"
-seoTitle: "[[SITE_NAME]]について | エージェント駆動型ヘッドレスCMS"
+seoTitle: "{sitename}について | エージェント駆動型ヘッドレスCMS"
 noindex: false
 ---
 

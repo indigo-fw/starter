@@ -2,7 +2,7 @@
 title: Často kladené otázky
 type: page
 description: Často kladené otázky o [[SITE_NAME]] — instalace, přizpůsobení, správa obsahu a nasazení.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

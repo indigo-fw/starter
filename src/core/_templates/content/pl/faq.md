@@ -2,7 +2,7 @@
 title: Najczęściej zadawane pytania
 type: page
 description: Najczęściej zadawane pytania dotyczące [[SITE_NAME]] — instalacja, dostosowywanie, zarządzanie treścią i wdrażanie.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

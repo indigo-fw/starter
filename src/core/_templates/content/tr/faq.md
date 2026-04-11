@@ -2,7 +2,7 @@
 title: Sıkça Sorulan Sorular
 type: page
 description: "[[SITE_NAME]] hakkında sıkça sorulan sorular — kurulum, özelleştirme, içerik yönetimi ve dağıtım."
-seoTitle: "SSS | [[SITE_NAME]]"
+seoTitle: "SSS | {sitename}"
 noindex: false
 ---
 

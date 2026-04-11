@@ -30,6 +30,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     fallbackTitle: __('Blog'),
     sitename: siteConfig.name,
     page,
+    pageLabel: __('Page'),
   });
 
   return {

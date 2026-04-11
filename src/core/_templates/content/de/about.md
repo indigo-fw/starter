@@ -2,7 +2,7 @@
 title: Über [[SITE_NAME]]
 type: page
 description: "[[SITE_NAME]] ist ein quelloffenes, agentengesteuertes Headless-CMS, basierend auf dem T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "Über [[SITE_NAME]] | Agentengesteuertes Headless-CMS"
+seoTitle: "Über {sitename} | Agentengesteuertes Headless-CMS"
 noindex: false
 ---
 

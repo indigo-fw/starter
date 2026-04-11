@@ -2,7 +2,7 @@
 title: よくあるご質問
 type: page
 description: "[[SITE_NAME]]に関するよくあるご質問 — インストール、カスタマイズ、コンテンツ管理、デプロイについて。"
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

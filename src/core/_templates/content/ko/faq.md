@@ -2,7 +2,7 @@
 title: 자주 묻는 질문
 type: page
 description: [[SITE_NAME]]에 관한 자주 묻는 질문 — 설치, 커스터마이징, 콘텐츠 관리, 배포에 대해 안내합니다.
-seoTitle: "FAQ | [[SITE_NAME]]"
+seoTitle: "FAQ | {sitename}"
 noindex: false
 ---
 

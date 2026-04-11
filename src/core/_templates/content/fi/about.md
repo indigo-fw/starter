@@ -2,7 +2,7 @@
 title: Tietoa sivustosta [[SITE_NAME]]
 type: page
 description: "[[SITE_NAME]] on avoimen lähdekoodin agenttipohjainen headless-sisällönhallintajärjestelmä, joka on rakennettu T3 Stackille (Next.js + tRPC + Drizzle)."
-seoTitle: "Tietoa sivustosta [[SITE_NAME]] | Agenttipohjainen headless-CMS"
+seoTitle: "Tietoa sivustosta {sitename} | Agenttipohjainen headless-CMS"
 noindex: false
 ---
 
