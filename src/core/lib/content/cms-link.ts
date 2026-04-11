@@ -69,18 +69,25 @@ interface ContentRecord {
 interface CmsLinkConfig {
   urlPrefixes: Record<string, string>;
   postTypeMap: Record<number, string>;
+  /** Known static route paths — DB lookup is skipped for these. */
+  staticRoutes: Set<string>;
 }
 
-let _config: CmsLinkConfig = { urlPrefixes: {}, postTypeMap: {} };
+let _config: CmsLinkConfig = {
+  urlPrefixes: {},
+  postTypeMap: {},
+  staticRoutes: new Set(),
+};
 
-/** Register content type URL prefixes and post type mapping. */
+/** Register content type URL prefixes, post type mapping, and static routes. */
 export function configureCmsLinks(config: CmsLinkConfig): void {
   _config = config;
 }
 
-/** Convenience: configure from ContentTypeDeclaration array. */
+/** Convenience: configure from ContentTypeDeclaration array + optional static routes. */
 export function configureCmsLinksFromContentTypes(
   types: readonly ContentTypeDeclaration[],
+  staticRoutes?: readonly string[],
 ): void {
   configureCmsLinks({
     urlPrefixes: Object.fromEntries(types.map((ct) => [ct.id, ct.urlPrefix])),
@@ -89,7 +96,13 @@ export function configureCmsLinksFromContentTypes(
         .filter((ct) => ct.postType != null)
         .map((ct) => [ct.postType!, ct.id]),
     ),
+    staticRoutes: new Set(staticRoutes ?? []),
   });
+}
+
+/** Check if a path is a known static route (no DB lookup needed). */
+export function isStaticRoute(path: string): boolean {
+  return _config.staticRoutes.has(path);
 }
 
 // ─── URI Parser ─────────────────────────────────────────────────────────────
