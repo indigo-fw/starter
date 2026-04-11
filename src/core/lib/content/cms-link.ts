@@ -8,6 +8,7 @@
  * @see cms-link-shared.ts for types, parser, config, and client-safe utilities.
  */
 
+import 'server-only';
 import { and, eq, isNull } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema/cms';
@@ -39,6 +40,16 @@ import type { CmsLinkRef, ResolvedCmsLink } from './cms-link-shared';
 import { getCmsLinkConfig, CMS_URI_RE, parseCmsUri } from './cms-link-shared';
 
 // ─── LRU Cache ──────────────────────────────────────────────────────────────
+//
+// This is the SERVER-SIDE cache — deduplicates DB queries across different users.
+// React Query on the client caches per-user (User A's cache ≠ User B's cache).
+// Without this LRU, 100 users hitting the same page = 100 identical DB queries
+// for the same link. With it: 1 DB query + 99 LRU hits.
+//
+// Three cache layers, each at a different boundary:
+//   React Query  → one user, one browser session
+//   Server LRU   → one server process, all users (this)
+//   Redis pub/sub → invalidates LRU across all server processes on content save
 
 const CACHE_MAX = 500;
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour
