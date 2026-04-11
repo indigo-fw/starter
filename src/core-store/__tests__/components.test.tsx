@@ -18,6 +18,15 @@ vi.mock('@/i18n/navigation', () => ({
   }),
 }));
 
+vi.mock('@/components/Link', () => ({
+  Link: ({ href, children, ...props }: { href: string | Record<string, unknown>; children: React.ReactNode; [k: string]: unknown }) => {
+    const resolvedHref = typeof href === 'object' && href !== null
+      ? `/store/${(href as Record<string, Record<string, string>>).params?.slug ?? ''}`
+      : String(href);
+    return <a href={resolvedHref} {...props}>{children}</a>;
+  },
+}));
+
 vi.mock('next/image', () => ({
   default: (props: Record<string, unknown>) => (
     // eslint-disable-next-line @next/next/no-img-element

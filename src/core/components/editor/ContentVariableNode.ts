@@ -46,7 +46,7 @@ export const ContentVariableNode = Node.create({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(ContentVariableNodeView, { inline: true });
+    return ReactNodeViewRenderer(ContentVariableNodeView, { inline: true } as Record<string, unknown>);
   },
 });
 

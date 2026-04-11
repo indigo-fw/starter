@@ -479,6 +479,8 @@ export const cmsRouter = createTRPCRouter({
         entityId: input.id,
       });
 
+      broadcastCmsLinkInvalidation();
+
       // Notify staff when status changes to published
       if (
         input.status === ContentStatus.PUBLISHED &&
@@ -527,6 +529,7 @@ export const cmsRouter = createTRPCRouter({
       await permanentDelete(ctx.db, crudCols, input.id, contentType.id, async (tx) => {
         await deleteAllTermRelationships(tx, input.id);
       });
+      broadcastCmsLinkInvalidation();
       return { success: true };
     }),
 

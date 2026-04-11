@@ -85,6 +85,10 @@ async function main() {
   await preloadContentVars();
   await initContentVarsSync();
 
+  // Set up CMS link cache cross-instance invalidation via Redis
+  const { initCmsLinkSync } = await import('./src/core/lib/content/cms-link');
+  await initCmsLinkSync();
+
   // Register webhook delivery logger
   const { setWebhookDeliveryLogger } = await import('./src/core/lib/webhooks/webhooks');
   const { logWebhookDelivery } = await import('./src/core/lib/webhooks/delivery-log');
