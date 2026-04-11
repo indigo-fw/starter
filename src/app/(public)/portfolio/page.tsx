@@ -28,6 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
     }),
     description: cms?.seo.metaDescription || __('Browse our portfolio of projects and case studies.'),
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
+    openGraph: { locale },
   };
 }
 

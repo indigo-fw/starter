@@ -55,6 +55,8 @@ registerContentRenderer('page', {
       openGraph: {
         type: 'article',
         locale,
+        ...(post.publishedAt && { publishedTime: new Date(post.publishedAt).toISOString() }),
+        ...(post.updatedAt && { modifiedTime: new Date(post.updatedAt).toISOString() }),
         ...(post.featuredImage && {
           images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
         }),
@@ -86,6 +88,8 @@ registerContentRenderer('blog', {
       openGraph: {
         type: 'article',
         locale,
+        ...(post.publishedAt && { publishedTime: new Date(post.publishedAt).toISOString() }),
+        ...(post.updatedAt && { modifiedTime: new Date(post.updatedAt).toISOString() }),
         ...(post.featuredImage && {
           images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
         }),

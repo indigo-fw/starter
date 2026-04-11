@@ -1,12 +1,23 @@
+import type { Metadata } from 'next';
 import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
 import { CONTENT_TYPES } from '@/config/cms';
+import { siteConfig } from '@/config/site';
 import { and, desc, eq, ilike, isNull, or, sql } from 'drizzle-orm';
 import { ilikePattern } from '@/core/crud/drizzle-utils';
 import { getLocale } from '@/lib/locale-server';
 import { localePath } from '@/lib/locale';
+import { getServerTranslations } from '@/lib/translations-server';
 import SearchClient from './SearchClient';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const __ = await getServerTranslations();
+  return {
+    title: `${__('Search')} | ${siteConfig.name}`,
+    robots: { index: false, follow: true },
+  };
+}
 
 const PAGE_SIZE = 10;
 

@@ -21,8 +21,9 @@ interface Props {
 
 // ── Metadata ──
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const { preview } = await searchParams;
   const locale = await getLocale();
   const fullSlug = slug.join('/');
 
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title,
       description,
-      robots: fm.noindex ? { index: false, follow: false } : undefined,
+      robots: (preview || fm.noindex) ? { index: false, follow: false } : undefined,
       alternates: { canonical: buildCanonicalUrl(`/${fullSlug}`, locale) },
       openGraph: {
         locale,
@@ -61,7 +62,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!renderer) return {};
 
   try {
-    return await renderer.generateMetadata({ slug: resolved.slug, locale, baseUrl });
+    const meta = await renderer.generateMetadata({ slug: resolved.slug, locale, baseUrl });
+    // Ensure preview pages are never indexed
+    if (preview) {
+      meta.robots = { index: false, follow: false };
+    }
+    return meta;
   } catch {
     return {};
   }

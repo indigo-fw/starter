@@ -27,6 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     }),
     description: cms?.seo.metaDescription || __('Explore our showcase — swipe through videos, images, and stories.'),
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
+    openGraph: { locale },
   };
 }
 
