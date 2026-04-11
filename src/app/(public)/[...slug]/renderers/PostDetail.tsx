@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
 
 import { PostType } from '@/core/types/cms';
 import { PostCard } from '@/core/components/PostCard';

@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
 import { Rss } from 'lucide-react';
 
 import { PostType } from '@/core/types/cms';

@@ -1,5 +1,6 @@
 'use client';
 
+import '@/config/cms-link-init'; // Populate static routes + passthrough config on client
 import {
   CmsLink,
   type CmsLinkProps as CoreCmsLinkProps,
@@ -8,28 +9,33 @@ import type { AppPathname } from '@/i18n/routing';
 
 /**
  * Static pathnames only — excludes dynamic routes with [param] segments.
- * Dynamic content should use `id`, `slug`, or a literal path in `href`.
+ * Used for string href autocomplete (you wouldn't write href="/blog/[slug]").
  */
 type StaticPathname = {
   [K in AppPathname]: K extends `${string}[${string}]${string}` ? never : K;
 }[AppPathname];
 
-export type LinkProps = CoreCmsLinkProps<StaticPathname>;
+/**
+ * TPath = StaticPathname — string href autocomplete (excludes dynamic segments)
+ * TPathname = AppPathname — object href pathname autocomplete (includes dynamic segments)
+ */
+export type LinkProps = CoreCmsLinkProps<StaticPathname, AppPathname>;
 
 /**
  * Unified link component — drop-in replacement for `<Link>`.
  *
- * `href` accepts typed static routes with autocomplete. Unrecognized paths
- * (CMS slugs, UUIDs) are auto-resolved from the database.
- *
  * @example
  * import { Link } from '@/components/Link';
  *
- * // Static — typed, instant, autocomplete
+ * // Static string — typed autocomplete, no DB call
  * <Link href="/blog">Blog</Link>
  * <Link href="/pricing">Pricing</Link>
  *
- * // CMS content — auto-resolved
+ * // Dynamic with params — typed pathname autocomplete
+ * <Link href={{ pathname: '/blog/[slug]', params: { slug: 'my-post' } }}>Post</Link>
+ * <Link href={{ pathname: '/blog', query: { page: '2' } }}>Page 2</Link>
+ *
+ * // CMS content — auto-resolved from DB
  * <Link href="/about-us">About</Link>
  * <Link href="cms://about-us?lang=de">Über uns</Link>
  *

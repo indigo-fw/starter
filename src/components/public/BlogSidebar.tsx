@@ -1,4 +1,5 @@
-import { Link, getPathname } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
+import { getPathname } from '@/i18n/navigation';
 
 import { getServerTranslations } from '@/lib/translations-server';
 import { db } from '@/server/db';

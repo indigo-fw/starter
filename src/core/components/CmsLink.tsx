@@ -10,7 +10,7 @@ import {
   isPassthroughHref,
   parseCmsUri,
   UUID_RE,
-} from '@/core/lib/content/cms-link';
+} from '@/core/lib/content/cms-link-shared';
 import type { Locale } from '@/lib/constants';
 
 /** What kind of href was detected. */
@@ -113,20 +113,81 @@ function reattach(
   return url;
 }
 
+// ─── Object Href ────────────────────────────────────────────────────────────
+
+/** Object-style href for dynamic routes with params and/or query strings. */
+export interface CmsLinkObjectHref<TPathname extends string = string> {
+  pathname: TPathname | (string & {});
+  params?: Record<string, string>;
+  query?: Record<string, string | string[]>;
+}
+
+/** Replace `[param]` and `[...param]` segments with actual values. */
+function resolveParams(
+  pathname: string,
+  params?: Record<string, string>,
+): string {
+  if (!params) return pathname;
+  let result = pathname;
+  for (const [key, value] of Object.entries(params)) {
+    result = result.replace(`[...${key}]`, value);
+    result = result.replace(`[${key}]`, value);
+  }
+  return result;
+}
+
+/** Build a query string from a Record. */
+function buildQueryString(
+  query?: Record<string, string | string[]>,
+): string {
+  if (!query) return '';
+  const entries = Object.entries(query);
+  if (!entries.length) return '';
+  const params = new URLSearchParams();
+  for (const [key, value] of entries) {
+    if (Array.isArray(value)) {
+      for (const v of value) params.append(key, v);
+    } else {
+      params.set(key, value);
+    }
+  }
+  return `?${params.toString()}`;
+}
+
+/** Resolve an object href to a locale-prefixed URL string. */
+function resolveObjectHref(
+  obj: CmsLinkObjectHref,
+  locale: Locale,
+): string {
+  const path = resolveParams(obj.pathname, obj.params);
+  const qs = buildQueryString(obj.query);
+  return localePath(path, locale) + qs;
+}
+
 // ─── Props ──────────────────────────────────────────────────────────────────
 
-export interface CmsLinkBaseProps<TPath extends string = string>
-  extends Omit<ComponentPropsWithoutRef<'a'>, 'href'> {
+type StringHref<TPath extends string = string> =
+  | TPath
+  | `/${string}`
+  | `cms://${string}`
+  | (string & {});
+
+export interface CmsLinkBaseProps<
+  TPath extends string = string,
+  TPathname extends string = string,
+> extends Omit<ComponentPropsWithoutRef<'a'>, 'href'> {
   /**
    * Link target. Accepts:
    *   - Static route: `/blog`, `/pricing` — instant, no DB call
    *   - CMS slug: `/about-us` — resolved from DB with locale chain
    *   - UUID: `/3f2a1b4c-...-uuid` — resolved from DB by ID
    *   - cms:// protocol: `cms://about-us?lang=de` — full protocol syntax
+   *   - Object with params: `{ pathname: '/blog/[slug]', params: { slug } }` — resolved, locale-prefixed
+   *   - Object with query: `{ pathname: '/blog', query: { page: '2' } }` — locale-prefixed with query string
    *   - External: `https://...` — passed through as-is
    *   - Dashboard: `/dashboard/...` — passed through, no locale prefix
    */
-  href?: TPath | `/${string}` | `cms://${string}` | (string & {});
+  href?: StringHref<TPath> | CmsLinkObjectHref<TPathname>;
   /** Explicit content UUID — skips auto-detection, goes straight to ID lookup. */
   id?: string;
   /** Explicit content slug — skips auto-detection, goes straight to slug lookup. */
@@ -137,8 +198,10 @@ export interface CmsLinkBaseProps<TPath extends string = string>
   type?: string;
 }
 
-export type CmsLinkProps<TPath extends string = string> =
-  CmsLinkBaseProps<TPath>;
+export type CmsLinkProps<
+  TPath extends string = string,
+  TPathname extends string = string,
+> = CmsLinkBaseProps<TPath, TPathname>;
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
@@ -176,7 +239,10 @@ export type CmsLinkProps<TPath extends string = string> =
  * <Link href="https://github.com">GitHub</Link>
  * <Link href="/dashboard/cms/pages">Admin</Link>
  */
-export function CmsLink<TPath extends string = string>({
+export function CmsLink<
+  TPath extends string = string,
+  TPathname extends string = string,
+>({
   href,
   id,
   slug,
@@ -184,15 +250,15 @@ export function CmsLink<TPath extends string = string>({
   type,
   children,
   ...props
-}: CmsLinkProps<TPath>) {
+}: CmsLinkProps<TPath, TPathname>) {
   const locale = useLocale();
   const targetLocale = (lang ?? locale) as Locale;
 
   // ── Explicit id/slug props take priority over href auto-detection ──
 
   if (id || slug) {
-    // Strip fragment/query from href for fallback
-    const fallback = href ? splitHref(href) : undefined;
+    const fallback =
+      href && typeof href === 'string' ? splitHref(href) : undefined;
     return (
       <CmsLinkResolved
         id={id}
@@ -217,7 +283,17 @@ export function CmsLink<TPath extends string = string>({
     return <span {...props}>{children}</span>;
   }
 
-  // ── Classify the href ──
+  // ── Object href: { pathname, params?, query? } — resolve and locale-prefix ──
+
+  if (typeof href === 'object') {
+    return (
+      <NextLink href={resolveObjectHref(href, targetLocale)} {...props}>
+        {children}
+      </NextLink>
+    );
+  }
+
+  // ── String href — classify and handle ──
 
   const parsed = classifyHref(href);
 

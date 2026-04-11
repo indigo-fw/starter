@@ -3,7 +3,7 @@ import '@/core/styles/frontend/index.css';
 
 import { Suspense } from 'react';
 import NextLink from 'next/link';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
 import { Rss, Search, ShoppingBag } from 'lucide-react';
 
 import { siteConfig } from '@/config/site';

@@ -1,4 +1,4 @@
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
 import type { Metadata } from 'next';
 
 import { siteConfig } from '@/config/site';

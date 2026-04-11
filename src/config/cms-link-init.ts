@@ -4,7 +4,7 @@
  * Import this file as a side effect wherever cms:// resolution is needed.
  * Module-level code runs once (JS modules are singletons), so repeated imports are free.
  */
-import { configureCmsLinksFromContentTypes } from '@/core/lib/content/cms-link';
+import { configureCmsLinksFromContentTypes } from '@/core/lib/content/cms-link-shared';
 import { CONTENT_TYPES } from '@/config/cms';
 import { routing } from '@/i18n/routing';
 

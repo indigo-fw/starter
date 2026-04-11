@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/components/Link';
 import { Download, Package } from 'lucide-react';
 
 function formatPrice(cents: number | null, currency = 'EUR'): string {

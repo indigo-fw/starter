@@ -1,29 +1,11 @@
 /**
- * CMS Link Protocol — resolves `cms://` URIs to real URLs.
+ * CMS Link Protocol — server-side resolver.
  *
- * Protocol syntax:
- *   cms://<identifier>[?lang=xx][&type=xx][#fragment]
+ * Resolves `cms://` URIs to real URLs by querying the database.
+ * This file is SERVER-ONLY — it imports DB and Drizzle.
+ * Client code should import from `cms-link-shared.ts` instead.
  *
- * Where <identifier> is either:
- *   - A UUID → lookup by post/content ID
- *   - A slug string → lookup by slug with locale resolution chain
- *
- * Examples:
- *   cms://3f2a1b4c-def5-6789-abcd-ef0123456789       → by ID, visitor's locale
- *   cms://3f2a1b4c-def5-6789-abcd-ef0123456789?lang=de → by ID, force German
- *   cms://about-us                                     → by slug, visitor's locale
- *   cms://about-us?lang=de                             → by slug, force German
- *   cms://about-us?type=page                           → by slug, disambiguate type
- *   cms://about-us?lang=de&type=page#team              → all options + fragment
- *
- * Slug resolution order:
- *   1. Current locale → found? done
- *   2. Default locale → found? get current-locale sibling → use sibling or default
- *   3. Any locale → same sibling logic
- *   4. Not found → return null
- *
- * Caching: LRU Map with TTL, keyed by ref + target locale.
- * Invalidation: invalidateCmsLinkCache() on content save, via Redis pub/sub.
+ * @see cms-link-shared.ts for types, parser, config, and client-safe utilities.
  */
 
 import { and, eq, isNull } from 'drizzle-orm';
@@ -37,135 +19,24 @@ import { ContentStatus } from '@/core/types/cms';
 import { DEFAULT_LOCALE } from '@/lib/constants';
 import type { Locale } from '@/lib/constants';
 import { localePath } from '@/core/lib/i18n/locale';
-import type { ContentTypeDeclaration } from '@/core/config/content-types';
 
-// ─── Types ──────────────────────────────────────────────────────────────────
+// Re-export everything from shared so existing server-side imports still work
+export {
+  type CmsLinkRef,
+  type ResolvedCmsLink,
+  type CmsLinkConfig,
+  configureCmsLinks,
+  configureCmsLinksFromContentTypes,
+  isStaticRoute,
+  isPassthroughHref,
+  UUID_RE,
+  CMS_URI_RE,
+  parseCmsUri,
+  getCmsLinkConfig,
+} from './cms-link-shared';
 
-export interface CmsLinkRef {
-  id?: string;
-  slug?: string;
-  lang?: string;
-  type?: string;
-  fragment?: string;
-}
-
-export interface ResolvedCmsLink {
-  href: string;
-  title: string;
-  locale: string;
-}
-
-interface ContentRecord {
-  id: string;
-  slug: string;
-  lang: string;
-  title: string;
-  contentTypeId: string;
-  translationGroup: string | null;
-}
-
-// ─── DI Configuration ───────────────────────────────────────────────────────
-
-interface CmsLinkConfig {
-  urlPrefixes: Record<string, string>;
-  postTypeMap: Record<number, string>;
-  /** Known static route paths — DB lookup is skipped for these. */
-  staticRoutes: Set<string>;
-  /** Path prefixes that bypass locale-prefixing and DB resolution entirely. */
-  passthroughPrefixes: readonly string[];
-}
-
-const DEFAULT_PASSTHROUGH_PREFIXES = [
-  '/dashboard',
-  '/api/',
-  'http://',
-  'https://',
-  'mailto:',
-  'tel:',
-  '#',
-] as const;
-
-let _config: CmsLinkConfig = {
-  urlPrefixes: {},
-  postTypeMap: {},
-  staticRoutes: new Set(),
-  passthroughPrefixes: DEFAULT_PASSTHROUGH_PREFIXES,
-};
-
-/** Register content type URL prefixes, post type mapping, and static routes. */
-export function configureCmsLinks(config: CmsLinkConfig): void {
-  _config = config;
-}
-
-/** Convenience: configure from ContentTypeDeclaration array + optional extras. */
-export function configureCmsLinksFromContentTypes(
-  types: readonly ContentTypeDeclaration[],
-  opts?: {
-    staticRoutes?: readonly string[];
-    passthroughPrefixes?: readonly string[];
-  },
-): void {
-  configureCmsLinks({
-    urlPrefixes: Object.fromEntries(types.map((ct) => [ct.id, ct.urlPrefix])),
-    postTypeMap: Object.fromEntries(
-      types
-        .filter((ct) => ct.postType != null)
-        .map((ct) => [ct.postType!, ct.id]),
-    ),
-    staticRoutes: new Set(opts?.staticRoutes ?? []),
-    passthroughPrefixes:
-      opts?.passthroughPrefixes ?? DEFAULT_PASSTHROUGH_PREFIXES,
-  });
-}
-
-/** Check if a path is a known static route (no DB lookup needed). */
-export function isStaticRoute(path: string): boolean {
-  return _config.staticRoutes.has(path);
-}
-
-/** Check if a path should bypass locale-prefixing and DB resolution. */
-export function isPassthroughHref(href: string): boolean {
-  return _config.passthroughPrefixes.some((p) => href.startsWith(p));
-}
-
-// ─── URI Parser ─────────────────────────────────────────────────────────────
-
-/** UUID v4 pattern — used to auto-detect ID vs slug in cms:// URIs and href. */
-export const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-/** Regex to detect cms:// URIs in a string. */
-export const CMS_URI_RE = /cms:\/\/[^\s)"'<>]+/g;
-
-/**
- * Parse a `cms://` URI into a structured reference.
- * Returns null if the URI is invalid or not a cms:// protocol.
- */
-export function parseCmsUri(uri: string): CmsLinkRef | null {
-  if (!uri.startsWith('cms://')) return null;
-
-  try {
-    const url = new URL(uri);
-    const identifier = (url.hostname + url.pathname.replace(/^\/$/, ''))
-      .toLowerCase();
-
-    if (!identifier) return null;
-
-    const lang = url.searchParams.get('lang') ?? undefined;
-    const type = url.searchParams.get('type') ?? undefined;
-    const fragment = url.hash ? url.hash.slice(1) : undefined;
-    const isId = UUID_RE.test(identifier);
-
-    return {
-      ...(isId ? { id: identifier } : { slug: identifier }),
-      lang: lang || undefined,
-      type: type || undefined,
-      fragment: fragment || undefined,
-    };
-  } catch {
-    return null;
-  }
-}
+import type { CmsLinkRef, ResolvedCmsLink } from './cms-link-shared';
+import { getCmsLinkConfig, CMS_URI_RE, parseCmsUri } from './cms-link-shared';
 
 // ─── LRU Cache ──────────────────────────────────────────────────────────────
 
@@ -247,12 +118,24 @@ export function broadcastCmsLinkInvalidation(): void {
   }
 }
 
+// ─── Internal Types ─────────────────────────────────────────────────────────
+
+interface ContentRecord {
+  id: string;
+  slug: string;
+  lang: string;
+  title: string;
+  contentTypeId: string;
+  translationGroup: string | null;
+}
+
 // ─── DB Queries ─────────────────────────────────────────────────────────────
 
 const PUBLISHED = ContentStatus.PUBLISHED;
 
 /** Find content by UUID across all tables. */
 async function findById(id: string): Promise<ContentRecord | null> {
+  const config = getCmsLinkConfig();
   const [posts, categories, portfolios, showcases, tags] = await Promise.all([
     db
       .select({
@@ -353,7 +236,7 @@ async function findById(id: string): Promise<ContentRecord | null> {
       slug: p.slug,
       lang: p.lang,
       title: p.title,
-      contentTypeId: _config.postTypeMap[p.type] ?? 'page',
+      contentTypeId: config.postTypeMap[p.type] ?? 'page',
       translationGroup: p.translationGroup,
     };
   }
@@ -385,12 +268,11 @@ async function findBySlugInLocale(
   locale?: string,
   type?: string,
 ): Promise<ContentRecord | null> {
-  // If type specified, only query that table
   if (type) {
     return findBySlugInTable(slug, type, locale);
   }
 
-  // Query all tables in parallel, return by priority
+  const config = getCmsLinkConfig();
   const [posts, categories, portfolios, showcases, tags] = await Promise.all([
     db
       .select({
@@ -410,7 +292,7 @@ async function findBySlugInLocale(
           ...(locale ? [eq(cmsPosts.lang, locale)] : []),
         ),
       )
-      .limit(5), // Multiple post types might match
+      .limit(5),
 
     db
       .select({
@@ -489,17 +371,15 @@ async function findBySlugInLocale(
       .limit(1),
   ]);
 
-  // Priority: pages first, then other post types, then non-post tables
   if (posts.length) {
-    // Prefer page over blog if same slug exists in both
-    const page = posts.find((p) => _config.postTypeMap[p.type] === 'page');
+    const page = posts.find((p) => config.postTypeMap[p.type] === 'page');
     const pick = page ?? posts[0];
     return {
       id: pick.id,
       slug: pick.slug,
       lang: pick.lang,
       title: pick.title,
-      contentTypeId: _config.postTypeMap[pick.type] ?? 'page',
+      contentTypeId: config.postTypeMap[pick.type] ?? 'page',
       translationGroup: pick.translationGroup,
     };
   }
@@ -528,11 +408,11 @@ async function findBySlugInTable(
   type: string,
   locale?: string,
 ): Promise<ContentRecord | null> {
+  const config = getCmsLinkConfig();
   switch (type) {
     case 'page':
     case 'blog': {
-      // Derive postType from config
-      const postType = Object.entries(_config.postTypeMap).find(
+      const postType = Object.entries(config.postTypeMap).find(
         ([, id]) => id === type,
       )?.[0];
       const rows = await db
@@ -665,10 +545,11 @@ async function findSibling(
   targetLocale: string,
   contentTypeId: string,
 ): Promise<ContentRecord | null> {
+  const config = getCmsLinkConfig();
   switch (contentTypeId) {
     case 'page':
     case 'blog': {
-      const postType = Object.entries(_config.postTypeMap).find(
+      const postType = Object.entries(config.postTypeMap).find(
         ([, id]) => id === contentTypeId,
       )?.[0];
       const rows = await db
@@ -760,7 +641,6 @@ async function findSibling(
       return { ...rows[0], contentTypeId: 'showcase' };
     }
     default:
-      // Tags don't have translation groups
       return null;
   }
 }
@@ -773,7 +653,8 @@ function buildContentUrl(
   locale: string,
   fragment?: string,
 ): string {
-  const prefix = _config.urlPrefixes[contentTypeId] ?? '/';
+  const config = getCmsLinkConfig();
+  const prefix = config.urlPrefixes[contentTypeId] ?? '/';
   const path = prefix === '/' ? `/${slug}` : `${prefix}${slug}`;
   const url = localePath(path, locale as Locale);
   return fragment ? `${url}#${fragment}` : url;
@@ -810,10 +691,8 @@ async function resolveUncached(
   ref: CmsLinkRef,
   currentLocale: string,
 ): Promise<ResolvedCmsLink | null> {
-  // Target locale: explicit lang param > visitor's locale
   const targetLocale = ref.lang ?? currentLocale;
 
-  // Step 1: Find the source record
   let record: ContentRecord | null = null;
 
   if (ref.id) {
@@ -821,16 +700,12 @@ async function resolveUncached(
   } else if (ref.slug) {
     const cleanSlug = ref.slug.replace(/^\//, '');
 
-    // Slug resolution chain:
-    // 1. Try current locale
     record = await findBySlugInLocale(cleanSlug, currentLocale, ref.type);
 
-    // 2. Try default locale
     if (!record && currentLocale !== DEFAULT_LOCALE) {
       record = await findBySlugInLocale(cleanSlug, DEFAULT_LOCALE, ref.type);
     }
 
-    // 3. Try any locale (catch-all)
     if (!record) {
       record = await findBySlugInLocale(cleanSlug, undefined, ref.type);
     }
@@ -838,7 +713,6 @@ async function resolveUncached(
 
   if (!record) return null;
 
-  // Step 2: If the found record's locale differs from target, find translation sibling
   if (record.lang !== targetLocale && record.translationGroup) {
     const sibling = await findSibling(
       record.translationGroup,
@@ -848,10 +722,8 @@ async function resolveUncached(
     if (sibling) {
       record = sibling;
     }
-    // No sibling → fall back to the record we found (different locale but still valid)
   }
 
-  // Step 3: Build URL
   return {
     href: buildContentUrl(
       record.contentTypeId,
@@ -879,7 +751,6 @@ export async function resolveCmsLinks(
   const matches = [...text.matchAll(CMS_URI_RE)];
   if (!matches.length) return text;
 
-  // Deduplicate URIs
   const unique = new Map<string, CmsLinkRef>();
   for (const m of matches) {
     if (!unique.has(m[0])) {
@@ -888,7 +759,6 @@ export async function resolveCmsLinks(
     }
   }
 
-  // Resolve all in parallel
   const resolved = new Map<string, string>();
   await Promise.all(
     [...unique.entries()].map(async ([uri, ref]) => {
@@ -897,7 +767,6 @@ export async function resolveCmsLinks(
     }),
   );
 
-  // Replace all occurrences
   let result = text;
   for (const [uri, href] of resolved) {
     result = result.replaceAll(uri, href);
