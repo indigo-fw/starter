@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { serverTRPC } from '@/lib/trpc/server';
 import { siteConfig } from '@/config/site';
+import { getLocale } from '@/lib/locale-server';
 import '@/core-store/components/product/store-grid.css';
 import '@/core-store/components/product/store-detail.css';
 
@@ -14,12 +15,14 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const locale = await getLocale();
   try {
     const api = await serverTRPC();
     const product = await api.storeProducts.getBySlug({ slug });
     return {
       title: `${product.metaTitle || product.name} | ${siteConfig.name}`,
       description: product.metaDescription || product.shortDescription || product.name,
+      openGraph: { locale },
     };
   } catch {
     return { title: `Product | ${siteConfig.name}` };

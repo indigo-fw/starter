@@ -5,12 +5,19 @@ import { FaqAccordion } from '@/core/components/pricing/FaqAccordion';
 import { publicAuthRoutes } from '@/config/routes';
 import { getServerTranslations } from '@/lib/translations-server';
 import { siteConfig } from '@/config/site';
+import { db } from '@/server/db';
+import { getCmsOverride } from '@/lib/cms-override';
+import { getLocale } from '@/lib/locale-server';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const __ = await getServerTranslations();
+  const cms = await getCmsOverride(db, 'pricing', locale).catch(() => null);
   return {
-    title: `${__('Pricing')} | ${siteConfig.name}`,
-    description: __('Simple, transparent pricing for teams of all sizes.'),
+    title: cms?.seo.seoTitle || `${__('Pricing')} | ${siteConfig.name}`,
+    description: cms?.seo.metaDescription || __('Simple, transparent pricing for teams of all sizes.'),
+    ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
+    openGraph: { locale },
   };
 }
 

@@ -14,6 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `${__('Checkout')} | ${siteConfig.name}`,
     description: __('Complete your order'),
+    robots: { index: false, follow: true },
   };
 }
 

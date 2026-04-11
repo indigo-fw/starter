@@ -12,6 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `${__('Cart')} | ${siteConfig.name}`,
     description: __('Your shopping cart'),
+    robots: { index: false, follow: true },
   };
 }
 

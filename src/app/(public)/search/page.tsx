@@ -20,6 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: cms?.seo.seoTitle || `${__('Search')} | ${siteConfig.name}`,
     description: cms?.seo.metaDescription || undefined,
     robots: { index: false, follow: true },
+    openGraph: { locale },
   };
 }
 

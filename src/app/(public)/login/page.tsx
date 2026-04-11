@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `${__('Sign In')} | ${siteConfig.name}`,
     description: __('Sign in to your account'),
+    robots: { index: false, follow: true },
   };
 }
 

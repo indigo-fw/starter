@@ -6,16 +6,23 @@ import { Package, ArrowRight } from 'lucide-react';
 import { serverTRPC } from '@/lib/trpc/server';
 import { getServerTranslations } from '@/lib/translations-server';
 import { siteConfig } from '@/config/site';
+import { db } from '@/server/db';
+import { getCmsOverride } from '@/lib/cms-override';
+import { getLocale } from '@/lib/locale-server';
 import '@/core-store/components/product/store-grid.css';
 
 import { StoreToolbar } from './StoreToolbar';
 import { ProductCard } from './ProductCard';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const __ = await getServerTranslations();
+  const cms = await getCmsOverride(db, 'store', locale).catch(() => null);
   return {
-    title: `${__('Store')} | ${siteConfig.name}`,
-    description: __('Browse our products'),
+    title: cms?.seo.seoTitle || `${__('Store')} | ${siteConfig.name}`,
+    description: cms?.seo.metaDescription || __('Browse our products'),
+    ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
+    openGraph: { locale },
   };
 }
 

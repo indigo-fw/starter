@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `${__('Create Account')} | ${siteConfig.name}`,
     description: __('Create a new account'),
+    robots: { index: false, follow: true },
   };
 }
 
