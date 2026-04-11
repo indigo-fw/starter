@@ -27,7 +27,7 @@ export interface ContentTypeDeclaration {
   adminSlug: string;
   /** Admin capability required to edit this content type */
   adminCapability: 'section.content';
-  /** Title template for pages. Vars: {title}, {sitename}, {page}. [...] = conditional. */
+  /** Title template for pages. Vars: %TITLE%, %SITENAME%, %PAGE%, %PAGE_LABEL%. [...] = conditional. */
   titleTemplate: string;
   /** Sitemap XML filename slug. Omit to exclude from sitemap index. */
   sitemapSlug?: string;

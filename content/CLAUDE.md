@@ -21,23 +21,23 @@ Rich content rendered at request time with JSX components. Takes priority over C
 
 ## Content Variables
 
-`[[VAR]]` syntax — resolved at render time from `src/config/site.ts`:
+`%VAR%` syntax — resolved at render time from `src/config/site.ts`:
 
 | Variable | Source |
 |----------|--------|
-| `[[SITE_NAME]]` | `clientEnv.siteName` |
-| `[[SITE_URL]]` | `clientEnv.appUrl` |
-| `[[COMPANY_NAME]]` | `siteDefaults.companyName` |
-| `[[COMPANY_ADDRESS]]` | `siteDefaults.companyAddress` |
-| `[[COMPANY_ID]]` | `siteDefaults.companyId` |
-| `[[COMPANY_JURISDICTION]]` | `siteDefaults.companyJurisdiction` |
-| `[[CONTACT_EMAIL]]` | `siteDefaults.contactEmail` |
+| `%SITE_NAME%` | `clientEnv.siteName` |
+| `%SITE_URL%` | `clientEnv.appUrl` |
+| `%COMPANY_NAME%` | `siteDefaults.companyName` |
+| `%COMPANY_ADDRESS%` | `siteDefaults.companyAddress` |
+| `%COMPANY_ID%` | `siteDefaults.companyId` |
+| `%COMPANY_JURISDICTION%` | `siteDefaults.companyJurisdiction` |
+| `%CONTACT_EMAIL%` | `siteDefaults.contactEmail` |
 
 Changing values in `site.ts` takes effect immediately — no re-sync needed.
 
 ## Seeding
 
-`bun run init` copies templates from `src/core/_templates/content/{locale}/` to `content/{locale}/`. Files are copied verbatim with `[[VAR]]` placeholders. Never overwrites existing files.
+`bun run init` copies templates from `src/core/_templates/content/{locale}/` to `content/{locale}/`. Files are copied verbatim with `%VAR%` placeholders. Never overwrites existing files.
 
 ## Structure
 

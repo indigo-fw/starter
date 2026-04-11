@@ -18,7 +18,7 @@
 
 ## Non-Obvious Patterns
 
-- **Email:** Use `enqueueEmail()` / `enqueueTemplateEmail()` — never call `sendEmail()` directly
+- **Email:** Use `enqueueEmail()` / `enqueueTemplateEmail()` from `@/core/lib/email` — never call `sendEmail()` directly. Project-specific `TemplateName` type lives in `@/server/jobs/email`. Wire branding via `setEmailDeps()` in `src/config/email-deps.ts`
 - **Fire-and-forget:** All fire-and-forget operations (audit, webhooks, notifications) must log errors via `createLogger()`, never silently swallow
 - **Notifications:** `sendNotification()` is fire-and-forget (DB insert + WS broadcast). `sendOrgNotification()`, `sendBulkNotification()` for bulk
 - **Why organizations always exist:** Billing, tokens, subscriptions, and permissions all hang off orgs. Every user gets a personal org on signup so these systems work uniformly without special-casing "no org" paths. In B2C mode (`ORGANIZATIONS_VISIBLE=false`) the UI hides orgs but the data model stays. Don't remove this — it avoids a drastic rework

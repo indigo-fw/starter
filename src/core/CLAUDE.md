@@ -11,7 +11,7 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 
 ## Core vs Project Boundary
 
-**Core owns:** reusable CMS infrastructure — CRUD helpers, hooks, shared components, types, RBAC policy, storage, payment services, CSS tokens, lib utilities, MDX compiler, content sync, content variables, seed templates. Browse `src/core/` subdirectories to see what's available.
+**Core owns:** reusable CMS infrastructure — CRUD helpers, hooks, shared components, types, RBAC policy, storage, payment services, CSS tokens, lib utilities, MDX compiler, content sync, content variables, seed templates, email engine, RSS/sitemap generators, search triggers, cron/maintenance registries, scheduled content publishing, health check factory, cookie consent. Browse `src/core/` subdirectories to see what's available.
 
 **Project owns:** `src/config/` (content types, taxonomies, plans, nav, widgets, shortcodes), `src/server/` (DB schema, tRPC routers), `src/app/` (routes), `src/components/` (forms, list views, sidebar, public UI), `content/` (file-based content). Customize freely.
 
@@ -42,6 +42,7 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - **Autosave recovery:** `narrowRecoveredData(recovered, defaults)` — never manually cast
 - **Markdown:** `htmlToMarkdown()` / `markdownToHtml()` — preserves shortcodes through placeholder strategies
 - **Content variables:** `resolveContentVars()` — replaces `[[VAR]]` placeholders with `site.ts` values at render time. Fast path skips if no `[[` present
+- **CMS links:** `cms://` protocol for content-aware links. `resolveCmsLink()` resolves by ID or slug with multilingual fallback chain. `resolveCmsLinks(text, locale)` batch-resolves all `cms://` URIs in a string. `resolveRecordCmsLinks(record, locale)` resolves all string fields. Server code in `cms-link.ts`, client-safe utilities in `cms-link-shared.ts`. LRU cache (500 entries, 1h TTL) + Redis pub/sub invalidation via `broadcastCmsLinkInvalidation()`. Project wires config via `src/config/cms-link-init.ts`. Client component: `<CmsLink>` from `@/core/components/CmsLink` — project wraps as `<Link>` in `@/components/Link`
 - **MDX compiler:** `compileMdx()` — unified remark→rehype pipeline with component registry (`registerMdxComponent()`). LRU-cached
 - **Content sync:** `syncContentFiles()` — syncs `.md` files from `content/{locale}/` to CMS DB. File mtime vs DB updatedAt, revision on update
 - **Seed content:** `seedContentFiles()` — copies `core/_templates/content/` to `content/` on init (skips existing)
@@ -90,6 +91,8 @@ Two pipelines for file-based content, determined by file extension:
 | `.mdx` | Runtime compile, file-first | No | Shows ".mdx" badge | Docs, technical guides |
 
 **Content variables:** `[[COMPANY_NAME]]`, `[[SITE_NAME]]`, `[[CONTACT_EMAIL]]`, etc. Stored as-is in DB, resolved at render time by `resolveContentVars()` using values from `site.ts`. Works in both `.md` (via ShortcodeRenderer) and `.mdx` (via MDX compiler).
+
+**CMS links in content:** `cms://` protocol URIs (e.g., `[About Us](cms://about-us)`, `[Post](cms://3f2a-uuid?lang=de)`) are resolved server-side by `resolveRecordCmsLinks()` in the data layer. Supports ID/slug lookup with multilingual fallback. See `cms-link.ts` for details.
 
 **Seed templates:** `core/_templates/content/{locale}/*.md` → copied to `content/{locale}/` on `bun run init`. Never overwrites existing files. Variables stay as `[[VAR]]` placeholders.
 

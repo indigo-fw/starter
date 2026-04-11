@@ -156,7 +156,7 @@ export async function seedCmsContent(db: PostgresJsDatabase, companyInfo: Compan
 
   // ── 7c. Legal pages (from seed templates → content/ files) ──────
   //
-  // Templates live in core/seed-templates/{locale}/.
+  // Templates live in core/_templates/content/{locale}/.
   // Init copies them verbatim to content/{locale}/ (variables like [[COMPANY_NAME]] stay as-is).
   // The content sync (server.ts) resolves variables from site.ts at DB-insert time.
 

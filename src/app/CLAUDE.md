@@ -6,17 +6,19 @@
 
 **How it works:** `src/proxy.ts` detects locale prefix, rewrites URL (strips prefix), sets `x-locale` header.
 
-**Typed navigation:** `src/i18n/routing.ts` defines routing config with `pathnames` map; `src/i18n/navigation.ts` exports typed `Link`, `redirect`, `useRouter`, `usePathname` via `createNavigation()`. Link `href` is constrained to pathnames keys — typos are compile errors.
+**Unified Link component:** `import { Link } from '@/components/Link'` — single component for all public links. Handles static routes, CMS content (slug/ID resolution), `cms://` protocol, object hrefs with params, and external URLs. Auto-detects what to do based on `href` value. Typed autocomplete for static routes from `src/i18n/routing.ts` pathnames map.
 
 **Key rules:**
-- **JSX links** (`<Link>`): import from `@/i18n/navigation`. Typed — href constrained to pathnames map. Static: `href="/blog"`. Dynamic: `href={{ pathname: '/category/[slug]', params: { slug } }}`. Query: `href={{ pathname: '/blog', query: { page: '2' } }}`
-- **String URLs for known routes** (form actions, sidebarItems): use `getPathname({ locale, href })` from `@/i18n/navigation` — same type safety as Link
-- **String URLs for DB-driven/computed paths** (PostCard hrefs, search results, sitemap): use `localePath()` from `@/lib/locale` — accepts any string
-- **Non-locale links** (API routes, `/dashboard`, RSS): use `NextLink` from `next/link`
-- **Client `useRouter`**: import from `@/i18n/navigation` (auto-prefixes, typed)
+- **JSX links** (`<Link>`): import from `@/components/Link`. Static: `href="/blog"`. Dynamic: `href={{ pathname: '/category/[slug]', params: { slug } }}`. Query: `href={{ pathname: '/blog', query: { page: '2' } }}`. CMS slug: `href="/about-us"` (auto-resolved from DB). CMS protocol: `href="cms://about-us?lang=de"`. Explicit: `id="uuid"` or `slug="about-us"` props
+- **Passthrough** (API routes, `/dashboard`, RSS, external): auto-detected — no locale prefix, no DB lookup. `<Link href="/dashboard">` and `<Link href="https://...">` just work
+- **String URLs for computed paths** (form actions, sidebarItems, sitemap): use `localePath()` from `@/core/lib/i18n/locale`
+- **Router hooks** (`useRouter`, `redirect`, `usePathname`): still from `@/i18n/navigation` — same as before
+- **Core components** (`src/core/`): can't import `@/components/Link` (project layer). Use `next/link` or `@/core/components/CmsLink` directly
 - All public queries must pass `lang: locale` (from `getLocale()` or `useLocale()`)
 - hreflang alternates use `translationGroup` DB column for sibling lookup
-- **To add a new public route:** add entry in `src/i18n/routing.ts` pathnames map. Forgetting → compile error on `<Link href="/new-route">`
+- **To add a new public route:** add entry in `src/i18n/routing.ts` pathnames map. Static routes auto-detected by `<Link>` — no DB call
+
+**CMS Link resolution:** `cms://` URIs in content strings are resolved server-side in the data layer (`data.ts` calls `resolveRecordCmsLinks()`). `<Link>` component resolves client-side via tRPC with React Query caching (1h stale time, batched via httpBatchLink). Cache invalidated on content save via Redis pub/sub.
 
 **Tradeoff:** `x-locale` header via `headers()` makes all public pages dynamic (no ISR/SSG). Acceptable for DB-driven CMS. For static generation in single-locale deployments, set `LOCALES` to one entry.
 
@@ -31,6 +33,22 @@ Supports preview mode via `?preview=<token>`.
 ## Auth Proxy Rules
 
 `src/proxy.ts`: Dashboard auth paths (`/dashboard/login`, etc.) allowed without session. All other `/dashboard/*` paths redirect to `/dashboard/login`. `/account` paths require session (redirect to `/login`).
+
+## Cookie Consent
+
+`<ConsentProvider>` wraps the public layout. `<CookieConsent />` renders the banner (auto-hides after user choice). Use `<ConsentGate category="analytics">` around GA4/marketing scripts to conditionally render based on consent. All from `@/core/components` and `@/core/lib/consent`.
+
+## Health Check
+
+`GET /api/health` — uses `createHealthHandler()` from `@/core/lib/api/health`. Project passes DB + Redis checks; modules contribute via `registerHealthCheck()` hooks. Returns `healthy` (200) / `degraded` / `unhealthy` (503).
+
+## RSS Feeds
+
+`/api/feed/blog` and `/api/feed/tag/[slug]` use `generateRssFeed()` + `createRssResponse()` from `@/core/lib/content/rss`. Project provides DB queries and URL builders; core generates XML.
+
+## Sitemap
+
+`src/app/sitemap.ts` uses `generateSitemap()` from `@/core/lib/seo/sitemap`. Project defines `STATIC_PAGES` + `CONTENT_FETCHERS` arrays. Adding a new content type = adding a fetcher entry with its DB query.
 
 ## PostForm Panel System
 

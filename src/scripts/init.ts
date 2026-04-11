@@ -580,7 +580,7 @@ async function seedOptions(
     "site.analytics.ga_id": "",
     "site.posts_per_page": 10,
     "site.allow_registration": true,
-    // Company info (used as [[VAR]] content variables in legal pages)
+    // Company info (used as %VAR% content variables in legal pages)
     "company.name": companyInfo.companyName,
     "company.address": companyInfo.companyAddress,
     "company.id": companyInfo.companyId,

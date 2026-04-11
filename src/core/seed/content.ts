@@ -1,5 +1,5 @@
 /**
- * Seed content — copies template .md files from core/seed-templates/{locale}/
+ * Seed content — copies template .md files from core/_templates/content/{locale}/
  * to the project's content/{locale}/ directory.
  *
  * Files are copied verbatim — template variables like %COMPANY_NAME% stay

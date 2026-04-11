@@ -23,6 +23,6 @@ docs/content/
 - **Numeric prefixes** for sort order: `01-installation.mdx` → slug `installation`
 - **Frontmatter:** `title`, `section`, `order`, `description`
 - **MDX components:** `<Callout>`, `<CodeTabs>/<Tab>`, `<Steps>/<Step>`, `<Badge>`
-- **Content variables:** `[[SITE_NAME]]`, `[[COMPANY_NAME]]`, etc. — resolved at render time from `site.ts`
+- **Content variables:** `%SITE_NAME%`, `%COMPANY_NAME%`, etc. — resolved at render time from `site.ts`
 - **File priority:** `.mdx` files override CMS `cms_docs` entries with the same slug
 - **ALL-CAPS filenames** (`CLAUDE.md`, `README.md`, `LICENSE.md`, etc.) are ignored by the docs loader — convention: ALL-CAPS = documentation/meta, lowercase = content
