@@ -30,6 +30,8 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 interface HealthHandlerOptions {
   /** Server start timestamp (default: handler creation time). Pass from server.ts for accurate uptime. */
   startedAt?: number;
+  /** Extra fields merged into the top-level response (e.g. version, gitCommit, deploymentId). */
+  extra?: Record<string, unknown>;
 }
 
 /**
@@ -104,6 +106,7 @@ export function createHealthHandler(
         timestamp: new Date().toISOString(),
         modules: getRegisteredModules(),
         checks: results,
+        ...options?.extra,
       },
       { status: overallStatus === 'healthy' ? 200 : 503 },
     );

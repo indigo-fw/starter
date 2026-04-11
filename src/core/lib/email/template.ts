@@ -145,12 +145,16 @@ function loadLayout(templatesDir?: string): string {
   return _layoutHtml;
 }
 
-/** Apply the layout wrapper to email body content. */
+/**
+ * Apply the layout wrapper to email body content.
+ * Extra layout vars (e.g. {{YEAR}}, {{UNSUBSCRIBE_URL}}) are replaced after branding.
+ */
 export function applyLayout(
   content: string,
   branding: EmailBranding,
   preheader: string,
   templatesDir?: string,
+  extraLayoutVars?: Record<string, string>,
 ): string {
   const preheaderBlock = preheader
     ? `<span style="display:none;font-size:0;line-height:0;max-height:0;max-width:0;mso-hide:all;overflow:hidden">${preheader}&#8199;&#65279;&#847; &#8199;&#65279;&#847; &#8199;&#65279;&#847;</span>`
@@ -160,7 +164,7 @@ export function applyLayout(
     ? `<a href="${branding.siteUrl}" target="_blank" style="color:${branding.brandColor}; text-decoration:none; display:block"><img src="${branding.logoUrl}" alt="${branding.siteName}" height="40" style="border:0; display:block; margin:0 auto; max-width:100%"></a>`
     : `<a href="${branding.siteUrl}" target="_blank" style="color:${branding.brandColor}; text-decoration:none; font-size:20px; font-weight:700">${branding.siteName}</a>`;
 
-  return loadLayout(templatesDir)
+  let html = loadLayout(templatesDir)
     .replace(/\{\{SITE_NAME\}\}/g, branding.siteName)
     .replace(/\{\{SITE_URL\}\}/g, branding.siteUrl)
     .replace(/\{\{CONTACT_EMAIL\}\}/g, branding.contactEmail)
@@ -168,6 +172,15 @@ export function applyLayout(
     .replace(/\{\{HEADER_BLOCK\}\}/g, headerBlock)
     .replace(/\{\{PREHEADER_BLOCK\}\}/g, preheaderBlock)
     .replace(/\{\{CONTENT\}\}/g, content);
+
+  // Apply extra layout vars from project (e.g. {{YEAR}}, {{UNSUBSCRIBE_URL}})
+  if (extraLayoutVars) {
+    for (const [key, value] of Object.entries(extraLayoutVars)) {
+      html = html.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), value);
+    }
+  }
+
+  return html;
 }
 
 // ---------------------------------------------------------------------------
@@ -186,6 +199,7 @@ export async function renderTemplate(
   options?: {
     templatesDir?: string;
     getTemplateOverride?: (template: string, locale: string) => Promise<{ subject: string; html: string } | null>;
+    extraLayoutVars?: Record<string, string>;
   },
 ): Promise<{ subject: string; html: string }> {
   const vars: Record<string, string> = {
@@ -203,7 +217,7 @@ export async function renderTemplate(
       if (override) {
         const content = replacePlaceholders(override.html, vars);
         const subject = replacePlaceholders(override.subject, vars, false);
-        const html = applyLayout(content, branding, '', options?.templatesDir);
+        const html = applyLayout(content, branding, '', options?.templatesDir, options?.extraLayoutVars);
         return { subject, html };
       }
     } catch {
@@ -218,7 +232,7 @@ export async function renderTemplate(
   const preheader = parsed.preheader
     ? replacePlaceholders(parsed.preheader, vars, false)
     : '';
-  const html = applyLayout(content, branding, preheader, options?.templatesDir);
+  const html = applyLayout(content, branding, preheader, options?.templatesDir, options?.extraLayoutVars);
 
   return { subject, html };
 }

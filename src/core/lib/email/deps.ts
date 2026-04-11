@@ -15,6 +15,11 @@ export interface EmailSendOptions {
   replyTo?: string;
 }
 
+export interface EmailRetryPolicy {
+  attempts: number;
+  backoff: { type: 'exponential' | 'fixed'; delay: number };
+}
+
 export interface EmailDeps {
   /** Resolve email branding (may hit DB). Core caches internally if needed. */
   getBranding: () => Promise<EmailBranding>;
@@ -31,6 +36,13 @@ export interface EmailDeps {
   rateLimiter?: { max: number; duration: number };
   /** Optional: override worker concurrency (default: 5) */
   concurrency?: number;
+  /** Optional: override retry policy (default: 6 attempts, exponential backoff starting at 5min) */
+  retryPolicy?: EmailRetryPolicy;
+  /**
+   * Optional: extra layout variables injected into the email layout alongside branding.
+   * Use for custom placeholders like {{YEAR}}, {{UNSUBSCRIBE_URL}}, etc.
+   */
+  extraLayoutVars?: Record<string, string> | (() => Record<string, string>);
 }
 
 let _deps: EmailDeps | null = null;

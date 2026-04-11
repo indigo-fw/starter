@@ -70,3 +70,4 @@ export { useConsent, ConsentProvider } from './consent/context';
 export type { ConsentCategory, ConsentState, BuiltInConsentCategory } from './consent/types';
 export { DEFAULT_CATEGORIES, DEFAULT_CONSENT, buildDefaultConsent } from './consent/types';
 export { getStoredConsent, setStoredConsent, hasConsentChoice } from './consent/storage';
+export type { ConsentStorageOptions } from './consent/storage';

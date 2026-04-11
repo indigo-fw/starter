@@ -22,12 +22,12 @@ export interface ScheduledPublishTarget {
   entityType: string;
   /** Webhook event prefix (e.g. 'post' → 'post.published') */
   webhookEventPrefix: string;
-  /** Find all scheduled entries ready to publish */
-  findScheduled: () => Promise<Array<{ id: string; title: string }>>;
+  /** Find all scheduled entries ready to publish. Extra fields are included in webhook payload. */
+  findScheduled: () => Promise<Array<{ id: string; title: string; [key: string]: unknown }>>;
   /** Update a single entry to published status */
   publish: (id: string) => Promise<void>;
   /** Optional: called after each entry is published (e.g. send notification, invalidate cache) */
-  onPublished?: (entry: { id: string; title: string }) => Promise<void>;
+  onPublished?: (entry: { id: string; title: string; [key: string]: unknown }) => Promise<void>;
 }
 
 // ---------------------------------------------------------------------------
@@ -63,10 +63,7 @@ export async function processScheduledContent(): Promise<void> {
         metadata: { auto: true },
       });
 
-      dispatchWebhook(db, `${target.webhookEventPrefix}.published`, {
-        id: entry.id,
-        title: entry.title,
-      });
+      dispatchWebhook(db, `${target.webhookEventPrefix}.published`, entry);
 
       if (target.onPublished) {
         try {

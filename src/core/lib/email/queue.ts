@@ -33,6 +33,16 @@ interface RawEmailJob {
 
 const emailQueue = createQueue('email');
 
+const DEFAULT_RETRY = { attempts: 6, backoff: { type: 'exponential' as const, delay: 5 * 60_000 } };
+
+function getRetryPolicy() {
+  try {
+    return getEmailDeps().retryPolicy ?? DEFAULT_RETRY;
+  } catch {
+    return DEFAULT_RETRY;
+  }
+}
+
 /**
  * Enqueue a templated email.
  * Validates recipients, carries locale through the queue for template resolution.
@@ -57,18 +67,17 @@ export async function enqueueTemplateEmail(
       template,
       data: vars,
       locale,
-    } satisfies EmailJob, {
-      attempts: 6,
-      backoff: { type: 'exponential', delay: 5 * 60_000 },
-    });
+    } satisfies EmailJob, getRetryPolicy());
   } else {
     // No Redis — render and send synchronously in dev
     logger.info(`Sending directly (no Redis): ${template} -> ${valid.join(', ')}`);
     const deps = getEmailDeps();
     const branding = await deps.getBranding();
+    const extraLayoutVars = typeof deps.extraLayoutVars === 'function' ? deps.extraLayoutVars() : deps.extraLayoutVars;
     const { subject, html } = await renderTemplate(template, vars, locale, branding, {
       templatesDir: deps.templatesDir,
       getTemplateOverride: deps.getTemplateOverride,
+      extraLayoutVars,
     });
     await sendEmail(valid, subject, html);
   }
@@ -89,10 +98,7 @@ export async function enqueueEmail(payload: {
   }
 
   if (emailQueue) {
-    await emailQueue.add('send-raw', payload satisfies RawEmailJob, {
-      attempts: 6,
-      backoff: { type: 'exponential', delay: 5 * 60_000 },
-    });
+    await emailQueue.add('send-raw', payload satisfies RawEmailJob, getRetryPolicy());
   } else {
     logger.info(`Sending directly (no Redis): ${payload.subject} -> ${payload.to}`);
     await sendEmail(payload.to, payload.subject, payload.html);
@@ -129,9 +135,11 @@ export function startEmailWorker(): void {
       const { to, template, data, locale } = job.data as EmailJob;
       const d = getEmailDeps();
       const branding = await d.getBranding();
+      const extraVars = typeof d.extraLayoutVars === 'function' ? d.extraLayoutVars() : d.extraLayoutVars;
       const { subject, html } = await renderTemplate(template, data, locale, branding, {
         templatesDir: d.templatesDir,
         getTemplateOverride: d.getTemplateOverride,
+        extraLayoutVars: extraVars,
       });
 
       const recipients = to.includes(',') ? to.split(',').map((e) => e.trim()) : to;

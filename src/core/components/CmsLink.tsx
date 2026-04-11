@@ -118,20 +118,21 @@ function reattach(
 /** Object-style href for dynamic routes with params and/or query strings. */
 export interface CmsLinkObjectHref<TPathname extends string = string> {
   pathname: TPathname | (string & {});
-  params?: Record<string, string>;
+  params?: Record<string, string | number>;
   query?: Record<string, string | string[]>;
 }
 
 /** Replace `[param]` and `[...param]` segments with actual values. */
 function resolveParams(
   pathname: string,
-  params?: Record<string, string>,
+  params?: Record<string, string | number>,
 ): string {
   if (!params) return pathname;
   let result = pathname;
   for (const [key, value] of Object.entries(params)) {
-    result = result.replace(`[...${key}]`, value);
-    result = result.replace(`[${key}]`, value);
+    const str = String(value);
+    result = result.replace(`[...${key}]`, str);
+    result = result.replace(`[${key}]`, str);
   }
   return result;
 }
@@ -194,8 +195,18 @@ export interface CmsLinkBaseProps<
   slug?: string;
   /** Target locale override. Default: visitor's current locale. */
   lang?: string;
+  /** Target locale — alias for `lang`, compatible with next-intl's Link API. */
+  locale?: string;
   /** Content type hint for slug disambiguation (page, blog, category, etc.). */
   type?: string;
+  /** Next.js Link: disable scroll restoration on navigation. */
+  scroll?: boolean;
+  /** Next.js Link: prefetch behavior. */
+  prefetch?: boolean | null;
+  /** Next.js Link: replace history entry instead of pushing. */
+  replace?: boolean;
+  /** Forwarded ref for the underlying anchor element. */
+  ref?: React.Ref<HTMLAnchorElement>;
 }
 
 export type CmsLinkProps<
@@ -247,12 +258,18 @@ export function CmsLink<
   id,
   slug,
   lang,
+  locale: localeProp,
   type,
+  scroll,
+  prefetch,
+  replace,
+  ref,
   children,
   ...props
 }: CmsLinkProps<TPath, TPathname>) {
-  const locale = useLocale();
-  const targetLocale = (lang ?? locale) as Locale;
+  const currentLocale = useLocale();
+  const targetLocale = (lang ?? localeProp ?? currentLocale) as Locale;
+  const linkProps = { scroll, prefetch, replace, ref };
 
   // ── Explicit id/slug props take priority over href auto-detection ──
 
@@ -265,7 +282,8 @@ export function CmsLink<
         slug={slug}
         lang={lang}
         type={type}
-        locale={locale}
+        locale={currentLocale}
+        linkProps={linkProps}
         targetLocale={targetLocale}
         fallbackPath={fallback?.path}
         query={fallback?.query}
@@ -287,7 +305,7 @@ export function CmsLink<
 
   if (typeof href === 'object') {
     return (
-      <NextLink href={resolveObjectHref(href, targetLocale)} {...props}>
+      <NextLink href={resolveObjectHref(href, targetLocale)} {...linkProps} {...props}>
         {children}
       </NextLink>
     );
@@ -300,7 +318,7 @@ export function CmsLink<
   switch (parsed.kind) {
     case HrefKind.Passthrough:
       return (
-        <NextLink href={href} {...props}>
+        <NextLink href={href} {...linkProps} {...props}>
           {children}
         </NextLink>
       );
@@ -309,6 +327,7 @@ export function CmsLink<
       return (
         <NextLink
           href={reattach(localePath(parsed.path, targetLocale), parsed.query, parsed.fragment)}
+          {...linkProps}
           {...props}
         >
           {children}
@@ -328,7 +347,8 @@ export function CmsLink<
           lang={ref.lang ?? lang}
           type={ref.type ?? type}
           fragment={ref.fragment ? `#${ref.fragment}` : undefined}
-          locale={locale}
+          locale={currentLocale}
+        linkProps={linkProps}
           targetLocale={targetLocale}
           {...props}
         >
@@ -343,7 +363,8 @@ export function CmsLink<
           id={parsed.identifier}
           lang={lang}
           type={type}
-          locale={locale}
+          locale={currentLocale}
+        linkProps={linkProps}
           targetLocale={targetLocale}
           fallbackPath={parsed.path}
           query={parsed.query}
@@ -360,7 +381,8 @@ export function CmsLink<
           slug={parsed.identifier}
           lang={lang}
           type={type}
-          locale={locale}
+          locale={currentLocale}
+        linkProps={linkProps}
           targetLocale={targetLocale}
           fallbackPath={parsed.path}
           query={parsed.query}
@@ -389,6 +411,8 @@ interface CmsLinkResolvedProps
   targetLocale: Locale;
   /** Fallback path (without query/fragment) to use if resolution fails. */
   fallbackPath?: string;
+  /** Next.js Link props forwarded from parent. */
+  linkProps?: { scroll?: boolean; prefetch?: boolean | null; replace?: boolean; ref?: React.Ref<HTMLAnchorElement> };
 }
 
 function CmsLinkResolved({
@@ -401,6 +425,7 @@ function CmsLinkResolved({
   locale,
   targetLocale,
   fallbackPath,
+  linkProps: lp,
   children,
   ...props
 }: CmsLinkResolvedProps) {
@@ -431,7 +456,7 @@ function CmsLinkResolved({
   }
 
   return (
-    <NextLink href={href} {...props}>
+    <NextLink href={href} {...lp} {...props}>
       {displayText}
     </NextLink>
   );

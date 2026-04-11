@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import type { ConsentState } from './types';
 import { DEFAULT_CATEGORIES, buildDefaultConsent } from './types';
 import { getStoredConsent, setStoredConsent } from './storage';
+import type { ConsentStorageOptions } from './storage';
 
 // ---------------------------------------------------------------------------
 // Context
@@ -41,12 +42,15 @@ interface ConsentProviderProps {
   categories?: string[];
   /** Called when consent changes (for server-side sync, analytics, etc.) */
   onConsentChange?: (state: ConsentState) => void;
+  /** Override storage key, cookie name, or cookie max-age for multi-tenant setups. */
+  storage?: ConsentStorageOptions;
 }
 
 export function ConsentProvider({
   children,
   categories: categoriesProp,
   onConsentChange,
+  storage: storageOptions,
 }: ConsentProviderProps) {
   const categories = useMemo(() => {
     const cats = categoriesProp ?? DEFAULT_CATEGORIES;
@@ -59,21 +63,21 @@ export function ConsentProvider({
 
   // Read stored consent on mount
   useEffect(() => {
-    const stored = getStoredConsent();
+    const stored = getStoredConsent(storageOptions);
     if (stored) {
       // Merge stored with defaults for any new categories
       const merged = { ...buildDefaultConsent(categories), ...stored };
       setConsent(merged);
       setHasConsented(true);
     }
-  }, [categories]);
+  }, [categories, storageOptions]);
 
   const updateConsent = useCallback(
     (partial: Partial<ConsentState>) => {
       const next = { ...consent, ...partial, necessary: true };
       setConsent(next);
       setHasConsented(true);
-      setStoredConsent(next);
+      setStoredConsent(next, storageOptions);
       onConsentChange?.(next);
     },
     [consent, onConsentChange],
