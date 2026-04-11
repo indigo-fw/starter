@@ -110,7 +110,8 @@ export async function startCronScheduler(): Promise<void> {
  * only minute and hour are used. For unsupported patterns, falls back to 24h.
  * BullMQ handles the full cron spec via Redis — this is only the DB-queue fallback.
  */
-function getNextCronRun(pattern: string): Date {
+/** @internal Exported for testing only. */
+export function getNextCronRun(pattern: string): Date {
   const parts = pattern.split(/\s+/);
   if (parts.length < 5) {
     return new Date(Date.now() + 24 * 60 * 60 * 1000);
