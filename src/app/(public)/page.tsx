@@ -22,6 +22,8 @@ import {
 import { siteConfig } from "@/config/site";
 import { db } from "@/server/db";
 import { getCmsOverride } from "@/lib/cms-override";
+import { buildCanonicalUrl } from "@/core/lib/seo/canonical";
+import "@/config/canonical-init";
 import { CmsContent } from "@/core/components";
 import { SHORTCODE_COMPONENTS } from "@/config/shortcodes";
 import { getLocale } from "@/lib/locale-server";
@@ -34,6 +36,10 @@ export async function generateMetadata(): Promise<Metadata> {
     title: cms?.seo.seoTitle || siteConfig.seo.title,
     description: cms?.seo.metaDescription || siteConfig.seo.description,
     ...(cms?.seo.noindex && { robots: { index: false, follow: false } }),
+    openGraph: { locale },
+    alternates: {
+      canonical: buildCanonicalUrl('/', locale),
+    },
   };
 }
 

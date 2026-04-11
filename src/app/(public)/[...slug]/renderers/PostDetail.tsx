@@ -4,10 +4,18 @@ import { Link } from '@/components/Link';
 import { PostType } from '@/core/types/cms';
 import { PostCard } from '@/core/components/PostCard';
 import { ShortcodeRenderer } from '@/core/components/content/ShortcodeRenderer';
+import { StructuredData } from '@/core/components/seo/StructuredData';
+import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@/core/lib/seo/json-ld';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
-import { localePath } from '@/lib/locale';
+import { siteConfig } from '@/config/site';
+import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
 import { getLocale } from '@/lib/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';
+import { localePath } from '@/lib/locale';
+import type { Locale } from '@/lib/constants';
+import { db } from '@/server/db';
+import { user } from '@/server/db/schema/auth';
+import { eq } from 'drizzle-orm';
 import { getCachedPost, getCachedTRPC } from '../data';
 import { getAncestors } from '../queries';
 
@@ -26,8 +34,8 @@ export async function PostDetail({ slug, postType, preview }: Props) {
   const isBlog = postType === PostType.BLOG;
   const isPage = postType === PostType.PAGE;
 
-  // Parallel: tags + related posts + ancestors
-  const [postTags, relatedPosts, ancestors] = await Promise.all([
+  // Parallel: tags + related posts + ancestors + author
+  const [postTags, relatedPosts, ancestors, authorName] = await Promise.all([
     api.tags.getForObject({ objectId: post.id }).catch(() => [] as { id: string; name: string; slug: string }[]),
     isBlog
       ? api.cms.getRelatedPosts({ postId: post.id, lang: locale, limit: 4 }).catch(() => [])
@@ -35,6 +43,10 @@ export async function PostDetail({ slug, postType, preview }: Props) {
     isPage && post.parentId
       ? getAncestors(post.id).catch(() => [])
       : Promise.resolve([]),
+    post.authorId
+      ? db.select({ name: user.name }).from(user).where(eq(user.id, post.authorId)).limit(1)
+          .then((rows) => rows[0]?.name ?? null).catch(() => null)
+      : Promise.resolve(null),
   ]);
 
   return (
@@ -127,14 +139,39 @@ export async function PostDetail({ slug, postType, preview }: Props) {
         </section>
       )}
 
-      {/* JSON-LD */}
-      {post.jsonLd && (
+      {/* JSON-LD: manual override or auto-generated */}
+      {post.jsonLd ? (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: post.jsonLd.replace(/<\//g, '<\\/'),
           }}
         />
+      ) : (
+        <StructuredData data={buildArticleJsonLd({
+          title: post.title,
+          description: post.metaDescription,
+          url: buildCanonicalUrl(isBlog ? `/blog/${slug}` : `/${slug}`, locale),
+          image: post.featuredImage,
+          imageAlt: post.featuredImageAlt,
+          publishedAt: post.publishedAt,
+          updatedAt: post.updatedAt,
+          authorName,
+          siteName: siteConfig.name,
+          siteUrl: siteConfig.url,
+          type: isBlog ? 'BlogPosting' : 'Article',
+        })} />
+      )}
+
+      {/* BreadcrumbList for hierarchical pages */}
+      {ancestors.length > 0 && (
+        <StructuredData data={buildBreadcrumbJsonLd([
+          ...ancestors.map((a) => ({
+            name: a.title,
+            url: buildCanonicalUrl(`/${a.slug}`, locale),
+          })),
+          { name: post.title, url: buildCanonicalUrl(`/${slug}`, locale) },
+        ])} />
       )}
     </article>
   );

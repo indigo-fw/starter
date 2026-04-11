@@ -58,6 +58,8 @@ function alternatesMap<L extends string>(
   for (const locale of config.locales) {
     languages[locale] = absoluteUrl(config.siteUrl, config.localePath, path, locale);
   }
+  // x-default: fallback for unmatched languages, points to default locale
+  languages['x-default'] = absoluteUrl(config.siteUrl, config.localePath, path, config.defaultLocale);
   return languages;
 }
 

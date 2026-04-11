@@ -51,5 +51,7 @@ export function buildAlternates(
   for (const locale of locales) {
     languages[locale] = `${_config.siteUrl}${_config.localePath(path, locale)}`;
   }
+  // x-default: fallback for unmatched languages
+  languages['x-default'] = `${_config.siteUrl}${_config.localePath(path, _config.defaultLocale)}`;
   return languages;
 }

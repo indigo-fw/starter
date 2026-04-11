@@ -28,6 +28,13 @@ export const siteConfig = {
     title: `${clientEnv.siteName} — AI Agent-driven T3 SaaS Starter`,
     description:
       "Open-source SaaS starter kit with integrated CMS, built on Next.js, tRPC, Drizzle, and Better Auth. Multi-tenancy, Stripe billing, real-time WebSocket, and more.",
+    /** Default OG image for pages without a featured image (absolute URL or path relative to public/) */
+    defaultOgImage: '/og-default.png',
+  },
+
+  social: {
+    /** Twitter/X handle for twitter:site meta tag (e.g. '@indigo_fw') */
+    twitter: '',
   },
 
   /** Auto-detect locale from Accept-Language and redirect to matching prefix.

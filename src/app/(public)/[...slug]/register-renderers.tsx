@@ -13,6 +13,8 @@ import React from 'react';
 
 import { registerContentRenderer } from './renderer-registry';
 import { siteConfig } from '@/config/site';
+import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
+import '@/config/canonical-init';
 import {
   getCachedPost,
   getCachedTag,
@@ -42,20 +44,21 @@ registerContentRenderer('page', {
     const siblings = await getPostTranslationSiblings(post.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/');
 
-    const metadata: import('next').Metadata = {
+    return {
       title: post.seoTitle || `${post.title} | ${siteConfig.name}`,
       description: post.metaDescription ?? undefined,
       robots: post.noindex ? { index: false, follow: false } : undefined,
-      ...(languages && { alternates: { languages } }),
+      alternates: {
+        canonical: buildCanonicalUrl(`/${slug}`, locale),
+        ...(languages && { languages }),
+      },
+      openGraph: {
+        locale,
+        ...(post.featuredImage && {
+          images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
+        }),
+      },
     };
-
-    if (post.featuredImage) {
-      metadata.openGraph = {
-        images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
-      };
-    }
-
-    return metadata;
   },
 });
 
@@ -71,20 +74,21 @@ registerContentRenderer('blog', {
     const siblings = await getPostTranslationSiblings(post.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/blog/');
 
-    const metadata: import('next').Metadata = {
+    return {
       title: post.seoTitle || `${post.title} | ${siteConfig.name}`,
       description: post.metaDescription ?? undefined,
       robots: post.noindex ? { index: false, follow: false } : undefined,
-      ...(languages && { alternates: { languages } }),
+      alternates: {
+        canonical: buildCanonicalUrl(`/blog/${slug}`, locale),
+        ...(languages && { languages }),
+      },
+      openGraph: {
+        locale,
+        ...(post.featuredImage && {
+          images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
+        }),
+      },
     };
-
-    if (post.featuredImage) {
-      metadata.openGraph = {
-        images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
-      };
-    }
-
-    return metadata;
   },
 });
 
@@ -95,11 +99,13 @@ registerContentRenderer('tag', {
     const { TagDetail } = await import('./renderers/TagDetail');
     return <TagDetail slug={slug} currentPage={currentPage} />;
   },
-  async generateMetadata({ slug, locale }) {
+  async generateMetadata({ slug, locale, baseUrl }) {
     const tag = await getCachedTag(slug, locale);
     return {
       title: `${tag.name} | ${siteConfig.name}`,
       description: `Browse all posts tagged with "${tag.name}".`,
+      alternates: { canonical: buildCanonicalUrl(`/tag/${slug}`, locale) },
+      openGraph: { locale },
     };
   },
 });
@@ -119,12 +125,16 @@ registerContentRenderer('portfolio', {
       title: item.seoTitle || `${item.title} | ${siteConfig.name}`,
       description: item.metaDescription ?? undefined,
       robots: item.noindex ? { index: false, follow: false } : undefined,
-      ...(languages && { alternates: { languages } }),
-      ...(item.featuredImage && {
-        openGraph: {
+      alternates: {
+        canonical: buildCanonicalUrl(`/portfolio/${slug}`, locale),
+        ...(languages && { languages }),
+      },
+      openGraph: {
+        locale,
+        ...(item.featuredImage && {
           images: [{ url: item.featuredImage, alt: item.featuredImageAlt ?? item.title }],
-        },
-      }),
+        }),
+      },
     };
   },
 });
@@ -144,12 +154,16 @@ registerContentRenderer('showcase', {
       title: item.seoTitle || `${item.title} | ${siteConfig.name}`,
       description: item.metaDescription ?? undefined,
       robots: item.noindex ? { index: false, follow: false } : undefined,
-      ...(languages && { alternates: { languages } }),
-      ...(item.thumbnailUrl && {
-        openGraph: {
+      alternates: {
+        canonical: buildCanonicalUrl(`/showcase/${slug}`, locale),
+        ...(languages && { languages }),
+      },
+      openGraph: {
+        locale,
+        ...(item.thumbnailUrl && {
           images: [{ url: item.thumbnailUrl, alt: item.title }],
-        },
-      }),
+        }),
+      },
     };
   },
 });
@@ -169,7 +183,11 @@ registerContentRenderer('category', {
       title: cat.seoTitle || `${cat.title} | ${siteConfig.name}`,
       description: cat.metaDescription ?? undefined,
       robots: cat.noindex ? { index: false, follow: false } : undefined,
-      ...(languages && { alternates: { languages } }),
+      alternates: {
+        canonical: buildCanonicalUrl(`/category/${slug}`, locale),
+        ...(languages && { languages }),
+      },
+      openGraph: { locale },
     };
   },
 });

@@ -65,5 +65,22 @@ export function buildAlternates(
     languages[sibLocale] = `${baseUrl}${localePath(sibPath, sibLocale)}`;
   }
 
-  return Object.keys(languages).length > 1 ? languages : undefined;
+  if (Object.keys(languages).length <= 1) return undefined;
+
+  // x-default: fallback for unmatched languages → default locale version
+  const defaultLocale = LOCALES[0];
+  if (currentLocale === defaultLocale) {
+    // Current page IS the default locale version
+    languages['x-default'] = languages[defaultLocale]!;
+  } else {
+    // Check if a default locale translation exists in siblings
+    const defaultSibling = siblings.find((s) => s.lang === defaultLocale);
+    if (defaultSibling) {
+      const sibPath = urlPrefix === '/' ? `/${defaultSibling.slug}` : `${urlPrefix}${defaultSibling.slug}`;
+      languages['x-default'] = `${baseUrl}${localePath(sibPath, defaultLocale)}`;
+    }
+    // If no default locale version exists, omit x-default entirely
+  }
+
+  return languages;
 }

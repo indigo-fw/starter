@@ -5,6 +5,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
 
 import { TRPCProvider } from '@/lib/trpc/provider';
+import { StructuredData } from '@/core/components/seo/StructuredData';
+import { buildOrganizationJsonLd } from '@/core/lib/seo/json-ld';
+import { WebVitals } from '@/components/WebVitals';
 
 import './globals.css';
 
@@ -19,10 +22,28 @@ const geistMono = Geist_Mono({
 });
 
 import { siteConfig } from '@/config/site';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: siteConfig.seo.title,
   description: siteConfig.seo.description,
+  metadataBase: new URL(siteConfig.url),
+  openGraph: {
+    type: 'website',
+    siteName: siteConfig.name,
+    title: siteConfig.seo.title,
+    description: siteConfig.seo.description,
+    locale: DEFAULT_LOCALE,
+    ...(siteConfig.seo.defaultOgImage && {
+      images: [{ url: siteConfig.seo.defaultOgImage, alt: siteConfig.name }],
+    }),
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.seo.title,
+    description: siteConfig.seo.description,
+    ...(siteConfig.social.twitter ? { site: siteConfig.social.twitter } : {}),
+  },
 };
 
 export default async function RootLayout({
@@ -41,6 +62,11 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <StructuredData data={buildOrganizationJsonLd({
+          name: siteConfig.name,
+          url: siteConfig.url,
+          description: siteConfig.seo.description,
+        })} />
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{
@@ -51,6 +77,7 @@ export default async function RootLayout({
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <TRPCProvider>{children}</TRPCProvider>
+          <WebVitals />
         </NextIntlClientProvider>
       </body>
     </html>

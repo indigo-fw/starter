@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { CONTENT_TYPES } from '@/config/cms';
 import { siteConfig } from '@/config/site';
 import { getLocale } from '@/lib/locale-server';
+import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
 import { resolveSlugRedirect } from '@/core/crud/slug-redirects';
 import { getCachedCompiledContent } from '@/core/lib/content/renderer';
 import { resolveContentVars } from '@/core/lib/content/vars';
@@ -41,11 +42,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       robots: fm.noindex ? { index: false, follow: false } : undefined,
-      ...(fm.image && {
-        openGraph: {
+      alternates: { canonical: buildCanonicalUrl(`/${fullSlug}`, locale) },
+      openGraph: {
+        locale,
+        ...(fm.image && {
           images: [{ url: fm.image, alt: fm.imageAlt ?? fm.title ?? '' }],
-        },
-      }),
+        }),
+      },
     };
   }
 
