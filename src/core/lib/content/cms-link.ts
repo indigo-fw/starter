@@ -700,6 +700,8 @@ async function resolveUncached(
   } else if (ref.slug) {
     const cleanSlug = ref.slug.replace(/^\//, '');
 
+    // Slug resolution chain: try exact locale → default locale → any locale.
+    // Handles content not yet translated to the visitor's language.
     record = await findBySlugInLocale(cleanSlug, currentLocale, ref.type);
 
     if (!record && currentLocale !== DEFAULT_LOCALE) {
@@ -713,6 +715,8 @@ async function resolveUncached(
 
   if (!record) return null;
 
+  // If found in a different locale than target, try to find a translation sibling.
+  // Falls back to the found record if no sibling exists (link to wrong locale > no link).
   if (record.lang !== targetLocale && record.translationGroup) {
     const sibling = await findSibling(
       record.translationGroup,

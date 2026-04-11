@@ -122,9 +122,9 @@ export function parseCmsUri(uri: string): CmsLinkRef | null {
 
     return {
       ...(isId ? { id: identifier } : { slug: identifier }),
-      lang: lang || undefined,
-      type: type || undefined,
-      fragment: fragment || undefined,
+      lang,
+      type,
+      fragment,
     };
   } catch {
     return null;

@@ -220,35 +220,47 @@ export type CmsLinkProps<
  * Universal locale-aware link component.
  *
  * Drop-in replacement for `<Link>` — handles static routes, CMS content,
- * and external URLs through a single `href` prop.
+ * and external URLs through a single `href` prop. Current locale is
+ * detected automatically via `useLocale()`. Use `lang` or `locale` prop
+ * only to force a different target locale.
  *
  * Resolution priority:
  *   1. Explicit `id` or `slug` prop → DB lookup (skip href auto-detection)
- *   2. Passthrough prefix (/dashboard, /api, http://) → render as-is
- *   3. cms:// protocol → parse and resolve from DB
- *   4. Known static route → locale prefix, no DB call
- *   5. UUID in path → DB lookup by ID, fallback to literal href
- *   6. Unknown path → DB lookup by slug, fallback to literal href
+ *   2. Object href `{ pathname, params }` → resolve params, locale-prefix, no DB
+ *   3. Passthrough prefix (/dashboard, /api, http://, mailto:, #) → render as-is
+ *   4. cms:// protocol → parse and resolve from DB
+ *   5. Known static route → locale prefix, no DB call
+ *   6. UUID in path → DB lookup by ID, fallback to literal href
+ *   7. Unknown path → DB lookup by slug, fallback to literal href
  *
  * Fragments (#...) and query strings (?...) are preserved through resolution.
+ * If both `id` and `slug` are provided, `id` takes priority.
+ * `lang` and `locale` are aliases — `locale` exists for next-intl compat.
  *
  * @example
  * // Static routes — typed, instant, no DB call
  * <Link href="/blog">Blog</Link>
  * <Link href="/pricing">Pricing</Link>
  *
- * // CMS content — auto-detected, resolved from DB
+ * // Dynamic routes with params
+ * <Link href={{ pathname: '/blog/[slug]', params: { slug: 'my-post' } }}>Post</Link>
+ * <Link href={{ pathname: '/blog', query: { page: '2' } }}>Page 2</Link>
+ *
+ * // CMS content — auto-detected from href, resolved from DB
  * <Link href="/about-us">About Us</Link>
  * <Link href="/about-us#team">Team section</Link>
  * <Link href="cms://about-us?lang=de">Über uns</Link>
  *
- * // Explicit lookups
- * <Link id="abc-uuid">About Us</Link>
+ * // Explicit lookups — skip auto-detection
+ * <Link id="3f2a-uuid">About Us</Link>
  * <Link slug="about-us" lang="de">Über uns</Link>
  *
- * // External / dashboard — passed through
+ * // Passthrough — no locale prefix, no DB call
  * <Link href="https://github.com">GitHub</Link>
  * <Link href="/dashboard/cms/pages">Admin</Link>
+ *
+ * // Next.js Link props pass through
+ * <Link href="/blog" scroll={false} prefetch={false}>Blog</Link>
  */
 export function CmsLink<
   TPath extends string = string,

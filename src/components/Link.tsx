@@ -41,11 +41,14 @@ export type LinkProps = CoreCmsLinkProps<StaticPathname, AppPathname>;
  *
  * // Explicit CMS lookup
  * <Link id="abc-uuid">About Us</Link>
- * <Link slug="about-us">About Us</Link>
+ * <Link slug="about-us" lang="de">Über uns</Link>
  *
- * // External / dashboard — passed through
+ * // Passthrough — no locale prefix, no DB call
  * <Link href="https://github.com">GitHub</Link>
  * <Link href="/dashboard">Admin</Link>
+ *
+ * // Next.js Link props
+ * <Link href="/blog" scroll={false} prefetch={false}>Blog</Link>
  */
 export function Link(props: LinkProps) {
   return <CmsLink {...props} />;
