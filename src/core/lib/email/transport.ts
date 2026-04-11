@@ -1,9 +1,13 @@
 /**
  * SMTP transport singleton — reuses a single connection for all emails.
+ * Projects can override the entire transport via `setEmailDeps({ sendEmail })`.
  */
 
 import nodemailer from 'nodemailer';
 import type Mail from 'nodemailer/lib/mailer';
+
+import { getEmailDeps } from './deps';
+import type { EmailSendOptions } from './deps';
 
 // ---------------------------------------------------------------------------
 // Config from environment
@@ -17,7 +21,7 @@ const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
 
 // ---------------------------------------------------------------------------
-// Singleton
+// SMTP Singleton (fallback when no custom sendEmail in deps)
 // ---------------------------------------------------------------------------
 
 let _transport: Mail | null = null;
@@ -39,18 +43,35 @@ export function getTransport(): Mail | null {
 }
 
 // ---------------------------------------------------------------------------
-// Send
+// Send — uses DI transport if provided, falls back to SMTP
 // ---------------------------------------------------------------------------
 
-/** Send an email via the SMTP transport. Throws if SMTP is not configured. */
+/**
+ * Send an email. If `deps.sendEmail` is configured (e.g. Resend, Postmark),
+ * uses that. Otherwise falls back to SMTP via nodemailer.
+ */
 export async function sendEmail(
   to: string | string[],
   subject: string,
   html: string,
 ): Promise<void> {
+  let deps: ReturnType<typeof getEmailDeps> | null = null;
+  try {
+    deps = getEmailDeps();
+  } catch {
+    // Deps not configured yet — use SMTP directly
+  }
+
+  // Use custom transport if provided
+  if (deps?.sendEmail) {
+    await deps.sendEmail({ to, subject, html, from: FROM_EMAIL });
+    return;
+  }
+
+  // Fallback to SMTP
   const transport = getTransport();
   if (!transport) {
-    throw new Error('SMTP not configured (set SMTP_HOST)');
+    throw new Error('SMTP not configured (set SMTP_HOST) and no custom sendEmail in EmailDeps');
   }
 
   const info = await transport.sendMail({
@@ -60,7 +81,6 @@ export async function sendEmail(
     html,
   });
 
-  // Ethereal provides a preview URL for each sent email
   const previewUrl = nodemailer.getTestMessageUrl(info);
   if (previewUrl) {
     console.log(`Email preview: ${previewUrl}`);

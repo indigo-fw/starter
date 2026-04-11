@@ -6,7 +6,7 @@
 
 // DI
 export { setEmailDeps, getEmailDeps } from './deps';
-export type { EmailDeps } from './deps';
+export type { EmailDeps, EmailSendOptions } from './deps';
 
 // Template engine
 export type { EmailBranding } from './template';

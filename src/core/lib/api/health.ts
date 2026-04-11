@@ -26,7 +26,11 @@ interface CheckResult {
 // ---------------------------------------------------------------------------
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-const startedAt = Date.now();
+
+interface HealthHandlerOptions {
+  /** Server start timestamp (default: handler creation time). Pass from server.ts for accurate uptime. */
+  startedAt?: number;
+}
 
 /**
  * Create a GET handler for /api/health.
@@ -34,7 +38,10 @@ const startedAt = Date.now();
  */
 export function createHealthHandler(
   checks: HealthCheckDef[],
+  options?: HealthHandlerOptions,
 ): () => Promise<Response> {
+  const startedAt = options?.startedAt ?? Date.now();
+
   return async function GET(): Promise<Response> {
     const results: Record<string, CheckResult> = {};
 

@@ -50,7 +50,7 @@ export type { SearchTriggerTable } from './infra/search-triggers';
 
 // Email
 export { setEmailDeps, enqueueTemplateEmail, enqueueEmail, startEmailWorker } from './email';
-export type { EmailDeps, EmailBranding } from './email';
+export type { EmailDeps, EmailBranding, EmailSendOptions } from './email';
 
 // Cron
 export { registerCronJob, startCronScheduler } from './infra/cron';
@@ -67,6 +67,6 @@ export type { HealthCheckDef } from './api/health';
 
 // Consent
 export { useConsent, ConsentProvider } from './consent/context';
-export type { ConsentCategory, ConsentState } from './consent/types';
-export { CONSENT_CATEGORIES, DEFAULT_CONSENT } from './consent/types';
+export type { ConsentCategory, ConsentState, BuiltInConsentCategory } from './consent/types';
+export { DEFAULT_CATEGORIES, DEFAULT_CONSENT, buildDefaultConsent } from './consent/types';
 export { getStoredConsent, setStoredConsent, hasConsentChoice } from './consent/storage';

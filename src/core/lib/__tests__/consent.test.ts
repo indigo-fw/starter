@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { getStoredConsent, setStoredConsent, hasConsentChoice } from '../consent/storage';
 import type { ConsentState } from '../consent/types';
-import { DEFAULT_CONSENT } from '../consent/types';
+import { DEFAULT_CONSENT, buildDefaultConsent } from '../consent/types';
 
 // Mock localStorage
 const storage = new Map<string, string>();
@@ -60,6 +60,24 @@ describe('DEFAULT_CONSENT', () => {
       necessary: true,
       analytics: false,
       marketing: false,
+    });
+  });
+});
+
+describe('buildDefaultConsent', () => {
+  it('sets necessary=true, rest=false', () => {
+    expect(buildDefaultConsent(['necessary', 'analytics', 'marketing'])).toEqual({
+      necessary: true,
+      analytics: false,
+      marketing: false,
+    });
+  });
+
+  it('handles custom categories', () => {
+    expect(buildDefaultConsent(['necessary', 'preferences', 'functional'])).toEqual({
+      necessary: true,
+      preferences: false,
+      functional: false,
     });
   });
 });

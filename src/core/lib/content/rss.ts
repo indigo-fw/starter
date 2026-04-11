@@ -77,11 +77,11 @@ ${itemsXml}
 }
 
 /** Wrap RSS XML in a Response with correct content-type and caching headers. */
-export function createRssResponse(xml: string): Response {
+export function createRssResponse(xml: string, maxAge = 600): Response {
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/rss+xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=600, s-maxage=600',
+      'Cache-Control': `public, max-age=${maxAge}, s-maxage=${maxAge}`,
     },
   });
 }

@@ -105,9 +105,16 @@ export async function enqueueEmail(payload: {
 
 /**
  * Initialize email worker with rate limiting.
- * Concurrency: 5, Rate: 5 per minute (300/hour SMTP limit).
+ * Defaults: concurrency 5, rate 5/min (300/hour SMTP limit).
+ * Override via `setEmailDeps({ concurrency, rateLimiter })`.
  */
 export function startEmailWorker(): void {
+  let deps: ReturnType<typeof getEmailDeps> | null = null;
+  try { deps = getEmailDeps(); } catch { /* deps not set yet — use defaults */ }
+
+  const concurrency = deps?.concurrency ?? 5;
+  const limiter = deps?.rateLimiter ?? { max: 5, duration: 60_000 };
+
   const worker = createWorker(
     'email',
     async (job) => {
@@ -120,11 +127,11 @@ export function startEmailWorker(): void {
 
       // Template email
       const { to, template, data, locale } = job.data as EmailJob;
-      const deps = getEmailDeps();
-      const branding = await deps.getBranding();
+      const d = getEmailDeps();
+      const branding = await d.getBranding();
       const { subject, html } = await renderTemplate(template, data, locale, branding, {
-        templatesDir: deps.templatesDir,
-        getTemplateOverride: deps.getTemplateOverride,
+        templatesDir: d.templatesDir,
+        getTemplateOverride: d.getTemplateOverride,
       });
 
       const recipients = to.includes(',') ? to.split(',').map((e) => e.trim()) : to;
@@ -135,11 +142,11 @@ export function startEmailWorker(): void {
         recipientCount: Array.isArray(recipients) ? recipients.length : 1,
       });
     },
-    5,
-    { limiter: { max: 5, duration: 60_000 } },
+    concurrency,
+    { limiter },
   );
 
   if (worker) {
-    logger.info('Email worker started (concurrency: 5, rate: 5/min)');
+    logger.info(`Email worker started (concurrency: ${concurrency}, rate: ${limiter.max}/${limiter.duration}ms)`);
   }
 }

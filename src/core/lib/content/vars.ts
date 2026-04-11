@@ -30,7 +30,12 @@ const OPTION_KEYS = [
   'company.name', 'company.address', 'company.id',
   'company.jurisdiction', 'company.contact_email',
   'company.vat', 'company.phone', 'company.country',
-  'company.support_email',
+  'company.support_email', 'company.privacy_email',
+  'site.social.twitter', 'site.social.github',
+  'site.social.facebook', 'site.social.instagram',
+  'site.social.linkedin', 'site.social.youtube',
+  'site.social.tiktok', 'site.social.discord',
+  'site.social.mastodon', 'site.social.pinterest',
 ] as const;
 
 async function fetchVarsFromDb(): Promise<Record<string, string>> {
@@ -70,8 +75,21 @@ function buildVarMap(opts: Record<string, string>): Record<string, string> {
     COMPANY_PHONE: opts['company.phone'] || siteDefaults.companyPhone,
     COMPANY_COUNTRY: opts['company.country'] || siteDefaults.companyCountry,
     SUPPORT_EMAIL: opts['company.support_email'] || siteDefaults.supportEmail || opts['company.contact_email'] || siteDefaults.contactEmail,
+    PRIVACY_EMAIL: opts['company.privacy_email'] || opts['company.contact_email'] || siteDefaults.contactEmail,
+    // Social
+    SOCIAL_TWITTER: opts['site.social.twitter'] || '',
+    SOCIAL_GITHUB: opts['site.social.github'] || '',
+    SOCIAL_FACEBOOK: opts['site.social.facebook'] || '',
+    SOCIAL_INSTAGRAM: opts['site.social.instagram'] || '',
+    SOCIAL_LINKEDIN: opts['site.social.linkedin'] || '',
+    SOCIAL_YOUTUBE: opts['site.social.youtube'] || '',
+    SOCIAL_TIKTOK: opts['site.social.tiktok'] || '',
+    SOCIAL_DISCORD: opts['site.social.discord'] || '',
+    SOCIAL_MASTODON: opts['site.social.mastodon'] || '',
+    SOCIAL_PINTEREST: opts['site.social.pinterest'] || '',
     // Auto-generated
     CURRENT_YEAR: new Date().getFullYear().toString(),
+    CURRENT_DATE: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
   };
 
   // Custom variables: var.MY_THING → %MY_THING%
@@ -165,7 +183,19 @@ const BUILTIN_VAR_LABELS: Record<string, string> = {
   COMPANY_PHONE: 'Phone',
   COMPANY_COUNTRY: 'Country',
   SUPPORT_EMAIL: 'Support Email',
+  PRIVACY_EMAIL: 'Privacy Email',
+  SOCIAL_TWITTER: 'Twitter/X',
+  SOCIAL_GITHUB: 'GitHub',
+  SOCIAL_FACEBOOK: 'Facebook',
+  SOCIAL_INSTAGRAM: 'Instagram',
+  SOCIAL_LINKEDIN: 'LinkedIn',
+  SOCIAL_YOUTUBE: 'YouTube',
+  SOCIAL_TIKTOK: 'TikTok',
+  SOCIAL_DISCORD: 'Discord',
+  SOCIAL_MASTODON: 'Mastodon',
+  SOCIAL_PINTEREST: 'Pinterest',
   CURRENT_YEAR: 'Current Year',
+  CURRENT_DATE: 'Current Date',
 };
 
 /**

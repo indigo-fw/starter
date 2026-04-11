@@ -2,11 +2,10 @@
 
 import type { ReactNode } from 'react';
 import { useConsent } from '../../lib/consent/context';
-import type { ConsentCategory } from '../../lib/consent/types';
 
 interface ConsentGateProps {
   /** Only render children if this category is consented to. */
-  category: ConsentCategory;
+  category: string;
   children: ReactNode;
   /** Optional fallback to render when consent is not granted. */
   fallback?: ReactNode;

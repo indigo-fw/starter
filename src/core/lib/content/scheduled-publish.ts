@@ -26,6 +26,8 @@ export interface ScheduledPublishTarget {
   findScheduled: () => Promise<Array<{ id: string; title: string }>>;
   /** Update a single entry to published status */
   publish: (id: string) => Promise<void>;
+  /** Optional: called after each entry is published (e.g. send notification, invalidate cache) */
+  onPublished?: (entry: { id: string; title: string }) => Promise<void>;
 }
 
 // ---------------------------------------------------------------------------
@@ -65,6 +67,14 @@ export async function processScheduledContent(): Promise<void> {
         id: entry.id,
         title: entry.title,
       });
+
+      if (target.onPublished) {
+        try {
+          await target.onPublished(entry);
+        } catch (err) {
+          logger.error(`onPublished hook failed for ${target.name}:${entry.id}`, { error: String(err) });
+        }
+      }
     }
 
     if (entries.length > 0) {

@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import { useConsent } from '../../lib/consent/context';
-import { CONSENT_CATEGORIES } from '../../lib/consent/types';
-import type { ConsentCategory } from '../../lib/consent/types';
 import { useBlankTranslations } from '../../lib/i18n/translations';
 import './CookieConsent.css';
 
@@ -14,17 +12,21 @@ import './CookieConsent.css';
 interface CookieConsentProps {
   /** URL to privacy policy page */
   privacyPolicyUrl?: string;
-  /** Which optional categories to show (default: analytics + marketing) */
-  categories?: ConsentCategory[];
   /** Position on screen */
   position?: 'bottom' | 'bottom-left' | 'bottom-right';
+  /**
+   * Labels for custom categories. Built-in categories (necessary, analytics, marketing)
+   * have default labels. Custom categories need labels here.
+   * Key = category name, value = { label, description }.
+   */
+  categoryLabels?: Record<string, { label: string; description: string }>;
 }
 
 // ---------------------------------------------------------------------------
-// Category labels (translation keys)
+// Default labels for built-in categories
 // ---------------------------------------------------------------------------
 
-const CATEGORY_KEYS: Record<ConsentCategory, { label: string; description: string }> = {
+const BUILTIN_LABELS: Record<string, { label: string; description: string }> = {
   necessary: {
     label: 'Necessary',
     description: 'Essential for the website to function. Cannot be disabled.',
@@ -45,21 +47,23 @@ const CATEGORY_KEYS: Record<ConsentCategory, { label: string; description: strin
 
 export function CookieConsent({
   privacyPolicyUrl,
-  categories = CONSENT_CATEGORIES.filter((c) => c !== 'necessary'),
   position = 'bottom',
+  categoryLabels,
 }: CookieConsentProps) {
-  const { hasConsented, consent, updateConsent, acceptAll, rejectNonEssential } = useConsent();
+  const { hasConsented, consent, categories, updateConsent, acceptAll, rejectNonEssential } = useConsent();
   const __ = useBlankTranslations();
   const [showDetails, setShowDetails] = useState(false);
   const [localState, setLocalState] = useState(consent);
 
   if (hasConsented) return null;
 
+  const allLabels = { ...BUILTIN_LABELS, ...categoryLabels };
+
   const handleSavePreferences = () => {
     updateConsent(localState);
   };
 
-  const handleToggle = (category: ConsentCategory) => {
+  const handleToggle = (category: string) => {
     if (category === 'necessary') return;
     setLocalState((prev) => ({ ...prev, [category]: !prev[category] }));
   };
@@ -110,18 +114,20 @@ export function CookieConsent({
         <div className="cookie-consent__details">
           <p className="cookie-consent__title">{__('Cookie Preferences')}</p>
           <div className="cookie-consent__categories">
-            {(['necessary', ...categories] as ConsentCategory[]).map((category) => {
-              const info = CATEGORY_KEYS[category];
+            {categories.map((category) => {
+              const info = allLabels[category] ?? { label: category, description: '' };
               const isNecessary = category === 'necessary';
               return (
                 <label key={category} className="cookie-consent__category">
                   <div className="cookie-consent__category-info">
                     <span className="cookie-consent__category-label">{__(info.label)}</span>
-                    <span className="cookie-consent__category-desc">{__(info.description)}</span>
+                    {info.description && (
+                      <span className="cookie-consent__category-desc">{__(info.description)}</span>
+                    )}
                   </div>
                   <input
                     type="checkbox"
-                    checked={isNecessary ? true : localState[category]}
+                    checked={isNecessary ? true : localState[category] ?? false}
                     disabled={isNecessary}
                     onChange={() => handleToggle(category)}
                     className="cookie-consent__checkbox"

@@ -11,17 +11,17 @@ import type { MetadataRoute } from 'next';
 
 type ChangeFreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 
-export interface SitemapConfig {
+export interface SitemapConfig<L extends string = string> {
   /** Absolute site URL without trailing slash (e.g. "https://example.com") */
   siteUrl: string;
   /** All supported locale codes */
-  locales: readonly string[];
+  locales: readonly L[];
   /** Default locale (no URL prefix) */
-  defaultLocale: string;
+  defaultLocale: L;
   /** Whether the site is multilingual */
   isMultilingual: boolean;
   /** Locale-aware path builder — prepends locale prefix for non-default locales */
-  localePath: (path: string, locale: string) => string;
+  localePath: (path: string, locale: L) => string;
 }
 
 export interface SitemapStaticPage {
@@ -45,12 +45,12 @@ export interface SitemapFetcher {
 // Helpers
 // ---------------------------------------------------------------------------
 
-function absoluteUrl(siteUrl: string, localePath: SitemapConfig['localePath'], path: string, locale: string): string {
+function absoluteUrl<L extends string>(siteUrl: string, localePath: (path: string, locale: L) => string, path: string, locale: L): string {
   return `${siteUrl}${localePath(path, locale)}`;
 }
 
-function alternatesMap(
-  config: SitemapConfig,
+function alternatesMap<L extends string>(
+  config: SitemapConfig<L>,
   path: string,
 ): Record<string, string> | undefined {
   if (!config.isMultilingual) return undefined;
@@ -65,8 +65,8 @@ function alternatesMap(
 // Generator
 // ---------------------------------------------------------------------------
 
-export async function generateSitemap(
-  config: SitemapConfig,
+export async function generateSitemap<L extends string>(
+  config: SitemapConfig<L>,
   staticPages: SitemapStaticPage[],
   fetchers: SitemapFetcher[],
 ): Promise<MetadataRoute.Sitemap> {

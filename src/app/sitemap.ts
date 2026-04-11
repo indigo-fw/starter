@@ -96,7 +96,7 @@ export default function sitemap() {
       locales: LOCALES,
       defaultLocale: DEFAULT_LOCALE,
       isMultilingual: IS_MULTILINGUAL,
-      localePath: localePath as (path: string, locale: string) => string,
+      localePath,
     },
     STATIC_PAGES,
     CONTENT_FETCHERS,
