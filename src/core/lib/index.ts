@@ -39,6 +39,7 @@ export { WS_CHANNELS } from './realtime/ws-channels';
 export { SEO_OVERRIDE_ROUTES, SEO_OVERRIDE_SLUGS } from './seo-routes';
 export { generateSitemap } from './seo/sitemap';
 export type { SitemapConfig, SitemapStaticPage, SitemapFetcher } from './seo/sitemap';
+export { setCanonicalConfig, buildCanonicalUrl, buildAlternates } from './seo/canonical';
 
 // RSS
 export { escapeXml, generateRssFeed, createRssResponse } from './content/rss';

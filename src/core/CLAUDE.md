@@ -60,6 +60,11 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - **Scheduled publish:** `registerScheduledPublishTarget(target)` — auto-publishes scheduled content. Core handles audit logging + webhook dispatch
 - **Health check:** `createHealthHandler(checks)` — factory for `/api/health` endpoint. Runs provided checks + module health hooks. Returns healthy/degraded/unhealthy
 - **Cookie consent:** `<ConsentProvider>` + `<CookieConsent />` + `<ConsentGate category="analytics">`. `useConsent()` hook for programmatic access. localStorage + cookie persistence
+- **Pagination:** 4 variants — `<PaginationNumbered>` (page buttons with ellipsis), `<PaginationSimple>` (prev/next + info), `<PaginationLoadMore>` (button), `<PaginationInfinite>` (IntersectionObserver auto-load). All accept `href` (SSR links) or `onPageChange` (client), custom `LinkComponent`, translated labels
+- **Skeleton:** `<Skeleton variant="line|circle|card" count={N}>` — loading placeholder with pulse animation
+- **Avatar:** `<Avatar src={url} name="John" size="md">` — image with initials fallback, sizes xs/sm/md/lg/xl
+- **Structured data:** `<StructuredData data={jsonLd} />` — renders `<script type="application/ld+json">`
+- **Canonical URLs:** `setCanonicalConfig()` + `buildCanonicalUrl(path, locale)` + `buildAlternates(path, locales)` — locale-aware absolute URLs for SEO metadata
 
 ## Translations
 

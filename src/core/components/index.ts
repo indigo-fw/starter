@@ -75,3 +75,19 @@ export { GeoSyncer } from './GeoSyncer';
 // Consent
 export { CookieConsent } from './consent/CookieConsent';
 export { ConsentGate } from './consent/ConsentGate';
+
+// Pagination
+export { PaginationNumbered } from './pagination/PaginationNumbered';
+export { PaginationSimple } from './pagination/PaginationSimple';
+export { PaginationLoadMore } from './pagination/PaginationLoadMore';
+export { PaginationInfinite } from './pagination/PaginationInfinite';
+export type { PaginationState, PaginationNav, PaginationLinkProps } from './pagination/types';
+
+// Skeleton
+export { Skeleton } from './Skeleton';
+
+// Avatar
+export { Avatar } from './Avatar';
+
+// SEO
+export { StructuredData } from './seo/StructuredData';
