@@ -4,6 +4,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 // Mock ALL external dependencies BEFORE imports
 // ---------------------------------------------------------------------------
 
+vi.mock('server-only', () => ({}));
+
 vi.mock('@/lib/auth', () => ({
   auth: {
     api: {

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 
 import { siteConfig } from '@/config/site';
+import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
+import { CmsContent } from '@/core/components';
 import { serverTRPC } from '@/lib/trpc/server';
 import { getLocale } from '@/lib/locale-server';
 import { ShowcaseFeed } from '@/components/public/ShowcaseFeed';
@@ -30,6 +32,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ShowcasePage() {
   const locale = await getLocale();
+  const { db } = await import('@/server/db');
+  const { getCmsOverride } = await import('@/lib/cms-override');
+  const cms = await getCmsOverride(db, 'showcase', locale).catch(() => null);
   const api = await serverTRPC();
   const { results: items } = await api.showcase.listPublished({
     lang: locale,
@@ -37,9 +42,16 @@ export default async function ShowcasePage() {
   });
 
   return (
-    <ShowcaseFeed
-      items={items}
-      showNavDots={siteConfig.showcase.showNavDots}
-    />
+    <>
+      <ShowcaseFeed
+        items={items}
+        showNavDots={siteConfig.showcase.showNavDots}
+      />
+      {cms?.content && (
+        <div className="app-container py-12">
+          <CmsContent content={cms.content} components={SHORTCODE_COMPONENTS} />
+        </div>
+      )}
+    </>
   );
 }
