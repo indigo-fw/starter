@@ -7,13 +7,22 @@ import { getProvider } from '@/core-payments/lib/factory';
 import { sendNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { enqueueTemplateEmail } from '@/server/jobs/email/index';
+import { updateOrderStatus } from '@/core-store/lib/order-service';
+import { createLogger } from '@/core/lib/infra/logger';
+
+const logger = createLogger('store-deps');
 
 setStoreDeps({
   async createPaymentCheckout({ orderId, orderNumber, totalCents, currency, customerEmail, providerId, metadata }) {
-    const provider = await getProvider(providerId);
-    if (!provider) throw new Error(`Payment provider "${providerId}" not available`);
-
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+    const provider = await getProvider(providerId);
+
+    if (!provider) {
+      // Dev mode fallback: skip payment, mark order as processing immediately
+      logger.warn('No payment provider configured — using dev mode (order auto-confirmed)', { orderId, providerId });
+      await updateOrderStatus(orderId, 'processing', 'system', 'Dev mode: payment skipped (no provider configured)');
+      return `${appUrl}/account/orders/${orderId}?success=1`;
+    }
 
     const result = await provider.createCheckout({
       organizationId: '', // one-time payment, no org needed
@@ -40,7 +49,6 @@ setStoreDeps({
   },
 
   enqueueTemplateEmail(to, template, data) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return enqueueTemplateEmail(to, template as any, data as Record<string, string>);
+    return enqueueTemplateEmail(to, template as import('@/server/jobs/email/index').TemplateName, data as Record<string, string>);
   },
 });

@@ -2,7 +2,7 @@
 title: Frequently Asked Questions
 type: page
 description: Frequently asked questions about [[SITE_NAME]] — installation, customization, content management, and deployment.
-seoTitle: FAQ — [[SITE_NAME]]
+seoTitle: "FAQ | [[SITE_NAME]]"
 noindex: false
 ---
 

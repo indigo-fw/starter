@@ -67,6 +67,9 @@ vi.mock('@/core-store/schema/orders', () => ({
     id: 'id',
     status: 'status',
     userId: 'user_id',
+    orderNumber: 'order_number',
+    totalCents: 'total_cents',
+    currency: 'currency',
     paymentTransactionId: 'payment_transaction_id',
     paidAt: 'paid_at',
   },
@@ -177,7 +180,7 @@ describe('Store webhook route', () => {
       },
     });
     // Order exists with pending status
-    selectResults = [[{ id: 'order-1', status: 'pending', userId: 'user-1' }]];
+    selectResults = [[{ id: 'order-1', status: 'pending', userId: 'user-1', orderNumber: 'ORD-20260411-0001', totalCents: 2990, currency: 'EUR' }]];
 
     const res = await POST(makeRequest());
     expect(res.status).toBe(200);
@@ -240,7 +243,7 @@ describe('Store webhook route', () => {
       },
     });
     // Order exists
-    selectResults = [[{ id: 'order-2', status: 'pending', userId: 'user-2' }]];
+    selectResults = [[{ id: 'order-2', status: 'pending', userId: 'user-2', orderNumber: 'ORD-20260411-0002', totalCents: 5990, currency: 'EUR' }]];
 
     const res = await POST(makeRequest());
     expect(res.status).toBe(200);

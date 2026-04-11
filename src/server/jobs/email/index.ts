@@ -25,7 +25,9 @@ export type TemplateName =
   | 'subscription-activated'
   | 'subscription-expiring'
   | 'subscription-expired'
-  | 'subscription-canceled';
+  | 'subscription-canceled'
+  | 'order-confirmation'
+  | 'order-shipped';
 
 export const TEMPLATE_NAMES: TemplateName[] = [
   'welcome',
@@ -36,6 +38,8 @@ export const TEMPLATE_NAMES: TemplateName[] = [
   'subscription-activated',
   'subscription-expiring',
   'subscription-expired',
+  'order-confirmation',
+  'order-shipped',
   'subscription-canceled',
 ];
 

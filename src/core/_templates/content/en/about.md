@@ -2,7 +2,7 @@
 title: About [[SITE_NAME]]
 type: page
 description: "[[SITE_NAME]] is an open-source, agent-driven headless CMS built on the T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: About [[SITE_NAME]] — Agent-Driven Headless CMS
+seoTitle: "About [[SITE_NAME]] | Agent-Driven Headless CMS"
 noindex: false
 ---
 

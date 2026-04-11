@@ -1,0 +1,7 @@
+---
+title: Vetrina
+type: page
+description: Esempi in evidenza e punti salienti di [[SITE_NAME]].
+seoTitle: "Vetrina | {sitename}"
+noindex: false
+---

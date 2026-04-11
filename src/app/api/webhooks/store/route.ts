@@ -75,9 +75,16 @@ export async function POST(request: Request) {
   }
 
   try {
-    // Verify order exists
+    // Verify order exists (fetch enough for email template)
     const [order] = await db
-      .select({ id: storeOrders.id, status: storeOrders.status, userId: storeOrders.userId })
+      .select({
+        id: storeOrders.id,
+        status: storeOrders.status,
+        userId: storeOrders.userId,
+        orderNumber: storeOrders.orderNumber,
+        totalCents: storeOrders.totalCents,
+        currency: storeOrders.currency,
+      })
       .from(storeOrders)
       .where(eq(storeOrders.id, orderId))
       .limit(1);
@@ -114,10 +121,11 @@ export async function POST(request: Request) {
         body: 'Your order is being processed.',
       });
 
+      const total = new Intl.NumberFormat('en', { style: 'currency', currency: order.currency, minimumFractionDigits: 2 }).format(order.totalCents / 100);
       await deps.enqueueTemplateEmail(
         order.userId,
         'order-confirmation',
-        { orderId },
+        { orderId: order.id, orderNumber: order.orderNumber, total },
       ).catch((err) => logger.warn('Failed to enqueue order email', { error: String(err) }));
 
       logAudit({

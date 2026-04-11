@@ -27,6 +27,8 @@ const config: ModuleConfig = {
   ],
   projectFiles: [
     'config/store-deps.ts',
+    'emails/order-confirmation.html',
+    'emails/order-shipped.html',
   ],
 };
 
