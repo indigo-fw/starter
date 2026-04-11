@@ -45,6 +45,7 @@ export function ProductGallery({
             width={600}
             height={600}
             sizes="(max-width: 768px) 100vw, 50vw"
+            className="w-full h-full object-cover"
             priority
           />
         ) : (
@@ -64,7 +65,7 @@ export function ProductGallery({
               onClick={() => selectImage(img.url)}
               aria-label={img.alt ?? `${__('Image')} ${i + 1}`}
             >
-              <Image src={img.url} alt={img.alt ?? ''} width={64} height={64} />
+              <Image src={img.url} alt={img.alt ?? ''} width={64} height={64} className="w-full h-full object-cover" />
             </button>
           ))}
         </div>

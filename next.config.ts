@@ -4,6 +4,12 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  // Image optimization is handled by CDN (e.g. Cloudflare Image Resizing) in production.
+  // Disable Next.js image proxy — all sizing/cropping is CSS-driven.
+  images: {
+    unoptimized: true,
+  },
+
   // Security headers for all routes
   async headers() {
     return [
