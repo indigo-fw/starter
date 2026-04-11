@@ -6,7 +6,8 @@ import { getMessages, getLocale } from 'next-intl/server';
 
 import { TRPCProvider } from '@/lib/trpc/provider';
 import { StructuredData } from '@/core/components/seo/StructuredData';
-import { buildOrganizationJsonLd } from '@/core/lib/seo/json-ld';
+import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/core/lib/seo/json-ld';
+import { siteDefaults } from '@/config/site';
 import { WebVitals } from '@/components/WebVitals';
 
 import './globals.css';
@@ -40,8 +41,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
     ...(siteConfig.social.twitter ? { site: siteConfig.social.twitter } : {}),
   },
 };
@@ -63,6 +62,12 @@ export default async function RootLayout({
     >
       <head>
         <StructuredData data={buildOrganizationJsonLd({
+          name: siteConfig.name,
+          url: siteConfig.url,
+          description: siteConfig.seo.description,
+          contactEmail: siteDefaults.contactEmail || undefined,
+        })} />
+        <StructuredData data={buildWebSiteJsonLd({
           name: siteConfig.name,
           url: siteConfig.url,
           description: siteConfig.seo.description,

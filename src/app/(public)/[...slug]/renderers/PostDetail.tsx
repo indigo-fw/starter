@@ -166,6 +166,7 @@ export async function PostDetail({ slug, postType, preview }: Props) {
           publishedAt: post.publishedAt,
           updatedAt: post.updatedAt,
           authorNames: contentType.authorInJsonLd && authorNames.length > 0 ? authorNames : undefined,
+          locale,
           siteName: siteConfig.name,
           siteUrl: siteConfig.url,
           type: isBlog ? 'BlogPosting' : 'Article',
