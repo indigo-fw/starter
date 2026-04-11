@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { Loader2, Eye } from 'lucide-react';
@@ -66,7 +67,7 @@ export default function AdminConversationsPage() {
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-(--surface-secondary) shrink-0 flex items-center justify-center overflow-hidden">
                           {conv.characterAvatar ? (
-                            <img src={conv.characterAvatar} alt="" className="w-full h-full object-cover" />
+                            <Image src={conv.characterAvatar} alt="" className="w-full h-full object-cover" width={24} height={24} />
                           ) : (
                             <span className="text-[10px]">{conv.characterName?.[0]}</span>
                           )}

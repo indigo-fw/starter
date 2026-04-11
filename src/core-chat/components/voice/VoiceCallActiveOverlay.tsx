@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useBlankTranslations } from '@/lib/translations';
 import { PhoneOff, Mic, MicOff } from 'lucide-react';
 import { useState } from 'react';
@@ -27,7 +28,7 @@ export function VoiceCallActiveOverlay({
       <div className="relative mb-6">
         <div className="w-28 h-28 rounded-full bg-(--surface-secondary) flex items-center justify-center overflow-hidden">
           {characterAvatar ? (
-            <img src={characterAvatar} alt={characterName} className="w-full h-full object-cover" />
+            <Image src={characterAvatar} alt={characterName} className="w-full h-full object-cover" width={112} height={112} />
           ) : (
             <span className="text-4xl font-bold text-(--text-secondary)">{characterName[0]?.toUpperCase()}</span>
           )}

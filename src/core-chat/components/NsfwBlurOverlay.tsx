@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useBlankTranslations } from '@/lib/translations';
 import { Lock, Eye } from 'lucide-react';
 
@@ -25,10 +26,11 @@ export function NsfwBlurOverlay({ imageUrl, isSubscribed = false, children }: Ns
   return (
     <div className="relative overflow-hidden rounded-xl">
       {/* Blurred image */}
-      <img
+      <Image
         src={imageUrl}
         alt=""
         className="w-full max-h-[400px] object-cover filter blur-xl scale-110"
+        fill
       />
 
       {/* Overlay */}

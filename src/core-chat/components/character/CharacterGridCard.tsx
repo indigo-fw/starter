@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 interface CharacterGridCardProps {
@@ -45,14 +46,14 @@ export function CharacterGridCard({
     >
       {/* Image */}
       {imageUrl && (
-        <img
+        <Image
           src={imageUrl}
           alt={name}
           className={cn(
             'absolute inset-0 w-full h-full object-cover transition-transform duration-300',
             isHovered && 'scale-105',
           )}
-          loading="lazy"
+          fill
         />
       )}
 

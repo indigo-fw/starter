@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { trpc } from '@/lib/trpc/client';
 import { useBlankTranslations } from '@/lib/translations';
 import { useChannel, useWebSocket } from '@/core/lib/realtime/ws-client';
@@ -246,7 +247,7 @@ export function ChatPanel({ conversationId, characterName, characterAvatar, bloc
           <div className="flex flex-col items-center justify-center py-12 text-center px-8">
             <div className="w-16 h-16 rounded-full bg-(--surface-secondary) mb-4 flex items-center justify-center">
               {characterAvatar ? (
-                <img src={characterAvatar} alt={characterName} className="w-full h-full rounded-full object-cover" />
+                <Image src={characterAvatar} alt={characterName} className="w-full h-full rounded-full object-cover" width={64} height={64} />
               ) : (
                 <span className="text-2xl font-bold text-(--text-tertiary)">{characterName[0]?.toUpperCase()}</span>
               )}

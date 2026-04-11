@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { trpc } from '@/lib/trpc/client';
 import { ChatNav } from './ChatNav';
@@ -122,10 +123,12 @@ export function ChatLayout({ conversationId }: ChatLayoutProps) {
             <div className="flex items-center gap-3 ml-10 xl:ml-0">
               <div className="w-8 h-8 rounded-full bg-(--surface-secondary) shrink-0 flex items-center justify-center overflow-hidden">
                 {conversation.character.avatarUrl ? (
-                  <img
+                  <Image
                     src={conversation.character.avatarUrl}
                     alt={conversation.character.name}
                     className="w-full h-full object-cover"
+                    width={32}
+                    height={32}
                   />
                 ) : (
                   <span className="text-xs font-medium text-(--text-secondary)">

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
@@ -66,7 +67,7 @@ export default function CharactersPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-(--surface-secondary) shrink-0 flex items-center justify-center overflow-hidden">
                         {char.avatarUrl ? (
-                          <img src={char.avatarUrl} alt={char.name} className="w-full h-full object-cover" />
+                          <Image src={char.avatarUrl} alt={char.name} className="w-full h-full object-cover" width={32} height={32} />
                         ) : (
                           <span className="text-xs font-medium">{char.name[0]?.toUpperCase()}</span>
                         )}

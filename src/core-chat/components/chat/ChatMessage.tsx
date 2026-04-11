@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useBlankTranslations } from '@/lib/translations';
 import { MessageRole, MessageStatus } from '@/core-chat/lib/types';
@@ -61,7 +62,7 @@ export function ChatMessage({ message, characterName, characterAvatar, isSubscri
       {!isUser && (
         <div className="w-8 h-8 rounded-full bg-(--surface-secondary) shrink-0 flex items-center justify-center overflow-hidden">
           {characterAvatar ? (
-            <img src={characterAvatar} alt={characterName ?? ''} className="w-full h-full object-cover" />
+            <Image src={characterAvatar} alt={characterName ?? ''} className="w-full h-full object-cover" width={32} height={32} />
           ) : (
             <span className="text-xs font-medium text-(--text-secondary)">
               {characterName?.[0]?.toUpperCase() ?? 'A'}
@@ -96,14 +97,14 @@ export function ChatMessage({ message, characterName, characterAvatar, isSubscri
             <div className="relative cursor-pointer" onClick={() => setLightboxOpen(true)}>
               {message.isNsfw ? (
                 <NsfwBlurOverlay imageUrl={message.mediaUrl} isSubscribed={isSubscribed}>
-                  <img src={message.mediaUrl} alt={message.content} className="rounded-xl max-w-full" style={{ maxHeight: 400 }} loading="lazy" />
+                  <Image src={message.mediaUrl} alt={message.content} className="rounded-xl max-w-full" style={{ maxHeight: 400 }} width={message.mediaWidth ?? 400} height={message.mediaHeight ?? 400} />
                 </NsfwBlurOverlay>
               ) : (
-                <img src={message.mediaUrl} alt={message.content} className="rounded-xl max-w-full hover:opacity-90 transition-opacity" style={{ maxHeight: 400 }} loading="lazy" />
+                <Image src={message.mediaUrl} alt={message.content} className="rounded-xl max-w-full hover:opacity-90 transition-opacity" style={{ maxHeight: 400 }} width={message.mediaWidth ?? 400} height={message.mediaHeight ?? 400} />
               )}
             </div>
             <Lightbox open={lightboxOpen} onClose={() => setLightboxOpen(false)} label={message.content} closeOnContentClick>
-              <img src={message.mediaUrl} alt={message.content} className="max-w-[90vw] max-h-[90vh] object-contain" />
+              <Image src={message.mediaUrl} alt={message.content} className="max-w-[90vw] max-h-[90vh] object-contain" width={message.mediaWidth ?? 800} height={message.mediaHeight ?? 800} />
             </Lightbox>
           </>
         ) : isProcessing ? (

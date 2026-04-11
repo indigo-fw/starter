@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { trpc } from '@/lib/trpc/client';
 import { useBlankTranslations } from '@/lib/translations';
 import { Loader2, X } from 'lucide-react';
@@ -59,7 +60,7 @@ export function CharacterPicker({ onSelect, onClose, isCreating }: CharacterPick
                 >
                   <div className="w-12 h-12 rounded-full bg-(--surface-secondary) shrink-0 flex items-center justify-center overflow-hidden">
                     {char.avatarUrl ? (
-                      <img src={char.avatarUrl} alt={char.name} className="w-full h-full object-cover" />
+                      <Image src={char.avatarUrl} alt={char.name} className="w-full h-full object-cover" width={48} height={48} />
                     ) : (
                       <span className="text-lg font-bold text-(--text-secondary)">
                         {char.name[0]?.toUpperCase()}

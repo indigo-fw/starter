@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useBlankTranslations } from '@/lib/translations';
 import { Phone, X } from 'lucide-react';
 
@@ -48,7 +49,7 @@ export function VoiceCallOverlay({
         {/* Avatar */}
         <div className="w-24 h-24 rounded-full bg-(--surface-secondary) mx-auto flex items-center justify-center overflow-hidden ring-4 ring-brand-500/30 animate-pulse">
           {characterAvatar ? (
-            <img src={characterAvatar} alt={characterName} className="w-full h-full object-cover" />
+            <Image src={characterAvatar} alt={characterName} className="w-full h-full object-cover" width={96} height={96} />
           ) : (
             <span className="text-3xl font-bold text-(--text-secondary)">{characterName[0]?.toUpperCase()}</span>
           )}

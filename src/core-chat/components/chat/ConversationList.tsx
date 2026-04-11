@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { trpc } from '@/lib/trpc/client';
 import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
@@ -80,10 +81,12 @@ export function ConversationList({ activeConversationId, onSelect, onNewChat }: 
               {/* Avatar */}
               <div className="w-10 h-10 rounded-full bg-(--surface-secondary) shrink-0 flex items-center justify-center overflow-hidden">
                 {conv.character.avatarUrl ? (
-                  <img
+                  <Image
                     src={conv.character.avatarUrl}
                     alt={conv.character.name}
                     className="w-full h-full object-cover"
+                    width={40}
+                    height={40}
                   />
                 ) : (
                   <span className="text-sm font-medium text-(--text-secondary)">

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 export interface Testimonial {
@@ -40,7 +41,7 @@ export function TestimonialSection({ title, subtitle, testimonials, className }:
               </p>
               <div className="flex items-center gap-3 mt-5">
                 {t.avatarUrl ? (
-                  <img src={t.avatarUrl} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <Image src={t.avatarUrl} alt={t.name} className="w-10 h-10 rounded-full object-cover" width={40} height={40} />
                 ) : (
                   <div className="w-10 h-10 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center text-sm font-bold">
                     {t.name[0]?.toUpperCase()}

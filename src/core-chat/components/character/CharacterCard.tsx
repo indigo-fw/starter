@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useBlankTranslations } from '@/lib/translations';
 import { CharacterDescription } from './CharacterDescription';
 import { MessageSquare, Sparkles, Clock } from 'lucide-react';
@@ -32,7 +33,7 @@ export function CharacterCard({ character, stats }: CharacterCardProps) {
       <div className="flex flex-col items-center text-center mb-4">
         <div className="w-20 h-20 rounded-full bg-(--surface-secondary) mb-3 flex items-center justify-center overflow-hidden">
           {character.avatarUrl ? (
-            <img src={character.avatarUrl} alt={character.name} className="w-full h-full object-cover" />
+            <Image src={character.avatarUrl} alt={character.name} className="w-full h-full object-cover" width={80} height={80} />
           ) : (
             <span className="text-2xl font-bold text-(--text-secondary)">
               {character.name[0]?.toUpperCase()}

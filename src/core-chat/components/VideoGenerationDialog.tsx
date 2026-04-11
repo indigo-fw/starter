@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useBlankTranslations } from '@/lib/translations';
 import { X, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -57,7 +58,7 @@ export function VideoGenerationDialog({ sourceImageUrl, onSubmit, onClose, isGen
           {/* Source image preview */}
           {sourceImageUrl && (
             <div className="flex justify-center">
-              <img src={sourceImageUrl} alt="" className="h-48 rounded-lg object-cover" />
+              <Image src={sourceImageUrl} alt="" className="h-48 rounded-lg object-cover" width={320} height={192} />
             </div>
           )}
 

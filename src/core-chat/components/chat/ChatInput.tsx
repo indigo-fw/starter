@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import { Send, Paperclip, X } from 'lucide-react';
 import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
@@ -94,7 +95,7 @@ export function ChatInput({
       {/* Attachment preview */}
       {attachment && (
         <div className="mb-2 relative inline-block">
-          <img src={attachment.preview} alt="" className="h-16 rounded-lg object-cover" />
+          <Image src={attachment.preview} alt="" className="h-16 rounded-lg object-cover" width={64} height={64} />
           <button
             onClick={clearAttachment}
             className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center"

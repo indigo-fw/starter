@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 interface TypingIndicatorProps {
   characterName?: string;
   characterAvatar?: string | null;
@@ -15,7 +17,7 @@ export function TypingIndicator({ characterName, characterAvatar }: TypingIndica
       {/* Avatar */}
       <div className="w-8 h-8 rounded-full bg-(--surface-secondary) shrink-0 flex items-center justify-center overflow-hidden">
         {characterAvatar ? (
-          <img src={characterAvatar} alt={characterName ?? ''} className="w-full h-full object-cover" />
+          <Image src={characterAvatar} alt={characterName ?? ''} className="w-full h-full object-cover" width={32} height={32} />
         ) : (
           <span className="text-xs font-medium text-(--text-secondary)">
             {characterName?.[0]?.toUpperCase() ?? 'A'}
