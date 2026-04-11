@@ -1,20 +1,20 @@
 ---
 title: Politik for fjernelse af indhold og klager
 type: page
-description: Politik for fjernelse af indhold og klager for [[SITE_NAME]].
+description: Politik for fjernelse af indhold og klager for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdato:** [[CURRENT_DATE]]
+**Revisionsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjenesten"), drevet af [[COMPANY_NAME]], [[COMPANY_ADDRESS]], er forpligtet til at opretholde en sikker og lovlig platform. Denne politik beskriver, hvordan du indberetter ulovligt eller skadeligt indhold, hvordan vi håndterer sådanne indberetninger, og hvordan du kan appellere vores indholdsmodereringsbeslutninger, i overensstemmelse med forordningen om digitale tjenester (forordning (EU) 2022/2065).
+%SITE_NAME% ("Tjenesten"), drevet af %COMPANY_NAME%, %COMPANY_ADDRESS%, er forpligtet til at opretholde en sikker og lovlig platform. Denne politik beskriver, hvordan du indberetter ulovligt eller skadeligt indhold, hvordan vi håndterer sådanne indberetninger, og hvordan du kan appellere vores indholdsmodereringsbeslutninger, i overensstemmelse med forordningen om digitale tjenester (forordning (EU) 2022/2065).
 
 **1. Indberetning af ulovligt eller skadeligt indhold**
 
 Hvis du støder på indhold på Tjenesten, som du mener er ulovligt i henhold til EU- eller national lovgivning, eller som overtræder vores [Servicevilkår](/terms-of-service), kan du indberette det ved at:
 
 a) Bruge den indbyggede indberetningsfunktion (hvor tilgængelig);
-b) Sende en e-mail til [[CONTACT_EMAIL]].
+b) Sende en e-mail til %CONTACT_EMAIL%.
 
 **1.1 Hvad din indberetning skal indeholde**
 
@@ -67,7 +67,7 @@ Hvis dit indhold er blevet fjernet, din konto er blevet begrænset, eller din in
 
 **3.2 Sådan appellerer du**
 
-Indsend din appel via e-mail til [[CONTACT_EMAIL]] med emnelinjen "Appel" og medtag:
+Indsend din appel via e-mail til %CONTACT_EMAIL% med emnelinjen "Appel" og medtag:
 
 a) Dit navn og kontoidentifikator;
 b) En beskrivelse af den beslutning, du appellerer;
@@ -113,6 +113,6 @@ d) Den gennemsnitlige behandlingstid for indberetninger og appeller.
 
 For alle forhold relateret til fjernelse af indhold og klager:
 
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 Denne adresse fungerer også som vores centrale kontaktpunkt for EU-myndigheder, brugere og Europa-Kommissionen vedrørende anliggender under forordningen om digitale tjenester.

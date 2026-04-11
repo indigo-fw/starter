@@ -1,16 +1,16 @@
 /**
- * Content variable resolution — replaces [[VAR]] placeholders in CMS content
+ * Content variable resolution — replaces %VAR% placeholders in CMS content
  * with values from the options registry (dashboard-editable) at render time.
  *
- * Syntax: [[COMPANY_NAME]], [[SITE_NAME]], etc.
- * Distinct from shortcodes which use single brackets: [callout type="info"]
+ * Syntax: %COMPANY_NAME%, %SITE_NAME%, etc.
+ * Distinct from shortcodes which use brackets: [callout type="info"]
  *
  * Variables are stored as-is in the DB and resolved on every render.
  * Changing company info in Dashboard > Settings takes effect immediately.
  *
  * Variable sources:
- *   - [[SITE_NAME]], [[SITE_URL]]: from site.* options (or env fallback)
- *   - [[COMPANY_*]], [[CONTACT_EMAIL]]: from company.* options
+ *   - %SITE_NAME%, %SITE_URL%: from site.* options (or env fallback)
+ *   - %COMPANY_*%, %CONTACT_EMAIL%: from company.* options
  */
 
 import { db } from '@/server/db';
@@ -74,7 +74,7 @@ function buildVarMap(opts: Record<string, string>): Record<string, string> {
     CURRENT_YEAR: new Date().getFullYear().toString(),
   };
 
-  // Custom variables: var.MY_THING → [[MY_THING]]
+  // Custom variables: var.MY_THING → %MY_THING%
   for (const [key, value] of Object.entries(opts)) {
     if (key.startsWith('var.')) {
       vars[key.slice(4).toUpperCase()] = value;
@@ -191,33 +191,33 @@ export function getContentVarDefs(): ContentVarDef[] {
 // ─── Resolution Functions ───────────────────────────────────────────────────
 
 /**
- * Replace [[VAR]] placeholders in a string (synchronous).
+ * Replace %VAR% placeholders in a string (synchronous).
  * Uses cached values. Call preloadContentVars() at server startup to warm cache.
  */
 export function resolveContentVars(text: string): string {
-  if (!text.includes('[[')) return text;
+  if (!text.includes('%')) return text;
   const vars = getVarsSync();
-  return text.replace(/\[\[(\w+)\]\]/g, (match, key) => vars[key] ?? match);
+  return text.replace(/%(\w+)%/g, (match, key) => vars[key] ?? match);
 }
 
 /**
- * Replace [[VAR]] placeholders in a string (async — fetches from DB if cache expired).
+ * Replace %VAR% placeholders in a string (async — fetches from DB if cache expired).
  * Use in async contexts (tRPC procedures, server components) for guaranteed fresh values.
  */
 export async function resolveContentVarsAsync(text: string): Promise<string> {
-  if (!text.includes('[[')) return text;
+  if (!text.includes('%')) return text;
   const vars = await getVarsAsync();
-  return text.replace(/\[\[(\w+)\]\]/g, (match, key) => vars[key] ?? match);
+  return text.replace(/%(\w+)%/g, (match, key) => vars[key] ?? match);
 }
 
 /**
- * Resolve [[VAR]] placeholders in all string fields of an object (shallow).
+ * Resolve %VAR% placeholders in all string fields of an object (shallow).
  * Returns a new object with resolved values. Non-string fields pass through.
  */
 export function resolveRecordVars<T extends Record<string, unknown>>(record: T): T {
   let hasVars = false;
   for (const val of Object.values(record)) {
-    if (typeof val === 'string' && val.includes('[[')) { hasVars = true; break; }
+    if (typeof val === 'string' && val.includes('%')) { hasVars = true; break; }
   }
   if (!hasVars) return record;
 

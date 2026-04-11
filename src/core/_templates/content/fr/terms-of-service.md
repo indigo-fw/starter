@@ -1,19 +1,19 @@
 ---
 title: Conditions générales d'utilisation
 type: page
-description: Conditions générales d'utilisation pour [[SITE_NAME]].
+description: Conditions générales d'utilisation pour %SITE_NAME%.
 noindex: true
 ---
 
-**Date de révision :** [[CURRENT_DATE]]
+**Date de révision :** %CURRENT_DATE%
 
 **1. Introduction**
 
-[[SITE_NAME]] (le « Service ») est exploité par [[COMPANY_NAME]], adresse : [[COMPANY_ADDRESS]] (ci-après « nous », « notre » ou « nos »).
+%SITE_NAME% (le « Service ») est exploité par %COMPANY_NAME%, adresse : %COMPANY_ADDRESS% (ci-après « nous », « notre » ou « nos »).
 
-[[SITE_NAME]] est une plateforme en ligne qui fournit des services et contenus numériques (collectivement, les « Services »). Certaines parties des Services peuvent nécessiter la création d'un compte utilisateur.
+%SITE_NAME% est une plateforme en ligne qui fournit des services et contenus numériques (collectivement, les « Services »). Certaines parties des Services peuvent nécessiter la création d'un compte utilisateur.
 
-Les présentes Conditions générales d'utilisation (les « CGU ») définissent les conditions juridiquement contraignantes régissant votre utilisation du Service. En accédant au Service et/ou en l'utilisant, vous acceptez d'être lié par les présentes CGU et par l'ensemble des autres Conditions et Politiques publiées sur [[SITE_URL]]. Si vous n'êtes pas d'accord, veuillez cesser immédiatement d'utiliser le Service.
+Les présentes Conditions générales d'utilisation (les « CGU ») définissent les conditions juridiquement contraignantes régissant votre utilisation du Service. En accédant au Service et/ou en l'utilisant, vous acceptez d'être lié par les présentes CGU et par l'ensemble des autres Conditions et Politiques publiées sur %SITE_URL%. Si vous n'êtes pas d'accord, veuillez cesser immédiatement d'utiliser le Service.
 
 Vous vous engagez à ne pas utiliser le Service à des fins illégales ou non autorisées.
 
@@ -73,11 +73,11 @@ c) Si vous n'avez pas atteint l'âge légal dans la juridiction de votre domicil
 
 **7. Propriété intellectuelle**
 
-La propriété intellectuelle du Service et des éléments intégrés (y compris, sans limitation, la technologie, les systèmes, les fichiers, les documents, les textes, les photographies, les informations, les images, les vidéos, les contenus audio et les logiciels) appartient à [[SITE_NAME]] ou lui est concédée sous licence. Vous pouvez utiliser le Service et son contenu sur vos appareils pour votre usage personnel uniquement.
+La propriété intellectuelle du Service et des éléments intégrés (y compris, sans limitation, la technologie, les systèmes, les fichiers, les documents, les textes, les photographies, les informations, les images, les vidéos, les contenus audio et les logiciels) appartient à %SITE_NAME% ou lui est concédée sous licence. Vous pouvez utiliser le Service et son contenu sur vos appareils pour votre usage personnel uniquement.
 
 Nous vous accordons par la présente une licence d'utilisation personnelle uniquement. Cette licence ne constitue pas un transfert de titre. Cette licence sera automatiquement résiliée si vous enfreignez les présentes CGU et peut être résiliée par nous à tout moment.
 
-Tous les droits de propriété intellectuelle associés à [[SITE_NAME]], y compris la conception de la plateforme, les logos et tout logiciel ou technologie propriétaire, sont la propriété exclusive de [[SITE_NAME]] ou de ses concédants de licence. Les utilisateurs sont interdits de reproduire, modifier, distribuer ou utiliser toute propriété intellectuelle sans autorisation explicite. Toute utilisation non autorisée peut entraîner des conséquences juridiques.
+Tous les droits de propriété intellectuelle associés à %SITE_NAME%, y compris la conception de la plateforme, les logos et tout logiciel ou technologie propriétaire, sont la propriété exclusive de %SITE_NAME% ou de ses concédants de licence. Les utilisateurs sont interdits de reproduire, modifier, distribuer ou utiliser toute propriété intellectuelle sans autorisation explicite. Toute utilisation non autorisée peut entraîner des conséquences juridiques.
 
 **8. Votre contenu**
 
@@ -85,7 +85,7 @@ Vous pouvez fournir des données au sein du Service (« Données d'entrée ») e
 
 Vous conservez vos droits de propriété intellectuelle sur les Données d'entrée. Nous ne revendiquerons jamais la propriété de vos Données d'entrée, mais nous avons besoin d'une licence de votre part pour les utiliser.
 
-Lorsque vous utilisez [[SITE_NAME]] ou ses Services associés pour télécharger des Données d'entrée couvertes par des droits de propriété intellectuelle, vous nous accordez une licence non exclusive, libre de redevances, transférable, pouvant faire l'objet de sous-licences, mondiale, pour utiliser, distribuer, modifier, exécuter, copier, afficher publiquement, traduire ou créer de toute autre manière des œuvres dérivées de votre contenu de manière compatible avec notre [Politique de confidentialité](/privacy-policy).
+Lorsque vous utilisez %SITE_NAME% ou ses Services associés pour télécharger des Données d'entrée couvertes par des droits de propriété intellectuelle, vous nous accordez une licence non exclusive, libre de redevances, transférable, pouvant faire l'objet de sous-licences, mondiale, pour utiliser, distribuer, modifier, exécuter, copier, afficher publiquement, traduire ou créer de toute autre manière des œuvres dérivées de votre contenu de manière compatible avec notre [Politique de confidentialité](/privacy-policy).
 
 La licence que vous nous accordez peut être résiliée à tout moment en supprimant vos Données d'entrée ou votre compte. Toutefois, dans la mesure où nous (ou nos partenaires) avons utilisé vos Données d'entrée en relation avec du contenu commercial ou sponsorisé, la licence se poursuivra jusqu'à ce que le contenu concerné ait été retiré par nous.
 
@@ -117,7 +117,7 @@ i) Vous respecterez toutes les lois applicables dans votre accès et votre utili
 
 **9.2 Responsabilité relative au contenu**
 
-Vous, en tant qu'utilisateur du Service, êtes seul responsable de tout Contenu que vous créez, téléchargez ou générez via le Service. Vous comprenez et acceptez que [[SITE_NAME]] ne contrôle ni n'approuve le contenu généré par les utilisateurs. Par conséquent, vous reconnaissez que vous êtes entièrement responsable de votre Contenu et de vos propres actions lors de l'utilisation du Service.
+Vous, en tant qu'utilisateur du Service, êtes seul responsable de tout Contenu que vous créez, téléchargez ou générez via le Service. Vous comprenez et acceptez que %SITE_NAME% ne contrôle ni n'approuve le contenu généré par les utilisateurs. Par conséquent, vous reconnaissez que vous êtes entièrement responsable de votre Contenu et de vos propres actions lors de l'utilisation du Service.
 
 Vous devez vous assurer que votre utilisation du Service est conforme aux lois, réglementations applicables et aux présentes CGU, et vous vous engagez à ne pas vous livrer à des activités illégales, contraires à l'éthique ou nuisibles via le Service.
 
@@ -127,7 +127,7 @@ Nous attachons une grande importance à la sécurité et à l'intégrité de tou
 
 Le contenu peut être modéré pour garantir la conformité avec toutes les lois applicables.
 
-Nous nous réservons le droit, sans y être tenus, de rejeter et/ou de supprimer tout contenu d'utilisateur qui, selon notre seul jugement, enfreint ces dispositions. Si vous avez constaté une violation, veuillez nous contacter à [[CONTACT_EMAIL]] ou la signaler directement via la section « Contact ».
+Nous nous réservons le droit, sans y être tenus, de rejeter et/ou de supprimer tout contenu d'utilisateur qui, selon notre seul jugement, enfreint ces dispositions. Si vous avez constaté une violation, veuillez nous contacter à %CONTACT_EMAIL% ou la signaler directement via la section « Contact ».
 
 **10. Paiements**
 
@@ -195,7 +195,7 @@ NI NOUS, NI AUCUNE DE NOS SOCIÉTÉS AFFILIÉES OU CONCÉDANTS DE LICENCE NE SER
 
 Certains pays et États n'autorisent pas l'exclusion de certaines garanties ou la limitation de certains dommages. Certaines ou toutes les conditions ci-dessus peuvent donc ne pas s'appliquer à vous et vous pouvez disposer de droits supplémentaires. Dans ce cas, les présentes Conditions ne limitent nos responsabilités que dans la mesure maximale autorisée dans votre pays de résidence.
 
-LES SOCIÉTÉS AFFILIÉES, FOURNISSEURS, CONCÉDANTS DE LICENCE ET DISTRIBUTEURS DE [[COMPANY_NAME]] SONT DES TIERS BÉNÉFICIAIRES PRÉVUS DE LA PRÉSENTE SECTION.
+LES SOCIÉTÉS AFFILIÉES, FOURNISSEURS, CONCÉDANTS DE LICENCE ET DISTRIBUTEURS DE %COMPANY_NAME% SONT DES TIERS BÉNÉFICIAIRES PRÉVUS DE LA PRÉSENTE SECTION.
 
 **13. Liens vers des sites web et services tiers**
 
@@ -205,9 +205,9 @@ Il vous incombe de vous assurer que tout élément que vous sélectionnez pour u
 
 **14. Droit applicable et résolution des litiges**
 
-Les présentes CGU sont régies par et interprétées conformément aux lois de [[COMPANY_JURISDICTION]] sans donner effet à ses dispositions relatives aux conflits de lois, quel que soit votre lieu de résidence. Si vous êtes un consommateur résidant dans l'Union européenne, vous bénéficiez également de la protection accordée par les dispositions impératives de la loi de votre pays de résidence.
+Les présentes CGU sont régies par et interprétées conformément aux lois de %COMPANY_JURISDICTION% sans donner effet à ses dispositions relatives aux conflits de lois, quel que soit votre lieu de résidence. Si vous êtes un consommateur résidant dans l'Union européenne, vous bénéficiez également de la protection accordée par les dispositions impératives de la loi de votre pays de résidence.
 
-Tout litige découlant des CGU ou en rapport avec celles-ci, y compris toute question relative à leur existence, leur validité ou leur résiliation, sera soumis aux tribunaux compétents de [[COMPANY_JURISDICTION]]. Si vous êtes un consommateur dans l'UE, vous pouvez également saisir les tribunaux de votre pays de résidence.
+Tout litige découlant des CGU ou en rapport avec celles-ci, y compris toute question relative à leur existence, leur validité ou leur résiliation, sera soumis aux tribunaux compétents de %COMPANY_JURISDICTION%. Si vous êtes un consommateur dans l'UE, vous pouvez également saisir les tribunaux de votre pays de résidence.
 
 Vous pouvez également utiliser la plateforme européenne de règlement en ligne des litiges à l'adresse https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Nous collecterons et traiterons vos informations conformément à notre [Politiq
 
 En tant que plateforme établie dans l'UE, nous sommes conformes au Règlement sur les services numériques (Règlement (UE) 2022/2065). Pour tous les détails sur nos obligations au titre du DSA, nos pratiques de modération de contenu, nos mécanismes de signalement, nos procédures de réclamations et de recours, et nos engagements de transparence, veuillez consulter notre page [Conformité au DSA](/dsa-compliance).
 
-Notre point de contact unique pour les autorités de l'UE, les utilisateurs et la Commission européenne concernant les questions relatives au DSA est : [[CONTACT_EMAIL]].
+Notre point de contact unique pour les autorités de l'UE, les utilisateurs et la Commission européenne concernant les questions relatives au DSA est : %CONTACT_EMAIL%.
 
 **19. Politiques associées**
 

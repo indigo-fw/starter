@@ -1,27 +1,27 @@
 ---
 title: Impressum (Yasal Bildirim)
 type: page
-description: "[[SITE_NAME]] Impressum (Yasal Bildirim)."
+description: "%SITE_NAME% Impressum (Yasal Bildirim)."
 noindex: true
 ---
 
 **Geçerli AB ticari ve medya düzenlemeleri uyarınca bilgiler**
 
 **Şirket:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Adres:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **İletişim:**
-E-posta: [[CONTACT_EMAIL]]
+E-posta: %CONTACT_EMAIL%
 
 **Sicil Numarası:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **İçerikten sorumlu:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **AB Çevrimiçi Uyuşmazlık Çözümü:**
 Avrupa Komisyonu, çevrimiçi uyuşmazlık çözümü (ODR) için bir platform sağlamaktadır:

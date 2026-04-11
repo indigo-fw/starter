@@ -1,15 +1,15 @@
 ---
 title: Política de Derechos de Autor y Propiedad Intelectual
 type: page
-description: Política de Derechos de Autor y Propiedad Intelectual para [[SITE_NAME]].
+description: Política de Derechos de Autor y Propiedad Intelectual para %SITE_NAME%.
 noindex: true
 ---
 
-**Fecha de revisión:** [[CURRENT_DATE]]
+**Fecha de revisión:** %CURRENT_DATE%
 
-[[SITE_NAME]] valora y defiende los derechos de propiedad intelectual de terceros, y nos comprometemos a cumplir con la Ley de Derechos de Autor del Milenio Digital (DMCA), la Directiva de Derechos de Autor de la UE (2019/790) y otras leyes de derechos de autor aplicables. Esta Política describe los pasos que tomamos ante notificaciones de infracción de derechos de autor y proporciona orientación sobre cómo contactarnos si considera que su material protegido por derechos de autor ha sido utilizado en nuestra plataforma sin la debida autorización.
+%SITE_NAME% valora y defiende los derechos de propiedad intelectual de terceros, y nos comprometemos a cumplir con la Ley de Derechos de Autor del Milenio Digital (DMCA), la Directiva de Derechos de Autor de la UE (2019/790) y otras leyes de derechos de autor aplicables. Esta Política describe los pasos que tomamos ante notificaciones de infracción de derechos de autor y proporciona orientación sobre cómo contactarnos si considera que su material protegido por derechos de autor ha sido utilizado en nuestra plataforma sin la debida autorización.
 
-[[SITE_NAME]] y/o cualquiera de nuestros canales en línea, sitios web afiliados, plataformas, productos o servicios, incluido todo el contenido en ellos, se denominan en este documento "Servicios".
+%SITE_NAME% y/o cualquiera de nuestros canales en línea, sitios web afiliados, plataformas, productos o servicios, incluido todo el contenido en ellos, se denominan en este documento "Servicios".
 
 1\. Denuncia de infracción de derechos de autor
 
@@ -45,7 +45,7 @@ De conformidad con la Directiva de Derechos de Autor de la UE (2019/790), implem
 
 5\. Información de contacto
 
-Las notificaciones y contranotificaciones deben enviarse por correo electrónico a [[CONTACT_EMAIL]]. Nos comprometemos a atender las inquietudes oportunamente y a garantizar una experiencia positiva para todos nuestros usuarios.
+Las notificaciones y contranotificaciones deben enviarse por correo electrónico a %CONTACT_EMAIL%. Nos comprometemos a atender las inquietudes oportunamente y a garantizar una experiencia positiva para todos nuestros usuarios.
 
 6\. Cancelación
 

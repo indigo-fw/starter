@@ -1,13 +1,13 @@
 ---
 title: Retningslinjer for fællesskabet
 type: page
-description: Retningslinjer for fællesskabet på [[SITE_NAME]].
+description: Retningslinjer for fællesskabet på %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdato:** [[CURRENT_DATE]]
+**Revisionsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjenesten"), drevet af [[COMPANY_NAME]], er en onlineplatform. Disse retningslinjer for fællesskabet fastsætter adfærdsstandarderne for alle brugere. Ved at bruge Tjenesten accepterer du at følge disse retningslinjer.
+%SITE_NAME% ("Tjenesten"), drevet af %COMPANY_NAME%, er en onlineplatform. Disse retningslinjer for fællesskabet fastsætter adfærdsstandarderne for alle brugere. Ved at bruge Tjenesten accepterer du at følge disse retningslinjer.
 
 **1. Respekt og sikkerhed**
 
@@ -47,7 +47,7 @@ d) Hold din konto sikker. Del ikke dine loginoplysninger med andre.
 
 **4. Brugergenereret indhold**
 
-Indhold oprettet af brugere repræsenterer deres egne synspunkter og meninger. [[SITE_NAME]] godkender ikke eller påtager sig ansvar for brugergenereret indhold.
+Indhold oprettet af brugere repræsenterer deres egne synspunkter og meninger. %SITE_NAME% godkender ikke eller påtager sig ansvar for brugergenereret indhold.
 
 Stol ikke på brugergenereret indhold som faktuel information eller professionel rådgivning.
 
@@ -71,6 +71,6 @@ Håndhævelsens alvor afhænger af overtrædelsens art og hyppighed. Alvorlige o
 Hvis du støder på indhold eller adfærd, der overtræder disse retningslinjer, bedes du indberette det:
 
 a) Ved at bruge den indbyggede indberetningsfunktion;
-b) Via e-mail til [[CONTACT_EMAIL]].
+b) Via e-mail til %CONTACT_EMAIL%.
 
 For den fulde indberetnings- og klageprocedure, se vores [Politik for fjernelse af indhold og klager](/content-removal-and-complaints).

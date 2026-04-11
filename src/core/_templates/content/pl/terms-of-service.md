@@ -1,19 +1,19 @@
 ---
 title: Warunki korzystania z usług
 type: page
-description: Warunki korzystania z usług serwisu [[SITE_NAME]].
+description: Warunki korzystania z usług serwisu %SITE_NAME%.
 noindex: true
 ---
 
-**Data aktualizacji:** [[CURRENT_DATE]]
+**Data aktualizacji:** %CURRENT_DATE%
 
 **1. Wprowadzenie**
 
-[[SITE_NAME]] („Serwis") jest prowadzony przez [[COMPANY_NAME]], adres: [[COMPANY_ADDRESS]] (dalej „my", „nas" lub „nasz").
+%SITE_NAME% („Serwis") jest prowadzony przez %COMPANY_NAME%, adres: %COMPANY_ADDRESS% (dalej „my", „nas" lub „nasz").
 
-[[SITE_NAME]] jest platformą internetową świadczącą usługi cyfrowe i udostępniającą treści (łącznie „Usługi"). Części Usług mogą wymagać utworzenia konta użytkownika.
+%SITE_NAME% jest platformą internetową świadczącą usługi cyfrowe i udostępniającą treści (łącznie „Usługi"). Części Usług mogą wymagać utworzenia konta użytkownika.
 
-Niniejsze Warunki korzystania z usług („Warunki") określają prawnie wiążące zasady korzystania z Serwisu. Uzyskując dostęp do Serwisu i/lub korzystając z niego, zgadzasz się na przestrzeganie niniejszych Warunków oraz wszystkich innych Warunków i Polityk opublikowanych na [[SITE_URL]]. Jeśli się nie zgadzasz, natychmiast zaprzestań korzystania z Serwisu.
+Niniejsze Warunki korzystania z usług („Warunki") określają prawnie wiążące zasady korzystania z Serwisu. Uzyskując dostęp do Serwisu i/lub korzystając z niego, zgadzasz się na przestrzeganie niniejszych Warunków oraz wszystkich innych Warunków i Polityk opublikowanych na %SITE_URL%. Jeśli się nie zgadzasz, natychmiast zaprzestań korzystania z Serwisu.
 
 Zgadzasz się nie korzystać z Serwisu w celach nielegalnych lub nieautoryzowanych.
 
@@ -73,11 +73,11 @@ c) Jeśli nie osiągnąłeś wymaganego wieku prawnego w jurysdykcji swojego mie
 
 **7. Własność intelektualna**
 
-Własność intelektualna zawarta w Serwisie i osadzonych materiałach (w tym m.in. technologia, systemy, pliki, dokumenty, teksty, fotografie, informacje, obrazy, filmy, pliki audio i oprogramowanie) jest własnością [[SITE_NAME]] lub jest licencjonowana na jego rzecz. Możesz korzystać z Serwisu i jego treści na swoich urządzeniach wyłącznie do użytku osobistego.
+Własność intelektualna zawarta w Serwisie i osadzonych materiałach (w tym m.in. technologia, systemy, pliki, dokumenty, teksty, fotografie, informacje, obrazy, filmy, pliki audio i oprogramowanie) jest własnością %SITE_NAME% lub jest licencjonowana na jego rzecz. Możesz korzystać z Serwisu i jego treści na swoich urządzeniach wyłącznie do użytku osobistego.
 
 Niniejszym udzielamy Ci licencji wyłącznie do użytku osobistego. Licencja ta nie stanowi przeniesienia tytułu własności. Licencja ta wygasa automatycznie w przypadku naruszenia niniejszych Warunków i może zostać przez nas wypowiedziana w dowolnym momencie.
 
-Wszelkie prawa własności intelektualnej związane z [[SITE_NAME]], w tym projekt platformy, logotypy oraz wszelkie zastrzeżone oprogramowanie lub technologia, stanowią wyłączną własność [[SITE_NAME]] lub jego licencjodawców. Użytkownikom zabrania się reprodukowania, modyfikowania, dystrybuowania lub wykorzystywania jakiejkolwiek własności intelektualnej bez wyraźnego upoważnienia. Nieautoryzowane użycie może pociągać za sobą konsekwencje prawne.
+Wszelkie prawa własności intelektualnej związane z %SITE_NAME%, w tym projekt platformy, logotypy oraz wszelkie zastrzeżone oprogramowanie lub technologia, stanowią wyłączną własność %SITE_NAME% lub jego licencjodawców. Użytkownikom zabrania się reprodukowania, modyfikowania, dystrybuowania lub wykorzystywania jakiejkolwiek własności intelektualnej bez wyraźnego upoważnienia. Nieautoryzowane użycie może pociągać za sobą konsekwencje prawne.
 
 **8. Twoje treści**
 
@@ -85,7 +85,7 @@ Możesz dostarczać dane wejściowe w ramach Serwisu („Dane wejściowe") i otr
 
 Zachowujesz prawa własności intelektualnej do swoich Danych wejściowych. Nigdy nie będziemy rościć sobie prawa własności do Twoich Danych wejściowych, ale potrzebujemy od Ciebie licencji na ich wykorzystanie.
 
-Korzystając z [[SITE_NAME]] lub powiązanych Usług do przesyłania Danych wejściowych chronionych prawami własności intelektualnej, udzielasz nam niewyłącznej, nieodpłatnej, przenoszalnej, podlegającej sublicencjonowaniu, ogólnoświatowej licencji na wykorzystywanie, dystrybucję, modyfikację, uruchamianie, kopiowanie, publiczne wyświetlanie, tłumaczenie lub inne tworzenie dzieł pochodnych z Twoich treści w sposób zgodny z naszą [Polityką prywatności](/privacy-policy).
+Korzystając z %SITE_NAME% lub powiązanych Usług do przesyłania Danych wejściowych chronionych prawami własności intelektualnej, udzielasz nam niewyłącznej, nieodpłatnej, przenoszalnej, podlegającej sublicencjonowaniu, ogólnoświatowej licencji na wykorzystywanie, dystrybucję, modyfikację, uruchamianie, kopiowanie, publiczne wyświetlanie, tłumaczenie lub inne tworzenie dzieł pochodnych z Twoich treści w sposób zgodny z naszą [Polityką prywatności](/privacy-policy).
 
 Udzielona nam licencja może zostać wypowiedziana w dowolnym momencie przez usunięcie Twoich Danych wejściowych lub konta. Jednakże w zakresie, w jakim my (lub nasi partnerzy) wykorzystaliśmy Twoje Dane wejściowe w związku z treściami komercyjnymi lub sponsorowanymi, licencja będzie obowiązywać do momentu wycofania odpowiednich treści przez nas.
 
@@ -117,7 +117,7 @@ i) Będziesz przestrzegać wszystkich obowiązujących przepisów prawa podczas 
 
 **9.2 Odpowiedzialność za treści**
 
-Jako użytkownik Serwisu ponosisz wyłączną odpowiedzialność za wszelkie Treści, które tworzysz, przesyłasz lub generujesz za pośrednictwem Serwisu. Rozumiesz i zgadzasz się, że [[SITE_NAME]] nie kontroluje ani nie popiera treści generowanych przez użytkowników. W związku z tym przyjmujesz do wiadomości, że ponosisz pełną odpowiedzialność za swoje Treści i za swoje działania podczas korzystania z Serwisu.
+Jako użytkownik Serwisu ponosisz wyłączną odpowiedzialność za wszelkie Treści, które tworzysz, przesyłasz lub generujesz za pośrednictwem Serwisu. Rozumiesz i zgadzasz się, że %SITE_NAME% nie kontroluje ani nie popiera treści generowanych przez użytkowników. W związku z tym przyjmujesz do wiadomości, że ponosisz pełną odpowiedzialność za swoje Treści i za swoje działania podczas korzystania z Serwisu.
 
 Musisz zapewnić, że korzystanie z Serwisu jest zgodne z obowiązującymi przepisami prawa, regulacjami i niniejszymi Warunkami oraz nie wolno Ci angażować się w jakiekolwiek nielegalne, nieetyczne lub szkodliwe działania za pośrednictwem Serwisu.
 
@@ -127,7 +127,7 @@ Cenimy bezpieczeństwo i integralność wszystkich użytkowników. Wdrożyliśmy
 
 Treści mogą podlegać moderacji w celu zapewnienia zgodności ze wszystkimi obowiązującymi przepisami prawa.
 
-Zastrzegamy sobie prawo, ale nie jesteśmy zobowiązani, do odrzucania i/lub usuwania treści użytkowników, które naszym zdaniem naruszają niniejsze postanowienia. Jeśli zauważysz naruszenie, skontaktuj się z nami pod adresem [[CONTACT_EMAIL]] lub zgłoś je bezpośrednio za pomocą sekcji „Kontakt".
+Zastrzegamy sobie prawo, ale nie jesteśmy zobowiązani, do odrzucania i/lub usuwania treści użytkowników, które naszym zdaniem naruszają niniejsze postanowienia. Jeśli zauważysz naruszenie, skontaktuj się z nami pod adresem %CONTACT_EMAIL% lub zgłoś je bezpośrednio za pomocą sekcji „Kontakt".
 
 **10. Płatności**
 
@@ -195,7 +195,7 @@ ANI MY, ANI ŻADEN Z NASZYCH PODMIOTÓW POWIĄZANYCH LUB LICENCJODAWCÓW NIE PON
 
 Niektóre kraje i stany nie dopuszczają wyłączenia określonych gwarancji ani ograniczenia określonych szkód, więc niektóre lub wszystkie powyższe warunki mogą nie mieć do Ciebie zastosowania, a mogą Ci przysługiwać dodatkowe prawa. W takim przypadku niniejsze Warunki ograniczają naszą odpowiedzialność jedynie w maksymalnym zakresie dozwolonym w kraju Twojego zamieszkania.
 
-PODMIOTY POWIĄZANE, DOSTAWCY, LICENCJODAWCY I DYSTRYBUTORZY [[COMPANY_NAME]] SĄ ZAMIERZONYMI BENEFICJENTAMI TRZECIMI NINIEJSZEJ SEKCJI.
+PODMIOTY POWIĄZANE, DOSTAWCY, LICENCJODAWCY I DYSTRYBUTORZY %COMPANY_NAME% SĄ ZAMIERZONYMI BENEFICJENTAMI TRZECIMI NINIEJSZEJ SEKCJI.
 
 **13. Linki do stron i usług podmiotów trzecich**
 
@@ -205,9 +205,9 @@ Twoim obowiązkiem jest upewnienie się, że wszystko, co wybierasz do użytku l
 
 **14. Prawo właściwe i rozstrzyganie sporów**
 
-Niniejsze Warunki podlegają prawu [[COMPANY_JURISDICTION]] i są zgodnie z nim interpretowane, bez uwzględnienia norm kolizyjnych, niezależnie od Twojej lokalizacji. Jeśli jesteś konsumentem zamieszkałym w Unii Europejskiej, korzystasz również z ochrony przyznanej Ci przez bezwzględnie obowiązujące przepisy prawa kraju Twojego zamieszkania.
+Niniejsze Warunki podlegają prawu %COMPANY_JURISDICTION% i są zgodnie z nim interpretowane, bez uwzględnienia norm kolizyjnych, niezależnie od Twojej lokalizacji. Jeśli jesteś konsumentem zamieszkałym w Unii Europejskiej, korzystasz również z ochrony przyznanej Ci przez bezwzględnie obowiązujące przepisy prawa kraju Twojego zamieszkania.
 
-Wszelkie spory wynikające z niniejszych Warunków lub z nimi związane, w tym wszelkie kwestie dotyczące ich istnienia, ważności lub rozwiązania, będą rozstrzygane przez sądy właściwe dla [[COMPANY_JURISDICTION]]. Jeśli jesteś konsumentem w UE, możesz również wnosić sprawy do sądów w kraju swojego zamieszkania.
+Wszelkie spory wynikające z niniejszych Warunków lub z nimi związane, w tym wszelkie kwestie dotyczące ich istnienia, ważności lub rozwiązania, będą rozstrzygane przez sądy właściwe dla %COMPANY_JURISDICTION%. Jeśli jesteś konsumentem w UE, możesz również wnosić sprawy do sądów w kraju swojego zamieszkania.
 
 Możesz również skorzystać z unijnej platformy internetowego rozstrzygania sporów pod adresem https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Będziemy zbierać i przetwarzać Twoje dane zgodnie z naszą [Polityką prywatn
 
 Jako platforma z siedzibą w UE przestrzegamy Aktu o usługach cyfrowych (rozporządzenie (UE) 2022/2065). Pełne informacje o naszych obowiązkach wynikających z DSA, praktykach moderacji treści, mechanizmach zgłaszania, procedurach składania skarg i odwołań oraz zobowiązaniach w zakresie przejrzystości znajdziesz na naszej stronie [Zgodność z DSA](/dsa-compliance).
 
-Naszym jedynym punktem kontaktowym dla organów UE, użytkowników i Komisji Europejskiej w sprawach dotyczących DSA jest: [[CONTACT_EMAIL]].
+Naszym jedynym punktem kontaktowym dla organów UE, użytkowników i Komisji Europejskiej w sprawach dotyczących DSA jest: %CONTACT_EMAIL%.
 
 **19. Powiązane dokumenty**
 

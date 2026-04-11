@@ -1,27 +1,27 @@
 ---
 title: Impressum (právní upozornění)
 type: page
-description: Impressum (právní upozornění) servisu [[SITE_NAME]].
+description: Impressum (právní upozornění) servisu %SITE_NAME%.
 noindex: true
 ---
 
 **Informace podle platných obchodních a mediálních předpisů EU**
 
 **Společnost:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Adresa:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Kontakt:**
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 **Registrační číslo:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Odpovědnost za obsah:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **Online řešení sporů v EU:**
 Evropská komise poskytuje platformu pro online řešení sporů (ODR):

@@ -1,7 +1,7 @@
 ---
-title: Welcome to [[SITE_NAME]]
+title: Welcome to %SITE_NAME%
 type: page
-description: Welcome to [[SITE_NAME]] — an agent-driven headless CMS for T3 Stack.
+description: Welcome to %SITE_NAME% — an agent-driven headless CMS for T3 Stack.
 noindex: false
 ---
 

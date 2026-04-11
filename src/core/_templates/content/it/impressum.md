@@ -1,27 +1,27 @@
 ---
 title: Impressum (Avviso Legale)
 type: page
-description: Impressum (Avviso Legale) per [[SITE_NAME]].
+description: Impressum (Avviso Legale) per %SITE_NAME%.
 noindex: true
 ---
 
 **Informazioni ai sensi delle normative commerciali e dei media dell'UE applicabili**
 
 **Societa:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Indirizzo:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Contatto:**
-Email: [[CONTACT_EMAIL]]
+Email: %CONTACT_EMAIL%
 
 **Numero di Registrazione:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Responsabile dei contenuti:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **Risoluzione delle Controversie Online dell'UE:**
 La Commissione Europea mette a disposizione una piattaforma per la risoluzione delle controversie online (ODR):

@@ -1,15 +1,15 @@
 ---
 title: Polityka praw autorskich i własności intelektualnej
 type: page
-description: Polityka praw autorskich i własności intelektualnej serwisu [[SITE_NAME]].
+description: Polityka praw autorskich i własności intelektualnej serwisu %SITE_NAME%.
 noindex: true
 ---
 
-**Data aktualizacji:** [[CURRENT_DATE]]
+**Data aktualizacji:** %CURRENT_DATE%
 
-[[SITE_NAME]] szanuje i chroni prawa własności intelektualnej innych osób oraz zobowiązuje się do przestrzegania ustawy Digital Millennium Copyright Act (DMCA), Dyrektywy UE w sprawie prawa autorskiego (2019/790) i innych odpowiednich przepisów prawa autorskiego. Niniejsza Polityka określa kroki, jakie podejmujemy w odpowiedzi na zgłoszenia dotyczące naruszenia praw autorskich, oraz zawiera wytyczne dotyczące kontaktu z nami, jeśli podejrzewasz, że Twoje materiały chronione prawem autorskim zostały wykorzystane na naszej platformie bez odpowiedniego upoważnienia.
+%SITE_NAME% szanuje i chroni prawa własności intelektualnej innych osób oraz zobowiązuje się do przestrzegania ustawy Digital Millennium Copyright Act (DMCA), Dyrektywy UE w sprawie prawa autorskiego (2019/790) i innych odpowiednich przepisów prawa autorskiego. Niniejsza Polityka określa kroki, jakie podejmujemy w odpowiedzi na zgłoszenia dotyczące naruszenia praw autorskich, oraz zawiera wytyczne dotyczące kontaktu z nami, jeśli podejrzewasz, że Twoje materiały chronione prawem autorskim zostały wykorzystane na naszej platformie bez odpowiedniego upoważnienia.
 
-[[SITE_NAME]] i/lub wszelkie nasze kanały internetowe, powiązane strony, platformy, produkty lub usługi, w tym wszelkie zawarte w nich treści, są określane w niniejszym dokumencie jako „Usługi".
+%SITE_NAME% i/lub wszelkie nasze kanały internetowe, powiązane strony, platformy, produkty lub usługi, w tym wszelkie zawarte w nich treści, są określane w niniejszym dokumencie jako „Usługi".
 
 1\. Zgłaszanie naruszenia praw autorskich
 
@@ -45,7 +45,7 @@ Zgodnie z Dyrektywą UE w sprawie prawa autorskiego (2019/790) wdrażamy skutecz
 
 5\. Dane kontaktowe
 
-Powiadomienia i kontrpowiadomienia należy przesyłać e-mailem na adres [[CONTACT_EMAIL]]. Zobowiązujemy się do rozpatrywania spraw w odpowiednim terminie oraz zapewnienia pozytywnych doświadczeń wszystkim naszym użytkownikom.
+Powiadomienia i kontrpowiadomienia należy przesyłać e-mailem na adres %CONTACT_EMAIL%. Zobowiązujemy się do rozpatrywania spraw w odpowiednim terminie oraz zapewnienia pozytywnych doświadczeń wszystkim naszym użytkownikom.
 
 6\. Rozwiązanie umowy
 

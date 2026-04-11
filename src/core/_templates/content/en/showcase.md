@@ -1,7 +1,7 @@
 ---
 title: Showcase
 type: page
-description: Featured examples and highlights from [[SITE_NAME]].
-seoTitle: "Showcase | {sitename}"
+description: Featured examples and highlights from %SITE_NAME%.
+seoTitle: "Showcase | %SITENAME%"
 noindex: false
 ---

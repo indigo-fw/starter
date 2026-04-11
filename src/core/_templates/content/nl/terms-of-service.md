@@ -1,19 +1,19 @@
 ---
 title: Servicevoorwaarden
 type: page
-description: Servicevoorwaarden voor [[SITE_NAME]].
+description: Servicevoorwaarden voor %SITE_NAME%.
 noindex: true
 ---
 
-**Datum van herziening:** [[CURRENT_DATE]]
+**Datum van herziening:** %CURRENT_DATE%
 
 **1. Inleiding**
 
-[[SITE_NAME]] (de "Dienst") wordt beheerd door [[COMPANY_NAME]], adres: [[COMPANY_ADDRESS]] (hierna "wij", "ons" of "onze").
+%SITE_NAME% (de "Dienst") wordt beheerd door %COMPANY_NAME%, adres: %COMPANY_ADDRESS% (hierna "wij", "ons" of "onze").
 
-[[SITE_NAME]] is een online platform dat digitale diensten en inhoud aanbiedt (gezamenlijk de "Diensten"). Voor bepaalde delen van de Diensten kan het nodig zijn dat u een gebruikersaccount aanmaakt.
+%SITE_NAME% is een online platform dat digitale diensten en inhoud aanbiedt (gezamenlijk de "Diensten"). Voor bepaalde delen van de Diensten kan het nodig zijn dat u een gebruikersaccount aanmaakt.
 
-Deze Servicevoorwaarden (de "Voorwaarden") bevatten de juridisch bindende voorwaarden voor uw gebruik van de Dienst. Door toegang te krijgen tot en/of gebruik te maken van de Dienst, stemt u in met deze Voorwaarden en alle andere Voorwaarden en Beleidsregels die op [[SITE_URL]] zijn gepubliceerd. Als u niet akkoord gaat, dient u het gebruik van de Dienst onmiddellijk te staken.
+Deze Servicevoorwaarden (de "Voorwaarden") bevatten de juridisch bindende voorwaarden voor uw gebruik van de Dienst. Door toegang te krijgen tot en/of gebruik te maken van de Dienst, stemt u in met deze Voorwaarden en alle andere Voorwaarden en Beleidsregels die op %SITE_URL% zijn gepubliceerd. Als u niet akkoord gaat, dient u het gebruik van de Dienst onmiddellijk te staken.
 
 U stemt ermee in de Dienst niet te gebruiken voor enig illegaal of ongeoorloofd doel.
 
@@ -73,11 +73,11 @@ c) Als u jonger bent dan de wettelijke leeftijd in het rechtsgebied van uw woonp
 
 **7. Intellectueel eigendom**
 
-Het intellectueel eigendom in de Dienst en de daarin opgenomen materialen (waaronder maar niet beperkt tot technologie, systemen, bestanden, documenten, tekst, foto's, informatie, afbeeldingen, video's, audio's en software) zijn eigendom van of in licentie gegeven aan [[SITE_NAME]]. U mag de Dienst en de inhoud daarvan op uw apparaten uitsluitend voor persoonlijk gebruik gebruiken.
+Het intellectueel eigendom in de Dienst en de daarin opgenomen materialen (waaronder maar niet beperkt tot technologie, systemen, bestanden, documenten, tekst, foto's, informatie, afbeeldingen, video's, audio's en software) zijn eigendom van of in licentie gegeven aan %SITE_NAME%. U mag de Dienst en de inhoud daarvan op uw apparaten uitsluitend voor persoonlijk gebruik gebruiken.
 
 Wij verlenen u hierbij een licentie voor uitsluitend persoonlijk gebruik. Deze licentie houdt geen eigendomsoverdracht in. Deze licentie wordt automatisch beeindigd als u deze Voorwaarden schendt en kan te allen tijde door ons worden beeindigd.
 
-Alle intellectuele eigendomsrechten verbonden aan [[SITE_NAME]], waaronder het platformontwerp, logo's en eventuele gepatenteerde software of technologie, zijn het exclusieve eigendom van [[SITE_NAME]] of haar licentiegevers. Het is gebruikers verboden intellectueel eigendom te reproduceren, te wijzigen, te verspreiden of te gebruiken zonder uitdrukkelijke toestemming. Ongeoorloofd gebruik kan juridische gevolgen hebben.
+Alle intellectuele eigendomsrechten verbonden aan %SITE_NAME%, waaronder het platformontwerp, logo's en eventuele gepatenteerde software of technologie, zijn het exclusieve eigendom van %SITE_NAME% of haar licentiegevers. Het is gebruikers verboden intellectueel eigendom te reproduceren, te wijzigen, te verspreiden of te gebruiken zonder uitdrukkelijke toestemming. Ongeoorloofd gebruik kan juridische gevolgen hebben.
 
 **8. Uw inhoud**
 
@@ -85,7 +85,7 @@ U kunt invoer verstrekken binnen de Dienst ("Invoer") en uitvoer van de Diensten
 
 U behoudt uw intellectuele eigendomsrechten op de Invoer. Wij zullen nooit aanspraak maken op het eigendom van uw Invoer, maar wij hebben een licentie van u nodig om deze te kunnen gebruiken.
 
-Wanneer u [[SITE_NAME]] of de bijbehorende Diensten gebruikt om Invoer te uploaden die onder intellectuele eigendomsrechten valt, verleent u ons een niet-exclusieve, royaltyvrije, overdraagbare, sublicentieerbare, wereldwijde licentie om uw inhoud te gebruiken, te verspreiden, te wijzigen, uit te voeren, te kopieren, publiekelijk weer te geven, te vertalen of anderszins afgeleide werken van uw inhoud te maken op een wijze die in overeenstemming is met ons [Privacybeleid](/privacy-policy).
+Wanneer u %SITE_NAME% of de bijbehorende Diensten gebruikt om Invoer te uploaden die onder intellectuele eigendomsrechten valt, verleent u ons een niet-exclusieve, royaltyvrije, overdraagbare, sublicentieerbare, wereldwijde licentie om uw inhoud te gebruiken, te verspreiden, te wijzigen, uit te voeren, te kopieren, publiekelijk weer te geven, te vertalen of anderszins afgeleide werken van uw inhoud te maken op een wijze die in overeenstemming is met ons [Privacybeleid](/privacy-policy).
 
 De licentie die u ons verleent kan te allen tijde worden beeindigd door uw Invoer of account te verwijderen. Voor zover wij (of onze partners) uw Invoer echter hebben gebruikt in verband met commerciele of gesponsorde inhoud, blijft de licentie van kracht totdat de betreffende inhoud door ons is stopgezet.
 
@@ -117,7 +117,7 @@ i) U zult alle toepasselijke wetgeving naleven bij uw toegang tot en gebruik van
 
 **9.2 Verantwoordelijkheid voor inhoud**
 
-U bent als gebruiker van de Dienst als enige verantwoordelijk voor alle Inhoud die u creert, uploadt of genereert via de Dienst. U begrijpt en stemt ermee in dat [[SITE_NAME]] geen controle heeft over door gebruikers gegenereerde inhoud en deze niet onderschrijft. U erkent derhalve dat u volledig verantwoordelijk bent voor uw Inhoud en voor uw eigen handelingen bij het gebruik van de Dienst.
+U bent als gebruiker van de Dienst als enige verantwoordelijk voor alle Inhoud die u creert, uploadt of genereert via de Dienst. U begrijpt en stemt ermee in dat %SITE_NAME% geen controle heeft over door gebruikers gegenereerde inhoud en deze niet onderschrijft. U erkent derhalve dat u volledig verantwoordelijk bent voor uw Inhoud en voor uw eigen handelingen bij het gebruik van de Dienst.
 
 U dient ervoor te zorgen dat uw gebruik van de Dienst in overeenstemming is met de toepasselijke wet- en regelgeving en deze Voorwaarden, en u zult via de Dienst geen illegale, onethische of schadelijke activiteiten ontplooien.
 
@@ -127,7 +127,7 @@ Wij hechten waarde aan de veiligheid en integriteit van alle gebruikers. Wij heb
 
 Inhoud kan worden gemodereerd ter waarborging van naleving van alle toepasselijke wetgeving.
 
-Wij behouden ons het recht voor, maar zijn niet verplicht, om door gebruikers gegenereerde inhoud te weigeren en/of te verwijderen waarvan wij naar eigen goeddunken menen dat deze in strijd is met deze bepalingen. Als u een schending hebt geconstateerd, neem dan contact met ons op via [[CONTACT_EMAIL]] of meld deze rechtstreeks via het gedeelte "Contact".
+Wij behouden ons het recht voor, maar zijn niet verplicht, om door gebruikers gegenereerde inhoud te weigeren en/of te verwijderen waarvan wij naar eigen goeddunken menen dat deze in strijd is met deze bepalingen. Als u een schending hebt geconstateerd, neem dan contact met ons op via %CONTACT_EMAIL% of meld deze rechtstreeks via het gedeelte "Contact".
 
 **10. Betalingen**
 
@@ -195,7 +195,7 @@ NOCH WIJ NOCH EEN VAN ONZE GELIEERDE ONDERNEMINGEN OF LICENTIEGEVERS ZIJN AANSPR
 
 Sommige landen en staten staan de uitsluiting van bepaalde garanties of de beperking van bepaalde schade niet toe, zodat sommige of alle bovenstaande voorwaarden mogelijk niet op u van toepassing zijn en u aanvullende rechten kunt hebben. In dat geval beperken deze Voorwaarden onze verantwoordelijkheden uitsluitend tot het maximaal toegestane in uw land van verblijf.
 
-DE GELIEERDE ONDERNEMINGEN, LEVERANCIERS, LICENTIEGEVERS EN DISTRIBUTEURS VAN [[COMPANY_NAME]] ZIJN BEOOGDE DERDE-BEGUNSTIGDEN VAN DIT ARTIKEL.
+DE GELIEERDE ONDERNEMINGEN, LEVERANCIERS, LICENTIEGEVERS EN DISTRIBUTEURS VAN %COMPANY_NAME% ZIJN BEOOGDE DERDE-BEGUNSTIGDEN VAN DIT ARTIKEL.
 
 **13. Links naar websites en diensten van derden**
 
@@ -205,9 +205,9 @@ Het is uw verantwoordelijkheid om ervoor te zorgen dat alles wat u selecteert vo
 
 **14. Toepasselijk recht en geschillenbeslechting**
 
-Deze Voorwaarden worden beheerst door en uitgelegd in overeenstemming met het recht van [[COMPANY_JURISDICTION]], zonder toepassing van de beginselen van conflictenrecht, ongeacht uw locatie. Als u een consument bent die woonachtig is in de Europese Unie, geniet u tevens de bescherming die u wordt geboden door de dwingende bepalingen van het recht van uw land van verblijf.
+Deze Voorwaarden worden beheerst door en uitgelegd in overeenstemming met het recht van %COMPANY_JURISDICTION%, zonder toepassing van de beginselen van conflictenrecht, ongeacht uw locatie. Als u een consument bent die woonachtig is in de Europese Unie, geniet u tevens de bescherming die u wordt geboden door de dwingende bepalingen van het recht van uw land van verblijf.
 
-Elk geschil dat voortvloeit uit of verband houdt met de Voorwaarden, inclusief elke vraag betreffende het bestaan, de geldigheid of de beeindiging ervan, zal worden voorgelegd aan en definitief worden beslecht door de rechtbanken van [[COMPANY_JURISDICTION]]. Als u een consument bent in de EU, kunt u ook een procedure instellen bij de rechtbanken van uw land van verblijf.
+Elk geschil dat voortvloeit uit of verband houdt met de Voorwaarden, inclusief elke vraag betreffende het bestaan, de geldigheid of de beeindiging ervan, zal worden voorgelegd aan en definitief worden beslecht door de rechtbanken van %COMPANY_JURISDICTION%. Als u een consument bent in de EU, kunt u ook een procedure instellen bij de rechtbanken van uw land van verblijf.
 
 U kunt ook gebruikmaken van het EU-platform voor onlinegeschillenbeslechting op https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Wij verzamelen en verwerken uw informatie in overeenstemming met ons [Privacybel
 
 Als EU-gevestigd platform voldoen wij aan de Wet inzake digitale diensten (Verordening (EU) 2022/2065). Voor volledige details over onze DSA-verplichtingen, inhoudsmoderatiebeleid, meldingsmechanismen, klachten- en bezwaarprocedures en transparantieverplichtingen raadpleegt u onze [DSA-nalevingspagina](/dsa-compliance).
 
-Ons enig contactpunt voor EU-autoriteiten, gebruikers en de Europese Commissie met betrekking tot DSA-zaken is: [[CONTACT_EMAIL]].
+Ons enig contactpunt voor EU-autoriteiten, gebruikers en de Europese Commissie met betrekking tot DSA-zaken is: %CONTACT_EMAIL%.
 
 **19. Gerelateerd beleid**
 

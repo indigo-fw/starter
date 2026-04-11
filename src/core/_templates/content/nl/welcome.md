@@ -1,7 +1,7 @@
 ---
-title: Welkom bij [[SITE_NAME]]
+title: Welkom bij %SITE_NAME%
 type: page
-description: Welkom bij [[SITE_NAME]] — een agent-gestuurd headless CMS voor de T3 Stack.
+description: Welkom bij %SITE_NAME% — een agent-gestuurd headless CMS voor de T3 Stack.
 noindex: false
 ---
 

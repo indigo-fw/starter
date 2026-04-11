@@ -1,15 +1,15 @@
 ---
 title: Retningslinjer for opphavsrett og immaterielle rettigheter
 type: page
-description: Retningslinjer for opphavsrett og immaterielle rettigheter for [[SITE_NAME]].
+description: Retningslinjer for opphavsrett og immaterielle rettigheter for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisjonsdato:** [[CURRENT_DATE]]
+**Revisjonsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] verdsetter og respekterer andres immaterielle rettigheter, og vi er dedikert til å overholde Digital Millennium Copyright Act (DMCA), EUs opphavsrettsdirektiv (2019/790) og andre relevante opphavsrettslover. Denne retningslinjen beskriver tiltakene vi tar for å håndtere varsler om opphavsrettskrenkelse og gir veiledning om hvordan du kontakter oss hvis du mener at ditt opphavsrettsbeskyttede materiale har blitt brukt på vår plattform uten riktig autorisasjon.
+%SITE_NAME% verdsetter og respekterer andres immaterielle rettigheter, og vi er dedikert til å overholde Digital Millennium Copyright Act (DMCA), EUs opphavsrettsdirektiv (2019/790) og andre relevante opphavsrettslover. Denne retningslinjen beskriver tiltakene vi tar for å håndtere varsler om opphavsrettskrenkelse og gir veiledning om hvordan du kontakter oss hvis du mener at ditt opphavsrettsbeskyttede materiale har blitt brukt på vår plattform uten riktig autorisasjon.
 
-[[SITE_NAME]] og/eller noen av våre nettkanaler, tilknyttede nettsteder, plattformer, produkter eller tjenester, inkludert alt innhold deri, omtales heri som "Tjenester."
+%SITE_NAME% og/eller noen av våre nettkanaler, tilknyttede nettsteder, plattformer, produkter eller tjenester, inkludert alt innhold deri, omtales heri som "Tjenester."
 
 1\. Rapportering av opphavsrettskrenkelse
 
@@ -45,7 +45,7 @@ I samsvar med EUs opphavsrettsdirektiv (2019/790) implementerer vi effektive og 
 
 5\. Kontaktinformasjon
 
-Varsler og motvarsler skal sendes til oss via e-post til [[CONTACT_EMAIL]]. Vi er forpliktet til å håndtere henvendelser i tide og sikre en positiv opplevelse for alle våre brukere.
+Varsler og motvarsler skal sendes til oss via e-post til %CONTACT_EMAIL%. Vi er forpliktet til å håndtere henvendelser i tide og sikre en positiv opplevelse for alle våre brukere.
 
 6\. Oppsigelse
 

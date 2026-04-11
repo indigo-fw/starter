@@ -1,14 +1,14 @@
 ---
-title: O [[SITE_NAME]]
+title: O %SITE_NAME%
 type: page
-description: "[[SITE_NAME]] to otwartoźródłowy, sterowany przez agentów AI, headless CMS zbudowany na T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "O {sitename} | Headless CMS sterowany przez agentów AI"
+description: "%SITE_NAME% to otwartoźródłowy, sterowany przez agentów AI, headless CMS zbudowany na T3 Stack (Next.js + tRPC + Drizzle)."
+seoTitle: "O %SITENAME% | Headless CMS sterowany przez agentów AI"
 noindex: false
 ---
 
-## Czym jest [[SITE_NAME]]?
+## Czym jest %SITE_NAME%?
 
-[[SITE_NAME]] to otwartoźródłowy, sterowany przez agentów AI, headless CMS zbudowany na T3 Stack. Łączy Next.js, tRPC, Drizzle ORM i Better Auth w spójny system zarządzania treścią zoptymalizowany pod kątem programowania wspomaganego przez sztuczną inteligencję.
+%SITE_NAME% to otwartoźródłowy, sterowany przez agentów AI, headless CMS zbudowany na T3 Stack. Łączy Next.js, tRPC, Drizzle ORM i Better Auth w spójny system zarządzania treścią zoptymalizowany pod kątem programowania wspomaganego przez sztuczną inteligencję.
 
 ### Najważniejsze funkcje
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### Otwarte źródło
 
-[[SITE_NAME]] jest oprogramowaniem open source (AGPL-3.0) dostępnym na GitHub. Licencje komercyjne są dostępne dla zastosowań własnościowych. Zapraszamy do współtworzenia!
+%SITE_NAME% jest oprogramowaniem open source (AGPL-3.0) dostępnym na GitHub. Licencje komercyjne są dostępne dla zastosowań własnościowych. Zapraszamy do współtworzenia!

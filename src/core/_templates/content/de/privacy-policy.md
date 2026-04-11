@@ -1,13 +1,13 @@
 ---
 title: Datenschutzerklärung
 type: page
-description: Datenschutzerklärung für [[SITE_NAME]].
+description: Datenschutzerklärung für %SITE_NAME%.
 noindex: true
 ---
 
-**Datum der Überarbeitung:** [[CURRENT_DATE]]
+**Datum der Überarbeitung:** %CURRENT_DATE%
 
-[[SITE_NAME]] (der „Dienst") wird von [[COMPANY_NAME]], Adresse: [[COMPANY_ADDRESS]], betrieben. [[SITE_NAME]] ist eine Online-Plattform, die digitale Dienste und Inhalte bereitstellt. Teile der Dienste können die Erstellung eines Benutzerkontos erfordern.
+%SITE_NAME% (der „Dienst") wird von %COMPANY_NAME%, Adresse: %COMPANY_ADDRESS%, betrieben. %SITE_NAME% ist eine Online-Plattform, die digitale Dienste und Inhalte bereitstellt. Teile der Dienste können die Erstellung eines Benutzerkontos erfordern.
 
 Wir verpflichten uns, Ihre Privatsphäre zu respektieren, und diese Dienste werden stets mit Ihrer Einwilligung erbracht. In diesem Dokument stellen wir klare Informationen darüber bereit, wie Ihre Daten verarbeitet werden, wenn Sie die Website besuchen und unsere Dienste nutzen.
 
@@ -23,24 +23,24 @@ Im Sinne dieser Datenschutzerklärung beziehen sich „Sie" und „Ihr" auf Sie 
 
 „Verarbeitung" bezeichnet jeden Vorgang, der mit personenbezogenen Daten durchgeführt wird, unabhängig davon, ob er automatisiert erfolgt oder nicht, wie z. B. Erhebung, Aufzeichnung, Organisation, Strukturierung, Speicherung, Anpassung, Abfrage, Konsultation, Nutzung, Offenlegung durch Übermittlung, Verbreitung, Abgleich, Einschränkung, Löschung oder Vernichtung.
 
-„Dienste" bezeichnet alle Funktionen und Leistungen, die von [[SITE_NAME]] bereitgestellt werden.
+„Dienste" bezeichnet alle Funktionen und Leistungen, die von %SITE_NAME% bereitgestellt werden.
 
-„Abonnement" bezeichnet eine Vereinbarung zwischen [[SITE_NAME]] und Ihnen, die Ihnen die Nutzung der Dienste ermöglicht.
+„Abonnement" bezeichnet eine Vereinbarung zwischen %SITE_NAME% und Ihnen, die Ihnen die Nutzung der Dienste ermöglicht.
 
 „Nutzer" bezeichnet eine Person, die sich für den Dienst registriert hat und ihn nutzt.
 
 „Besucher" bezeichnet jeden, der die Website ohne gültiges Abonnement durchsucht.
 
-„Website" bezeichnet [[SITE_NAME]], erreichbar unter [[SITE_URL]].
+„Website" bezeichnet %SITE_NAME%, erreichbar unter %SITE_URL%.
 
 **2. Verantwortlicher**
 
 Der Verantwortliche im Sinne der Datenschutz-Grundverordnung (EU) 2016/679 („DSGVO") und der geltenden Datenschutzgesetze ist:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Registrierungsnummer: [[COMPANY_ID]]
-E-Mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Registrierungsnummer: %COMPANY_ID%
+E-Mail: %CONTACT_EMAIL%
 
 Der Verantwortliche bestimmt die Zwecke und Mittel der Verarbeitung Ihrer personenbezogenen Daten. Wenn Sie Fragen zu dieser Datenschutzerklärung haben, einschließlich Anfragen zur Ausübung Ihrer gesetzlichen Rechte, kontaktieren Sie uns bitte unter der oben genannten E-Mail-Adresse.
 
@@ -132,13 +132,13 @@ Wir senden Ihnen nur dann Marketingmitteilungen, wenn wir eine rechtmäßige Gru
 
 **8. Marketing durch Dritte**
 
-Wir holen Ihre ausdrückliche Einwilligung ein, bevor wir Ihre personenbezogenen Daten zu Marketingzwecken an Unternehmen außerhalb von [[COMPANY_NAME]] weitergeben.
+Wir holen Ihre ausdrückliche Einwilligung ein, bevor wir Ihre personenbezogenen Daten zu Marketingzwecken an Unternehmen außerhalb von %COMPANY_NAME% weitergeben.
 
-Sie können uns oder Dritte jederzeit auffordern, den Versand von Marketingnachrichten einzustellen, indem Sie den Abmeldelinks in jeder Marketingnachricht folgen oder uns unter [[CONTACT_EMAIL]] kontaktieren.
+Sie können uns oder Dritte jederzeit auffordern, den Versand von Marketingnachrichten einzustellen, indem Sie den Abmeldelinks in jeder Marketingnachricht folgen oder uns unter %CONTACT_EMAIL% kontaktieren.
 
 **9. Weitergabe Ihrer personenbezogenen Daten**
 
-[[SITE_NAME]] kann Ihre Informationen weitergeben an:
+%SITE_NAME% kann Ihre Informationen weitergeben an:
 
 a) Dienstleister, mit denen wir bei der Erbringung der Dienste zusammenarbeiten (Hosting, Zahlungsabwicklung, Analyse);
 
@@ -166,7 +166,7 @@ Unsere Dienstleister, die Daten möglicherweise außerhalb des EWR verarbeiten, 
 
 Wir verwenden automatisierte Inhaltsmoderationswerkzeuge, um Inhalte zu erkennen, die möglicherweise gegen unsere Nutzungsbedingungen oder geltendes Recht verstoßen. Diese Werkzeuge können Inhalte zur menschlichen Überprüfung kennzeichnen oder Inhalte oder Konten automatisch einschränken.
 
-Sie haben das Recht, nicht einer ausschließlich auf einer automatisierten Verarbeitung beruhenden Entscheidung unterworfen zu werden, die Ihnen gegenüber rechtliche Wirkung entfaltet oder Sie in ähnlicher Weise erheblich beeinträchtigt (Art. 22 DSGVO). Wenn Sie der Ansicht sind, dass eine automatisierte Entscheidung über Sie fehlerhaft getroffen wurde, können Sie uns kontaktieren und eine menschliche Überprüfung unter [[CONTACT_EMAIL]] anfordern.
+Sie haben das Recht, nicht einer ausschließlich auf einer automatisierten Verarbeitung beruhenden Entscheidung unterworfen zu werden, die Ihnen gegenüber rechtliche Wirkung entfaltet oder Sie in ähnlicher Weise erheblich beeinträchtigt (Art. 22 DSGVO). Wenn Sie der Ansicht sind, dass eine automatisierte Entscheidung über Sie fehlerhaft getroffen wurde, können Sie uns kontaktieren und eine menschliche Überprüfung unter %CONTACT_EMAIL% anfordern.
 
 **12. Sensible Informationen**
 
@@ -174,7 +174,7 @@ Wir werden Sie niemals auffordern, personenbezogene Daten bereitzustellen, die d
 
 **13. Ihre Rechte gemäß der DSGVO**
 
-Sie haben die folgenden Rechte in Bezug auf Ihre personenbezogenen Daten. Um eines dieser Rechte auszuüben, kontaktieren Sie uns bitte unter [[CONTACT_EMAIL]].
+Sie haben die folgenden Rechte in Bezug auf Ihre personenbezogenen Daten. Um eines dieser Rechte auszuüben, kontaktieren Sie uns bitte unter %CONTACT_EMAIL%.
 
 **13.1 Auskunftsrecht (Art. 15)**
 
@@ -218,7 +218,7 @@ Sie haben das Recht, Ihre Einwilligung jederzeit zu widerrufen. Der Widerruf ber
 
 Wenn Sie Ihre Einwilligung widerrufen, sind wir möglicherweise nicht in der Lage, Ihnen die Dienste bereitzustellen, und werden angemessene Schritte unternehmen, um Ihr Konto und die von uns erhobenen personenbezogenen Daten zu löschen.
 
-Sie können die Einwilligung widerrufen, indem Sie uns unter [[CONTACT_EMAIL]] kontaktieren.
+Sie können die Einwilligung widerrufen, indem Sie uns unter %CONTACT_EMAIL% kontaktieren.
 
 **13.8 Recht auf Beschwerde (Art. 77)**
 
@@ -242,7 +242,7 @@ Die Aufbewahrungsfristen können aufgrund sich ändernder geschäftlicher oder r
 
 **15. Personenbezogene Daten von Minderjährigen**
 
-[[SITE_NAME]] bietet keine Dienste für Personen an und erhebt keine personenbezogenen Daten von Personen, die in ihrer Rechtsordnung noch nicht volljährig sind. Wenn wir erfahren, dass wir personenbezogene Daten einer minderjährigen Person erhoben haben, werden wir die Daten so schnell wie möglich löschen und den Nutzer sperren.
+%SITE_NAME% bietet keine Dienste für Personen an und erhebt keine personenbezogenen Daten von Personen, die in ihrer Rechtsordnung noch nicht volljährig sind. Wenn wir erfahren, dass wir personenbezogene Daten einer minderjährigen Person erhoben haben, werden wir die Daten so schnell wie möglich löschen und den Nutzer sperren.
 
 **16. Datensicherheit**
 
@@ -256,7 +256,7 @@ Die Website kann Links zu Websites, Plug-ins und Anwendungen Dritter enthalten. 
 
 **18. Fusion oder Übernahme**
 
-Wenn [[SITE_NAME]] mit einem anderen Unternehmen fusioniert oder von einem anderen Unternehmen übernommen wird oder alle oder einen Teil seiner Vermögenswerte verkauft, können Ihre personenbezogenen Daten unseren Beratern und den Beratern eines potenziellen Erwerbers offengelegt werden und können zu den übertragenen Vermögenswerten gehören. Personenbezogene Daten unterliegen jedoch stets dieser Datenschutzerklärung.
+Wenn %SITE_NAME% mit einem anderen Unternehmen fusioniert oder von einem anderen Unternehmen übernommen wird oder alle oder einen Teil seiner Vermögenswerte verkauft, können Ihre personenbezogenen Daten unseren Beratern und den Beratern eines potenziellen Erwerbers offengelegt werden und können zu den übertragenen Vermögenswerten gehören. Personenbezogene Daten unterliegen jedoch stets dieser Datenschutzerklärung.
 
 **19. Änderungen dieser Datenschutzerklärung**
 
@@ -272,6 +272,6 @@ Wir versuchen, alle berechtigten Anfragen innerhalb eines Monats zu beantworten.
 
 Für alle datenschutzbezogenen Angelegenheiten, einschließlich der Ausübung Ihrer Rechte:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-Mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-Mail: %CONTACT_EMAIL%

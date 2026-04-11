@@ -1,26 +1,26 @@
 ---
 title: Dijital Hizmetler Yasası (DSA) Uyumu
 type: page
-description: "[[SITE_NAME]] Dijital Hizmetler Yasası (DSA) Uyumu."
+description: "%SITE_NAME% Dijital Hizmetler Yasası (DSA) Uyumu."
 noindex: true
 ---
 
-**Revizyon Tarihi:** [[CURRENT_DATE]]
+**Revizyon Tarihi:** %CURRENT_DATE%
 
-AB merkezli bir platform olarak [[SITE_NAME]], [[COMPANY_NAME]] tarafından işletilmekte olup Dijital Hizmetler Yasası'na (AB Tüzüğü 2022/2065) uymaktadır. Bu sayfa, DSA kapsamındaki yükümlülüklerimizi, haklarınızı ve içerik denetim uygulamalarımızı açıklamaktadır.
+AB merkezli bir platform olarak %SITE_NAME%, %COMPANY_NAME% tarafından işletilmekte olup Dijital Hizmetler Yasası'na (AB Tüzüğü 2022/2065) uymaktadır. Bu sayfa, DSA kapsamındaki yükümlülüklerimizi, haklarınızı ve içerik denetim uygulamalarımızı açıklamaktadır.
 
 **1. Hizmet Sağlayıcı Bilgileri**
 
-**Sağlayıcı:** [[COMPANY_NAME]]
-**Adres:** [[COMPANY_ADDRESS]]
-**Sicil Numarası:** [[COMPANY_ID]]
-**İletişim:** [[CONTACT_EMAIL]]
+**Sağlayıcı:** %COMPANY_NAME%
+**Adres:** %COMPANY_ADDRESS%
+**Sicil Numarası:** %COMPANY_ID%
+**İletişim:** %CONTACT_EMAIL%
 
 **2. İrtibat Noktası**
 
 DSA konularında AB Üye Devlet yetkilileri, Avrupa Komisyonu, Avrupa Dijital Hizmetler Kurulu ve kullanıcılar için tek irtibat noktamız:
 
-E-posta: [[CONTACT_EMAIL]]
+E-posta: %CONTACT_EMAIL%
 
 Bu irtibat noktası İngilizce olarak hizmet vermektedir.
 
@@ -30,7 +30,7 @@ Bu irtibat noktası İngilizce olarak hizmet vermektedir.
 
 **4. Hizmetin Niteliği**
 
-[[SITE_NAME]], dijital hizmetler ve içerik sunan bir çevrimiçi platformdur. Kullanıcılar hesap oluşturabilir, içeriklere erişebilir ve platformun özellikleriyle etkileşimde bulunabilir.
+%SITE_NAME%, dijital hizmetler ve içerik sunan bir çevrimiçi platformdur. Kullanıcılar hesap oluşturabilir, içeriklere erişebilir ve platformun özellikleriyle etkileşimde bulunabilir.
 
 **5. İçerik Denetimi**
 
@@ -56,7 +56,7 @@ d) İfade özgürlüğü dahil temel hak değerlendirmeleri.
 
 **6. Yasa Dışı İçeriğin Bildirilmesi**
 
-AB veya ulusal hukuka göre yasa dışı olduğuna inandığınız bir içerikle karşılaşırsanız [[CONTACT_EMAIL]] adresinden bizimle iletişime geçerek bildirimde bulunabilirsiniz. Bildiriminize neleri dahil etmeniz gerektiği ve bildirimleri nasıl işlediğimiz dahil olmak üzere tam raporlama prosedürü için [İçerik Kaldırma ve Şikayet Politikamıza](/content-removal-and-complaints) bakın.
+AB veya ulusal hukuka göre yasa dışı olduğuna inandığınız bir içerikle karşılaşırsanız %CONTACT_EMAIL% adresinden bizimle iletişime geçerek bildirimde bulunabilirsiniz. Bildiriminize neleri dahil etmeniz gerektiği ve bildirimleri nasıl işlediğimiz dahil olmak üzere tam raporlama prosedürü için [İçerik Kaldırma ve Şikayet Politikamıza](/content-removal-and-complaints) bakın.
 
 **7. Gerekçe Beyanı**
 

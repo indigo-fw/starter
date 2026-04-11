@@ -1,13 +1,13 @@
 ---
 title: Cookie-Richtlinie
 type: page
-description: Cookie-Richtlinie für [[SITE_NAME]].
+description: Cookie-Richtlinie für %SITE_NAME%.
 noindex: true
 ---
 
-**Datum der Überarbeitung:** [[CURRENT_DATE]]
+**Datum der Überarbeitung:** %CURRENT_DATE%
 
-[[SITE_NAME]] (der „Dienst"), betrieben von [[COMPANY_NAME]], [[COMPANY_ADDRESS]], verwendet Cookies und ähnliche Tracking-Technologien. Diese Cookie-Richtlinie erklärt, was Cookies sind, wie wir sie verwenden, welche Wahlmöglichkeiten Sie bezüglich Cookies haben, und bietet weitere Informationen über Cookies.
+%SITE_NAME% (der „Dienst"), betrieben von %COMPANY_NAME%, %COMPANY_ADDRESS%, verwendet Cookies und ähnliche Tracking-Technologien. Diese Cookie-Richtlinie erklärt, was Cookies sind, wie wir sie verwenden, welche Wahlmöglichkeiten Sie bezüglich Cookies haben, und bietet weitere Informationen über Cookies.
 
 **1. Was sind Cookies?**
 
@@ -92,4 +92,4 @@ Wir können diese Cookie-Richtlinie von Zeit zu Zeit aktualisieren. Über wesent
 
 **7. Kontakt**
 
-Wenn Sie Fragen zu unserer Verwendung von Cookies haben, kontaktieren Sie uns bitte unter [[CONTACT_EMAIL]].
+Wenn Sie Fragen zu unserer Verwendung von Cookies haben, kontaktieren Sie uns bitte unter %CONTACT_EMAIL%.

@@ -26,7 +26,7 @@
  * Invalidation: invalidateCmsLinkCache() on content save, via Redis pub/sub.
  */
 
-import { and, eq, isNull, sql } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema/cms';
 import { cmsCategories } from '@/server/db/schema/categories';
@@ -71,12 +71,25 @@ interface CmsLinkConfig {
   postTypeMap: Record<number, string>;
   /** Known static route paths — DB lookup is skipped for these. */
   staticRoutes: Set<string>;
+  /** Path prefixes that bypass locale-prefixing and DB resolution entirely. */
+  passthroughPrefixes: readonly string[];
 }
+
+const DEFAULT_PASSTHROUGH_PREFIXES = [
+  '/dashboard',
+  '/api/',
+  'http://',
+  'https://',
+  'mailto:',
+  'tel:',
+  '#',
+] as const;
 
 let _config: CmsLinkConfig = {
   urlPrefixes: {},
   postTypeMap: {},
   staticRoutes: new Set(),
+  passthroughPrefixes: DEFAULT_PASSTHROUGH_PREFIXES,
 };
 
 /** Register content type URL prefixes, post type mapping, and static routes. */
@@ -84,10 +97,13 @@ export function configureCmsLinks(config: CmsLinkConfig): void {
   _config = config;
 }
 
-/** Convenience: configure from ContentTypeDeclaration array + optional static routes. */
+/** Convenience: configure from ContentTypeDeclaration array + optional extras. */
 export function configureCmsLinksFromContentTypes(
   types: readonly ContentTypeDeclaration[],
-  staticRoutes?: readonly string[],
+  opts?: {
+    staticRoutes?: readonly string[];
+    passthroughPrefixes?: readonly string[];
+  },
 ): void {
   configureCmsLinks({
     urlPrefixes: Object.fromEntries(types.map((ct) => [ct.id, ct.urlPrefix])),
@@ -96,13 +112,20 @@ export function configureCmsLinksFromContentTypes(
         .filter((ct) => ct.postType != null)
         .map((ct) => [ct.postType!, ct.id]),
     ),
-    staticRoutes: new Set(staticRoutes ?? []),
+    staticRoutes: new Set(opts?.staticRoutes ?? []),
+    passthroughPrefixes:
+      opts?.passthroughPrefixes ?? DEFAULT_PASSTHROUGH_PREFIXES,
   });
 }
 
 /** Check if a path is a known static route (no DB lookup needed). */
 export function isStaticRoute(path: string): boolean {
   return _config.staticRoutes.has(path);
+}
+
+/** Check if a path should bypass locale-prefixing and DB resolution. */
+export function isPassthroughHref(href: string): boolean {
+  return _config.passthroughPrefixes.some((p) => href.startsWith(p));
 }
 
 // ─── URI Parser ─────────────────────────────────────────────────────────────
@@ -180,22 +203,16 @@ function setCache(key: string, data: ResolvedCmsLink | null): void {
   _cache.set(key, { data, ts: Date.now() });
 }
 
-/** Clear cached entries. Pass a postId to invalidate only that post, or omit to clear all. */
-export function invalidateCmsLinkCache(postId?: string): void {
-  if (!postId) {
-    _cache.clear();
-    return;
-  }
-  // Remove any entry whose key contains this ID
-  for (const key of _cache.keys()) {
-    if (key.includes(postId)) _cache.delete(key);
-  }
-  // Also invalidate slug-based entries that might reference this post
-  // (we can't know which slugs map to this ID without querying, so clear all
-  // slug-based entries — they'll repopulate on next request)
-  for (const [key] of _cache) {
-    if (!key.startsWith(postId)) _cache.delete(key);
-  }
+/**
+ * Clear the link resolution cache.
+ *
+ * Always clears the entire cache — targeted invalidation by ID is impossible
+ * because slug-based entries can't be reverse-mapped to post IDs without
+ * re-querying the DB. The 1-hour TTL + full clear on content save is
+ * sufficient for correctness.
+ */
+export function invalidateCmsLinkCache(): void {
+  _cache.clear();
 }
 
 // Cross-instance invalidation via Redis pub/sub
@@ -367,9 +384,6 @@ async function findBySlugInLocale(
   locale?: string,
   type?: string,
 ): Promise<ContentRecord | null> {
-  const langFilter = locale ? sql` AND lang = ${locale}` : sql``;
-  const statusFilter = sql` AND status = ${PUBLISHED} AND deleted_at IS NULL`;
-
   // If type specified, only query that table
   if (type) {
     return findBySlugInTable(slug, type, locale);
@@ -524,9 +538,6 @@ async function findBySlugInTable(
   type: string,
   locale?: string,
 ): Promise<ContentRecord | null> {
-  const langCond = <T extends { lang: { _: unknown } }>(col: T) =>
-    locale ? [eq(col.lang as never, locale)] : [];
-
   switch (type) {
     case 'page':
     case 'blog': {

@@ -1,15 +1,15 @@
 ---
 title: Tekijänoikeus- ja immateriaalioikeuskäytäntö
 type: page
-description: Tekijänoikeus- ja immateriaalioikeuskäytäntö sivustolle [[SITE_NAME]].
+description: Tekijänoikeus- ja immateriaalioikeuskäytäntö sivustolle %SITE_NAME%.
 noindex: true
 ---
 
-**Tarkistuspäivämäärä:** [[CURRENT_DATE]]
+**Tarkistuspäivämäärä:** %CURRENT_DATE%
 
-[[SITE_NAME]] arvostaa ja kunnioittaa muiden immateriaalioikeuksia, ja olemme sitoutuneet noudattamaan Digital Millennium Copyright Act -lakia (DMCA), EU:n tekijänoikeusdirektiiviä (2019/790) ja muuta sovellettavaa tekijänoikeuslainsäädäntöä. Tämä käytäntö kuvaa toimenpiteet, joihin ryhdymme tekijänoikeusrikkomusilmoitusten käsittelemiseksi, ja antaa ohjeita yhteydenottoon, mikäli uskot tekijänoikeudellisesti suojattua materiaaliasi käytetyn alustallamme ilman asianmukaista lupaa.
+%SITE_NAME% arvostaa ja kunnioittaa muiden immateriaalioikeuksia, ja olemme sitoutuneet noudattamaan Digital Millennium Copyright Act -lakia (DMCA), EU:n tekijänoikeusdirektiiviä (2019/790) ja muuta sovellettavaa tekijänoikeuslainsäädäntöä. Tämä käytäntö kuvaa toimenpiteet, joihin ryhdymme tekijänoikeusrikkomusilmoitusten käsittelemiseksi, ja antaa ohjeita yhteydenottoon, mikäli uskot tekijänoikeudellisesti suojattua materiaaliasi käytetyn alustallamme ilman asianmukaista lupaa.
 
-[[SITE_NAME]] ja/tai mikä tahansa verkkokanavamme, liittyvät verkkosivustomme, alustamme, tuotteemme tai palvelumme, mukaan lukien kaikki niiden sisältö, viitataan tässä nimityksellä "Palvelut."
+%SITE_NAME% ja/tai mikä tahansa verkkokanavamme, liittyvät verkkosivustomme, alustamme, tuotteemme tai palvelumme, mukaan lukien kaikki niiden sisältö, viitataan tässä nimityksellä "Palvelut."
 
 1\. Tekijänoikeusrikkomuksen ilmoittaminen
 
@@ -45,7 +45,7 @@ EU:n tekijänoikeusdirektiivin (2019/790) mukaisesti toteutamme tehokkaita ja oi
 
 5\. Yhteystiedot
 
-Ilmoitukset ja vastailmoitukset tulee lähettää meille sähköpostitse osoitteeseen [[CONTACT_EMAIL]]. Olemme sitoutuneet käsittelemään yhteydenotot viipymättä ja varmistamaan myönteisen kokemuksen kaikille käyttäjillemme.
+Ilmoitukset ja vastailmoitukset tulee lähettää meille sähköpostitse osoitteeseen %CONTACT_EMAIL%. Olemme sitoutuneet käsittelemään yhteydenotot viipymättä ja varmistamaan myönteisen kokemuksen kaikille käyttäjillemme.
 
 6\. Palvelun päättäminen
 

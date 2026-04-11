@@ -1,26 +1,26 @@
 ---
 title: Efterlevnad av förordningen om digitala tjänster (DSA)
 type: page
-description: Efterlevnad av förordningen om digitala tjänster (DSA) för [[SITE_NAME]].
+description: Efterlevnad av förordningen om digitala tjänster (DSA) för %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdatum:** [[CURRENT_DATE]]
+**Revisionsdatum:** %CURRENT_DATE%
 
-Som en EU-baserad plattform efterlever [[SITE_NAME]], som drivs av [[COMPANY_NAME]], förordningen om digitala tjänster (EU-förordning 2022/2065). Denna sida beskriver våra skyldigheter, dina rättigheter och vår praxis för innehållsmoderering enligt DSA.
+Som en EU-baserad plattform efterlever %SITE_NAME%, som drivs av %COMPANY_NAME%, förordningen om digitala tjänster (EU-förordning 2022/2065). Denna sida beskriver våra skyldigheter, dina rättigheter och vår praxis för innehållsmoderering enligt DSA.
 
 **1. Information om tjänsteleverantören**
 
-**Leverantör:** [[COMPANY_NAME]]
-**Adress:** [[COMPANY_ADDRESS]]
-**Registreringsnummer:** [[COMPANY_ID]]
-**Kontakt:** [[CONTACT_EMAIL]]
+**Leverantör:** %COMPANY_NAME%
+**Adress:** %COMPANY_ADDRESS%
+**Registreringsnummer:** %COMPANY_ID%
+**Kontakt:** %CONTACT_EMAIL%
 
 **2. Kontaktpunkt**
 
 Vår enda kontaktpunkt för EU-medlemsstaters myndigheter, Europeiska kommissionen, Europeiska styrelsen för digitala tjänster och användare gällande DSA-ärenden är:
 
-E-post: [[CONTACT_EMAIL]]
+E-post: %CONTACT_EMAIL%
 
 Denna kontaktpunkt är tillgänglig på engelska.
 
@@ -30,7 +30,7 @@ Eftersom vårt företag är etablerat inom EU krävs inget separat juridiskt omb
 
 **4. Tjänstens karaktär**
 
-[[SITE_NAME]] är en onlineplattform som tillhandahåller digitala tjänster och innehåll. Användare kan skapa konton, få tillgång till innehåll och interagera med plattformens funktioner.
+%SITE_NAME% är en onlineplattform som tillhandahåller digitala tjänster och innehåll. Användare kan skapa konton, få tillgång till innehåll och interagera med plattformens funktioner.
 
 **5. Innehållsmoderering**
 
@@ -56,7 +56,7 @@ d) Hänsyn till grundläggande rättigheter, inklusive yttrandefrihet
 
 **6. Rapportering av olagligt innehåll**
 
-Om du stöter på innehåll som du anser vara olagligt enligt EU- eller nationell lag kan du rapportera det genom att kontakta oss på [[CONTACT_EMAIL]]. För det fullständiga rapporteringsförfarandet, inklusive vad du bör inkludera i din rapport och hur vi behandlar den, se vår [Policy för borttagning av innehåll och klagomål](/content-removal-and-complaints).
+Om du stöter på innehåll som du anser vara olagligt enligt EU- eller nationell lag kan du rapportera det genom att kontakta oss på %CONTACT_EMAIL%. För det fullständiga rapporteringsförfarandet, inklusive vad du bör inkludera i din rapport och hur vi behandlar den, se vår [Policy för borttagning av innehåll och klagomål](/content-removal-and-complaints).
 
 **7. Motivering av beslut**
 

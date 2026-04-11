@@ -1,27 +1,27 @@
 ---
 title: Mentions légales (Impressum)
 type: page
-description: Mentions légales (Impressum) pour [[SITE_NAME]].
+description: Mentions légales (Impressum) pour %SITE_NAME%.
 noindex: true
 ---
 
 **Informations conformément aux réglementations commerciales et médiatiques applicables de l'UE**
 
 **Société :**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Adresse :**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Contact :**
-E-mail : [[CONTACT_EMAIL]]
+E-mail : %CONTACT_EMAIL%
 
 **Numéro d'immatriculation :**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Responsable du contenu :**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **Règlement en ligne des litiges de l'UE :**
 La Commission européenne met à disposition une plateforme de règlement en ligne des litiges (RLL) :

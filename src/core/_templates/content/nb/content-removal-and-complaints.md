@@ -1,20 +1,20 @@
 ---
 title: Retningslinjer for fjerning av innhold og klager
 type: page
-description: Retningslinjer for fjerning av innhold og klager for [[SITE_NAME]].
+description: Retningslinjer for fjerning av innhold og klager for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisjonsdato:** [[CURRENT_DATE]]
+**Revisjonsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjenesten"), drevet av [[COMPANY_NAME]], [[COMPANY_ADDRESS]], er forpliktet til å opprettholde en trygg og lovlig plattform. Disse retningslinjene beskriver hvordan du rapporterer ulovlig eller skadelig innhold, hvordan vi håndterer slike rapporter, og hvordan du kan anke våre innholdsmodereringsbeslutninger, i samsvar med forordningen om digitale tjenester (forordning (EU) 2022/2065).
+%SITE_NAME% ("Tjenesten"), drevet av %COMPANY_NAME%, %COMPANY_ADDRESS%, er forpliktet til å opprettholde en trygg og lovlig plattform. Disse retningslinjene beskriver hvordan du rapporterer ulovlig eller skadelig innhold, hvordan vi håndterer slike rapporter, og hvordan du kan anke våre innholdsmodereringsbeslutninger, i samsvar med forordningen om digitale tjenester (forordning (EU) 2022/2065).
 
 **1. Rapportering av ulovlig eller skadelig innhold**
 
 Hvis du støter på innhold på Tjenesten som du mener er ulovlig i henhold til EU- eller nasjonal lovgivning, eller som bryter med våre [Tjenestevilkår](/terms-of-service), kan du rapportere det ved å:
 
 a) Bruke den innebygde rapporteringsfunksjonen (der tilgjengelig);
-b) Sende en e-post til [[CONTACT_EMAIL]].
+b) Sende en e-post til %CONTACT_EMAIL%.
 
 **1.1 Hva rapporten din bør inneholde**
 
@@ -67,7 +67,7 @@ Hvis innholdet ditt ble fjernet, kontoen din ble begrenset, eller rapporten din 
 
 **3.2 Hvordan anke**
 
-Send anken din via e-post til [[CONTACT_EMAIL]] med emnelinjen "Anke" og inkluder:
+Send anken din via e-post til %CONTACT_EMAIL% med emnelinjen "Anke" og inkluder:
 
 a) Ditt navn og kontoidentifikator;
 b) En beskrivelse av beslutningen du anker;
@@ -113,6 +113,6 @@ d) Median behandlingstid for rapporter og anker.
 
 For alle saker relatert til fjerning av innhold og klager:
 
-E-post: [[CONTACT_EMAIL]]
+E-post: %CONTACT_EMAIL%
 
 Denne adressen fungerer også som vårt sentrale kontaktpunkt for EU-myndigheter, brukere og Europakommisjonen angående saker under forordningen om digitale tjenester.

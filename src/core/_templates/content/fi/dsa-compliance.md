@@ -1,26 +1,26 @@
 ---
 title: Digipalvelusäädöksen (DSA) noudattaminen
 type: page
-description: Digipalvelusäädöksen (DSA) noudattaminen sivustolla [[SITE_NAME]].
+description: Digipalvelusäädöksen (DSA) noudattaminen sivustolla %SITE_NAME%.
 noindex: true
 ---
 
-**Tarkistuspäivämäärä:** [[CURRENT_DATE]]
+**Tarkistuspäivämäärä:** %CURRENT_DATE%
 
-EU:ssa toimivana alustana [[SITE_NAME]], jota ylläpitää [[COMPANY_NAME]], noudattaa digipalvelusäädöstä (asetus (EU) 2022/2065). Tämä sivu kuvaa velvoitteemme, oikeutesi ja sisällönvalvontakäytäntömme DSA:n mukaisesti.
+EU:ssa toimivana alustana %SITE_NAME%, jota ylläpitää %COMPANY_NAME%, noudattaa digipalvelusäädöstä (asetus (EU) 2022/2065). Tämä sivu kuvaa velvoitteemme, oikeutesi ja sisällönvalvontakäytäntömme DSA:n mukaisesti.
 
 **1. Palveluntarjoajan tiedot**
 
-**Tarjoaja:** [[COMPANY_NAME]]
-**Osoite:** [[COMPANY_ADDRESS]]
-**Rekisterinumero:** [[COMPANY_ID]]
-**Yhteystiedot:** [[CONTACT_EMAIL]]
+**Tarjoaja:** %COMPANY_NAME%
+**Osoite:** %COMPANY_ADDRESS%
+**Rekisterinumero:** %COMPANY_ID%
+**Yhteystiedot:** %CONTACT_EMAIL%
 
 **2. Yhteyspiste**
 
 Keskitetty yhteyspisteemme EU:n jäsenvaltioiden viranomaisille, Euroopan komissiolle, Euroopan digitaalisten palvelujen lautakunnalle ja käyttäjille DSA-asioissa on:
 
-Sähköposti: [[CONTACT_EMAIL]]
+Sähköposti: %CONTACT_EMAIL%
 
 Tämä yhteyspiste on käytettävissä englanniksi.
 
@@ -30,7 +30,7 @@ Koska yrityksemme on perustettu EU:ssa, erillistä oikeudellista edustajaa ei va
 
 **4. Palvelun luonne**
 
-[[SITE_NAME]] on verkkoalusta, joka tarjoaa digitaalisia palveluja ja sisältöä. Käyttäjät voivat luoda tilejä, käyttää sisältöä ja hyödyntää alustan toimintoja.
+%SITE_NAME% on verkkoalusta, joka tarjoaa digitaalisia palveluja ja sisältöä. Käyttäjät voivat luoda tilejä, käyttää sisältöä ja hyödyntää alustan toimintoja.
 
 **5. Sisällönvalvonta**
 
@@ -56,7 +56,7 @@ d) Perusoikeuksien huomioimiseen, mukaan lukien sananvapaus.
 
 **6. Laittoman sisällön ilmoittaminen**
 
-Jos kohtaat sisältöä, jonka uskot olevan laitonta EU- tai kansallisen lainsäädännön nojalla, voit ilmoittaa siitä ottamalla meihin yhteyttä osoitteessa [[CONTACT_EMAIL]]. Täydellinen ilmoitusmenettely, mukaan lukien mitä ilmoitukseesi tulee sisällyttää ja miten käsittelemme sen, löytyy [Sisällön poistaminen ja valitukset -käytännöstämme](/content-removal-and-complaints).
+Jos kohtaat sisältöä, jonka uskot olevan laitonta EU- tai kansallisen lainsäädännön nojalla, voit ilmoittaa siitä ottamalla meihin yhteyttä osoitteessa %CONTACT_EMAIL%. Täydellinen ilmoitusmenettely, mukaan lukien mitä ilmoitukseesi tulee sisällyttää ja miten käsittelemme sen, löytyy [Sisällön poistaminen ja valitukset -käytännöstämme](/content-removal-and-complaints).
 
 **7. Perustelut**
 

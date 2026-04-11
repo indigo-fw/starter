@@ -1,7 +1,7 @@
 ---
-title: Witamy w [[SITE_NAME]]
+title: Witamy w %SITE_NAME%
 type: page
-description: Witamy w [[SITE_NAME]] — systemie CMS sterowanym przez agentów AI, opartym na T3 Stack.
+description: Witamy w %SITE_NAME% — systemie CMS sterowanym przez agentów AI, opartym na T3 Stack.
 noindex: false
 ---
 

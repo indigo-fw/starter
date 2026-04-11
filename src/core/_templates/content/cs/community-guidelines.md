@@ -1,13 +1,13 @@
 ---
 title: Pravidla komunity
 type: page
-description: Pravidla komunity servisu [[SITE_NAME]].
+description: Pravidla komunity servisu %SITE_NAME%.
 noindex: true
 ---
 
-**Datum revize:** [[CURRENT_DATE]]
+**Datum revize:** %CURRENT_DATE%
 
-[[SITE_NAME]] („Služba"), provozovaný společností [[COMPANY_NAME]], je online platforma. Tato Pravidla komunity stanovují standardy chování pro všechny uživatele. Používáním Služby souhlasíte s dodržováním těchto pravidel.
+%SITE_NAME% („Služba"), provozovaný společností %COMPANY_NAME%, je online platforma. Tato Pravidla komunity stanovují standardy chování pro všechny uživatele. Používáním Služby souhlasíte s dodržováním těchto pravidel.
 
 **1. Respekt a bezpečnost**
 
@@ -47,7 +47,7 @@ d) Zabezpečte svůj účet. Nesdílejte přihlašovací údaje s jinými osobam
 
 **4. Obsah vytvořený uživateli**
 
-Obsah vytvořený uživateli představuje jejich vlastní názory a postoje. [[SITE_NAME]] nepodporuje ani nenese odpovědnost za obsah vytvořený uživateli.
+Obsah vytvořený uživateli představuje jejich vlastní názory a postoje. %SITE_NAME% nepodporuje ani nenese odpovědnost za obsah vytvořený uživateli.
 
 Nespoléhejte na obsah vytvořený uživateli jako na faktické informace nebo odborné poradenství.
 
@@ -71,6 +71,6 @@ Závažnost opatření závisí na povaze a četnosti porušení. Závažná por
 Pokud narazíte na obsah nebo chování porušující tato pravidla, nahlaste to prosím:
 
 a) Pomocí funkce hlášení v aplikaci;
-b) E-mailem na adresu [[CONTACT_EMAIL]].
+b) E-mailem na adresu %CONTACT_EMAIL%.
 
 Úplný postup hlášení a odvolání naleznete v naší [Zásadách pro odstraňování obsahu a podávání stížností](/content-removal-and-complaints).

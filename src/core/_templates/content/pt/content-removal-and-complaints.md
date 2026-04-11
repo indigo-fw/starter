@@ -1,20 +1,20 @@
 ---
 title: Politica de Remocao de Conteudo e Reclamacoes
 type: page
-description: Politica de Remocao de Conteudo e Reclamacoes para [[SITE_NAME]].
+description: Politica de Remocao de Conteudo e Reclamacoes para %SITE_NAME%.
 noindex: true
 ---
 
-**Data de Revisao:** [[CURRENT_DATE]]
+**Data de Revisao:** %CURRENT_DATE%
 
-[[SITE_NAME]] (o "Servico"), operado por [[COMPANY_NAME]], [[COMPANY_ADDRESS]], esta empenhado em manter uma plataforma segura e legal. Esta politica descreve como denunciar conteudo ilegal ou prejudicial, como tratamos essas denuncias e como recorrer das nossas decisoes de moderacao de conteudo, em conformidade com o Regulamento dos Servicos Digitais (Regulamento (UE) 2022/2065).
+%SITE_NAME% (o "Servico"), operado por %COMPANY_NAME%, %COMPANY_ADDRESS%, esta empenhado em manter uma plataforma segura e legal. Esta politica descreve como denunciar conteudo ilegal ou prejudicial, como tratamos essas denuncias e como recorrer das nossas decisoes de moderacao de conteudo, em conformidade com o Regulamento dos Servicos Digitais (Regulamento (UE) 2022/2065).
 
 **1. Denuncia de Conteudo Ilegal ou Prejudicial**
 
 Se encontrar conteudo no Servico que considere ilegal ao abrigo da legislacao da UE ou nacional, ou que viole os nossos [Termos de Servico](/terms-of-service), pode denuncia-lo:
 
 a) Utilizando a funcionalidade de denuncia integrada na aplicacao (quando disponivel);
-b) Enviando um email para [[CONTACT_EMAIL]].
+b) Enviando um email para %CONTACT_EMAIL%.
 
 **1.1 O que incluir na sua denuncia**
 
@@ -67,7 +67,7 @@ Se o seu conteudo foi removido, a sua conta foi restringida ou a sua denuncia fo
 
 **3.2 Como recorrer**
 
-Apresente o seu recurso por email para [[CONTACT_EMAIL]] com o assunto "Recurso" e inclua:
+Apresente o seu recurso por email para %CONTACT_EMAIL% com o assunto "Recurso" e inclua:
 
 a) O seu nome e identificador de conta;
 b) Uma descricao da decisao da qual pretende recorrer;
@@ -113,6 +113,6 @@ d) O tempo medio de processamento de denuncias e recursos.
 
 Para todas as questoes relacionadas com a remocao de conteudo e reclamacoes:
 
-Email: [[CONTACT_EMAIL]]
+Email: %CONTACT_EMAIL%
 
 Este endereco serve tambem como o nosso ponto unico de contacto para as autoridades da UE, utilizadores e a Comissao Europeia relativamente a questoes do Regulamento dos Servicos Digitais.

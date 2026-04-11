@@ -1,15 +1,15 @@
 ---
 title: Politica sul Diritto d'Autore e la Proprieta Intellettuale
 type: page
-description: Politica sul Diritto d'Autore e la Proprieta Intellettuale per [[SITE_NAME]].
+description: Politica sul Diritto d'Autore e la Proprieta Intellettuale per %SITE_NAME%.
 noindex: true
 ---
 
-**Data di Revisione:** [[CURRENT_DATE]]
+**Data di Revisione:** %CURRENT_DATE%
 
-[[SITE_NAME]] rispetta e tutela i diritti di proprieta intellettuale altrui e si impegna a rispettare il Digital Millennium Copyright Act (DMCA), la Direttiva UE sul Diritto d'Autore (2019/790) e altre leggi sul diritto d'autore applicabili. Questa Politica descrive le misure che adottiamo per rispondere alle notifiche di violazione del diritto d'autore e fornisce indicazioni su come contattarci qualora riteniate che il vostro materiale protetto da diritto d'autore sia stato utilizzato sulla nostra piattaforma senza la dovuta autorizzazione.
+%SITE_NAME% rispetta e tutela i diritti di proprieta intellettuale altrui e si impegna a rispettare il Digital Millennium Copyright Act (DMCA), la Direttiva UE sul Diritto d'Autore (2019/790) e altre leggi sul diritto d'autore applicabili. Questa Politica descrive le misure che adottiamo per rispondere alle notifiche di violazione del diritto d'autore e fornisce indicazioni su come contattarci qualora riteniate che il vostro materiale protetto da diritto d'autore sia stato utilizzato sulla nostra piattaforma senza la dovuta autorizzazione.
 
-[[SITE_NAME]] e/o qualsiasi dei nostri canali online, siti web affiliati, piattaforme, prodotti o servizi, inclusi tutti i contenuti ivi contenuti, sono qui denominati "Servizi."
+%SITE_NAME% e/o qualsiasi dei nostri canali online, siti web affiliati, piattaforme, prodotti o servizi, inclusi tutti i contenuti ivi contenuti, sono qui denominati "Servizi."
 
 1\. Segnalazione di Violazione del Diritto d'Autore
 
@@ -45,7 +45,7 @@ In conformita con la Direttiva UE sul Diritto d'Autore (2019/790), implementiamo
 
 5\. Informazioni di Contatto
 
-Le notifiche e le contro-notifiche devono essere inviate via email a [[CONTACT_EMAIL]]. Ci impegniamo a rispondere alle preoccupazioni in modo tempestivo e a garantire un'esperienza positiva per tutti i nostri utenti.
+Le notifiche e le contro-notifiche devono essere inviate via email a %CONTACT_EMAIL%. Ci impegniamo a rispondere alle preoccupazioni in modo tempestivo e a garantire un'esperienza positiva per tutti i nostri utenti.
 
 6\. Cessazione
 

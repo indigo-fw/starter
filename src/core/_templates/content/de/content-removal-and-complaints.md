@@ -1,20 +1,20 @@
 ---
 title: Richtlinie zur Inhaltsentfernung und Beschwerden
 type: page
-description: Richtlinie zur Inhaltsentfernung und Beschwerden für [[SITE_NAME]].
+description: Richtlinie zur Inhaltsentfernung und Beschwerden für %SITE_NAME%.
 noindex: true
 ---
 
-**Datum der Überarbeitung:** [[CURRENT_DATE]]
+**Datum der Überarbeitung:** %CURRENT_DATE%
 
-[[SITE_NAME]] (der „Dienst"), betrieben von [[COMPANY_NAME]], [[COMPANY_ADDRESS]], ist bestrebt, eine sichere und rechtskonforme Plattform bereitzustellen. Diese Richtlinie beschreibt, wie Sie illegale oder schädliche Inhalte melden können, wie wir mit solchen Meldungen umgehen und wie Sie gegen unsere Inhaltsmoderationsentscheidungen Beschwerde einlegen können, in Übereinstimmung mit dem Gesetz über digitale Dienste (Verordnung (EU) 2022/2065).
+%SITE_NAME% (der „Dienst"), betrieben von %COMPANY_NAME%, %COMPANY_ADDRESS%, ist bestrebt, eine sichere und rechtskonforme Plattform bereitzustellen. Diese Richtlinie beschreibt, wie Sie illegale oder schädliche Inhalte melden können, wie wir mit solchen Meldungen umgehen und wie Sie gegen unsere Inhaltsmoderationsentscheidungen Beschwerde einlegen können, in Übereinstimmung mit dem Gesetz über digitale Dienste (Verordnung (EU) 2022/2065).
 
 **1. Meldung illegaler oder schädlicher Inhalte**
 
 Wenn Sie auf dem Dienst auf Inhalte stoßen, die Ihrer Ansicht nach nach EU- oder nationalem Recht illegal sind oder gegen unsere [Nutzungsbedingungen](/terms-of-service) verstoßen, können Sie diese melden:
 
 a) Über die In-App-Meldefunktion (sofern verfügbar);
-b) Per E-Mail an [[CONTACT_EMAIL]].
+b) Per E-Mail an %CONTACT_EMAIL%.
 
 **1.1 Was Ihre Meldung enthalten sollte**
 
@@ -67,7 +67,7 @@ Wenn Ihr Inhalt entfernt, Ihr Konto eingeschränkt oder Ihre Meldung abgelehnt w
 
 **3.2 Wie Sie Berufung einlegen**
 
-Reichen Sie Ihre Berufung per E-Mail an [[CONTACT_EMAIL]] mit dem Betreff „Berufung" ein und geben Sie Folgendes an:
+Reichen Sie Ihre Berufung per E-Mail an %CONTACT_EMAIL% mit dem Betreff „Berufung" ein und geben Sie Folgendes an:
 
 a) Ihren Namen und Ihre Kontobezeichnung;
 b) Eine Beschreibung der Entscheidung, gegen die Sie Berufung einlegen;
@@ -113,6 +113,6 @@ d) Mediane Bearbeitungszeit für Meldungen und Berufungen.
 
 Für alle Angelegenheiten im Zusammenhang mit Inhaltsentfernung und Beschwerden:
 
-E-Mail: [[CONTACT_EMAIL]]
+E-Mail: %CONTACT_EMAIL%
 
 Diese Adresse dient auch als unsere zentrale Anlaufstelle für EU-Behörden, Nutzer und die Europäische Kommission in Angelegenheiten des Gesetzes über digitale Dienste.

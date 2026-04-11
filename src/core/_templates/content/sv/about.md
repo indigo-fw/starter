@@ -1,14 +1,14 @@
 ---
-title: Om [[SITE_NAME]]
+title: Om %SITE_NAME%
 type: page
-description: "[[SITE_NAME]] är ett agentdrivet headless CMS med öppen källkod, byggt på T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "Om {sitename} | Agentdrivet headless CMS"
+description: "%SITE_NAME% är ett agentdrivet headless CMS med öppen källkod, byggt på T3 Stack (Next.js + tRPC + Drizzle)."
+seoTitle: "Om %SITENAME% | Agentdrivet headless CMS"
 noindex: false
 ---
 
-## Vad är [[SITE_NAME]]?
+## Vad är %SITE_NAME%?
 
-[[SITE_NAME]] är ett agentdrivet headless CMS med öppen källkod, byggt på T3 Stack. Det kombinerar Next.js, tRPC, Drizzle ORM och Better Auth till ett sammanhållet innehållshanteringssystem som är optimerat för AI-assisterad utveckling.
+%SITE_NAME% är ett agentdrivet headless CMS med öppen källkod, byggt på T3 Stack. Det kombinerar Next.js, tRPC, Drizzle ORM och Better Auth till ett sammanhållet innehållshanteringssystem som är optimerat för AI-assisterad utveckling.
 
 ### Nyckelfunktioner
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### Öppen källkod
 
-[[SITE_NAME]] är öppen källkod (AGPL-3.0) och tillgängligt på GitHub. Kommersiella licenser finns tillgängliga för proprietär användning. Bidrag är välkomna!
+%SITE_NAME% är öppen källkod (AGPL-3.0) och tillgängligt på GitHub. Kommersiella licenser finns tillgängliga för proprietär användning. Bidrag är välkomna!

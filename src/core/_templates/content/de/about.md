@@ -1,14 +1,14 @@
 ---
-title: Über [[SITE_NAME]]
+title: Über %SITE_NAME%
 type: page
-description: "[[SITE_NAME]] ist ein quelloffenes, agentengesteuertes Headless-CMS, basierend auf dem T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "Über {sitename} | Agentengesteuertes Headless-CMS"
+description: "%SITE_NAME% ist ein quelloffenes, agentengesteuertes Headless-CMS, basierend auf dem T3 Stack (Next.js + tRPC + Drizzle)."
+seoTitle: "Über %SITENAME% | Agentengesteuertes Headless-CMS"
 noindex: false
 ---
 
-## Was ist [[SITE_NAME]]?
+## Was ist %SITE_NAME%?
 
-[[SITE_NAME]] ist ein quelloffenes, agentengesteuertes Headless-CMS, basierend auf dem T3 Stack. Es vereint Next.js, tRPC, Drizzle ORM und Better Auth zu einem zusammenhängenden Content-Management-System, das für KI-gestützte Entwicklung optimiert ist.
+%SITE_NAME% ist ein quelloffenes, agentengesteuertes Headless-CMS, basierend auf dem T3 Stack. Es vereint Next.js, tRPC, Drizzle ORM und Better Auth zu einem zusammenhängenden Content-Management-System, das für KI-gestützte Entwicklung optimiert ist.
 
 ### Hauptmerkmale
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### Open Source
 
-[[SITE_NAME]] ist quelloffen (AGPL-3.0) und auf GitHub verfügbar. Kommerzielle Lizenzen sind für proprietäre Nutzung erhältlich. Beiträge sind willkommen!
+%SITE_NAME% ist quelloffen (AGPL-3.0) und auf GitHub verfügbar. Kommerzielle Lizenzen sind für proprietäre Nutzung erhältlich. Beiträge sind willkommen!

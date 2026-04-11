@@ -1,13 +1,13 @@
 ---
 title: Règles de la communauté
 type: page
-description: Règles de la communauté pour [[SITE_NAME]].
+description: Règles de la communauté pour %SITE_NAME%.
 noindex: true
 ---
 
-**Date de révision :** [[CURRENT_DATE]]
+**Date de révision :** %CURRENT_DATE%
 
-[[SITE_NAME]] (le « Service »), exploité par [[COMPANY_NAME]], est une plateforme en ligne. Les présentes Règles de la communauté définissent les normes de comportement pour tous les utilisateurs. En utilisant le Service, vous acceptez de respecter ces règles.
+%SITE_NAME% (le « Service »), exploité par %COMPANY_NAME%, est une plateforme en ligne. Les présentes Règles de la communauté définissent les normes de comportement pour tous les utilisateurs. En utilisant le Service, vous acceptez de respecter ces règles.
 
 **1. Respect et sécurité**
 
@@ -47,7 +47,7 @@ d) Protégez votre compte. Ne partagez pas vos identifiants de connexion avec d'
 
 **4. Contenu généré par les utilisateurs**
 
-Le contenu créé par les utilisateurs représente leurs propres points de vue et opinions. [[SITE_NAME]] n'approuve pas et ne prend pas la responsabilité du contenu généré par les utilisateurs.
+Le contenu créé par les utilisateurs représente leurs propres points de vue et opinions. %SITE_NAME% n'approuve pas et ne prend pas la responsabilité du contenu généré par les utilisateurs.
 
 Ne vous fiez pas au contenu généré par les utilisateurs comme information factuelle ou conseil professionnel.
 
@@ -71,6 +71,6 @@ La sévérité des mesures dépend de la nature et de la fréquence de la violat
 Si vous rencontrez du contenu ou un comportement qui enfreint ces règles, veuillez le signaler :
 
 a) En utilisant la fonctionnalité de signalement intégrée à l'application ;
-b) Par e-mail à [[CONTACT_EMAIL]].
+b) Par e-mail à %CONTACT_EMAIL%.
 
 Pour la procédure complète de signalement et de recours, consultez notre [Politique de suppression de contenu et de réclamations](/content-removal-and-complaints).

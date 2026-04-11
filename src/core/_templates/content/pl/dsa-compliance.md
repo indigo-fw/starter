@@ -1,26 +1,26 @@
 ---
 title: Zgodność z Aktem o usługach cyfrowych (DSA)
 type: page
-description: Zgodność z Aktem o usługach cyfrowych (DSA) serwisu [[SITE_NAME]].
+description: Zgodność z Aktem o usługach cyfrowych (DSA) serwisu %SITE_NAME%.
 noindex: true
 ---
 
-**Data aktualizacji:** [[CURRENT_DATE]]
+**Data aktualizacji:** %CURRENT_DATE%
 
-Jako platforma z siedzibą w UE, [[SITE_NAME]], prowadzony przez [[COMPANY_NAME]], przestrzega Aktu o usługach cyfrowych (rozporządzenie (UE) 2022/2065). Niniejsza strona przedstawia nasze obowiązki, Twoje prawa oraz nasze praktyki moderacji treści wynikające z DSA.
+Jako platforma z siedzibą w UE, %SITE_NAME%, prowadzony przez %COMPANY_NAME%, przestrzega Aktu o usługach cyfrowych (rozporządzenie (UE) 2022/2065). Niniejsza strona przedstawia nasze obowiązki, Twoje prawa oraz nasze praktyki moderacji treści wynikające z DSA.
 
 **1. Informacje o dostawcy usług**
 
-**Dostawca:** [[COMPANY_NAME]]
-**Adres:** [[COMPANY_ADDRESS]]
-**Numer rejestrowy:** [[COMPANY_ID]]
-**Kontakt:** [[CONTACT_EMAIL]]
+**Dostawca:** %COMPANY_NAME%
+**Adres:** %COMPANY_ADDRESS%
+**Numer rejestrowy:** %COMPANY_ID%
+**Kontakt:** %CONTACT_EMAIL%
 
 **2. Punkt kontaktowy**
 
 Naszym jedynym punktem kontaktowym dla organów państw członkowskich UE, Komisji Europejskiej, Europejskiej Rady ds. Usług Cyfrowych oraz użytkowników w sprawach dotyczących DSA jest:
 
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 Punkt kontaktowy jest dostępny w języku angielskim.
 
@@ -30,7 +30,7 @@ Ponieważ nasza firma ma siedzibę w UE, wyznaczenie odrębnego przedstawiciela 
 
 **4. Charakter usługi**
 
-[[SITE_NAME]] jest platformą internetową świadczącą usługi cyfrowe i udostępniającą treści. Użytkownicy mogą zakładać konta, uzyskiwać dostęp do treści oraz korzystać z funkcji platformy.
+%SITE_NAME% jest platformą internetową świadczącą usługi cyfrowe i udostępniającą treści. Użytkownicy mogą zakładać konta, uzyskiwać dostęp do treści oraz korzystać z funkcji platformy.
 
 **5. Moderacja treści**
 
@@ -56,7 +56,7 @@ d) Poszanowaniu praw podstawowych, w tym wolności słowa.
 
 **6. Zgłaszanie treści nielegalnych**
 
-Jeśli napotkasz treści, które Twoim zdaniem są nielegalne na mocy prawa UE lub prawa krajowego, możesz je zgłosić, kontaktując się z nami pod adresem [[CONTACT_EMAIL]]. Pełna procedura zgłaszania, w tym informacje o tym, co powinno zawierać zgłoszenie i jak je rozpatrujemy, jest opisana w naszej [Polityce usuwania treści i składania skarg](/content-removal-and-complaints).
+Jeśli napotkasz treści, które Twoim zdaniem są nielegalne na mocy prawa UE lub prawa krajowego, możesz je zgłosić, kontaktując się z nami pod adresem %CONTACT_EMAIL%. Pełna procedura zgłaszania, w tym informacje o tym, co powinno zawierać zgłoszenie i jak je rozpatrujemy, jest opisana w naszej [Polityce usuwania treści i składania skarg](/content-removal-and-complaints).
 
 **7. Uzasadnienie decyzji**
 

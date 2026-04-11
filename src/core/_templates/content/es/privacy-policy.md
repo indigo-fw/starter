@@ -1,13 +1,13 @@
 ---
 title: Política de Privacidad
 type: page
-description: Política de Privacidad para [[SITE_NAME]].
+description: Política de Privacidad para %SITE_NAME%.
 noindex: true
 ---
 
-**Fecha de revisión:** [[CURRENT_DATE]]
+**Fecha de revisión:** %CURRENT_DATE%
 
-[[SITE_NAME]] (el "Servicio") es operado por [[COMPANY_NAME]], dirección: [[COMPANY_ADDRESS]]. [[SITE_NAME]] es una plataforma en línea que proporciona servicios y contenido digitales. Partes de los Servicios pueden requerir la creación de una cuenta de usuario.
+%SITE_NAME% (el "Servicio") es operado por %COMPANY_NAME%, dirección: %COMPANY_ADDRESS%. %SITE_NAME% es una plataforma en línea que proporciona servicios y contenido digitales. Partes de los Servicios pueden requerir la creación de una cuenta de usuario.
 
 Nos comprometemos a respetar su privacidad, y estos Servicios siempre se proporcionarán con su consentimiento. En este documento proporcionamos información clara sobre cómo se procesan sus datos cuando visita el Sitio Web y utiliza nuestros Servicios.
 
@@ -23,24 +23,24 @@ A los efectos de esta Política de Privacidad, "usted" y "su" se refieren a uste
 
 "Tratamiento" significa cualquier operación realizada sobre Datos Personales, ya sea por medios automatizados o no, como la recogida, registro, organización, estructuración, almacenamiento, adaptación, recuperación, consulta, utilización, comunicación por transmisión, difusión, cotejo, limitación, supresión o destrucción.
 
-"Servicios" significa todas las funciones y funcionalidades proporcionadas por [[SITE_NAME]].
+"Servicios" significa todas las funciones y funcionalidades proporcionadas por %SITE_NAME%.
 
-"Suscripción" significa un acuerdo entre [[SITE_NAME]] y usted para permitirle utilizar los Servicios.
+"Suscripción" significa un acuerdo entre %SITE_NAME% y usted para permitirle utilizar los Servicios.
 
 "Usuario" significa una persona que se ha registrado y está utilizando el Servicio.
 
 "Visitante" significa cualquier persona que navega por el Sitio Web sin una Suscripción válida.
 
-"Sitio Web" significa [[SITE_NAME]], accesible en [[SITE_URL]].
+"Sitio Web" significa %SITE_NAME%, accesible en %SITE_URL%.
 
 **2. Responsable del tratamiento**
 
 El responsable del tratamiento a los efectos del Reglamento General de Protección de Datos (UE) 2016/679 ("RGPD") y las leyes de protección de datos aplicables es:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Número de registro: [[COMPANY_ID]]
-Correo electrónico: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Número de registro: %COMPANY_ID%
+Correo electrónico: %CONTACT_EMAIL%
 
 El responsable del tratamiento es responsable de determinar los fines y medios del tratamiento de sus Datos Personales. Si tiene alguna pregunta sobre esta Política de Privacidad, incluidas las solicitudes para ejercer sus derechos legales, contáctenos en la dirección de correo electrónico anterior.
 
@@ -132,13 +132,13 @@ Solo le enviaremos comunicaciones de marketing cuando tengamos una base legal pa
 
 **8. Marketing de terceros**
 
-Obtendremos su consentimiento expreso antes de compartir sus Datos Personales con cualquier empresa ajena a [[COMPANY_NAME]] con fines de marketing.
+Obtendremos su consentimiento expreso antes de compartir sus Datos Personales con cualquier empresa ajena a %COMPANY_NAME% con fines de marketing.
 
-Puede solicitarnos a nosotros o a terceros que dejen de enviarle mensajes de marketing en cualquier momento siguiendo los enlaces de cancelación de suscripción en cualquier mensaje de marketing o contactándonos en [[CONTACT_EMAIL]].
+Puede solicitarnos a nosotros o a terceros que dejen de enviarle mensajes de marketing en cualquier momento siguiendo los enlaces de cancelación de suscripción en cualquier mensaje de marketing o contactándonos en %CONTACT_EMAIL%.
 
 **9. Compartir su información personal**
 
-[[SITE_NAME]] puede compartir su información con:
+%SITE_NAME% puede compartir su información con:
 
 a) Proveedores de servicios con los que trabajamos para prestar los Servicios (alojamiento, procesamiento de pagos, análisis);
 
@@ -166,7 +166,7 @@ Nuestros proveedores de servicios que pueden tratar datos fuera del EEE incluyen
 
 Utilizamos herramientas automatizadas de moderación de contenido para detectar contenido que pueda infringir nuestras Condiciones del Servicio o la legislación aplicable. Estas herramientas pueden marcar contenido para revisión humana o restringir automáticamente contenido o cuentas.
 
-Tiene derecho a no ser objeto de una decisión basada únicamente en el tratamiento automatizado que produzca efectos jurídicos que le afecten o le afecte significativamente de modo similar (art. 22 RGPD). Si cree que se ha tomado una decisión automatizada errónea sobre usted, puede contactarnos para solicitar una revisión humana en [[CONTACT_EMAIL]].
+Tiene derecho a no ser objeto de una decisión basada únicamente en el tratamiento automatizado que produzca efectos jurídicos que le afecten o le afecte significativamente de modo similar (art. 22 RGPD). Si cree que se ha tomado una decisión automatizada errónea sobre usted, puede contactarnos para solicitar una revisión humana en %CONTACT_EMAIL%.
 
 **12. Información sensible**
 
@@ -174,7 +174,7 @@ Nunca le pediremos que proporcione Datos Personales que revelen origen racial o 
 
 **13. Sus derechos conforme al RGPD**
 
-Tiene los siguientes derechos respecto a sus Datos Personales. Para ejercer cualquiera de estos derechos, contáctenos en [[CONTACT_EMAIL]].
+Tiene los siguientes derechos respecto a sus Datos Personales. Para ejercer cualquiera de estos derechos, contáctenos en %CONTACT_EMAIL%.
 
 **13.1 Derecho de acceso (art. 15)**
 
@@ -218,7 +218,7 @@ Tiene derecho a retirar su consentimiento en cualquier momento. La retirada no a
 
 Si retira su consentimiento, es posible que no podamos proporcionarle los Servicios y tomaremos medidas razonables para eliminar su cuenta y los Datos Personales que hemos recopilado.
 
-Puede retirar su consentimiento contactándonos en [[CONTACT_EMAIL]].
+Puede retirar su consentimiento contactándonos en %CONTACT_EMAIL%.
 
 **13.8 Derecho a presentar una reclamación (art. 77)**
 
@@ -242,7 +242,7 @@ Los períodos de conservación pueden ajustarse en función de los requisitos em
 
 **15. Información personal de menores**
 
-[[SITE_NAME]] no proporciona Servicios ni recopila información personal de personas menores de la edad de mayoría en su jurisdicción. Si descubrimos que hemos recopilado información personal de una persona menor de edad, eliminaremos la información lo antes posible y bloquearemos al usuario.
+%SITE_NAME% no proporciona Servicios ni recopila información personal de personas menores de la edad de mayoría en su jurisdicción. Si descubrimos que hemos recopilado información personal de una persona menor de edad, eliminaremos la información lo antes posible y bloquearemos al usuario.
 
 **16. Seguridad de los datos**
 
@@ -256,7 +256,7 @@ El Sitio Web puede incluir enlaces a sitios web, complementos y aplicaciones de 
 
 **18. Fusión o adquisición**
 
-Si [[SITE_NAME]] se fusiona con otra empresa o es adquirido por ella, o vende la totalidad o parte de sus activos, sus Datos Personales pueden ser divulgados a nuestros asesores y a los asesores de cualquier posible comprador, y pueden estar entre los activos transferidos. Sin embargo, los Datos Personales estarán siempre sujetos a esta Política de Privacidad.
+Si %SITE_NAME% se fusiona con otra empresa o es adquirido por ella, o vende la totalidad o parte de sus activos, sus Datos Personales pueden ser divulgados a nuestros asesores y a los asesores de cualquier posible comprador, y pueden estar entre los activos transferidos. Sin embargo, los Datos Personales estarán siempre sujetos a esta Política de Privacidad.
 
 **19. Cambios en esta Política de Privacidad**
 
@@ -272,6 +272,6 @@ Intentamos responder a todas las solicitudes legítimas dentro de un mes. Ocasio
 
 Para todos los asuntos relacionados con la privacidad, incluido el ejercicio de sus derechos:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Correo electrónico: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Correo electrónico: %CONTACT_EMAIL%

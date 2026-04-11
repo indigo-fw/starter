@@ -1,13 +1,13 @@
 ---
 title: Community Guidelines
 type: page
-description: Community Guidelines for [[SITE_NAME]].
+description: Community Guidelines for %SITE_NAME%.
 noindex: true
 ---
 
-**Date of Revision:** [[CURRENT_DATE]]
+**Date of Revision:** %CURRENT_DATE%
 
-[[SITE_NAME]] (the "Service"), operated by [[COMPANY_NAME]], is an online platform. These Community Guidelines set the standards of behavior for all users. By using the Service, you agree to follow these guidelines.
+%SITE_NAME% (the "Service"), operated by %COMPANY_NAME%, is an online platform. These Community Guidelines set the standards of behavior for all users. By using the Service, you agree to follow these guidelines.
 
 **1. Respect and Safety**
 
@@ -47,7 +47,7 @@ d) Keep your account secure. Do not share your login credentials with others.
 
 **4. User-Generated Content**
 
-Content created by users represents their own views and opinions. [[SITE_NAME]] does not endorse or take responsibility for user-generated content.
+Content created by users represents their own views and opinions. %SITE_NAME% does not endorse or take responsibility for user-generated content.
 
 Do not rely on user-generated content as factual information or professional advice.
 
@@ -71,6 +71,6 @@ The severity of enforcement depends on the nature and frequency of the violation
 If you encounter content or behavior that violates these guidelines, please report it:
 
 a) Using the in-app reporting feature;
-b) By email at [[CONTACT_EMAIL]].
+b) By email at %CONTACT_EMAIL%.
 
 For the full reporting and appeals process, see our [Content Removal and Complaints Policy](/content-removal-and-complaints).

@@ -1,20 +1,20 @@
 ---
 title: Política de Eliminación de Contenido y Reclamaciones
 type: page
-description: Política de Eliminación de Contenido y Reclamaciones para [[SITE_NAME]].
+description: Política de Eliminación de Contenido y Reclamaciones para %SITE_NAME%.
 noindex: true
 ---
 
-**Fecha de revisión:** [[CURRENT_DATE]]
+**Fecha de revisión:** %CURRENT_DATE%
 
-[[SITE_NAME]] (el "Servicio"), operado por [[COMPANY_NAME]], [[COMPANY_ADDRESS]], se compromete a mantener una plataforma segura y conforme a la ley. Esta política describe cómo denunciar contenido ilegal o perjudicial, cómo gestionamos dichas denuncias y cómo apelar nuestras decisiones de moderación de contenido, en cumplimiento del Reglamento de Servicios Digitales (Reglamento (UE) 2022/2065).
+%SITE_NAME% (el "Servicio"), operado por %COMPANY_NAME%, %COMPANY_ADDRESS%, se compromete a mantener una plataforma segura y conforme a la ley. Esta política describe cómo denunciar contenido ilegal o perjudicial, cómo gestionamos dichas denuncias y cómo apelar nuestras decisiones de moderación de contenido, en cumplimiento del Reglamento de Servicios Digitales (Reglamento (UE) 2022/2065).
 
 **1. Denuncia de contenido ilegal o perjudicial**
 
 Si encuentra contenido en el Servicio que considere ilegal conforme a la legislación de la UE o nacional, o que infrinja nuestras [Condiciones del Servicio](/terms-of-service), puede denunciarlo:
 
 a) Utilizando la función de denuncia dentro de la aplicación (cuando esté disponible);
-b) Enviando un correo electrónico a [[CONTACT_EMAIL]].
+b) Enviando un correo electrónico a %CONTACT_EMAIL%.
 
 **1.1 Qué incluir en su denuncia**
 
@@ -67,7 +67,7 @@ Si su contenido fue eliminado, su cuenta fue restringida o su denuncia fue deses
 
 **3.2 Cómo apelar**
 
-Presente su apelación por correo electrónico a [[CONTACT_EMAIL]] con el asunto "Apelación" e incluya:
+Presente su apelación por correo electrónico a %CONTACT_EMAIL% con el asunto "Apelación" e incluya:
 
 a) Su nombre e identificador de cuenta;
 b) Una descripción de la decisión que está apelando;
@@ -113,6 +113,6 @@ d) El tiempo medio de procesamiento de denuncias y apelaciones.
 
 Para todos los asuntos relacionados con la eliminación de contenido y reclamaciones:
 
-Correo electrónico: [[CONTACT_EMAIL]]
+Correo electrónico: %CONTACT_EMAIL%
 
 Esta dirección también sirve como nuestro punto de contacto único para las autoridades de la UE, los usuarios y la Comisión Europea en relación con el Reglamento de Servicios Digitales.

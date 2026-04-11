@@ -1,13 +1,13 @@
 ---
 title: Communityrichtlijnen
 type: page
-description: Communityrichtlijnen voor [[SITE_NAME]].
+description: Communityrichtlijnen voor %SITE_NAME%.
 noindex: true
 ---
 
-**Datum van herziening:** [[CURRENT_DATE]]
+**Datum van herziening:** %CURRENT_DATE%
 
-[[SITE_NAME]] (de "Dienst"), beheerd door [[COMPANY_NAME]], is een online platform. Deze Communityrichtlijnen stellen de gedragsnormen vast voor alle gebruikers. Door gebruik te maken van de Dienst stemt u in met het naleven van deze richtlijnen.
+%SITE_NAME% (de "Dienst"), beheerd door %COMPANY_NAME%, is een online platform. Deze Communityrichtlijnen stellen de gedragsnormen vast voor alle gebruikers. Door gebruik te maken van de Dienst stemt u in met het naleven van deze richtlijnen.
 
 **1. Respect en veiligheid**
 
@@ -47,7 +47,7 @@ d) Houd uw account veilig. Deel uw inloggegevens niet met anderen.
 
 **4. Door gebruikers gegenereerde inhoud**
 
-Inhoud die door gebruikers is gecreeerd, vertegenwoordigt hun eigen standpunten en meningen. [[SITE_NAME]] onderschrijft of aanvaardt geen verantwoordelijkheid voor door gebruikers gegenereerde inhoud.
+Inhoud die door gebruikers is gecreeerd, vertegenwoordigt hun eigen standpunten en meningen. %SITE_NAME% onderschrijft of aanvaardt geen verantwoordelijkheid voor door gebruikers gegenereerde inhoud.
 
 Vertrouw niet op door gebruikers gegenereerde inhoud als feitelijke informatie of professioneel advies.
 
@@ -71,6 +71,6 @@ De ernst van de handhaving hangt af van de aard en frequentie van de overtreding
 Als u inhoud of gedrag tegenkomt dat in strijd is met deze richtlijnen, meld dit dan:
 
 a) Via de meldingsfunctie in de app;
-b) Per e-mail naar [[CONTACT_EMAIL]].
+b) Per e-mail naar %CONTACT_EMAIL%.
 
 Zie ons [Beleid inzake inhoudsverwijdering en klachten](/content-removal-and-complaints) voor het volledige meldings- en bezwaarprocedure.

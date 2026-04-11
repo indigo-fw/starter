@@ -1,7 +1,7 @@
 ---
-title: Tervetuloa sivustolle [[SITE_NAME]]
+title: Tervetuloa sivustolle %SITE_NAME%
 type: page
-description: Tervetuloa sivustolle [[SITE_NAME]] — agenttipohjainen headless-sisällönhallintajärjestelmä T3 Stackille.
+description: Tervetuloa sivustolle %SITE_NAME% — agenttipohjainen headless-sisällönhallintajärjestelmä T3 Stackille.
 noindex: false
 ---
 

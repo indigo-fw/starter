@@ -1,13 +1,13 @@
 ---
 title: Retningslinjer for informasjonskapsler
 type: page
-description: Retningslinjer for informasjonskapsler for [[SITE_NAME]].
+description: Retningslinjer for informasjonskapsler for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisjonsdato:** [[CURRENT_DATE]]
+**Revisjonsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjenesten"), drevet av [[COMPANY_NAME]], [[COMPANY_ADDRESS]], bruker informasjonskapsler og lignende sporingsteknologier. Disse retningslinjene for informasjonskapsler forklarer hva informasjonskapsler er, hvordan vi bruker dem, dine valg angående informasjonskapsler, og ytterligere informasjon om informasjonskapsler.
+%SITE_NAME% ("Tjenesten"), drevet av %COMPANY_NAME%, %COMPANY_ADDRESS%, bruker informasjonskapsler og lignende sporingsteknologier. Disse retningslinjene for informasjonskapsler forklarer hva informasjonskapsler er, hvordan vi bruker dem, dine valg angående informasjonskapsler, og ytterligere informasjon om informasjonskapsler.
 
 **1. Hva er informasjonskapsler?**
 
@@ -92,4 +92,4 @@ Vi kan oppdatere disse retningslinjene for informasjonskapsler fra tid til annen
 
 **7. Kontakt**
 
-Hvis du har spørsmål om vår bruk av informasjonskapsler, vennligst kontakt oss på [[CONTACT_EMAIL]].
+Hvis du har spørsmål om vår bruk av informasjonskapsler, vennligst kontakt oss på %CONTACT_EMAIL%.

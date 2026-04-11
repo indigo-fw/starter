@@ -1,11 +1,11 @@
 ---
 title: Contacto
 type: page
-description: Contacto para [[SITE_NAME]].
+description: Contacto para %SITE_NAME%.
 noindex: true
 ---
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
 
-Correo electrónico: [[CONTACT_EMAIL]]
+Correo electrónico: %CONTACT_EMAIL%

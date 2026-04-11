@@ -1,13 +1,13 @@
 ---
 title: Privacybeleid
 type: page
-description: Privacybeleid voor [[SITE_NAME]].
+description: Privacybeleid voor %SITE_NAME%.
 noindex: true
 ---
 
-**Datum van herziening:** [[CURRENT_DATE]]
+**Datum van herziening:** %CURRENT_DATE%
 
-[[SITE_NAME]] (de "Dienst") wordt beheerd door [[COMPANY_NAME]], adres: [[COMPANY_ADDRESS]]. [[SITE_NAME]] is een online platform dat digitale diensten en inhoud aanbiedt. Voor bepaalde delen van de Diensten kan het nodig zijn dat u een gebruikersaccount aanmaakt.
+%SITE_NAME% (de "Dienst") wordt beheerd door %COMPANY_NAME%, adres: %COMPANY_ADDRESS%. %SITE_NAME% is een online platform dat digitale diensten en inhoud aanbiedt. Voor bepaalde delen van de Diensten kan het nodig zijn dat u een gebruikersaccount aanmaakt.
 
 Wij zetten ons in voor het respecteren van uw privacy en deze Diensten worden altijd met uw toestemming aangeboden. In dit document geven wij duidelijke informatie over hoe uw gegevens worden verwerkt wanneer u de Website bezoekt en onze Diensten gebruikt.
 
@@ -23,24 +23,24 @@ Voor de toepassing van dit Privacybeleid betekenen "u" en "uw" u als gebruiker v
 
 "Verwerking" betekent elke bewerking die wordt uitgevoerd op Persoonsgegevens, al dan niet met geautomatiseerde middelen, zoals het verzamelen, vastleggen, ordenen, structureren, opslaan, bijwerken, opvragen, raadplegen, gebruiken, verstrekken door middel van doorzending, verspreiden, op een lijn brengen, beperken, wissen of vernietigen.
 
-"Diensten" betekent alle functies en functionaliteit die door [[SITE_NAME]] worden aangeboden.
+"Diensten" betekent alle functies en functionaliteit die door %SITE_NAME% worden aangeboden.
 
-"Abonnement" betekent een overeenkomst tussen [[SITE_NAME]] en u om u in staat te stellen de Diensten te gebruiken.
+"Abonnement" betekent een overeenkomst tussen %SITE_NAME% en u om u in staat te stellen de Diensten te gebruiken.
 
 "Gebruiker" betekent een persoon die zich heeft geregistreerd voor en gebruikmaakt van de Dienst.
 
 "Bezoeker" betekent iedereen die de Website bezoekt zonder een geldig Abonnement.
 
-"Website" betekent [[SITE_NAME]], toegankelijk via [[SITE_URL]].
+"Website" betekent %SITE_NAME%, toegankelijk via %SITE_URL%.
 
 **2. Verwerkingsverantwoordelijke**
 
 De verwerkingsverantwoordelijke in de zin van de Algemene Verordening Gegevensbescherming (EU) 2016/679 ("AVG") en de toepasselijke gegevensbeschermingswetgeving is:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Registratienummer: [[COMPANY_ID]]
-E-mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Registratienummer: %COMPANY_ID%
+E-mail: %CONTACT_EMAIL%
 
 De verwerkingsverantwoordelijke is verantwoordelijk voor het vaststellen van de doeleinden en middelen voor de verwerking van uw Persoonsgegevens. Als u vragen hebt over dit Privacybeleid, inclusief verzoeken om uw wettelijke rechten uit te oefenen, neem dan contact met ons op via bovenstaand e-mailadres.
 
@@ -132,13 +132,13 @@ Wij sturen u alleen marketingberichten wanneer wij daarvoor een rechtsgrond hebb
 
 **8. Marketing door derden**
 
-Wij verkrijgen uw uitdrukkelijke toestemming voordat wij uw Persoonsgegevens delen met bedrijven buiten [[COMPANY_NAME]] voor marketingdoeleinden.
+Wij verkrijgen uw uitdrukkelijke toestemming voordat wij uw Persoonsgegevens delen met bedrijven buiten %COMPANY_NAME% voor marketingdoeleinden.
 
-U kunt ons of derden te allen tijde verzoeken te stoppen met het verzenden van marketingberichten door de afmeldlinks in elk marketingbericht te volgen of door contact met ons op te nemen via [[CONTACT_EMAIL]].
+U kunt ons of derden te allen tijde verzoeken te stoppen met het verzenden van marketingberichten door de afmeldlinks in elk marketingbericht te volgen of door contact met ons op te nemen via %CONTACT_EMAIL%.
 
 **9. Delen van uw persoonlijke informatie**
 
-[[SITE_NAME]] kan uw informatie delen met:
+%SITE_NAME% kan uw informatie delen met:
 
 a) Dienstverleners waarmee wij samenwerken om de Diensten te leveren (hosting, betalingsverwerking, analyses);
 
@@ -166,7 +166,7 @@ Onze dienstverleners die gegevens buiten de EER kunnen verwerken, omvatten cloud
 
 Wij gebruiken geautomatiseerde inhoudsmoderatietools om inhoud te detecteren die mogelijk in strijd is met onze Servicevoorwaarden of toepasselijk recht. Deze tools kunnen inhoud markeren voor menselijke beoordeling of automatisch inhoud of accounts beperken.
 
-U hebt het recht om niet te worden onderworpen aan een uitsluitend op geautomatiseerde verwerking gebaseerd besluit dat rechtsgevolgen heeft voor u of u op vergelijkbare wijze aanmerkelijk treft (art. 22 AVG). Als u meent dat een geautomatiseerd besluit over u ten onrechte is genomen, kunt u contact met ons opnemen om menselijke beoordeling te verzoeken via [[CONTACT_EMAIL]].
+U hebt het recht om niet te worden onderworpen aan een uitsluitend op geautomatiseerde verwerking gebaseerd besluit dat rechtsgevolgen heeft voor u of u op vergelijkbare wijze aanmerkelijk treft (art. 22 AVG). Als u meent dat een geautomatiseerd besluit over u ten onrechte is genomen, kunt u contact met ons opnemen om menselijke beoordeling te verzoeken via %CONTACT_EMAIL%.
 
 **12. Gevoelige informatie**
 
@@ -174,7 +174,7 @@ Wij zullen u nooit vragen om Persoonsgegevens te verstrekken waaruit ras of etni
 
 **13. Uw rechten op grond van de AVG**
 
-U hebt de volgende rechten met betrekking tot uw Persoonsgegevens. Neem contact met ons op via [[CONTACT_EMAIL]] om een van deze rechten uit te oefenen.
+U hebt de volgende rechten met betrekking tot uw Persoonsgegevens. Neem contact met ons op via %CONTACT_EMAIL% om een van deze rechten uit te oefenen.
 
 **13.1 Recht van inzage (art. 15)**
 
@@ -218,7 +218,7 @@ U hebt het recht uw toestemming te allen tijde in te trekken. Intrekking doet ge
 
 Als u uw toestemming intrekt, zijn wij mogelijk niet in staat de Diensten aan u te leveren en zullen wij redelijke stappen ondernemen om uw account en de door ons verzamelde Persoonsgegevens te verwijderen.
 
-U kunt uw toestemming intrekken door contact met ons op te nemen via [[CONTACT_EMAIL]].
+U kunt uw toestemming intrekken door contact met ons op te nemen via %CONTACT_EMAIL%.
 
 **13.8 Recht om een klacht in te dienen (art. 77)**
 
@@ -242,7 +242,7 @@ Bewaartermijnen kunnen worden aangepast op basis van veranderende bedrijfs- of r
 
 **15. Persoonsgegevens van minderjarigen**
 
-[[SITE_NAME]] biedt geen Diensten aan en verzamelt geen persoonsgegevens van personen die jonger zijn dan de meerderjarigheidsleeftijd in hun rechtsgebied. Als wij vernemen dat wij persoonsgegevens hebben verzameld van een persoon die minderjarig is, zullen wij de informatie zo spoedig mogelijk verwijderen en de gebruiker blokkeren.
+%SITE_NAME% biedt geen Diensten aan en verzamelt geen persoonsgegevens van personen die jonger zijn dan de meerderjarigheidsleeftijd in hun rechtsgebied. Als wij vernemen dat wij persoonsgegevens hebben verzameld van een persoon die minderjarig is, zullen wij de informatie zo spoedig mogelijk verwijderen en de gebruiker blokkeren.
 
 **16. Gegevensbeveiliging**
 
@@ -256,7 +256,7 @@ De Website kan links bevatten naar websites, plug-ins en toepassingen van derden
 
 **18. Fusie of overname**
 
-Als [[SITE_NAME]] fuseert met of wordt overgenomen door een ander bedrijf, of al haar activa of een deel daarvan verkoopt, kunnen uw Persoonsgegevens worden verstrekt aan onze adviseurs en de adviseurs van een potentiele koper, en kunnen deze tot de overgedragen activa behoren. Persoonsgegevens blijven echter altijd onderworpen aan dit Privacybeleid.
+Als %SITE_NAME% fuseert met of wordt overgenomen door een ander bedrijf, of al haar activa of een deel daarvan verkoopt, kunnen uw Persoonsgegevens worden verstrekt aan onze adviseurs en de adviseurs van een potentiele koper, en kunnen deze tot de overgedragen activa behoren. Persoonsgegevens blijven echter altijd onderworpen aan dit Privacybeleid.
 
 **19. Wijzigingen in dit Privacybeleid**
 
@@ -272,6 +272,6 @@ Wij streven ernaar om binnen een maand op alle legitieme verzoeken te reageren. 
 
 Voor alle privacygerelateerde zaken, inclusief het uitoefenen van uw rechten:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-mail: %CONTACT_EMAIL%

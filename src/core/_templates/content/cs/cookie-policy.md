@@ -1,13 +1,13 @@
 ---
 title: Zásady používání cookies
 type: page
-description: Zásady používání cookies servisu [[SITE_NAME]].
+description: Zásady používání cookies servisu %SITE_NAME%.
 noindex: true
 ---
 
-**Datum revize:** [[CURRENT_DATE]]
+**Datum revize:** %CURRENT_DATE%
 
-[[SITE_NAME]] („Služba"), provozovaný společností [[COMPANY_NAME]], [[COMPANY_ADDRESS]], používá soubory cookie a podobné sledovací technologie. Tyto Zásady používání cookies vysvětlují, co jsou soubory cookie, jak je používáme, jaké máte možnosti ohledně souborů cookie a další informace o nich.
+%SITE_NAME% („Služba"), provozovaný společností %COMPANY_NAME%, %COMPANY_ADDRESS%, používá soubory cookie a podobné sledovací technologie. Tyto Zásady používání cookies vysvětlují, co jsou soubory cookie, jak je používáme, jaké máte možnosti ohledně souborů cookie a další informace o nich.
 
 **1. Co jsou soubory cookie?**
 
@@ -92,4 +92,4 @@ Tyto Zásady používání cookies můžeme čas od času aktualizovat. O příp
 
 **7. Kontakt**
 
-Máte-li jakékoli dotazy ohledně našeho používání souborů cookie, kontaktujte nás prosím na adrese [[CONTACT_EMAIL]].
+Máte-li jakékoli dotazy ohledně našeho používání souborů cookie, kontaktujte nás prosím na adrese %CONTACT_EMAIL%.

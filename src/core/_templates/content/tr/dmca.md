@@ -1,15 +1,15 @@
 ---
 title: Telif Hakkı ve Fikri Mülkiyet Politikası
 type: page
-description: "[[SITE_NAME]] Telif Hakkı ve Fikri Mülkiyet Politikası."
+description: "%SITE_NAME% Telif Hakkı ve Fikri Mülkiyet Politikası."
 noindex: true
 ---
 
-**Revizyon Tarihi:** [[CURRENT_DATE]]
+**Revizyon Tarihi:** %CURRENT_DATE%
 
-[[SITE_NAME]], başkalarının fikri mülkiyet haklarına değer verir ve bunları korur; Dijital Binyıl Telif Hakkı Yasası'na (DMCA), AB Telif Hakkı Direktifi'ne (2019/790) ve diğer ilgili telif hakkı yasalarına uymayı taahhüt eder. Bu Politika, telif hakkı ihlali bildirimlerini ele almak için attığımız adımları açıklar ve telif haklı materyalinizin platformumuzda izinsiz kullanıldığından şüpheleniyorsanız bizimle nasıl iletişime geçeceğiniz konusunda rehberlik sağlar.
+%SITE_NAME%, başkalarının fikri mülkiyet haklarına değer verir ve bunları korur; Dijital Binyıl Telif Hakkı Yasası'na (DMCA), AB Telif Hakkı Direktifi'ne (2019/790) ve diğer ilgili telif hakkı yasalarına uymayı taahhüt eder. Bu Politika, telif hakkı ihlali bildirimlerini ele almak için attığımız adımları açıklar ve telif haklı materyalinizin platformumuzda izinsiz kullanıldığından şüpheleniyorsanız bizimle nasıl iletişime geçeceğiniz konusunda rehberlik sağlar.
 
-[[SITE_NAME]] ve/veya çevrimiçi kanallarımız, bağlı web siteleri, platformlar, ürünler veya hizmetlerimiz ile bunların içerdiği tüm içerik burada "Hizmetler" olarak anılmaktadır.
+%SITE_NAME% ve/veya çevrimiçi kanallarımız, bağlı web siteleri, platformlar, ürünler veya hizmetlerimiz ile bunların içerdiği tüm içerik burada "Hizmetler" olarak anılmaktadır.
 
 1\. Telif Hakkı İhlalinin Bildirilmesi
 
@@ -45,7 +45,7 @@ AB Telif Hakkı Direktifi (2019/790) uyarınca, platformumuzda hakları ihlal ed
 
 5\. İletişim Bilgileri
 
-Bildirimler ve karşı bildirimler [[CONTACT_EMAIL]] adresine e-posta ile gönderilmelidir. Endişeleri zamanında ele almaya ve tüm kullanıcılarımız için olumlu bir deneyim sağlamaya kararlıyız.
+Bildirimler ve karşı bildirimler %CONTACT_EMAIL% adresine e-posta ile gönderilmelidir. Endişeleri zamanında ele almaya ve tüm kullanıcılarımız için olumlu bir deneyim sağlamaya kararlıyız.
 
 6\. Fesih
 

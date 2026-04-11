@@ -1,15 +1,15 @@
 ---
 title: Politique relative au droit d'auteur et à la propriété intellectuelle
 type: page
-description: Politique relative au droit d'auteur et à la propriété intellectuelle pour [[SITE_NAME]].
+description: Politique relative au droit d'auteur et à la propriété intellectuelle pour %SITE_NAME%.
 noindex: true
 ---
 
-**Date de révision :** [[CURRENT_DATE]]
+**Date de révision :** %CURRENT_DATE%
 
-[[SITE_NAME]] respecte et défend les droits de propriété intellectuelle d'autrui, et nous nous engageons à respecter le Digital Millennium Copyright Act (DMCA), la Directive européenne sur le droit d'auteur (2019/790) et toute autre législation applicable en matière de droit d'auteur. La présente Politique décrit les mesures que nous prenons pour répondre aux notifications d'atteinte au droit d'auteur et fournit des indications pour nous contacter si vous estimez que votre matériel protégé par le droit d'auteur a été utilisé sur notre plateforme sans autorisation.
+%SITE_NAME% respecte et défend les droits de propriété intellectuelle d'autrui, et nous nous engageons à respecter le Digital Millennium Copyright Act (DMCA), la Directive européenne sur le droit d'auteur (2019/790) et toute autre législation applicable en matière de droit d'auteur. La présente Politique décrit les mesures que nous prenons pour répondre aux notifications d'atteinte au droit d'auteur et fournit des indications pour nous contacter si vous estimez que votre matériel protégé par le droit d'auteur a été utilisé sur notre plateforme sans autorisation.
 
-[[SITE_NAME]] et/ou l'un de nos canaux en ligne, sites web affiliés, plateformes, produits ou services, y compris tout leur contenu, sont désignés ci-après comme les « Services ».
+%SITE_NAME% et/ou l'un de nos canaux en ligne, sites web affiliés, plateformes, produits ou services, y compris tout leur contenu, sont désignés ci-après comme les « Services ».
 
 1\. Signalement d'une atteinte au droit d'auteur
 
@@ -45,7 +45,7 @@ Conformément à la Directive européenne sur le droit d'auteur (2019/790), nous
 
 5\. Coordonnées
 
-Les notifications et contre-notifications doivent nous être envoyées par e-mail à [[CONTACT_EMAIL]]. Nous nous engageons à traiter les préoccupations dans les meilleurs délais et à garantir une expérience positive pour tous nos utilisateurs.
+Les notifications et contre-notifications doivent nous être envoyées par e-mail à %CONTACT_EMAIL%. Nous nous engageons à traiter les préoccupations dans les meilleurs délais et à garantir une expérience positive pour tous nos utilisateurs.
 
 6\. Résiliation
 

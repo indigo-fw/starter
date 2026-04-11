@@ -1,15 +1,15 @@
 ---
 title: Copyright and Intellectual Property Policy
 type: page
-description: Copyright and Intellectual Property Policy for [[SITE_NAME]].
+description: Copyright and Intellectual Property Policy for %SITE_NAME%.
 noindex: true
 ---
 
-**Date of Revision:** [[CURRENT_DATE]]
+**Date of Revision:** %CURRENT_DATE%
 
-[[SITE_NAME]] values and upholds the intellectual property rights of others, and we are dedicated to adhering to the Digital Millennium Copyright Act (DMCA), the EU Copyright Directive (2019/790), and other relevant copyright laws. This Policy delineates the steps we take to address notifications of copyright infringement and provides guidance on reaching out to us if you suspect that your copyrighted material has been utilized on our platform without proper authorization.
+%SITE_NAME% values and upholds the intellectual property rights of others, and we are dedicated to adhering to the Digital Millennium Copyright Act (DMCA), the EU Copyright Directive (2019/790), and other relevant copyright laws. This Policy delineates the steps we take to address notifications of copyright infringement and provides guidance on reaching out to us if you suspect that your copyrighted material has been utilized on our platform without proper authorization.
 
-[[SITE_NAME]] and/or any of our online channels, affiliated websites, platforms, products or services, including all content contained therein are referred to herein as "Services."
+%SITE_NAME% and/or any of our online channels, affiliated websites, platforms, products or services, including all content contained therein are referred to herein as "Services."
 
 1\. Reporting Copyright Infringement
 
@@ -45,7 +45,7 @@ In accordance with the EU Copyright Directive (2019/790), we implement effective
 
 5\. Contact Information
 
-Notices and counter-notices should be sent to us via email at [[CONTACT_EMAIL]]. We are committed to addressing concerns in a timely manner and ensuring a positive experience for all our users.
+Notices and counter-notices should be sent to us via email at %CONTACT_EMAIL%. We are committed to addressing concerns in a timely manner and ensuring a positive experience for all our users.
 
 6\. Termination
 

@@ -1,7 +1,7 @@
 ---
-title: [[SITE_NAME]]에 오신 것을 환영합니다
+title: %SITE_NAME%에 오신 것을 환영합니다
 type: page
-description: [[SITE_NAME]]에 오신 것을 환영합니다 — T3 Stack 기반의 에이전트 중심 헤드리스 CMS입니다.
+description: %SITE_NAME%에 오신 것을 환영합니다 — T3 Stack 기반의 에이전트 중심 헤드리스 CMS입니다.
 noindex: false
 ---
 

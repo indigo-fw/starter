@@ -1,7 +1,7 @@
 ---
-title: Vítejte v [[SITE_NAME]]
+title: Vítejte v %SITE_NAME%
 type: page
-description: Vítejte v [[SITE_NAME]] — agentově řízeném headless CMS pro T3 Stack.
+description: Vítejte v %SITE_NAME% — agentově řízeném headless CMS pro T3 Stack.
 noindex: false
 ---
 

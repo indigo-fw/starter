@@ -1,7 +1,7 @@
 ---
 title: Ukázky
 type: page
-description: Vybrané příklady a nejlepší projekty z [[SITE_NAME]].
-seoTitle: "Ukázky | {sitename}"
+description: Vybrané příklady a nejlepší projekty z %SITE_NAME%.
+seoTitle: "Ukázky | %SITENAME%"
 noindex: false
 ---

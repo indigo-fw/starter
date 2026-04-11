@@ -1,19 +1,19 @@
 ---
 title: Käyttöehdot
 type: page
-description: [[SITE_NAME]]-palvelun käyttöehdot.
+description: %SITE_NAME%-palvelun käyttöehdot.
 noindex: true
 ---
 
-**Tarkistuspäivä:** [[CURRENT_DATE]]
+**Tarkistuspäivä:** %CURRENT_DATE%
 
 **1. Johdanto**
 
-[[SITE_NAME]] ("Palvelu") on [[COMPANY_NAME]]-yrityksen ylläpitämä, osoite: [[COMPANY_ADDRESS]] (jäljempänä "me", "meitä" tai "meidän").
+%SITE_NAME% ("Palvelu") on %COMPANY_NAME%-yrityksen ylläpitämä, osoite: %COMPANY_ADDRESS% (jäljempänä "me", "meitä" tai "meidän").
 
-[[SITE_NAME]] on verkkoalusta, joka tarjoaa digitaalisia palveluja ja sisältöä (yhteisnimityksellä "Palvelut"). Joidenkin Palvelujen osien käyttö saattaa edellyttää käyttäjätilin luomista.
+%SITE_NAME% on verkkoalusta, joka tarjoaa digitaalisia palveluja ja sisältöä (yhteisnimityksellä "Palvelut"). Joidenkin Palvelujen osien käyttö saattaa edellyttää käyttäjätilin luomista.
 
-Nämä käyttöehdot ("Ehdot") määrittävät oikeudellisesti sitovat ehdot Palvelun käytöllesi. Käyttämällä Palvelua sitoudut noudattamaan näitä Ehtoja sekä kaikkia muita [[SITE_URL]]-osoitteessa julkaistuja ehtoja ja käytäntöjä. Jos et hyväksy näitä Ehtoja, lopeta Palvelun käyttö välittömästi.
+Nämä käyttöehdot ("Ehdot") määrittävät oikeudellisesti sitovat ehdot Palvelun käytöllesi. Käyttämällä Palvelua sitoudut noudattamaan näitä Ehtoja sekä kaikkia muita %SITE_URL%-osoitteessa julkaistuja ehtoja ja käytäntöjä. Jos et hyväksy näitä Ehtoja, lopeta Palvelun käyttö välittömästi.
 
 Hyväksyt, ettet käytä Palvelua laittomiin tai luvattomiin tarkoituksiin.
 
@@ -73,11 +73,11 @@ c) Jos et ole saavuttanut asuinjurisdiktiosi lainmukaista ikää, et saa käytt�
 
 **7. Immateriaalioikeudet**
 
-Palvelun ja siihen upotettujen materiaalien (mukaan lukien, mutta ei rajoittuen, teknologia, järjestelmät, tiedostot, asiakirjat, teksti, valokuvat, tiedot, kuvat, videot, äänet ja ohjelmistot) immateriaalioikeudet kuuluvat [[SITE_NAME]]-palvelulle tai ovat sille lisensoituja. Voit käyttää Palvelua ja sen sisältöä laitteillasi vain henkilökohtaiseen käyttöön.
+Palvelun ja siihen upotettujen materiaalien (mukaan lukien, mutta ei rajoittuen, teknologia, järjestelmät, tiedostot, asiakirjat, teksti, valokuvat, tiedot, kuvat, videot, äänet ja ohjelmistot) immateriaalioikeudet kuuluvat %SITE_NAME%-palvelulle tai ovat sille lisensoituja. Voit käyttää Palvelua ja sen sisältöä laitteillasi vain henkilökohtaiseen käyttöön.
 
 Myönnämme sinulle täten lisenssin vain henkilökohtaiseen käyttöön. Tämä lisenssi ei muodosta omistusoikeuden siirtoa. Tämä lisenssi päättyy automaattisesti, jos rikot näitä Ehtoja, ja me voimme lopettaa sen milloin tahansa.
 
-Kaikki [[SITE_NAME]]-palveluun liittyvät immateriaalioikeudet, mukaan lukien alustan suunnittelu, logot ja kaikki omisteinen ohjelmisto tai teknologia, ovat yksinomaan [[SITE_NAME]]-palvelun tai sen lisenssinantajien omaisuutta. Käyttäjät eivät saa jäljentää, muokata, jakaa tai käyttää mitään immateriaalioikeuksia ilman nimenomaista lupaa. Luvaton käyttö voi johtaa oikeudellisiin seuraamuksiin.
+Kaikki %SITE_NAME%-palveluun liittyvät immateriaalioikeudet, mukaan lukien alustan suunnittelu, logot ja kaikki omisteinen ohjelmisto tai teknologia, ovat yksinomaan %SITE_NAME%-palvelun tai sen lisenssinantajien omaisuutta. Käyttäjät eivät saa jäljentää, muokata, jakaa tai käyttää mitään immateriaalioikeuksia ilman nimenomaista lupaa. Luvaton käyttö voi johtaa oikeudellisiin seuraamuksiin.
 
 **8. Sisältösi**
 
@@ -85,7 +85,7 @@ Voit antaa syötteitä Palvelussa ("Syöte") ja vastaanottaa Palvelusta tulostet
 
 Säilytät immateriaalioikeutesi Syötteeseen. Emme koskaan väitä omistavamme Syötettäsi, mutta tarvitsemme sinulta lisenssin sen käyttämiseksi.
 
-Kun käytät [[SITE_NAME]]-palvelua tai sen liitännäisiä Palveluja ladataksesi Syötettä, johon kohdistuu immateriaalioikeuksia, myönnät meille ei-yksinomaisen, rojaltivapaan, siirrettävän, alilisensoitavan, maailmanlaajuisen lisenssin käyttää, jakaa, muokata, suorittaa, kopioida, näyttää julkisesti, kääntää tai muutoin luoda johdannaisteoksia sisällöstäsi [Tietosuojakäytäntömme](/privacy-policy) mukaisella tavalla.
+Kun käytät %SITE_NAME%-palvelua tai sen liitännäisiä Palveluja ladataksesi Syötettä, johon kohdistuu immateriaalioikeuksia, myönnät meille ei-yksinomaisen, rojaltivapaan, siirrettävän, alilisensoitavan, maailmanlaajuisen lisenssin käyttää, jakaa, muokata, suorittaa, kopioida, näyttää julkisesti, kääntää tai muutoin luoda johdannaisteoksia sisällöstäsi [Tietosuojakäytäntömme](/privacy-policy) mukaisella tavalla.
 
 Meille myöntämäsi lisenssi voidaan lopettaa milloin tahansa poistamalla Syötteesi tai tilisi. Siltä osin kuin me (tai kumppanimme) olemme käyttäneet Syötettäsi kaupallisen tai sponsoroidun sisällön yhteydessä, lisenssi jatkuu kuitenkin, kunnes kyseinen sisältö on lopetettu meidän toimestamme.
 
@@ -117,7 +117,7 @@ i) Noudatat kaikkia sovellettavia lakeja Palvelun käyttösi yhteydessä, mukaan
 
 **9.2 Sisältövastuu**
 
-Palvelun käyttäjänä olet yksin vastuussa kaikesta Sisällöstä, jonka luot, lataat tai tuotat Palvelun kautta. Ymmärrät ja hyväksyt, ettei [[SITE_NAME]] hallitse tai tue käyttäjien tuottamaa sisältöä. Tunnustat siksi olevasi täysin vastuussa Sisällöstäsi ja omista toimistasi Palvelun käytön aikana.
+Palvelun käyttäjänä olet yksin vastuussa kaikesta Sisällöstä, jonka luot, lataat tai tuotat Palvelun kautta. Ymmärrät ja hyväksyt, ettei %SITE_NAME% hallitse tai tue käyttäjien tuottamaa sisältöä. Tunnustat siksi olevasi täysin vastuussa Sisällöstäsi ja omista toimistasi Palvelun käytön aikana.
 
 Sinun on varmistettava, että Palvelun käyttösi noudattaa sovellettavia lakeja, säädöksiä ja näitä Ehtoja, etkä saa harjoittaa laitonta, epäeettistä tai haitallista toimintaa Palvelun kautta.
 
@@ -127,7 +127,7 @@ Arvostamme kaikkien käyttäjien turvallisuutta ja eheyttä. Olemme toteuttaneet
 
 Sisältöä voidaan moderoida kaikkien sovellettavien lakien noudattamisen varmistamiseksi.
 
-Pidätämme oikeuden, mutta emme ole velvollisia, hylätä ja/tai poistaa käyttäjäsisältöä, jonka katsomme oman harkintamme mukaan rikkovan näitä määräyksiä. Jos olet havainnut rikkomuksen, ota yhteyttä meihin osoitteeseen [[CONTACT_EMAIL]] tai ilmoita asiasta suoraan "Ota yhteyttä" -osion kautta.
+Pidätämme oikeuden, mutta emme ole velvollisia, hylätä ja/tai poistaa käyttäjäsisältöä, jonka katsomme oman harkintamme mukaan rikkovan näitä määräyksiä. Jos olet havainnut rikkomuksen, ota yhteyttä meihin osoitteeseen %CONTACT_EMAIL% tai ilmoita asiasta suoraan "Ota yhteyttä" -osion kautta.
 
 **10. Maksut**
 
@@ -195,7 +195,7 @@ ME TAI TYTÄRYHTIÖMME TAI LISENSSINANTAJAMME EMME OLE VASTUUSSA MISTÄÄN EPÄS
 
 Jotkin maat ja osavaltiot eivät salli tiettyjen takuiden poissulkemista tai tiettyjen vahinkojen rajoittamista, joten osa tai kaikki yllä olevista ehdoista eivät ehkä koske sinua, ja sinulla voi olla lisäoikeuksia. Siinä tapauksessa nämä Ehdot rajoittavat vastuutamme vain asuinmaasi sallimissa enimmäisrajoissa.
 
-[[COMPANY_NAME]]:N TYTÄRYHTIÖT, TOIMITTAJAT, LISENSSINANTAJAT JA JAKELIJAT OVAT TÄMÄN OSION TARKOITETTUJA KOLMANNEN OSAPUOLEN EDUNSAAJIA.
+%COMPANY_NAME%:N TYTÄRYHTIÖT, TOIMITTAJAT, LISENSSINANTAJAT JA JAKELIJAT OVAT TÄMÄN OSION TARKOITETTUJA KOLMANNEN OSAPUOLEN EDUNSAAJIA.
 
 **13. Linkit kolmansien osapuolten verkkosivustoille ja palveluihin**
 
@@ -205,9 +205,9 @@ On sinun vastuullasi varmistaa, ettei käyttöösi tai lataukseesi valitsemissas
 
 **14. Sovellettava laki ja riitojenratkaisu**
 
-Näihin Ehtoihin sovelletaan [[COMPANY_JURISDICTION]]-alueen lakeja ja niitä tulkitaan sen mukaisesti, ilman lainvalintasäännösten vaikutusta, riippumatta sijainnistasi. Jos olet Euroopan unionissa asuva kuluttaja, sinulla on myös asuinmaasi lain pakottavien säännösten mukainen suoja.
+Näihin Ehtoihin sovelletaan %COMPANY_JURISDICTION%-alueen lakeja ja niitä tulkitaan sen mukaisesti, ilman lainvalintasäännösten vaikutusta, riippumatta sijainnistasi. Jos olet Euroopan unionissa asuva kuluttaja, sinulla on myös asuinmaasi lain pakottavien säännösten mukainen suoja.
 
-Kaikki näistä Ehdoista johtuvat tai niihin liittyvät riidat, mukaan lukien niiden olemassaoloa, pätevyyttä tai päättymistä koskevat kysymykset, käsitellään ja ratkaistaan lopullisesti [[COMPANY_JURISDICTION]]-alueen tuomioistuimissa. Jos olet EU:n kuluttaja, voit myös nostaa kanteen asuinmaasi tuomioistuimissa.
+Kaikki näistä Ehdoista johtuvat tai niihin liittyvät riidat, mukaan lukien niiden olemassaoloa, pätevyyttä tai päättymistä koskevat kysymykset, käsitellään ja ratkaistaan lopullisesti %COMPANY_JURISDICTION%-alueen tuomioistuimissa. Jos olet EU:n kuluttaja, voit myös nostaa kanteen asuinmaasi tuomioistuimissa.
 
 Voit myös käyttää EU:n verkkovälitteistä riidanratkaisufoorumia osoitteessa https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Keräämme ja käsittelemme tietojasi [Tietosuojakäytäntömme](/privacy-policy
 
 EU-pohjaisena alustana noudatamme digipalvelusäädöstä (asetus (EU) 2022/2065). Lisätietoja DSA-velvoitteistamme, sisällön moderointikäytännöistämme, raportointimekanismeista, valitus- ja muutoksenhakumenettelyistä sekä avoimuussitoumuksistamme löydät [DSA-vaatimustenmukaisuus](/dsa-compliance)-sivultamme.
 
-Ainoa yhteyspiste EU:n viranomaisille, käyttäjille ja Euroopan komissiolle DSA-asioissa on: [[CONTACT_EMAIL]].
+Ainoa yhteyspiste EU:n viranomaisille, käyttäjille ja Euroopan komissiolle DSA-asioissa on: %CONTACT_EMAIL%.
 
 **19. Liittyvät käytännöt**
 

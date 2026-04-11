@@ -1,14 +1,14 @@
 ---
-title: Over [[SITE_NAME]]
+title: Over %SITE_NAME%
 type: page
-description: "[[SITE_NAME]] is een open-source, agent-gestuurd headless CMS gebouwd op de T3 Stack (Next.js + tRPC + Drizzle)."
-seoTitle: "Over {sitename} | Agent-gestuurd headless CMS"
+description: "%SITE_NAME% is een open-source, agent-gestuurd headless CMS gebouwd op de T3 Stack (Next.js + tRPC + Drizzle)."
+seoTitle: "Over %SITENAME% | Agent-gestuurd headless CMS"
 noindex: false
 ---
 
-## Wat is [[SITE_NAME]]?
+## Wat is %SITE_NAME%?
 
-[[SITE_NAME]] is een open-source, agent-gestuurd headless CMS gebouwd op de T3 Stack. Het combineert Next.js, tRPC, Drizzle ORM en Better Auth tot een samenhangend contentmanagementsysteem dat is geoptimaliseerd voor AI-ondersteunde ontwikkeling.
+%SITE_NAME% is een open-source, agent-gestuurd headless CMS gebouwd op de T3 Stack. Het combineert Next.js, tRPC, Drizzle ORM en Better Auth tot een samenhangend contentmanagementsysteem dat is geoptimaliseerd voor AI-ondersteunde ontwikkeling.
 
 ### Belangrijkste kenmerken
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### Open source
 
-[[SITE_NAME]] is open source (AGPL-3.0) en beschikbaar op GitHub. Commerciële licenties zijn beschikbaar voor eigen gebruik. Bijdragen zijn welkom!
+%SITE_NAME% is open source (AGPL-3.0) en beschikbaar op GitHub. Commerciële licenties zijn beschikbaar voor eigen gebruik. Bijdragen zijn welkom!

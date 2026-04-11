@@ -1,20 +1,20 @@
 ---
 title: Politique de suppression de contenu et de réclamations
 type: page
-description: Politique de suppression de contenu et de réclamations pour [[SITE_NAME]].
+description: Politique de suppression de contenu et de réclamations pour %SITE_NAME%.
 noindex: true
 ---
 
-**Date de révision :** [[CURRENT_DATE]]
+**Date de révision :** %CURRENT_DATE%
 
-[[SITE_NAME]] (le « Service »), exploité par [[COMPANY_NAME]], [[COMPANY_ADDRESS]], s'engage à maintenir une plateforme sûre et conforme à la loi. La présente politique décrit comment signaler un contenu illégal ou nuisible, comment nous traitons ces signalements, et comment contester nos décisions de modération de contenu, conformément au Règlement sur les services numériques (Règlement (UE) 2022/2065).
+%SITE_NAME% (le « Service »), exploité par %COMPANY_NAME%, %COMPANY_ADDRESS%, s'engage à maintenir une plateforme sûre et conforme à la loi. La présente politique décrit comment signaler un contenu illégal ou nuisible, comment nous traitons ces signalements, et comment contester nos décisions de modération de contenu, conformément au Règlement sur les services numériques (Règlement (UE) 2022/2065).
 
 **1. Signalement de contenu illégal ou nuisible**
 
 Si vous rencontrez du contenu sur le Service que vous estimez être illégal au regard du droit de l'UE ou du droit national, ou qui enfreint nos [Conditions générales d'utilisation](/terms-of-service), vous pouvez le signaler en :
 
 a) Utilisant la fonctionnalité de signalement intégrée à l'application (si disponible) ;
-b) Envoyant un e-mail à [[CONTACT_EMAIL]].
+b) Envoyant un e-mail à %CONTACT_EMAIL%.
 
 **1.1 Éléments à inclure dans votre signalement**
 
@@ -67,7 +67,7 @@ Si votre contenu a été supprimé, votre compte a été restreint, ou votre sig
 
 **3.2 Comment déposer un recours**
 
-Soumettez votre recours par e-mail à [[CONTACT_EMAIL]] avec l'objet « Recours » et incluez :
+Soumettez votre recours par e-mail à %CONTACT_EMAIL% avec l'objet « Recours » et incluez :
 
 a) Votre nom et identifiant de compte ;
 b) Une description de la décision que vous contestez ;
@@ -113,6 +113,6 @@ d) Le délai médian de traitement des signalements et des recours.
 
 Pour toute question relative à la suppression de contenu et aux réclamations :
 
-E-mail : [[CONTACT_EMAIL]]
+E-mail : %CONTACT_EMAIL%
 
 Cette adresse sert également de point de contact unique pour les autorités de l'UE, les utilisateurs et la Commission européenne concernant les questions relatives au Règlement sur les services numériques.

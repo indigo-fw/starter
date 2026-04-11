@@ -1,13 +1,13 @@
 ---
 title: Linee Guida della Community
 type: page
-description: Linee Guida della Community per [[SITE_NAME]].
+description: Linee Guida della Community per %SITE_NAME%.
 noindex: true
 ---
 
-**Data di Revisione:** [[CURRENT_DATE]]
+**Data di Revisione:** %CURRENT_DATE%
 
-[[SITE_NAME]] (il "Servizio"), gestito da [[COMPANY_NAME]], e una piattaforma online. Queste Linee Guida della Community stabiliscono gli standard di comportamento per tutti gli utenti. Utilizzando il Servizio, accettate di rispettare queste linee guida.
+%SITE_NAME% (il "Servizio"), gestito da %COMPANY_NAME%, e una piattaforma online. Queste Linee Guida della Community stabiliscono gli standard di comportamento per tutti gli utenti. Utilizzando il Servizio, accettate di rispettare queste linee guida.
 
 **1. Rispetto e Sicurezza**
 
@@ -47,7 +47,7 @@ d) Mantenete il vostro account sicuro. Non condividete le vostre credenziali di 
 
 **4. Contenuti Generati dagli Utenti**
 
-I contenuti creati dagli utenti rappresentano le loro opinioni e punti di vista personali. [[SITE_NAME]] non approva ne si assume responsabilita per i contenuti generati dagli utenti.
+I contenuti creati dagli utenti rappresentano le loro opinioni e punti di vista personali. %SITE_NAME% non approva ne si assume responsabilita per i contenuti generati dagli utenti.
 
 Non fate affidamento sui contenuti generati dagli utenti come informazioni fattuali o consulenza professionale.
 
@@ -71,6 +71,6 @@ La severita dell'applicazione dipende dalla natura e dalla frequenza della viola
 Se riscontrate contenuti o comportamenti che violano queste linee guida, segnalateli:
 
 a) Utilizzando la funzione di segnalazione integrata nell'applicazione;
-b) Via email a [[CONTACT_EMAIL]].
+b) Via email a %CONTACT_EMAIL%.
 
 Per la procedura completa di segnalazione e ricorso, consultate la nostra [Politica di Rimozione dei Contenuti e Reclami](/content-removal-and-complaints).

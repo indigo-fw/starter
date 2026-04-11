@@ -2,8 +2,8 @@
  * Seed content — copies template .md files from core/seed-templates/{locale}/
  * to the project's content/{locale}/ directory.
  *
- * Files are copied verbatim — template variables like [[COMPANY_NAME]] stay
- * as-is in the files. The [[VAR]] placeholders are resolved at render time
+ * Files are copied verbatim — template variables like %COMPANY_NAME% stay
+ * as-is in the files. The %VAR% placeholders are resolved at render time
  * by resolveContentVars (from content-vars.ts) using values from site.ts.
  *
  * This means:
@@ -81,10 +81,10 @@ function copyDir(sourceDir: string, targetDir: string): number {
     // Never overwrite existing files — dev edits are preserved
     if (existsSync(targetPath)) continue;
 
-    // Substitute [[CURRENT_DATE]] at copy time (one-time value, not a live variable).
-    // All other [[VAR]] placeholders stay as-is — resolved at render time from site.ts.
+    // Substitute %CURRENT_DATE% at copy time (one-time value, not a live variable).
+    // All other %VAR% placeholders stay as-is — resolved at render time from site.ts.
     const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    const content = readFileSync(sourcePath, 'utf-8').replace(/\[\[CURRENT_DATE\]\]/g, currentDate);
+    const content = readFileSync(sourcePath, 'utf-8').replace(/%CURRENT_DATE%/g, currentDate);
     writeFileSync(targetPath, content, 'utf-8');
     count++;
   }

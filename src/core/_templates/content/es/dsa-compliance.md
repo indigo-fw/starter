@@ -1,26 +1,26 @@
 ---
 title: Cumplimiento del Reglamento de Servicios Digitales (DSA)
 type: page
-description: Cumplimiento del Reglamento de Servicios Digitales (DSA) para [[SITE_NAME]].
+description: Cumplimiento del Reglamento de Servicios Digitales (DSA) para %SITE_NAME%.
 noindex: true
 ---
 
-**Fecha de revisión:** [[CURRENT_DATE]]
+**Fecha de revisión:** %CURRENT_DATE%
 
-Como plataforma con sede en la UE, [[SITE_NAME]], operado por [[COMPANY_NAME]], cumple con el Reglamento de Servicios Digitales (Reglamento (UE) 2022/2065). Esta página describe nuestras obligaciones, sus derechos y nuestras prácticas de moderación de contenido conforme al DSA.
+Como plataforma con sede en la UE, %SITE_NAME%, operado por %COMPANY_NAME%, cumple con el Reglamento de Servicios Digitales (Reglamento (UE) 2022/2065). Esta página describe nuestras obligaciones, sus derechos y nuestras prácticas de moderación de contenido conforme al DSA.
 
 **1. Información del proveedor de servicios**
 
-**Proveedor:** [[COMPANY_NAME]]
-**Dirección:** [[COMPANY_ADDRESS]]
-**Número de registro:** [[COMPANY_ID]]
-**Contacto:** [[CONTACT_EMAIL]]
+**Proveedor:** %COMPANY_NAME%
+**Dirección:** %COMPANY_ADDRESS%
+**Número de registro:** %COMPANY_ID%
+**Contacto:** %CONTACT_EMAIL%
 
 **2. Punto de contacto**
 
 Nuestro punto de contacto único para las autoridades de los Estados miembros de la UE, la Comisión Europea, la Junta Europea de Servicios Digitales y los usuarios en relación con el DSA es:
 
-Correo electrónico: [[CONTACT_EMAIL]]
+Correo electrónico: %CONTACT_EMAIL%
 
 Este punto de contacto está disponible en inglés.
 
@@ -30,7 +30,7 @@ Dado que nuestra empresa está establecida en la UE, no se requiere un represent
 
 **4. Naturaleza del servicio**
 
-[[SITE_NAME]] es una plataforma en línea que proporciona servicios y contenido digitales. Los usuarios pueden crear cuentas, acceder a contenido e interactuar con las funciones de la plataforma.
+%SITE_NAME% es una plataforma en línea que proporciona servicios y contenido digitales. Los usuarios pueden crear cuentas, acceder a contenido e interactuar con las funciones de la plataforma.
 
 **5. Moderación de contenido**
 
@@ -56,7 +56,7 @@ d) Consideraciones de derechos fundamentales, incluida la libertad de expresión
 
 **6. Denuncia de contenido ilegal**
 
-Si encuentra contenido que considere ilegal conforme a la legislación de la UE o nacional, puede denunciarlo contactándonos en [[CONTACT_EMAIL]]. Para el procedimiento completo de denuncia, incluyendo qué incluir en su denuncia y cómo la procesamos, consulte nuestra [Política de Eliminación de Contenido y Reclamaciones](/content-removal-and-complaints).
+Si encuentra contenido que considere ilegal conforme a la legislación de la UE o nacional, puede denunciarlo contactándonos en %CONTACT_EMAIL%. Para el procedimiento completo de denuncia, incluyendo qué incluir en su denuncia y cómo la procesamos, consulte nuestra [Política de Eliminación de Contenido y Reclamaciones](/content-removal-and-complaints).
 
 **7. Exposición de motivos**
 

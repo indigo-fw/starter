@@ -1,11 +1,11 @@
 ---
 title: Peruuttamisoikeus
 type: page
-description: Peruuttamisoikeus sivustolla [[SITE_NAME]].
+description: Peruuttamisoikeus sivustolla %SITE_NAME%.
 noindex: true
 ---
 
-**Tarkistuspäivämäärä:** [[CURRENT_DATE]]
+**Tarkistuspäivämäärä:** %CURRENT_DATE%
 
 Tämä sivu antaa tietoa peruuttamisoikeudestasi kuluttajana Euroopan unionissa kuluttajan oikeuksia koskevan direktiivin 2011/83/EU mukaisesti.
 
@@ -17,9 +17,9 @@ Peruuttamisaika päättyy 14 päivän kuluttua sopimuksen tekemisestä (eli osto
 
 Peruuttamisoikeuden käyttämiseksi sinun on ilmoitettava meille päätöksestäsi peruuttaa sopimus yksiselitteisellä lausunnolla. Voit tehdä sen ottamalla meihin yhteyttä:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Sähköposti: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Sähköposti: %CONTACT_EMAIL%
 
 Peruuttamisajan noudattamiseksi riittää, että lähetät ilmoituksesi peruuttamisoikeuden käyttämisestä ennen peruuttamisajan päättymistä.
 
@@ -31,7 +31,7 @@ Jos peruutat sopimuksen, palautamme kaikki sinulta vastaanotetut maksut ilman ai
 
 Direktiivin 2011/83/EU 16 artiklan m kohdan mukaisesti peruuttamisoikeutta ei sovelleta sopimuksiin, jotka koskevat muulla kuin aineellisella välineellä toimitetun digitaalisen sisällön toimittamista, jos suoritus on aloitettu ennalta annetulla nimenomaisella suostumuksellasi ja kuittauksellasi siitä, että menetät peruuttamisoikeutesi.
 
-**Ostaessasi tilauksen sivustolta [[SITE_NAME]]:**
+**Ostaessasi tilauksen sivustolta %SITE_NAME%:**
 
 a) Sinulta pyydetään nimenomaista suostumusta digitaalisen sisällön/palvelun välittömään suorittamiseen ennen 14 päivän peruuttamisajan päättymistä;
 
@@ -49,9 +49,9 @@ EU:n peruuttamisoikeudesta riippumatta tarjoamme vapaaehtoisen palautuskäytänn
 
 (Täytä ja palauta tämä lomake vain, jos haluat peruuttaa sopimuksen)
 
-Vastaanottaja: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Vastaanottaja: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Ilmoitan täten peruuttavani sopimukseni seuraavan palvelun toimittamisesta: [[SITE_NAME]]-tilaus (\*)
+Ilmoitan täten peruuttavani sopimukseni seuraavan palvelun toimittamisesta: %SITE_NAME%-tilaus (\*)
 
 - Tilattu: ******\_\_\_******
 - Kuluttajan nimi: ******\_\_\_******

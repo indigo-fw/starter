@@ -1,11 +1,11 @@
 ---
 title: Droit de rétractation
 type: page
-description: Droit de rétractation pour [[SITE_NAME]].
+description: Droit de rétractation pour %SITE_NAME%.
 noindex: true
 ---
 
-**Date de révision :** [[CURRENT_DATE]]
+**Date de révision :** %CURRENT_DATE%
 
 Cette page fournit des informations sur votre droit de rétractation en tant que consommateur dans l'Union européenne, conformément à la Directive 2011/83/UE relative aux droits des consommateurs.
 
@@ -17,9 +17,9 @@ Le délai de rétractation expire 14 jours après le jour de la conclusion du co
 
 Pour exercer votre droit de rétractation, vous devez nous informer de votre décision de vous rétracter du contrat par une déclaration dénuée d'ambiguïté. Vous pouvez le faire en nous contactant à :
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-mail : [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-mail : %CONTACT_EMAIL%
 
 Pour respecter le délai de rétractation, il suffit que vous envoyiez votre communication relative à l'exercice du droit de rétractation avant l'expiration du délai de rétractation.
 
@@ -31,7 +31,7 @@ Si vous vous rétractez du contrat, nous vous rembourserons tous les paiements r
 
 Conformément à l'article 16, point m), de la Directive 2011/83/UE, le droit de rétractation ne s'applique pas aux contrats de fourniture de contenu numérique non fourni sur un support matériel si l'exécution a commencé avec votre accord préalable exprès et votre reconnaissance que vous perdez ainsi votre droit de rétractation.
 
-**Lors de l'achat d'un abonnement sur [[SITE_NAME]] :**
+**Lors de l'achat d'un abonnement sur %SITE_NAME% :**
 
 a) Il vous sera demandé de consentir expressément à l'exécution immédiate du contenu/service numérique avant la fin du délai de rétractation de 14 jours ;
 
@@ -49,9 +49,9 @@ Indépendamment du droit de rétractation de l'UE, nous offrons une politique de
 
 (Complétez et renvoyez le présent formulaire uniquement si vous souhaitez vous rétracter du contrat)
 
-À l'attention de : [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+À l'attention de : %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Je notifie par la présente ma rétractation du contrat portant sur la fourniture du service suivant : abonnement [[SITE_NAME]] (\*)
+Je notifie par la présente ma rétractation du contrat portant sur la fourniture du service suivant : abonnement %SITE_NAME% (\*)
 
 - Commandé le : ******\_\_\_******
 - Nom du consommateur : ******\_\_\_******

@@ -12,4 +12,4 @@ const staticRoutes = Object.keys(routing.pathnames).filter(
   (p) => !p.includes('['),
 );
 
-configureCmsLinksFromContentTypes(CONTENT_TYPES, staticRoutes);
+configureCmsLinksFromContentTypes(CONTENT_TYPES, { staticRoutes });

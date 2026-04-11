@@ -1,13 +1,13 @@
 ---
 title: Polityka plików cookie
 type: page
-description: Polityka plików cookie serwisu [[SITE_NAME]].
+description: Polityka plików cookie serwisu %SITE_NAME%.
 noindex: true
 ---
 
-**Data aktualizacji:** [[CURRENT_DATE]]
+**Data aktualizacji:** %CURRENT_DATE%
 
-[[SITE_NAME]] („Serwis"), prowadzony przez [[COMPANY_NAME]], [[COMPANY_ADDRESS]], wykorzystuje pliki cookie i podobne technologie śledzenia. Niniejsza Polityka plików cookie wyjaśnia, czym są pliki cookie, w jaki sposób z nich korzystamy, jakie masz możliwości w zakresie plików cookie oraz zawiera dalsze informacje na ich temat.
+%SITE_NAME% („Serwis"), prowadzony przez %COMPANY_NAME%, %COMPANY_ADDRESS%, wykorzystuje pliki cookie i podobne technologie śledzenia. Niniejsza Polityka plików cookie wyjaśnia, czym są pliki cookie, w jaki sposób z nich korzystamy, jakie masz możliwości w zakresie plików cookie oraz zawiera dalsze informacje na ich temat.
 
 **1. Czym są pliki cookie?**
 
@@ -92,4 +92,4 @@ Możemy od czasu do czasu aktualizować niniejszą Politykę plików cookie. O w
 
 **7. Kontakt**
 
-W przypadku pytań dotyczących stosowania przez nas plików cookie prosimy o kontakt pod adresem [[CONTACT_EMAIL]].
+W przypadku pytań dotyczących stosowania przez nas plików cookie prosimy o kontakt pod adresem %CONTACT_EMAIL%.

@@ -1,19 +1,19 @@
 ---
 title: Termos de Servico
 type: page
-description: Termos de Servico para [[SITE_NAME]].
+description: Termos de Servico para %SITE_NAME%.
 noindex: true
 ---
 
-**Data de Revisao:** [[CURRENT_DATE]]
+**Data de Revisao:** %CURRENT_DATE%
 
 **1. Introducao**
 
-[[SITE_NAME]] (o "Servico") e operado por [[COMPANY_NAME]], morada: [[COMPANY_ADDRESS]] (doravante "nos", "nosso" ou "nossa").
+%SITE_NAME% (o "Servico") e operado por %COMPANY_NAME%, morada: %COMPANY_ADDRESS% (doravante "nos", "nosso" ou "nossa").
 
-[[SITE_NAME]] e uma plataforma online que fornece servicos digitais e conteudo (coletivamente, os "Servicos"). Algumas partes dos Servicos podem exigir a criacao de uma conta de utilizador.
+%SITE_NAME% e uma plataforma online que fornece servicos digitais e conteudo (coletivamente, os "Servicos"). Algumas partes dos Servicos podem exigir a criacao de uma conta de utilizador.
 
-Estes Termos de Servico (os "TOS") estabelecem os termos juridicamente vinculativos para a sua utilizacao do Servico. Ao aceder e/ou utilizar o Servico, concorda em ficar vinculado por estes TOS e por todos os outros Termos e Politicas publicados em [[SITE_URL]]. Se nao concordar, por favor cesse a utilizacao do Servico imediatamente.
+Estes Termos de Servico (os "TOS") estabelecem os termos juridicamente vinculativos para a sua utilizacao do Servico. Ao aceder e/ou utilizar o Servico, concorda em ficar vinculado por estes TOS e por todos os outros Termos e Politicas publicados em %SITE_URL%. Se nao concordar, por favor cesse a utilizacao do Servico imediatamente.
 
 Concorda em nao utilizar o Servico para qualquer finalidade ilegal ou nao autorizada.
 
@@ -73,11 +73,11 @@ c) Se for menor de idade legal na jurisdicao do seu local de domicilio, nao deve
 
 **7. Propriedade Intelectual**
 
-A propriedade intelectual no Servico e materiais incorporados (incluindo, sem limitacao, tecnologia, sistemas, ficheiros, documentos, texto, fotografias, informacoes, imagens, videos, audios e software) sao propriedade de ou licenciados a [[SITE_NAME]]. Pode utilizar o Servico e o seu conteudo nos seus dispositivos apenas para uso pessoal.
+A propriedade intelectual no Servico e materiais incorporados (incluindo, sem limitacao, tecnologia, sistemas, ficheiros, documentos, texto, fotografias, informacoes, imagens, videos, audios e software) sao propriedade de ou licenciados a %SITE_NAME%. Pode utilizar o Servico e o seu conteudo nos seus dispositivos apenas para uso pessoal.
 
 Concedemos-lhe uma licenca apenas para uso pessoal. Esta licenca nao constitui uma transferencia de titulo. Esta licenca cessara automaticamente se violar estes TOS e pode ser cessada por nos a qualquer momento.
 
-Todos os direitos de propriedade intelectual associados a [[SITE_NAME]], incluindo o design da plataforma, logotipos e qualquer software ou tecnologia proprietaria, sao propriedade exclusiva de [[SITE_NAME]] ou dos seus licenciadores. Os utilizadores estao proibidos de reproduzir, modificar, distribuir ou utilizar qualquer propriedade intelectual sem autorizacao explicita. O uso nao autorizado pode resultar em consequencias legais.
+Todos os direitos de propriedade intelectual associados a %SITE_NAME%, incluindo o design da plataforma, logotipos e qualquer software ou tecnologia proprietaria, sao propriedade exclusiva de %SITE_NAME% ou dos seus licenciadores. Os utilizadores estao proibidos de reproduzir, modificar, distribuir ou utilizar qualquer propriedade intelectual sem autorizacao explicita. O uso nao autorizado pode resultar em consequencias legais.
 
 **8. O Seu Conteudo**
 
@@ -85,7 +85,7 @@ Pode fornecer contribuicoes no Servico ("Contribuicao") e receber resultados dos
 
 Mantem os seus direitos de propriedade intelectual sobre a Contribuicao. Nunca reclamaremos a propriedade da sua Contribuicao, mas necessitamos de uma licenca sua para a utilizar.
 
-Quando utiliza [[SITE_NAME]] ou os seus Servicos associados para carregar Contribuicoes protegidas por direitos de propriedade intelectual, concede-nos uma licenca nao exclusiva, isenta de royalties, transferivel, sublicenciavel e mundial para utilizar, distribuir, modificar, executar, copiar, exibir publicamente, traduzir ou de outra forma criar obras derivadas do seu conteudo de forma consistente com a nossa [Politica de Privacidade](/privacy-policy).
+Quando utiliza %SITE_NAME% ou os seus Servicos associados para carregar Contribuicoes protegidas por direitos de propriedade intelectual, concede-nos uma licenca nao exclusiva, isenta de royalties, transferivel, sublicenciavel e mundial para utilizar, distribuir, modificar, executar, copiar, exibir publicamente, traduzir ou de outra forma criar obras derivadas do seu conteudo de forma consistente com a nossa [Politica de Privacidade](/privacy-policy).
 
 A licenca que nos concede pode ser cessada a qualquer momento eliminando a sua Contribuicao ou conta. No entanto, na medida em que nos (ou os nossos parceiros) tenhamos utilizado a sua Contribuicao em conexao com conteudo comercial ou patrocinado, a licenca continuara ate que o conteudo relevante seja descontinuado por nos.
 
@@ -117,7 +117,7 @@ i) Cumprira toda a legislacao aplicavel no seu acesso e utilizacao do Servico, i
 
 **9.2 Responsabilidade pelo Conteudo**
 
-Voce, enquanto utilizador do Servico, e o unico responsavel por qualquer Conteudo que crie, carregue ou gere atraves do Servico. Compreende e concorda que [[SITE_NAME]] nao controla nem subscreve conteudo gerado pelos utilizadores. Por conseguinte, reconhece que e inteiramente responsavel pelo seu Conteudo e pelas suas proprias acoes ao utilizar o Servico.
+Voce, enquanto utilizador do Servico, e o unico responsavel por qualquer Conteudo que crie, carregue ou gere atraves do Servico. Compreende e concorda que %SITE_NAME% nao controla nem subscreve conteudo gerado pelos utilizadores. Por conseguinte, reconhece que e inteiramente responsavel pelo seu Conteudo e pelas suas proprias acoes ao utilizar o Servico.
 
 Deve assegurar que a sua utilizacao do Servico cumpre a legislacao, regulamentacao e estes TOS aplicaveis, e nao devera envolver-se em quaisquer atividades ilegais, anti-eticas ou prejudiciais atraves do Servico.
 
@@ -127,7 +127,7 @@ Valorizamos a seguranca e integridade de todos os utilizadores. Implementamos me
 
 O conteudo pode ser moderado para garantir a conformidade com toda a legislacao aplicavel.
 
-Reservamo-nos o direito, mas nao somos obrigados, a rejeitar e/ou remover qualquer conteudo de utilizador que consideremos, a nosso exclusivo criterio, violar estas disposicoes. Se detetou alguma violacao, contacte-nos em [[CONTACT_EMAIL]] ou denuncie diretamente atraves da seccao "Contacto".
+Reservamo-nos o direito, mas nao somos obrigados, a rejeitar e/ou remover qualquer conteudo de utilizador que consideremos, a nosso exclusivo criterio, violar estas disposicoes. Se detetou alguma violacao, contacte-nos em %CONTACT_EMAIL% ou denuncie diretamente atraves da seccao "Contacto".
 
 **10. Pagamentos**
 
@@ -195,7 +195,7 @@ NEM NOS NEM QUALQUER DAS NOSSAS AFILIADAS OU LICENCIADORES SEREMOS RESPONSAVEIS 
 
 Alguns paises e estados nao permitem a exclusao de determinadas garantias ou a limitacao de determinados danos, pelo que alguns ou todos os termos acima podem nao se aplicar a si, e pode ter direitos adicionais. Nesse caso, estes Termos limitam as nossas responsabilidades apenas na medida maxima permitida no seu pais de residencia.
 
-AS AFILIADAS, FORNECEDORES, LICENCIADORES E DISTRIBUIDORES DE [[COMPANY_NAME]] SAO TERCEIROS BENEFICIARIOS PRETENDIDOS DESTA SECCAO.
+AS AFILIADAS, FORNECEDORES, LICENCIADORES E DISTRIBUIDORES DE %COMPANY_NAME% SAO TERCEIROS BENEFICIARIOS PRETENDIDOS DESTA SECCAO.
 
 **13. Ligacoes para Websites e Servicos de Terceiros**
 
@@ -205,9 +205,9 @@ E da sua responsabilidade assegurar que tudo o que seleciona para uso ou descarr
 
 **14. Lei Aplicavel e Resolucao de Litigios**
 
-Estes TOS serao regidos e interpretados de acordo com as leis de [[COMPANY_JURISDICTION]], sem dar efeito as suas disposicoes sobre conflitos de leis, independentemente da sua localizacao. Se for um consumidor residente na Uniao Europeia, beneficia igualmente da protecao conferida pelas disposicoes imperativas da lei do seu pais de residencia.
+Estes TOS serao regidos e interpretados de acordo com as leis de %COMPANY_JURISDICTION%, sem dar efeito as suas disposicoes sobre conflitos de leis, independentemente da sua localizacao. Se for um consumidor residente na Uniao Europeia, beneficia igualmente da protecao conferida pelas disposicoes imperativas da lei do seu pais de residencia.
 
-Qualquer litigio decorrente de ou em conexao com os TOS, incluindo qualquer questao relativa a sua existencia, validade ou cessacao, sera remetido e definitivamente resolvido pelos tribunais de [[COMPANY_JURISDICTION]]. Se for um consumidor na UE, pode igualmente instaurar processos nos tribunais do seu pais de residencia.
+Qualquer litigio decorrente de ou em conexao com os TOS, incluindo qualquer questao relativa a sua existencia, validade ou cessacao, sera remetido e definitivamente resolvido pelos tribunais de %COMPANY_JURISDICTION%. Se for um consumidor na UE, pode igualmente instaurar processos nos tribunais do seu pais de residencia.
 
 Pode tambem utilizar a plataforma de Resolucao de Litigios em Linha da UE em https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Recolheremos e processaremos as suas informacoes de acordo com a nossa [Politica
 
 Enquanto plataforma sediada na UE, cumprimos o Regulamento dos Servicos Digitais (Regulamento (UE) 2022/2065). Para mais detalhes sobre as nossas obrigacoes ao abrigo do DSA, praticas de moderacao de conteudo, mecanismos de denuncia, procedimentos de reclamacoes e recursos e compromissos de transparencia, consulte a nossa pagina de [Conformidade com o DSA](/dsa-compliance).
 
-O nosso ponto unico de contacto para as autoridades da UE, utilizadores e a Comissao Europeia relativamente a questoes do DSA e: [[CONTACT_EMAIL]].
+O nosso ponto unico de contacto para as autoridades da UE, utilizadores e a Comissao Europeia relativamente a questoes do DSA e: %CONTACT_EMAIL%.
 
 **19. Politicas Relacionadas**
 

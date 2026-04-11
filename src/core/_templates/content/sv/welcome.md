@@ -1,7 +1,7 @@
 ---
-title: Välkommen till [[SITE_NAME]]
+title: Välkommen till %SITE_NAME%
 type: page
-description: Välkommen till [[SITE_NAME]] — ett agentdrivet headless CMS för T3 Stack.
+description: Välkommen till %SITE_NAME% — ett agentdrivet headless CMS för T3 Stack.
 noindex: false
 ---
 

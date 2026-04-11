@@ -1,11 +1,11 @@
 ---
 title: Prawo do odstąpienia od umowy
 type: page
-description: Prawo do odstąpienia od umowy w serwisie [[SITE_NAME]].
+description: Prawo do odstąpienia od umowy w serwisie %SITE_NAME%.
 noindex: true
 ---
 
-**Data aktualizacji:** [[CURRENT_DATE]]
+**Data aktualizacji:** %CURRENT_DATE%
 
 Niniejsza strona zawiera informacje o prawie do odstąpienia od umowy przysługującym konsumentom w Unii Europejskiej, zgodnie z Dyrektywą 2011/83/UE w sprawie praw konsumentów.
 
@@ -17,9 +17,9 @@ Termin na odstąpienie od umowy wygasa po 14 dniach od dnia zawarcia umowy (tj. 
 
 Aby skorzystać z prawa do odstąpienia od umowy, musisz poinformować nas o swojej decyzji o odstąpieniu od umowy w drodze jednoznacznego oświadczenia. Możesz to zrobić, kontaktując się z nami:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-mail: %CONTACT_EMAIL%
 
 Aby zachować termin do odstąpienia od umowy, wystarczy wysłać informację dotyczącą wykonania prawa do odstąpienia od umowy przed upływem terminu do odstąpienia.
 
@@ -31,7 +31,7 @@ W przypadku odstąpienia od umowy zwrócimy Ci wszystkie otrzymane od Ciebie pł
 
 Zgodnie z art. 16 lit. m) Dyrektywy 2011/83/UE prawo do odstąpienia od umowy nie przysługuje w przypadku umów o dostarczanie treści cyfrowych, które nie są dostarczane na nośniku materialnym, jeżeli spełnianie świadczenia rozpoczęło się za Twoją wyraźną uprzednią zgodą i potwierdzeniem, że tym samym tracisz prawo do odstąpienia od umowy.
 
-**Przy zakupie subskrypcji w [[SITE_NAME]]:**
+**Przy zakupie subskrypcji w %SITE_NAME%:**
 
 a) Zostaniesz poproszony o wyraźną zgodę na natychmiastowe rozpoczęcie świadczenia treści cyfrowych/usługi przed upływem 14-dniowego terminu na odstąpienie;
 
@@ -49,9 +49,9 @@ Niezależnie od prawa do odstąpienia od umowy przysługującego na mocy prawa U
 
 (Formularz ten należy wypełnić i odesłać tylko w przypadku chęci odstąpienia od umowy)
 
-Do: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Do: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Niniejszym informuję o moim odstąpieniu od umowy o świadczenie następującej usługi: subskrypcja [[SITE_NAME]] (*)
+Niniejszym informuję o moim odstąpieniu od umowy o świadczenie następującej usługi: subskrypcja %SITE_NAME% (*)
 
 - Data zamówienia: ******\_\_\_******
 - Imię i nazwisko konsumenta: ******\_\_\_******

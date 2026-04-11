@@ -1,13 +1,13 @@
 ---
 title: Politique en matière de cookies
 type: page
-description: Politique en matière de cookies pour [[SITE_NAME]].
+description: Politique en matière de cookies pour %SITE_NAME%.
 noindex: true
 ---
 
-**Date de révision :** [[CURRENT_DATE]]
+**Date de révision :** %CURRENT_DATE%
 
-[[SITE_NAME]] (le « Service »), exploité par [[COMPANY_NAME]], [[COMPANY_ADDRESS]], utilise des cookies et des technologies de suivi similaires. La présente Politique en matière de cookies explique ce que sont les cookies, comment nous les utilisons, vos choix concernant les cookies et des informations complémentaires à leur sujet.
+%SITE_NAME% (le « Service »), exploité par %COMPANY_NAME%, %COMPANY_ADDRESS%, utilise des cookies et des technologies de suivi similaires. La présente Politique en matière de cookies explique ce que sont les cookies, comment nous les utilisons, vos choix concernant les cookies et des informations complémentaires à leur sujet.
 
 **1. Que sont les cookies ?**
 
@@ -92,4 +92,4 @@ Nous pouvons mettre à jour la présente Politique en matière de cookies de tem
 
 **7. Contact**
 
-Si vous avez des questions concernant notre utilisation des cookies, veuillez nous contacter à [[CONTACT_EMAIL]].
+Si vous avez des questions concernant notre utilisation des cookies, veuillez nous contacter à %CONTACT_EMAIL%.

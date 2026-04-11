@@ -1,7 +1,7 @@
 ---
-title: Velkommen til [[SITE_NAME]]
+title: Velkommen til %SITE_NAME%
 type: page
-description: Velkommen til [[SITE_NAME]] — et agentdrevet hodeløst CMS for T3 Stack.
+description: Velkommen til %SITE_NAME% — et agentdrevet hodeløst CMS for T3 Stack.
 noindex: false
 ---
 

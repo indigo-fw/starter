@@ -1,13 +1,13 @@
 ---
 title: Politica sui Cookie
 type: page
-description: Politica sui Cookie per [[SITE_NAME]].
+description: Politica sui Cookie per %SITE_NAME%.
 noindex: true
 ---
 
-**Data di Revisione:** [[CURRENT_DATE]]
+**Data di Revisione:** %CURRENT_DATE%
 
-[[SITE_NAME]] (il "Servizio"), gestito da [[COMPANY_NAME]], [[COMPANY_ADDRESS]], utilizza cookie e tecnologie di tracciamento simili. Questa Politica sui Cookie spiega cosa sono i cookie, come li utilizziamo, le vostre scelte riguardo ai cookie e ulteriori informazioni sui cookie.
+%SITE_NAME% (il "Servizio"), gestito da %COMPANY_NAME%, %COMPANY_ADDRESS%, utilizza cookie e tecnologie di tracciamento simili. Questa Politica sui Cookie spiega cosa sono i cookie, come li utilizziamo, le vostre scelte riguardo ai cookie e ulteriori informazioni sui cookie.
 
 **1. Cosa sono i cookie?**
 
@@ -92,4 +92,4 @@ Potremmo aggiornare periodicamente questa Politica sui Cookie. Vi notificheremo 
 
 **7. Contatti**
 
-Per qualsiasi domanda sull'utilizzo dei cookie, contattateci a [[CONTACT_EMAIL]].
+Per qualsiasi domanda sull'utilizzo dei cookie, contattateci a %CONTACT_EMAIL%.

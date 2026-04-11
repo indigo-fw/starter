@@ -1,13 +1,13 @@
 ---
 title: Diretrizes da Comunidade
 type: page
-description: Diretrizes da Comunidade para [[SITE_NAME]].
+description: Diretrizes da Comunidade para %SITE_NAME%.
 noindex: true
 ---
 
-**Data de Revisao:** [[CURRENT_DATE]]
+**Data de Revisao:** %CURRENT_DATE%
 
-[[SITE_NAME]] (o "Servico"), operado por [[COMPANY_NAME]], e uma plataforma online. Estas Diretrizes da Comunidade estabelecem os padroes de comportamento para todos os utilizadores. Ao utilizar o Servico, concorda em seguir estas diretrizes.
+%SITE_NAME% (o "Servico"), operado por %COMPANY_NAME%, e uma plataforma online. Estas Diretrizes da Comunidade estabelecem os padroes de comportamento para todos os utilizadores. Ao utilizar o Servico, concorda em seguir estas diretrizes.
 
 **1. Respeito e Seguranca**
 
@@ -47,7 +47,7 @@ d) Mantenha a sua conta segura. Nao partilhe as suas credenciais de acesso com t
 
 **4. Conteudo Gerado pelo Utilizador**
 
-O conteudo criado pelos utilizadores representa as suas proprias opinioes e pontos de vista. [[SITE_NAME]] nao subscreve nem assume responsabilidade pelo conteudo gerado pelos utilizadores.
+O conteudo criado pelos utilizadores representa as suas proprias opinioes e pontos de vista. %SITE_NAME% nao subscreve nem assume responsabilidade pelo conteudo gerado pelos utilizadores.
 
 Nao confie em conteudo gerado pelos utilizadores como informacao factual ou aconselhamento profissional.
 
@@ -71,6 +71,6 @@ A severidade da aplicacao depende da natureza e frequencia da violacao. Violacoe
 Se encontrar conteudo ou comportamento que viole estas diretrizes, por favor denuncie:
 
 a) Utilizando a funcionalidade de denuncia integrada na aplicacao;
-b) Por email para [[CONTACT_EMAIL]].
+b) Por email para %CONTACT_EMAIL%.
 
 Para o processo completo de denuncia e recurso, consulte a nossa [Politica de Remocao de Conteudo e Reclamacoes](/content-removal-and-complaints).

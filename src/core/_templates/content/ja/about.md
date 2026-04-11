@@ -1,14 +1,14 @@
 ---
-title: "[[SITE_NAME]]について"
+title: "%SITE_NAME%について"
 type: page
-description: "[[SITE_NAME]]は、T3 Stack（Next.js + tRPC + Drizzle）上に構築されたオープンソースのエージェント駆動型ヘッドレスCMSです。"
-seoTitle: "{sitename}について | エージェント駆動型ヘッドレスCMS"
+description: "%SITE_NAME%は、T3 Stack（Next.js + tRPC + Drizzle）上に構築されたオープンソースのエージェント駆動型ヘッドレスCMSです。"
+seoTitle: "%SITENAME%について | エージェント駆動型ヘッドレスCMS"
 noindex: false
 ---
 
-## [[SITE_NAME]]とは
+## %SITE_NAME%とは
 
-[[SITE_NAME]]は、T3 Stack上に構築されたオープンソースのエージェント駆動型ヘッドレスCMSです。Next.js、tRPC、Drizzle ORM、Better Authを統合し、AI支援開発に最適化された一貫性のあるコンテンツ管理システムを提供します。
+%SITE_NAME%は、T3 Stack上に構築されたオープンソースのエージェント駆動型ヘッドレスCMSです。Next.js、tRPC、Drizzle ORM、Better Authを統合し、AI支援開発に最適化された一貫性のあるコンテンツ管理システムを提供します。
 
 ### 主な機能
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### オープンソース
 
-[[SITE_NAME]]はオープンソース（AGPL-3.0）であり、GitHubで公開されています。プロプライエタリ利用向けの商用ライセンスもご用意しております。コントリビューションを歓迎いたします。
+%SITE_NAME%はオープンソース（AGPL-3.0）であり、GitHubで公開されています。プロプライエタリ利用向けの商用ライセンスもご用意しております。コントリビューションを歓迎いたします。

@@ -1,27 +1,27 @@
 ---
 title: Impressum (nota prawna)
 type: page
-description: Impressum (nota prawna) serwisu [[SITE_NAME]].
+description: Impressum (nota prawna) serwisu %SITE_NAME%.
 noindex: true
 ---
 
 **Informacje zgodnie z obowiązującymi przepisami handlowymi i medialnymi UE**
 
 **Firma:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Adres:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Kontakt:**
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 **Numer rejestrowy:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Podmiot odpowiedzialny za treści:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **Internetowe rozstrzyganie sporów w UE:**
 Komisja Europejska udostępnia platformę do internetowego rozstrzygania sporów (ODR):

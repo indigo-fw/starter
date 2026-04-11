@@ -1,20 +1,20 @@
 ---
 title: İçerik Kaldırma ve Şikayet Politikası
 type: page
-description: "[[SITE_NAME]] İçerik Kaldırma ve Şikayet Politikası."
+description: "%SITE_NAME% İçerik Kaldırma ve Şikayet Politikası."
 noindex: true
 ---
 
-**Revizyon Tarihi:** [[CURRENT_DATE]]
+**Revizyon Tarihi:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Hizmet"), [[COMPANY_NAME]], [[COMPANY_ADDRESS]] tarafından işletilmekte olup güvenli ve yasal bir platform sürdürmeye kararlıdır. Bu politika, yasa dışı veya zararlı içeriğin nasıl bildirileceğini, bu bildirimlerin nasıl ele alındığını ve içerik denetim kararlarımıza nasıl itiraz edileceğini, Dijital Hizmetler Yasası (AB Tüzüğü 2022/2065) uyarınca açıklamaktadır.
+%SITE_NAME% ("Hizmet"), %COMPANY_NAME%, %COMPANY_ADDRESS% tarafından işletilmekte olup güvenli ve yasal bir platform sürdürmeye kararlıdır. Bu politika, yasa dışı veya zararlı içeriğin nasıl bildirileceğini, bu bildirimlerin nasıl ele alındığını ve içerik denetim kararlarımıza nasıl itiraz edileceğini, Dijital Hizmetler Yasası (AB Tüzüğü 2022/2065) uyarınca açıklamaktadır.
 
 **1. Yasa Dışı veya Zararlı İçeriğin Bildirilmesi**
 
 Hizmet üzerinde AB veya ulusal hukuka göre yasa dışı olduğuna veya [Hizmet Şartlarımızı](/terms-of-service) ihlal ettiğine inandığınız bir içerikle karşılaşırsanız aşağıdaki yollarla bildirimde bulunabilirsiniz:
 
 a) Uygulama içi raporlama özelliğini kullanarak (mevcut olduğunda);
-b) [[CONTACT_EMAIL]] adresine e-posta göndererek.
+b) %CONTACT_EMAIL% adresine e-posta göndererek.
 
 **1.1 Bildiriminize neleri dahil etmelisiniz**
 
@@ -67,7 +67,7 @@ Karmaşık durumlar ek süre gerektirebilir. Herhangi bir gecikme hakkında sizi
 
 **3.2 Nasıl itiraz edilir**
 
-İtirazınızı [[CONTACT_EMAIL]] adresine "İtiraz" konu satırıyla e-posta göndererek iletin ve aşağıdakileri ekleyin:
+İtirazınızı %CONTACT_EMAIL% adresine "İtiraz" konu satırıyla e-posta göndererek iletin ve aşağıdakileri ekleyin:
 
 a) Adınız ve hesap tanımlayıcınız;
 b) İtiraz ettiğiniz kararın açıklaması;
@@ -113,6 +113,6 @@ d) Bildirimler ve itirazlar için medyan işlem süresi.
 
 İçerik kaldırma ve şikayetlerle ilgili tüm konular için:
 
-E-posta: [[CONTACT_EMAIL]]
+E-posta: %CONTACT_EMAIL%
 
 Bu adres aynı zamanda Dijital Hizmetler Yasası konularında AB yetkilileri, kullanıcılar ve Avrupa Komisyonu için tek irtibat noktamız olarak hizmet vermektedir.

@@ -1,27 +1,27 @@
 ---
 title: Impressum (juridisk informasjon)
 type: page
-description: Impressum (juridisk informasjon) for [[SITE_NAME]].
+description: Impressum (juridisk informasjon) for %SITE_NAME%.
 noindex: true
 ---
 
 **Informasjon i henhold til gjeldende EU-regler for handel og medier**
 
 **Selskap:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Adresse:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Kontakt:**
-E-post: [[CONTACT_EMAIL]]
+E-post: %CONTACT_EMAIL%
 
 **Registreringsnummer:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Ansvarlig for innhold:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **EUs nettbaserte tvisteløsning:**
 Europakommisjonen tilbyr en plattform for nettbasert tvisteløsning (ODR):

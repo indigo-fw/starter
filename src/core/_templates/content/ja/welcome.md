@@ -1,7 +1,7 @@
 ---
-title: "[[SITE_NAME]]へようこそ"
+title: "%SITE_NAME%へようこそ"
 type: page
-description: "[[SITE_NAME]]へようこそ — T3 Stack向けのエージェント駆動型ヘッドレスCMSです。"
+description: "%SITE_NAME%へようこそ — T3 Stack向けのエージェント駆動型ヘッドレスCMSです。"
 noindex: false
 ---
 

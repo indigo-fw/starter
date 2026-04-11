@@ -1,11 +1,11 @@
 ---
 title: Herroepingsrecht
 type: page
-description: Herroepingsrecht voor [[SITE_NAME]].
+description: Herroepingsrecht voor %SITE_NAME%.
 noindex: true
 ---
 
-**Datum van herziening:** [[CURRENT_DATE]]
+**Datum van herziening:** %CURRENT_DATE%
 
 Deze pagina biedt informatie over uw herroepingsrecht als consument in de Europese Unie, overeenkomstig Richtlijn 2011/83/EU betreffende consumentenrechten.
 
@@ -17,9 +17,9 @@ De herroepingstermijn verstrijkt 14 dagen na de dag van de sluiting van de overe
 
 Om uw herroepingsrecht uit te oefenen, dient u ons door middel van een ondubbelzinnige verklaring op de hoogte te stellen van uw beslissing om de overeenkomst te herroepen. U kunt dit doen door contact met ons op te nemen via:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-mail: %CONTACT_EMAIL%
 
 Om de herroepingstermijn na te leven, volstaat het dat u uw mededeling betreffende de uitoefening van het herroepingsrecht verzendt voordat de herroepingstermijn is verstreken.
 
@@ -31,7 +31,7 @@ Als u de overeenkomst herroept, vergoeden wij alle van u ontvangen betalingen zo
 
 Overeenkomstig artikel 16, onder m), van Richtlijn 2011/83/EU is het herroepingsrecht niet van toepassing op overeenkomsten voor de levering van digitale inhoud die niet op een materiele drager is geleverd, indien de nakoming is begonnen met uw voorafgaande uitdrukkelijke toestemming en uw erkenning dat u daardoor uw herroepingsrecht verliest.
 
-**Bij de aankoop van een abonnement op [[SITE_NAME]]:**
+**Bij de aankoop van een abonnement op %SITE_NAME%:**
 
 a) Wordt u gevraagd uitdrukkelijk in te stemmen met de onmiddellijke uitvoering van de digitale inhoud/dienst voor het verstrijken van de herroepingstermijn van 14 dagen;
 
@@ -49,9 +49,9 @@ Los van het EU-herroepingsrecht bieden wij een vrijwillig restitutiebeleid. Raad
 
 (Vul dit formulier alleen in en retourneer het als u de overeenkomst wilt herroepen)
 
-Aan: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Aan: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Ik deel u hierbij mede dat ik mijn overeenkomst voor de levering van de volgende dienst herroep: [[SITE_NAME]]-abonnement (\*)
+Ik deel u hierbij mede dat ik mijn overeenkomst voor de levering van de volgende dienst herroep: %SITE_NAME%-abonnement (\*)
 
 - Besteld op: ******\_\_\_******
 - Naam van de consument: ******\_\_\_******

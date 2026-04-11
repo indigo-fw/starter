@@ -1,15 +1,15 @@
 ---
 title: Politik for ophavsret og intellektuel ejendomsret
 type: page
-description: Politik for ophavsret og intellektuel ejendomsret for [[SITE_NAME]].
+description: Politik for ophavsret og intellektuel ejendomsret for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdato:** [[CURRENT_DATE]]
+**Revisionsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] værdsætter og respekterer andres intellektuelle ejendomsrettigheder, og vi er dedikerede til at overholde Digital Millennium Copyright Act (DMCA), EU's ophavsretsdirektiv (2019/790) og andre relevante ophavsretslove. Denne politik beskriver de trin, vi tager for at håndtere meddelelser om ophavsretskrænkelse, og giver vejledning i at kontakte os, hvis du mener, at dit ophavsretsbeskyttede materiale er blevet brugt på vores platform uden behørig tilladelse.
+%SITE_NAME% værdsætter og respekterer andres intellektuelle ejendomsrettigheder, og vi er dedikerede til at overholde Digital Millennium Copyright Act (DMCA), EU's ophavsretsdirektiv (2019/790) og andre relevante ophavsretslove. Denne politik beskriver de trin, vi tager for at håndtere meddelelser om ophavsretskrænkelse, og giver vejledning i at kontakte os, hvis du mener, at dit ophavsretsbeskyttede materiale er blevet brugt på vores platform uden behørig tilladelse.
 
-[[SITE_NAME]] og/eller nogen af vores onlinekanaler, tilknyttede hjemmesider, platforme, produkter eller tjenester, inklusive alt indhold heri, omtales heri som "Tjenester."
+%SITE_NAME% og/eller nogen af vores onlinekanaler, tilknyttede hjemmesider, platforme, produkter eller tjenester, inklusive alt indhold heri, omtales heri som "Tjenester."
 
 1\. Indberetning af ophavsretskrænkelse
 
@@ -45,7 +45,7 @@ I overensstemmelse med EU's ophavsretsdirektiv (2019/790) implementerer vi effek
 
 5\. Kontaktoplysninger
 
-Meddelelser og kontrameddelelser skal sendes til os via e-mail til [[CONTACT_EMAIL]]. Vi er forpligtet til at håndtere henvendelser rettidigt og sikre en positiv oplevelse for alle vores brugere.
+Meddelelser og kontrameddelelser skal sendes til os via e-mail til %CONTACT_EMAIL%. Vi er forpligtet til at håndtere henvendelser rettidigt og sikre en positiv oplevelse for alle vores brugere.
 
 6\. Opsigelse
 

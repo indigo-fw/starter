@@ -1,13 +1,13 @@
 ---
 title: Tietosuojakäytäntö
 type: page
-description: Tietosuojakäytäntö sivustolle [[SITE_NAME]].
+description: Tietosuojakäytäntö sivustolle %SITE_NAME%.
 noindex: true
 ---
 
-**Tarkistuspäivämäärä:** [[CURRENT_DATE]]
+**Tarkistuspäivämäärä:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Palvelu") on [[COMPANY_NAME]]:n ylläpitämä, osoite: [[COMPANY_ADDRESS]]. [[SITE_NAME]] on verkkoalusta, joka tarjoaa digitaalisia palveluja ja sisältöä. Jotkin Palveluiden osat voivat edellyttää käyttäjätilin luomista.
+%SITE_NAME% ("Palvelu") on %COMPANY_NAME%:n ylläpitämä, osoite: %COMPANY_ADDRESS%. %SITE_NAME% on verkkoalusta, joka tarjoaa digitaalisia palveluja ja sisältöä. Jotkin Palveluiden osat voivat edellyttää käyttäjätilin luomista.
 
 Olemme sitoutuneet kunnioittamaan yksityisyyttäsi, ja nämä Palvelut toimitetaan aina suostumuksellasi. Tässä asiakirjassa annamme selkeää tietoa siitä, miten tietojasi käsitellään, kun vierailet verkkosivustolla ja käytät Palvelujamme.
 
@@ -23,24 +23,24 @@ Tässä tietosuojakäytännössä "sinä" ja "sinun" tarkoittavat sinua Palvelun
 
 "Käsittely" tarkoittaa mitä tahansa henkilötietoihin kohdistettua toimenpidettä, oli se automaattista tai ei, kuten kerääminen, tallentaminen, järjestäminen, jäsentäminen, säilyttäminen, mukauttaminen, haku, käyttö, luovuttaminen siirtämällä, levittäminen, yhteensovittaminen, rajoittaminen, poistaminen tai tuhoaminen.
 
-"Palvelut" tarkoittavat kaikkia [[SITE_NAME]]:n tarjoamia ominaisuuksia ja toimintoja.
+"Palvelut" tarkoittavat kaikkia %SITE_NAME%:n tarjoamia ominaisuuksia ja toimintoja.
 
-"Tilaus" tarkoittaa [[SITE_NAME]]:n ja sinun välistä järjestelyä, joka mahdollistaa Palveluiden käytön.
+"Tilaus" tarkoittaa %SITE_NAME%:n ja sinun välistä järjestelyä, joka mahdollistaa Palveluiden käytön.
 
 "Käyttäjä" tarkoittaa henkilöä, joka on rekisteröitynyt ja käyttää Palvelua.
 
 "Vierailija" tarkoittaa ketä tahansa, joka selaa verkkosivustoa ilman voimassa olevaa tilausta.
 
-"Verkkosivusto" tarkoittaa sivustoa [[SITE_NAME]], joka on käytettävissä osoitteessa [[SITE_URL]].
+"Verkkosivusto" tarkoittaa sivustoa %SITE_NAME%, joka on käytettävissä osoitteessa %SITE_URL%.
 
 **2. Rekisterinpitäjä**
 
 Rekisterinpitäjä yleisen tietosuoja-asetuksen (EU) 2016/679 ("GDPR") ja sovellettavan tietosuojalainsäädännön mukaisesti on:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Rekisterinumero: [[COMPANY_ID]]
-Sähköposti: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Rekisterinumero: %COMPANY_ID%
+Sähköposti: %CONTACT_EMAIL%
 
 Rekisterinpitäjä vastaa henkilötietojesi käsittelyn tarkoitusten ja keinojen määrittämisestä. Jos sinulla on kysyttävää tästä tietosuojakäytännöstä, mukaan lukien pyynnöt laillisten oikeuksiesi käyttämiseksi, ota meihin yhteyttä yllä olevaan sähköpostiosoitteeseen.
 
@@ -132,13 +132,13 @@ Lähetämme sinulle markkinointiviestintää vain, kun meillä on siihen laillin
 
 **8. Kolmannen osapuolen markkinointi**
 
-Hankimme nimenomaisen suostumuksesi ennen henkilötietojesi jakamista minkään [[COMPANY_NAME]]:n ulkopuolisen yrityksen kanssa markkinointitarkoituksiin.
+Hankimme nimenomaisen suostumuksesi ennen henkilötietojesi jakamista minkään %COMPANY_NAME%:n ulkopuolisen yrityksen kanssa markkinointitarkoituksiin.
 
-Voit pyytää meitä tai kolmansia osapuolia lopettamaan markkinointiviestien lähettämisen milloin tahansa seuraamalla markkinointiviesteissä olevia peruutuslinkkejä tai ottamalla meihin yhteyttä osoitteessa [[CONTACT_EMAIL]].
+Voit pyytää meitä tai kolmansia osapuolia lopettamaan markkinointiviestien lähettämisen milloin tahansa seuraamalla markkinointiviesteissä olevia peruutuslinkkejä tai ottamalla meihin yhteyttä osoitteessa %CONTACT_EMAIL%.
 
 **9. Henkilötietojesi jakaminen**
 
-[[SITE_NAME]] voi jakaa tietojasi:
+%SITE_NAME% voi jakaa tietojasi:
 
 a) Palveluntarjoajien kanssa, joiden kanssa teemme yhteistyötä Palveluiden toimittamiseksi (hosting, maksunkäsittely, analytiikka);
 
@@ -166,7 +166,7 @@ Palveluntarjoajamme, jotka voivat käsitellä tietoja ETA:n ulkopuolella, sisäl
 
 Käytämme automaattisia sisällönvalvontatyökaluja havaitaksemme sisältöä, joka saattaa rikkoa käyttöehtojamme tai sovellettavaa lainsäädäntöä. Nämä työkalut voivat merkitä sisältöä ihmisen tarkistettavaksi tai automaattisesti rajoittaa sisältöä tai tilejä.
 
-Sinulla on oikeus olla joutumatta yksinomaan automaattiseen käsittelyyn perustuvan päätöksen kohteeksi, jolla on sinuun kohdistuvia oikeusvaikutuksia tai joka vaikuttaa sinuun vastaavalla tavalla merkittävästi (GDPR 22 art.). Jos uskot, että sinua koskeva automaattinen päätös on tehty virheellisesti, voit ottaa meihin yhteyttä ja pyytää ihmisen suorittamaa tarkistusta osoitteessa [[CONTACT_EMAIL]].
+Sinulla on oikeus olla joutumatta yksinomaan automaattiseen käsittelyyn perustuvan päätöksen kohteeksi, jolla on sinuun kohdistuvia oikeusvaikutuksia tai joka vaikuttaa sinuun vastaavalla tavalla merkittävästi (GDPR 22 art.). Jos uskot, että sinua koskeva automaattinen päätös on tehty virheellisesti, voit ottaa meihin yhteyttä ja pyytää ihmisen suorittamaa tarkistusta osoitteessa %CONTACT_EMAIL%.
 
 **12. Arkaluonteiset tiedot**
 
@@ -174,7 +174,7 @@ Emme koskaan pyydä sinua antamaan henkilötietoja, jotka paljastavat rodun tai 
 
 **13. Oikeutesi GDPR:n nojalla**
 
-Sinulla on seuraavat oikeudet henkilötietojesi osalta. Käyttääksesi mitä tahansa näistä oikeuksista, ota meihin yhteyttä osoitteessa [[CONTACT_EMAIL]].
+Sinulla on seuraavat oikeudet henkilötietojesi osalta. Käyttääksesi mitä tahansa näistä oikeuksista, ota meihin yhteyttä osoitteessa %CONTACT_EMAIL%.
 
 **13.1 Oikeus saada pääsy tietoihin (15 art.)**
 
@@ -218,7 +218,7 @@ Sinulla on oikeus peruuttaa suostumuksesi milloin tahansa. Peruuttaminen ei vaik
 
 Jos peruutat suostumuksesi, emme ehkä voi tarjota Palveluita sinulle ja ryhdymme kohtuullisiin toimenpiteisiin tilisi ja keräämiemme henkilötietojen poistamiseksi.
 
-Voit peruuttaa suostumuksesi ottamalla meihin yhteyttä osoitteessa [[CONTACT_EMAIL]].
+Voit peruuttaa suostumuksesi ottamalla meihin yhteyttä osoitteessa %CONTACT_EMAIL%.
 
 **13.8 Oikeus tehdä valitus (77 art.)**
 
@@ -242,7 +242,7 @@ Säilytysaikoja voidaan muuttaa muuttuvien liiketoiminnallisten tai sääntelyva
 
 **15. Alaikäisten henkilötiedot**
 
-[[SITE_NAME]] ei tarjoa Palveluita alle lainkäyttöalueensa täysi-ikäisyyden ikärajan alaisille henkilöille eikä kerää heiltä henkilötietoja. Jos saamme tietää keränneemme henkilötietoja alaikäiseltä, poistamme tiedot mahdollisimman pian ja estämme käyttäjän.
+%SITE_NAME% ei tarjoa Palveluita alle lainkäyttöalueensa täysi-ikäisyyden ikärajan alaisille henkilöille eikä kerää heiltä henkilötietoja. Jos saamme tietää keränneemme henkilötietoja alaikäiseltä, poistamme tiedot mahdollisimman pian ja estämme käyttäjän.
 
 **16. Tietoturva**
 
@@ -256,7 +256,7 @@ Verkkosivusto voi sisältää linkkejä kolmannen osapuolen verkkosivustoille, l
 
 **18. Sulautuminen tai yrityskauppa**
 
-Jos [[SITE_NAME]] sulautuu toiseen yritykseen tai toinen yritys ostaa sen, tai se myy kaikki tai osan varoistaan, henkilötietosi voidaan luovuttaa neuvonanantajillemme ja mahdollisen ostajan neuvonantajille, ja ne voivat olla siirrettävien varojen joukossa. Henkilötiedot ovat kuitenkin aina tämän tietosuojakäytännön alaisia.
+Jos %SITE_NAME% sulautuu toiseen yritykseen tai toinen yritys ostaa sen, tai se myy kaikki tai osan varoistaan, henkilötietosi voidaan luovuttaa neuvonanantajillemme ja mahdollisen ostajan neuvonantajille, ja ne voivat olla siirrettävien varojen joukossa. Henkilötiedot ovat kuitenkin aina tämän tietosuojakäytännön alaisia.
 
 **19. Muutokset tähän tietosuojakäytäntöön**
 
@@ -272,6 +272,6 @@ Pyrimme vastaamaan kaikkiin perusteltuihin pyyntöihin kuukauden kuluessa. Toisi
 
 Kaikissa tietosuojaan liittyvissä asioissa, mukaan lukien oikeuksiesi käyttäminen:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Sähköposti: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Sähköposti: %CONTACT_EMAIL%

@@ -1,26 +1,26 @@
 ---
 title: Conformité au Règlement sur les services numériques (DSA)
 type: page
-description: Conformité au Règlement sur les services numériques (DSA) pour [[SITE_NAME]].
+description: Conformité au Règlement sur les services numériques (DSA) pour %SITE_NAME%.
 noindex: true
 ---
 
-**Date de révision :** [[CURRENT_DATE]]
+**Date de révision :** %CURRENT_DATE%
 
-En tant que plateforme établie dans l'UE, [[SITE_NAME]], exploité par [[COMPANY_NAME]], est conforme au Règlement sur les services numériques (Règlement (UE) 2022/2065). Cette page présente nos obligations, vos droits et nos pratiques de modération de contenu dans le cadre du DSA.
+En tant que plateforme établie dans l'UE, %SITE_NAME%, exploité par %COMPANY_NAME%, est conforme au Règlement sur les services numériques (Règlement (UE) 2022/2065). Cette page présente nos obligations, vos droits et nos pratiques de modération de contenu dans le cadre du DSA.
 
 **1. Informations sur le fournisseur de services**
 
-**Fournisseur :** [[COMPANY_NAME]]
-**Adresse :** [[COMPANY_ADDRESS]]
-**Numéro d'immatriculation :** [[COMPANY_ID]]
-**Contact :** [[CONTACT_EMAIL]]
+**Fournisseur :** %COMPANY_NAME%
+**Adresse :** %COMPANY_ADDRESS%
+**Numéro d'immatriculation :** %COMPANY_ID%
+**Contact :** %CONTACT_EMAIL%
 
 **2. Point de contact**
 
 Notre point de contact unique pour les autorités des États membres de l'UE, la Commission européenne, le Comité européen des services numériques et les utilisateurs concernant les questions relatives au DSA est :
 
-E-mail : [[CONTACT_EMAIL]]
+E-mail : %CONTACT_EMAIL%
 
 Ce point de contact est disponible en anglais.
 
@@ -30,7 +30,7 @@ Notre société étant établie dans l'UE, aucun représentant légal distinct n
 
 **4. Nature du service**
 
-[[SITE_NAME]] est une plateforme en ligne qui fournit des services et contenus numériques. Les utilisateurs peuvent créer des comptes, accéder au contenu et interagir avec les fonctionnalités de la plateforme.
+%SITE_NAME% est une plateforme en ligne qui fournit des services et contenus numériques. Les utilisateurs peuvent créer des comptes, accéder au contenu et interagir avec les fonctionnalités de la plateforme.
 
 **5. Modération de contenu**
 
@@ -56,7 +56,7 @@ d) Les considérations relatives aux droits fondamentaux, y compris la liberté 
 
 **6. Signalement de contenu illégal**
 
-Si vous rencontrez du contenu que vous estimez être illégal au regard du droit de l'UE ou du droit national, vous pouvez le signaler en nous contactant à [[CONTACT_EMAIL]]. Pour la procédure complète de signalement, y compris les éléments à inclure dans votre signalement et la manière dont nous le traitons, consultez notre [Politique de suppression de contenu et de réclamations](/content-removal-and-complaints).
+Si vous rencontrez du contenu que vous estimez être illégal au regard du droit de l'UE ou du droit national, vous pouvez le signaler en nous contactant à %CONTACT_EMAIL%. Pour la procédure complète de signalement, y compris les éléments à inclure dans votre signalement et la manière dont nous le traitons, consultez notre [Politique de suppression de contenu et de réclamations](/content-removal-and-complaints).
 
 **7. Exposé des motifs**
 

@@ -1,20 +1,20 @@
 ---
 title: Sisällön poistaminen ja valitukset
 type: page
-description: Sisällön poistaminen ja valitukset sivustolla [[SITE_NAME]].
+description: Sisällön poistaminen ja valitukset sivustolla %SITE_NAME%.
 noindex: true
 ---
 
-**Tarkistuspäivämäärä:** [[CURRENT_DATE]]
+**Tarkistuspäivämäärä:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Palvelu"), jota ylläpitää [[COMPANY_NAME]], [[COMPANY_ADDRESS]], on sitoutunut ylläpitämään turvallista ja lainmukaista alustaa. Tämä käytäntö kuvaa, miten ilmoitat laittomasta tai haitallisesta sisällöstä, miten käsittelemme tällaisia ilmoituksia ja miten voit valittaa sisällönvalvontapäätöksistämme digipalvelusäädöksen (asetus (EU) 2022/2065) mukaisesti.
+%SITE_NAME% ("Palvelu"), jota ylläpitää %COMPANY_NAME%, %COMPANY_ADDRESS%, on sitoutunut ylläpitämään turvallista ja lainmukaista alustaa. Tämä käytäntö kuvaa, miten ilmoitat laittomasta tai haitallisesta sisällöstä, miten käsittelemme tällaisia ilmoituksia ja miten voit valittaa sisällönvalvontapäätöksistämme digipalvelusäädöksen (asetus (EU) 2022/2065) mukaisesti.
 
 **1. Laittoman tai haitallisen sisällön ilmoittaminen**
 
 Jos kohtaat Palvelussa sisältöä, jonka uskot olevan laitonta EU- tai kansallisen lainsäädännön nojalla tai joka rikkoo [käyttöehtojamme](/terms-of-service), voit ilmoittaa siitä:
 
 a) Käyttämällä sovelluksen sisäistä ilmoitustoimintoa (mikäli käytettävissä);
-b) Lähettämällä sähköpostia osoitteeseen [[CONTACT_EMAIL]].
+b) Lähettämällä sähköpostia osoitteeseen %CONTACT_EMAIL%.
 
 **1.1 Mitä ilmoitukseesi tulee sisällyttää**
 
@@ -67,7 +67,7 @@ Jos sisältösi poistettiin, tiliäsi rajoitettiin tai ilmoituksesi hylättiin, 
 
 **3.2 Miten valitat**
 
-Lähetä valituksesi sähköpostitse osoitteeseen [[CONTACT_EMAIL]] otsikolla "Valitus" ja sisällytä:
+Lähetä valituksesi sähköpostitse osoitteeseen %CONTACT_EMAIL% otsikolla "Valitus" ja sisällytä:
 
 a) Nimesi ja tilitunnisteesi;
 b) Kuvaus päätöksestä, josta valitat;
@@ -113,6 +113,6 @@ d) Ilmoitusten ja valitusten mediaanikäsittelyaika.
 
 Kaikissa sisällön poistamiseen ja valituksiin liittyvissä asioissa:
 
-Sähköposti: [[CONTACT_EMAIL]]
+Sähköposti: %CONTACT_EMAIL%
 
 Tämä osoite toimii myös keskitettynä yhteyspisteenämme EU-viranomaisille, käyttäjille ja Euroopan komissiolle digipalvelusäädöstä koskevissa asioissa.

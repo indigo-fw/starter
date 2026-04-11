@@ -1,27 +1,27 @@
 ---
 title: Impressum (juridisk meddelelse)
 type: page
-description: Impressum (juridisk meddelelse) for [[SITE_NAME]].
+description: Impressum (juridisk meddelelse) for %SITE_NAME%.
 noindex: true
 ---
 
 **Oplysninger i henhold til gældende EU-regler for handel og medier**
 
 **Virksomhed:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Adresse:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Kontakt:**
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 **Registreringsnummer:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Ansvarlig for indhold:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **EU's onlinetvistbilæggelse:**
 Europa-Kommissionen stiller en platform til rådighed for onlinetvistbilæggelse (ODR):

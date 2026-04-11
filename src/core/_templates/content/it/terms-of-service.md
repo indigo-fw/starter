@@ -1,19 +1,19 @@
 ---
 title: Termini di Servizio
 type: page
-description: Termini di Servizio per [[SITE_NAME]].
+description: Termini di Servizio per %SITE_NAME%.
 noindex: true
 ---
 
-**Data di Revisione:** [[CURRENT_DATE]]
+**Data di Revisione:** %CURRENT_DATE%
 
 **1. Introduzione**
 
-[[SITE_NAME]] (il "Servizio") e gestito da [[COMPANY_NAME]], indirizzo: [[COMPANY_ADDRESS]] (di seguito "noi", "nostro" o "nostra").
+%SITE_NAME% (il "Servizio") e gestito da %COMPANY_NAME%, indirizzo: %COMPANY_ADDRESS% (di seguito "noi", "nostro" o "nostra").
 
-[[SITE_NAME]] e una piattaforma online che fornisce servizi digitali e contenuti (collettivamente, i "Servizi"). Alcune parti dei Servizi possono richiedere la creazione di un account utente.
+%SITE_NAME% e una piattaforma online che fornisce servizi digitali e contenuti (collettivamente, i "Servizi"). Alcune parti dei Servizi possono richiedere la creazione di un account utente.
 
-I presenti Termini di Servizio (i "TOS") stabiliscono i termini giuridicamente vincolanti per l'utilizzo del Servizio. Accedendo e/o utilizzando il Servizio, accettate di essere vincolati dai presenti TOS e da tutti gli altri Termini e Politiche pubblicati su [[SITE_URL]]. Se non siete d'accordo, cessate immediatamente l'utilizzo del Servizio.
+I presenti Termini di Servizio (i "TOS") stabiliscono i termini giuridicamente vincolanti per l'utilizzo del Servizio. Accedendo e/o utilizzando il Servizio, accettate di essere vincolati dai presenti TOS e da tutti gli altri Termini e Politiche pubblicati su %SITE_URL%. Se non siete d'accordo, cessate immediatamente l'utilizzo del Servizio.
 
 Vi impegnate a non utilizzare il Servizio per finalita illegali o non autorizzate.
 
@@ -73,11 +73,11 @@ c) Se siete al di sotto dell'eta legale nella giurisdizione del vostro luogo di 
 
 **7. Proprieta Intellettuale**
 
-La proprieta intellettuale nel Servizio e nei materiali incorporati (inclusi, senza limitazione, tecnologia, sistemi, file, documenti, testi, fotografie, informazioni, immagini, video, audio e software) sono di proprieta di o concessi in licenza a [[SITE_NAME]]. Potete utilizzare il Servizio e i suoi contenuti sui vostri dispositivi esclusivamente per uso personale.
+La proprieta intellettuale nel Servizio e nei materiali incorporati (inclusi, senza limitazione, tecnologia, sistemi, file, documenti, testi, fotografie, informazioni, immagini, video, audio e software) sono di proprieta di o concessi in licenza a %SITE_NAME%. Potete utilizzare il Servizio e i suoi contenuti sui vostri dispositivi esclusivamente per uso personale.
 
 Vi concediamo una licenza esclusivamente per uso personale. Questa licenza non costituisce un trasferimento di titolarita. Questa licenza cessera automaticamente in caso di violazione dei presenti TOS e potra essere cessata da noi in qualsiasi momento.
 
-Tutti i diritti di proprieta intellettuale associati a [[SITE_NAME]], incluso il design della piattaforma, i loghi e qualsiasi software o tecnologia proprietaria, sono di esclusiva proprieta di [[SITE_NAME]] o dei suoi licenzianti. E vietato agli utenti riprodurre, modificare, distribuire o utilizzare qualsiasi proprieta intellettuale senza esplicita autorizzazione. L'uso non autorizzato puo comportare conseguenze legali.
+Tutti i diritti di proprieta intellettuale associati a %SITE_NAME%, incluso il design della piattaforma, i loghi e qualsiasi software o tecnologia proprietaria, sono di esclusiva proprieta di %SITE_NAME% o dei suoi licenzianti. E vietato agli utenti riprodurre, modificare, distribuire o utilizzare qualsiasi proprieta intellettuale senza esplicita autorizzazione. L'uso non autorizzato puo comportare conseguenze legali.
 
 **8. I Vostri Contenuti**
 
@@ -85,7 +85,7 @@ Potete fornire contributi all'interno del Servizio ("Contributo") e ricevere ris
 
 Mantenete i vostri diritti di proprieta intellettuale sul Contributo. Non rivendicheremo mai la proprieta del vostro Contributo, ma necessitiamo di una licenza da parte vostra per utilizzarlo.
 
-Quando utilizzate [[SITE_NAME]] o i suoi Servizi associati per caricare Contributi protetti da diritti di proprieta intellettuale, ci concedete una licenza non esclusiva, esente da royalty, trasferibile, sublicenziabile e mondiale per utilizzare, distribuire, modificare, eseguire, copiare, visualizzare pubblicamente, tradurre o altrimenti creare opere derivate dai vostri contenuti in modo coerente con la nostra [Informativa sulla Privacy](/privacy-policy).
+Quando utilizzate %SITE_NAME% o i suoi Servizi associati per caricare Contributi protetti da diritti di proprieta intellettuale, ci concedete una licenza non esclusiva, esente da royalty, trasferibile, sublicenziabile e mondiale per utilizzare, distribuire, modificare, eseguire, copiare, visualizzare pubblicamente, tradurre o altrimenti creare opere derivate dai vostri contenuti in modo coerente con la nostra [Informativa sulla Privacy](/privacy-policy).
 
 La licenza che ci concedete puo essere cessata in qualsiasi momento eliminando il vostro Contributo o account. Tuttavia, nella misura in cui noi (o i nostri partner) abbiamo utilizzato il vostro Contributo in relazione a contenuti commerciali o sponsorizzati, la licenza continuera fino a quando il contenuto pertinente non sara interrotto da noi.
 
@@ -117,7 +117,7 @@ i) Rispetterete tutte le leggi applicabili nell'accesso e nell'utilizzo del Serv
 
 **9.2 Responsabilita per i Contenuti**
 
-Voi, in qualita di utente del Servizio, siete gli unici responsabili di qualsiasi Contenuto che create, caricate o generate attraverso il Servizio. Comprendete e accettate che [[SITE_NAME]] non controlla ne approva i contenuti generati dagli utenti. Pertanto, riconoscete di essere pienamente responsabili dei vostri Contenuti e delle vostre azioni durante l'utilizzo del Servizio.
+Voi, in qualita di utente del Servizio, siete gli unici responsabili di qualsiasi Contenuto che create, caricate o generate attraverso il Servizio. Comprendete e accettate che %SITE_NAME% non controlla ne approva i contenuti generati dagli utenti. Pertanto, riconoscete di essere pienamente responsabili dei vostri Contenuti e delle vostre azioni durante l'utilizzo del Servizio.
 
 Dovete assicurarvi che il vostro utilizzo del Servizio sia conforme alle leggi, ai regolamenti e ai presenti TOS applicabili, e non dovrete intraprendere alcuna attivita illegale, non etica o dannosa attraverso il Servizio.
 
@@ -127,7 +127,7 @@ Teniamo alla sicurezza e all'integrita di tutti gli utenti. Abbiamo implementato
 
 I contenuti possono essere moderati per garantire la conformita con tutte le leggi applicabili.
 
-Ci riserviamo il diritto, ma non siamo obbligati, di rifiutare e/o rimuovere qualsiasi contenuto utente che riteniamo, a nostra esclusiva discrezione, violi queste disposizioni. Se avete riscontrato una violazione, contattateci a [[CONTACT_EMAIL]] o segnalatela direttamente attraverso la sezione "Contatti".
+Ci riserviamo il diritto, ma non siamo obbligati, di rifiutare e/o rimuovere qualsiasi contenuto utente che riteniamo, a nostra esclusiva discrezione, violi queste disposizioni. Se avete riscontrato una violazione, contattateci a %CONTACT_EMAIL% o segnalatela direttamente attraverso la sezione "Contatti".
 
 **10. Pagamenti**
 
@@ -195,7 +195,7 @@ NE NOI NE ALCUNA DELLE NOSTRE AFFILIATE O LICENZIANTI SAREMO RESPONSABILI PER DA
 
 Alcuni paesi e stati non consentono l'esclusione di determinate garanzie o la limitazione di determinati danni, pertanto alcuni o tutti i termini sopra indicati potrebbero non essere applicabili a voi e potreste avere diritti aggiuntivi. In tal caso, i presenti Termini limitano le nostre responsabilita solo nella misura massima consentita nel vostro paese di residenza.
 
-LE AFFILIATE, I FORNITORI, I LICENZIANTI E I DISTRIBUTORI DI [[COMPANY_NAME]] SONO TERZI BENEFICIARI PREVISTI DELLA PRESENTE SEZIONE.
+LE AFFILIATE, I FORNITORI, I LICENZIANTI E I DISTRIBUTORI DI %COMPANY_NAME% SONO TERZI BENEFICIARI PREVISTI DELLA PRESENTE SEZIONE.
 
 **13. Link a Siti Web e Servizi di Terze Parti**
 
@@ -205,9 +205,9 @@ E vostra responsabilita assicurarvi che tutto cio che selezionate per l'uso o il
 
 **14. Legge Applicabile e Risoluzione delle Controversie**
 
-I presenti TOS saranno regolati e interpretati in conformita con le leggi di [[COMPANY_JURISDICTION]], senza dare effetto alle disposizioni sui conflitti di legge, indipendentemente dalla vostra ubicazione. Se siete un consumatore residente nell'Unione Europea, beneficiate anche della protezione offerta dalle disposizioni imperative della legge del vostro paese di residenza.
+I presenti TOS saranno regolati e interpretati in conformita con le leggi di %COMPANY_JURISDICTION%, senza dare effetto alle disposizioni sui conflitti di legge, indipendentemente dalla vostra ubicazione. Se siete un consumatore residente nell'Unione Europea, beneficiate anche della protezione offerta dalle disposizioni imperative della legge del vostro paese di residenza.
 
-Qualsiasi controversia derivante da o in relazione ai TOS, inclusa qualsiasi questione relativa alla loro esistenza, validita o cessazione, sara deferita e definitivamente risolta dai tribunali di [[COMPANY_JURISDICTION]]. Se siete un consumatore nell'UE, potete anche adire i tribunali del vostro paese di residenza.
+Qualsiasi controversia derivante da o in relazione ai TOS, inclusa qualsiasi questione relativa alla loro esistenza, validita o cessazione, sara deferita e definitivamente risolta dai tribunali di %COMPANY_JURISDICTION%. Se siete un consumatore nell'UE, potete anche adire i tribunali del vostro paese di residenza.
 
 Potete anche utilizzare la piattaforma di Risoluzione delle Controversie Online dell'UE all'indirizzo https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Raccoglieremo e tratteremo le vostre informazioni in conformita con la nostra [I
 
 In qualita di piattaforma con sede nell'UE, siamo conformi al Regolamento sui Servizi Digitali (Regolamento (UE) 2022/2065). Per tutti i dettagli sui nostri obblighi ai sensi del DSA, sulle pratiche di moderazione dei contenuti, sui meccanismi di segnalazione, sulle procedure di reclamo e ricorso e sugli impegni di trasparenza, consultate la nostra pagina sulla [Conformita al DSA](/dsa-compliance).
 
-Il nostro punto di contatto unico per le autorita dell'UE, gli utenti e la Commissione Europea per le questioni DSA e: [[CONTACT_EMAIL]].
+Il nostro punto di contatto unico per le autorita dell'UE, gli utenti e la Commissione Europea per le questioni DSA e: %CONTACT_EMAIL%.
 
 **19. Politiche Correlate**
 

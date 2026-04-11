@@ -1,14 +1,14 @@
 ---
-title: Tietoa sivustosta [[SITE_NAME]]
+title: Tietoa sivustosta %SITE_NAME%
 type: page
-description: "[[SITE_NAME]] on avoimen lähdekoodin agenttipohjainen headless-sisällönhallintajärjestelmä, joka on rakennettu T3 Stackille (Next.js + tRPC + Drizzle)."
-seoTitle: "Tietoa sivustosta {sitename} | Agenttipohjainen headless-CMS"
+description: "%SITE_NAME% on avoimen lähdekoodin agenttipohjainen headless-sisällönhallintajärjestelmä, joka on rakennettu T3 Stackille (Next.js + tRPC + Drizzle)."
+seoTitle: "Tietoa sivustosta %SITENAME% | Agenttipohjainen headless-CMS"
 noindex: false
 ---
 
-## Mikä on [[SITE_NAME]]?
+## Mikä on %SITE_NAME%?
 
-[[SITE_NAME]] on avoimen lähdekoodin agenttipohjainen headless-sisällönhallintajärjestelmä, joka on rakennettu T3 Stackille. Se yhdistää Next.js:n, tRPC:n, Drizzle ORM:n ja Better Authin yhtenäiseksi sisällönhallintajärjestelmäksi, joka on optimoitu tekoälyavusteiseen kehitykseen.
+%SITE_NAME% on avoimen lähdekoodin agenttipohjainen headless-sisällönhallintajärjestelmä, joka on rakennettu T3 Stackille. Se yhdistää Next.js:n, tRPC:n, Drizzle ORM:n ja Better Authin yhtenäiseksi sisällönhallintajärjestelmäksi, joka on optimoitu tekoälyavusteiseen kehitykseen.
 
 ### Keskeiset ominaisuudet
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### Avoin lähdekoodi
 
-[[SITE_NAME]] on avointa lähdekoodia (AGPL-3.0) ja saatavilla GitHubissa. Kaupallisia lisenssejä on saatavilla yksityistä käyttöä varten. Osallistuminen on tervetullutta!
+%SITE_NAME% on avointa lähdekoodia (AGPL-3.0) ja saatavilla GitHubissa. Kaupallisia lisenssejä on saatavilla yksityistä käyttöä varten. Osallistuminen on tervetullutta!

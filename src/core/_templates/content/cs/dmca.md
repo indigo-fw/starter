@@ -1,15 +1,15 @@
 ---
 title: Zásady ochrany autorských práv a duševního vlastnictví
 type: page
-description: Zásady ochrany autorských práv a duševního vlastnictví servisu [[SITE_NAME]].
+description: Zásady ochrany autorských práv a duševního vlastnictví servisu %SITE_NAME%.
 noindex: true
 ---
 
-**Datum revize:** [[CURRENT_DATE]]
+**Datum revize:** %CURRENT_DATE%
 
-[[SITE_NAME]] si váží práv duševního vlastnictví ostatních a dodržuje je. Zavazujeme se dodržovat zákon Digital Millennium Copyright Act (DMCA), Směrnici EU o autorském právu (2019/790) a další příslušné zákony o autorském právu. Tyto Zásady popisují kroky, které podnikáme v reakci na oznámení o porušení autorských práv, a poskytují návod, jak nás kontaktovat, pokud se domníváte, že váš materiál chráněný autorským právem byl na naší platformě použit bez řádného oprávnění.
+%SITE_NAME% si váží práv duševního vlastnictví ostatních a dodržuje je. Zavazujeme se dodržovat zákon Digital Millennium Copyright Act (DMCA), Směrnici EU o autorském právu (2019/790) a další příslušné zákony o autorském právu. Tyto Zásady popisují kroky, které podnikáme v reakci na oznámení o porušení autorských práv, a poskytují návod, jak nás kontaktovat, pokud se domníváte, že váš materiál chráněný autorským právem byl na naší platformě použit bez řádného oprávnění.
 
-[[SITE_NAME]] a/nebo jakékoli naše online kanály, přidružené webové stránky, platformy, produkty nebo služby, včetně veškerého obsahu v nich obsaženého, jsou v tomto dokumentu označovány jako „Služby".
+%SITE_NAME% a/nebo jakékoli naše online kanály, přidružené webové stránky, platformy, produkty nebo služby, včetně veškerého obsahu v nich obsaženého, jsou v tomto dokumentu označovány jako „Služby".
 
 1\. Hlášení porušení autorských práv
 
@@ -45,7 +45,7 @@ V souladu se Směrnicí EU o autorském právu (2019/790) provádíme účinná 
 
 5\. Kontaktní informace
 
-Oznámení a protioznámení zasílejte e-mailem na adresu [[CONTACT_EMAIL]]. Zavazujeme se řešit záležitosti v přiměřené lhůtě a zajistit pozitivní zkušenost pro všechny naše uživatele.
+Oznámení a protioznámení zasílejte e-mailem na adresu %CONTACT_EMAIL%. Zavazujeme se řešit záležitosti v přiměřené lhůtě a zajistit pozitivní zkušenost pro všechny naše uživatele.
 
 6\. Ukončení
 

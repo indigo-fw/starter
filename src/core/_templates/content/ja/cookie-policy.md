@@ -1,13 +1,13 @@
 ---
 title: Cookieポリシー
 type: page
-description: [[SITE_NAME]]のCookieポリシーです。
+description: %SITE_NAME%のCookieポリシーです。
 noindex: true
 ---
 
-**改定日:** [[CURRENT_DATE]]
+**改定日:** %CURRENT_DATE%
 
-[[SITE_NAME]]（以下「本サービス」）は、[[COMPANY_NAME]]（所在地: [[COMPANY_ADDRESS]]）が運営しており、Cookieおよび類似の追跡技術を使用しています。本Cookieポリシーでは、Cookieとは何か、当社がCookieをどのように使用するか、Cookieに関するお客様の選択肢、およびCookieに関するその他の情報について説明します。
+%SITE_NAME%（以下「本サービス」）は、%COMPANY_NAME%（所在地: %COMPANY_ADDRESS%）が運営しており、Cookieおよび類似の追跡技術を使用しています。本Cookieポリシーでは、Cookieとは何か、当社がCookieをどのように使用するか、Cookieに関するお客様の選択肢、およびCookieに関するその他の情報について説明します。
 
 **1. Cookieとは？**
 
@@ -92,4 +92,4 @@ Cookieの設定は、本サービス上に引き続きアクセス可能なCooki
 
 **7. お問い合わせ**
 
-Cookieの使用に関するご質問がございましたら、[[CONTACT_EMAIL]]までお問い合わせください。
+Cookieの使用に関するご質問がございましたら、%CONTACT_EMAIL%までお問い合わせください。

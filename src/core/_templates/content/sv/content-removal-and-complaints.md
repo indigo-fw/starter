@@ -1,20 +1,20 @@
 ---
 title: Policy för borttagning av innehåll och klagomål
 type: page
-description: Policy för borttagning av innehåll och klagomål för [[SITE_NAME]].
+description: Policy för borttagning av innehåll och klagomål för %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdatum:** [[CURRENT_DATE]]
+**Revisionsdatum:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjänsten"), som drivs av [[COMPANY_NAME]], [[COMPANY_ADDRESS]], är engagerad i att upprätthålla en säker och laglig plattform. Denna policy beskriver hur du rapporterar olagligt eller skadligt innehåll, hur vi hanterar sådana rapporter och hur du överklar våra beslut om innehållsmoderering, i enlighet med förordningen om digitala tjänster (EU-förordning 2022/2065).
+%SITE_NAME% ("Tjänsten"), som drivs av %COMPANY_NAME%, %COMPANY_ADDRESS%, är engagerad i att upprätthålla en säker och laglig plattform. Denna policy beskriver hur du rapporterar olagligt eller skadligt innehåll, hur vi hanterar sådana rapporter och hur du överklar våra beslut om innehållsmoderering, i enlighet med förordningen om digitala tjänster (EU-förordning 2022/2065).
 
 **1. Rapportering av olagligt eller skadligt innehåll**
 
 Om du stöter på innehåll på Tjänsten som du anser vara olagligt enligt EU-lag eller nationell lag, eller som bryter mot våra [Användarvillkor](/terms-of-service), kan du rapportera det genom att:
 
 a) Använda rapporteringsfunktionen i appen (där den är tillgänglig)
-b) Skicka ett e-postmeddelande till [[CONTACT_EMAIL]]
+b) Skicka ett e-postmeddelande till %CONTACT_EMAIL%
 
 **1.1 Vad du bör inkludera i din rapport**
 
@@ -67,7 +67,7 @@ Om ditt innehåll har tagits bort, ditt konto har begränsats eller din rapport 
 
 **3.2 Hur man överklagar**
 
-Skicka ditt överklagande via e-post till [[CONTACT_EMAIL]] med ämnesraden "Överklagande" och inkludera:
+Skicka ditt överklagande via e-post till %CONTACT_EMAIL% med ämnesraden "Överklagande" och inkludera:
 
 a) Ditt namn och kontoidentifierare
 b) En beskrivning av beslutet du överklagar
@@ -113,6 +113,6 @@ d) Mediantiden för behandling av rapporter och överklaganden
 
 För alla ärenden relaterade till borttagning av innehåll och klagomål:
 
-E-post: [[CONTACT_EMAIL]]
+E-post: %CONTACT_EMAIL%
 
 Denna adress fungerar även som vår enda kontaktpunkt för EU-myndigheter, användare och Europeiska kommissionen gällande ärenden rörande förordningen om digitala tjänster.

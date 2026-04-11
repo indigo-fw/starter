@@ -1,27 +1,27 @@
 ---
 title: Impressum (Aviso Legal)
 type: page
-description: Impressum (Aviso Legal) para [[SITE_NAME]].
+description: Impressum (Aviso Legal) para %SITE_NAME%.
 noindex: true
 ---
 
 **Informacao nos termos da regulamentacao comercial e de comunicacao social aplicavel da UE**
 
 **Empresa:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Morada:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Contacto:**
-Email: [[CONTACT_EMAIL]]
+Email: %CONTACT_EMAIL%
 
 **Numero de Registo:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Responsavel pelo conteudo:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **Resolucao de Litigios em Linha da UE:**
 A Comissao Europeia disponibiliza uma plataforma para a resolucao de litigios em linha (RLL):

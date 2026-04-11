@@ -1,7 +1,7 @@
 ---
-title: Benvenuto su [[SITE_NAME]]
+title: Benvenuto su %SITE_NAME%
 type: page
-description: Benvenuto su [[SITE_NAME]] — un CMS headless guidato da agenti per il T3 Stack.
+description: Benvenuto su %SITE_NAME% — un CMS headless guidato da agenti per il T3 Stack.
 noindex: false
 ---
 

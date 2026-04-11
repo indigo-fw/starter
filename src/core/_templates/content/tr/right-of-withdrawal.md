@@ -1,11 +1,11 @@
 ---
 title: Cayma Hakkı
 type: page
-description: "[[SITE_NAME]] Cayma Hakkı."
+description: "%SITE_NAME% Cayma Hakkı."
 noindex: true
 ---
 
-**Revizyon Tarihi:** [[CURRENT_DATE]]
+**Revizyon Tarihi:** %CURRENT_DATE%
 
 Bu sayfa, 2011/83/AB sayılı Tüketici Hakları Direktifi uyarınca Avrupa Birliği'nde tüketici olarak cayma hakkınız hakkında bilgi vermektedir.
 
@@ -17,9 +17,9 @@ Cayma süresi, sözleşmenin akdedildiği günden (yani satın alma tarihinizden
 
 Cayma hakkınızı kullanmak için, sözleşmeden cayma kararınızı açık bir beyanla bize bildirmeniz gerekmektedir. Bunu yapmak için aşağıdaki adresten bizimle iletişime geçebilirsiniz:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-posta: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-posta: %CONTACT_EMAIL%
 
 Cayma süresine uymak için, cayma hakkının kullanılmasına ilişkin bildiriminizi cayma süresi dolmadan göndermeniz yeterlidir.
 
@@ -31,7 +31,7 @@ Sözleşmeden caymanız halinde, cayma kararınızın bize bildirildiği günden
 
 2011/83/AB sayılı Direktifin 16(m) maddesi uyarınca, cayma hakkı, somut bir ortamda sağlanmayan dijital içerik tedarikine ilişkin sözleşmelerde, ifanın önceden açık onayınızla başlamış olması ve bu şekilde cayma hakkınızı kaybettiğinizi kabul etmeniz halinde uygulanmaz.
 
-**[[SITE_NAME]] üzerinde abonelik satın alırken:**
+**%SITE_NAME% üzerinde abonelik satın alırken:**
 
 a) 14 günlük cayma süresi sona ermeden dijital içeriğin/hizmetin derhal ifasına açıkça onay vermeniz istenecektir;
 
@@ -49,9 +49,9 @@ AB cayma hakkından bağımsız olarak, gönüllü bir iade politikası sunuyoru
 
 (Bu formu yalnızca sözleşmeden caymak istiyorsanız doldurup geri gönderin)
 
-Alıcı: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Alıcı: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-İşbu belge ile aşağıdaki hizmetin sağlanmasına ilişkin sözleşmemden caydığımı bildiririm: [[SITE_NAME]] aboneliği (*)
+İşbu belge ile aşağıdaki hizmetin sağlanmasına ilişkin sözleşmemden caydığımı bildiririm: %SITE_NAME% aboneliği (*)
 
 - Sipariş tarihi: ******\_\_\_******
 - Tüketicinin adı: ******\_\_\_******

@@ -1,15 +1,15 @@
 ---
 title: Urheber- und geistiges Eigentumsrecht
 type: page
-description: Urheber- und geistiges Eigentumsrecht für [[SITE_NAME]].
+description: Urheber- und geistiges Eigentumsrecht für %SITE_NAME%.
 noindex: true
 ---
 
-**Datum der Überarbeitung:** [[CURRENT_DATE]]
+**Datum der Überarbeitung:** %CURRENT_DATE%
 
-[[SITE_NAME]] achtet und wahrt die geistigen Eigentumsrechte Dritter und ist der Einhaltung des Digital Millennium Copyright Act (DMCA), der EU-Urheberrechtsrichtlinie (2019/790) sowie anderer einschlägiger Urheberrechtsgesetze verpflichtet. Diese Richtlinie beschreibt die Schritte, die wir bei Meldungen von Urheberrechtsverletzungen unternehmen, und bietet Hinweise zur Kontaktaufnahme, wenn Sie vermuten, dass Ihr urheberrechtlich geschütztes Material auf unserer Plattform ohne ordnungsgemäße Genehmigung verwendet wurde.
+%SITE_NAME% achtet und wahrt die geistigen Eigentumsrechte Dritter und ist der Einhaltung des Digital Millennium Copyright Act (DMCA), der EU-Urheberrechtsrichtlinie (2019/790) sowie anderer einschlägiger Urheberrechtsgesetze verpflichtet. Diese Richtlinie beschreibt die Schritte, die wir bei Meldungen von Urheberrechtsverletzungen unternehmen, und bietet Hinweise zur Kontaktaufnahme, wenn Sie vermuten, dass Ihr urheberrechtlich geschütztes Material auf unserer Plattform ohne ordnungsgemäße Genehmigung verwendet wurde.
 
-[[SITE_NAME]] und/oder alle unsere Online-Kanäle, verbundenen Websites, Plattformen, Produkte oder Dienste, einschließlich aller darin enthaltenen Inhalte, werden hierin als „Dienste" bezeichnet.
+%SITE_NAME% und/oder alle unsere Online-Kanäle, verbundenen Websites, Plattformen, Produkte oder Dienste, einschließlich aller darin enthaltenen Inhalte, werden hierin als „Dienste" bezeichnet.
 
 1\. Meldung von Urheberrechtsverletzungen
 
@@ -45,7 +45,7 @@ In Übereinstimmung mit der EU-Urheberrechtsrichtlinie (2019/790) setzen wir wir
 
 5\. Kontaktinformationen
 
-Mitteilungen und Gegendarstellungen sollten per E-Mail an [[CONTACT_EMAIL]] gesendet werden. Wir sind bestrebt, Anliegen zeitnah zu bearbeiten und allen unseren Nutzern eine positive Erfahrung zu gewährleisten.
+Mitteilungen und Gegendarstellungen sollten per E-Mail an %CONTACT_EMAIL% gesendet werden. Wir sind bestrebt, Anliegen zeitnah zu bearbeiten und allen unseren Nutzern eine positive Erfahrung zu gewährleisten.
 
 6\. Kündigung
 

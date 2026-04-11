@@ -1,15 +1,15 @@
 ---
 title: Beleid inzake auteursrecht en intellectueel eigendom
 type: page
-description: Beleid inzake auteursrecht en intellectueel eigendom voor [[SITE_NAME]].
+description: Beleid inzake auteursrecht en intellectueel eigendom voor %SITE_NAME%.
 noindex: true
 ---
 
-**Datum van herziening:** [[CURRENT_DATE]]
+**Datum van herziening:** %CURRENT_DATE%
 
-[[SITE_NAME]] waardeert en respecteert de intellectuele eigendomsrechten van anderen en wij zijn toegewijd aan het naleven van de Digital Millennium Copyright Act (DMCA), de EU-Auteursrechtrichtlijn (2019/790) en andere relevante auteurswetten. Dit Beleid beschrijft de stappen die wij ondernemen om meldingen van auteursrechtinbreuk te behandelen en biedt richtlijnen om contact met ons op te nemen als u vermoedt dat uw auteursrechtelijk beschermd materiaal zonder toestemming op ons platform is gebruikt.
+%SITE_NAME% waardeert en respecteert de intellectuele eigendomsrechten van anderen en wij zijn toegewijd aan het naleven van de Digital Millennium Copyright Act (DMCA), de EU-Auteursrechtrichtlijn (2019/790) en andere relevante auteurswetten. Dit Beleid beschrijft de stappen die wij ondernemen om meldingen van auteursrechtinbreuk te behandelen en biedt richtlijnen om contact met ons op te nemen als u vermoedt dat uw auteursrechtelijk beschermd materiaal zonder toestemming op ons platform is gebruikt.
 
-[[SITE_NAME]] en/of al onze online kanalen, gelieerde websites, platforms, producten of diensten, inclusief alle inhoud daarin, worden hierin aangeduid als "Diensten."
+%SITE_NAME% en/of al onze online kanalen, gelieerde websites, platforms, producten of diensten, inclusief alle inhoud daarin, worden hierin aangeduid als "Diensten."
 
 1\. Melding van auteursrechtinbreuk
 
@@ -45,7 +45,7 @@ Overeenkomstig de EU-Auteursrechtrichtlijn (2019/790) implementeren wij doeltref
 
 5\. Contactgegevens
 
-Kennisgevingen en tegenmeldingen dienen per e-mail aan ons te worden verzonden naar [[CONTACT_EMAIL]]. Wij zetten ons in om zaken tijdig te behandelen en een positieve ervaring voor al onze gebruikers te waarborgen.
+Kennisgevingen en tegenmeldingen dienen per e-mail aan ons te worden verzonden naar %CONTACT_EMAIL%. Wij zetten ons in om zaken tijdig te behandelen en een positieve ervaring voor al onze gebruikers te waarborgen.
 
 6\. Beeindiging
 

@@ -1,13 +1,13 @@
 ---
 title: Community-Richtlinien
 type: page
-description: Community-Richtlinien für [[SITE_NAME]].
+description: Community-Richtlinien für %SITE_NAME%.
 noindex: true
 ---
 
-**Datum der Überarbeitung:** [[CURRENT_DATE]]
+**Datum der Überarbeitung:** %CURRENT_DATE%
 
-[[SITE_NAME]] (der „Dienst"), betrieben von [[COMPANY_NAME]], ist eine Online-Plattform. Diese Community-Richtlinien legen die Verhaltensstandards für alle Nutzer fest. Durch die Nutzung des Dienstes erklären Sie sich mit diesen Richtlinien einverstanden.
+%SITE_NAME% (der „Dienst"), betrieben von %COMPANY_NAME%, ist eine Online-Plattform. Diese Community-Richtlinien legen die Verhaltensstandards für alle Nutzer fest. Durch die Nutzung des Dienstes erklären Sie sich mit diesen Richtlinien einverstanden.
 
 **1. Respekt und Sicherheit**
 
@@ -47,7 +47,7 @@ d) Halten Sie Ihr Konto sicher. Geben Sie Ihre Anmeldedaten nicht an andere weit
 
 **4. Nutzergenerierte Inhalte**
 
-Von Nutzern erstellte Inhalte geben deren eigene Ansichten und Meinungen wieder. [[SITE_NAME]] befürwortet keine nutzergenerierten Inhalte und übernimmt keine Verantwortung dafür.
+Von Nutzern erstellte Inhalte geben deren eigene Ansichten und Meinungen wieder. %SITE_NAME% befürwortet keine nutzergenerierten Inhalte und übernimmt keine Verantwortung dafür.
 
 Verlassen Sie sich nicht auf nutzergenerierte Inhalte als sachliche Informationen oder professionelle Beratung.
 
@@ -71,6 +71,6 @@ Die Schwere der Durchsetzung hängt von der Art und Häufigkeit des Verstoßes a
 Wenn Sie auf Inhalte oder Verhaltensweisen stoßen, die gegen diese Richtlinien verstoßen, melden Sie dies bitte:
 
 a) Über die In-App-Meldefunktion;
-b) Per E-Mail an [[CONTACT_EMAIL]].
+b) Per E-Mail an %CONTACT_EMAIL%.
 
 Den vollständigen Melde- und Beschwerdeprozess finden Sie in unserer [Richtlinie zur Inhaltsentfernung und Beschwerden](/content-removal-and-complaints).

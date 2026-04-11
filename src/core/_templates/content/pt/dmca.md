@@ -1,15 +1,15 @@
 ---
 title: Politica de Direitos de Autor e Propriedade Intelectual
 type: page
-description: Politica de Direitos de Autor e Propriedade Intelectual para [[SITE_NAME]].
+description: Politica de Direitos de Autor e Propriedade Intelectual para %SITE_NAME%.
 noindex: true
 ---
 
-**Data de Revisao:** [[CURRENT_DATE]]
+**Data de Revisao:** %CURRENT_DATE%
 
-[[SITE_NAME]] valoriza e defende os direitos de propriedade intelectual de terceiros, e estamos empenhados em cumprir o Digital Millennium Copyright Act (DMCA), a Diretiva Europeia sobre Direitos de Autor (2019/790) e outras leis de direitos de autor aplicaveis. Esta Politica descreve as medidas que tomamos para responder a notificacoes de violacao de direitos de autor e fornece orientacoes sobre como contactar-nos caso considere que o seu material protegido por direitos de autor foi utilizado na nossa plataforma sem a devida autorizacao.
+%SITE_NAME% valoriza e defende os direitos de propriedade intelectual de terceiros, e estamos empenhados em cumprir o Digital Millennium Copyright Act (DMCA), a Diretiva Europeia sobre Direitos de Autor (2019/790) e outras leis de direitos de autor aplicaveis. Esta Politica descreve as medidas que tomamos para responder a notificacoes de violacao de direitos de autor e fornece orientacoes sobre como contactar-nos caso considere que o seu material protegido por direitos de autor foi utilizado na nossa plataforma sem a devida autorizacao.
 
-[[SITE_NAME]] e/ou quaisquer dos nossos canais online, websites afiliados, plataformas, produtos ou servicos, incluindo todo o conteudo neles contido, sao aqui referidos como "Servicos."
+%SITE_NAME% e/ou quaisquer dos nossos canais online, websites afiliados, plataformas, produtos ou servicos, incluindo todo o conteudo neles contido, sao aqui referidos como "Servicos."
 
 1\. Denuncia de Violacao de Direitos de Autor
 
@@ -45,7 +45,7 @@ Em conformidade com a Diretiva Europeia sobre Direitos de Autor (2019/790), impl
 
 5\. Informacoes de Contacto
 
-As notificacoes e contra-notificacoes devem ser enviadas por email para [[CONTACT_EMAIL]]. Estamos empenhados em responder as preocupacoes de forma atempada e garantir uma experiencia positiva para todos os nossos utilizadores.
+As notificacoes e contra-notificacoes devem ser enviadas por email para %CONTACT_EMAIL%. Estamos empenhados em responder as preocupacoes de forma atempada e garantir uma experiencia positiva para todos os nossos utilizadores.
 
 6\. Cessacao
 

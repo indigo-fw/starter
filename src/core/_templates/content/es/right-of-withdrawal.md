@@ -1,11 +1,11 @@
 ---
 title: Derecho de Desistimiento
 type: page
-description: Derecho de Desistimiento para [[SITE_NAME]].
+description: Derecho de Desistimiento para %SITE_NAME%.
 noindex: true
 ---
 
-**Fecha de revisión:** [[CURRENT_DATE]]
+**Fecha de revisión:** %CURRENT_DATE%
 
 Esta página proporciona información sobre su derecho de desistimiento como consumidor en la Unión Europea, de conformidad con la Directiva 2011/83/UE sobre los derechos de los consumidores.
 
@@ -17,9 +17,9 @@ El plazo de desistimiento expira 14 días después del día de la celebración d
 
 Para ejercer su derecho de desistimiento, debe informarnos de su decisión de desistir del contrato mediante una declaración inequívoca. Puede hacerlo contactándonos en:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Correo electrónico: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Correo electrónico: %CONTACT_EMAIL%
 
 Para cumplir el plazo de desistimiento, basta con que envíe su comunicación relativa al ejercicio del derecho de desistimiento antes de que expire el plazo.
 
@@ -31,7 +31,7 @@ Si desiste del contrato, le reembolsaremos todos los pagos recibidos de usted si
 
 De conformidad con el artículo 16, letra m), de la Directiva 2011/83/UE, el derecho de desistimiento no se aplica a los contratos de suministro de contenido digital que no se suministre en un soporte material si la ejecución ha comenzado con su consentimiento expreso previo y su reconocimiento de que pierde así su derecho de desistimiento.
 
-**Al adquirir una suscripción en [[SITE_NAME]]:**
+**Al adquirir una suscripción en %SITE_NAME%:**
 
 a) Se le pedirá que consienta expresamente la ejecución inmediata del contenido/servicio digital antes de que finalice el plazo de desistimiento de 14 días;
 
@@ -49,9 +49,9 @@ Independientemente del derecho de desistimiento de la UE, ofrecemos una polític
 
 (Complete y devuelva este formulario solo si desea desistir del contrato)
 
-A: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+A: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Por la presente comunico que desisto de mi contrato de prestación del siguiente servicio: suscripción a [[SITE_NAME]] (\*)
+Por la presente comunico que desisto de mi contrato de prestación del siguiente servicio: suscripción a %SITE_NAME% (\*)
 
 - Pedido realizado el: ******\_\_\_******
 - Nombre del consumidor: ******\_\_\_******

@@ -1,13 +1,13 @@
 ---
 title: Directrices de la Comunidad
 type: page
-description: Directrices de la Comunidad para [[SITE_NAME]].
+description: Directrices de la Comunidad para %SITE_NAME%.
 noindex: true
 ---
 
-**Fecha de revisión:** [[CURRENT_DATE]]
+**Fecha de revisión:** %CURRENT_DATE%
 
-[[SITE_NAME]] (el "Servicio"), operado por [[COMPANY_NAME]], es una plataforma en línea. Estas Directrices de la Comunidad establecen los estándares de comportamiento para todos los usuarios. Al utilizar el Servicio, usted acepta cumplir estas directrices.
+%SITE_NAME% (el "Servicio"), operado por %COMPANY_NAME%, es una plataforma en línea. Estas Directrices de la Comunidad establecen los estándares de comportamiento para todos los usuarios. Al utilizar el Servicio, usted acepta cumplir estas directrices.
 
 **1. Respeto y seguridad**
 
@@ -47,7 +47,7 @@ d) Mantenga su cuenta segura. No comparta sus credenciales de acceso con otras p
 
 **4. Contenido generado por usuarios**
 
-El contenido creado por los usuarios representa sus propias opiniones y puntos de vista. [[SITE_NAME]] no respalda ni se responsabiliza del contenido generado por los usuarios.
+El contenido creado por los usuarios representa sus propias opiniones y puntos de vista. %SITE_NAME% no respalda ni se responsabiliza del contenido generado por los usuarios.
 
 No confíe en el contenido generado por usuarios como información objetiva o asesoramiento profesional.
 
@@ -71,6 +71,6 @@ La severidad de la aplicación depende de la naturaleza y frecuencia de la infra
 Si encuentra contenido o comportamiento que infrinja estas directrices, denúncielo:
 
 a) Utilizando la función de denuncia dentro de la aplicación;
-b) Por correo electrónico a [[CONTACT_EMAIL]].
+b) Por correo electrónico a %CONTACT_EMAIL%.
 
 Para el proceso completo de denuncia y apelación, consulte nuestra [Política de Eliminación de Contenido y Reclamaciones](/content-removal-and-complaints).

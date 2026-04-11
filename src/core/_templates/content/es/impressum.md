@@ -1,27 +1,27 @@
 ---
 title: Aviso Legal (Impressum)
 type: page
-description: Aviso Legal (Impressum) para [[SITE_NAME]].
+description: Aviso Legal (Impressum) para %SITE_NAME%.
 noindex: true
 ---
 
 **Información conforme a la normativa comercial y de medios aplicable de la UE**
 
 **Empresa:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Dirección:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Contacto:**
-Correo electrónico: [[CONTACT_EMAIL]]
+Correo electrónico: %CONTACT_EMAIL%
 
 **Número de registro:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Responsable del contenido:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **Resolución de litigios en línea de la UE:**
 La Comisión Europea proporciona una plataforma para la resolución de litigios en línea (ODR):

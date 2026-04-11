@@ -1,13 +1,13 @@
 ---
 title: Política de Cookies
 type: page
-description: Política de Cookies para [[SITE_NAME]].
+description: Política de Cookies para %SITE_NAME%.
 noindex: true
 ---
 
-**Fecha de revisión:** [[CURRENT_DATE]]
+**Fecha de revisión:** %CURRENT_DATE%
 
-[[SITE_NAME]] (el "Servicio"), operado por [[COMPANY_NAME]], [[COMPANY_ADDRESS]], utiliza cookies y tecnologías de seguimiento similares. Esta Política de Cookies explica qué son las cookies, cómo las utilizamos, sus opciones respecto a las cookies y más información al respecto.
+%SITE_NAME% (el "Servicio"), operado por %COMPANY_NAME%, %COMPANY_ADDRESS%, utiliza cookies y tecnologías de seguimiento similares. Esta Política de Cookies explica qué son las cookies, cómo las utilizamos, sus opciones respecto a las cookies y más información al respecto.
 
 **1. ¿Qué son las cookies?**
 
@@ -92,4 +92,4 @@ Podemos actualizar esta Política de Cookies periódicamente. Le notificaremos d
 
 **7. Contacto**
 
-Si tiene alguna pregunta sobre nuestro uso de cookies, contáctenos en [[CONTACT_EMAIL]].
+Si tiene alguna pregunta sobre nuestro uso de cookies, contáctenos en %CONTACT_EMAIL%.

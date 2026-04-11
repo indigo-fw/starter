@@ -1,19 +1,19 @@
 ---
 title: Hizmet Şartları
 type: page
-description: "[[SITE_NAME]] Hizmet Şartları."
+description: "%SITE_NAME% Hizmet Şartları."
 noindex: true
 ---
 
-**Revizyon Tarihi:** [[CURRENT_DATE]]
+**Revizyon Tarihi:** %CURRENT_DATE%
 
 **1. Giriş**
 
-[[SITE_NAME]] ("Hizmet"), [[COMPANY_NAME]] tarafından işletilmektedir, adres: [[COMPANY_ADDRESS]] (bundan böyle "biz", "bize" veya "bizim").
+%SITE_NAME% ("Hizmet"), %COMPANY_NAME% tarafından işletilmektedir, adres: %COMPANY_ADDRESS% (bundan böyle "biz", "bize" veya "bizim").
 
-[[SITE_NAME]], dijital hizmetler ve içerik sunan bir çevrimiçi platformdur (topluca "Hizmetler"). Hizmetlerin bazı bölümleri bir kullanıcı hesabı oluşturmanızı gerektirebilir.
+%SITE_NAME%, dijital hizmetler ve içerik sunan bir çevrimiçi platformdur (topluca "Hizmetler"). Hizmetlerin bazı bölümleri bir kullanıcı hesabı oluşturmanızı gerektirebilir.
 
-Bu Hizmet Şartları ("HŞ"), Hizmeti kullanımınız için yasal olarak bağlayıcı koşulları belirler. Hizmete erişerek ve/veya Hizmeti kullanarak, bu HŞ'ye ve [[SITE_URL]] üzerinde yayımlanan diğer tüm Şart ve Politikalara bağlı olmayı kabul etmiş olursunuz. Kabul etmiyorsanız, lütfen Hizmeti derhal kullanmayı bırakın.
+Bu Hizmet Şartları ("HŞ"), Hizmeti kullanımınız için yasal olarak bağlayıcı koşulları belirler. Hizmete erişerek ve/veya Hizmeti kullanarak, bu HŞ'ye ve %SITE_URL% üzerinde yayımlanan diğer tüm Şart ve Politikalara bağlı olmayı kabul etmiş olursunuz. Kabul etmiyorsanız, lütfen Hizmeti derhal kullanmayı bırakın.
 
 Hizmeti herhangi bir yasa dışı veya yetkisiz amaçla kullanmamayı kabul edersiniz.
 
@@ -73,11 +73,11 @@ c) İkametgahınızın bulunduğu yargı alanında yasal yaşın altındaysanız
 
 **7. Fikri Mülkiyet**
 
-Hizmetteki ve yerleşik materyallerdeki (teknoloji, sistemler, dosyalar, belgeler, metinler, fotoğraflar, bilgiler, görseller, videolar, sesler ve yazılımlar dahil ancak bunlarla sınırlı olmamak üzere) fikri mülkiyet, [[SITE_NAME]]'a aittir veya lisanslanmıştır. Hizmeti ve içeriğini cihazlarınızda yalnızca kişisel kullanımınız için kullanabilirsiniz.
+Hizmetteki ve yerleşik materyallerdeki (teknoloji, sistemler, dosyalar, belgeler, metinler, fotoğraflar, bilgiler, görseller, videolar, sesler ve yazılımlar dahil ancak bunlarla sınırlı olmamak üzere) fikri mülkiyet, %SITE_NAME%'a aittir veya lisanslanmıştır. Hizmeti ve içeriğini cihazlarınızda yalnızca kişisel kullanımınız için kullanabilirsiniz.
 
 İşbu belge ile size yalnızca kişisel kullanım için bir lisans veriyoruz. Bu lisans, mülkiyet devrini oluşturmaz. Bu HŞ'yi ihlal etmeniz halinde bu lisans otomatik olarak sona erecek olup tarafımızca herhangi bir zamanda sonlandırılabilir.
 
-Platform tasarımı, logolar ve tescilli yazılım veya teknoloji dahil olmak üzere [[SITE_NAME]] ile ilişkili tüm fikri mülkiyet hakları, yalnızca [[SITE_NAME]] veya lisans verenlerinin mülkiyetindedir. Kullanıcıların açık yetkilendirme olmaksızın herhangi bir fikri mülkiyeti çoğaltması, değiştirmesi, dağıtması veya kullanması yasaktır. Yetkisiz kullanım yasal sonuçlara yol açabilir.
+Platform tasarımı, logolar ve tescilli yazılım veya teknoloji dahil olmak üzere %SITE_NAME% ile ilişkili tüm fikri mülkiyet hakları, yalnızca %SITE_NAME% veya lisans verenlerinin mülkiyetindedir. Kullanıcıların açık yetkilendirme olmaksızın herhangi bir fikri mülkiyeti çoğaltması, değiştirmesi, dağıtması veya kullanması yasaktır. Yetkisiz kullanım yasal sonuçlara yol açabilir.
 
 **8. İçeriğiniz**
 
@@ -85,7 +85,7 @@ Hizmet dahilinde girdi ("Girdi") sağlayabilir ve Girdiye dayalı olarak Hizmetl
 
 Girdiniz üzerindeki fikri mülkiyet sahiplik haklarınızı korursunuz. Girdinize hiçbir zaman sahiplik iddiasında bulunmayız, ancak kullanmak için sizden bir lisansa ihtiyaç duyarız.
 
-[[SITE_NAME]] veya ilişkili Hizmetlerini, fikri mülkiyet haklarıyla korunan Girdi yüklemek için kullandığınızda, [Gizlilik Politikamızla](/privacy-policy) tutarlı bir şekilde içeriğinizi kullanmak, dağıtmak, değiştirmek, çalıştırmak, kopyalamak, kamuya açık olarak sergilemek, tercüme etmek veya başka şekilde türev eserler oluşturmak üzere bize münhasır olmayan, telifsiz, devredilebilir, alt lisanslanabilir, dünya çapında bir lisans verirsiniz.
+%SITE_NAME% veya ilişkili Hizmetlerini, fikri mülkiyet haklarıyla korunan Girdi yüklemek için kullandığınızda, [Gizlilik Politikamızla](/privacy-policy) tutarlı bir şekilde içeriğinizi kullanmak, dağıtmak, değiştirmek, çalıştırmak, kopyalamak, kamuya açık olarak sergilemek, tercüme etmek veya başka şekilde türev eserler oluşturmak üzere bize münhasır olmayan, telifsiz, devredilebilir, alt lisanslanabilir, dünya çapında bir lisans verirsiniz.
 
 Bize verdiğiniz lisans, Girdinizi veya hesabınızı silerek herhangi bir zamanda sonlandırılabilir. Ancak biz (veya ortaklarımız) Girdinizi ticari veya sponsorlu içerikle bağlantılı olarak kullandıysak, ilgili içerik tarafımızca sona erdirilene kadar lisans devam eder.
 
@@ -117,7 +117,7 @@ i) Hizmete erişim ve kullanımınızda, ülkenizin veya bölgenizin yasaları d
 
 **9.2 İçerik Sorumluluğu**
 
-Hizmetin bir kullanıcısı olarak, Hizmet aracılığıyla oluşturduğunuz, yüklediğiniz veya ürettiğiniz her türlü İçerikten yalnızca siz sorumlusunuz. [[SITE_NAME]]'ın kullanıcı tarafından oluşturulan içeriği kontrol etmediğini veya onaylamadığını anlıyor ve kabul ediyorsunuz. Bu nedenle, İçeriğinizden ve Hizmeti kullanırken gerçekleştirdiğiniz eylemlerden tamamen siz sorumlu olduğunuzu kabul edersiniz.
+Hizmetin bir kullanıcısı olarak, Hizmet aracılığıyla oluşturduğunuz, yüklediğiniz veya ürettiğiniz her türlü İçerikten yalnızca siz sorumlusunuz. %SITE_NAME%'ın kullanıcı tarafından oluşturulan içeriği kontrol etmediğini veya onaylamadığını anlıyor ve kabul ediyorsunuz. Bu nedenle, İçeriğinizden ve Hizmeti kullanırken gerçekleştirdiğiniz eylemlerden tamamen siz sorumlu olduğunuzu kabul edersiniz.
 
 Hizmeti kullanımınızın geçerli yasalara, düzenlemelere ve bu HŞ'ye uygun olmasını sağlamalı ve Hizmet aracılığıyla herhangi bir yasa dışı, etik dışı veya zararlı faaliyette bulunmamalısınız.
 
@@ -127,7 +127,7 @@ Tüm kullanıcıların güvenliğine ve bütünlüğüne değer veriyoruz. Şart
 
 İçerik, tüm geçerli yasalara uyumu sağlamak amacıyla denetlenebilir.
 
-Tamamen kendi takdirimize bağlı olarak bu hükümleri ihlal ettiğine inandığımız herhangi bir kullanıcı içeriğini reddetme ve/veya kaldırma hakkını saklı tutarız, ancak buna zorunlu değiliz. Herhangi bir ihlal fark ederseniz lütfen [[CONTACT_EMAIL]] adresinden bizimle iletişime geçin veya "İletişim" bölümünden doğrudan bildirin.
+Tamamen kendi takdirimize bağlı olarak bu hükümleri ihlal ettiğine inandığımız herhangi bir kullanıcı içeriğini reddetme ve/veya kaldırma hakkını saklı tutarız, ancak buna zorunlu değiliz. Herhangi bir ihlal fark ederseniz lütfen %CONTACT_EMAIL% adresinden bizimle iletişime geçin veya "İletişim" bölümünden doğrudan bildirin.
 
 **10. Ödemeler**
 
@@ -195,7 +195,7 @@ BİZ VEYA BAĞLI ŞİRKETLERİMİZDEN VEYA LİSANS VERENLERİMİZDEN HİÇBİRİ
 
 Bazı ülke ve eyaletler belirli garantilerin reddine veya belirli zararların sınırlandırılmasına izin vermemektedir; bu nedenle yukarıdaki şartların bir kısmı veya tamamı sizin için geçerli olmayabilir ve ek haklarınız bulunabilir. Bu durumda, bu Şartlar sorumluluğumuzu yalnızca ikamet ettiğiniz ülkede izin verilen azami ölçüde sınırlar.
 
-[[COMPANY_NAME]]'NIN BAĞLI ŞİRKETLERİ, TEDARİKÇİLERİ, LİSANS VERENLERİ VE DAĞITICILARI BU BÖLÜMÜN AMAÇLANAN ÜÇÜNCÜ TARAF YARARLANANLARDIR.
+%COMPANY_NAME%'NIN BAĞLI ŞİRKETLERİ, TEDARİKÇİLERİ, LİSANS VERENLERİ VE DAĞITICILARI BU BÖLÜMÜN AMAÇLANAN ÜÇÜNCÜ TARAF YARARLANANLARDIR.
 
 **13. Üçüncü Taraf Web Sitelerine ve Hizmetlerine Bağlantılar**
 
@@ -205,9 +205,9 @@ Kullanmak veya indirmek üzere seçtiğiniz herhangi bir şeyin virüs, solucan,
 
 **14. Geçerli Hukuk ve Uyuşmazlık Çözümü**
 
-Bu HŞ, bulunduğunuz yer ne olursa olsun, kanunlar ihtilafı hükümlerine bakılmaksızın [[COMPANY_JURISDICTION]] yasalarına tabi olacak ve bunlara göre yorumlanacaktır. Avrupa Birliği'nde ikamet eden bir tüketiciyseniz, ayrıca ikamet ettiğiniz ülke yasalarının zorunlu hükümlerinin sağladığı korumadan yararlanırsınız.
+Bu HŞ, bulunduğunuz yer ne olursa olsun, kanunlar ihtilafı hükümlerine bakılmaksızın %COMPANY_JURISDICTION% yasalarına tabi olacak ve bunlara göre yorumlanacaktır. Avrupa Birliği'nde ikamet eden bir tüketiciyseniz, ayrıca ikamet ettiğiniz ülke yasalarının zorunlu hükümlerinin sağladığı korumadan yararlanırsınız.
 
-Bu HŞ'den veya bunlarla bağlantılı olarak doğan, mevcudiyetleri, geçerlilikleri veya fesihlerine ilişkin sorular dahil tüm uyuşmazlıklar, [[COMPANY_JURISDICTION]] mahkemelerine havale edilecek ve burada nihai olarak çözümlenecektir. AB'de bir tüketiciyseniz, ikamet ettiğiniz ülke mahkemelerinde de dava açabilirsiniz.
+Bu HŞ'den veya bunlarla bağlantılı olarak doğan, mevcudiyetleri, geçerlilikleri veya fesihlerine ilişkin sorular dahil tüm uyuşmazlıklar, %COMPANY_JURISDICTION% mahkemelerine havale edilecek ve burada nihai olarak çözümlenecektir. AB'de bir tüketiciyseniz, ikamet ettiğiniz ülke mahkemelerinde de dava açabilirsiniz.
 
 Ayrıca https://ec.europa.eu/consumers/odr adresindeki AB Çevrimiçi Uyuşmazlık Çözüm platformunu da kullanabilirsiniz.
 
@@ -239,7 +239,7 @@ Bilgilerinizi [Gizlilik Politikamıza](/privacy-policy) uygun olarak toplayacak 
 
 AB merkezli bir platform olarak Dijital Hizmetler Yasası'na (AB Tüzüğü 2022/2065) uyuyoruz. DSA yükümlülüklerimiz, içerik denetim uygulamalarımız, raporlama mekanizmalarımız, şikayet ve itiraz prosedürlerimiz ve şeffaflık taahhütlerimiz hakkında tüm ayrıntılar için lütfen [DSA Uyumu](/dsa-compliance) sayfamıza başvurun.
 
-DSA konularında AB yetkilileri, kullanıcılar ve Avrupa Komisyonu için tek irtibat noktamız: [[CONTACT_EMAIL]].
+DSA konularında AB yetkilileri, kullanıcılar ve Avrupa Komisyonu için tek irtibat noktamız: %CONTACT_EMAIL%.
 
 **19. İlgili Politikalar**
 

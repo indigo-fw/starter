@@ -1,19 +1,19 @@
 ---
 title: Servicevilkår
 type: page
-description: Servicevilkår for [[SITE_NAME]].
+description: Servicevilkår for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdato:** [[CURRENT_DATE]]
+**Revisionsdato:** %CURRENT_DATE%
 
 **1. Indledning**
 
-[[SITE_NAME]] ("Tjenesten") drives af [[COMPANY_NAME]], adresse: [[COMPANY_ADDRESS]] (herefter "vi", "os" eller "vores").
+%SITE_NAME% ("Tjenesten") drives af %COMPANY_NAME%, adresse: %COMPANY_ADDRESS% (herefter "vi", "os" eller "vores").
 
-[[SITE_NAME]] er en onlineplatform, der leverer digitale tjenester og indhold (samlet benævnt "Tjenesterne"). Dele af Tjenesterne kan kræve, at du opretter en brugerkonto.
+%SITE_NAME% er en onlineplatform, der leverer digitale tjenester og indhold (samlet benævnt "Tjenesterne"). Dele af Tjenesterne kan kræve, at du opretter en brugerkonto.
 
-Disse Servicevilkår ("Vilkårene") fastlægger de juridisk bindende vilkår for din brug af Tjenesten. Ved at tilgå og/eller bruge Tjenesten accepterer du at være bundet af disse Vilkår og alle andre vilkår og politikker offentliggjort på [[SITE_URL]]. Hvis du ikke er enig, bedes du straks stoppe med at bruge Tjenesten.
+Disse Servicevilkår ("Vilkårene") fastlægger de juridisk bindende vilkår for din brug af Tjenesten. Ved at tilgå og/eller bruge Tjenesten accepterer du at være bundet af disse Vilkår og alle andre vilkår og politikker offentliggjort på %SITE_URL%. Hvis du ikke er enig, bedes du straks stoppe med at bruge Tjenesten.
 
 Du accepterer ikke at bruge Tjenesten til noget ulovligt eller uautoriseret formål.
 
@@ -73,11 +73,11 @@ c) Hvis du ikke har nået den lovlige alder i din bopælsjurisdiktion, må du ik
 
 **7. Intellektuel ejendomsret**
 
-Den intellektuelle ejendomsret i Tjenesten og integrerede materialer (herunder, men ikke begrænset til, teknologi, systemer, filer, dokumenter, tekst, fotografier, information, billeder, videoer, lyd og software) ejes af eller er licenseret til [[SITE_NAME]]. Du må bruge Tjenesten og dens indhold på dine enheder udelukkende til personlig brug.
+Den intellektuelle ejendomsret i Tjenesten og integrerede materialer (herunder, men ikke begrænset til, teknologi, systemer, filer, dokumenter, tekst, fotografier, information, billeder, videoer, lyd og software) ejes af eller er licenseret til %SITE_NAME%. Du må bruge Tjenesten og dens indhold på dine enheder udelukkende til personlig brug.
 
 Vi giver dig hermed en licens til personlig brug. Denne licens udgør ikke en overdragelse af ejendomsretten. Denne licens ophører automatisk, hvis du overtræder disse Vilkår, og kan opsiges af os til enhver tid.
 
-Alle intellektuelle ejendomsrettigheder forbundet med [[SITE_NAME]], herunder platformens design, logoer og enhver proprietær software eller teknologi, tilhører udelukkende [[SITE_NAME]] eller dennes licensgivere. Brugere har forbud mod at reproducere, ændre, distribuere eller bruge nogen intellektuel ejendom uden udtrykkelig tilladelse. Uautoriseret brug kan medføre juridiske konsekvenser.
+Alle intellektuelle ejendomsrettigheder forbundet med %SITE_NAME%, herunder platformens design, logoer og enhver proprietær software eller teknologi, tilhører udelukkende %SITE_NAME% eller dennes licensgivere. Brugere har forbud mod at reproducere, ændre, distribuere eller bruge nogen intellektuel ejendom uden udtrykkelig tilladelse. Uautoriseret brug kan medføre juridiske konsekvenser.
 
 **8. Dit indhold**
 
@@ -85,7 +85,7 @@ Du kan levere input inden for Tjenesten ("Input") og modtage output fra Tjeneste
 
 Du bevarer dine intellektuelle ejendomsrettigheder over Input. Vi vil aldrig gøre krav på ejerskab af dit Input, men vi kræver en licens fra dig for at kunne bruge det.
 
-Når du bruger [[SITE_NAME]] eller dets tilknyttede Tjenester til at uploade Input dækket af intellektuel ejendomsret, giver du os en ikke-eksklusiv, royaltyfri, overførbar, underlicenserbar, verdensomspændende licens til at bruge, distribuere, ændre, køre, kopiere, offentligt vise, oversætte eller på anden måde skabe afledte værker af dit indhold på en måde, der er i overensstemmelse med vores [Privatlivspolitik](/privacy-policy).
+Når du bruger %SITE_NAME% eller dets tilknyttede Tjenester til at uploade Input dækket af intellektuel ejendomsret, giver du os en ikke-eksklusiv, royaltyfri, overførbar, underlicenserbar, verdensomspændende licens til at bruge, distribuere, ændre, køre, kopiere, offentligt vise, oversætte eller på anden måde skabe afledte værker af dit indhold på en måde, der er i overensstemmelse med vores [Privatlivspolitik](/privacy-policy).
 
 Den licens, du giver os, kan opsiges til enhver tid ved at slette dit Input eller din konto. I det omfang vi (eller vores partnere) har brugt dit Input i forbindelse med kommercielt eller sponsoreret indhold, vil licensen dog fortsætte, indtil det relevante indhold er blevet fjernet af os.
 
@@ -117,7 +117,7 @@ i) Du vil overholde alle gældende love i forbindelse med din adgang til og brug
 
 **9.2 Indholdsansvar**
 
-Som bruger af Tjenesten er du alene ansvarlig for alt Indhold, du opretter, uploader eller genererer gennem Tjenesten. Du forstår og accepterer, at [[SITE_NAME]] ikke kontrollerer eller støtter brugergenereret indhold. Du anerkender derfor, at du er fuldt ansvarlig for dit Indhold og for dine egne handlinger under brugen af Tjenesten.
+Som bruger af Tjenesten er du alene ansvarlig for alt Indhold, du opretter, uploader eller genererer gennem Tjenesten. Du forstår og accepterer, at %SITE_NAME% ikke kontrollerer eller støtter brugergenereret indhold. Du anerkender derfor, at du er fuldt ansvarlig for dit Indhold og for dine egne handlinger under brugen af Tjenesten.
 
 Du skal sikre, at din brug af Tjenesten overholder gældende love, regler og disse Vilkår, og du må ikke deltage i ulovlige, uetiske eller skadelige aktiviteter gennem Tjenesten.
 
@@ -127,7 +127,7 @@ Vi værdsætter sikkerheden og integriteten for alle brugere. Vi har implementer
 
 Indhold kan modereres for at sikre overholdelse af alle gældende love.
 
-Vi forbeholder os retten, men er ikke forpligtede til, at afvise og/eller fjerne brugerindhold, som vi efter eget skøn vurderer overtræder disse bestemmelser. Hvis du har opdaget en overtrædelse, bedes du kontakte os på [[CONTACT_EMAIL]] eller rapportere det direkte via afsnittet "Kontakt".
+Vi forbeholder os retten, men er ikke forpligtede til, at afvise og/eller fjerne brugerindhold, som vi efter eget skøn vurderer overtræder disse bestemmelser. Hvis du har opdaget en overtrædelse, bedes du kontakte os på %CONTACT_EMAIL% eller rapportere det direkte via afsnittet "Kontakt".
 
 **10. Betalinger**
 
@@ -195,7 +195,7 @@ HVERKEN VI ELLER NOGEN AF VORES TILKNYTTEDE SELSKABER ELLER LICENSGIVERE VIL VÆ
 
 Nogle lande og stater tillader ikke fraskrivelse af visse garantier eller begrænsning af visse skader, så nogle eller alle af ovenstående vilkår gælder muligvis ikke for dig, og du kan have yderligere rettigheder. I så fald begrænser disse Vilkår kun vores ansvar i det maksimalt tilladte omfang i dit bopælsland.
 
-[[COMPANY_NAME]]S TILKNYTTEDE SELSKABER, LEVERANDØRER, LICENSGIVERE OG DISTRIBUTØRER ER TILSIGTEDE TREDJEPARTSBEGUNSTIGEDE AF DETTE AFSNIT.
+%COMPANY_NAME%S TILKNYTTEDE SELSKABER, LEVERANDØRER, LICENSGIVERE OG DISTRIBUTØRER ER TILSIGTEDE TREDJEPARTSBEGUNSTIGEDE AF DETTE AFSNIT.
 
 **13. Links til tredjepartswebsteder og -tjenester**
 
@@ -205,9 +205,9 @@ Det er dit ansvar at sikre, at alt, du vælger til brug eller download, er frit 
 
 **14. Gældende ret og tvistløsning**
 
-Disse Vilkår er underlagt og fortolkes i overensstemmelse med lovgivningen i [[COMPANY_JURISDICTION]] uden hensyntagen til lovvalgsregler, uanset din placering. Hvis du er forbruger med bopæl i Den Europæiske Union, nyder du også den beskyttelse, som de ufravigelige bestemmelser i dit bopælslands lovgivning giver.
+Disse Vilkår er underlagt og fortolkes i overensstemmelse med lovgivningen i %COMPANY_JURISDICTION% uden hensyntagen til lovvalgsregler, uanset din placering. Hvis du er forbruger med bopæl i Den Europæiske Union, nyder du også den beskyttelse, som de ufravigelige bestemmelser i dit bopælslands lovgivning giver.
 
-Enhver tvist, der opstår som følge af eller i forbindelse med Vilkårene, herunder spørgsmål vedrørende deres eksistens, gyldighed eller ophør, skal henvises til og endeligt afgøres af domstolene i [[COMPANY_JURISDICTION]]. Hvis du er forbruger i EU, kan du også anlægge sag ved domstolene i dit bopælsland.
+Enhver tvist, der opstår som følge af eller i forbindelse med Vilkårene, herunder spørgsmål vedrørende deres eksistens, gyldighed eller ophør, skal henvises til og endeligt afgøres af domstolene i %COMPANY_JURISDICTION%. Hvis du er forbruger i EU, kan du også anlægge sag ved domstolene i dit bopælsland.
 
 Du kan også benytte EU's online tvistløsningsplatform på https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Vi vil indsamle og behandle dine oplysninger i overensstemmelse med vores [Priva
 
 Som en EU-baseret platform overholder vi forordningen om digitale tjenester (forordning (EU) 2022/2065). For alle detaljer om vores DSA-forpligtelser, praksis for indholdsmoderering, rapporteringsmekanismer, klage- og appelprocedurer samt gennemsigtighedsforpligtelser, se venligst vores side om [DSA-overholdelse](/dsa-compliance).
 
-Vores eneste kontaktpunkt for EU-myndigheder, brugere og Europa-Kommissionen vedrørende DSA-anliggender er: [[CONTACT_EMAIL]].
+Vores eneste kontaktpunkt for EU-myndigheder, brugere og Europa-Kommissionen vedrørende DSA-anliggender er: %CONTACT_EMAIL%.
 
 **19. Relaterede politikker**
 

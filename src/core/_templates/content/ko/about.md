@@ -1,14 +1,14 @@
 ---
-title: [[SITE_NAME]] 소개
+title: %SITE_NAME% 소개
 type: page
-description: "[[SITE_NAME]]은 T3 Stack(Next.js + tRPC + Drizzle) 기반의 오픈 소스 에이전트 중심 헤드리스 CMS입니다."
-seoTitle: "{sitename} 소개 | 에이전트 중심 헤드리스 CMS"
+description: "%SITE_NAME%은 T3 Stack(Next.js + tRPC + Drizzle) 기반의 오픈 소스 에이전트 중심 헤드리스 CMS입니다."
+seoTitle: "%SITENAME% 소개 | 에이전트 중심 헤드리스 CMS"
 noindex: false
 ---
 
-## [[SITE_NAME]]이란 무엇입니까?
+## %SITE_NAME%이란 무엇입니까?
 
-[[SITE_NAME]]은 T3 Stack 기반의 오픈 소스 에이전트 중심 헤드리스 CMS입니다. Next.js, tRPC, Drizzle ORM, Better Auth를 결합하여 AI 기반 개발에 최적화된 통합 콘텐츠 관리 시스템을 제공합니다.
+%SITE_NAME%은 T3 Stack 기반의 오픈 소스 에이전트 중심 헤드리스 CMS입니다. Next.js, tRPC, Drizzle ORM, Better Auth를 결합하여 AI 기반 개발에 최적화된 통합 콘텐츠 관리 시스템을 제공합니다.
 
 ### 주요 기능
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### 오픈 소스
 
-[[SITE_NAME]]은 오픈 소스(AGPL-3.0)이며 GitHub에서 이용할 수 있습니다. 독점적 사용을 위한 상업용 라이선스도 제공됩니다. 기여를 환영합니다!
+%SITE_NAME%은 오픈 소스(AGPL-3.0)이며 GitHub에서 이용할 수 있습니다. 독점적 사용을 위한 상업용 라이선스도 제공됩니다. 기여를 환영합니다!

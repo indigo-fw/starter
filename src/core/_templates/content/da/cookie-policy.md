@@ -1,13 +1,13 @@
 ---
 title: Cookiepolitik
 type: page
-description: Cookiepolitik for [[SITE_NAME]].
+description: Cookiepolitik for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdato:** [[CURRENT_DATE]]
+**Revisionsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjenesten"), drevet af [[COMPANY_NAME]], [[COMPANY_ADDRESS]], anvender cookies og lignende sporingsteknologier. Denne cookiepolitik forklarer, hvad cookies er, hvordan vi bruger dem, dine valgmuligheder vedrørende cookies samt yderligere oplysninger om cookies.
+%SITE_NAME% ("Tjenesten"), drevet af %COMPANY_NAME%, %COMPANY_ADDRESS%, anvender cookies og lignende sporingsteknologier. Denne cookiepolitik forklarer, hvad cookies er, hvordan vi bruger dem, dine valgmuligheder vedrørende cookies samt yderligere oplysninger om cookies.
 
 **1. Hvad er cookies?**
 
@@ -92,4 +92,4 @@ Vi kan opdatere denne cookiepolitik fra tid til anden. Vi vil informere dig om v
 
 **7. Kontakt**
 
-Hvis du har spørgsmål om vores brug af cookies, bedes du kontakte os på [[CONTACT_EMAIL]].
+Hvis du har spørgsmål om vores brug af cookies, bedes du kontakte os på %CONTACT_EMAIL%.

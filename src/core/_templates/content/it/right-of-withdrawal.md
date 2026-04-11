@@ -1,11 +1,11 @@
 ---
 title: Diritto di Recesso
 type: page
-description: Diritto di Recesso per [[SITE_NAME]].
+description: Diritto di Recesso per %SITE_NAME%.
 noindex: true
 ---
 
-**Data di Revisione:** [[CURRENT_DATE]]
+**Data di Revisione:** %CURRENT_DATE%
 
 Questa pagina fornisce informazioni sul vostro diritto di recesso in qualita di consumatore nell'Unione Europea, in conformita con la Direttiva 2011/83/UE sui diritti dei consumatori.
 
@@ -17,9 +17,9 @@ Il periodo di recesso scade 14 giorni dal giorno della conclusione del contratto
 
 Per esercitare il vostro diritto di recesso, dovete informarci della vostra decisione di recedere dal contratto mediante una dichiarazione inequivocabile. Potete farlo contattandoci a:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Email: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Email: %CONTACT_EMAIL%
 
 Per rispettare il termine di recesso, e sufficiente inviare la comunicazione relativa all'esercizio del diritto di recesso prima della scadenza del periodo di recesso.
 
@@ -31,7 +31,7 @@ Se recedete dal contratto, vi rimborseremo tutti i pagamenti ricevuti senza inde
 
 In conformita con l'articolo 16, lettera m), della Direttiva 2011/83/UE, il diritto di recesso non si applica ai contratti per la fornitura di contenuto digitale non fornito su un supporto materiale se l'esecuzione e iniziata con il vostro previo consenso espresso e il vostro riconoscimento che in tal modo perdete il diritto di recesso.
 
-**Al momento dell'acquisto di un abbonamento su [[SITE_NAME]]:**
+**Al momento dell'acquisto di un abbonamento su %SITE_NAME%:**
 
 a) Vi verra chiesto di acconsentire espressamente all'esecuzione immediata del contenuto/servizio digitale prima della scadenza del periodo di recesso di 14 giorni;
 
@@ -49,9 +49,9 @@ Separatamente dal diritto di recesso dell'UE, offriamo una politica di rimborso 
 
 (Compilate e restituite questo modulo solo se desiderate recedere dal contratto)
 
-A: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+A: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Con la presente comunico il mio recesso dal contratto per la fornitura del seguente servizio: abbonamento [[SITE_NAME]] (\*)
+Con la presente comunico il mio recesso dal contratto per la fornitura del seguente servizio: abbonamento %SITE_NAME% (\*)
 
 - Data dell'ordine: ******\_\_\_******
 - Nome del consumatore: ******\_\_\_******

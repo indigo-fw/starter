@@ -1,7 +1,7 @@
 ---
-title: Willkommen bei [[SITE_NAME]]
+title: Willkommen bei %SITE_NAME%
 type: page
-description: Willkommen bei [[SITE_NAME]] — ein agentengesteuertes Headless-CMS für den T3 Stack.
+description: Willkommen bei %SITE_NAME% — ein agentengesteuertes Headless-CMS für den T3 Stack.
 noindex: false
 ---
 

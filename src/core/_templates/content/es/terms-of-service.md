@@ -1,19 +1,19 @@
 ---
 title: Condiciones del Servicio
 type: page
-description: Condiciones del Servicio para [[SITE_NAME]].
+description: Condiciones del Servicio para %SITE_NAME%.
 noindex: true
 ---
 
-**Fecha de revisión:** [[CURRENT_DATE]]
+**Fecha de revisión:** %CURRENT_DATE%
 
 **1. Introducción**
 
-[[SITE_NAME]] (el "Servicio") es operado por [[COMPANY_NAME]], dirección: [[COMPANY_ADDRESS]] (en adelante "nosotros", "nos" o "nuestro").
+%SITE_NAME% (el "Servicio") es operado por %COMPANY_NAME%, dirección: %COMPANY_ADDRESS% (en adelante "nosotros", "nos" o "nuestro").
 
-[[SITE_NAME]] es una plataforma en línea que proporciona servicios y contenido digitales (colectivamente, los "Servicios"). Partes de los Servicios pueden requerir la creación de una cuenta de usuario.
+%SITE_NAME% es una plataforma en línea que proporciona servicios y contenido digitales (colectivamente, los "Servicios"). Partes de los Servicios pueden requerir la creación de una cuenta de usuario.
 
-Estas Condiciones del Servicio (las "Condiciones") establecen los términos legalmente vinculantes para su uso del Servicio. Al acceder y/o utilizar el Servicio, usted acepta quedar vinculado por estas Condiciones y todas las demás Condiciones y Políticas publicadas en [[SITE_URL]]. Si no está de acuerdo, deje de utilizar el Servicio de inmediato.
+Estas Condiciones del Servicio (las "Condiciones") establecen los términos legalmente vinculantes para su uso del Servicio. Al acceder y/o utilizar el Servicio, usted acepta quedar vinculado por estas Condiciones y todas las demás Condiciones y Políticas publicadas en %SITE_URL%. Si no está de acuerdo, deje de utilizar el Servicio de inmediato.
 
 Usted acepta no utilizar el Servicio para ningún fin ilegal o no autorizado.
 
@@ -73,11 +73,11 @@ c) Si es menor de la edad legal en la jurisdicción de su domicilio, no acceder�
 
 **7. Propiedad intelectual**
 
-La propiedad intelectual del Servicio y los materiales incorporados (incluyendo, entre otros, tecnología, sistemas, archivos, documentos, textos, fotografías, información, imágenes, vídeos, audios y software) pertenecen a [[SITE_NAME]] o están licenciados a [[SITE_NAME]]. Puede utilizar el Servicio y su contenido en sus dispositivos únicamente para uso personal.
+La propiedad intelectual del Servicio y los materiales incorporados (incluyendo, entre otros, tecnología, sistemas, archivos, documentos, textos, fotografías, información, imágenes, vídeos, audios y software) pertenecen a %SITE_NAME% o están licenciados a %SITE_NAME%. Puede utilizar el Servicio y su contenido en sus dispositivos únicamente para uso personal.
 
 Por la presente le concedemos una licencia solo para uso personal. Esta licencia no constituye una transferencia de titularidad. Esta licencia se extinguirá automáticamente si infringe estas Condiciones y podrá ser revocada por nosotros en cualquier momento.
 
-Todos los derechos de propiedad intelectual asociados con [[SITE_NAME]], incluido el diseño de la plataforma, los logotipos y cualquier software o tecnología propietaria, son propiedad exclusiva de [[SITE_NAME]] o sus licenciantes. Los usuarios tienen prohibido reproducir, modificar, distribuir o utilizar cualquier propiedad intelectual sin autorización explícita. El uso no autorizado puede tener consecuencias legales.
+Todos los derechos de propiedad intelectual asociados con %SITE_NAME%, incluido el diseño de la plataforma, los logotipos y cualquier software o tecnología propietaria, son propiedad exclusiva de %SITE_NAME% o sus licenciantes. Los usuarios tienen prohibido reproducir, modificar, distribuir o utilizar cualquier propiedad intelectual sin autorización explícita. El uso no autorizado puede tener consecuencias legales.
 
 **8. Su contenido**
 
@@ -85,7 +85,7 @@ Puede proporcionar datos de entrada dentro del Servicio ("Entrada") y recibir da
 
 Usted conserva sus derechos de propiedad intelectual sobre la Entrada. Nunca reclamaremos la propiedad de su Entrada, pero necesitamos una licencia suya para poder utilizarla.
 
-Cuando utiliza [[SITE_NAME]] o sus Servicios asociados para cargar Entrada protegida por derechos de propiedad intelectual, nos concede una licencia no exclusiva, libre de regalías, transferible, sublicenciable y mundial para usar, distribuir, modificar, ejecutar, copiar, mostrar públicamente, traducir o crear de otro modo obras derivadas de su contenido de una manera coherente con nuestra [Política de Privacidad](/privacy-policy).
+Cuando utiliza %SITE_NAME% o sus Servicios asociados para cargar Entrada protegida por derechos de propiedad intelectual, nos concede una licencia no exclusiva, libre de regalías, transferible, sublicenciable y mundial para usar, distribuir, modificar, ejecutar, copiar, mostrar públicamente, traducir o crear de otro modo obras derivadas de su contenido de una manera coherente con nuestra [Política de Privacidad](/privacy-policy).
 
 La licencia que nos concede puede ser revocada en cualquier momento eliminando su Entrada o su cuenta. Sin embargo, en la medida en que nosotros (o nuestros socios) hayamos utilizado su Entrada en relación con contenido comercial o patrocinado, la licencia continuará hasta que nosotros hayamos suspendido el contenido en cuestión.
 
@@ -117,7 +117,7 @@ i) Cumplirá con todas las leyes aplicables en su acceso y uso del Servicio, inc
 
 **9.2 Responsabilidad sobre el contenido**
 
-Usted, como usuario del Servicio, es el único responsable de cualquier Contenido que cree, cargue o genere a través del Servicio. Entiende y acepta que [[SITE_NAME]] no controla ni respalda el contenido generado por los usuarios. Por lo tanto, reconoce que es plenamente responsable de su Contenido y de sus propias acciones al utilizar el Servicio.
+Usted, como usuario del Servicio, es el único responsable de cualquier Contenido que cree, cargue o genere a través del Servicio. Entiende y acepta que %SITE_NAME% no controla ni respalda el contenido generado por los usuarios. Por lo tanto, reconoce que es plenamente responsable de su Contenido y de sus propias acciones al utilizar el Servicio.
 
 Debe asegurarse de que su uso del Servicio cumple con las leyes, regulaciones y estas Condiciones aplicables, y no debe participar en actividades ilegales, poco éticas o dañinas a través del Servicio.
 
@@ -127,7 +127,7 @@ Valoramos la seguridad y la integridad de todos los usuarios. Hemos implementado
 
 El contenido puede ser moderado para garantizar el cumplimiento de todas las leyes aplicables.
 
-Nos reservamos el derecho, pero no la obligación, de rechazar y/o eliminar cualquier contenido de usuario que creamos, a nuestra entera discreción, que infrinja estas disposiciones. Si ha detectado alguna infracción, contáctenos en [[CONTACT_EMAIL]] o denúnciela directamente a través de la sección "Contacto".
+Nos reservamos el derecho, pero no la obligación, de rechazar y/o eliminar cualquier contenido de usuario que creamos, a nuestra entera discreción, que infrinja estas disposiciones. Si ha detectado alguna infracción, contáctenos en %CONTACT_EMAIL% o denúnciela directamente a través de la sección "Contacto".
 
 **10. Pagos**
 
@@ -195,7 +195,7 @@ NI NOSOTROS NI NINGUNA DE NUESTRAS FILIALES O LICENCIANTES SEREMOS RESPONSABLES 
 
 Algunos países y estados no permiten la exclusión de determinadas garantías ni la limitación de determinados daños, por lo que algunos o todos los términos anteriores pueden no ser aplicables a usted, y puede tener derechos adicionales. En ese caso, estas Condiciones solo limitan nuestras responsabilidades en la máxima medida permitida en su país de residencia.
 
-LAS FILIALES, PROVEEDORES, LICENCIANTES Y DISTRIBUIDORES DE [[COMPANY_NAME]] SON TERCEROS BENEFICIARIOS PREVISTOS DE ESTA SECCIÓN.
+LAS FILIALES, PROVEEDORES, LICENCIANTES Y DISTRIBUIDORES DE %COMPANY_NAME% SON TERCEROS BENEFICIARIOS PREVISTOS DE ESTA SECCIÓN.
 
 **13. Enlaces a sitios web y servicios de terceros**
 
@@ -205,9 +205,9 @@ Es su responsabilidad asegurarse de que todo lo que seleccione para su uso o des
 
 **14. Legislación aplicable y resolución de conflictos**
 
-Estas Condiciones se regirán e interpretarán de conformidad con las leyes de [[COMPANY_JURISDICTION]], sin dar efecto a sus disposiciones sobre conflictos de leyes, independientemente de su ubicación. Si usted es un consumidor residente en la Unión Europea, también disfruta de la protección que le otorgan las disposiciones imperativas de la ley de su país de residencia.
+Estas Condiciones se regirán e interpretarán de conformidad con las leyes de %COMPANY_JURISDICTION%, sin dar efecto a sus disposiciones sobre conflictos de leyes, independientemente de su ubicación. Si usted es un consumidor residente en la Unión Europea, también disfruta de la protección que le otorgan las disposiciones imperativas de la ley de su país de residencia.
 
-Cualquier controversia que surja de o en relación con las Condiciones, incluida cualquier cuestión relativa a su existencia, validez o terminación, será remitida y resuelta definitivamente por los tribunales de [[COMPANY_JURISDICTION]]. Si usted es un consumidor en la UE, también puede iniciar procedimientos ante los tribunales de su país de residencia.
+Cualquier controversia que surja de o en relación con las Condiciones, incluida cualquier cuestión relativa a su existencia, validez o terminación, será remitida y resuelta definitivamente por los tribunales de %COMPANY_JURISDICTION%. Si usted es un consumidor en la UE, también puede iniciar procedimientos ante los tribunales de su país de residencia.
 
 También puede utilizar la plataforma de resolución de litigios en línea de la UE en https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Recopilaremos y trataremos su información de conformidad con nuestra [Política
 
 Como plataforma con sede en la UE, cumplimos con el Reglamento de Servicios Digitales (Reglamento (UE) 2022/2065). Para todos los detalles sobre nuestras obligaciones conforme al DSA, prácticas de moderación de contenido, mecanismos de denuncia, procedimientos de reclamación y apelación, y compromisos de transparencia, consulte nuestra página de [Cumplimiento del DSA](/dsa-compliance).
 
-Nuestro punto de contacto único para las autoridades de la UE, los usuarios y la Comisión Europea en relación con el DSA es: [[CONTACT_EMAIL]].
+Nuestro punto de contacto único para las autoridades de la UE, los usuarios y la Comisión Europea en relación con el DSA es: %CONTACT_EMAIL%.
 
 **19. Políticas relacionadas**
 

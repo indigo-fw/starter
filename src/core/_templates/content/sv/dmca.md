@@ -1,15 +1,15 @@
 ---
 title: Upphovsrätts- och immaterialrättspolicy
 type: page
-description: Upphovsrätts- och immaterialrättspolicy för [[SITE_NAME]].
+description: Upphovsrätts- och immaterialrättspolicy för %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdatum:** [[CURRENT_DATE]]
+**Revisionsdatum:** %CURRENT_DATE%
 
-[[SITE_NAME]] värdesätter och upprätthåller andras immateriella rättigheter, och vi är dedikerade till att följa Digital Millennium Copyright Act (DMCA), EU:s upphovsrättsdirektiv (2019/790) och andra relevanta upphovsrättslagar. Denna policy beskriver de åtgärder vi vidtar för att hantera meddelanden om upphovsrättsintrång och ger vägledning om hur du kontaktar oss om du misstänker att ditt upphovsrättsskyddade material har använts på vår plattform utan korrekt auktorisering.
+%SITE_NAME% värdesätter och upprätthåller andras immateriella rättigheter, och vi är dedikerade till att följa Digital Millennium Copyright Act (DMCA), EU:s upphovsrättsdirektiv (2019/790) och andra relevanta upphovsrättslagar. Denna policy beskriver de åtgärder vi vidtar för att hantera meddelanden om upphovsrättsintrång och ger vägledning om hur du kontaktar oss om du misstänker att ditt upphovsrättsskyddade material har använts på vår plattform utan korrekt auktorisering.
 
-[[SITE_NAME]] och/eller någon av våra onlinekanaler, anslutna webbplatser, plattformar, produkter eller tjänster, inklusive allt innehåll däri, benämns härefter som "Tjänster."
+%SITE_NAME% och/eller någon av våra onlinekanaler, anslutna webbplatser, plattformar, produkter eller tjänster, inklusive allt innehåll däri, benämns härefter som "Tjänster."
 
 1\. Rapportera upphovsrättsintrång
 
@@ -45,7 +45,7 @@ I enlighet med EU:s upphovsrättsdirektiv (2019/790) implementerar vi effektiva 
 
 5\. Kontaktinformation
 
-Meddelanden och motmeddelanden ska skickas till oss via e-post till [[CONTACT_EMAIL]]. Vi är engagerade i att hantera frågor i rätt tid och säkerställa en positiv upplevelse för alla våra användare.
+Meddelanden och motmeddelanden ska skickas till oss via e-post till %CONTACT_EMAIL%. Vi är engagerade i att hantera frågor i rätt tid och säkerställa en positiv upplevelse för alla våra användare.
 
 6\. Uppsägning
 

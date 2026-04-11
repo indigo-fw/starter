@@ -1,13 +1,13 @@
 ---
 title: Politica de Privacidade
 type: page
-description: Politica de Privacidade para [[SITE_NAME]].
+description: Politica de Privacidade para %SITE_NAME%.
 noindex: true
 ---
 
-**Data de Revisao:** [[CURRENT_DATE]]
+**Data de Revisao:** %CURRENT_DATE%
 
-[[SITE_NAME]] (o "Servico") e operado por [[COMPANY_NAME]], morada: [[COMPANY_ADDRESS]]. [[SITE_NAME]] e uma plataforma online que fornece servicos digitais e conteudo. Algumas partes dos Servicos podem exigir a criacao de uma conta de utilizador.
+%SITE_NAME% (o "Servico") e operado por %COMPANY_NAME%, morada: %COMPANY_ADDRESS%. %SITE_NAME% e uma plataforma online que fornece servicos digitais e conteudo. Algumas partes dos Servicos podem exigir a criacao de uma conta de utilizador.
 
 Estamos empenhados em respeitar a sua privacidade, e estes Servicos serao sempre prestados com o seu consentimento. Neste documento, fornecemos informacoes claras sobre como os seus dados sao processados quando visita o Website e utiliza os nossos Servicos.
 
@@ -23,24 +23,24 @@ Para efeitos desta Politica de Privacidade, "voce" e "seu" referem-se a si enqua
 
 "Processamento" significa qualquer operacao efetuada sobre Dados Pessoais, com ou sem meios automatizados, tal como recolha, registo, organizacao, estruturacao, armazenamento, adaptacao, recuperacao, consulta, utilizacao, divulgacao por transmissao, difusao, alinhamento, restricao, apagamento ou destruicao.
 
-"Servicos" significa todas as funcionalidades proporcionadas por [[SITE_NAME]].
+"Servicos" significa todas as funcionalidades proporcionadas por %SITE_NAME%.
 
-"Subscricao" significa um acordo entre [[SITE_NAME]] e voce para lhe permitir utilizar os Servicos.
+"Subscricao" significa um acordo entre %SITE_NAME% e voce para lhe permitir utilizar os Servicos.
 
 "Utilizador" significa uma pessoa que se registou e esta a utilizar o Servico.
 
 "Visitante" significa qualquer pessoa que navegue no Website sem uma Subscricao valida.
 
-"Website" significa [[SITE_NAME]], acessivel em [[SITE_URL]].
+"Website" significa %SITE_NAME%, acessivel em %SITE_URL%.
 
 **2. Responsavel pelo Tratamento de Dados**
 
 O responsavel pelo tratamento de dados para efeitos do Regulamento Geral sobre a Protecao de Dados (UE) 2016/679 ("RGPD") e da legislacao aplicavel em materia de protecao de dados e:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Numero de Registo: [[COMPANY_ID]]
-Email: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Numero de Registo: %COMPANY_ID%
+Email: %CONTACT_EMAIL%
 
 O responsavel pelo tratamento de dados e responsavel por determinar as finalidades e os meios de processamento dos seus Dados Pessoais. Se tiver alguma questao sobre esta Politica de Privacidade, incluindo pedidos para exercer os seus direitos legais, contacte-nos atraves do endereco de email acima.
 
@@ -132,13 +132,13 @@ Apenas lhe enviaremos comunicacoes de marketing quando tivermos uma base juridic
 
 **8. Marketing de Terceiros**
 
-Obteremos o seu consentimento expresso antes de partilhar os seus Dados Pessoais com qualquer empresa fora de [[COMPANY_NAME]] para fins de marketing.
+Obteremos o seu consentimento expresso antes de partilhar os seus Dados Pessoais com qualquer empresa fora de %COMPANY_NAME% para fins de marketing.
 
-Pode pedir-nos ou a terceiros para cessar o envio de mensagens de marketing a qualquer momento, seguindo as ligacoes de anulacao de subscricao em qualquer mensagem de marketing ou contactando-nos em [[CONTACT_EMAIL]].
+Pode pedir-nos ou a terceiros para cessar o envio de mensagens de marketing a qualquer momento, seguindo as ligacoes de anulacao de subscricao em qualquer mensagem de marketing ou contactando-nos em %CONTACT_EMAIL%.
 
 **9. Partilha das Suas Informacoes Pessoais**
 
-[[SITE_NAME]] pode partilhar as suas informacoes com:
+%SITE_NAME% pode partilhar as suas informacoes com:
 
 a) Prestadores de servicos com quem trabalhamos para fornecer os Servicos (alojamento, processamento de pagamentos, analise);
 
@@ -166,7 +166,7 @@ Os nossos prestadores de servicos que podem processar dados fora do EEE incluem 
 
 Utilizamos ferramentas automatizadas de moderacao de conteudo para detetar conteudo que possa violar os nossos Termos de Servico ou a legislacao aplicavel. Estas ferramentas podem sinalizar conteudo para revisao humana ou restringir automaticamente conteudo ou contas.
 
-Tem o direito de nao ficar sujeito a uma decisao baseada exclusivamente no processamento automatizado que produza efeitos juridicos que lhe digam respeito ou que o afete significativamente de forma semelhante (Art. 22.o do RGPD). Se considerar que foi tomada uma decisao automatizada sobre si por erro, pode contactar-nos para solicitar revisao humana em [[CONTACT_EMAIL]].
+Tem o direito de nao ficar sujeito a uma decisao baseada exclusivamente no processamento automatizado que produza efeitos juridicos que lhe digam respeito ou que o afete significativamente de forma semelhante (Art. 22.o do RGPD). Se considerar que foi tomada uma decisao automatizada sobre si por erro, pode contactar-nos para solicitar revisao humana em %CONTACT_EMAIL%.
 
 **12. Informacoes Sensiveis**
 
@@ -174,7 +174,7 @@ Nunca lhe pediremos que forneca Dados Pessoais que revelem a origem racial ou et
 
 **13. Os Seus Direitos ao Abrigo do RGPD**
 
-Tem os seguintes direitos relativamente aos seus Dados Pessoais. Para exercer qualquer um destes direitos, contacte-nos em [[CONTACT_EMAIL]].
+Tem os seguintes direitos relativamente aos seus Dados Pessoais. Para exercer qualquer um destes direitos, contacte-nos em %CONTACT_EMAIL%.
 
 **13.1 Direito de Acesso (Art. 15.o)**
 
@@ -218,7 +218,7 @@ Tem o direito de retirar o seu consentimento a qualquer momento. A retirada nao 
 
 Se retirar o consentimento, poderemos nao conseguir prestar-lhe os Servicos e tomaremos medidas razoaveis para eliminar a sua conta e os Dados Pessoais que recolhemos.
 
-Pode retirar o consentimento contactando-nos em [[CONTACT_EMAIL]].
+Pode retirar o consentimento contactando-nos em %CONTACT_EMAIL%.
 
 **13.8 Direito de Apresentar Reclamacao (Art. 77.o)**
 
@@ -242,7 +242,7 @@ Os periodos de retencao podem ser ajustados com base em requisitos empresariais 
 
 **15. Informacoes Pessoais de Menores**
 
-[[SITE_NAME]] nao presta Servicos a nem recolhe informacoes pessoais de menores de idade na sua jurisdicao. Se soubermos que recolhemos informacoes pessoais de um individuo menor de idade, eliminaremos as informacoes o mais rapidamente possivel e bloquearemos o utilizador.
+%SITE_NAME% nao presta Servicos a nem recolhe informacoes pessoais de menores de idade na sua jurisdicao. Se soubermos que recolhemos informacoes pessoais de um individuo menor de idade, eliminaremos as informacoes o mais rapidamente possivel e bloquearemos o utilizador.
 
 **16. Seguranca dos Dados**
 
@@ -256,7 +256,7 @@ O Website pode incluir ligacoes para websites, plugins e aplicacoes de terceiros
 
 **18. Fusao ou Aquisicao**
 
-Se [[SITE_NAME]] se fundir com ou for adquirido por outra empresa, ou vender a totalidade ou parte dos seus ativos, os seus Dados Pessoais podem ser divulgados aos nossos consultores e aos consultores de qualquer potencial comprador, e podem estar entre os ativos transferidos. No entanto, os Dados Pessoais estarao sempre sujeitos a esta Politica de Privacidade.
+Se %SITE_NAME% se fundir com ou for adquirido por outra empresa, ou vender a totalidade ou parte dos seus ativos, os seus Dados Pessoais podem ser divulgados aos nossos consultores e aos consultores de qualquer potencial comprador, e podem estar entre os ativos transferidos. No entanto, os Dados Pessoais estarao sempre sujeitos a esta Politica de Privacidade.
 
 **19. Alteracoes a Esta Politica de Privacidade**
 
@@ -272,6 +272,6 @@ Procuramos responder a todos os pedidos legitimos no prazo de um mes. Ocasionalm
 
 Para todas as questoes relacionadas com privacidade, incluindo o exercicio dos seus direitos:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Email: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Email: %CONTACT_EMAIL%

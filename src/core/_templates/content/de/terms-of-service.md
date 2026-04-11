@@ -1,19 +1,19 @@
 ---
 title: Nutzungsbedingungen
 type: page
-description: Nutzungsbedingungen für [[SITE_NAME]].
+description: Nutzungsbedingungen für %SITE_NAME%.
 noindex: true
 ---
 
-**Datum der Überarbeitung:** [[CURRENT_DATE]]
+**Datum der Überarbeitung:** %CURRENT_DATE%
 
 **1. Einführung**
 
-[[SITE_NAME]] (der „Dienst") wird von [[COMPANY_NAME]], Adresse: [[COMPANY_ADDRESS]], betrieben (nachfolgend „wir", „uns" oder „unser").
+%SITE_NAME% (der „Dienst") wird von %COMPANY_NAME%, Adresse: %COMPANY_ADDRESS%, betrieben (nachfolgend „wir", „uns" oder „unser").
 
-[[SITE_NAME]] ist eine Online-Plattform, die digitale Dienste und Inhalte bereitstellt (zusammenfassend die „Dienste"). Teile der Dienste können die Erstellung eines Benutzerkontos erfordern.
+%SITE_NAME% ist eine Online-Plattform, die digitale Dienste und Inhalte bereitstellt (zusammenfassend die „Dienste"). Teile der Dienste können die Erstellung eines Benutzerkontos erfordern.
 
-Diese Nutzungsbedingungen (die „AGB") legen die rechtsverbindlichen Bedingungen für Ihre Nutzung des Dienstes fest. Durch den Zugriff auf und/oder die Nutzung des Dienstes erklären Sie sich mit diesen AGB und allen anderen auf [[SITE_URL]] veröffentlichten Bedingungen und Richtlinien einverstanden. Wenn Sie nicht einverstanden sind, stellen Sie die Nutzung des Dienstes bitte umgehend ein.
+Diese Nutzungsbedingungen (die „AGB") legen die rechtsverbindlichen Bedingungen für Ihre Nutzung des Dienstes fest. Durch den Zugriff auf und/oder die Nutzung des Dienstes erklären Sie sich mit diesen AGB und allen anderen auf %SITE_URL% veröffentlichten Bedingungen und Richtlinien einverstanden. Wenn Sie nicht einverstanden sind, stellen Sie die Nutzung des Dienstes bitte umgehend ein.
 
 Sie erklären sich damit einverstanden, den Dienst nicht für illegale oder unerlaubte Zwecke zu nutzen.
 
@@ -73,11 +73,11 @@ c) Wenn Sie in der Rechtsordnung Ihres Wohnsitzes minderjährig sind, dürfen Si
 
 **7. Geistiges Eigentum**
 
-Das geistige Eigentum am Dienst und den darin enthaltenen Materialien (einschließlich, aber nicht beschränkt auf Technologie, Systeme, Dateien, Dokumente, Texte, Fotografien, Informationen, Bilder, Videos, Audios und Software) gehört [[SITE_NAME]] oder ist an [[SITE_NAME]] lizenziert. Sie dürfen den Dienst und seine Inhalte auf Ihren Geräten nur für den persönlichen Gebrauch nutzen.
+Das geistige Eigentum am Dienst und den darin enthaltenen Materialien (einschließlich, aber nicht beschränkt auf Technologie, Systeme, Dateien, Dokumente, Texte, Fotografien, Informationen, Bilder, Videos, Audios und Software) gehört %SITE_NAME% oder ist an %SITE_NAME% lizenziert. Sie dürfen den Dienst und seine Inhalte auf Ihren Geräten nur für den persönlichen Gebrauch nutzen.
 
 Wir gewähren Ihnen hiermit eine Lizenz nur für den persönlichen Gebrauch. Diese Lizenz stellt keine Eigentumsübertragung dar. Diese Lizenz erlischt automatisch, wenn Sie gegen diese AGB verstoßen, und kann von uns jederzeit gekündigt werden.
 
-Alle mit [[SITE_NAME]] verbundenen geistigen Eigentumsrechte, einschließlich des Plattformdesigns, der Logos und jeder proprietären Software oder Technologie, sind das alleinige Eigentum von [[SITE_NAME]] oder seinen Lizenzgebern. Nutzern ist es untersagt, geistiges Eigentum ohne ausdrückliche Genehmigung zu reproduzieren, zu modifizieren, zu verbreiten oder zu nutzen. Unbefugte Nutzung kann rechtliche Konsequenzen nach sich ziehen.
+Alle mit %SITE_NAME% verbundenen geistigen Eigentumsrechte, einschließlich des Plattformdesigns, der Logos und jeder proprietären Software oder Technologie, sind das alleinige Eigentum von %SITE_NAME% oder seinen Lizenzgebern. Nutzern ist es untersagt, geistiges Eigentum ohne ausdrückliche Genehmigung zu reproduzieren, zu modifizieren, zu verbreiten oder zu nutzen. Unbefugte Nutzung kann rechtliche Konsequenzen nach sich ziehen.
 
 **8. Ihre Inhalte**
 
@@ -85,7 +85,7 @@ Sie können Eingaben innerhalb des Dienstes bereitstellen („Eingabe") und auf 
 
 Sie behalten Ihre geistigen Eigentumsrechte an der Eingabe. Wir werden niemals Eigentumsansprüche an Ihrer Eingabe erheben, benötigen jedoch eine Lizenz von Ihnen, um sie nutzen zu können.
 
-Wenn Sie [[SITE_NAME]] oder die damit verbundenen Dienste nutzen, um urheberrechtlich geschützte Eingaben hochzuladen, gewähren Sie uns eine nicht-exklusive, gebührenfreie, übertragbare, unterlizenzierbare, weltweite Lizenz zur Nutzung, Verbreitung, Modifizierung, Ausführung, Vervielfältigung, öffentlichen Darstellung, Übersetzung oder anderweitigen Erstellung abgeleiteter Werke Ihrer Inhalte in einer Weise, die mit unserer [Datenschutzerklärung](/privacy-policy) vereinbar ist.
+Wenn Sie %SITE_NAME% oder die damit verbundenen Dienste nutzen, um urheberrechtlich geschützte Eingaben hochzuladen, gewähren Sie uns eine nicht-exklusive, gebührenfreie, übertragbare, unterlizenzierbare, weltweite Lizenz zur Nutzung, Verbreitung, Modifizierung, Ausführung, Vervielfältigung, öffentlichen Darstellung, Übersetzung oder anderweitigen Erstellung abgeleiteter Werke Ihrer Inhalte in einer Weise, die mit unserer [Datenschutzerklärung](/privacy-policy) vereinbar ist.
 
 Die Ihnen von uns gewährte Lizenz kann jederzeit durch Löschen Ihrer Eingabe oder Ihres Kontos beendet werden. Soweit wir (oder unsere Partner) Ihre Eingabe jedoch im Zusammenhang mit kommerziellen oder gesponserten Inhalten verwendet haben, besteht die Lizenz fort, bis die betreffenden Inhalte von uns eingestellt werden.
 
@@ -117,7 +117,7 @@ i) Sie werden bei Ihrem Zugriff auf und Ihrer Nutzung des Dienstes alle geltende
 
 **9.2 Inhaltsverantwortung**
 
-Sie als Nutzer des Dienstes sind allein verantwortlich für alle Inhalte, die Sie über den Dienst erstellen, hochladen oder generieren. Sie verstehen und stimmen zu, dass [[SITE_NAME]] nutzergenerierte Inhalte nicht kontrolliert oder befürwortet. Daher erkennen Sie an, dass Sie für Ihre Inhalte und Ihre eigenen Handlungen bei der Nutzung des Dienstes in vollem Umfang verantwortlich sind.
+Sie als Nutzer des Dienstes sind allein verantwortlich für alle Inhalte, die Sie über den Dienst erstellen, hochladen oder generieren. Sie verstehen und stimmen zu, dass %SITE_NAME% nutzergenerierte Inhalte nicht kontrolliert oder befürwortet. Daher erkennen Sie an, dass Sie für Ihre Inhalte und Ihre eigenen Handlungen bei der Nutzung des Dienstes in vollem Umfang verantwortlich sind.
 
 Sie müssen sicherstellen, dass Ihre Nutzung des Dienstes den geltenden Gesetzen, Vorschriften und diesen AGB entspricht, und Sie dürfen über den Dienst keine illegalen, unethischen oder schädlichen Aktivitäten ausüben.
 
@@ -127,7 +127,7 @@ Wir legen Wert auf die Sicherheit und Integrität aller Nutzer. Wir haben Inhalt
 
 Inhalte können moderiert werden, um die Einhaltung aller geltenden Gesetze sicherzustellen.
 
-Wir behalten uns das Recht vor, sind aber nicht verpflichtet, Nutzerinhalte abzulehnen und/oder zu entfernen, die nach unserem alleinigen Ermessen gegen diese Bestimmungen verstoßen. Wenn Sie einen Verstoß festgestellt haben, kontaktieren Sie uns bitte unter [[CONTACT_EMAIL]] oder melden Sie ihn direkt über den Bereich „Kontakt".
+Wir behalten uns das Recht vor, sind aber nicht verpflichtet, Nutzerinhalte abzulehnen und/oder zu entfernen, die nach unserem alleinigen Ermessen gegen diese Bestimmungen verstoßen. Wenn Sie einen Verstoß festgestellt haben, kontaktieren Sie uns bitte unter %CONTACT_EMAIL% oder melden Sie ihn direkt über den Bereich „Kontakt".
 
 **10. Zahlungen**
 
@@ -195,7 +195,7 @@ WEDER WIR NOCH EINES UNSERER VERBUNDENEN UNTERNEHMEN ODER LIZENZGEBER HAFTEN FÜ
 
 Einige Länder und Staaten erlauben den Ausschluss bestimmter Garantien oder die Beschränkung bestimmter Schäden nicht, sodass einige oder alle der obigen Bedingungen möglicherweise nicht auf Sie zutreffen und Sie möglicherweise zusätzliche Rechte haben. In diesem Fall beschränken diese Bedingungen unsere Verantwortlichkeiten nur im gesetzlich maximal zulässigen Umfang in Ihrem Wohnsitzland.
 
-DIE VERBUNDENEN UNTERNEHMEN, ZULIEFERER, LIZENZGEBER UND VERTRIEBSPARTNER VON [[COMPANY_NAME]] SIND BEABSICHTIGTE DRITTBEGÜNSTIGTE DIESES ABSCHNITTS.
+DIE VERBUNDENEN UNTERNEHMEN, ZULIEFERER, LIZENZGEBER UND VERTRIEBSPARTNER VON %COMPANY_NAME% SIND BEABSICHTIGTE DRITTBEGÜNSTIGTE DIESES ABSCHNITTS.
 
 **13. Links zu Websites und Diensten Dritter**
 
@@ -205,9 +205,9 @@ Es liegt in Ihrer Verantwortung sicherzustellen, dass alles, was Sie zur Nutzung
 
 **14. Anwendbares Recht und Streitbeilegung**
 
-Diese AGB unterliegen den Gesetzen von [[COMPANY_JURISDICTION]] und sind nach diesen auszulegen, ohne Berücksichtigung der Kollisionsnormen, unabhängig von Ihrem Standort. Wenn Sie ein Verbraucher mit Wohnsitz in der Europäischen Union sind, genießen Sie auch den Schutz, der Ihnen durch die zwingenden Bestimmungen des Rechts Ihres Wohnsitzlandes gewährt wird.
+Diese AGB unterliegen den Gesetzen von %COMPANY_JURISDICTION% und sind nach diesen auszulegen, ohne Berücksichtigung der Kollisionsnormen, unabhängig von Ihrem Standort. Wenn Sie ein Verbraucher mit Wohnsitz in der Europäischen Union sind, genießen Sie auch den Schutz, der Ihnen durch die zwingenden Bestimmungen des Rechts Ihres Wohnsitzlandes gewährt wird.
 
-Alle Streitigkeiten, die sich aus oder im Zusammenhang mit den AGB ergeben, einschließlich aller Fragen bezüglich ihres Bestehens, ihrer Gültigkeit oder Beendigung, werden den Gerichten von [[COMPANY_JURISDICTION]] vorgelegt und von diesen endgültig entschieden. Wenn Sie Verbraucher in der EU sind, können Sie auch vor den Gerichten Ihres Wohnsitzlandes klagen.
+Alle Streitigkeiten, die sich aus oder im Zusammenhang mit den AGB ergeben, einschließlich aller Fragen bezüglich ihres Bestehens, ihrer Gültigkeit oder Beendigung, werden den Gerichten von %COMPANY_JURISDICTION% vorgelegt und von diesen endgültig entschieden. Wenn Sie Verbraucher in der EU sind, können Sie auch vor den Gerichten Ihres Wohnsitzlandes klagen.
 
 Sie können auch die EU-Plattform zur Online-Streitbeilegung unter https://ec.europa.eu/consumers/odr nutzen.
 
@@ -239,7 +239,7 @@ Wir erheben und verarbeiten Ihre Informationen gemäß unserer [Datenschutzerkl�
 
 Als EU-basierte Plattform erfüllen wir die Anforderungen des Gesetzes über digitale Dienste (Verordnung (EU) 2022/2065). Vollständige Einzelheiten zu unseren DSA-Pflichten, Inhaltsmoderationspraktiken, Meldemechanismen, Beschwerde- und Berufungsverfahren sowie Transparenzverpflichtungen finden Sie auf unserer Seite [DSA-Konformität](/dsa-compliance).
 
-Unsere zentrale Kontaktstelle für EU-Behörden, Nutzer und die Europäische Kommission in DSA-Angelegenheiten ist: [[CONTACT_EMAIL]].
+Unsere zentrale Kontaktstelle für EU-Behörden, Nutzer und die Europäische Kommission in DSA-Angelegenheiten ist: %CONTACT_EMAIL%.
 
 **19. Zugehörige Richtlinien**
 

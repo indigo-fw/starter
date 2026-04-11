@@ -1,26 +1,26 @@
 ---
 title: Overholdelse af forordningen om digitale tjenester (DSA)
 type: page
-description: Overholdelse af forordningen om digitale tjenester (DSA) for [[SITE_NAME]].
+description: Overholdelse af forordningen om digitale tjenester (DSA) for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdato:** [[CURRENT_DATE]]
+**Revisionsdato:** %CURRENT_DATE%
 
-Som en EU-baseret platform overholder [[SITE_NAME]], drevet af [[COMPANY_NAME]], forordningen om digitale tjenester (forordning (EU) 2022/2065). Denne side beskriver vores forpligtelser, dine rettigheder og vores indholdsmodereringspraksis i henhold til DSA.
+Som en EU-baseret platform overholder %SITE_NAME%, drevet af %COMPANY_NAME%, forordningen om digitale tjenester (forordning (EU) 2022/2065). Denne side beskriver vores forpligtelser, dine rettigheder og vores indholdsmodereringspraksis i henhold til DSA.
 
 **1. Oplysninger om tjenesteudbyderen**
 
-**Udbyder:** [[COMPANY_NAME]]
-**Adresse:** [[COMPANY_ADDRESS]]
-**Registreringsnummer:** [[COMPANY_ID]]
-**Kontakt:** [[CONTACT_EMAIL]]
+**Udbyder:** %COMPANY_NAME%
+**Adresse:** %COMPANY_ADDRESS%
+**Registreringsnummer:** %COMPANY_ID%
+**Kontakt:** %CONTACT_EMAIL%
 
 **2. Kontaktpunkt**
 
 Vores centrale kontaktpunkt for EU-medlemsstaternes myndigheder, Europa-Kommissionen, Det Europæiske Udvalg for Digitale Tjenester og brugere vedrørende DSA-anliggender er:
 
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 Dette kontaktpunkt er tilgængeligt på engelsk.
 
@@ -30,7 +30,7 @@ Da vores virksomhed er etableret i EU, kræves der ingen separat juridisk repræ
 
 **4. Tjenestens art**
 
-[[SITE_NAME]] er en onlineplatform, der leverer digitale tjenester og indhold. Brugere kan oprette konti, få adgang til indhold og interagere med platformens funktioner.
+%SITE_NAME% er en onlineplatform, der leverer digitale tjenester og indhold. Brugere kan oprette konti, få adgang til indhold og interagere med platformens funktioner.
 
 **5. Indholdsmoderering**
 
@@ -56,7 +56,7 @@ d) Hensyn til grundlæggende rettigheder, herunder ytringsfrihed.
 
 **6. Indberetning af ulovligt indhold**
 
-Hvis du støder på indhold, som du mener er ulovligt i henhold til EU- eller national lovgivning, kan du indberette det ved at kontakte os på [[CONTACT_EMAIL]]. For den fulde indberetningsprocedure, herunder hvad der skal medtages i din indberetning, og hvordan vi behandler den, se vores [Politik for fjernelse af indhold og klager](/content-removal-and-complaints).
+Hvis du støder på indhold, som du mener er ulovligt i henhold til EU- eller national lovgivning, kan du indberette det ved at kontakte os på %CONTACT_EMAIL%. For den fulde indberetningsprocedure, herunder hvad der skal medtages i din indberetning, og hvordan vi behandler den, se vores [Politik for fjernelse af indhold og klager](/content-removal-and-complaints).
 
 **7. Begrundelse**
 

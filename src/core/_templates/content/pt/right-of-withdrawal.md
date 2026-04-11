@@ -1,11 +1,11 @@
 ---
 title: Direito de Retratacao
 type: page
-description: Direito de Retratacao para [[SITE_NAME]].
+description: Direito de Retratacao para %SITE_NAME%.
 noindex: true
 ---
 
-**Data de Revisao:** [[CURRENT_DATE]]
+**Data de Revisao:** %CURRENT_DATE%
 
 Esta pagina fornece informacoes sobre o seu direito de retratacao enquanto consumidor na Uniao Europeia, em conformidade com a Diretiva 2011/83/UE relativa aos direitos dos consumidores.
 
@@ -17,9 +17,9 @@ O prazo de retratacao expira 14 dias apos o dia da celebracao do contrato (ou se
 
 Para exercer o seu direito de retratacao, deve informar-nos da sua decisao de se retratar do contrato atraves de uma declaracao inequivoca. Pode faze-lo contactando-nos em:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Email: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Email: %CONTACT_EMAIL%
 
 Para cumprir o prazo de retratacao, basta enviar a sua comunicacao relativa ao exercicio do direito de retratacao antes do termo do prazo de retratacao.
 
@@ -31,7 +31,7 @@ Se se retratar do contrato, reembolsaremos todos os pagamentos recebidos de si s
 
 Em conformidade com o artigo 16.o, alinea m), da Diretiva 2011/83/UE, o direito de retratacao nao se aplica a contratos de fornecimento de conteudo digital que nao seja fornecido num suporte tangivel, se a execucao tiver tido inicio com o seu consentimento previo expresso e o seu reconhecimento de que perde assim o seu direito de retratacao.
 
-**Ao adquirir uma subscricao em [[SITE_NAME]]:**
+**Ao adquirir uma subscricao em %SITE_NAME%:**
 
 a) Ser-lhe-a pedido que consinta expressamente na execucao imediata do conteudo/servico digital antes do termo do prazo de retratacao de 14 dias;
 
@@ -49,9 +49,9 @@ Separadamente do direito de retratacao da UE, oferecemos uma politica de reembol
 
 (Preencha e devolva este formulario apenas se desejar retratar-se do contrato)
 
-Para: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Para: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Pela presente comunico que me retrato do meu contrato de prestacao do seguinte servico: subscricao [[SITE_NAME]] (\*)
+Pela presente comunico que me retrato do meu contrato de prestacao do seguinte servico: subscricao %SITE_NAME% (\*)
 
 - Data do pedido: ******\_\_\_******
 - Nome do consumidor: ******\_\_\_******

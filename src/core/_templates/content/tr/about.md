@@ -1,14 +1,14 @@
 ---
-title: "[[SITE_NAME]] Hakkında"
+title: "%SITE_NAME% Hakkında"
 type: page
-description: "[[SITE_NAME]], T3 Stack (Next.js + tRPC + Drizzle) üzerine inşa edilmiş açık kaynaklı, ajan odaklı bir headless CMS'dir."
-seoTitle: "{sitename} Hakkında | Ajan Odaklı Headless CMS"
+description: "%SITE_NAME%, T3 Stack (Next.js + tRPC + Drizzle) üzerine inşa edilmiş açık kaynaklı, ajan odaklı bir headless CMS'dir."
+seoTitle: "%SITENAME% Hakkında | Ajan Odaklı Headless CMS"
 noindex: false
 ---
 
-## [[SITE_NAME]] nedir?
+## %SITE_NAME% nedir?
 
-[[SITE_NAME]], T3 Stack üzerine inşa edilmiş açık kaynaklı, ajan odaklı bir headless CMS'dir. Next.js, tRPC, Drizzle ORM ve Better Auth teknolojilerini, yapay zeka destekli geliştirme için optimize edilmiş tutarlı bir içerik yönetim sisteminde birleştirir.
+%SITE_NAME%, T3 Stack üzerine inşa edilmiş açık kaynaklı, ajan odaklı bir headless CMS'dir. Next.js, tRPC, Drizzle ORM ve Better Auth teknolojilerini, yapay zeka destekli geliştirme için optimize edilmiş tutarlı bir içerik yönetim sisteminde birleştirir.
 
 ### Temel Özellikler
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### Açık kaynak
 
-[[SITE_NAME]] açık kaynaklıdır (AGPL-3.0) ve GitHub üzerinde mevcuttur. Tescilli kullanım için ticari lisanslar sunulmaktadır. Katkılarınızı bekliyoruz!
+%SITE_NAME% açık kaynaklıdır (AGPL-3.0) ve GitHub üzerinde mevcuttur. Tescilli kullanım için ticari lisanslar sunulmaktadır. Katkılarınızı bekliyoruz!

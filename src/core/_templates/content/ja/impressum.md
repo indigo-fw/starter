@@ -1,27 +1,27 @@
 ---
 title: 法的通知（Impressum）
 type: page
-description: [[SITE_NAME]]の法的通知（Impressum）です。
+description: %SITE_NAME%の法的通知（Impressum）です。
 noindex: true
 ---
 
 **EU商業および媒体規制に基づく情報**
 
 **会社名:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **住所:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **連絡先:**
-メール: [[CONTACT_EMAIL]]
+メール: %CONTACT_EMAIL%
 
 **登録番号:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **コンテンツ責任者:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **EUオンライン紛争解決:**
 欧州委員会はオンライン紛争解決（ODR）プラットフォームを提供しています。

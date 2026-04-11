@@ -1,13 +1,13 @@
 ---
 title: Gemenskapsriktlinjer
 type: page
-description: Gemenskapsriktlinjer för [[SITE_NAME]].
+description: Gemenskapsriktlinjer för %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdatum:** [[CURRENT_DATE]]
+**Revisionsdatum:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjänsten"), som drivs av [[COMPANY_NAME]], är en onlineplattform. Dessa gemenskapsriktlinjer fastställer beteendestandarder för alla användare. Genom att använda Tjänsten samtycker du till att följa dessa riktlinjer.
+%SITE_NAME% ("Tjänsten"), som drivs av %COMPANY_NAME%, är en onlineplattform. Dessa gemenskapsriktlinjer fastställer beteendestandarder för alla användare. Genom att använda Tjänsten samtycker du till att följa dessa riktlinjer.
 
 **1. Respekt och säkerhet**
 
@@ -47,7 +47,7 @@ d) Håll ditt konto säkert. Dela inte dina inloggningsuppgifter med andra.
 
 **4. Användargenererat innehåll**
 
-Innehåll som skapats av användare representerar deras egna åsikter och uppfattningar. [[SITE_NAME]] stödjer inte och tar inget ansvar för användargenererat innehåll.
+Innehåll som skapats av användare representerar deras egna åsikter och uppfattningar. %SITE_NAME% stödjer inte och tar inget ansvar för användargenererat innehåll.
 
 Förlita dig inte på användargenererat innehåll som fakta eller professionell rådgivning.
 
@@ -71,6 +71,6 @@ d) Anmälan till brottsbekämpande myndigheter (vid allvarliga överträdelser)
 Om du stöter på innehåll eller beteende som bryter mot dessa riktlinjer, vänligen rapportera det:
 
 a) Genom att använda rapporteringsfunktionen i appen
-b) Via e-post till [[CONTACT_EMAIL]]
+b) Via e-post till %CONTACT_EMAIL%
 
 För den fullständiga rapporterings- och överklagandeprocessen, se vår [Policy för borttagning av innehåll och klagomål](/content-removal-and-complaints).

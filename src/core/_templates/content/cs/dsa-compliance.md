@@ -1,26 +1,26 @@
 ---
 title: Soulad s Aktem o digitálních službách (DSA)
 type: page
-description: Soulad s Aktem o digitálních službách (DSA) servisu [[SITE_NAME]].
+description: Soulad s Aktem o digitálních službách (DSA) servisu %SITE_NAME%.
 noindex: true
 ---
 
-**Datum revize:** [[CURRENT_DATE]]
+**Datum revize:** %CURRENT_DATE%
 
-Jako platforma se sídlem v EU [[SITE_NAME]], provozovaný společností [[COMPANY_NAME]], dodržuje Akt o digitálních službách (nařízení (EU) 2022/2065). Tato stránka popisuje naše povinnosti, vaše práva a naše postupy moderování obsahu podle DSA.
+Jako platforma se sídlem v EU %SITE_NAME%, provozovaný společností %COMPANY_NAME%, dodržuje Akt o digitálních službách (nařízení (EU) 2022/2065). Tato stránka popisuje naše povinnosti, vaše práva a naše postupy moderování obsahu podle DSA.
 
 **1. Informace o poskytovateli služeb**
 
-**Poskytovatel:** [[COMPANY_NAME]]
-**Adresa:** [[COMPANY_ADDRESS]]
-**Registrační číslo:** [[COMPANY_ID]]
-**Kontakt:** [[CONTACT_EMAIL]]
+**Poskytovatel:** %COMPANY_NAME%
+**Adresa:** %COMPANY_ADDRESS%
+**Registrační číslo:** %COMPANY_ID%
+**Kontakt:** %CONTACT_EMAIL%
 
 **2. Kontaktní bod**
 
 Naším jednotným kontaktním bodem pro orgány členských států EU, Evropskou komisi, Evropskou radu pro digitální služby a uživatele ve věcech DSA je:
 
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 Tento kontaktní bod je k dispozici v anglickém jazyce.
 
@@ -30,7 +30,7 @@ Jelikož je naše společnost usazena v EU, není podle čl. 13 DSA vyžadován 
 
 **4. Povaha služby**
 
-[[SITE_NAME]] je online platforma poskytující digitální služby a obsah. Uživatelé si mohou vytvářet účty, přistupovat k obsahu a využívat funkce platformy.
+%SITE_NAME% je online platforma poskytující digitální služby a obsah. Uživatelé si mohou vytvářet účty, přistupovat k obsahu a využívat funkce platformy.
 
 **5. Moderování obsahu**
 
@@ -56,7 +56,7 @@ d) Ohledech na základní práva, včetně svobody projevu.
 
 **6. Hlášení nezákonného obsahu**
 
-Pokud narazíte na obsah, který považujete za nezákonný podle práva EU nebo vnitrostátního práva, můžete jej nahlásit kontaktováním na adrese [[CONTACT_EMAIL]]. Úplný postup hlášení, včetně informací o tom, co uvést v hlášení a jak jej zpracováváme, naleznete v našich [Zásadách pro odstraňování obsahu a podávání stížností](/content-removal-and-complaints).
+Pokud narazíte na obsah, který považujete za nezákonný podle práva EU nebo vnitrostátního práva, můžete jej nahlásit kontaktováním na adrese %CONTACT_EMAIL%. Úplný postup hlášení, včetně informací o tom, co uvést v hlášení a jak jej zpracováváme, naleznete v našich [Zásadách pro odstraňování obsahu a podávání stížností](/content-removal-and-complaints).
 
 **7. Odůvodnění rozhodnutí**
 

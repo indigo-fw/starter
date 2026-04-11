@@ -1,26 +1,26 @@
 ---
 title: Naleving van de Wet inzake digitale diensten (DSA)
 type: page
-description: Naleving van de Wet inzake digitale diensten (DSA) voor [[SITE_NAME]].
+description: Naleving van de Wet inzake digitale diensten (DSA) voor %SITE_NAME%.
 noindex: true
 ---
 
-**Datum van herziening:** [[CURRENT_DATE]]
+**Datum van herziening:** %CURRENT_DATE%
 
-Als EU-gevestigd platform voldoet [[SITE_NAME]], beheerd door [[COMPANY_NAME]], aan de Wet inzake digitale diensten (Verordening (EU) 2022/2065). Deze pagina beschrijft onze verplichtingen, uw rechten en onze inhoudsmoderatiebeleid op grond van de DSA.
+Als EU-gevestigd platform voldoet %SITE_NAME%, beheerd door %COMPANY_NAME%, aan de Wet inzake digitale diensten (Verordening (EU) 2022/2065). Deze pagina beschrijft onze verplichtingen, uw rechten en onze inhoudsmoderatiebeleid op grond van de DSA.
 
 **1. Informatie over de dienstverlener**
 
-**Aanbieder:** [[COMPANY_NAME]]
-**Adres:** [[COMPANY_ADDRESS]]
-**Registratienummer:** [[COMPANY_ID]]
-**Contact:** [[CONTACT_EMAIL]]
+**Aanbieder:** %COMPANY_NAME%
+**Adres:** %COMPANY_ADDRESS%
+**Registratienummer:** %COMPANY_ID%
+**Contact:** %CONTACT_EMAIL%
 
 **2. Contactpunt**
 
 Ons enig contactpunt voor de autoriteiten van EU-lidstaten, de Europese Commissie, de Europese Raad voor digitale diensten en gebruikers met betrekking tot DSA-zaken is:
 
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 Dit contactpunt is beschikbaar in het Engels.
 
@@ -30,7 +30,7 @@ Aangezien ons bedrijf in de EU is gevestigd, is er op grond van DSA art. 13 geen
 
 **4. Aard van de dienst**
 
-[[SITE_NAME]] is een online platform dat digitale diensten en inhoud aanbiedt. Gebruikers kunnen accounts aanmaken, inhoud raadplegen en gebruikmaken van de functies van het platform.
+%SITE_NAME% is een online platform dat digitale diensten en inhoud aanbiedt. Gebruikers kunnen accounts aanmaken, inhoud raadplegen en gebruikmaken van de functies van het platform.
 
 **5. Inhoudsmoderatie**
 
@@ -56,7 +56,7 @@ d) Overwegingen met betrekking tot grondrechten, waaronder de vrijheid van menin
 
 **6. Melding van illegale inhoud**
 
-Als u inhoud tegenkomt die naar uw mening illegaal is op grond van EU- of nationaal recht, kunt u deze melden door contact met ons op te nemen via [[CONTACT_EMAIL]]. Voor de volledige meldingsprocedure, inclusief wat u in uw melding dient op te nemen en hoe wij deze verwerken, zie ons [Beleid inzake inhoudsverwijdering en klachten](/content-removal-and-complaints).
+Als u inhoud tegenkomt die naar uw mening illegaal is op grond van EU- of nationaal recht, kunt u deze melden door contact met ons op te nemen via %CONTACT_EMAIL%. Voor de volledige meldingsprocedure, inclusief wat u in uw melding dient op te nemen en hoe wij deze verwerken, zie ons [Beleid inzake inhoudsverwijdering en klachten](/content-removal-and-complaints).
 
 **7. Motivering van besluiten**
 

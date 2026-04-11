@@ -1,11 +1,11 @@
 ---
 title: Angrerett
 type: page
-description: Angrerett for [[SITE_NAME]].
+description: Angrerett for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisjonsdato:** [[CURRENT_DATE]]
+**Revisjonsdato:** %CURRENT_DATE%
 
 Denne siden gir informasjon om din angrerett som forbruker i Den europeiske union, i samsvar med direktiv 2011/83/EU om forbrukerrettigheter.
 
@@ -17,9 +17,9 @@ Angrefristen utløper 14 dager fra den dagen avtalen ble inngått (dvs. datoen f
 
 For å utøve angreretten må du informere oss om din beslutning om å gå fra avtalen gjennom en utvetydig erklæring. Du kan gjøre dette ved å kontakte oss på:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-post: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-post: %CONTACT_EMAIL%
 
 For å overholde angrefristen er det tilstrekkelig at du sender meldingen om utøvelse av angreretten før angrefristen utløper.
 
@@ -31,7 +31,7 @@ Hvis du går fra avtalen, vil vi tilbakebetale alle betalinger mottatt fra deg u
 
 I samsvar med artikkel 16 bokstav m) i direktiv 2011/83/EU gjelder ikke angreretten for avtaler om levering av digitalt innhold som ikke leveres på et fysisk medium, dersom utførelsen har begynt med ditt forutgående uttrykkelige samtykke og din bekreftelse av at du derved mister angreretten.
 
-**Ved kjøp av et abonnement på [[SITE_NAME]]:**
+**Ved kjøp av et abonnement på %SITE_NAME%:**
 
 a) Du vil bli bedt om å uttrykkelig samtykke til umiddelbar levering av det digitale innholdet/tjenesten før utløpet av den 14 dager lange angrefristen;
 
@@ -49,9 +49,9 @@ Uavhengig av EUs angrerett tilbyr vi en frivillig refusjonspolicy. For detaljer,
 
 (Fyll ut og returner dette skjemaet kun hvis du ønsker å gå fra avtalen)
 
-Til: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Til: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Jeg gir herved melding om at jeg går fra min avtale om levering av følgende tjeneste: [[SITE_NAME]]-abonnement (\*)
+Jeg gir herved melding om at jeg går fra min avtale om levering av følgende tjeneste: %SITE_NAME%-abonnement (\*)
 
 - Bestilt den: ******\_\_\_******
 - Forbrukerens navn: ******\_\_\_******

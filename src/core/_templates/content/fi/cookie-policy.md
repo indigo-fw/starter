@@ -1,13 +1,13 @@
 ---
 title: Evästekäytäntö
 type: page
-description: Evästekäytäntö sivustolle [[SITE_NAME]].
+description: Evästekäytäntö sivustolle %SITE_NAME%.
 noindex: true
 ---
 
-**Tarkistuspäivämäärä:** [[CURRENT_DATE]]
+**Tarkistuspäivämäärä:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Palvelu"), jota ylläpitää [[COMPANY_NAME]], [[COMPANY_ADDRESS]], käyttää evästeitä ja vastaavia seurantateknologioita. Tämä evästekäytäntö selittää, mitä evästeet ovat, miten käytämme niitä, valintamahdollisuutesi evästeiden suhteen sekä lisätietoja evästeistä.
+%SITE_NAME% ("Palvelu"), jota ylläpitää %COMPANY_NAME%, %COMPANY_ADDRESS%, käyttää evästeitä ja vastaavia seurantateknologioita. Tämä evästekäytäntö selittää, mitä evästeet ovat, miten käytämme niitä, valintamahdollisuutesi evästeiden suhteen sekä lisätietoja evästeistä.
 
 **1. Mitä evästeet ovat?**
 
@@ -92,4 +92,4 @@ Saatamme päivittää tätä evästekäytäntöä aika ajoin. Ilmoitamme sinulle
 
 **7. Yhteystiedot**
 
-Jos sinulla on kysyttävää evästeiden käytöstämme, ota meihin yhteyttä osoitteessa [[CONTACT_EMAIL]].
+Jos sinulla on kysyttävää evästeiden käytöstämme, ota meihin yhteyttä osoitteessa %CONTACT_EMAIL%.

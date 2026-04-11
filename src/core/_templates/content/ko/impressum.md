@@ -1,27 +1,27 @@
 ---
 title: 법적 고지(Impressum)
 type: page
-description: [[SITE_NAME]]의 법적 고지(Impressum)입니다.
+description: %SITE_NAME%의 법적 고지(Impressum)입니다.
 noindex: true
 ---
 
 **관련 EU 상업 및 미디어 규정에 따른 정보**
 
 **회사명:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **주소:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **연락처:**
-이메일: [[CONTACT_EMAIL]]
+이메일: %CONTACT_EMAIL%
 
 **등록 번호:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **콘텐츠 책임자:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **EU 온라인 분쟁 해결:**
 유럽 위원회는 온라인 분쟁 해결(ODR) 플랫폼을 제공합니다.

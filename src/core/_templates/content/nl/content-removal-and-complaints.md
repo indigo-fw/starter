@@ -1,20 +1,20 @@
 ---
 title: Beleid inzake inhoudsverwijdering en klachten
 type: page
-description: Beleid inzake inhoudsverwijdering en klachten voor [[SITE_NAME]].
+description: Beleid inzake inhoudsverwijdering en klachten voor %SITE_NAME%.
 noindex: true
 ---
 
-**Datum van herziening:** [[CURRENT_DATE]]
+**Datum van herziening:** %CURRENT_DATE%
 
-[[SITE_NAME]] (de "Dienst"), beheerd door [[COMPANY_NAME]], [[COMPANY_ADDRESS]], zet zich in voor het handhaven van een veilig en rechtmatig platform. Dit beleid beschrijft hoe u illegale of schadelijke inhoud kunt melden, hoe wij dergelijke meldingen behandelen en hoe u bezwaar kunt maken tegen onze inhoudsmoderatiebesluiten, in overeenstemming met de Wet inzake digitale diensten (Verordening (EU) 2022/2065).
+%SITE_NAME% (de "Dienst"), beheerd door %COMPANY_NAME%, %COMPANY_ADDRESS%, zet zich in voor het handhaven van een veilig en rechtmatig platform. Dit beleid beschrijft hoe u illegale of schadelijke inhoud kunt melden, hoe wij dergelijke meldingen behandelen en hoe u bezwaar kunt maken tegen onze inhoudsmoderatiebesluiten, in overeenstemming met de Wet inzake digitale diensten (Verordening (EU) 2022/2065).
 
 **1. Melding van illegale of schadelijke inhoud**
 
 Als u op de Dienst inhoud tegenkomt die naar uw mening illegaal is op grond van EU- of nationaal recht, of die in strijd is met onze [Servicevoorwaarden](/terms-of-service), kunt u deze melden door:
 
 a) Gebruik te maken van de meldingsfunctie in de app (indien beschikbaar);
-b) Een e-mail te sturen naar [[CONTACT_EMAIL]].
+b) Een e-mail te sturen naar %CONTACT_EMAIL%.
 
 **1.1 Wat u in uw melding dient op te nemen**
 
@@ -67,7 +67,7 @@ Als uw inhoud is verwijderd, uw account is beperkt of uw melding is afgewezen, h
 
 **3.2 Hoe bezwaar te maken**
 
-Dien uw bezwaar in per e-mail naar [[CONTACT_EMAIL]] met als onderwerp "Bezwaar" en neem het volgende op:
+Dien uw bezwaar in per e-mail naar %CONTACT_EMAIL% met als onderwerp "Bezwaar" en neem het volgende op:
 
 a) Uw naam en accountidentificatie;
 b) Een beschrijving van het besluit waartegen u bezwaar maakt;
@@ -113,6 +113,6 @@ d) De mediane verwerkingstijd voor meldingen en bezwaren.
 
 Voor alle zaken met betrekking tot inhoudsverwijdering en klachten:
 
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 Dit adres dient tevens als ons enig contactpunt voor EU-autoriteiten, gebruikers en de Europese Commissie met betrekking tot zaken die de Wet inzake digitale diensten betreffen.

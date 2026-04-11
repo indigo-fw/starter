@@ -1,13 +1,13 @@
 ---
 title: Zasady społeczności
 type: page
-description: Zasady społeczności serwisu [[SITE_NAME]].
+description: Zasady społeczności serwisu %SITE_NAME%.
 noindex: true
 ---
 
-**Data aktualizacji:** [[CURRENT_DATE]]
+**Data aktualizacji:** %CURRENT_DATE%
 
-[[SITE_NAME]] („Serwis"), prowadzony przez [[COMPANY_NAME]], jest platformą internetową. Niniejsze Zasady społeczności określają standardy zachowania obowiązujące wszystkich użytkowników. Korzystając z Serwisu, zgadzasz się na przestrzeganie niniejszych zasad.
+%SITE_NAME% („Serwis"), prowadzony przez %COMPANY_NAME%, jest platformą internetową. Niniejsze Zasady społeczności określają standardy zachowania obowiązujące wszystkich użytkowników. Korzystając z Serwisu, zgadzasz się na przestrzeganie niniejszych zasad.
 
 **1. Szacunek i bezpieczeństwo**
 
@@ -47,7 +47,7 @@ d) Dbaj o bezpieczeństwo swojego konta. Nie udostępniaj swoich danych logowani
 
 **4. Treści generowane przez użytkowników**
 
-Treści tworzone przez użytkowników odzwierciedlają ich własne poglądy i opinie. [[SITE_NAME]] nie popiera ani nie ponosi odpowiedzialności za treści generowane przez użytkowników.
+Treści tworzone przez użytkowników odzwierciedlają ich własne poglądy i opinie. %SITE_NAME% nie popiera ani nie ponosi odpowiedzialności za treści generowane przez użytkowników.
 
 Nie należy traktować treści generowanych przez użytkowników jako informacji faktycznych ani porad profesjonalnych.
 
@@ -71,6 +71,6 @@ Surowość sankcji zależy od charakteru i częstotliwości naruszenia. Poważne
 Jeśli natkniesz się na treści lub zachowania naruszające niniejsze zasady, zgłoś to:
 
 a) Za pomocą funkcji zgłaszania w aplikacji;
-b) Drogą e-mailową na adres [[CONTACT_EMAIL]].
+b) Drogą e-mailową na adres %CONTACT_EMAIL%.
 
 Pełna procedura zgłaszania i odwoływania się jest opisana w naszej [Polityce usuwania treści i składania skarg](/content-removal-and-complaints).

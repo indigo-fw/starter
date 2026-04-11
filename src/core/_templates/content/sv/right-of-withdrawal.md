@@ -1,11 +1,11 @@
 ---
 title: Ångerrätt
 type: page
-description: Ångerrätt för [[SITE_NAME]].
+description: Ångerrätt för %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdatum:** [[CURRENT_DATE]]
+**Revisionsdatum:** %CURRENT_DATE%
 
 Denna sida ger information om din ångerrätt som konsument inom Europeiska unionen, i enlighet med direktiv 2011/83/EU om konsumenträttigheter.
 
@@ -17,9 +17,9 @@ Om du är en konsument bosatt i Europeiska unionen har du rätt att frånträda 
 
 För att utöva din ångerrätt måste du informera oss om ditt beslut att frånträda avtalet genom ett entydigt uttalande. Du kan göra detta genom att kontakta oss på:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-post: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-post: %CONTACT_EMAIL%
 
 För att uppfylla ångerfristen räcker det att du skickar ditt meddelande om utövande av ångerrätten innan ångerfristen löper ut.
 
@@ -31,7 +31,7 @@ Om du frånträder avtalet ska vi återbetala alla betalningar som vi har mottag
 
 I enlighet med artikel 16 m i direktiv 2011/83/EU gäller ångerrätten inte för avtal om tillhandahållande av digitalt innehåll som inte levereras på ett fysiskt medium om fullgörandet har påbörjats med ditt föregående uttryckliga samtycke och din bekräftelse att du därigenom förlorar din ångerrätt.
 
-**Vid köp av en prenumeration på [[SITE_NAME]]:**
+**Vid köp av en prenumeration på %SITE_NAME%:**
 
 a) Du kommer att ombedjas att uttryckligen samtycka till att det digitala innehållet/tjänsten börjar tillhandahållas omedelbart, innan utgången av ångerfristen på 14 dagar.
 
@@ -49,9 +49,9 @@ Separat från EU:s ångerrätt erbjuder vi en frivillig återbetalningspolicy. F
 
 (Fyll i och returnera detta formulär endast om du vill frånträda avtalet)
 
-Till: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Till: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Jag meddelar härmed att jag frånträder mitt avtal om tillhandahållande av följande tjänst: [[SITE_NAME]]-prenumeration (*)
+Jag meddelar härmed att jag frånträder mitt avtal om tillhandahållande av följande tjänst: %SITE_NAME%-prenumeration (*)
 
 - Beställt den: ******\_\_\_******
 - Konsumentens namn: ******\_\_\_******

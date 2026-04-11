@@ -1,14 +1,14 @@
 ---
-title: O [[SITE_NAME]]
+title: O %SITE_NAME%
 type: page
-description: "[[SITE_NAME]] je open-source, agentově řízený headless CMS postavený na T3 Stacku (Next.js + tRPC + Drizzle)."
-seoTitle: "O {sitename} | Agentově řízený headless CMS"
+description: "%SITE_NAME% je open-source, agentově řízený headless CMS postavený na T3 Stacku (Next.js + tRPC + Drizzle)."
+seoTitle: "O %SITENAME% | Agentově řízený headless CMS"
 noindex: false
 ---
 
-## Co je [[SITE_NAME]]?
+## Co je %SITE_NAME%?
 
-[[SITE_NAME]] je open-source, agentově řízený headless CMS postavený na T3 Stacku. Kombinuje Next.js, tRPC, Drizzle ORM a Better Auth do uceleného systému pro správu obsahu optimalizovaného pro vývoj s podporou umělé inteligence.
+%SITE_NAME% je open-source, agentově řízený headless CMS postavený na T3 Stacku. Kombinuje Next.js, tRPC, Drizzle ORM a Better Auth do uceleného systému pro správu obsahu optimalizovaného pro vývoj s podporou umělé inteligence.
 
 ### Klíčové vlastnosti
 
@@ -22,4 +22,4 @@ noindex: false
 
 ### Open source
 
-[[SITE_NAME]] je open source (AGPL-3.0) a je k dispozici na GitHubu. Pro vlastní použití jsou dostupné komerční licence. Příspěvky jsou vítány!
+%SITE_NAME% je open source (AGPL-3.0) a je k dispozici na GitHubu. Pro vlastní použití jsou dostupné komerční licence. Příspěvky jsou vítány!

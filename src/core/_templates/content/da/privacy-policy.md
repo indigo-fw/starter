@@ -1,13 +1,13 @@
 ---
 title: Privatlivspolitik
 type: page
-description: Privatlivspolitik for [[SITE_NAME]].
+description: Privatlivspolitik for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdato:** [[CURRENT_DATE]]
+**Revisionsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjenesten") drives af [[COMPANY_NAME]], adresse: [[COMPANY_ADDRESS]]. [[SITE_NAME]] er en onlineplatform, der leverer digitale tjenester og indhold. Dele af Tjenesterne kan kræve, at du opretter en brugerkonto.
+%SITE_NAME% ("Tjenesten") drives af %COMPANY_NAME%, adresse: %COMPANY_ADDRESS%. %SITE_NAME% er en onlineplatform, der leverer digitale tjenester og indhold. Dele af Tjenesterne kan kræve, at du opretter en brugerkonto.
 
 Vi er forpligtet til at respektere dit privatliv, og disse Tjenester vil altid blive leveret med dit samtykke. I dette dokument giver vi klar information om, hvordan dine data behandles, når du besøger hjemmesiden og bruger vores Tjenester.
 
@@ -23,24 +23,24 @@ I denne privatlivspolitik betyder "du" og "din" dig som bruger af Tjenesten.
 
 "Behandling" betyder enhver operation udført på personoplysninger, hvad enten det sker automatisk eller ej, såsom indsamling, registrering, organisering, strukturering, opbevaring, tilpasning, søgning, konsultation, brug, videregivelse ved transmission, formidling, justering, begrænsning, sletning eller destruktion.
 
-"Tjenester" betyder alle funktioner og al funktionalitet leveret af [[SITE_NAME]].
+"Tjenester" betyder alle funktioner og al funktionalitet leveret af %SITE_NAME%.
 
-"Abonnement" betyder en aftale mellem [[SITE_NAME]] og dig, der giver dig mulighed for at bruge Tjenesterne.
+"Abonnement" betyder en aftale mellem %SITE_NAME% og dig, der giver dig mulighed for at bruge Tjenesterne.
 
 "Bruger" betyder en person, der har registreret sig og bruger Tjenesten.
 
 "Besøgende" betyder enhver, der browser hjemmesiden uden et gyldigt abonnement.
 
-"Hjemmeside" betyder [[SITE_NAME]], tilgængelig på [[SITE_URL]].
+"Hjemmeside" betyder %SITE_NAME%, tilgængelig på %SITE_URL%.
 
 **2. Dataansvarlig**
 
 Den dataansvarlige i henhold til den generelle forordning om databeskyttelse (EU) 2016/679 ("GDPR") og gældende databeskyttelseslove er:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Registreringsnummer: [[COMPANY_ID]]
-E-mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Registreringsnummer: %COMPANY_ID%
+E-mail: %CONTACT_EMAIL%
 
 Den dataansvarlige er ansvarlig for at fastsætte formålene med og midlerne til behandling af dine personoplysninger. Hvis du har spørgsmål til denne privatlivspolitik, herunder anmodninger om at udøve dine juridiske rettigheder, bedes du kontakte os på ovenstående e-mailadresse.
 
@@ -132,13 +132,13 @@ Vi sender dig kun markedsføringskommunikation, når vi har et lovligt grundlag 
 
 **8. Tredjepartsmarkedsføring**
 
-Vi vil indhente dit udtrykkelige samtykke, inden vi deler dine personoplysninger med nogen virksomhed uden for [[COMPANY_NAME]] til markedsføringsformål.
+Vi vil indhente dit udtrykkelige samtykke, inden vi deler dine personoplysninger med nogen virksomhed uden for %COMPANY_NAME% til markedsføringsformål.
 
-Du kan til enhver tid bede os eller tredjeparter om at stoppe med at sende markedsføringsmeddelelser ved at følge framelding-linkene i enhver markedsføringsmeddelelse eller ved at kontakte os på [[CONTACT_EMAIL]].
+Du kan til enhver tid bede os eller tredjeparter om at stoppe med at sende markedsføringsmeddelelser ved at følge framelding-linkene i enhver markedsføringsmeddelelse eller ved at kontakte os på %CONTACT_EMAIL%.
 
 **9. Deling af dine personoplysninger**
 
-[[SITE_NAME]] kan dele dine oplysninger med:
+%SITE_NAME% kan dele dine oplysninger med:
 
 a) Tjenesteudbydere, vi samarbejder med for at levere Tjenesterne (hosting, betalingsbehandling, analyse);
 
@@ -166,7 +166,7 @@ Vores tjenesteudbydere, der kan behandle data uden for EØS, omfatter cloud-host
 
 Vi bruger automatiserede indholdsmoderingsværktøjer til at opdage indhold, der kan overtræde vores Servicevilkår eller gældende lovgivning. Disse værktøjer kan markere indhold til menneskelig gennemgang eller automatisk begrænse indhold eller konti.
 
-Du har ret til ikke at blive underlagt en beslutning, der udelukkende er baseret på automatiseret behandling, og som har retsvirkninger for dig eller på tilsvarende vis påvirker dig væsentligt (GDPR art. 22). Hvis du mener, at der er truffet en automatiseret beslutning om dig ved en fejl, kan du kontakte os for at anmode om menneskelig gennemgang på [[CONTACT_EMAIL]].
+Du har ret til ikke at blive underlagt en beslutning, der udelukkende er baseret på automatiseret behandling, og som har retsvirkninger for dig eller på tilsvarende vis påvirker dig væsentligt (GDPR art. 22). Hvis du mener, at der er truffet en automatiseret beslutning om dig ved en fejl, kan du kontakte os for at anmode om menneskelig gennemgang på %CONTACT_EMAIL%.
 
 **12. Følsomme oplysninger**
 
@@ -174,7 +174,7 @@ Vi vil aldrig bede dig om at give personoplysninger, der afslører race eller et
 
 **13. Dine rettigheder i henhold til GDPR**
 
-Du har følgende rettigheder vedrørende dine personoplysninger. For at udøve nogen af disse rettigheder bedes du kontakte os på [[CONTACT_EMAIL]].
+Du har følgende rettigheder vedrørende dine personoplysninger. For at udøve nogen af disse rettigheder bedes du kontakte os på %CONTACT_EMAIL%.
 
 **13.1 Ret til indsigt (art. 15)**
 
@@ -218,7 +218,7 @@ Du har ret til at trække dit samtykke tilbage til enhver tid. Tilbagetrækning 
 
 Hvis du trækker samtykke tilbage, kan vi muligvis ikke levere Tjenesterne til dig og vil tage rimelige skridt til at slette din konto og de personoplysninger, vi har indsamlet.
 
-Du kan trække samtykke tilbage ved at kontakte os på [[CONTACT_EMAIL]].
+Du kan trække samtykke tilbage ved at kontakte os på %CONTACT_EMAIL%.
 
 **13.8 Ret til at klage (art. 77)**
 
@@ -242,7 +242,7 @@ Opbevaringsperioder kan justeres baseret på ændrede forretningsmæssige eller 
 
 **15. Personoplysninger om mindreårige**
 
-[[SITE_NAME]] leverer ikke Tjenester til eller indsamler personoplysninger fra nogen under myndighedsalderen i deres jurisdiktion. Hvis vi erfarer, at vi har indsamlet personoplysninger fra en mindreårig person, vil vi slette oplysningerne hurtigst muligt og blokere brugeren.
+%SITE_NAME% leverer ikke Tjenester til eller indsamler personoplysninger fra nogen under myndighedsalderen i deres jurisdiktion. Hvis vi erfarer, at vi har indsamlet personoplysninger fra en mindreårig person, vil vi slette oplysningerne hurtigst muligt og blokere brugeren.
 
 **16. Datasikkerhed**
 
@@ -256,7 +256,7 @@ Hjemmesiden kan indeholde links til tredjepartshjemmesider, plug-ins og applikat
 
 **18. Fusion eller opkøb**
 
-Hvis [[SITE_NAME]] fusionerer med eller opkøbes af et andet selskab, eller sælger alle eller en del af sine aktiver, kan dine personoplysninger videregives til vores rådgivere og enhver potentiel købers rådgivere, og kan være blandt de overførte aktiver. Personoplysninger vil dog altid forblive underlagt denne privatlivspolitik.
+Hvis %SITE_NAME% fusionerer med eller opkøbes af et andet selskab, eller sælger alle eller en del af sine aktiver, kan dine personoplysninger videregives til vores rådgivere og enhver potentiel købers rådgivere, og kan være blandt de overførte aktiver. Personoplysninger vil dog altid forblive underlagt denne privatlivspolitik.
 
 **19. Ændringer af denne privatlivspolitik**
 
@@ -272,6 +272,6 @@ Vi forsøger at besvare alle legitime anmodninger inden for én måned. Lejlighe
 
 For alle privatlivsrelaterede spørgsmål, herunder udøvelse af dine rettigheder:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-mail: %CONTACT_EMAIL%

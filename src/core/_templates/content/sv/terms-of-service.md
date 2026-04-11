@@ -1,19 +1,19 @@
 ---
 title: Användarvillkor
 type: page
-description: Användarvillkor för [[SITE_NAME]].
+description: Användarvillkor för %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdatum:** [[CURRENT_DATE]]
+**Revisionsdatum:** %CURRENT_DATE%
 
 **1. Inledning**
 
-[[SITE_NAME]] ("Tjänsten") drivs av [[COMPANY_NAME]], adress: [[COMPANY_ADDRESS]] (nedan kallad "vi", "oss" eller "vår").
+%SITE_NAME% ("Tjänsten") drivs av %COMPANY_NAME%, adress: %COMPANY_ADDRESS% (nedan kallad "vi", "oss" eller "vår").
 
-[[SITE_NAME]] är en onlineplattform som tillhandahåller digitala tjänster och innehåll (sammantaget "Tjänsterna"). Delar av Tjänsterna kan kräva att du skapar ett användarkonto.
+%SITE_NAME% är en onlineplattform som tillhandahåller digitala tjänster och innehåll (sammantaget "Tjänsterna"). Delar av Tjänsterna kan kräva att du skapar ett användarkonto.
 
-Dessa Användarvillkor ("Villkoren") fastställer de juridiskt bindande villkoren för din användning av Tjänsten. Genom att använda Tjänsten godkänner du att vara bunden av dessa Villkor och alla andra villkor och policyer som publicerats på [[SITE_URL]]. Om du inte samtycker, vänligen sluta använda Tjänsten omedelbart.
+Dessa Användarvillkor ("Villkoren") fastställer de juridiskt bindande villkoren för din användning av Tjänsten. Genom att använda Tjänsten godkänner du att vara bunden av dessa Villkor och alla andra villkor och policyer som publicerats på %SITE_URL%. Om du inte samtycker, vänligen sluta använda Tjänsten omedelbart.
 
 Du samtycker till att inte använda Tjänsten för något olagligt eller obehörigt ändamål.
 
@@ -73,11 +73,11 @@ c) Om du inte har uppnått laglig ålder i jurisdiktionen för din hemvist ska d
 
 **7. Immateriella rättigheter**
 
-De immateriella rättigheterna i Tjänsten och inbäddade material (inklusive utan begränsning teknik, system, filer, dokument, text, fotografier, information, bilder, videor, ljud och programvara) ägs av eller är licensierade till [[SITE_NAME]]. Du får använda Tjänsten och dess innehåll på dina enheter enbart för personligt bruk.
+De immateriella rättigheterna i Tjänsten och inbäddade material (inklusive utan begränsning teknik, system, filer, dokument, text, fotografier, information, bilder, videor, ljud och programvara) ägs av eller är licensierade till %SITE_NAME%. Du får använda Tjänsten och dess innehåll på dina enheter enbart för personligt bruk.
 
 Vi beviljar dig härmed en licens för personligt bruk. Denna licens utgör inte en överlåtelse av äganderätt. Denna licens upphör automatiskt om du bryter mot dessa Villkor och kan avslutas av oss när som helst.
 
-Alla immateriella rättigheter förknippade med [[SITE_NAME]], inklusive plattformens design, logotyper och all proprietär programvara eller teknik, tillhör uteslutande [[SITE_NAME]] eller dess licensgivare. Användare är förbjudna att reproducera, modifiera, distribuera eller använda någon immateriell egendom utan uttryckligt tillstånd. Obehörig användning kan leda till rättsliga konsekvenser.
+Alla immateriella rättigheter förknippade med %SITE_NAME%, inklusive plattformens design, logotyper och all proprietär programvara eller teknik, tillhör uteslutande %SITE_NAME% eller dess licensgivare. Användare är förbjudna att reproducera, modifiera, distribuera eller använda någon immateriell egendom utan uttryckligt tillstånd. Obehörig användning kan leda till rättsliga konsekvenser.
 
 **8. Ditt innehåll**
 
@@ -85,7 +85,7 @@ Du kan tillhandahålla indata inom Tjänsten ("Indata") och ta emot utdata från
 
 Du behåller dina immateriella äganderätter över Indata. Vi kommer aldrig att göra anspråk på äganderätt till dina Indata, men vi behöver en licens från dig för att kunna använda dem.
 
-När du använder [[SITE_NAME]] eller dess associerade Tjänster för att ladda upp Indata som omfattas av immateriella rättigheter beviljar du oss en icke-exklusiv, royaltyfri, överlåtbar, underlicensierbar, världsomspännande licens att använda, distribuera, modifiera, köra, kopiera, offentligt visa, översätta eller på annat sätt skapa bearbetningar av ditt innehåll på ett sätt som är förenligt med vår [Integritetspolicy](/privacy-policy).
+När du använder %SITE_NAME% eller dess associerade Tjänster för att ladda upp Indata som omfattas av immateriella rättigheter beviljar du oss en icke-exklusiv, royaltyfri, överlåtbar, underlicensierbar, världsomspännande licens att använda, distribuera, modifiera, köra, kopiera, offentligt visa, översätta eller på annat sätt skapa bearbetningar av ditt innehåll på ett sätt som är förenligt med vår [Integritetspolicy](/privacy-policy).
 
 Licensen du beviljar oss kan avslutas när som helst genom att radera dina Indata eller ditt konto. I den utsträckning vi (eller våra partners) har använt dina Indata i samband med kommersiellt eller sponsrat innehåll kommer dock licensen att fortsätta gälla tills det relevanta innehållet har avvecklats av oss.
 
@@ -117,7 +117,7 @@ i) Du ska följa alla tillämpliga lagar vid din åtkomst till och användning a
 
 **9.2 Innehållsansvar**
 
-Som användare av Tjänsten är du ensamt ansvarig för allt Innehåll du skapar, laddar upp eller genererar genom Tjänsten. Du förstår och samtycker till att [[SITE_NAME]] inte kontrollerar eller stöder användargenererat innehåll. Du erkänner därför att du är fullt ansvarig för ditt Innehåll och för dina egna handlingar vid användning av Tjänsten.
+Som användare av Tjänsten är du ensamt ansvarig för allt Innehåll du skapar, laddar upp eller genererar genom Tjänsten. Du förstår och samtycker till att %SITE_NAME% inte kontrollerar eller stöder användargenererat innehåll. Du erkänner därför att du är fullt ansvarig för ditt Innehåll och för dina egna handlingar vid användning av Tjänsten.
 
 Du måste säkerställa att din användning av Tjänsten överensstämmer med tillämpliga lagar, förordningar och dessa Villkor, och du ska inte delta i olagliga, oetiska eller skadliga aktiviteter genom Tjänsten.
 
@@ -127,7 +127,7 @@ Vi värnar om säkerheten och integriteten för alla användare. Vi har implemen
 
 Innehåll kan modereras för att säkerställa efterlevnad av alla tillämpliga lagar.
 
-Vi förbehåller oss rätten, men är inte skyldiga, att avvisa och/eller ta bort användarinnehåll som vi anser, efter eget gottfinnande, bryter mot dessa bestämmelser. Om du har upptäckt en överträdelse, vänligen kontakta oss på [[CONTACT_EMAIL]] eller rapportera direkt via avsnittet "Kontakt".
+Vi förbehåller oss rätten, men är inte skyldiga, att avvisa och/eller ta bort användarinnehåll som vi anser, efter eget gottfinnande, bryter mot dessa bestämmelser. Om du har upptäckt en överträdelse, vänligen kontakta oss på %CONTACT_EMAIL% eller rapportera direkt via avsnittet "Kontakt".
 
 **10. Betalningar**
 
@@ -195,7 +195,7 @@ VARKEN VI ELLER NÅGON AV VÅRA DOTTERBOLAG ELLER LICENSGIVARE KOMMER ATT VARA A
 
 Vissa länder och stater tillåter inte friskrivning av vissa garantier eller begränsning av vissa skador, så vissa eller alla av ovanstående villkor kanske inte gäller dig, och du kan ha ytterligare rättigheter. I sådana fall begränsar dessa Villkor endast vårt ansvar i den maximala utsträckning som är tillåten i ditt bosättningsland.
 
-[[COMPANY_NAME]]:S DOTTERBOLAG, LEVERANTÖRER, LICENSGIVARE OCH DISTRIBUTÖRER ÄR AVSEDDA TREDJEPARTSFÖRMÅNSTAGARE AV DETTA AVSNITT.
+%COMPANY_NAME%:S DOTTERBOLAG, LEVERANTÖRER, LICENSGIVARE OCH DISTRIBUTÖRER ÄR AVSEDDA TREDJEPARTSFÖRMÅNSTAGARE AV DETTA AVSNITT.
 
 **13. Länkar till tredjepartswebbplatser och tjänster**
 
@@ -205,9 +205,9 @@ Det är ditt ansvar att säkerställa att allt du väljer att använda eller lad
 
 **14. Tillämplig lag och tvistlösning**
 
-Dessa Villkor ska styras av och tolkas i enlighet med lagarna i [[COMPANY_JURISDICTION]] utan hänsyn till dess lagvalsregler, oavsett din plats. Om du är en konsument bosatt i Europeiska unionen åtnjuter du även det skydd som de tvingande bestämmelserna i ditt bosättningslands lag ger.
+Dessa Villkor ska styras av och tolkas i enlighet med lagarna i %COMPANY_JURISDICTION% utan hänsyn till dess lagvalsregler, oavsett din plats. Om du är en konsument bosatt i Europeiska unionen åtnjuter du även det skydd som de tvingande bestämmelserna i ditt bosättningslands lag ger.
 
-Varje tvist som uppstår ur eller i samband med Villkoren, inklusive frågor om deras existens, giltighet eller upphörande, ska hänskjutas till och slutligt avgöras av domstolarna i [[COMPANY_JURISDICTION]]. Om du är en konsument inom EU kan du även väcka talan vid domstolarna i ditt bosättningsland.
+Varje tvist som uppstår ur eller i samband med Villkoren, inklusive frågor om deras existens, giltighet eller upphörande, ska hänskjutas till och slutligt avgöras av domstolarna i %COMPANY_JURISDICTION%. Om du är en konsument inom EU kan du även väcka talan vid domstolarna i ditt bosättningsland.
 
 Du kan även använda EU:s plattform för tvistlösning online på https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ Vi kommer att samla in och behandla din information i enlighet med vår [Integri
 
 Som en EU-baserad plattform efterlever vi förordningen om digitala tjänster (förordning (EU) 2022/2065). För fullständiga uppgifter om våra DSA-skyldigheter, praxis för innehållsmoderering, rapporteringsmekanismer, klagomåls- och överklagandeförfaranden samt transparensåtaganden, se vår sida om [DSA-efterlevnad](/dsa-compliance).
 
-Vår enda kontaktpunkt för EU-myndigheter, användare och Europeiska kommissionen avseende DSA-frågor är: [[CONTACT_EMAIL]].
+Vår enda kontaktpunkt för EU-myndigheter, användare och Europeiska kommissionen avseende DSA-frågor är: %CONTACT_EMAIL%.
 
 **19. Relaterade policyer**
 

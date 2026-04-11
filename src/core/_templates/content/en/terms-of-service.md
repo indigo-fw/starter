@@ -1,19 +1,19 @@
 ---
 title: Terms of Service
 type: page
-description: Terms of Service for [[SITE_NAME]].
+description: Terms of Service for %SITE_NAME%.
 noindex: true
 ---
 
-**Date of Revision:** [[CURRENT_DATE]]
+**Date of Revision:** %CURRENT_DATE%
 
 **1. Introduction**
 
-[[SITE_NAME]] (the "Service") is operated by [[COMPANY_NAME]], address: [[COMPANY_ADDRESS]] (hereinafter "we", "us", or "our").
+%SITE_NAME% (the "Service") is operated by %COMPANY_NAME%, address: %COMPANY_ADDRESS% (hereinafter "we", "us", or "our").
 
-[[SITE_NAME]] is an online platform that provides digital services and content (collectively, the "Services"). Parts of the Services may require you to create a user account.
+%SITE_NAME% is an online platform that provides digital services and content (collectively, the "Services"). Parts of the Services may require you to create a user account.
 
-These Terms of Service (the "TOS") set forth the legally binding terms for your use of the Service. By accessing and/or using the Service, you agree to be bound by these TOS and all other Terms and Policies published on [[SITE_URL]]. If you do not agree, please stop using the Service immediately.
+These Terms of Service (the "TOS") set forth the legally binding terms for your use of the Service. By accessing and/or using the Service, you agree to be bound by these TOS and all other Terms and Policies published on %SITE_URL%. If you do not agree, please stop using the Service immediately.
 
 You agree not to use the Service for any illegal or unauthorized purpose.
 
@@ -73,11 +73,11 @@ c) If you are under the legal age in the jurisdiction of your place of domicile,
 
 **7. Intellectual Property**
 
-The intellectual property in the Service and embedded materials (including without limitation technology, systems, files, documents, text, photographs, information, images, videos, audios, and software) are owned by or licensed to [[SITE_NAME]]. You may use the Service and its content on your devices for your personal use only.
+The intellectual property in the Service and embedded materials (including without limitation technology, systems, files, documents, text, photographs, information, images, videos, audios, and software) are owned by or licensed to %SITE_NAME%. You may use the Service and its content on your devices for your personal use only.
 
 We hereby grant you a license for personal use only. This license does not constitute a transfer of title. This license shall automatically terminate if you violate these TOS and may be terminated by us at any time.
 
-All intellectual property rights associated with [[SITE_NAME]], including the platform design, logos, and any proprietary software or technology, are the sole property of [[SITE_NAME]] or its licensors. Users are prohibited from reproducing, modifying, distributing, or using any intellectual property without explicit authorization. Unauthorized use may result in legal consequences.
+All intellectual property rights associated with %SITE_NAME%, including the platform design, logos, and any proprietary software or technology, are the sole property of %SITE_NAME% or its licensors. Users are prohibited from reproducing, modifying, distributing, or using any intellectual property without explicit authorization. Unauthorized use may result in legal consequences.
 
 **8. Your Content**
 
@@ -85,7 +85,7 @@ You may provide input within the Service ("Input") and receive output from the S
 
 You retain your intellectual property ownership rights over the Input. We will never claim ownership of your Input, but we require a license from you in order to use it.
 
-When you use [[SITE_NAME]] or its associated Services to upload Input covered by intellectual property rights, you grant to us a non-exclusive, royalty-free, transferable, sub-licensable, worldwide license to use, distribute, modify, run, copy, publicly display, translate, or otherwise create derivative works of your content in a manner consistent with our [Privacy Policy](/privacy-policy).
+When you use %SITE_NAME% or its associated Services to upload Input covered by intellectual property rights, you grant to us a non-exclusive, royalty-free, transferable, sub-licensable, worldwide license to use, distribute, modify, run, copy, publicly display, translate, or otherwise create derivative works of your content in a manner consistent with our [Privacy Policy](/privacy-policy).
 
 The license you grant us can be terminated at any time by deleting your Input or account. However, to the extent that we (or our partners) have used your Input in connection with commercial or sponsored content, the license will continue until the relevant content has been discontinued by us.
 
@@ -117,7 +117,7 @@ i) You will comply with all applicable laws in your access and use of the Servic
 
 **9.2 Content Responsibility**
 
-You, as a user of the Service, are solely responsible for any Content you create, upload, or generate through the Service. You understand and agree that [[SITE_NAME]] does not control or endorse user-generated content. Therefore, you acknowledge that you are fully responsible for your Content and for your own actions while using the Service.
+You, as a user of the Service, are solely responsible for any Content you create, upload, or generate through the Service. You understand and agree that %SITE_NAME% does not control or endorse user-generated content. Therefore, you acknowledge that you are fully responsible for your Content and for your own actions while using the Service.
 
 You must ensure that your use of the Service complies with applicable laws, regulations, and these TOS, and you shall not engage in any illegal, unethical, or harmful activities through the Service.
 
@@ -127,7 +127,7 @@ We value the safety and integrity of all users. We have implemented content mode
 
 Content may be moderated to ensure compliance with all applicable laws.
 
-We reserve the right, but are not obligated, to reject and/or remove any user content that we believe, in our sole discretion, violates these provisions. If you have noticed any violation, please contact us at [[CONTACT_EMAIL]] or directly report it through the "Contact" section.
+We reserve the right, but are not obligated, to reject and/or remove any user content that we believe, in our sole discretion, violates these provisions. If you have noticed any violation, please contact us at %CONTACT_EMAIL% or directly report it through the "Contact" section.
 
 **10. Payments**
 
@@ -195,7 +195,7 @@ NEITHER WE NOR ANY OF OUR AFFILIATES OR LICENSORS WILL BE LIABLE FOR ANY INDIREC
 
 Some countries and states do not allow the disclaimer of certain warranties or the limitation of certain damages, so some or all of the terms above may not apply to you, and you may have additional rights. In that case, these Terms only limit our responsibilities to the maximum extent permissible in your country of residence.
 
-[[COMPANY_NAME]]'S AFFILIATES, SUPPLIERS, LICENSORS, AND DISTRIBUTORS ARE INTENDED THIRD-PARTY BENEFICIARIES OF THIS SECTION.
+%COMPANY_NAME%'S AFFILIATES, SUPPLIERS, LICENSORS, AND DISTRIBUTORS ARE INTENDED THIRD-PARTY BENEFICIARIES OF THIS SECTION.
 
 **13. Links to Third-Party Websites and Services**
 
@@ -205,9 +205,9 @@ It is your responsibility to ensure that anything you select for use or download
 
 **14. Governing Law and Dispute Resolution**
 
-These TOS shall be governed by and construed in accordance with the laws of [[COMPANY_JURISDICTION]] without giving effect to its conflict of law provisions, regardless of your location. If you are a consumer residing in the European Union, you also enjoy the protection afforded to you by the mandatory provisions of the law of your country of residence.
+These TOS shall be governed by and construed in accordance with the laws of %COMPANY_JURISDICTION% without giving effect to its conflict of law provisions, regardless of your location. If you are a consumer residing in the European Union, you also enjoy the protection afforded to you by the mandatory provisions of the law of your country of residence.
 
-Any dispute arising out of or in connection with the TOS, including any question regarding their existence, validity, or termination, shall be referred to and finally resolved by the courts of [[COMPANY_JURISDICTION]]. If you are a consumer in the EU, you may also bring proceedings in the courts of your country of residence.
+Any dispute arising out of or in connection with the TOS, including any question regarding their existence, validity, or termination, shall be referred to and finally resolved by the courts of %COMPANY_JURISDICTION%. If you are a consumer in the EU, you may also bring proceedings in the courts of your country of residence.
 
 You may also use the EU Online Dispute Resolution platform at https://ec.europa.eu/consumers/odr.
 
@@ -239,7 +239,7 @@ We will collect and process your information in accordance with our [Privacy Pol
 
 As an EU-based platform, we comply with the Digital Services Act (Regulation (EU) 2022/2065). For full details on our DSA obligations, content moderation practices, reporting mechanisms, complaints and appeals procedures, and transparency commitments, please consult our [DSA Compliance](/dsa-compliance) page.
 
-Our single point of contact for EU authorities, users, and the European Commission regarding DSA matters is: [[CONTACT_EMAIL]].
+Our single point of contact for EU authorities, users, and the European Commission regarding DSA matters is: %CONTACT_EMAIL%.
 
 **19. Related Policies**
 

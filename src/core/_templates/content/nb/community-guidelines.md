@@ -1,13 +1,13 @@
 ---
 title: Retningslinjer for fellesskapet
 type: page
-description: Retningslinjer for fellesskapet på [[SITE_NAME]].
+description: Retningslinjer for fellesskapet på %SITE_NAME%.
 noindex: true
 ---
 
-**Revisjonsdato:** [[CURRENT_DATE]]
+**Revisjonsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjenesten"), drevet av [[COMPANY_NAME]], er en nettbasert plattform. Disse retningslinjene for fellesskapet fastsetter atferdsstandardene for alle brukere. Ved å bruke Tjenesten godtar du å følge disse retningslinjene.
+%SITE_NAME% ("Tjenesten"), drevet av %COMPANY_NAME%, er en nettbasert plattform. Disse retningslinjene for fellesskapet fastsetter atferdsstandardene for alle brukere. Ved å bruke Tjenesten godtar du å følge disse retningslinjene.
 
 **1. Respekt og sikkerhet**
 
@@ -47,7 +47,7 @@ d) Hold kontoen din sikker. Ikke del påloggingsinformasjonen din med andre.
 
 **4. Brukergenerert innhold**
 
-Innhold opprettet av brukere representerer deres egne synspunkter og meninger. [[SITE_NAME]] godkjenner ikke eller tar ansvar for brukergenerert innhold.
+Innhold opprettet av brukere representerer deres egne synspunkter og meninger. %SITE_NAME% godkjenner ikke eller tar ansvar for brukergenerert innhold.
 
 Ikke stol på brukergenerert innhold som faktainformasjon eller profesjonell rådgivning.
 
@@ -71,6 +71,6 @@ Alvorlighetsgraden av håndhevingen avhenger av overtredelsens art og hyppighet.
 Hvis du støter på innhold eller atferd som bryter med disse retningslinjene, vennligst rapporter det:
 
 a) Ved å bruke den innebygde rapporteringsfunksjonen;
-b) Via e-post til [[CONTACT_EMAIL]].
+b) Via e-post til %CONTACT_EMAIL%.
 
 For den fullstendige rapporterings- og klageprosedyren, se vår [Retningslinjer for fjerning av innhold og klager](/content-removal-and-complaints).

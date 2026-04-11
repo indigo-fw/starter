@@ -1,26 +1,26 @@
 ---
 title: Conformidade com o Regulamento dos Servicos Digitais (DSA)
 type: page
-description: Conformidade com o Regulamento dos Servicos Digitais (DSA) para [[SITE_NAME]].
+description: Conformidade com o Regulamento dos Servicos Digitais (DSA) para %SITE_NAME%.
 noindex: true
 ---
 
-**Data de Revisao:** [[CURRENT_DATE]]
+**Data de Revisao:** %CURRENT_DATE%
 
-Enquanto plataforma sediada na UE, [[SITE_NAME]], operado por [[COMPANY_NAME]], cumpre o Regulamento dos Servicos Digitais (Regulamento (UE) 2022/2065). Esta pagina descreve as nossas obrigacoes, os seus direitos e as nossas praticas de moderacao de conteudo ao abrigo do DSA.
+Enquanto plataforma sediada na UE, %SITE_NAME%, operado por %COMPANY_NAME%, cumpre o Regulamento dos Servicos Digitais (Regulamento (UE) 2022/2065). Esta pagina descreve as nossas obrigacoes, os seus direitos e as nossas praticas de moderacao de conteudo ao abrigo do DSA.
 
 **1. Informacoes do Prestador de Servicos**
 
-**Prestador:** [[COMPANY_NAME]]
-**Morada:** [[COMPANY_ADDRESS]]
-**Numero de Registo:** [[COMPANY_ID]]
-**Contacto:** [[CONTACT_EMAIL]]
+**Prestador:** %COMPANY_NAME%
+**Morada:** %COMPANY_ADDRESS%
+**Numero de Registo:** %COMPANY_ID%
+**Contacto:** %CONTACT_EMAIL%
 
 **2. Ponto de Contacto**
 
 O nosso ponto unico de contacto para as autoridades dos Estados-Membros da UE, a Comissao Europeia, o Comite Europeu dos Servicos Digitais e os utilizadores relativamente a questoes do DSA e:
 
-Email: [[CONTACT_EMAIL]]
+Email: %CONTACT_EMAIL%
 
 Este ponto de contacto esta disponivel em ingles.
 
@@ -30,7 +30,7 @@ Uma vez que a nossa empresa esta estabelecida na UE, nao e necessario um represe
 
 **4. Natureza do Servico**
 
-[[SITE_NAME]] e uma plataforma online que fornece servicos digitais e conteudo. Os utilizadores podem criar contas, aceder a conteudo e interagir com as funcionalidades da plataforma.
+%SITE_NAME% e uma plataforma online que fornece servicos digitais e conteudo. Os utilizadores podem criar contas, aceder a conteudo e interagir com as funcionalidades da plataforma.
 
 **5. Moderacao de Conteudo**
 
@@ -56,7 +56,7 @@ d) Consideracoes de direitos fundamentais, incluindo a liberdade de expressao.
 
 **6. Denuncia de Conteudo Ilegal**
 
-Se encontrar conteudo que considere ilegal ao abrigo da legislacao da UE ou nacional, pode denuncia-lo contactando-nos em [[CONTACT_EMAIL]]. Para o procedimento completo de denuncia, incluindo o que incluir na sua denuncia e como a processamos, consulte a nossa [Politica de Remocao de Conteudo e Reclamacoes](/content-removal-and-complaints).
+Se encontrar conteudo que considere ilegal ao abrigo da legislacao da UE ou nacional, pode denuncia-lo contactando-nos em %CONTACT_EMAIL%. Para o procedimento completo de denuncia, incluindo o que incluir na sua denuncia e como a processamos, consulte a nossa [Politica de Remocao de Conteudo e Reclamacoes](/content-removal-and-complaints).
 
 **7. Exposicao de Motivos**
 

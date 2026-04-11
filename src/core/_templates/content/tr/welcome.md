@@ -1,7 +1,7 @@
 ---
-title: "[[SITE_NAME]] Platformuna Hoş Geldiniz"
+title: "%SITE_NAME% Platformuna Hoş Geldiniz"
 type: page
-description: "[[SITE_NAME]] platformuna hoş geldiniz — T3 Stack için ajan odaklı headless CMS."
+description: "%SITE_NAME% platformuna hoş geldiniz — T3 Stack için ajan odaklı headless CMS."
 noindex: false
 ---
 

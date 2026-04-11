@@ -1,13 +1,13 @@
 ---
 title: Çerez Politikası
 type: page
-description: "[[SITE_NAME]] Çerez Politikası."
+description: "%SITE_NAME% Çerez Politikası."
 noindex: true
 ---
 
-**Revizyon Tarihi:** [[CURRENT_DATE]]
+**Revizyon Tarihi:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Hizmet"), [[COMPANY_NAME]], [[COMPANY_ADDRESS]] tarafından işletilmekte olup çerezler ve benzeri izleme teknolojileri kullanmaktadır. Bu Çerez Politikası, çerezlerin ne olduğunu, bunları nasıl kullandığımızı, çerezlerle ilgili tercihlerinizi ve çerezler hakkında ek bilgileri açıklamaktadır.
+%SITE_NAME% ("Hizmet"), %COMPANY_NAME%, %COMPANY_ADDRESS% tarafından işletilmekte olup çerezler ve benzeri izleme teknolojileri kullanmaktadır. Bu Çerez Politikası, çerezlerin ne olduğunu, bunları nasıl kullandığımızı, çerezlerle ilgili tercihlerinizi ve çerezler hakkında ek bilgileri açıklamaktadır.
 
 **1. Çerez nedir?**
 
@@ -92,4 +92,4 @@ Bu Çerez Politikasını zaman zaman güncelleyebiliriz. Önemli değişiklikler
 
 **7. İletişim**
 
-Çerez kullanımımız hakkında herhangi bir sorunuz varsa lütfen [[CONTACT_EMAIL]] adresinden bizimle iletişime geçin.
+Çerez kullanımımız hakkında herhangi bir sorunuz varsa lütfen %CONTACT_EMAIL% adresinden bizimle iletişime geçin.

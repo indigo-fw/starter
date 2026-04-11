@@ -1,26 +1,26 @@
 ---
 title: Digital Services Act (DSA) Compliance
 type: page
-description: Digital Services Act (DSA) Compliance for [[SITE_NAME]].
+description: Digital Services Act (DSA) Compliance for %SITE_NAME%.
 noindex: true
 ---
 
-**Date of Revision:** [[CURRENT_DATE]]
+**Date of Revision:** %CURRENT_DATE%
 
-As an EU-based platform, [[SITE_NAME]], operated by [[COMPANY_NAME]], complies with the Digital Services Act (Regulation (EU) 2022/2065). This page outlines our obligations, your rights, and our content moderation practices under the DSA.
+As an EU-based platform, %SITE_NAME%, operated by %COMPANY_NAME%, complies with the Digital Services Act (Regulation (EU) 2022/2065). This page outlines our obligations, your rights, and our content moderation practices under the DSA.
 
 **1. Service Provider Information**
 
-**Provider:** [[COMPANY_NAME]]
-**Address:** [[COMPANY_ADDRESS]]
-**Registration Number:** [[COMPANY_ID]]
-**Contact:** [[CONTACT_EMAIL]]
+**Provider:** %COMPANY_NAME%
+**Address:** %COMPANY_ADDRESS%
+**Registration Number:** %COMPANY_ID%
+**Contact:** %CONTACT_EMAIL%
 
 **2. Point of Contact**
 
 Our single point of contact for EU Member State authorities, the European Commission, the European Board for Digital Services, and users regarding DSA matters is:
 
-Email: [[CONTACT_EMAIL]]
+Email: %CONTACT_EMAIL%
 
 This contact point is available in English.
 
@@ -30,7 +30,7 @@ As our company is established in the EU, no separate legal representative is req
 
 **4. Nature of the Service**
 
-[[SITE_NAME]] is an online platform that provides digital services and content. Users may create accounts, access content, and interact with the platform's features.
+%SITE_NAME% is an online platform that provides digital services and content. Users may create accounts, access content, and interact with the platform's features.
 
 **5. Content Moderation**
 
@@ -56,7 +56,7 @@ d) Fundamental rights considerations, including freedom of expression.
 
 **6. Reporting Illegal Content**
 
-If you encounter content you believe to be illegal under EU or national law, you may report it by contacting us at [[CONTACT_EMAIL]]. For the full reporting procedure, including what to include in your report and how we process it, see our [Content Removal and Complaints Policy](/content-removal-and-complaints).
+If you encounter content you believe to be illegal under EU or national law, you may report it by contacting us at %CONTACT_EMAIL%. For the full reporting procedure, including what to include in your report and how we process it, see our [Content Removal and Complaints Policy](/content-removal-and-complaints).
 
 **7. Statement of Reasons**
 

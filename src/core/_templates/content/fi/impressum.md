@@ -1,27 +1,27 @@
 ---
 title: Impressum (oikeudellinen ilmoitus)
 type: page
-description: Impressum (oikeudellinen ilmoitus) sivustolle [[SITE_NAME]].
+description: Impressum (oikeudellinen ilmoitus) sivustolle %SITE_NAME%.
 noindex: true
 ---
 
 **Tiedot sovellettavien EU:n kauppa- ja mediasäännösten mukaisesti**
 
 **Yritys:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Osoite:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Yhteystiedot:**
-Sähköposti: [[CONTACT_EMAIL]]
+Sähköposti: %CONTACT_EMAIL%
 
 **Rekisterinumero:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Sisällöstä vastaava:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **EU:n verkkovälitteinen riidanratkaisu:**
 Euroopan komissio tarjoaa alustan verkkovälitteiseen riidanratkaisuun (ODR):

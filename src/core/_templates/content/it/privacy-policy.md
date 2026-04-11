@@ -1,13 +1,13 @@
 ---
 title: Informativa sulla Privacy
 type: page
-description: Informativa sulla Privacy per [[SITE_NAME]].
+description: Informativa sulla Privacy per %SITE_NAME%.
 noindex: true
 ---
 
-**Data di Revisione:** [[CURRENT_DATE]]
+**Data di Revisione:** %CURRENT_DATE%
 
-[[SITE_NAME]] (il "Servizio") e gestito da [[COMPANY_NAME]], indirizzo: [[COMPANY_ADDRESS]]. [[SITE_NAME]] e una piattaforma online che fornisce servizi digitali e contenuti. Alcune parti dei Servizi possono richiedere la creazione di un account utente.
+%SITE_NAME% (il "Servizio") e gestito da %COMPANY_NAME%, indirizzo: %COMPANY_ADDRESS%. %SITE_NAME% e una piattaforma online che fornisce servizi digitali e contenuti. Alcune parti dei Servizi possono richiedere la creazione di un account utente.
 
 Ci impegniamo a rispettare la vostra privacy e questi Servizi saranno sempre forniti con il vostro consenso. In questo documento forniamo informazioni chiare su come i vostri dati vengono trattati quando visitate il Sito Web e utilizzate i nostri Servizi.
 
@@ -23,24 +23,24 @@ Ai fini della presente Informativa sulla Privacy, "voi" e "vostro" si riferiscon
 
 "Trattamento" indica qualsiasi operazione eseguita sui Dati Personali, con o senza mezzi automatizzati, come raccolta, registrazione, organizzazione, strutturazione, conservazione, adattamento, recupero, consultazione, uso, comunicazione mediante trasmissione, diffusione, raffronto, limitazione, cancellazione o distruzione.
 
-"Servizi" indica tutte le funzionalita fornite da [[SITE_NAME]].
+"Servizi" indica tutte le funzionalita fornite da %SITE_NAME%.
 
-"Abbonamento" indica un accordo tra [[SITE_NAME]] e voi per consentirvi di utilizzare i Servizi.
+"Abbonamento" indica un accordo tra %SITE_NAME% e voi per consentirvi di utilizzare i Servizi.
 
 "Utente" indica una persona che si e registrata e sta utilizzando il Servizio.
 
 "Visitatore" indica chiunque navighi sul Sito Web senza un Abbonamento valido.
 
-"Sito Web" indica [[SITE_NAME]], accessibile all'indirizzo [[SITE_URL]].
+"Sito Web" indica %SITE_NAME%, accessibile all'indirizzo %SITE_URL%.
 
 **2. Titolare del Trattamento dei Dati**
 
 Il titolare del trattamento dei dati ai fini del Regolamento Generale sulla Protezione dei Dati (UE) 2016/679 ("GDPR") e della legislazione applicabile in materia di protezione dei dati e:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Numero di Registrazione: [[COMPANY_ID]]
-Email: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Numero di Registrazione: %COMPANY_ID%
+Email: %CONTACT_EMAIL%
 
 Il titolare del trattamento e responsabile della determinazione delle finalita e dei mezzi del trattamento dei vostri Dati Personali. Per qualsiasi domanda relativa alla presente Informativa sulla Privacy, incluse eventuali richieste di esercizio dei vostri diritti legali, contattateci all'indirizzo email sopra indicato.
 
@@ -132,13 +132,13 @@ Vi invieremo comunicazioni di marketing solo quando disponiamo di una base giuri
 
 **8. Marketing di Terze Parti**
 
-Otterremo il vostro consenso esplicito prima di condividere i vostri Dati Personali con qualsiasi societa esterna a [[COMPANY_NAME]] per finalita di marketing.
+Otterremo il vostro consenso esplicito prima di condividere i vostri Dati Personali con qualsiasi societa esterna a %COMPANY_NAME% per finalita di marketing.
 
-Potete chiederci o chiedere a terze parti di interrompere l'invio di messaggi di marketing in qualsiasi momento seguendo i link di cancellazione presenti in qualsiasi messaggio di marketing o contattandoci a [[CONTACT_EMAIL]].
+Potete chiederci o chiedere a terze parti di interrompere l'invio di messaggi di marketing in qualsiasi momento seguendo i link di cancellazione presenti in qualsiasi messaggio di marketing o contattandoci a %CONTACT_EMAIL%.
 
 **9. Condivisione delle Vostre Informazioni Personali**
 
-[[SITE_NAME]] puo condividere le vostre informazioni con:
+%SITE_NAME% puo condividere le vostre informazioni con:
 
 a) I fornitori di servizi con cui collaboriamo per erogare i Servizi (hosting, elaborazione pagamenti, analisi);
 
@@ -166,7 +166,7 @@ I nostri fornitori di servizi che possono trattare dati al di fuori del SEE incl
 
 Utilizziamo strumenti automatizzati di moderazione dei contenuti per rilevare contenuti che possono violare i nostri Termini di Servizio o la legge applicabile. Questi strumenti possono contrassegnare contenuti per la revisione umana o limitare automaticamente contenuti o account.
 
-Avete il diritto di non essere sottoposti a una decisione basata unicamente sul trattamento automatizzato che produca effetti giuridici che vi riguardano o che vi incida in modo analogo in misura significativa (Art. 22 GDPR). Se ritenete che sia stata presa una decisione automatizzata su di voi per errore, potete contattarci per richiedere una revisione umana a [[CONTACT_EMAIL]].
+Avete il diritto di non essere sottoposti a una decisione basata unicamente sul trattamento automatizzato che produca effetti giuridici che vi riguardano o che vi incida in modo analogo in misura significativa (Art. 22 GDPR). Se ritenete che sia stata presa una decisione automatizzata su di voi per errore, potete contattarci per richiedere una revisione umana a %CONTACT_EMAIL%.
 
 **12. Informazioni Sensibili**
 
@@ -174,7 +174,7 @@ Non vi chiederemo mai di fornire Dati Personali che rivelino l'origine razziale 
 
 **13. I Vostri Diritti ai Sensi del GDPR**
 
-Disponete dei seguenti diritti riguardo ai vostri Dati Personali. Per esercitare uno qualsiasi di questi diritti, contattateci a [[CONTACT_EMAIL]].
+Disponete dei seguenti diritti riguardo ai vostri Dati Personali. Per esercitare uno qualsiasi di questi diritti, contattateci a %CONTACT_EMAIL%.
 
 **13.1 Diritto di Accesso (Art. 15)**
 
@@ -218,7 +218,7 @@ Avete il diritto di revocare il vostro consenso in qualsiasi momento. La revoca 
 
 Se revocate il consenso, potremmo non essere in grado di fornirvi i Servizi e adotteremo misure ragionevoli per cancellare il vostro account e i Dati Personali raccolti.
 
-Potete revocare il consenso contattandoci a [[CONTACT_EMAIL]].
+Potete revocare il consenso contattandoci a %CONTACT_EMAIL%.
 
 **13.8 Diritto di Proporre Reclamo (Art. 77)**
 
@@ -242,7 +242,7 @@ I periodi di conservazione possono essere adeguati in base all'evoluzione dei re
 
 **15. Informazioni Personali dei Minori**
 
-[[SITE_NAME]] non fornisce Servizi a ne raccoglie informazioni personali da persone che non abbiano raggiunto la maggiore eta nella loro giurisdizione. Se veniamo a conoscenza di aver raccolto informazioni personali da un individuo minorenne, cancelleremo le informazioni il prima possibile e bloccheremo l'utente.
+%SITE_NAME% non fornisce Servizi a ne raccoglie informazioni personali da persone che non abbiano raggiunto la maggiore eta nella loro giurisdizione. Se veniamo a conoscenza di aver raccolto informazioni personali da un individuo minorenne, cancelleremo le informazioni il prima possibile e bloccheremo l'utente.
 
 **16. Sicurezza dei Dati**
 
@@ -256,7 +256,7 @@ Il Sito Web puo includere link a siti web, plugin e applicazioni di terze parti.
 
 **18. Fusione o Acquisizione**
 
-Se [[SITE_NAME]] si fonde con o viene acquisito da un'altra societa, o vende la totalita o parte dei propri beni, i vostri Dati Personali possono essere comunicati ai nostri consulenti e ai consulenti di qualsiasi potenziale acquirente, e possono rientrare tra i beni trasferiti. Tuttavia, i Dati Personali saranno sempre soggetti alla presente Informativa sulla Privacy.
+Se %SITE_NAME% si fonde con o viene acquisito da un'altra societa, o vende la totalita o parte dei propri beni, i vostri Dati Personali possono essere comunicati ai nostri consulenti e ai consulenti di qualsiasi potenziale acquirente, e possono rientrare tra i beni trasferiti. Tuttavia, i Dati Personali saranno sempre soggetti alla presente Informativa sulla Privacy.
 
 **19. Modifiche alla Presente Informativa sulla Privacy**
 
@@ -272,6 +272,6 @@ Cerchiamo di rispondere a tutte le richieste legittime entro un mese. Occasional
 
 Per tutte le questioni relative alla privacy, incluso l'esercizio dei vostri diritti:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Email: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Email: %CONTACT_EMAIL%

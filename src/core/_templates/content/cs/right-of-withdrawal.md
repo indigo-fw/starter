@@ -1,11 +1,11 @@
 ---
 title: Právo na odstoupení od smlouvy
 type: page
-description: Právo na odstoupení od smlouvy servisu [[SITE_NAME]].
+description: Právo na odstoupení od smlouvy servisu %SITE_NAME%.
 noindex: true
 ---
 
-**Datum revize:** [[CURRENT_DATE]]
+**Datum revize:** %CURRENT_DATE%
 
 Tato stránka poskytuje informace o vašem právu na odstoupení od smlouvy jako spotřebitele v Evropské unii v souladu se Směrnicí 2011/83/EU o právech spotřebitelů.
 
@@ -17,9 +17,9 @@ Lhůta pro odstoupení od smlouvy uplyne 14 dnů ode dne uzavření smlouvy (tj.
 
 Pro uplatnění práva na odstoupení od smlouvy nás musíte informovat o svém rozhodnutí odstoupit od smlouvy jednoznačným prohlášením. Můžete tak učinit kontaktováním na:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-mail: %CONTACT_EMAIL%
 
 Pro dodržení lhůty pro odstoupení od smlouvy postačuje odeslat sdělení o uplatnění práva na odstoupení před uplynutím lhůty.
 
@@ -31,7 +31,7 @@ Pokud od smlouvy odstoupíte, vrátíme vám všechny přijaté platby bez zbyte
 
 V souladu s článkem 16 písm. m) Směrnice 2011/83/EU se právo na odstoupení od smlouvy nevztahuje na smlouvy o dodání digitálního obsahu, který není dodán na hmotném nosiči, pokud plnění bylo zahájeno s vaším předchozím výslovným souhlasem a vaším potvrzením, že tím ztrácíte právo na odstoupení od smlouvy.
 
-**Při nákupu předplatného na [[SITE_NAME]]:**
+**Při nákupu předplatného na %SITE_NAME%:**
 
 a) Budete požádáni o výslovný souhlas s okamžitým zahájením poskytování digitálního obsahu/služby před uplynutím 14denní lhůty pro odstoupení;
 
@@ -49,9 +49,9 @@ Odděleně od práva na odstoupení od smlouvy podle práva EU nabízíme dobrov
 
 (Tento formulář vyplňte a odešlete pouze v případě, že si přejete odstoupit od smlouvy)
 
-Komu: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Komu: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Tímto oznamuji, že odstupuji od smlouvy o poskytování následující služby: předplatné [[SITE_NAME]] (*)
+Tímto oznamuji, že odstupuji od smlouvy o poskytování následující služby: předplatné %SITE_NAME% (*)
 
 - Datum objednání: ******\_\_\_******
 - Jméno spotřebitele: ******\_\_\_******

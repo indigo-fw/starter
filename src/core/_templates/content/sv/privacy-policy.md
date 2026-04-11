@@ -1,13 +1,13 @@
 ---
 title: Integritetspolicy
 type: page
-description: Integritetspolicy för [[SITE_NAME]].
+description: Integritetspolicy för %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdatum:** [[CURRENT_DATE]]
+**Revisionsdatum:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjänsten") drivs av [[COMPANY_NAME]], adress: [[COMPANY_ADDRESS]]. [[SITE_NAME]] är en onlineplattform som tillhandahåller digitala tjänster och innehåll. Delar av Tjänsterna kan kräva att du skapar ett användarkonto.
+%SITE_NAME% ("Tjänsten") drivs av %COMPANY_NAME%, adress: %COMPANY_ADDRESS%. %SITE_NAME% är en onlineplattform som tillhandahåller digitala tjänster och innehåll. Delar av Tjänsterna kan kräva att du skapar ett användarkonto.
 
 Vi är engagerade i att respektera din integritet, och dessa Tjänster tillhandahålls alltid med ditt samtycke. I detta dokument ger vi tydlig information om hur dina uppgifter behandlas när du besöker Webbplatsen och använder våra Tjänster.
 
@@ -23,24 +23,24 @@ I denna integritetspolicy avser "du" och "din" dig som användare av Tjänsten.
 
 "Behandling" avser varje åtgärd som utförs med Personuppgifter, oavsett om det sker automatiserat eller inte, såsom insamling, registrering, organisering, strukturering, lagring, anpassning, hämtning, konsultation, användning, utlämning genom överföring, spridning, sammanställning, begränsning, radering eller förstöring.
 
-"Tjänster" avser alla funktioner som tillhandahålls av [[SITE_NAME]].
+"Tjänster" avser alla funktioner som tillhandahålls av %SITE_NAME%.
 
-"Prenumeration" avser ett avtal mellan [[SITE_NAME]] och dig för att möjliggöra din användning av Tjänsterna.
+"Prenumeration" avser ett avtal mellan %SITE_NAME% och dig för att möjliggöra din användning av Tjänsterna.
 
 "Användare" avser en person som har registrerat sig för och använder Tjänsten.
 
 "Besökare" avser alla som surfar på Webbplatsen utan en giltig Prenumeration.
 
-"Webbplats" avser [[SITE_NAME]], tillgänglig på [[SITE_URL]].
+"Webbplats" avser %SITE_NAME%, tillgänglig på %SITE_URL%.
 
 **2. Personuppgiftsansvarig**
 
 Personuppgiftsansvarig i enlighet med den allmänna dataskyddsförordningen (EU) 2016/679 ("GDPR") och tillämplig dataskyddslagstiftning är:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Registreringsnummer: [[COMPANY_ID]]
-E-post: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Registreringsnummer: %COMPANY_ID%
+E-post: %CONTACT_EMAIL%
 
 Den personuppgiftsansvarige ansvarar för att fastställa ändamålen och medlen för behandlingen av dina Personuppgifter. Om du har frågor om denna integritetspolicy, inklusive önskemål om att utöva dina lagliga rättigheter, vänligen kontakta oss på ovanstående e-postadress.
 
@@ -132,13 +132,13 @@ Vi skickar bara marknadsföringskommunikation när vi har en laglig grund för d
 
 **8. Tredjepartsmarknadsföring**
 
-Vi inhämtar ditt uttryckliga samtycke innan vi delar dina Personuppgifter med något företag utanför [[COMPANY_NAME]] i marknadsföringssyfte.
+Vi inhämtar ditt uttryckliga samtycke innan vi delar dina Personuppgifter med något företag utanför %COMPANY_NAME% i marknadsföringssyfte.
 
-Du kan när som helst be oss eller tredje parter att sluta skicka marknadsföringsmeddelanden genom att följa avregistreringslänkarna i marknadsföringsmeddelanden eller genom att kontakta oss på [[CONTACT_EMAIL]].
+Du kan när som helst be oss eller tredje parter att sluta skicka marknadsföringsmeddelanden genom att följa avregistreringslänkarna i marknadsföringsmeddelanden eller genom att kontakta oss på %CONTACT_EMAIL%.
 
 **9. Delning av dina personuppgifter**
 
-[[SITE_NAME]] kan dela din information med:
+%SITE_NAME% kan dela din information med:
 
 a) Tjänsteleverantörer vi samarbetar med för att leverera Tjänsterna (hosting, betalningshantering, analys)
 
@@ -166,7 +166,7 @@ Våra tjänsteleverantörer som kan behandla uppgifter utanför EES inkluderar m
 
 Vi använder automatiserade verktyg för innehållsmoderering för att upptäcka innehåll som kan bryta mot våra Användarvillkor eller tillämplig lag. Dessa verktyg kan flagga innehåll för mänsklig granskning eller automatiskt begränsa innehåll eller konton.
 
-Du har rätt att inte bli föremål för ett beslut som enbart grundar sig på automatiserad behandling som har rättsverkan avseende dig eller på liknande sätt i betydande grad påverkar dig (art. 22 GDPR). Om du anser att ett automatiserat beslut har fattats om dig av misstag kan du kontakta oss för att begära mänsklig granskning på [[CONTACT_EMAIL]].
+Du har rätt att inte bli föremål för ett beslut som enbart grundar sig på automatiserad behandling som har rättsverkan avseende dig eller på liknande sätt i betydande grad påverkar dig (art. 22 GDPR). Om du anser att ett automatiserat beslut har fattats om dig av misstag kan du kontakta oss för att begära mänsklig granskning på %CONTACT_EMAIL%.
 
 **12. Känslig information**
 
@@ -174,7 +174,7 @@ Vi kommer aldrig att be dig att tillhandahålla Personuppgifter som avslöjar ra
 
 **13. Dina rättigheter enligt GDPR**
 
-Du har följande rättigheter avseende dina Personuppgifter. För att utöva någon av dessa rättigheter, vänligen kontakta oss på [[CONTACT_EMAIL]].
+Du har följande rättigheter avseende dina Personuppgifter. För att utöva någon av dessa rättigheter, vänligen kontakta oss på %CONTACT_EMAIL%.
 
 **13.1 Rätt till tillgång (art. 15)**
 
@@ -218,7 +218,7 @@ Du har rätt att återkalla ditt samtycke när som helst. Återkallelsen påverk
 
 Om du återkallar samtycke kan vi eventuellt inte tillhandahålla Tjänsterna till dig och kommer att vidta rimliga åtgärder för att radera ditt konto och de Personuppgifter vi har samlat in.
 
-Du kan återkalla samtycke genom att kontakta oss på [[CONTACT_EMAIL]].
+Du kan återkalla samtycke genom att kontakta oss på %CONTACT_EMAIL%.
 
 **13.8 Rätt att lämna in klagomål (art. 77)**
 
@@ -242,7 +242,7 @@ Lagringsperioder kan justeras baserat på förändrade affärs- eller regulatori
 
 **15. Minderårigas personuppgifter**
 
-[[SITE_NAME]] tillhandahåller inte Tjänster till eller samlar in personuppgifter från personer under myndighetsåldern i deras jurisdiktion. Om vi upptäcker att vi har samlat in personuppgifter från en minderårig person kommer vi att radera informationen så snart som möjligt och blockera användaren.
+%SITE_NAME% tillhandahåller inte Tjänster till eller samlar in personuppgifter från personer under myndighetsåldern i deras jurisdiktion. Om vi upptäcker att vi har samlat in personuppgifter från en minderårig person kommer vi att radera informationen så snart som möjligt och blockera användaren.
 
 **16. Datasäkerhet**
 
@@ -256,7 +256,7 @@ Webbplatsen kan innehålla länkar till tredjepartswebbplatser, tillägg och app
 
 **18. Sammanslagning eller förvärv**
 
-Om [[SITE_NAME]] fusioneras med eller förvärvas av ett annat företag, eller säljer hela eller delar av sina tillgångar, kan dina Personuppgifter komma att utlämnas till våra rådgivare och eventuella köpares rådgivare, och kan ingå bland de tillgångar som överförs. Personuppgifter kommer dock alltid att förbli föremål för denna integritetspolicy.
+Om %SITE_NAME% fusioneras med eller förvärvas av ett annat företag, eller säljer hela eller delar av sina tillgångar, kan dina Personuppgifter komma att utlämnas till våra rådgivare och eventuella köpares rådgivare, och kan ingå bland de tillgångar som överförs. Personuppgifter kommer dock alltid att förbli föremål för denna integritetspolicy.
 
 **19. Ändringar av denna integritetspolicy**
 
@@ -272,6 +272,6 @@ Vi försöker svara på alla legitima förfrågningar inom en månad. Det kan ib
 
 För alla integritetsrelaterade ärenden, inklusive utövande av dina rättigheter:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-post: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-post: %CONTACT_EMAIL%

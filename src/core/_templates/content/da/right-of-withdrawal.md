@@ -1,11 +1,11 @@
 ---
 title: Fortrydelsesret
 type: page
-description: Fortrydelsesret for [[SITE_NAME]].
+description: Fortrydelsesret for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisionsdato:** [[CURRENT_DATE]]
+**Revisionsdato:** %CURRENT_DATE%
 
 Denne side giver oplysninger om din fortrydelsesret som forbruger i Den Europæiske Union i overensstemmelse med direktiv 2011/83/EU om forbrugerrettigheder.
 
@@ -17,9 +17,9 @@ Fortrydelsesfristen udløber 14 dage fra den dag, aftalen blev indgået (dvs. da
 
 For at udøve din fortrydelsesret skal du meddele os din beslutning om at fortryde aftalen ved en utvetydig erklæring. Du kan gøre dette ved at kontakte os på:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-mail: %CONTACT_EMAIL%
 
 For at overholde fortrydelsesfristen er det tilstrækkeligt, at du sender din meddelelse om udøvelse af fortrydelsesretten, inden fortrydelsesfristen udløber.
 
@@ -31,7 +31,7 @@ Hvis du fortryder aftalen, vil vi tilbagebetale alle betalinger modtaget fra dig
 
 I overensstemmelse med artikel 16, litra m), i direktiv 2011/83/EU gælder fortrydelsesretten ikke for aftaler om levering af digitalt indhold, som ikke leveres på et fysisk medium, hvis udførelsen er påbegyndt med dit forudgående udtrykkelige samtykke og din anerkendelse af, at du derved mister din fortrydelsesret.
 
-**Ved køb af et abonnement på [[SITE_NAME]]:**
+**Ved køb af et abonnement på %SITE_NAME%:**
 
 a) Du vil blive bedt om udtrykkeligt at samtykke til den øjeblikkelige levering af det digitale indhold/tjeneste inden udløbet af den 14 dage lange fortrydelsesfrist;
 
@@ -49,9 +49,9 @@ Uafhængigt af EU's fortrydelsesret tilbyder vi en frivillig tilbagebetalingspol
 
 (Udfyld og returner kun denne formular, hvis du ønsker at fortryde aftalen)
 
-Til: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+Til: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Jeg meddeler hermed, at jeg fortryder min aftale om levering af følgende tjeneste: [[SITE_NAME]]-abonnement (\*)
+Jeg meddeler hermed, at jeg fortryder min aftale om levering af følgende tjeneste: %SITE_NAME%-abonnement (\*)
 
 - Bestilt den: ******\_\_\_******
 - Forbrugerens navn: ******\_\_\_******

@@ -1,13 +1,13 @@
 ---
 title: Yhteisön ohjeet
 type: page
-description: Yhteisön ohjeet sivustolle [[SITE_NAME]].
+description: Yhteisön ohjeet sivustolle %SITE_NAME%.
 noindex: true
 ---
 
-**Tarkistuspäivämäärä:** [[CURRENT_DATE]]
+**Tarkistuspäivämäärä:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Palvelu"), jota ylläpitää [[COMPANY_NAME]], on verkkoalusta. Nämä yhteisön ohjeet asettavat käyttäytymisstandardit kaikille käyttäjille. Käyttämällä Palvelua sitoudut noudattamaan näitä ohjeita.
+%SITE_NAME% ("Palvelu"), jota ylläpitää %COMPANY_NAME%, on verkkoalusta. Nämä yhteisön ohjeet asettavat käyttäytymisstandardit kaikille käyttäjille. Käyttämällä Palvelua sitoudut noudattamaan näitä ohjeita.
 
 **1. Kunnioitus ja turvallisuus**
 
@@ -47,7 +47,7 @@ d) Pidä tilisi turvassa. Älä jaa kirjautumistietojasi muiden kanssa.
 
 **4. Käyttäjien luoma sisältö**
 
-Käyttäjien luoma sisältö edustaa heidän omia näkemyksiään ja mielipiteitään. [[SITE_NAME]] ei hyväksy eikä ota vastuuta käyttäjien luomasta sisällöstä.
+Käyttäjien luoma sisältö edustaa heidän omia näkemyksiään ja mielipiteitään. %SITE_NAME% ei hyväksy eikä ota vastuuta käyttäjien luomasta sisällöstä.
 
 Älä luota käyttäjien luomaan sisältöön faktatietona tai ammatillisena neuvontana.
 
@@ -71,6 +71,6 @@ Täytäntöönpanon vakavuus riippuu rikkomuksen luonteesta ja toistuvuudesta. V
 Jos kohtaat sisältöä tai käyttäytymistä, joka rikkoo näitä ohjeita, ilmoita siitä:
 
 a) Käyttämällä sovelluksen sisäistä ilmoitustoimintoa;
-b) Sähköpostitse osoitteeseen [[CONTACT_EMAIL]].
+b) Sähköpostitse osoitteeseen %CONTACT_EMAIL%.
 
 Täydellinen ilmoitus- ja valitusmenettely löytyy [Sisällön poistaminen ja valitukset -käytännöstämme](/content-removal-and-complaints).

@@ -1,20 +1,20 @@
 ---
 title: Content Removal and Complaints Policy
 type: page
-description: Content Removal and Complaints Policy for [[SITE_NAME]].
+description: Content Removal and Complaints Policy for %SITE_NAME%.
 noindex: true
 ---
 
-**Date of Revision:** [[CURRENT_DATE]]
+**Date of Revision:** %CURRENT_DATE%
 
-[[SITE_NAME]] (the "Service"), operated by [[COMPANY_NAME]], [[COMPANY_ADDRESS]], is committed to maintaining a safe and lawful platform. This policy outlines how to report illegal or harmful content, how we handle such reports, and how to appeal our content moderation decisions, in compliance with the Digital Services Act (Regulation (EU) 2022/2065).
+%SITE_NAME% (the "Service"), operated by %COMPANY_NAME%, %COMPANY_ADDRESS%, is committed to maintaining a safe and lawful platform. This policy outlines how to report illegal or harmful content, how we handle such reports, and how to appeal our content moderation decisions, in compliance with the Digital Services Act (Regulation (EU) 2022/2065).
 
 **1. Reporting Illegal or Harmful Content**
 
 If you encounter content on the Service that you believe is illegal under EU or national law, or that violates our [Terms of Service](/terms-of-service), you may report it by:
 
 a) Using the in-app reporting feature (where available);
-b) Sending an email to [[CONTACT_EMAIL]].
+b) Sending an email to %CONTACT_EMAIL%.
 
 **1.1 What to include in your report**
 
@@ -67,7 +67,7 @@ If your content was removed, your account was restricted, or your report was dis
 
 **3.2 How to appeal**
 
-Submit your appeal by email to [[CONTACT_EMAIL]] with the subject line "Appeal" and include:
+Submit your appeal by email to %CONTACT_EMAIL% with the subject line "Appeal" and include:
 
 a) Your name and account identifier;
 b) A description of the decision you are appealing;
@@ -113,6 +113,6 @@ d) The median processing time for reports and appeals.
 
 For all matters related to content removal and complaints:
 
-Email: [[CONTACT_EMAIL]]
+Email: %CONTACT_EMAIL%
 
 This address also serves as our single point of contact for EU authorities, users, and the European Commission regarding Digital Services Act matters.

@@ -1,13 +1,13 @@
 ---
 title: Personvernerklæring
 type: page
-description: Personvernerklæring for [[SITE_NAME]].
+description: Personvernerklæring for %SITE_NAME%.
 noindex: true
 ---
 
-**Revisjonsdato:** [[CURRENT_DATE]]
+**Revisjonsdato:** %CURRENT_DATE%
 
-[[SITE_NAME]] ("Tjenesten") drives av [[COMPANY_NAME]], adresse: [[COMPANY_ADDRESS]]. [[SITE_NAME]] er en nettbasert plattform som tilbyr digitale tjenester og innhold. Deler av Tjenestene kan kreve at du oppretter en brukerkonto.
+%SITE_NAME% ("Tjenesten") drives av %COMPANY_NAME%, adresse: %COMPANY_ADDRESS%. %SITE_NAME% er en nettbasert plattform som tilbyr digitale tjenester og innhold. Deler av Tjenestene kan kreve at du oppretter en brukerkonto.
 
 Vi er forpliktet til å respektere personvernet ditt, og disse Tjenestene vil alltid bli levert med ditt samtykke. I dette dokumentet gir vi tydelig informasjon om hvordan dine data behandles når du besøker nettstedet og bruker våre Tjenester.
 
@@ -23,24 +23,24 @@ I denne personvernerklæringen betyr "du" og "din" deg som bruker av Tjenesten.
 
 "Behandling" betyr enhver operasjon utført på personopplysninger, enten automatisert eller ikke, slik som innsamling, registrering, organisering, strukturering, lagring, tilpasning, gjenfinning, konsultasjon, bruk, utlevering ved overføring, formidling, justering, begrensning, sletting eller destruksjon.
 
-"Tjenester" betyr alle funksjoner og all funksjonalitet levert av [[SITE_NAME]].
+"Tjenester" betyr alle funksjoner og all funksjonalitet levert av %SITE_NAME%.
 
-"Abonnement" betyr en avtale mellom [[SITE_NAME]] og deg som gir deg tilgang til å bruke Tjenestene.
+"Abonnement" betyr en avtale mellom %SITE_NAME% og deg som gir deg tilgang til å bruke Tjenestene.
 
 "Bruker" betyr en person som har registrert seg for og bruker Tjenesten.
 
 "Besøkende" betyr enhver som surfer på nettstedet uten et gyldig abonnement.
 
-"Nettsted" betyr [[SITE_NAME]], tilgjengelig på [[SITE_URL]].
+"Nettsted" betyr %SITE_NAME%, tilgjengelig på %SITE_URL%.
 
 **2. Behandlingsansvarlig**
 
 Behandlingsansvarlig i henhold til personvernforordningen (EU) 2016/679 ("GDPR") og gjeldende personvernlovgivning er:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Registreringsnummer: [[COMPANY_ID]]
-E-post: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Registreringsnummer: %COMPANY_ID%
+E-post: %CONTACT_EMAIL%
 
 Behandlingsansvarlig er ansvarlig for å fastlegge formålene og midlene for behandling av dine personopplysninger. Hvis du har spørsmål om denne personvernerklæringen, inkludert forespørsler om å utøve dine juridiske rettigheter, vennligst kontakt oss på e-postadressen ovenfor.
 
@@ -132,13 +132,13 @@ Vi sender deg kun markedskommunikasjon der vi har et lovlig grunnlag for det (en
 
 **8. Tredjepartsmarkedsføring**
 
-Vi vil innhente ditt uttrykkelige samtykke før vi deler dine personopplysninger med noe selskap utenfor [[COMPANY_NAME]] for markedsføringsformål.
+Vi vil innhente ditt uttrykkelige samtykke før vi deler dine personopplysninger med noe selskap utenfor %COMPANY_NAME% for markedsføringsformål.
 
-Du kan be oss eller tredjeparter om å slutte å sende markedsmeldinger når som helst ved å følge avmeldingslenkene i enhver markedsmelding eller ved å kontakte oss på [[CONTACT_EMAIL]].
+Du kan be oss eller tredjeparter om å slutte å sende markedsmeldinger når som helst ved å følge avmeldingslenkene i enhver markedsmelding eller ved å kontakte oss på %CONTACT_EMAIL%.
 
 **9. Deling av dine personopplysninger**
 
-[[SITE_NAME]] kan dele informasjonen din med:
+%SITE_NAME% kan dele informasjonen din med:
 
 a) Tjenesteleverandører vi samarbeider med for å levere Tjenestene (hosting, betalingsbehandling, analyse);
 
@@ -166,7 +166,7 @@ Våre tjenesteleverandører som kan behandle data utenfor EØS inkluderer skybas
 
 Vi bruker automatiserte innholdsmoderingsverktøy for å oppdage innhold som kan bryte med våre Tjenestevilkår eller gjeldende lovgivning. Disse verktøyene kan flagge innhold for menneskelig gjennomgang eller automatisk begrense innhold eller kontoer.
 
-Du har rett til ikke å bli gjenstand for en beslutning som utelukkende er basert på automatisert behandling og som har rettsvirkning for deg eller på tilsvarende måte påvirker deg vesentlig (GDPR art. 22). Hvis du mener at en automatisert beslutning er fattet om deg ved en feil, kan du kontakte oss for å be om menneskelig gjennomgang på [[CONTACT_EMAIL]].
+Du har rett til ikke å bli gjenstand for en beslutning som utelukkende er basert på automatisert behandling og som har rettsvirkning for deg eller på tilsvarende måte påvirker deg vesentlig (GDPR art. 22). Hvis du mener at en automatisert beslutning er fattet om deg ved en feil, kan du kontakte oss for å be om menneskelig gjennomgang på %CONTACT_EMAIL%.
 
 **12. Sensitive opplysninger**
 
@@ -174,7 +174,7 @@ Vi vil aldri be deg om å oppgi personopplysninger som avslører rase eller etni
 
 **13. Dine rettigheter under GDPR**
 
-Du har følgende rettigheter angående dine personopplysninger. For å utøve noen av disse rettighetene, vennligst kontakt oss på [[CONTACT_EMAIL]].
+Du har følgende rettigheter angående dine personopplysninger. For å utøve noen av disse rettighetene, vennligst kontakt oss på %CONTACT_EMAIL%.
 
 **13.1 Rett til innsyn (art. 15)**
 
@@ -218,7 +218,7 @@ Du har rett til å trekke tilbake samtykket ditt når som helst. Tilbaketrekking
 
 Hvis du trekker tilbake samtykke, kan vi kanskje ikke levere Tjenestene til deg og vil ta rimelige skritt for å slette kontoen din og personopplysningene vi har samlet inn.
 
-Du kan trekke tilbake samtykke ved å kontakte oss på [[CONTACT_EMAIL]].
+Du kan trekke tilbake samtykke ved å kontakte oss på %CONTACT_EMAIL%.
 
 **13.8 Rett til å klage (art. 77)**
 
@@ -242,7 +242,7 @@ Oppbevaringsperioder kan justeres basert på endrede forretningsmessige eller re
 
 **15. Personopplysninger om mindreårige**
 
-[[SITE_NAME]] tilbyr ikke Tjenester til eller samler inn personopplysninger fra noen under myndighetsalderen i sin jurisdiksjon. Hvis vi oppdager at vi har samlet inn personopplysninger fra en mindreårig person, vil vi slette informasjonen så snart som mulig og blokkere brukeren.
+%SITE_NAME% tilbyr ikke Tjenester til eller samler inn personopplysninger fra noen under myndighetsalderen i sin jurisdiksjon. Hvis vi oppdager at vi har samlet inn personopplysninger fra en mindreårig person, vil vi slette informasjonen så snart som mulig og blokkere brukeren.
 
 **16. Datasikkerhet**
 
@@ -256,7 +256,7 @@ Nettstedet kan inneholde lenker til tredjepartsnettsteder, utvidelser og applika
 
 **18. Fusjon eller oppkjøp**
 
-Hvis [[SITE_NAME]] fusjonerer med eller kjøpes opp av et annet selskap, eller selger hele eller deler av sine eiendeler, kan dine personopplysninger bli utlevert til våre rådgivere og enhver potensiell kjøpers rådgivere, og kan være blant eiendelene som overføres. Personopplysninger vil imidlertid alltid forbli underlagt denne personvernerklæringen.
+Hvis %SITE_NAME% fusjonerer med eller kjøpes opp av et annet selskap, eller selger hele eller deler av sine eiendeler, kan dine personopplysninger bli utlevert til våre rådgivere og enhver potensiell kjøpers rådgivere, og kan være blant eiendelene som overføres. Personopplysninger vil imidlertid alltid forbli underlagt denne personvernerklæringen.
 
 **19. Endringer i denne personvernerklæringen**
 
@@ -272,6 +272,6 @@ Vi forsøker å svare på alle legitime forespørsler innen én måned. Av og ti
 
 For alle personvernrelaterte spørsmål, inkludert utøvelse av dine rettigheter:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-post: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-post: %CONTACT_EMAIL%

@@ -1,27 +1,27 @@
 ---
 title: Impressum (Juridische kennisgeving)
 type: page
-description: Impressum (Juridische kennisgeving) voor [[SITE_NAME]].
+description: Impressum (Juridische kennisgeving) voor %SITE_NAME%.
 noindex: true
 ---
 
 **Informatie overeenkomstig toepasselijke EU-handels- en mediaregelgeving**
 
 **Bedrijf:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Adres:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Contact:**
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 **Registratienummer:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Verantwoordelijk voor de inhoud:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **EU-platform voor onlinegeschillenbeslechting:**
 De Europese Commissie biedt een platform voor onlinegeschillenbeslechting (ODR):

@@ -1,11 +1,11 @@
 ---
 title: Widerrufsrecht
 type: page
-description: Widerrufsrecht für [[SITE_NAME]].
+description: Widerrufsrecht für %SITE_NAME%.
 noindex: true
 ---
 
-**Datum der Überarbeitung:** [[CURRENT_DATE]]
+**Datum der Überarbeitung:** %CURRENT_DATE%
 
 Diese Seite informiert Sie über Ihr Widerrufsrecht als Verbraucher in der Europäischen Union gemäß der Richtlinie 2011/83/EU über die Rechte der Verbraucher.
 
@@ -17,9 +17,9 @@ Die Widerrufsfrist beträgt 14 Tage ab dem Tag des Vertragsabschlusses (d. h. de
 
 Um Ihr Widerrufsrecht auszuüben, müssen Sie uns mittels einer eindeutigen Erklärung über Ihren Entschluss, den Vertrag zu widerrufen, informieren. Sie können uns kontaktieren unter:
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-Mail: [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-Mail: %CONTACT_EMAIL%
 
 Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
 
@@ -31,7 +31,7 @@ Wenn Sie den Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihn
 
 Gemäß Artikel 16 Buchstabe m der Richtlinie 2011/83/EU erlischt das Widerrufsrecht bei Verträgen über die Lieferung von digitalen Inhalten, die nicht auf einem körperlichen Datenträger geliefert werden, wenn die Leistung mit Ihrer vorherigen ausdrücklichen Zustimmung und Ihrer Kenntnisnahme begonnen hat, dass Sie dadurch Ihr Widerrufsrecht verlieren.
 
-**Beim Kauf eines Abonnements auf [[SITE_NAME]]:**
+**Beim Kauf eines Abonnements auf %SITE_NAME%:**
 
 a) Werden Sie gebeten, ausdrücklich der sofortigen Erbringung der digitalen Inhalte/Dienstleistung vor Ablauf der 14-tägigen Widerrufsfrist zuzustimmen;
 
@@ -49,9 +49,9 @@ Unabhängig vom EU-Widerrufsrecht bieten wir eine freiwillige Erstattungsrichtli
 
 (Füllen Sie dieses Formular nur aus und senden Sie es zurück, wenn Sie vom Vertrag zurücktreten möchten)
 
-An: [[COMPANY_NAME]], [[COMPANY_ADDRESS]], [[CONTACT_EMAIL]]
+An: %COMPANY_NAME%, %COMPANY_ADDRESS%, %CONTACT_EMAIL%
 
-Hiermit erkläre ich, dass ich von meinem Vertrag über die Erbringung der folgenden Dienstleistung zurücktrete: [[SITE_NAME]]-Abonnement (\*)
+Hiermit erkläre ich, dass ich von meinem Vertrag über die Erbringung der folgenden Dienstleistung zurücktrete: %SITE_NAME%-Abonnement (\*)
 
 - Bestellt am: ******\_\_\_******
 - Name des Verbrauchers: ******\_\_\_******

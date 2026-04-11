@@ -1,13 +1,13 @@
 ---
 title: Cookiebeleid
 type: page
-description: Cookiebeleid voor [[SITE_NAME]].
+description: Cookiebeleid voor %SITE_NAME%.
 noindex: true
 ---
 
-**Datum van herziening:** [[CURRENT_DATE]]
+**Datum van herziening:** %CURRENT_DATE%
 
-[[SITE_NAME]] (de "Dienst"), beheerd door [[COMPANY_NAME]], [[COMPANY_ADDRESS]], maakt gebruik van cookies en vergelijkbare trackingtechnologieen. Dit Cookiebeleid legt uit wat cookies zijn, hoe wij ze gebruiken, welke keuzes u hebt met betrekking tot cookies en verdere informatie over cookies.
+%SITE_NAME% (de "Dienst"), beheerd door %COMPANY_NAME%, %COMPANY_ADDRESS%, maakt gebruik van cookies en vergelijkbare trackingtechnologieen. Dit Cookiebeleid legt uit wat cookies zijn, hoe wij ze gebruiken, welke keuzes u hebt met betrekking tot cookies en verdere informatie over cookies.
 
 **1. Wat zijn cookies?**
 
@@ -92,4 +92,4 @@ Wij kunnen dit Cookiebeleid van tijd tot tijd bijwerken. Wij stellen u op de hoo
 
 **7. Contact**
 
-Als u vragen hebt over ons gebruik van cookies, neem dan contact met ons op via [[CONTACT_EMAIL]].
+Als u vragen hebt over ons gebruik van cookies, neem dan contact met ons op via %CONTACT_EMAIL%.

@@ -1,26 +1,26 @@
 ---
 title: Konformität mit dem Gesetz über digitale Dienste (DSA)
 type: page
-description: Konformität mit dem Gesetz über digitale Dienste (DSA) für [[SITE_NAME]].
+description: Konformität mit dem Gesetz über digitale Dienste (DSA) für %SITE_NAME%.
 noindex: true
 ---
 
-**Datum der Überarbeitung:** [[CURRENT_DATE]]
+**Datum der Überarbeitung:** %CURRENT_DATE%
 
-Als EU-basierte Plattform erfüllt [[SITE_NAME]], betrieben von [[COMPANY_NAME]], die Anforderungen des Gesetzes über digitale Dienste (Verordnung (EU) 2022/2065). Diese Seite beschreibt unsere Pflichten, Ihre Rechte und unsere Inhaltsmoderationspraktiken gemäß dem DSA.
+Als EU-basierte Plattform erfüllt %SITE_NAME%, betrieben von %COMPANY_NAME%, die Anforderungen des Gesetzes über digitale Dienste (Verordnung (EU) 2022/2065). Diese Seite beschreibt unsere Pflichten, Ihre Rechte und unsere Inhaltsmoderationspraktiken gemäß dem DSA.
 
 **1. Informationen zum Diensteanbieter**
 
-**Anbieter:** [[COMPANY_NAME]]
-**Adresse:** [[COMPANY_ADDRESS]]
-**Registrierungsnummer:** [[COMPANY_ID]]
-**Kontakt:** [[CONTACT_EMAIL]]
+**Anbieter:** %COMPANY_NAME%
+**Adresse:** %COMPANY_ADDRESS%
+**Registrierungsnummer:** %COMPANY_ID%
+**Kontakt:** %CONTACT_EMAIL%
 
 **2. Kontaktstelle**
 
 Unsere zentrale Kontaktstelle für Behörden der EU-Mitgliedstaaten, die Europäische Kommission, das Europäische Gremium für digitale Dienste und Nutzer in DSA-Angelegenheiten ist:
 
-E-Mail: [[CONTACT_EMAIL]]
+E-Mail: %CONTACT_EMAIL%
 
 Diese Kontaktstelle steht in englischer Sprache zur Verfügung.
 
@@ -30,7 +30,7 @@ Da unser Unternehmen in der EU ansässig ist, ist gemäß Art. 13 DSA kein geson
 
 **4. Art des Dienstes**
 
-[[SITE_NAME]] ist eine Online-Plattform, die digitale Dienste und Inhalte bereitstellt. Nutzer können Konten erstellen, auf Inhalte zugreifen und die Funktionen der Plattform nutzen.
+%SITE_NAME% ist eine Online-Plattform, die digitale Dienste und Inhalte bereitstellt. Nutzer können Konten erstellen, auf Inhalte zugreifen und die Funktionen der Plattform nutzen.
 
 **5. Inhaltsmoderation**
 
@@ -56,7 +56,7 @@ d) Grundrechtlichen Erwägungen, einschließlich der Meinungsfreiheit.
 
 **6. Meldung illegaler Inhalte**
 
-Wenn Sie auf Inhalte stoßen, die Sie für nach EU- oder nationalem Recht illegal halten, können Sie diese melden, indem Sie uns unter [[CONTACT_EMAIL]] kontaktieren. Das vollständige Meldeverfahren, einschließlich der Angaben, die Ihre Meldung enthalten sollte, und wie wir diese bearbeiten, finden Sie in unserer [Richtlinie zur Inhaltsentfernung und Beschwerden](/content-removal-and-complaints).
+Wenn Sie auf Inhalte stoßen, die Sie für nach EU- oder nationalem Recht illegal halten, können Sie diese melden, indem Sie uns unter %CONTACT_EMAIL% kontaktieren. Das vollständige Meldeverfahren, einschließlich der Angaben, die Ihre Meldung enthalten sollte, und wie wir diese bearbeiten, finden Sie in unserer [Richtlinie zur Inhaltsentfernung und Beschwerden](/content-removal-and-complaints).
 
 **7. Begründung der Entscheidungen**
 

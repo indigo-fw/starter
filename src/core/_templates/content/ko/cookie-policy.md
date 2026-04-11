@@ -1,13 +1,13 @@
 ---
 title: 쿠키 정책
 type: page
-description: [[SITE_NAME]]의 쿠키 정책입니다.
+description: %SITE_NAME%의 쿠키 정책입니다.
 noindex: true
 ---
 
-**개정일:** [[CURRENT_DATE]]
+**개정일:** %CURRENT_DATE%
 
-[[SITE_NAME]](이하 "서비스")는 [[COMPANY_NAME]](주소: [[COMPANY_ADDRESS]])이 운영하며, 쿠키 및 유사한 추적 기술을 사용합니다. 본 쿠키 정책은 쿠키가 무엇인지, 당사가 쿠키를 어떻게 사용하는지, 쿠키에 관한 귀하의 선택권, 그리고 쿠키에 대한 추가 정보를 설명합니다.
+%SITE_NAME%(이하 "서비스")는 %COMPANY_NAME%(주소: %COMPANY_ADDRESS%)이 운영하며, 쿠키 및 유사한 추적 기술을 사용합니다. 본 쿠키 정책은 쿠키가 무엇인지, 당사가 쿠키를 어떻게 사용하는지, 쿠키에 관한 귀하의 선택권, 그리고 쿠키에 대한 추가 정보를 설명합니다.
 
 **1. 쿠키란 무엇입니까?**
 
@@ -92,4 +92,4 @@ noindex: true
 
 **7. 문의**
 
-쿠키 사용에 관한 질문이 있으시면 [[CONTACT_EMAIL]]로 문의해 주십시오.
+쿠키 사용에 관한 질문이 있으시면 %CONTACT_EMAIL%로 문의해 주십시오.

@@ -1,27 +1,27 @@
 ---
 title: Impressum
 type: page
-description: Impressum für [[SITE_NAME]].
+description: Impressum für %SITE_NAME%.
 noindex: true
 ---
 
 **Angaben gemäß den geltenden EU-Handels- und Medienvorschriften**
 
 **Unternehmen:**
-[[COMPANY_NAME]]
+%COMPANY_NAME%
 
 **Adresse:**
-[[COMPANY_ADDRESS]]
+%COMPANY_ADDRESS%
 
 **Kontakt:**
-E-Mail: [[CONTACT_EMAIL]]
+E-Mail: %CONTACT_EMAIL%
 
 **Registrierungsnummer:**
-[[COMPANY_ID]]
+%COMPANY_ID%
 
 **Verantwortlich für den Inhalt:**
-[[COMPANY_NAME]]
-[[COMPANY_ADDRESS]]
+%COMPANY_NAME%
+%COMPANY_ADDRESS%
 
 **EU-Online-Streitbeilegung:**
 Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:

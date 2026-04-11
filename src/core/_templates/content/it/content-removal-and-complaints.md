@@ -1,20 +1,20 @@
 ---
 title: Politica di Rimozione dei Contenuti e Reclami
 type: page
-description: Politica di Rimozione dei Contenuti e Reclami per [[SITE_NAME]].
+description: Politica di Rimozione dei Contenuti e Reclami per %SITE_NAME%.
 noindex: true
 ---
 
-**Data di Revisione:** [[CURRENT_DATE]]
+**Data di Revisione:** %CURRENT_DATE%
 
-[[SITE_NAME]] (il "Servizio"), gestito da [[COMPANY_NAME]], [[COMPANY_ADDRESS]], si impegna a mantenere una piattaforma sicura e conforme alla legge. Questa politica descrive come segnalare contenuti illegali o dannosi, come gestiamo tali segnalazioni e come impugnare le nostre decisioni di moderazione dei contenuti, in conformita con il Regolamento sui Servizi Digitali (Regolamento (UE) 2022/2065).
+%SITE_NAME% (il "Servizio"), gestito da %COMPANY_NAME%, %COMPANY_ADDRESS%, si impegna a mantenere una piattaforma sicura e conforme alla legge. Questa politica descrive come segnalare contenuti illegali o dannosi, come gestiamo tali segnalazioni e come impugnare le nostre decisioni di moderazione dei contenuti, in conformita con il Regolamento sui Servizi Digitali (Regolamento (UE) 2022/2065).
 
 **1. Segnalazione di Contenuti Illegali o Dannosi**
 
 Se riscontrate contenuti sul Servizio che ritenete illegali ai sensi del diritto dell'UE o nazionale, o che violano i nostri [Termini di Servizio](/terms-of-service), potete segnalarli:
 
 a) Utilizzando la funzione di segnalazione integrata nell'applicazione (ove disponibile);
-b) Inviando un'email a [[CONTACT_EMAIL]].
+b) Inviando un'email a %CONTACT_EMAIL%.
 
 **1.1 Cosa includere nella segnalazione**
 
@@ -67,7 +67,7 @@ Se il vostro contenuto e stato rimosso, il vostro account e stato limitato o la 
 
 **3.2 Come presentare ricorso**
 
-Inviate il vostro ricorso via email a [[CONTACT_EMAIL]] con l'oggetto "Ricorso" e includete:
+Inviate il vostro ricorso via email a %CONTACT_EMAIL% con l'oggetto "Ricorso" e includete:
 
 a) Il vostro nome e identificativo dell'account;
 b) Una descrizione della decisione che intendete impugnare;
@@ -113,6 +113,6 @@ d) Il tempo mediano di elaborazione delle segnalazioni e dei ricorsi.
 
 Per tutte le questioni relative alla rimozione dei contenuti e ai reclami:
 
-Email: [[CONTACT_EMAIL]]
+Email: %CONTACT_EMAIL%
 
 Questo indirizzo funge anche da punto di contatto unico per le autorita dell'UE, gli utenti e la Commissione Europea per le questioni relative al Regolamento sui Servizi Digitali.

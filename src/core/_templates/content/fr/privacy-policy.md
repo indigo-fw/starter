@@ -1,13 +1,13 @@
 ---
 title: Politique de confidentialité
 type: page
-description: Politique de confidentialité pour [[SITE_NAME]].
+description: Politique de confidentialité pour %SITE_NAME%.
 noindex: true
 ---
 
-**Date de révision :** [[CURRENT_DATE]]
+**Date de révision :** %CURRENT_DATE%
 
-[[SITE_NAME]] (le « Service ») est exploité par [[COMPANY_NAME]], adresse : [[COMPANY_ADDRESS]]. [[SITE_NAME]] est une plateforme en ligne qui fournit des services et contenus numériques. Certaines parties des Services peuvent nécessiter la création d'un compte utilisateur.
+%SITE_NAME% (le « Service ») est exploité par %COMPANY_NAME%, adresse : %COMPANY_ADDRESS%. %SITE_NAME% est une plateforme en ligne qui fournit des services et contenus numériques. Certaines parties des Services peuvent nécessiter la création d'un compte utilisateur.
 
 Nous nous engageons à respecter votre vie privée, et ces Services seront toujours fournis avec votre consentement. Dans le présent document, nous fournissons des informations claires sur la manière dont vos données sont traitées lorsque vous visitez le Site web et utilisez nos Services.
 
@@ -23,24 +23,24 @@ Aux fins de la présente Politique de confidentialité, « vous » et « votre �
 
 « Traitement » désigne toute opération effectuée sur des Données personnelles, que ce soit par des moyens automatisés ou non, telle que la collecte, l'enregistrement, l'organisation, la structuration, la conservation, l'adaptation, la consultation, l'utilisation, la divulgation par transmission, la diffusion, le rapprochement, la limitation, l'effacement ou la destruction.
 
-« Services » désigne l'ensemble des fonctionnalités fournies par [[SITE_NAME]].
+« Services » désigne l'ensemble des fonctionnalités fournies par %SITE_NAME%.
 
-« Abonnement » désigne un accord entre [[SITE_NAME]] et vous pour vous permettre d'utiliser les Services.
+« Abonnement » désigne un accord entre %SITE_NAME% et vous pour vous permettre d'utiliser les Services.
 
 « Utilisateur » désigne une personne qui s'est inscrite et qui utilise le Service.
 
 « Visiteur » désigne toute personne naviguant sur le Site web sans Abonnement valide.
 
-« Site web » désigne [[SITE_NAME]], accessible à l'adresse [[SITE_URL]].
+« Site web » désigne %SITE_NAME%, accessible à l'adresse %SITE_URL%.
 
 **2. Responsable du traitement**
 
 Le responsable du traitement aux fins du Règlement général sur la protection des données (UE) 2016/679 (« RGPD ») et des lois applicables en matière de protection des données est :
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-Numéro d'immatriculation : [[COMPANY_ID]]
-E-mail : [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+Numéro d'immatriculation : %COMPANY_ID%
+E-mail : %CONTACT_EMAIL%
 
 Le responsable du traitement est chargé de déterminer les finalités et les moyens du traitement de vos Données personnelles. Si vous avez des questions concernant la présente Politique de confidentialité, y compris toute demande d'exercice de vos droits, veuillez nous contacter à l'adresse e-mail ci-dessus.
 
@@ -132,13 +132,13 @@ Nous ne vous enverrons des communications marketing que lorsque nous disposons d
 
 **8. Marketing de tiers**
 
-Nous obtiendrons votre consentement explicite avant de partager vos Données personnelles avec toute société extérieure à [[COMPANY_NAME]] à des fins marketing.
+Nous obtiendrons votre consentement explicite avant de partager vos Données personnelles avec toute société extérieure à %COMPANY_NAME% à des fins marketing.
 
-Vous pouvez nous demander, ou demander aux tiers, de cesser de vous envoyer des messages marketing à tout moment en suivant les liens de désinscription de tout message marketing ou en nous contactant à [[CONTACT_EMAIL]].
+Vous pouvez nous demander, ou demander aux tiers, de cesser de vous envoyer des messages marketing à tout moment en suivant les liens de désinscription de tout message marketing ou en nous contactant à %CONTACT_EMAIL%.
 
 **9. Partage de vos informations personnelles**
 
-[[SITE_NAME]] peut partager vos informations avec :
+%SITE_NAME% peut partager vos informations avec :
 
 a) Les prestataires de services avec lesquels nous travaillons pour fournir les Services (hébergement, traitement des paiements, analyse) ;
 
@@ -166,7 +166,7 @@ Nos prestataires de services susceptibles de traiter des données en dehors de l
 
 Nous utilisons des outils de modération de contenu automatisés pour détecter les contenus susceptibles d'enfreindre nos Conditions générales d'utilisation ou la loi applicable. Ces outils peuvent signaler du contenu pour examen humain ou restreindre automatiquement du contenu ou des comptes.
 
-Vous avez le droit de ne pas faire l'objet d'une décision fondée exclusivement sur un traitement automatisé produisant des effets juridiques vous concernant ou vous affectant de manière significative (art. 22 RGPD). Si vous estimez qu'une décision automatisée a été prise à votre encontre par erreur, vous pouvez nous contacter pour demander un examen humain à [[CONTACT_EMAIL]].
+Vous avez le droit de ne pas faire l'objet d'une décision fondée exclusivement sur un traitement automatisé produisant des effets juridiques vous concernant ou vous affectant de manière significative (art. 22 RGPD). Si vous estimez qu'une décision automatisée a été prise à votre encontre par erreur, vous pouvez nous contacter pour demander un examen humain à %CONTACT_EMAIL%.
 
 **12. Informations sensibles**
 
@@ -174,7 +174,7 @@ Nous ne vous demanderons jamais de fournir des Données personnelles révélant 
 
 **13. Vos droits en vertu du RGPD**
 
-Vous disposez des droits suivants concernant vos Données personnelles. Pour exercer l'un de ces droits, veuillez nous contacter à [[CONTACT_EMAIL]].
+Vous disposez des droits suivants concernant vos Données personnelles. Pour exercer l'un de ces droits, veuillez nous contacter à %CONTACT_EMAIL%.
 
 **13.1 Droit d'accès (art. 15)**
 
@@ -218,7 +218,7 @@ Vous avez le droit de retirer votre consentement à tout moment. Le retrait ne p
 
 Si vous retirez votre consentement, nous pourrions ne pas être en mesure de vous fournir les Services et prendrons des mesures raisonnables pour supprimer votre compte et les Données personnelles que nous avons collectées.
 
-Vous pouvez retirer votre consentement en nous contactant à [[CONTACT_EMAIL]].
+Vous pouvez retirer votre consentement en nous contactant à %CONTACT_EMAIL%.
 
 **13.8 Droit d'introduire une réclamation (art. 77)**
 
@@ -242,7 +242,7 @@ Les durées de conservation peuvent être ajustées en fonction de l'évolution 
 
 **15. Informations personnelles des mineurs**
 
-[[SITE_NAME]] ne fournit pas de Services aux personnes n'ayant pas atteint l'âge de la majorité dans leur juridiction et ne collecte pas d'informations personnelles les concernant. Si nous apprenons que nous avons collecté des informations personnelles d'une personne mineure, nous supprimerons ces informations dès que possible et bloquerons l'utilisateur.
+%SITE_NAME% ne fournit pas de Services aux personnes n'ayant pas atteint l'âge de la majorité dans leur juridiction et ne collecte pas d'informations personnelles les concernant. Si nous apprenons que nous avons collecté des informations personnelles d'une personne mineure, nous supprimerons ces informations dès que possible et bloquerons l'utilisateur.
 
 **16. Sécurité des données**
 
@@ -256,7 +256,7 @@ Le Site web peut contenir des liens vers des sites web, des plugins et des appli
 
 **18. Fusion ou acquisition**
 
-Si [[SITE_NAME]] fusionne avec ou est acquis par une autre société, ou vend tout ou partie de ses actifs, vos Données personnelles peuvent être divulguées à nos conseillers et aux conseillers de tout acquéreur potentiel, et peuvent faire partie des actifs transférés. Toutefois, les Données personnelles resteront toujours soumises à la présente Politique de confidentialité.
+Si %SITE_NAME% fusionne avec ou est acquis par une autre société, ou vend tout ou partie de ses actifs, vos Données personnelles peuvent être divulguées à nos conseillers et aux conseillers de tout acquéreur potentiel, et peuvent faire partie des actifs transférés. Toutefois, les Données personnelles resteront toujours soumises à la présente Politique de confidentialité.
 
 **19. Modifications de la présente Politique de confidentialité**
 
@@ -272,6 +272,6 @@ Nous nous efforçons de répondre à toutes les demandes légitimes dans un dél
 
 Pour toute question relative à la confidentialité, y compris l'exercice de vos droits :
 
-**[[COMPANY_NAME]]**
-[[COMPANY_ADDRESS]]
-E-mail : [[CONTACT_EMAIL]]
+**%COMPANY_NAME%**
+%COMPANY_ADDRESS%
+E-mail : %CONTACT_EMAIL%

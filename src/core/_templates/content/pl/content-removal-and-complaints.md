@@ -1,20 +1,20 @@
 ---
 title: Polityka usuwania treści i składania skarg
 type: page
-description: Polityka usuwania treści i składania skarg serwisu [[SITE_NAME]].
+description: Polityka usuwania treści i składania skarg serwisu %SITE_NAME%.
 noindex: true
 ---
 
-**Data aktualizacji:** [[CURRENT_DATE]]
+**Data aktualizacji:** %CURRENT_DATE%
 
-[[SITE_NAME]] („Serwis"), prowadzony przez [[COMPANY_NAME]], [[COMPANY_ADDRESS]], zobowiązuje się do utrzymania bezpiecznej i zgodnej z prawem platformy. Niniejsza polityka opisuje sposób zgłaszania treści nielegalnych lub szkodliwych, sposób rozpatrywania takich zgłoszeń oraz procedurę odwoływania się od decyzji dotyczących moderacji treści, zgodnie z Aktem o usługach cyfrowych (rozporządzenie (UE) 2022/2065).
+%SITE_NAME% („Serwis"), prowadzony przez %COMPANY_NAME%, %COMPANY_ADDRESS%, zobowiązuje się do utrzymania bezpiecznej i zgodnej z prawem platformy. Niniejsza polityka opisuje sposób zgłaszania treści nielegalnych lub szkodliwych, sposób rozpatrywania takich zgłoszeń oraz procedurę odwoływania się od decyzji dotyczących moderacji treści, zgodnie z Aktem o usługach cyfrowych (rozporządzenie (UE) 2022/2065).
 
 **1. Zgłaszanie treści nielegalnych lub szkodliwych**
 
 Jeśli napotkasz na Serwisie treści, które Twoim zdaniem są nielegalne na mocy prawa UE lub prawa krajowego, lub naruszają nasze [Warunki korzystania z usług](/terms-of-service), możesz je zgłosić:
 
 a) Za pomocą funkcji zgłaszania w aplikacji (jeśli jest dostępna);
-b) Wysyłając e-mail na adres [[CONTACT_EMAIL]].
+b) Wysyłając e-mail na adres %CONTACT_EMAIL%.
 
 **1.1 Co powinno zawierać zgłoszenie**
 
@@ -67,7 +67,7 @@ Jeśli Twoje treści zostały usunięte, Twoje konto zostało ograniczone lub Tw
 
 **3.2 Jak złożyć odwołanie**
 
-Odwołanie należy przesłać e-mailem na adres [[CONTACT_EMAIL]] z tematem „Odwołanie", dołączając:
+Odwołanie należy przesłać e-mailem na adres %CONTACT_EMAIL% z tematem „Odwołanie", dołączając:
 
 a) Twoje imię i nazwisko oraz identyfikator konta;
 b) Opis decyzji, od której się odwołujesz;
@@ -113,6 +113,6 @@ d) Medianę czasu rozpatrywania zgłoszeń i odwołań.
 
 We wszelkich sprawach związanych z usuwaniem treści i składaniem skarg:
 
-E-mail: [[CONTACT_EMAIL]]
+E-mail: %CONTACT_EMAIL%
 
 Powyższy adres stanowi również nasz jedyny punkt kontaktowy dla organów UE, użytkowników i Komisji Europejskiej w sprawach dotyczących Aktu o usługach cyfrowych.
