@@ -24,6 +24,7 @@ import { notificationsRouter } from './notifications';
 import { projectsRouter } from './projects';
 import { aiRouter } from './ai';
 import { webhooksRouter } from './webhooks';
+import { cmsLinkRouter } from './cms-link';
 import { moduleRouters } from '@/generated/module-routers';
 
 /**
@@ -37,6 +38,7 @@ export const appRouter = createTRPCRouter({
   audit: auditRouter,
   auth: authRouter,
   cms: cmsRouter,
+  cmsLink: cmsLinkRouter,
   comments: commentsRouter,
   categories: categoriesRouter,
   contentSearch: contentSearchRouter,

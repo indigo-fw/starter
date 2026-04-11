@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { TRPCError } from '@trpc/server';
 import { serverTRPC } from '@/lib/trpc/server';
 import { resolveRecordVars } from '@/core/lib/content/vars';
+import { resolveRecordCmsLinks } from '@/core/lib/content/cms-link';
+import '@/config/cms-link-init';
 
 /** Rethrows NOT_FOUND TRPCErrors as Next.js notFound() for proper 404 handling. */
 function rethrowAsNotFound(err: unknown): never {
@@ -36,21 +38,24 @@ export const getCachedPost = cache(
   async (slug: string, type: number, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
     const post = await api.cms.getBySlug({ slug, type, lang, previewToken }).catch(rethrowAsNotFound);
-    return resolveRecordVars(post);
+    const withVars = resolveRecordVars(post);
+    return resolveRecordCmsLinks(withVars, lang);
   }
 );
 
 export const getCachedTag = cache(async (slug: string, lang: string) => {
   const api = await getCachedTRPC();
   const tag = await api.tags.getBySlug({ slug, lang }).catch(rethrowAsNotFound);
-  return resolveRecordVars(tag);
+  const withVars = resolveRecordVars(tag);
+  return resolveRecordCmsLinks(withVars, lang);
 });
 
 export const getCachedPortfolio = cache(
   async (slug: string, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
     const item = await api.portfolio.getBySlug({ slug, lang, previewToken }).catch(rethrowAsNotFound);
-    return resolveRecordVars(item);
+    const withVars = resolveRecordVars(item);
+    return resolveRecordCmsLinks(withVars, lang);
   }
 );
 
@@ -58,12 +63,14 @@ export const getCachedShowcase = cache(
   async (slug: string, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
     const item = await api.showcase.getBySlug({ slug, lang, previewToken }).catch(rethrowAsNotFound);
-    return resolveRecordVars(item);
+    const withVars = resolveRecordVars(item);
+    return resolveRecordCmsLinks(withVars, lang);
   }
 );
 
 export const getCachedCategory = cache(async (slug: string, lang: string) => {
   const api = await getCachedTRPC();
   const cat = await api.categories.getBySlug({ slug, lang }).catch(rethrowAsNotFound);
-  return resolveRecordVars(cat);
+  const withVars = resolveRecordVars(cat);
+  return resolveRecordCmsLinks(withVars, lang);
 });
