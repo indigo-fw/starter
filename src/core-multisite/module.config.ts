@@ -14,7 +14,14 @@ const config: ModuleConfig = {
   jobs: [
     { name: 'startDnsVerificationWorker', from: '@/core-multisite/jobs/dns-verification' },
   ],
-  seed: [],
+  seed: [
+    {
+      name: 'seedNetworkAdmin',
+      from: '@/core-multisite/seed/network-admin',
+      label: 'Network admin site',
+      hasDataCheck: 'hasNetworkAdmin',
+    },
+  ],
   layoutWidgets: [],
   pageWidgets: [],
   navItems: [
@@ -26,6 +33,9 @@ const config: ModuleConfig = {
     'scripts/site-delete.ts',
     'scripts/site-list.ts',
     'scripts/migrate-sites.ts',
+    'scripts/site-suspend.ts',
+    'scripts/site-unsuspend.ts',
+    'scripts/site-restore.ts',
     'app/dashboard/(panel)/settings/sites/page.tsx',
     'app/dashboard/(panel)/settings/sites/[id]/page.tsx',
     'app/dashboard/(panel)/settings/sites/create/page.tsx',

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Globe, ChevronDown } from 'lucide-react';
 
-import { trpc } from '@/lib/trpc/client';
+import { useSitesApi, useSitesUtils } from '@/core-multisite/hooks/useSitesApi';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { cn } from '@/lib/utils';
 
@@ -22,12 +22,10 @@ export function SiteSwitcher({ networkAdminHref }: SiteSwitcherProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Router registered via module sync — type exists at runtime
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sites = (trpc as any).sites;
-  const { data: siteList } = sites.list.useQuery() as { data: { id: string; name: string; slug: string; isNetworkAdmin: boolean }[] | undefined };
-  const setActive = sites.setActive.useMutation() as { mutateAsync: (input: { siteId: string | null }) => Promise<unknown> };
-  const utils = trpc.useUtils();
+  const sites = useSitesApi();
+  const { data: siteList } = sites.list.useQuery();
+  const setActive = sites.setActive.useMutation();
+  const utils = useSitesUtils();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {

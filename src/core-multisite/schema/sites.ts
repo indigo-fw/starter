@@ -113,3 +113,6 @@ export const SiteStatus = {
   SUSPENDED: 2,
   DELETED: 3,
 } as const;
+
+/** Maximum custom domains allowed per site */
+export const MAX_DOMAINS_PER_SITE = 20;

@@ -4,20 +4,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
-import { trpc } from '@/lib/trpc/client';
+import { useSitesApi } from '@/core-multisite/hooks/useSitesApi';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
 
 export default function CreateSitePage() {
   const __ = useAdminTranslations();
   const router = useRouter();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sites = (trpc as any).sites;
-  const createSite = sites.create.useMutation() as {
-    mutateAsync: (input: { name: string; slug?: string; defaultLocale?: string }) => Promise<{ id: string }>;
-    isPending: boolean;
-    error: { message: string } | null;
-  };
+  const sites = useSitesApi();
+  const createSite = sites.create.useMutation();
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');

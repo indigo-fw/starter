@@ -4,10 +4,13 @@
  * Usage:
  *   bun run site:create <name> [--slug=my-store] [--locale=en]
  *   bun run site:delete <slug> [--hard]
+ *   bun run site:suspend <slug>
+ *   bun run site:unsuspend <slug>
+ *   bun run site:restore <slug>
  *   bun run site:list
  */
 
-import { DEFAULT_LOCALE } from '@/lib/constants';
+import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
 import { db } from '@/server/db';
 import { sites, siteDomains, siteMembers, SiteStatus } from '@/core-multisite/schema/sites';
 import { createSiteSchema, dropSiteSchema, schemaNameFromSlug } from './schema-manager';
@@ -26,6 +29,13 @@ export async function createSite(options: {
   const defaultLocale = options.defaultLocale ?? DEFAULT_LOCALE;
   const locales = options.locales ?? [defaultLocale];
   const baseDomain = options.baseDomain ?? process.env.MULTISITE_BASE_DOMAIN ?? 'localhost';
+
+  // Validate locales
+  for (const locale of locales) {
+    if (!(LOCALES as readonly string[]).includes(locale)) {
+      throw new Error(`Invalid locale "${locale}". Must be one of: ${LOCALES.join(', ')}`);
+    }
+  }
 
   // Check uniqueness
   const [existing] = await db
@@ -104,6 +114,60 @@ export async function deleteSite(slug: string, hard = false): Promise<void> {
       .where(eq(sites.id, site.id));
     console.log('Site disabled. Run with --hard to permanently delete.');
   }
+}
+
+export async function suspendSite(slug: string): Promise<void> {
+  const [site] = await db
+    .select()
+    .from(sites)
+    .where(eq(sites.slug, slug))
+    .limit(1);
+
+  if (!site) throw new Error(`Site "${slug}" not found`);
+  if (site.status !== SiteStatus.ACTIVE) throw new Error(`Site "${slug}" is not active (status: ${site.status})`);
+
+  await db
+    .update(sites)
+    .set({ status: SiteStatus.SUSPENDED, updatedAt: new Date() })
+    .where(eq(sites.id, site.id));
+
+  console.log(`Site "${slug}" suspended. Visitors will no longer be able to access it.`);
+}
+
+export async function unsuspendSite(slug: string): Promise<void> {
+  const [site] = await db
+    .select()
+    .from(sites)
+    .where(eq(sites.slug, slug))
+    .limit(1);
+
+  if (!site) throw new Error(`Site "${slug}" not found`);
+  if (site.status !== SiteStatus.SUSPENDED) throw new Error(`Site "${slug}" is not suspended (status: ${site.status})`);
+
+  await db
+    .update(sites)
+    .set({ status: SiteStatus.ACTIVE, updatedAt: new Date() })
+    .where(eq(sites.id, site.id));
+
+  console.log(`Site "${slug}" is now active again.`);
+}
+
+export async function restoreSite(slug: string): Promise<void> {
+  const [site] = await db
+    .select()
+    .from(sites)
+    .where(eq(sites.slug, slug))
+    .limit(1);
+
+  if (!site) throw new Error(`Site "${slug}" not found`);
+  if (site.status !== SiteStatus.DELETED) throw new Error(`Site "${slug}" is not deleted (status: ${site.status})`);
+
+  await db
+    .update(sites)
+    .set({ status: SiteStatus.ACTIVE, deletedAt: null, updatedAt: new Date() })
+    .where(eq(sites.id, site.id));
+
+  console.log(`Site "${slug}" restored and active.`);
 }
 
 export async function listSites(): Promise<void> {

@@ -1,10 +1,13 @@
 /**
- * Site resolver — maps domain/subdomain to site record.
- * Called by the proxy to determine which site is being accessed.
- * Results cached in-memory with short TTL for performance.
+ * Site resolver — maps domain/subdomain/ID to site record.
+ * Called by the proxy (public) and dashboard middleware (admin).
+ * Results cached in-memory with 60s TTL.
+ *
+ * Public resolution (default): only ACTIVE sites.
+ * Dashboard resolution: ACTIVE + SUSPENDED (via allowSuspended param).
  */
 
-import { eq, and, isNull } from 'drizzle-orm';
+import { eq, and, isNull, ne } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { sites, siteDomains, SiteStatus } from '@/core-multisite/schema/sites';
 import type { SiteSettings } from '@/core-multisite/schema/sites';
@@ -70,10 +73,19 @@ export async function resolveSiteBySlug(slug: string): Promise<ResolvedSite | nu
   return site;
 }
 
-export async function resolveSiteById(id: string | null, slug?: string): Promise<ResolvedSite | null> {
+/**
+ * Resolve site by ID or slug.
+ * @param allowSuspended — if true, also resolves suspended sites (for dashboard/admin use)
+ */
+export async function resolveSiteById(id: string | null, slug?: string, allowSuspended = false): Promise<ResolvedSite | null> {
+  // Public: only ACTIVE. Admin: ACTIVE + SUSPENDED (not DELETED).
+  const statusCondition = allowSuspended
+    ? ne(sites.status, SiteStatus.DELETED)
+    : eq(sites.status, SiteStatus.ACTIVE);
+
   const condition = id
-    ? and(eq(sites.id, id), eq(sites.status, SiteStatus.ACTIVE), isNull(sites.deletedAt))
-    : and(eq(sites.slug, slug!), eq(sites.status, SiteStatus.ACTIVE), isNull(sites.deletedAt));
+    ? and(eq(sites.id, id), statusCondition, isNull(sites.deletedAt))
+    : and(eq(sites.slug, slug!), statusCondition, isNull(sites.deletedAt));
 
   const [siteRow] = await db.select().from(sites).where(condition).limit(1);
   if (!siteRow) return null;

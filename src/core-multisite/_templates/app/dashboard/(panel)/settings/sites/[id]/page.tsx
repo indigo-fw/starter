@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { Globe, Trash2, Plus, Check, X, ArrowLeft } from 'lucide-react';
-import { trpc } from '@/lib/trpc/client';
+import { Globe, Trash2, Plus, Check, X, ArrowLeft, Pause, Play, RotateCcw, Copy, Palette } from 'lucide-react';
+import { useSitesApi, useSitesUtils } from '@/core-multisite/hooks/useSitesApi';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
 
 export default function SiteDetailPage() {
@@ -12,37 +12,77 @@ export default function SiteDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sites = (trpc as any).sites;
-  const { data: site, isLoading } = sites.getById.useQuery({ id }) as {
-    data: {
-      id: string; name: string; slug: string; schemaName: string;
-      defaultLocale: string; locales: string[]; status: number;
-      settings: Record<string, unknown>;
-      domains: { id: string; domain: string; isPrimary: boolean; verified: boolean; verificationToken: string | null }[];
-      members: { userId: string; role: string; createdAt: Date }[];
-    } | undefined;
-    isLoading: boolean;
-  };
-
-  const updateSite = sites.update.useMutation() as { mutateAsync: (input: Record<string, unknown>) => Promise<unknown>; isPending: boolean };
-  const softDelete = sites.softDelete.useMutation() as { mutateAsync: (input: { id: string }) => Promise<unknown> };
-  const addDomain = sites.addDomain.useMutation() as { mutateAsync: (input: Record<string, unknown>) => Promise<{ verificationInstruction: string }> };
-  const removeDomain = sites.removeDomain.useMutation() as { mutateAsync: (input: { id: string }) => Promise<unknown> };
-  const utils = trpc.useUtils();
+  const sites = useSitesApi();
+  const { data: site, isLoading } = sites.getById.useQuery({ id });
+  const updateSite = sites.update.useMutation();
+  const softDelete = sites.softDelete.useMutation();
+  const restoreMutation = sites.restore.useMutation();
+  const suspendMutation = sites.suspend.useMutation();
+  const unsuspendMutation = sites.unsuspend.useMutation();
+  const cloneMutation = sites.clone.useMutation();
+  const addDomainMutation = sites.addDomain.useMutation();
+  const removeDomainMutation = sites.removeDomain.useMutation();
+  const utils = useSitesUtils();
 
   const [name, setName] = useState('');
   const [newDomain, setNewDomain] = useState('');
   const [verifyMsg, setVerifyMsg] = useState('');
 
-  // Sync name from loaded data
-  if (site && !name) setName(site.name);
+  // Branding state — keyed on site.id to reset when navigating between sites
+  const [brandHue, setBrandHue] = useState('');
+  const [accentHue, setAccentHue] = useState('');
+  const [grayHue, setGrayHue] = useState('');
+  const [logoUrl, setLogoUrl] = useState('');
+  const [faviconUrl, setFaviconUrl] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [syncedSiteId, setSyncedSiteId] = useState<string | null>(null);
+
+  // Sync state from loaded data — re-syncs when site.id changes
+  if (site && syncedSiteId !== site.id) {
+    setName(site.name);
+    setBrandHue(site.settings?.brandHue != null ? String(site.settings.brandHue) : '');
+    setAccentHue(site.settings?.accentHue != null ? String(site.settings.accentHue) : '');
+    setGrayHue(site.settings?.grayHue != null ? String(site.settings.grayHue) : '');
+    setLogoUrl(site.settings?.logoUrl ?? '');
+    setFaviconUrl(site.settings?.faviconUrl ?? '');
+    setContactEmail(site.settings?.contactEmail ?? '');
+    setSyncedSiteId(site.id);
+  }
 
   if (isLoading) return <div className="dash-container"><p className="text-sm text-(--text-muted)">{__('Loading...')}</p></div>;
   if (!site) return <div className="dash-container"><p className="text-sm text-(--text-muted)">{__('Site not found')}</p></div>;
 
+  const isActive = site.status === 1;
+  const isSuspended = site.status === 2;
+  const isDeleted = site.status === 3;
+
   const handleSave = async () => {
     await updateSite.mutateAsync({ id, name });
+    utils.invalidate();
+  };
+
+  const handleSaveBranding = async () => {
+    const settings = {
+      ...site.settings,
+      brandHue: brandHue ? Number(brandHue) : undefined,
+      accentHue: accentHue ? Number(accentHue) : undefined,
+      grayHue: grayHue ? Number(grayHue) : undefined,
+      logoUrl: logoUrl || undefined,
+      faviconUrl: faviconUrl || undefined,
+      contactEmail: contactEmail || undefined,
+    };
+    await updateSite.mutateAsync({ id, settings });
+    utils.invalidate();
+  };
+
+  const handleSuspend = async () => {
+    if (!confirm(__('Suspend this site? It will become inaccessible to visitors.'))) return;
+    await suspendMutation.mutateAsync({ id });
+    utils.invalidate();
+  };
+
+  const handleUnsuspend = async () => {
+    await unsuspendMutation.mutateAsync({ id });
     utils.invalidate();
   };
 
@@ -52,9 +92,21 @@ export default function SiteDetailPage() {
     router.push('/dashboard/settings/sites');
   };
 
+  const handleRestore = async () => {
+    await restoreMutation.mutateAsync({ id });
+    utils.invalidate();
+  };
+
+  const handleClone = async () => {
+    const cloneName = prompt(__('Name for the cloned site:'));
+    if (!cloneName?.trim()) return;
+    const result = await cloneMutation.mutateAsync({ sourceSiteId: id, name: cloneName.trim() });
+    router.push(`/dashboard/settings/sites/${result.id}`);
+  };
+
   const handleAddDomain = async () => {
     if (!newDomain.trim()) return;
-    const result = await addDomain.mutateAsync({ siteId: id, domain: newDomain.trim() });
+    const result = await addDomainMutation.mutateAsync({ siteId: id, domain: newDomain.trim() });
     setVerifyMsg(result.verificationInstruction);
     setNewDomain('');
     utils.invalidate();
@@ -62,7 +114,7 @@ export default function SiteDetailPage() {
 
   const handleRemoveDomain = async (domainId: string) => {
     if (!confirm(__('Remove this domain?'))) return;
-    await removeDomain.mutateAsync({ id: domainId });
+    await removeDomainMutation.mutateAsync({ id: domainId });
     utils.invalidate();
   };
 
@@ -74,10 +126,34 @@ export default function SiteDetailPage() {
             <ArrowLeft size={16} />
           </Link>
           <h1 className="dash-title">{site.name}</h1>
+          {isSuspended && <span className="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-600">{__('Suspended')}</span>}
+          {isDeleted && <span className="text-xs px-2 py-0.5 rounded bg-red-500/10 text-red-600">{__('Deleted')}</span>}
         </div>
-        <button onClick={handleDelete} className="btn btn-danger text-sm">
-          <Trash2 size={14} /> {__('Disable Site')}
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={handleClone} className="btn btn-secondary text-sm" title={__('Clone Site')}>
+            <Copy size={14} /> {__('Clone')}
+          </button>
+          {isActive && (
+            <button onClick={handleSuspend} className="btn btn-secondary text-sm">
+              <Pause size={14} /> {__('Suspend')}
+            </button>
+          )}
+          {isSuspended && (
+            <button onClick={handleUnsuspend} className="btn btn-primary text-sm">
+              <Play size={14} /> {__('Unsuspend')}
+            </button>
+          )}
+          {isDeleted && (
+            <button onClick={handleRestore} className="btn btn-primary text-sm">
+              <RotateCcw size={14} /> {__('Restore')}
+            </button>
+          )}
+          {!isDeleted && (
+            <button onClick={handleDelete} className="btn btn-danger text-sm">
+              <Trash2 size={14} /> {__('Disable Site')}
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="dash-main">
@@ -100,6 +176,68 @@ export default function SiteDetailPage() {
               </div>
               <button onClick={handleSave} className="btn btn-primary text-sm" disabled={updateSite.isPending}>
                 {__('Save')}
+              </button>
+            </div>
+          </section>
+
+          {/* Branding */}
+          <section>
+            <h2 className="text-sm font-semibold text-(--text-primary) mb-4 flex items-center gap-2">
+              <Palette size={16} /> {__('Branding')}
+            </h2>
+            <div className="space-y-3 max-w-md">
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="label">{__('Brand Hue')}</label>
+                  <input
+                    className="input"
+                    type="number"
+                    min="0"
+                    max="360"
+                    value={brandHue}
+                    onChange={(e) => setBrandHue(e.target.value)}
+                    placeholder="350"
+                  />
+                </div>
+                <div>
+                  <label className="label">{__('Accent Hue')}</label>
+                  <input
+                    className="input"
+                    type="number"
+                    min="0"
+                    max="360"
+                    value={accentHue}
+                    onChange={(e) => setAccentHue(e.target.value)}
+                    placeholder="303"
+                  />
+                </div>
+                <div>
+                  <label className="label">{__('Gray Hue')}</label>
+                  <input
+                    className="input"
+                    type="number"
+                    min="0"
+                    max="360"
+                    value={grayHue}
+                    onChange={(e) => setGrayHue(e.target.value)}
+                    placeholder="260"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="label">{__('Logo URL')}</label>
+                <input className="input" value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} placeholder="https://..." />
+              </div>
+              <div>
+                <label className="label">{__('Favicon URL')}</label>
+                <input className="input" value={faviconUrl} onChange={(e) => setFaviconUrl(e.target.value)} placeholder="https://..." />
+              </div>
+              <div>
+                <label className="label">{__('Contact Email')}</label>
+                <input className="input" type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} placeholder="hello@example.com" />
+              </div>
+              <button onClick={handleSaveBranding} className="btn btn-primary text-sm" disabled={updateSite.isPending}>
+                {__('Save Branding')}
               </button>
             </div>
           </section>

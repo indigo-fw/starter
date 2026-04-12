@@ -1,14 +1,14 @@
 /**
- * Site middleware — resolves domain to site and wraps request in scope.
+ * Site middleware — resolves domain to site context.
  * Called by proxy.ts when core-multisite is installed.
  *
- * Usage in proxy.ts:
+ * Prefer using the context-helper wrapper for integration:
+ *   import { applySiteHeaders } from '@/core-multisite/lib/context-helper';
+ *   const headers = await applySiteHeaders(request);
+ *
+ * Direct usage (advanced):
  *   import { resolveSiteFromRequest } from '@/core-multisite/lib/site-middleware';
  *   const siteContext = await resolveSiteFromRequest(request);
- *   if (siteContext) {
- *     response.headers.set('x-site-id', siteContext.id);
- *     response.headers.set('x-site-schema', siteContext.schemaName);
- *   }
  */
 
 import type { NextRequest } from 'next/server';
@@ -86,9 +86,10 @@ export async function resolveSiteFromRequest(request: NextRequest): Promise<Site
  */
 export async function resolveDashboardSite(request: NextRequest): Promise<SiteContext | null> {
   // Check active-site cookie first (set by site switcher)
+  // Dashboard needs to resolve suspended sites too (admin must be able to unsuspend)
   const activeSiteId = request.cookies.get('active-site')?.value;
   if (activeSiteId) {
-    const site = await resolveSiteById(activeSiteId);
+    const site = await resolveSiteById(activeSiteId, undefined, true);
     if (site) return toContext(site);
   }
 

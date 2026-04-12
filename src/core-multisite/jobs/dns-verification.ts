@@ -2,6 +2,7 @@
  * DNS TXT record verification job.
  * Periodically checks pending domain verifications by querying DNS TXT records
  * for the expected `indigo-verify={token}` value.
+ * Dispatches `domain.verified` webhook on successful verification.
  */
 
 import { eq } from 'drizzle-orm';
@@ -9,6 +10,7 @@ import { db } from '@/server/db';
 import { siteDomains } from '@/core-multisite/schema/sites';
 import { createLogger } from '@/core/lib/infra/logger';
 import { createQueue, createWorker } from '@/core/lib/infra/queue';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { invalidateSiteCache } from '@/core-multisite/lib/site-resolver';
 
 const log = createLogger('dns-verification');
@@ -65,6 +67,7 @@ async function processPendingVerifications(): Promise<void> {
           .where(eq(siteDomains.id, domainRow.id));
 
         invalidateSiteCache(domainRow.domain);
+        dispatchWebhook(db, 'domain.verified', { domainId: domainRow.id, domain: domainRow.domain, siteId: domainRow.siteId });
         log.info(`Domain verified: ${domainRow.domain}`);
       }
     } catch (err) {

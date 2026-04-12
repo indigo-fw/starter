@@ -1,16 +1,25 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq, isNull, desc } from 'drizzle-orm';
+import { and, eq, isNull, desc, sql, count } from 'drizzle-orm';
 import { z } from 'zod';
 import crypto from 'crypto';
 
-import { DEFAULT_LOCALE } from '@/lib/constants';
+import { LOCALES, DEFAULT_LOCALE } from '@/lib/constants';
 import { createLogger } from '@/core/lib/infra/logger';
+import { logAudit } from '@/core/lib/infra/audit';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { createTRPCRouter, superadminProcedure, staffProcedure } from '@/server/trpc';
-import { sites, siteDomains, siteMembers, SiteStatus } from '@/core-multisite/schema/sites';
+import { sites, siteDomains, siteMembers, SiteStatus, MAX_DOMAINS_PER_SITE } from '@/core-multisite/schema/sites';
 import { schemaNameFromSlug } from '@/core-multisite/lib/schema-manager';
+import { invalidateSiteCache, clearSiteCache } from '@/core-multisite/lib/site-resolver';
+import { invalidateSiteConfig } from '@/core-multisite/lib/site-config';
 import { slugify } from '@/core/lib/content/slug';
 
 const log = createLogger('multisite-router');
+
+const localeSchema = z.string().min(2).max(5).refine(
+  (val) => (LOCALES as readonly string[]).includes(val),
+  { message: 'Invalid locale. Must be one of: ' + LOCALES.join(', ') }
+);
 
 export const sitesRouter = createTRPCRouter({
   // ── List sites (staff sees their own, superadmin sees all) ────────────────
@@ -83,6 +92,28 @@ export const sitesRouter = createTRPCRouter({
       return { ...site, domains, members };
     }),
 
+  // ── Site stats (for network admin dashboard) ─────────────────────────────
+
+  stats: superadminProcedure.query(async ({ ctx }) => {
+    // Single query with conditional aggregation instead of 5 sequential COUNTs
+    const [row] = await ctx.db.execute(sql`
+      SELECT
+        (SELECT count(*) FROM sites WHERE deleted_at IS NULL AND status = ${SiteStatus.ACTIVE})::int AS "activeSites",
+        (SELECT count(*) FROM sites WHERE deleted_at IS NULL AND status = ${SiteStatus.SUSPENDED})::int AS "suspendedSites",
+        (SELECT count(*) FROM site_domains)::int AS "totalDomains",
+        (SELECT count(*) FROM site_domains WHERE verified = true)::int AS "verifiedDomains",
+        (SELECT count(*) FROM site_members)::int AS "totalMembers"
+    `) as unknown as [{ activeSites: number; suspendedSites: number; totalDomains: number; verifiedDomains: number; totalMembers: number }];
+
+    return {
+      activeSites: row?.activeSites ?? 0,
+      suspendedSites: row?.suspendedSites ?? 0,
+      totalDomains: row?.totalDomains ?? 0,
+      verifiedDomains: row?.verifiedDomains ?? 0,
+      totalMembers: row?.totalMembers ?? 0,
+    };
+  }),
+
   // ── Create site ───────────────────────────────────────────────────────────
 
   create: superadminProcedure
@@ -90,8 +121,8 @@ export const sitesRouter = createTRPCRouter({
       z.object({
         name: z.string().min(1).max(255),
         slug: z.string().min(1).max(100).optional(),
-        defaultLocale: z.string().min(2).max(5).default(DEFAULT_LOCALE),
-        locales: z.array(z.string().min(2).max(5)).min(1).max(50).default([DEFAULT_LOCALE]),
+        defaultLocale: localeSchema.default(DEFAULT_LOCALE),
+        locales: z.array(localeSchema).min(1).max(50).default([DEFAULT_LOCALE]),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -148,6 +179,8 @@ export const sitesRouter = createTRPCRouter({
       });
 
       log.info('Site created', { siteId: site.id, slug });
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'site.created', entityType: 'site', entityId: site.id, entityTitle: site.name });
+      dispatchWebhook(ctx.db, 'site.created', { siteId: site.id, slug, name: site.name });
       return site;
     }),
 
@@ -158,8 +191,8 @@ export const sitesRouter = createTRPCRouter({
       z.object({
         id: z.string().uuid(),
         name: z.string().min(1).max(255).optional(),
-        defaultLocale: z.string().min(2).max(5).optional(),
-        locales: z.array(z.string().min(2).max(5)).min(1).max(50).optional(),
+        defaultLocale: localeSchema.optional(),
+        locales: z.array(localeSchema).min(1).max(50).optional(),
         settings: z.record(z.string(), z.unknown()).optional(),
       })
     )
@@ -172,7 +205,54 @@ export const sitesRouter = createTRPCRouter({
         .returning();
 
       if (!site) throw new TRPCError({ code: 'NOT_FOUND', message: 'Site not found' });
+
+      invalidateSiteCache(undefined, site.slug);
+      invalidateSiteConfig(site.id);
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'site.updated', entityType: 'site', entityId: site.id, entityTitle: site.name });
+      dispatchWebhook(ctx.db, 'site.updated', { siteId: site.id, slug: site.slug, name: site.name });
       return site;
+    }),
+
+  // ── Suspend site ─────────────────────────────────────────────────────────
+
+  suspend: superadminProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const [site] = await ctx.db
+        .update(sites)
+        .set({ status: SiteStatus.SUSPENDED, updatedAt: new Date() })
+        .where(and(eq(sites.id, input.id), eq(sites.status, SiteStatus.ACTIVE), isNull(sites.deletedAt)))
+        .returning();
+
+      if (!site) throw new TRPCError({ code: 'NOT_FOUND', message: 'Active site not found' });
+
+      invalidateSiteCache(undefined, site.slug);
+      clearSiteCache();
+      log.info('Site suspended', { siteId: site.id, slug: site.slug });
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'site.suspended', entityType: 'site', entityId: site.id, entityTitle: site.name });
+      dispatchWebhook(ctx.db, 'site.suspended', { siteId: site.id, slug: site.slug });
+      return { success: true };
+    }),
+
+  // ── Unsuspend site ───────────────────────────────────────────────────────
+
+  unsuspend: superadminProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const [site] = await ctx.db
+        .update(sites)
+        .set({ status: SiteStatus.ACTIVE, updatedAt: new Date() })
+        .where(and(eq(sites.id, input.id), eq(sites.status, SiteStatus.SUSPENDED), isNull(sites.deletedAt)))
+        .returning();
+
+      if (!site) throw new TRPCError({ code: 'NOT_FOUND', message: 'Suspended site not found' });
+
+      invalidateSiteCache(undefined, site.slug);
+      clearSiteCache();
+      log.info('Site unsuspended', { siteId: site.id, slug: site.slug });
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'site.unsuspended', entityType: 'site', entityId: site.id, entityTitle: site.name });
+      dispatchWebhook(ctx.db, 'site.unsuspended', { siteId: site.id, slug: site.slug });
+      return { success: true };
     }),
 
   // ── Soft-delete site ──────────────────────────────────────────────────────
@@ -187,7 +267,33 @@ export const sitesRouter = createTRPCRouter({
         .returning();
 
       if (!site) throw new TRPCError({ code: 'NOT_FOUND', message: 'Site not found' });
+
+      invalidateSiteCache(undefined, site.slug);
+      clearSiteCache();
       log.info('Site soft-deleted', { siteId: site.id, slug: site.slug });
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'site.deleted', entityType: 'site', entityId: site.id, entityTitle: site.name });
+      dispatchWebhook(ctx.db, 'site.deleted', { siteId: site.id, slug: site.slug });
+      return { success: true };
+    }),
+
+  // ── Restore soft-deleted site ─────────────────────────────────────────────
+
+  restore: superadminProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const [site] = await ctx.db
+        .update(sites)
+        .set({ status: SiteStatus.ACTIVE, deletedAt: null, updatedAt: new Date() })
+        .where(and(eq(sites.id, input.id), eq(sites.status, SiteStatus.DELETED)))
+        .returning();
+
+      if (!site) throw new TRPCError({ code: 'NOT_FOUND', message: 'Deleted site not found' });
+
+      invalidateSiteCache(undefined, site.slug);
+      clearSiteCache();
+      log.info('Site restored', { siteId: site.id, slug: site.slug });
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'site.restored', entityType: 'site', entityId: site.id, entityTitle: site.name });
+      dispatchWebhook(ctx.db, 'site.restored', { siteId: site.id, slug: site.slug });
       return { success: true };
     }),
 
@@ -215,8 +321,125 @@ export const sitesRouter = createTRPCRouter({
       await ctx.db.delete(siteMembers).where(eq(siteMembers.siteId, site.id));
       await ctx.db.delete(sites).where(eq(sites.id, site.id));
 
+      invalidateSiteCache(undefined, site.slug);
+      clearSiteCache();
       log.warn('Site hard-deleted', { siteId: site.id, slug: site.slug, schema: site.schemaName });
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'site.hard_deleted', entityType: 'site', entityId: site.id, entityTitle: site.name });
+      dispatchWebhook(ctx.db, 'site.hard_deleted', { siteId: site.id, slug: site.slug });
       return { success: true };
+    }),
+
+  // ── Clone site ────────────────────────────────────────────────────────────
+
+  clone: superadminProcedure
+    .input(
+      z.object({
+        sourceSiteId: z.string().uuid(),
+        name: z.string().min(1).max(255),
+        slug: z.string().min(1).max(100).optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Load source site
+      const [source] = await ctx.db
+        .select()
+        .from(sites)
+        .where(and(eq(sites.id, input.sourceSiteId), isNull(sites.deletedAt)))
+        .limit(1);
+
+      if (!source) throw new TRPCError({ code: 'NOT_FOUND', message: 'Source site not found' });
+
+      const newSlug = input.slug ? slugify(input.slug) : slugify(input.name);
+      const newSchemaName = schemaNameFromSlug(newSlug);
+
+      // Create new site record with source settings
+      let newSite;
+      try {
+        const [row] = await ctx.db.insert(sites).values({
+          name: input.name,
+          slug: newSlug,
+          schemaName: newSchemaName,
+          defaultLocale: source.defaultLocale,
+          locales: source.locales,
+          settings: source.settings,
+          status: SiteStatus.ACTIVE,
+        }).returning();
+        newSite = row;
+      } catch (err) {
+        const msg = String(err);
+        if (msg.includes('unique') || msg.includes('23505')) {
+          throw new TRPCError({ code: 'CONFLICT', message: `Site slug "${newSlug}" already exists` });
+        }
+        throw err;
+      }
+
+      if (!newSite) throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to create site' });
+
+      // Create new schema
+      try {
+        const { createSiteSchema } = await import('@/core-multisite/lib/schema-manager');
+        await createSiteSchema(newSchemaName);
+      } catch (err) {
+        log.error('Schema creation failed during clone, rolling back', { slug: newSlug, error: String(err) });
+        try {
+          const { dropSiteSchema } = await import('@/core-multisite/lib/schema-manager');
+          await dropSiteSchema(newSchemaName).catch(() => {});
+          await ctx.db.delete(sites).where(eq(sites.id, newSite.id));
+        } catch (cleanupErr) {
+          log.error('Cleanup after failed clone also failed', { slug: newSlug, error: String(cleanupErr) });
+        }
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to create cloned schema' });
+      }
+
+      // Copy all user tables from source schema to new schema.
+      // Uses a dedicated short-lived connection to avoid SET CONSTRAINTS
+      // leaking to other concurrent requests sharing the pool connection.
+      try {
+        const { default: postgres } = await import('postgres');
+        const { drizzle } = await import('drizzle-orm/postgres-js');
+        const cloneClient = postgres(process.env.DATABASE_URL!, { max: 1, onnotice: () => {} });
+        const cloneDb = drizzle(cloneClient);
+
+        try {
+          const tablesResult = await cloneDb.execute(
+            sql.raw(`SELECT tablename FROM pg_tables WHERE schemaname = '${source.schemaName}' AND tablename NOT LIKE '__drizzle%'`)
+          );
+          const tables = (tablesResult as unknown as { tablename: string }[]).map((r) => r.tablename);
+
+          if (tables.length > 0) {
+            await cloneDb.execute(sql.raw(`SET CONSTRAINTS ALL DEFERRED`));
+            let copied = 0;
+            for (const table of tables) {
+              try {
+                await cloneDb.execute(
+                  sql.raw(`INSERT INTO "${newSchemaName}"."${table}" SELECT * FROM "${source.schemaName}"."${table}"`)
+                );
+                copied++;
+              } catch (err) {
+                log.warn(`Failed to copy table ${table} during clone`, { source: source.slug, target: newSlug, error: String(err) });
+              }
+            }
+            await cloneDb.execute(sql.raw(`SET CONSTRAINTS ALL IMMEDIATE`));
+            log.info(`Cloned ${copied}/${tables.length} tables`, { source: source.slug, target: newSlug });
+          }
+        } finally {
+          await cloneClient.end();
+        }
+      } catch (err) {
+        log.warn('Content copy failed during clone', { source: source.slug, target: newSlug, error: String(err) });
+      }
+
+      // Add creator as site admin
+      await ctx.db.insert(siteMembers).values({
+        siteId: newSite.id,
+        userId: ctx.session.user.id,
+        role: 'admin',
+      });
+
+      log.info('Site cloned', { sourceId: source.id, newSiteId: newSite.id, slug: newSlug });
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'site.cloned', entityType: 'site', entityId: newSite.id, entityTitle: newSite.name, metadata: { sourceId: source.id, sourceSlug: source.slug } });
+      dispatchWebhook(ctx.db, 'site.created', { siteId: newSite.id, slug: newSlug, name: newSite.name, clonedFrom: source.id });
+      return newSite;
     }),
 
   // ── Domain management ─────────────────────────────────────────────────────
@@ -230,6 +453,16 @@ export const sitesRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      // Rate limit: max domains per site
+      const [domainCountResult] = await ctx.db
+        .select({ value: count() })
+        .from(siteDomains)
+        .where(eq(siteDomains.siteId, input.siteId));
+
+      if ((domainCountResult?.value ?? 0) >= MAX_DOMAINS_PER_SITE) {
+        throw new TRPCError({ code: 'FORBIDDEN', message: `Maximum ${MAX_DOMAINS_PER_SITE} domains per site` });
+      }
+
       // Check domain uniqueness
       const [existing] = await ctx.db
         .select({ id: siteDomains.id })
@@ -259,6 +492,10 @@ export const sitesRouter = createTRPCRouter({
         verificationToken,
       }).returning();
 
+      if (!domain) throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to add domain' });
+
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'domain.added', entityType: 'site_domain', entityId: domain.id, entityTitle: input.domain, metadata: { siteId: input.siteId } });
+
       return {
         ...domain,
         verificationInstruction: `Add a TXT record to your DNS: indigo-verify=${verificationToken}`,
@@ -268,7 +505,19 @@ export const sitesRouter = createTRPCRouter({
   removeDomain: superadminProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
+      const [domain] = await ctx.db
+        .select({ id: siteDomains.id, domain: siteDomains.domain, siteId: siteDomains.siteId })
+        .from(siteDomains)
+        .where(eq(siteDomains.id, input.id))
+        .limit(1);
+
       await ctx.db.delete(siteDomains).where(eq(siteDomains.id, input.id));
+
+      if (domain) {
+        invalidateSiteCache(domain.domain);
+        logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'domain.removed', entityType: 'site_domain', entityId: domain.id, entityTitle: domain.domain, metadata: { siteId: domain.siteId } });
+      }
+
       return { success: true };
     }),
 
@@ -302,6 +551,7 @@ export const sitesRouter = createTRPCRouter({
         })
         .returning();
 
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'member.added', entityType: 'site_member', entityId: input.userId, metadata: { siteId: input.siteId, role: input.role } });
       return member;
     }),
 
@@ -311,6 +561,8 @@ export const sitesRouter = createTRPCRouter({
       await ctx.db
         .delete(siteMembers)
         .where(and(eq(siteMembers.siteId, input.siteId), eq(siteMembers.userId, input.userId)));
+
+      logAudit({ db: ctx.db, userId: ctx.session.user.id, action: 'member.removed', entityType: 'site_member', entityId: input.userId, metadata: { siteId: input.siteId } });
       return { success: true };
     }),
 
