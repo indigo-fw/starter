@@ -44,9 +44,9 @@ export async function generateMetadata(): Promise<Metadata> {
 const DEMO_CREDENTIALS = { email: "admin@example.com", password: "asdfasdf" };
 
 export default async function DemoHomePage() {
-  const locale = await getLocale();
+  const _locale = await getLocale();
   const __ = await getServerTranslations();
-  const cms = await getPageCmsOverride("");
+  const _cms = await getPageCmsOverride("");
 
   const features = [
     {

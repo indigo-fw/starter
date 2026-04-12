@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import './Avatar.css';
 
@@ -55,7 +56,7 @@ export function Avatar({
       title={name}
     >
       {src ? (
-        <img
+        <Image
           src={src}
           alt={name ?? 'Avatar'}
           width={px}

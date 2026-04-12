@@ -7,7 +7,6 @@ import nodemailer from 'nodemailer';
 import type Mail from 'nodemailer/lib/mailer';
 
 import { getEmailDeps } from './deps';
-import type { EmailSendOptions } from './deps';
 
 // ---------------------------------------------------------------------------
 // Config from environment

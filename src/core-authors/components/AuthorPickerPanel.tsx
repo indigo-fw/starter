@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
@@ -16,18 +16,13 @@ interface Props {
 /**
  * Self-contained author picker panel for PostForm.
  * Manages its own state and saves via its own tRPC endpoints.
- *
- * Integration: add to PostForm panel renderers:
- *   authors: () => contentType.postFormFields?.authors
- *     ? <AuthorPickerPanel postId={postId} contentType={contentType.id} onSaveRef={authorSaveRef} />
- *     : null,
  */
 export function AuthorPickerPanel({ postId, contentType, onSaveRef }: Props) {
   const __ = useAdminTranslations();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const cacheRef = useRef(new Map<string, { id: string; name: string }>());
+  const [authorCache, setAuthorCache] = useState<Map<string, { id: string; name: string }>>(new Map());
 
   // Debounce search
   useEffect(() => {
@@ -42,11 +37,21 @@ export function AuthorPickerPanel({ postId, contentType, onSaveRef }: Props) {
   );
 
   // Cache author names across searches
-  if (candidates.data) {
-    for (const a of candidates.data) {
-      cacheRef.current.set(a.id, { id: a.id, name: a.name });
+  useEffect(() => {
+    if (candidates.data) {
+      setAuthorCache((prev) => {
+        const next = new Map(prev);
+        let changed = false;
+        for (const a of candidates.data) {
+          if (!next.has(a.id)) {
+            next.set(a.id, { id: a.id, name: a.name });
+            changed = true;
+          }
+        }
+        return changed ? next : prev;
+      });
     }
-  }
+  }, [candidates.data]);
 
   // Load existing relationships for edit mode
   const existingRels = trpc.authors.getRelationships.useQuery(
@@ -91,9 +96,12 @@ export function AuthorPickerPanel({ postId, contentType, onSaveRef }: Props) {
 
   const allCandidates = candidates.data ?? [];
   const selectedSet = new Set(selectedIds);
-  const selectedAuthors = selectedIds
-    .map((id) => cacheRef.current.get(id))
-    .filter(Boolean) as { id: string; name: string }[];
+  const selectedAuthors = useMemo(
+    () => selectedIds
+      .map((id) => authorCache.get(id))
+      .filter(Boolean) as { id: string; name: string }[],
+    [selectedIds, authorCache],
+  );
   const unselectedAuthors = allCandidates.filter((a) => !selectedSet.has(a.id));
 
   return (

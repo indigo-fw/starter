@@ -12,7 +12,7 @@ import { db } from '@/server/db';
 import { sites, siteDomains, siteMembers, SiteStatus } from '@/core-multisite/schema/sites';
 import { createSiteSchema, dropSiteSchema, schemaNameFromSlug } from './schema-manager';
 import { slugify } from '@/core/lib/content/slug';
-import { eq, and, isNull } from 'drizzle-orm';
+import { eq, isNull } from 'drizzle-orm';
 
 export async function createSite(options: {
   name: string;

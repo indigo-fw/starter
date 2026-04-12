@@ -4,7 +4,7 @@
  * for the expected `indigo-verify={token}` value.
  */
 
-import { and, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { siteDomains } from '@/core-multisite/schema/sites';
 import { createLogger } from '@/core/lib/infra/logger';

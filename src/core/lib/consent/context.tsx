@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { ConsentState } from './types';
 import { DEFAULT_CATEGORIES, buildDefaultConsent } from './types';
@@ -58,19 +58,15 @@ export function ConsentProvider({
     return cats.includes('necessary') ? cats : ['necessary', ...cats];
   }, [categoriesProp]);
 
-  const [consent, setConsent] = useState<ConsentState>(() => buildDefaultConsent(categories));
-  const [hasConsented, setHasConsented] = useState(false);
-
-  // Read stored consent on mount
-  useEffect(() => {
+  const [consent, setConsent] = useState<ConsentState>(() => {
+    if (typeof window === 'undefined') return buildDefaultConsent(categories);
     const stored = getStoredConsent(storageOptions);
-    if (stored) {
-      // Merge stored with defaults for any new categories
-      const merged = { ...buildDefaultConsent(categories), ...stored };
-      setConsent(merged);
-      setHasConsented(true);
-    }
-  }, [categories, storageOptions]);
+    return stored ? { ...buildDefaultConsent(categories), ...stored } : buildDefaultConsent(categories);
+  });
+  const [hasConsented, setHasConsented] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !!getStoredConsent(storageOptions);
+  });
 
   const updateConsent = useCallback(
     (partial: Partial<ConsentState>) => {
@@ -80,7 +76,7 @@ export function ConsentProvider({
       setStoredConsent(next, storageOptions);
       onConsentChange?.(next);
     },
-    [consent, onConsentChange],
+    [consent, onConsentChange, storageOptions],
   );
 
   const acceptAll = useCallback(() => {

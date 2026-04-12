@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Link } from '@/components/Link';
+// import { Link } from '@/components/Link';
 
 import { siteConfig } from '@/config/site';
 import { buildCanonicalUrl } from '@/core/lib/seo/canonical';

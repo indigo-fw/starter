@@ -3,7 +3,7 @@ import { count, desc, eq } from 'drizzle-orm';
 
 import { cmsAuthors, cmsAuthorRelationships } from '../schema/authors';
 import { cmsPosts } from '@/server/db/schema/cms';
-import { ContentStatus, PostType } from '@/core/types/cms';
+import { PostType } from '@/core/types/cms';
 
 // ─── Deterministic IDs for idempotent seeding ────────────────────────────
 

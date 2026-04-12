@@ -20,7 +20,6 @@ setBookingDeps({
   },
 
   enqueueTemplateEmail(to, template, data) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return enqueueTemplateEmail(to, template, data as Record<string, string>);
   },
 

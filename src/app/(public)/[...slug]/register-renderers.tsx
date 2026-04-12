@@ -105,7 +105,7 @@ registerContentRenderer('tag', {
     const { TagDetail } = await import('./renderers/TagDetail');
     return <TagDetail slug={slug} currentPage={currentPage} />;
   },
-  async generateMetadata({ slug, locale, baseUrl }) {
+  async generateMetadata({ slug, locale, baseUrl: _baseUrl }) {
     const tag = await getCachedTag(slug, locale);
     return {
       title: `${tag.name} | ${siteConfig.name}`,

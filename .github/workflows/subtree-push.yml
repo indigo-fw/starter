@@ -48,5 +48,8 @@ jobs:
           push_subtree src/core-docs core-docs
           push_subtree src/core-store core-store
           push_subtree src/core-chat core-chat
+          push_subtree src/core-multisite core-multisite
+          push_subtree src/core-authors core-authors
+          push_subtree src/core-booking core-booking
 
           echo "✓ Subtree push complete"
