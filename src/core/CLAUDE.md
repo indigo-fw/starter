@@ -60,6 +60,7 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - **Scheduled publish:** `registerScheduledPublishTarget(target)` — auto-publishes scheduled content. Core handles audit logging + webhook dispatch
 - **Health check:** `createHealthHandler(checks)` — factory for `/api/health` endpoint. Runs provided checks + module health hooks. Returns healthy/degraded/unhealthy
 - **Cookie consent:** `<ConsentProvider>` + `<CookieConsent />` + `<ConsentGate category="analytics">`. `useConsent()` hook for programmatic access. localStorage + cookie persistence
+- **Web Push:** `sendPushToUser(userId, payload)` from `@/core/lib/push/web-push` — sends to all registered devices, auto-cleans 410 Gone. No-op without VAPID env vars. `usePushNotifications()` hook for client-side subscribe/unsubscribe with auto-re-registration. `<PushToggle>` component (compact/full). Service worker at `public/sw.js`
 - **Pagination:** 4 variants — `<PaginationNumbered>` (page buttons with ellipsis), `<PaginationSimple>` (prev/next + info), `<PaginationLoadMore>` (button), `<PaginationInfinite>` (IntersectionObserver auto-load). All accept `href` (SSR links) or `onPageChange` (client), custom `LinkComponent`, translated labels
 - **Skeleton:** `<Skeleton variant="line|circle|card" count={N}>` — loading placeholder with pulse animation
 - **Avatar:** `<Avatar src={url} name="John" size="md">` — image with initials fallback, sizes xs/sm/md/lg/xl

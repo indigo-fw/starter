@@ -90,6 +90,11 @@ const serverEnvSchema = z.object({
 
   // WebSocket
   WS_ENABLED: z.coerce.boolean().default(true),
+
+  // Web Push (VAPID) — push notifications disabled without keys
+  VAPID_PUBLIC_KEY: z.string().optional(),
+  VAPID_PRIVATE_KEY: z.string().optional(),
+  VAPID_SUBJECT: z.string().optional(), // mailto: or https:// URL
 });
 
 const envSchema = serverEnvSchema.merge(clientEnvSchema);

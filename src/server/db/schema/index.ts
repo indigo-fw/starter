@@ -20,6 +20,7 @@ export * from './notifications';
 export * from './projects';
 export * from './task-queue';
 export * from './webhook-deliveries';
+export * from './push-subscriptions';
 
 // ─── Module schema (from indigo.config.ts via `bun run indigo:sync`) ────────
 export * from '@/generated/module-schema';

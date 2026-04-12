@@ -40,6 +40,20 @@ export function sendNotification(input: SendNotificationInput): void {
       } catch {
         // WS not available — notification still persisted in DB
       }
+
+      // Send web push (if VAPID configured and user has subscriptions)
+      try {
+        const { sendPushToUser } = await import('@/core/lib/push/web-push');
+        sendPushToUser(input.userId, {
+          title: input.title,
+          body: input.body,
+          actionUrl: input.actionUrl,
+          type: input.type as string,
+          category: input.category as string,
+        });
+      } catch {
+        // Push not available — notification still persisted in DB
+      }
     } catch (err) {
       console.error('Failed to send notification:', err);
     }

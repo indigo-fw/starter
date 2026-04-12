@@ -6,7 +6,7 @@
  * table structure as an internal detail of core-payments.
  */
 
-import { eq, and, desc, sql, gte, lte, lt, inArray } from 'drizzle-orm';
+import { eq, and, desc, sql, gte, lte, inArray } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { organization } from '@/server/db/schema/organization';

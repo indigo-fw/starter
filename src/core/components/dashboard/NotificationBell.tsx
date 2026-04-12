@@ -6,6 +6,7 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { cn } from '@/lib/utils';
 import { formatRelativeTime } from '@/core/lib/infra/datetime';
+import { PushToggle } from '@/core/components/PushToggle';
 
 interface NotificationBellProps {
   notificationsHref: string;
@@ -120,12 +121,15 @@ export function NotificationBell({ notificationsHref }: NotificationBellProps) {
             ))}
           </div>
 
-          <a
-            href={notificationsHref}
-            className="block text-center text-xs text-brand-500 hover:underline px-4 py-3 border-t border-(--border-primary)"
-          >
-            {__('View all notifications')}
-          </a>
+          <div className="border-t border-(--border-primary)">
+            <PushToggle __={__} compact />
+            <a
+              href={notificationsHref}
+              className="block text-center text-xs text-brand-500 hover:underline px-4 py-2 border-t border-(--border-primary)"
+            >
+              {__('View all notifications')}
+            </a>
+          </div>
         </div>
       )}
     </div>

@@ -10,6 +10,7 @@ import { cmsCategories } from '@/server/db/schema/categories';
 import { session } from '@/server/db/schema/auth';
 import { cmsAuditLog } from '@/server/db/schema/audit';
 import { saasNotifications } from '@/server/db/schema/notifications';
+import { saasPushSubscriptions } from '@/server/db/schema/push-subscriptions';
 import { saasTaskQueue } from '@/server/db/schema/task-queue';
 
 const log = createLogger('maintenance');
@@ -98,6 +99,14 @@ async function permanentDeleteTrash(): Promise<void> {
   }
 }
 
+const PUSH_RETENTION_MS = 180 * 24 * 60 * 60 * 1000; // 180 days
+
+async function cleanupStalePushSubscriptions(): Promise<void> {
+  const cutoff = new Date(Date.now() - PUSH_RETENTION_MS);
+  const result = await db.delete(saasPushSubscriptions).where(lte(saasPushSubscriptions.updatedAt, cutoff)).returning({ id: saasPushSubscriptions.id });
+  if (result.length > 0) log.info(`Cleaned up ${result.length} stale push subscriptions (>180 days)`);
+}
+
 // ---------------------------------------------------------------------------
 // Register all maintenance tasks
 // ---------------------------------------------------------------------------
@@ -108,3 +117,4 @@ registerMaintenanceTask('cleanupOldAuditLogs', cleanupOldAuditLogs);
 registerMaintenanceTask('cleanupExpiredNotifications', cleanupExpiredNotifications);
 registerMaintenanceTask('cleanupDeadTasks', cleanupDeadTasks);
 registerMaintenanceTask('permanentDeleteTrash', permanentDeleteTrash);
+registerMaintenanceTask('cleanupStalePushSubscriptions', cleanupStalePushSubscriptions);
