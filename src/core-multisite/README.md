@@ -61,7 +61,59 @@ The `config/multisite-deps.ts` file is auto-scaffolded by `indigo add`. It's imp
 
 Edit `src/config/multisite-deps.ts` to customize if needed.
 
-### 3. Create the network admin site
+### 3. Integrate proxy middleware (REQUIRED)
+
+Add site resolution to `src/proxy.ts`. This connects incoming domains to site schemas:
+
+```typescript
+// At the top of proxy.ts, add:
+import { resolveSiteFromRequest, resolveDashboardSite } from '@/core-multisite/lib/site-middleware';
+import { withScope } from '@/core/lib/infra/scope';
+import { setSiteSearchPath, resetSearchPath } from '@/core-multisite/lib/schema-manager';
+
+// Inside the proxy function, BEFORE locale detection:
+
+// ── Multisite resolution ──
+const siteContext = await resolveSiteFromRequest(request);
+if (siteContext) {
+  // For dashboard: check cookie-based site selection
+  const dashSite = pathname.startsWith('/dashboard')
+    ? await resolveDashboardSite(request)
+    : siteContext;
+  const activeSite = dashSite ?? siteContext;
+
+  const url = request.nextUrl.clone();
+  const response = NextResponse.rewrite(url);
+  response.headers.set('x-site-id', activeSite.id);
+  response.headers.set('x-site-schema', activeSite.schemaName);
+  response.headers.set('x-site-name', activeSite.name);
+  // Continue with locale detection using site's locales...
+}
+```
+
+Then in your tRPC context (`src/server/trpc.ts`), read the site headers:
+
+```typescript
+// In createTRPCContext:
+const siteId = opts.headers.get('x-site-id') ?? null;
+const siteSchema = opts.headers.get('x-site-schema') ?? null;
+
+// Set search_path if multisite
+if (siteSchema) {
+  await db.execute(sql.raw(`SET search_path TO "${siteSchema}", public`));
+}
+
+return {
+  session, db, headers: opts.headers,
+  activeOrganizationId: ...,
+  siteId,     // NEW
+  siteSchema, // NEW
+};
+```
+
+> Without this integration, all requests are treated as single-site.
+
+### 4. Create the network admin site
 
 ```bash
 bun run site:create "Network Admin" --slug=__network__
@@ -69,7 +121,7 @@ bun run site:create "Network Admin" --slug=__network__
 
 This creates the site that powers `admin.yourdomain.com`.
 
-### 4. Create your first site
+### 5. Create your first site
 
 ```bash
 bun run site:create "Cool Sneakers" --slug=cool-sneakers --locale=en
@@ -77,7 +129,7 @@ bun run site:create "Cool Sneakers" --slug=cool-sneakers --locale=en
 
 The site is immediately available at `cool-sneakers.yourdomain.com`.
 
-### 5. Add a custom domain
+### 6. Add a custom domain
 
 From the network admin dashboard, go to **Sites > Cool Sneakers > Domains** and add `cool-sneakers.com`. Follow the DNS TXT verification instructions shown.
 

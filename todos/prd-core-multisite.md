@@ -112,19 +112,21 @@ Tables that stay in `public` schema (shared):
 - `user`, `session`, `account`, `verification` (Better Auth)
 - `sites`, `site_domains`, `site_members`
 
-### Proxy Changes
+### Proxy Changes (project-layer — manual integration required)
 
-- Read `Host` header from request
-- Look up site from `site_domains` table (cached in-memory with short TTL)
-- Set `x-site-id` header on response
-- Set `x-site-slug` header (for schema name resolution)
-- For temporary subdomains (`{slug}.yourdomain.com`): extract slug from subdomain, look up site
-- For the network admin domain (`admin.yourdomain.com`): set special `x-site-id: network` flag
-- Per-site locale handling: read site's supported locales from cached site config, validate locale prefix against site's locale list (not global `LOCALES`)
+The module provides `resolveSiteFromRequest()` and `resolveDashboardSite()` helpers. The project must integrate them into `src/proxy.ts`:
 
-### tRPC Context
+- Call `resolveSiteFromRequest(request)` before locale detection
+- Set `x-site-id`, `x-site-schema`, `x-site-name` headers on response
+- For dashboard paths, also call `resolveDashboardSite(request)` to respect the site switcher cookie
+- Per-site locale handling: read site's supported locales from resolved site config, validate locale prefix against site's locale list (not global `LOCALES`)
 
-- Extract `siteId` from headers (set by proxy), add to context as `ctx.siteId`
+This is intentionally a manual step — proxy.ts is project-specific (auth gates, locale logic, CSP are custom per deployment). See README for integration code.
+
+### tRPC Context (project-layer — manual integration required)
+
+- Extract `siteId` and `siteSchema` from headers (set by proxy), add to context
+- Set `search_path` to `"{siteSchema}", public` before queries
 - Follow existing pattern used by `activeOrganizationId`
 - All procedures automatically have site context available
 

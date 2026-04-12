@@ -23,7 +23,7 @@ Premium module. Multi-tenant site isolation using PostgreSQL schema-per-site.
 
 **Core provides:** scope primitive (`withScope`, `getScope`, `getScopedKey` from `@/core/lib/infra/scope`). Core caches are already scope-aware — they prefix keys with `getScope()` automatically.
 
-**Project owns:** admin pages (network admin dashboard), site creation UI, domain management UI.
+**Project owns:** admin pages (network admin dashboard), site creation UI, domain management UI, proxy.ts integration (must manually add site resolution + search_path switching), tRPC context `siteId` injection.
 
 ## How It Works
 
