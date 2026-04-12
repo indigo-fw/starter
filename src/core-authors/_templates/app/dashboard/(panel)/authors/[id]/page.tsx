@@ -148,7 +148,6 @@ function AuthorForm({ author, isNew }: { author?: AuthorData; isNew: boolean }) 
               <MediaPickerButton
                 value={avatar}
                 onChange={setAvatar}
-                accept="image/*"
               />
               {avatar && (
                 <button

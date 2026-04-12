@@ -28,6 +28,21 @@ bun run db:generate
 bun run db:migrate
 ```
 
+## Post-Install
+
+Add these scripts to `package.json`:
+
+```json
+{
+  "scripts": {
+    "site:create": "bun run src/scripts/site-create.ts",
+    "site:delete": "bun run src/scripts/site-delete.ts",
+    "site:list": "bun run src/scripts/site-list.ts",
+    "db:migrate:sites": "bun run src/scripts/migrate-sites.ts"
+  }
+}
+```
+
 ## Configuration
 
 ### 1. Set base domain
@@ -42,21 +57,9 @@ This is used for temporary subdomains (`my-store.yourdomain.com`) and the networ
 
 ### 2. Wire dependencies
 
-Create `src/config/multisite-deps.ts`:
+The `config/multisite-deps.ts` file is auto-scaffolded by `indigo add`. It's imported as a side-effect via `serverInit` in `module.config.ts` — no manual wiring needed.
 
-```typescript
-import { setMultisiteDeps } from '@/core-multisite/deps';
-
-setMultisiteDeps({
-  baseDomain: process.env.MULTISITE_BASE_DOMAIN!,
-});
-```
-
-Import as side-effect in `server.ts`:
-
-```typescript
-import '@/config/multisite-deps';
-```
+Edit `src/config/multisite-deps.ts` to customize if needed.
 
 ### 3. Create the network admin site
 

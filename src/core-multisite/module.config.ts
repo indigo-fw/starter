@@ -8,7 +8,9 @@ const config: ModuleConfig = {
   schema: [
     '@/core-multisite/schema/sites',
   ],
-  serverInit: [],
+  serverInit: [
+    '@/config/multisite-deps',
+  ],
   jobs: [
     { name: 'startDnsVerificationWorker', from: '@/core-multisite/jobs/dns-verification' },
   ],
@@ -20,6 +22,10 @@ const config: ModuleConfig = {
   ],
   projectFiles: [
     'config/multisite-deps.ts',
+    'scripts/site-create.ts',
+    'scripts/site-delete.ts',
+    'scripts/site-list.ts',
+    'scripts/migrate-sites.ts',
     'app/dashboard/(panel)/settings/sites/page.tsx',
     'app/dashboard/(panel)/settings/sites/[id]/page.tsx',
     'app/dashboard/(panel)/settings/sites/create/page.tsx',

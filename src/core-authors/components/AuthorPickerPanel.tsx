@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
@@ -22,7 +22,8 @@ export function AuthorPickerPanel({ postId, contentType, onSaveRef }: Props) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [authorCache, setAuthorCache] = useState<Map<string, { id: string; name: string }>>(new Map());
+  // Accumulate author names across searches (survives re-fetches)
+  const cacheMapRef = useRef(new Map<string, { id: string; name: string }>());
 
   // Debounce search
   useEffect(() => {
@@ -33,25 +34,17 @@ export function AuthorPickerPanel({ postId, contentType, onSaveRef }: Props) {
   // Fetch candidates
   const candidates = trpc.authors.candidates.useQuery(
     { search: debouncedSearch || undefined },
-    { placeholderData: (prev) => prev },
-  );
-
-  // Cache author names across searches
-  useEffect(() => {
-    if (candidates.data) {
-      setAuthorCache((prev) => {
-        const next = new Map(prev);
-        let changed = false;
-        for (const a of candidates.data) {
-          if (!next.has(a.id)) {
-            next.set(a.id, { id: a.id, name: a.name });
-            changed = true;
-          }
+    {
+      placeholderData: (prev) => prev,
+      select(data) {
+        // Side-effect in select: populate cache as data arrives
+        for (const a of data) {
+          cacheMapRef.current.set(a.id, { id: a.id, name: a.name });
         }
-        return changed ? next : prev;
-      });
-    }
-  }, [candidates.data]);
+        return data;
+      },
+    },
+  );
 
   // Load existing relationships for edit mode
   const existingRels = trpc.authors.getRelationships.useQuery(
@@ -59,11 +52,13 @@ export function AuthorPickerPanel({ postId, contentType, onSaveRef }: Props) {
     { enabled: !!postId },
   );
 
-  useEffect(() => {
-    if (existingRels.data) {
-      setSelectedIds(existingRels.data);
-    }
-  }, [existingRels.data]);
+  // Sync selectedIds when existing relationships load (only on first load)
+  const relsInitialized = useRef(false);
+  if (existingRels.data && !relsInitialized.current) {
+    relsInitialized.current = true;
+    // Safe: this runs once before first paint with this data
+    setSelectedIds(existingRels.data);
+  }
 
   // Sync mutation
   const syncMutation = trpc.authors.syncRelationships.useMutation();
@@ -98,9 +93,10 @@ export function AuthorPickerPanel({ postId, contentType, onSaveRef }: Props) {
   const selectedSet = new Set(selectedIds);
   const selectedAuthors = useMemo(
     () => selectedIds
-      .map((id) => authorCache.get(id))
+      .map((id) => cacheMapRef.current.get(id))
       .filter(Boolean) as { id: string; name: string }[],
-    [selectedIds, authorCache],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- cacheMapRef.current is stable, re-derive when selectedIds or candidates change
+    [selectedIds, candidates.data],
   );
   const unselectedAuthors = allCandidates.filter((a) => !selectedSet.has(a.id));
 
