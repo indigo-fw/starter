@@ -79,3 +79,12 @@ Replace core's simple author byline in PostDetail:
 | `authors.getBySlug` | public | Author profile page |
 | `authors.getPostsByAuthor` | public | Author archive (paginated posts) |
 | `authors.getForObject` | public | Authors for a content object |
+| `authors.sitemapEntries` | public | All author slugs for sitemap |
+
+## Google News Sitemap
+
+The module provides `/news-sitemap.xml` — a route handler that generates a Google News-compliant sitemap with articles published within the last 2 days. Scaffolded to project via `_templates/app/news-sitemap.xml/route.ts`. Automatically referenced in `robots.ts`.
+
+Prerequisites: register your site as a Google News publisher in Google Search Console. Update `publicationName` in the route handler to match your registration.
+
+Generator: `generateNewsSitemap(config, articles)` in `lib/news-sitemap.ts` — reusable if you need a custom implementation.

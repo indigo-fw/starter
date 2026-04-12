@@ -20,6 +20,7 @@ const config: ModuleConfig = {
     'app/(public)/author/[slug]/page.tsx',
     'app/dashboard/(panel)/authors/page.tsx',
     'app/dashboard/(panel)/authors/[id]/page.tsx',
+    'app/news-sitemap.xml/route.ts',
   ],
 };
 

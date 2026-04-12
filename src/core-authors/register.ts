@@ -16,3 +16,6 @@ export {
 // Components
 export { AuthorByline } from './components/AuthorByline';
 export { AuthorPickerPanel } from './components/AuthorPickerPanel';
+
+// Google News Sitemap
+export { generateNewsSitemap } from './lib/news-sitemap';
