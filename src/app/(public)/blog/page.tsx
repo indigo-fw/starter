@@ -3,15 +3,13 @@ import type { Metadata } from 'next';
 
 import { siteConfig } from '@/config/site';
 import { getContentType } from '@/config/cms';
+import { CmsSlotContent } from '@/components/CmsSlotContent';
 import { serverTRPC } from '@/lib/trpc/server';
 import { PostType } from '@/core/types/cms';
 import { PostCard } from '@/core/components/PostCard';
 import { BlogSidebar } from '@/components/public/BlogSidebar';
-import { db } from '@/server/db';
-import { getCmsOverride } from '@/lib/cms-override';
+import { getPageCmsOverride } from '@/lib/cms-override';
 import { buildPageTitle } from '@/core/lib/content/title-template';
-import { CmsContent } from '@/core/components';
-import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { getLocale } from '@/lib/locale-server';
 import { localePath } from '@/lib/locale';
 import { getServerTranslations } from '@/lib/translations-server';
@@ -21,7 +19,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const page = Math.max(1, parseInt(params.page ?? '1', 10) || 1);
   const locale = await getLocale();
   const __ = await getServerTranslations();
-  const cms = await getCmsOverride(db, 'blog', locale).catch(() => null);
+  const cms = await getPageCmsOverride('blog');
 
   const ct = getContentType('blog')!;
   const title = buildPageTitle({
@@ -51,7 +49,6 @@ export default async function BlogListPage({ searchParams }: Props) {
 
   const locale = await getLocale();
   const __ = await getServerTranslations();
-  const cms = await getCmsOverride(db, 'blog', locale).catch(() => null);
   let data;
   try {
     const api = await serverTRPC();
@@ -122,9 +119,7 @@ export default async function BlogListPage({ searchParams }: Props) {
         </div>
       </div>
 
-      {cms?.content && (
-        <CmsContent content={cms.content} components={SHORTCODE_COMPONENTS} />
-      )}
+      <CmsSlotContent slug="blog" />
     </div>
   );
 }

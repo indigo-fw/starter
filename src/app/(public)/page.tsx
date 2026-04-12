@@ -20,18 +20,16 @@ import {
 } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
-import { db } from "@/server/db";
-import { getCmsOverride } from "@/lib/cms-override";
+import { getPageCmsOverride } from "@/lib/cms-override";
 import { buildCanonicalUrl } from "@/core/lib/seo/canonical";
 import "@/config/canonical-init";
-import { CmsContent } from "@/core/components";
-import { SHORTCODE_COMPONENTS } from "@/config/shortcodes";
+import { CmsSlotContent } from "@/components/CmsSlotContent";
 import { getLocale } from "@/lib/locale-server";
 import { getServerTranslations } from "@/lib/translations-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const cms = await getCmsOverride(db, "", locale).catch(() => null);
+  const cms = await getPageCmsOverride("");
   return {
     title: cms?.seo.seoTitle || siteConfig.seo.title,
     description: cms?.seo.metaDescription || siteConfig.seo.description,
@@ -48,7 +46,7 @@ const DEMO_CREDENTIALS = { email: "admin@example.com", password: "asdfasdf" };
 export default async function DemoHomePage() {
   const locale = await getLocale();
   const __ = await getServerTranslations();
-  const cms = await getCmsOverride(db, "", locale).catch(() => null);
+  const cms = await getPageCmsOverride("");
 
   const features = [
     {
@@ -354,9 +352,7 @@ export default async function DemoHomePage() {
         </div>
       </section>
 
-      {cms?.content && (
-        <CmsContent content={cms.content} components={SHORTCODE_COMPONENTS} />
-      )}
+      <CmsSlotContent slug="" />
     </div>
   );
 }

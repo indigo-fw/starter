@@ -4,20 +4,18 @@ import { Link } from '@/components/Link';
 
 import { siteConfig } from '@/config/site';
 import { getContentType } from '@/config/cms';
-import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
-import { CmsContent } from '@/core/components';
+import { CmsSlotContent } from '@/components/CmsSlotContent';
 import { serverTRPC } from '@/lib/trpc/server';
 import { getLocale } from '@/lib/locale-server';
-import { db } from '@/server/db';
-import { getCmsOverride } from '@/lib/cms-override';
+import { getPageCmsOverride } from '@/lib/cms-override';
 import { buildPageTitle } from '@/core/lib/content/title-template';
 import { getServerTranslations } from '@/lib/translations-server';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const __ = await getServerTranslations();
-  const cms = await getCmsOverride(db, 'portfolio', locale).catch(() => null);
-  const ct = getContentType('portfolio')!;
+  const cms = await getPageCmsOverride('portfolio');
+  const ct = getContentType('portfolio')!
 
   return {
     title: buildPageTitle({
@@ -35,7 +33,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PortfolioListPage() {
   const locale = await getLocale();
   const __ = await getServerTranslations();
-  const cms = await getCmsOverride(db, 'portfolio', locale).catch(() => null);
   const api = await serverTRPC();
   const { results: items } = await api.portfolio.listPublished({
     lang: locale,
@@ -106,9 +103,7 @@ export default async function PortfolioListPage() {
         <p className="mt-10 text-(--text-muted)">{__('No portfolio items yet.')}</p>
       )}
 
-      {cms?.content && (
-        <CmsContent content={cms.content} components={SHORTCODE_COMPONENTS} />
-      )}
+      <CmsSlotContent slug="portfolio" />
     </div>
   );
 }
