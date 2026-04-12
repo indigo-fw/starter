@@ -107,7 +107,7 @@ Two pipelines for file-based content, determined by file extension:
 ```
 content/{locale}/              → synced to cms_posts (page type)
 content/{locale}/blog/         → synced to cms_posts (blog type)
-docs/content/                  → runtime .mdx docs (core-docs module)
+docs/{locale}/                 → runtime .mdx docs (core-docs module, locale-aware)
 ```
 
 ## CSS Conventions

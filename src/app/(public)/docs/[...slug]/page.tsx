@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { siteConfig } from '@/config/site';
 import { resolveContentVars } from '@/core/lib/content/vars';
+import { getLocale } from '@/core/lib/i18n/locale-server';
 import { getCachedDoc, getCachedNavigation } from '../data';
 import { DocRenderer } from '@/core-docs/components/DocRenderer';
 import { DocSidebar } from '@/core-docs/components/DocSidebar';
@@ -16,7 +17,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug: slugParts } = await params;
   const slug = slugParts.join('/');
-  const doc = await getCachedDoc(slug);
+  const locale = await getLocale();
+  const doc = await getCachedDoc(slug, locale);
 
   if (!doc) return {};
 
@@ -41,10 +43,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DocsPage({ params }: Props) {
   const { slug: slugParts } = await params;
   const slug = slugParts.join('/');
+  const locale = await getLocale();
 
   const [doc, navigation] = await Promise.all([
-    getCachedDoc(slug),
-    getCachedNavigation(),
+    getCachedDoc(slug, locale),
+    getCachedNavigation(locale),
   ]);
 
   if (!doc) notFound();

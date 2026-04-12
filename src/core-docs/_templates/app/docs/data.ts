@@ -6,5 +6,5 @@ import { getDocBySlug, getDocsNavigation } from '@/core-docs/lib/docs-service';
  * Ensures generateMetadata and the page component share a single
  * compilation per request (MDX compilation is the expensive part).
  */
-export const getCachedDoc = cache((slug: string) => getDocBySlug(slug));
-export const getCachedNavigation = cache(() => getDocsNavigation());
+export const getCachedDoc = cache((slug: string, locale: string) => getDocBySlug(slug, locale));
+export const getCachedNavigation = cache((locale: string) => getDocsNavigation(locale));

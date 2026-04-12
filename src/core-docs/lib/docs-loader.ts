@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join, relative, extname, basename } from 'path';
 import { createLogger } from '@/core/lib/infra/logger';
 import { parseFrontmatter } from '@/core/lib/content/frontmatter';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 
 const logger = createLogger('docs-loader');
 
@@ -99,38 +100,53 @@ function loadDir(dir: string, baseDir: string): FileDoc[] {
   return docs;
 }
 
-/** Default docs directory relative to project root */
-const DOCS_DIR = join(process.cwd(), 'docs', 'content');
+/** Root docs directory (contains locale subdirectories) */
+const DOCS_ROOT = join(process.cwd(), 'docs');
 
-/** Simple TTL cache for file docs (re-reads from disk every 30s in dev, 5min in prod) */
+/** Simple TTL cache for file docs, keyed by locale */
 const CACHE_TTL = process.env.NODE_ENV === 'production' ? 5 * 60 * 1000 : 30 * 1000;
-let _cache: { docs: FileDoc[]; dir: string; ts: number } | null = null;
+const _cache = new Map<string, { docs: FileDoc[]; ts: number }>();
 
 /**
- * Load all file-based documentation.
- * Results are cached with a TTL to avoid re-reading disk on every request.
+ * Load all file-based documentation for a given locale.
+ * Falls back to default locale if the requested locale directory doesn't exist.
+ * Results are cached per locale with a TTL to avoid re-reading disk on every request.
  */
-export function loadFileDocs(docsDir = DOCS_DIR): FileDoc[] {
+export function loadFileDocs(locale: string = DEFAULT_LOCALE): FileDoc[] {
   const now = Date.now();
-  if (_cache && _cache.dir === docsDir && now - _cache.ts < CACHE_TTL) {
-    return _cache.docs;
+  const cached = _cache.get(locale);
+  if (cached && now - cached.ts < CACHE_TTL) {
+    return cached.docs;
   }
-  const docs = loadDir(docsDir, docsDir);
-  _cache = { docs, dir: docsDir, ts: now };
+
+  const localeDir = join(DOCS_ROOT, locale);
+  let docs: FileDoc[];
+
+  if (existsSync(localeDir)) {
+    docs = loadDir(localeDir, localeDir);
+  } else if (locale !== DEFAULT_LOCALE) {
+    // Fall back to default locale if requested locale has no docs
+    const defaultDir = join(DOCS_ROOT, DEFAULT_LOCALE);
+    docs = existsSync(defaultDir) ? loadDir(defaultDir, defaultDir) : [];
+  } else {
+    docs = [];
+  }
+
+  _cache.set(locale, { docs, ts: now });
   return docs;
 }
 
 /**
- * Load a single file doc by slug.
+ * Load a single file doc by slug for a given locale.
  */
-export function loadFileDoc(slug: string, docsDir = DOCS_DIR): FileDoc | null {
-  const docs = loadFileDocs(docsDir);
+export function loadFileDoc(slug: string, locale: string = DEFAULT_LOCALE): FileDoc | null {
+  const docs = loadFileDocs(locale);
   return docs.find((d) => d.slug === slug) ?? null;
 }
 
 /** Clear the file docs cache (useful after writing new docs via AI agent) */
 export function invalidateFileDocsCache(): void {
-  _cache = null;
+  _cache.clear();
 }
 
 /**

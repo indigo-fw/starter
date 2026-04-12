@@ -2,6 +2,7 @@ import { eq, and, asc, sql, desc } from 'drizzle-orm';
 import { ilikePattern } from '@/core/crud/drizzle-utils';
 import { db } from '@/server/db';
 import { cmsDocs } from '@/core-docs/schema/docs';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { loadFileDocs, loadFileDoc, stripHtml, markdownToPlainText, type FileDoc } from './docs-loader';
 import { compileMdx } from '@/core/lib/markdown/mdx-compiler';
 
@@ -56,18 +57,18 @@ function fileDocToUnified(doc: FileDoc): UnifiedDoc {
 }
 
 /**
- * Get all docs from both sources, merged into a single list.
+ * Get all docs from both sources for a given locale, merged into a single list.
  * File-based docs take priority over CMS docs with the same slug.
  */
-export async function getAllDocs(): Promise<UnifiedDoc[]> {
-  // Load file-based docs
-  const fileDocs = loadFileDocs().map((d) => fileDocToUnified(d));
+export async function getAllDocs(locale: string = DEFAULT_LOCALE): Promise<UnifiedDoc[]> {
+  // Load file-based docs for locale
+  const fileDocs = loadFileDocs(locale).map((d) => fileDocToUnified(d));
 
-  // Load CMS docs
+  // Load CMS docs for locale
   const cmsDocsRows = await db
     .select()
     .from(cmsDocs)
-    .where(eq(cmsDocs.status, 'published'))
+    .where(and(eq(cmsDocs.status, 'published'), eq(cmsDocs.locale, locale)))
     .orderBy(asc(cmsDocs.sortOrder))
     .limit(1000);
 
@@ -101,13 +102,13 @@ export async function getAllDocs(): Promise<UnifiedDoc[]> {
 }
 
 /**
- * Get a single doc by slug (checks file first, then CMS).
+ * Get a single doc by slug for a given locale (checks file first, then CMS).
  */
-export async function getDocBySlug(slug: string): Promise<RenderedDoc | null> {
+export async function getDocBySlug(slug: string, locale: string = DEFAULT_LOCALE): Promise<RenderedDoc | null> {
   // Check file-based first (takes priority)
-  const fileDoc = loadFileDoc(slug);
+  const fileDoc = loadFileDoc(slug, locale);
   if (fileDoc) {
-    const cacheKey = `docs:${slug}:${fileDoc.updatedAt.getTime()}`;
+    const cacheKey = `docs:${locale}:${slug}:${fileDoc.updatedAt.getTime()}`;
     const renderedBody = await compileMdx(fileDoc.content, cacheKey);
     return { ...fileDocToUnified(fileDoc), renderedBody };
   }
@@ -116,7 +117,7 @@ export async function getDocBySlug(slug: string): Promise<RenderedDoc | null> {
   const [cmsDoc] = await db
     .select()
     .from(cmsDocs)
-    .where(and(eq(cmsDocs.slug, slug), eq(cmsDocs.status, 'published')))
+    .where(and(eq(cmsDocs.slug, slug), eq(cmsDocs.locale, locale), eq(cmsDocs.status, 'published')))
     .limit(1);
 
   if (!cmsDoc) return null;
@@ -138,10 +139,10 @@ export async function getDocBySlug(slug: string): Promise<RenderedDoc | null> {
 }
 
 /**
- * Build navigation tree from all docs.
+ * Build navigation tree from all docs for a given locale.
  */
-export async function getDocsNavigation(): Promise<DocNavItem[]> {
-  const docs = await getAllDocs();
+export async function getDocsNavigation(locale: string = DEFAULT_LOCALE): Promise<DocNavItem[]> {
+  const docs = await getAllDocs(locale);
 
   const items: DocNavItem[] = docs.map((d) => ({
       slug: d.slug,
@@ -171,11 +172,11 @@ export async function getDocsNavigation(): Promise<DocNavItem[]> {
 }
 
 /**
- * Generate LLM-friendly plain text export of all docs.
+ * Generate LLM-friendly plain text export of all docs for a given locale.
  * Returns a single markdown string with all documentation concatenated.
  */
-export async function generateLlmExport(): Promise<string> {
-  const docs = await getAllDocs();
+export async function generateLlmExport(locale: string = DEFAULT_LOCALE): Promise<string> {
+  const docs = await getAllDocs(locale);
 
   const sections = new Map<string, UnifiedDoc[]>();
   for (const doc of docs) {
@@ -208,18 +209,18 @@ export async function generateLlmExport(): Promise<string> {
 }
 
 /**
- * Full-text search across all docs.
+ * Full-text search across all docs for a given locale.
  * Uses tsvector for CMS docs (ranked, with highlighted excerpts) and
  * substring matching for file-based docs. File-based results with the
  * same slug override CMS results (consistent with the rest of the system).
  */
-export async function searchDocs(query: string, limit = 20): Promise<Array<{ slug: string; title: string; excerpt: string }>> {
+export async function searchDocs(query: string, limit = 20, locale: string = DEFAULT_LOCALE): Promise<Array<{ slug: string; title: string; excerpt: string }>> {
   if (!query.trim()) return [];
 
   const q = query.toLowerCase();
 
   // File-based docs: substring match (no DB, no tsvector)
-  const fileDocs = loadFileDocs().map((d) => fileDocToUnified(d));
+  const fileDocs = loadFileDocs(locale).map((d) => fileDocToUnified(d));
   const fileResults = fileDocs
     .filter((d) => d.title.toLowerCase().includes(q) || d.bodyText.toLowerCase().includes(q))
     .map((d) => {
@@ -244,6 +245,7 @@ export async function searchDocs(query: string, limit = 20): Promise<Array<{ slu
       .from(cmsDocs)
       .where(and(
         eq(cmsDocs.status, 'published'),
+        eq(cmsDocs.locale, locale),
         sql`${cmsDocs.searchVector} @@ ${tsQuery}`,
       ))
       .orderBy(desc(sql`ts_rank(${cmsDocs.searchVector}, ${tsQuery})`))
@@ -261,6 +263,7 @@ export async function searchDocs(query: string, limit = 20): Promise<Array<{ slu
       .from(cmsDocs)
       .where(and(
         eq(cmsDocs.status, 'published'),
+        eq(cmsDocs.locale, locale),
         sql`(${cmsDocs.title} ILIKE ${pattern} OR ${cmsDocs.bodyText} ILIKE ${pattern})`,
       ))
       .limit(limit);

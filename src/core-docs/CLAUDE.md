@@ -8,29 +8,36 @@ Documentation system supporting two content sources: CMS database and `.mdx` fil
 
 **core owns (shared):** MDX compiler (`@/core/lib/markdown/mdx-compiler`), MDX component registry, MDX component styles (`@/core/styles/mdx-components.css`), MdxTabsHydrator (`@/core/components/MdxTabsHydrator`), content variable resolution (`@/core/lib/content/vars` — `%VAR%` syntax), file-based content loader + sync, frontmatter parser.
 
-**Project owns:** `docs/content/` directory (file-based docs), docs page route (`app/docs/`), LLM API route (`app/api/docs/llms.txt/`).
+**Project owns:** `docs/{locale}/` directories (file-based docs), docs page route (`app/docs/`), LLM API route (`app/api/docs/llms.txt/`).
 
 ## Two Content Sources
 
-1. **CMS** — authored in admin dashboard, stored in `cms_docs` table. Rich text editor (HTML body).
-2. **.mdx files** — in `docs/content/` directory. YAML frontmatter for metadata. Supports JSX components. Git-tracked.
+1. **CMS** — authored in admin dashboard, stored in `cms_docs` table (with `locale` column). Rich text editor (HTML body).
+2. **.mdx files** — in `docs/{locale}/` directories. YAML frontmatter for metadata. Supports JSX components. Git-tracked.
 
-File-based docs take priority over CMS docs with the same slug.
+File-based docs take priority over CMS docs with the same slug. Both sources are locale-aware.
 
 ## File Structure
 
 ```
-docs/content/
-  getting-started/
-    01-installation.mdx
-    02-configuration.mdx
-  guides/
-    01-modules.mdx
-    02-deployment.mdx
-  api/
-    01-authentication.mdx
-    02-module-development.mdx
+docs/
+  en/                              ← locale subdirectory
+    getting-started/
+      01-installation.mdx
+      02-configuration.mdx
+    guides/
+      01-modules.mdx
+      02-deployment.mdx
+    api/
+      01-authentication.mdx
+      02-module-development.mdx
+  de/                              ← translations
+    getting-started/
+      01-installation.mdx
+      ...
 ```
+
+If a requested locale directory doesn't exist, falls back to default locale (`en`).
 
 Frontmatter:
 ```yaml
@@ -72,16 +79,16 @@ All components work both block-level and inline. Custom components can be regist
 
 ## Key Endpoints
 
-- `docs.getBySlug` — unified doc lookup (file → CMS fallback), returns compiled HTML
-- `docs.getNavigation` — merged nav tree from all sources
-- `docs.search` — full-text search (tsvector for CMS, substring for files)
-- `docs.llmExport` — all docs as single markdown (also at `/api/docs/llms.txt`)
-- `docs.admin*` — CRUD for CMS-authored docs
+- `docs.getBySlug` — unified doc lookup (file → CMS fallback), returns compiled HTML. Accepts `locale`
+- `docs.getNavigation` — merged nav tree from all sources. Accepts `locale`
+- `docs.search` — full-text search (tsvector for CMS, substring for files). Accepts `locale`
+- `docs.llmExport` — all docs as single markdown (also at `/api/docs/llms.txt?lang=en`). Accepts `locale`
+- `docs.admin*` — CRUD for CMS-authored docs (locale-aware)
 
 ## Wiring Into a Project
 
 1. Add to `indigo.config.ts` and run `bun run indigo:sync`
 2. Copy templates: `app/docs/data.ts`, `app/docs/page.tsx`, `app/docs/[...slug]/page.tsx`, `app/api/docs/llms.txt/route.ts`
-3. Create `docs/content/` directory with `.mdx` files
+3. Create `docs/en/` directory with `.mdx` files (add other locale dirs for translations)
 4. Add `/docs` and `/docs/[...slug]` to `src/i18n/routing.ts` pathnames
 5. Run `db:generate` + `db:migrate` for the cms_docs table

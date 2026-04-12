@@ -1,4 +1,4 @@
-import { index, integer, jsonb, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core';
 import { tsvector } from '@/server/db/schema/types';
 
 // ─── cms_docs ───────────────────────────────────────────────────────────────
@@ -10,7 +10,9 @@ export const cmsDocs = pgTable('cms_docs', {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   /** URL slug (e.g. 'getting-started/installation'). Supports nested paths. */
-  slug: varchar('slug', { length: 500 }).notNull().unique(),
+  slug: varchar('slug', { length: 500 }).notNull(),
+  /** Locale code (e.g. 'en', 'de'). Slug is unique per locale. */
+  locale: varchar('locale', { length: 10 }).notNull().default('en'),
   title: varchar('title', { length: 255 }).notNull(),
   /** Rich text content (HTML from editor) */
   body: text('body').notNull().default(''),
@@ -34,7 +36,8 @@ export const cmsDocs = pgTable('cms_docs', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 }, (table) => [
-  index('idx_docs_slug').on(table.slug),
+  uniqueIndex('idx_docs_slug_locale').on(table.slug, table.locale),
+  index('idx_docs_locale').on(table.locale),
   index('idx_docs_section_order').on(table.section, table.sortOrder),
   index('idx_docs_parent').on(table.parentId),
   index('idx_docs_status').on(table.status),

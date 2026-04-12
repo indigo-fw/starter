@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getCachedNavigation } from './data';
+import { getLocale } from '@/core/lib/i18n/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';
 import '@/core/styles/mdx-components.css';
 import '@/core-docs/styles/docs.css';
@@ -8,7 +9,8 @@ import '@/core-docs/styles/docs.css';
  * /docs index — redirects to the first available doc.
  */
 export default async function DocsIndexPage() {
-  const navigation = await getCachedNavigation();
+  const locale = await getLocale();
+  const navigation = await getCachedNavigation(locale);
 
   if (navigation.length > 0) {
     redirect(`/docs/${navigation[0].slug}`);

@@ -61,6 +61,7 @@ vi.mock('@/core-docs/schema/docs', () => ({
   cmsDocs: {
     id: 'cms_docs.id',
     slug: 'cms_docs.slug',
+    locale: 'cms_docs.locale',
     title: 'cms_docs.title',
     body: 'cms_docs.body',
     bodyText: 'cms_docs.body_text',
@@ -74,6 +75,11 @@ vi.mock('@/core-docs/schema/docs', () => ({
     createdAt: 'cms_docs.created_at',
     updatedAt: 'cms_docs.updated_at',
   },
+}));
+
+vi.mock('@/lib/constants', () => ({
+  DEFAULT_LOCALE: 'en',
+  LOCALES: ['en', 'de', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'cs', 'tr', 'ja', 'ko', 'sv', 'da', 'nb', 'fi'],
 }));
 
 const mockGetDocBySlug = vi.fn();
@@ -171,10 +177,10 @@ describe('docsRouter', () => {
       });
 
       const caller = docsRouter.createCaller(createPublicCtx() as never);
-      const result = await caller.getBySlug({ slug: 'getting-started' });
+      const result = await caller.getBySlug({ slug: 'getting-started', locale: 'en' });
 
       expect(result.title).toBe('Getting Started');
-      expect(mockGetDocBySlug).toHaveBeenCalledWith('getting-started');
+      expect(mockGetDocBySlug).toHaveBeenCalledWith('getting-started', 'en');
     });
 
     it('throws NOT_FOUND when doc does not exist', async () => {
@@ -182,7 +188,7 @@ describe('docsRouter', () => {
 
       const caller = docsRouter.createCaller(createPublicCtx() as never);
       await expect(
-        caller.getBySlug({ slug: 'nonexistent' })
+        caller.getBySlug({ slug: 'nonexistent', locale: 'en' })
       ).rejects.toThrow('Documentation page not found');
     });
   });
@@ -194,7 +200,7 @@ describe('docsRouter', () => {
       ]);
 
       const caller = docsRouter.createCaller(createPublicCtx() as never);
-      const result = await caller.getNavigation();
+      const result = await caller.getNavigation({ locale: 'en' });
 
       expect(result).toHaveLength(1);
       expect(result[0].title).toBe('Introduction');
@@ -208,7 +214,7 @@ describe('docsRouter', () => {
       ]);
 
       const caller = docsRouter.createCaller(createPublicCtx() as never);
-      const result = await caller.search({ query: 'install' });
+      const result = await caller.search({ query: 'install', locale: 'en' });
 
       expect(result).toHaveLength(1);
       expect(result[0].slug).toBe('install');
@@ -220,7 +226,7 @@ describe('docsRouter', () => {
       mockGenerateLlmExport.mockResolvedValue('# Documentation\n\nContent here.');
 
       const caller = docsRouter.createCaller(createPublicCtx() as never);
-      const result = await caller.llmExport();
+      const result = await caller.llmExport({ locale: 'en' });
 
       expect(result.content).toContain('# Documentation');
     });
