@@ -36,6 +36,14 @@ vi.mock('@/server/lib/ws', () => ({
   sendToUser: vi.fn(),
 }));
 
+// Mock web-push to prevent dynamic import of @/lib/env (which imports server-only)
+vi.mock('@/core/lib/push/web-push', () => ({
+  sendPushToUser: vi.fn(),
+}));
+
+// Mock server-only to prevent unhandled rejection from transitive imports
+vi.mock('server-only', () => ({}));
+
 import {
   sendNotification,
   sendOrgNotification,

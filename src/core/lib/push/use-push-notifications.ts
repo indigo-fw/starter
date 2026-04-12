@@ -36,6 +36,13 @@ export function usePushNotifications() {
     return pushStatus.subscriptionCount > 0 ? 'subscribed' : 'prompt';
   }, [isSupported, pushEnabled, pushStatus]);
 
+  /** Optimistically update pushStatus cache so useMemo recomputes instantly. */
+  const optimisticSetCount = useCallback((count: number) => {
+    utils.notifications.pushStatus.setData(undefined, (old) =>
+      old ? { ...old, subscriptionCount: count } : { subscriptionCount: count },
+    );
+  }, [utils]);
+
   // Auto-re-register: browser has subscription but server lost it
   useEffect(() => {
     if (state !== 'prompt' || resynced.current) return;
@@ -57,12 +64,13 @@ export function usePushNotifications() {
           p256dh: json.keys.p256dh,
           auth: json.keys.auth,
         });
+        optimisticSetCount(1);
         utils.notifications.pushStatus.invalidate();
       } catch {
         // Silent — don't break the UI over a resync failure
       }
     })();
-  }, [state, subscribe, utils]);
+  }, [state, subscribe, utils, optimisticSetCount]);
 
   const toggle = useCallback(async () => {
     if (state === 'subscribed') {
@@ -72,6 +80,7 @@ export function usePushNotifications() {
         await unsubscribe.mutateAsync({ endpoint: existing.endpoint });
         await existing.unsubscribe();
       }
+      optimisticSetCount(0);
       utils.notifications.pushStatus.invalidate();
       return;
     }
@@ -98,9 +107,10 @@ export function usePushNotifications() {
         auth: json.keys!.auth!,
       });
 
+      optimisticSetCount(1);
       utils.notifications.pushStatus.invalidate();
     }
-  }, [state, subscribe, unsubscribe, utils]);
+  }, [state, subscribe, unsubscribe, utils, optimisticSetCount]);
 
   return {
     state,
