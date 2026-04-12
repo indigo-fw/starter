@@ -88,3 +88,11 @@ The module provides `/news-sitemap.xml` — a route handler that generates a Goo
 Prerequisites: register your site as a Google News publisher in Google Search Console. Update `publicationName` in the route handler to match your registration.
 
 Generator: `generateNewsSitemap(config, articles)` in `lib/news-sitemap.ts` — reusable if you need a custom implementation.
+
+## RSS Feed Per Author
+
+`/api/feed/author/[slug]` — RSS 2.0 feed of posts by a specific author. Supports `?lang=` param. Same pattern as per-tag feeds. Scaffolded via `_templates/app/api/feed/author/[slug]/route.ts`.
+
+## Seed Data
+
+`seedAuthors(db, superadminUserId)` creates 3 demo authors (Alex Rivera, Jordan Chen, Sam Patel) and links them to existing blog posts with rotating primary + occasional co-author. Runs via `bun run init`. Skipped if authors already exist (`hasAuthorData` check).

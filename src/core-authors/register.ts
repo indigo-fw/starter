@@ -19,3 +19,6 @@ export { AuthorPickerPanel } from './components/AuthorPickerPanel';
 
 // Google News Sitemap
 export { generateNewsSitemap } from './lib/news-sitemap';
+
+// Seed
+export { seedAuthors, hasAuthorData } from './seed';

@@ -8,6 +8,7 @@ import { seedAffiliates } from '@/core-affiliates/seed';
 import { seedStore, hasStoreData } from '@/core-store/seed';
 import { seedChatCharacters, hasChatData } from '@/core-chat/seed/characters';
 import { seedBooking, hasBookingData } from '@/core-booking/seed';
+import { seedAuthors, hasAuthorData } from '@/core-authors/seed';
 
 export interface SeedContext {
   userIds: string[];
@@ -26,4 +27,5 @@ export const MODULE_SEEDS: ModuleSeed[] = [
   { label: 'Store demo products, shipping zones & tax rates', fn: seedStore, hasData: hasStoreData },
   { label: 'Chat demo characters', fn: seedChatCharacters, hasData: hasChatData },
   { label: 'Booking demo data (services + schedules)', fn: seedBooking, hasData: hasBookingData },
+  { label: 'Demo authors linked to blog posts', fn: seedAuthors, hasData: hasAuthorData },
 ];

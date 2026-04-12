@@ -10,7 +10,9 @@ const config: ModuleConfig = {
   ],
   serverInit: [],
   jobs: [],
-  seed: [],
+  seed: [
+    { name: 'seedAuthors', from: '@/core-authors/seed', label: 'Demo authors linked to blog posts', hasDataCheck: 'hasAuthorData' },
+  ],
   layoutWidgets: [],
   pageWidgets: [],
   navItems: [
@@ -21,6 +23,7 @@ const config: ModuleConfig = {
     'app/dashboard/(panel)/authors/page.tsx',
     'app/dashboard/(panel)/authors/[id]/page.tsx',
     'app/news-sitemap.xml/route.ts',
+    'app/api/feed/author/[slug]/route.ts',
   ],
 };
 
