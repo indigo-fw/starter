@@ -17,12 +17,34 @@ import { db } from '@/server/db';
 import { cmsOptions } from '@/server/db/schema/cms';
 import { sql } from 'drizzle-orm';
 import { clientEnv, siteDefaults } from '@/config/site';
+import { getScope } from '@/core/lib/infra/scope';
 
 // ─── Cached Options Fetch ───────────────────────────────────────────────────
 
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour — invalidated on save via invalidateContentVarsCache()
 
-let _cache: { vars: Record<string, string>; ts: number } | null = null;
+const CACHE_MAX = 200; // Max number of scoped caches (evict oldest when exceeded)
+const _cacheMap = new Map<string, { vars: Record<string, string>; ts: number }>();
+
+function _getCache() {
+  const key = getScope() ?? '__default__';
+  return _cacheMap.get(key) ?? null;
+}
+
+function _setCache(vars: Record<string, string>) {
+  const key = getScope() ?? '__default__';
+  // LRU eviction
+  if (_cacheMap.size >= CACHE_MAX) {
+    const oldest = _cacheMap.keys().next().value;
+    if (oldest !== undefined) _cacheMap.delete(oldest);
+  }
+  _cacheMap.set(key, { vars, ts: Date.now() });
+}
+
+function _clearCache() {
+  const key = getScope() ?? '__default__';
+  _cacheMap.delete(key);
+}
 
 /** Built-in option keys that map to content variables. */
 const OPTION_KEYS = [
@@ -108,11 +130,12 @@ function buildVarMap(opts: Record<string, string>): Record<string, string> {
  */
 async function getVarsAsync(): Promise<Record<string, string>> {
   const now = Date.now();
-  if (_cache && now - _cache.ts < CACHE_TTL) return _cache.vars;
+  const cached = _getCache();
+  if (cached && now - cached.ts < CACHE_TTL) return cached.vars;
 
   const opts = await fetchVarsFromDb();
   const vars = buildVarMap(opts);
-  _cache = { vars, ts: now };
+  _setCache(vars);
   return vars;
 }
 
@@ -121,7 +144,8 @@ async function getVarsAsync(): Promise<Record<string, string>> {
  * Used by synchronous render paths (ShortcodeRenderer, etc.).
  */
 function getVarsSync(): Record<string, string> {
-  if (_cache) return _cache.vars;
+  const cached = _getCache();
+  if (cached) return cached.vars;
   // No cache yet — return static fallbacks, async fetch will populate cache
   return buildVarMap({});
 }
@@ -134,7 +158,7 @@ let _publisher: import('ioredis').default | null | undefined;
  * Called by the options router when settings are saved.
  */
 export function invalidateContentVarsCache(): void {
-  _cache = null;
+  _clearCache();
   // Broadcast to other instances (fire-and-forget, no-op without Redis)
   if (_publisher) _publisher.publish(INVALIDATION_CHANNEL, '1').catch(() => {});
 }
@@ -154,7 +178,7 @@ export async function initContentVarsSync(): Promise<void> {
     if (!sub) return;
     await sub.subscribe(INVALIDATION_CHANNEL);
     sub.on('message', (channel: string) => {
-      if (channel === INVALIDATION_CHANNEL) _cache = null;
+      if (channel === INVALIDATION_CHANNEL) _clearCache();
     });
   } catch {
     // Redis not available — local invalidation only

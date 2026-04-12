@@ -1,3 +1,4 @@
+import { getScopedKey } from '@/core/lib/infra/scope';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
@@ -197,8 +198,9 @@ export async function compileMdx(
   source: string,
   cacheKey?: string,
 ): Promise<string> {
-  if (cacheKey) {
-    const cached = getCached(cacheKey);
+  const scopedCacheKey = cacheKey ? getScopedKey(cacheKey) : undefined;
+  if (scopedCacheKey) {
+    const cached = getCached(scopedCacheKey);
     if (cached !== undefined) return cached;
   }
 
@@ -206,7 +208,7 @@ export async function compileMdx(
     const resolved = resolveContentVars(source);
     const result = await mdxProcessor.process(resolved);
     const html = String(result);
-    if (cacheKey) setCache(cacheKey, html);
+    if (scopedCacheKey) setCache(scopedCacheKey, html);
     return html;
   } catch (err) {
     console.error('[mdx] Compilation failed:', err);

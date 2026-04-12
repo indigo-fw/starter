@@ -1,4 +1,5 @@
 import { createLogger } from '@/core/lib/infra/logger';
+import { getScopedKey } from '@/core/lib/infra/scope';
 
 const log = createLogger('stats-cache');
 
@@ -17,6 +18,7 @@ export async function getStats<T>(
   fetchFn: () => Promise<T>,
   ttlSeconds = 300
 ): Promise<T> {
+  key = getScopedKey(key);
   const existing = cache.get(key) as CacheEntry<T> | undefined;
   if (existing && existing.expiresAt > Date.now()) {
     return existing.data;

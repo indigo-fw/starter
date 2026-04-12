@@ -41,6 +41,9 @@ export { generateSitemap } from './seo/sitemap';
 export type { SitemapConfig, SitemapStaticPage, SitemapFetcher } from './seo/sitemap';
 export { setCanonicalConfig, buildCanonicalUrl, buildAlternates } from './seo/canonical';
 
+// Scope
+export { withScope, withScopeAsync, getScope, getScopedKey } from './infra/scope';
+
 // RSS
 export { escapeXml, generateRssFeed, createRssResponse } from './content/rss';
 export type { RssFeedConfig, RssFeedItem } from './content/rss';

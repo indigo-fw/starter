@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import { getScopedKey } from '@/core/lib/infra/scope';
 import { createLogger } from '../infra/logger';
 
 const logger = createLogger('Email');
@@ -96,7 +97,7 @@ export function loadTemplateFile(
   locale = DEFAULT_LOCALE,
   templatesDir?: string,
 ): ParsedTemplate {
-  const cacheKey = `${locale}:${template}`;
+  const cacheKey = getScopedKey(locale, template);
   if (!isDev) {
     const cached = _templateCache.get(cacheKey);
     if (cached) return cached;

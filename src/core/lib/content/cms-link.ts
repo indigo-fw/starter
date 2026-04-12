@@ -9,6 +9,7 @@
  */
 
 import 'server-only';
+import { getScopedKey } from '@/core/lib/infra/scope';
 import { and, eq, isNull } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema/cms';
@@ -62,7 +63,7 @@ interface CacheEntry {
 const _cache = new Map<string, CacheEntry>();
 
 function cacheKey(ref: CmsLinkRef, locale: string): string {
-  return `${ref.id ?? ''}|${ref.slug ?? ''}|${ref.type ?? ''}|${locale}|${ref.lang ?? ''}`;
+  return getScopedKey(`${ref.id ?? ''}|${ref.slug ?? ''}|${ref.type ?? ''}|${locale}|${ref.lang ?? ''}`);
 }
 
 function getCached(key: string): ResolvedCmsLink | null | undefined {
