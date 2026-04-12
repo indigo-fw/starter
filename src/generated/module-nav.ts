@@ -18,4 +18,5 @@ export const MODULE_NAV_ITEMS: ModuleNavItem[] = [
   { groupId: 'settings', name: 'Chat', href: '/dashboard/settings/chat', icon: 'MessageCircle' },
   { groupId: 'settings', name: 'Bookings', href: '/dashboard/settings/bookings', icon: 'CalendarCheck' },
   { groupId: 'content', name: 'Authors', href: '/dashboard/authors', icon: 'Users' },
+  { groupId: 'settings', name: 'API Keys', href: '/dashboard/settings/api-keys', icon: 'KeyRound' },
 ];

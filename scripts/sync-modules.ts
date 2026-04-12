@@ -111,7 +111,10 @@ function generateServer(modules: ModuleConfig[]) {
   const jobs = modules.flatMap((m) => m.jobs);
 
   const initImports = inits
-    .map((s) => `  await import('${s}');`)
+    .map((s) => {
+      const mod = s.match(/(?:@\/config\/|@\/core-)([^/]+)/)?.[1] ?? s;
+      return `  try { await import('${s}'); } catch (e) { console.error('[module:${mod}] init failed:', e); throw e; }`;
+    })
     .join('\n');
 
   const jobImports = jobs

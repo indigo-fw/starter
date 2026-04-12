@@ -1,19 +1,12 @@
 import { and, eq, gte, lte, lt } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { saasSubscriptions } from '@/core-subscriptions/schema/subscriptions';
-import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { member } from '@/server/db/schema/organization';
 import { user } from '@/server/db/schema/auth';
 import { cmsAuditLog } from '@/server/db/schema/audit';
 import { createLogger } from '@/core/lib/infra/logger';
 import { logAudit } from '@/core/lib/infra/audit';
 import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
-
-
-import {
-  reconcileStalePendingTransactions,
-  type ProviderCheckFn,
-} from '@/core-subscriptions/lib/reconciliation-service';
 
 const log = createLogger('dunning');
 
@@ -289,112 +282,14 @@ export async function checkLongOverdueSubscriptions(): Promise<void> {
   }
 }
 
-/** 10-second timeout for provider API calls */
-const PROVIDER_TIMEOUT_MS = 10_000;
-
-/**
- * Check Stripe for the actual status of a payment session/subscription.
- */
-async function checkStripeTransaction(
-  providerTxId: string
-): Promise<'successful' | 'pending' | 'failed'> {
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
-  if (!stripeKey) return 'pending';
-
-  // providerTxId could be a checkout session ID or subscription ID
-  const isCheckout = providerTxId.startsWith('cs_');
-
-  const url = isCheckout
-    ? `https://api.stripe.com/v1/checkout/sessions/${providerTxId}`
-    : `https://api.stripe.com/v1/subscriptions/${providerTxId}`;
-
-  const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${stripeKey}` },
-    signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
-  });
-
-  // Rate limited or auth failure — don't mark as failed, try again later
-  if (res.status === 429 || res.status === 401) return 'pending';
-  // 404 means the resource doesn't exist at Stripe — genuinely failed/expired
-  if (res.status === 404) return 'failed';
-  // Other server errors — don't make assumptions, keep as pending
-  if (!res.ok) return 'pending';
-
-  const data = (await res.json()) as Record<string, unknown>;
-
-  if (isCheckout) {
-    const status = data.payment_status as string;
-    if (status === 'paid') return 'successful';
-    if (status === 'unpaid' || status === 'no_payment_required') return 'pending';
-    return 'failed';
-  }
-
-  // Subscription status
-  const subStatus = data.status as string;
-  if (subStatus === 'active' || subStatus === 'trialing') return 'successful';
-  if (subStatus === 'past_due' || subStatus === 'incomplete') return 'pending';
-  return 'failed';
-}
-
-/**
- * Check NOWPayments for the actual status of an invoice.
- */
-async function checkNowPaymentsTransaction(
-  providerTxId: string
-): Promise<'successful' | 'pending' | 'failed'> {
-  const apiKey = process.env.NOWPAYMENTS_API_KEY;
-  if (!apiKey) return 'pending';
-
-  const isSandbox = process.env.NOWPAYMENTS_SANDBOX !== 'false';
-  const baseUrl = isSandbox
-    ? 'https://api-sandbox.nowpayments.io/v1'
-    : 'https://api.nowpayments.io/v1';
-
-  const res = await fetch(`${baseUrl}/payment/${providerTxId}`, {
-    headers: { 'x-api-key': apiKey },
-    signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
-  });
-
-  // Rate limited or auth failure — keep as pending, try again later
-  if (res.status === 429 || res.status === 401 || res.status === 403) return 'pending';
-  if (res.status === 404) return 'failed';
-  if (!res.ok) return 'pending';
-
-  const data = (await res.json()) as Record<string, unknown>;
-  const status = data.payment_status as string;
-
-  if (status === 'finished' || status === 'confirmed') return 'successful';
-  if (status === 'waiting' || status === 'confirming' || status === 'sending')
-    return 'pending';
-  return 'failed';
-}
-
 /**
  * Reconcile stale pending payment transactions by checking with providers.
+ * Delegates to core-payments transaction service via DI.
  */
-export async function runReconciliation(): Promise<void> {
-  const providerChecks: Record<string, ProviderCheckFn> = {};
-
-  if (process.env.STRIPE_SECRET_KEY) {
-    providerChecks['stripe'] = checkStripeTransaction;
-  }
-  if (process.env.NOWPAYMENTS_API_KEY) {
-    providerChecks['nowpayments'] = checkNowPaymentsTransaction;
-  }
-
-  if (Object.keys(providerChecks).length === 0) {
-    return;
-  }
-
-  const result = await reconcileStalePendingTransactions(
-    db,
-    saasPaymentTransactions,
-    providerChecks,
-    { staleThresholdHours: 24 }
-  );
-
-  if (result.checked > 0) {
-    log.info('Reconciliation results', result);
+async function runReconciliation(): Promise<void> {
+  const deps = getSubscriptionsDeps();
+  if (deps.runReconciliation) {
+    await deps.runReconciliation();
   }
 }
 

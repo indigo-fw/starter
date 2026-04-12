@@ -10,6 +10,13 @@ import { sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { enqueueTemplateEmail } from '@/core/lib/email';
 import { registerHook } from '@/core/lib/module/module-hooks';
+import { getProvider, isBillingEnabled, getEnabledProviders } from '@/core-payments/lib/factory';
+import {
+  getTransactionRevenue,
+  getRecentTransactionsWithOrg,
+  getRevenueOverTime,
+  runReconciliation,
+} from '@/core-payments/lib/transaction-service';
 
 setSubscriptionsDeps({
   getPlans: () => PLANS,
@@ -40,6 +47,15 @@ setSubscriptionsDeps({
       .then(({ broadcastToChannel }) => broadcastToChannel(channel, type, payload))
       .catch(() => {});
   },
+
+  // Cross-module: payment capabilities (provided by core-payments)
+  getTransactionRevenue,
+  getRecentTransactions: getRecentTransactionsWithOrg,
+  getRevenueOverTime,
+  getProvider,
+  isBillingEnabled,
+  getEnabledProviders,
+  runReconciliation,
 });
 
 // Register feature gate so other modules can call runGuard('feature.require', ...)

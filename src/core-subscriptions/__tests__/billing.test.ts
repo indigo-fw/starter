@@ -89,13 +89,8 @@ vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
 }));
 
-// Mock payment factory
-vi.mock('@/core-payments/lib/factory', () => ({
-  getProvider: vi.fn().mockResolvedValue(null),
-  getDefaultProvider: vi.fn().mockResolvedValue(null),
-  getEnabledProviders: vi.fn().mockReturnValue([]),
-  isBillingEnabled: vi.fn().mockReturnValue(false),
-}));
+// Note: core-payments factory is no longer imported by billing.ts.
+// Payment capabilities are accessed through getSubscriptionsDeps() DI.
 
 // Mock subscription service
 vi.mock('@/core-subscriptions/lib/subscription-service', () => ({
@@ -168,6 +163,14 @@ const mockBillingDeps = {
   sendOrgNotification: vi.fn(),
   enqueueTemplateEmail: vi.fn().mockResolvedValue(undefined),
   broadcastEvent: vi.fn(),
+  // Cross-module payment deps (via DI)
+  getProvider: vi.fn().mockResolvedValue(null),
+  isBillingEnabled: vi.fn().mockReturnValue(false),
+  getEnabledProviders: vi.fn().mockReturnValue([]),
+  getTransactionRevenue: vi.fn().mockResolvedValue(0),
+  getRecentTransactions: vi.fn().mockResolvedValue([]),
+  getRevenueOverTime: vi.fn().mockResolvedValue([]),
+  runReconciliation: vi.fn().mockResolvedValue(undefined),
 };
 vi.mock('@/core-subscriptions/deps', () => ({
   getSubscriptionsDeps: () => mockBillingDeps,
@@ -218,10 +221,14 @@ vi.mock('@/server/lib/resolve-org', () => ({
 
 import { asMock } from '@/test-utils';
 import { billingRouter } from '@/core-subscriptions/routers/billing';
-import { isBillingEnabled, getProvider, getEnabledProviders } from '@/core-payments/lib/factory';
 import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
 
 import { createMockCtx } from '@/server/routers/__tests__/test-helpers';
+
+// Convenience aliases for mocking payment deps (accessed via getSubscriptionsDeps())
+const isBillingEnabled = mockBillingDeps.isBillingEnabled;
+const getProvider = mockBillingDeps.getProvider;
+const getEnabledProviders = mockBillingDeps.getEnabledProviders;
 
 // ---------------------------------------------------------------------------
 // Shared fixtures
@@ -546,7 +553,7 @@ describe('billingRouter', () => {
     /**
      * Helper: build a select mock for getStats.
      *
-     * getStats makes 10 sequential DB calls:
+     * getStats makes 8 sequential DB calls:
      *  1. planDistribution       (.select.from.where.groupBy)
      *  2. activeSubGroups (MRR)  (.select.from.where.groupBy)
      *  3. trialing count         (.select.from.where)
@@ -554,9 +561,8 @@ describe('billingRouter', () => {
      *  5. pastDue count          (.select.from.where)
      *  6. unpaid count           (.select.from.where)
      *  7. totalEver count        (.select.from — no where!)
-     *  8. totalRevenue sum       (.select.from.where)
-     *  9. recentTransactions     (.select.from.leftJoin.orderBy.limit)
-     * 10. activeDiscountCodes    (.select.from.where)
+     *  8. activeDiscountCodes    (.select.from.where)
+     *  Note: totalRevenue + recentTransactions now come from DI deps, not DB.
      */
     function buildStatsDb(responses: unknown[][]) {
       let callIndex = 0;
@@ -590,7 +596,7 @@ describe('billingRouter', () => {
       return { select: selectMock, insert: vi.fn(), update: vi.fn(), delete: vi.fn() };
     }
 
-    /** Standard 10-response array for getStats with zero values */
+    /** Standard 8-response array for getStats with zero values */
     const ZERO_STATS: unknown[][] = [
       [],             // 1. planDistribution
       [],             // 2. activeSubGroups
@@ -599,9 +605,7 @@ describe('billingRouter', () => {
       [{ count: 0 }], // 5. pastDue
       [{ count: 0 }], // 6. unpaid
       [{ count: 0 }], // 7. totalEver
-      [{ total: 0 }], // 8. totalRevenue
-      [],             // 9. recentTransactions
-      [{ count: 0 }], // 10. activeDiscountCodes
+      [{ count: 0 }], // 8. activeDiscountCodes
     ];
 
     it('returns billing stats with expected shape', async () => {
@@ -609,7 +613,7 @@ describe('billingRouter', () => {
       responses[0] = [{ planId: 'pro', count: 2 }, { planId: 'free', count: 5 }];
       responses[1] = [{ planId: 'pro', providerId: 'stripe', providerPriceId: 'price_pro_monthly', count: 2 }];
       responses[3] = [{ count: 1 }]; // canceled30d
-      responses[9] = [{ count: 3 }]; // activeDiscountCodes
+      responses[7] = [{ count: 3 }]; // activeDiscountCodes
 
       const db = buildStatsDb(responses);
       const ctx = createMockCtx({ db });

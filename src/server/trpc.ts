@@ -7,6 +7,7 @@ import { type AdminSection, Policy, Role, type UserRole } from '@/core/policy';
 import { db } from '@/server/db';
 import { applyRateLimit } from '@/core/lib/api/trpc-rate-limit';
 import { isEmailVerificationRequired } from '@/lib/email-verification';
+import { runAuthMiddleware } from '@/core/lib/module/module-hooks';
 
 /**
  * Context for tRPC procedures — session + Drizzle DB + headers
@@ -58,7 +59,7 @@ const publicRateLimit = t.middleware(async ({ ctx, next }) => {
 });
 
 /** Auth middleware — verifies session, checks for ban, narrows user type */
-const authMiddleware = t.middleware(({ ctx, next }) => {
+const authMiddleware = t.middleware(async ({ ctx, next }) => {
   if (!ctx.session?.user) {
     throw new TRPCError({
       code: 'UNAUTHORIZED',
@@ -96,6 +97,9 @@ const authMiddleware = t.middleware(({ ctx, next }) => {
       message: 'Email verification required',
     });
   }
+
+  // Run registered auth middleware hooks (2FA, IP whitelist, etc.)
+  await runAuthMiddleware({ session: { user: sessionUser } });
 
   return next({
     ctx: {

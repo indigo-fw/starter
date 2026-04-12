@@ -7,13 +7,11 @@ import { recordConversion } from '@/core-affiliates/lib/affiliates';
 import { captureAttribution } from '@/core-affiliates/lib/attribution';
 import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { registerHook } from '@/core/lib/module/module-hooks';
+import { getRevenueByUsers } from '@/core-payments/lib/transaction-service';
 
 setAffiliatesDeps({
   paymentTransactionsTable: saasPaymentTransactions,
-  async getRevenueByUsers() {
-    // Currently unused — breakdown query uses paymentTransactionsTable directly
-    return new Map();
-  },
+  getRevenueByUsers,
 });
 
 // Register affiliate hooks so other modules can call runHook() without direct imports.

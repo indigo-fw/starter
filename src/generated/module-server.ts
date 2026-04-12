@@ -6,14 +6,16 @@
  * Called once at server startup before workers start.
  */
 export async function initModuleDeps(): Promise<void> {
-  await import('@/config/payments-deps');
-  await import('@/config/subscriptions-deps');
-  await import('@/core-payments-crypto/register');
-  await import('@/config/support-deps');
-  await import('@/config/affiliates-deps');
-  await import('@/config/store-deps');
-  await import('@/config/chat-deps');
-  await import('@/config/booking-deps');
+  try { await import('@/config/payments-deps'); } catch (e) { console.error('[module:payments-deps] init failed:', e); throw e; }
+  try { await import('@/config/subscriptions-deps'); } catch (e) { console.error('[module:subscriptions-deps] init failed:', e); throw e; }
+  try { await import('@/core-payments-crypto/register'); } catch (e) { console.error('[module:payments-crypto] init failed:', e); throw e; }
+  try { await import('@/config/support-deps'); } catch (e) { console.error('[module:support-deps] init failed:', e); throw e; }
+  try { await import('@/config/affiliates-deps'); } catch (e) { console.error('[module:affiliates-deps] init failed:', e); throw e; }
+  try { await import('@/config/store-deps'); } catch (e) { console.error('[module:store-deps] init failed:', e); throw e; }
+  try { await import('@/config/chat-deps'); } catch (e) { console.error('[module:chat-deps] init failed:', e); throw e; }
+  try { await import('@/config/booking-deps'); } catch (e) { console.error('[module:booking-deps] init failed:', e); throw e; }
+  try { await import('@/config/api-deps'); } catch (e) { console.error('[module:api-deps] init failed:', e); throw e; }
+  try { await import('@/core-api/lib/api-init'); } catch (e) { console.error('[module:api] init failed:', e); throw e; }
 }
 
 /**

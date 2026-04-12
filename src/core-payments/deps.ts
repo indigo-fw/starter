@@ -34,6 +34,12 @@ export interface PaymentsDeps {
 
   /** Broadcast a real-time event to a WebSocket channel. Fire-and-forget. */
   broadcastEvent: (channel: string, type: string, payload: Record<string, unknown>) => void;
+
+  /**
+   * Look up active subscription for an org (optional — only if subscriptions module installed).
+   * Used by Stripe provider to check for existing customer ID.
+   */
+  getActiveSubscriptionForOrg?: (orgId: string) => Promise<{ providerCustomerId: string | null } | null>;
 }
 
 let _deps: PaymentsDeps | null = null;

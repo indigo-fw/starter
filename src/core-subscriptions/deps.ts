@@ -5,6 +5,7 @@
  * are imported directly. Only project-specific behavior is injected here.
  */
 import type { PlanDefinition } from '@/core-subscriptions/types/billing';
+import type { PaymentProvider, PaymentProviderConfig } from '@/core-payments/types/payment';
 
 export interface SubscriptionsDeps {
   /** All plan definitions for this project. */
@@ -34,6 +35,44 @@ export interface SubscriptionsDeps {
 
   /** Broadcast a real-time event to a WebSocket channel. Fire-and-forget. */
   broadcastEvent: (channel: string, type: string, payload: Record<string, unknown>) => void;
+
+  // ─── Cross-module: payment capabilities (provided via project wiring) ─────
+
+  /** Get total revenue for a given transaction status. Provided by core-payments. */
+  getTransactionRevenue?: (status: string) => Promise<number>;
+
+  /** Get recent transactions with org names (for billing admin). Provided by core-payments. */
+  getRecentTransactions?: (limit: number) => Promise<Array<{
+    id: string;
+    organizationId: string;
+    orgName: string | null;
+    providerId: string;
+    amountCents: number;
+    currency: string;
+    status: string;
+    planId: string | null;
+    interval: string | null;
+    createdAt: Date;
+  }>>;
+
+  /** Get revenue over time (for billing charts). Provided by core-payments. */
+  getRevenueOverTime?: (from?: string, to?: string) => Promise<Array<{
+    date: string;
+    revenue: number;
+    count: number;
+  }>>;
+
+  /** Get a payment provider instance by ID. Provided by core-payments. */
+  getProvider?: (id: string) => Promise<PaymentProvider | null>;
+
+  /** Check if any billing provider is enabled. Provided by core-payments. */
+  isBillingEnabled?: () => boolean;
+
+  /** Get enabled provider configs (for UI). Provided by core-payments. */
+  getEnabledProviders?: () => PaymentProviderConfig[];
+
+  /** Reconcile stale pending transactions. Provided by core-payments. */
+  runReconciliation?: () => Promise<void>;
 }
 
 let _deps: SubscriptionsDeps | null = null;

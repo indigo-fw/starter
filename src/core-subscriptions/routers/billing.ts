@@ -2,7 +2,6 @@ import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { eq, and, desc, sql, gte, lte, inArray } from 'drizzle-orm';
 import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
-import { getProvider, isBillingEnabled, getEnabledProviders } from '@/core-payments/lib/factory';
 import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
 import {
   validateCode,
@@ -16,7 +15,6 @@ import {
   saasSubscriptions,
   saasDiscountCodes,
 } from '@/core-subscriptions/schema/subscriptions';
-import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { organization } from '@/server/db/schema/organization';
 import { getStats as getCachedStats } from '@/core/lib/infra/stats-cache';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
@@ -36,7 +34,7 @@ export const billingRouter = createTRPCRouter({
   }),
 
   getProviders: protectedProcedure.query(() => {
-    return getEnabledProviders();
+    return getSubscriptionsDeps().getEnabledProviders?.() ?? [];
   }),
 
   getSubscription: protectedProcedure.query(async ({ ctx }) => {
@@ -56,14 +54,14 @@ export const billingRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (!isBillingEnabled()) {
+      if (!getSubscriptionsDeps().isBillingEnabled?.()) {
         throw new TRPCError({
           code: 'PRECONDITION_FAILED',
           message: 'Billing is not configured',
         });
       }
 
-      const provider = await getProvider(input.providerId);
+      const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
       if (!provider) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -156,7 +154,7 @@ export const billingRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const provider = await getProvider(input.providerId);
+      const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
       if (!provider?.createPortalSession) {
         throw new TRPCError({
           code: 'PRECONDITION_FAILED',
@@ -222,7 +220,7 @@ export const billingRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (!isBillingEnabled()) {
+      if (!getSubscriptionsDeps().isBillingEnabled?.()) {
         throw new TRPCError({
           code: 'PRECONDITION_FAILED',
           message: 'Billing is not configured',
@@ -247,7 +245,7 @@ export const billingRouter = createTRPCRouter({
         });
       }
 
-      const provider = await getProvider(input.providerId);
+      const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
       if (!provider) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -368,30 +366,12 @@ export const billingRouter = createTRPCRouter({
         const canceledCount = Number(canceledResult?.count ?? 0);
         const churnRate = totalEver > 0 ? Math.round((canceledCount / totalEver) * 10000) / 100 : 0;
 
-        // Total revenue
-        const [revenueResult] = await ctx.db
-          .select({ total: sql<number>`coalesce(sum(${saasPaymentTransactions.amountCents}), 0)`.as('total') })
-          .from(saasPaymentTransactions)
-          .where(eq(saasPaymentTransactions.status, 'successful'));
+        // Total revenue (via DI — provided by core-payments)
+        const deps = getSubscriptionsDeps();
+        const totalRevenueValue = await deps.getTransactionRevenue?.('successful') ?? 0;
 
-        // Recent transactions with org names
-        const recentTransactions = await ctx.db
-          .select({
-            id: saasPaymentTransactions.id,
-            organizationId: saasPaymentTransactions.organizationId,
-            orgName: organization.name,
-            providerId: saasPaymentTransactions.providerId,
-            amountCents: saasPaymentTransactions.amountCents,
-            currency: saasPaymentTransactions.currency,
-            status: saasPaymentTransactions.status,
-            planId: saasPaymentTransactions.planId,
-            interval: saasPaymentTransactions.interval,
-            createdAt: saasPaymentTransactions.createdAt,
-          })
-          .from(saasPaymentTransactions)
-          .leftJoin(organization, eq(saasPaymentTransactions.organizationId, organization.id))
-          .orderBy(desc(saasPaymentTransactions.createdAt))
-          .limit(10);
+        // Recent transactions with org names (via DI — provided by core-payments)
+        const recentTransactions = await deps.getRecentTransactions?.(10) ?? [];
 
         // Active discount codes count
         const [discountResult] = await ctx.db
@@ -411,7 +391,7 @@ export const billingRouter = createTRPCRouter({
             totalEver,
             churnRate,
           },
-          totalRevenue: Number(revenueResult?.total ?? 0),
+          totalRevenue: totalRevenueValue,
           recentTransactions,
           activeDiscountCodes: Number(discountResult?.count ?? 0),
         };
@@ -643,34 +623,9 @@ export const billingRouter = createTRPCRouter({
         to: z.string().datetime().optional(),
       })
     )
-    .query(async ({ ctx, input }) => {
-      const conditions = [
-        eq(saasPaymentTransactions.status, 'successful'),
-      ];
-      if (input.from) {
-        conditions.push(gte(saasPaymentTransactions.createdAt, new Date(input.from)));
-      }
-      if (input.to) {
-        conditions.push(lte(saasPaymentTransactions.createdAt, new Date(input.to)));
-      }
-
-      const rows = await ctx.db
-        .select({
-          date: sql<string>`to_char(${saasPaymentTransactions.createdAt}, 'YYYY-MM-DD')`.as('date'),
-          revenue: sql<number>`sum(${saasPaymentTransactions.amountCents})`.as('revenue'),
-          count: sql<number>`count(*)`.as('count'),
-        })
-        .from(saasPaymentTransactions)
-        .where(and(...conditions))
-        .groupBy(sql`to_char(${saasPaymentTransactions.createdAt}, 'YYYY-MM-DD')`)
-        .orderBy(sql`to_char(${saasPaymentTransactions.createdAt}, 'YYYY-MM-DD')`)
-        .limit(365);
-
-      return rows.map((r) => ({
-        date: r.date,
-        revenue: Number(r.revenue),
-        count: Number(r.count),
-      }));
+    .query(async ({ input }) => {
+      // Revenue over time (via DI — provided by core-payments)
+      return await getSubscriptionsDeps().getRevenueOverTime?.(input.from, input.to) ?? [];
     }),
 
   // ─── Token balance (customer-facing) ────────────────────────────────────

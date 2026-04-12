@@ -27,6 +27,7 @@ import { bookingServicesRouter } from '@/core-booking/routers/services';
 import { bookingAvailabilityRouter } from '@/core-booking/routers/availability';
 import { bookingBookingsRouter } from '@/core-booking/routers/bookings';
 import { authorsRouter } from '@/core-authors/routers/authors';
+import { apiKeysRouter } from '@/core-api/routers/api-keys';
 
 export const moduleRouters = {
   billing: billingRouter,
@@ -55,4 +56,5 @@ export const moduleRouters = {
   bookingAvailability: bookingAvailabilityRouter,
   bookings: bookingBookingsRouter,
   authors: authorsRouter,
+  apiKeys: apiKeysRouter,
 } as const;

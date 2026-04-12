@@ -12,7 +12,7 @@ Free subscription lifecycle module. Subscription management, tokens, discounts, 
 
 - core-subscriptions imports from `@/core/*` (core utilities)
 - Framework conventions imported directly: `@/server/trpc`, `@/server/db`, `@/server/db/schema/auth`, `@/server/db/schema/organization`, `@/server/db/schema/audit`
-- Cross-module: imports from `@/core-payments/*` (factory, payment types, payment schema)
+- Cross-module: payment provider/transaction access via DI (injected in subscriptions-deps.ts). Only type imports from `@/core-payments/types/payment` (DiscountType enum, type interfaces)
 - Project-specific behavior injected via `setSubscriptionsDeps()`
 - Project imports from `@/core-subscriptions/*`
 - Core (`src/core/`) never imports from core-subscriptions

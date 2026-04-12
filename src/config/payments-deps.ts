@@ -6,6 +6,7 @@ import { setPaymentsDeps, type PaymentsDeps } from '@/core-payments/deps';
 import { getPlan, getPlanByProviderPriceId, getProviderPriceId } from '@/config/plans';
 import { getEnabledProviderConfigs } from '@/config/payment-providers';
 import { resolveOrgId } from '@/server/lib/resolve-org';
+import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
 
 setPaymentsDeps({
   getEnabledProviderConfigs,
@@ -21,5 +22,11 @@ setPaymentsDeps({
     import('@/server/lib/ws')
       .then(({ broadcastToChannel }) => broadcastToChannel(channel, type, payload))
       .catch(() => {});
+  },
+
+  // Cross-module: subscription lookup for Stripe customer reuse
+  async getActiveSubscriptionForOrg(orgId) {
+    const sub = await getSubscription(orgId);
+    return sub ? { providerCustomerId: sub.providerCustomerId ?? null } : null;
   },
 });

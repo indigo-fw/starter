@@ -12,7 +12,7 @@ Free payment processing infrastructure module. Multi-provider payment system wit
 
 - core-payments imports from `@/core/*` (core utilities)
 - Framework conventions imported directly: `@/server/db`, `@/server/db/schema/organization`
-- Cross-module: imports `saasSubscriptions` from `@/core-subscriptions/schema/subscriptions` (for Stripe customer lookup)
+- Cross-module: Stripe customer lookup uses optional `getActiveSubscriptionForOrg` from DI (no direct schema import)
 - Project-specific behavior injected via `setPaymentsDeps()`
 - Project imports from `@/core-payments/*`
 - Core (`src/core/`) never imports from core-payments

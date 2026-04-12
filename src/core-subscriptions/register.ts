@@ -32,7 +32,6 @@ export { activateSubscription, updateSubscription, cancelSubscription, getSubscr
 export { validateCode, applyDiscount, removeDiscount, finalizeUsage, getActiveDiscount } from './lib/discount-service';
 export { setPlanResolver, getPlanFeatures, checkFeature, requireFeature } from './lib/feature-gate';
 export { getTokenBalance, getTokenBalanceRecord, addTokens, deductTokens, getTokenTransactions } from './lib/token-service';
-export { reconcileStalePendingTransactions } from './lib/reconciliation-service';
 
 // Lib — dunning
 export { runDunningChecks } from './lib/dunning';

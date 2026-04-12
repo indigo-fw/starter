@@ -133,3 +133,32 @@ export async function runHealthChecks(): Promise<Record<string, HealthCheckResul
 export function getRegisteredModules(): string[] {
   return [...healthCheckers.keys()];
 }
+
+// ─── Auth middleware (for tRPC) ───────��─────────────────────────────────────
+
+type AuthMiddlewareCtx = {
+  session: { user: { id: string; role?: string; email?: string; banned?: boolean } };
+};
+type AuthMiddlewareFn = (ctx: AuthMiddlewareCtx) => Promise<void>;
+
+const authMiddlewares: { name: string; fn: AuthMiddlewareFn }[] = [];
+
+/**
+ * Register an auth middleware hook.
+ * Called during serverInit by modules that need custom auth checks (2FA, IP whitelist, etc.).
+ * Throw a TRPCError to block access.
+ */
+export function registerAuthMiddleware(name: string, fn: AuthMiddlewareFn): void {
+  authMiddlewares.push({ name, fn });
+}
+
+/**
+ * Run all registered auth middleware hooks sequentially.
+ * Called by tRPC authMiddleware after core checks pass.
+ * Any handler can throw TRPCError to block the request.
+ */
+export async function runAuthMiddleware(ctx: AuthMiddlewareCtx): Promise<void> {
+  for (const { fn } of authMiddlewares) {
+    await fn(ctx);
+  }
+}

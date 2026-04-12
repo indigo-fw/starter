@@ -48,20 +48,42 @@ class FilesystemStorage implements StorageProvider {
   }
 }
 
+// ─── Storage provider registry ──────────────────────────────────────────────
+
+type StorageFactory = () => StorageProvider;
+const storageFactories = new Map<string, StorageFactory>();
+
+/**
+ * Register a storage provider factory.
+ * Call this before the first `getStorage()` invocation (e.g., in a deps file).
+ * Built-in providers ('filesystem', 's3') are pre-registered.
+ */
+export function registerStorageProvider(name: string, factory: StorageFactory): void {
+  storageFactories.set(name, factory);
+}
+
+// Built-in providers
+registerStorageProvider('filesystem', () => new FilesystemStorage());
+registerStorageProvider('s3', () => {
+  // Dynamic import to avoid loading S3 deps when using filesystem
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { S3Storage } = require('./s3') as typeof import('./s3');
+  return new S3Storage();
+});
+
 let storage: StorageProvider | null = null;
 
 /** Get the configured storage provider */
 export function getStorage(): StorageProvider {
   if (!storage) {
     const backend = process.env.STORAGE_BACKEND ?? 'filesystem';
-    if (backend === 's3') {
-      // Dynamic import to avoid loading S3 deps when using filesystem
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { S3Storage } = require('./s3') as typeof import('./s3');
-      storage = new S3Storage();
-    } else {
-      storage = new FilesystemStorage();
+    const factory = storageFactories.get(backend);
+    if (!factory) {
+      throw new Error(
+        `Unknown storage backend: "${backend}". Registered: ${[...storageFactories.keys()].join(', ')}`,
+      );
     }
+    storage = factory();
   }
   return storage;
 }

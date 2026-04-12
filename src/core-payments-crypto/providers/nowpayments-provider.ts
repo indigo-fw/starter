@@ -1,9 +1,12 @@
 import crypto from 'crypto';
-import { eq } from 'drizzle-orm';
 import type { PaymentProvider, CheckoutParams, CheckoutResult, WebhookEvent } from '@/core-payments/types/payment';
 import { TransactionStatus } from '@/core-payments/types/payment';
-import { db } from '@/server/db';
-import { saasPaymentTransactions } from '@/core-payments/schema/payments';
+import {
+  createTransaction,
+  updateTransactionProvider,
+  updateTransactionStatus,
+  getTransaction,
+} from '@/core-payments/lib/transaction-service';
 import { getPaymentsDeps } from '@/core-payments/deps';
 import { createLogger } from '@/core/lib/infra/logger';
 
@@ -96,23 +99,17 @@ export class NowPaymentsProvider implements PaymentProvider {
     const discountAmountCents = originalPriceCents - priceCents;
 
     // Create local transaction record
-    const [tx] = await db
-      .insert(saasPaymentTransactions)
-      .values({
-        organizationId: params.organizationId,
-        providerId: 'nowpayments',
-        amountCents: priceCents,
-        currency: 'usd',
-        status: TransactionStatus.PENDING,
-        planId: params.planId,
-        interval: params.interval,
-        discountCodeId: params.metadata?.discountCodeId ?? null,
-        discountAmountCents: discountAmountCents > 0 ? discountAmountCents : 0,
-        rawRequest: params.metadata as Record<string, unknown> ?? null,
-      })
-      .returning({ id: saasPaymentTransactions.id });
-
-    const orderId = tx!.id;
+    const orderId = await createTransaction({
+      organizationId: params.organizationId,
+      providerId: 'nowpayments',
+      amountCents: priceCents,
+      currency: 'usd',
+      planId: params.planId,
+      interval: params.interval,
+      discountCodeId: (params.metadata?.discountCodeId as string) ?? null,
+      discountAmountCents: discountAmountCents > 0 ? discountAmountCents : 0,
+      metadata: params.metadata as Record<string, unknown> ?? null,
+    });
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
 
     // Create NOWPayments invoice
@@ -137,24 +134,14 @@ export class NowPaymentsProvider implements PaymentProvider {
       const error = await response.text();
       logger.error('NOWPayments invoice creation failed', { error, orderId });
       // Clean up orphaned transaction
-      await db
-        .update(saasPaymentTransactions)
-        .set({ status: TransactionStatus.FAILED, updatedAt: new Date() })
-        .where(eq(saasPaymentTransactions.id, orderId));
+      await updateTransactionStatus(orderId, TransactionStatus.FAILED);
       throw new Error(`NOWPayments API error: ${response.status}`);
     }
 
     const data = (await response.json()) as { id: string; invoice_url: string };
 
     // Update transaction with provider reference
-    await db
-      .update(saasPaymentTransactions)
-      .set({
-        providerTxId: String(data.id),
-        rawResponse: data as unknown as Record<string, unknown>,
-        updatedAt: new Date(),
-      })
-      .where(eq(saasPaymentTransactions.id, orderId));
+    await updateTransactionProvider(orderId, String(data.id), data as unknown as Record<string, unknown>);
 
     return {
       url: data.invoice_url,
@@ -180,11 +167,7 @@ export class NowPaymentsProvider implements PaymentProvider {
     const orderId = body.order_id as string;
 
     // Look up our transaction
-    const [tx] = await db
-      .select()
-      .from(saasPaymentTransactions)
-      .where(eq(saasPaymentTransactions.id, orderId))
-      .limit(1);
+    const tx = await getTransaction(orderId);
 
     if (!tx) {
       logger.warn('NOWPayments IPN for unknown order', { orderId });
@@ -196,14 +179,7 @@ export class NowPaymentsProvider implements PaymentProvider {
       case 'finished':
       case 'confirmed': {
         // Update transaction as successful
-        await db
-          .update(saasPaymentTransactions)
-          .set({
-            status: TransactionStatus.SUCCESSFUL,
-            rawResponse: body,
-            updatedAt: new Date(),
-          })
-          .where(eq(saasPaymentTransactions.id, orderId));
+        await updateTransactionStatus(orderId, TransactionStatus.SUCCESSFUL, body);
 
         // Merge checkout metadata (contains discountUsageId etc.) into providerData
         const checkoutMetadata = tx.rawRequest as Record<string, unknown> | null;
@@ -222,14 +198,7 @@ export class NowPaymentsProvider implements PaymentProvider {
 
       case 'failed':
       case 'expired': {
-        await db
-          .update(saasPaymentTransactions)
-          .set({
-            status: TransactionStatus.FAILED,
-            rawResponse: body,
-            updatedAt: new Date(),
-          })
-          .where(eq(saasPaymentTransactions.id, orderId));
+        await updateTransactionStatus(orderId, TransactionStatus.FAILED, body);
 
         return {
           type: 'payment.failed',
@@ -240,14 +209,7 @@ export class NowPaymentsProvider implements PaymentProvider {
       }
 
       case 'refunded': {
-        await db
-          .update(saasPaymentTransactions)
-          .set({
-            status: TransactionStatus.REFUNDED,
-            rawResponse: body,
-            updatedAt: new Date(),
-          })
-          .where(eq(saasPaymentTransactions.id, orderId));
+        await updateTransactionStatus(orderId, TransactionStatus.REFUNDED, body);
 
         return {
           type: 'payment.refunded',
