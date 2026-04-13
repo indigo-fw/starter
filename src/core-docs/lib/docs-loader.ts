@@ -120,18 +120,13 @@ export function loadFileDocs(locale: string = DEFAULT_LOCALE): FileDoc[] {
   }
 
   const localeDir = join(DOCS_ROOT, locale);
-  let docs: FileDoc[];
 
-  if (existsSync(localeDir)) {
-    docs = loadDir(localeDir, localeDir);
-  } else if (locale !== DEFAULT_LOCALE) {
-    // Fall back to default locale if requested locale has no docs
-    const defaultDir = join(DOCS_ROOT, DEFAULT_LOCALE);
-    docs = existsSync(defaultDir) ? loadDir(defaultDir, defaultDir) : [];
-  } else {
-    docs = [];
+  if (!existsSync(localeDir) && locale !== DEFAULT_LOCALE) {
+    // Delegate to default locale — shares its cache entry
+    return loadFileDocs(DEFAULT_LOCALE);
   }
 
+  const docs = existsSync(localeDir) ? loadDir(localeDir, localeDir) : [];
   _cache.set(locale, { docs, ts: now });
   return docs;
 }
