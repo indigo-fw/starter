@@ -6,9 +6,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { Globe, Trash2, Plus, Check, X, ArrowLeft, Pause, Play, RotateCcw, Copy, Palette } from 'lucide-react';
 import { useSitesApi, useSitesUtils } from '@/core-multisite/hooks/useSitesApi';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
+import { useConfirm, usePrompt } from '@/core/hooks';
 
 export default function SiteDetailPage() {
   const __ = useAdminTranslations();
+  const confirm = useConfirm();
+  const prompt = usePrompt();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
 
@@ -76,7 +79,7 @@ export default function SiteDetailPage() {
   };
 
   const handleSuspend = async () => {
-    if (!confirm(__('Suspend this site? It will become inaccessible to visitors.'))) return;
+    if (!await confirm({ title: __('Suspend this site?'), message: __('It will become inaccessible to visitors.'), variant: 'danger', confirmLabel: __('Suspend') })) return;
     await suspendMutation.mutateAsync({ id });
     utils.invalidate();
   };
@@ -87,7 +90,7 @@ export default function SiteDetailPage() {
   };
 
   const handleDelete = async () => {
-    if (!confirm(__('Are you sure you want to disable this site?'))) return;
+    if (!await confirm({ title: __('Are you sure you want to disable this site?'), variant: 'danger', confirmLabel: __('Delete') })) return;
     await softDelete.mutateAsync({ id });
     router.push('/dashboard/settings/sites');
   };
@@ -98,7 +101,7 @@ export default function SiteDetailPage() {
   };
 
   const handleClone = async () => {
-    const cloneName = prompt(__('Name for the cloned site:'));
+    const cloneName = await prompt({ title: __('Name for the cloned site:'), placeholder: __('Site name') });
     if (!cloneName?.trim()) return;
     const result = await cloneMutation.mutateAsync({ sourceSiteId: id, name: cloneName.trim() });
     router.push(`/dashboard/settings/sites/${result.id}`);
@@ -113,7 +116,7 @@ export default function SiteDetailPage() {
   };
 
   const handleRemoveDomain = async (domainId: string) => {
-    if (!confirm(__('Remove this domain?'))) return;
+    if (!await confirm({ title: __('Remove this domain?'), variant: 'danger', confirmLabel: __('Remove') })) return;
     await removeDomainMutation.mutateAsync({ id: domainId });
     utils.invalidate();
   };

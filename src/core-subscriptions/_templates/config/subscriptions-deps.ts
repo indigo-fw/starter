@@ -42,6 +42,51 @@ setSubscriptionsDeps({
   },
 });
 
+// Cancel subscriptions when a user account is deleted (GDPR).
+// Only cancels subscriptions for orgs where the user is the sole member
+// (i.e. personal orgs). Shared team orgs are left intact.
+registerHook('user.beforeDelete', async (userId: unknown) => {
+  if (typeof userId !== 'string') return;
+  const { db } = await import('@/server/db');
+  const { member } = await import('@/server/db/schema/organization');
+  const { saasSubscriptions } = await import('@/core-subscriptions/schema/subscriptions');
+  const { eq, and, inArray, sql } = await import('drizzle-orm');
+
+  // Find orgs where this user is the ONLY member (personal orgs)
+  const soleMemberOrgs = await db
+    .select({ organizationId: member.organizationId })
+    .from(member)
+    .where(eq(member.userId, userId))
+    .limit(100);
+
+  if (soleMemberOrgs.length === 0) return;
+
+  const orgIds = soleMemberOrgs.map((m) => m.organizationId);
+
+  // Filter to orgs with exactly 1 member (this user)
+  const soleOrgs = await db
+    .select({ organizationId: member.organizationId })
+    .from(member)
+    .where(inArray(member.organizationId, orgIds))
+    .groupBy(member.organizationId)
+    .having(sql`count(*) = 1`);
+
+  if (soleOrgs.length === 0) return;
+
+  const soleOrgIds = soleOrgs.map((o) => o.organizationId);
+
+  // Cancel active subscriptions only for sole-member orgs
+  await db
+    .update(saasSubscriptions)
+    .set({ status: 'canceled', updatedAt: new Date() })
+    .where(
+      and(
+        inArray(saasSubscriptions.organizationId, soleOrgIds),
+        inArray(saasSubscriptions.status, ['active', 'past_due', 'trialing'])
+      )
+    );
+});
+
 // Register feature gate so other modules can call runGuard('feature.require', ...)
 // without importing from core-subscriptions directly.
 registerHook('feature.require', async (orgId: unknown, feature: unknown, currentUsage: unknown) => {

@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useSession } from '@/lib/auth-client';
+import { useSession, signOut } from '@/lib/auth-client';
 import { trpc } from '@/lib/trpc/client';
 import { apiRoutes } from '@/config/routes';
 import { useBlankTranslations } from '@/lib/translations';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 export default function AccountSettingsPage() {
   const __ = useBlankTranslations();
@@ -12,10 +13,23 @@ export default function AccountSettingsPage() {
   const [name, setName] = useState(session?.user?.name ?? '');
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
 
   const updateProfile = trpc.auth.updateProfile.useMutation({
     onSuccess: () => { setSaved(true); setTimeout(() => setSaved(false), 3000); },
     onError: (err) => setError(err.message),
+  });
+
+  const deleteAccount = trpc.auth.deleteAccount.useMutation({
+    onSuccess: async () => {
+      try { await signOut(); } catch { /* sessions already deleted server-side */ }
+      window.location.href = '/';
+    },
+    onError: (err) => {
+      setDeleteError(err.message);
+      setDeleteDialogOpen(false);
+    },
   });
 
   return (
@@ -60,15 +74,31 @@ export default function AccountSettingsPage() {
         <p className="text-sm text-(--text-secondary) mb-4">
           {__('Download your data or permanently delete your account.')}
         </p>
+        {deleteError && <p className="text-sm text-danger-500 mb-3">{deleteError}</p>}
         <div className="flex gap-3">
           <a href={apiRoutes.gdprExport()} className="py-2 px-4 rounded-lg text-sm border border-(--border-primary) hover:bg-(--surface-secondary) transition-colors">
             {__('Download My Data')}
           </a>
-          <button className="py-2 px-4 rounded-lg text-sm border border-danger-500 text-danger-500 hover:bg-danger-500/10 transition-colors">
+          <button
+            onClick={() => setDeleteDialogOpen(true)}
+            className="py-2 px-4 rounded-lg text-sm border border-danger-500 text-danger-500 hover:bg-danger-500/10 transition-colors"
+          >
             {__('Delete Account')}
           </button>
         </div>
       </div>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        title={__('Delete your account?')}
+        message={__('This action is permanent and cannot be undone. Your account and all personal data will be erased. Active subscriptions will be cancelled and will not be refunded. You can register again with the same email address.')}
+        confirmLabel={deleteAccount.isPending ? __('Deleting...') : __('Yes, permanently delete my account')}
+        cancelLabel={__('Cancel')}
+        variant="danger"
+        loading={deleteAccount.isPending}
+        onConfirm={() => deleteAccount.mutate()}
+        onCancel={() => setDeleteDialogOpen(false)}
+      />
     </div>
   );
 }

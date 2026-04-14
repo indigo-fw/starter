@@ -6,6 +6,10 @@ import { user, session, account } from '@/server/db/schema/auth';
 import { cmsAuditLog } from '@/server/db/schema/audit';
 import { Policy } from '@/core/policy';
 import { logAudit } from '@/core/lib/infra/audit';
+import { runHook } from '@/core/lib/module/module-hooks';
+import { createLogger } from '@/core/lib/infra/logger';
+
+const logger = createLogger('GDPR');
 
 export type AnonymizationMode = 'full' | 'pseudonymize';
 
@@ -37,12 +41,12 @@ export function isAnonymized(userRecord: { email: string }): boolean {
 export async function anonymizeUser(
   db: DbClient,
   userId: string,
-  adminId: string,
+  adminId?: string,
   mode: AnonymizationMode = 'full'
 ): Promise<void> {
-  // 1. Validate: user exists and is not staff
+  // 1. Validate: user exists, not already anonymized, and is not staff
   const [target] = await db
-    .select({ id: user.id, role: user.role })
+    .select({ id: user.id, role: user.role, email: user.email })
     .from(user)
     .where(eq(user.id, userId))
     .limit(1);
@@ -51,17 +55,31 @@ export async function anonymizeUser(
     throw new Error('User not found');
   }
 
+  if (isAnonymized(target)) {
+    throw new Error('User has already been deleted');
+  }
+
   if (Policy.for(target.role).canAccessAdmin()) {
     throw new Error('Cannot anonymize a staff account');
   }
 
-  // 2. Delete all sessions (FK cascades handle related data)
+  // 2. Run pre-delete hooks (e.g. cancel subscriptions)
+  try {
+    await runHook('user.beforeDelete', userId);
+  } catch (err) {
+    logger.warn('user.beforeDelete hook failed', {
+      userId,
+      error: String(err),
+    });
+  }
+
+  // 3. Delete all sessions (FK cascades handle related data)
   await db.delete(session).where(eq(session.userId, userId));
 
-  // 3. Delete all accounts (credentials, OAuth tokens)
+  // 4. Delete all accounts (credentials, OAuth tokens)
   await db.delete(account).where(eq(account.userId, userId));
 
-  // 4. Overwrite user PII based on mode
+  // 5. Overwrite user PII based on mode
   if (mode === 'pseudonymize') {
     const pseudo = pseudonymize(userId);
     await db
@@ -70,6 +88,7 @@ export async function anonymizeUser(
         name: pseudo.name,
         email: pseudo.email,
         image: null,
+        lastIp: null,
         banned: true,
         banReason: 'GDPR pseudonymization',
         emailVerified: false,
@@ -83,6 +102,7 @@ export async function anonymizeUser(
         name: 'deleted_user',
         email: `deleted-${userId}@gdpr.invalid`,
         image: null,
+        lastIp: null,
         banned: true,
         banReason: 'GDPR deletion',
         emailVerified: false,
@@ -91,14 +111,14 @@ export async function anonymizeUser(
       .where(eq(user.id, userId));
   }
 
-  // 5. Audit log
+  // 6. Audit log
   logAudit({
     db,
-    userId: adminId,
+    userId: adminId ?? userId,
     action: mode === 'pseudonymize' ? 'gdpr_pseudonymize' : 'gdpr_anonymize',
     entityType: 'user',
     entityId: userId,
-    metadata: { mode },
+    metadata: { mode, self_service: !adminId },
   });
 }
 

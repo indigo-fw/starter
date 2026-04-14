@@ -7,9 +7,11 @@ import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { toast } from '@/store/toast-store';
+import { useConfirm } from '@/core/hooks';
 
 export default function AuthorsListPage() {
   const __ = useAdminTranslations();
+  const confirm = useConfirm();
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -83,8 +85,8 @@ export default function AuthorsListPage() {
                           <Pencil size={14} />
                         </button>
                         <button
-                          onClick={() => {
-                            if (confirm(__('Delete this author?'))) {
+                          onClick={async () => {
+                            if (await confirm({ title: __('Delete this author?'), variant: 'danger', confirmLabel: __('Delete') })) {
                               deleteMutation.mutate({ id: author.id });
                             }
                           }}

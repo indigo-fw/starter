@@ -67,6 +67,7 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - **Structured data:** `<StructuredData data={jsonLd} />` — renders `<script type="application/ld+json">`
 - **Canonical URLs:** `setCanonicalConfig()` + `buildCanonicalUrl(path, locale)` + `buildAlternates(path, locales)` — locale-aware absolute URLs for SEO metadata. Wire via `src/config/canonical-init.ts` (side-effect import)
 - **JSON-LD builders:** `buildArticleJsonLd()` (Article/BlogPosting with author), `buildBreadcrumbJsonLd()` (hierarchical pages), `buildOrganizationJsonLd()` (root layout) — all in `seo/json-ld.ts`
+- **Imperative dialogs:** `useConfirm()`, `useAlert()`, `usePrompt()` from `@/core/hooks` — Promise-based replacements for native `confirm()`/`alert()`/`prompt()`. Queued (concurrent calls wait). Requires `<ImperativeDialogProvider>` in layout (already in root). Uses Dialog component with consistent styling, translations, and `variant: 'danger'` support. For complex flows with managed `open` state, use `<ConfirmDialog>` instead
 
 ## Translations
 

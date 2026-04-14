@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
 
 import { TRPCProvider } from '@/lib/trpc/provider';
+import { ImperativeDialogProvider } from '@/core/components/overlays/ImperativeDialogProvider';
 import { StructuredData } from '@/core/components/seo/StructuredData';
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/core/lib/seo/json-ld';
 import { siteDefaults } from '@/config/site';
@@ -81,7 +82,9 @@ export default async function RootLayout({
       </head>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <TRPCProvider>{children}</TRPCProvider>
+          <TRPCProvider>
+            <ImperativeDialogProvider>{children}</ImperativeDialogProvider>
+          </TRPCProvider>
           <WebVitals />
         </NextIntlClientProvider>
       </body>

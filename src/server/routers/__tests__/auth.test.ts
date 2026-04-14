@@ -179,18 +179,7 @@ describe('authRouter', () => {
       const result = await caller.deleteAccount();
 
       expect(result).toEqual({ success: true });
-      expect(anonymizeUser).toHaveBeenCalledWith(ctx.db, 'user-1', 'user-1', 'full');
-    });
-
-    it('supports pseudonymize mode', async () => {
-      const ctx = createMockCtx();
-      asMock(anonymizeUser).mockResolvedValue(undefined);
-
-      const caller = authRouter.createCaller(ctx as never);
-      const result = await caller.deleteAccount({ mode: 'pseudonymize' });
-
-      expect(result).toEqual({ success: true });
-      expect(anonymizeUser).toHaveBeenCalledWith(ctx.db, 'user-1', 'user-1', 'pseudonymize');
+      expect(anonymizeUser).toHaveBeenCalledWith(ctx.db, 'user-1');
     });
 
     it('prevents staff accounts from self-deleting', async () => {

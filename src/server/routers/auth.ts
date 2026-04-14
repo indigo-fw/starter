@@ -4,7 +4,6 @@ import { eq, and, ne } from 'drizzle-orm';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { auth } from '@/lib/auth';
 import { user, session } from '@/server/db/schema/auth';
-import { logAudit } from '@/core/lib/infra/audit';
 import { detectGeo } from '@/core/lib/analytics/geo';
 import { extractRequestContext } from '@/core/lib/api/request-context';
 import { createLogger } from '@/core/lib/infra/logger';
@@ -124,37 +123,21 @@ export const authRouter = createTRPCRouter({
       }
     }),
 
-  deleteAccount: protectedProcedure
-    .input(
-      z
-        .object({ mode: z.enum(['full', 'pseudonymize']).default('full') })
-        .optional()
-    )
-    .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
-      const mode = input?.mode ?? 'full';
-      const { anonymizeUser } = await import('@/core/lib/analytics/gdpr');
+  deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+    const { anonymizeUser } = await import('@/core/lib/analytics/gdpr');
 
-      try {
-        await anonymizeUser(ctx.db, userId, userId, mode);
-      } catch (err) {
-        throw new TRPCError({
-          code: 'FORBIDDEN',
-          message: err instanceof Error ? err.message : 'Account deletion failed',
-        });
-      }
-
-      logAudit({
-        db: ctx.db,
-        userId,
-        action: 'auth.deleteAccount',
-        entityType: 'user',
-        entityId: userId,
-        metadata: { mode },
+    try {
+      await anonymizeUser(ctx.db, userId);
+    } catch (err) {
+      throw new TRPCError({
+        code: 'FORBIDDEN',
+        message: err instanceof Error ? err.message : 'Account deletion failed',
       });
+    }
 
-      return { success: true };
-    }),
+    return { success: true };
+  }),
 
   activeSessions: protectedProcedure.query(async ({ ctx }) => {
     const sessions = await ctx.db

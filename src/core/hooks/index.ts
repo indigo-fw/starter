@@ -13,3 +13,5 @@ export { useLinkValidation } from './useLinkValidation';
 export { useOverlay } from './useOverlay';
 export type { UseOverlayOptions, UseOverlayReturn } from './useOverlay';
 export { useLocale } from './useLocale';
+export { useConfirm, useAlert, usePrompt } from '../components/overlays/ImperativeDialogProvider';
+export type { ConfirmOptions, AlertOptions, PromptOptions } from '../components/overlays/ImperativeDialogProvider';

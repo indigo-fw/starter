@@ -5,9 +5,11 @@ import Link from 'next/link';
 import { Plus, ExternalLink, Pause, Play, RotateCcw } from 'lucide-react';
 import { useSitesApi, useSitesUtils } from '@/core-multisite/hooks/useSitesApi';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
+import { useConfirm } from '@/core/hooks';
 
 export default function SitesListPage() {
   const __ = useAdminTranslations();
+  const confirm = useConfirm();
   const [showDeleted, setShowDeleted] = useState(false);
 
   const sites = useSitesApi();
@@ -30,7 +32,7 @@ export default function SitesListPage() {
   const filteredSites = siteList?.filter((s) => showDeleted || s.status !== STATUS_DELETED);
 
   const handleSuspend = async (id: string) => {
-    if (!confirm(__('Suspend this site? It will become inaccessible to visitors.'))) return;
+    if (!await confirm({ title: __('Suspend this site?'), message: __('It will become inaccessible to visitors.'), variant: 'danger', confirmLabel: __('Suspend') })) return;
     await suspend.mutateAsync({ id });
     utils.invalidate();
   };

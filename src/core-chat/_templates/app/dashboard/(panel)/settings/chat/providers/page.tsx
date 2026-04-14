@@ -5,9 +5,11 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { Plus, Pencil, Trash2, Play, Loader2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useConfirm } from '@/core/hooks';
 
 export default function ProvidersPage() {
   const __ = useAdminTranslations();
+  const confirm = useConfirm();
   const { data: providers, isLoading } = trpc.chatProviders.list.useQuery({});
   const createMutation = trpc.chatProviders.create.useMutation();
   const updateMutation = trpc.chatProviders.update.useMutation();
@@ -63,8 +65,8 @@ export default function ProvidersPage() {
     }
   }
 
-  function handleDelete(id: string) {
-    if (!confirm(__('Delete this provider?'))) return;
+  async function handleDelete(id: string) {
+    if (!await confirm({ title: __('Delete this provider?'), variant: 'danger', confirmLabel: __('Delete') })) return;
     deleteMutation.mutate({ id }, { onSuccess: () => utils.chatProviders.list.invalidate() });
   }
 

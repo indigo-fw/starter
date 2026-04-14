@@ -45,6 +45,7 @@ import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { htmlToMarkdown, markdownToHtml } from '@/core/lib/markdown/markdown';
 import { trpc } from '@/lib/trpc/client';
 import { toast } from '@/core/store/toast-store';
+import { usePrompt } from '@/core/hooks';
 import type { EditorHandle } from '@/core/hooks/useLinkPicker';
 import type { ShortcodeConfig } from '@/core/types/shortcodes';
 import { ContentVariableNode, prepareVarsForEditor, serializeVarsForStorage } from './editor/ContentVariableNode';
@@ -159,6 +160,7 @@ export function RichTextEditor({
     scSerializeRef.current = shortcodes?.serializeForStorage ?? identity;
   });
   const __ = useAdminTranslations();
+  const prompt = usePrompt();
   const [shortcodeMenuOpen, setShortcodeMenuOpen] = useState(false);
   const [varsMenuOpen, setVarsMenuOpen] = useState(false);
   const { data: contentVarDefs } = trpc.cms.contentVars.useQuery(undefined, { staleTime: 60_000 });
@@ -480,10 +482,10 @@ export function RichTextEditor({
 
   if (!editor) return null;
 
-  function addLink() {
+  async function addLink() {
     if (!editor) return;
     const previousUrl = editor.getAttributes('link').href as string | undefined;
-    const url = window.prompt(__('URL'), previousUrl ?? 'https://');
+    const url = await prompt({ title: __('URL'), defaultValue: previousUrl ?? 'https://', placeholder: 'https://' });
     if (url === null) return;
     if (url === '') {
       editor.chain().focus().extendMarkRange('link').unsetLink().run();

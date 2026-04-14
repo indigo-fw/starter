@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { trpc } from '@/lib/trpc/client';
+import { useConfirm } from '@/core/hooks';
 
 // The apiKeys router is registered dynamically by the core-api module.
 // Cast to any to avoid TS errors when the module isn't in the generated router type.
@@ -13,6 +14,7 @@ interface ApiKeyManagerProps {
 }
 
 export function ApiKeyManager({ __ }: ApiKeyManagerProps) {
+  const confirm = useConfirm();
   const [newKeyName, setNewKeyName] = useState('');
   const [selectedScopes, setSelectedScopes] = useState<string[]>([]);
   const [useSuperkey, setUseSuperkey] = useState(true);
@@ -237,8 +239,8 @@ export function ApiKeyManager({ __ }: ApiKeyManagerProps) {
                             <button
                               className="btn btn-sm"
                               disabled={rollKey.isPending}
-                              onClick={() => {
-                                if (confirm(__('Roll this key? A new key will be created and the old one will expire in 24 hours.'))) {
+                              onClick={async () => {
+                                if (await confirm({ title: __('Roll this key?'), message: __('A new key will be created and the old one will expire in 24 hours.'), confirmLabel: __('Roll') })) {
                                   rollKey.mutate({ id: key.id });
                                 }
                               }}
@@ -249,8 +251,8 @@ export function ApiKeyManager({ __ }: ApiKeyManagerProps) {
                           <button
                             className="btn btn-sm text-red-600 hover:text-red-700"
                             disabled={revokeKey.isPending}
-                            onClick={() => {
-                              if (confirm(__('Revoke this API key? This is immediate and cannot be undone.'))) {
+                            onClick={async () => {
+                              if (await confirm({ title: __('Revoke this API key?'), message: __('This is immediate and cannot be undone.'), variant: 'danger', confirmLabel: __('Revoke') })) {
                                 revokeKey.mutate({ id: key.id });
                               }
                             }}

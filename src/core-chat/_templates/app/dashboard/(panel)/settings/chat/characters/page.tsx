@@ -6,18 +6,20 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useConfirm } from '@/core/hooks';
 
 /**
  * Admin character list — CRUD for AI chat personas.
  */
 export default function CharactersPage() {
   const __ = useAdminTranslations();
+  const confirm = useConfirm();
   const { data, isLoading } = trpc.characters.list.useQuery({ includeInactive: true });
   const deleteMutation = trpc.characters.delete.useMutation();
   const utils = trpc.useUtils();
 
-  function handleDelete(id: string) {
-    if (!confirm(__('Are you sure you want to delete this character?'))) return;
+  async function handleDelete(id: string) {
+    if (!await confirm({ title: __('Are you sure you want to delete this character?'), variant: 'danger', confirmLabel: __('Delete') })) return;
     deleteMutation.mutate({ id }, {
       onSuccess: () => utils.characters.list.invalidate(),
     });

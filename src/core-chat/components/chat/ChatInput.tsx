@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Send, Paperclip, X } from 'lucide-react';
 import { useBlankTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
+import { useAlert } from '@/core/hooks';
 
 import { ChatInputActions } from './ChatInputActions';
 
@@ -28,6 +29,7 @@ export function ChatInput({
   maxLength = 4000,
 }: ChatInputProps) {
   const __ = useBlankTranslations();
+  const alert = useAlert();
   const [value, setValue] = useState('');
   const [attachment, setAttachment] = useState<{ file: File; preview: string } | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -75,7 +77,7 @@ export function ChatInput({
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
-      alert(__('File too large. Maximum 5MB.'));
+      alert({ title: __('File too large. Maximum 5MB.') });
       return;
     }
     const preview = URL.createObjectURL(file);
