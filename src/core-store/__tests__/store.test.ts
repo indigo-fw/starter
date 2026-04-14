@@ -572,17 +572,15 @@ describe('storeCheckoutRouter', () => {
       ).rejects.toThrow('Cart is empty');
     });
 
-    it('uses billing address when provided', async () => {
+    it('gets billing address from billing profile (not per-order input)', async () => {
       const ctx = createCtx();
       ctx.db.select = vi.fn().mockReturnValue(createSelectChain([{ id: CART_ID }]));
 
-      const billingAddress = { ...SHIPPING_ADDRESS, firstName: 'Jane' };
-
       const caller = storeCheckoutRouter.createCaller(ctx as never);
-      await caller.placeOrder({ shippingAddress: SHIPPING_ADDRESS, billingAddress });
+      await caller.placeOrder({ shippingAddress: SHIPPING_ADDRESS });
 
       const orderParams = mockCreateOrder.mock.calls[0][0];
-      expect(orderParams.billingAddress.firstName).toBe('Jane');
+      expect(orderParams.billingProfile).toBeDefined();
       expect(orderParams.shippingAddress.firstName).toBe('John');
     });
   });

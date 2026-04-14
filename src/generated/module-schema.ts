@@ -2,6 +2,7 @@
 // Edit indigo.config.ts and re-run sync
 
 export * from '@/core-payments/schema/payments';
+export * from '@/core-payments/schema/billing-profile';
 export * from '@/core-subscriptions/schema/subscriptions';
 export * from '@/core-support/schema/support-chat';
 export * from '@/core-support/schema/support-tickets';
@@ -11,6 +12,11 @@ export * from '@/core-docs/schema/docs';
 export * from '@/core-store/schema/products';
 export * from '@/core-store/schema/orders';
 export * from '@/core-store/schema/shipping-tax';
+export * from '@/core-store/schema/wishlists';
+export * from '@/core-store/schema/discount-codes';
+export * from '@/core-store/schema/reviews';
+export * from '@/core-store/schema/relations';
+export * from '@/core-store/schema/attributes';
 export * from '@/core-chat/schema/characters';
 export * from '@/core-chat/schema/conversations';
 export * from '@/core-chat/schema/messages';

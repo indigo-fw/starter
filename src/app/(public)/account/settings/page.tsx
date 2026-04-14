@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSession, signOut } from '@/lib/auth-client';
 import { trpc } from '@/lib/trpc/client';
 import { apiRoutes } from '@/config/routes';
 import { useBlankTranslations } from '@/lib/translations';
-import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { useConfirm } from '@/core/hooks';
 
 export default function AccountSettingsPage() {
   const __ = useBlankTranslations();
@@ -13,8 +13,8 @@ export default function AccountSettingsPage() {
   const [name, setName] = useState(session?.user?.name ?? '');
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteError, setDeleteError] = useState('');
+  const confirm = useConfirm();
 
   const updateProfile = trpc.auth.updateProfile.useMutation({
     onSuccess: () => { setSaved(true); setTimeout(() => setSaved(false), 3000); },
@@ -28,9 +28,21 @@ export default function AccountSettingsPage() {
     },
     onError: (err) => {
       setDeleteError(err.message);
-      setDeleteDialogOpen(false);
     },
   });
+
+  const handleDelete = useCallback(async () => {
+    const confirmed = await confirm({
+      title: __('Delete your account?'),
+      message: __('This action is permanent and cannot be undone. Your account and all personal data will be erased. Active subscriptions will be cancelled and will not be refunded. You can register again with the same email address.'),
+      confirmLabel: __('Yes, permanently delete my account'),
+      cancelLabel: __('Cancel'),
+      variant: 'danger',
+    });
+    if (!confirmed) return;
+    setDeleteError('');
+    deleteAccount.mutate();
+  }, [confirm, __, deleteAccount]);
 
   return (
     <div>
@@ -80,25 +92,14 @@ export default function AccountSettingsPage() {
             {__('Download My Data')}
           </a>
           <button
-            onClick={() => setDeleteDialogOpen(true)}
-            className="py-2 px-4 rounded-lg text-sm border border-danger-500 text-danger-500 hover:bg-danger-500/10 transition-colors"
+            onClick={handleDelete}
+            disabled={deleteAccount.isPending}
+            className="py-2 px-4 rounded-lg text-sm border border-danger-500 text-danger-500 hover:bg-danger-500/10 transition-colors disabled:opacity-50"
           >
-            {__('Delete Account')}
+            {deleteAccount.isPending ? __('Deleting...') : __('Delete Account')}
           </button>
         </div>
       </div>
-
-      <ConfirmDialog
-        open={deleteDialogOpen}
-        title={__('Delete your account?')}
-        message={__('This action is permanent and cannot be undone. Your account and all personal data will be erased. Active subscriptions will be cancelled and will not be refunded. You can register again with the same email address.')}
-        confirmLabel={deleteAccount.isPending ? __('Deleting...') : __('Yes, permanently delete my account')}
-        cancelLabel={__('Cancel')}
-        variant="danger"
-        loading={deleteAccount.isPending}
-        onConfirm={() => deleteAccount.mutate()}
-        onCancel={() => setDeleteDialogOpen(false)}
-      />
     </div>
   );
 }

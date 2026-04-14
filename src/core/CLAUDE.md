@@ -26,25 +26,58 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 ## Shared Utilities — Use These, Don't Reinvent
 
 **CRUD & queries:**
-`fetchOrNotFound()`, `buildAdminList()`, `softDelete()` / `softRestore()` / `permanentDelete()`, `parsePagination()` + `paginatedResult()`, `updateWithRevision()`, `updateContentStatus()`, `prepareTranslationCopy()`, `narrowRecoveredData()`, `serializeExport()`
+- `fetchOrNotFound(db, table, id, entityName)` — throws TRPCError NOT_FOUND
+- `buildAdminList()` — conditions, sort, pagination, count in parallel
+- `softDelete()` / `softRestore()` / `permanentDelete()` — soft-delete lifecycle
+- `parsePagination()` + `paginatedResult()` — `{ results, total, page, pageSize, totalPages }`
+- `updateWithRevision()` — wraps revision + slug redirect + update
+- `updateContentStatus()` — handles auto-publishedAt
+- `prepareTranslationCopy()` — group creation, unique slug, preview token
+- `narrowRecoveredData(recovered, defaults)` — autosave recovery (from `@/core/hooks`)
+- `serializeExport(items, headers, format)` — JSON/TSV bulk export
 
-**Slugs:** `slugify()`, `slugifyFilename()`, `ensureSlugUnique()`, `generateCopySlug()`
+**Slugs:**
+- `slugify()` / `slugifyFilename()` — never inline slug regex
+- `ensureSlugUnique()` — DB-checked uniqueness
+- `generateCopySlug()` — retry loop for "copy-of-" slugs
 
 **Router Zod schemas:** `adminListInput`, `updateStatusInput`, `duplicateAsTranslationInput`, `exportBulkInput`
 
-**Content:** `htmlToMarkdown()` / `markdownToHtml()`, `resolveContentVars()` (`%VAR%` → site.ts values), `compileMdx()` + `registerMdxComponent()`, `syncContentFiles()`, `seedContentFiles()`, `parseFrontmatter<T>()`
+**Content:**
+- `htmlToMarkdown()` / `markdownToHtml()` — preserves shortcodes via placeholder strategy
+- `resolveContentVars()` — replaces `%VAR%` placeholders with `site.ts` values. Fast path skips if no `%` present
+- `compileMdx()` + `registerMdxComponent()` — unified remark→rehype pipeline, LRU-cached
+- `syncContentFiles()` — syncs `.md` from `content/{locale}/` to CMS DB
+- `seedContentFiles()` — copies `core/_templates/content/` to `content/` on init
+- `parseFrontmatter<T>()` — shared YAML parser for `.md`/`.mdx`
 
 **CMS links:** `cms://` protocol — `resolveCmsLink()`, `resolveCmsLinks(text, locale)`, `resolveRecordCmsLinks(record, locale)`. LRU + Redis pub/sub invalidation. Client: `<CmsLink>`, project wraps as `<Link>`
 
-**Infrastructure:** `logAudit()`, `dispatchWebhook()`, `enqueueTemplateEmail()` / `enqueueEmail()`, `sendPushToUser()`, `createLogger()`
+**Infrastructure:**
+- `logAudit()` — fire-and-forget, logs errors via logger
+- `dispatchWebhook()` — fire-and-forget, logs failures
+- `enqueueTemplateEmail(to, template, vars, locale)` / `enqueueEmail({ to, subject, html })` — BullMQ queue
+- `sendPushToUser(userId, payload)` — sends to all devices, auto-cleans 410 Gone
+- `createLogger(namespace)` — structured logger
+- `withApiRoute(request, handler)` — REST v1 wrapper (auth + rate-limit + try/catch)
 
-**API:** `withApiRoute(request, handler)` for REST v1
+**SEO:**
+- `generateRssFeed(config, items)` + `createRssResponse(xml)` — RSS 2.0
+- `generateSitemap(config, staticPages, fetchers)` — multilingual with hreflang
+- `buildCanonicalUrl(path, locale)` + `buildAlternates(path, locales)` — locale-aware URLs
+- `buildArticleJsonLd()` / `buildBreadcrumbJsonLd()` / `buildOrganizationJsonLd()` — JSON-LD builders
 
-**SEO:** `generateRssFeed()` + `createRssResponse()`, `generateSitemap()`, `buildCanonicalUrl()` + `buildAlternates()`, `buildArticleJsonLd()`, `buildBreadcrumbJsonLd()`, `buildOrganizationJsonLd()`
+**Registries:**
+- `registerCronJob({ name, pattern, handler })` + `startCronScheduler()` — BullMQ repeatable or DB-queue fallback
+- `registerMaintenanceTask(name, fn)` — sequential execution, independent error handling
+- `registerScheduledPublishTarget(target)` — auto-publishes scheduled content
+- `createHealthHandler(checks)` — factory for `/api/health`
 
-**Registries:** `registerCronJob()` + `startCronScheduler()`, `registerMaintenanceTask()`, `registerScheduledPublishTarget()`, `registerHealthCheck()`, `createHealthHandler()`
-
-**Components:** `<ConsentProvider>` + `<CookieConsent>` + `<ConsentGate>`, `<PaginationNumbered>` / `<PaginationSimple>` / `<PaginationLoadMore>` / `<PaginationInfinite>`, `<Skeleton>`, `<Avatar>`, `<StructuredData>`, `useConfirm()` / `useAlert()` / `usePrompt()`
+**Components:**
+- `<ConsentProvider>` + `<CookieConsent>` + `<ConsentGate category="analytics">` — cookie consent
+- `<PaginationNumbered>` / `<PaginationSimple>` / `<PaginationLoadMore>` / `<PaginationInfinite>` — 4 pagination variants
+- `<Skeleton variant="line|circle|card">` / `<Avatar>` / `<StructuredData>` — UI primitives
+- `useConfirm()` / `useAlert()` / `usePrompt()` — imperative dialog replacements for native confirm/alert/prompt
 
 ## Translations
 
@@ -62,8 +95,7 @@ const __ = await getServerTranslations(); // from '@/core/lib/i18n/translations-
 
 - **Token layers:** `tokens.css` → `tokens-public.css` → `tokens-admin.css`. All colors via design tokens
 - **Class naming:** layout `app-*`, dashboard `dash-*`, module prefix (`support-chat-*`), components no prefix (`.btn`)
-- **OKLCH:** `oklch(L C var(--brand-hue) / alpha)` works. `oklch(from ...)` does NOT. `color-mix()` wrong for alpha
+- **OKLCH:** `oklch(L C var(--brand-hue) / alpha)` works for custom CSS with hue variables. `oklch(from ...)` does NOT work (Lightning CSS limitation). Tailwind's `/80` opacity modifiers are fine (compile to `color-mix()` which works correctly)
 - **Dark mode:** prefer tokens from `tokens.css` — avoid `html.dark` in component CSS (a few legacy exceptions exist in editor-styles.css)
 - **Layout:** `.app-container` (80rem). Never use Tailwind's `container`
-- **Tailwind v4:** `/80` opacity compiles to `color-mix()` — use literal `oklch(L C H / alpha)` instead
 - **To rebrand:** change hues in `tokens.css` (`--brand-hue`, `--accent-hue`), override in public/admin token files

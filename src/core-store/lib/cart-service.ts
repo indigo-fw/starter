@@ -27,6 +27,8 @@ export interface CartItemDetail {
   totalCents: number;
   image: string | null;
   inStock: boolean;
+  productType: string;
+  subscriptionPlanId: string | null;
 }
 
 /**
@@ -138,6 +140,8 @@ export async function getCartWithItems(cartId: string): Promise<CartWithItems | 
       productImage: storeProducts.featuredImage,
       productStock: storeProducts.stockQuantity,
       trackInventory: storeProducts.trackInventory,
+      productType: storeProducts.type,
+      subscriptionPlanId: storeProducts.subscriptionPlanId,
     })
     .from(storeCartItems)
     .innerJoin(storeProducts, eq(storeProducts.id, storeCartItems.productId))
@@ -171,6 +175,8 @@ export async function getCartWithItems(cartId: string): Promise<CartWithItems | 
       totalCents: item.unitPriceCents * item.quantity,
       image: variant?.image ?? item.productImage,
       inStock,
+      productType: item.productType,
+      subscriptionPlanId: item.subscriptionPlanId ?? null,
     };
   });
 

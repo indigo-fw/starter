@@ -82,6 +82,10 @@ export class NowPaymentsProvider implements PaymentProvider {
   };
 
   async createCheckout(params: CheckoutParams): Promise<CheckoutResult> {
+    if (params.mode === 'payment') {
+      throw new Error('NOWPayments does not support one-time payments');
+    }
+
     if (params.interval !== 'yearly') {
       throw new Error('NOWPayments only supports yearly interval');
     }

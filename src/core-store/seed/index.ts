@@ -3,6 +3,10 @@ import { count } from 'drizzle-orm';
 
 import { storeProducts, storeProductVariants, storeVariantGroups, storeProductImages, storeCategories, storeProductCategories } from '../schema/products';
 import { storeShippingZones, storeShippingRates, storeTaxRates } from '../schema/shipping-tax';
+import { storeDiscountCodes } from '../schema/discount-codes';
+import { storeReviews } from '../schema/reviews';
+import { storeAttributes, storeProductAttributeValues } from '../schema/attributes';
+import { storeRelatedProducts } from '../schema/relations';
 import { placeholderImage } from '../lib/placeholder-image';
 
 // ─── IDs (deterministic for idempotent seeding) ───────────────────────────
@@ -364,6 +368,147 @@ export async function seedStore(db: PostgresJsDatabase, _superadminUserId: strin
     { country: 'PT', taxClass: 'standard', rate: '23.00', name: 'IVA', priceIncludesTax: true },
     // US — tax excluded from price
     { country: 'US', taxClass: 'standard', rate: '0.00', name: 'Sales Tax', priceIncludesTax: false },
+  ]).onConflictDoNothing();
+
+  // ─── Discount Codes ──────────────────────────────────────────────────
+
+  await db.insert(storeDiscountCodes).values([
+    {
+      id: '00000000-0000-4000-f000-000000000701',
+      code: 'WELCOME10',
+      type: 'percentage',
+      value: 10,
+      minOrderCents: 2000,
+      maxUses: null,
+      isActive: true,
+    },
+    {
+      id: '00000000-0000-4000-f000-000000000702',
+      code: 'SAVE5',
+      type: 'fixed_amount',
+      value: 500,
+      currency: 'EUR',
+      minOrderCents: 1500,
+      maxUses: 100,
+      isActive: true,
+    },
+  ]).onConflictDoNothing();
+
+  // ─── Product Attributes ─────────────────────────────────────────────
+
+  const ATTR_MATERIAL = '00000000-0000-4000-f000-000000000801';
+  const ATTR_BRAND = '00000000-0000-4000-f000-000000000802';
+
+  await db.insert(storeAttributes).values([
+    {
+      id: ATTR_MATERIAL,
+      name: 'Material',
+      slug: 'material',
+      type: 'select',
+      values: ['Organic Cotton', 'Polyester', 'Fleece', 'Ceramic', 'Vinyl'],
+      filterable: true,
+      sortOrder: 0,
+    },
+    {
+      id: ATTR_BRAND,
+      name: 'Brand',
+      slug: 'brand',
+      type: 'select',
+      values: ['Indigo', 'Indigo Premium'],
+      filterable: true,
+      sortOrder: 1,
+    },
+  ]).onConflictDoNothing();
+
+  await db.insert(storeProductAttributeValues).values([
+    { productId: PROD_TSHIRT, attributeId: ATTR_MATERIAL, value: 'Organic Cotton' },
+    { productId: PROD_TSHIRT, attributeId: ATTR_BRAND, value: 'Indigo' },
+    { productId: PROD_HOODIE, attributeId: ATTR_MATERIAL, value: 'Fleece' },
+    { productId: PROD_HOODIE, attributeId: ATTR_BRAND, value: 'Indigo Premium' },
+    { productId: PROD_CAP, attributeId: ATTR_MATERIAL, value: 'Polyester' },
+    { productId: PROD_CAP, attributeId: ATTR_BRAND, value: 'Indigo' },
+    { productId: PROD_MUG, attributeId: ATTR_MATERIAL, value: 'Ceramic' },
+    { productId: PROD_MUG, attributeId: ATTR_BRAND, value: 'Indigo' },
+    { productId: PROD_STICKER, attributeId: ATTR_MATERIAL, value: 'Vinyl' },
+    { productId: PROD_STICKER, attributeId: ATTR_BRAND, value: 'Indigo' },
+  ]).onConflictDoNothing();
+
+  // ─── Related Products ───────────────────────────────────────────────
+
+  await db.insert(storeRelatedProducts).values([
+    { productId: PROD_TSHIRT, relatedProductId: PROD_HOODIE, type: 'related', sortOrder: 0 },
+    { productId: PROD_TSHIRT, relatedProductId: PROD_CAP, type: 'related', sortOrder: 1 },
+    { productId: PROD_TSHIRT, relatedProductId: PROD_STICKER, type: 'crosssell', sortOrder: 0 },
+    { productId: PROD_HOODIE, relatedProductId: PROD_TSHIRT, type: 'related', sortOrder: 0 },
+    { productId: PROD_HOODIE, relatedProductId: PROD_CAP, type: 'related', sortOrder: 1 },
+    { productId: PROD_EBOOK, relatedProductId: PROD_TEMPLATE, type: 'related', sortOrder: 0 },
+    { productId: PROD_EBOOK, relatedProductId: PROD_ICONS, type: 'related', sortOrder: 1 },
+    { productId: PROD_TEMPLATE, relatedProductId: PROD_EBOOK, type: 'upsell', sortOrder: 0 },
+  ]).onConflictDoNothing();
+
+  // ─── Sample Reviews (using superadmin as author) ────────────────────
+
+  await db.insert(storeReviews).values([
+    {
+      id: '00000000-0000-4000-f000-000000000901',
+      productId: PROD_TSHIRT,
+      userId: _superadminUserId,
+      rating: 5,
+      title: 'Best tee I own',
+      body: 'The organic cotton is incredibly soft and the fit is perfect. Already ordered two more.',
+      status: 'approved',
+      verifiedPurchase: true,
+    },
+    {
+      id: '00000000-0000-4000-f000-000000000902',
+      productId: PROD_TSHIRT,
+      userId: '00000000-0000-4000-f000-review-user-1',
+      rating: 4,
+      title: 'Great quality',
+      body: 'Very comfortable and well-made. Took one star off because sizing runs a bit small.',
+      status: 'approved',
+      verifiedPurchase: false,
+    },
+    {
+      id: '00000000-0000-4000-f000-000000000903',
+      productId: PROD_HOODIE,
+      userId: _superadminUserId,
+      rating: 5,
+      title: 'Perfect for coding sessions',
+      body: 'The fleece is heavyweight and warm. The cable routing hole for earbuds is genius.',
+      status: 'approved',
+      verifiedPurchase: true,
+    },
+    {
+      id: '00000000-0000-4000-f000-000000000904',
+      productId: PROD_EBOOK,
+      userId: _superadminUserId,
+      rating: 5,
+      title: 'Comprehensive guide',
+      body: 'Covers everything from setup to deployment. The reference project alone is worth the price.',
+      status: 'approved',
+      verifiedPurchase: true,
+    },
+    {
+      id: '00000000-0000-4000-f000-000000000905',
+      productId: PROD_MUG,
+      userId: '00000000-0000-4000-f000-review-user-2',
+      rating: 4,
+      title: 'Nice mug',
+      body: 'Good quality print, comfortable handle. A bit heavy but that keeps the coffee warm longer.',
+      status: 'approved',
+      verifiedPurchase: false,
+    },
+    {
+      id: '00000000-0000-4000-f000-000000000906',
+      productId: PROD_ICONS,
+      userId: _superadminUserId,
+      rating: 5,
+      title: 'Saved me hours of work',
+      body: 'Clean, consistent icons with the Figma source file. Exactly what I needed for my project.',
+      status: 'approved',
+      verifiedPurchase: true,
+    },
   ]).onConflictDoNothing();
 
   return {};

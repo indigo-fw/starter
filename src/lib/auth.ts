@@ -9,6 +9,7 @@ import { createLogger } from '@/core/lib/infra/logger';
 import { slugify } from '@/core/lib/content/slug';
 import { db } from '@/server/db';
 import { organization as organizationTable, member } from '@/server/db/schema/organization';
+import { billingProfiles } from '@/core-payments/schema/billing-profile';
 import { saasSupportChatSessions } from '@/core-support/schema/support-chat';
 import { enqueueTemplateEmail } from '@/core/lib/email';
 import { syncSubscriber } from '@/core/lib/email-list/index';
@@ -95,6 +96,12 @@ function createAuth() {
                 userId: user.id,
                 role: 'owner',
                 createdAt: new Date(),
+              });
+
+              // Auto-create billing profile with user's name as legal name
+              await db.insert(billingProfiles).values({
+                organizationId: orgId,
+                legalName: user.name ?? user.email,
               });
 
               log.info('Personal org created', { userId: user.id, orgId });

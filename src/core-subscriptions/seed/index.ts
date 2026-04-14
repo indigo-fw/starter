@@ -64,7 +64,8 @@ export async function seedBilling(
     saasTokenBalances,
     saasTokenTransactions,
   } = await import('@/core-subscriptions/schema/subscriptions');
-  const { saasPaymentTransactions } = await import('@/core-payments/schema/payments');
+  const { insertRawTransaction } = await import('@/core-payments/lib/transaction-service');
+  const { billingProfiles } = await import('@/core-payments/schema/billing-profile');
 
   // Idempotency check
   const [existingSubs] = await db.select({ count: count() }).from(saasSubscriptions);
@@ -134,7 +135,7 @@ export async function seedBilling(
     const orgIdx = faker.number.int({ min: 0, max: orgIds.length - 1 });
     const txDay = Math.round((i / NUM_TRANSACTIONS) * TRANSACTION_SPREAD_DAYS);
 
-    await db.insert(saasPaymentTransactions).values({
+    await insertRawTransaction({
       id: uuid(),
       organizationId: orgIds[orgIdx]!,
       userId: userIds[orgIdx % userIds.length]!,
@@ -205,7 +206,32 @@ export async function seedBilling(
   }
   log('\u2705', `${NUM_DISCOUNT_CODES} discount codes created.`);
 
-  // ─── 4. Token balances ──────────────────────────────────────────────
+  // ─── 4. Billing profiles ────────────────────────────────────────────
+  log('\uD83C\uDFE2', `Creating billing profiles for ${orgIds.length} organizations...`);
+
+  for (let i = 0; i < orgIds.length; i++) {
+    const isB2B = faker.datatype.boolean(0.4);
+    await db.insert(billingProfiles).values({
+      id: uuid(),
+      organizationId: orgIds[i]!,
+      legalName: isB2B ? faker.company.name() : faker.person.fullName(),
+      companyRegistrationId: isB2B ? String(faker.number.int({ min: 10000000, max: 99999999 })) : null,
+      vatId: isB2B && faker.datatype.boolean(0.7) ? `${pick(['SK', 'CZ', 'DE', 'FR'])}${faker.number.int({ min: 1000000000, max: 9999999999 })}` : null,
+      taxExempt: false,
+      invoiceEmail: isB2B ? faker.internet.email() : null,
+      phone: faker.datatype.boolean(0.5) ? faker.phone.number() : null,
+      address1: faker.location.streetAddress(),
+      address2: faker.datatype.boolean(0.3) ? faker.location.secondaryAddress() : null,
+      city: faker.location.city(),
+      state: faker.location.state(),
+      postalCode: faker.location.zipCode(),
+      country: pick(['SK', 'CZ', 'DE', 'FR', 'US', 'GB']),
+      defaultCurrency: pick(['EUR', 'EUR', 'EUR', 'USD']),
+    }).onConflictDoNothing();
+  }
+  log('\u2705', `Billing profiles created.`);
+
+  // ─── 5. Token balances ──────────────────────────────────────────────
   log('\uD83E\uDE99', `Creating token balances for ${orgIds.length} organizations...`);
 
   for (let i = 0; i < orgIds.length; i++) {

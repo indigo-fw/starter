@@ -1,5 +1,6 @@
 import { index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core';
 import { tsvector } from '@/server/db/schema/types';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 
 // ─── cms_docs ───────────────────────────────────────────────────────────────
 // Documentation pages authored via the CMS admin dashboard.
@@ -12,7 +13,7 @@ export const cmsDocs = pgTable('cms_docs', {
   /** URL slug (e.g. 'getting-started/installation'). Supports nested paths. */
   slug: varchar('slug', { length: 500 }).notNull(),
   /** Locale code (e.g. 'en', 'de'). Slug is unique per locale. */
-  locale: varchar('locale', { length: 10 }).notNull().default('en'),
+  locale: varchar('locale', { length: 10 }).notNull().default(DEFAULT_LOCALE),
   title: varchar('title', { length: 255 }).notNull(),
   /** Rich text content (HTML from editor) */
   body: text('body').notNull().default(''),

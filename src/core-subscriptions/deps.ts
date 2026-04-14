@@ -27,6 +27,8 @@ export interface SubscriptionsDeps {
   sendOrgNotification: (orgId: string, params: {
     title: string;
     body: string;
+    type?: string;
+    category?: string;
     actionUrl?: string;
   }) => void;
 

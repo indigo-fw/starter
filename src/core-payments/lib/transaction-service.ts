@@ -65,6 +65,65 @@ export interface RecentTransactionRow {
   createdAt: Date;
 }
 
+// ─── Raw insert (for seeds / migrations) ───────────────────────────────────
+
+export interface RawTransactionValues {
+  id?: string;
+  organizationId: string;
+  userId?: string | null;
+  providerId: string;
+  providerTxId?: string | null;
+  amountCents: number;
+  currency?: string;
+  status?: string;
+  planId?: string | null;
+  interval?: string | null;
+  discountCodeId?: string | null;
+  discountAmountCents?: number;
+  rawRequest?: unknown;
+  rawResponse?: unknown;
+  transactionType?: 'payment' | 'authorization' | 'capture' | 'refund' | 'void';
+  paymentIntentId?: string | null;
+  paymentMethodId?: string | null;
+  authorizedAmountCents?: number | null;
+  capturedAmountCents?: number | null;
+  authorizationExpiresAt?: Date | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+/**
+ * Insert a transaction with explicit values (including id/timestamps).
+ * Used by seeds and migrations — sibling modules should use this instead
+ * of importing saasPaymentTransactions schema directly.
+ */
+export async function insertRawTransaction(values: RawTransactionValues): Promise<void> {
+  await db.insert(saasPaymentTransactions).values({
+    id: values.id,
+    organizationId: values.organizationId,
+    userId: values.userId ?? null,
+    providerId: values.providerId,
+    providerTxId: values.providerTxId ?? null,
+    amountCents: values.amountCents,
+    currency: values.currency ?? 'usd',
+    status: values.status ?? 'pending',
+    planId: values.planId ?? null,
+    interval: values.interval ?? null,
+    discountCodeId: values.discountCodeId ?? null,
+    discountAmountCents: values.discountAmountCents ?? 0,
+    rawRequest: values.rawRequest ?? null,
+    rawResponse: values.rawResponse ?? null,
+    transactionType: values.transactionType ?? 'payment',
+    paymentIntentId: values.paymentIntentId ?? null,
+    paymentMethodId: values.paymentMethodId ?? null,
+    authorizedAmountCents: values.authorizedAmountCents ?? null,
+    capturedAmountCents: values.capturedAmountCents ?? null,
+    authorizationExpiresAt: values.authorizationExpiresAt ?? null,
+    createdAt: values.createdAt,
+    updatedAt: values.updatedAt,
+  });
+}
+
 // ─── CRUD ───────────────────────────────────────────────────────────────────
 
 export async function createTransaction(params: CreateTransactionParams): Promise<string> {
@@ -213,6 +272,66 @@ export async function getRevenueByUsers(
     }
   }
   return result;
+}
+
+// ─── Auth / Capture / Void ──────────────────────────────────────────────────
+
+export async function createAuthorizationTransaction(params: {
+  organizationId: string;
+  providerId: string;
+  providerTxId: string;
+  authorizedAmountCents: number;
+  currency?: string;
+  paymentMethodId?: string;
+  paymentIntentId?: string;
+  authorizationExpiresAt?: Date;
+  metadata?: Record<string, unknown>;
+}): Promise<string> {
+  const [tx] = await db
+    .insert(saasPaymentTransactions)
+    .values({
+      organizationId: params.organizationId,
+      providerId: params.providerId,
+      providerTxId: params.providerTxId,
+      amountCents: params.authorizedAmountCents,
+      authorizedAmountCents: params.authorizedAmountCents,
+      currency: params.currency ?? 'usd',
+      status: TransactionStatus.AUTHORIZED,
+      transactionType: 'authorization',
+      paymentIntentId: params.paymentIntentId ?? params.providerTxId,
+      paymentMethodId: params.paymentMethodId ?? null,
+      authorizationExpiresAt: params.authorizationExpiresAt ?? null,
+      rawRequest: params.metadata ?? null,
+    })
+    .returning({ id: saasPaymentTransactions.id });
+
+  return tx!.id;
+}
+
+export async function recordCapture(
+  transactionId: string,
+  capturedAmountCents: number,
+): Promise<void> {
+  await db
+    .update(saasPaymentTransactions)
+    .set({
+      status: TransactionStatus.CAPTURED,
+      capturedAmountCents,
+      transactionType: 'capture',
+      updatedAt: new Date(),
+    })
+    .where(eq(saasPaymentTransactions.id, transactionId));
+}
+
+export async function recordVoid(transactionId: string): Promise<void> {
+  await db
+    .update(saasPaymentTransactions)
+    .set({
+      status: TransactionStatus.VOIDED,
+      transactionType: 'void',
+      updatedAt: new Date(),
+    })
+    .where(eq(saasPaymentTransactions.id, transactionId));
 }
 
 // ─── Reconciliation ─────────────────────────────────────────────────────────

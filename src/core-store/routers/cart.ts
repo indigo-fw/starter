@@ -16,7 +16,7 @@ export const storeCartRouter = createTRPCRouter({
         : null;
       const sessionId = input.sessionId ?? null;
 
-      if (!userId && !sessionId) return { items: [], subtotalCents: 0, itemCount: 0 };
+      if (!userId && !sessionId) return { items: [], subtotalCents: 0, itemCount: 0, currency: 'EUR' };
 
       const cartId = await getOrCreateCart(userId, sessionId);
       const cart = await getCartWithItems(cartId);
@@ -115,7 +115,7 @@ export const storeCartRouter = createTRPCRouter({
         .where(eq(storeCartItems.id, input.itemId))
         .limit(1);
 
-      if (!item) return { items: [], subtotalCents: 0, itemCount: 0 };
+      if (!item) return { items: [], subtotalCents: 0, itemCount: 0, currency: 'EUR' };
       return getCartWithItems(item.cartId);
     }),
 
@@ -132,7 +132,7 @@ export const storeCartRouter = createTRPCRouter({
 
       await ctx.db.delete(storeCartItems).where(eq(storeCartItems.id, input.itemId));
 
-      if (!item) return { items: [], subtotalCents: 0, itemCount: 0 };
+      if (!item) return { items: [], subtotalCents: 0, itemCount: 0, currency: 'EUR' };
       return getCartWithItems(item.cartId);
     }),
 

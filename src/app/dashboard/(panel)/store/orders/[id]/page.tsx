@@ -123,7 +123,16 @@ export default function OrderDetailPage() {
 
   const order = orderQuery.data;
   const shippingAddress = order.shippingAddress as Address | null;
-  const billingAddress = order.billingAddress as Address | null;
+  const bp = order.billingProfile as { legalName?: string; address1?: string; address2?: string; city?: string; state?: string; postalCode?: string; country?: string; vatId?: string } | null;
+  const billingAsAddress: Address | null = bp?.address1 ? {
+    firstName: bp.legalName,
+    address1: bp.address1,
+    address2: bp.address2,
+    city: bp.city,
+    state: bp.state,
+    postalCode: bp.postalCode,
+    country: bp.country,
+  } : null;
 
   function handleStatusUpdate() {
     if (!newStatus) { toast.error(__('Select a status')); return; }
@@ -322,7 +331,7 @@ export default function OrderDetailPage() {
         {/* Addresses */}
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <AddressCard title="Shipping Address" address={shippingAddress} icon={Truck} />
-          <AddressCard title="Billing Address" address={billingAddress} icon={MapPin} />
+          <AddressCard title="Billing Address" address={billingAsAddress} icon={MapPin} />
         </div>
 
         {/* Admin note */}

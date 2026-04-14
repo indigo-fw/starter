@@ -73,6 +73,9 @@ export const adminPanel = {
   storeProductNew: `${DASHBOARD_PREFIX}/store/new`,
   storeOrders: `${DASHBOARD_PREFIX}/store/orders`,
   storeOrderDetail: (id: string) => `${DASHBOARD_PREFIX}/store/orders/${id}`,
+  storeDiscounts: `${DASHBOARD_PREFIX}/store/discounts`,
+  storeReviews: `${DASHBOARD_PREFIX}/store/reviews`,
+  storeAttributes: `${DASHBOARD_PREFIX}/store/attributes`,
 } as const;
 
 // ─── Customer-facing auth ────────────────────────────────────────────────────
@@ -96,6 +99,9 @@ export const accountRoutes = {
   supportNew: `${ACCOUNT_PREFIX}/support/new`,
   supportDetail: (id: string) => `${ACCOUNT_PREFIX}/support/${id}`,
   affiliates: `${ACCOUNT_PREFIX}/affiliates`,
+  orders: `${ACCOUNT_PREFIX}/orders`,
+  orderDetail: (id: string) => `${ACCOUNT_PREFIX}/orders/${id}`,
+  wishlist: `${ACCOUNT_PREFIX}/wishlist`,
 } as const;
 
 // ─── Public content ──────────────────────────────────────────────────────────

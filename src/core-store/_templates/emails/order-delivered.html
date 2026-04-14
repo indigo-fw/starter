@@ -1,0 +1,31 @@
+<!-- subject: Your order #{{orderNumber}} has been delivered -->
+<!-- preheader: Your order has arrived — we hope you love it -->
+<h1 style="margin:0 0 8px; font-size:26px; color:#111827; font-weight:700">Order Delivered</h1>
+<p style="margin:0 0 24px; color:#6b7280; font-size:14px">Your order <strong>#{{orderNumber}}</strong> has been delivered. We hope you enjoy it!</p>
+
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 24px">
+  <tr>
+    <td style="background:#f3f4f6; border-radius:8px; padding:20px">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+          <td style="padding:0 0 12px">
+            <p style="margin:0 0 4px; font-size:13px; font-weight:600; color:#374151">Order Number</p>
+            <p style="margin:0; font-size:15px; font-weight:700; color:#111827; font-family:monospace">#{{orderNumber}}</p>
+          </td>
+          <td style="padding:0 0 12px; text-align:right">
+            <p style="margin:0 0 4px; font-size:13px; font-weight:600; color:#374151">Total</p>
+            <p style="margin:0; font-size:15px; font-weight:700; color:#111827">{{totalFormatted}}</p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<a href="{{{appUrl}}}/account/orders/{{orderId}}" style="display:inline-block; background:{{brandColor}}; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; font-size:14px">
+  View Order →
+</a>
+
+<p style="margin:24px 0 0; font-size:13px; color:#9ca3af">
+  If you have any questions about your order, reply to this email.
+</p>

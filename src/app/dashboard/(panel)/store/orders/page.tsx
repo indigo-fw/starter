@@ -181,7 +181,7 @@ export default function OrdersPage() {
                         {o.orderNumber}
                       </Link>
                     </td>
-                    <td className="table-td text-xs text-(--text-muted) truncate max-w-36">{o.userId}</td>
+                    <td className="table-td text-xs text-(--text-muted) truncate max-w-36">{o.placedByUserId}</td>
                     <td className="table-td">
                       <span className={cn(
                         'inline-block rounded-full px-2 py-0.5 text-xs font-medium capitalize',

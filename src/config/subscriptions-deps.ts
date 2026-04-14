@@ -28,12 +28,12 @@ setSubscriptionsDeps({
     return resolveOrgId(activeOrgId, userId);
   },
 
-  sendOrgNotification(orgId, { title, body, actionUrl }) {
+  sendOrgNotification(orgId, { title, body, type, category, actionUrl }) {
     sendOrgNotification(orgId, {
       title,
       body,
-      type: NotificationType.INFO,
-      category: NotificationCategory.SYSTEM,
+      type: (type as NotificationType) ?? NotificationType.INFO,
+      category: (category as NotificationCategory) ?? NotificationCategory.SYSTEM,
       actionUrl,
     });
   },

@@ -2,9 +2,12 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-payments',
-  routers: [],
+  routers: [
+    { name: 'billingProfileRouter', key: 'billingProfile', from: '@/core-payments/routers/billing-profile' },
+  ],
   schema: [
     '@/core-payments/schema/payments',
+    '@/core-payments/schema/billing-profile',
   ],
   serverInit: [
     '@/config/payments-deps',

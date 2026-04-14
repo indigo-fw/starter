@@ -12,7 +12,7 @@ const storeAdminProcedure = sectionProcedure('settings');
 export const storeOrdersRouter = createTRPCRouter({
   // ─── Customer-facing ────────────────────────────────────────────────────
 
-  /** List my orders */
+  /** List my orders (placed by me) */
   myOrders: protectedProcedure
     .input(z.object({
       page: z.number().int().min(1).default(1),
@@ -33,11 +33,11 @@ export const storeOrdersRouter = createTRPCRouter({
             createdAt: storeOrders.createdAt,
           })
           .from(storeOrders)
-          .where(eq(storeOrders.userId, userId))
+          .where(eq(storeOrders.placedByUserId, userId))
           .orderBy(desc(storeOrders.createdAt))
           .offset(offset)
           .limit(pageSize),
-        ctx.db.select({ count: count() }).from(storeOrders).where(eq(storeOrders.userId, userId)),
+        ctx.db.select({ count: count() }).from(storeOrders).where(eq(storeOrders.placedByUserId, userId)),
       ]);
 
       return paginatedResult(items, countRow?.count ?? 0, page, pageSize);
@@ -52,7 +52,7 @@ export const storeOrdersRouter = createTRPCRouter({
       const [order] = await ctx.db
         .select()
         .from(storeOrders)
-        .where(and(eq(storeOrders.id, input.id), eq(storeOrders.userId, userId)))
+        .where(and(eq(storeOrders.id, input.id), eq(storeOrders.placedByUserId, userId)))
         .limit(1);
 
       if (!order) throw new TRPCError({ code: 'NOT_FOUND', message: 'Order not found' });
@@ -75,7 +75,7 @@ export const storeOrdersRouter = createTRPCRouter({
       const [download] = await ctx.db
         .select()
         .from(storeDownloads)
-        .where(and(eq(storeDownloads.token, input.token), eq(storeDownloads.userId, userId)))
+        .where(and(eq(storeDownloads.token, input.token), eq(storeDownloads.grantedToUserId, userId)))
         .limit(1);
 
       if (!download) throw new TRPCError({ code: 'NOT_FOUND', message: 'Download not found' });
@@ -161,16 +161,16 @@ export const storeOrdersRouter = createTRPCRouter({
         { trackingNumber: input.trackingNumber, trackingUrl: input.trackingUrl },
       );
 
-      // Notify customer
+      // Notify the user who placed the order
       const [order] = await ctx.db
-        .select({ userId: storeOrders.userId, orderNumber: storeOrders.orderNumber })
+        .select({ placedByUserId: storeOrders.placedByUserId, orderNumber: storeOrders.orderNumber })
         .from(storeOrders)
         .where(eq(storeOrders.id, input.orderId))
         .limit(1);
 
       if (order) {
         deps.sendNotification({
-          userId: order.userId,
+          userId: order.placedByUserId,
           title: `Order ${order.orderNumber} — ${input.status}`,
           body: input.note ?? `Your order status has been updated to ${input.status}.`,
           actionUrl: `/account/orders/${input.orderId}`,

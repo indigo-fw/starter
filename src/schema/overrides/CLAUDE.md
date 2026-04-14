@@ -36,6 +36,6 @@ This directory contains project-level schema overrides for module-owned tables.
 - File name must match the `name` field in the module's `overridableSchema` config
 - Must re-export the same table name as the module (e.g., `chatUserPreferences`)
 - Always spread the module's columns first, then add your own
-- Module routers still work — they only query their own columns
-- Your project code can query all columns (base + extensions)
+- Module routers work unchanged — they import the re-exported table from `generated/module-schema.ts`, so they automatically see all columns (base + your extensions)
+- Both module and project code can query all columns
 - Module updates that add new base columns are automatically inherited via the spread

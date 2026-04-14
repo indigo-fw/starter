@@ -1,4 +1,5 @@
 import { boolean, index, integer, jsonb, pgEnum, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { organization } from '@/server/db/schema/organization';
 import { storeProducts, storeProductVariants } from './products';
 
 // ─── Enums ──────────────────────────────────────────────────────────────────
@@ -16,9 +17,13 @@ export const orderStatusEnum = pgEnum('store_order_status', [
 
 export const storeAddresses = pgTable('store_addresses', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
-  userId: text('user_id').notNull(),
-  type: varchar('type', { length: 20 }).notNull().default('shipping'), // shipping | billing
+  organizationId: text('organization_id')
+    .notNull()
+    .references(() => organization.id, { onDelete: 'cascade' }),
+  /** Who added this address (audit trail) */
+  createdByUserId: text('created_by_user_id'),
   isDefault: boolean('is_default').notNull().default(false),
+  /** Recipient name (not the billing entity — that's on billingProfile) */
   firstName: varchar('first_name', { length: 100 }).notNull(),
   lastName: varchar('last_name', { length: 100 }).notNull(),
   company: varchar('company', { length: 255 }),
@@ -32,7 +37,7 @@ export const storeAddresses = pgTable('store_addresses', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 }, (table) => [
-  index('idx_store_addresses_user').on(table.userId, table.type),
+  index('idx_store_addresses_org').on(table.organizationId),
 ]);
 
 // ─── Cart (server-side, for logged-in users) ───────────────────────────────
@@ -71,8 +76,12 @@ export const storeOrders = pgTable('store_orders', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   /** Human-readable order number (auto-increment or custom) */
   orderNumber: varchar('order_number', { length: 50 }).notNull().unique(),
-  userId: text('user_id').notNull(),
-  organizationId: text('organization_id'),
+  /** The customer entity (invoiced org — always required) */
+  organizationId: text('organization_id')
+    .notNull()
+    .references(() => organization.id, { onDelete: 'cascade' }),
+  /** Who placed the order (audit + notifications) */
+  placedByUserId: text('placed_by_user_id').notNull(),
   status: orderStatusEnum('status').notNull().default('pending'),
   currency: varchar('currency', { length: 3 }).notNull().default('EUR'),
   /** Totals in cents */
@@ -87,8 +96,8 @@ export const storeOrders = pgTable('store_orders', {
   paidAt: timestamp('paid_at'),
   /** Shipping address snapshot (JSON, not FK — immutable after order) */
   shippingAddress: jsonb('shipping_address'),
-  /** Billing address snapshot */
-  billingAddress: jsonb('billing_address'),
+  /** Billing profile snapshot (legal name, VAT ID, address — frozen at order time) */
+  billingProfile: jsonb('billing_profile'),
   /** Shipping */
   shippingMethod: varchar('shipping_method', { length: 100 }),
   trackingNumber: varchar('tracking_number', { length: 255 }),
@@ -111,7 +120,8 @@ export const storeOrders = pgTable('store_orders', {
   cancelledAt: timestamp('cancelled_at'),
   refundedAt: timestamp('refunded_at'),
 }, (table) => [
-  index('idx_store_orders_user').on(table.userId),
+  index('idx_store_orders_org').on(table.organizationId),
+  index('idx_store_orders_placed_by').on(table.placedByUserId),
   index('idx_store_orders_status').on(table.status),
   index('idx_store_orders_number').on(table.orderNumber),
   index('idx_store_orders_created').on(table.createdAt),
@@ -163,7 +173,12 @@ export const storeDownloads = pgTable('store_downloads', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   orderId: text('order_id').notNull().references(() => storeOrders.id, { onDelete: 'cascade' }),
   orderItemId: text('order_item_id').notNull().references(() => storeOrderItems.id, { onDelete: 'cascade' }),
-  userId: text('user_id').notNull(),
+  /** The org that owns the purchase */
+  organizationId: text('organization_id')
+    .notNull()
+    .references(() => organization.id, { onDelete: 'cascade' }),
+  /** The specific user granted access (defaults to order placer) */
+  grantedToUserId: text('granted_to_user_id').notNull(),
   /** Unique download token (used in download URL) */
   token: varchar('token', { length: 100 }).notNull().unique(),
   fileUrl: text('file_url').notNull(),
@@ -173,5 +188,6 @@ export const storeDownloads = pgTable('store_downloads', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
 }, (table) => [
   index('idx_store_downloads_token').on(table.token),
-  index('idx_store_downloads_user').on(table.userId),
+  index('idx_store_downloads_org').on(table.organizationId),
+  index('idx_store_downloads_user').on(table.grantedToUserId),
 ]);

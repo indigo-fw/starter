@@ -33,5 +33,9 @@ export { validateCode, applyDiscount, removeDiscount, finalizeUsage, getActiveDi
 export { setPlanResolver, getPlanFeatures, checkFeature, requireFeature } from './lib/feature-gate';
 export { getTokenBalance, getTokenBalanceRecord, addTokens, deductTokens, getTokenTransactions } from './lib/token-service';
 
+// Lib — webhook handler
+export { handleSubscriptionWebhookEvent } from './lib/webhook-handler';
+export type { SubscriptionWebhookParams } from './lib/webhook-handler';
+
 // Lib — dunning
 export { runDunningChecks } from './lib/dunning';

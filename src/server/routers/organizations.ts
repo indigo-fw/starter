@@ -4,6 +4,7 @@ import { TRPCError } from '@trpc/server';
 
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { organization, member, invitation } from '@/server/db/schema';
+import { billingProfiles } from '@/core-payments/schema/billing-profile';
 import { auth } from '@/lib/auth';
 import { logAudit } from '@/core/lib/infra/audit';
 import { sendNotification, sendBulkNotification } from '@/server/lib/notifications';
@@ -63,6 +64,13 @@ export const organizationsRouter = createTRPCRouter({
       const result = await auth.api.createOrganization({
         headers: ctx.headers,
         body: { name: input.name, slug: input.slug },
+      });
+
+      // Create billing profile for the new org
+      const orgId = (result as { id: string }).id;
+      await ctx.db.insert(billingProfiles).values({
+        organizationId: orgId,
+        legalName: input.name,
       });
 
       logAudit({

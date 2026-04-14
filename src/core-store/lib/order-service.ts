@@ -3,17 +3,24 @@ import { db } from '@/server/db';
 import { storeOrders, storeOrderItems, storeOrderEvents, storeDownloads } from '@/core-store/schema/orders';
 import { storeProducts, storeProductVariants } from '@/core-store/schema/products';
 import { createLogger } from '@/core/lib/infra/logger';
+import { checkLowStock } from './inventory-alerts';
+import { sendOrderStatusNotification } from './order-notifications';
 import type { CartWithItems } from './cart-service';
 import type { TaxCalculation } from './tax-service';
+import type { TotalAdjustment } from './totals-pipeline';
 
 const logger = createLogger('store-orders');
 
+import type { BillingProfileSnapshot } from '@/core-store/types/billing';
+
+export type { BillingProfileSnapshot };
+
 export interface CreateOrderParams {
-  userId: string;
-  organizationId?: string;
+  organizationId: string;
+  placedByUserId: string;
   cart: CartWithItems;
   shippingAddress: Record<string, unknown>;
-  billingAddress: Record<string, unknown>;
+  billingProfile: BillingProfileSnapshot;
   shippingMethod?: string;
   shippingCents: number;
   taxCents: number;
@@ -23,6 +30,8 @@ export interface CreateOrderParams {
   customerNote?: string;
   paymentProviderId?: string;
   paymentTransactionId?: string;
+  /** Full pipeline adjustments breakdown (stored in order metadata) */
+  adjustments?: TotalAdjustment[];
 }
 
 /**
@@ -56,8 +65,8 @@ export async function createOrder(params: CreateOrderParams): Promise<{ orderId:
   await db.insert(storeOrders).values({
     id: orderId,
     orderNumber,
-    userId: params.userId,
-    organizationId: params.organizationId ?? null,
+    organizationId: params.organizationId,
+    placedByUserId: params.placedByUserId,
     status: 'pending',
     currency: params.cart.currency,
     subtotalCents,
@@ -66,13 +75,14 @@ export async function createOrder(params: CreateOrderParams): Promise<{ orderId:
     discountCents: params.discountCents ?? 0,
     totalCents,
     shippingAddress: params.shippingAddress,
-    billingAddress: params.billingAddress,
+    billingProfile: params.billingProfile,
     shippingMethod: params.shippingMethod ?? null,
     discountCode: params.discountCode ?? null,
     customerNote: params.customerNote ?? null,
     taxDetails: params.taxDetails,
     paymentProviderId: params.paymentProviderId ?? null,
     paymentTransactionId: params.paymentTransactionId ?? null,
+    metadata: params.adjustments ? { adjustments: params.adjustments } : null,
   });
 
   // Create order items
@@ -111,7 +121,8 @@ export async function createOrder(params: CreateOrderParams): Promise<{ orderId:
         await db.insert(storeDownloads).values({
           orderId,
           orderItemId,
-          userId: params.userId,
+          organizationId: params.organizationId,
+          grantedToUserId: params.placedByUserId,
           token: crypto.randomUUID(),
           fileUrl: product.digitalFileUrl,
           downloadLimit: product.downloadLimit,
@@ -129,6 +140,9 @@ export async function createOrder(params: CreateOrderParams): Promise<{ orderId:
         .set({ stockQuantity: sql`${storeProducts.stockQuantity} - ${item.quantity}` })
         .where(eq(storeProducts.id, item.productId));
     }
+
+    // Check for low stock after deduction (fire-and-forget)
+    checkLowStock(item.productId, item.variantId ?? undefined).catch(() => {});
   }
 
   // Log creation event
@@ -136,7 +150,7 @@ export async function createOrder(params: CreateOrderParams): Promise<{ orderId:
     orderId,
     status: 'pending',
     note: 'Order created',
-    actor: params.userId,
+    actor: params.placedByUserId,
   });
 
   logger.info('Order created', { orderId, orderNumber, totalCents });
@@ -187,6 +201,9 @@ export async function updateOrderStatus(
   });
 
   logger.info('Order status updated', { orderId, status, actor });
+
+  // Send email + in-app notification (fire-and-forget)
+  sendOrderStatusNotification(orderId, status).catch(() => {});
 }
 
 /**

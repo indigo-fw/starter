@@ -1,5 +1,10 @@
 import type Stripe from 'stripe';
-import type { PaymentProvider, CheckoutParams, CheckoutResult, WebhookEvent } from '@/core-payments/types/payment';
+import type {
+  PaymentProvider, CheckoutParams, CheckoutResult, WebhookEvent,
+  AuthorizeParams, AuthorizeResult, CaptureParams, CaptureResult,
+  VoidResult, RefundResult, StoredPaymentMethod, SetupIntentResult,
+  PaymentMethodType,
+} from '@/core-payments/types/payment';
 import { DiscountType } from '@/core-payments/types/payment';
 import { getStripe, requireStripe, getOrCreateStripeCustomer } from '@/core-payments/lib/stripe';
 import { getPaymentsDeps } from '@/core-payments/deps';
@@ -12,10 +17,47 @@ export class StripeProvider implements PaymentProvider {
     supportsRecurring: true,
     enabled: !!getStripe(),
     allowedIntervals: ['monthly', 'yearly'] as ('monthly' | 'yearly')[],
+    capabilities: {
+      authCapture: true,
+      partialCapture: true,
+      void: true,
+      storedPaymentMethods: true,
+      partialRefund: true,
+    },
   };
 
   async createCheckout(params: CheckoutParams): Promise<CheckoutResult> {
     const stripe = requireStripe();
+
+    // ── One-time payment mode ───────────────────────────────────────────
+    if (params.mode === 'payment') {
+      const amount = params.finalPriceCents;
+      if (!amount || amount <= 0) throw new Error('finalPriceCents is required for one-time payments');
+
+      const sessionParams: Stripe.Checkout.SessionCreateParams = {
+        mode: 'payment',
+        line_items: [{
+          price_data: {
+            currency: params.currency ?? 'usd',
+            unit_amount: amount,
+            product_data: { name: params.productName ?? 'Order' },
+          },
+          quantity: 1,
+        }],
+        success_url: params.successUrl,
+        cancel_url: params.cancelUrl,
+        metadata: { ...params.metadata },
+      };
+
+      if (params.customerEmail) {
+        sessionParams.customer_email = params.customerEmail;
+      }
+
+      const session = await stripe.checkout.sessions.create(sessionParams);
+      return { url: session.url!, providerId: 'stripe' };
+    }
+
+    // ── Subscription mode (default) ─────────────────────────────────────
     const customerId = await getOrCreateStripeCustomer(params.organizationId);
 
     const plan = getPaymentsDeps().getPlan(params.planId);
@@ -102,7 +144,11 @@ export class StripeProvider implements PaymentProvider {
         const session = event.data.object as Stripe.Checkout.Session;
         const orgId = session.metadata?.orgId;
         if (!orgId || !session.subscription) {
-          return { type: 'subscription.activated', providerData: baseProviderData };
+          // One-time payment or store order — preserve metadata for routing
+          return {
+            type: 'payment.completed',
+            providerData: { ...baseProviderData, metadata: session.metadata },
+          };
         }
 
         const subscription = await stripe.subscriptions.retrieve(
@@ -243,13 +289,108 @@ export class StripeProvider implements PaymentProvider {
     }
   }
 
-  async refund(transactionId: string, amountCents?: number): Promise<boolean> {
+  // ─── Auth / Capture / Void ───────────────────────────────────────────────
+
+  async authorize(params: AuthorizeParams): Promise<AuthorizeResult> {
+    const stripe = requireStripe();
+    const pi = await stripe.paymentIntents.create({
+      amount: params.amountCents,
+      currency: params.currency,
+      customer: params.customerId,
+      payment_method: params.paymentMethodId,
+      capture_method: 'manual',
+      confirm: !!params.paymentMethodId,
+      off_session: params.offSession,
+      metadata: params.metadata,
+    });
+    return {
+      providerTxId: pi.id,
+      status: pi.status === 'requires_capture' ? 'authorized'
+            : pi.status === 'requires_action' ? 'requires_action'
+            : 'failed',
+      amountCents: pi.amount,
+      clientSecret: pi.client_secret ?? undefined,
+    };
+  }
+
+  async capture(params: CaptureParams): Promise<CaptureResult> {
+    const stripe = requireStripe();
+    const pi = await stripe.paymentIntents.capture(params.providerTxId, {
+      ...(params.amountCents !== undefined && { amount_to_capture: params.amountCents }),
+    });
+    return {
+      providerTxId: pi.id,
+      status: pi.status === 'succeeded' ? 'captured' : 'failed',
+      capturedAmountCents: pi.amount_received,
+    };
+  }
+
+  async void(providerTxId: string): Promise<VoidResult> {
+    const stripe = requireStripe();
+    const pi = await stripe.paymentIntents.cancel(providerTxId);
+    return {
+      providerTxId: pi.id,
+      status: pi.status === 'canceled' ? 'voided' : 'failed',
+    };
+  }
+
+  // ─── Refund ─────────────────────────────────────────────────────────────
+
+  async refund(providerTxId: string, amountCents?: number): Promise<RefundResult> {
     const stripe = requireStripe();
     try {
-      await stripe.refunds.create({
-        payment_intent: transactionId,
+      const refund = await stripe.refunds.create({
+        payment_intent: providerTxId,
         ...(amountCents !== undefined && { amount: amountCents }),
       });
+      return {
+        refundId: refund.id,
+        providerTxId,
+        status: refund.status === 'succeeded' ? 'succeeded' : 'pending',
+        amountCents: refund.amount,
+      };
+    } catch {
+      return { refundId: '', providerTxId, status: 'failed', amountCents: amountCents ?? 0 };
+    }
+  }
+
+  // ─── Stored Payment Methods ─────────────────────────────────────────────
+
+  async listPaymentMethods(customerId: string): Promise<StoredPaymentMethod[]> {
+    const stripe = requireStripe();
+    const methods = await stripe.customers.listPaymentMethods(customerId, { type: 'card' });
+    const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+    const defaultPmId = typeof customer.invoice_settings?.default_payment_method === 'string'
+      ? customer.invoice_settings.default_payment_method
+      : (customer.invoice_settings?.default_payment_method as { id: string } | null)?.id;
+
+    return methods.data.map((pm) => ({
+      id: pm.id,
+      type: 'card' as PaymentMethodType,
+      last4: pm.card?.last4,
+      brand: pm.card?.brand,
+      expiryMonth: pm.card?.exp_month,
+      expiryYear: pm.card?.exp_year,
+      isDefault: pm.id === defaultPmId,
+    }));
+  }
+
+  async createSetupIntent(customerId: string): Promise<SetupIntentResult> {
+    const stripe = requireStripe();
+    const si = await stripe.setupIntents.create({
+      customer: customerId,
+      payment_method_types: ['card'],
+    });
+    return {
+      clientSecret: si.client_secret!,
+      setupIntentId: si.id,
+    };
+  }
+
+  async deletePaymentMethod(paymentMethodId: string): Promise<boolean> {
+    const stripe = requireStripe();
+    try {
+      await stripe.paymentMethods.detach(paymentMethodId);
       return true;
     } catch {
       return false;

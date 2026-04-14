@@ -28,7 +28,7 @@ const SEARCH_TABLES: SearchTriggerTable[] = [
     table: 'cms_docs',
     functionName: 'cms_docs_search_vector_update',
     triggerName: 'cms_docs_search_vector_trigger',
-    langSource: { fixed: 'english' },
+    langSource: { column: 'locale' },
     columns: [
       { name: 'title', weight: 'A' },
       { name: 'body_text', weight: 'B' },

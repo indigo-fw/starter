@@ -1,25 +1,8 @@
 import { NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
 import { db } from '@/server/db';
-import { saasSubscriptionEvents, user } from '@/server/db/schema';
-import { member } from '@/server/db/schema/organization';
+import { saasSubscriptionEvents } from '@/server/db/schema';
 import { getProvider } from '@/core-payments/lib/factory';
-import {
-  activateSubscription,
-  updateSubscription,
-  cancelSubscription,
-  getOrgByProviderSubscription,
-} from '@/core-subscriptions/lib/subscription-service';
-import { finalizeUsage } from '@/core-subscriptions/lib/discount-service';
-import { getPlanByProviderPriceId } from '@/config/plans';
-import { logAudit } from '@/core/lib/infra/audit';
-import { sendOrgNotification } from '@/server/lib/notifications';
-import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { createLogger } from '@/core/lib/infra/logger';
-import { adminPanel } from '@/config/routes';
-import { invalidateStats } from '@/core/lib/infra/stats-cache';
-import { runHook } from '@/core/lib/module/module-hooks';
-import { tagSubscriber } from '@/core/lib/email-list/index';
 
 const logger = createLogger('stripe-webhook');
 
@@ -29,7 +12,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Billing not configured' }, { status: 503 });
   }
 
-  // Clone request so we can read body twice (once for signature verification in provider)
   const clonedRequest = request.clone();
 
   let event;
@@ -55,163 +37,37 @@ export async function POST(request: Request) {
       data: event.providerData as Record<string, unknown>,
     });
   } catch (err) {
-    // Unique constraint violation = already processed
     if (String(err).includes('unique') || String(err).includes('duplicate')) {
       return NextResponse.json({ received: true, duplicate: true });
     }
     throw err;
   }
 
-  try {
-    switch (event.type) {
-      case 'subscription.activated': {
-        if (!event.organizationId || !event.providerSubscriptionId) break;
-
-        // Infer interval from provider price ID
-        const activatedPlan = event.providerPriceId
-          ? getPlanByProviderPriceId('stripe', event.providerPriceId)
-          : null;
-        const inferredInterval: 'monthly' | 'yearly' =
-          activatedPlan && event.providerPriceId &&
-          activatedPlan.providerPrices.stripe?.yearly === event.providerPriceId
-            ? 'yearly' : 'monthly';
-
-        await activateSubscription({
-          organizationId: event.organizationId,
-          planId: event.planId ?? 'free',
-          providerId: 'stripe',
-          interval: inferredInterval,
-          providerCustomerId: event.providerCustomerId ?? '',
-          providerSubscriptionId: event.providerSubscriptionId,
-          providerPriceId: event.providerPriceId,
-          status: event.status,
-          periodStart: event.periodStart,
-          periodEnd: event.periodEnd,
-        });
-
-        // Finalize discount usage if one was applied at checkout
-        const metadata = event.providerData as Record<string, unknown> | undefined;
-        const discountUsageId = metadata?.discountUsageId as string | undefined;
-        if (discountUsageId) {
-          await finalizeUsage(discountUsageId, event.providerSubscriptionId);
-        }
-
-        logAudit({
-          db,
-          userId: 'system',
-          action: 'subscription.created',
-          entityType: 'subscription',
-          entityId: event.providerSubscriptionId,
-          metadata: { orgId: event.organizationId, planId: event.planId },
-        });
-
-        sendOrgNotification(event.organizationId, {
-          title: 'Subscription activated',
-          body: `Your subscription to the ${event.planId ?? 'selected'} plan is now active.`,
-          type: NotificationType.SUCCESS,
-          category: NotificationCategory.BILLING,
-          actionUrl: adminPanel.settingsBilling,
-        });
-
-        // Record affiliate conversion if applicable (via module hooks registry)
-        const checkoutUserId = metadata?.userId as string | undefined;
-        if (checkoutUserId) {
-          const activatedPlanObj = getPlanByProviderPriceId('stripe', event.providerPriceId ?? '');
-          const amountCents = activatedPlanObj
-            ? (inferredInterval === 'yearly' ? activatedPlanObj.priceYearly : activatedPlanObj.priceMonthly)
-            : 0;
-          runHook('payment.conversion', checkoutUserId, event.providerSubscriptionId!, amountCents);
-        }
-
-        // Tag subscriber in email list with plan name
-        if (checkoutUserId) {
-          const [tagUser] = await db
-            .select({ email: user.email })
-            .from(user)
-            .where(eq(user.id, checkoutUserId))
-            .limit(1);
-          if (tagUser?.email) {
-            tagSubscriber(tagUser.email, [event.planId ?? 'subscriber']);
-          }
-        }
-
-        invalidateStats('billing');
-        break;
-      }
-
-      case 'subscription.updated': {
-        if (!event.providerSubscriptionId) break;
-
-        await updateSubscription(event.providerSubscriptionId, {
-          planId: event.planId,
-          status: event.status,
-          providerPriceId: event.providerPriceId,
-          periodStart: event.periodStart,
-          periodEnd: event.periodEnd,
-          cancelAtPeriodEnd: event.cancelAtPeriodEnd,
-        });
-
-        invalidateStats('billing');
-        break;
-      }
-
-      case 'subscription.canceled': {
-        if (!event.providerSubscriptionId) break;
-
-        const orgId = await getOrgByProviderSubscription(event.providerSubscriptionId);
-
-        await cancelSubscription(event.providerSubscriptionId);
-
-        invalidateStats('billing');
-
-        if (orgId) {
-          sendOrgNotification(orgId, {
-            title: 'Subscription canceled',
-            body: 'Your subscription has been canceled. You have been moved to the free plan.',
-            type: NotificationType.WARNING,
-            category: NotificationCategory.BILLING,
-            actionUrl: adminPanel.settingsBilling,
-          });
-
-          // Tag org owner as churned in email list
-          const [owner] = await db
-            .select({ email: user.email })
-            .from(member)
-            .innerJoin(user, eq(member.userId, user.id))
-            .where(eq(member.organizationId, orgId))
-            .limit(1);
-          if (owner?.email) {
-            tagSubscriber(owner.email, ['churned']);
-          }
-        }
-        break;
-      }
-
-      case 'payment.failed': {
-        if (!event.providerSubscriptionId) break;
-
-        const failedOrgId = await getOrgByProviderSubscription(event.providerSubscriptionId);
-
-        await updateSubscription(event.providerSubscriptionId, {
-          status: 'past_due',
-        });
-
-        invalidateStats('billing');
-
-        if (failedOrgId) {
-          sendOrgNotification(failedOrgId, {
-            title: 'Payment failed',
-            body: 'Payment failed for your subscription. Please update your payment method to avoid service interruption.',
-            type: NotificationType.ERROR,
-            category: NotificationCategory.BILLING,
-            actionUrl: adminPanel.settingsBilling,
-          });
-        }
-        break;
-      }
+  // ── Route store order events (dynamic — core-store may not be installed) ──
+  const eventMetadata = (event.providerData as Record<string, unknown>)?.metadata as Record<string, string> | undefined;
+  if (eventMetadata?.type === 'store_order' && eventMetadata?.orderId) {
+    try {
+      const { handleStorePaymentEvent } = await import('@/core-store/lib/webhook-handler');
+      const result = await handleStorePaymentEvent({
+        orderId: eventMetadata.orderId,
+        eventType: event.type,
+        eventId: stripeEventId,
+        providerId: 'stripe',
+        transactionId: (event.providerData as Record<string, unknown>)?.transactionId as string | undefined,
+      });
+      return NextResponse.json({ received: true, ...result });
+    } catch (err) {
+      logger.error('Error processing store order webhook', { error: String(err) });
+      return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
+  }
+
+  // ── Route subscription events (dynamic — core-subscriptions may not be installed) ──
+  try {
+    const { handleSubscriptionWebhookEvent } = await import('@/core-subscriptions/lib/webhook-handler');
+    await handleSubscriptionWebhookEvent({ event, providerId: 'stripe' });
   } catch (err) {
-    logger.error('Error processing Stripe webhook', { error: String(err) });
+    logger.error('Error processing Stripe subscription webhook', { error: String(err) });
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
   }
 

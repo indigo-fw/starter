@@ -8,7 +8,7 @@ Config files are the extension points for this template. Most new features are a
 2. Post-backed types: auto-registered via `cms_posts.type`. Others: create table + router
 3. Add admin section page
 4. Register renderer in `src/app/(public)/[...slug]/register-renderers.tsx`
-5. Add sitemap fetcher in `src/app/sitemap.ts` (`SITEMAP_FETCHERS` array)
+5. Add sitemap fetcher in `src/app/sitemap.ts` (`CONTENT_FETCHERS` array)
 
 ## How to Add a New Taxonomy
 
@@ -54,7 +54,7 @@ Core's `CustomFieldsEditor` accepts optional `fieldRenderers` prop — pass cust
 
 ## Sitemap
 
-Content fetchers live in `src/app/sitemap.ts` (`CONTENT_FETCHERS` array). Static pages and fetchers pass into `generateSitemap()` from `@/core/lib/seo/sitemap`. Adding a content type = adding a fetcher entry. Sitemap includes x-default hreflang for multilingual sites.
+`CONTENT_FETCHERS` array in `src/app/sitemap.ts` + static pages pass into `generateSitemap()` from `@/core/lib/seo/sitemap`. Adding a content type = adding a fetcher entry. Sitemap includes x-default hreflang for multilingual sites.
 
 ## Maintenance Tasks
 

@@ -232,15 +232,16 @@ export async function searchDocs(query: string, limit = 20, locale: string = DEF
     });
   const fileSlugs = new Set(fileResults.map((r) => r.slug));
 
-  // CMS docs: tsvector full-text search (ranked)
+  // CMS docs: tsvector full-text search (ranked, language-aware via cms_ts_config)
   let cmsResults: Array<{ slug: string; title: string; excerpt: string }> = [];
   if (query.length >= 3) {
-    const tsQuery = sql`plainto_tsquery('english', ${query})`;
+    const tsConfig = sql`cms_ts_config(${locale})`;
+    const tsQuery = sql`plainto_tsquery(${tsConfig}, ${query})`;
     const rows = await db
       .select({
         slug: cmsDocs.slug,
         title: cmsDocs.title,
-        excerpt: sql<string>`ts_headline('english', coalesce(${cmsDocs.bodyText}, ''), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as('excerpt'),
+        excerpt: sql<string>`ts_headline(${tsConfig}, coalesce(${cmsDocs.bodyText}, ''), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as('excerpt'),
       })
       .from(cmsDocs)
       .where(and(

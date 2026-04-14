@@ -100,13 +100,19 @@ export const storeProductsRouter = createTRPCRouter({
 
       if (!product) throw new TRPCError({ code: 'NOT_FOUND', message: 'Product not found' });
 
-      const [variants, images, variantGroups] = await Promise.all([
+      const [variants, images, variantGroups, productCategories] = await Promise.all([
         ctx.db.select().from(storeProductVariants).where(eq(storeProductVariants.productId, product.id)).orderBy(storeProductVariants.sortOrder).limit(100),
         ctx.db.select().from(storeProductImages).where(eq(storeProductImages.productId, product.id)).orderBy(storeProductImages.sortOrder).limit(50),
         ctx.db.select().from(storeVariantGroups).where(eq(storeVariantGroups.productId, product.id)).orderBy(storeVariantGroups.sortOrder).limit(10),
+        ctx.db
+          .select({ name: storeCategories.name, slug: storeCategories.slug })
+          .from(storeProductCategories)
+          .innerJoin(storeCategories, eq(storeProductCategories.categoryId, storeCategories.id))
+          .where(eq(storeProductCategories.productId, product.id))
+          .limit(50),
       ]);
 
-      return { ...product, variants, images, variantGroups };
+      return { ...product, variants, images, variantGroups, categories: productCategories };
     }),
 
   // ─── Admin CRUD ───────────────────────────────────────────────────────────
