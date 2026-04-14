@@ -63,6 +63,7 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
       orderNumber: storeOrders.orderNumber,
       totalCents: storeOrders.totalCents,
       currency: storeOrders.currency,
+      metadata: storeOrders.metadata,
     })
     .from(storeOrders)
     .where(eq(storeOrders.id, orderId))
@@ -85,6 +86,13 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
 
     // Deduct inventory now that payment is confirmed
     await deductOrderInventory(orderId);
+
+    // Release cart reservations (stock now deducted, reservations no longer needed)
+    const cartId = (order.metadata as Record<string, unknown> | null)?.cartId as string | undefined;
+    if (cartId) {
+      const { releaseCartReservations } = await import('./reservation-service');
+      await releaseCartReservations(cartId);
+    }
 
     if (transactionId) {
       await db.update(storeOrders)

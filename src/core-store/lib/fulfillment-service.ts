@@ -95,6 +95,11 @@ export async function updateShipmentStatus(
   status: string,
   tracking?: { trackingNumber?: string; trackingUrl?: string },
 ): Promise<void> {
+  const validStatuses = ['shipped', 'delivered'] as const;
+  if (!validStatuses.includes(status as typeof validStatuses[number])) {
+    throw new TRPCError({ code: 'BAD_REQUEST', message: `Invalid shipment status: ${status}. Must be 'shipped' or 'delivered'` });
+  }
+
   const [shipment] = await db
     .select({ id: storeShipments.id, orderId: storeShipments.orderId })
     .from(storeShipments)

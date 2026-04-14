@@ -42,8 +42,9 @@ setStoreDeps({
     return profile ?? null;
   },
 
-  async createPaymentCheckout({ orderId, orderNumber, totalCents, currency, customerEmail, providerId, metadata }) {
+  async createPaymentCheckout({ orderId, orderNumber, totalCents, currency, customerEmail, providerId, metadata, successUrl }) {
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+    const defaultSuccessUrl = successUrl ?? `${appUrl}/account/orders/${orderId}?success=1`;
     const provider = await getProvider(providerId);
 
     if (!provider) {
@@ -51,7 +52,7 @@ setStoreDeps({
       logger.warn('No payment provider configured — using dev mode (order auto-confirmed)', { orderId, providerId });
       await updateOrderStatus(orderId, 'processing', 'system', 'Dev mode: payment skipped (no provider configured)');
       await deductOrderInventory(orderId);
-      return `${appUrl}/account/orders/${orderId}?success=1`;
+      return defaultSuccessUrl;
     }
 
     const result = await provider.createCheckout({
@@ -59,7 +60,7 @@ setStoreDeps({
       finalPriceCents: totalCents,
       currency,
       productName: `Order ${orderNumber}`,
-      successUrl: `${appUrl}/account/orders/${orderId}?success=1`,
+      successUrl: defaultSuccessUrl,
       cancelUrl: `${appUrl}/cart?cancelled=1`,
       customerEmail,
       metadata: { ...metadata, type: 'store_order' },

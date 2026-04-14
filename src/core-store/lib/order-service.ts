@@ -86,7 +86,10 @@ export async function createOrder(params: CreateOrderParams): Promise<{ orderId:
     taxDetails: params.taxDetails,
     paymentProviderId: params.paymentProviderId ?? null,
     paymentTransactionId: params.paymentTransactionId ?? null,
-    metadata: params.adjustments ? { adjustments: params.adjustments } : null,
+    metadata: {
+      ...(params.adjustments ? { adjustments: params.adjustments } : {}),
+      ...(params.cart.id ? { cartId: params.cart.id } : {}),
+    },
   });
 
   // Create order items
@@ -121,12 +124,13 @@ export async function createOrder(params: CreateOrderParams): Promise<{ orderId:
         .where(eq(storeProducts.id, item.productId))
         .limit(1);
 
-      if (product?.digitalFileUrl && params.organizationId && params.placedByUserId) {
+      if (product?.digitalFileUrl) {
         await db.insert(storeDownloads).values({
           orderId,
           orderItemId,
-          organizationId: params.organizationId,
-          grantedToUserId: params.placedByUserId,
+          organizationId: params.organizationId ?? null,
+          grantedToUserId: params.placedByUserId ?? null,
+          guestEmail: params.guestEmail ?? null,
           token: crypto.randomUUID(),
           fileUrl: product.digitalFileUrl,
           downloadLimit: product.downloadLimit,

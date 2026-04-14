@@ -217,12 +217,17 @@ export function ImperativeDialogProvider({ children }: { children: ReactNode }) 
 
 /* ── Hooks ── */
 
+// SSR/prerender-safe fallbacks — during static generation the provider
+// isn't mounted, so we return no-ops instead of throwing.
+const ssrFallback: ImperativeDialogContextValue = {
+  confirm: () => Promise.resolve(false),
+  alert: () => Promise.resolve(),
+  prompt: () => Promise.resolve(null),
+};
+
 function useImperativeDialog() {
   const ctx = useContext(ImperativeDialogContext);
-  if (!ctx) {
-    throw new Error('useConfirm/useAlert/usePrompt must be used within <ImperativeDialogProvider>');
-  }
-  return ctx;
+  return ctx ?? ssrFallback;
 }
 
 export function useConfirm() {

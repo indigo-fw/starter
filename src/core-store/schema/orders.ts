@@ -178,12 +178,13 @@ export const storeDownloads = pgTable('store_downloads', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   orderId: text('order_id').notNull().references(() => storeOrders.id, { onDelete: 'cascade' }),
   orderItemId: text('order_item_id').notNull().references(() => storeOrderItems.id, { onDelete: 'cascade' }),
-  /** The org that owns the purchase */
+  /** The org that owns the purchase (null for guest orders) */
   organizationId: text('organization_id')
-    .notNull()
-    .references(() => organization.id, { onDelete: 'cascade' }),
-  /** The specific user granted access (defaults to order placer) */
-  grantedToUserId: text('granted_to_user_id').notNull(),
+    .references(() => organization.id, { onDelete: 'set null' }),
+  /** The specific user granted access (null for guest orders) */
+  grantedToUserId: text('granted_to_user_id'),
+  /** Guest email for anonymous downloads */
+  guestEmail: varchar('guest_email', { length: 255 }),
   /** Unique download token (used in download URL) */
   token: varchar('token', { length: 100 }).notNull().unique(),
   fileUrl: text('file_url').notNull(),

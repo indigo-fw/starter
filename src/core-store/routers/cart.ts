@@ -4,7 +4,9 @@ import { eq, and } from 'drizzle-orm';
 import { createTRPCRouter, publicProcedure } from '@/server/trpc';
 import { storeCartItems } from '@/core-store/schema/orders';
 import { storeProducts, storeProductVariants } from '@/core-store/schema/products';
+import { storeInventoryReservations } from '@/core-store/schema/inventory';
 import { getOrCreateCart, getCartWithItems, mergeCart } from '@/core-store/lib/cart-service';
+import { reserveStock } from '@/core-store/lib/reservation-service';
 
 export const storeCartRouter = createTRPCRouter({
   /** Get current cart */
@@ -90,6 +92,14 @@ export const storeCartRouter = createTRPCRouter({
         });
       }
 
+      // Fire-and-forget stock reservation
+      reserveStock(
+        cartId,
+        input.productId,
+        input.variantId ?? null,
+        existing ? existing.quantity + input.quantity : input.quantity,
+      ).catch(() => {});
+
       return getCartWithItems(cartId);
     }),
 
@@ -100,22 +110,37 @@ export const storeCartRouter = createTRPCRouter({
       quantity: z.number().int().min(0).max(99),
     }))
     .mutation(async ({ ctx, input }) => {
-      if (input.quantity === 0) {
-        await ctx.db.delete(storeCartItems).where(eq(storeCartItems.id, input.itemId));
-      } else {
-        await ctx.db.update(storeCartItems)
-          .set({ quantity: input.quantity })
-          .where(eq(storeCartItems.id, input.itemId));
-      }
-
-      // Get cartId from the item to return updated cart
+      // Read the full item before mutating (needed for reservation + cartId)
       const [item] = await ctx.db
-        .select({ cartId: storeCartItems.cartId })
+        .select({
+          cartId: storeCartItems.cartId,
+          productId: storeCartItems.productId,
+          variantId: storeCartItems.variantId,
+        })
         .from(storeCartItems)
         .where(eq(storeCartItems.id, input.itemId))
         .limit(1);
 
       if (!item) return { items: [], subtotalCents: 0, itemCount: 0, currency: 'EUR' };
+
+      if (input.quantity === 0) {
+        // Delete item and release its reservation
+        await ctx.db.delete(storeCartItems).where(eq(storeCartItems.id, input.itemId));
+        await ctx.db.delete(storeInventoryReservations).where(
+          and(
+            eq(storeInventoryReservations.cartId, item.cartId),
+            eq(storeInventoryReservations.productId, item.productId),
+          ),
+        );
+      } else {
+        await ctx.db.update(storeCartItems)
+          .set({ quantity: input.quantity })
+          .where(eq(storeCartItems.id, input.itemId));
+
+        // Update stock reservation (fire-and-forget)
+        reserveStock(item.cartId, item.productId, item.variantId, input.quantity).catch(() => {});
+      }
+
       return getCartWithItems(item.cartId);
     }),
 
@@ -123,9 +148,13 @@ export const storeCartRouter = createTRPCRouter({
   removeItem: publicProcedure
     .input(z.object({ itemId: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      // Get cartId before deleting
+      // Get cartId + product info before deleting (needed for reservation cleanup)
       const [item] = await ctx.db
-        .select({ cartId: storeCartItems.cartId })
+        .select({
+          cartId: storeCartItems.cartId,
+          productId: storeCartItems.productId,
+          variantId: storeCartItems.variantId,
+        })
         .from(storeCartItems)
         .where(eq(storeCartItems.id, input.itemId))
         .limit(1);
@@ -133,6 +162,15 @@ export const storeCartRouter = createTRPCRouter({
       await ctx.db.delete(storeCartItems).where(eq(storeCartItems.id, input.itemId));
 
       if (!item) return { items: [], subtotalCents: 0, itemCount: 0, currency: 'EUR' };
+
+      // Release reservation for this item
+      await ctx.db.delete(storeInventoryReservations).where(
+        and(
+          eq(storeInventoryReservations.cartId, item.cartId),
+          eq(storeInventoryReservations.productId, item.productId),
+        ),
+      );
+
       return getCartWithItems(item.cartId);
     }),
 

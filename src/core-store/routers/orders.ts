@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { and, count, desc, eq, gte, ilike, lte } from 'drizzle-orm';
-import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure, sectionProcedure } from '@/server/trpc';
 import { storeOrders, storeOrderItems, storeOrderEvents, storeDownloads, storeCartItems } from '@/core-store/schema/orders';
 import { storeProducts, storeProductVariants } from '@/core-store/schema/products';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
@@ -96,6 +96,60 @@ export const storeOrdersRouter = createTRPCRouter({
         .where(eq(storeDownloads.id, download.id));
 
       return { fileUrl: download.fileUrl };
+    }),
+
+  /** Download by token only — no auth required (for guest orders + email links) */
+  getDownloadByToken: publicProcedure
+    .input(z.object({ token: z.string().max(100) }))
+    .query(async ({ ctx, input }) => {
+      const [download] = await ctx.db
+        .select()
+        .from(storeDownloads)
+        .where(eq(storeDownloads.token, input.token))
+        .limit(1);
+
+      if (!download) throw new TRPCError({ code: 'NOT_FOUND', message: 'Download not found' });
+
+      if (download.expiresAt && download.expiresAt < new Date()) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Download link has expired' });
+      }
+
+      if (download.downloadLimit && download.downloadCount >= download.downloadLimit) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Download limit reached' });
+      }
+
+      await ctx.db.update(storeDownloads)
+        .set({ downloadCount: download.downloadCount + 1 })
+        .where(eq(storeDownloads.id, download.id));
+
+      return { fileUrl: download.fileUrl };
+    }),
+
+  /** Guest order lookup by order number + email */
+  guestOrderDetail: publicProcedure
+    .input(z.object({
+      orderNumber: z.string().max(50),
+      email: z.string().email().max(255),
+    }))
+    .query(async ({ ctx, input }) => {
+      const [order] = await ctx.db
+        .select()
+        .from(storeOrders)
+        .where(and(
+          eq(storeOrders.orderNumber, input.orderNumber),
+          eq(storeOrders.guestEmail, input.email),
+        ))
+        .limit(1);
+
+      if (!order) throw new TRPCError({ code: 'NOT_FOUND', message: 'Order not found' });
+
+      const [items, events, downloads] = await Promise.all([
+        ctx.db.select().from(storeOrderItems).where(eq(storeOrderItems.orderId, order.id)).limit(100),
+        ctx.db.select().from(storeOrderEvents).where(eq(storeOrderEvents.orderId, order.id)).orderBy(storeOrderEvents.createdAt).limit(50),
+        ctx.db.select().from(storeDownloads).where(eq(storeDownloads.orderId, order.id)).limit(50),
+      ]);
+
+      return { ...order, items, events, downloads: downloads.map((d) => ({ ...d, fileUrl: undefined, token: d.token })) };
     }),
 
   // ─── Admin ──────────────────────────────────────────────────────────────

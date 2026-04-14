@@ -26,6 +26,8 @@ export interface StoreDeps {
     customerEmail?: string;
     providerId: string;
     metadata: Record<string, string>;
+    /** Override the default success redirect URL (e.g. for guest orders). */
+    successUrl?: string;
   }) => Promise<string>;
 
   /**

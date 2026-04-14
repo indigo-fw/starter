@@ -8,6 +8,7 @@ import { getShippingOptions } from '@/core-store/lib/shipping-service';
 import { createOrder, assignInvoiceNumber } from '@/core-store/lib/order-service';
 import { recordDiscountUsage } from '@/core-store/lib/discount-service';
 import { calculateTotalsPipeline } from '@/core-store/lib/totals-pipeline';
+import { checkBundleAvailability, deductBundleInventory } from '@/core-store/lib/bundle-service';
 import { getStoreDeps } from '@/core-store/deps';
 import { createLogger } from '@/core/lib/infra/logger';
 
@@ -165,6 +166,18 @@ export const storeCheckoutRouter = createTRPCRouter({
         });
       }
 
+      // Check bundle product component stock
+      const bundleItems = cartData.items.filter((i) => i.productType === 'bundle');
+      for (const item of bundleItems) {
+        const available = await checkBundleAvailability(item.productId, item.quantity);
+        if (!available) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: `Bundle "${item.productName}" has insufficient component stock`,
+          });
+        }
+      }
+
       // ── Subscription product handling ─────────────────────────────────
       const subscriptionItems = cartData.items.filter((i) => i.productType === 'subscription');
 
@@ -207,7 +220,7 @@ export const storeCheckoutRouter = createTRPCRouter({
           providerId: input.paymentProviderId,
         });
 
-        // Clear cart — subscription lifecycle handled by billing module
+        // Clear cart (reservations released by TTL or payment webhook) — subscription lifecycle handled by billing module
         await ctx.db.delete(storeCarts).where(eq(storeCarts.id, cart.id));
 
         logger.info('Subscription checkout created from store', {
@@ -258,6 +271,11 @@ export const storeCheckoutRouter = createTRPCRouter({
         adjustments: totals.adjustments,
       });
 
+      // Deduct bundle component inventory
+      for (const item of bundleItems) {
+        await deductBundleInventory(item.productId, item.quantity);
+      }
+
       // Generate invoice number (EU compliance)
       const invoiceNumber = await assignInvoiceNumber(orderId);
 
@@ -281,7 +299,7 @@ export const storeCheckoutRouter = createTRPCRouter({
         metadata: { orderId, orderNumber, invoiceNumber },
       });
 
-      // Clear cart after order creation
+      // Clear cart (reservations released by TTL or payment webhook)
       await ctx.db.delete(storeCarts).where(eq(storeCarts.id, cart.id));
 
       logger.info('Order placed', { orderId, orderNumber, totalCents: totals.totalCents, organizationId: orgId });
@@ -326,6 +344,18 @@ export const storeCheckoutRouter = createTRPCRouter({
         });
       }
 
+      // Check bundle product component stock
+      const bundleItems = cartData.items.filter((i) => i.productType === 'bundle');
+      for (const item of bundleItems) {
+        const available = await checkBundleAvailability(item.productId, item.quantity);
+        if (!available) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: `Bundle "${item.productName}" has insufficient component stock`,
+          });
+        }
+      }
+
       // Guests cannot purchase subscription products
       const subscriptionItems = cartData.items.filter((i) => i.productType === 'subscription');
       if (subscriptionItems.length > 0) {
@@ -336,9 +366,10 @@ export const storeCheckoutRouter = createTRPCRouter({
       }
 
       // ── Build billing profile snapshot from guest input ────────────
+      const guestName = [input.shippingAddress.firstName, input.shippingAddress.lastName].filter(Boolean).join(' ');
       const billingProfile = {
-        legalName: input.email,
-        email: input.email,
+        legalName: guestName || input.email,
+        invoiceEmail: input.email,
         address1: input.shippingAddress.address1,
         address2: input.shippingAddress.address2 ?? null,
         city: input.shippingAddress.city,
@@ -382,6 +413,11 @@ export const storeCheckoutRouter = createTRPCRouter({
         adjustments: totals.adjustments,
       });
 
+      // Deduct bundle component inventory
+      for (const item of bundleItems) {
+        await deductBundleInventory(item.productId, item.quantity);
+      }
+
       // Generate invoice number (EU compliance)
       const invoiceNumber = await assignInvoiceNumber(orderId);
 
@@ -393,7 +429,8 @@ export const storeCheckoutRouter = createTRPCRouter({
         });
       }
 
-      // Create payment checkout session
+      // Create payment checkout session (guest gets public confirmation page)
+      const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
       const checkoutUrl = await deps.createPaymentCheckout({
         orderId,
         orderNumber,
@@ -402,14 +439,15 @@ export const storeCheckoutRouter = createTRPCRouter({
         customerEmail: input.email,
         providerId: input.paymentProviderId,
         metadata: { orderId, orderNumber, invoiceNumber },
+        successUrl: `${appUrl}/order-confirmation?order=${orderNumber}&email=${encodeURIComponent(input.email)}`,
       });
 
-      // Clear cart after order creation
+      // Clear cart (reservations released by TTL or payment webhook)
       await ctx.db.delete(storeCarts).where(eq(storeCarts.id, cart.id));
 
       logger.info('Guest order placed', { orderId, orderNumber, totalCents: totals.totalCents, guestEmail: input.email });
 
-      return { type: 'order' as const, orderId, orderNumber, invoiceNumber, checkoutUrl };
+      return { type: 'guest_order' as const, orderId, orderNumber, invoiceNumber, checkoutUrl };
     }),
 });
 

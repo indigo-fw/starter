@@ -69,6 +69,7 @@ const config: ModuleConfig = {
     'app/(public)/store/[slug]/client.tsx',
     'app/(public)/cart/page.tsx',
     'app/(public)/checkout/page.tsx',
+    'app/(public)/order-confirmation/page.tsx',
     'app/(public)/account/orders/page.tsx',
     'app/(public)/account/orders/[id]/page.tsx',
     'app/(public)/account/wishlist/page.tsx',

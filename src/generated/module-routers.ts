@@ -23,6 +23,10 @@ import { storeRelationsRouter } from '@/core-store/routers/relations';
 import { storeAttributesRouter } from '@/core-store/routers/attributes';
 import { storeAddressesRouter } from '@/core-store/routers/addresses';
 import { storeAnalyticsRouter } from '@/core-store/routers/analytics';
+import { storeFulfillmentRouter } from '@/core-store/routers/fulfillment';
+import { storeReturnsRouter } from '@/core-store/routers/returns';
+import { storeAlertsRouter } from '@/core-store/routers/alerts';
+import { storeAdminRouter } from '@/core-store/routers/store-admin';
 import { characterRouter } from '@/core-chat/routers/characters';
 import { conversationRouter } from '@/core-chat/routers/conversations';
 import { messageRouter } from '@/core-chat/routers/messages';
@@ -61,6 +65,10 @@ export const moduleRouters = {
   storeAttributes: storeAttributesRouter,
   storeAddresses: storeAddressesRouter,
   storeAnalytics: storeAnalyticsRouter,
+  storeFulfillment: storeFulfillmentRouter,
+  storeReturns: storeReturnsRouter,
+  storeAlerts: storeAlertsRouter,
+  storeAdmin: storeAdminRouter,
   characters: characterRouter,
   conversations: conversationRouter,
   messages: messageRouter,
