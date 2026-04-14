@@ -1,37 +1,26 @@
-# core-subscriptions -- CLAUDE.md
+# core-subscriptions — CLAUDE.md
 
-Free subscription lifecycle module. Subscription management, tokens, discounts, feature gates, and dunning.
+Subscription lifecycle — management, tokens, discounts, feature gates, dunning.
+
+**Token functions live here:** `addTokens()`, `deductTokens()` — atomic `UPDATE WHERE balance >= amount` (race-safe). Not in core.
 
 ## Module Boundary
 
-**core-subscriptions owns:** Subscription schema (5 tables), billing/discount-codes routers, subscription/discount/token/feature-gate services, dunning job, billing types.
+**core-subscriptions owns:** Subscription schema (5 tables), billing/discount-codes routers, subscription/discount/token/feature-gate services, dunning job.
 
-**Project owns:** Plan definitions (`config/plans.ts`), billing admin pages, dependency wiring (`config/subscriptions-deps.ts`).
+**Project owns:** Plan definitions (`config/plans.ts`), billing admin pages, `config/subscriptions-deps.ts`.
 
-## Import Rules
+## DI (`setSubscriptionsDeps()`)
 
-- core-subscriptions imports from `@/core/*` (core utilities)
-- Framework conventions imported directly: `@/server/trpc`, `@/server/db`, `@/server/db/schema/auth`, `@/server/db/schema/organization`, `@/server/db/schema/audit`
-- Cross-module: payment provider/transaction access via DI (injected in subscriptions-deps.ts). Only type imports from `@/core-payments/types/payment` (DiscountType enum, type interfaces)
-- Project-specific behavior injected via `setSubscriptionsDeps()`
-- Project imports from `@/core-subscriptions/*`
-- Core (`src/core/`) never imports from core-subscriptions
+`getPlans` / `getPlan` / `getPlanByProviderPriceId` / `getProviderPriceId`, `resolveOrgId`, `sendOrgNotification`, `enqueueTemplateEmail`, `broadcastEvent`.
 
-## Dependency Injection
+## Cross-module
 
-`deps.ts` defines `SubscriptionsDeps`. Project calls `setSubscriptionsDeps()` at startup. Injected deps:
+Only type imports from `@/core-payments/types/payment` (enums + interfaces). Payment provider/transaction access via DI.
 
-- **getPlans / getPlan / getPlanByProviderPriceId / getProviderPriceId** -- plan definitions
-- **resolveOrgId** -- resolve active org for a user
-- **sendOrgNotification** -- notify org members
-- **enqueueTemplateEmail** -- send dunning/lifecycle emails
-- **broadcastEvent** -- WS broadcast (token balance updates)
+## Wiring
 
-## Wiring Into a Project
-
-1. **Deps:** Create `config/subscriptions-deps.ts` calling `setSubscriptionsDeps()`, import in `server.ts`
-2. **Routers:** Import `billingRouter` + `discountCodesRouter` in `_app.ts`
-3. **Schema:** Re-export subscription tables from `schema/index.ts`
-4. **Plans:** Define plans in `config/plans.ts`, call `setPlanResolver()` for feature-gate
-5. **Dunning:** Import in `server.ts` job setup
-6. **Webhooks:** Keep in `app/api/webhooks/` (Next.js routing requirement)
+1. Create `config/subscriptions-deps.ts` → import in `server.ts`
+2. Define plans in `config/plans.ts`, call `setPlanResolver()` for feature-gate
+3. Routers/schema auto-registered via `indigo:sync`
+4. Webhook routes stay in `app/api/webhooks/`

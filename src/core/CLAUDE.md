@@ -1,136 +1,69 @@
 # Core — CLAUDE.md
 
-`src/core/` is a git subtree from `indigo-fw/core` repo. Do not modify per-project.
+`src/core/` is a git subtree from `indigo-fw/core`. Do not modify per-project.
 
 ```bash
-# Pull updates
 git subtree pull --prefix=src/core git@github.com:indigo-fw/core.git main --squash
-# Push changes
 git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 ```
 
 ## Core vs Project Boundary
 
-**Core owns:** reusable CMS infrastructure — CRUD helpers, hooks, shared components, types, RBAC policy, storage, payment services, CSS tokens, lib utilities, MDX compiler, content sync, content variables, seed templates, email engine, RSS/sitemap generators, search triggers, cron/maintenance registries, scheduled content publishing, health check factory, cookie consent. Browse `src/core/` subdirectories to see what's available.
+**Core owns:** reusable CMS infrastructure — CRUD helpers, hooks, shared components, types, RBAC, storage, CSS tokens, lib utilities, MDX compiler, content sync, email engine, RSS/sitemap, search triggers, cron/maintenance registries, scheduled publishing, health check, cookie consent, web push.
 
-**Project owns:** `src/config/` (content types, taxonomies, plans, nav, widgets, shortcodes), `src/server/` (DB schema, tRPC routers), `src/app/` (routes), `src/components/` (forms, list views, sidebar, public UI), `content/` (file-based content). Customize freely.
+**Project owns:** `src/config/`, `src/server/`, `src/app/`, `src/components/`, `content/`.
 
 ## Import Rules
 
 - Project imports from `@/core/*`
-- Core may only import from: `@/server/db`, `@/server/db/schema/*`, `@/lib/trpc/client`, `@/lib/trpc/server`, `@/lib/utils`, `@/lib/constants`, `@/config/plans`
-- Core components that need project-specific data accept it via **props** (not config imports). Examples: `NotificationBell.notificationsHref`, `OrgSwitcher.manageOrgsHref`, `ContentCalendar.editUrlBuilder`, `MediaPickerButton` wraps `MediaPickerDialog` as `value`/`onChange`
-- Feature-gate uses `setPlanResolver()` DI — project calls it once in `plans.ts`
-- Module hooks: `registerHook(event, handler)` / `runHook(event, ...args)` for cross-module communication (fire-and-forget). `runGuard()` for blocking checks.
-- WS channel auth: `registerChannelAuthorizer(fn)` — modules claim channel prefixes (returns `true`/`false`/`null` for skip)
-- Schema overrides: modules declare `overridableSchema` in `module.config.ts`; sync script detects project overrides at `src/schema/overrides/`; generated `module-schema.ts` auto-resolves
+- Core may only import from: `@/server/db`, `@/server/db/schema/*`, `@/lib/trpc/client`, `@/lib/trpc/server`, `@/lib/utils`, `@/lib/constants`, `@/lib/translations`, `@/config/plans`, `@/config/site`
+- Core components needing project data accept it via **props** (not config imports)
+- Feature-gate: `setPlanResolver()` DI — project calls once in `plans.ts`
+- Module hooks: `registerHook(event, handler)` / `runHook(event, ...args)` for cross-module communication
+- WS channel auth: `registerChannelAuthorizer(fn)`
+- Schema overrides: modules declare `overridableSchema` in `module.config.ts`; project extends at `src/schema/overrides/`
 
-## Shared Utilities — Use These, Not Manual Alternatives
+## Shared Utilities — Use These, Don't Reinvent
 
-- **Slugs:** `slugify()` / `slugifyFilename()` — never inline slug regex
-- **Slug uniqueness:** `ensureSlugUnique()` — never inline
-- **Pagination:** `parsePagination()` + `paginatedResult()` → `{ results, total, page, pageSize, totalPages }`
-- **Admin lists:** `buildAdminList()` — conditions, sort, pagination, count in parallel
-- **Soft-delete:** `softDelete()`, `softRestore()`, `permanentDelete()`
-- **CMS updates:** `updateWithRevision()` — wraps revision + slug redirect + update
-- **Fetch or 404:** `fetchOrNotFound(db, table, id, entityName)` — never inline
-- **Copy slug:** `generateCopySlug()` — never inline the retry loop
-- **Status update:** `updateContentStatus()` — handles auto-publishedAt
-- **Translation copy:** `prepareTranslationCopy()` — handles group creation, unique slug, preview token
-- **Bulk export:** `serializeExport(items, headers, format)` for JSON/TSV
-- **Router Zod schemas:** `adminListInput`, `updateStatusInput`, `duplicateAsTranslationInput`, `exportBulkInput` — never inline
-- **Autosave recovery:** `narrowRecoveredData(recovered, defaults)` — never manually cast
-- **Markdown:** `htmlToMarkdown()` / `markdownToHtml()` — preserves shortcodes through placeholder strategies
-- **Content variables:** `resolveContentVars()` — replaces `[[VAR]]` placeholders with `site.ts` values at render time. Fast path skips if no `[[` present
-- **CMS links:** `cms://` protocol for content-aware links. `resolveCmsLink()` resolves by ID or slug with multilingual fallback chain. `resolveCmsLinks(text, locale)` batch-resolves all `cms://` URIs in a string. `resolveRecordCmsLinks(record, locale)` resolves all string fields. Server code in `cms-link.ts`, client-safe utilities in `cms-link-shared.ts`. LRU cache (500 entries, 1h TTL) + Redis pub/sub invalidation via `broadcastCmsLinkInvalidation()`. Project wires config via `src/config/cms-link-init.ts`. Client component: `<CmsLink>` from `@/core/components/CmsLink` — project wraps as `<Link>` in `@/components/Link`
-- **MDX compiler:** `compileMdx()` — unified remark→rehype pipeline with component registry (`registerMdxComponent()`). LRU-cached
-- **Content sync:** `syncContentFiles()` — syncs `.md` files from `content/{locale}/` to CMS DB. File mtime vs DB updatedAt, revision on update
-- **Seed content:** `seedContentFiles()` — copies `core/_templates/content/` to `content/` on init (skips existing)
-- **Frontmatter:** `parseFrontmatter<T>()` — shared YAML parser for `.md`/`.mdx` files
-- **Audit:** `logAudit()` — fire-and-forget, logs errors via logger. Never silently swallow fire-and-forget errors
-- **Webhooks:** `dispatchWebhook()` — fire-and-forget, logs failures
-- **API routes:** `withApiRoute(request, handler)` for REST v1 — wraps auth + rate-limit + try/catch
-- **Tokens:** `addTokens()`, `deductTokens()` — race-safe atomic deduction (UPDATE WHERE balance >= amount)
-- **Email:** `enqueueTemplateEmail(to, template, vars, locale)` / `enqueueEmail({ to, subject, html })` — BullMQ queue with SMTP fallback. Wire branding via `setEmailDeps()` in `src/config/email-deps.ts`. Core templates in `_templates/emails/`
-- **RSS:** `generateRssFeed(config, items)` + `createRssResponse(xml)` — RSS 2.0 XML builder. `escapeXml()` for safe XML strings
-- **Sitemap:** `generateSitemap(config, staticPages, fetchers)` — builds Next.js MetadataRoute.Sitemap with multilingual support. Project passes fetcher callbacks, core handles locale iteration + hreflang
-- **Search triggers:** `applySearchTriggers(sql, configs)` — builds PG tsvector triggers + backfills. Project defines table configs, core generates SQL
-- **Cron:** `registerCronJob({ name, pattern, handler })` + `startCronScheduler()` — handles BullMQ repeatable vs DB-queue fallback. Register before calling start
-- **Maintenance:** `registerMaintenanceTask(name, fn)` + `runAllMaintenanceTasks()` — sequential execution with independent error handling per task
-- **Scheduled publish:** `registerScheduledPublishTarget(target)` — auto-publishes scheduled content. Core handles audit logging + webhook dispatch
-- **Health check:** `createHealthHandler(checks)` — factory for `/api/health` endpoint. Runs provided checks + module health hooks. Returns healthy/degraded/unhealthy
-- **Cookie consent:** `<ConsentProvider>` + `<CookieConsent />` + `<ConsentGate category="analytics">`. `useConsent()` hook for programmatic access. localStorage + cookie persistence
-- **Web Push:** `sendPushToUser(userId, payload)` from `@/core/lib/push/web-push` — sends to all registered devices, auto-cleans 410 Gone. No-op without VAPID env vars. `usePushNotifications()` hook for client-side subscribe/unsubscribe with auto-re-registration. `<PushToggle>` component (compact/full). Service worker at `public/sw.js`
-- **Pagination:** 4 variants — `<PaginationNumbered>` (page buttons with ellipsis), `<PaginationSimple>` (prev/next + info), `<PaginationLoadMore>` (button), `<PaginationInfinite>` (IntersectionObserver auto-load). All accept `href` (SSR links) or `onPageChange` (client), custom `LinkComponent`, translated labels
-- **Skeleton:** `<Skeleton variant="line|circle|card" count={N}>` — loading placeholder with pulse animation
-- **Avatar:** `<Avatar src={url} name="John" size="md">` — image with initials fallback, sizes xs/sm/md/lg/xl
-- **Structured data:** `<StructuredData data={jsonLd} />` — renders `<script type="application/ld+json">`
-- **Canonical URLs:** `setCanonicalConfig()` + `buildCanonicalUrl(path, locale)` + `buildAlternates(path, locales)` — locale-aware absolute URLs for SEO metadata. Wire via `src/config/canonical-init.ts` (side-effect import)
-- **JSON-LD builders:** `buildArticleJsonLd()` (Article/BlogPosting with author), `buildBreadcrumbJsonLd()` (hierarchical pages), `buildOrganizationJsonLd()` (root layout) — all in `seo/json-ld.ts`
-- **Imperative dialogs:** `useConfirm()`, `useAlert()`, `usePrompt()` from `@/core/hooks` — Promise-based replacements for native `confirm()`/`alert()`/`prompt()`. Queued (concurrent calls wait). Requires `<ImperativeDialogProvider>` in layout (already in root). Uses Dialog component with consistent styling, translations, and `variant: 'danger'` support. For complex flows with managed `open` state, use `<ConfirmDialog>` instead
+**CRUD & queries:**
+`fetchOrNotFound()`, `buildAdminList()`, `softDelete()` / `softRestore()` / `permanentDelete()`, `parsePagination()` + `paginatedResult()`, `updateWithRevision()`, `updateContentStatus()`, `prepareTranslationCopy()`, `narrowRecoveredData()`, `serializeExport()`
+
+**Slugs:** `slugify()`, `slugifyFilename()`, `ensureSlugUnique()`, `generateCopySlug()`
+
+**Router Zod schemas:** `adminListInput`, `updateStatusInput`, `duplicateAsTranslationInput`, `exportBulkInput`
+
+**Content:** `htmlToMarkdown()` / `markdownToHtml()`, `resolveContentVars()` (`%VAR%` → site.ts values), `compileMdx()` + `registerMdxComponent()`, `syncContentFiles()`, `seedContentFiles()`, `parseFrontmatter<T>()`
+
+**CMS links:** `cms://` protocol — `resolveCmsLink()`, `resolveCmsLinks(text, locale)`, `resolveRecordCmsLinks(record, locale)`. LRU + Redis pub/sub invalidation. Client: `<CmsLink>`, project wraps as `<Link>`
+
+**Infrastructure:** `logAudit()`, `dispatchWebhook()`, `enqueueTemplateEmail()` / `enqueueEmail()`, `sendPushToUser()`, `createLogger()`
+
+**API:** `withApiRoute(request, handler)` for REST v1
+
+**SEO:** `generateRssFeed()` + `createRssResponse()`, `generateSitemap()`, `buildCanonicalUrl()` + `buildAlternates()`, `buildArticleJsonLd()`, `buildBreadcrumbJsonLd()`, `buildOrganizationJsonLd()`
+
+**Registries:** `registerCronJob()` + `startCronScheduler()`, `registerMaintenanceTask()`, `registerScheduledPublishTarget()`, `registerHealthCheck()`, `createHealthHandler()`
+
+**Components:** `<ConsentProvider>` + `<CookieConsent>` + `<ConsentGate>`, `<PaginationNumbered>` / `<PaginationSimple>` / `<PaginationLoadMore>` / `<PaginationInfinite>`, `<Skeleton>`, `<Avatar>`, `<StructuredData>`, `useConfirm()` / `useAlert()` / `usePrompt()`
 
 ## Translations
 
 ```typescript
-// Admin / core components (dashboard layout provides next-intl messages):
-import { useAdminTranslations } from '@/lib/translations';
-const __ = useAdminTranslations();
-
-// Public / shared components (outside dashboard — no admin messages):
-import { useBlankTranslations } from '@/lib/translations';
-const __ = useBlankTranslations();
-
+// Admin components:
+const __ = useAdminTranslations();    // from '@/lib/translations'
+// Public components (no admin messages):
+const __ = useBlankTranslations();    // from '@/lib/translations'
 // Server components:
-import { getServerTranslations } from '@/core/lib/i18n/translations-server';
-const __ = await getServerTranslations();
-
-// All user-visible text must be wrapped:
-<h1>{__('Users')}</h1>  // RIGHT
-<h1>Users</h1>           // WRONG
+const __ = await getServerTranslations(); // from '@/core/lib/i18n/translations-server'
+// All user-visible text must be wrapped: {__('Users')}
 ```
 
-## File-Based Content System
+## CSS Architecture
 
-Two pipelines for file-based content, determined by file extension:
-
-| Extension | Pipeline | DB synced? | Editable in admin? | Use case |
-|-----------|----------|------------|---------------------|----------|
-| `.md` | `content:sync` → DB on startup | Yes | Yes | Legal pages (ToS, privacy policy) |
-| `.mdx` | Runtime compile, file-first | No | Shows ".mdx" badge | Docs, technical guides |
-
-**Content variables:** `[[COMPANY_NAME]]`, `[[SITE_NAME]]`, `[[CONTACT_EMAIL]]`, etc. Stored as-is in DB, resolved at render time by `resolveContentVars()` using values from `site.ts`. Works in both `.md` (via ShortcodeRenderer) and `.mdx` (via MDX compiler).
-
-**CMS links in content:** `cms://` protocol URIs (e.g., `[About Us](cms://about-us)`, `[Post](cms://3f2a-uuid?lang=de)`) are resolved server-side by `resolveRecordCmsLinks()` in the data layer. Supports ID/slug lookup with multilingual fallback. See `cms-link.ts` for details.
-
-**Seed templates:** `core/_templates/content/{locale}/*.md` → copied to `content/{locale}/` on `bun run init`. Never overwrites existing files. Variables stay as `[[VAR]]` placeholders.
-
-**Directory structure:**
-```
-content/{locale}/              → synced to cms_posts (page type)
-content/{locale}/blog/         → synced to cms_posts (blog type)
-docs/{locale}/                 → runtime .mdx docs (core-docs module, locale-aware)
-```
-
-## CSS Conventions
-
-- **Class naming:** layout → `app-*` prefix. Components → no prefix (`.btn`, `.card`, `.icon-btn`). Dashboard → `dash-*`. Modules → module prefix (`support-chat-*`). All kebab-case.
-- **App layout:** `.app-wrapper[data-page]` > `.app-header` > `.app-toolbar` + `.app-main` + `.app-footer`. Compose from lego components: `<AppNav />`, `<AppFooter />`, `<AppSidebar />`. See `app-layout.css`.
-- **Layout utilities:** `.app-container` (80rem, centered, padded — `globals.css`), `.app-container-narrow` (48rem), `.app-section` / `.app-section-alt` (vertical rhythm). Never use Tailwind's `container`.
-- **Component CSS co-location:** layout components have CSS next to their TSX (AppNav.css, AppFooter.css, AppSidebar.css, MobileMenu.css). CSS loads only when the component renders.
-- **Component-level CSS variables:** `var(--component-var, var(--token))` pattern. Override just one component without affecting the global token. Vars don't exist by default — set in page CSS or tokens.css. Full API documented in `app-layout.css` header comment.
-- **Dark mode tokens:** centralized in `tokens.css`. Component CSS files have NO `html.dark` blocks — they use tokens that change in dark mode. Force dark per route: `data-theme="dark"` on `.app-wrapper`.
-- **Per-page overrides:** `data-page` attribute on `.app-wrapper`. Target in co-located CSS: `.app-wrapper[data-page="showcase"] { --page-bg: oklch(0 0 0); }`
-- **Shared components:** `shared-components.css` (loaded globally) owns `.btn`, `.btn-primary`, `.btn-secondary`, `.icon-btn`, `.input`, `.select`, `.textarea`, `.label`. Route-specific variants in `admin.css` (`.btn-danger`) or `frontend/forms.css` (`.btn-ghost`).
-- **Modifiers:** separate class (`.btn-primary`, `.btn-sm`), not BEM (`--primary`). State via `IS_ACTIVE` constant + `activeAria(isActive, role)` from `@/core/lib/active-props`.
-- **Table classes:** prefixed `.table-th`, `.table-td`, `.table-tr`.
-- **Tokens:** all colors via design tokens — never hardcode oklch values in component CSS. `tokens.css` → `tokens-public.css` → `tokens-admin.css`.
-
-## CSS Gotchas
-
-- **OKLCH traps:** `oklch(L C var(--brand-hue) / alpha)` works. `oklch(from ...)` does NOT work with Lightning CSS. `color-mix()` is wrong for alpha tints
-- **Tailwind v4 opacity:** `/80` modifier compiles to `color-mix()` — use literal `oklch(L C H / alpha)` instead
-- **Layer order:** `@layer theme, base, components, utilities;` — every CSS file must declare this
-- **Dark mode in component CSS:** don't add `html.dark` blocks — use tokens from `tokens.css` that already change in dark mode. Only `tokens.css` and `globals.css` (scrollbars) have `html.dark` selectors
-- **Admin CSS isolation:** loaded only in dashboard route — no scoping needed, class names can match content CSS
-
-**To rebrand:** (1) In `tokens.css`: replace hue `350` (brand) and `303` (accent); update `--brand-hue`, `--accent-hue`, `--gradient-brand`. (2) Public overrides in `tokens-public.css`. (3) Admin overrides in `tokens-admin.css`. (4) Update hardcoded `260` in dark surface tokens and `admin.css`.
+- **Token layers:** `tokens.css` → `tokens-public.css` → `tokens-admin.css`. All colors via design tokens
+- **Class naming:** layout `app-*`, dashboard `dash-*`, module prefix (`support-chat-*`), components no prefix (`.btn`)
+- **OKLCH:** `oklch(L C var(--brand-hue) / alpha)` works. `oklch(from ...)` does NOT. `color-mix()` wrong for alpha
+- **Dark mode:** prefer tokens from `tokens.css` — avoid `html.dark` in component CSS (a few legacy exceptions exist in editor-styles.css)
+- **Layout:** `.app-container` (80rem). Never use Tailwind's `container`
+- **Tailwind v4:** `/80` opacity compiles to `color-mix()` — use literal `oklch(L C H / alpha)` instead
+- **To rebrand:** change hues in `tokens.css` (`--brand-hue`, `--accent-hue`), override in public/admin token files

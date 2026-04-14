@@ -1,94 +1,36 @@
 # core-docs — CLAUDE.md
 
-Documentation system supporting two content sources: CMS database and `.mdx` files.
+Documentation system with two content sources: CMS database and `.mdx` files.
 
-## Module Boundary
+## Two Sources
 
-**core-docs owns:** Docs schema (cms_docs table), docs tRPC router, file-based loader, docs service, DocRenderer + DocSidebar components, docs layout CSS, LLM export.
+1. **CMS** — authored in admin, stored in `cms_docs` (with `locale`). Rich text editor
+2. **.mdx files** — in `docs/{locale}/`. YAML frontmatter, JSX components, git-tracked
 
-**core owns (shared):** MDX compiler (`@/core/lib/markdown/mdx-compiler`), MDX component registry, MDX component styles (`@/core/styles/mdx-components.css`), MdxTabsHydrator (`@/core/components/MdxTabsHydrator`), content variable resolution (`@/core/lib/content/vars` — `%VAR%` syntax), file-based content loader + sync, frontmatter parser.
-
-**Project owns:** `docs/{locale}/` directories (file-based docs), docs page route (`app/docs/`), LLM API route (`app/api/docs/llms.txt/`).
-
-## Two Content Sources
-
-1. **CMS** — authored in admin dashboard, stored in `cms_docs` table (with `locale` column). Rich text editor (HTML body).
-2. **.mdx files** — in `docs/{locale}/` directories. YAML frontmatter for metadata. Supports JSX components. Git-tracked.
-
-File-based docs take priority over CMS docs with the same slug. Both sources are locale-aware.
-
-## File Structure
-
-```
-docs/
-  en/                              ← locale subdirectory
-    getting-started/
-      01-installation.mdx
-      02-configuration.mdx
-    guides/
-      01-modules.mdx
-      02-deployment.mdx
-    api/
-      01-authentication.mdx
-      02-module-development.mdx
-  de/                              ← translations
-    getting-started/
-      01-installation.mdx
-      ...
-```
-
-If a requested locale directory doesn't exist, falls back to default locale (`en`).
-
-Frontmatter:
-```yaml
----
-title: Installation
-section: Getting Started
-order: 1
-description: How to install Indigo
----
-```
-
-Slug derived from file path. Numeric prefixes stripped: `01-installation.mdx` → slug `installation`.
-
-Files with ALL-CAPS names (e.g. `CLAUDE.mdx`, `README.mdx`) are ignored by the loader.
-
-## MDX Components
-
-Available in all `.mdx` files (compiled to static HTML via rehype plugin in `@/core/lib/markdown/mdx-compiler`):
-
-- `<Callout type="info|warning|tip|danger">` — styled callout box
-- `<CodeTabs>` + `<Tab label="...">` — tabbed code blocks (hydrated client-side for switching)
-- `<Steps>` + `<Step title="...">` — numbered step list with timeline
-- `<Badge variant="default|success|warning|danger">` — inline badge
-
-All components work both block-level and inline. Custom components can be registered via `registerMdxComponent()` from `@/core/lib/markdown/mdx-compiler`.
-
-## Content Variables
-
-`%VAR%` placeholders (e.g. `%COMPANY_NAME%`, `%SITE_NAME%`) are resolved at render time from `src/config/site.ts` via `resolveContentVars()`. Works in both CMS content and `.mdx` files.
+File-based docs take priority over CMS docs with same slug. Both locale-aware.
 
 ## Architecture
 
-- **Compiler:** `@/core/lib/markdown/mdx-compiler` — unified pipeline: remark-parse → remark-mdx → remark-gfm → remark-rehype → rehypeMdxComponents → rehype-slug → rehype-stringify. Resolves `%VAR%` before compilation. LRU-cached by slug + mtime.
-- **Service:** `lib/docs-service.ts` — `getDocBySlug()` returns `RenderedDoc` (with compiled `renderedBody`). `getAllDocs()` returns `UnifiedDoc[]` (no compilation, used for nav/search/export).
-- **Rendering:** Page is server-rendered (async RSC). `DocRenderer` outputs static HTML. `MdxTabsHydrator` (from core) adds tab switching via event delegation.
-- **Progressive enhancement:** Tabs are all visible without JS. `js-tabs-ready` class added by hydrator enables tab switching.
-- **CSS:** `@/core/styles/mdx-components.css` (callouts, tabs, steps, badges) + `styles/docs.css` (docs layout only).
-- **Request dedup:** `data.ts` wraps fetchers with `React.cache()` so `generateMetadata` and page share one compilation.
+- **Compiler:** `@/core/lib/markdown/mdx-compiler` — remark → rehype pipeline with component registry, LRU-cached
+- **Service:** `getDocBySlug()` returns compiled HTML, `getAllDocs()` returns metadata (nav/search/export)
+- **Rendering:** server-rendered RSC. `MdxTabsHydrator` adds tab switching via event delegation
+- **Dedup:** `data.ts` wraps fetchers with `React.cache()` — `generateMetadata` and page share one compilation
+
+## MDX Components
+
+`<Callout type="info|warning|tip|danger">`, `<CodeTabs>` + `<Tab>`, `<Steps>` + `<Step>`, `<Badge>`. Register custom via `registerMdxComponent()`.
 
 ## Key Endpoints
 
-- `docs.getBySlug` — unified doc lookup (file → CMS fallback), returns compiled HTML. Accepts `locale`
-- `docs.getNavigation` — merged nav tree from all sources. Accepts `locale`
-- `docs.search` — full-text search (tsvector for CMS, substring for files). Accepts `locale`
-- `docs.llmExport` — all docs as single markdown (also at `/api/docs/llms.txt?lang=en`). Accepts `locale`
-- `docs.admin*` — CRUD for CMS-authored docs (locale-aware)
+- `docs.getBySlug` — unified lookup (file → CMS fallback), compiled HTML
+- `docs.getNavigation` — merged nav tree from all sources
+- `docs.search` — tsvector for CMS, substring for files
+- `docs.llmExport` — all docs as markdown (also at `/api/docs/llms.txt?lang=en`)
 
-## Wiring Into a Project
+## Wiring
 
-1. Add to `indigo.config.ts` and run `bun run indigo:sync`
-2. Copy templates: `app/docs/data.ts`, `app/docs/page.tsx`, `app/docs/[...slug]/page.tsx`, `app/api/docs/llms.txt/route.ts`
-3. Create `docs/en/` directory with `.mdx` files (add other locale dirs for translations)
-4. Add `/docs` and `/docs/[...slug]` to `src/i18n/routing.ts` pathnames
-5. Run `db:generate` + `db:migrate` for the cms_docs table
+1. Add to `indigo.config.ts`, run `indigo:sync`
+2. Copy templates from `_templates/` (data.ts, pages, API route)
+3. Create `docs/en/` with `.mdx` files
+4. Add routes to `src/i18n/routing.ts`
+5. `db:generate` + `db:migrate`

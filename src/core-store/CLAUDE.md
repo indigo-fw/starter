@@ -1,60 +1,27 @@
 # core-store — CLAUDE.md
 
-Paid module. E-commerce system — products, variants, cart, checkout, orders, shipping, tax (EU VAT compliant).
+E-commerce — products, variants, cart, checkout, orders, shipping, tax (EU VAT compliant).
 
 ## Module Boundary
 
-**core-store owns:** Product/variant/category schema, cart schema, order/invoice schema, shipping zone/rate schema, tax rate schema, all store routers, cart/tax/shipping/order services.
+**core-store owns:** Product/variant/category/cart/order/invoice/shipping/tax schema, all routers, cart/tax/shipping/order services.
 
-**Project owns:** Admin pages, storefront pages (product listing, product detail, cart, checkout, order history), dependency wiring (`config/store-deps.ts`), webhook handler for payment completion.
+**Project owns:** Admin pages, storefront pages, `config/store-deps.ts`, payment webhook handler.
 
-## Import Rules
+## DI (`setStoreDeps()`)
 
-- Imports from `@/core/*` (core utilities — slug, admin-crud, logger)
-- Framework conventions: `@/server/trpc`, `@/server/db`
-- Payment processing injected via `setStoreDeps()` (uses core-billing providers)
-- Project imports from `@/core-store/*`
-
-## Dependency Injection
-
-`deps.ts` defines `StoreDeps`. Injected deps:
-
-- **createPaymentCheckout** — create one-time payment session via core-billing providers
-- **sendNotification** — notify customer on order status changes
-- **enqueueTemplateEmail** — order confirmation, shipping notification emails
+`createPaymentCheckout` (via core-payments), `sendNotification`, `enqueueTemplateEmail`.
 
 ## Product Types
 
-| Type | Description |
-|------|-------------|
-| `simple` | Single product, fixed price, optional inventory |
-| `variable` | Product with variants (size/color), each with own price + stock |
-| `digital` | Downloadable product with token-based download links |
-| `subscription` | Recurring product, delegates to core-billing subscription system |
+`simple` (fixed price), `variable` (variants with own price/stock), `digital` (token-based downloads), `subscription` (delegates to core-subscriptions).
 
-## Cart System
+## Cart
 
-- **Logged in:** Server-side cart in DB, persists across devices
-- **Anonymous:** Client passes `sessionId` (from cookie), stored in DB
-- **Merge on login:** `storeCart.merge` moves anonymous items into user cart
+Logged in = server-side DB cart. Anonymous = `sessionId` cookie → DB. Merge on login via `storeCart.merge`.
 
 ## EU Compliance
 
-- Tax rates per country + tax class (standard, reduced, zero)
-- `priceIncludesTax` flag (EU = true, US = false)
-- Reverse charge for B2B with valid VAT ID
-- Sequential invoice numbers (INV-YYYY-XXXXX)
-- Tax breakdown stored per order item + per order
+Tax rates per country + tax class. `priceIncludesTax` flag (EU=true, US=false). Reverse charge for B2B with valid VAT ID. Sequential invoice numbers (INV-YYYY-XXXXX). Tax breakdown stored per order item.
 
-## Wiring Into a Project
-
-1. **Deps:** Copy `_templates/config/store-deps.ts` → `src/config/store-deps.ts`, import in server.ts
-2. **Config:** Add to `indigo.config.ts`, run `bun run indigo:sync`
-3. **Migrate:** `bun run db:generate && bun run db:migrate`
-4. **Seed:** Add shipping zones + tax rates (EU VAT) via admin or seed script
-5. **Webhook:** Handle payment completion webhook → call `updateOrderStatus('processing')`
-6. **Pages:** Build storefront pages (product list, detail, cart, checkout, order history)
-
-## Dependencies
-
-- **core-billing** — required for payment processing (uses `getProvider` for Stripe/crypto checkout)
+**Requires** core-payments for checkout.

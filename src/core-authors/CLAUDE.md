@@ -1,98 +1,28 @@
 # core-authors — CLAUDE.md
 
-Multi-author system with author profiles, author pages, and polymorphic content attribution. Decouples editorial identity from user accounts.
+Multi-author system with profiles, author pages, and polymorphic content attribution. Decouples editorial identity from user accounts.
 
-## What This Module Adds
+## What It Adds
 
-- `cms_authors` entity table (name, slug, bio, avatar, social URLs, optional userId link)
+- `cms_authors` table (name, slug, bio, avatar, social URLs, optional userId link)
 - `cms_author_relationships` polymorphic junction (any content type can have authors)
-- Admin: author CRUD at `/dashboard/authors`, author picker panel for PostForm
-- Frontend: `/author/[slug]` profile page with post archive, Person JSON-LD
-- `AuthorByline` server component (linked names, replaces core's plain text byline)
-- `AuthorPickerPanel` client component (debounced search, persistent selection)
-
-## Schema
-
-| Table | Purpose |
-|---|---|
-| `cms_authors` | Author profiles — name, slug, bio, avatar, social URLs. Linked to `user` via optional `userId` FK |
-| `cms_author_relationships` | Polymorphic M:N — `objectId` + `authorId` + `contentType` discriminator + `order` |
+- Admin CRUD at `/dashboard/authors`, `AuthorPickerPanel` for PostForm
+- `/author/[slug]` profile page with post archive, Person JSON-LD
+- `AuthorByline` server component, Google News sitemap, per-author RSS feed
 
 ## Content Type Integration
 
-Enable per content type in `src/config/cms.ts`:
-```typescript
-{
-  id: 'blog',
-  postFormFields: { authors: true },  // Show author picker in PostForm
-  authorInJsonLd: true,               // Include authors in Article/BlogPosting JSON-LD
-}
-```
-
-Works with any content type — blog, portfolio, showcase, custom types.
-
-## PostForm Integration
-
-The module provides `AuthorPickerPanel` — a self-contained client component. Add to PostForm panel renderers:
-
-```typescript
-import { AuthorPickerPanel } from '@/core-authors/components/AuthorPickerPanel';
-
-// In panelRenderers:
-authors: () => contentType.postFormFields?.authors
-  ? <AuthorPickerPanel postId={postId} contentType={contentType.id} onSaveRef={authorSaveRef} />
-  : null,
-```
-
-The panel manages its own state and saves via `trpc.authors.syncRelationships`. For new posts, it buffers state until the parent form calls `onSaveRef.current(newPostId)` after creation.
-
-## Frontend Integration
-
-Replace core's simple author byline in PostDetail:
-
-```diff
-- {authorName && <span>{authorName}</span>}
-+ <AuthorByline postId={post.id} contentType="blog" />
-```
-
-`AuthorByline` is a server component that renders linked author names pointing to `/author/[slug]`.
+Enable in `src/config/cms.ts` per type: `postFormFields: { authors: true }`, `authorInJsonLd: true`.
 
 ## Key Helpers
 
 - `syncAuthorRelationships(db, objectId, contentType, authorIds)` — replace all authors
-- `getAuthorIds(db, objectId, contentType)` — ordered IDs for admin form
-- `getAuthorsForObject(db, objectId, contentType)` — profiles for frontend
-- `batchGetAuthorsForObjects(db, objectIds, contentType)` — avoids N+1 on list pages
+- `getAuthorsForObject()` / `batchGetAuthorsForObjects()` — frontend (avoids N+1)
+- `getAuthorIds()` — admin form
+- `generateNewsSitemap()` — Google News sitemap (articles from last 2 days)
 
-## Router Endpoints
+## Wiring
 
-| Endpoint | Access | Purpose |
-|---|---|---|
-| `authors.list` | content editors | Paginated list with search |
-| `authors.get` | content editors | Single author by ID |
-| `authors.create` | content editors | Create author profile |
-| `authors.update` | content editors | Update author profile |
-| `authors.delete` | content editors | Delete author |
-| `authors.candidates` | content editors | Lightweight list for picker |
-| `authors.syncRelationships` | content editors | Set authors on content object |
-| `authors.getRelationships` | content editors | Get author IDs for content object |
-| `authors.getBySlug` | public | Author profile page |
-| `authors.getPostsByAuthor` | public | Author archive (paginated posts) |
-| `authors.getForObject` | public | Authors for a content object |
-| `authors.sitemapEntries` | public | All author slugs for sitemap |
+`AuthorPickerPanel` manages its own state, saves via `trpc.authors.syncRelationships`. For new posts, buffers until parent form calls `onSaveRef.current(newPostId)`.
 
-## Google News Sitemap
-
-The module provides `/news-sitemap.xml` — a route handler that generates a Google News-compliant sitemap with articles published within the last 2 days. Scaffolded to project via `_templates/app/news-sitemap.xml/route.ts`. Automatically referenced in `robots.ts`.
-
-Prerequisites: register your site as a Google News publisher in Google Search Console. Update `publicationName` in the route handler to match your registration.
-
-Generator: `generateNewsSitemap(config, articles)` in `lib/news-sitemap.ts` — reusable if you need a custom implementation.
-
-## RSS Feed Per Author
-
-`/api/feed/author/[slug]` — RSS 2.0 feed of posts by a specific author. Supports `?lang=` param. Same pattern as per-tag feeds. Scaffolded via `_templates/app/api/feed/author/[slug]/route.ts`.
-
-## Seed Data
-
-`seedAuthors(db, superadminUserId)` creates 3 demo authors (Alex Rivera, Jordan Chen, Sam Patel) and links them to existing blog posts with rotating primary + occasional co-author. Runs via `bun run init`. Skipped if authors already exist (`hasAuthorData` check).
+Seed: `seedAuthors()` creates 3 demo authors on `bun run init`.

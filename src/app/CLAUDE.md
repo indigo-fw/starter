@@ -1,71 +1,29 @@
 # App Routes — CLAUDE.md
 
-## i18n / Locale Routing
+## i18n Routing
 
-**Approach:** Proxy-rewrite with locale prefix — no `[locale]` route segment. Default locale (`en`) has no prefix; non-default locales get prefix (`/de/blog/post`). Dashboard is unaffected.
+Proxy-rewrite with locale prefix — no `[locale]` route segment. Default locale (`en`) has no prefix; others get prefix (`/de/blog/post`). `src/proxy.ts` strips prefix and sets `x-locale` header.
 
-**How it works:** `src/proxy.ts` detects locale prefix, rewrites URL (strips prefix), sets `x-locale` header.
+**Link component:** `import { Link } from '@/components/Link'` — unified for all public links. Auto-detects: static routes, CMS slugs, `cms://` protocol, object hrefs, external URLs.
+- Static: `href="/blog"`. Dynamic: `href={{ pathname: '/category/[slug]', params: { slug } }}`
+- CMS: `href="/about-us"` (auto-resolved) or `href="cms://about-us?lang=de"`
+- Passthrough (API, `/dashboard`, external): auto-detected, no locale prefix
+- String URLs for computed paths: use `localePath()` from `@/core/lib/i18n/locale`
+- Router hooks (`useRouter`, `redirect`): from `@/i18n/navigation`
+- Core components: use `next/link` or `@/core/components/CmsLink` (can't import `@/components/Link`)
+- **New public route:** add entry in `src/i18n/routing.ts` pathnames map
+- **New locale:** add to `LOCALES` + `LOCALE_LABELS` in `src/lib/constants.ts`
 
-**Unified Link component:** `import { Link } from '@/components/Link'` — single component for all public links. Handles static routes, CMS content (slug/ID resolution), `cms://` protocol, object hrefs with params, and external URLs. Auto-detects what to do based on `href` value. Typed autocomplete for static routes from `src/i18n/routing.ts` pathnames map.
-
-**Key rules:**
-- **JSX links** (`<Link>`): import from `@/components/Link`. Static: `href="/blog"`. Dynamic: `href={{ pathname: '/category/[slug]', params: { slug } }}`. Query: `href={{ pathname: '/blog', query: { page: '2' } }}`. CMS slug: `href="/about-us"` (auto-resolved from DB). CMS protocol: `href="cms://about-us?lang=de"`. Explicit: `id="uuid"` or `slug="about-us"` props
-- **Passthrough** (API routes, `/dashboard`, RSS, external): auto-detected — no locale prefix, no DB lookup. `<Link href="/dashboard">` and `<Link href="https://...">` just work
-- **String URLs for computed paths** (form actions, sidebarItems, sitemap): use `localePath()` from `@/core/lib/i18n/locale`
-- **Router hooks** (`useRouter`, `redirect`, `usePathname`): still from `@/i18n/navigation` — same as before
-- **Core components** (`src/core/`): can't import `@/components/Link` (project layer). Use `next/link` or `@/core/components/CmsLink` directly
-- All public queries must pass `lang: locale` (from `getLocale()` or `useLocale()`)
-- hreflang alternates use `translationGroup` DB column for sibling lookup
-- **To add a new public route:** add entry in `src/i18n/routing.ts` pathnames map. Static routes auto-detected by `<Link>` — no DB call
-
-**CMS Link resolution:** `cms://` URIs in content strings are resolved server-side in the data layer (`data.ts` calls `resolveRecordCmsLinks()`). `<Link>` component resolves client-side via tRPC with React Query caching (1h stale time, batched via httpBatchLink). Cache invalidated on content save via Redis pub/sub.
-
-**Tradeoff:** `x-locale` header via `headers()` makes all public pages dynamic (no ISR/SSG). Acceptable for DB-driven CMS. For static generation in single-locale deployments, set `LOCALES` to one entry.
-
-**To add a locale:** Add to `LOCALES` + `LOCALE_LABELS` in `src/lib/constants.ts`. Optionally add DeepL mapping. No other code changes.
+**Tradeoff:** `x-locale` via `headers()` makes all public pages dynamic (no ISR/SSG). Acceptable for DB-driven CMS.
 
 ## Catch-All Route (`[...slug]`)
 
-Uses **renderer registry** pattern (open-closed): `renderer-registry.ts` + `register-renderers.tsx`. Adding a content type = registering a renderer, no if/else chains.
+Renderer registry pattern: `renderer-registry.ts` + `register-renderers.tsx`. New content type = register a renderer, no if/else chains. Supports preview via `?preview=<token>`.
 
-Supports preview mode via `?preview=<token>`.
+## Auth Proxy
 
-## Auth Proxy Rules
+`src/proxy.ts`: Dashboard auth paths (`/dashboard/login`, etc.) allowed without session. Other `/dashboard/*` redirects to login. `/account` requires session.
 
-`src/proxy.ts`: Dashboard auth paths (`/dashboard/login`, etc.) allowed without session. All other `/dashboard/*` paths redirect to `/dashboard/login`. `/account` paths require session (redirect to `/login`).
+## PostForm Panels
 
-## Cookie Consent
-
-`<ConsentProvider>` wraps the public layout. `<CookieConsent />` renders the banner (auto-hides after user choice). Use `<ConsentGate category="analytics">` around GA4/marketing scripts to conditionally render based on consent. All from `@/core/components` and `@/core/lib/consent`.
-
-## Health Check
-
-`GET /api/health` — uses `createHealthHandler()` from `@/core/lib/api/health`. Project passes DB + Redis checks; modules contribute via `registerHealthCheck()` hooks. Returns `healthy` (200) / `degraded` / `unhealthy` (503).
-
-## RSS Feeds
-
-`/api/feed/blog` and `/api/feed/tag/[slug]` use `generateRssFeed()` + `createRssResponse()` from `@/core/lib/content/rss`. Project provides DB queries and URL builders; core generates XML.
-
-## Sitemap
-
-`src/app/sitemap.ts` uses `generateSitemap()` from `@/core/lib/seo/sitemap`. Project defines `STATIC_PAGES` + `CONTENT_FETCHERS` arrays. Adding a new content type = adding a fetcher entry with its DB query.
-
-## SEO Metadata
-
-Root layout (`src/app/layout.tsx`) provides defaults: OG type/siteName/locale/image, Twitter Card, `metadataBase`, Organization JSON-LD. Content renderers override per page: canonical URL (via `buildCanonicalUrl()`), `openGraph.locale`, hreflang alternates with x-default.
-
-**Canonical init:** `src/config/canonical-init.ts` — side-effect that calls `setCanonicalConfig()`. Imported in `register-renderers.tsx` (catch-all tree) and home `page.tsx`.
-
-**Auto JSON-LD in PostDetail:** If post has no manual `jsonLd`, auto-generates Article (pages) or BlogPosting (blog) with title, description, dates, image, publisher. Includes `author` array when `contentType.authorInJsonLd` is true and `cms_post_authors` has entries. BreadcrumbList auto-generated for hierarchical pages with ancestors.
-
-**Web Vitals:** `src/components/WebVitals.tsx` — reports CLS/INP/LCP/FCP/TTFB to `NEXT_PUBLIC_VITALS_ENDPOINT` via `sendBeacon`. Console log in dev if no endpoint configured.
-
-## PostForm Panel System
-
-Form panels (SEO, Categories, Tags, Featured Image, Authors, etc.) are reorderable via dnd-kit and hideable via config SlideOver. Panels draggable between main/sidebar columns. Panel definitions in `src/config/post-form-panels.ts`. Order/visibility persisted via user preferences.
-
-**Config-gated panels** (controlled by `postFormFields` in `src/config/cms.ts`):
-- `featuredImage` — image picker (used in OG/Twitter Cards)
-- `jsonLd` — manual JSON-LD override (auto-generated if blank)
-
-**Author display:** PostDetail shows creating user's name as byline (from `cmsPosts.authorId` → `user.name`). Included in auto-generated JSON-LD. No admin picker — author is whoever created the post. Multi-author support planned for `core-news` module.
+Reorderable via dnd-kit, hideable via config. Draggable between main/sidebar columns. Definitions in `src/config/post-form-panels.ts`. Order/visibility in user preferences. Config-gated panels (`featuredImage`, `jsonLd`) controlled by `postFormFields` in `src/config/cms.ts`.
