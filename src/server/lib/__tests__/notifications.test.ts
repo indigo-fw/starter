@@ -44,6 +44,11 @@ vi.mock('@/core/lib/push/web-push', () => ({
 // Mock server-only to prevent unhandled rejection from transitive imports
 vi.mock('server-only', () => ({}));
 
+// Mock env to prevent validation crash from transitive dynamic imports
+vi.mock('@/lib/env', () => ({
+  env: {},
+}));
+
 import {
   sendNotification,
   sendOrgNotification,
