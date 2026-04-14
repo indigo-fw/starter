@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { and, count, desc, eq, gte, lte } from 'drizzle-orm';
+import { and, count, desc, eq, gte, ilike, lte } from 'drizzle-orm';
 import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
 import { storeOrders, storeOrderItems, storeOrderEvents, storeDownloads } from '@/core-store/schema/orders';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
@@ -113,6 +113,7 @@ export const storeOrdersRouter = createTRPCRouter({
 
       const conditions = [];
       if (input.status) conditions.push(eq(storeOrders.status, input.status));
+      if (input.search) conditions.push(ilike(storeOrders.orderNumber, '%' + input.search + '%'));
       if (input.from) conditions.push(gte(storeOrders.createdAt, new Date(input.from)));
       if (input.to) conditions.push(lte(storeOrders.createdAt, new Date(input.to + 'T23:59:59')));
 

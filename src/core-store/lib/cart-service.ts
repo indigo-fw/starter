@@ -140,6 +140,7 @@ export async function getCartWithItems(cartId: string): Promise<CartWithItems | 
       productImage: storeProducts.featuredImage,
       productStock: storeProducts.stockQuantity,
       trackInventory: storeProducts.trackInventory,
+      allowBackorders: storeProducts.allowBackorders,
       productType: storeProducts.type,
       subscriptionPlanId: storeProducts.subscriptionPlanId,
     })
@@ -162,7 +163,7 @@ export async function getCartWithItems(cartId: string): Promise<CartWithItems | 
   const items: CartItemDetail[] = rawItems.map((item) => {
     const variant = item.variantId ? variantMap.get(item.variantId) : null;
     const stock = variant ? variant.stockQuantity : item.productStock;
-    const inStock = !item.trackInventory || (stock ?? 0) >= item.quantity;
+    const inStock = !item.trackInventory || item.allowBackorders || (stock ?? 0) >= item.quantity;
 
     return {
       id: item.id,

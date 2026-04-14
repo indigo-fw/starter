@@ -54,6 +54,10 @@ vi.mock('@/core-subscriptions/lib/feature-gate', () => ({
   setPlanResolver: vi.fn(),
 }));
 
+vi.mock('@/core-payments/schema/billing-profile', () => ({
+  billingProfiles: {},
+}));
+
 // ---------------------------------------------------------------------------
 // Imports (after mocks)
 // ---------------------------------------------------------------------------
@@ -142,8 +146,13 @@ function createMockDb() {
   const deleteWhereMock = vi.fn().mockResolvedValue(undefined);
   const deleteMock = vi.fn().mockReturnValue({ where: deleteWhereMock });
 
+  // insert chain: insert().values()
+  const insertValuesMock = vi.fn().mockResolvedValue(undefined);
+  const insertMock = vi.fn().mockReturnValue({ values: insertValuesMock });
+
   return {
     select: selectMock,
+    insert: insertMock,
     update: updateMock,
     delete: deleteMock,
     _chains: {

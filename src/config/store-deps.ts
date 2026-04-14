@@ -9,7 +9,7 @@ import { billingProfiles } from '@/core-payments/schema/billing-profile';
 import { sendNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { enqueueTemplateEmail } from '@/core/lib/email';
-import { updateOrderStatus } from '@/core-store/lib/order-service';
+import { updateOrderStatus, deductOrderInventory } from '@/core-store/lib/order-service';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 import { db } from '@/server/db';
 import { createLogger } from '@/core/lib/infra/logger';
@@ -50,6 +50,7 @@ setStoreDeps({
       // Dev mode fallback: skip payment, mark order as processing immediately
       logger.warn('No payment provider configured — using dev mode (order auto-confirmed)', { orderId, providerId });
       await updateOrderStatus(orderId, 'processing', 'system', 'Dev mode: payment skipped (no provider configured)');
+      await deductOrderInventory(orderId);
       return `${appUrl}/account/orders/${orderId}?success=1`;
     }
 

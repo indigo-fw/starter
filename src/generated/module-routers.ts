@@ -21,6 +21,7 @@ import { storeDiscountsRouter } from '@/core-store/routers/discounts';
 import { storeReviewsRouter } from '@/core-store/routers/reviews';
 import { storeRelationsRouter } from '@/core-store/routers/relations';
 import { storeAttributesRouter } from '@/core-store/routers/attributes';
+import { storeAddressesRouter } from '@/core-store/routers/addresses';
 import { characterRouter } from '@/core-chat/routers/characters';
 import { conversationRouter } from '@/core-chat/routers/conversations';
 import { messageRouter } from '@/core-chat/routers/messages';
@@ -57,6 +58,7 @@ export const moduleRouters = {
   storeReviews: storeReviewsRouter,
   storeRelations: storeRelationsRouter,
   storeAttributes: storeAttributesRouter,
+  storeAddresses: storeAddressesRouter,
   characters: characterRouter,
   conversations: conversationRouter,
   messages: messageRouter,

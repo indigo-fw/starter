@@ -21,6 +21,23 @@ vi.mock('../schema/shipping-tax', () => ({
   storeTaxRates: {},
 }));
 
+vi.mock('../schema/discount-codes', () => ({
+  storeDiscountCodes: {},
+}));
+
+vi.mock('../schema/reviews', () => ({
+  storeReviews: {},
+}));
+
+vi.mock('../schema/attributes', () => ({
+  storeAttributes: {},
+  storeProductAttributeValues: {},
+}));
+
+vi.mock('../schema/relations', () => ({
+  storeRelatedProducts: {},
+}));
+
 vi.mock('../lib/placeholder-image', () => ({
   placeholderImage: vi.fn().mockReturnValue('data:image/svg+xml,placeholder'),
 }));
@@ -50,10 +67,11 @@ describe('seedStore', () => {
   it('inserts categories, products, variants, images, shipping zones, rates, and tax rates', async () => {
     await seedStore(mockDb, 'superadmin-id');
 
-    // Should call insert for: categories, products, product-categories,
-    // variant groups, t-shirt variants, hoodie variants, product images,
-    // shipping zones, shipping rates, tax rates = 10 insert calls
-    expect(mockInsert).toHaveBeenCalledTimes(10);
+    // categories, products, product-categories, variant groups,
+    // t-shirt variants, hoodie variants, product images, shipping zones,
+    // shipping rates, tax rates, discount codes, attributes,
+    // product attribute values, related products, reviews = 15 insert calls
+    expect(mockInsert).toHaveBeenCalledTimes(15);
   });
 
   it('returns empty object (no userIds/orgIds created)', async () => {

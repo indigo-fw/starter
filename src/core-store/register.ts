@@ -14,6 +14,7 @@ export { storeDiscountsRouter } from './routers/discounts';
 export { storeReviewsRouter } from './routers/reviews';
 export { storeRelationsRouter } from './routers/relations';
 export { storeAttributesRouter } from './routers/attributes';
+export { storeAddressesRouter } from './routers/addresses';
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
 
@@ -34,7 +35,7 @@ export { getShippingOptions } from './lib/shipping-service';
 export type { ShippingOption } from './lib/shipping-service';
 export { getOrCreateCart, getCartWithItems, mergeCart } from './lib/cart-service';
 export type { CartWithItems, CartItemDetail } from './lib/cart-service';
-export { createOrder, updateOrderStatus, assignInvoiceNumber } from './lib/order-service';
+export { createOrder, updateOrderStatus, assignInvoiceNumber, deductOrderInventory, restoreOrderInventory } from './lib/order-service';
 export type { BillingProfileSnapshot } from './types/billing';
 export type { CreateOrderParams } from './lib/order-service';
 export { validateDiscount, recordDiscountUsage } from './lib/discount-service';

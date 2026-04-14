@@ -130,19 +130,8 @@ export async function createOrder(params: CreateOrderParams): Promise<{ orderId:
       }
     }
 
-    // Deduct inventory
-    if (item.variantId) {
-      await db.update(storeProductVariants)
-        .set({ stockQuantity: sql`${storeProductVariants.stockQuantity} - ${item.quantity}` })
-        .where(eq(storeProductVariants.id, item.variantId));
-    } else {
-      await db.update(storeProducts)
-        .set({ stockQuantity: sql`${storeProducts.stockQuantity} - ${item.quantity}` })
-        .where(eq(storeProducts.id, item.productId));
-    }
-
-    // Check for low stock after deduction (fire-and-forget)
-    checkLowStock(item.productId, item.variantId ?? undefined).catch(() => {});
+    // Inventory deducted on payment confirmation (webhook), not here.
+    // This prevents stock loss when payment fails.
   }
 
   // Log creation event
@@ -227,4 +216,69 @@ export async function assignInvoiceNumber(orderId: string): Promise<string> {
     .where(eq(storeOrders.id, orderId));
 
   return invoiceNumber;
+}
+
+/**
+ * Deduct inventory for all items in an order.
+ * Called on payment confirmation (not at order creation).
+ */
+export async function deductOrderInventory(orderId: string): Promise<void> {
+  const items = await db
+    .select({
+      productId: storeOrderItems.productId,
+      variantId: storeOrderItems.variantId,
+      quantity: storeOrderItems.quantity,
+    })
+    .from(storeOrderItems)
+    .where(eq(storeOrderItems.orderId, orderId))
+    .limit(200);
+
+  for (const item of items) {
+    if (item.variantId) {
+      await db.update(storeProductVariants)
+        .set({ stockQuantity: sql`${storeProductVariants.stockQuantity} - ${item.quantity}` })
+        .where(eq(storeProductVariants.id, item.variantId));
+    } else if (item.productId) {
+      await db.update(storeProducts)
+        .set({ stockQuantity: sql`${storeProducts.stockQuantity} - ${item.quantity}` })
+        .where(eq(storeProducts.id, item.productId));
+    }
+
+    // Check for low stock (fire-and-forget)
+    if (item.productId) {
+      checkLowStock(item.productId, item.variantId ?? undefined).catch(() => {});
+    }
+  }
+
+  logger.info('Inventory deducted for order', { orderId, itemCount: items.length });
+}
+
+/**
+ * Restore inventory for all items in an order.
+ * Called on payment failure, cancellation, or refund.
+ */
+export async function restoreOrderInventory(orderId: string): Promise<void> {
+  const items = await db
+    .select({
+      productId: storeOrderItems.productId,
+      variantId: storeOrderItems.variantId,
+      quantity: storeOrderItems.quantity,
+    })
+    .from(storeOrderItems)
+    .where(eq(storeOrderItems.orderId, orderId))
+    .limit(200);
+
+  for (const item of items) {
+    if (item.variantId) {
+      await db.update(storeProductVariants)
+        .set({ stockQuantity: sql`${storeProductVariants.stockQuantity} + ${item.quantity}` })
+        .where(eq(storeProductVariants.id, item.variantId));
+    } else if (item.productId) {
+      await db.update(storeProducts)
+        .set({ stockQuantity: sql`${storeProducts.stockQuantity} + ${item.quantity}` })
+        .where(eq(storeProducts.id, item.productId));
+    }
+  }
+
+  logger.info('Inventory restored for order', { orderId, itemCount: items.length });
 }

@@ -9,7 +9,7 @@
 import { eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { storeOrders, storeOrderEvents } from '@/core-store/schema/orders';
-import { updateOrderStatus } from '@/core-store/lib/order-service';
+import { updateOrderStatus, deductOrderInventory, restoreOrderInventory } from '@/core-store/lib/order-service';
 import { getStoreDeps } from '@/core-store/deps';
 import { logAudit } from '@/core/lib/infra/audit';
 import { createLogger } from '@/core/lib/infra/logger';
@@ -81,6 +81,9 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
 
     await updateOrderStatus(orderId, 'processing', 'system', 'Payment confirmed via webhook');
 
+    // Deduct inventory now that payment is confirmed
+    await deductOrderInventory(orderId);
+
     if (transactionId) {
       await db.update(storeOrders)
         .set({ paymentTransactionId: transactionId, paidAt: new Date() })
@@ -128,6 +131,10 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
 
     if (eventType === 'payment.refunded' && order.status !== 'refunded') {
       await updateOrderStatus(orderId, 'refunded', 'system', 'Payment refunded via webhook');
+      // Restore inventory on refund (only if order was previously paid/processing)
+      if (order.status === 'processing' || order.status === 'shipped' || order.status === 'delivered') {
+        await restoreOrderInventory(orderId);
+      }
     }
 
     logger.warn('Store order payment issue', { orderId, type: eventType });

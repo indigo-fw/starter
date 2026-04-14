@@ -117,6 +117,8 @@ vi.mock('@/core-store/lib/order-service', () => ({
 }));
 
 const mockStoreDeps = {
+  resolveOrgId: vi.fn().mockResolvedValue('org-1'),
+  getBillingProfile: vi.fn().mockResolvedValue({ vatId: null, legalName: 'Test', address1: '123 Main St', city: 'Berlin', postalCode: '10115', country: 'DE' }),
   createPaymentCheckout: vi.fn().mockResolvedValue('https://checkout.stripe.com/pay/xxx'),
   sendNotification: vi.fn(),
   enqueueTemplateEmail: vi.fn().mockResolvedValue(undefined),
@@ -631,7 +633,7 @@ describe('storeOrdersRouter', () => {
     it('updates status and notifies customer', async () => {
       const ctx = createCtx();
       ctx.db.select = vi.fn().mockReturnValue(
-        createSelectChain([{ userId: 'user-1', orderNumber: 'ORD-001' }])
+        createSelectChain([{ placedByUserId: 'user-1', orderNumber: 'ORD-001' }])
       );
 
       const caller = storeOrdersRouter.createCaller(ctx as never);
@@ -649,7 +651,7 @@ describe('storeOrdersRouter', () => {
     it('sends notification with note', async () => {
       const ctx = createCtx();
       ctx.db.select = vi.fn().mockReturnValue(
-        createSelectChain([{ userId: 'user-1', orderNumber: 'ORD-001' }])
+        createSelectChain([{ placedByUserId: 'user-1', orderNumber: 'ORD-001' }])
       );
 
       const caller = storeOrdersRouter.createCaller(ctx as never);

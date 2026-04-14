@@ -61,15 +61,15 @@ export default function WishlistPage() {
       <div className="store-grid">
         {data.results.map((item) => (
           <div key={item.productId} className="product-card">
-            <Link href={`/store/${item.productSlug}`} className="product-card-image">
+            <Link href={`/store/${item.slug}`} className="product-card-image">
               {item.featuredImage ? (
-                <img src={item.featuredImage} alt={item.productName} />
+                <img src={item.featuredImage} alt={item.name} />
               ) : (
                 <div className="product-card-image-placeholder">
                   <Package className="h-10 w-10" />
                 </div>
               )}
-              {item.comparePriceCents != null && item.comparePriceCents > item.priceCents && (
+              {item.comparePriceCents != null && (item.priceCents ?? 0) > 0 && item.comparePriceCents > (item.priceCents ?? 0) && (
                 <div className="product-card-badges">
                   <span className="product-card-badge product-card-badge-sale">
                     {__('Sale')}
@@ -79,16 +79,16 @@ export default function WishlistPage() {
             </Link>
             <div className="product-card-body">
               <Link
-                href={`/store/${item.productSlug}`}
+                href={`/store/${item.slug}`}
                 className="product-card-name hover:text-brand-600 transition-colors"
               >
-                {item.productName}
+                {item.name}
               </Link>
               <div className="product-card-footer">
                 <span className="product-card-price">
                   {formatPrice(item.priceCents, item.currency)}
                 </span>
-                {item.comparePriceCents != null && item.comparePriceCents > item.priceCents && (
+                {item.comparePriceCents != null && (item.priceCents ?? 0) > 0 && item.comparePriceCents > (item.priceCents ?? 0) && (
                   <span className="product-card-compare-price">
                     {formatPrice(item.comparePriceCents, item.currency)}
                   </span>

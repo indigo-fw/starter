@@ -13,6 +13,7 @@ const config: ModuleConfig = {
     { name: 'storeReviewsRouter', key: 'storeReviews', from: '@/core-store/routers/reviews' },
     { name: 'storeRelationsRouter', key: 'storeRelations', from: '@/core-store/routers/relations' },
     { name: 'storeAttributesRouter', key: 'storeAttributes', from: '@/core-store/routers/attributes' },
+    { name: 'storeAddressesRouter', key: 'storeAddresses', from: '@/core-store/routers/addresses' },
   ],
   schema: [
     '@/core-store/schema/products',
