@@ -25,6 +25,7 @@ export { MdxTabsHydrator } from './content/MdxTabsHydrator';
 export { Dialog } from './overlays/Dialog';
 export { ConfirmDialog } from './overlays/ConfirmDialog';
 export { default as InternalLinkDialog, type TypeConfig as InternalLinkTypeConfig } from './overlays/InternalLinkDialog';
+export { ImperativeDialogProvider } from './overlays/ImperativeDialogProvider';
 export { SlideOver } from './overlays/SlideOver';
 export { Lightbox } from './overlays/Lightbox';
 
