@@ -170,7 +170,7 @@ export const storeAdminOrdersRouter = createTRPCRouter({
       }
 
       // Notify the customer
-      if (input.notifyCustomer) {
+      if (input.notifyCustomer && order.placedByUserId) {
         const deps = getStoreDeps();
         deps.sendNotification({
           userId: order.placedByUserId,

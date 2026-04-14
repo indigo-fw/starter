@@ -102,6 +102,7 @@ export const accountRoutes = {
   orders: `${ACCOUNT_PREFIX}/orders`,
   orderDetail: (id: string) => `${ACCOUNT_PREFIX}/orders/${id}`,
   wishlist: `${ACCOUNT_PREFIX}/wishlist`,
+  addresses: `${ACCOUNT_PREFIX}/addresses`,
 } as const;
 
 // ─── Public content ──────────────────────────────────────────────────────────

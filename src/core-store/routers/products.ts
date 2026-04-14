@@ -1,8 +1,9 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { and, count, desc, eq, inArray, isNull, sql } from 'drizzle-orm';
+import { and, count, desc, eq, exists, inArray, isNull, sql } from 'drizzle-orm';
 import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
 import { storeProducts, storeProductVariants, storeVariantGroups, storeProductImages, storeCategories, storeProductCategories } from '@/core-store/schema/products';
+import { storeAttributes, storeProductAttributeValues } from '@/core-store/schema/attributes';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { slugify } from '@/core/lib/content/slug';
 
@@ -19,6 +20,7 @@ export const storeProductsRouter = createTRPCRouter({
       page: z.number().int().min(1).default(1),
       pageSize: z.number().int().min(1).max(100).default(20),
       sort: z.enum(['newest', 'price_asc', 'price_desc', 'name']).default('newest'),
+      attributes: z.record(z.string(), z.string()).optional(),
     }))
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
@@ -56,6 +58,24 @@ export const storeProductsRouter = createTRPCRouter({
           }
         } else {
           conditions.push(sql`false`);
+        }
+      }
+
+      // Attribute filters: AND logic — product must match ALL specified attributes
+      if (input.attributes) {
+        for (const [slug, value] of Object.entries(input.attributes)) {
+          conditions.push(
+            exists(
+              ctx.db.select({ one: sql`1` })
+                .from(storeProductAttributeValues)
+                .innerJoin(storeAttributes, eq(storeAttributes.id, storeProductAttributeValues.attributeId))
+                .where(and(
+                  eq(storeProductAttributeValues.productId, storeProducts.id),
+                  eq(storeAttributes.slug, slug),
+                  eq(storeProductAttributeValues.value, value),
+                ))
+            )
+          );
         }
       }
 
@@ -301,5 +321,70 @@ export const storeProductsRouter = createTRPCRouter({
       const slug = slugify(input.name);
       await ctx.db.insert(storeCategories).values({ id, slug, ...input });
       return { id, slug };
+    }),
+
+  // ─── Bulk Operations (admin) ────────────────────────────────────────────
+
+  /** Bulk update product status */
+  bulkUpdateStatus: storeAdminProcedure
+    .input(z.object({
+      ids: z.array(z.string().uuid()).min(1).max(50),
+      status: z.enum(['draft', 'published', 'archived']),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.update(storeProducts)
+        .set({ status: input.status, updatedAt: new Date() })
+        .where(inArray(storeProducts.id, input.ids));
+      return { count: input.ids.length };
+    }),
+
+  /** Bulk soft-delete products */
+  bulkDelete: storeAdminProcedure
+    .input(z.object({
+      ids: z.array(z.string().uuid()).min(1).max(50),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.update(storeProducts)
+        .set({ deletedAt: new Date(), updatedAt: new Date() })
+        .where(and(
+          inArray(storeProducts.id, input.ids),
+          isNull(storeProducts.deletedAt),
+        ));
+      return { count: input.ids.length };
+    }),
+
+  /** Bulk update product prices (set, increase %, decrease %) */
+  bulkUpdatePrice: storeAdminProcedure
+    .input(z.object({
+      ids: z.array(z.string().uuid()).min(1).max(50),
+      adjustment: z.union([
+        z.object({ type: z.literal('set'), priceCents: z.number().int().min(0) }),
+        z.object({ type: z.literal('increase'), percent: z.number().min(0).max(1000) }),
+        z.object({ type: z.literal('decrease'), percent: z.number().min(0).max(100) }),
+      ]),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      if (input.adjustment.type === 'set') {
+        await ctx.db.update(storeProducts)
+          .set({ priceCents: input.adjustment.priceCents, updatedAt: new Date() })
+          .where(inArray(storeProducts.id, input.ids));
+      } else if (input.adjustment.type === 'increase') {
+        const factor = 1 + input.adjustment.percent / 100;
+        await ctx.db.update(storeProducts)
+          .set({
+            priceCents: sql`ROUND(${storeProducts.priceCents} * ${factor})::integer`,
+            updatedAt: new Date(),
+          })
+          .where(inArray(storeProducts.id, input.ids));
+      } else {
+        const factor = 1 - input.adjustment.percent / 100;
+        await ctx.db.update(storeProducts)
+          .set({
+            priceCents: sql`ROUND(${storeProducts.priceCents} * ${factor})::integer`,
+            updatedAt: new Date(),
+          })
+          .where(inArray(storeProducts.id, input.ids));
+      }
+      return { count: input.ids.length };
     }),
 });

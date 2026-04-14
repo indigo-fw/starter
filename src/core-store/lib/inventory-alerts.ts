@@ -8,8 +8,9 @@ const logger = createLogger('store-inventory');
 /**
  * Check if a product or variant has dropped below its low stock threshold
  * after an inventory change. Logs a warning when stock is low.
+ * Triggers back-in-stock notifications when stock is restored.
  *
- * Called from order-service after deducting inventory.
+ * Called from order-service after deducting or restoring inventory.
  *
  * TODO: Wire to admin notification system once admin userId resolution
  * is available via StoreDeps (e.g. deps.notifyAdmins()).
@@ -17,6 +18,8 @@ const logger = createLogger('store-inventory');
 export async function checkLowStock(
   productId: string,
   variantId?: string,
+  /** Previous stock quantity before the change (enables transition detection) */
+  previousStock?: number,
 ): Promise<void> {
   try {
     const [product] = await db
@@ -49,6 +52,7 @@ export async function checkLowStock(
       if (!variant) return;
 
       const stock = variant.stockQuantity ?? 0;
+
       if (stock <= threshold) {
         logger.warn('Low stock alert — variant', {
           productId,
@@ -57,6 +61,7 @@ export async function checkLowStock(
           variantName: variant.name,
           stockQuantity: stock,
           lowStockThreshold: threshold,
+          alert: 'low_stock',
         });
       }
 
@@ -66,16 +71,24 @@ export async function checkLowStock(
           productName: product.name,
           variantId,
           variantName: variant.name,
+          alert: 'out_of_stock',
         });
+      }
+
+      // Back-in-stock: stock was restored from 0 (or unknown) to positive
+      if (stock > 0 && previousStock !== undefined && previousStock <= 0) {
+        triggerBackInStock(productId, variantId);
       }
     } else {
       const stock = product.stockQuantity ?? 0;
+
       if (stock <= threshold) {
         logger.warn('Low stock alert — product', {
           productId,
           productName: product.name,
           stockQuantity: stock,
           lowStockThreshold: threshold,
+          alert: 'low_stock',
         });
       }
 
@@ -83,7 +96,13 @@ export async function checkLowStock(
         logger.warn('Out of stock — product', {
           productId,
           productName: product.name,
+          alert: 'out_of_stock',
         });
+      }
+
+      // Back-in-stock: stock was restored from 0 (or unknown) to positive
+      if (stock > 0 && previousStock !== undefined && previousStock <= 0) {
+        triggerBackInStock(productId);
       }
     }
   } catch (error) {
@@ -93,4 +112,29 @@ export async function checkLowStock(
       error: error instanceof Error ? error.message : String(error),
     });
   }
+}
+
+/**
+ * Fire-and-forget trigger for back-in-stock notifications.
+ * Uses dynamic import to avoid circular dependency with back-in-stock-service.
+ */
+function triggerBackInStock(productId: string, variantId?: string): void {
+  import('./back-in-stock-service')
+    .then(({ notifySubscribers }) => notifySubscribers(productId, variantId))
+    .then((result) => {
+      if (result.notified > 0) {
+        logger.info('Back-in-stock notifications sent', {
+          productId,
+          variantId,
+          notified: result.notified,
+        });
+      }
+    })
+    .catch((err) => {
+      logger.error('Failed to send back-in-stock notifications', {
+        productId,
+        variantId,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    });
 }

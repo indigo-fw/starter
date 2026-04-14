@@ -5,12 +5,15 @@ import { storeProducts, storeProductVariants } from './products';
 // ─── Enums ──────────────────────────────────────────────────────────────────
 
 export const orderStatusEnum = pgEnum('store_order_status', [
-  'pending',      // created, awaiting payment
-  'processing',   // paid, being prepared
-  'shipped',      // shipped, in transit
-  'delivered',    // delivered to customer
-  'cancelled',    // cancelled by customer or admin
-  'refunded',     // fully refunded
+  'pending',              // created, awaiting payment
+  'processing',           // paid, being prepared
+  'shipped',              // shipped, in transit
+  'partially_shipped',    // some items shipped
+  'delivered',            // delivered to customer
+  'cancelled',            // cancelled by customer or admin
+  'refunded',             // fully refunded
+  'partially_refunded',   // partially refunded
+  'return_requested',     // customer requested a return
 ]);
 
 // ─── Customer Addresses ────────────────────────────────────────────────────
@@ -76,12 +79,13 @@ export const storeOrders = pgTable('store_orders', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   /** Human-readable order number (auto-increment or custom) */
   orderNumber: varchar('order_number', { length: 50 }).notNull().unique(),
-  /** The customer entity (invoiced org — always required) */
+  /** The customer entity (invoiced org — null for guest orders) */
   organizationId: text('organization_id')
-    .notNull()
-    .references(() => organization.id, { onDelete: 'cascade' }),
-  /** Who placed the order (audit + notifications) */
-  placedByUserId: text('placed_by_user_id').notNull(),
+    .references(() => organization.id, { onDelete: 'set null' }),
+  /** Who placed the order (audit + notifications — null for guest orders) */
+  placedByUserId: text('placed_by_user_id'),
+  /** Guest email for anonymous checkout (when no account) */
+  guestEmail: varchar('guest_email', { length: 255 }),
   status: orderStatusEnum('status').notNull().default('pending'),
   currency: varchar('currency', { length: 3 }).notNull().default('EUR'),
   /** Totals in cents */
@@ -147,6 +151,7 @@ export const storeOrderItems = pgTable('store_order_items', {
   isDigital: boolean('is_digital').notNull().default(false),
   digitalFileUrl: text('digital_file_url'),
   image: text('image'),
+  giftMessage: text('gift_message'),
   metadata: jsonb('metadata'),
 }, (table) => [
   index('idx_store_order_items_order').on(table.orderId),

@@ -27,7 +27,7 @@ interface Product {
   id: string;
   name: string;
   slug: string;
-  type: 'simple' | 'variable' | 'digital' | 'subscription';
+  type: 'simple' | 'variable' | 'digital' | 'subscription' | 'bundle';
   description: string | null;
   shortDescription: string | null;
   priceCents: number | null;

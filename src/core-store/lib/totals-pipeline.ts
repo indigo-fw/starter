@@ -173,6 +173,24 @@ registerTotalsCollector({
       currency: ctx.cart.currency,
     });
 
+    // Check stacking: if the manual discount is NOT stackable and auto-discounts
+    // have already been applied, skip this discount with an informational message.
+    const hasAutoDiscounts = ctx.adjustments.some((a) => a.code === 'auto-discount');
+    if (hasAutoDiscounts && !result.stackable) {
+      ctx.adjustments.push({
+        code: 'discount',
+        label: `Discount: ${result.code} (skipped)`,
+        amountCents: 0,
+        metadata: {
+          discountId: result.discountId,
+          type: result.type,
+          skipped: true,
+          reason: 'Cannot combine with automatic discounts — discount is not stackable',
+        },
+      });
+      return;
+    }
+
     ctx.discountResult = result;
     ctx.adjustments.push({
       code: 'discount',

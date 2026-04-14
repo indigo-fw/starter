@@ -93,6 +93,35 @@ const CONTENT_FETCHERS: SitemapFetcher[] = [
       db.select({ slug: cmsAuthors.slug, updatedAt: cmsAuthors.updatedAt }).from(cmsAuthors)
         .orderBy(cmsAuthors.name).limit(500),
   },
+  // core-store: product pages (locale-independent)
+  {
+    urlPrefix: '/store/',
+    priority: 0.7,
+    changeFrequency: 'weekly',
+    fetch: async () => {
+      const { storeProducts } = await import('@/core-store/schema/products');
+      return db.select({ slug: storeProducts.slug, updatedAt: storeProducts.updatedAt })
+        .from(storeProducts)
+        .where(and(
+          eq(storeProducts.status, 'published'),
+          isNull(storeProducts.deletedAt)
+        ))
+        .orderBy(desc(storeProducts.updatedAt))
+        .limit(5000);
+    },
+  },
+  // core-store: category pages (locale-independent)
+  {
+    urlPrefix: '/store?category=',
+    priority: 0.5,
+    changeFrequency: 'monthly',
+    fetch: async () => {
+      const { storeCategories } = await import('@/core-store/schema/products');
+      return db.select({ slug: storeCategories.slug, updatedAt: storeCategories.createdAt })
+        .from(storeCategories)
+        .limit(500);
+    },
+  },
 ];
 
 // ---------------------------------------------------------------------------

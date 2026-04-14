@@ -11,7 +11,7 @@ interface Product {
   id: string;
   name: string;
   slug: string;
-  type: 'simple' | 'variable' | 'digital' | 'subscription';
+  type: 'simple' | 'variable' | 'digital' | 'subscription' | 'bundle';
   priceCents: number | null;
   comparePriceCents: number | null;
   currency: string;

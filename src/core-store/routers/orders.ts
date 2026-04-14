@@ -2,9 +2,11 @@ import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { and, count, desc, eq, gte, ilike, lte } from 'drizzle-orm';
 import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
-import { storeOrders, storeOrderItems, storeOrderEvents, storeDownloads } from '@/core-store/schema/orders';
+import { storeOrders, storeOrderItems, storeOrderEvents, storeDownloads, storeCartItems } from '@/core-store/schema/orders';
+import { storeProducts, storeProductVariants } from '@/core-store/schema/products';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { updateOrderStatus } from '@/core-store/lib/order-service';
+import { updateOrderStatus, editOrder, reorderFromOrder } from '@/core-store/lib/order-service';
+import { getOrCreateCart } from '@/core-store/lib/cart-service';
 import { getStoreDeps } from '@/core-store/deps';
 
 const storeAdminProcedure = sectionProcedure('settings');
@@ -169,7 +171,7 @@ export const storeOrdersRouter = createTRPCRouter({
         .where(eq(storeOrders.id, input.orderId))
         .limit(1);
 
-      if (order) {
+      if (order?.placedByUserId) {
         deps.sendNotification({
           userId: order.placedByUserId,
           title: `Order ${order.orderNumber} — ${input.status}`,
@@ -191,6 +193,112 @@ export const storeOrdersRouter = createTRPCRouter({
       await ctx.db.update(storeOrders)
         .set({ adminNote: input.note, updatedAt: new Date() })
         .where(eq(storeOrders.id, input.orderId));
+      return { success: true };
+    }),
+
+  // ─── Reorder ───────────────────────────────────────────────────────────
+
+  /** Re-add items from a previous order to the user's cart */
+  reorder: protectedProcedure
+    .input(z.object({ orderId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      // Verify the order belongs to the user
+      const [order] = await ctx.db
+        .select({ id: storeOrders.id, placedByUserId: storeOrders.placedByUserId })
+        .from(storeOrders)
+        .where(eq(storeOrders.id, input.orderId))
+        .limit(1);
+
+      if (!order) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Order not found' });
+      }
+      if (order.placedByUserId !== userId) {
+        throw new TRPCError({ code: 'FORBIDDEN', message: 'This order does not belong to you' });
+      }
+
+      const { cartItems } = await reorderFromOrder(input.orderId);
+      const cartId = await getOrCreateCart(userId, null);
+
+      let itemsAdded = 0;
+      let itemsSkipped = 0;
+
+      for (const item of cartItems) {
+        try {
+          // Get current price
+          let unitPriceCents: number;
+          if (item.variantId) {
+            const [variant] = await ctx.db
+              .select({ priceCents: storeProductVariants.priceCents })
+              .from(storeProductVariants)
+              .where(eq(storeProductVariants.id, item.variantId))
+              .limit(1);
+            if (!variant) { itemsSkipped++; continue; }
+            unitPriceCents = variant.priceCents;
+          } else {
+            const [product] = await ctx.db
+              .select({ priceCents: storeProducts.priceCents })
+              .from(storeProducts)
+              .where(eq(storeProducts.id, item.productId))
+              .limit(1);
+            if (!product) { itemsSkipped++; continue; }
+            unitPriceCents = product.priceCents ?? 0;
+          }
+
+          // Check if already in cart
+          const existingCondition = item.variantId
+            ? and(eq(storeCartItems.cartId, cartId), eq(storeCartItems.productId, item.productId), eq(storeCartItems.variantId, item.variantId))
+            : and(eq(storeCartItems.cartId, cartId), eq(storeCartItems.productId, item.productId));
+
+          const [existing] = await ctx.db
+            .select({ id: storeCartItems.id, quantity: storeCartItems.quantity })
+            .from(storeCartItems)
+            .where(existingCondition)
+            .limit(1);
+
+          if (existing) {
+            await ctx.db.update(storeCartItems)
+              .set({ quantity: existing.quantity + item.quantity, unitPriceCents })
+              .where(eq(storeCartItems.id, existing.id));
+          } else {
+            await ctx.db.insert(storeCartItems).values({
+              cartId,
+              productId: item.productId,
+              variantId: item.variantId,
+              quantity: item.quantity,
+              unitPriceCents,
+            });
+          }
+          itemsAdded++;
+        } catch {
+          itemsSkipped++;
+        }
+      }
+
+      return { itemsAdded, itemsSkipped };
+    }),
+
+  // ─── Edit Order (Admin) ────────────────────────────────────────────────
+
+  /** Edit a pending order — modify item quantities or notes */
+  editOrder: storeAdminProcedure
+    .input(z.object({
+      orderId: z.string().uuid(),
+      items: z.array(z.object({
+        orderItemId: z.string().uuid(),
+        newQuantity: z.number().int().min(0).max(9999),
+      })).max(50).optional(),
+      customerNote: z.string().max(1000).optional(),
+      adminNote: z.string().max(1000).optional(),
+    }))
+    .mutation(async ({ input }) => {
+      await editOrder(input.orderId, {
+        items: input.items,
+        customerNote: input.customerNote,
+        adminNote: input.adminNote,
+      });
+
       return { success: true };
     }),
 });

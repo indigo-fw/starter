@@ -1,8 +1,9 @@
 import { boolean, index, integer, jsonb, pgEnum, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { tsvector } from '@/server/db/schema/types';
 
 // ─── Enums ──────────────────────────────────────────────────────────────────
 
-export const productTypeEnum = pgEnum('store_product_type', ['simple', 'variable', 'digital', 'subscription']);
+export const productTypeEnum = pgEnum('store_product_type', ['simple', 'variable', 'digital', 'subscription', 'bundle']);
 export const productStatusEnum = pgEnum('store_product_status', ['draft', 'published', 'archived']);
 
 // ─── Products ───────────────────────────────────────────────────────────────
@@ -47,6 +48,8 @@ export const storeProducts = pgTable('store_products', {
   sortOrder: integer('sort_order').notNull().default(0),
   /** Flexible metadata */
   metadata: jsonb('metadata'),
+  /** Full-text search vector (populated by DB trigger) */
+  searchVector: tsvector('search_vector'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
   deletedAt: timestamp('deleted_at'),
@@ -55,6 +58,7 @@ export const storeProducts = pgTable('store_products', {
   index('idx_store_products_status').on(table.status),
   index('idx_store_products_type').on(table.type),
   index('idx_store_products_deleted').on(table.deletedAt),
+  index('idx_store_products_search_vector').using('gin', table.searchVector),
 ]);
 
 // ─── Variant Options (Size, Color, Material) ───────────────────────────────

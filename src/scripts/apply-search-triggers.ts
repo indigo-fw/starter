@@ -34,6 +34,18 @@ const SEARCH_TABLES: SearchTriggerTable[] = [
       { name: 'body_text', weight: 'B' },
     ],
   },
+  {
+    table: 'store_products',
+    functionName: 'store_products_search_vector_update',
+    triggerName: 'store_products_search_vector_trigger',
+    langSource: { fixed: 'english' },
+    columns: [
+      { name: 'name', weight: 'A' },
+      { name: 'description', weight: 'B', stripHtml: true },
+      { name: 'short_description', weight: 'C' },
+      { name: 'sku', weight: 'C' },
+    ],
+  },
 ];
 
 /**

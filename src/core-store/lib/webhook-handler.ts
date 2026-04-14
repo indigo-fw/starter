@@ -12,6 +12,7 @@ import { storeOrders, storeOrderEvents } from '@/core-store/schema/orders';
 import { updateOrderStatus, deductOrderInventory, restoreOrderInventory } from '@/core-store/lib/order-service';
 import { getStoreDeps } from '@/core-store/deps';
 import { logAudit } from '@/core/lib/infra/audit';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('store-webhook-handler');
@@ -57,6 +58,7 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
       id: storeOrders.id,
       status: storeOrders.status,
       placedByUserId: storeOrders.placedByUserId,
+      guestEmail: storeOrders.guestEmail,
       organizationId: storeOrders.organizationId,
       orderNumber: storeOrders.orderNumber,
       totalCents: storeOrders.totalCents,
@@ -91,11 +93,6 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
     }
 
     const deps = getStoreDeps();
-    deps.sendNotification({
-      userId: order.placedByUserId,
-      title: 'Payment confirmed',
-      body: 'Your order is being processed.',
-    });
 
     const total = new Intl.NumberFormat('en', {
       style: 'currency',
@@ -103,31 +100,56 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
       minimumFractionDigits: 2,
     }).format(order.totalCents / 100);
 
-    await deps.enqueueTemplateEmail(
-      order.placedByUserId,
-      'order-confirmation',
-      { orderId: order.id, orderNumber: order.orderNumber, total },
-    ).catch((err) => logger.warn('Failed to enqueue order email', { error: String(err) }));
+    if (order.placedByUserId) {
+      // Authenticated order — in-app notification + template email
+      deps.sendNotification({
+        userId: order.placedByUserId,
+        title: 'Payment confirmed',
+        body: 'Your order is being processed.',
+      });
+
+      await deps.enqueueTemplateEmail(
+        order.placedByUserId,
+        'order-confirmation',
+        { orderId: order.id, orderNumber: order.orderNumber, total },
+      ).catch((err) => logger.warn('Failed to enqueue order email', { error: String(err) }));
+    } else if (order.guestEmail) {
+      // Guest order — email only (no in-app notification)
+      await deps.enqueueTemplateEmail(
+        order.guestEmail,
+        'order-confirmation',
+        { orderId: order.id, orderNumber: order.orderNumber, total },
+      ).catch((err) => logger.warn('Failed to enqueue guest order email', { error: String(err) }));
+    }
 
     logAudit({
       db,
-      userId: order.placedByUserId,
+      userId: order.placedByUserId ?? 'guest',
       action: 'store.order.paid',
       entityType: 'store_order',
       entityId: orderId,
+    });
+
+    dispatchWebhook(db, 'store.order.paid', {
+      orderId: order.id,
+      orderNumber: order.orderNumber,
+      totalCents: order.totalCents,
+      currency: order.currency,
     });
 
     logger.info('Store order payment confirmed', { orderId, transactionId });
   } else {
     // ── Payment failure / refund ─────────────────────────────────────
     const deps = getStoreDeps();
-    deps.sendNotification({
-      userId: order.placedByUserId,
-      title: 'Payment issue',
-      body: eventType === 'payment.refunded'
-        ? 'Your payment was refunded.'
-        : 'There was an issue with your payment. Please try again.',
-    });
+    if (order.placedByUserId) {
+      deps.sendNotification({
+        userId: order.placedByUserId,
+        title: 'Payment issue',
+        body: eventType === 'payment.refunded'
+          ? 'Your payment was refunded.'
+          : 'There was an issue with your payment. Please try again.',
+      });
+    }
 
     if (eventType === 'payment.refunded' && order.status !== 'refunded') {
       await updateOrderStatus(orderId, 'refunded', 'system', 'Payment refunded via webhook');

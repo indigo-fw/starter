@@ -32,6 +32,12 @@ export const storeDiscountCodes = pgTable('store_discount_codes', {
   appliesToCategories: jsonb('applies_to_categories').$type<string[]>(),
   /** Array of product IDs this discount applies to (null = all products) */
   appliesToProducts: jsonb('applies_to_products').$type<string[]>(),
+  /** No code needed — applied automatically when conditions are met */
+  autoApply: boolean('auto_apply').notNull().default(false),
+  /** Can be combined with other discounts */
+  stackable: boolean('stackable').notNull().default(false),
+  /** BOGO configuration: { buyProductId, buyQuantity, getProductId, getQuantity, getDiscountPercent } */
+  bogoConfig: jsonb('bogo_config'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 }, (table) => [
@@ -46,7 +52,7 @@ export const storeDiscountUsage = pgTable('store_discount_usage', {
   discountCodeId: text('discount_code_id')
     .notNull()
     .references(() => storeDiscountCodes.id, { onDelete: 'cascade' }),
-  userId: text('user_id').notNull(),
+  userId: text('user_id'),
   orderId: text('order_id').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 }, (table) => [

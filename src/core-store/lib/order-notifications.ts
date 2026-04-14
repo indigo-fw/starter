@@ -85,6 +85,12 @@ export async function sendOrderStatusNotification(
       return;
     }
 
+    if (!order.placedByUserId) {
+      // Guest order — notification handled by webhook handler via guestEmail
+      logger.info('Skipping order notification for guest order', { orderId, newStatus });
+      return;
+    }
+
     const [orderUser] = await db
       .select({ email: user.email })
       .from(user)

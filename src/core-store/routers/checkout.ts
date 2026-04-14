@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { eq } from 'drizzle-orm';
-import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/trpc';
 import { storeCarts, storeAddresses } from '@/core-store/schema/orders';
 import { getCartWithItems } from '@/core-store/lib/cart-service';
 import { getShippingOptions } from '@/core-store/lib/shipping-service';
@@ -285,6 +285,129 @@ export const storeCheckoutRouter = createTRPCRouter({
       await ctx.db.delete(storeCarts).where(eq(storeCarts.id, cart.id));
 
       logger.info('Order placed', { orderId, orderNumber, totalCents: totals.totalCents, organizationId: orgId });
+
+      return { type: 'order' as const, orderId, orderNumber, invoiceNumber, checkoutUrl };
+    }),
+
+  /** Place order as guest — no account required */
+  guestPlaceOrder: publicProcedure
+    .input(z.object({
+      sessionId: z.string().max(100),
+      email: z.string().email().max(255),
+      shippingAddress: addressSchema,
+      shippingRateId: z.string().uuid().optional(),
+      discountCode: z.string().max(50).optional(),
+      customerNote: z.string().max(1000).optional(),
+      paymentProviderId: z.string().max(50).default('stripe'),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const deps = getStoreDeps();
+
+      // ── Get cart by sessionId ───────────────────────────────────────
+      const [cart] = await ctx.db
+        .select({ id: storeCarts.id })
+        .from(storeCarts)
+        .where(eq(storeCarts.sessionId, input.sessionId))
+        .limit(1);
+
+      if (!cart) throw new TRPCError({ code: 'NOT_FOUND', message: 'Cart is empty' });
+
+      const cartData = await getCartWithItems(cart.id);
+      if (!cartData || cartData.items.length === 0) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Cart is empty' });
+      }
+
+      // Check all items in stock
+      const outOfStock = cartData.items.filter((i) => !i.inStock);
+      if (outOfStock.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `Out of stock: ${outOfStock.map((i) => i.productName).join(', ')}`,
+        });
+      }
+
+      // Guests cannot purchase subscription products
+      const subscriptionItems = cartData.items.filter((i) => i.productType === 'subscription');
+      if (subscriptionItems.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Subscription products require an account. Please sign in or create an account.',
+        });
+      }
+
+      // ── Build billing profile snapshot from guest input ────────────
+      const billingProfile = {
+        legalName: input.email,
+        email: input.email,
+        address1: input.shippingAddress.address1,
+        address2: input.shippingAddress.address2 ?? null,
+        city: input.shippingAddress.city,
+        state: input.shippingAddress.state ?? null,
+        postalCode: input.shippingAddress.postalCode,
+        country: input.shippingAddress.country,
+        vatId: null,
+        taxExempt: false,
+      };
+
+      const country = input.shippingAddress.country;
+
+      // ── Calculate totals (no vatId for guests) ────────────────────
+      const totals = await calculateTotalsPipeline({
+        cart: cartData,
+        country,
+        shippingRateId: input.shippingRateId,
+        extensions: { discountCode: input.discountCode },
+      });
+
+      const shippingMethod = totals.shippingOption
+        ? `${totals.shippingOption.zoneName} - ${totals.shippingOption.name}`
+        : undefined;
+
+      // ── Create order (no org, no user) ────────────────────────────
+      const { orderId, orderNumber } = await createOrder({
+        organizationId: null,
+        placedByUserId: null,
+        guestEmail: input.email,
+        cart: cartData,
+        shippingAddress: input.shippingAddress,
+        billingProfile,
+        shippingMethod,
+        shippingCents: totals.shippingCents,
+        taxCents: totals.taxCents,
+        taxDetails: totals.taxDetails!,
+        discountCents: totals.discountCents,
+        discountCode: input.discountCode,
+        customerNote: input.customerNote,
+        paymentProviderId: input.paymentProviderId,
+        adjustments: totals.adjustments,
+      });
+
+      // Generate invoice number (EU compliance)
+      const invoiceNumber = await assignInvoiceNumber(orderId);
+
+      // Record discount usage (if any)
+      if (totals.discountResult) {
+        await recordDiscountUsage({
+          discountCodeId: totals.discountResult.discountId,
+          orderId,
+        });
+      }
+
+      // Create payment checkout session
+      const checkoutUrl = await deps.createPaymentCheckout({
+        orderId,
+        orderNumber,
+        totalCents: totals.totalCents,
+        currency: cartData.currency,
+        customerEmail: input.email,
+        providerId: input.paymentProviderId,
+        metadata: { orderId, orderNumber, invoiceNumber },
+      });
+
+      // Clear cart after order creation
+      await ctx.db.delete(storeCarts).where(eq(storeCarts.id, cart.id));
+
+      logger.info('Guest order placed', { orderId, orderNumber, totalCents: totals.totalCents, guestEmail: input.email });
 
       return { type: 'order' as const, orderId, orderNumber, invoiceNumber, checkoutUrl };
     }),

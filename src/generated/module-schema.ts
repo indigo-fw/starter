@@ -17,6 +17,7 @@ export * from '@/core-store/schema/discount-codes';
 export * from '@/core-store/schema/reviews';
 export * from '@/core-store/schema/relations';
 export * from '@/core-store/schema/attributes';
+export * from '@/core-store/schema/currency';
 export * from '@/core-chat/schema/characters';
 export * from '@/core-chat/schema/conversations';
 export * from '@/core-chat/schema/messages';
