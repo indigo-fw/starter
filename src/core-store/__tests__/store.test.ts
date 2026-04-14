@@ -94,6 +94,11 @@ vi.mock('@/core-store/lib/cart-service', () => ({
   mergeCart: (...args: unknown[]) => mockMergeCart(...args),
 }));
 
+vi.mock('@/core-store/lib/discount-service', () => ({
+  validateDiscount: vi.fn().mockResolvedValue(null),
+  getAutoApplyDiscounts: vi.fn().mockResolvedValue([]),
+}));
+
 vi.mock('@/core-store/lib/tax-service', () => ({
   calculateTax: vi.fn().mockResolvedValue({ taxCents: 420, rate: 21, name: 'VAT 21%', priceIncludesTax: true, reverseCharge: false }),
   calculateOrderTax: vi.fn().mockResolvedValue({ totalTaxCents: 420, lineItemTax: [{ taxCents: 420, rate: 21, name: 'VAT 21%', priceIncludesTax: true, reverseCharge: false }] }),
