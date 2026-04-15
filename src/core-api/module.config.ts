@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-api',
+  category: 'primitive',
   routers: [
     { name: 'apiKeysRouter', key: 'apiKeys', from: '@/core-api/routers/api-keys' },
   ],

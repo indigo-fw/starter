@@ -516,16 +516,23 @@ async function updateAll() {
 function list() {
   const installed = getInstalledModules();
 
-  console.log('\nIndigo Modules\n');
+  const primitives = REGISTRY.filter((e) => e.category === 'primitive');
+  const products = REGISTRY.filter((e) => e.category === 'product');
 
-  for (const entry of REGISTRY) {
+  const printEntry = (entry: (typeof REGISTRY)[number]) => {
     const isInstalled = installed.includes(entry.id);
     const status = isInstalled ? '●' : '○';
     const tag = entry.free ? '(free)' : '(paid)';
     const deps = entry.requires ? ` [requires: ${entry.requires.join(', ')}]` : '';
     console.log(`  ${status} ${entry.id} ${tag}${deps}`);
     console.log(`    ${entry.description}`);
-  }
+  };
+
+  console.log('\nPrimitives\n');
+  for (const entry of primitives) printEntry(entry);
+
+  console.log('\nProducts\n');
+  for (const entry of products) printEntry(entry);
 
   console.log(`\n  ● installed  ○ not installed`);
   console.log(`  ${installed.length}/${REGISTRY.length} modules installed\n`);

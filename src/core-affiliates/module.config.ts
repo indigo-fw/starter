@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-affiliates',
+  category: 'primitive',
   routers: [
     { name: 'affiliatesRouter', key: 'affiliates', from: '@/core-affiliates/routers/affiliates' },
     { name: 'attributionsRouter', key: 'attributions', from: '@/core-affiliates/routers/attributions' },

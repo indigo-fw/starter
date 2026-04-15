@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-store',
+  category: 'product',
   routers: [
     { name: 'storeProductsRouter', key: 'storeProducts', from: '@/core-store/routers/products' },
     { name: 'storeCartRouter', key: 'storeCart', from: '@/core-store/routers/cart' },

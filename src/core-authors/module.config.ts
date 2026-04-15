@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-authors',
+  category: 'primitive',
   routers: [
     { name: 'authorsRouter', key: 'authors', from: '@/core-authors/routers/authors' },
   ],

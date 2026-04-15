@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-payments-crypto',
+  category: 'primitive',
   routers: [],
   schema: [],
   serverInit: [

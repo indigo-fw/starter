@@ -63,9 +63,13 @@ export interface NavItemEntry {
   icon: string;
 }
 
+export type ModuleCategory = 'primitive' | 'product';
+
 export interface ModuleConfig {
   /** Module identifier (e.g. 'core-billing') */
   id: string;
+  /** Module category — 'primitive' (horizontal building block) or 'product' (vertical domain) */
+  category: ModuleCategory;
   /** tRPC routers to register in _app.ts */
   routers: RouterEntry[];
   /** Schema paths to re-export for Drizzle discovery */

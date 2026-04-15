@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-chat',
+  category: 'product',
   routers: [
     { name: 'characterRouter', key: 'characters', from: '@/core-chat/routers/characters' },
     { name: 'conversationRouter', key: 'conversations', from: '@/core-chat/routers/conversations' },

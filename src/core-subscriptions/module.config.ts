@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-subscriptions',
+  category: 'primitive',
   routers: [
     { name: 'billingRouter', key: 'billing', from: '@/core-subscriptions/routers/billing' },
     { name: 'discountCodesRouter', key: 'discountCodes', from: '@/core-subscriptions/routers/discount-codes' },

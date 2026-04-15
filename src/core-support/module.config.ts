@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-support',
+  category: 'primitive',
   routers: [
     { name: 'supportChatRouter', key: 'supportChat', from: '@/core-support/routers/support-chat' },
     { name: 'supportRouter', key: 'support', from: '@/core-support/routers/support' },

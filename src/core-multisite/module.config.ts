@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-multisite',
+  category: 'primitive',
   routers: [
     { name: 'sitesRouter', key: 'sites', from: '@/core-multisite/routers/sites' },
   ],

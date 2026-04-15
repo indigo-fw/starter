@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-payments',
+  category: 'primitive',
   routers: [
     { name: 'billingProfileRouter', key: 'billingProfile', from: '@/core-payments/routers/billing-profile' },
   ],

@@ -2,6 +2,7 @@ import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
   id: 'core-booking',
+  category: 'product',
   routers: [
     { name: 'bookingServicesRouter', key: 'bookingServices', from: '@/core-booking/routers/services' },
     { name: 'bookingAvailabilityRouter', key: 'bookingAvailability', from: '@/core-booking/routers/availability' },
