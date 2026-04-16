@@ -22,6 +22,8 @@ import coreChat from './src/core-chat/module.config';
 import coreBooking from './src/core-booking/module.config';
 import coreAuthors from './src/core-authors/module.config';
 import coreApi from './src/core-api/module.config';
+import coreComments from './src/core-comments/module.config';
+import coreActivity from './src/core-activity/module.config';
 
 const modules: ModuleConfig[] = [
   corePayments,
@@ -37,6 +39,8 @@ const modules: ModuleConfig[] = [
   coreBooking,
   coreAuthors,
   coreApi,
+  coreComments,
+  coreActivity,
 ];
 
 export default modules;

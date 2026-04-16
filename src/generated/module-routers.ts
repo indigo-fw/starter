@@ -41,6 +41,8 @@ import { bookingAvailabilityRouter } from '@/core-booking/routers/availability';
 import { bookingBookingsRouter } from '@/core-booking/routers/bookings';
 import { authorsRouter } from '@/core-authors/routers/authors';
 import { apiKeysRouter } from '@/core-api/routers/api-keys';
+import { commentsRouter } from '@/core-comments/routers/comments';
+import { activityRouter } from '@/core-activity/routers/activity';
 
 export const moduleRouters = {
   billingProfile: billingProfileRouter,
@@ -83,4 +85,6 @@ export const moduleRouters = {
   bookings: bookingBookingsRouter,
   authors: authorsRouter,
   apiKeys: apiKeysRouter,
+  comments: commentsRouter,
+  activity: activityRouter,
 } as const;

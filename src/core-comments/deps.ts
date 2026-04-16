@@ -8,6 +8,15 @@
  * (the one true framework convention).
  */
 
+export interface CommentLifecycleEvent {
+  commentId: string;
+  userId: string;
+  targetType: string;
+  targetId: string;
+  content?: string;
+  parentId?: string | null;
+}
+
 export interface CommentsDeps {
   /**
    * Send a notification to a specific user (e.g. reply notification).
@@ -18,6 +27,12 @@ export interface CommentsDeps {
     body: string;
     url?: string;
   }) => Promise<void>;
+
+  /** Called after a comment is created. Use to record activity, fire webhooks, etc. */
+  onCommentCreated?: (event: CommentLifecycleEvent) => void;
+
+  /** Called after a comment is deleted. */
+  onCommentDeleted?: (event: Omit<CommentLifecycleEvent, 'content' | 'parentId'>) => void;
 }
 
 let _deps: CommentsDeps | null = null;

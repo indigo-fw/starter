@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { trpc } from '@/lib/trpc/client';
 import { useBlankTranslations } from '@/lib/translations';
+import { formatRelativeTime } from '@/core/lib/infra/datetime';
 import { CommentForm } from './CommentForm';
 
 interface CommentData {
@@ -59,7 +60,7 @@ export function CommentItem({
   const initial = displayName.charAt(0).toUpperCase();
   const isOwner = currentUserId && comment.userId === currentUserId;
 
-  const timeAgo = formatRelativeTime(comment.createdAt, __);
+  const timeAgo = formatRelativeTime(comment.createdAt);
 
   const handleEdit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -190,18 +191,3 @@ export function CommentItem({
   );
 }
 
-function formatRelativeTime(date: Date, __: (s: string) => string): string {
-  const now = new Date();
-  const diffMs = now.getTime() - new Date(date).getTime();
-  const diffSec = Math.floor(diffMs / 1000);
-  const diffMin = Math.floor(diffSec / 60);
-  const diffHour = Math.floor(diffMin / 60);
-  const diffDay = Math.floor(diffHour / 24);
-
-  if (diffSec < 60) return __('just now');
-  if (diffMin < 60) return `${diffMin}m ${__('ago')}`;
-  if (diffHour < 24) return `${diffHour}h ${__('ago')}`;
-  if (diffDay < 30) return `${diffDay}d ${__('ago')}`;
-
-  return new Date(date).toLocaleDateString();
-}

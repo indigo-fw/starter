@@ -1,6 +1,8 @@
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { count } from 'drizzle-orm';
+import { count, eq, desc, and } from 'drizzle-orm';
 import { activityEvents } from '../schema/activity';
+import { cmsPosts } from '@/server/db/schema/cms';
+import { PostType, ContentStatus } from '@/core/types/cms';
 
 // ─── IDs (deterministic for idempotent seeding) ───────────────────────────
 
@@ -31,40 +33,59 @@ function hoursAgo(hours: number): Date {
 }
 
 /**
- * Seed activity events with demo data.
+ * Seed activity events with demo data. Uses real post titles from the DB.
  */
 export async function seedActivity(
   db: PostgresJsDatabase,
   superadminUserId: string,
+  context?: { userIds?: string[]; orgIds?: string[] },
 ): Promise<{ userIds?: string[]; orgIds?: string[] }> {
+  // Grab real post titles for realistic activity
+  const posts = await db
+    .select({ id: cmsPosts.id, title: cmsPosts.title })
+    .from(cmsPosts)
+    .where(and(eq(cmsPosts.type, PostType.BLOG), eq(cmsPosts.status, ContentStatus.PUBLISHED)))
+    .orderBy(desc(cmsPosts.createdAt))
+    .limit(4);
+
+  const postTitle = (i: number) => posts[i % posts.length]?.title ?? 'Untitled Post';
+  const postId = (i: number) => posts[i % posts.length]?.id ?? undefined;
+
+  // Use multiple actors if available
+  const userIds = [superadminUserId, ...(context?.userIds?.slice(0, 2) ?? [])];
+  const u = (i: number) => userIds[i % userIds.length]!;
+
   await db.insert(activityEvents).values([
     {
       id: EVT_01,
-      actorId: superadminUserId,
+      actorId: u(0),
       actorType: 'user',
       action: 'post.published',
       targetType: 'post',
-      targetLabel: 'Getting Started with Indigo',
+      targetId: postId(0),
+      targetLabel: postTitle(0),
       isPublic: true,
       createdAt: hoursAgo(2),
     },
     {
       id: EVT_02,
-      actorId: superadminUserId,
+      actorId: u(1),
       actorType: 'user',
       action: 'post.created',
       targetType: 'post',
-      targetLabel: 'Advanced Theming Guide',
+      targetId: postId(1),
+      targetLabel: postTitle(1),
       isPublic: false,
       createdAt: hoursAgo(5),
     },
     {
       id: EVT_03,
-      actorId: superadminUserId,
+      actorId: u(2),
       actorType: 'user',
       action: 'comment.created',
       targetType: 'post',
-      targetLabel: 'Getting Started with Indigo',
+      targetId: postId(0),
+      targetLabel: postTitle(0),
       isPublic: true,
       createdAt: hoursAgo(8),
     },
@@ -80,17 +101,18 @@ export async function seedActivity(
     },
     {
       id: EVT_05,
-      actorId: superadminUserId,
+      actorId: u(0),
       actorType: 'user',
       action: 'post.published',
       targetType: 'post',
-      targetLabel: 'Module Architecture Deep Dive',
+      targetId: postId(2),
+      targetLabel: postTitle(2),
       isPublic: true,
       createdAt: hoursAgo(24),
     },
     {
       id: EVT_06,
-      actorId: superadminUserId,
+      actorId: u(1),
       actorType: 'user',
       action: 'order.placed',
       targetType: 'order',
@@ -101,11 +123,12 @@ export async function seedActivity(
     },
     {
       id: EVT_07,
-      actorId: superadminUserId,
+      actorId: u(2),
       actorType: 'user',
       action: 'comment.created',
       targetType: 'post',
-      targetLabel: 'Module Architecture Deep Dive',
+      targetId: postId(3),
+      targetLabel: postTitle(3),
       isPublic: true,
       createdAt: hoursAgo(48),
     },
@@ -121,17 +144,18 @@ export async function seedActivity(
     },
     {
       id: EVT_09,
-      actorId: superadminUserId,
+      actorId: u(0),
       actorType: 'user',
       action: 'post.updated',
       targetType: 'post',
-      targetLabel: 'Getting Started with Indigo',
+      targetId: postId(0),
+      targetLabel: postTitle(0),
       isPublic: false,
       createdAt: hoursAgo(96),
     },
     {
       id: EVT_10,
-      actorId: superadminUserId,
+      actorId: u(1),
       actorType: 'user',
       action: 'post.published',
       targetType: 'page',
@@ -141,7 +165,7 @@ export async function seedActivity(
     },
     {
       id: EVT_11,
-      actorId: superadminUserId,
+      actorId: u(2),
       actorType: 'user',
       action: 'order.placed',
       targetType: 'order',

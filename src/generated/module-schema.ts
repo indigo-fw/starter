@@ -38,3 +38,5 @@ export * from '@/core-booking/schema/availability';
 export * from '@/core-booking/schema/bookings';
 export * from '@/core-authors/schema/authors';
 export * from '@/core-api/schema/api-keys';
+export * from '@/core-comments/schema/comments';
+export * from '@/core-activity/schema/activity';

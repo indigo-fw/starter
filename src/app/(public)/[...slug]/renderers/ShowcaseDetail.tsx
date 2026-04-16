@@ -4,6 +4,7 @@ import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { getLocale } from '@/lib/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';
 import { getCachedShowcase } from '../data';
+import { CommentSection } from '@/core-comments/components/CommentSection';
 
 interface Props {
   slug: string;
@@ -61,6 +62,11 @@ export async function ShowcaseDetail({ slug, preview }: Props) {
           <ShortcodeRenderer content={item.description} components={SHORTCODE_COMPONENTS} />
         </div>
       )}
+
+      {/* Comments */}
+      <section className="mt-12 border-t border-(--border-secondary) pt-8">
+        <CommentSection targetType="showcase" targetId={item.id} />
+      </section>
     </article>
   );
 }

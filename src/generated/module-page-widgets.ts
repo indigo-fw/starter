@@ -4,7 +4,9 @@
 import type { ComponentType } from 'react';
 
 import { AffiliateOverview } from '@/core-affiliates/components/AffiliateOverview';
+import { DashboardActivityWidget } from '@/core-activity/components/DashboardActivityWidget';
 
 export const PAGE_WIDGETS: Record<string, ComponentType[]> = {
   'billing': [AffiliateOverview],
+  'dashboard': [DashboardActivityWidget],
 };

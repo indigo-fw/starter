@@ -17,6 +17,7 @@ import { user } from '@/server/db/schema/auth';
 import { eq } from 'drizzle-orm';
 import { getCachedPost, getCachedTRPC } from '../data';
 import { getAncestors } from '../queries';
+import { CommentSection } from '@/core-comments/components/CommentSection';
 
 interface Props {
   slug: string;
@@ -143,6 +144,13 @@ export async function PostDetail({ slug, postType, preview }: Props) {
               );
             })}
           </div>
+        </section>
+      )}
+
+      {/* Comments */}
+      {isBlog && (
+        <section className="mt-12 border-t border-(--border-secondary) pt-8">
+          <CommentSection targetType="post" targetId={post.id} />
         </section>
       )}
 

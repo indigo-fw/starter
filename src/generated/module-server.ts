@@ -16,6 +16,8 @@ export async function initModuleDeps(): Promise<void> {
   try { await import('@/config/booking-deps'); } catch (e) { console.error('[module:booking-deps] init failed:', e); throw e; }
   try { await import('@/config/api-deps'); } catch (e) { console.error('[module:api-deps] init failed:', e); throw e; }
   try { await import('@/core-api/lib/api-init'); } catch (e) { console.error('[module:api] init failed:', e); throw e; }
+  try { await import('@/config/comments-deps'); } catch (e) { console.error('[module:comments-deps] init failed:', e); throw e; }
+  try { await import('@/config/activity-deps'); } catch (e) { console.error('[module:activity-deps] init failed:', e); throw e; }
 }
 
 /**

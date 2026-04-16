@@ -17,7 +17,9 @@ const config: ModuleConfig = {
     { name: 'seedActivity', from: '@/core-activity/seed', label: 'Demo activity events', hasDataCheck: 'hasActivityData' },
   ],
   layoutWidgets: [],
-  pageWidgets: [],
+  pageWidgets: [
+    { slot: 'dashboard', name: 'DashboardActivityWidget', from: '@/core-activity/components/DashboardActivityWidget' },
+  ],
   navItems: [
     { groupId: 'dashboard', name: 'Activity', href: '/dashboard/activity', icon: 'Activity' },
   ],

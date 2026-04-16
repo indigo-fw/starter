@@ -6,6 +6,7 @@ import { cmsComments, CommentStatus } from '@/core-comments/schema/comments';
 import { user } from '@/server/db/schema/auth';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { createLogger } from '@/core/lib/infra/logger';
+import { getCommentsDeps } from '@/core-comments/deps';
 
 const logger = createLogger('comments-router');
 
@@ -163,6 +164,19 @@ export const commentsRouter = createTRPCRouter({
         })
         .returning();
 
+      try {
+        getCommentsDeps().onCommentCreated?.({
+          commentId: comment!.id,
+          userId,
+          targetType: input.targetType,
+          targetId: input.targetId,
+          content: input.content,
+          parentId: input.parentId ?? null,
+        });
+      } catch (err) {
+        logger.error('onCommentCreated callback failed', err instanceof Error ? err : undefined);
+      }
+
       return comment!;
     }),
 
@@ -204,7 +218,7 @@ export const commentsRouter = createTRPCRouter({
       const userId = ctx.session.user.id;
 
       const [existing] = await ctx.db
-        .select({ id: cmsComments.id })
+        .select({ id: cmsComments.id, targetType: cmsComments.targetType, targetId: cmsComments.targetId })
         .from(cmsComments)
         .where(and(
           eq(cmsComments.id, input.id),
@@ -221,6 +235,17 @@ export const commentsRouter = createTRPCRouter({
         .update(cmsComments)
         .set({ deletedAt: new Date() })
         .where(eq(cmsComments.id, input.id));
+
+      try {
+        getCommentsDeps().onCommentDeleted?.({
+          commentId: input.id,
+          userId,
+          targetType: existing.targetType,
+          targetId: existing.targetId,
+        });
+      } catch (err) {
+        logger.error('onCommentDeleted callback failed', err instanceof Error ? err : undefined);
+      }
 
       return { success: true };
     }),
