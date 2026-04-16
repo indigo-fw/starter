@@ -147,9 +147,12 @@ async function handleMessage(ws: AuthenticatedSocket, msg: { type: string; chann
     }
     default: {
       // Delegate unhandled message types to module hooks (e.g., voice calls)
-      import('@/core/lib/module/module-hooks').then(({ runHook }) => {
-        runHook('ws.message', ws.userId, msg).catch(() => {});
-      }).catch(() => {});
+      if (ws.userId) {
+        const userId = ws.userId;
+        import('@/core/lib/module/module-hooks').then(({ runHook }) => {
+          runHook('ws.message', userId, msg).catch(() => {});
+        }).catch(() => {});
+      }
       break;
     }
   }

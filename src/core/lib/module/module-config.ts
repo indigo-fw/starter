@@ -63,6 +63,25 @@ export interface NavItemEntry {
   icon: string;
 }
 
+export interface DashboardWidgetEntry {
+  /** Unique widget ID (e.g. 'activity-feed') */
+  id: string;
+  /** Component export name */
+  name: string;
+  /** Import path */
+  from: string;
+  /** Human-readable label for config UI */
+  label: string;
+  /** Default column span (1-12) */
+  colSpan: number;
+  /** Minimum allowed column span */
+  minSpan: number;
+  /** Maximum allowed column span */
+  maxSpan: number;
+  /** Whether visible by default */
+  defaultVisible: boolean;
+}
+
 export type ModuleCategory = 'primitive' | 'product';
 
 export interface ModuleConfig {
@@ -86,6 +105,8 @@ export interface ModuleConfig {
   pageWidgets: PageWidgetEntry[];
   /** Admin nav items to register (appended to existing nav groups) */
   navItems: NavItemEntry[];
+  /** Dashboard widgets contributed by this module (draggable, configurable) */
+  dashboardWidgets?: DashboardWidgetEntry[];
   /**
    * Schema tables that can be extended by the project.
    *

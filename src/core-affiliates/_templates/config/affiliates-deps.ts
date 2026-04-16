@@ -17,14 +17,11 @@ setAffiliatesDeps({
 });
 
 // Register affiliate hooks so other modules can call runHook() without direct imports.
-registerHook('payment.conversion', async (userId: unknown, referenceId: unknown, amountCents: unknown) => {
-  if (typeof userId === 'string' && typeof referenceId === 'string' && typeof amountCents === 'number') {
-    await recordConversion(userId, referenceId, amountCents);
-  }
+// Type safety enforced via HookMap declaration merging (see core-affiliates/types/hooks.ts).
+registerHook('payment.conversion', async (userId, referenceId, amountCents) => {
+  await recordConversion(userId, referenceId, amountCents);
 });
 
-registerHook('attribution.capture', async (userId: unknown, data: unknown) => {
-  if (typeof userId === 'string' && data && typeof data === 'object') {
-    await captureAttribution(userId, data as Parameters<typeof captureAttribution>[1]);
-  }
+registerHook('attribution.capture', async (userId, data) => {
+  await captureAttribution(userId, data);
 });

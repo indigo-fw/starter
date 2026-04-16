@@ -20,6 +20,18 @@ const config: ModuleConfig = {
   pageWidgets: [
     { slot: 'dashboard', name: 'DashboardActivityWidget', from: '@/core-activity/components/DashboardActivityWidget' },
   ],
+  dashboardWidgets: [
+    {
+      id: 'activity-feed',
+      name: 'ActivityFeedDashboardWidget',
+      from: '@/core-activity/components/ActivityFeedDashboardWidget',
+      label: 'Activity Feed',
+      colSpan: 12,
+      minSpan: 6,
+      maxSpan: 12,
+      defaultVisible: true,
+    },
+  ],
   navItems: [
     { groupId: 'dashboard', name: 'Activity', href: '/dashboard/activity', icon: 'Activity' },
   ],

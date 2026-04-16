@@ -4,10 +4,11 @@
  * Usage: bun run indigo:sync
  *
  * Generated files (DO NOT EDIT):
- *   src/generated/module-routers.ts   — tRPC router assembly
- *   src/generated/module-schema.ts    — schema re-exports for Drizzle
- *   src/generated/module-server.ts    — deps + jobs registration
- *   src/generated/module-widgets.ts   — layout widget components
+ *   src/generated/module-routers.ts           — tRPC router assembly
+ *   src/generated/module-schema.ts            — schema re-exports for Drizzle
+ *   src/generated/module-server.ts            — deps + jobs registration
+ *   src/generated/module-widgets.ts           — layout widget components
+ *   src/generated/module-dashboard-widgets.ts — dashboard widget registry
  */
 
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
@@ -33,6 +34,7 @@ async function main() {
   generateServer(modules);
   generateWidgets(modules);
   generatePageWidgets(modules);
+  generateDashboardWidgets(modules);
   generateSeeds(modules);
   generateNav(modules);
 
@@ -42,6 +44,7 @@ async function main() {
   console.log('  src/generated/module-server.ts');
   console.log('  src/generated/module-widgets.ts');
   console.log('  src/generated/module-page-widgets.ts');
+  console.log('  src/generated/module-dashboard-widgets.ts');
   console.log('  src/generated/module-seeds.ts');
   console.log('  src/generated/module-nav.ts');
 }
@@ -200,6 +203,36 @@ function generatePageWidgets(modules: ModuleConfig[]) {
   writeFileSync(
     resolve(outDir, 'module-page-widgets.ts'),
     `${HEADER}\nimport type { ComponentType } from 'react';\n\n${imports}\n\nexport const PAGE_WIDGETS: Record<string, ComponentType[]> = {\n${entries}\n};\n`,
+  );
+}
+
+function generateDashboardWidgets(modules: ModuleConfig[]) {
+  const widgets = modules.flatMap((m) => m.dashboardWidgets ?? []);
+  const typeImports = `import type { ComponentType, ReactNode } from 'react';\nimport type { DashboardWidgetDef } from '@/core/config/dashboard-widgets';`;
+
+  if (widgets.length === 0) {
+    writeFileSync(
+      resolve(outDir, 'module-dashboard-widgets.ts'),
+      `${HEADER}\n${typeImports}\n\nexport const MODULE_DASHBOARD_WIDGETS: DashboardWidgetDef[] = [];\n\nexport const MODULE_DASHBOARD_WIDGET_COMPONENTS: Record<string, ComponentType<{ dragHandle?: ReactNode }>> = {};\n`,
+    );
+    return;
+  }
+
+  const imports = widgets
+    .map((w) => `import { ${w.name} } from '${w.from}';`)
+    .join('\n');
+
+  const defEntries = widgets
+    .map((w) => `  { id: '${w.id}', label: '${w.label}', colSpan: ${w.colSpan}, minSpan: ${w.minSpan}, maxSpan: ${w.maxSpan}, defaultVisible: ${w.defaultVisible} },`)
+    .join('\n');
+
+  const compEntries = widgets
+    .map((w) => `  '${w.id}': ${w.name},`)
+    .join('\n');
+
+  writeFileSync(
+    resolve(outDir, 'module-dashboard-widgets.ts'),
+    `${HEADER}\n${typeImports}\n\n${imports}\n\nexport const MODULE_DASHBOARD_WIDGETS: DashboardWidgetDef[] = [\n${defEntries}\n];\n\nexport const MODULE_DASHBOARD_WIDGET_COMPONENTS: Record<string, ComponentType<{ dragHandle?: ReactNode }>> = {\n${compEntries}\n};\n`,
   );
 }
 

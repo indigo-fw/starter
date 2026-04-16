@@ -7,24 +7,49 @@
  *
  * Usage:
  *   // In module deps file (runs at server startup):
- *   registerHook('payment.conversion', recordConversion);
+ *   registerHook('payment.conversion', async (userId, refId, amount) => { ... });
  *
  *   // In webhook route:
  *   await runHook('payment.conversion', userId, subscriptionId, amountCents);
+ *
+ * Type safety:
+ *   Core defines events it owns in HookMap. Modules extend via declaration merging:
+ *
+ *     declare module '@/core/lib/module/module-hooks' {
+ *       interface HookMap {
+ *         'my.event': [userId: string, data: MyData];
+ *       }
+ *     }
  */
 
-type HookHandler = (...args: unknown[]) => Promise<void> | void;
+// ─── Hook type map (extend via declaration merging) ────────────────────────
 
-const hooks = new Map<string, HookHandler[]>();
+/**
+ * Maps hook event names to their argument tuples.
+ * Core defines events it owns. Modules extend via declaration merging.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface HookMap {
+  'user.beforeDelete': [userId: string];
+}
+
+// ─── Typed hook registry ───────────────────────────────────────────────────
+
+// Internal map uses `any` — type safety enforced at the public API boundary
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const hooks = new Map<string, ((...args: any[]) => Promise<void> | void)[]>();
 
 /**
  * Register a handler for a hook event.
  * Call this during server initialization (e.g., in deps files).
  */
-export function registerHook(event: string, handler: HookHandler): void {
-  const list = hooks.get(event) ?? [];
+export function registerHook<K extends keyof HookMap>(
+  event: K,
+  handler: (...args: HookMap[K]) => Promise<void> | void,
+): void {
+  const list = hooks.get(event as string) ?? [];
   list.push(handler);
-  hooks.set(event, list);
+  hooks.set(event as string, list);
 }
 
 /**
@@ -32,8 +57,11 @@ export function registerHook(event: string, handler: HookHandler): void {
  * Failures in individual handlers are caught and logged — they don't
  * propagate to the caller or prevent other handlers from running.
  */
-export async function runHook(event: string, ...args: unknown[]): Promise<void> {
-  const list = hooks.get(event) ?? [];
+export async function runHook<K extends keyof HookMap>(
+  event: K,
+  ...args: HookMap[K]
+): Promise<void> {
+  const list = hooks.get(event as string) ?? [];
   if (list.length === 0) return;
   await Promise.allSettled(list.map((fn) => fn(...args)));
 }
@@ -43,8 +71,11 @@ export async function runHook(event: string, ...args: unknown[]): Promise<void> 
  * Use for checks that should block the operation if they fail
  * (e.g., feature gates, authorization). No-ops if no handler registered.
  */
-export async function runGuard(event: string, ...args: unknown[]): Promise<void> {
-  const list = hooks.get(event) ?? [];
+export async function runGuard<K extends keyof HookMap>(
+  event: K,
+  ...args: HookMap[K]
+): Promise<void> {
+  const list = hooks.get(event as string) ?? [];
   for (const fn of list) {
     await fn(...args);
   }
@@ -134,7 +165,7 @@ export function getRegisteredModules(): string[] {
   return [...healthCheckers.keys()];
 }
 
-// ─── Auth middleware (for tRPC) ───────��─────────────────────────────────────
+// ─── Auth middleware (for tRPC) ─────────────────────────────────────────────
 
 type AuthMiddlewareCtx = {
   session: { user: { id: string; role?: string; email?: string; banned?: boolean } };

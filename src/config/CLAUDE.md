@@ -28,9 +28,13 @@ Config files are the extension points for this template. Most new features are a
 
 ## How to Add a New Dashboard Widget
 
-1. Create widget component (accepts `{ dragHandle?: ReactNode }` prop)
-2. Add `DashboardWidgetDef` entry in `src/config/dashboard-widgets.tsx`
-3. Add component to `DASHBOARD_WIDGET_COMPONENTS` map in same file
+**Module-contributed (auto-registered):** Add `dashboardWidgets` entry in `module.config.ts` with id, name, from, label, colSpan, minSpan, maxSpan, defaultVisible. Run `bun run indigo:sync`. Component must accept `{ dragHandle?: ReactNode }`.
+
+**Project-level (manual):** Add `DashboardWidgetDef` + component to `PROJECT_WIDGETS` / `PROJECT_WIDGET_COMPONENTS` in `src/config/dashboard-widgets.tsx`. Project entries override module entries with the same id.
+
+## Infrastructure Config
+
+`src/config/infra.ts` — DB pool size, audit log retention. Edit per project (no .env needed).
 
 ## How to Add a Custom Field Type
 

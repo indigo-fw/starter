@@ -11,11 +11,47 @@ import { isEmailVerificationRequired } from '@/lib/email-verification';
 /**
  * Next.js 16 Proxy — runs before routes are rendered.
  *
- * Handles three concerns:
- * 1. Dashboard auth gating (session cookie check)
- * 2. Locale prefix detection + URL rewriting for i18n
- * 3. Nonce-based Content Security Policy
+ * Handles four concerns:
+ * 1. Edge rate limiting (IP-based, in-memory)
+ * 2. Dashboard auth gating (session cookie check)
+ * 3. Locale prefix detection + URL rewriting for i18n
+ * 4. Nonce-based Content Security Policy
  */
+
+// ─── Edge rate limiting (in-memory sliding window) ──────────────────────────
+// Protects auth endpoints and API routes from brute-force/abuse.
+// Fail-open: if something goes wrong, request passes through.
+
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX = 60; // requests per window per IP
+const RATE_LIMIT_PATHS = ['/api/auth/', '/api/trpc/', '/api/v1/'];
+
+const ipHits = new Map<string, { count: number; resetAt: number }>();
+
+// Periodic cleanup to prevent memory leaks (every 5 minutes)
+let lastCleanup = Date.now();
+function cleanupStaleEntries() {
+  const now = Date.now();
+  if (now - lastCleanup < 300_000) return;
+  lastCleanup = now;
+  for (const [key, val] of ipHits) {
+    if (val.resetAt < now) ipHits.delete(key);
+  }
+}
+
+function checkEdgeRateLimit(ip: string): boolean {
+  cleanupStaleEntries();
+  const now = Date.now();
+  const entry = ipHits.get(ip);
+
+  if (!entry || entry.resetAt < now) {
+    ipHits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+
+  entry.count++;
+  return entry.count <= RATE_LIMIT_MAX;
+}
 
 /** Non-default locale codes for prefix matching */
 const NON_DEFAULT_LOCALE_SET: Set<string> = new Set(
@@ -48,6 +84,19 @@ const VERIFY_EMAIL_PATH = publicAuthRoutes.verifyEmail;
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // ── Edge rate limiting ──
+  if (RATE_LIMIT_PATHS.some((p) => pathname.startsWith(p))) {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      ?? request.headers.get('x-real-ip')
+      ?? 'unknown';
+    if (!checkEdgeRateLimit(ip)) {
+      return new NextResponse('Too Many Requests', {
+        status: 429,
+        headers: { 'Retry-After': '60' },
+      });
+    }
+  }
 
   // ── Dashboard auth gating ──
   if (pathname.startsWith(DASHBOARD_PREFIX)) {

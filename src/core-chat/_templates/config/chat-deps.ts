@@ -93,11 +93,11 @@ registerChannelAuthorizer(async (userId, channel) => {
 
 // ─── Voice call WS message handler ─────────────────────────────────────────
 
-registerHook('ws.message', async (userId: unknown, msg: unknown) => {
-  const message = msg as { type?: string; payload?: Record<string, unknown> };
-  if (!message.type?.startsWith('voice_call_') || !userId) return;
+// Type safety enforced via HookMap declaration merging (see core-chat/types/hooks.ts).
+registerHook('ws.message', async (userId, msg) => {
+  if (!msg.type?.startsWith('voice_call_')) return;
 
-  const conversationId = message.payload?.conversation_id as string;
+  const conversationId = msg.payload?.conversation_id as string;
   if (!conversationId) return;
 
   const { startCall, handleAudioChunk, handleInterrupt, endCall } =
@@ -106,13 +106,13 @@ registerHook('ws.message', async (userId: unknown, msg: unknown) => {
   const broadcastFn = (channel: string, type: string, payload: Record<string, unknown>) =>
     broadcastToChannel(channel, type, payload);
 
-  switch (message.type) {
+  switch (msg.type) {
     case 'voice_call_start':
-      await startCall(conversationId, userId as string, broadcastFn);
+      await startCall(conversationId, userId, broadcastFn);
       break;
     case 'voice_call_audio_chunk': {
-      const audioBase64 = message.payload?.audio as string | undefined;
-      const isFinal = message.payload?.is_final as boolean;
+      const audioBase64 = msg.payload?.audio as string | undefined;
+      const isFinal = msg.payload?.is_final as boolean;
       if (audioBase64) {
         const bytes = Buffer.from(audioBase64, 'base64');
         const audio = new Int16Array(bytes.buffer, bytes.byteOffset, bytes.byteLength / 2);

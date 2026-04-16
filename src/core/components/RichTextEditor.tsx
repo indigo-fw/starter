@@ -135,7 +135,7 @@ function ToolbarDivider() {
 const identity = (html: string) => html;
 
 /** Serialize editor HTML to markdown, handling shortcodes and content variables. */
-function editorToMarkdown(html: string, scSerialize: (html: string) => string): string {
+async function editorToMarkdown(html: string, scSerialize: (html: string) => string): Promise<string> {
   return htmlToMarkdown(serializeVarsForStorage(scSerialize(html)));
 }
 
@@ -327,19 +327,21 @@ export function RichTextEditor({
 
       if (showPreviewRef.current) {
         // Preview open: convert immediately for live preview, reuse for debounced form update
-        const md = editorToMarkdown(e.getHTML(), scSerializeRef.current);
-        setPreviewMarkdown(md);
-        lastEmittedContent.current = md;
-        // Debounce only the parent onChange (to avoid excessive form re-renders)
-        debounceRef.current = setTimeout(() => {
-          onChangeRef.current(lastEmittedContent.current);
-        }, 300);
+        editorToMarkdown(e.getHTML(), scSerializeRef.current).then((md) => {
+          setPreviewMarkdown(md);
+          lastEmittedContent.current = md;
+          // Debounce only the parent onChange (to avoid excessive form re-renders)
+          debounceRef.current = setTimeout(() => {
+            onChangeRef.current(lastEmittedContent.current);
+          }, 300);
+        });
       } else {
         // No preview: defer everything to debounce
         debounceRef.current = setTimeout(() => {
-          const md = editorToMarkdown(e.getHTML(), scSerializeRef.current);
-          lastEmittedContent.current = md;
-          onChangeRef.current(md);
+          editorToMarkdown(e.getHTML(), scSerializeRef.current).then((md) => {
+            lastEmittedContent.current = md;
+            onChangeRef.current(md);
+          });
         }, 300);
       }
     },
@@ -461,22 +463,24 @@ export function RichTextEditor({
         clearTimeout(debounceRef.current);
         debounceRef.current = null;
       }
-      const md = editorToMarkdown(editor.getHTML(), scSerializeRef.current);
-      setSourceValue(md);
-      lastEmittedContent.current = md;
-      onChangeRef.current(md);
-      setMode('source');
-      try { localStorage.setItem('cms-editor-mode', 'source'); } catch { /* quota */ }
+      editorToMarkdown(editor.getHTML(), scSerializeRef.current).then((md) => {
+        setSourceValue(md);
+        lastEmittedContent.current = md;
+        onChangeRef.current(md);
+        setMode('source');
+        try { localStorage.setItem('cms-editor-mode', 'source'); } catch { /* quota */ }
+      });
     } else {
       // Source → WYSIWYG: suppress emitUpdate to avoid double-fire
       editor.commands.setContent(prepareVarsForEditor(scPrepareRef.current(markdownToHtml(sourceValue))), {
         emitUpdate: false,
       });
-      const md = editorToMarkdown(editor.getHTML(), scSerializeRef.current);
-      lastEmittedContent.current = md;
-      onChangeRef.current(md);
-      setMode('wysiwyg');
-      try { localStorage.setItem('cms-editor-mode', 'wysiwyg'); } catch { /* quota */ }
+      editorToMarkdown(editor.getHTML(), scSerializeRef.current).then((md) => {
+        lastEmittedContent.current = md;
+        onChangeRef.current(md);
+        setMode('wysiwyg');
+        try { localStorage.setItem('cms-editor-mode', 'wysiwyg'); } catch { /* quota */ }
+      });
     }
   }, [editor, mode, sourceValue]);
 
@@ -776,7 +780,7 @@ export function RichTextEditor({
             onClick={() => {
               if (!showPreview && editor && mode === 'wysiwyg') {
                 // Sync preview with current editor content when toggling on
-                setPreviewMarkdown(editorToMarkdown(editor.getHTML(), scSerializeRef.current));
+                editorToMarkdown(editor.getHTML(), scSerializeRef.current).then(setPreviewMarkdown);
               }
               setShowPreview(!showPreview);
             }}

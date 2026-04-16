@@ -13,7 +13,10 @@ import ContentStatusWidget from '@/core/components/dashboard/ContentStatusWidget
 import type { ContentStatusEntry } from '@/core/components/dashboard/ContentStatusWidget';
 import { PostType } from '@/core/types/cms';
 import QuickActionsWidget from '@/components/admin/QuickActionsWidget';
-import { DashboardActivityWidget } from '@/core-activity/components/DashboardActivityWidget';
+import {
+  MODULE_DASHBOARD_WIDGETS,
+  MODULE_DASHBOARD_WIDGET_COMPONENTS,
+} from '@/generated/module-dashboard-widgets';
 
 export type { DashboardWidgetDef } from '@/core/config/dashboard-widgets';
 
@@ -61,53 +64,40 @@ function GA4WidgetWrapper({ dragHandle }: { dragHandle?: ReactNode }) {
   return <GA4Widget dragHandle={dragHandle} settingsHref={adminPanel.settings} />;
 }
 
-// ── Activity Feed wrapper ─────────────────────────────────
-function ActivityFeedWidget({ dragHandle }: { dragHandle?: ReactNode }) {
-  const __ = useAdminTranslations();
-
-  return (
-    <div className="card flex flex-col overflow-hidden">
-      <div className="widget-header">
-        <div className="flex items-center gap-2">
-          {dragHandle}
-          <h2 className="h2 flex items-center gap-2">
-            <Clock className="h-4 w-4 text-(--text-muted)" />
-            {__('Activity Feed')}
-          </h2>
-        </div>
-        <Link
-          href="/dashboard/activity"
-          className="text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors"
-        >
-          {__('View all')}
-        </Link>
-      </div>
-      <DashboardActivityWidget />
-    </div>
-  );
-}
-
-// ── Widget definitions ─────────────────────────────────────
-export const DASHBOARD_WIDGETS: DashboardWidgetDef[] = [
+// ── Project-level widget definitions ──────────────────────────
+const PROJECT_WIDGETS: DashboardWidgetDef[] = [
   { id: 'content-status', label: 'Content Status', colSpan: 6, minSpan: 4, maxSpan: 12, defaultVisible: true },
   { id: 'quick-actions', label: 'Quick Actions', colSpan: 6, minSpan: 4, maxSpan: 12, defaultVisible: true },
   { id: 'ga4', label: 'Google Analytics', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true },
   { id: 'recent-activity', label: 'Recent Activity', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true },
-  { id: 'activity-feed', label: 'Activity Feed', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true },
 ];
 
-export const DEFAULT_WIDGET_ORDER = DASHBOARD_WIDGETS.map((w) => w.id);
-
-export const DEFAULT_HIDDEN_WIDGETS: string[] = [];
-
-/**
- * Widget component registry.
- * To add a new dashboard widget: add a DashboardWidgetDef above and map its id here.
- */
-export const DASHBOARD_WIDGET_COMPONENTS: Record<string, WidgetComponent> = {
+const PROJECT_WIDGET_COMPONENTS: Record<string, WidgetComponent> = {
   'content-status': ContentStatusWidgetWrapper,
   'quick-actions': QuickActionsWidget,
   'ga4': GA4WidgetWrapper,
   'recent-activity': RecentActivityWidget,
-  'activity-feed': ActivityFeedWidget,
+};
+
+// ── Merged exports (project overrides module) ─────────────────
+const projectIds = new Set(PROJECT_WIDGETS.map((w) => w.id));
+
+export const DASHBOARD_WIDGETS: DashboardWidgetDef[] = [
+  ...PROJECT_WIDGETS,
+  ...MODULE_DASHBOARD_WIDGETS.filter((w) => !projectIds.has(w.id)),
+];
+
+export const DEFAULT_WIDGET_ORDER = DASHBOARD_WIDGETS.map((w) => w.id);
+
+export const DEFAULT_HIDDEN_WIDGETS: string[] = DASHBOARD_WIDGETS
+  .filter((w) => !w.defaultVisible)
+  .map((w) => w.id);
+
+/**
+ * Widget component registry.
+ * Module-contributed components are merged first, project-level wins on conflict.
+ */
+export const DASHBOARD_WIDGET_COMPONENTS: Record<string, WidgetComponent> = {
+  ...MODULE_DASHBOARD_WIDGET_COMPONENTS,
+  ...PROJECT_WIDGET_COMPONENTS,
 };

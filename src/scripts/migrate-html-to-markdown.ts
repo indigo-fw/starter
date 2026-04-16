@@ -28,7 +28,7 @@ async function migratePosts() {
   for (const post of posts) {
     if (!post.content || !looksLikeHtml(post.content)) continue;
 
-    const md = htmlToMarkdown(post.content);
+    const md = await htmlToMarkdown(post.content);
     if (md === post.content) continue;
 
     converted++;
@@ -51,7 +51,7 @@ async function migrateCategories() {
   for (const cat of cats) {
     if (!cat.content || !looksLikeHtml(cat.content)) continue;
 
-    const md = htmlToMarkdown(cat.content);
+    const md = await htmlToMarkdown(cat.content);
     if (md === cat.content) continue;
 
     converted++;

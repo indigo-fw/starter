@@ -47,7 +47,9 @@ async function cleanupExpiredSessions(): Promise<void> {
 }
 
 async function cleanupOldAuditLogs(): Promise<void> {
-  const retentionDays = parseInt(process.env.AUDIT_LOG_RETENTION_DAYS ?? '0', 10);
+  const { infraConfig } = await import('@/config/infra');
+  const envOverride = parseInt(process.env.AUDIT_LOG_RETENTION_DAYS ?? '0', 10);
+  const retentionDays = envOverride > 0 ? envOverride : infraConfig.audit.retentionDays;
   if (!retentionDays || retentionDays <= 0) return;
   const cutoff = new Date(Date.now() - retentionDays * 24 * 60 * 60 * 1000);
 

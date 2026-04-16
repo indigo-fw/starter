@@ -45,8 +45,8 @@ setSubscriptionsDeps({
 // Cancel subscriptions when a user account is deleted (GDPR).
 // Only cancels subscriptions for orgs where the user is the sole member
 // (i.e. personal orgs). Shared team orgs are left intact.
-registerHook('user.beforeDelete', async (userId: unknown) => {
-  if (typeof userId !== 'string') return;
+// Type safety enforced via HookMap (see core/lib/module/module-hooks.ts).
+registerHook('user.beforeDelete', async (userId) => {
   const { db } = await import('@/server/db');
   const { member } = await import('@/server/db/schema/organization');
   const { saasSubscriptions } = await import('@/core-subscriptions/schema/subscriptions');
@@ -89,8 +89,7 @@ registerHook('user.beforeDelete', async (userId: unknown) => {
 
 // Register feature gate so other modules can call runGuard('feature.require', ...)
 // without importing from core-subscriptions directly.
-registerHook('feature.require', async (orgId: unknown, feature: unknown, currentUsage: unknown) => {
-  if (typeof orgId === 'string' && typeof feature === 'string') {
-    await requireFeature(orgId, feature, currentUsage as number);
-  }
+// Type safety enforced via HookMap declaration merging (see core-subscriptions/types/hooks.ts).
+registerHook('feature.require', async (orgId, feature, currentUsage) => {
+  await requireFeature(orgId, feature, currentUsage as number);
 });

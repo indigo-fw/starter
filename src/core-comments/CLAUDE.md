@@ -52,7 +52,7 @@ Polymorphic threaded comment system that attaches to any content type.
 
 ## Seed
 
-`seed/index.ts` -- `seedComments()` creates 8 demo comments (5 top-level + 3 threaded replies) on existing blog posts. `hasCommentsData()` skip check. Deterministic UUIDs (`00000000-0000-4000-c100-*`) for idempotent seeding.
+`seed/index.ts` -- `seedComments()` creates 12 demo comments (8 on blog posts + 4 on showcase items, mix of top-level and threaded replies). `hasCommentsData()` skip check. Deterministic UUIDs (`00000000-0000-4000-c100-*`) for idempotent seeding.
 
 ## Key Features
 

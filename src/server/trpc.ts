@@ -51,6 +51,7 @@ const t = initTRPC.context<Context>().create({
 });
 
 export const createTRPCRouter = t.router;
+export const mergeRouters = t.mergeRouters;
 
 /** Rate limit middleware for public (unauthenticated) procedures */
 const publicRateLimit = t.middleware(async ({ ctx, next }) => {

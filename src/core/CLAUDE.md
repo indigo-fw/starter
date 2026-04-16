@@ -19,7 +19,7 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - Core may only import from: `@/server/db`, `@/server/db/schema/*`, `@/lib/trpc/client`, `@/lib/trpc/server`, `@/lib/utils`, `@/lib/constants`, `@/lib/translations`, `@/config/plans`, `@/config/site`
 - Core components needing project data accept it via **props** (not config imports)
 - Feature-gate: `setPlanResolver()` DI — project calls once in `plans.ts`
-- Module hooks: `registerHook(event, handler)` / `runHook(event, ...args)` for cross-module communication
+- Module hooks: type-safe via `HookMap` interface + declaration merging. `registerHook(event, handler)` / `runHook(event, ...args)` / `runGuard(event, ...args)`. Modules extend `HookMap` in `types/hooks.ts`
 - WS channel auth: `registerChannelAuthorizer(fn)`
 - Schema overrides: modules declare `overridableSchema` in `module.config.ts`; project extends at `src/schema/overrides/`
 

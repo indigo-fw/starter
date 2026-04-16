@@ -2,6 +2,7 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
 import * as schema from './schema';
+import { infraConfig } from '@/config/infra';
 
 const globalForDb = globalThis as unknown as {
   pgClient: ReturnType<typeof postgres> | undefined;
@@ -10,8 +11,8 @@ const globalForDb = globalThis as unknown as {
 const client =
   globalForDb.pgClient ??
   postgres(process.env.DATABASE_URL!, {
-    max: 10,
-    idle_timeout: 20,
+    max: infraConfig.db.maxConnections,
+    idle_timeout: infraConfig.db.idleTimeoutSeconds,
   });
 
 if (process.env.NODE_ENV !== 'production') {
