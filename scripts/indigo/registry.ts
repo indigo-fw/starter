@@ -24,6 +24,7 @@ export interface ModuleRegistryEntry {
 }
 
 export const REGISTRY: ModuleRegistryEntry[] = [
+  // ─── Primitives (horizontal building blocks) ─────────────────────────────────
   {
     id: 'core-payments',
     category: 'primitive',
@@ -86,20 +87,25 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     description: 'Documentation system — CMS, .md, .mdx sources with LLM export',
   },
   {
-    id: 'core-chat',
-    category: 'product',
-    repo: 'git@github.com:indigo-fw/core-chat.git',
-    importName: 'coreChat',
-    requires: ['core-subscriptions'],
-    description: 'AI character chat — characters, conversations, messages, providers, media',
+    id: 'core-authors',
+    category: 'primitive',
+    repo: 'git@github.com:indigo-fw/core-authors.git',
+    importName: 'coreAuthors',
+    description: 'Multi-author profiles, bylines, and polymorphic content attribution',
   },
   {
-    id: 'core-store',
-    category: 'product',
-    repo: 'git@github.com:indigo-fw/core-store.git',
-    importName: 'coreStore',
-    requires: ['core-payments'],
-    description: 'E-commerce — products, variants, cart, checkout, orders, shipping, tax (EU VAT)',
+    id: 'core-multisite',
+    category: 'primitive',
+    repo: 'git@github.com:indigo-fw/core-multisite.git',
+    importName: 'coreMultisite',
+    description: 'Multi-tenant site isolation — PostgreSQL schema-per-site, domain mapping',
+  },
+  {
+    id: 'core-api',
+    category: 'primitive',
+    repo: 'git@github.com:indigo-fw/core-api.git',
+    importName: 'coreApi',
+    description: 'Org-scoped REST API v2 with key management, scopes, rate limiting, metering',
   },
   {
     id: 'core-comments',
@@ -116,6 +122,30 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     importName: 'coreActivity',
     free: true,
     description: 'User-facing activity feed and timeline',
+  },
+  // ─── Products (vertical domain apps) ────────────────────────────────────────
+  {
+    id: 'core-store',
+    category: 'product',
+    repo: 'git@github.com:indigo-fw/core-store.git',
+    importName: 'coreStore',
+    requires: ['core-payments'],
+    description: 'E-commerce — products, variants, cart, checkout, orders, shipping, tax (EU VAT)',
+  },
+  {
+    id: 'core-chat',
+    category: 'product',
+    repo: 'git@github.com:indigo-fw/core-chat.git',
+    importName: 'coreChat',
+    requires: ['core-subscriptions'],
+    description: 'AI character chat — characters, conversations, messages, providers, media',
+  },
+  {
+    id: 'core-booking',
+    category: 'product',
+    repo: 'git@github.com:indigo-fw/core-booking.git',
+    importName: 'coreBooking',
+    description: 'Booking and appointment scheduling — services, availability, reservations',
   },
 ];
 

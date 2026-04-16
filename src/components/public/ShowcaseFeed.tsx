@@ -182,8 +182,8 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
     { contentType: 'showcase', contentIds: itemIds },
     { enabled: itemIds.length > 0 }
   );
-  const { data: commentCounts } = trpc.comments.batchCounts.useQuery(
-    { contentType: 'showcase', contentIds: itemIds },
+  const { data: commentCounts } = trpc.comments.countMany.useQuery(
+    { targetType: 'showcase', targetIds: itemIds },
     { enabled: itemIds.length > 0 }
   );
   const { data: userReactions } = trpc.reactions.getUserBatchReactions.useQuery(
@@ -339,8 +339,8 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
 
       {/* Comment panel */}
       <CommentPanel
-        contentType="showcase"
-        contentId={commentPanelId}
+        targetType="showcase"
+        targetId={commentPanelId}
         onClose={() => setCommentPanelId(null)}
       />
     </div>

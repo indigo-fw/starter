@@ -98,12 +98,7 @@ Features:
 
 ## Dashboard Widget
 
-`_templates/config/dashboard-widgets-activity.tsx` -- exports `ActivityFeedWidget` wrapper component.
-
-To integrate into the dashboard:
-1. Import `ActivityFeedWidget` in `src/config/dashboard-widgets.tsx`
-2. Add widget def: `{ id: 'activity-feed', label: 'Activity Feed', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true }`
-3. Map in `DASHBOARD_WIDGET_COMPONENTS`: `'activity-feed': ActivityFeedWidget`
+`DashboardActivityWidget` is self-contained (fetches 8 recent events via `activity.adminFeed`). Already integrated in `src/config/dashboard-widgets.tsx` as the `'activity-feed'` widget with a card wrapper and "View all" link to `/dashboard/activity`.
 
 ## Wiring
 

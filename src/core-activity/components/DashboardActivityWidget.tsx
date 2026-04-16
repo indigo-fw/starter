@@ -6,7 +6,7 @@ import { useAdminTranslations } from '@/lib/translations';
 import { ActivityItem } from './ActivityItem';
 import '../styles/activity.css';
 
-export default function DashboardActivityWidget() {
+export function DashboardActivityWidget() {
   const __ = useAdminTranslations();
   const { data, isLoading } = trpc.activity.adminFeed.useQuery({
     page: 1,

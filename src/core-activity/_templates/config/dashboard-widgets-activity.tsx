@@ -17,7 +17,7 @@ import Link from 'next/link';
 
 import { useAdminTranslations } from '@/lib/translations';
 import { adminPanel } from '@/config/routes';
-import DashboardActivityWidget from '@/core-activity/components/DashboardActivityWidget';
+import { DashboardActivityWidget } from '@/core-activity/components/DashboardActivityWidget';
 
 export function ActivityFeedWidget({ dragHandle }: { dragHandle?: ReactNode }) {
   const __ = useAdminTranslations();

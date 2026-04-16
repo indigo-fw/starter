@@ -3,10 +3,10 @@
 
 import type { ComponentType } from 'react';
 
-import { AffiliateOverview } from '@/core-affiliates/components/AffiliateOverview';
 import { DashboardActivityWidget } from '@/core-activity/components/DashboardActivityWidget';
+import { AffiliateOverview } from '@/core-affiliates/components/AffiliateOverview';
 
 export const PAGE_WIDGETS: Record<string, ComponentType[]> = {
-  'billing': [AffiliateOverview],
   'dashboard': [DashboardActivityWidget],
+  'billing': [AffiliateOverview],
 };

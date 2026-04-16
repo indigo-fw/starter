@@ -1,7 +1,6 @@
 import {
   index,
   pgTable,
-  smallint,
   text,
   timestamp,
   uniqueIndex,
@@ -33,30 +32,3 @@ export const cmsReactions = pgTable(
 export type CmsReaction = typeof cmsReactions.$inferSelect;
 export type NewCmsReaction = typeof cmsReactions.$inferInsert;
 
-// ─── cms_comments ───────────────────────────────────────────────────────────────
-
-export const cmsComments = pgTable(
-  'cms_comments',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    userId: text('user_id')
-      .notNull()
-      .references(() => user.id, { onDelete: 'cascade' }),
-    contentType: varchar('content_type', { length: 50 }).notNull(),
-    contentId: uuid('content_id').notNull(),
-    parentId: uuid('parent_id'),
-    body: text('body').notNull(),
-    status: smallint('status').notNull().default(1),
-    createdAt: timestamp('created_at').notNull().defaultNow(),
-    updatedAt: timestamp('updated_at').notNull().defaultNow(),
-    deletedAt: timestamp('deleted_at'),
-  },
-  (t) => [
-    index('cms_comments_content_idx').on(t.contentType, t.contentId),
-    index('cms_comments_parent_idx').on(t.parentId),
-    index('cms_comments_deleted_idx').on(t.deletedAt),
-  ]
-);
-
-export type CmsComment = typeof cmsComments.$inferSelect;
-export type NewCmsComment = typeof cmsComments.$inferInsert;

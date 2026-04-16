@@ -8,11 +8,11 @@ Polymorphic threaded comment system that attaches to any content type.
 
 **Project owns:** Admin pages, `config/comments-deps.ts`, integration into page templates (e.g. PostDetail).
 
-**Note:** There is an existing core router at `src/server/routers/comments.ts` using legacy field names (`contentType`/`contentId`/`body`). After `indigo:sync`, the module router overrides it via the `comments` key in the appRouter spread.
-
 ## DI (`setCommentsDeps()`)
 
-- `sendNotification` -- notify users on reply
+- `sendNotification` -- notify parent comment author on reply (skips self-replies)
+- `onCommentCreated?` -- lifecycle callback (e.g. record activity event)
+- `onCommentDeleted?` -- lifecycle callback (e.g. record activity event)
 
 ## Schema
 

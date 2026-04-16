@@ -11,16 +11,33 @@ Indigo uses a modular architecture. The core framework provides CMS, auth, organ
 
 ## Available Modules
 
+Modules are categorized as **primitives** (horizontal building blocks any SaaS can use) or **products** (vertical domain apps).
+
+### Primitives
+
 | Module | Type | Description |
 |--------|------|-------------|
-| `core-payments` | free | Payment provider abstraction with Stripe |
+| `core-payments` | free | Payment provider abstraction (Stripe) |
 | `core-subscriptions` | free | Plans, tokens, discounts, dunning |
 | `core-docs` | free | Documentation system with LLM export |
+| `core-comments` | free | Polymorphic threaded comments with moderation |
+| `core-activity` | free | User-facing activity feed and timeline |
 | `core-support` | paid | AI support chat + ticket system |
 | `core-affiliates` | paid | Referral tracking and attribution |
 | `core-ai-writer` | paid | AI content generation and SEO |
 | `core-import` | paid | WordPress/Ghost/CSV import |
-| `core-store` | paid | E-commerce with EU VAT support |
+| `core-authors` | paid | Multi-author profiles and bylines |
+| `core-multisite` | paid | Multi-tenant site isolation, domain mapping |
+| `core-api` | paid | Org-scoped REST API v2 with key management |
+| `core-payments-crypto` | paid | Cryptocurrency payments via NOWPayments |
+
+### Products
+
+| Module | Type | Description |
+|--------|------|-------------|
+| `core-store` | paid | E-commerce (products, cart, checkout, orders, EU VAT) |
+| `core-chat` | paid | AI character chat — characters, conversations, providers |
+| `core-booking` | paid | Booking and appointment scheduling |
 
 ## CLI Commands
 

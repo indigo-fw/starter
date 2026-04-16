@@ -4,13 +4,17 @@
 import { billingProfileRouter } from '@/core-payments/routers/billing-profile';
 import { billingRouter } from '@/core-subscriptions/routers/billing';
 import { discountCodesRouter } from '@/core-subscriptions/routers/discount-codes';
+import { docsRouter } from '@/core-docs/routers/docs';
+import { commentsRouter } from '@/core-comments/routers/comments';
+import { activityRouter } from '@/core-activity/routers/activity';
 import { supportChatRouter } from '@/core-support/routers/support-chat';
 import { supportRouter } from '@/core-support/routers/support';
 import { affiliatesRouter } from '@/core-affiliates/routers/affiliates';
 import { attributionsRouter } from '@/core-affiliates/routers/attributions';
 import { aiWriterRouter } from '@/core-ai-writer/routers/ai-writer';
 import { importRouter } from '@/core-import/routers/import';
-import { docsRouter } from '@/core-docs/routers/docs';
+import { authorsRouter } from '@/core-authors/routers/authors';
+import { apiKeysRouter } from '@/core-api/routers/api-keys';
 import { storeProductsRouter } from '@/core-store/routers/products';
 import { storeCartRouter } from '@/core-store/routers/cart';
 import { storeCheckoutRouter } from '@/core-store/routers/checkout';
@@ -39,22 +43,22 @@ import { voiceRouter } from '@/core-chat/routers/voice';
 import { bookingServicesRouter } from '@/core-booking/routers/services';
 import { bookingAvailabilityRouter } from '@/core-booking/routers/availability';
 import { bookingBookingsRouter } from '@/core-booking/routers/bookings';
-import { authorsRouter } from '@/core-authors/routers/authors';
-import { apiKeysRouter } from '@/core-api/routers/api-keys';
-import { commentsRouter } from '@/core-comments/routers/comments';
-import { activityRouter } from '@/core-activity/routers/activity';
 
 export const moduleRouters = {
   billingProfile: billingProfileRouter,
   billing: billingRouter,
   discountCodes: discountCodesRouter,
+  docs: docsRouter,
+  comments: commentsRouter,
+  activity: activityRouter,
   supportChat: supportChatRouter,
   support: supportRouter,
   affiliates: affiliatesRouter,
   attributions: attributionsRouter,
   aiWriter: aiWriterRouter,
   import: importRouter,
-  docs: docsRouter,
+  authors: authorsRouter,
+  apiKeys: apiKeysRouter,
   storeProducts: storeProductsRouter,
   storeCart: storeCartRouter,
   storeCheckout: storeCheckoutRouter,
@@ -83,8 +87,4 @@ export const moduleRouters = {
   bookingServices: bookingServicesRouter,
   bookingAvailability: bookingAvailabilityRouter,
   bookings: bookingBookingsRouter,
-  authors: authorsRouter,
-  apiKeys: apiKeysRouter,
-  comments: commentsRouter,
-  activity: activityRouter,
 } as const;

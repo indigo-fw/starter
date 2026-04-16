@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Link } from '@/components/Link';
-import { ChevronDown, Loader2, Send, X } from 'lucide-react';
+import { Loader2, Send, X } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { trpc } from '@/lib/trpc/client';
@@ -13,8 +13,8 @@ import { toast } from '@/store/toast-store';
 import { useTranslations } from '@/lib/translations';
 
 interface Props {
-  contentType: string;
-  contentId: string | null;
+  targetType: string;
+  targetId: string | null;
   onClose: () => void;
 }
 
@@ -44,51 +44,47 @@ function UserAvatar({ name, image }: { name: string; image: string | null }) {
   );
 }
 
+interface CommentData {
+  id: string;
+  parentId: string | null;
+  content: string;
+  createdAt: Date;
+  userId: string | null;
+  authorName: string | null;
+  userName: string | null;
+  userImage: string | null;
+}
+
 interface CommentItemProps {
-  comment: {
-    id: string;
-    body: string;
-    createdAt: Date;
-    userId: string;
-    userName: string;
-    userImage: string | null;
-    replyCount?: number;
-  };
+  comment: CommentData;
   currentUserId: string | null;
-  contentType: string;
-  contentId: string;
+  targetType: string;
+  targetId: string;
   depth?: number;
 }
 
-function CommentItem({ comment, currentUserId, contentType, contentId, depth = 0 }: CommentItemProps) {
-  const [showReplies, setShowReplies] = useState(false);
+function CommentItem({ comment, currentUserId, targetType, targetId, depth = 0 }: CommentItemProps) {
   const [replyText, setReplyText] = useState('');
   const [replying, setReplying] = useState(false);
   const utils = trpc.useUtils();
   const __ = useTranslations();
 
-  const replies = trpc.comments.listReplies.useQuery(
-    { parentId: comment.id, pageSize: 50 },
-    { enabled: showReplies }
-  );
+  const displayName = comment.userName ?? comment.authorName ?? 'Anonymous';
 
   const createComment = trpc.comments.create.useMutation({
     onSuccess: () => {
       setReplyText('');
       setReplying(false);
-      setShowReplies(true);
-      utils.comments.listReplies.invalidate({ parentId: comment.id });
-      utils.comments.list.invalidate({ contentType, contentId });
-      utils.comments.batchCounts.invalidate();
+      utils.comments.list.invalidate({ targetType, targetId });
+      utils.comments.count.invalidate({ targetType, targetId });
     },
     onError: (err) => toast.error(err.message),
   });
 
   const deleteComment = trpc.comments.delete.useMutation({
     onSuccess: () => {
-      utils.comments.list.invalidate({ contentType, contentId });
-      utils.comments.listReplies.invalidate();
-      utils.comments.batchCounts.invalidate();
+      utils.comments.list.invalidate({ targetType, targetId });
+      utils.comments.count.invalidate({ targetType, targetId });
     },
     onError: (err) => toast.error(err.message),
   });
@@ -96,27 +92,26 @@ function CommentItem({ comment, currentUserId, contentType, contentId, depth = 0
   function handleReplySubmit() {
     if (!replyText.trim()) return;
     createComment.mutate({
-      contentType,
-      contentId,
+      targetType,
+      targetId,
       parentId: comment.id,
-      body: replyText.trim(),
+      content: replyText.trim(),
     });
   }
 
   const isOwn = currentUserId === comment.userId;
-  const replyCount = comment.replyCount ?? 0;
 
   return (
     <div className={cn('flex gap-3', depth > 0 && 'ml-10')}>
-      <UserAvatar name={comment.userName} image={comment.userImage} />
+      <UserAvatar name={displayName} image={comment.userImage} />
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
-          <span className="text-sm font-semibold text-white">{comment.userName}</span>
+          <span className="text-sm font-semibold text-white">{displayName}</span>
           <span className="text-xs text-white/50">
             {formatRelativeTime(comment.createdAt)}
           </span>
         </div>
-        <p className="mt-0.5 whitespace-pre-wrap text-sm text-white/85">{comment.body}</p>
+        <p className="mt-0.5 whitespace-pre-wrap text-sm text-white/85">{comment.content}</p>
         <div className="mt-1.5 flex items-center gap-3 text-xs text-white/50">
           {currentUserId && depth === 0 && (
             <button
@@ -157,39 +152,12 @@ function CommentItem({ comment, currentUserId, contentType, contentId, depth = 0
             </button>
           </div>
         )}
-
-        {/* Show/hide replies */}
-        {replyCount > 0 && depth === 0 && (
-          <button
-            onClick={() => setShowReplies(!showReplies)}
-            className="mt-2 flex items-center gap-1 text-xs font-medium text-blue-400 hover:text-blue-300"
-          >
-            <ChevronDown className={cn('h-3.5 w-3.5 transition-transform', showReplies && 'rotate-180')} />
-            {showReplies ? __('Hide') : `${replyCount}`} {__._n('reply', 'replies', replyCount)}
-          </button>
-        )}
-
-        {/* Replies list */}
-        {showReplies && replies.data && (
-          <div className="mt-2 space-y-3">
-            {replies.data.results.map((reply) => (
-              <CommentItem
-                key={reply.id}
-                comment={reply}
-                currentUserId={currentUserId}
-                contentType={contentType}
-                contentId={contentId}
-                depth={1}
-              />
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
 }
 
-export function CommentPanel({ contentType, contentId, onClose }: Props) {
+export function CommentPanel({ targetType, targetId, onClose }: Props) {
   const { data: session } = useSession();
   const [newComment, setNewComment] = useState('');
   const panelRef = useRef<HTMLDivElement>(null);
@@ -200,15 +168,15 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
   const [phase, setPhase] = useState<'closed' | 'entering' | 'open' | 'exiting'>('closed');
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const isOpen = contentId !== null;
-  const displayId = activeId ?? contentId;
+  const isOpen = targetId !== null;
+  const displayId = activeId ?? targetId;
   const visible = phase === 'open';
 
-  const [prevContentId, setPrevContentId] = useState(contentId);
-  if (prevContentId !== contentId) {
-    setPrevContentId(contentId);
-    if (isOpen && contentId && phase === 'closed') {
-      setActiveId(contentId);
+  const [prevContentId, setPrevContentId] = useState(targetId);
+  if (prevContentId !== targetId) {
+    setPrevContentId(targetId);
+    if (isOpen && targetId && phase === 'closed') {
+      setActiveId(targetId);
       setPhase('entering');
     } else if (!isOpen && (phase === 'open' || phase === 'entering')) {
       setPhase('exiting');
@@ -235,7 +203,7 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
   }, [phase]);
 
   const comments = trpc.comments.list.useQuery(
-    { contentType, contentId: displayId!, pageSize: 50 },
+    { targetType, targetId: displayId!, limit: 50 },
     { enabled: !!displayId }
   );
 
@@ -243,9 +211,9 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
     onSuccess: () => {
       setNewComment('');
       if (displayId) {
-        utils.comments.list.invalidate({ contentType, contentId: displayId });
+        utils.comments.list.invalidate({ targetType, targetId: displayId });
+        utils.comments.count.invalidate({ targetType, targetId: displayId });
       }
-      utils.comments.batchCounts.invalidate();
     },
     onError: (err) => toast.error(err.message),
   });
@@ -253,9 +221,9 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
   function handleSubmit() {
     if (!newComment.trim() || !displayId) return;
     createComment.mutate({
-      contentType,
-      contentId: displayId,
-      body: newComment.trim(),
+      targetType,
+      targetId: displayId,
+      content: newComment.trim(),
     });
   }
 
@@ -288,7 +256,7 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
 
   if (!activeId) return null;
 
-  const totalComments = comments.data?.total ?? 0;
+  const totalComments = comments.data?.items.length ?? 0;
 
   return (
     <>
@@ -340,19 +308,19 @@ export function CommentPanel({ contentType, contentId, onClose }: Props) {
             <div className="flex items-center justify-center py-8">
               <Loader2 className="h-5 w-5 animate-spin text-white/40" />
             </div>
-          ) : comments.data?.results.length === 0 ? (
+          ) : comments.data?.items.length === 0 ? (
             <p className="py-8 text-center text-sm text-white/40">
               {__('No comments yet. Be the first!')}
             </p>
           ) : (
             <div className="space-y-4">
-              {comments.data?.results.map((comment) => (
+              {comments.data?.items.map((comment) => (
                 <CommentItem
                   key={comment.id}
                   comment={comment}
                   currentUserId={session?.user?.id ?? null}
-                  contentType={contentType}
-                  contentId={activeId}
+                  targetType={targetType}
+                  targetId={activeId}
                 />
               ))}
             </div>

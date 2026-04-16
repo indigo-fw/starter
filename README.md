@@ -25,16 +25,33 @@ Clone, install modules, ship. Designed for professionals who know what they're b
 
 ### Modules
 
+Modules are split into **primitives** (horizontal building blocks) and **products** (vertical domain apps).
+
+#### Primitives
+
 | Module | Status | Description |
 |--------|--------|-------------|
-| `core-billing` | Free | Stripe subscriptions, tokens, discounts, dunning |
-| `core-billing-crypto` | Paid | NOWPayments crypto provider |
+| `core-payments` | Free | Payment provider abstraction (Stripe) |
+| `core-subscriptions` | Free | Plans, tokens, discounts, dunning |
+| `core-payments-crypto` | Paid | NOWPayments crypto provider |
+| `core-docs` | Free | Documentation system (CMS + MDX, LLM export) |
+| `core-comments` | Free | Polymorphic threaded comments with moderation |
+| `core-activity` | Free | User-facing activity feed and timeline |
 | `core-support` | Paid | AI support chat + ticket system + live agent |
 | `core-affiliates` | Paid | Referral tracking, attribution, commissions |
 | `core-ai-writer` | Paid | AI content generation, SEO, translation |
 | `core-import` | Paid | WordPress/Ghost/CSV migration tools |
-| `core-docs` | Free | Documentation system (CMS + MDX, LLM export) |
+| `core-authors` | Paid | Multi-author profiles and bylines |
+| `core-multisite` | Paid | Multi-tenant site isolation, domain mapping |
+| `core-api` | Paid | Org-scoped REST API v2 with key management |
+
+#### Products
+
+| Module | Status | Description |
+|--------|--------|-------------|
 | `core-store` | Paid | E-commerce (products, cart, checkout, orders, EU VAT) |
+| `core-chat` | Paid | AI character chat — characters, conversations, providers |
+| `core-booking` | Paid | Booking and appointment scheduling |
 
 Modules are self-contained git subtrees. Install with `bun run indigo add <module>`, remove with `bun run indigo remove <module>`. Each module brings its own routers, schema, seeds, and admin pages.
 
@@ -102,8 +119,10 @@ All wiring is auto-generated in `src/generated/` by `bun run indigo:sync`.
 ```
 src/
   core/                 Base framework (git subtree from indigo-fw/core)
-  core-billing/         Free module: payments
-  core-support/         Paid module: support chat
+  core-payments/        Free module: payments
+  core-comments/        Free module: threaded comments
+  core-activity/        Free module: activity feed
+  core-store/           Paid module: e-commerce
   core-*/               Other modules...
   generated/            Auto-generated glue (DO NOT EDIT)
   config/               Project customization (plans, routes, deps)

@@ -181,7 +181,7 @@ export const commentsRouter = createTRPCRouter({
             body: input.content.slice(0, 100) + (input.content.length > 100 ? '...' : ''),
           });
         } catch (err) {
-          logger.error('Reply notification failed', err instanceof Error ? err : undefined);
+          logger.error('Reply notification failed', err instanceof Error ? { error: err.message } : undefined);
         }
       }
 
@@ -195,7 +195,7 @@ export const commentsRouter = createTRPCRouter({
           parentId: input.parentId ?? null,
         });
       } catch (err) {
-        logger.error('onCommentCreated callback failed', err instanceof Error ? err : undefined);
+        logger.error('onCommentCreated callback failed', err instanceof Error ? { error: err.message } : undefined);
       }
 
       return comment!;
@@ -265,7 +265,7 @@ export const commentsRouter = createTRPCRouter({
           targetId: existing.targetId,
         });
       } catch (err) {
-        logger.error('onCommentDeleted callback failed', err instanceof Error ? err : undefined);
+        logger.error('onCommentDeleted callback failed', err instanceof Error ? { error: err.message } : undefined);
       }
 
       return { success: true };

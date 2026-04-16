@@ -13,7 +13,7 @@ import ContentStatusWidget from '@/core/components/dashboard/ContentStatusWidget
 import type { ContentStatusEntry } from '@/core/components/dashboard/ContentStatusWidget';
 import { PostType } from '@/core/types/cms';
 import QuickActionsWidget from '@/components/admin/QuickActionsWidget';
-import DashboardActivityWidget from '@/core-activity/components/DashboardActivityWidget';
+import { DashboardActivityWidget } from '@/core-activity/components/DashboardActivityWidget';
 
 export type { DashboardWidgetDef } from '@/core/config/dashboard-widgets';
 
