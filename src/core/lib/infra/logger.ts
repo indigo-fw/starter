@@ -30,6 +30,24 @@ function formatLog(
   return `${tag}${msg}`;
 }
 
+/** Forward to monitoring provider if configured (lazy import to avoid circular deps) */
+function forwardToMonitoring(level: 'error' | 'warn', prefix: string, msg: string, data?: LogData) {
+  try {
+    // Dynamic import avoids circular dependency and is zero-cost when not configured
+    const { getMonitoringProvider } = require('@/config/monitoring') as typeof import('@/config/monitoring');
+    const provider = getMonitoringProvider();
+    if (!provider) return;
+    const fullMsg = prefix ? `[${prefix}] ${msg}` : msg;
+    if (level === 'error') {
+      provider.captureError(fullMsg, data);
+    } else if (provider.captureWarning) {
+      provider.captureWarning(fullMsg, data);
+    }
+  } catch {
+    // Silently ignore — monitoring is optional
+  }
+}
+
 function createLogger(prefix = ''): Logger {
   return {
     debug(msg: string, data?: LogData) {
@@ -42,9 +60,11 @@ function createLogger(prefix = ''): Logger {
     },
     warn(msg: string, data?: LogData) {
       console.warn(formatLog('warn', prefix, msg, data));
+      forwardToMonitoring('warn', prefix, msg, data);
     },
     error(msg: string, data?: LogData) {
       console.error(formatLog('error', prefix, msg, data));
+      forwardToMonitoring('error', prefix, msg, data);
     },
   };
 }

@@ -13,6 +13,7 @@
  *   bun run indigo push core                    Push the core engine to its repo
  *   bun run indigo list                         Show installed and available modules
  *   bun run indigo sync                         Regenerate glue files from indigo.config.ts
+ *   bun run indigo doctor                       Validate project health (env, DB, modules, deps)
  */
 
 import { execSync } from 'child_process';
@@ -538,6 +539,141 @@ function list() {
   console.log(`  ${installed.length}/${REGISTRY.length} modules installed\n`);
 }
 
+// ─── Doctor ─────────────────────────────────────────────────────────────────
+
+async function doctor() {
+  console.log('\n🔍 Indigo Doctor — checking project health\n');
+  let issues = 0;
+  let warnings = 0;
+
+  function pass(label: string) { console.log(`  ✓ ${label}`); }
+  function warn(label: string, detail: string) { console.log(`  ⚠ ${label}: ${detail}`); warnings++; }
+  function fail(label: string, detail: string) { console.log(`  ✗ ${label}: ${detail}`); issues++; }
+
+  // ── Environment ──
+  console.log('Environment:');
+  const envPath = resolve(root, '.env');
+  if (!existsSync(envPath)) {
+    fail('.env file', 'not found — copy .env.example to .env');
+  } else {
+    pass('.env file exists');
+    const envContent = readFileSync(envPath, 'utf-8');
+
+    if (!envContent.includes('DATABASE_URL=')) fail('DATABASE_URL', 'not set in .env');
+    else pass('DATABASE_URL is set');
+
+    if (!envContent.includes('BETTER_AUTH_SECRET=')) fail('BETTER_AUTH_SECRET', 'not set in .env');
+    else {
+      const match = envContent.match(/BETTER_AUTH_SECRET=(.+)/);
+      if (match && match[1]!.trim().length < 32) fail('BETTER_AUTH_SECRET', 'must be at least 32 characters');
+      else pass('BETTER_AUTH_SECRET is set');
+    }
+
+    if (!envContent.includes('REDIS_URL=') || envContent.match(/REDIS_URL=\s*$/m)) {
+      warn('REDIS_URL', 'not set — BullMQ queues and rate limiting will use fallback mode');
+    } else {
+      pass('REDIS_URL is set');
+    }
+  }
+
+  // ── Database ──
+  console.log('\nDatabase:');
+  try {
+    const result = runSilent('bunx drizzle-kit check 2>&1');
+    if (result.includes('error') || result.includes('Error')) {
+      warn('Drizzle schema check', 'run `bun run db:generate` if you have pending schema changes');
+    } else {
+      pass('Drizzle schema is up to date');
+    }
+  } catch {
+    warn('Drizzle schema check', 'could not run drizzle-kit check');
+  }
+
+  const migrationsDir = resolve(root, 'drizzle');
+  if (existsSync(migrationsDir)) {
+    const migrationFiles = readdirSync(migrationsDir).filter(f => f.endsWith('.sql'));
+    pass(`${migrationFiles.length} migration(s) found`);
+  } else {
+    warn('Migrations', 'drizzle/ directory not found — run `bun run db:generate`');
+  }
+
+  // ── Modules ──
+  console.log('\nModules:');
+  const installed = getInstalledModules();
+  pass(`${installed.length} module(s) installed: ${installed.join(', ') || 'none'}`);
+
+  for (const mod of installed) {
+    const modDir = resolve(root, 'src', mod);
+    if (!existsSync(modDir)) {
+      fail(mod, `directory src/${mod}/ missing — run \`bun run indigo add ${mod}\` or remove from config`);
+    }
+  }
+
+  // Check generated files are up to date
+  const generatedDir = resolve(root, 'src/generated');
+  if (!existsSync(generatedDir)) {
+    fail('Generated files', 'src/generated/ missing — run `bun run indigo:sync`');
+  } else {
+    const expectedFiles = [
+      'module-routers.ts', 'module-schema.ts', 'module-server.ts',
+      'module-widgets.ts', 'module-page-widgets.ts', 'module-dashboard-widgets.ts',
+      'module-seeds.ts', 'module-nav.ts',
+    ];
+    const missingGenerated = expectedFiles.filter(f => !existsSync(resolve(generatedDir, f)));
+    if (missingGenerated.length > 0) {
+      fail('Generated files', `missing: ${missingGenerated.join(', ')} — run \`bun run indigo:sync\``);
+    } else {
+      pass('All generated files present');
+    }
+  }
+
+  // Check deps files exist for installed modules
+  for (const mod of installed) {
+    const modConfig = resolve(root, 'src', mod, 'module.config.ts');
+    if (existsSync(modConfig)) {
+      const content = readFileSync(modConfig, 'utf-8');
+      const serverInitMatch = content.match(/serverInit:\s*\[([\s\S]*?)\]/);
+      if (serverInitMatch) {
+        const paths = serverInitMatch[1]!.match(/'([^']+)'/g)?.map(p => p.replace(/'/g, '')) ?? [];
+        for (const depPath of paths) {
+          const resolved = depPath.replace('@/', 'src/') + '.ts';
+          if (!existsSync(resolve(root, resolved))) {
+            fail(mod, `missing deps file: ${resolved} — scaffolded during \`bun run indigo add ${mod}\``);
+          }
+        }
+      }
+    }
+  }
+
+  // ── Storage ──
+  console.log('\nStorage:');
+  const uploadsDir = resolve(root, 'uploads');
+  if (existsSync(uploadsDir)) {
+    pass('uploads/ directory exists');
+  } else {
+    warn('uploads/', 'directory missing — will be created on first upload');
+  }
+
+  // ── Node modules ──
+  console.log('\nDependencies:');
+  if (existsSync(resolve(root, 'node_modules'))) {
+    pass('node_modules/ present');
+  } else {
+    fail('node_modules/', 'missing — run `bun install`');
+  }
+
+  // ── Summary ──
+  console.log('\n─────────────────────────────────────────');
+  if (issues === 0 && warnings === 0) {
+    console.log('✓ All checks passed — project is healthy!\n');
+  } else {
+    if (issues > 0) console.log(`✗ ${issues} issue(s) found`);
+    if (warnings > 0) console.log(`⚠ ${warnings} warning(s)`);
+    console.log('');
+    if (issues > 0) process.exit(1);
+  }
+}
+
 // ─── Main ───────────────────────────────────────────────────────────────────
 
 const [command, ...args] = process.argv.slice(2);
@@ -585,6 +721,9 @@ switch (command) {
   case 'sync':
     run('bun run indigo:sync');
     break;
+  case 'doctor':
+    await doctor();
+    break;
   default:
     console.log('Indigo Module Manager\n');
     console.log('Usage:');
@@ -597,5 +736,6 @@ switch (command) {
     console.log('  bun run indigo push --all                   Push all modules to upstream repos');
     console.log('  bun run indigo list                         Show modules');
     console.log('  bun run indigo sync                         Regenerate glue files');
+    console.log('  bun run indigo doctor                       Validate project health');
     break;
 }

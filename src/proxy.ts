@@ -18,40 +18,13 @@ import { isEmailVerificationRequired } from '@/lib/email-verification';
  * 4. Nonce-based Content Security Policy
  */
 
-// ─── Edge rate limiting (in-memory sliding window) ──────────────────────────
-// Protects auth endpoints and API routes from brute-force/abuse.
-// Fail-open: if something goes wrong, request passes through.
+// ─── Edge rate limiting ─────────────────────────────────────────────────────
+
+import { edgeRateLimit } from '@/core/lib/api/edge-rate-limit';
 
 const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
 const RATE_LIMIT_MAX = 60; // requests per window per IP
 const RATE_LIMIT_PATHS = ['/api/auth/', '/api/trpc/', '/api/v1/'];
-
-const ipHits = new Map<string, { count: number; resetAt: number }>();
-
-// Periodic cleanup to prevent memory leaks (every 5 minutes)
-let lastCleanup = Date.now();
-function cleanupStaleEntries() {
-  const now = Date.now();
-  if (now - lastCleanup < 300_000) return;
-  lastCleanup = now;
-  for (const [key, val] of ipHits) {
-    if (val.resetAt < now) ipHits.delete(key);
-  }
-}
-
-function checkEdgeRateLimit(ip: string): boolean {
-  cleanupStaleEntries();
-  const now = Date.now();
-  const entry = ipHits.get(ip);
-
-  if (!entry || entry.resetAt < now) {
-    ipHits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return true;
-  }
-
-  entry.count++;
-  return entry.count <= RATE_LIMIT_MAX;
-}
 
 /** Non-default locale codes for prefix matching */
 const NON_DEFAULT_LOCALE_SET: Set<string> = new Set(
@@ -90,7 +63,7 @@ export async function proxy(request: NextRequest) {
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
       ?? request.headers.get('x-real-ip')
       ?? 'unknown';
-    if (!checkEdgeRateLimit(ip)) {
+    if (!(await edgeRateLimit(ip, RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX))) {
       return new NextResponse('Too Many Requests', {
         status: 429,
         headers: { 'Retry-After': '60' },

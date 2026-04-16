@@ -21,4 +21,24 @@ export const GET = createHealthHandler([
       await redis.ping();
     },
   },
+  {
+    name: 'memory',
+    check: async () => {
+      const heapUsedMB = Math.round(process.memoryUsage().heapUsed / 1024 / 1024);
+      if (heapUsedMB > 512) {
+        throw new Error(`High heap usage: ${heapUsedMB}MB`);
+      }
+    },
+  },
+  {
+    name: 'queue',
+    check: async () => {
+      const redis = getRedis();
+      if (!redis) return;
+      const waiting = await redis.llen('bull:email:wait').catch(() => 0);
+      if (waiting > 100) {
+        throw new Error(`Email queue backlog: ${waiting} jobs waiting`);
+      }
+    },
+  },
 ]);

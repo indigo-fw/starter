@@ -17,6 +17,7 @@ Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS:
 - **Tests:** `bunx vitest run` (CI uses vitest for proper mock isolation). Use `asMock(fn)` from `@/test-utils` instead of `vi.mocked()`
 - **Translations:** PO files in `locales/admin/*.po`. After editing: `bun run generate-po && bun run transform:po`
 - **Environment:** Zod-validated env vars in `src/lib/env.ts`
+- **Project health:** `bun run indigo doctor` — validates env, DB, modules, generated files, deps
 
 ## Coding Standards
 

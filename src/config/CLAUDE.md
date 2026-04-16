@@ -36,6 +36,18 @@ Config files are the extension points for this template. Most new features are a
 
 `src/config/infra.ts` — DB pool size, audit log retention. Edit per project (no .env needed).
 
+## Health Checks
+
+`/api/health` checks: database (SELECT 1), redis (PING), memory (heap > 512MB = error), queue (email backlog > 100 = error). Modules contribute via `registerHealthCheck()`.
+
+## Error Monitoring
+
+`src/config/monitoring.ts` — optional. Call `setMonitoringProvider({ captureError, captureWarning? })` at server startup. The core logger automatically forwards `error()` and `warn()` calls to the provider. Zero-cost when not configured. See file for Sentry and Axiom examples.
+
+## Doctor CLI
+
+`bun run indigo doctor` — validates .env (DATABASE_URL, BETTER_AUTH_SECRET, REDIS_URL), migrations, installed modules, generated files, deps files, storage, node_modules. Exits 1 on errors.
+
 ## How to Add a Custom Field Type
 
 Core's `CustomFieldsEditor` accepts optional `fieldRenderers` prop — pass custom renderers to override/extend built-in types. No core edit needed.
