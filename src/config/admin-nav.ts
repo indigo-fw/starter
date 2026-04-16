@@ -30,6 +30,7 @@ import {
   Mail,
   Menu,
   MessageCircle,
+  MessageSquare,
   Settings,
   ShoppingBag,
   Tag,
@@ -58,7 +59,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Activity, ArrowRightLeft, Briefcase, Tv, Calendar, ClipboardList,
   CreditCard, FileText, FolderKanban, FolderOpen, Hash, Home, Image,
   Layers, LifeBuoy, Link2, ListChecks, Mail, Menu, MessageCircle,
-  Settings, ShoppingBag, Tag, Upload, Users, Webhook,
+  MessageSquare, Settings, ShoppingBag, Tag, Upload, Users, Webhook,
 };
 
 // ─── Base navigation (static items) ─────────────────────────────────────────

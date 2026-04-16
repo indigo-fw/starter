@@ -101,6 +101,22 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     requires: ['core-payments'],
     description: 'E-commerce — products, variants, cart, checkout, orders, shipping, tax (EU VAT)',
   },
+  {
+    id: 'core-comments',
+    category: 'primitive',
+    repo: 'git@github.com:indigo-fw/core-comments.git',
+    importName: 'coreComments',
+    free: true,
+    description: 'Polymorphic threaded comments with moderation',
+  },
+  {
+    id: 'core-activity',
+    category: 'primitive',
+    repo: 'git@github.com:indigo-fw/core-activity.git',
+    importName: 'coreActivity',
+    free: true,
+    description: 'User-facing activity feed and timeline',
+  },
 ];
 
 export function getRegistryEntry(id: string): ModuleRegistryEntry | undefined {
