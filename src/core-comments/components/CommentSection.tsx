@@ -21,14 +21,14 @@ export function CommentSection({ targetType, targetId }: CommentSectionProps) {
   const { data: commentsData, isLoading } = trpc.comments.list.useQuery({
     targetType,
     targetId,
-    limit: 50,
+    limit: 100,
   });
 
   const { data: count } = trpc.comments.count.useQuery({ targetType, targetId });
 
   const items = commentsData?.items ?? [];
 
-  // Build thread tree: group replies by parentId
+  // Build thread tree: group direct children by parentId
   const { topLevel, repliesByParent } = useMemo(() => {
     const top: typeof items = [];
     const byParent = new Map<string, typeof items>();
@@ -45,18 +45,6 @@ export function CommentSection({ targetType, targetId }: CommentSectionProps) {
 
     return { topLevel: top, repliesByParent: byParent };
   }, [items]);
-
-  // Recursively collect nested replies for a comment
-  function getReplies(parentId: string): typeof items {
-    const direct = repliesByParent.get(parentId) ?? [];
-    const result: typeof items = [];
-    for (const reply of direct) {
-      result.push(reply);
-      const nested = getReplies(reply.id);
-      result.push(...nested);
-    }
-    return result;
-  }
 
   return (
     <section className="comment-section">
@@ -90,7 +78,7 @@ export function CommentSection({ targetType, targetId }: CommentSectionProps) {
               targetType={targetType}
               targetId={targetId}
               currentUserId={currentUserId}
-              replies={getReplies(comment.id)}
+              repliesByParent={repliesByParent}
               depth={0}
             />
           ))}

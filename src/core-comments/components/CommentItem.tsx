@@ -22,7 +22,7 @@ interface CommentItemProps {
   targetType: string;
   targetId: string;
   currentUserId?: string;
-  replies: CommentData[];
+  repliesByParent: Map<string, CommentData[]>;
   depth: number;
 }
 
@@ -33,7 +33,7 @@ export function CommentItem({
   targetType,
   targetId,
   currentUserId,
-  replies,
+  repliesByParent,
   depth,
 }: CommentItemProps) {
   const __ = useBlankTranslations();
@@ -59,8 +59,8 @@ export function CommentItem({
   const displayName = comment.userName ?? comment.authorName ?? __('Anonymous');
   const initial = displayName.charAt(0).toUpperCase();
   const isOwner = currentUserId && comment.userId === currentUserId;
-
   const timeAgo = formatRelativeTime(comment.createdAt);
+  const directReplies = repliesByParent.get(comment.id) ?? [];
 
   const handleEdit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -170,17 +170,17 @@ export function CommentItem({
             />
           )}
 
-          {replies.length > 0 && (
+          {directReplies.length > 0 && (
             <div className="comment-list">
-              {replies.map((reply) => (
+              {directReplies.map((reply) => (
                 <CommentItem
                   key={reply.id}
                   comment={reply}
                   targetType={targetType}
                   targetId={targetId}
                   currentUserId={currentUserId}
-                  replies={[]}
-                  depth={Math.min(depth + 1, MAX_DEPTH)}
+                  repliesByParent={repliesByParent}
+                  depth={depth + 1}
                 />
               ))}
             </div>
@@ -190,4 +190,3 @@ export function CommentItem({
     </div>
   );
 }
-

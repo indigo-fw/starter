@@ -134,9 +134,15 @@ export const commentsRouter = createTRPCRouter({
       const userId = ctx.session.user.id;
 
       // If replying, verify parent exists and belongs to the same target
+      let parentUserId: string | null = null;
       if (input.parentId) {
         const [parent] = await ctx.db
-          .select({ id: cmsComments.id, targetType: cmsComments.targetType, targetId: cmsComments.targetId })
+          .select({
+            id: cmsComments.id,
+            targetType: cmsComments.targetType,
+            targetId: cmsComments.targetId,
+            userId: cmsComments.userId,
+          })
           .from(cmsComments)
           .where(and(
             eq(cmsComments.id, input.parentId),
@@ -150,6 +156,7 @@ export const commentsRouter = createTRPCRouter({
         if (parent.targetType !== input.targetType || parent.targetId !== input.targetId) {
           throw new TRPCError({ code: 'BAD_REQUEST', message: 'Parent comment belongs to a different target' });
         }
+        parentUserId = parent.userId;
       }
 
       const [comment] = await ctx.db
@@ -163,6 +170,20 @@ export const commentsRouter = createTRPCRouter({
           status: CommentStatus.APPROVED,
         })
         .returning();
+
+      // Notify parent comment author on reply (skip if replying to yourself)
+      if (parentUserId && parentUserId !== userId) {
+        try {
+          const deps = getCommentsDeps();
+          await deps.sendNotification({
+            userId: parentUserId,
+            title: 'New reply to your comment',
+            body: input.content.slice(0, 100) + (input.content.length > 100 ? '...' : ''),
+          });
+        } catch (err) {
+          logger.error('Reply notification failed', err instanceof Error ? err : undefined);
+        }
+      }
 
       try {
         getCommentsDeps().onCommentCreated?.({

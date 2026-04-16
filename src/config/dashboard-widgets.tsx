@@ -13,6 +13,7 @@ import ContentStatusWidget from '@/core/components/dashboard/ContentStatusWidget
 import type { ContentStatusEntry } from '@/core/components/dashboard/ContentStatusWidget';
 import { PostType } from '@/core/types/cms';
 import QuickActionsWidget from '@/components/admin/QuickActionsWidget';
+import DashboardActivityWidget from '@/core-activity/components/DashboardActivityWidget';
 
 export type { DashboardWidgetDef } from '@/core/config/dashboard-widgets';
 
@@ -60,12 +61,39 @@ function GA4WidgetWrapper({ dragHandle }: { dragHandle?: ReactNode }) {
   return <GA4Widget dragHandle={dragHandle} settingsHref={adminPanel.settings} />;
 }
 
+// ── Activity Feed wrapper ─────────────────────────────────
+function ActivityFeedWidget({ dragHandle }: { dragHandle?: ReactNode }) {
+  const __ = useAdminTranslations();
+
+  return (
+    <div className="card flex flex-col overflow-hidden">
+      <div className="widget-header">
+        <div className="flex items-center gap-2">
+          {dragHandle}
+          <h2 className="h2 flex items-center gap-2">
+            <Clock className="h-4 w-4 text-(--text-muted)" />
+            {__('Activity Feed')}
+          </h2>
+        </div>
+        <Link
+          href="/dashboard/activity"
+          className="text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors"
+        >
+          {__('View all')}
+        </Link>
+      </div>
+      <DashboardActivityWidget />
+    </div>
+  );
+}
+
 // ── Widget definitions ─────────────────────────────────────
 export const DASHBOARD_WIDGETS: DashboardWidgetDef[] = [
   { id: 'content-status', label: 'Content Status', colSpan: 6, minSpan: 4, maxSpan: 12, defaultVisible: true },
   { id: 'quick-actions', label: 'Quick Actions', colSpan: 6, minSpan: 4, maxSpan: 12, defaultVisible: true },
   { id: 'ga4', label: 'Google Analytics', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true },
   { id: 'recent-activity', label: 'Recent Activity', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true },
+  { id: 'activity-feed', label: 'Activity Feed', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true },
 ];
 
 export const DEFAULT_WIDGET_ORDER = DASHBOARD_WIDGETS.map((w) => w.id);
@@ -81,4 +109,5 @@ export const DASHBOARD_WIDGET_COMPONENTS: Record<string, WidgetComponent> = {
   'quick-actions': QuickActionsWidget,
   'ga4': GA4WidgetWrapper,
   'recent-activity': RecentActivityWidget,
+  'activity-feed': ActivityFeedWidget,
 };

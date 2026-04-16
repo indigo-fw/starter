@@ -3,7 +3,6 @@ import { analyticsRouter } from './analytics';
 import { auditRouter } from './audit';
 import { authRouter } from './auth';
 import { categoriesRouter } from './categories';
-import { commentsRouter } from './comments';
 import { cmsRouter } from './cms';
 import { contentSearchRouter } from './content-search';
 import { customFieldsRouter } from './custom-fields';
@@ -37,25 +36,24 @@ export const appRouter = createTRPCRouter({
   analytics: analyticsRouter,
   audit: auditRouter,
   auth: authRouter,
+  categories: categoriesRouter,
   cms: cmsRouter,
   cmsLink: cmsLinkRouter,
-  comments: commentsRouter,
-  categories: categoriesRouter,
   contentSearch: contentSearchRouter,
   customFields: customFieldsRouter,
   forms: formsRouter,
   jobQueue: jobQueueRouter,
   media: mediaRouter,
   menus: menusRouter,
-  options: optionsRouter,
   notifications: notificationsRouter,
+  options: optionsRouter,
   organizations: organizationsRouter,
   portfolio: portfolioRouter,
-  reactions: reactionsRouter,
-  showcase: showcaseRouter,
   projects: projectsRouter,
+  reactions: reactionsRouter,
   redirects: redirectsRouter,
   revisions: revisionsRouter,
+  showcase: showcaseRouter,
   tags: tagsRouter,
   users: usersRouter,
   webhooks: webhooksRouter,
