@@ -51,6 +51,10 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - `seedContentFiles()` — copies `core/_templates/content/` to `content/` on init
 - `parseFrontmatter<T>()` — shared YAML parser for `.md`/`.mdx`
 
+**Locale fallback:**
+- `mergeWithLocaleFallback(localeItems, defaultItems)` — deduplicates by `translationGroup` (if present), includes all items without it. Used by `listPublished` endpoints
+- `needsLocaleFallback(lang)` — returns true for non-default locales
+
 **CMS links:** `cms://` protocol — `resolveCmsLink()`, `resolveCmsLinks(text, locale)`, `resolveRecordCmsLinks(record, locale)`. LRU + Redis pub/sub invalidation. Client: `<CmsLink>`, project wraps as `<Link>`
 
 **Infrastructure:**

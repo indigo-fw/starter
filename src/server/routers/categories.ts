@@ -5,6 +5,7 @@ import crypto from 'crypto';
 
 import { env } from '@/lib/env';
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import { getContentType } from '@/config/cms';
 import {
   mergeWithLocaleFallback,
   needsLocaleFallback,
@@ -535,8 +536,11 @@ export const categoriesRouter = createTRPCRouter({
 
       let isFallback = false;
       if (!category && needsLocaleFallback(input.lang)) {
-        [category] = await findPublished(DEFAULT_LOCALE);
-        isFallback = true;
+        const ct = getContentType('category');
+        if (ct.fallbackToDefault) {
+          [category] = await findPublished(DEFAULT_LOCALE);
+          isFallback = true;
+        }
       }
 
       if (!category) {
@@ -577,7 +581,8 @@ export const categoriesRouter = createTRPCRouter({
           .limit(500);
 
       // Non-default locale: merge locale + EN fallbacks, paginate in JS
-      if (needsLocaleFallback(input.lang)) {
+      const ct = getContentType('category');
+      if (needsLocaleFallback(input.lang) && ct.fallbackToDefault) {
         const [localeItems, defaultItems] = await Promise.all([
           fetchCategories(input.lang),
           fetchCategories(DEFAULT_LOCALE),

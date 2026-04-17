@@ -3,6 +3,11 @@ import { and, desc, eq, ilike, inArray, isNull, or, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import { getContentType } from '@/config/cms';
+import {
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
 import { cmsTerms, cmsTermRelationships } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
 import {
@@ -346,7 +351,7 @@ export const tagsRouter = createTRPCRouter({
       }
     }),
 
-  /** Public: get a published tag by slug */
+  /** Public: get a published tag by slug (respects fallbackToDefault config) */
   getBySlug: publicProcedure
     .input(
       z.object({
@@ -355,27 +360,39 @@ export const tagsRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const [tag] = await ctx.db
-        .select()
-        .from(cmsTerms)
-        .where(
-          and(
-            eq(cmsTerms.taxonomyId, TAXONOMY_ID),
-            eq(cmsTerms.slug, input.slug),
-            eq(cmsTerms.lang, input.lang),
-            eq(cmsTerms.status, ContentStatus.PUBLISHED),
-            isNull(cmsTerms.deletedAt)
+      const findPublished = (lang: string) =>
+        ctx.db
+          .select()
+          .from(cmsTerms)
+          .where(
+            and(
+              eq(cmsTerms.taxonomyId, TAXONOMY_ID),
+              eq(cmsTerms.slug, input.slug),
+              eq(cmsTerms.lang, lang),
+              eq(cmsTerms.status, ContentStatus.PUBLISHED),
+              isNull(cmsTerms.deletedAt)
+            )
           )
-        )
-        .limit(1);
+          .limit(1);
+
+      let [tag] = await findPublished(input.lang);
+
+      let isFallback = false;
+      if (!tag && needsLocaleFallback(input.lang)) {
+        const ct = getContentType('tag');
+        if (ct.fallbackToDefault) {
+          [tag] = await findPublished(DEFAULT_LOCALE);
+          isFallback = true;
+        }
+      }
 
       if (!tag) {
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Tag not found' });
       }
-      return tag;
+      return { ...tag, isFallback };
     }),
 
-  /** Public: list published tags */
+  /** Public: list published tags (respects fallbackToDefault config) */
   listPublished: publicProcedure
     .input(
       z.object({
@@ -387,6 +404,36 @@ export const tagsRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
+      const fetchTags = (lang: string) =>
+        ctx.db
+          .select()
+          .from(cmsTerms)
+          .where(
+            and(
+              eq(cmsTerms.taxonomyId, TAXONOMY_ID),
+              eq(cmsTerms.lang, lang),
+              eq(cmsTerms.status, ContentStatus.PUBLISHED),
+              isNull(cmsTerms.deletedAt)
+            )
+          )
+          .orderBy(cmsTerms.order)
+          .limit(500);
+
+      // Non-default locale: merge if fallbackToDefault is enabled for this type
+      const ct = getContentType('tag');
+      if (needsLocaleFallback(input.lang) && ct.fallbackToDefault) {
+        const [localeItems, defaultItems] = await Promise.all([
+          fetchTags(input.lang),
+          fetchTags(DEFAULT_LOCALE),
+        ]);
+        const merged = mergeWithLocaleFallback(localeItems, defaultItems);
+        merged.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+        const total = merged.length;
+        const results = merged.slice(offset, offset + pageSize);
+        return paginatedResult(results, total, page, pageSize);
+      }
+
+      // Default locale or no fallback: standard DB pagination
       const conditions = and(
         eq(cmsTerms.taxonomyId, TAXONOMY_ID),
         eq(cmsTerms.lang, input.lang),

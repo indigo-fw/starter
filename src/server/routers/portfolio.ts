@@ -5,6 +5,7 @@ import crypto from 'crypto';
 
 import { env } from '@/lib/env';
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import { getContentType } from '@/config/cms';
 import {
   mergeWithLocaleFallback,
   needsLocaleFallback,
@@ -583,8 +584,11 @@ export const portfolioRouter = createTRPCRouter({
 
       let isFallback = false;
       if (!item && needsLocaleFallback(input.lang)) {
-        [item] = await findPublished(DEFAULT_LOCALE);
-        isFallback = true;
+        const ct = getContentType('portfolio');
+        if (ct.fallbackToDefault) {
+          [item] = await findPublished(DEFAULT_LOCALE);
+          isFallback = true;
+        }
       }
 
       if (!item) {
@@ -643,7 +647,8 @@ export const portfolioRouter = createTRPCRouter({
       };
 
       // Non-default locale: merge locale + EN fallbacks, paginate in JS
-      if (needsLocaleFallback(input.lang)) {
+      const ct = getContentType('portfolio');
+      if (needsLocaleFallback(input.lang) && ct.fallbackToDefault) {
         const [localeItems, defaultItems] = await Promise.all([
           fetchItems(input.lang),
           fetchItems(DEFAULT_LOCALE),

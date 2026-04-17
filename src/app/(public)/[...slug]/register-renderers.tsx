@@ -131,12 +131,12 @@ registerContentRenderer('tag', {
   },
   async generateMetadata({ slug, locale, baseUrl: _baseUrl }) {
     const tag = await getCachedTag(slug, locale);
-    return {
+    return applyFallbackMetadata({
       title: `${tag.name} | ${siteConfig.name}`,
       description: `Browse all posts tagged with "${tag.name}".`,
       alternates: { canonical: buildCanonicalUrl(`/tag/${slug}`, locale) },
       openGraph: { locale },
-    };
+    }, (tag as { isFallback?: boolean }).isFallback, `/tag/${slug}`);
   },
 });
 

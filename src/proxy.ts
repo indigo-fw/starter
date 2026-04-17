@@ -188,17 +188,11 @@ export async function proxy(request: NextRequest) {
     return withCsp(response);
   }
 
-  // Default locale — no rewrite, set header for consistency
+  // Default locale — no rewrite, set header for consistency.
+  // Note: if chosenLocale is non-default, the redirect above already fired.
+  // This path only runs for users on the default locale (no redirect needed).
   const response = NextResponse.next();
   response.headers.set('x-locale', DEFAULT_LOCALE);
-  // Clear non-default preference when visiting default locale URL
-  if (chosenLocale && chosenLocale !== DEFAULT_LOCALE && chosenLocale !== '1') {
-    response.cookies.set('locale-chosen', DEFAULT_LOCALE, {
-      path: '/',
-      maxAge: 31536000,
-      sameSite: 'lax',
-    });
-  }
   return withCsp(response);
 }
 

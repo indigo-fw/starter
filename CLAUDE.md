@@ -39,6 +39,31 @@ Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS:
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
 - At the end of each plan, give a list of unresolved questions, if any.
 
+## Internationalization (i18n)
+
+Locale config in `src/lib/constants.ts`: `LOCALES`, `DEFAULT_LOCALE`, `LOCALE_LABELS`, `IS_MULTILINGUAL`.
+
+### Locale Routing
+
+- `localeDetection: false` — no auto-redirect from Accept-Language header (SEO-safe)
+- `proxy.ts` handles locale prefix stripping (`/de/blog/post` → `/blog/post` with `x-locale: de` header)
+- `locale-chosen` cookie stores user's explicit locale choice (set by LanguageSwitcher, banner, and proxy on locale-prefixed visits). Proxy redirects unprefixed URLs to preferred locale when cookie is set
+- Anonymous users: cookie persists preference. Registered users: also saved to `user.lang` in DB via `auth.setPreferredLocale` mutation
+
+### Content Locale Fallback
+
+Per-type `fallbackToDefault` in `src/config/cms.ts` controls fallback behavior:
+- `true` (page, blog, category, portfolio, showcase): missing locale content falls back to `DEFAULT_LOCALE` with `isFallback: true` + noindex metadata
+- `false` (tag): returns 404 when content missing in requested locale
+
+**Detail pages** (`getBySlug`): tries requested locale → falls back to DEFAULT_LOCALE if allowed → returns `isFallback` flag. `applyFallbackMetadata()` in `register-renderers.tsx` sets noindex + canonical to default locale URL.
+
+**List pages** (`listPublished`): merges locale items + DEFAULT_LOCALE fallbacks via `mergeWithLocaleFallback()` from `@/core/lib/i18n/locale-fallback`. Deduplicates by `translationGroup` when available (items without it are included as-is). Sitemaps use separate direct DB queries — no fallback pollution.
+
+### Translation Workflow
+
+PO files in `locales/admin/*.po` and `locales/public/*.po`. Pipeline: `bun run i18n` (extract → compile to JSON). `bun run i18n:translate` translates only enabled locales via DeepL (parsed from `LOCALES` in constants.ts). Explicit CLI target bypasses filter: `bun run i18n:translate fr`.
+
 ## Troubleshooting
 
 - **Port 3000 already in use:** Kill stale `bun` or `node` process

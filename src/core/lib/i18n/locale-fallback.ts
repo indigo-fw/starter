@@ -3,24 +3,29 @@ import { DEFAULT_LOCALE } from '@/lib/constants';
 /**
  * Merge locale-specific items with default-locale fallbacks.
  *
- * Deduplicates by `translationGroup`: if a locale version exists,
- * the default version is excluded. Items with null translationGroup
+ * Deduplicates by `translationGroup` when available: if a locale version exists,
+ * the default version is excluded. Items with null/missing translationGroup
  * are always included (no deduplication possible).
+ *
+ * Works with any item shape — tables without translationGroup (e.g. cmsTerms/tags)
+ * simply include all items from both locales.
  *
  * Used by CMS list endpoints so non-default locale pages show content
  * even when translations don't exist yet — EN items fill the gaps.
  */
-export function mergeWithLocaleFallback<
-  T extends { translationGroup: string | null },
->(localeItems: T[], defaultItems: T[]): T[] {
+export function mergeWithLocaleFallback<T>(
+  localeItems: T[],
+  defaultItems: T[]
+): T[] {
   const coveredGroups = new Set(
     localeItems
-      .map((i) => i.translationGroup)
-      .filter((g): g is string => g !== null)
+      .map((i) => (i as Record<string, unknown>).translationGroup)
+      .filter((g): g is string => typeof g === 'string')
   );
-  const fallbacks = defaultItems.filter(
-    (i) => !i.translationGroup || !coveredGroups.has(i.translationGroup)
-  );
+  const fallbacks = defaultItems.filter((i) => {
+    const group = (i as Record<string, unknown>).translationGroup;
+    return typeof group !== 'string' || !coveredGroups.has(group);
+  });
   return [...localeItems, ...fallbacks];
 }
 

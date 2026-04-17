@@ -174,7 +174,8 @@ export const cmsPublicRouter = createTRPCRouter({
       };
 
       // Non-default locale: merge locale + EN fallbacks, paginate in JS
-      if (needsLocaleFallback(input.lang)) {
+      const ct = getContentTypeByPostType(input.type);
+      if (needsLocaleFallback(input.lang) && (ct?.fallbackToDefault ?? true)) {
         const [localeItems, defaultItems] = await Promise.all([
           fetchPosts(input.lang),
           fetchPosts(DEFAULT_LOCALE),
