@@ -5,6 +5,10 @@ import crypto from 'crypto';
 
 import { env } from '@/lib/env';
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import {
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
 import { createLogger } from '@/core/lib/infra/logger';
 import { cmsPortfolio, cmsTermRelationships } from '@/server/db/schema';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
@@ -561,18 +565,27 @@ export const portfolioRouter = createTRPCRouter({
         }
       }
 
-      const [item] = await ctx.db
-        .select()
-        .from(cmsPortfolio)
-        .where(
-          and(
-            eq(cmsPortfolio.slug, input.slug),
-            eq(cmsPortfolio.lang, input.lang),
-            eq(cmsPortfolio.status, ContentStatus.PUBLISHED),
-            isNull(cmsPortfolio.deletedAt)
+      const findPublished = (lang: string) =>
+        ctx.db
+          .select()
+          .from(cmsPortfolio)
+          .where(
+            and(
+              eq(cmsPortfolio.slug, input.slug),
+              eq(cmsPortfolio.lang, lang),
+              eq(cmsPortfolio.status, ContentStatus.PUBLISHED),
+              isNull(cmsPortfolio.deletedAt)
+            )
           )
-        )
-        .limit(1);
+          .limit(1);
+
+      let [item] = await findPublished(input.lang);
+
+      let isFallback = false;
+      if (!item && needsLocaleFallback(input.lang)) {
+        [item] = await findPublished(DEFAULT_LOCALE);
+        isFallback = true;
+      }
 
       if (!item) {
         throw new TRPCError({
@@ -581,10 +594,11 @@ export const portfolioRouter = createTRPCRouter({
         });
       }
       const { previewToken: _pt, ...rest } = item;
-      return rest;
+      return { ...rest, isFallback };
     }),
 
-  /** Public: list published portfolio items (optional tag filter) */
+  /** Public: list published portfolio items (optional tag filter).
+   *  Non-default locales: merges locale items + EN fallbacks. */
   listPublished: publicProcedure
     .input(
       z.object({
@@ -597,13 +611,69 @@ export const portfolioRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input, 100);
 
-      const baseConditions = and(
-        eq(cmsPortfolio.lang, input.lang),
-        eq(cmsPortfolio.status, ContentStatus.PUBLISHED),
-        isNull(cmsPortfolio.deletedAt)
-      );
+      const publishedConditions = (lang: string) =>
+        and(
+          eq(cmsPortfolio.lang, lang),
+          eq(cmsPortfolio.status, ContentStatus.PUBLISHED),
+          isNull(cmsPortfolio.deletedAt)
+        );
 
-      // Filter by tag via term relationships join
+      const fetchItems = async (lang: string) => {
+        const conditions = publishedConditions(lang);
+        if (input.tagId) {
+          const joinCondition = and(
+            eq(cmsPortfolio.id, cmsTermRelationships.objectId),
+            eq(cmsTermRelationships.taxonomyId, 'tag'),
+            eq(cmsTermRelationships.termId, input.tagId)
+          );
+          return ctx.db
+            .select()
+            .from(cmsPortfolio)
+            .innerJoin(cmsTermRelationships, joinCondition)
+            .where(conditions)
+            .orderBy(desc(cmsPortfolio.completedAt))
+            .limit(5000);
+        }
+        return ctx.db
+          .select()
+          .from(cmsPortfolio)
+          .where(conditions)
+          .orderBy(desc(cmsPortfolio.completedAt))
+          .limit(5000);
+      };
+
+      // Non-default locale: merge locale + EN fallbacks, paginate in JS
+      if (needsLocaleFallback(input.lang)) {
+        const [localeItems, defaultItems] = await Promise.all([
+          fetchItems(input.lang),
+          fetchItems(DEFAULT_LOCALE),
+        ]);
+        // Normalize join result shape — innerJoin returns { cms_portfolio, ... }
+        const normalize = (items: unknown[]) =>
+          items.map((item) => {
+            const row = 'cms_portfolio' in (item as object)
+              ? (item as Record<string, unknown>).cms_portfolio
+              : item;
+            return row as typeof cmsPortfolio.$inferSelect;
+          });
+        const merged = mergeWithLocaleFallback(
+          normalize(localeItems),
+          normalize(defaultItems)
+        );
+        merged.sort(
+          (a, b) =>
+            (b.completedAt?.getTime() ?? 0) - (a.completedAt?.getTime() ?? 0)
+        );
+        const total = merged.length;
+        const results = merged
+          .slice(offset, offset + pageSize)
+          .map(({ previewToken: _pt, ...rest }) => rest);
+        return paginatedResult(results, total, page, pageSize);
+      }
+
+      // Default locale: standard DB-level pagination
+      const baseConditions = publishedConditions(input.lang);
+
       if (input.tagId) {
         const joinCondition = and(
           eq(cmsPortfolio.id, cmsTermRelationships.objectId),

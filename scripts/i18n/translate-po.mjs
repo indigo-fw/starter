@@ -19,6 +19,25 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/**
+ * Parse enabled locales from src/lib/constants.ts.
+ * Only these locales are translated by default; explicit CLI target bypasses this.
+ */
+function parseEnabledLocales() {
+  try {
+    const configPath = path.resolve(__dirname, '../../src/lib/constants.ts');
+    const content = fs.readFileSync(configPath, 'utf8');
+    const match = content.match(/export const LOCALES\s*=\s*\[([\s\S]*?)\]\s*as\s*const/);
+    if (!match) return null;
+    const entries = [...match[1].matchAll(/^\s*'([a-z]{2,3})'/gm)];
+    return entries.map((e) => e[1]);
+  } catch {
+    return null;
+  }
+}
+
+const ENABLED_LOCALES = parseEnabledLocales();
+
 const LOCALES_DIR = path.resolve(__dirname, '../../locales');
 const ADMIN_DIR = path.resolve(LOCALES_DIR, 'admin');
 const PUBLIC_DIR = path.resolve(LOCALES_DIR, 'public');
@@ -254,21 +273,34 @@ async function main() {
   );
   console.log('');
 
-  // Find locale files to process
+  // Find locale files to process — only enabled locales by default
   const locales = new Set();
   for (const dir of [ADMIN_DIR, PUBLIC_DIR]) {
     if (!fs.existsSync(dir)) continue;
     for (const file of fs.readdirSync(dir)) {
       if (file.endsWith('.po')) {
         const locale = path.basename(file, '.po');
-        if (locale !== 'en') locales.add(locale); // Skip English (source)
+        if (locale === 'en') continue; // Skip English (source)
+        // Only translate enabled locales (from src/lib/constants.ts)
+        if (ENABLED_LOCALES && !ENABLED_LOCALES.includes(locale)) continue;
+        locales.add(locale);
       }
     }
   }
 
+  if (ENABLED_LOCALES) {
+    console.log(`Enabled locales: ${ENABLED_LOCALES.join(', ')}`);
+  } else {
+    console.log('Warning: Could not read LOCALES from config — translating all locales');
+  }
+
   if (targetLocale) {
-    if (!locales.has(targetLocale)) {
-      console.error(`Locale "${targetLocale}" not found. Available: ${[...locales].join(', ')}`);
+    // Explicit CLI target bypasses the enabled-locales filter
+    const hasFile = [ADMIN_DIR, PUBLIC_DIR].some(
+      (dir) => fs.existsSync(path.join(dir, `${targetLocale}.po`))
+    );
+    if (!hasFile) {
+      console.error(`Locale "${targetLocale}" not found — no PO file found`);
       process.exit(1);
     }
     locales.clear();

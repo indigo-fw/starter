@@ -5,6 +5,10 @@ import crypto from 'crypto';
 
 import { env } from '@/lib/env';
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import {
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
 import { createLogger } from '@/core/lib/infra/logger';
 import { cmsShowcase } from '@/server/db/schema';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
@@ -542,18 +546,27 @@ export const showcaseRouter = createTRPCRouter({
         }
       }
 
-      const [item] = await ctx.db
-        .select()
-        .from(cmsShowcase)
-        .where(
-          and(
-            eq(cmsShowcase.slug, input.slug),
-            eq(cmsShowcase.lang, input.lang),
-            eq(cmsShowcase.status, ContentStatus.PUBLISHED),
-            isNull(cmsShowcase.deletedAt)
+      const findPublished = (lang: string) =>
+        ctx.db
+          .select()
+          .from(cmsShowcase)
+          .where(
+            and(
+              eq(cmsShowcase.slug, input.slug),
+              eq(cmsShowcase.lang, lang),
+              eq(cmsShowcase.status, ContentStatus.PUBLISHED),
+              isNull(cmsShowcase.deletedAt)
+            )
           )
-        )
-        .limit(1);
+          .limit(1);
+
+      let [item] = await findPublished(input.lang);
+
+      let isFallback = false;
+      if (!item && needsLocaleFallback(input.lang)) {
+        [item] = await findPublished(DEFAULT_LOCALE);
+        isFallback = true;
+      }
 
       if (!item) {
         throw new TRPCError({
@@ -562,10 +575,11 @@ export const showcaseRouter = createTRPCRouter({
         });
       }
       const { previewToken: _pt, ...rest } = item;
-      return rest;
+      return { ...rest, isFallback };
     }),
 
-  /** Public: list published showcase items ordered by sortOrder */
+  /** Public: list published showcase items ordered by sortOrder.
+   *  Non-default locales: merges locale items + EN fallbacks. */
   listPublished: publicProcedure
     .input(
       z.object({
@@ -577,6 +591,38 @@ export const showcaseRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input, 100);
 
+      const fetchItems = (lang: string) =>
+        ctx.db
+          .select()
+          .from(cmsShowcase)
+          .where(
+            and(
+              eq(cmsShowcase.lang, lang),
+              eq(cmsShowcase.status, ContentStatus.PUBLISHED),
+              isNull(cmsShowcase.deletedAt)
+            )
+          )
+          .orderBy(cmsShowcase.sortOrder, desc(cmsShowcase.createdAt))
+          .limit(5000);
+
+      // Non-default locale: merge locale + EN fallbacks, paginate in JS
+      if (needsLocaleFallback(input.lang)) {
+        const [localeItems, defaultItems] = await Promise.all([
+          fetchItems(input.lang),
+          fetchItems(DEFAULT_LOCALE),
+        ]);
+        const merged = mergeWithLocaleFallback(localeItems, defaultItems);
+        merged.sort(
+          (a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)
+        );
+        const total = merged.length;
+        const results = merged
+          .slice(offset, offset + pageSize)
+          .map(({ previewToken: _pt, ...rest }) => rest);
+        return paginatedResult(results, total, page, pageSize);
+      }
+
+      // Default locale: standard DB-level pagination
       const baseConditions = and(
         eq(cmsShowcase.lang, input.lang),
         eq(cmsShowcase.status, ContentStatus.PUBLISHED),

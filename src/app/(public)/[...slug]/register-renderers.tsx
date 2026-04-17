@@ -29,6 +29,30 @@ import {
   getShowcaseTranslationSiblings,
 } from './queries';
 import { buildAlternates } from './resolve';
+import { DEFAULT_LOCALE } from '@/lib/constants';
+import type { Metadata } from 'next';
+
+/**
+ * Adjust metadata for fallback content (content served in default locale
+ * because the requested locale version doesn't exist).
+ * Sets noindex, canonical to the default locale URL, and strips hreflang
+ * (a noindex page with hreflang is contradictory — Google shouldn't treat
+ * fallback content as the locale-specific version).
+ */
+function applyFallbackMetadata(
+  metadata: Metadata,
+  isFallback: boolean | undefined,
+  path: string,
+): Metadata {
+  if (!isFallback) return metadata;
+  return {
+    ...metadata,
+    robots: { index: false, follow: true },
+    alternates: {
+      canonical: buildCanonicalUrl(path, DEFAULT_LOCALE),
+    },
+  };
+}
 
 // ── page / blog (post-backed) ─────────────────────────────────────────────────
 
@@ -44,7 +68,7 @@ registerContentRenderer('page', {
     const siblings = await getPostTranslationSiblings(post.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/');
 
-    return {
+    return applyFallbackMetadata({
       title: post.seoTitle || `${post.title} | ${siteConfig.name}`,
       description: post.metaDescription ?? undefined,
       robots: post.noindex ? { index: false, follow: false } : undefined,
@@ -61,7 +85,7 @@ registerContentRenderer('page', {
           images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
         }),
       },
-    };
+    }, (post as { isFallback?: boolean }).isFallback, `/${slug}`);
   },
 });
 
@@ -77,7 +101,7 @@ registerContentRenderer('blog', {
     const siblings = await getPostTranslationSiblings(post.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/blog/');
 
-    return {
+    return applyFallbackMetadata({
       title: post.seoTitle || `${post.title} | ${siteConfig.name}`,
       description: post.metaDescription ?? undefined,
       robots: post.noindex ? { index: false, follow: false } : undefined,
@@ -94,7 +118,7 @@ registerContentRenderer('blog', {
           images: [{ url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }],
         }),
       },
-    };
+    }, (post as { isFallback?: boolean }).isFallback, `/blog/${slug}`);
   },
 });
 
@@ -127,7 +151,7 @@ registerContentRenderer('portfolio', {
     const item = await getCachedPortfolio(slug, locale);
     const siblings = await getPortfolioTranslationSiblings(item.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/portfolio/');
-    return {
+    return applyFallbackMetadata({
       title: item.seoTitle || `${item.title} | ${siteConfig.name}`,
       description: item.metaDescription ?? undefined,
       robots: item.noindex ? { index: false, follow: false } : undefined,
@@ -142,7 +166,7 @@ registerContentRenderer('portfolio', {
           images: [{ url: item.featuredImage, alt: item.featuredImageAlt ?? item.title }],
         }),
       },
-    };
+    }, (item as { isFallback?: boolean }).isFallback, `/portfolio/${slug}`);
   },
 });
 
@@ -157,7 +181,7 @@ registerContentRenderer('showcase', {
     const item = await getCachedShowcase(slug, locale);
     const siblings = await getShowcaseTranslationSiblings(item.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/showcase/');
-    return {
+    return applyFallbackMetadata({
       title: item.seoTitle || `${item.title} | ${siteConfig.name}`,
       description: item.metaDescription ?? undefined,
       robots: item.noindex ? { index: false, follow: false } : undefined,
@@ -172,7 +196,7 @@ registerContentRenderer('showcase', {
           images: [{ url: item.thumbnailUrl, alt: item.title }],
         }),
       },
-    };
+    }, (item as { isFallback?: boolean }).isFallback, `/showcase/${slug}`);
   },
 });
 
@@ -187,7 +211,7 @@ registerContentRenderer('category', {
     const cat = await getCachedCategory(slug, locale);
     const siblings = await getCategoryTranslationSiblings(cat.id);
     const languages = buildAlternates(baseUrl, siblings, locale as import('@/lib/constants').Locale, slug, '/category/');
-    return {
+    return applyFallbackMetadata({
       title: cat.seoTitle || `${cat.title} | ${siteConfig.name}`,
       description: cat.metaDescription ?? undefined,
       robots: cat.noindex ? { index: false, follow: false } : undefined,
@@ -196,6 +220,6 @@ registerContentRenderer('category', {
         ...(languages && { languages }),
       },
       openGraph: { locale },
-    };
+    }, (cat as { isFallback?: boolean }).isFallback, `/category/${slug}`);
   },
 });

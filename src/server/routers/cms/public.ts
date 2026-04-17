@@ -4,6 +4,11 @@ import { z } from 'zod';
 import crypto from 'crypto';
 
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
+import { getContentTypeByPostType } from '@/config/cms';
+import {
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
 import {
   SEO_OVERRIDE_ROUTES,
   SEO_OVERRIDE_SLUGS,
@@ -54,28 +59,43 @@ export const cmsPublicRouter = createTRPCRouter({
         return rest;
       }
 
-      const [post] = await ctx.db
-        .select()
-        .from(cmsPosts)
-        .where(
-          and(
-            eq(cmsPosts.slug, input.slug),
-            eq(cmsPosts.type, input.type),
-            eq(cmsPosts.lang, input.lang),
-            eq(cmsPosts.status, ContentStatus.PUBLISHED),
-            isNull(cmsPosts.deletedAt)
+      const findPublished = (lang: string) =>
+        ctx.db
+          .select()
+          .from(cmsPosts)
+          .where(
+            and(
+              eq(cmsPosts.slug, input.slug),
+              eq(cmsPosts.type, input.type),
+              eq(cmsPosts.lang, lang),
+              eq(cmsPosts.status, ContentStatus.PUBLISHED),
+              isNull(cmsPosts.deletedAt)
+            )
           )
-        )
-        .limit(1);
+          .limit(1);
+
+      let [post] = await findPublished(input.lang);
+
+      // Fallback to default locale if allowed by content type config
+      let isFallback = false;
+      if (!post && needsLocaleFallback(input.lang)) {
+        const ct = getContentTypeByPostType(input.type);
+        const allowed = ct?.fallbackToDefault ?? true;
+        if (allowed) {
+          [post] = await findPublished(DEFAULT_LOCALE);
+          isFallback = true;
+        }
+      }
 
       if (!post) {
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Post not found' });
       }
       const { previewToken: _pt, ...rest } = post;
-      return rest;
+      return { ...rest, isFallback };
     }),
 
-  /** Public: list published posts (optional category or tag filter) */
+  /** Public: list published posts (optional category or tag filter).
+   *  Non-default locales: merges locale items + EN fallbacks, paginates in JS. */
   listPublished: publicProcedure
     .input(
       z.object({
@@ -90,12 +110,13 @@ export const cmsPublicRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const offset = (input.page - 1) * input.pageSize;
 
-      const baseConditions = and(
-        eq(cmsPosts.type, input.type),
-        eq(cmsPosts.lang, input.lang),
-        eq(cmsPosts.status, ContentStatus.PUBLISHED),
-        isNull(cmsPosts.deletedAt)
-      );
+      const publishedConditions = (lang: string) =>
+        and(
+          eq(cmsPosts.type, input.type),
+          eq(cmsPosts.lang, lang),
+          eq(cmsPosts.status, ContentStatus.PUBLISHED),
+          isNull(cmsPosts.deletedAt)
+        );
 
       // Filter by taxonomy term (category or tag)
       const termFilter = input.categoryId
@@ -104,30 +125,81 @@ export const cmsPublicRouter = createTRPCRouter({
           ? { taxonomyId: 'tag', termId: input.tagId }
           : null;
 
-      if (termFilter) {
-        const allColumns = {
-          id: cmsPosts.id,
-          type: cmsPosts.type,
-          status: cmsPosts.status,
-          lang: cmsPosts.lang,
-          slug: cmsPosts.slug,
-          title: cmsPosts.title,
-          content: cmsPosts.content,
-          metaDescription: cmsPosts.metaDescription,
-          seoTitle: cmsPosts.seoTitle,
-          featuredImage: cmsPosts.featuredImage,
-          featuredImageAlt: cmsPosts.featuredImageAlt,
-          jsonLd: cmsPosts.jsonLd,
-          noindex: cmsPosts.noindex,
-          publishedAt: cmsPosts.publishedAt,
-          translationGroup: cmsPosts.translationGroup,
-          fallbackToDefault: cmsPosts.fallbackToDefault,
-          authorId: cmsPosts.authorId,
-          createdAt: cmsPosts.createdAt,
-          updatedAt: cmsPosts.updatedAt,
-          deletedAt: cmsPosts.deletedAt,
-        };
+      const postColumns = {
+        id: cmsPosts.id,
+        type: cmsPosts.type,
+        status: cmsPosts.status,
+        lang: cmsPosts.lang,
+        slug: cmsPosts.slug,
+        title: cmsPosts.title,
+        content: cmsPosts.content,
+        metaDescription: cmsPosts.metaDescription,
+        seoTitle: cmsPosts.seoTitle,
+        featuredImage: cmsPosts.featuredImage,
+        featuredImageAlt: cmsPosts.featuredImageAlt,
+        jsonLd: cmsPosts.jsonLd,
+        noindex: cmsPosts.noindex,
+        publishedAt: cmsPosts.publishedAt,
+        translationGroup: cmsPosts.translationGroup,
+        fallbackToDefault: cmsPosts.fallbackToDefault,
+        authorId: cmsPosts.authorId,
+        createdAt: cmsPosts.createdAt,
+        updatedAt: cmsPosts.updatedAt,
+        deletedAt: cmsPosts.deletedAt,
+      };
 
+      // Helper: fetch posts for a specific lang (with optional term filter)
+      const fetchPosts = async (lang: string) => {
+        const conditions = publishedConditions(lang);
+        if (termFilter) {
+          const joinCondition = and(
+            eq(cmsPosts.id, cmsTermRelationships.objectId),
+            eq(cmsTermRelationships.taxonomyId, termFilter.taxonomyId),
+            eq(cmsTermRelationships.termId, termFilter.termId)
+          );
+          return ctx.db
+            .select(postColumns)
+            .from(cmsPosts)
+            .innerJoin(cmsTermRelationships, joinCondition)
+            .where(conditions)
+            .orderBy(desc(cmsPosts.publishedAt))
+            .limit(5000);
+        }
+        return ctx.db
+          .select(postColumns)
+          .from(cmsPosts)
+          .where(conditions)
+          .orderBy(desc(cmsPosts.publishedAt))
+          .limit(5000);
+      };
+
+      // Non-default locale: merge locale + EN fallbacks, paginate in JS
+      if (needsLocaleFallback(input.lang)) {
+        const [localeItems, defaultItems] = await Promise.all([
+          fetchPosts(input.lang),
+          fetchPosts(DEFAULT_LOCALE),
+        ]);
+        const merged = mergeWithLocaleFallback(localeItems, defaultItems);
+        merged.sort(
+          (a, b) =>
+            (b.publishedAt?.getTime() ?? 0) - (a.publishedAt?.getTime() ?? 0)
+        );
+        const total = merged.length;
+        const page = merged.slice(offset, offset + input.pageSize);
+        const resultsWithTags = await resolveTagsForPosts(ctx.db, page);
+        return {
+          results: resultsWithTags,
+          total,
+          page: input.page,
+          pageSize: input.pageSize,
+          totalPages: Math.ceil(total / input.pageSize),
+        };
+      }
+
+      // Default locale: standard DB-level pagination
+      const conditions = publishedConditions(input.lang);
+
+      if (termFilter) {
         const joinCondition = and(
           eq(cmsPosts.id, cmsTermRelationships.objectId),
           eq(cmsTermRelationships.taxonomyId, termFilter.taxonomyId),
@@ -136,10 +208,10 @@ export const cmsPublicRouter = createTRPCRouter({
 
         const [items, countResult] = await Promise.all([
           ctx.db
-            .select(allColumns)
+            .select(postColumns)
             .from(cmsPosts)
             .innerJoin(cmsTermRelationships, joinCondition)
-            .where(baseConditions)
+            .where(conditions)
             .orderBy(desc(cmsPosts.publishedAt))
             .offset(offset)
             .limit(input.pageSize),
@@ -147,7 +219,7 @@ export const cmsPublicRouter = createTRPCRouter({
             .select({ count: sql<number>`count(*)` })
             .from(cmsPosts)
             .innerJoin(cmsTermRelationships, joinCondition)
-            .where(baseConditions),
+            .where(conditions),
         ]);
 
         const total = Number(countResult[0]?.count ?? 0);
@@ -163,37 +235,16 @@ export const cmsPublicRouter = createTRPCRouter({
 
       const [items, countResult] = await Promise.all([
         ctx.db
-          .select({
-            id: cmsPosts.id,
-            type: cmsPosts.type,
-            status: cmsPosts.status,
-            lang: cmsPosts.lang,
-            slug: cmsPosts.slug,
-            title: cmsPosts.title,
-            content: cmsPosts.content,
-            metaDescription: cmsPosts.metaDescription,
-            seoTitle: cmsPosts.seoTitle,
-            featuredImage: cmsPosts.featuredImage,
-            featuredImageAlt: cmsPosts.featuredImageAlt,
-            jsonLd: cmsPosts.jsonLd,
-            noindex: cmsPosts.noindex,
-            publishedAt: cmsPosts.publishedAt,
-            translationGroup: cmsPosts.translationGroup,
-            fallbackToDefault: cmsPosts.fallbackToDefault,
-            authorId: cmsPosts.authorId,
-            createdAt: cmsPosts.createdAt,
-            updatedAt: cmsPosts.updatedAt,
-            deletedAt: cmsPosts.deletedAt,
-          })
+          .select(postColumns)
           .from(cmsPosts)
-          .where(baseConditions)
+          .where(conditions)
           .orderBy(desc(cmsPosts.publishedAt))
           .offset(offset)
           .limit(input.pageSize),
         ctx.db
           .select({ count: sql<number>`count(*)` })
           .from(cmsPosts)
-          .where(baseConditions),
+          .where(conditions),
       ]);
 
       const total = Number(countResult[0]?.count ?? 0);

@@ -5,6 +5,10 @@ import crypto from 'crypto';
 
 import { env } from '@/lib/env';
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import {
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
 import { createLogger } from '@/core/lib/infra/logger';
 import { cmsCategories } from '@/server/db/schema';
 import { createFieldTranslator } from '@/server/translation/translate-fields';
@@ -504,7 +508,7 @@ export const categoriesRouter = createTRPCRouter({
       return { success: true };
     }),
 
-  /** Public: get a published category by slug */
+  /** Public: get a published category by slug (falls back to default locale) */
   getBySlug: publicProcedure
     .input(
       z.object({
@@ -513,18 +517,27 @@ export const categoriesRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const [category] = await ctx.db
-        .select()
-        .from(cmsCategories)
-        .where(
-          and(
-            eq(cmsCategories.slug, input.slug),
-            eq(cmsCategories.lang, input.lang),
-            eq(cmsCategories.status, ContentStatus.PUBLISHED),
-            isNull(cmsCategories.deletedAt)
+      const findPublished = (lang: string) =>
+        ctx.db
+          .select()
+          .from(cmsCategories)
+          .where(
+            and(
+              eq(cmsCategories.slug, input.slug),
+              eq(cmsCategories.lang, lang),
+              eq(cmsCategories.status, ContentStatus.PUBLISHED),
+              isNull(cmsCategories.deletedAt)
+            )
           )
-        )
-        .limit(1);
+          .limit(1);
+
+      let [category] = await findPublished(input.lang);
+
+      let isFallback = false;
+      if (!category && needsLocaleFallback(input.lang)) {
+        [category] = await findPublished(DEFAULT_LOCALE);
+        isFallback = true;
+      }
 
       if (!category) {
         throw new TRPCError({
@@ -533,10 +546,11 @@ export const categoriesRouter = createTRPCRouter({
         });
       }
       const { previewToken: _pt, ...rest } = category;
-      return rest;
+      return { ...rest, isFallback };
     }),
 
-  /** Public: list published categories */
+  /** Public: list published categories.
+   *  Non-default locales: merges locale items + EN fallbacks. */
   listPublished: publicProcedure
     .input(
       z.object({
@@ -548,6 +562,36 @@ export const categoriesRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input, 100);
 
+      const fetchCategories = (lang: string) =>
+        ctx.db
+          .select()
+          .from(cmsCategories)
+          .where(
+            and(
+              eq(cmsCategories.lang, lang),
+              eq(cmsCategories.status, ContentStatus.PUBLISHED),
+              isNull(cmsCategories.deletedAt)
+            )
+          )
+          .orderBy(cmsCategories.order)
+          .limit(500);
+
+      // Non-default locale: merge locale + EN fallbacks, paginate in JS
+      if (needsLocaleFallback(input.lang)) {
+        const [localeItems, defaultItems] = await Promise.all([
+          fetchCategories(input.lang),
+          fetchCategories(DEFAULT_LOCALE),
+        ]);
+        const merged = mergeWithLocaleFallback(localeItems, defaultItems);
+        merged.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+        const total = merged.length;
+        const results = merged
+          .slice(offset, offset + pageSize)
+          .map(({ previewToken: _pt, ...rest }) => rest);
+        return paginatedResult(results, total, page, pageSize);
+      }
+
+      // Default locale: standard DB-level pagination
       const where = and(
         eq(cmsCategories.lang, input.lang),
         eq(cmsCategories.status, ContentStatus.PUBLISHED),

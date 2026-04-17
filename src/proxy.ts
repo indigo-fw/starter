@@ -114,26 +114,43 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // ── Auto-detect locale from Accept-Language (opt-in) ──
+  // ── User locale preference redirect ──
+  // The locale-chosen cookie stores the user's preferred locale (set by LanguageSwitcher).
+  // When visiting an unprefixed URL, redirect to their preferred locale.
+  // Googlebot: no cookie → never redirected → sees all locales correctly.
+  const chosenLocale = request.cookies.get('locale-chosen')?.value;
+  const firstSeg = pathname.split('/')[1] ?? '';
+  const hasLocalePrefix =
+    NON_DEFAULT_LOCALE_SET.has(firstSeg) || firstSeg === DEFAULT_LOCALE;
+
+  if (
+    chosenLocale &&
+    chosenLocale !== '1' && // Ignore legacy boolean cookie
+    chosenLocale !== DEFAULT_LOCALE &&
+    NON_DEFAULT_LOCALE_SET.has(chosenLocale) &&
+    !hasLocalePrefix
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${chosenLocale}${pathname}`;
+    return NextResponse.redirect(url);
+  }
+
+  // ── Auto-detect locale from Accept-Language (opt-in, only when no explicit choice) ──
   if (
     siteConfig.localeAutoDetect &&
-    !request.cookies.get('locale-chosen')
+    !chosenLocale &&
+    !hasLocalePrefix
   ) {
-    const segments = pathname.split('/');
-    const firstSegment = segments[1];
-    // Only auto-detect when no locale prefix is present
-    if (!firstSegment || !NON_DEFAULT_LOCALE_SET.has(firstSegment)) {
-      const acceptLang = request.headers.get('accept-language');
-      if (acceptLang) {
-        const preferred = acceptLang
-          .split(',')
-          .map((p) => p.trim().split(';')[0]!.split('-')[0]!.toLowerCase());
-        for (const code of preferred) {
-          if (code !== DEFAULT_LOCALE && NON_DEFAULT_LOCALE_SET.has(code)) {
-            const url = request.nextUrl.clone();
-            url.pathname = `/${code}${pathname}`;
-            return NextResponse.redirect(url);
-          }
+    const acceptLang = request.headers.get('accept-language');
+    if (acceptLang) {
+      const preferred = acceptLang
+        .split(',')
+        .map((p) => p.trim().split(';')[0]!.split('-')[0]!.toLowerCase());
+      for (const code of preferred) {
+        if (code !== DEFAULT_LOCALE && NON_DEFAULT_LOCALE_SET.has(code)) {
+          const url = request.nextUrl.clone();
+          url.pathname = `/${code}${pathname}`;
+          return NextResponse.redirect(url);
         }
       }
     }
@@ -160,12 +177,28 @@ export async function proxy(request: NextRequest) {
 
     const response = NextResponse.rewrite(url);
     response.headers.set('x-locale', locale);
+    // Remember locale choice — proxy redirect on next unprefixed visit
+    if (chosenLocale !== locale) {
+      response.cookies.set('locale-chosen', locale, {
+        path: '/',
+        maxAge: 31536000,
+        sameSite: 'lax',
+      });
+    }
     return withCsp(response);
   }
 
   // Default locale — no rewrite, set header for consistency
   const response = NextResponse.next();
   response.headers.set('x-locale', DEFAULT_LOCALE);
+  // Clear non-default preference when visiting default locale URL
+  if (chosenLocale && chosenLocale !== DEFAULT_LOCALE && chosenLocale !== '1') {
+    response.cookies.set('locale-chosen', DEFAULT_LOCALE, {
+      path: '/',
+      maxAge: 31536000,
+      sameSite: 'lax',
+    });
+  }
   return withCsp(response);
 }
 

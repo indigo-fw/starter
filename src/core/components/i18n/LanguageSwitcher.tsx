@@ -7,6 +7,8 @@ import { useLocale } from '@/core/hooks/useLocale';
 import type { Locale } from '@/lib/constants';
 import { Globe } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
+import { trpc } from '@/lib/trpc/client';
+import { useSession } from '@/lib/auth-client';
 
 /** Only render when there are multiple locales configured */
 export function LanguageSwitcher() {
@@ -20,6 +22,8 @@ function LanguageSwitcherInner() {
   const currentLocale = useLocale();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
+  const setPreferredLocale = trpc.auth.setPreferredLocale.useMutation();
 
   // Strip locale prefix to get the base path
   const basePath =
@@ -29,12 +33,15 @@ function LanguageSwitcherInner() {
 
   function switchLocale(locale: Locale) {
     setOpen(false);
-    // Mark that user explicitly chose a locale — prevents auto-detect redirect
-    // Full page reload required — the root layout's NextIntlClientProvider
-    // must re-render with the new locale's messages from the server.
+    // Store the actual locale in the cookie (proxy uses it for redirect)
+    document.cookie = `locale-chosen=${locale}; path=/; max-age=31536000; SameSite=Lax`;
+    // Save to DB for logged-in users (fire-and-forget)
+    if (session?.user) {
+      setPreferredLocale.mutate({ locale });
+    }
+    // Full page reload — NextIntlClientProvider must re-render with new messages
     const target = localePath(basePath, locale);
     requestAnimationFrame(() => {
-      document.cookie = 'locale-chosen=1; path=/; max-age=31536000; SameSite=Lax';
       window.location.assign(target);
     });
   }

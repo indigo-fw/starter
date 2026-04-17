@@ -98,6 +98,16 @@ export const authRouter = createTRPCRouter({
       return { success: true };
     }),
 
+  /** Save user's preferred UI locale. Called by LanguageSwitcher (fire-and-forget). */
+  setPreferredLocale: protectedProcedure
+    .input(z.object({ locale: z.string().max(5) }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(user)
+        .set({ lang: input.locale || null, updatedAt: new Date() })
+        .where(eq(user.id, ctx.session.user.id));
+    }),
+
   changePassword: protectedProcedure
     .input(
       z.object({
