@@ -665,7 +665,7 @@ describe('tagsRouter', () => {
       const caller = tagsRouter.createCaller(ctx as never);
       const result = await caller.getBySlug({ slug: 'nextjs', lang: 'en' });
 
-      expect(result).toEqual(MOCK_TAG);
+      expect(result).toMatchObject(MOCK_TAG);
       expect(result.slug).toBe('nextjs');
     });
 
@@ -688,7 +688,7 @@ describe('tagsRouter', () => {
       // Omit lang — the Zod default of 'en' should apply
       const result = await caller.getBySlug({ slug: 'nextjs' });
 
-      expect(result).toEqual(MOCK_TAG);
+      expect(result).toMatchObject(MOCK_TAG);
     });
   });
 

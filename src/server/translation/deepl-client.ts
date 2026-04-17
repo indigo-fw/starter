@@ -17,6 +17,19 @@ interface DeepLResponse {
 const DEEPL_FREE_URL = 'https://api-free.deepl.com/v2/translate';
 const DEEPL_PRO_URL = 'https://api.deepl.com/v2/translate';
 
+/** Circuit breaker: skip DeepL for 1 hour after a 4xx error (quota, auth, etc.) */
+let circuitBrokenUntil = 0;
+const CIRCUIT_BREAK_MS = 60 * 60 * 1000; // 1 hour
+
+function isCircuitBroken(): boolean {
+  return Date.now() < circuitBrokenUntil;
+}
+
+function tripCircuit(): void {
+  circuitBrokenUntil = Date.now() + CIRCUIT_BREAK_MS;
+  logger.warn('DeepL circuit breaker tripped — skipping calls for 1 hour');
+}
+
 export async function translateWithDeepL(
   text: string,
   targetLang: string,
@@ -27,6 +40,13 @@ export async function translateWithDeepL(
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
       message: 'DEEPL_API_KEY is not configured',
+    });
+  }
+
+  if (isCircuitBroken()) {
+    throw new TRPCError({
+      code: 'INTERNAL_SERVER_ERROR',
+      message: 'DeepL circuit breaker active — skipping',
     });
   }
 
@@ -49,6 +69,9 @@ export async function translateWithDeepL(
 
   if (!response.ok) {
     const body = await response.text();
+    if (response.status >= 400 && response.status < 500) {
+      tripCircuit();
+    }
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
       message: `DeepL API error ${response.status}: ${body}`,
@@ -78,7 +101,7 @@ export async function detectLanguageWithDeepL(
   text: string
 ): Promise<string | null> {
   const apiKey = env.DEEPL_API_KEY;
-  if (!apiKey) return null;
+  if (!apiKey || isCircuitBroken()) return null;
 
   try {
     const baseUrl = env.DEEPL_API_FREE ? DEEPL_FREE_URL : DEEPL_PRO_URL;
@@ -97,7 +120,12 @@ export async function detectLanguageWithDeepL(
       signal: AbortSignal.timeout(5_000),
     });
 
-    if (!response.ok) return null;
+    if (!response.ok) {
+      if (response.status >= 400 && response.status < 500) {
+        tripCircuit();
+      }
+      return null;
+    }
 
     const data = (await response.json()) as DeepLResponse;
     const detected = data.translations[0]?.detected_source_language;

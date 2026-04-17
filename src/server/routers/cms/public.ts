@@ -13,7 +13,7 @@ import {
   SEO_OVERRIDE_ROUTES,
   SEO_OVERRIDE_SLUGS,
 } from '@/core/lib/seo-routes';
-import { cmsPosts, cmsCategories, cmsTerms, cmsTermRelationships } from '@/server/db/schema';
+import { cmsPosts, cmsTermRelationships } from '@/server/db/schema';
 import { ContentStatus, PostType } from '@/core/types/cms';
 import {
   getTermRelationships,

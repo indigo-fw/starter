@@ -33,15 +33,15 @@ function LanguageSwitcherInner() {
 
   function switchLocale(locale: Locale) {
     setOpen(false);
-    // Store the actual locale in the cookie (proxy uses it for redirect)
-    document.cookie = `locale-chosen=${locale}; path=/; max-age=31536000; SameSite=Lax`;
     // Save to DB for logged-in users (fire-and-forget)
     if (session?.user) {
       setPreferredLocale.mutate({ locale });
     }
-    // Full page reload — NextIntlClientProvider must re-render with new messages
+    // Full page reload — NextIntlClientProvider must re-render with new messages.
+    // Cookie + navigation inside rAF to satisfy react-hooks/immutability.
     const target = localePath(basePath, locale);
     requestAnimationFrame(() => {
+      document.cookie = `locale-chosen=${locale}; path=/; max-age=31536000; SameSite=Lax`;
       window.location.assign(target);
     });
   }
