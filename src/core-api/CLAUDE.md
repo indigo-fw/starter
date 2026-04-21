@@ -6,7 +6,7 @@ Org-scoped REST API with key management, scopes, rate limiting, and usage meteri
 
 **core-api owns:** API key schema (2 tables), key service, scope registry, v2 route wrapper, api-keys router, `ApiKeyManager` UI, maintenance tasks.
 
-**Project owns:** v2 REST endpoints (`app/api/v2/`), admin/account pages, `config/api-deps.ts`, project-specific scope registration.
+**Project owns:** v2 REST endpoints (`app/api/v2/`), admin/account pages, `config/deps/api-deps.ts`, project-specific scope registration.
 
 ## DI (`setApiDeps()`)
 
@@ -27,6 +27,6 @@ Extensible registry via `registerApiScopes([{ id, label, module }])`. Core regis
 
 ## Wiring
 
-1. Create `config/api-deps.ts` with `setApiDeps()` + `registerApiScopes()`
+1. Create `config/deps/api-deps.ts` with `setApiDeps()` + `registerApiScopes()`
 2. Create v2 routes using `withApiV2Route()`
 3. Other modules register scopes in their `serverInit`

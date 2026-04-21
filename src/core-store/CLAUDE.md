@@ -6,7 +6,7 @@ E-commerce module — products, variants, cart, checkout, orders, shipping, tax,
 
 **core-store owns:** All store schema (8 files), 10 tRPC routers, services (cart, tax, shipping, orders, discounts, notifications, inventory, abandoned cart, invoices), components (CartWidget, AddToCartForm, VariantSelector, ProductGallery, WishlistButton, StarRating, ReviewForm).
 
-**Project owns:** Storefront pages, admin pages, `config/store-deps.ts`, payment webhook handler.
+**Project owns:** Storefront pages, admin pages, `config/deps/store-deps.ts`, payment webhook handler.
 
 ## DI
 

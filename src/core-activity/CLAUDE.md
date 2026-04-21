@@ -6,7 +6,7 @@ User-facing activity feed and timeline system. Records events from across the ap
 
 **core-activity owns:** `activity_events` schema, activity router, `recordActivity()` service, DI deps, components (`ActivityFeed`, `ActivityItem`, `AdminActivityFeed`, `DashboardActivityWidget`), styles, seed.
 
-**Project owns:** `config/activity-deps.ts`, `app/dashboard/(panel)/activity/page.tsx`, dashboard widget integration in `config/dashboard-widgets.tsx`.
+**Project owns:** `config/deps/activity-deps.ts`, `app/dashboard/(panel)/activity/page.tsx`, dashboard widget integration in `config/dashboard-widgets.tsx`.
 
 ## DI (`setActivityDeps()`)
 
@@ -102,7 +102,7 @@ Features:
 
 ## Wiring
 
-1. Create `config/activity-deps.ts` (scaffolded from `_templates/`)
+1. Create `config/deps/activity-deps.ts` (scaffolded from `_templates/`)
 2. Import in `server.ts` as side-effect
 3. Routers auto-registered via `indigo:sync`
 4. Call `recordActivity()` from any module to log user-facing events

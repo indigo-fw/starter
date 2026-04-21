@@ -1,7 +1,7 @@
 import type { ModerationResult } from './lib/moderation';
 
 // ─── Dependency injection interface ─────────────────────────────────────────
-// Project wires these at startup via setChatDeps() in config/chat-deps.ts.
+// Project wires these at startup via setChatDeps() in config/deps/chat-deps.ts.
 
 export interface ChatDeps {
   /** Resolve active org for a user (for billing) */
@@ -59,7 +59,7 @@ export function setChatDeps(deps: ChatDeps): void {
 export function getChatDeps(): ChatDeps {
   if (!_deps) {
     throw new Error(
-      'Chat dependencies not configured. Call setChatDeps() at startup — see config/chat-deps.ts',
+      'Chat dependencies not configured. Call setChatDeps() at startup — see config/deps/chat-deps.ts',
     );
   }
   return _deps;

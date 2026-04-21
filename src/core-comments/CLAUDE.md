@@ -6,7 +6,7 @@ Polymorphic threaded comment system that attaches to any content type.
 
 **core-comments owns:** Comment schema (`targetType`/`targetId`/`content` fields), comments router with public + admin endpoints, DI deps, public components (CommentSection, CommentForm, CommentItem, CommentCount), styles, seed.
 
-**Project owns:** Admin pages, `config/comments-deps.ts`, integration into page templates (e.g. PostDetail).
+**Project owns:** Admin pages, `config/deps/comments-deps.ts`, integration into page templates (e.g. PostDetail).
 
 ## DI (`setCommentsDeps()`)
 
@@ -87,4 +87,4 @@ import { CommentCount } from '@/core-comments/components/CommentCount';
 
 - Seed: `seedComments` with `hasCommentsData` check
 - Nav: Comments item under `content` group (MessageSquare icon)
-- Project files: `config/comments-deps.ts`, `app/dashboard/(panel)/comments/page.tsx`
+- Project files: `config/deps/comments-deps.ts`, `app/dashboard/(panel)/comments/page.tsx`

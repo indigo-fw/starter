@@ -10,7 +10,7 @@ const config: ModuleConfig = {
     '@/core-activity/schema/activity',
   ],
   serverInit: [
-    '@/config/activity-deps',
+    '@/config/deps/activity-deps',
   ],
   jobs: [],
   seed: [
@@ -36,7 +36,7 @@ const config: ModuleConfig = {
     { groupId: 'dashboard', name: 'Activity', href: '/dashboard/activity', icon: 'Activity' },
   ],
   projectFiles: [
-    'config/activity-deps.ts',
+    'config/deps/activity-deps.ts',
     'app/dashboard/(panel)/activity/page.tsx',
   ],
 };

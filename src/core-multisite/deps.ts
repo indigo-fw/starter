@@ -1,6 +1,6 @@
 /**
  * Multisite dependency injection.
- * Project wires this in src/config/multisite-deps.ts (imported as side-effect in server.ts).
+ * Project wires this in src/config/deps/multisite-deps.ts (imported as side-effect in server.ts).
  */
 
 export interface MultisiteDeps {

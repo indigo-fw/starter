@@ -54,7 +54,7 @@ Core's `CustomFieldsEditor` accepts optional `fieldRenderers` prop — pass cust
 
 ## Email Branding
 
-`src/config/email-deps.ts` — calls `setEmailDeps()` to wire DB branding lookup + template overrides to the core email engine. Imported as a side-effect in `server.ts` before starting the email worker. Customize branding by editing the `getBranding()` function (queries `cmsOptions` for site name, logo, brand color, etc.).
+`src/config/deps/email-deps.ts` — calls `setEmailDeps()` to wire DB branding lookup + template overrides to the core email engine. Imported as a side-effect in `server.ts` before starting the email worker. Customize branding by editing the `getBranding()` function (queries `cmsOptions` for site name, logo, brand color, etc.).
 
 ## SEO & Metadata
 

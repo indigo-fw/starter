@@ -17,6 +17,7 @@ const clientEnvRaw = {
   NEXT_PUBLIC_ORGANIZATIONS_VISIBLE: process.env.NEXT_PUBLIC_ORGANIZATIONS_VISIBLE,
   NEXT_PUBLIC_SUPPORT_CHAT_ENABLED: process.env.NEXT_PUBLIC_SUPPORT_CHAT_ENABLED,
   NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+  NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
 } satisfies Record<keyof ClientEnv, string | undefined>;
 
 const parsed = clientEnvSchema.safeParse(clientEnvRaw);

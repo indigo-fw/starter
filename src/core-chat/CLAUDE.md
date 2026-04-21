@@ -6,7 +6,7 @@ AI character chat module — text, image, video generation, voice calls. DB-stor
 
 **core-chat owns:** 10 schema tables, 9 tRPC routers, provider system (5 adapter types: LLM/image/video/TTS/STT), image orchestration pipeline, voice call system, content moderation, BullMQ workers, 20+ UI components.
 
-**Project owns:** Admin pages, chat/character pages, `config/chat-deps.ts`, schema overrides.
+**Project owns:** Admin pages, chat/character pages, `config/deps/chat-deps.ts`, schema overrides.
 
 ## Import Rules
 

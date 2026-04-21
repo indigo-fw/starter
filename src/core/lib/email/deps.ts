@@ -55,7 +55,7 @@ export function getEmailDeps(): EmailDeps {
   if (!_deps) {
     throw new Error(
       'Email deps not configured. Call setEmailDeps() during server startup ' +
-      '(e.g. in src/config/email-deps.ts).',
+      '(e.g. in src/config/deps/email-deps.ts).',
     );
   }
   return _deps;

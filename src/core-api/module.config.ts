@@ -10,7 +10,7 @@ const config: ModuleConfig = {
     '@/core-api/schema/api-keys',
   ],
   serverInit: [
-    '@/config/api-deps',
+    '@/config/deps/api-deps',
     '@/core-api/lib/api-init',
   ],
   jobs: [],
@@ -21,7 +21,7 @@ const config: ModuleConfig = {
     { groupId: 'settings', name: 'API Keys', href: '/dashboard/settings/api-keys', icon: 'KeyRound' },
   ],
   projectFiles: [
-    'config/api-deps.ts',
+    'config/deps/api-deps.ts',
     'app/dashboard/(panel)/settings/api-keys/page.tsx',
     'app/(public)/account/api/page.tsx',
     'app/api/v2/projects/route.ts',

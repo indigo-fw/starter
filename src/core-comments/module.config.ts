@@ -10,7 +10,7 @@ const config: ModuleConfig = {
     '@/core-comments/schema/comments',
   ],
   serverInit: [
-    '@/config/comments-deps',
+    '@/config/deps/comments-deps',
   ],
   jobs: [],
   seed: [
@@ -22,7 +22,7 @@ const config: ModuleConfig = {
     { groupId: 'content', name: 'Comments', href: '/dashboard/comments', icon: 'MessageSquare' },
   ],
   projectFiles: [
-    'config/comments-deps.ts',
+    'config/deps/comments-deps.ts',
     'app/dashboard/(panel)/comments/page.tsx',
   ],
 };

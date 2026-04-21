@@ -6,7 +6,7 @@ AI-powered support chat widget + ticket system with escalation.
 
 **core-support owns:** SupportChatWidget, chat session/message schema, ticket schema, support-chat + support routers, cleanup job.
 
-**Project owns:** Admin pages, `SupportChatWidgetWrapper`, account support pages, `config/support-deps.ts`.
+**Project owns:** Admin pages, `SupportChatWidgetWrapper`, account support pages, `config/deps/support-deps.ts`.
 
 ## DI (`setSupportDeps()`)
 
@@ -14,7 +14,7 @@ AI-powered support chat widget + ticket system with escalation.
 
 ## Wiring
 
-1. Create `config/support-deps.ts` → import in `server.ts`
+1. Create `config/deps/support-deps.ts` → import in `server.ts`
 2. Routers auto-registered via `indigo:sync`
 3. Use `SupportChatWidget` in public layout
 4. Override defaults via `setChatConfig()`

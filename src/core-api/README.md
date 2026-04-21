@@ -102,7 +102,7 @@ Default CMS scopes are registered automatically:
 
 ### Registering custom scopes
 
-In your module's `serverInit` file or in `config/api-deps.ts`:
+In your module's `serverInit` file or in `config/deps/api-deps.ts`:
 
 ```typescript
 import { registerApiScopes } from '@/core-api/lib/api-scopes';
@@ -135,7 +135,7 @@ POST apiKeys.roll({ id: "key-uuid", gracePeriodHours: 24 })
 
 ## Token metering
 
-To charge API calls against the org's token balance, uncomment in `config/api-deps.ts`:
+To charge API calls against the org's token balance, uncomment in `config/deps/api-deps.ts`:
 
 ```typescript
 setApiDeps({
@@ -205,7 +205,7 @@ Scaffolded by `bun run indigo add core-api`:
 
 | File | Purpose |
 |------|---------|
-| `src/config/api-deps.ts` | Dependency wiring + project scope registration |
+| `src/config/deps/api-deps.ts` | Dependency wiring + project scope registration |
 | `src/app/dashboard/(panel)/settings/api-keys/page.tsx` | Admin key management page |
 | `src/app/(public)/account/api/page.tsx` | Customer-facing key management |
 | `src/app/api/v2/projects/route.ts` | Example: list/create projects (org-scoped) |

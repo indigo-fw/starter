@@ -17,7 +17,7 @@ const config: ModuleConfig = {
     { name: 'booking-services', modulePath: '@/core-booking/schema/services' },
   ],
   serverInit: [
-    '@/config/booking-deps',
+    '@/config/deps/booking-deps',
   ],
   jobs: [
     { name: 'startBookingWorker', from: '@/core-booking/jobs/booking-worker' },
@@ -41,7 +41,7 @@ const config: ModuleConfig = {
     },
   ],
   projectFiles: [
-    'config/booking-deps.ts',
+    'config/deps/booking-deps.ts',
     'app/api/webhooks/booking/route.ts',
   ],
 };

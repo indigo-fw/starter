@@ -10,7 +10,7 @@ const config: ModuleConfig = {
     '@/core-multisite/schema/sites',
   ],
   serverInit: [
-    '@/config/multisite-deps',
+    '@/config/deps/multisite-deps',
   ],
   jobs: [
     { name: 'startDnsVerificationWorker', from: '@/core-multisite/jobs/dns-verification' },
@@ -29,7 +29,7 @@ const config: ModuleConfig = {
     { groupId: 'settings', name: 'Sites', href: '/dashboard/settings/sites', icon: 'Globe' },
   ],
   projectFiles: [
-    'config/multisite-deps.ts',
+    'config/deps/multisite-deps.ts',
     'scripts/site-create.ts',
     'scripts/site-delete.ts',
     'scripts/site-list.ts',

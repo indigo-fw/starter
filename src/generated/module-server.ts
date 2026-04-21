@@ -6,18 +6,18 @@
  * Called once at server startup before workers start.
  */
 export async function initModuleDeps(): Promise<void> {
-  try { await import('@/config/payments-deps'); } catch (e) { console.error('[module:payments-deps] init failed:', e); throw e; }
-  try { await import('@/config/subscriptions-deps'); } catch (e) { console.error('[module:subscriptions-deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/payments-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/subscriptions-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
   try { await import('@/core-payments-crypto/register'); } catch (e) { console.error('[module:payments-crypto] init failed:', e); throw e; }
-  try { await import('@/config/comments-deps'); } catch (e) { console.error('[module:comments-deps] init failed:', e); throw e; }
-  try { await import('@/config/activity-deps'); } catch (e) { console.error('[module:activity-deps] init failed:', e); throw e; }
-  try { await import('@/config/support-deps'); } catch (e) { console.error('[module:support-deps] init failed:', e); throw e; }
-  try { await import('@/config/affiliates-deps'); } catch (e) { console.error('[module:affiliates-deps] init failed:', e); throw e; }
-  try { await import('@/config/api-deps'); } catch (e) { console.error('[module:api-deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/comments-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/activity-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/support-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/affiliates-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/api-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
   try { await import('@/core-api/lib/api-init'); } catch (e) { console.error('[module:api] init failed:', e); throw e; }
-  try { await import('@/config/store-deps'); } catch (e) { console.error('[module:store-deps] init failed:', e); throw e; }
-  try { await import('@/config/chat-deps'); } catch (e) { console.error('[module:chat-deps] init failed:', e); throw e; }
-  try { await import('@/config/booking-deps'); } catch (e) { console.error('[module:booking-deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/store-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/chat-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/booking-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
 }
 
 /**

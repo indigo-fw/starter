@@ -95,6 +95,11 @@ const serverEnvSchema = z.object({
   VAPID_PUBLIC_KEY: z.string().optional(),
   VAPID_PRIVATE_KEY: z.string().optional(),
   VAPID_SUBJECT: z.string().optional(), // mailto: or https:// URL
+
+  // Sentry (optional — error tracking disabled without DSN)
+  SENTRY_DSN: z.url().optional(),
+  SENTRY_ORG: z.string().optional(),
+  SENTRY_PROJECT: z.string().optional(),
 });
 
 const envSchema = serverEnvSchema.merge(clientEnvSchema);

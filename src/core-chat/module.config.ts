@@ -30,7 +30,7 @@ const config: ModuleConfig = {
     { name: 'chat-user-preferences', modulePath: '@/core-chat/schema/user-preferences' },
   ],
   serverInit: [
-    '@/config/chat-deps',
+    '@/config/deps/chat-deps',
   ],
   jobs: [
     { name: 'startChatAiWorker', from: '@/core-chat/lib/engine' },
@@ -47,7 +47,7 @@ const config: ModuleConfig = {
     { groupId: 'settings', name: 'Chat', href: '/dashboard/settings/chat', icon: 'MessageCircle' },
   ],
   projectFiles: [
-    'config/chat-deps.ts',
+    'config/deps/chat-deps.ts',
     'app/(public)/chat/layout.tsx',
     'app/(public)/chat/page.tsx',
     'app/(public)/chat/[conversationId]/page.tsx',

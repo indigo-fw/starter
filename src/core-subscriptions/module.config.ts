@@ -11,7 +11,7 @@ const config: ModuleConfig = {
     '@/core-subscriptions/schema/subscriptions',
   ],
   serverInit: [
-    '@/config/subscriptions-deps',
+    '@/config/deps/subscriptions-deps',
   ],
   jobs: [],
   seed: [
@@ -24,7 +24,7 @@ const config: ModuleConfig = {
     { groupId: 'billing', name: 'Discount Codes', href: '/dashboard/settings/discount-codes', icon: 'Tag' },
   ],
   projectFiles: [
-    'config/subscriptions-deps.ts',
+    'config/deps/subscriptions-deps.ts',
     'app/dashboard/(panel)/settings/billing/page.tsx',
     'app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx',
     'app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx',

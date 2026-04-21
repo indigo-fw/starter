@@ -6,7 +6,7 @@ Referral tracking, marketing attribution, and affiliate management.
 
 **core-affiliates owns:** Affiliate/referral/attribution schema, routers, `captureReferral`/`recordConversion`/`captureAttribution` lib functions, `AttributionCapture` component.
 
-**Project owns:** Admin pages, account page, `AffiliateOverview` widget, `config/affiliates-deps.ts`.
+**Project owns:** Admin pages, account page, `AffiliateOverview` widget, `config/deps/affiliates-deps.ts`.
 
 ## DI (`setAffiliatesDeps()`)
 
@@ -15,7 +15,7 @@ Referral tracking, marketing attribution, and affiliate management.
 
 ## Wiring
 
-1. Create `config/affiliates-deps.ts` → import in `server.ts`
+1. Create `config/deps/affiliates-deps.ts` → import in `server.ts`
 2. Routers auto-registered via `indigo:sync`
 3. Use `AttributionCapture` in public layout
 4. Call `captureAttribution()` from auth, `recordConversion()` from payment webhooks

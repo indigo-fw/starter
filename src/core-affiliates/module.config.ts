@@ -12,7 +12,7 @@ const config: ModuleConfig = {
     '@/core-affiliates/schema/attributions',
   ],
   serverInit: [
-    '@/config/affiliates-deps',
+    '@/config/deps/affiliates-deps',
   ],
   jobs: [],
   seed: [
@@ -28,7 +28,7 @@ const config: ModuleConfig = {
     { groupId: 'billing', name: 'Affiliates', href: '/dashboard/settings/affiliates', icon: 'Link2' },
   ],
   projectFiles: [
-    'config/affiliates-deps.ts',
+    'config/deps/affiliates-deps.ts',
     'app/dashboard/(panel)/settings/affiliates/page.tsx',
     'app/(public)/account/affiliates/page.tsx',
   ],

@@ -6,7 +6,7 @@ Multi-provider payment infrastructure — provider registry, Stripe integration,
 
 **core-payments owns:** Payment schema (events + transactions tables), Stripe provider, provider factory/registry, payment types.
 
-**Project owns:** Provider configs (`config/payment-providers.ts`), `config/payments-deps.ts`, webhook routes.
+**Project owns:** Provider configs (`config/payment-providers.ts`), `config/deps/payments-deps.ts`, webhook routes.
 
 ## DI (`setPaymentsDeps()`)
 

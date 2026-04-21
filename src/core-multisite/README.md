@@ -64,9 +64,9 @@ This is used for temporary subdomains (`my-store.yourdomain.com`) and the networ
 
 ### 2. Wire dependencies
 
-The `config/multisite-deps.ts` file is auto-scaffolded by `indigo add`. It's imported as a side-effect via `serverInit` in `module.config.ts` — no manual wiring needed.
+The `config/deps/multisite-deps.ts` file is auto-scaffolded by `indigo add`. It's imported as a side-effect via `serverInit` in `module.config.ts` — no manual wiring needed.
 
-Edit `src/config/multisite-deps.ts` to customize if needed.
+Edit `src/config/deps/multisite-deps.ts` to customize if needed.
 
 ### 3. Integrate proxy middleware (REQUIRED)
 

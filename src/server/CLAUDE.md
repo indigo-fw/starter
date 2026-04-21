@@ -20,7 +20,7 @@
 
 ## Non-Obvious Patterns
 
-- **Email:** Use `enqueueEmail()` / `enqueueTemplateEmail()` from `@/core/lib/email` — never call `sendEmail()` directly. Project-specific `TemplateName` type lives in `@/server/jobs/email`. Wire branding via `setEmailDeps()` in `src/config/email-deps.ts`
+- **Email:** Use `enqueueEmail()` / `enqueueTemplateEmail()` from `@/core/lib/email` — never call `sendEmail()` directly. Project-specific `TemplateName` type lives in `@/server/jobs/email`. Wire branding via `setEmailDeps()` in `src/config/deps/email-deps.ts`
 - **Typed hooks:** `registerHook`/`runHook`/`runGuard` are type-safe via `HookMap` declaration merging. Modules declare their events in `types/hooks.ts`. No more `unknown` args or runtime type guards
 - **Fire-and-forget:** All fire-and-forget operations (audit, webhooks, notifications) must log errors via `createLogger()`, never silently swallow
 - **Notifications:** `sendNotification()` is fire-and-forget (DB insert + WS broadcast + web push if VAPID configured). `sendOrgNotification()`, `sendBulkNotification()` for bulk. Push subscriptions in `saas_push_subscriptions`

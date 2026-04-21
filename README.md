@@ -159,7 +159,7 @@ src/
 Modules don't hardcode project-specific behavior. Each module defines a `deps.ts` interface, and the project provides implementations at startup:
 
 ```typescript
-// src/config/payments-deps.ts
+// src/config/deps/payments-deps.ts
 setPaymentsDeps({
   getPlans: () => plans,
   resolveOrgId: (activeOrgId, userId) => resolveOrgId(activeOrgId, userId),

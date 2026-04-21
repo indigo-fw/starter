@@ -11,7 +11,7 @@ const config: ModuleConfig = {
     '@/core-payments/schema/billing-profile',
   ],
   serverInit: [
-    '@/config/payments-deps',
+    '@/config/deps/payments-deps',
   ],
   jobs: [],
   seed: [],
@@ -19,7 +19,7 @@ const config: ModuleConfig = {
   pageWidgets: [],
   navItems: [],
   projectFiles: [
-    'config/payments-deps.ts',
+    'config/deps/payments-deps.ts',
     'config/payment-providers.ts',
   ],
 };

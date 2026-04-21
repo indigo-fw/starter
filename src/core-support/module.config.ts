@@ -12,7 +12,7 @@ const config: ModuleConfig = {
     '@/core-support/schema/support-tickets',
   ],
   serverInit: [
-    '@/config/support-deps',
+    '@/config/deps/support-deps',
   ],
   jobs: [
     { name: 'startSupportChatCleanupWorker', from: '@/core-support/jobs/support-chat' },
@@ -26,7 +26,7 @@ const config: ModuleConfig = {
     { groupId: 'settings', name: 'Support', href: '/dashboard/settings/support', icon: 'LifeBuoy' },
   ],
   projectFiles: [
-    'config/support-deps.ts',
+    'config/deps/support-deps.ts',
     'components/public/SupportChatWidgetWrapper.tsx',
     'app/dashboard/(panel)/settings/support/page.tsx',
     'app/dashboard/(panel)/settings/support/[id]/page.tsx',

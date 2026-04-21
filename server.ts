@@ -100,7 +100,7 @@ async function main() {
 
   // Initialize BullMQ workers + cron jobs
   if (enableWorkers) {
-    await import('./src/config/email-deps');
+    await import('./src/config/deps/email-deps');
     const { startEmailWorker } = await import('./src/core/lib/email');
     await import('./src/server/jobs/content/index'); // registers scheduled publish targets
     const { startContentPublishWorker } = await import('./src/core/lib/content/scheduled-publish');

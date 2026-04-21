@@ -6,7 +6,7 @@ Booking/scheduling system — services, availability, appointments, classes, res
 
 **core-booking owns:** Service/availability/booking schema, all routers, availability/booking/reminder/ical services, background worker.
 
-**Project owns:** Admin pages, public booking pages, `config/booking-deps.ts`, webhook handler for paid bookings.
+**Project owns:** Admin pages, public booking pages, `config/deps/booking-deps.ts`, webhook handler for paid bookings.
 
 ## DI (`setBookingDeps()`)
 

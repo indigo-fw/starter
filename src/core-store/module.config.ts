@@ -38,7 +38,7 @@ const config: ModuleConfig = {
     '@/core-store/schema/alerts',
   ],
   serverInit: [
-    '@/config/store-deps',
+    '@/config/deps/store-deps',
   ],
   jobs: [],
   seed: [
@@ -50,7 +50,7 @@ const config: ModuleConfig = {
     { groupId: 'content', name: 'Store', href: '/dashboard/store', icon: 'ShoppingBag' },
   ],
   projectFiles: [
-    'config/store-deps.ts',
+    'config/deps/store-deps.ts',
     'emails/order-confirmation.html',
     'emails/order-shipped.html',
     'emails/order-processing.html',
