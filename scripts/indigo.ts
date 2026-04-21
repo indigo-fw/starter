@@ -14,12 +14,17 @@
  *   bun run indigo list                         Show installed and available modules
  *   bun run indigo sync                         Regenerate glue files from indigo.config.ts
  *   bun run indigo doctor                       Validate project health (env, DB, modules, deps)
+ *   bun run indigo visualize                    Generate interactive architecture diagram
+ *   bun run indigo visualize --mermaid          Export raw .mmd Mermaid files
+ *   bun run indigo visualize --imports          Import analysis + boundary violations
+ *   bun run indigo visualize --imports <module> Import analysis for a specific module
  */
 
 import { execSync } from 'child_process';
 import { existsSync, readFileSync, writeFileSync, cpSync, rmSync, readdirSync, rmdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { REGISTRY, getRegistryEntry } from './indigo/registry';
+import { visualize, imports } from './indigo/visualize';
 
 const root = process.cwd();
 const configPath = resolve(root, 'indigo.config.ts');
@@ -683,6 +688,8 @@ const flags = {
   yes: args.includes('--yes') || args.includes('-y'),
   dropTables: args.includes('--drop-tables'),
   all: args.includes('--all'),
+  mermaid: args.includes('--mermaid'),
+  imports: args.includes('--imports'),
 };
 const positionalArgs = args.filter((a) => !a.startsWith('--') && !a.startsWith('-'));
 
@@ -724,6 +731,13 @@ switch (command) {
   case 'doctor':
     await doctor();
     break;
+  case 'visualize':
+    if (flags.imports) {
+      await imports(positionalArgs[0]);
+    } else {
+      await visualize({ mermaid: flags.mermaid });
+    }
+    break;
   default:
     console.log('Indigo Module Manager\n');
     console.log('Usage:');
@@ -737,5 +751,9 @@ switch (command) {
     console.log('  bun run indigo list                         Show modules');
     console.log('  bun run indigo sync                         Regenerate glue files');
     console.log('  bun run indigo doctor                       Validate project health');
+    console.log('  bun run indigo visualize                    Generate architecture diagram in browser');
+    console.log('  bun run indigo visualize --mermaid          Export raw .mmd Mermaid files');
+    console.log('  bun run indigo visualize --imports          Import analysis + boundary violations');
+    console.log('  bun run indigo visualize --imports <module> Import analysis for a specific module');
     break;
 }

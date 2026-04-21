@@ -105,6 +105,7 @@
     "@types/web-push": "^3.6.4",
     "@types/ws": "^8.18.1",
     "chokidar": "^5.0.0",
+    "dependency-cruiser": "^17.3.10",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",

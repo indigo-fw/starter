@@ -49,7 +49,10 @@ function LanguageSwitcherInner() {
     }
     // Full page reload — root layout must re-render with new locale messages.
     // Cookie is set by the proxy on the resulting request.
-    window.location.href = buildUrl(locale);
+    const target = buildUrl(locale);
+    requestAnimationFrame(() => {
+      window.location.assign(target);
+    });
   }
 
   // Close on click outside

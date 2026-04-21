@@ -102,6 +102,10 @@ bun run indigo list              # show installed + available modules
 bun run indigo add core-support  # install module (subtree + scaffold + migrate)
 bun run indigo remove core-support  # remove module
 bun run indigo sync              # regenerate glue files after manual config edits
+bun run indigo doctor            # validate project health
+bun run indigo visualize         # interactive architecture diagram in browser
+bun run indigo visualize --mermaid   # export raw .mmd Mermaid files
+bun run indigo visualize --imports   # dep-cruiser reports + boundary violations
 ```
 
 Each module declares its integration in `module.config.ts`:
@@ -113,6 +117,25 @@ Each module declares its integration in `module.config.ts`:
 - **Layout widgets** — components injected into public layout
 
 All wiring is auto-generated in `src/generated/` by `bun run indigo:sync`.
+
+## Visualization
+
+Generate architecture diagrams directly from your module configs — always in sync with code.
+
+```bash
+bun run indigo visualize              # interactive HTML (modules, data model, routers, workers)
+bun run indigo visualize --mermaid    # raw .mmd files for docs, GitHub, AI context
+bun run indigo visualize --imports    # dependency-cruiser per module + boundary violations
+bun run indigo visualize --imports core-chat  # single module deep dive
+```
+
+| Mode | Output | What it shows |
+|------|--------|---------------|
+| (default) | `.indigo/architecture.html` | Module deps, ER diagram (real FKs), routers, workers, startup, module details |
+| `--mermaid` | `.indigo/*.mmd` | Raw Mermaid files — paste into mermaid.live, GitHub, or feed to AI agents |
+| `--imports` | `.indigo/imports/` | Per-module import graphs (dep-cruiser) + cross-module boundary violation scan |
+
+The visualizer reads `indigo.config.ts`, every `module.config.ts`, the registry, and actual Drizzle schema files. Nothing is hardcoded — add a module and it appears in the next run.
 
 ## Architecture
 
@@ -173,7 +196,7 @@ Registered in `src/config/cms.ts`. Add new types by extending the array — no c
 | `bun run build` | Production build |
 | `bun run start` | Production server |
 | `bun run init` | Initialize DB + seed (`-y` auto, `--reset` force, `--no-seed` skip seeding) |
-| `bun run indigo <cmd>` | Module CLI (add, remove, list, sync) |
+| `bun run indigo <cmd>` | Module CLI (add, remove, list, sync, visualize, doctor) |
 | `bun run promote <email>` | Promote user to superadmin |
 | `bun run typecheck` | TypeScript type check |
 | `bun run db:generate` | Generate Drizzle migrations |

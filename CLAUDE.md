@@ -18,6 +18,7 @@ Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS:
 - **Translations:** PO files in `locales/admin/*.po`. After editing: `bun run generate-po && bun run transform:po`
 - **Environment:** Zod-validated env vars in `src/lib/env.ts`
 - **Project health:** `bun run indigo doctor` — validates env, DB, modules, generated files, deps
+- **Visualize:** `bun run indigo visualize` — generates interactive architecture diagram (modules, ER, routers, workers) → opens `.indigo/architecture.html`. Use `--mermaid` for raw `.mmd` files (useful as AI context — low-token, high-signal). Use `--imports` for dependency-cruiser reports per module + boundary violation scan. Use `--imports <module>` for a single module deep dive
 
 ## Coding Standards
 

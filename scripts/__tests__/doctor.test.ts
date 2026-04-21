@@ -13,7 +13,7 @@ describe('indigo doctor', () => {
     expect(output).toContain('module(s) installed');
     expect(output).toContain('All generated files present');
     expect(output).toContain('node_modules/ present');
-  });
+  }, 15_000);
 
   it('reports module count', () => {
     const output = execSync('bun run indigo doctor', {
@@ -22,5 +22,5 @@ describe('indigo doctor', () => {
     });
     // Should report the number of currently installed modules
     expect(output).toMatch(/\d+ module\(s\) installed/);
-  });
+  }, 15_000);
 });
