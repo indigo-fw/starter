@@ -12,7 +12,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join, relative, extname, basename } from 'path';
 import crypto from 'crypto';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, isNull, sql } from 'drizzle-orm';
 
 import { parseFrontmatter } from '@/core/lib/content/frontmatter';
 import { createRevision, pickSnapshot } from '@/core/crud/content-revisions';
@@ -34,6 +34,11 @@ interface MdFrontmatter {
   image?: string;
   imageAlt?: string;
   noindex?: boolean;
+  /** Link to the default-locale version's slug for translation grouping.
+   *  Only needed when the slug differs across locales.
+   *  Example: content/de/datenschutz.md → translationOf: privacy-policy
+   *  Same-slug files are auto-grouped without this field. */
+  translationOf?: string;
 }
 
 interface FileEntry {
@@ -280,6 +285,116 @@ export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise
     updated++;
   }
 
+  // ── Auto-link translations ──
+  // Groups content files across locales so the LanguageSwitcher can map slugs.
+  // Two mechanisms:
+  //   1. Same slug across locales → auto-grouped (e.g. en/privacy-policy + de/privacy-policy)
+  //   2. Different slugs + frontmatter `translationOf` → linked to the default-locale version
+  // Only touches entries without a translationGroup (won't override admin edits).
+  if (!dryRun) {
+    const linked = await linkTranslationGroups(db, files);
+    if (linked > 0) {
+      logger.info(`Linked ${linked} translation group(s)`);
+    }
+  }
+
   logger.info(`Content sync done: ${created} created, ${updated} updated, ${skipped} skipped`);
   return { created, updated, skipped };
+}
+
+/**
+ * Link content files across locales via translationGroup.
+ *
+ * 1. `translationOf` frontmatter: file declares which default-locale slug it translates.
+ * 2. Same slug+type across locales: auto-group ungrouped entries that share a slug.
+ */
+async function linkTranslationGroups(
+  db: DbClient,
+  files: FileEntry[]
+): Promise<number> {
+  let linked = 0;
+
+  // Step 1: Handle explicit translationOf references
+  const translationOfFiles = files.filter((f) => f.frontmatter.translationOf);
+  for (const file of translationOfFiles) {
+    const targetSlug = file.frontmatter.translationOf!;
+
+    const [defaultPost] = await db
+      .select({
+        id: cmsPosts.id,
+        translationGroup: cmsPosts.translationGroup,
+      })
+      .from(cmsPosts)
+      .where(
+        and(
+          eq(cmsPosts.slug, targetSlug),
+          eq(cmsPosts.type, file.postType),
+          eq(cmsPosts.lang, 'en')
+        )
+      )
+      .limit(1);
+
+    if (!defaultPost) continue;
+
+    let groupId = defaultPost.translationGroup;
+    if (!groupId) {
+      groupId = crypto.randomUUID();
+      await db
+        .update(cmsPosts)
+        .set({ translationGroup: groupId })
+        .where(eq(cmsPosts.id, defaultPost.id));
+    }
+
+    const [thisPost] = await db
+      .select({
+        id: cmsPosts.id,
+        translationGroup: cmsPosts.translationGroup,
+      })
+      .from(cmsPosts)
+      .where(
+        and(
+          eq(cmsPosts.slug, file.slug),
+          eq(cmsPosts.type, file.postType),
+          eq(cmsPosts.lang, file.locale)
+        )
+      )
+      .limit(1);
+
+    if (thisPost && !thisPost.translationGroup) {
+      await db
+        .update(cmsPosts)
+        .set({ translationGroup: groupId })
+        .where(eq(cmsPosts.id, thisPost.id));
+      linked++;
+    }
+  }
+
+  // Step 2: Auto-group same slug+type across locales
+  const ungrouped = await db
+    .select({
+      slug: cmsPosts.slug,
+      type: cmsPosts.type,
+      count: sql<number>`count(*)`,
+    })
+    .from(cmsPosts)
+    .where(isNull(cmsPosts.translationGroup))
+    .groupBy(cmsPosts.slug, cmsPosts.type)
+    .having(sql`count(*) > 1`);
+
+  for (const { slug, type } of ungrouped) {
+    const groupId = crypto.randomUUID();
+    await db
+      .update(cmsPosts)
+      .set({ translationGroup: groupId })
+      .where(
+        and(
+          eq(cmsPosts.slug, slug),
+          eq(cmsPosts.type, type),
+          isNull(cmsPosts.translationGroup)
+        )
+      );
+    linked++;
+  }
+
+  return linked;
 }

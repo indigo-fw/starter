@@ -47,7 +47,8 @@ Locale config in `src/lib/constants.ts`: `LOCALES`, `DEFAULT_LOCALE`, `LOCALE_LA
 
 - `localeDetection: false` — no auto-redirect from Accept-Language header (SEO-safe)
 - `proxy.ts` handles locale prefix stripping (`/de/blog/post` → `/blog/post` with `x-locale: de` header)
-- `locale-chosen` cookie stores user's explicit locale choice (set by LanguageSwitcher, banner, and proxy on locale-prefixed visits). Proxy redirects unprefixed URLs to preferred locale when cookie is set
+- `preferred_locale` cookie stores user's locale choice (set by proxy on locale-prefixed visits). Proxy redirects unprefixed URLs to preferred locale when cookie is set. Must be whitelisted as "Strictly Necessary" in cookie consent tool.
+- `/en/xxx` (default locale prefix): proxy passes through (next-intl handles), sets cookie to `en`
 - Anonymous users: cookie persists preference. Registered users: also saved to `user.lang` in DB via `auth.setPreferredLocale` mutation
 
 ### Content Locale Fallback
@@ -59,6 +60,11 @@ Per-type `fallbackToDefault` in `src/config/cms.ts` controls fallback behavior:
 **Detail pages** (`getBySlug`): tries requested locale → falls back to DEFAULT_LOCALE if allowed → returns `isFallback` flag. `applyFallbackMetadata()` in `register-renderers.tsx` sets noindex + canonical to default locale URL.
 
 **List pages** (`listPublished`): merges locale items + DEFAULT_LOCALE fallbacks via `mergeWithLocaleFallback()` from `@/core/lib/i18n/locale-fallback`. Deduplicates by `translationGroup` when available (items without it are included as-is). Sitemaps use separate direct DB queries — no fallback pollution.
+
+**Content sync translation grouping** (`src/core/lib/content/sync.ts`):
+- Same slug across locales → auto-grouped by `translationGroup` UUID on sync
+- Different slugs → use `translationOf: en-slug` frontmatter in non-EN files
+- Groups enable LanguageSwitcher cross-language slug mapping + hreflang tags
 
 ### Translation Workflow
 

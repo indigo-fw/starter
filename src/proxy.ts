@@ -114,32 +114,90 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // ── User locale preference redirect ──
-  // The locale-chosen cookie stores the user's preferred locale (set by LanguageSwitcher).
-  // When visiting an unprefixed URL, redirect to their preferred locale.
-  // Googlebot: no cookie → never redirected → sees all locales correctly.
-  const chosenLocale = request.cookies.get('locale-chosen')?.value;
-  const firstSeg = pathname.split('/')[1] ?? '';
-  const hasLocalePrefix =
-    NON_DEFAULT_LOCALE_SET.has(firstSeg) || firstSeg === DEFAULT_LOCALE;
+  // ── Locale handling ──
+  //
+  // Cookie: preferred_locale (1 year, strictly necessary).
+  // Must be whitelisted in cookie consent tool (e.g. cookie-script.com).
+  //
+  // Flow:
+  //   1. URL has locale prefix → set cookie + rewrite (non-default) or pass through (default)
+  //   2. URL has no prefix → check cookie → redirect if non-default preference
+  //   3. Neither → no redirect (Googlebot, first visitors)
+
+  const LOCALE_COOKIE = 'preferred_locale';
+  const LOCALE_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
+
+  const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
+  const segments = pathname.split('/');
+  const firstSegment = segments[1] ?? '';
+  const urlLocale =
+    NON_DEFAULT_LOCALE_SET.has(firstSegment)
+      ? firstSegment as Locale
+      : firstSegment === DEFAULT_LOCALE
+        ? DEFAULT_LOCALE as string
+        : null;
+
+  if (urlLocale) {
+    // URL has explicit locale prefix → user chose this language.
+
+    // Normalize uppercase locale codes (e.g. /DE/blog → /de/blog)
+    if (firstSegment !== firstSegment.toLowerCase() && NON_DEFAULT_LOCALE_SET.has(firstSegment.toLowerCase())) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${firstSegment.toLowerCase()}${segments.slice(2).length ? '/' + segments.slice(2).join('/') : ''}`;
+      return NextResponse.redirect(url, 301);
+    }
+
+    // Default locale prefix (/en/xxx): strip prefix via rewrite (same as non-default).
+    // Indigo's App Router has no [locale] directory — it reads locale from x-locale header.
+    if (urlLocale === DEFAULT_LOCALE) {
+      const strippedPath = '/' + segments.slice(2).join('/') || '/';
+      const url = request.nextUrl.clone();
+      url.pathname = strippedPath;
+      const response = NextResponse.rewrite(url);
+      response.headers.set('x-locale', DEFAULT_LOCALE);
+      if (cookieLocale !== DEFAULT_LOCALE) {
+        response.cookies.set(LOCALE_COOKIE, DEFAULT_LOCALE, {
+          path: '/',
+          maxAge: LOCALE_COOKIE_MAX_AGE,
+          sameSite: 'lax',
+        });
+      }
+      return withCsp(response);
+    }
+
+    // Non-default locale prefix (/de/xxx, /es/xxx): rewrite to strip prefix.
+    const strippedPath = '/' + segments.slice(2).join('/') || '/';
+    const url = request.nextUrl.clone();
+    url.pathname = strippedPath;
+
+    const response = NextResponse.rewrite(url);
+    response.headers.set('x-locale', urlLocale);
+    if (cookieLocale !== urlLocale) {
+      response.cookies.set(LOCALE_COOKIE, urlLocale, {
+        path: '/',
+        maxAge: LOCALE_COOKIE_MAX_AGE,
+        sameSite: 'lax',
+      });
+    }
+    return withCsp(response);
+  }
+
+  // ── No locale prefix → check stored preference ──
 
   if (
-    chosenLocale &&
-    chosenLocale !== '1' && // Ignore legacy boolean cookie
-    chosenLocale !== DEFAULT_LOCALE &&
-    NON_DEFAULT_LOCALE_SET.has(chosenLocale) &&
-    !hasLocalePrefix
+    cookieLocale &&
+    cookieLocale !== DEFAULT_LOCALE &&
+    NON_DEFAULT_LOCALE_SET.has(cookieLocale)
   ) {
     const url = request.nextUrl.clone();
-    url.pathname = `/${chosenLocale}${pathname}`;
+    url.pathname = `/${cookieLocale}${pathname}`;
     return NextResponse.redirect(url);
   }
 
-  // ── Auto-detect locale from Accept-Language (opt-in, only when no explicit choice) ──
+  // Auto-detect locale from Accept-Language (opt-in, only when no cookie)
   if (
     siteConfig.localeAutoDetect &&
-    !chosenLocale &&
-    !hasLocalePrefix
+    !cookieLocale
   ) {
     const acceptLang = request.headers.get('accept-language');
     if (acceptLang) {
@@ -156,41 +214,7 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // ── Locale prefix detection + rewrite ──
-  // Check if first path segment is a non-default locale
-  const segments = pathname.split('/');
-  const firstSegment = segments[1]; // segments[0] is '' (leading slash)
-
-  // Normalize uppercase locale codes (e.g. /DE/blog → /de/blog)
-  if (firstSegment && NON_DEFAULT_LOCALE_SET.has(firstSegment.toLowerCase()) && firstSegment !== firstSegment.toLowerCase()) {
-    const url = request.nextUrl.clone();
-    url.pathname = `/${firstSegment.toLowerCase()}${segments.slice(2).length ? '/' + segments.slice(2).join('/') : ''}`;
-    return NextResponse.redirect(url, 301);
-  }
-
-  if (firstSegment && NON_DEFAULT_LOCALE_SET.has(firstSegment)) {
-    const locale = firstSegment as Locale;
-    // Strip the locale prefix: /de/blog/post → /blog/post
-    const strippedPath = '/' + segments.slice(2).join('/') || '/';
-    const url = request.nextUrl.clone();
-    url.pathname = strippedPath;
-
-    const response = NextResponse.rewrite(url);
-    response.headers.set('x-locale', locale);
-    // Remember locale choice — proxy redirect on next unprefixed visit
-    if (chosenLocale !== locale) {
-      response.cookies.set('locale-chosen', locale, {
-        path: '/',
-        maxAge: 31536000,
-        sameSite: 'lax',
-      });
-    }
-    return withCsp(response);
-  }
-
   // Default locale — no rewrite, set header for consistency.
-  // Note: if chosenLocale is non-default, the redirect above already fired.
-  // This path only runs for users on the default locale (no redirect needed).
   const response = NextResponse.next();
   response.headers.set('x-locale', DEFAULT_LOCALE);
   return withCsp(response);

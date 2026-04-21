@@ -1,14 +1,21 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import { LOCALES, DEFAULT_LOCALE, LOCALE_LABELS, IS_MULTILINGUAL } from '@/lib/constants';
-import { localePath } from '@/core/lib/i18n/locale';
 import { useLocale } from '@/core/hooks/useLocale';
 import type { Locale } from '@/lib/constants';
 import { Globe } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { trpc } from '@/lib/trpc/client';
 import { useSession } from '@/lib/auth-client';
+
+/** Strip locale prefix from a pathname (e.g. /de/category/woman → /category/woman) */
+function stripLocalePrefix(pathname: string, locale: string): string {
+  if (locale === DEFAULT_LOCALE) return pathname;
+  if (pathname === `/${locale}`) return '/';
+  if (pathname.startsWith(`/${locale}/`))
+    return pathname.slice(locale.length + 1);
+  return pathname;
+}
 
 /** Only render when there are multiple locales configured */
 export function LanguageSwitcher() {
@@ -18,32 +25,31 @@ export function LanguageSwitcher() {
 }
 
 function LanguageSwitcherInner() {
-  const pathname = usePathname();
   const currentLocale = useLocale();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
   const setPreferredLocale = trpc.auth.setPreferredLocale.useMutation();
 
-  // Strip locale prefix to get the base path
-  const basePath =
-    currentLocale !== DEFAULT_LOCALE
-      ? '/' + pathname.split('/').slice(2).join('/') || '/'
-      : pathname;
+  // Always include locale prefix (even for default locale) so the proxy
+  // recognizes it as an explicit language choice and updates the cookie.
+  // Uses window.location.pathname (always resolved, no [slug] templates).
+  function buildUrl(locale: Locale): string {
+    if (typeof window === 'undefined') return `/${locale}`;
+    const basePath = stripLocalePrefix(window.location.pathname, currentLocale);
+    return `/${locale}${basePath}${window.location.search}`;
+  }
 
   function switchLocale(locale: Locale) {
     setOpen(false);
-    // Save to DB for logged-in users (fire-and-forget)
+    // Save to DB for logged-in users (fire-and-forget).
+    // Proxy is Edge (no DB access), so this is the only DB update path.
     if (session?.user) {
       setPreferredLocale.mutate({ locale });
     }
-    // Full page reload — NextIntlClientProvider must re-render with new messages.
-    // Cookie + navigation inside rAF to satisfy react-hooks/immutability.
-    const target = localePath(basePath, locale);
-    requestAnimationFrame(() => {
-      document.cookie = `locale-chosen=${locale}; path=/; max-age=31536000; SameSite=Lax`;
-      window.location.assign(target);
-    });
+    // Full page reload — root layout must re-render with new locale messages.
+    // Cookie is set by the proxy on the resulting request.
+    window.location.href = buildUrl(locale);
   }
 
   // Close on click outside
