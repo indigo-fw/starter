@@ -25,6 +25,7 @@ import { existsSync, readFileSync, writeFileSync, cpSync, rmSync, readdirSync, r
 import { resolve, dirname } from 'path';
 import { REGISTRY, getRegistryEntry } from './indigo/registry';
 import { visualize, imports } from './indigo/visualize';
+import { codemap } from './indigo/codemap';
 
 const root = process.cwd();
 const configPath = resolve(root, 'indigo.config.ts');
@@ -738,6 +739,9 @@ switch (command) {
       await visualize({ mermaid: flags.mermaid });
     }
     break;
+  case 'map':
+    await codemap(positionalArgs[0]);
+    break;
   default:
     console.log('Indigo Module Manager\n');
     console.log('Usage:');
@@ -755,5 +759,7 @@ switch (command) {
     console.log('  bun run indigo visualize --mermaid          Export raw .mmd Mermaid files');
     console.log('  bun run indigo visualize --imports          Import analysis + boundary violations');
     console.log('  bun run indigo visualize --imports <module> Import analysis for a specific module');
+    console.log('  bun run indigo map                          Code map (defaults to src/core)');
+    console.log('  bun run indigo map <module|path>            Code map for a specific module');
     break;
 }
