@@ -19,7 +19,14 @@
 import { getScopedKey } from '@/core/lib/infra/scope';
 import type { CmsLinkRef, ResolvedCmsLink } from './cms-link-shared';
 
-if (typeof window !== 'undefined') {
+// Allow Node/Bun (server.ts, instrumentation.ts, Next.js bundle) AND test
+// runners (jsdom defines window but is hosted by Node, so process.versions.node
+// is set). Block REAL browsers — no `process.versions.node` there even with
+// webpack's `process` shim (which only sets `{ env, browser }`).
+if (
+  typeof window !== 'undefined' &&
+  (typeof process === 'undefined' || !process.versions?.node)
+) {
   throw new Error(
     'cms-link-sync.ts is server-only — do not import from client code',
   );

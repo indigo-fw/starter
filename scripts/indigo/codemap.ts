@@ -445,7 +445,7 @@ function buildGraph(targetDir: string, moduleId: string): GraphData {
 // ─── HTML builder ──────────────────────────────────────────────────────────
 
 function buildHtml(data: GraphData): string {
-  const templatePath = resolve(import.meta.dir, "codemap.html");
+  const templatePath = resolve(import.meta.dirname, "codemap.html");
   let html = readFileSync(templatePath, "utf-8");
   const allIds = new Set(data.nodes.map((n) => n.id));
   html = html.replaceAll("{{GRAPH_DATA}}", JSON.stringify(data));

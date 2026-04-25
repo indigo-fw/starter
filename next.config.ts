@@ -15,12 +15,6 @@ const nextConfig: NextConfig = {
   // each replica has its own deployed copy and doesn't need this.
   ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
 
-  typescript: {
-    // Bun-specific `import.meta.dir` in scripts/indigo/* trips Next's build
-    // typecheck. Lint runs separately as a CI step. Same workaround flirtcam uses.
-    ignoreBuildErrors: true,
-  },
-
   // Security headers for all routes
   async headers() {
     return [

@@ -589,7 +589,7 @@ classDef detailNode fill:#1e1e2a,stroke:#4a4a6a,color:#c0c0d0`;
 // ─── Build HTML from template ──────────────────────────────────────────────
 
 function buildHtml(replacements: Record<string, string>): string {
-  const templatePath = resolve(import.meta.dir, "visualize.html");
+  const templatePath = resolve(import.meta.dirname, "visualize.html");
   let html = readFileSync(templatePath, "utf-8");
   for (const [key, value] of Object.entries(replacements)) {
     html = html.replaceAll(`{{${key}}}`, value);

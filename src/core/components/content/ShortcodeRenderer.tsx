@@ -21,7 +21,23 @@ interface Props {
   components: ShortcodeComponentMap;
 }
 
+// Matches content variable placeholders like %COMPANY_NAME%. Used only as a
+// dev-mode footgun guard — see warning below.
+const UNRESOLVED_VAR_RE = /%[A-Z][A-Z0-9_]*%/;
+
 export function ShortcodeRenderer({ content, components }: Props) {
+  if (process.env.NODE_ENV !== 'production') {
+    const unresolved = content.match(UNRESOLVED_VAR_RE);
+    if (unresolved) {
+      console.warn(
+        `[ShortcodeRenderer] content contains unresolved %VAR% placeholder "${unresolved[0]}". ` +
+          'Pipe through resolveContentVars() in the parent server component before ' +
+          'passing to ShortcodeRenderer. (vars.ts is server-only and cannot be ' +
+          'imported into client bundles.)',
+      );
+    }
+  }
+
   const html = markdownToHtml(content);
   const segments = parseShortcodes(html);
 

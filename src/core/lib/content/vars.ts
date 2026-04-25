@@ -11,8 +11,15 @@
  * Variable sources:
  *   - %SITE_NAME%, %SITE_URL%: from site.* options (or env fallback)
  *   - %COMPANY_*%, %CONTACT_EMAIL%: from company.* options
+ *
+ * SERVER-ONLY. Pulls in DB + Redis pub/sub (ioredis). Client components must
+ * receive pre-resolved content (call `resolveContentVars()` in the parent
+ * server component before passing to a `'use client'` boundary). The
+ * `'server-only'` import guards against accidental client-bundle inclusion —
+ * webpack's react-server condition makes it a no-op in server bundles.
  */
 
+import 'server-only';
 import { db } from '@/server/db';
 import { cmsOptions } from '@/server/db/schema/cms';
 import { sql } from 'drizzle-orm';
