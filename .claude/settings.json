@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun run typecheck)",
+      "Bash(bun run lint)",
+      "Bash(bun run indigo doctor)",
+      "Bash(bun run indigo visualize *)",
+      "Bash(bun run indigo list)",
+      "Bash(bun run indigo map)",
+      "Bash(bunx vitest *)",
+      "Bash(bunx tsc *)",
+      "Bash(bunx eslint *)",
+      "Bash(bun test *)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs"
+    ]
+  }
+}
