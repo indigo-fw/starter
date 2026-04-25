@@ -1,6 +1,5 @@
 import { parseShortcodes } from '@/core/lib/markdown/shortcodes-parser';
 import { markdownToHtml } from '@/core/lib/markdown/markdown';
-import { resolveContentVars } from '@/core/lib/content/vars';
 
 /** Map of shortcode names to their React components. Passed by the project layer. */
 export type ShortcodeComponentMap = Record<
@@ -9,13 +8,21 @@ export type ShortcodeComponentMap = Record<
 >;
 
 interface Props {
+  /**
+   * Markdown content with shortcodes already %VAR%-resolved.
+   * Server-side call sites should pipe through `resolveContentVars()` from
+   * `@/core/lib/content/vars` before passing here. We don't resolve inside
+   * this component because vars.ts transitively imports ioredis (Redis pub/sub
+   * for cross-instance cache invalidation), and ioredis can't be bundled into
+   * client bundles — this component is used by both server AND client callers.
+   */
   content: string;
   /** Shortcode component registry — project provides this via config. */
   components: ShortcodeComponentMap;
 }
 
 export function ShortcodeRenderer({ content, components }: Props) {
-  const html = markdownToHtml(resolveContentVars(content));
+  const html = markdownToHtml(content);
   const segments = parseShortcodes(html);
 
   return (

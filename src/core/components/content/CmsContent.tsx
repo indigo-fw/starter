@@ -1,4 +1,5 @@
 import { ShortcodeRenderer, type ShortcodeComponentMap } from './ShortcodeRenderer';
+import { resolveContentVars } from '@/core/lib/content/vars';
 
 interface CmsContentProps {
   /** Raw markdown content from getCmsOverride(). */
@@ -27,7 +28,7 @@ export function CmsContent({ content, components, className }: CmsContentProps) 
   return (
     <section className={className ?? 'mx-auto max-w-4xl px-4 py-8 text-sm text-(--text-tertiary)'}>
       <div className="prose prose-gray dark:prose-invert max-w-none">
-        <ShortcodeRenderer content={content} components={components} />
+        <ShortcodeRenderer content={resolveContentVars(content)} components={components} />
       </div>
     </section>
   );

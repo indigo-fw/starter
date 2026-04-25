@@ -19,7 +19,7 @@ import {
   AppSidebarDrawer,
 } from '@/components/public/AppSidebar';
 import { getLocale } from '@/lib/locale-server';
-import { AuthDialogs } from '@/components/public/AuthDialogs';
+import { DeferredGlobalUI } from '@/components/public/DeferredGlobalUI';
 import { getServerTranslations } from '@/lib/translations-server';
 
 /**
@@ -92,7 +92,7 @@ export default async function ShowcaseLayout({
           </div>
         </header>
 
-        <AuthDialogs />
+        <DeferredGlobalUI />
 
         <AppSidebarDrawer items={sidebarItems} />
 

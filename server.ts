@@ -80,14 +80,15 @@ async function main() {
     console.error('Content sync failed:', err);
   }
 
-  // Preload content variables cache + set up cross-instance invalidation via Redis
-  const { preloadContentVars, initContentVarsSync } = await import('./src/core/lib/content/vars');
-  await preloadContentVars();
-  await initContentVarsSync();
-
-  // Set up CMS link cache cross-instance invalidation via Redis
-  const { initCmsLinkSync } = await import('./src/core/lib/content/cms-link');
-  await initCmsLinkSync();
+  // CMS link sync + content vars init live in `src/instrumentation.ts` instead
+  // of here. Reason: when called from this Bun entry, they initialize module
+  // instances that are SEPARATE from the ones Next.js bundles for SSR/routers,
+  // so cross-instance Redis cache invalidation never reaches the right cache.
+  // `instrumentation.ts` runs in the Next.js server context where the routers'
+  // `broadcastCmsLinkInvalidation` and the resolver's `_cache` actually live.
+  // Bonus: avoids the `'server-only'` runtime throw on Bun-direct loads of
+  // `cms-link.ts` (the package's index.js throws outside the `react-server`
+  // export condition that webpack sets for Next.js server bundles).
 
   // Register webhook delivery logger
   const { setWebhookDeliveryLogger } = await import('./src/core/lib/webhooks/webhooks');

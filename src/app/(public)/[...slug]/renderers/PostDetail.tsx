@@ -4,6 +4,7 @@ import { Link } from '@/components/Link';
 import { PostType } from '@/core/types/cms';
 import { PostCard } from '@/core/components/PostCard';
 import { ShortcodeRenderer } from '@/core/components/content/ShortcodeRenderer';
+import { resolveContentVars } from '@/core/lib/content/vars';
 import { StructuredData } from '@/core/components/seo/StructuredData';
 import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@/core/lib/seo/json-ld';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
@@ -117,7 +118,7 @@ export async function PostDetail({ slug, postType, preview }: Props) {
       )}
 
       <div className="prose prose-gray dark:prose-invert mt-8 max-w-none">
-        <ShortcodeRenderer content={post.content} components={SHORTCODE_COMPONENTS} />
+        <ShortcodeRenderer content={resolveContentVars(post.content)} components={SHORTCODE_COMPONENTS} />
       </div>
 
       {/* Related Posts */}

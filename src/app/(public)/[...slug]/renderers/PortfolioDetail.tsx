@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { ShortcodeRenderer } from '@/core/components/content/ShortcodeRenderer';
+import { resolveContentVars } from '@/core/lib/content/vars';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { getLocale } from '@/lib/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';
@@ -78,7 +79,7 @@ export async function PortfolioDetail({ slug, preview }: Props) {
 
       {item.content && (
         <div className="prose prose-gray dark:prose-invert mt-8 max-w-none">
-          <ShortcodeRenderer content={item.content} components={SHORTCODE_COMPONENTS} />
+          <ShortcodeRenderer content={resolveContentVars(item.content)} components={SHORTCODE_COMPONENTS} />
         </div>
       )}
     </article>

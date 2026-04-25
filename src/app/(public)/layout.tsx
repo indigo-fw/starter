@@ -22,7 +22,7 @@ import { LOCALES, DEFAULT_LOCALE, LOCALE_LABELS, type Locale } from '@/lib/const
 import { adminRoutes, contentRoutes, apiRoutes } from '@/config/routes';
 import { AppNav } from '@/components/public/AppNav';
 import { AppFooter } from '@/components/public/AppFooter';
-import { AuthDialogs } from '@/components/public/AuthDialogs';
+import { DeferredGlobalUI } from '@/components/public/DeferredGlobalUI';
 import { PUBLIC_LAYOUT_WIDGETS } from '@/generated/module-widgets';
 import { getServerTranslations, type TranslationFn } from '@/lib/translations-server';
 import { LanguageSuggestionBanner } from '@/core/components/i18n/LanguageSuggestionBanner';
@@ -30,7 +30,6 @@ import { CartWidget } from '@/core-store/components/cart/CartWidget';
 import { getLanguageSuggestion } from '@/core/lib/i18n/language-suggestion';
 import { dataTranslations } from '@/lib/translations';
 import { ConsentProvider } from '@/core/lib/consent/context';
-import { CookieConsent } from '@/core/components/consent/CookieConsent';
 
 // Extraction marker — ensures the language suggestion key appears in public PO files
 const _d = dataTranslations('General');
@@ -192,7 +191,6 @@ export default async function PublicLayout({
           defaultLocale={DEFAULT_LOCALE}
         />
       )}
-      <AuthDialogs />
       <main className="app-main">{children}</main>
 
       {/* ═══ Footer ═══ */}
@@ -250,7 +248,7 @@ export default async function PublicLayout({
           <span>{__('Powered by Indigo')}</span>
         </div>
       </AppFooter>
-      <CookieConsent privacyPolicyUrl="/privacy-policy" />
+      <DeferredGlobalUI cookieConsent={{ privacyPolicyUrl: '/privacy-policy' }} />
     </div>
     </ConsentProvider>
   );

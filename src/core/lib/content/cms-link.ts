@@ -5,11 +5,15 @@
  * This file is SERVER-ONLY — it imports DB and Drizzle.
  * Client code should import from `cms-link-shared.ts` instead.
  *
+ * Cache + Redis pub/sub state lives in `cms-link-sync.ts` so the custom
+ * Bun server entry and `instrumentation.ts` can initialize it without
+ * tripping `'server-only'`.
+ *
  * @see cms-link-shared.ts for types, parser, config, and client-safe utilities.
+ * @see cms-link-sync.ts for cache + cross-instance invalidation.
  */
 
 import 'server-only';
-import { getScopedKey } from '@/core/lib/infra/scope';
 import { and, eq, isNull } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { cmsPosts } from '@/server/db/schema/cms';
@@ -37,98 +41,16 @@ export {
   getCmsLinkConfig,
 } from './cms-link-shared';
 
+// Re-export sync helpers so existing `@/core/lib/content/cms-link` imports keep working.
+export {
+  initCmsLinkSync,
+  broadcastCmsLinkInvalidation,
+  invalidateCmsLinkCache,
+} from './cms-link-sync';
+
 import type { CmsLinkRef, ResolvedCmsLink } from './cms-link-shared';
 import { getCmsLinkConfig, CMS_URI_RE, parseCmsUri } from './cms-link-shared';
-
-// ─── LRU Cache ──────────────────────────────────────────────────────────────
-//
-// This is the SERVER-SIDE cache — deduplicates DB queries across different users.
-// React Query on the client caches per-user (User A's cache ≠ User B's cache).
-// Without this LRU, 100 users hitting the same page = 100 identical DB queries
-// for the same link. With it: 1 DB query + 99 LRU hits.
-//
-// Three cache layers, each at a different boundary:
-//   React Query  → one user, one browser session
-//   Server LRU   → one server process, all users (this)
-//   Redis pub/sub → invalidates LRU across all server processes on content save
-
-const CACHE_MAX = 500;
-const CACHE_TTL = 60 * 60 * 1000; // 1 hour
-
-interface CacheEntry {
-  data: ResolvedCmsLink | null;
-  ts: number;
-}
-
-const _cache = new Map<string, CacheEntry>();
-
-function cacheKey(ref: CmsLinkRef, locale: string): string {
-  return getScopedKey(`${ref.id ?? ''}|${ref.slug ?? ''}|${ref.type ?? ''}|${locale}|${ref.lang ?? ''}`);
-}
-
-function getCached(key: string): ResolvedCmsLink | null | undefined {
-  const entry = _cache.get(key);
-  if (!entry) return undefined;
-  if (Date.now() - entry.ts > CACHE_TTL) {
-    _cache.delete(key);
-    return undefined;
-  }
-  // Move to end for LRU ordering
-  _cache.delete(key);
-  _cache.set(key, entry);
-  return entry.data;
-}
-
-function setCache(key: string, data: ResolvedCmsLink | null): void {
-  if (_cache.size >= CACHE_MAX) {
-    const oldest = _cache.keys().next().value;
-    if (oldest !== undefined) _cache.delete(oldest);
-  }
-  _cache.set(key, { data, ts: Date.now() });
-}
-
-/**
- * Clear the link resolution cache.
- *
- * Always clears the entire cache — targeted invalidation by ID is impossible
- * because slug-based entries can't be reverse-mapped to post IDs without
- * re-querying the DB. The 1-hour TTL + full clear on content save is
- * sufficient for correctness.
- */
-export function invalidateCmsLinkCache(): void {
-  _cache.clear();
-}
-
-// Cross-instance invalidation via Redis pub/sub
-const INVALIDATION_CHANNEL = 'cms-link:invalidate';
-let _publisher: import('ioredis').default | null | undefined;
-
-/** Initialize cross-instance cache invalidation. Call once at server startup. */
-export async function initCmsLinkSync(): Promise<void> {
-  try {
-    const { getPublisher, getSubscriber } = await import(
-      '@/core/lib/infra/redis'
-    );
-    _publisher = getPublisher();
-
-    const sub = getSubscriber();
-    if (!sub) return;
-    await sub.subscribe(INVALIDATION_CHANNEL);
-    sub.on('message', (channel: string) => {
-      if (channel === INVALIDATION_CHANNEL) _cache.clear();
-    });
-  } catch {
-    // Redis not available — local invalidation only
-  }
-}
-
-/** Invalidate cache locally + broadcast to other instances. */
-export function broadcastCmsLinkInvalidation(): void {
-  _cache.clear();
-  if (_publisher) {
-    _publisher.publish(INVALIDATION_CHANNEL, '1').catch(() => {});
-  }
-}
+import { cacheKey, getCached, setCache } from './cms-link-sync';
 
 // ─── Internal Types ─────────────────────────────────────────────────────────
 

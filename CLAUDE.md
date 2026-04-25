@@ -8,6 +8,9 @@ Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS:
 
 - **Package manager:** `bun`
 - **Dev server:** `bun run dev` (custom server with Turbopack, port 3000)
+- **Custom server:** `server.ts` — Bun-direct entry. Initializes BullMQ workers, WebSocket, content sync. Cache + Redis pub/sub init for `cms-link` and `content vars` does NOT live here (see next bullet)
+- **Next.js boot hook:** `src/instrumentation.ts` — Next.js's [`instrumentation`](https://nextjs.org/docs/app/api-reference/file-conventions/instrumentation) entry, runs once during `app.prepare()` in the Next.js server bundle context (same module instances as routers + SSR). Hosts `initCmsLinkSync`, `initContentVarsSync`, `preloadContentVars`. **Don't move these inits back to `server.ts`** — that creates separate module instances (Bun-side ≠ Next.js bundle), so the Redis subscription registers on a cache that nobody reads from, silently breaking cross-instance invalidation in multi-instance deploys
+- **CMS link cache split:** `src/core/lib/content/cms-link.ts` (server-only DB resolver, has `import 'server-only'`) imports cache helpers from `src/core/lib/content/cms-link-sync.ts` (no `'server-only'`, safe for Bun + instrumentation to load). The split exists because the `'server-only'` package's index.js throws outside Next.js webpack's `react-server` export condition — Bun-direct imports of the resolver would crash at startup
 - **First-time setup:** `bun run init` — creates DB, migrations, search triggers, superadmin, seeds content + email templates to `content/` and `emails/`
 - **Content sync:** `bun run content:sync` — syncs `.md` files from `content/` to CMS database (also runs automatically on server start)
 - **Promote user:** `bun run promote <email>`

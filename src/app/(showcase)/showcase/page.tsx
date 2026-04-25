@@ -5,6 +5,7 @@ import { CmsSlotContent } from '@/components/CmsSlotContent';
 import { serverTRPC } from '@/lib/trpc/server';
 import { getLocale } from '@/lib/locale-server';
 import { ShowcaseFeed } from '@/components/public/ShowcaseFeed';
+import { resolveContentVars } from '@/core/lib/content/vars';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { getServerTranslations } = await import('@/lib/translations-server');
@@ -37,10 +38,18 @@ export default async function ShowcasePage() {
     pageSize: 100,
   });
 
+  // Resolve %VAR% placeholders server-side so the client ShowcaseFeed never
+  // imports vars.ts (which transitively pulls in ioredis — Node-only, can't
+  // be bundled into client). ShortcodeRenderer no longer resolves vars itself.
+  const resolvedItems = items.map((item) => ({
+    ...item,
+    description: item.description ? resolveContentVars(item.description) : item.description,
+  }));
+
   return (
     <>
       <ShowcaseFeed
-        items={items}
+        items={resolvedItems}
         showNavDots={siteConfig.showcase.showNavDots}
       />
       <CmsSlotContent slug="showcase" />
