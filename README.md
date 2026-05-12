@@ -65,15 +65,15 @@ Modules are self-contained git subtrees. Install with `bun run indigo add <modul
 ### Setup
 
 ```bash
-git clone https://github.com/indigo-fw/starter.git my-app
+bunx degit indigo-fw/starter my-app   # download files only — no .git, no starter history
 cd my-app
 bun install
 cp .env.example .env    # edit DATABASE_URL if needed
-bun run init            # creates DB, runs migrations, seeds demo data
+bun run init            # git init + creates DB, runs migrations, seeds demo data
 bun run dev             # http://localhost:3000
 ```
 
-The init script is interactive — it asks what to seed. For non-interactive setup:
+`bun run init` initializes a **fresh git repository** for you (so the project is yours from commit 1, and `bun run indigo add` can subtree-pull modules) and offers to set your own `origin`. It's interactive — it also asks what to seed. For non-interactive setup:
 
 ```bash
 # Auto-accept all prompts (CI, Docker, demo deployments)

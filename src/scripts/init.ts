@@ -22,7 +22,7 @@
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { count, eq } from "drizzle-orm";
-import { execSync } from "child_process";
+import { execSync, execFileSync } from "child_process";
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
@@ -132,6 +132,193 @@ async function getAllTables(
       AND tablename NOT LIKE '__drizzle%'
   `;
   return rows.map((r) => `"${r.tablename}"`);
+}
+
+// ─── Final step: ensure a clean, self-owned git repo ────────────────────────
+
+const STARTER_REPO_HINT = "indigo-fw/starter";
+
+/** Run `git …`; let stderr through (stdin/stdout swallowed) so failures are diagnosable. */
+function gitCmd(args: string[]): void {
+  execFileSync("git", args, {
+    cwd: PROJECT_ROOT,
+    stdio: ["ignore", "ignore", "inherit"],
+  });
+}
+
+function gitAvailable(): boolean {
+  try {
+    execFileSync("git", ["--version"], { stdio: "ignore" });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function gitOriginUrl(): string | null {
+  try {
+    return execFileSync("git", ["remote", "get-url", "origin"], {
+      cwd: PROJECT_ROOT,
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .toString()
+      .trim();
+  } catch {
+    return null;
+  }
+}
+
+function gitHasCommits(): boolean {
+  try {
+    execFileSync("git", ["rev-parse", "--verify", "HEAD"], {
+      cwd: PROJECT_ROOT,
+      stdio: "ignore",
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function gitConfigLocal(key: string): string | null {
+  try {
+    return (
+      execFileSync("git", ["config", "--local", "--get", key], {
+        cwd: PROJECT_ROOT,
+        stdio: ["ignore", "pipe", "ignore"],
+      })
+        .toString()
+        .trim() || null
+    );
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * True if this checkout is the Indigo framework/dev repo and must NOT be touched
+ * by `ensureGitRepo`. Signalled by `git config indigo.role framework` (persisted
+ * in `.git/config`, never copied by `git clone` or `degit`) or `INDIGO_MAINTAINER=1`.
+ */
+function isProtectedFrameworkRepo(): boolean {
+  return (
+    process.env.INDIGO_MAINTAINER === "1" ||
+    gitConfigLocal("indigo.role") === "framework"
+  );
+}
+
+/** `git init` (idempotent) + first commit + re-install husky hooks (a new `.git` has none). */
+function freshGitInit(): boolean {
+  try {
+    gitCmd(["init"]);
+    gitCmd(["add", "-A"]);
+  } catch {
+    log("⚠️", "git init failed (see error above) — run `git init` yourself before `bun run indigo add`.");
+    return false;
+  }
+  try {
+    gitCmd(["commit", "-m", "Initial commit from Indigo starter"]);
+  } catch {
+    log("⚠️", "Could not create the initial commit (git identity not configured?).");
+    console.log('     git config user.name  "Your Name"');
+    console.log('     git config user.email "you@example.com"');
+    console.log('     git add -A && git commit -m "Initial commit from Indigo starter"');
+    return false;
+  }
+  try {
+    execFileSync("bun", ["run", "prepare"], { cwd: PROJECT_ROOT, stdio: "ignore" }); // husky → .git/hooks
+  } catch {
+    /* husky hooks are non-critical */
+  }
+  return true;
+}
+
+async function promptForOrigin(): Promise<void> {
+  if (AUTO_YES) return;
+  const url = (await prompt("  Your git remote URL (blank to skip): ")).trim();
+  if (!url) return;
+  try {
+    gitCmd(["remote", "add", "origin", url]);
+    log("🔗", `Set origin → ${url}`);
+  } catch {
+    log("⚠️", `Could not set origin — add it manually: git remote add origin "${url}"`);
+  }
+}
+
+/**
+ * Make sure the project has its own git history — not the starter's. Runs at the
+ * end of init so the first commit reflects the seeded project.
+ *
+ * - Repo marked `indigo.role=framework` (or `INDIGO_MAINTAINER=1`): do nothing.
+ *   This is the canonical dev/starter repo — it must never be re-initialised.
+ * - No `.git` (degit/tarball install), or a repo that was init'd but never got
+ *   its first commit: `git init` + initial commit, then offer to set the user's
+ *   own `origin`. Also unblocks `bun run indigo add` (subtree-pull needs a repo
+ *   with a commit).
+ * - `.git` present, has commits, `origin` → indigo-fw/starter: either a plain
+ *   `git clone` install (should be detached) or the framework dev repo (should
+ *   be marked + left alone). Ask which; the destructive path needs a typed
+ *   confirmation; nothing happens in `-y` mode.
+ */
+async function ensureGitRepo(): Promise<void> {
+  if (!gitAvailable()) {
+    log("ℹ️", "git not found on PATH — skipping repo setup.");
+    return;
+  }
+
+  const hasRepo = fs.existsSync(path.join(PROJECT_ROOT, ".git"));
+
+  // Hard guard: never touch the framework/dev repo, period.
+  if (hasRepo && isProtectedFrameworkRepo()) {
+    log("ℹ️", "Indigo framework/dev repo (indigo.role=framework) — leaving git untouched.");
+    return;
+  }
+
+  // Case A: no repo (degit / ZIP), or a repo with no commits yet (a previous
+  // run init'd it but the commit failed). Either way: get to a committed state.
+  if (!hasRepo || !gitHasCommits()) {
+    if (freshGitInit()) {
+      log("📦", hasRepo ? "Created the initial commit." : "Initialized a fresh git repository (no starter history).");
+      await promptForOrigin();
+    }
+    return;
+  }
+
+  // Case B: a real repo that still points at the starter.
+  const origin = gitOriginUrl();
+  if (!origin || !origin.includes(STARTER_REPO_HINT)) return;
+  if (AUTO_YES) return; // never touch git history non-interactively
+
+  console.log("");
+  log("⚠️", `This repo's "origin" is ${origin} — looks like a clone of the Indigo starter.`);
+  console.log("     [1] This IS the Indigo framework/dev repo — keep everything (won't ask again)");
+  console.log("     [2] This is MY app project — detach: wipe .git, start a fresh repo");
+  const choice = (await prompt("  Choose 1 or 2 [1]: ")).trim() || "1";
+
+  if (choice !== "2") {
+    try {
+      gitCmd(["config", "--local", "indigo.role", "framework"]);
+      log("✔", "Marked as framework dev repo (git config indigo.role=framework). Won't ask again.");
+    } catch {
+      log("ℹ️", "Left git untouched. (Set `git config indigo.role framework` to silence this prompt.)");
+    }
+    return;
+  }
+
+  // Destructive — require an explicit typed confirmation, not just "y".
+  const confirm = (
+    await prompt('  Type "detach" to confirm wiping .git and starting fresh: ')
+  ).trim();
+  if (confirm !== "detach") {
+    log("ℹ️", "Cancelled — git left untouched.");
+    return;
+  }
+
+  fs.rmSync(path.join(PROJECT_ROOT, ".git"), { recursive: true, force: true });
+  if (freshGitInit()) {
+    log("📦", "Re-initialized git with a fresh history.");
+    await promptForOrigin();
+  }
 }
 
 // ─── Step 1: Ensure .env ──────────────────────────────────────────────────────
@@ -799,6 +986,10 @@ async function main() {
   } finally {
     await sql.end();
   }
+
+  // Final step — make this the user's own repo, not the starter's (after seeding,
+  // so the initial commit reflects the full project).
+  await ensureGitRepo();
 
   console.log("");
   log("🚀", "Indigo is ready! Run `bun run dev` to start.");

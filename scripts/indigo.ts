@@ -61,6 +61,22 @@ function moduleExists(id: string): boolean {
   return existsSync(resolve(root, 'src', id));
 }
 
+/**
+ * `indigo push` rewrites and force-publishes subtree history to the *module*
+ * repos (indigo-fw/core, …). That's only ever correct from the framework dev
+ * repo — a downstream app's history doesn't share ancestry with those repos, so
+ * a push from there would clobber them. Gate on `origin` (or an explicit opt-in).
+ */
+function assertMaintainerRepo(): void {
+  if (process.env.INDIGO_MAINTAINER === '1') return;
+  const origin = runSilent('git remote get-url origin');
+  if (origin.includes('indigo-fw/starter')) return;
+  console.error('✗ `indigo push` is for the Indigo framework repo only.');
+  console.error(`  This repo's origin is "${origin || '(none)'}", not indigo-fw/starter.`);
+  console.error('  Push module changes from a clone of indigo-fw/starter, or set INDIGO_MAINTAINER=1 if you know what you are doing.');
+  process.exit(1);
+}
+
 function isWorkingTreeDirty(): boolean {
   const status = runSilent('git status --porcelain');
   return status.length > 0;
@@ -714,6 +730,7 @@ switch (command) {
     }
     break;
   case 'push':
+    assertMaintainerRepo();
     if (flags.all) {
       await pushAll();
     } else if (!positionalArgs[0]) {

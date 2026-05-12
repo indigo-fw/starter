@@ -4,12 +4,13 @@ Thanks for your interest in contributing! This guide will help you get started.
 
 ## Development Setup
 
-1. Fork and clone the repo
-2. Install dependencies: `bun install`
-3. Start services: `docker compose up -d`
-4. Copy env: `cp .env.example .env`
-5. Initialize DB: `bun run init`
-6. Start dev server: `bun run dev`
+1. Fork and clone the repo (use `git clone` here — not `degit` — so subtree history is intact)
+2. Mark this checkout as the framework repo so `bun run init` never re-initialises it: `git config --local indigo.role framework` (or just answer "1" the first time init asks)
+3. Install dependencies: `bun install`
+4. Start services: `docker compose up -d`
+5. Copy env: `cp .env.example .env`
+6. Initialize DB: `bun run init`
+7. Start dev server: `bun run dev`
 
 ## Making Changes
 
