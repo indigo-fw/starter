@@ -240,6 +240,10 @@ async function add(id: string) {
   console.log(`\nInstalling ${id}...`);
 
   // Step 1: Git subtree add (or skip if directory already exists)
+  // --squash: mint a single squashed commit per pull. Needs no shared ancestry
+  // with the module repo, so this works fine in repos created via `degit` (which
+  // ship no .git history). Only `indigo push` needs the real split ancestry —
+  // hence it's gated to the framework repo (see push() / assertMaintainerRepo).
   if (!moduleExists(id)) {
     const didStash = stashChanges();
     try {

@@ -1,0 +1,24 @@
+# Normalize line endings: text files stored as LF in the repo, on every platform.
+# eol=lf also forces LF in the working copy — shell scripts and husky hooks need it.
+* text=auto eol=lf
+
+# Shell scripts and git hooks must always be LF, never CRLF.
+*.sh text eol=lf
+.husky/* text eol=lf
+
+# Files git should never touch line endings on.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.avif binary
+*.svg  text
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.pdf  binary
+*.zip  binary
+*.gz   binary
