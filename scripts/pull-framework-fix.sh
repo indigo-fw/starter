@@ -43,7 +43,14 @@ git remote add "$REMOTE_NAME" "$STARTER"
 git fetch "$REMOTE_NAME"
 
 echo "→ cherry-picking: $*"
-git cherry-pick "$@"
+if ! git cherry-pick "$@"; then
+  echo >&2
+  echo "✗ cherry-pick stopped (conflict or empty commit). The temp remote was removed," >&2
+  echo "  but the cherry-pick is mid-state. Either:" >&2
+  echo "    • resolve the conflict, 'git add <files>', then 'git cherry-pick --continue'" >&2
+  echo "    • or bail out entirely:  'git cherry-pick --abort'" >&2
+  exit 1
+fi
 
 echo "✓ done. Temp remote removed. New commits:"
 git log --oneline -"$#"

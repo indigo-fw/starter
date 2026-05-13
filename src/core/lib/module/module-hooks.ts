@@ -28,9 +28,17 @@
  * Maps hook event names to their argument tuples.
  * Core defines events it owns. Modules extend via declaration merging.
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface HookMap {
   'user.beforeDelete': [userId: string];
+  /**
+   * Fired right after a user + their personal org are created (from Better
+   * Auth's `databaseHooks.user.create.after`). Optional modules hook in here
+   * for per-signup setup — link orphaned guest records, seed module data,
+   * grant a reverse trial — instead of the auth file hard-importing each
+   * module's schema. `orgId` is the personal org just created (null if that
+   * step failed).
+   */
+  'user.created': [user: { id: string; email: string; name: string | null }, orgId: string | null];
 }
 
 // ─── Typed hook registry ───────────────────────────────────────────────────
@@ -54,8 +62,14 @@ export function registerHook<K extends keyof HookMap>(
 
 /**
  * Run all handlers registered for a hook event.
- * Failures in individual handlers are caught and logged — they don't
- * propagate to the caller or prevent other handlers from running.
+ * Failures in individual handlers are caught (synchronous throws + async
+ * rejections both) — they don't propagate to the caller or prevent other
+ * handlers from running.
+ *
+ * The `Promise.resolve().then(...)` wrapper is load-bearing: a bare
+ * `list.map((fn) => fn(...args))` would let a synchronously-throwing
+ * handler abort the `.map()` itself, before `Promise.allSettled` ever
+ * sees the rest of the list.
  */
 export async function runHook<K extends keyof HookMap>(
   event: K,
@@ -63,7 +77,23 @@ export async function runHook<K extends keyof HookMap>(
 ): Promise<void> {
   const list = hooks.get(event as string) ?? [];
   if (list.length === 0) return;
-  await Promise.allSettled(list.map((fn) => fn(...args)));
+  await Promise.allSettled(
+    list.map((fn) => Promise.resolve().then(() => fn(...args))),
+  );
+}
+
+/**
+ * Remove registered handlers. Primary use is in tests, where the registry
+ * is process-global and would otherwise accumulate handlers across cases.
+ * Pass an event to clear just that event; omit to clear all hooks.
+ *
+ * Note: this does NOT touch channel authorizers, health checkers, or auth
+ * middlewares — only `runHook`/`runGuard` handlers, which is the table that
+ * accumulates per-test (one hook-event per `describe` block is typical).
+ */
+export function clearHooks<K extends keyof HookMap>(event?: K): void {
+  if (event !== undefined) hooks.delete(event as string);
+  else hooks.clear();
 }
 
 /**

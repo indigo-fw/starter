@@ -109,3 +109,18 @@ registerHook('user.beforeDelete', async (userId) => {
 registerHook('feature.require', async (orgId, feature, currentUsage) => {
   await requireFeature(orgId, feature, currentUsage as number);
 });
+
+// ─── Reverse trial (opt-in) ────────────────────────────────────────────────
+//
+// To give every new signup a no-card, full-tier trial: uncomment the
+// setReverseTrialConfig() call and add the two cron jobs in server.ts (see
+// core-subscriptions/lib/reverse-trial.ts for the snippet). The user.created
+// hook below is harmless when the config is unset (grantReverseTrialOnSignup
+// is a no-op), so it stays registered unconditionally.
+//
+// import { setReverseTrialConfig } from '@/core-subscriptions/lib/reverse-trial';
+// setReverseTrialConfig({ plan: 'pro', days: 14 });
+import { grantReverseTrialOnSignup } from '@/core-subscriptions/lib/reverse-trial';
+registerHook('user.created', async (_user, orgId) => {
+  await grantReverseTrialOnSignup(orgId);
+});

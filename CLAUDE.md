@@ -16,7 +16,7 @@ Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS:
 - **Content sync:** `bun run content:sync` — syncs `.md` files from `content/` to CMS database (also runs automatically on server start)
 - **Promote user:** `bun run promote <email>`
 - **Change password:** `bun run change-password <email>`
-- **Database:** `bun run db:generate` after schema changes, `bun run db:migrate` to apply, `bun run db:studio` for viewer
+- **Database:** `bun run db:generate` after schema changes, `bun run db:migrate` to apply, `bun run db:studio` for viewer. **`db:generate` is a maintainer step, not a downstream-install step** — it diffs the schema against `drizzle/meta/*` snapshots and, on a column rename/conflict, opens an interactive TUI prompt that *requires a real TTY* (it errors in CI/piped shells). Downstream apps only ever `db:migrate` (apply committed migrations). After editing a `src/**/schema/*.ts`, run `db:generate` in a real terminal, answer any prompts, and commit the new `drizzle/NNNN_*.sql` **and** the updated `drizzle/meta/`. If you hand-write a migration in a pinch, also append its entry to `drizzle/meta/_journal.json` (a placeholder `NNNN_snapshot.json` keeps `migrate` happy; regenerate the canonical one with `db:generate` later).
 - **Type check:** `bun run typecheck`
 - **Tests:** `bunx vitest run` (CI uses vitest for proper mock isolation). Use `asMock(fn)` from `@/test-utils` instead of `vi.mocked()`
 - **Translations:** PO files in `locales/admin/*.po`. After editing: `bun run generate-po && bun run transform:po`

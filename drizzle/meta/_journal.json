@@ -64,6 +64,13 @@
       "when": 1776023214621,
       "tag": "0008_square_the_hood",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1778717400000,
+      "tag": "0009_payment_tx_auth_fields",
+      "breakpoints": true
     }
   ]
 }

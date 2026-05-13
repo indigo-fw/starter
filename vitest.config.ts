@@ -5,6 +5,10 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     include: ['src/**/__tests__/**/*.test.ts', 'src/**/__tests__/**/*.test.tsx', 'scripts/__tests__/**/*.test.ts'],
+    // Integration tests that hit a real DB use `*.db.test.ts` and run via
+    // `bun run test:db` (vitest.db.config.ts). Don't pick them up in the
+    // default jsdom run — they'd fail without a DATABASE_URL.
+    exclude: ['**/node_modules/**', '**/*.db.test.ts'],
   },
   resolve: {
     alias: {

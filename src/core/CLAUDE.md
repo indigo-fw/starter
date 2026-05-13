@@ -23,6 +23,48 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - WS channel auth: `registerChannelAuthorizer(fn)`
 - Schema overrides: modules declare `overridableSchema` in `module.config.ts`; project extends at `src/schema/overrides/`
 
+### `user.created` hook — per-signup module setup
+
+Fired by `handleUserCreated()` in `src/lib/auth.ts` right after a new user + their personal org are created (from Better Auth's `databaseHooks.user.create.after`). Replaces the old pattern of hard-importing module schemas into `auth.ts` — `auth.ts` doesn't know what modules are installed; modules opt themselves in via this hook.
+
+**Signature** (from `src/core/lib/module/module-hooks.ts`):
+```ts
+'user.created': [user: { id: string; email: string; name: string | null }, orgId: string | null]
+```
+`orgId` is the personal org just created — `null` if that step failed (so handlers can decide whether to skip org-scoped work or fall back to user-scoped).
+
+**Register a handler** in your module's deps file (runs once during `serverInit`):
+```ts
+// src/config/deps/<module>-deps.ts
+import { registerHook } from '@/core/lib/module/module-hooks';
+
+registerHook('user.created', async (user, orgId) => {
+  if (!orgId) return;                       // org creation failed upstream
+  // …link orphaned guest records, grant reverse trial, seed module data, etc.
+});
+```
+
+Handler errors are caught + logged — they never fail signup. Multiple handlers run via `Promise.allSettled`, so one failing doesn't block the others.
+
+**Worked examples in the repo:**
+- `core-support` — links any guest chat sessions started before signup (`src/config/deps/support-deps.ts`)
+- `core-subscriptions` — grants the reverse trial (`src/config/deps/subscriptions-deps.ts` → `grantReverseTrialOnSignup`)
+
+**Adding a new hook event:** declare-merge `HookMap` in `src/core/lib/module/module-hooks.ts` (core-owned events) or in a module's `types/hooks.ts` (module-owned). Keep the tuple labels descriptive — they show up in IDE hover.
+
+## Known decoupling debt (so `indigo remove <module>` stays clean)
+
+`indigo remove <module>` regenerates `src/generated/*` but the **starter still hard-imports a few optional-module symbols in core files**, so removing a module leaves the build red until you hand-patch them. These should move to the registry/hook/widget pattern so removal is mechanical:
+
+- `src/app/(public)/[...slug]/renderers/PostDetail.tsx` & `ShowcaseDetail.tsx` → `<CommentSection>` from `core-comments`. Should be a *content-slot widget*: modules contribute `{ slot: 'post-footer', from, export }` in `module.config.ts`, `indigo:sync` generates `src/generated/content-slots.tsx`, the renderer does `<ContentSlot name="post-footer" targetType="post" targetId={id} />`.
+- `src/app/(public)/layout.tsx` → `<CartWidget>` from `core-store`. Same idea — a `headerWidgets` slot, or fold into the existing `PUBLIC_LAYOUT_WIDGETS`.
+- `src/lib/auth.ts` → `billingProfiles` from `core-payments` (personal-org billing-profile creation). Move to a `'user.created'` hook in `payments-deps.ts` (like core-support's chat-linking already is).
+- `src/app/sitemap.ts` → `cmsAuthors` from `core-authors`, dynamic `core-store/schema/products`. Sitemap fetchers should come from a `registerSitemapFetcher()` registry that modules populate in their deps files.
+- `src/app/api/webhooks/stripe/route.ts` → dynamic `import('@/core-store/lib/webhook-handler')` for store-order events. Route provider events through a `registerWebhookEventRouter()` registry instead.
+- `src/components/public/ShowcaseFeed.tsx` → `<CommentPanel>` + `trpc.comments.*`. Same content-slot pattern.
+- `src/config/chat-presets/*` → `@/core-chat/*` — these are project files shipped *by* `core-chat`; `indigo remove core-chat` should delete them (it removes `projectFiles`, so this may already work — verify).
+- `src/app/dashboard/(panel)/settings/chat/queue/page.tsx`, `store/orders/[id]/page.tsx`, etc. → `trpc.chatTaskQueue` / `trpc.storeOrders` — these are module dashboard pages; they should be `projectFiles` of their module so `indigo remove` deletes them.
+
 ## Shared Utilities — Use These, Don't Reinvent
 
 **CRUD & queries:**

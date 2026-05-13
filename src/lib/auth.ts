@@ -3,18 +3,10 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { admin, customSession, organization } from 'better-auth/plugins';
 import { role } from 'better-auth/plugins/access';
 
-import { eq, and, count, isNull } from 'drizzle-orm';
 import { Role } from '@/core/policy';
-import { createLogger } from '@/core/lib/infra/logger';
-import { slugify } from '@/core/lib/content/slug';
 import { db } from '@/server/db';
-import { organization as organizationTable, member } from '@/server/db/schema/organization';
-import { billingProfiles } from '@/core-payments/schema/billing-profile';
-import { saasSupportChatSessions } from '@/core-support/schema/support-chat';
 import { enqueueTemplateEmail } from '@/core/lib/email';
-import { syncSubscriber } from '@/core/lib/email-list/index';
-
-const log = createLogger('auth');
+import { handleUserCreated } from '@/lib/auth-hooks';
 
 function createAuth() {
   return betterAuth({
@@ -67,71 +59,9 @@ function createAuth() {
     databaseHooks: {
       user: {
         create: {
-          after: async (user) => {
-            // Auto-create personal organization for billing/token support.
-            // Always runs — even when ORGANIZATIONS_VISIBLE=false, billing
-            // needs an org owner. The user never sees it in B2C mode.
-            try {
-              const orgName = user.name ? `${user.name}'s workspace` : 'My workspace';
-              let slug = slugify(orgName);
-              // Ensure slug uniqueness
-              const [existing] = await db
-                .select({ count: count() })
-                .from(organizationTable)
-                .where(eq(organizationTable.slug, slug));
-              if ((existing?.count ?? 0) > 0) {
-                slug = `${slug}-${user.id.slice(0, 8)}`;
-              }
-
-              const orgId = crypto.randomUUID();
-              await db.insert(organizationTable).values({
-                id: orgId,
-                name: orgName,
-                slug,
-                createdAt: new Date(),
-              });
-              await db.insert(member).values({
-                id: crypto.randomUUID(),
-                organizationId: orgId,
-                userId: user.id,
-                role: 'owner',
-                createdAt: new Date(),
-              });
-
-              // Auto-create billing profile with user's name as legal name
-              await db.insert(billingProfiles).values({
-                organizationId: orgId,
-                legalName: user.name ?? user.email,
-              });
-
-              log.info('Personal org created', { userId: user.id, orgId });
-            } catch (err: unknown) {
-              log.error('Failed to create personal org', { userId: user.id, error: String(err) });
-            }
-
-            // Link orphaned chat sessions that used this email before registration
-            try {
-              await db
-                .update(saasSupportChatSessions)
-                .set({ userId: user.id })
-                .where(and(
-                  eq(saasSupportChatSessions.email, user.email),
-                  isNull(saasSupportChatSessions.userId),
-                ));
-            } catch (err: unknown) {
-              log.warn('Failed to link chat sessions', { email: user.email, error: String(err) });
-            }
-
-            // Sync to email list (fire-and-forget)
-            syncSubscriber(user.email, {
-              firstName: user.name ?? undefined,
-              tags: ['registered'],
-            });
-
-            // Welcome email skipped — verification email (sendOnSignUp) serves as the welcome.
-            // The old standalone welcome email sent mixed signals ("Go to Dashboard")
-            // alongside a "verify your email" message arriving at the same time.
-          },
+          // Body extracted to `handleUserCreated` (top of file) for direct
+          // unit-testability of the personal-org + hook-wiring path.
+          after: async (user) => { await handleUserCreated(user); },
         },
       },
     },

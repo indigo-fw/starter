@@ -39,3 +39,41 @@ jobs:
           BETTER_AUTH_SECRET: "ci-test-secret-that-is-at-least-32-chars-long"
           NEXT_PUBLIC_APP_URL: "http://localhost:3000"
         run: bun run build
+
+  # Integration tests against a real Postgres — runs `bun run test:db`, which
+  # spins up a temp DB, applies all migrations, exercises the *.db.test.ts
+  # suite, then drops the DB. This is what catches migration drift in CI.
+  test-db:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # Wait for Postgres to accept connections before steps run.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: "latest"
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run DB integration tests
+        env:
+          TEST_DB_URL: "postgres://postgres:postgres@localhost:5432/postgres"
+        run: bun run test:db
