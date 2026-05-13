@@ -1,1 +1,0 @@
-ALTER TABLE "cms_showcase" ADD COLUMN "variant" varchar(20) DEFAULT 'full' NOT NULL;

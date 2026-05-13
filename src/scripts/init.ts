@@ -425,17 +425,15 @@ async function ensureDatabase(): Promise<string> {
 // ─── Step 3: Run migrations ─────────────────────────────────────────────────
 
 function runMigrations() {
-  // Generate migrations if none exist yet (fresh clone or reset)
+  // No fallback to `drizzle-kit generate`: it's a maintainer step that needs a
+  // real TTY for rename prompts and can't run in CI/Docker. Committed migrations
+  // are required. If they're missing, the starter is broken — bail loudly.
   const journalPath = path.resolve(process.cwd(), "drizzle/meta/_journal.json");
   if (!fs.existsSync(journalPath)) {
-    log("🔄", "No migrations found — generating from schema...");
-    try {
-      execSync("bunx drizzle-kit generate", { stdio: "inherit" });
-      log("✅", "Migrations generated.");
-    } catch {
-      console.error("Migration generation failed. Check the error above.");
-      process.exit(1);
-    }
+    console.error(
+      "drizzle/meta/_journal.json is missing. The starter ships committed migrations — generate them with `bunx drizzle-kit generate` in a real terminal (maintainer-only) and commit `drizzle/`.",
+    );
+    process.exit(1);
   }
 
   log("🔄", "Running database migrations...");
