@@ -17,16 +17,18 @@ So you've decided to build a SaaS. Good choice — and even better choice pickin
 This guide assumes you have Bun installed and a PostgreSQL database available. See the [installation docs](/docs/getting-started/installation) for prerequisites.
 </Callout>
 
-## Clone and Initialize
+## Scaffold and Initialize
 
 <Steps>
-<Step title="Clone the starter">
+<Step title="Download the starter">
 
 ```bash
-git clone https://github.com/indigo-fw/starter my-saas
+bunx degit indigo-fw/starter my-saas
 cd my-saas
 bun install
 ```
+
+`degit` grabs the files without any git history, so your project isn't tied to the starter's repo. `bun run init` will set up a fresh git repository for you.
 
 </Step>
 <Step title="Configure your environment">

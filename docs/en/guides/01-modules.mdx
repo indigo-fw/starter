@@ -65,6 +65,8 @@ bun run indigo sync
 
 Each module has a `module.config.ts` that self-describes its routers, schema, jobs, widgets, and project files. When you run `bun run indigo:sync`, these are merged into generated glue files in `src/generated/`.
 
+Modules are pulled in as git subtrees with `git subtree … --squash`, which doesn't require any shared history — so `indigo add` / `indigo update` work the same whether your project came from `bunx degit` or a `git clone`. (Pushing changes back to a module's upstream repo — `indigo push` — is for module maintainers and only works from the framework repo.)
+
 > [!NOTE]
 > After installing or removing a module, always run `bun run db:generate` and `bun run db:migrate` to apply schema changes.
 

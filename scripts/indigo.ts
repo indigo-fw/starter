@@ -6,11 +6,17 @@
  *   bun run indigo add <module>                Install a module (subtree + scaffold + sync + migrate)
  *   bun run indigo remove <module> [--yes]      Remove a module (config + sync + cleanup)
  *   bun run indigo remove <module> --drop-tables Remove module and generate DROP migration
- *   bun run indigo update <module>              Update a module (subtree pull)
+ *   bun run indigo update <module>              Update a module (subtree pull --squash)
  *   bun run indigo update --all                 Update all installed modules
- *   bun run indigo push <module>                Push module changes to its upstream repo
- *   bun run indigo push --all                   Push all installed modules to their repos
- *   bun run indigo push core                    Push the core engine to its repo
+ *   bun run indigo push <module>                Push module changes upstream — framework repo only*
+ *   bun run indigo push --all                   Push all installed modules to their repos*
+ *   bun run indigo push core                    Push the core engine to its repo*
+ *
+ *   * `push` rewrites/force-publishes subtree history to the module repos, which
+ *     only works from the framework dev repo (real split ancestry). It's gated by
+ *     assertMaintainerRepo() — origin must be indigo-fw/starter, or INDIGO_MAINTAINER=1.
+ *     Downstream app repos consume modules with `add`/`update` (subtree pull --squash,
+ *     no shared ancestry needed) and never push.
  *   bun run indigo list                         Show installed and available modules
  *   bun run indigo sync                         Regenerate glue files from indigo.config.ts
  *   bun run indigo doctor                       Validate project health (env, DB, modules, deps)
@@ -771,8 +777,8 @@ switch (command) {
     console.log('  bun run indigo remove <module> --drop-tables Remove + generate DROP migration');
     console.log('  bun run indigo update <module>              Update a module (pull latest)');
     console.log('  bun run indigo update --all                 Update all installed modules');
-    console.log('  bun run indigo push <module>                Push module to upstream repo');
-    console.log('  bun run indigo push --all                   Push all modules to upstream repos');
+    console.log('  bun run indigo push <module>                Push module upstream (framework repo only)');
+    console.log('  bun run indigo push --all                   Push all modules upstream (framework repo only)');
     console.log('  bun run indigo list                         Show modules');
     console.log('  bun run indigo sync                         Regenerate glue files');
     console.log('  bun run indigo doctor                       Validate project health');

@@ -17,6 +17,9 @@
  * 7. Writes site name / URL back to .env
  * 8. Seeds default site options
  * 9. Selectively seeds: CMS content, module data, extras
+ * 10. Ensures a clean, self-owned git repo (`git init` + first commit when there
+ *     is none — e.g. after `degit` — then offers to set `origin`). Skips the
+ *     framework dev repo entirely (`indigo.role=framework` / `INDIGO_MAINTAINER=1`).
  */
 
 import postgres from "postgres";

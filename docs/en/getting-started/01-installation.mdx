@@ -15,13 +15,15 @@ description: How to install and set up Indigo for a new project
 
 ## Quick Start
 
-Clone the starter template and install dependencies:
+Download the starter template (files only — no git history) and install dependencies:
 
 ```bash
-git clone https://github.com/indigo-fw/starter my-project
+bunx degit indigo-fw/starter my-project
 cd my-project
 bun install
 ```
+
+> Use `degit` rather than `git clone` so your project starts with a clean slate — no link back to the starter's remote or commit history. `bun run init` (below) creates a fresh git repository for you.
 
 Copy the example environment file and configure your database:
 
@@ -38,15 +40,15 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_SITE_NAME=My Project
 ```
 
-## Initialize the Database
+## Initialize
 
-Run the init script to create the database, run migrations, create a superadmin account, and seed default content:
+Run the init script. It creates the database, runs migrations, creates a superadmin account, seeds default content, and **initializes a fresh git repository** for your project (then offers to set your own `origin`):
 
 ```bash
 bun run init
 ```
 
-This will prompt you for a superadmin email and password.
+This will prompt you for a superadmin email and password. For non-interactive setup (CI, Docker), use `bun run init -- -y` — in that mode it leaves git alone.
 
 ## Start Development
 
