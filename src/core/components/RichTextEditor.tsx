@@ -49,6 +49,7 @@ import { usePrompt } from '@/core/hooks';
 import type { EditorHandle } from '@/core/hooks/useLinkPicker';
 import type { ShortcodeConfig } from '@/core/types/shortcodes';
 import { ContentVariableNode, prepareVarsForEditor, serializeVarsForStorage } from './editor/ContentVariableNode';
+import { ClassStylePreserver, HtmlDivNode, HtmlInlineDivNode, HtmlSpanMark } from './editor/HtmlContainerNodes';
 import { ResizableImage } from './editor/ResizableImage';
 import { DragHandle } from './editor/DragHandle';
 import { createSlashCommandExtension } from './editor/slash-commands';
@@ -289,7 +290,19 @@ export function RichTextEditor({
         },
       }),
       Underline,
-      Link.configure({
+      Link.extend({
+        addAttributes() {
+          return {
+            ...this.parent?.(),
+            class: {
+              default: null,
+              parseHTML: (element) => element.getAttribute('class'),
+              renderHTML: (attrs) =>
+                attrs.class ? { class: attrs.class as string } : {},
+            },
+          };
+        },
+      }).configure({
         openOnClick: false,
         HTMLAttributes: { rel: 'noopener noreferrer' },
       }),
@@ -320,6 +333,10 @@ export function RichTextEditor({
       }),
       ...(shortcodes?.extension ? [shortcodes.extension] : []),
       ContentVariableNode,
+      ClassStylePreserver,
+      HtmlDivNode,
+      HtmlInlineDivNode,
+      HtmlSpanMark,
     ],
     content: prepareVarsForEditor(scPrepareRef.current(markdownToHtml(content))),
     onUpdate: ({ editor: e }) => {

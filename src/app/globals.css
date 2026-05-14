@@ -2,6 +2,13 @@
 @plugin "@tailwindcss/typography";
 @custom-variant dark (html.dark &);
 
+/* Tailwind v4 scans @source paths for class names at build time.
+   CMS file-based content (.md synced to DB, .mdx rendered at runtime) can
+   embed Tailwind utility classes — without scanning these files those
+   classes never reach the compiled stylesheet. */
+@source "../../content/**/*.md";
+@source "../../content/**/*.mdx";
+
 @utility app-container {
   max-width: 80rem;
   margin-inline: auto;

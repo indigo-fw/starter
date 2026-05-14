@@ -37,6 +37,25 @@ Rich content rendered at request time with JSX components. Takes priority over C
 
 Values come from `src/config/site.ts` defaults, overridable via `cms_options` DB table. Changing values takes effect immediately — no re-sync needed.
 
+## Tailwind Utility Blocks (Promotional Pages)
+
+CMS body content is rendered inside `prose prose-gray dark:prose-invert max-w-none` (Tailwind Typography). Prose **resets** most child element styles — so a raw `<div class="grid gap-4">…</div>` block embedded in markdown will inherit prose's paragraph margins, list bullets, link underlines, etc. instead of looking like the design you intend.
+
+For utility-class promo blocks (cards, hero CTAs, pricing grids, badge rows), wrap them in `not-prose`:
+
+```html
+<div class="not-prose grid gap-4 md:grid-cols-2">
+  <div class="rounded-2xl border border-brand-500/30 p-6">
+    <div class="text-5xl font-bold">40%</div>
+    <p>Lifetime revenue share.</p>
+  </div>
+</div>
+```
+
+Authors using the Visual editor: write these blocks in **Source mode** (the WYSIWYG editor preserves them but offers no UI to add classes; Source is the right tool for utility-driven HTML).
+
+The `@source '../../content/**/*.md'` directive in `src/app/globals.css` makes Tailwind v4 scan content files at build time, so utility classes you write inside `.md` / `.mdx` are emitted into the compiled stylesheet.
+
 ## Seeding
 
 `bun run init` copies templates from `src/core/_templates/content/{locale}/` to `content/{locale}/`. Files are copied verbatim with `%VAR%` placeholders. Never overwrites existing files.

@@ -26,7 +26,26 @@ async function getTurndown() {
   });
 
   td.use(gfm);
-  td.keep(['u']);
+  // Keep <u> + raw HTML containers used in promo/CMS pages (Tailwind-styled
+  // divs/spans/sections). Without these, Turndown unwraps them and drops the
+  // class attributes during the WYSIWYG round-trip.
+  td.keep(['u', 'div', 'span', 'section']);
+
+  // Preserve `class` attribute on inline-styled elements that Turndown would
+  // otherwise convert to plain markdown (e.g. `<p class="text-center">…</p>`
+  // → "…", `<a class="btn" href>` → "[…](…)`). For these tags we emit raw
+  // HTML so Tailwind classes survive the round-trip through the editor.
+  const PRESERVE_CLASS_TAGS = ['P', 'A', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+  td.addRule('preserveClassAttribute', {
+    filter: (node) => {
+      if (!PRESERVE_CLASS_TAGS.includes(node.nodeName)) return false;
+      const cls = node.getAttribute?.('class');
+      return !!cls && cls.trim().length > 0;
+    },
+    replacement: (_content, node) => {
+      return `\n\n${(node as HTMLElement).outerHTML}\n\n`;
+    },
+  });
 
   td.addRule('styledImage', {
     filter: (node) => {

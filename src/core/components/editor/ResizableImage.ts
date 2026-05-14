@@ -23,6 +23,16 @@ export const ResizableImage = Image.extend({
           return { width: attrs.width, style: `width: ${attrs.width}` };
         },
       },
+      // Preserve user-provided `class` so author Tailwind utilities
+      // (e.g. `<img class="my-shadow">`) survive the round-trip. The
+      // configured default class from RichTextEditor (`rounded-lg max-w-full`)
+      // still merges in via Tiptap's mergeAttributes.
+      class: {
+        default: null,
+        parseHTML: (el) => el.getAttribute('class'),
+        renderHTML: (attrs) =>
+          attrs.class ? { class: attrs.class as string } : {},
+      },
     };
   },
 
