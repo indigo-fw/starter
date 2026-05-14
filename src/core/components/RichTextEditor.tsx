@@ -50,6 +50,8 @@ import type { EditorHandle } from '@/core/hooks/useLinkPicker';
 import type { ShortcodeConfig } from '@/core/types/shortcodes';
 import { ContentVariableNode, prepareVarsForEditor, serializeVarsForStorage } from './editor/ContentVariableNode';
 import { ClassStylePreserver, HtmlDivNode, HtmlInlineDivNode, HtmlSpanMark } from './editor/HtmlContainerNodes';
+import { MarkdownSourceEditor } from './editor/MarkdownSourceEditor';
+import type { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import { ResizableImage } from './editor/ResizableImage';
 import { DragHandle } from './editor/DragHandle';
 import { createSlashCommandExtension } from './editor/slash-commands';
@@ -186,7 +188,7 @@ export function RichTextEditor({
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const sourceTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const sourceEditorRef = useRef<ReactCodeMirrorRef | null>(null);
   const reactId = useId();
   const editorIdRef = useRef(`editor-${reactId.replace(/:/g, '')}`);
   const [editorHeight, setEditorHeight] = useState(height ?? '400px');
@@ -424,18 +426,15 @@ export function RichTextEditor({
     editorRef.current = {
       replaceSelection: (text: string) => {
         if (mode === 'source') {
-          const textarea = sourceTextareaRef.current;
-          if (textarea) {
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const val = textarea.value;
-            const newValue = val.slice(0, start) + text + val.slice(end);
-            setSourceValue(newValue);
-            onChangeRef.current(newValue);
-            requestAnimationFrame(() => {
-              textarea.selectionStart = textarea.selectionEnd = start + text.length;
-              textarea.focus();
+          const view = sourceEditorRef.current?.view;
+          if (view) {
+            const sel = view.state.selection.main;
+            view.dispatch({
+              changes: { from: sel.from, to: sel.to, insert: text },
+              selection: { anchor: sel.from + text.length },
+              scrollIntoView: true,
             });
+            view.focus();
           }
         } else if (editor) {
           const linkMatch = text.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
@@ -454,13 +453,15 @@ export function RichTextEditor({
       insertImage: (src: string, alt?: string) => {
         if (mode === 'source') {
           const md = alt ? `![${alt}](${src})` : `![](${src})`;
-          const textarea = sourceTextareaRef.current;
-          if (textarea) {
-            const start = textarea.selectionStart;
-            const val = textarea.value;
-            const newValue = val.slice(0, start) + md + val.slice(start);
-            setSourceValue(newValue);
-            onChangeRef.current(newValue);
+          const view = sourceEditorRef.current?.view;
+          if (view) {
+            const sel = view.state.selection.main;
+            view.dispatch({
+              changes: { from: sel.from, to: sel.from, insert: md },
+              selection: { anchor: sel.from + md.length },
+              scrollIntoView: true,
+            });
+            view.focus();
           }
         } else if (editor) {
           editor.chain().focus().setImage({ src, alt: alt ?? '' }).run();
@@ -839,16 +840,15 @@ export function RichTextEditor({
               className="h-full"
             />
           ) : (
-            <textarea
-              ref={sourceTextareaRef}
+            <MarkdownSourceEditor
+              editorRef={sourceEditorRef}
               value={sourceValue}
-              onChange={(e) => {
-                setSourceValue(e.target.value);
-                lastEmittedContent.current = e.target.value;
-                onChangeRef.current(e.target.value);
+              onChange={(value) => {
+                setSourceValue(value);
+                lastEmittedContent.current = value;
+                onChangeRef.current(value);
               }}
-              className="tiptap-source-textarea h-full w-full resize-none border-none bg-transparent px-4 py-3 font-mono text-[13px] leading-relaxed text-inherit outline-none"
-              style={{ tabSize: 2 }}
+              className="cms-source-editor h-full"
             />
           )}
         </div>
