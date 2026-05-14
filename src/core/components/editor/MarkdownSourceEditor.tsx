@@ -5,10 +5,9 @@ import CodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { html } from '@codemirror/lang-html';
 import { LanguageDescription } from '@codemirror/language';
-import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView } from '@codemirror/view';
 
-import { useThemeStore } from '@/core/store/theme-store';
+import { indigoCodeMirrorTheme } from './codemirror-theme';
 
 interface MarkdownSourceEditorProps {
   value: string;
@@ -24,12 +23,10 @@ interface MarkdownSourceEditorProps {
  * authoring. Used as the "Source" tab in the CMS RichTextEditor in place of
  * a plain textarea.
  *
- * Features:
- * - Markdown syntax highlighting with embedded HTML (via lang-markdown +
- *   lang-html as a code-language fallback)
- * - Reactive light/dark theme driven by `useThemeStore().resolvedTheme`
- * - Line numbers, code folding, bracket matching, find/replace, multi-cursor
- * - Soft line wrapping so long Tailwind class strings stay visible
+ * Theme: `indigoCodeMirrorTheme` consumes the design-token CSS variables
+ * (`--surface-secondary`, `--text-primary`, `--color-brand-500`, etc.) so
+ * light/dark mode follows `html.dark` automatically — no JS subscription
+ * to the theme store needed.
  */
 export function MarkdownSourceEditor({
   value,
@@ -38,8 +35,6 @@ export function MarkdownSourceEditor({
   className,
   editorRef,
 }: MarkdownSourceEditorProps) {
-  const resolvedTheme = useThemeStore((s) => s.resolvedTheme);
-
   // Stable extensions array — recreating it would re-mount the EditorView
   // and lose cursor / scroll / undo state on every render.
   const extensions = useMemo(
@@ -57,6 +52,7 @@ export function MarkdownSourceEditor({
         ],
       }),
       EditorView.lineWrapping,
+      ...indigoCodeMirrorTheme,
     ],
     [],
   );
@@ -67,7 +63,6 @@ export function MarkdownSourceEditor({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      theme={resolvedTheme === 'dark' ? oneDark : 'light'}
       extensions={extensions}
       basicSetup={{
         lineNumbers: true,

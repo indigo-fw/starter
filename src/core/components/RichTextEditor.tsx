@@ -38,6 +38,7 @@ import {
   PanelRightOpen,
   PanelRightClose,
   Braces,
+  Sparkles,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -60,7 +61,7 @@ import { createSlashCommandRender } from './editor/slash-command-renderer';
 import { EditorBubbleMenu } from './editor/EditorBubbleMenu';
 import { ImageBubbleMenu } from './editor/ImageBubbleMenu';
 import { TableMenu } from './editor/TableMenu';
-import { AiAssistMenu } from './editor/AiAssistMenu';
+import { AiAssistMenu, codeMirrorAiAdapter, tiptapAiAdapter } from './editor/AiAssistMenu';
 import { LivePreview } from './editor/LivePreview';
 
 import './editor/editor-styles.css';
@@ -880,43 +881,69 @@ export function RichTextEditor({
           </>
         )}
 
-        {/* AI Assist floating menu */}
-        {mode === 'wysiwyg' && onAiTransform && (
-          <AiAssistMenu
-            editor={editor}
-            __={__}
-            open={aiAssistOpen}
-            onClose={() => setAiAssistOpen(false)}
-            onSubmit={onAiTransform}
-          />
-        )}
+        {/* AI Assist floating menu — works in both WYSIWYG and Source mode
+            via per-mode editor adapters. Source mode is the primary surface
+            for LLM-generated content authoring. */}
+        {onAiTransform && (() => {
+          const adapter =
+            mode === 'wysiwyg'
+              ? tiptapAiAdapter(editor)
+              : sourceEditorRef.current?.view
+                ? codeMirrorAiAdapter(sourceEditorRef.current.view)
+                : null;
+          if (!adapter) return null;
+          return (
+            <AiAssistMenu
+              adapter={adapter}
+              __={__}
+              open={aiAssistOpen}
+              onClose={() => setAiAssistOpen(false)}
+              onSubmit={onAiTransform}
+            />
+          );
+        })()}
 
-        {/* Mode tabs (bottom) */}
-        <div className="editor-mode-tabs flex justify-end border-t border-(--border-primary) bg-(--surface-secondary) shrink-0">
-          <button
-            type="button"
-            className={cn(
-              '-mt-px border-t-2 px-4 py-1.5 text-[13px] transition-colors',
-              mode === 'wysiwyg'
-                ? 'border-brand-500 text-brand-500 dark:border-brand-400 dark:text-brand-400 bg-(--surface-primary)'
-                : 'border-transparent text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--surface-primary)',
+        {/* Mode tabs + always-visible AI assist (works in both modes) */}
+        <div className="editor-mode-tabs flex items-center justify-between border-t border-(--border-primary) bg-(--surface-secondary) shrink-0">
+          <div>
+            {onAiTransform && (
+              <button
+                type="button"
+                onClick={() => setAiAssistOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-[13px] text-(--text-secondary) hover:text-accent-500 hover:bg-(--surface-primary) transition-colors"
+                title={__('AI Assist (works in both Visual and Source mode)')}
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                {__('AI Assist')}
+              </button>
             )}
-            onClick={() => mode !== 'wysiwyg' && toggleMode()}
-          >
-            {__('Visual')}
-          </button>
-          <button
-            type="button"
-            className={cn(
-              '-mt-px border-t-2 px-4 py-1.5 text-[13px] transition-colors',
-              mode === 'source'
-                ? 'border-brand-500 text-brand-500 dark:border-brand-400 dark:text-brand-400 bg-(--surface-primary)'
-                : 'border-transparent text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--surface-primary)',
-            )}
-            onClick={() => mode !== 'source' && toggleMode()}
-          >
-            {__('Source')}
-          </button>
+          </div>
+          <div className="flex">
+            <button
+              type="button"
+              className={cn(
+                '-mt-px border-t-2 px-4 py-1.5 text-[13px] transition-colors',
+                mode === 'wysiwyg'
+                  ? 'border-brand-500 text-brand-500 dark:border-brand-400 dark:text-brand-400 bg-(--surface-primary)'
+                  : 'border-transparent text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--surface-primary)',
+              )}
+              onClick={() => mode !== 'wysiwyg' && toggleMode()}
+            >
+              {__('Visual')}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                '-mt-px border-t-2 px-4 py-1.5 text-[13px] transition-colors',
+                mode === 'source'
+                  ? 'border-brand-500 text-brand-500 dark:border-brand-400 dark:text-brand-400 bg-(--surface-primary)'
+                  : 'border-transparent text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--surface-primary)',
+              )}
+              onClick={() => mode !== 'source' && toggleMode()}
+            >
+              {__('Source')}
+            </button>
+          </div>
         </div>
 
         {/* Resize handle */}

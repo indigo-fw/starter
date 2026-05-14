@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Editor } from '@tiptap/react';
+import type { EditorView } from '@codemirror/view';
 import { computePosition, flip, shift, offset } from '@floating-ui/dom';
 import {
   Sparkles,
@@ -59,8 +60,64 @@ function getDefaultActions(__: (s: string) => string): AiAssistAction[] {
   ];
 }
 
+/**
+ * Editor-agnostic interface that lets `AiAssistMenu` work over either a
+ * Tiptap (WYSIWYG) editor or a CodeMirror (Source mode) view.
+ */
+export interface AiAssistAdapter {
+  /** Currently-selected text (empty string if no selection). */
+  getSelectedText: () => string;
+  /** Replace the current selection with the AI result. */
+  applyResult: (text: string) => void;
+  /** Viewport coords of the selection start, used to anchor the floating menu. */
+  getSelectionCoords: () => { left: number; top: number; bottom: number } | null;
+}
+
+/** Adapter for a Tiptap editor. */
+export function tiptapAiAdapter(editor: Editor): AiAssistAdapter {
+  return {
+    getSelectedText: () => {
+      const { from, to } = editor.state.selection;
+      return editor.state.doc.textBetween(from, to, ' ');
+    },
+    applyResult: (text) => {
+      const { from, to } = editor.state.selection;
+      editor.chain().focus().deleteRange({ from, to }).insertContentAt(from, text).run();
+    },
+    getSelectionCoords: () => {
+      const pos = editor.state.selection.from;
+      return editor.view.coordsAtPos(pos);
+    },
+  };
+}
+
+/** Adapter for a CodeMirror EditorView (Source mode). */
+export function codeMirrorAiAdapter(view: EditorView): AiAssistAdapter {
+  return {
+    getSelectedText: () => {
+      const sel = view.state.selection.main;
+      return view.state.sliceDoc(sel.from, sel.to);
+    },
+    applyResult: (text) => {
+      const sel = view.state.selection.main;
+      view.dispatch({
+        changes: { from: sel.from, to: sel.to, insert: text },
+        selection: { anchor: sel.from + text.length },
+        scrollIntoView: true,
+      });
+      view.focus();
+    },
+    getSelectionCoords: () => {
+      const sel = view.state.selection.main;
+      const coords = view.coordsAtPos(sel.from);
+      if (!coords) return null;
+      return { left: coords.left, top: coords.top, bottom: coords.bottom };
+    },
+  };
+}
+
 interface AiAssistMenuProps {
-  editor: Editor;
+  adapter: AiAssistAdapter;
   __: (s: string) => string;
   open: boolean;
   onClose: () => void;
@@ -68,7 +125,7 @@ interface AiAssistMenuProps {
   onSubmit: (text: string, instruction: string) => Promise<string>;
 }
 
-export function AiAssistMenu({ editor, __, open, onClose, onSubmit }: AiAssistMenuProps) {
+export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistMenuProps) {
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -78,14 +135,8 @@ export function AiAssistMenu({ editor, __, open, onClose, onSubmit }: AiAssistMe
   const inputRef = useRef<HTMLInputElement>(null);
   const actions = getDefaultActions(__);
 
-  // Get selected text
-  const getSelectedText = useCallback(() => {
-    const { from, to } = editor.state.selection;
-    return editor.state.doc.textBetween(from, to, ' ');
-  }, [editor]);
-
   const runAction = useCallback(async (instruction: string) => {
-    const text = getSelectedText();
+    const text = adapter.getSelectedText();
     if (!text) return;
     setLoading(true);
     setError(null);
@@ -98,15 +149,14 @@ export function AiAssistMenu({ editor, __, open, onClose, onSubmit }: AiAssistMe
     } finally {
       setLoading(false);
     }
-  }, [getSelectedText, onSubmit, __]);
+  }, [adapter, onSubmit, __]);
 
   const applyResult = useCallback(() => {
     if (!result) return;
-    const { from, to } = editor.state.selection;
-    editor.chain().focus().deleteRange({ from, to }).insertContentAt(from, result).run();
+    adapter.applyResult(result);
     onClose();
     setResult(null);
-  }, [result, editor, onClose]);
+  }, [result, adapter, onClose]);
 
   const discardResult = useCallback(() => {
     setResult(null);
@@ -117,8 +167,8 @@ export function AiAssistMenu({ editor, __, open, onClose, onSubmit }: AiAssistMe
   useEffect(() => {
     if (!open || !menuRef.current) return;
 
-    const selectionFrom = editor.state.selection.from;
-    const coords = editor.view.coordsAtPos(selectionFrom);
+    const coords = adapter.getSelectionCoords();
+    if (!coords) return;
 
     const virtualEl = {
       getBoundingClientRect: () => ({
@@ -147,7 +197,7 @@ export function AiAssistMenu({ editor, __, open, onClose, onSubmit }: AiAssistMe
         top: `${y}px`,
       });
     });
-  }, [open, editor, result, error, loading, showCustom]);
+  }, [open, adapter, result, error, loading, showCustom]);
 
   // Focus custom input when shown
   useEffect(() => {
