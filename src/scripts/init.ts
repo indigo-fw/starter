@@ -210,6 +210,42 @@ function isProtectedFrameworkRepo(): boolean {
   );
 }
 
+/**
+ * Local-only ignore rules that apply to *the framework dev checkout only*. They
+ * live in `.git/info/exclude` — not tracked, not pushed, not copied by clone or
+ * degit, so downstream user installs are unaffected. Currently: hide the
+ * install-seeded `content/{locale}/*.md` files so they don't clutter
+ * `git status` in dev work. (Downstream users may want to track their
+ * customized versions, which is why this isn't in `.gitignore`.)
+ *
+ * Idempotent: detected via the pattern itself, so re-running is a no-op and the
+ * pre-existing block I wrote manually in the framework dev repo is recognised.
+ */
+const FRAMEWORK_EXCLUDES_BLOCK = `
+# ─── indigo-framework-excludes (managed by bun run init) ──────────────────────
+# Local to this checkout. Templates live in src/core/_templates/content/;
+# bun run init copies them per locale to content/{locale}/*.md. We don't want
+# them in git status here. Downstream users may want them tracked, so this rule
+# is intentionally NOT in .gitignore — it lives only in .git/info/exclude.
+/content/*/**/*.md
+`;
+
+function bootstrapFrameworkExcludes(): void {
+  const excludePath = path.join(PROJECT_ROOT, ".git", "info", "exclude");
+  try {
+    fs.mkdirSync(path.dirname(excludePath), { recursive: true });
+    const existing = fs.existsSync(excludePath)
+      ? fs.readFileSync(excludePath, "utf-8")
+      : "";
+    if (existing.includes("/content/*/**/*.md")) return; // already there
+    const sep = existing && !existing.endsWith("\n") ? "\n" : "";
+    fs.appendFileSync(excludePath, sep + FRAMEWORK_EXCLUDES_BLOCK);
+    log("🚫", "Added framework-dev local excludes to .git/info/exclude.");
+  } catch {
+    /* non-critical — couldn't write .git/info/exclude */
+  }
+}
+
 /** `git init` (idempotent) + first commit + re-install husky hooks (a new `.git` has none). */
 function freshGitInit(): boolean {
   try {
@@ -274,6 +310,7 @@ async function ensureGitRepo(): Promise<void> {
   // Hard guard: never touch the framework/dev repo, period.
   if (hasRepo && isProtectedFrameworkRepo()) {
     log("ℹ️", "Indigo framework/dev repo (indigo.role=framework) — leaving git untouched.");
+    bootstrapFrameworkExcludes();
     return;
   }
 
@@ -302,6 +339,7 @@ async function ensureGitRepo(): Promise<void> {
     try {
       gitCmd(["config", "--local", "indigo.role", "framework"]);
       log("✔", "Marked as framework dev repo (git config indigo.role=framework). Won't ask again.");
+      bootstrapFrameworkExcludes();
     } catch {
       log("ℹ️", "Left git untouched. (Set `git config indigo.role framework` to silence this prompt.)");
     }
