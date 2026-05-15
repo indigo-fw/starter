@@ -14,6 +14,16 @@ import { getEmailDeps } from './deps';
 
 export const FROM_EMAIL = process.env.FROM_EMAIL ?? 'noreply@localhost';
 
+/**
+ * Dry-run mode: log emails to console instead of delivering them.
+ * Enabled by EMAIL_DRY_RUN=1 or automatically when INDIGO_ROBOTS_PROFILE=demo.
+ * Prevents outbound email to user-provided signup addresses on the demo instance.
+ */
+const IS_DRY_RUN =
+  process.env.EMAIL_DRY_RUN === '1' ||
+  process.env.EMAIL_DRY_RUN === 'true' ||
+  process.env.INDIGO_ROBOTS_PROFILE === 'demo';
+
 const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = parseInt(process.env.SMTP_PORT ?? '587', 10);
 const SMTP_USER = process.env.SMTP_USER;
@@ -48,12 +58,21 @@ export function getTransport(): Mail | null {
 /**
  * Send an email. If `deps.sendEmail` is configured (e.g. Resend, Postmark),
  * uses that. Otherwise falls back to SMTP via nodemailer.
+ *
+ * When IS_DRY_RUN is true (EMAIL_DRY_RUN=1 or INDIGO_ROBOTS_PROFILE=demo),
+ * the email is logged to stdout and not delivered.
  */
 export async function sendEmail(
   to: string | string[],
   subject: string,
   html: string,
 ): Promise<void> {
+  if (IS_DRY_RUN) {
+    const toStr = Array.isArray(to) ? to.join(', ') : to;
+    console.log(`[EMAIL DRY RUN] To: ${toStr} | Subject: ${subject}`);
+    return;
+  }
+
   let deps: ReturnType<typeof getEmailDeps> | null = null;
   try {
     deps = getEmailDeps();

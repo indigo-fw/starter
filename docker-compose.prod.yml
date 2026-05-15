@@ -1,24 +1,16 @@
 services:
   app:
-    build: .
+    image: ghcr.io/indigo-fw/starter:latest
+    # env_file loads ALL vars from .env — environment: overrides take precedence
+    env_file: .env
     ports:
       - "${PORT:-3000}:3000"
     environment:
+      # Override env_file values that need Docker-internal hostnames
       - DATABASE_URL=postgresql://indigo:${POSTGRES_PASSWORD}@postgres:5432/indigo
-      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
-      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
       - REDIS_URL=redis://redis:6379
       - SERVER_ROLE=all
       - NODE_ENV=production
-      - SMTP_HOST=${SMTP_HOST:-}
-      - SMTP_PORT=${SMTP_PORT:-587}
-      - SMTP_USER=${SMTP_USER:-}
-      - SMTP_PASS=${SMTP_PASS:-}
-      - FROM_EMAIL=${FROM_EMAIL:-}
-      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
-      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
-      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:-}
-      - STORAGE_BACKEND=${STORAGE_BACKEND:-filesystem}
     volumes:
       - uploads:/app/uploads
     depends_on:
@@ -30,11 +22,10 @@ services:
 
   # ─── Uncomment to run background workers separately ───────────────────────
   # worker:
-  #   build: .
+  #   image: ghcr.io/indigo-fw/starter:latest
+  #   env_file: .env
   #   environment:
   #     - DATABASE_URL=postgresql://indigo:${POSTGRES_PASSWORD}@postgres:5432/indigo
-  #     - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
-  #     - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
   #     - REDIS_URL=redis://redis:6379
   #     - SERVER_ROLE=worker
   #     - NODE_ENV=production

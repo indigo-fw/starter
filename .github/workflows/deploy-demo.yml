@@ -44,14 +44,25 @@ jobs:
     permissions:
       packages: read
     steps:
-      - uses: appleboy/ssh-action@v1
+      - uses: actions/checkout@v4
+
+      - name: Sync docker-compose.prod.yml to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEMO_HOST }}
+          username: deploy
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          source: docker-compose.prod.yml
+          target: /opt/indigo
+
+      - name: Pull and restart
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.DEMO_HOST }}
           username: deploy
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           envs: GHCR_TOKEN,GHCR_ACTOR
-          # Server's /opt/indigo/docker-compose.prod.yml uses
-          # image: ghcr.io/indigo-fw/starter:latest — no build on VPS.
+          # VPS uses the pre-built image from GHCR — no build on VPS.
           script: |
             echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_ACTOR" --password-stdin
             cd /opt/indigo
