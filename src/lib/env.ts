@@ -100,6 +100,15 @@ const serverEnvSchema = z.object({
   SENTRY_DSN: z.url().optional(),
   SENTRY_ORG: z.string().optional(),
   SENTRY_PROJECT: z.string().optional(),
+
+  // Search-indexing posture — read by app/robots.ts + canonical helper.
+  // 'production' = surgical disallows (sane default for any deploy);
+  // 'demo'       = selective: index /docs + marketing, block app surfaces + reset-volatile content;
+  // 'preview'    = blanket Disallow: / (preview/staging deploys).
+  INDIGO_ROBOTS_PROFILE: z.enum(['production', 'demo', 'preview']).default('production'),
+  // When set, overrides NEXT_PUBLIC_APP_URL for `<link rel="canonical">`.
+  // Flip on demo to point at apex once marketing launches.
+  INDIGO_CANONICAL_HOST: z.url().optional(),
 });
 
 const envSchema = serverEnvSchema.merge(clientEnvSchema);
