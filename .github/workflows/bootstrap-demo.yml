@@ -44,6 +44,20 @@ jobs:
             fi
             echo "INDIGO_ROBOTS_PROFILE set to demo"
 
+            echo "=== 3.5. Set BETTER_AUTH_URL + NEXT_PUBLIC_APP_URL ==="
+            if grep -q '^BETTER_AUTH_URL=' .env; then
+              sed -i 's|^BETTER_AUTH_URL=.*|BETTER_AUTH_URL=https://demo.indigo-fw.dev|' .env
+            else
+              echo "BETTER_AUTH_URL=https://demo.indigo-fw.dev" >> .env
+            fi
+            if grep -q '^NEXT_PUBLIC_APP_URL=' .env; then
+              sed -i 's|^NEXT_PUBLIC_APP_URL=.*|NEXT_PUBLIC_APP_URL=https://demo.indigo-fw.dev|' .env
+            else
+              echo "NEXT_PUBLIC_APP_URL=https://demo.indigo-fw.dev" >> .env
+            fi
+            echo "BETTER_AUTH_URL and NEXT_PUBLIC_APP_URL set to https://demo.indigo-fw.dev"
+
+
             echo "=== 4. Table counts before seed ==="
             docker compose -f docker-compose.prod.yml exec -T app bun -e "
             import postgres from 'postgres';
