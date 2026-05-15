@@ -55,7 +55,7 @@ jobs:
             \`;
             console.table(r);
             await sql.end();
-            " || echo "(table count check failed - tables may not exist yet)"
+            " || echo "(table count check failed — tables may not exist yet)"
 
             echo "=== 5. One-time bootstrap (seed demo data) ==="
             docker compose -f docker-compose.prod.yml exec -T app bun run init -- -y
@@ -80,8 +80,9 @@ jobs:
             DOCKER_BIN=$(which docker)
             CRON_LINE="0 * * * * cd /opt/indigo && ${DOCKER_BIN} compose -f docker-compose.prod.yml exec -T app bun run init -- -y --reset >> /var/log/indigo-reset.log 2>&1"
 
+            # Idempotent: only add if not already present
             if crontab -l 2>/dev/null | grep -q 'indigo-reset'; then
-              echo "Cron already installed - skipping"
+              echo "Cron already installed — skipping"
             else
               (crontab -l 2>/dev/null; echo "$CRON_LINE") | crontab -
               echo "Cron installed"
@@ -95,5 +96,5 @@ jobs:
             crontab -l | grep indigo || echo "WARNING: cron line not found"
 
             echo ""
-            echo "Bootstrap complete. Demo site should now show seeded content."
+            echo "✅ Bootstrap complete. Demo site should now show seeded content."
             echo "   Cron will reset data every hour at :00."
