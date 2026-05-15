@@ -1,12 +1,18 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { getSessionCookie } from 'better-auth/cookies';
-import { LOCALES, DEFAULT_LOCALE } from '@/lib/constants';
-import { siteConfig } from '@/config/site';
-import type { Locale } from '@/lib/constants';
-import { DASHBOARD_PREFIX, ACCOUNT_PREFIX, PUBLIC_ADMIN_PATHS, adminRoutes, publicAuthRoutes } from '@/config/routes';
-import { auth } from '@/lib/auth';
-import { isEmailVerificationRequired } from '@/lib/email-verification';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { getSessionCookie } from "better-auth/cookies";
+import { LOCALES, DEFAULT_LOCALE } from "@/lib/constants";
+import { siteConfig } from "@/config/site";
+import type { Locale } from "@/lib/constants";
+import {
+  DASHBOARD_PREFIX,
+  ACCOUNT_PREFIX,
+  PUBLIC_ADMIN_PATHS,
+  adminRoutes,
+  publicAuthRoutes,
+} from "@/config/routes";
+import { auth } from "@/lib/auth";
+import { isEmailVerificationRequired } from "@/lib/email-verification";
 
 /**
  * Next.js 16 Proxy — runs before routes are rendered.
@@ -18,14 +24,14 @@ import { isEmailVerificationRequired } from '@/lib/email-verification';
  * 4. Nonce-based Content Security Policy
  */
 
-// ─── Edge rate limiting ─────────────────────────────────────────────────────
+// ─── Edge rate limiting ─────────────────────────────────────────────────────────────
 
-import { edgeRateLimit } from '@/core/lib/api/edge-rate-limit';
+import { edgeRateLimit } from "@/core/lib/api/edge-rate-limit";
 
 // General API rate limit: 60 req/min per IP
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 60;
-const RATE_LIMIT_PATHS = ['/api/trpc/', '/api/v1/'];
+const RATE_LIMIT_PATHS = ["/api/trpc/", "/api/v1/"];
 
 // Stricter limit for auth endpoints: 10 req/min per IP (brute-force protection)
 const AUTH_RATE_LIMIT_WINDOW_MS = 60_000;
@@ -33,12 +39,14 @@ const AUTH_RATE_LIMIT_MAX = 10;
 
 /** Non-default locale codes for prefix matching */
 const NON_DEFAULT_LOCALE_SET: Set<string> = new Set(
-  LOCALES.filter((l) => l !== DEFAULT_LOCALE)
+  LOCALES.filter((l) => l !== DEFAULT_LOCALE),
 );
 
 /** Generate a cryptographic nonce and set nonce-based CSP on the response. */
 function withCsp(response: NextResponse): NextResponse {
-  const nonce = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('base64');
+  const nonce = Buffer.from(
+    crypto.getRandomValues(new Uint8Array(16)),
+  ).toString("base64");
 
   const csp = [
     "default-src 'self'",
@@ -51,10 +59,10 @@ function withCsp(response: NextResponse): NextResponse {
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
-  ].join('; ');
+  ].join("; ");
 
-  response.headers.set('Content-Security-Policy', csp);
-  response.headers.set('x-nonce', nonce);
+  response.headers.set("Content-Security-Policy", csp);
+  response.headers.set("x-nonce", nonce);
   return response;
 }
 
@@ -64,16 +72,19 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // ── Edge rate limiting ──
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    ?? request.headers.get('x-real-ip')
-    ?? 'unknown';
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    request.headers.get("x-real-ip") ??
+    "unknown";
 
-  if (pathname.startsWith('/api/auth/')) {
+  if (pathname.startsWith("/api/auth/")) {
     // Strict auth rate limit — brute-force protection
-    if (!(await edgeRateLimit(ip, AUTH_RATE_LIMIT_WINDOW_MS, AUTH_RATE_LIMIT_MAX))) {
-      return new NextResponse('Too Many Requests', {
+    if (
+      !(await edgeRateLimit(ip, AUTH_RATE_LIMIT_WINDOW_MS, AUTH_RATE_LIMIT_MAX))
+    ) {
+      return new NextResponse("Too Many Requests", {
         status: 429,
-        headers: { 'Retry-After': '60', 'Content-Type': 'application/json' },
+        headers: { "Retry-After": "60", "Content-Type": "application/json" },
       });
     }
     // Auth routes don't need locale/CSP processing — pass through
@@ -82,9 +93,9 @@ export async function proxy(request: NextRequest) {
 
   if (RATE_LIMIT_PATHS.some((p) => pathname.startsWith(p))) {
     if (!(await edgeRateLimit(ip, RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX))) {
-      return new NextResponse('Too Many Requests', {
+      return new NextResponse("Too Many Requests", {
         status: 429,
-        headers: { 'Retry-After': '60' },
+        headers: { "Retry-After": "60" },
       });
     }
     // Other API routes don't need locale/CSP processing — pass through
@@ -93,7 +104,11 @@ export async function proxy(request: NextRequest) {
 
   // ── Dashboard auth gating ──
   if (pathname.startsWith(DASHBOARD_PREFIX)) {
-    if (PUBLIC_ADMIN_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'))) {
+    if (
+      PUBLIC_ADMIN_PATHS.some(
+        (p) => pathname === p || pathname.startsWith(p + "/"),
+      )
+    ) {
       return withCsp(NextResponse.next());
     }
 
@@ -109,7 +124,12 @@ export async function proxy(request: NextRequest) {
   if (pathname.startsWith(ACCOUNT_PREFIX)) {
     const sessionCookie = getSessionCookie(request);
     if (!sessionCookie) {
-      return NextResponse.redirect(new URL(`${publicAuthRoutes.login}?callbackUrl=${encodeURIComponent(pathname)}`, request.url));
+      return NextResponse.redirect(
+        new URL(
+          `${publicAuthRoutes.login}?callbackUrl=${encodeURIComponent(pathname)}`,
+          request.url,
+        ),
+      );
     }
 
     // Check email verification grace period
@@ -130,7 +150,9 @@ export async function proxy(request: NextRequest) {
   if (pathname === VERIFY_EMAIL_PATH) {
     const sessionCookie = getSessionCookie(request);
     if (!sessionCookie) {
-      return NextResponse.redirect(new URL(publicAuthRoutes.login, request.url));
+      return NextResponse.redirect(
+        new URL(publicAuthRoutes.login, request.url),
+      );
     }
   }
 
@@ -144,59 +166,61 @@ export async function proxy(request: NextRequest) {
   //   2. URL has no prefix → check cookie → redirect if non-default preference
   //   3. Neither → no redirect (Googlebot, first visitors)
 
-  const LOCALE_COOKIE = 'preferred_locale';
+  const LOCALE_COOKIE = "preferred_locale";
   const LOCALE_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
 
   const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
-  const segments = pathname.split('/');
-  const firstSegment = segments[1] ?? '';
-  const urlLocale =
-    NON_DEFAULT_LOCALE_SET.has(firstSegment)
-      ? firstSegment as Locale
-      : firstSegment === DEFAULT_LOCALE
-        ? DEFAULT_LOCALE as string
-        : null;
+  const segments = pathname.split("/");
+  const firstSegment = segments[1] ?? "";
+  const urlLocale = NON_DEFAULT_LOCALE_SET.has(firstSegment)
+    ? (firstSegment as Locale)
+    : firstSegment === DEFAULT_LOCALE
+      ? (DEFAULT_LOCALE as string)
+      : null;
 
   if (urlLocale) {
     // URL has explicit locale prefix → user chose this language.
 
     // Normalize uppercase locale codes (e.g. /DE/blog → /de/blog)
-    if (firstSegment !== firstSegment.toLowerCase() && NON_DEFAULT_LOCALE_SET.has(firstSegment.toLowerCase())) {
+    if (
+      firstSegment !== firstSegment.toLowerCase() &&
+      NON_DEFAULT_LOCALE_SET.has(firstSegment.toLowerCase())
+    ) {
       const url = request.nextUrl.clone();
-      url.pathname = `/${firstSegment.toLowerCase()}${segments.slice(2).length ? '/' + segments.slice(2).join('/') : ''}`;
+      url.pathname = `/${firstSegment.toLowerCase()}${segments.slice(2).length ? "/" + segments.slice(2).join("/") : ""}`;
       return NextResponse.redirect(url, 301);
     }
 
     // Default locale prefix (/en/xxx): strip prefix via rewrite (same as non-default).
     // Indigo's App Router has no [locale] directory — it reads locale from x-locale header.
     if (urlLocale === DEFAULT_LOCALE) {
-      const strippedPath = '/' + segments.slice(2).join('/') || '/';
+      const strippedPath = "/" + segments.slice(2).join("/") || "/";
       const url = request.nextUrl.clone();
       url.pathname = strippedPath;
       const response = NextResponse.rewrite(url);
-      response.headers.set('x-locale', DEFAULT_LOCALE);
+      response.headers.set("x-locale", DEFAULT_LOCALE);
       if (cookieLocale !== DEFAULT_LOCALE) {
         response.cookies.set(LOCALE_COOKIE, DEFAULT_LOCALE, {
-          path: '/',
+          path: "/",
           maxAge: LOCALE_COOKIE_MAX_AGE,
-          sameSite: 'lax',
+          sameSite: "lax",
         });
       }
       return withCsp(response);
     }
 
     // Non-default locale prefix (/de/xxx, /es/xxx): rewrite to strip prefix.
-    const strippedPath = '/' + segments.slice(2).join('/') || '/';
+    const strippedPath = "/" + segments.slice(2).join("/") || "/";
     const url = request.nextUrl.clone();
     url.pathname = strippedPath;
 
     const response = NextResponse.rewrite(url);
-    response.headers.set('x-locale', urlLocale);
+    response.headers.set("x-locale", urlLocale);
     if (cookieLocale !== urlLocale) {
       response.cookies.set(LOCALE_COOKIE, urlLocale, {
-        path: '/',
+        path: "/",
         maxAge: LOCALE_COOKIE_MAX_AGE,
-        sameSite: 'lax',
+        sameSite: "lax",
       });
     }
     return withCsp(response);
@@ -215,15 +239,12 @@ export async function proxy(request: NextRequest) {
   }
 
   // Auto-detect locale from Accept-Language (opt-in, only when no cookie)
-  if (
-    siteConfig.localeAutoDetect &&
-    !cookieLocale
-  ) {
-    const acceptLang = request.headers.get('accept-language');
+  if (siteConfig.localeAutoDetect && !cookieLocale) {
+    const acceptLang = request.headers.get("accept-language");
     if (acceptLang) {
       const preferred = acceptLang
-        .split(',')
-        .map((p) => p.trim().split(';')[0]!.split('-')[0]!.toLowerCase());
+        .split(",")
+        .map((p) => p.trim().split(";")[0]!.split("-")[0]!.toLowerCase());
       for (const code of preferred) {
         if (code !== DEFAULT_LOCALE && NON_DEFAULT_LOCALE_SET.has(code)) {
           const url = request.nextUrl.clone();
@@ -236,46 +257,12 @@ export async function proxy(request: NextRequest) {
 
   // Default locale — no rewrite, set header for consistency.
   const response = NextResponse.next();
-  response.headers.set('x-locale', DEFAULT_LOCALE);
+  response.headers.set("x-locale", DEFAULT_LOCALE);
   return withCsp(response);
 }
 
 export const config = {
   matcher: [
-    // Rate-limited API paths — must be explicit so middleware runs on them
-    '/api/auth/:path*',
-    '/api/trpc/:path*',
-    '/api/v1/:path*',
-    // All non-asset page routes — locale handling, auth gating, CSP
-    '/((?!_next|uploads|favicon\\.ico|sitemap\\.xml|robots\\.txt).*)',
-  ],
-};
-      const preferred = acceptLang
-        .split(',')
-        .map((p) => p.trim().split(';')[0]!.split('-')[0]!.toLowerCase());
-      for (const code of preferred) {
-        if (code !== DEFAULT_LOCALE && NON_DEFAULT_LOCALE_SET.has(code)) {
-          const url = request.nextUrl.clone();
-          url.pathname = `/${code}${pathname}`;
-          return NextResponse.redirect(url);
-        }
-      }
-    }
-  }
-
-  // Default locale — no rewrite, set header for consistency.
-  const response = NextResponse.next();
-  response.headers.set('x-locale', DEFAULT_LOCALE);
-  return withCsp(response);
-}
-
-export const config = {
-  matcher: [
-    // Rate-limited API paths — must be explicit so middleware runs on them
-    '/api/auth/:path*',
-    '/api/trpc/:path*',
-    '/api/v1/:path*',
-    // All non-asset page routes — locale handling, auth gating, CSP
-    '/((?!_next|uploads|favicon\\.ico|sitemap\\.xml|robots\\.txt).*)',
+    "/((?!api|_next|uploads|favicon\\.ico|sitemap\\.xml|robots\\.txt).*)",
   ],
 };

@@ -1,12 +1,12 @@
 # ─── Stage 1: Install dependencies ─────────────────────────────────────────
-FROM oven/bun:1.1 AS deps
+FROM oven/bun:1.2 AS deps
 
 WORKDIR /app
 COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile
 
 # ─── Stage 2: Build ───────────────────────────────────────────────────────
-FROM oven/bun:1.1 AS builder
+FROM node:20-slim AS builder
 
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -18,10 +18,11 @@ ENV DATABASE_URL="postgresql://localhost:5432/placeholder" \
     BETTER_AUTH_SECRET="build-time-placeholder-secret-that-is-32-chars" \
     NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
-RUN bun run build
+RUN node scripts/i18n/po-to-json.mjs
+RUN npx next build
 
 # ─── Stage 3: Runtime ────────────────────────────────────────────────────
-FROM oven/bun:1.1-debian-slim AS runtime
+FROM oven/bun:1.2-slim AS runtime
 
 WORKDIR /app
 
@@ -35,15 +36,12 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/server.ts ./
-COPY --from=builder /app/src/proxy.ts ./src/proxy.ts
 COPY --from=builder /app/next.config.ts ./
 COPY --from=builder /app/drizzle.config.ts ./
-COPY --from=builder /app/src/server ./src/server
-COPY --from=builder /app/src/engine ./src/engine
-COPY --from=builder /app/src/lib ./src/lib
-COPY --from=builder /app/src/config ./src/config
-COPY --from=builder /app/src/scripts ./src/scripts
+COPY --from=builder /app/drizzle ./drizzle
+COPY --from=builder /app/src ./src
 COPY --from=builder /app/emails ./emails
+COPY --from=builder /app/content ./content
 COPY --from=builder /app/public ./public
 
 # Remove test files from runtime image

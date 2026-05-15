@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Dry run — print rules without applying (true/false)'
+        description: "Dry run — print rules without applying (true/false)"
         required: false
-        default: 'false'
+        default: "false"
 
 # Run manually from Actions tab after adding CLOUDFLARE_API_TOKEN secret.
 # Required secret: CLOUDFLARE_API_TOKEN
-#   Permissions: Zone > Firewall Services: Edit, Zone > Zone Settings: Edit, Zone > Bot Management: Edit
+#   Permissions: Zone > Firewall Services: Edit, Zone > Zone Settings: Edit
 #   Resource:    indigo-fw.dev zone only
 # Required variable: CLOUDFLARE_ZONE_ID (repo var) = ba9155a1490a6f177b3fd1fcbc1c45f2
 
@@ -32,40 +32,6 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json")
           echo "$resp" | python3 -c "import json,sys; d=json.load(sys.stdin); print('Token status:', d['result']['status']); exit(0 if d['success'] else 1)"
-
-      - name: Show current WAF rules
-        run: |
-          echo "=== Current WAF custom rules ==="
-          curl -sf "$CF_API/zones/$ZONE_ID/rulesets/phases/http_request_firewall_custom/entrypoint" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" | \
-            python3 -c "
-          import json,sys
-          d=json.load(sys.stdin)
-          if not d.get('success'):
-            print('No existing ruleset or error:', d.get('errors'))
-          else:
-            rules = d.get('result',{}).get('rules',[])
-            print(f'Found {len(rules)} existing rules')
-            for r in rules:
-              print(f'  - [{r.get(\"action\")}] {r.get(\"description\",\"(no desc)\")}')
-          " || echo "(no existing ruleset)"
-
-          echo ""
-          echo "=== Current rate limiting rules ==="
-          curl -sf "$CF_API/zones/$ZONE_ID/rulesets/phases/http_ratelimit/entrypoint" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" | \
-            python3 -c "
-          import json,sys
-          d=json.load(sys.stdin)
-          if not d.get('success'):
-            print('No existing ruleset or error:', d.get('errors'))
-          else:
-            rules = d.get('result',{}).get('rules',[])
-            print(f'Found {len(rules)} existing rules')
-            for r in rules:
-              rl = r.get('ratelimit',{})
-              print(f'  - {r.get(\"description\",\"(no desc)\")} [{rl.get(\"requests_per_period\")}/{rl.get(\"period\")}s]')
-          " || echo "(no existing ruleset)"
 
       - name: Build WAF custom ruleset payload
         run: |
@@ -91,12 +57,9 @@ jobs:
                   for rule in waf['rules']
               ]
           }
-
           with open('/tmp/waf_payload.json', 'w') as f:
               json.dump(payload, f, indent=2)
-
-          print("WAF payload:")
-          print(json.dumps(payload, indent=2))
+          print("WAF payload built:", len(payload['rules']), "rules")
           EOF
 
       - name: Build rate limiting ruleset payload
@@ -124,12 +87,9 @@ jobs:
                   for rule in rl['rules']
               ]
           }
-
           with open('/tmp/rl_payload.json', 'w') as f:
               json.dump(payload, f, indent=2)
-
-          print("Rate limit payload:")
-          print(json.dumps(payload, indent=2))
+          print("Rate limit payload built:", len(payload['rules']), "rules")
           EOF
 
       - name: Apply WAF custom rules
@@ -140,17 +100,15 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d @/tmp/waf_payload.json)
-
           echo "$resp" | python3 -c "
           import json,sys
           d=json.load(sys.stdin)
           if d.get('success'):
             rules = d.get('result',{}).get('rules',[])
-            print(f'✅ Applied {len(rules)} WAF custom rules')
-            for r in rules: print(f'   [{r[\"action\"]}] {r.get(\"description\",\"\")}')
+            print(f'Applied {len(rules)} WAF custom rules')
+            for r in rules: print(f'  [{r["action"]}] {r.get("description","")}')
           else:
-            print('❌ Failed:', d.get('errors'))
-            exit(1)
+            print('Failed:', d.get('errors')); exit(1)
           "
 
       - name: Apply rate limiting rules
@@ -161,72 +119,37 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d @/tmp/rl_payload.json)
-
           echo "$resp" | python3 -c "
           import json,sys
           d=json.load(sys.stdin)
           if d.get('success'):
             rules = d.get('result',{}).get('rules',[])
-            print(f'✅ Applied {len(rules)} rate limiting rules')
-            for r in rules:
-              rl=r.get('ratelimit',{})
-              print(f'   {r.get(\"description\",\"\")} [{rl.get(\"requests_per_period\")}/{rl.get(\"period\")}s]')
+            print(f'Applied {len(rules)} rate limiting rules')
           else:
-            print('❌ Failed:', d.get('errors'))
-            exit(1)
+            print('Failed:', d.get('errors')); exit(1)
           "
-
-      - name: Enable Bot Fight Mode
-        if: env.DRY_RUN != 'true'
-        run: |
-          echo "=== Enabling Bot Fight Mode ==="
-          resp=$(curl -sf -X PUT "$CF_API/zones/$ZONE_ID/bot_management" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{"fight_mode": true}')
-
-          echo "$resp" | python3 -c "
-          import json,sys
-          d=json.load(sys.stdin)
-          if d.get('success'):
-            bm = d.get('result',{})
-            print(f'✅ Bot Fight Mode: fight_mode={bm.get(\"fight_mode\")}')
-          else:
-            errs = d.get('errors',[])
-            # Bot Fight Mode may require Business/Enterprise plan — warn but don't fail
-            print(f'⚠️  Bot Fight Mode: {errs} (may require Business plan — skipping)')
-          " || true
 
       - name: Set Security Level to Medium
         if: env.DRY_RUN != 'true'
         run: |
-          echo "=== Setting Security Level ==="
           resp=$(curl -sf -X PATCH "$CF_API/zones/$ZONE_ID/settings/security_level" \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{"value": "medium"}')
-
           echo "$resp" | python3 -c "
-          import json,sys
-          d=json.load(sys.stdin)
-          if d.get('success'):
-            print(f'✅ Security Level: {d[\"result\"][\"value\"]}')
-          else:
-            print('❌ Failed:', d.get('errors'))
-            exit(1)
-          "
+          import json,sys; d=json.load(sys.stdin)
+          print('Security Level:', d['result']['value'] if d.get('success') else d.get('errors'))
+          " || true
 
-      - name: Summary
-        if: always()
+      - name: Enable Bot Fight Mode
+        if: env.DRY_RUN != 'true'
         run: |
-          if [ "$DRY_RUN" = "true" ]; then
-            echo "✅ Dry run complete — no changes applied"
-          else
-            echo "✅ Cloudflare security rules applied to zone $ZONE_ID"
-            echo ""
-            echo "Rules applied:"
-            echo "  WAF custom rules    → 3 rules (bot block, empty UA block, JS challenge)"
-            echo "  Rate limiting       → 6 rules (login, register, forgot-pw, auth API, upload, forms)"
-            echo "  Bot Fight Mode      → enabled (requires Business plan, skipped if not available)"
-            echo "  Security Level      → medium"
-          fi
+          resp=$(curl -s -X PUT "$CF_API/zones/$ZONE_ID/bot_management" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"fight_mode": true}')
+          echo "$resp" | python3 -c "
+          import json,sys; d=json.load(sys.stdin)
+          if d.get('success'): print('Bot Fight Mode: enabled')
+          else: print('Bot Fight Mode skipped (may need Business plan):', d.get('errors'))
+          " || true
