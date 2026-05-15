@@ -56,7 +56,7 @@ export async function seedUsersAndOrgs(
 
   // ─── 1. Customers ─────────────────────────────────────────────────
   log('\uD83D\uDC64', `Creating ${NUM_CUSTOMERS} demo customers...`);
-  const hashedPw = await hashPassword('demo1234');
+  const hashedPw = await hashPassword('asdfasdf');
   const userIds: string[] = [];
 
   for (let i = 0; i < NUM_CUSTOMERS; i++) {

@@ -29,7 +29,7 @@ jobs:
             echo "=== 2. Check INIT_ADMIN vars ==="
             if ! grep -qE '^INIT_ADMIN_EMAIL=' .env; then
               echo "INIT_ADMIN_EMAIL=demo@indigo-fw.dev" >> .env
-              echo "INIT_ADMIN_PASSWORD=demo1234" >> .env
+              echo "INIT_ADMIN_PASSWORD=asdfasdf" >> .env
               echo "INIT_ADMIN_NAME=Demo Admin" >> .env
               echo "Added INIT_ADMIN vars"
             else
@@ -58,6 +58,11 @@ jobs:
             echo "BETTER_AUTH_URL and NEXT_PUBLIC_APP_URL set to https://demo.indigo-fw.dev"
 
 
+            echo "=== 3.75. Restart app so container picks up new .env values (INIT_ADMIN_PASSWORD etc.) ==="
+            docker compose -f docker-compose.prod.yml up -d --no-deps app
+            echo "Waiting 10s for app to be ready..."
+            sleep 10
+
             echo "=== 4. Table counts before seed ==="
             docker compose -f docker-compose.prod.yml exec -T app bun -e "
             import postgres from 'postgres';
@@ -74,8 +79,10 @@ jobs:
             echo "=== 5. One-time bootstrap (seed demo data) ==="
             # Ensure /app/.env stub exists so init passes the file-presence check
             # (Docker injects env vars directly; no .env file is written inside the container)
+            # --reset wipes all data and recreates superadmin with INIT_ADMIN_* env vars
+            # Container was restarted above so it has the latest .env values
             docker compose -f docker-compose.prod.yml exec -T app sh -c "[ -f /app/.env ] || touch /app/.env"
-            docker compose -f docker-compose.prod.yml exec -T app bun run init -- -y
+            docker compose -f docker-compose.prod.yml exec -T app bun run init -- -y --reset
 
             echo "=== 6. Table counts after seed ==="
             docker compose -f docker-compose.prod.yml exec -T app bun -e "
@@ -90,8 +97,7 @@ jobs:
             await sql.end();
             " || echo "(table count check failed)"
 
-            echo "=== 7. Restart app to pick up new .env values ==="
-            docker compose -f docker-compose.prod.yml up -d --no-deps app
+            echo "=== 7. (skipped — app already restarted in step 3.75) ==="
 
             echo "=== 8. Install hourly reset cron ==="
             DOCKER_BIN=$(which docker)

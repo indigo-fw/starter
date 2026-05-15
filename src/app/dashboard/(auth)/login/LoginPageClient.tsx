@@ -54,7 +54,7 @@ export function LoginPageClient({ isDemo }: { isDemo?: boolean }) {
             </code>{' '}
             /{' '}
             <code className="rounded bg-amber-100 dark:bg-amber-500/20 px-1 py-0.5 font-mono text-xs">
-              demo1234
+              asdfasdf
             </code>
           </p>
         </div>
