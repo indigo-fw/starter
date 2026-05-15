@@ -207,8 +207,8 @@ Disable on the demo:
 Order matters.
 
 1. **Domain**
-   - [ ] Register `indigo-fw.dev` via Cloudflare Registrar (~$11/yr)
-   - [ ] Site enrolled in Cloudflare, nameservers point to CF (automatic when bought there)
+   - [x] Register `indigo-fw.dev` via Cloudflare Registrar (~$11/yr)
+   - [x] Site enrolled in Cloudflare, nameservers point to CF (automatic when bought there)
 2. **Email**
    - [ ] Zoho Mail Free account, add domain `indigo-fw.dev`
    - [ ] Add MX + TXT (verify) records per Zoho wizard
@@ -221,29 +221,29 @@ Order matters.
    - [ ] Send test from CLI: `curl -X POST https://api.resend.com/emails …`
    - [ ] Update SPF TXT to include both Zoho + Resend
 4. **VPS**
-   - [ ] Hetzner Cloud project; provision CX22 in `fsn1` (Falkenstein) or `nbg1` (Nuremberg)
-   - [ ] Ubuntu 24.04, add SSH key, disable password auth
-   - [ ] `apt update && apt full-upgrade`; install `docker` (`curl -fsSL https://get.docker.com | sh`)
-   - [ ] Create `deploy` user, add to `docker` group, paste deploy SSH pubkey
-   - [ ] UFW: allow 22/80/443, deny rest
-   - [ ] Point `demo.indigo-fw.dev` A/AAAA at the VPS in Cloudflare (proxy ON)
+   - [x] Hetzner Cloud project; provision CX22 in `fsn1` (Falkenstein) or `nbg1` (Nuremberg)
+   - [x] Ubuntu 24.04, add SSH key, disable password auth
+   - [x] `apt update && apt full-upgrade`; install `docker` (`curl -fsSL https://get.docker.com | sh`)
+   - [x] Create `deploy` user, add to `docker` group, paste deploy SSH pubkey
+   - [x] UFW: allow 22/80/443, deny rest
+   - [x] Point `demo.indigo-fw.dev` A/AAAA at the VPS in Cloudflare (proxy ON)
 5. **App skeleton on box**
-   - [ ] `mkdir -p /opt/indigo && cd /opt/indigo`
-   - [ ] Pull `docker-compose.prod.yml` from the repo (or `scp` it)
-   - [ ] Generate and write `.env` (see "Demo box config" above)
-   - [ ] `docker compose -f docker-compose.prod.yml pull && up -d`
-   - [ ] `docker compose exec app bun run init -- -y` — first-time DB + seed
-   - [ ] Confirm `https://demo.indigo-fw.dev` resolves with valid TLS
+   - [x] `mkdir -p /opt/indigo && cd /opt/indigo`
+   - [x] Pull `docker-compose.prod.yml` from the repo (or `scp` it)
+   - [x] Generate and write `.env` (see "Demo box config" above)
+   - [x] `docker compose -f docker-compose.prod.yml pull && up -d`
+   - [x] `docker compose exec app bun run init -- -y` — first-time DB + seed
+   - [x] Confirm `https://demo.indigo-fw.dev` resolves with valid TLS
 6. **CI/CD**
-   - [ ] Generate dedicated `deploy` SSH keypair, install pubkey on VPS
-   - [ ] GitHub repo secrets: `DEMO_HOST`, `DEPLOY_SSH_KEY`
-   - [ ] Commit `.github/workflows/deploy-demo.yml` (see "CI/CD shape")
-   - [ ] Make any tiny commit on `main` → workflow runs → verify image lands at GHCR + box pulls
+   - [x] Generate dedicated `deploy` SSH keypair, install pubkey on VPS
+   - [x] GitHub repo secrets: `DEMO_HOST`, `DEPLOY_SSH_KEY`
+   - [x] Commit `.github/workflows/deploy-demo.yml` (see "CI/CD shape")
+   - [x] Make any tiny commit on `main` → workflow runs → verify image lands at GHCR + box pulls
 7. **Reset cron**
    - [ ] Install crontab line on VPS (`crontab -e`, see "Demo box config")
    - [ ] Wait one full hour → verify `/var/log/indigo-reset.log` shows clean reset + reseed
 8. **Hardening**
-   - [ ] Cloudflare WAF rules (rate limits, ASN scoring)
+   - [ ] Cloudflare WAF rules (rate limits, ASN scoring) — workflow `.github/workflows/apply-cloudflare-rules.yml` committed; needs `CLOUDFLARE_API_TOKEN` secret + manual run
    - [ ] Implement `app/robots.ts` dynamic route with `INDIGO_ROBOTS_PROFILE` branch (demo / production / preview). See "Search indexing" above
    - [ ] Implement `app/sitemap.ts` dynamic route — pulls indexable URLs from DB + `.mdx` files, excludes reset-volatile sample content
    - [ ] Set `INDIGO_ROBOTS_PROFILE=demo` in the demo box `.env`
