@@ -11,6 +11,9 @@ services:
       - REDIS_URL=redis://redis:6379
       - SERVER_ROLE=all
       - NODE_ENV=production
+      # Hardcoded for demo VPS — Better Auth origin check requires correct runtime value
+      - NEXT_PUBLIC_APP_URL=https://demo.indigo-fw.dev
+      - BETTER_AUTH_URL=https://demo.indigo-fw.dev
     volumes:
       - uploads:/app/uploads
     depends_on:
