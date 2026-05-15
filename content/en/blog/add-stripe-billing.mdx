@@ -1,0 +1,108 @@
+---
+title: Add Stripe Billing to Your Indigo App in 5 Minutes
+type: post
+description: Install the payments and subscriptions modules, connect Stripe, and have a working billing flow — checkout, webhooks, dunning — in one command.
+date: 2026-05-01
+category: tutorials
+tags: [stripe, billing, modules, tutorial]
+image: /images/blog/stripe-billing.jpg
+imageAlt: Stripe dashboard showing subscription revenue with the Indigo billing UI overlaid
+---
+
+# Add Stripe Billing to Your Indigo App in 5 Minutes
+
+Indigo's module system means you don't write billing infrastructure — you install it. Here's how to go from zero to a working Stripe checkout with subscriptions, webhooks, and dunning in about 5 minutes.
+
+<Callout type="info">
+You'll need a Stripe account. The free tier is fine for development — Stripe only charges on live payments.
+</Callout>
+
+## Install the Modules
+
+```bash
+bun run indigo add core-payments
+bun run indigo add core-subscriptions
+bun run db:generate && bun run db:migrate
+```
+
+This installs the Stripe client, webhook handler, subscription state machine, billing portal, dunning logic, and plan management UI.
+
+## Configure Stripe
+
+Add these to your `.env`:
+
+```env
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+```
+
+Get the webhook secret by running:
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
+
+## Define Your Plans
+
+Edit `src/config/plans.ts` (created by the module):
+
+```typescript
+export const PLANS = [
+  {
+    id: 'free',
+    name: 'Free',
+    price: 0,
+    features: ['5 projects', '1 user', 'Community support'],
+  },
+  {
+    id: 'pro',
+    stripePriceId: process.env.STRIPE_PRO_PRICE_ID,
+    name: 'Pro',
+    price: 29,
+    features: ['Unlimited projects', '10 users', 'Priority support'],
+    trial: { days: 14 },
+  },
+  {
+    id: 'team',
+    stripePriceId: process.env.STRIPE_TEAM_PRICE_ID,
+    name: 'Team',
+    price: 99,
+    features: ['Unlimited everything', 'SSO', 'SLA'],
+  },
+] as const;
+```
+
+Create matching products/prices in your Stripe dashboard and paste the price IDs.
+
+## That's It
+
+Your app now has:
+
+- **Checkout** — Stripe-hosted checkout with automatic tax collection
+- **Billing portal** — customers manage payment methods and cancel themselves
+- **Webhooks** — subscription state synced to your DB in real time
+- **Dunning** — automated retry emails for failed payments (via Resend)
+- **Reverse trial** — new signups get 14 days of Pro automatically
+
+<Steps>
+<Step title="Test the flow">
+
+Start your dev server, sign up as a new user, and you'll land on the Pro trial automatically. Hit the billing portal at `/account/billing` to see the subscription state.
+
+</Step>
+<Step title="Test a payment">
+
+Use Stripe test card `4242 4242 4242 4242` with any future expiry to complete checkout.
+
+</Step>
+<Step title="Test dunning">
+
+Use card `4000 0000 0000 0341` to trigger a failed payment and watch the retry emails fire.
+
+</Step>
+</Steps>
+
+## Going to Production
+
+Swap your test keys for live keys in your production `.env`. The webhook endpoint is already configured — just update the secret in Stripe and your env file.
