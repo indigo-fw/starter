@@ -18,6 +18,7 @@ ENV DATABASE_URL="postgresql://localhost:5432/placeholder" \
     BETTER_AUTH_SECRET="build-time-placeholder-secret-that-is-32-chars" \
     NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
+RUN node scripts/i18n/po-to-json.mjs
 RUN npx next build
 
 # ─── Stage 3: Runtime ────────────────────────────────────────────────────
