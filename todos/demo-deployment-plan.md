@@ -72,6 +72,10 @@ POSTGRES_PASSWORD=<openssl rand -hex 16>
 NEXT_PUBLIC_APP_URL=https://demo.indigo-fw.dev
 NEXT_PUBLIC_SITE_NAME=Indigo Demo
 
+# Search-indexing posture — read by app/robots.ts + app/sitemap.ts + canonical helper
+INDIGO_ROBOTS_PROFILE=demo                    # demo | production | preview
+INDIGO_CANONICAL_HOST=https://demo.indigo-fw.dev  # flip to https://indigo-fw.dev once apex docs go live
+
 # Outbound transactional (Resend)
 RESEND_API_KEY=<from resend>
 EMAIL_FROM="Indigo Demo <noreply@indigo-fw.dev>"
@@ -142,7 +146,52 @@ Cloudflare WAF rules on `demo.indigo-fw.dev`:
 - Rate-limit `/api/*` to 60 req/min per IP
 - Block known bad ASNs (Cloudflare's threat score > 25)
 - Challenge `/dashboard/*` from non-residential ASNs
-- `robots.txt`: `Disallow: /` on `demo.*` (don't pollute search index — canonical docs live on apex eventually)
+
+## Search indexing — selective, not blanket
+
+Goal: docs discoverable from day one (devs need to find them while apex marketing is still being built); demo app surfaces and reset-volatile sample content stay out of search. Migrate canonical to apex once it exists.
+
+**Dynamic route, not a static file.** `app/robots.ts` + `app/sitemap.ts` (Next.js 13+ conventions) — same source code branches behavior by `process.env.NEXT_PUBLIC_APP_URL` (or a dedicated `INDIGO_ROBOTS_PROFILE=demo|production|preview` env). Reasons: same image runs on demo / future marketing / future staging with different policies; preview deploys auto-noindex without code edits; sitemap regenerates on every request from DB content. A static `public/robots.txt` would force per-environment image builds. Don't do that.
+
+```ts
+// app/robots.ts (sketch)
+import type { MetadataRoute } from 'next';
+
+export default function robots(): MetadataRoute.Robots {
+  const profile = process.env.INDIGO_ROBOTS_PROFILE ?? 'production';
+  const base = process.env.NEXT_PUBLIC_APP_URL!;
+
+  if (profile === 'preview') {
+    return { rules: [{ userAgent: '*', disallow: '/' }] };
+  }
+
+  // demo + production share the same selective policy; canonical differs (see <link rel="canonical">)
+  return {
+    rules: [{
+      userAgent: '*',
+      allow: ['/', '/docs/'],
+      disallow: [
+        '/dashboard/',
+        '/admin/',
+        '/api/',
+        '/signup',
+        '/login',
+        '/preview/',
+        '/*?token=*',
+        '/*?previewToken=*',
+      ],
+    }],
+    sitemap: `${base}/sitemap.xml`,
+  };
+}
+```
+
+**Per-page `noindex` on reset-volatile content.** Seeded sample posts, demo orders, demo characters, etc. — anything `bun run init -- -y --reset` overwrites — gets `<meta name="robots" content="noindex">`. Pattern to follow: `applyFallbackMetadata()` in `register-renderers.tsx` (already used for fallback-locale noindex). Add an `isDemoSample` flag (frontmatter on seeded `.md`, column on seeded DB rows, or a runtime check on `INDIGO_ROBOTS_PROFILE === 'demo'` for sample-typed content).
+
+**Canonical strategy.**
+- Now (apex doesn't exist): `<link rel="canonical">` on demo docs points to itself.
+- After apex launches: canonical flips to `https://indigo-fw.dev/docs/...`. Implement via the same env-aware logic — `INDIGO_CANONICAL_HOST` env var. Demo's canonical points to apex; apex's points to itself.
+- 301 redirect `demo.indigo-fw.dev/docs/*` → `indigo-fw.dev/docs/*` once apex content is live and synced. Cloudflare page rule or Next.js `redirects()` in `next.config.ts` — Cloudflare is faster (no app hit). Don't redirect the rest of the demo — that stays at `demo.*`.
 
 ## Demo login surface
 
@@ -195,13 +244,18 @@ Order matters.
    - [ ] Wait one full hour → verify `/var/log/indigo-reset.log` shows clean reset + reseed
 8. **Hardening**
    - [ ] Cloudflare WAF rules (rate limits, ASN scoring)
-   - [ ] `robots.txt` `Disallow: /`
+   - [ ] Implement `app/robots.ts` dynamic route with `INDIGO_ROBOTS_PROFILE` branch (demo / production / preview). See "Search indexing" above
+   - [ ] Implement `app/sitemap.ts` dynamic route — pulls indexable URLs from DB + `.mdx` files, excludes reset-volatile sample content
+   - [ ] Set `INDIGO_ROBOTS_PROFILE=demo` in the demo box `.env`
+   - [ ] Add `noindex` to seeded/reset-volatile sample content (extend `applyFallbackMetadata()` pattern with an `isDemoSample` flag)
+   - [ ] Verify with `curl https://demo.indigo-fw.dev/robots.txt` + Google Search Console URL inspector on `/docs/*` (Allowed) and `/dashboard` (Disallowed)
    - [ ] Banner on login screen with reset notice + creds
    - [ ] Disable outbound email to user-provided addresses (env flag or Resend allow-list)
 9. **Smoke test**
    - [ ] Sign up as a user, navigate dashboard
    - [ ] Visit `/docs` — verify `.mdx` rendering
    - [ ] Manually trigger reset → re-check both demo data and docs still serve
+   - [ ] `robots.txt` and `sitemap.xml` return the expected demo-profile output
 
 ## Costs (annual)
 
@@ -221,6 +275,7 @@ Order matters.
 - **GHCR public vs private?** Public is fine for a public starter image; private if you want to keep the production image private. No strong reason for private — decide.
 - **One `deploy` user vs separate per env?** For one box it doesn't matter; revisit when marketing box exists.
 - **Cron drift on reset.** If a reset overlaps a long migration, future resets will queue. The current init flow is bounded (~30s on this seed set), so safe — but watch logs early.
-- **Docs canonical URL.** Once marketing exists at apex, serve `/docs` from there *and* `demo.*`, with `<link rel="canonical">` on demo pointing to apex. Don't migrate URLs.
+- **SEO migration when apex launches.** Phased: (1) apex serves `/docs` from the same `.mdx` source; (2) flip `INDIGO_CANONICAL_HOST` on demo so its docs pages emit `<link rel="canonical" href="https://indigo-fw.dev/docs/...">`; (3) once Google has reindexed (~2–4 weeks), add a Cloudflare page rule 301-redirecting `demo.indigo-fw.dev/docs/*` → `indigo-fw.dev/docs/*`. Forwards accumulated link equity to apex. The rest of the demo (`/dashboard`, app surfaces) stays on `demo.*` — only docs migrate.
+- **Docs index pre-launch.** Until apex exists, demo IS the only public URL for Indigo content — blocking indexing entirely would mean zero search presence for months. Selective `robots.ts` + per-page `noindex` on reset-volatile sample content is the right balance: docs discoverable, app surfaces hidden.
 - **Should the apex parking page also be Indigo, or static HTML?** Probably static HTML / Cloudflare Pages until marketing exists — saves wasting the CX22 on idle marketing requests.
 - **Backups.** Demo data is throwaway (reset hourly), but `.env` secrets and Hetzner snapshots aren't auto. Schedule weekly Hetzner snapshot (€0.0012/GB/h ≈ €0.50/mo) once provisioned.
