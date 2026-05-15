@@ -38,8 +38,10 @@ COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/server.ts ./
 COPY --from=builder /app/next.config.ts ./
 COPY --from=builder /app/drizzle.config.ts ./
+COPY --from=builder /app/drizzle ./drizzle
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/emails ./emails
+COPY --from=builder /app/content ./content
 COPY --from=builder /app/public ./public
 
 # Remove test files from runtime image
