@@ -126,7 +126,10 @@ function createAuth() {
       useSecureCookies: process.env.NODE_ENV === 'production',
     },
 
-    baseURL: process.env.NEXT_PUBLIC_APP_URL,
+    // BETTER_AUTH_URL is a plain (non-NEXT_PUBLIC) var — Next.js does NOT inline
+    // it at build time, so it stays runtime-overridable on the VPS.
+    // Falls back to NEXT_PUBLIC_APP_URL for local dev.
+    baseURL: process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL,
   });
 }
 
