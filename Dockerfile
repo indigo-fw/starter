@@ -6,7 +6,7 @@ COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile
 
 # ─── Stage 2: Build ───────────────────────────────────────────────────────
-FROM oven/bun:1.2 AS builder
+FROM node:20-slim AS builder
 
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -18,7 +18,7 @@ ENV DATABASE_URL="postgresql://localhost:5432/placeholder" \
     BETTER_AUTH_SECRET="build-time-placeholder-secret-that-is-32-chars" \
     NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
-RUN bun run build
+RUN npx next build
 
 # ─── Stage 3: Runtime ────────────────────────────────────────────────────
 FROM oven/bun:1.2-slim AS runtime
