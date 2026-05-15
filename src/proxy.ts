@@ -18,13 +18,18 @@ import { isEmailVerificationRequired } from '@/lib/email-verification';
  * 4. Nonce-based Content Security Policy
  */
 
-// ─── Edge rate limiting ─────────────────────────────────────────────────────
+// ─── Edge rate limiting ─────────────────────────────────────────────────────────────
 
 import { edgeRateLimit } from '@/core/lib/api/edge-rate-limit';
 
-const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
-const RATE_LIMIT_MAX = 60; // requests per window per IP
-const RATE_LIMIT_PATHS = ['/api/auth/', '/api/trpc/', '/api/v1/'];
+// General API rate limit: 60 req/min per IP
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX = 60;
+const RATE_LIMIT_PATHS = ['/api/trpc/', '/api/v1/'];
+
+// Stricter limit for auth endpoints: 10 req/min per IP (brute-force protection)
+const AUTH_RATE_LIMIT_WINDOW_MS = 60_000;
+const AUTH_RATE_LIMIT_MAX = 10;
 
 /** Non-default locale codes for prefix matching */
 const NON_DEFAULT_LOCALE_SET: Set<string> = new Set(
@@ -59,16 +64,31 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // ── Edge rate limiting ──
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    ?? request.headers.get('x-real-ip')
+    ?? 'unknown';
+
+  if (pathname.startsWith('/api/auth/')) {
+    // Strict auth rate limit — brute-force protection
+    if (!(await edgeRateLimit(ip, AUTH_RATE_LIMIT_WINDOW_MS, AUTH_RATE_LIMIT_MAX))) {
+      return new NextResponse('Too Many Requests', {
+        status: 429,
+        headers: { 'Retry-After': '60', 'Content-Type': 'application/json' },
+      });
+    }
+    // Auth routes don't need locale/CSP processing — pass through
+    return NextResponse.next();
+  }
+
   if (RATE_LIMIT_PATHS.some((p) => pathname.startsWith(p))) {
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-      ?? request.headers.get('x-real-ip')
-      ?? 'unknown';
     if (!(await edgeRateLimit(ip, RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX))) {
       return new NextResponse('Too Many Requests', {
         status: 429,
         headers: { 'Retry-After': '60' },
       });
     }
+    // Other API routes don't need locale/CSP processing — pass through
+    return NextResponse.next();
   }
 
   // ── Dashboard auth gating ──
@@ -221,5 +241,12 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|uploads|favicon\\.ico|sitemap\\.xml|robots\\.txt).*)'],
+  matcher: [
+    // Rate-limited API paths — must be explicit so middleware runs on them
+    '/api/auth/:path*',
+    '/api/trpc/:path*',
+    '/api/v1/:path*',
+    // All non-asset page routes — locale handling, auth gating, CSP
+    '/((?!_next|uploads|favicon\\.ico|sitemap\\.xml|robots\\.txt).*)',
+  ],
 };
