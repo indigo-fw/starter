@@ -109,6 +109,10 @@ const serverEnvSchema = z.object({
   // When set, overrides NEXT_PUBLIC_APP_URL for `<link rel="canonical">`.
   // Flip on demo to point at apex once marketing launches.
   INDIGO_CANONICAL_HOST: z.url().optional(),
+  // When true, emails are logged to console and NOT delivered.
+  // Set EMAIL_DRY_RUN=1 on the demo VPS to prevent spam to signup addresses.
+  // Also auto-enabled when INDIGO_ROBOTS_PROFILE=demo.
+  EMAIL_DRY_RUN: z.coerce.boolean().optional(),
 });
 
 const envSchema = serverEnvSchema.merge(clientEnvSchema);
