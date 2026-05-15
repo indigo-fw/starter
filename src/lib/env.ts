@@ -1,6 +1,6 @@
-import 'server-only';
-import { z } from 'zod';
-import { clientEnvSchema } from './env-schema';
+import "server-only";
+import { z } from "zod";
+import { clientEnvSchema } from "./env-schema";
 
 const serverEnvSchema = z.object({
   // Database
@@ -17,7 +17,7 @@ const serverEnvSchema = z.object({
 
   // Email (SMTP)
   SMTP_HOST: z.string().optional(),
-  SMTP_PORT: z.string().regex(/^\d+$/).default('587'),
+  SMTP_PORT: z.string().regex(/^\d+$/).default("587"),
   SMTP_USER: z.string().optional(),
   SMTP_PASS: z.string().optional(),
   FROM_EMAIL: z.email().optional(),
@@ -31,7 +31,7 @@ const serverEnvSchema = z.object({
   DEEPL_API_FREE: z.coerce.boolean().default(true),
 
   // Storage
-  STORAGE_BACKEND: z.enum(['s3', 'filesystem']).default('filesystem'),
+  STORAGE_BACKEND: z.enum(["s3", "filesystem"]).default("filesystem"),
 
   // Storage (S3-compatible) — required only when STORAGE_BACKEND=s3
   S3_ENDPOINT: z.url().optional(),
@@ -42,8 +42,8 @@ const serverEnvSchema = z.object({
 
   // Application
   NODE_ENV: z
-    .enum(['development', 'production', 'test'])
-    .default('development'),
+    .enum(["development", "production", "test"])
+    .default("development"),
 
   // Stripe (optional — billing disabled without STRIPE_SECRET_KEY)
   STRIPE_SECRET_KEY: z.string().optional(),
@@ -78,15 +78,15 @@ const serverEnvSchema = z.object({
   ELEVENLABS_DEFAULT_VOICE_ID: z.string().optional(),
 
   // Email list / newsletter integration (optional)
-  EMAIL_LIST_PROVIDER: z.enum(['mailchimp', 'brevo']).optional(),
+  EMAIL_LIST_PROVIDER: z.enum(["mailchimp", "brevo"]).optional(),
   MAILCHIMP_API_KEY: z.string().optional(),
   MAILCHIMP_LIST_ID: z.string().optional(),
   BREVO_API_KEY: z.string().optional(),
   BREVO_LIST_ID: z.string().optional(),
 
   // Server role
-  SERVER_ROLE: z.enum(['all', 'frontend', 'api', 'worker']).default('all'),
-  PORT: z.string().regex(/^\d+$/).default('3000'),
+  SERVER_ROLE: z.enum(["all", "frontend", "api", "worker"]).default("all"),
+  PORT: z.string().regex(/^\d+$/).default("3000"),
 
   // WebSocket
   WS_ENABLED: z.coerce.boolean().default(true),
@@ -105,13 +105,15 @@ const serverEnvSchema = z.object({
   // 'production' = surgical disallows (sane default for any deploy);
   // 'demo'       = selective: index /docs + marketing, block app surfaces + reset-volatile content;
   // 'preview'    = blanket Disallow: / (preview/staging deploys).
-  INDIGO_ROBOTS_PROFILE: z.enum(['production', 'demo', 'preview']).default('production'),
+  INDIGO_ROBOTS_PROFILE: z
+    .enum(["production", "demo", "preview"])
+    .default("production"),
   // When set, overrides NEXT_PUBLIC_APP_URL for `<link rel="canonical">`.
   // Flip on demo to point at apex once marketing launches.
   INDIGO_CANONICAL_HOST: z.url().optional(),
-  // When true, emails are logged to console and NOT delivered. Set on the demo
-  // VPS to prevent spam to user-provided signup addresses. Defaults to true
-  // when INDIGO_ROBOTS_PROFILE=demo.
+  // When true, emails are logged to console and NOT delivered.
+  // Set EMAIL_DRY_RUN=1 on the demo VPS to prevent spam to signup addresses.
+  // Also auto-enabled when INDIGO_ROBOTS_PROFILE=demo.
   EMAIL_DRY_RUN: z.coerce.boolean().optional(),
 });
 
@@ -121,9 +123,9 @@ const envSchema = serverEnvSchema.merge(clientEnvSchema);
 const parsedEnv = envSchema.safeParse(process.env);
 
 if (!parsedEnv.success) {
-  console.error('Invalid environment variables:');
+  console.error("Invalid environment variables:");
   console.error(parsedEnv.error.format());
-  throw new Error('Invalid environment variables');
+  throw new Error("Invalid environment variables");
 }
 
 export const env = parsedEnv.data;
