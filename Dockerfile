@@ -21,7 +21,7 @@ ENV DATABASE_URL="postgresql://localhost:5432/placeholder" \
 RUN bun run build
 
 # ─── Stage 3: Runtime ────────────────────────────────────────────────────
-FROM oven/bun:1.1-debian-slim AS runtime
+FROM oven/bun:1.1-slim AS runtime
 
 WORKDIR /app
 
@@ -59,6 +59,3 @@ COPY docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 3000
-
-ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD ["bun", "run", "server.ts"]
