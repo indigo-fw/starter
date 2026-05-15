@@ -36,14 +36,9 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/server.ts ./
-COPY --from=builder /app/src/proxy.ts ./src/proxy.ts
 COPY --from=builder /app/next.config.ts ./
 COPY --from=builder /app/drizzle.config.ts ./
-COPY --from=builder /app/src/server ./src/server
-COPY --from=builder /app/src/engine ./src/engine
-COPY --from=builder /app/src/lib ./src/lib
-COPY --from=builder /app/src/config ./src/config
-COPY --from=builder /app/src/scripts ./src/scripts
+COPY --from=builder /app/src ./src
 COPY --from=builder /app/emails ./emails
 COPY --from=builder /app/public ./public
 
@@ -60,3 +55,6 @@ COPY docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 3000
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["bun", "run", "server.ts"]
