@@ -72,6 +72,9 @@ jobs:
             " || echo "(table count check failed — tables may not exist yet)"
 
             echo "=== 5. One-time bootstrap (seed demo data) ==="
+            # Ensure /app/.env stub exists so init passes the file-presence check
+            # (Docker injects env vars directly; no .env file is written inside the container)
+            docker compose -f docker-compose.prod.yml exec -T app sh -c "[ -f /app/.env ] || touch /app/.env"
             docker compose -f docker-compose.prod.yml exec -T app bun run init -- -y
 
             echo "=== 6. Table counts after seed ==="
