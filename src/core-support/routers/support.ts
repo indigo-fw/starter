@@ -457,6 +457,16 @@ export const supportRouter = createTRPCRouter({
 
       if (input.status === 'resolved') updates.resolvedAt = new Date();
       if (input.status === 'closed') updates.closedAt = new Date();
+      // Reopening to an active status — clear terminal timestamps so they
+      // stay consistent with the current status.
+      if (
+        input.status === 'open' ||
+        input.status === 'awaiting_user' ||
+        input.status === 'awaiting_admin'
+      ) {
+        updates.resolvedAt = null;
+        updates.closedAt = null;
+      }
 
       await ctx.db
         .update(saasTickets)

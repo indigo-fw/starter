@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Loader2, Send } from 'lucide-react';
+import { ArrowLeft, Check, Copy, Loader2, RotateCcw, Send } from 'lucide-react';
 
 import { trpc } from '@/lib/trpc/client';
 import { useChannel } from '@/core/lib/realtime/ws-client';
+import { useConfirm } from '@/core/hooks';
 import { useAdminTranslations } from '@/lib/translations';
 import { toast } from '@/store/toast-store';
 import { adminPanel } from '@/config/routes';
@@ -50,13 +51,55 @@ function isNearBottom(el: HTMLElement, threshold = 150): boolean {
   return el.scrollHeight - el.scrollTop - el.clientHeight < threshold;
 }
 
+type TicketForCopy = {
+  id: string;
+  subject: string;
+  status: string;
+  priority: string;
+  createdAt: Date | string;
+  creator: { name: string | null; email: string | null } | null;
+  messages: Array<{ isStaff: boolean; body: string; createdAt: Date | string }>;
+};
+
+/** Render the ticket + thread as plain text optimized for pasting into an LLM. */
+function buildTicketConversationText(ticket: TicketForCopy): string {
+  const lines: string[] = [
+    `# Support Ticket — ${ticket.subject}`,
+    '',
+    `- ID: ${ticket.id}`,
+    `- Status: ${STATUS_LABELS[ticket.status] ?? ticket.status}`,
+    `- Priority: ${PRIORITY_LABELS[ticket.priority] ?? ticket.priority}`,
+    `- Created: ${new Date(ticket.createdAt).toISOString()}`,
+  ];
+  if (ticket.creator) {
+    lines.push(
+      `- Customer: ${ticket.creator.name ?? 'Unknown'} <${ticket.creator.email ?? ''}>`,
+    );
+  }
+  lines.push('', `## Conversation (${ticket.messages.length} messages)`, '');
+  for (const m of ticket.messages) {
+    const role = m.isStaff ? 'STAFF' : 'CUSTOMER';
+    const name = m.isStaff
+      ? 'Staff'
+      : (ticket.creator?.name ?? ticket.creator?.email ?? 'Customer');
+    lines.push(
+      `### [${role}] ${name} — ${new Date(m.createdAt).toISOString()}`,
+      m.body,
+      '',
+    );
+  }
+  return lines.join('\n');
+}
+
 export default function AdminTicketDetailPage() {
   const __ = useAdminTranslations();
+  const confirm = useConfirm();
   const params = useParams();
   const id = params.id as string;
   const utils = trpc.useUtils();
 
   const [replyBody, setReplyBody] = useState('');
+  const [copied, setCopied] = useState(false);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const shouldScrollRef = useRef(true);
 
@@ -120,7 +163,7 @@ export default function AdminTicketDetailPage() {
   const changeStatus = trpc.support.changeStatus.useMutation({
     onSuccess: () => {
       toast.success(__('Status updated'));
-      // WS broadcast will trigger invalidation
+      utils.support.adminGet.invalidate({ id });
     },
     onError: (err) => toast.error(err.message),
   });
@@ -160,11 +203,41 @@ export default function AdminTicketDetailPage() {
     staffReply.mutate({ ticketId: id, body: replyBody });
   }
 
-  function handleStatusChange(status: string) {
+  // Changing status with unsent text in the reply box would silently lose
+  // that message — confirm and send it first.
+  async function handleStatusChange(status: string) {
+    if (!ticket || status === ticket.status) return;
+    const typed = replyBody.trim();
+    if (typed) {
+      const ok = await confirm({
+        title: __('Unsent reply'),
+        message: __(
+          'You have an unsent reply in the box. Send it before changing the status?',
+        ),
+        confirmLabel: __('Send & change status'),
+      });
+      if (!ok) return;
+      try {
+        await staffReply.mutateAsync({ ticketId: id, body: typed });
+      } catch {
+        return; // error toast shown by the mutation
+      }
+    }
     changeStatus.mutate({
       ticketId: id,
       status: status as (typeof STATUSES)[number],
     });
+  }
+
+  async function handleCopyConversation() {
+    if (!ticket) return;
+    try {
+      await navigator.clipboard.writeText(buildTicketConversationText(ticket));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error(__('Failed to copy to clipboard'));
+    }
   }
 
   function handleUnassign() {
@@ -190,6 +263,27 @@ export default function AdminTicketDetailPage() {
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Main content — messages + reply */}
         <div className="flex-1 min-w-0">
+          {/* Conversation header */}
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-medium text-(--text-secondary)">
+              {__('Conversation')}
+            </h3>
+            <button
+              type="button"
+              onClick={handleCopyConversation}
+              className="btn btn-secondary btn-sm"
+              title={__(
+                'Copy the full conversation to clipboard (LLM-friendly format)',
+              )}
+            >
+              {copied ? (
+                <Check className="h-4 w-4" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
+              {copied ? __('Copied!') : __('Copy conversation')}
+            </button>
+          </div>
           {/* Messages */}
           <div
             ref={messagesContainerRef}
@@ -246,6 +340,20 @@ export default function AdminTicketDetailPage() {
           ) : (
             <div className="card p-4 text-center text-sm text-(--text-muted)">
               <div>{__('This ticket is closed.')}</div>
+              <button
+                type="button"
+                onClick={() =>
+                  changeStatus.mutate({
+                    ticketId: id,
+                    status: 'awaiting_admin',
+                  })
+                }
+                disabled={changeStatus.isPending}
+                className="btn btn-secondary btn-sm mt-3 disabled:opacity-50"
+              >
+                <RotateCcw className="h-4 w-4" />
+                {__('Reopen Ticket')}
+              </button>
               {ticket.satisfaction && SATISFACTION_DISPLAY[ticket.satisfaction] && (
                 <div className="mt-2 text-xs">
                   {__('User feedback')}:{' '}
@@ -300,7 +408,7 @@ export default function AdminTicketDetailPage() {
             <h3 className="font-semibold text-(--text-primary) text-sm mb-2">{__('Change Status')}</h3>
             <select
               value={ticket.status}
-              onChange={(e) => handleStatusChange(e.target.value)}
+              onChange={(e) => void handleStatusChange(e.target.value)}
               disabled={changeStatus.isPending}
               className="select w-full"
             >
