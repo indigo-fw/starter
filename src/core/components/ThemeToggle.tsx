@@ -3,8 +3,7 @@
 import { useEffect } from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 
-import { useThemeStore } from '@/core/store/theme-store';
-import { siteConfig } from '@/config/site';
+import { useThemeStore, isThemeSwitchEnabled } from '@/core/store/theme-store';
 
 const icons = {
   light: Sun,
@@ -12,31 +11,24 @@ const icons = {
   system: Monitor,
 } as const;
 
-const next = {
-  light: 'dark',
-  dark: 'system',
-  system: 'light',
-} as const;
-
 export function ThemeToggle() {
-  const { theme, setTheme, initTheme } = useThemeStore();
+  const theme = useThemeStore((s) => s.theme);
+  const cycleTheme = useThemeStore((s) => s.cycleTheme);
+  const initTheme = useThemeStore((s) => s.initTheme);
 
-  useEffect(() => {
-    return initTheme();
-  }, [initTheme]);
+  useEffect(() => initTheme(), [initTheme]);
 
-  // Theme locked by siteConfig.theme.forced — render no switcher.
-  // ThemeToggle is only used in public layouts, so the public lock applies.
-  if (siteConfig.theme.forced) return null;
+  // Only one mode configured for this scope → no choice to offer.
+  if (!isThemeSwitchEnabled()) return null;
 
   const Icon = icons[theme];
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(next[theme])}
+      onClick={cycleTheme}
       className="icon-btn"
-      aria-label={`Switch to ${next[theme]} theme`}
+      aria-label={`Switch theme (current: ${theme})`}
     >
       <Icon className="h-4 w-4" />
     </button>

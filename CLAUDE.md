@@ -2,7 +2,7 @@
 
 ## Overview
 
-Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS: Next.js 16 (App Router) + tRPC + Drizzle ORM + Better Auth. PostgreSQL with UUID primary keys. Scaffold a new SaaS/social/AI app from it with `bunx degit indigo-fw/starter my-app` (a plain `git clone` is only for framework/module development — see Repo roles below). CMS stays global (marketing site); SaaS primitives (orgs, billing, notifications, real-time) scope to organizations. Modular architecture — premium features available as installable modules via `bun run indigo add <module>`.
+Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS: Next.js 16 (App Router) + tRPC + Drizzle ORM + Better Auth. PostgreSQL with UUID primary keys. Scaffold a new SaaS/social/AI app with `bunx degit indigo-fw/starter my-app`. CMS stays global (marketing site); SaaS primitives (orgs, billing, notifications, real-time) scope to organizations. Modular architecture — premium features available as installable modules via `bun run indigo add <module>`.
 
 ## Development
 
@@ -11,12 +11,11 @@ Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS:
 - **Custom server:** `server.ts` — Bun-direct entry. Initializes BullMQ workers, WebSocket, content sync. Cache + Redis pub/sub init for `cms-link` and `content vars` does NOT live here (see next bullet)
 - **Next.js boot hook:** `src/instrumentation.ts` — Next.js's [`instrumentation`](https://nextjs.org/docs/app/api-reference/file-conventions/instrumentation) entry, runs once during `app.prepare()` in the Next.js server bundle context (same module instances as routers + SSR). Hosts `initCmsLinkSync`, `initContentVarsSync`, `preloadContentVars`. **Don't move these inits back to `server.ts`** — that creates separate module instances (Bun-side ≠ Next.js bundle), so the Redis subscription registers on a cache that nobody reads from, silently breaking cross-instance invalidation in multi-instance deploys
 - **CMS link cache split:** `src/core/lib/content/cms-link.ts` (server-only DB resolver, has `import 'server-only'`) imports cache helpers from `src/core/lib/content/cms-link-sync.ts` (no `'server-only'`, safe for Bun + instrumentation to load). The split exists because the `'server-only'` package's index.js throws outside Next.js webpack's `react-server` export condition — Bun-direct imports of the resolver would crash at startup
-- **First-time setup:** `bun run init` — creates DB, migrations, search triggers, superadmin, seeds content + email templates to `content/` and `emails/`. At the end it also runs `ensureGitRepo()`: when there's no `.git` (i.e. a `degit` install) it does `git init` + initial commit + `bun run prepare` (husky) and offers to set `origin`; it is a no-op (no prompts) in the framework dev repo and in `-y` mode. See Repo roles
-- **Repo roles:** the same repo is both the distributed starter and the framework dev tree, so behavior is keyed off git config, not files. Users do `bunx degit` (no `.git` ships → `bun run init` makes a fresh repo). The framework/contributor checkout is a `git clone` and carries `git config --local indigo.role framework` (set it once; never copied by clone/degit) — this both protects it from `ensureGitRepo` and is the only place `bun run indigo push` works (also unlocked by `INDIGO_MAINTAINER=1`). Module updates (`indigo add` / `update`) use `git subtree … --squash`, which needs no shared ancestry, so they work fine in a degit'd repo; only `indigo push` needs the real split history
+- **First-time setup:** `bun run init` — creates DB, migrations, search triggers, superadmin, seeds content + email templates to `content/` and `emails/`
 - **Content sync:** `bun run content:sync` — syncs `.md` files from `content/` to CMS database (also runs automatically on server start)
 - **Promote user:** `bun run promote <email>`
 - **Change password:** `bun run change-password <email>`
-- **Database:** `bun run db:generate` after schema changes, `bun run db:migrate` to apply, `bun run db:studio` for viewer. **`db:generate` is a maintainer step, not a downstream-install step** — it diffs the schema against `drizzle/meta/*` snapshots and, on a column rename/conflict, opens an interactive TUI prompt that *requires a real TTY* (it errors in CI/piped shells). Downstream apps only ever `db:migrate` (apply committed migrations). After editing a `src/**/schema/*.ts`, run `db:generate` in a real terminal, answer any prompts, and commit the new `drizzle/NNNN_*.sql` **and** the updated `drizzle/meta/`. If you hand-write a migration in a pinch, also append its entry to `drizzle/meta/_journal.json` (a placeholder `NNNN_snapshot.json` keeps `migrate` happy; regenerate the canonical one with `db:generate` later).
+- **Database:** `bun run db:generate` after schema changes, `bun run db:migrate` to apply, `bun run db:studio` for viewer. After editing a `src/**/schema/*.ts`, run `db:generate` in a real terminal (requires TTY), answer any prompts, and commit the new `drizzle/NNNN_*.sql` **and** the updated `drizzle/meta/`
 - **Type check:** `bun run typecheck`
 - **Tests:** `bunx vitest run` (CI uses vitest for proper mock isolation). Use `asMock(fn)` from `@/test-utils` instead of `vi.mocked()`
 - **Translations:** PO files in `locales/admin/*.po`. After editing: `bun run generate-po && bun run transform:po`
@@ -83,3 +82,7 @@ PO files in `locales/admin/*.po` and `locales/public/*.po`. Pipeline: `bun run i
 - **"Cannot find module" after branch switch:** Run `bun install`
 - **Migration fails:** Check `DATABASE_URL` in `.env`, ensure PostgreSQL is running. The init script creates the database automatically
 - **Tiptap editor not rendering:** Ensure `@tiptap/react` and `@tiptap/starter-kit` are installed. Run `bun install`
+
+## Project notes
+
+<!-- Add your project-specific context here: custom modules, domain decisions, team conventions, etc. -->

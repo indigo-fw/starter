@@ -57,11 +57,15 @@ export const siteConfig = {
   /** Theme behavior for the public frontend. */
   theme: {
     /**
-     * Lock the public site to a single theme and hide the theme switcher.
-     *   'light' | 'dark' — that theme is forced; <ThemeToggle> renders nothing.
-     *   null             — visitors choose (light / dark / system). [default]
-     * The admin dashboard always keeps its own independent toggle.
+     * Renderable themes the public theme switcher offers, in cycle order.
+     * The first entry is the default theme.
+     *   2+ entries — the switcher is shown. When the list has both 'light'
+     *                and 'dark', a 'system' (follow-OS) state is also offered
+     *                and becomes the default. 'system' is implicit — never
+     *                list it here.
+     *   1 entry    — that theme is forced; the switcher is hidden.
+     * The admin dashboard always keeps its own independent light/dark switcher.
      */
-    forced: null as 'light' | 'dark' | null,
+    modes: ['light', 'dark'],
   },
 } as const;

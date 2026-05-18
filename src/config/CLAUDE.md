@@ -68,14 +68,16 @@ Core's `CustomFieldsEditor` accepts optional `fieldRenderers` prop — pass cust
 
 **Canonical URLs:** `src/config/canonical-init.ts` wires `setCanonicalConfig()` with site URL + locale config. Imported as side-effect where canonical URLs are built.
 
-## Theme Lock
+## Theme Modes
 
-`src/config/site.ts` → `theme.forced` locks the **public** frontend to one theme:
+`src/config/site.ts` → `theme.modes` is the ordered list of renderable themes the **public** theme switcher offers. The first entry is the default theme.
 
-- `null` (default) — visitors toggle light / dark / system; choice persists in `localStorage`.
-- `'dark'` / `'light'` — that theme is forced. `<ThemeToggle>` renders nothing, `setTheme()` is a no-op, and the pre-hydration script in `src/app/layout.tsx` applies it with no flash.
+- **2+ entries** — the switcher renders. If the list contains both `'light'` and `'dark'`, a `'system'` (follow-OS) state is also offered and becomes the default. `'system'` is a runtime *state*, not a mode — it is implicit and must never be listed in `modes`.
+- **1 entry** — that theme is forced: `<ThemeToggle>` renders nothing, `setTheme()` is a no-op (e.g. `modes: ['dark']` → dark-only).
 
-The admin dashboard keeps its own independent toggle regardless of this setting. The lock is honored in three places, all driven off the one flag: the `<head>` script (`app/layout.tsx`), the theme store (`core/store/theme-store.ts`), and `<ThemeToggle>` (`core/components/ThemeToggle.tsx`).
+No flash: the pre-hydration `<head>` script in `src/app/layout.tsx` resolves the same rule before paint. `isThemeSwitchEnabled()` (`core/store/theme-store.ts`) is the helper for "should the switcher render"; the store also exposes `cycleTheme()`. The admin dashboard always keeps its own independent light/dark switcher, regardless of this setting.
+
+Adding a *new* theme beyond light/dark is config-ready (`modes` takes any string) but also needs a CSS theme block and a branch in the store's `applyTheme()` — the token system currently renders only `light` and `html.dark`.
 
 ## Sitemap
 

@@ -76,9 +76,8 @@ export default async function RootLayout({
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{
-            // Pre-hydration theme — honors siteConfig.theme.forced for the
-            // public frontend (no flash); otherwise restores the visitor's choice.
-            __html: `(function(){var p=location.pathname;var dash=p.startsWith('/dashboard');var f=${JSON.stringify(siteConfig.theme.forced)};if(f&&!dash){if(f==='dark')document.documentElement.classList.add('dark');return}var k=dash?'indigo-theme-admin':'indigo-theme-public';var t=localStorage.getItem(k)||localStorage.getItem('indigo-theme');var d=t==='dark'||(t==='system')&&matchMedia('(prefers-color-scheme:dark)').matches;if(d)document.documentElement.classList.add('dark')})()`,
+            // No-flash pre-hydration theme — mirrors core/store/theme-store.ts.
+            __html: `(function(){var p=location.pathname,dash=p.startsWith('/dashboard');var m=dash?['light','dark']:${JSON.stringify(siteConfig.theme.modes)};var sys=m.indexOf('light')>-1&&m.indexOf('dark')>-1;var s;if(m.length<=1){s=m[0]||'light'}else{var st=sys?m.concat(['system']):m;var k=dash?'indigo-theme-admin':'indigo-theme-public';var v=localStorage.getItem(k)||localStorage.getItem('indigo-theme');s=v&&st.indexOf(v)>-1?v:(sys?'system':m[0])}var d=s==='dark'||(s==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);if(d)document.documentElement.classList.add('dark')})()`,
           }}
         />
       </head>
