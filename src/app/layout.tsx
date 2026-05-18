@@ -76,7 +76,9 @@ export default async function RootLayout({
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{
-            __html: `(function(){var p=location.pathname;var k=p.startsWith('/dashboard')?'indigo-theme-admin':'indigo-theme-public';var t=localStorage.getItem(k)||localStorage.getItem('indigo-theme');var d=t==='dark'||(t==='system')&&matchMedia('(prefers-color-scheme:dark)').matches;if(d)document.documentElement.classList.add('dark')})()`,
+            // Pre-hydration theme — honors siteConfig.theme.forced for the
+            // public frontend (no flash); otherwise restores the visitor's choice.
+            __html: `(function(){var p=location.pathname;var dash=p.startsWith('/dashboard');var f=${JSON.stringify(siteConfig.theme.forced)};if(f&&!dash){if(f==='dark')document.documentElement.classList.add('dark');return}var k=dash?'indigo-theme-admin':'indigo-theme-public';var t=localStorage.getItem(k)||localStorage.getItem('indigo-theme');var d=t==='dark'||(t==='system')&&matchMedia('(prefers-color-scheme:dark)').matches;if(d)document.documentElement.classList.add('dark')})()`,
           }}
         />
       </head>

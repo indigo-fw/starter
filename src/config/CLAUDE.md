@@ -68,6 +68,15 @@ Core's `CustomFieldsEditor` accepts optional `fieldRenderers` prop — pass cust
 
 **Canonical URLs:** `src/config/canonical-init.ts` wires `setCanonicalConfig()` with site URL + locale config. Imported as side-effect where canonical URLs are built.
 
+## Theme Lock
+
+`src/config/site.ts` → `theme.forced` locks the **public** frontend to one theme:
+
+- `null` (default) — visitors toggle light / dark / system; choice persists in `localStorage`.
+- `'dark'` / `'light'` — that theme is forced. `<ThemeToggle>` renders nothing, `setTheme()` is a no-op, and the pre-hydration script in `src/app/layout.tsx` applies it with no flash.
+
+The admin dashboard keeps its own independent toggle regardless of this setting. The lock is honored in three places, all driven off the one flag: the `<head>` script (`app/layout.tsx`), the theme store (`core/store/theme-store.ts`), and `<ThemeToggle>` (`core/components/ThemeToggle.tsx`).
+
 ## Sitemap
 
 `CONTENT_FETCHERS` array in `src/app/sitemap.ts` + static pages pass into `generateSitemap()` from `@/core/lib/seo/sitemap`. Adding a content type = adding a fetcher entry. Sitemap includes x-default hreflang for multilingual sites.

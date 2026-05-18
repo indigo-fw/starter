@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { siteConfig } from '@/config/site';
+
 const DASHBOARD_PREFIX = '/dashboard';
 
 type Theme = 'light' | 'dark' | 'system';
@@ -12,6 +14,18 @@ const PUBLIC_KEY = 'indigo-theme-public';
 function detectStorageKey(): string {
   if (typeof window === 'undefined') return PUBLIC_KEY;
   return window.location.pathname.startsWith(DASHBOARD_PREFIX) ? ADMIN_KEY : PUBLIC_KEY;
+}
+
+/**
+ * The theme the current scope is locked to, or `null` when the visitor may
+ * choose. Only the public frontend can be forced (via `siteConfig.theme.forced`)
+ * — the admin dashboard always keeps its own toggle.
+ */
+function getForcedTheme(): ResolvedTheme | null {
+  const onDashboard =
+    typeof window !== 'undefined' &&
+    window.location.pathname.startsWith(DASHBOARD_PREFIX);
+  return onDashboard ? null : siteConfig.theme.forced;
 }
 
 function getStoredTheme(key: string): Theme | null {
@@ -48,6 +62,8 @@ export const useThemeStore = create<ThemeStore>((set, get) => ({
   resolvedTheme: 'light',
 
   setTheme(t: Theme) {
+    // Theme is locked by siteConfig.theme.forced — ignore changes.
+    if (getForcedTheme()) return;
     const key = detectStorageKey();
     localStorage.setItem(key, t);
     const resolved: ResolvedTheme =
@@ -57,6 +73,14 @@ export const useThemeStore = create<ThemeStore>((set, get) => ({
   },
 
   initTheme() {
+    // Forced theme: apply it and skip storage + system-preference listener.
+    const forced = getForcedTheme();
+    if (forced) {
+      applyTheme(forced);
+      set({ theme: forced, resolvedTheme: forced });
+      return () => {};
+    }
+
     const key = detectStorageKey();
     const stored = getStoredTheme(key);
     const theme: Theme = stored ?? 'light';

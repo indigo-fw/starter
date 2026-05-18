@@ -53,4 +53,15 @@ export const siteConfig = {
     /** Show navigation dots on the left side of the feed. */
     showNavDots: true,
   },
+
+  /** Theme behavior for the public frontend. */
+  theme: {
+    /**
+     * Lock the public site to a single theme and hide the theme switcher.
+     *   'light' | 'dark' — that theme is forced; <ThemeToggle> renders nothing.
+     *   null             — visitors choose (light / dark / system). [default]
+     * The admin dashboard always keeps its own independent toggle.
+     */
+    forced: null as 'light' | 'dark' | null,
+  },
 } as const;

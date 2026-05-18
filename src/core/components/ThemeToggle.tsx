@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 
 import { useThemeStore } from '@/core/store/theme-store';
+import { siteConfig } from '@/config/site';
 
 const icons = {
   light: Sun,
@@ -23,6 +24,10 @@ export function ThemeToggle() {
   useEffect(() => {
     return initTheme();
   }, [initTheme]);
+
+  // Theme locked by siteConfig.theme.forced — render no switcher.
+  // ThemeToggle is only used in public layouts, so the public lock applies.
+  if (siteConfig.theme.forced) return null;
 
   const Icon = icons[theme];
 
