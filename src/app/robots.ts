@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 import { env } from '@/lib/env';
+import { getServerAppUrl } from '@/lib/app-url';
 import { DASHBOARD_PREFIX } from '@/config/routes';
 
 /**
@@ -19,7 +20,7 @@ import { DASHBOARD_PREFIX } from '@/config/routes';
  * image regardless of profile.
  */
 export default function robots(): MetadataRoute.Robots {
-  const base = env.NEXT_PUBLIC_APP_URL;
+  const base = getServerAppUrl();
   const sitemap = [`${base}/sitemap.xml`, `${base}/news-sitemap.xml`];
 
   if (env.INDIGO_ROBOTS_PROFILE === 'preview') {

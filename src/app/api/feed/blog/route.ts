@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server';
 
 import { siteConfig } from '@/config/site';
+import { getServerAppUrl } from '@/lib/app-url';
 import { resolveContentVars } from '@/core/lib/content/vars';
 import { generateRssFeed, createRssResponse } from '@/core/lib/content/rss';
 import { db } from '@/server/db';
@@ -38,17 +39,18 @@ export async function GET(request: NextRequest) {
 
     const linkPrefix = lang === DEFAULT_LOCALE ? '' : `/${lang}`;
 
+    const appUrl = getServerAppUrl();
     const xml = generateRssFeed(
       {
         title: `Blog | ${siteConfig.name}`,
-        link: `${siteConfig.url}${linkPrefix}/blog`,
+        link: `${appUrl}${linkPrefix}/blog`,
         description: siteConfig.description,
         language: lang,
-        feedUrl: `${siteConfig.url}/api/feed/blog${lang !== DEFAULT_LOCALE ? `?lang=${lang}` : ''}`,
+        feedUrl: `${appUrl}/api/feed/blog${lang !== DEFAULT_LOCALE ? `?lang=${lang}` : ''}`,
       },
       posts.map((post) => ({
         title: resolveContentVars(post.title),
-        link: `${siteConfig.url}${linkPrefix}/blog/${post.slug}`,
+        link: `${appUrl}${linkPrefix}/blog/${post.slug}`,
         description: post.metaDescription ? resolveContentVars(post.metaDescription) : undefined,
         pubDate: post.publishedAt ?? undefined,
       })),

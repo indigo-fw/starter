@@ -1,6 +1,7 @@
 import { and, desc, eq, isNull } from 'drizzle-orm';
 
 import { siteConfig } from '@/config/site';
+import { getServerAppUrl } from '@/lib/app-url';
 import { CONTENT_TYPES } from '@/config/cms';
 import { LOCALES, DEFAULT_LOCALE, IS_MULTILINGUAL } from '@/lib/constants';
 import { localePath } from '@/lib/locale';
@@ -131,7 +132,7 @@ const CONTENT_FETCHERS: SitemapFetcher[] = [
 export default function sitemap() {
   return generateSitemap(
     {
-      siteUrl: siteConfig.url,
+      siteUrl: getServerAppUrl(),
       locales: LOCALES,
       defaultLocale: DEFAULT_LOCALE,
       isMultilingual: IS_MULTILINGUAL,

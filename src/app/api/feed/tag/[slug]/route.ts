@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server';
 
 import { siteConfig } from '@/config/site';
+import { getServerAppUrl } from '@/lib/app-url';
 import { resolveContentVars } from '@/core/lib/content/vars';
 import { generateRssFeed, createRssResponse } from '@/core/lib/content/rss';
 import { db } from '@/server/db';
@@ -69,19 +70,20 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     const linkPrefix = lang === DEFAULT_LOCALE ? '' : `/${lang}`;
 
+    const appUrl = getServerAppUrl();
     const xml = generateRssFeed(
       {
         title: `Posts tagged "${tag.name}" | ${siteConfig.name}`,
-        link: `${siteConfig.url}${linkPrefix}/tag/${slug}`,
+        link: `${appUrl}${linkPrefix}/tag/${slug}`,
         description: `Posts tagged with "${tag.name}"`,
         language: lang,
-        feedUrl: `${siteConfig.url}/api/feed/tag/${slug}${lang !== DEFAULT_LOCALE ? `?lang=${lang}` : ''}`,
+        feedUrl: `${appUrl}/api/feed/tag/${slug}${lang !== DEFAULT_LOCALE ? `?lang=${lang}` : ''}`,
       },
       posts.map((post) => ({
         title: resolveContentVars(post.title),
         link: post.type === PostType.BLOG
-          ? `${siteConfig.url}${linkPrefix}/blog/${post.slug}`
-          : `${siteConfig.url}${linkPrefix}/${post.slug}`,
+          ? `${appUrl}${linkPrefix}/blog/${post.slug}`
+          : `${appUrl}${linkPrefix}/${post.slug}`,
         description: post.metaDescription ? resolveContentVars(post.metaDescription) : undefined,
         pubDate: post.publishedAt ?? undefined,
       })),
