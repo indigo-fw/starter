@@ -1,5 +1,9 @@
 import type { MetadataRoute } from 'next';
 
+// Force runtime evaluation — robots policy and sitemap URLs depend on runtime env vars
+// (INDIGO_ROBOTS_PROFILE, BETTER_AUTH_URL) that are not available at build time.
+export const dynamic = 'force-dynamic';
+
 import { env } from '@/lib/env';
 import { getServerAppUrl } from '@/lib/app-url';
 import { DASHBOARD_PREFIX } from '@/config/routes';
