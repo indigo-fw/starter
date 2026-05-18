@@ -15,9 +15,15 @@ export interface LoginFormProps {
   onSwitchToRegister?: () => void;
   /** Override callbackUrl for social login (dialog mode: pass current pathname so OAuth returns here) */
   socialCallbackUrl?: string;
+  /** Pre-fill credentials for dev/demo banner quick-login button */
+  devEmail?: string | null;
+  /** Pre-fill credentials for dev/demo banner quick-login button */
+  devPassword?: string | null;
+  /** When true, banner label says "Demo instance" */
+  isDemo?: boolean;
 }
 
-export function LoginForm({ onSuccess, onSwitchToRegister, socialCallbackUrl }: LoginFormProps = {}) {
+export function LoginForm({ onSuccess, onSwitchToRegister, socialCallbackUrl, devEmail, devPassword, isDemo }: LoginFormProps = {}) {
   const __ = useBlankTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -26,6 +32,26 @@ export function LoginForm({ onSuccess, onSwitchToRegister, socialCallbackUrl }: 
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const handleQuickLogin = async () => {
+    if (!devEmail || !devPassword) return;
+    setError('');
+    setLoading(true);
+    try {
+      const result = await signIn.email({ email: devEmail, password: devPassword });
+      if (result.error) {
+        setError(result.error.message ?? __('Invalid email or password'));
+      } else if (onSuccess) {
+        onSuccess();
+      } else {
+        router.push(callbackUrl);
+      }
+    } catch {
+      setError(__('Something went wrong. Please try again.'));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,6 +76,36 @@ export function LoginForm({ onSuccess, onSwitchToRegister, socialCallbackUrl }: 
 
   return (
     <div>
+      {devEmail && devPassword && (
+        <div className="mb-6 rounded-md border border-amber-200 bg-amber-50 dark:border-amber-500/30 dark:bg-amber-500/10 px-4 py-3 text-sm text-amber-800 dark:text-amber-300">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="font-semibold">
+                {isDemo ? __('Demo instance — resets every hour') : __('Local dev')}
+              </p>
+              <p className="mt-1">
+                {__('Sign in as')}:{' '}
+                <code className="rounded bg-amber-100 dark:bg-amber-500/20 px-1 py-0.5 font-mono text-xs">
+                  {devEmail}
+                </code>{' '}
+                /{' '}
+                <code className="rounded bg-amber-100 dark:bg-amber-500/20 px-1 py-0.5 font-mono text-xs">
+                  {devPassword}
+                </code>
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handleQuickLogin}
+              disabled={loading}
+              className="shrink-0 rounded bg-amber-200 dark:bg-amber-500/30 px-2.5 py-1 text-xs font-medium hover:bg-amber-300 dark:hover:bg-amber-500/50 transition-colors disabled:opacity-50"
+            >
+              {__('Sign in →')}
+            </button>
+          </div>
+        </div>
+      )}
+
       <SocialLoginButtons callbackUrl={socialCallbackUrl ?? callbackUrl} />
 
       <div className="flex items-center gap-3 my-6">
