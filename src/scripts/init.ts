@@ -594,6 +594,19 @@ async function ensureSuperadmin(
     process.exit(1);
   }
 
+  // In production, refuse known-weak passwords — catches "I forgot to change .env.example"
+  // Skipped for intentional demo deployments (INDIGO_ROBOTS_PROFILE=demo) — temporary until demo module
+  const KNOWN_WEAK = ['asdfasdf', 'password', 'admin', '123456', 'demo1234', 'qwerty', 'letmein'];
+  const isDemo = process.env.INDIGO_ROBOTS_PROFILE === 'demo';
+  if (process.env.NODE_ENV === 'production' && !isDemo && KNOWN_WEAK.includes(password)) {
+    console.error("");
+    console.error("❌  Refusing to create production superadmin with a known-weak password.");
+    console.error(`    Password "${password}" is on the weak-passwords list.`);
+    console.error("    Set a strong INIT_ADMIN_PASSWORD in your .env and re-run.");
+    console.error("");
+    process.exit(1);
+  }
+
   const hashedPassword = await hashPassword(password);
   const userId = crypto.randomUUID();
 

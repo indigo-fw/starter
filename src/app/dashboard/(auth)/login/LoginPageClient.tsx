@@ -11,7 +11,15 @@ const registrationEnabled =
   process.env.NEXT_PUBLIC_ADMIN_REGISTRATION_ENABLED === 'true' ||
   process.env.NEXT_PUBLIC_ADMIN_REGISTRATION_ENABLED === '1';
 
-export function LoginPageClient({ isDemo }: { isDemo?: boolean }) {
+export function LoginPageClient({
+  isDemo,
+  devEmail,
+  devPassword,
+}: {
+  isDemo?: boolean;
+  devEmail?: string | null;
+  devPassword?: string | null;
+}) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,17 +52,19 @@ export function LoginPageClient({ isDemo }: { isDemo?: boolean }) {
 
   return (
     <div className="auth-login-card rounded-lg border border-(--border-primary) bg-(--surface-primary) p-8 shadow-sm">
-      {isDemo && (
+      {devEmail && devPassword && (
         <div className="mb-6 rounded-md border border-amber-200 bg-amber-50 dark:border-amber-500/30 dark:bg-amber-500/10 px-4 py-3 text-sm text-amber-800 dark:text-amber-300">
-          <p className="font-semibold">Demo instance — resets every hour</p>
+          <p className="font-semibold">
+            {isDemo ? 'Demo instance — resets every hour' : 'Local dev'}
+          </p>
           <p className="mt-1">
-            Admin:{' '}
+            {isDemo ? 'Admin' : 'Sign in as'}:{' '}
             <code className="rounded bg-amber-100 dark:bg-amber-500/20 px-1 py-0.5 font-mono text-xs">
-              demo@indigo-fw.dev
+              {devEmail}
             </code>{' '}
             /{' '}
             <code className="rounded bg-amber-100 dark:bg-amber-500/20 px-1 py-0.5 font-mono text-xs">
-              asdfasdf
+              {devPassword}
             </code>
           </p>
         </div>

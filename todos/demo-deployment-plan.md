@@ -221,7 +221,7 @@ Order matters.
    - [x] ~~Zoho Mail Free~~ → used **Cloudflare Email Routing** instead (routes `info@indigo-fw.dev` → `payter86@gmail.com`)
    - [x] MX + SPF records set in Cloudflare
    - [x] `info@indigo-fw.dev` forwards to gmail
-   - [ ] Send/receive smoke test (not formally tested)
+   - [x] Send/receive smoke test (Cloudflare Email Routing forwards to gmail)
 3. **Outbound mail**
    - [x] Resend account, add domain
    - [x] Add DKIM + return-path TXT records
@@ -249,22 +249,29 @@ Order matters.
    - [x] Make any tiny commit on `main` → workflow runs → verify image lands at GHCR + box pulls
 7. **Reset cron**
    - [x] Crontab line installed via `bootstrap-demo` workflow (runs `bun run init -- -y --reset` at `:00` every hour)
-   - [ ] Wait one full hour → verify `/var/log/indigo-reset.log` shows clean reset + reseed
+   - [ ] Verify `/var/log/indigo-reset.log` shows clean reset + reseed after next cron run
 8. **Hardening**
-   - [x] Cloudflare WAF rules (rate limits, ASN scoring) - applied via `apply-cloudflare-rules.yml` workflow
+   - [x] Cloudflare WAF rules (rate limits, ASN scoring) — applied via `apply-cloudflare-rules.yml` workflow
    - [x] Implement `app/robots.ts` dynamic route with `INDIGO_ROBOTS_PROFILE` branch
    - [x] Implement `app/sitemap.ts` dynamic route
    - [x] Set `INDIGO_ROBOTS_PROFILE=demo` in demo box `.env` (set by bootstrap workflow)
-   - [ ] Add `noindex` to seeded/reset-volatile sample content (`isDemoSample` flag) - not implemented
-   - [ ] Verify `curl https://demo.indigo-fw.dev/robots.txt` + sitemap.xml output
-   - [x] Banner on login screen with reset notice + creds
+   - [ ] Add `noindex` to seeded/reset-volatile sample content (`isDemoSample` flag) — deferred, post-launch
+   - [ ] Verify `curl https://demo.indigo-fw.dev/robots.txt` + `sitemap.xml` output
+   - [x] Login banner refactored — dynamic (`INIT_ADMIN_EMAIL` / `INIT_ADMIN_PASSWORD`), gated on `NODE_ENV !== production` for customers; demo keeps `INDIGO_ROBOTS_PROFILE=demo` fallback until demo module exists
    - [x] Disable outbound email (`EMAIL_DRY_RUN=1` env flag)
-9. **Smoke test**
-   - [ ] **Sign in as demo@indigo-fw.dev / asdfasdf** ← BLOCKED: needs bootstrap-demo.yml fix committed + re-run
-   - [ ] Sign up as a new user, navigate dashboard
-   - [ ] Visit `/docs` - verify `.mdx` rendering
-   - [ ] Manually trigger reset → re-check both demo data and docs still serve
-   - [ ] `robots.txt` and `sitemap.xml` return the expected demo-profile output
+   - [x] Production weak-password guard in `init.ts` — refuses known-weak passwords in `NODE_ENV=production` (demo exempted via `INDIGO_ROBOTS_PROFILE=demo`)
+10. **Repo hygiene** *(added — separating what users get from framework dev)*
+    - [x] `.degitignore` — excludes `todos/`, `bootstrap-demo.yml`, `apply-cloudflare-rules.yml`, `deploy-demo.yml` from `bunx degit` installs
+    - [x] `docker-compose.prod.yml` — removed hardcoded `https://demo.indigo-fw.dev` URLs; `NEXT_PUBLIC_APP_URL` + `BETTER_AUTH_URL` now come from `.env` only
+    - [x] `bootstrap-demo.yml` — fixed: restarts container before `bun run init` so `INIT_ADMIN_PASSWORD` is visible; switched to `--reset` flag; password changed to `asdfasdf`
+    - [ ] Demo module — extract `INDIGO_ROBOTS_PROFILE` logic + demo banner into private non-published module (post-launch)
+11. **Smoke test** *(blocked on: commit + push pending changes → deploy-demo → re-run bootstrap-demo)*
+    - [ ] Sign in as `demo@indigo-fw.dev / asdfasdf` — verify dashboard access
+    - [ ] Sign up as a new user, navigate dashboard
+    - [ ] Visit `/docs` — verify `.mdx` rendering
+    - [ ] Manually trigger reset → re-check demo data and docs still serve
+    - [ ] `robots.txt` and `sitemap.xml` return expected demo-profile output
+    - [ ] Outbound email: `curl` test to Resend confirms delivery
 
 ## Costs (annual)
 
