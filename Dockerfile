@@ -43,6 +43,7 @@ COPY --from=builder /app/src ./src
 COPY --from=builder /app/emails ./emails
 COPY --from=builder /app/content ./content
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/docs ./docs
 
 # Remove test files from runtime image
 RUN find /app/src -name "__tests__" -type d -exec rm -rf {} + 2>/dev/null; \
@@ -58,5 +59,4 @@ RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 3000
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD ["bun", "run", "server.ts"]
+ENTRYPOINT ["./docker-entrypoint.
