@@ -2,23 +2,20 @@
 
 ## Overview
 
-Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS: Next.js 16 (App Router) + tRPC + Drizzle ORM + Better Auth. PostgreSQL with UUID primary keys. Scaffold a new SaaS/social/AI app with `bunx degit indigo-fw/starter my-app`. CMS stays global (marketing site); SaaS primitives (orgs, billing, notifications, real-time) scope to organizations. Modular architecture — premium features available as installable modules via `bun run indigo add <module>`.
+Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS: Next.js 16 (App Router) + tRPC + Drizzle ORM + Better Auth. PostgreSQL with UUID primary keys. Scaffold a new SaaS/social/AI app from this repo — either clone it directly or use `bunx degit indigo-fw/starter my-app` for a clean copy without git history. CMS stays global (marketing site); SaaS primitives (orgs, billing, notifications, real-time) scope to organizations. Modular architecture — premium features available as installable modules via `bun run indigo add <module>`.
 
 ## Development
 
 - **Package manager:** `bun`
 - **Dev server:** `bun run dev` (custom server with Turbopack, port 3000)
-- **Custom server:** `server.ts` — Bun-direct entry. Initializes BullMQ workers, WebSocket, content sync. Cache + Redis pub/sub init for `cms-link` and `content vars` does NOT live here (see next bullet)
-- **Next.js boot hook:** `src/instrumentation.ts` — Next.js's [`instrumentation`](https://nextjs.org/docs/app/api-reference/file-conventions/instrumentation) entry, runs once during `app.prepare()` in the Next.js server bundle context (same module instances as routers + SSR). Hosts `initCmsLinkSync`, `initContentVarsSync`, `preloadContentVars`. **Don't move these inits back to `server.ts`** — that creates separate module instances (Bun-side ≠ Next.js bundle), so the Redis subscription registers on a cache that nobody reads from, silently breaking cross-instance invalidation in multi-instance deploys
-- **CMS link cache split:** `src/core/lib/content/cms-link.ts` (server-only DB resolver, has `import 'server-only'`) imports cache helpers from `src/core/lib/content/cms-link-sync.ts` (no `'server-only'`, safe for Bun + instrumentation to load). The split exists because the `'server-only'` package's index.js throws outside Next.js webpack's `react-server` export condition — Bun-direct imports of the resolver would crash at startup
-- **First-time setup:** `bun run init` — creates DB, migrations, search triggers, superadmin, seeds content + email templates to `content/` and `emails/`
+- **First-time setup:** `bun run init` — creates DB, runs migrations, sets up search triggers, creates superadmin, seeds content + email templates to `content/` and `emails/`. If you cloned from GitHub, init will offer to replace the starter's remote with your own repo URL.
 - **Content sync:** `bun run content:sync` — syncs `.md` files from `content/` to CMS database (also runs automatically on server start)
 - **Promote user:** `bun run promote <email>`
 - **Change password:** `bun run change-password <email>`
-- **Database:** `bun run db:generate` after schema changes, `bun run db:migrate` to apply, `bun run db:studio` for viewer. After editing a `src/**/schema/*.ts`, run `db:generate` in a real terminal (requires TTY), answer any prompts, and commit the new `drizzle/NNNN_*.sql` **and** the updated `drizzle/meta/`
+- **Database:** `bun run db:generate` after schema changes (requires real terminal/TTY), `bun run db:migrate` to apply, `bun run db:studio` for viewer. After editing a `src/**/schema/*.ts`, run `db:generate`, answer any prompts, and commit the new `drizzle/NNNN_*.sql` **and** the updated `drizzle/meta/`
 - **Type check:** `bun run typecheck`
 - **Tests:** `bunx vitest run` (CI uses vitest for proper mock isolation). Use `asMock(fn)` from `@/test-utils` instead of `vi.mocked()`
-- **Translations:** PO files in `locales/admin/*.po`. After editing: `bun run generate-po && bun run transform:po`
+- **Translations:** PO files in `locales/admin/*.po` and `locales/public/*.po`. After editing: `bun run i18n`
 - **Environment:** Zod-validated env vars in `src/lib/env.ts`
 - **Project health:** `bun run indigo doctor` — validates env, DB, modules, generated files, deps
 - **Visualize:** `bun run indigo visualize` — interactive architecture diagram → `.indigo/architecture.html`. `--mermaid` for `.mmd` files, `--imports` for dependency-cruiser reports + boundary violations, `--imports <module>` for single module deep dive

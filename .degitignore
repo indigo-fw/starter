@@ -3,6 +3,8 @@
 
 todos/
 CLAUDE.dev.md
+CLAUDE.starter.md
+scripts/sync-starter.ts
 .github/workflows/bootstrap-demo.yml
 .github/workflows/apply-cloudflare-rules.yml
 .github/workflows/deploy-demo.yml
