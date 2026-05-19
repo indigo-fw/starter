@@ -340,7 +340,7 @@ export default async function DemoHomePage() {
               <ExternalLink size={16} /> {__("Clone on GitHub")}
             </a>
             <a
-              href="https://indigo-fw.com/docs"
+              href="https://indigo-fw.dev/docs"
               className="btn btn-secondary rounded-xl px-6 py-3 text-sm font-semibold inline-flex items-center gap-2"
             >
               <BookOpen size={16} /> {__("Documentation")}
