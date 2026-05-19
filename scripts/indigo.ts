@@ -76,10 +76,10 @@ function moduleExists(id: string): boolean {
 function assertMaintainerRepo(): void {
   if (process.env.INDIGO_MAINTAINER === '1') return;
   const origin = runSilent('git remote get-url origin');
-  if (origin.includes('indigo-fw/starter')) return;
+  if (origin.includes('indigo-fw/starter') || origin.includes('indigo-fw/framework')) return;
   console.error('✗ `indigo push` is for the Indigo framework repo only.');
-  console.error(`  This repo's origin is "${origin || '(none)'}", not indigo-fw/starter.`);
-  console.error('  Push module changes from a clone of indigo-fw/starter, or set INDIGO_MAINTAINER=1 if you know what you are doing.');
+  console.error(`  This repo's origin is "${origin || '(none)'}", not indigo-fw/starter or indigo-fw/framework.`);
+  console.error('  Push module changes from a clone of indigo-fw/starter or indigo-fw/framework, or set INDIGO_MAINTAINER=1 if you know what you are doing.');
   process.exit(1);
 }
 
