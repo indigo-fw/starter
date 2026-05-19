@@ -14,7 +14,7 @@
  *
  *   * `push` rewrites/force-publishes subtree history to the module repos, which
  *     only works from the framework dev repo (real split ancestry). It's gated by
- *     assertMaintainerRepo() — origin must be indigo-fw/starter, or INDIGO_MAINTAINER=1.
+ *     assertMaintainerRepo() — origin must be indigo-fw/framework, or INDIGO_MAINTAINER=1.
  *     Downstream app repos consume modules with `add`/`update` (subtree pull --squash,
  *     no shared ancestry needed) and never push.
  *   bun run indigo list                         Show installed and available modules
@@ -76,10 +76,10 @@ function moduleExists(id: string): boolean {
 function assertMaintainerRepo(): void {
   if (process.env.INDIGO_MAINTAINER === '1') return;
   const origin = runSilent('git remote get-url origin');
-  if (origin.includes('indigo-fw/starter') || origin.includes('indigo-fw/framework')) return;
+  if (origin.includes('indigo-fw/framework')) return;
   console.error('✗ `indigo push` is for the Indigo framework repo only.');
-  console.error(`  This repo's origin is "${origin || '(none)'}", not indigo-fw/starter or indigo-fw/framework.`);
-  console.error('  Push module changes from a clone of indigo-fw/starter or indigo-fw/framework, or set INDIGO_MAINTAINER=1 if you know what you are doing.');
+  console.error(`  This repo's origin is "${origin || '(none)'}", not indigo-fw/framework.`);
+  console.error('  Push module changes from a clone of indigo-fw/framework, or set INDIGO_MAINTAINER=1 if you know what you are doing.');
   process.exit(1);
 }
 
