@@ -3,6 +3,7 @@
 import './MobileMenu.css';
 
 import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
@@ -19,7 +20,11 @@ interface Props {
 
 export function MobileMenu({ items }: Props) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  // Portal target requires `document` — only available after hydration.
+  useEffect(() => setMounted(true), []);
 
   const close = useCallback(() => setOpen(false), []);
 
@@ -51,44 +56,53 @@ export function MobileMenu({ items }: Props) {
         <Menu className="h-5 w-5" />
       </button>
 
-      {/* Overlay */}
-      <div
-        className={cn('app-mobile-overlay transition-opacity duration-200', open ? 'opacity-100' : 'pointer-events-none opacity-0')}
-        onClick={close}
-        aria-hidden
-      />
-
-      {/* Drawer */}
-      <div
-        className={cn('app-mobile-drawer transition-transform duration-200', open ? 'translate-x-0' : 'translate-x-full')}
-      >
-        <div className="app-mobile-drawer-header">
-          <span className="text-sm font-semibold text-(--text-primary)">Menu</span>
-          <button
-            type="button"
+      {/* Portal the overlay + drawer to <body> to escape the header's
+          containing block. .app-header has `backdrop-filter: blur(...)`, and
+          any ancestor with backdrop-filter / transform / filter / perspective
+          re-roots position:fixed to that ancestor instead of the viewport —
+          so top:0/bottom:0 would span the 56px header height, not 100vh,
+          shrinking the drawer to a tiny scrolling strip. */}
+      {mounted && createPortal(
+        <>
+          <div
+            className={cn('app-mobile-overlay transition-opacity duration-200', open ? 'opacity-100' : 'pointer-events-none opacity-0')}
             onClick={close}
-            className="icon-btn"
-            aria-label="Close menu"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
+            aria-hidden
+          />
 
-        <nav className="app-mobile-drawer-nav">
-          {items.map((item) => (
-            <a
-              key={item.url}
-              href={item.url}
-              className={cn(
-                'app-mobile-drawer-link',
-                pathname === item.url && 'app-mobile-drawer-link-active'
-              )}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </div>
+          <div
+            className={cn('app-mobile-drawer transition-transform duration-200', open ? 'translate-x-0' : 'translate-x-full')}
+          >
+            <div className="app-mobile-drawer-header">
+              <span className="text-sm font-semibold text-(--text-primary)">Menu</span>
+              <button
+                type="button"
+                onClick={close}
+                className="icon-btn"
+                aria-label="Close menu"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <nav className="app-mobile-drawer-nav">
+              {items.map((item) => (
+                <a
+                  key={item.url}
+                  href={item.url}
+                  className={cn(
+                    'app-mobile-drawer-link',
+                    pathname === item.url && 'app-mobile-drawer-link-active'
+                  )}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </>,
+        document.body,
+      )}
     </>
   );
 }
