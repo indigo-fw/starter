@@ -24,6 +24,12 @@
     background-color: var(--surface-primary);
     color: var(--text-primary);
     font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+    /* Contain off-screen slide-out drawers (MobileMenu, AppSidebar). Their
+       closed state uses `transform: translateX(100%)`, whose bounding box
+       lives outside the viewport and would otherwise add a horizontal
+       scrollbar. `clip` (not `hidden`) avoids creating a scroll container,
+       so sticky positioning on descendants like .app-header keeps working. */
+    overflow-x: clip;
   }
 
   /* Focus ring utility */
