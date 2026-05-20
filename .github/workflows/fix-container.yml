@@ -1,0 +1,30 @@
+name: fix-container
+on:
+  workflow_dispatch:
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show logs and restart app
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEMO_HOST }}
+          username: deploy
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd /opt/indigo
+            echo "=== Container status ==="
+            docker ps -a
+            echo ""
+            echo "=== App logs (last 100 lines) ==="
+            docker compose -f docker-compose.prod.yml logs app --tail=100
+            echo ""
+            echo "=== Restarting app ==="
+            docker compose -f docker-compose.prod.yml up -d --force-recreate app
+            sleep 10
+            echo ""
+            echo "=== Status after restart ==="
+            docker ps
+            echo ""
+            echo "=== Logs after restart ==="
+            docker compose -f docker-compose.prod.yml logs app --tail=30
