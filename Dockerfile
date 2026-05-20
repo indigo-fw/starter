@@ -59,4 +59,5 @@ RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 3000
 
-ENTRYPOINT ["./docker-entrypoint.
+ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["bun", "run", "server.ts"]
