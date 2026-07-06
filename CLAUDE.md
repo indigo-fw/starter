@@ -2,6 +2,8 @@
 
 Indigo — agent-native T3 SaaS framework with integrated CMS. Next.js 16 (App Router) + tRPC + Drizzle (PostgreSQL, UUID PKs) + Better Auth, run with `bun`. Optional features are modules: `bun run indigo add|remove <id>`.
 
+Work as a loop: extend via config/modules (never shared core) → typecheck + tests + `indigo doctor` → verify through MCP as a seeded persona → feed failures into the next pass until green.
+
 ## Orient — ask the code, not this file
 
 | Need | Source |

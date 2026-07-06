@@ -1,8 +1,8 @@
 # Indigo
 
-**The agent-native SaaS framework for Next.js.** Describe the product; your coding agent builds, tests and verifies it on rails — CMS, billing, auth, real-time and modular architecture already wired.
+**Describe your SaaS. Your agent ships it.** Indigo is the open-source Next.js SaaS framework built for coding agents — auth, billing, CMS, i18n, real-time and modular architecture pre-wired. The agent adds what you describe, verifies its own work as a real user, and improves the product pass after pass — a self-improving loop on rails.
 
-Your agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded test personas). You describe, review and decide — the code stays typed, tested and yours.
+Every pass of the loop is covered: the agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded personas to use the app as a free, pro or admin user). Iterations stay cheap — pointer-first docs and generated maps mean orientation costs hundreds of tokens, not a session. You describe, review and decide; the code stays typed, tested and yours.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Findigo-fw%2Fstarter&env=DATABASE_URL,REDIS_URL&envDescription=PostgreSQL%20and%20Redis%20connection%20strings&project-name=my-indigo-app)
 
@@ -271,7 +271,14 @@ Set `INIT_ADMIN_EMAIL` and `INIT_ADMIN_PASSWORD` in env for the demo login crede
 
 ## Agent-Driven Development
 
-Indigo is designed for AI coding agents. Comprehensive `CLAUDE.md` files at every level (root, core, modules, server, config, app) enable agents to understand and extend the codebase autonomously.
+Indigo is built for one workflow — a coding agent improving your product in a loop:
+
+1. **Describe** — you say what the product should be, in chat.
+2. **Build** — the agent orients from nested `CLAUDE.md` maps and `indigo visualize`, then extends through config and modules — never by editing shared core.
+3. **Verify** — typecheck, tests and `indigo doctor` grade the pass; then the agent logs in through MCP as a seeded persona and uses the feature like a customer would.
+4. **Improve** — failures feed the next pass automatically. Green means done — or the next thing you describe.
+
+Nothing blocks the loop: setup, module installs, migrations and checks run through non-interactive CLIs, and the agent asks its questions in chat. Iterations stay cheap: pointer-first docs, `indigo map` and module-scoped context mean the token budget goes into your feature, not into rediscovering the codebase.
 
 ## License
 

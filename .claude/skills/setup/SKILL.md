@@ -38,6 +38,7 @@ NEXT_PUBLIC_SITE_NAME="<site name>" bun run init -- -y \
 
 - Add `--no-seed` if the user chose a clean start.
 - `--modules` accepts ids (`core-payments,core-subscriptions`), `all`, or `recommended`. Unknown ids exit 1 and print the valid list — fix and re-run; init is idempotent.
+- Init derives the database name from the project folder (`my-app` → `my_app`) and creates it if missing. To use a different database or server, set `DATABASE_URL` in `.env` **before** running init.
 - Capture the generated admin password from the output.
 
 ## 4. Verify and hand over
@@ -45,7 +46,7 @@ NEXT_PUBLIC_SITE_NAME="<site name>" bun run init -- -y \
 1. `bun run indigo doctor` — must pass.
 2. Start the dev server in the background (`bun run dev`) and wait for "Server Ready".
 3. Fetch `http://localhost:<PORT>` (PORT from `.env`, default 3000) to confirm the homepage renders.
-4. Report back: the app URL, admin login (email + generated password), which modules are installed, and that removed modules can return via `bun run indigo add <id>`.
+4. Report back: the app URL, admin login (email + generated password), the installed modules **as printed by `bun run indigo list`** (don't recite from memory), and that removed modules can return via `bun run indigo add <id>`.
 
 ## Troubleshooting
 

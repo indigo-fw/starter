@@ -22,6 +22,7 @@ export const LOCALES = [
   'da',
   'nb',
   'fi',
+  'sk',
 ] as const;
 export type Locale = (typeof LOCALES)[number];
 
@@ -43,6 +44,7 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   da: 'Dansk',
   nb: 'Norsk bokmål',
   fi: 'Suomi',
+  sk: 'Slovenčina',
 };
 
 /** Whether the site supports multiple languages. When false (single locale),

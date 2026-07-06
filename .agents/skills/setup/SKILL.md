@@ -10,7 +10,12 @@ You are setting this Indigo app up for the user. Never leave a CLI prompt waitin
 ## 1. Preflight
 
 - Run `bun install` if `node_modules/` is missing.
-- PostgreSQL + Redis must be reachable. If Docker is available, offer `docker compose up -d`. It's fine if `bun run indigo doctor` complains before init — you only need the database server reachable.
+- PostgreSQL must be reachable (Redis too — background jobs fall back to a DB queue without it). Diagnose with `docker --version` / `docker info`:
+  - **Docker running** → offer `docker compose up -d` (starts PostgreSQL + Redis from the bundled compose file).
+  - **Docker installed, daemon stopped** → ask the user to start Docker Desktop (Linux: `sudo systemctl start docker`), then compose up.
+  - **No Docker** → present both options in chat and let the user choose: install Docker (Windows `winget install Docker.DockerDesktop` — needs admin; macOS `brew install --cask docker`; Linux: distro guide at docs.docker.com) or point `DATABASE_URL` in `.env` at an existing PostgreSQL server.
+- **Never install software without the user's explicit yes in chat.**
+- If `bun run init` can't connect, it prints an "Environment diagnostics" block (OS, Docker state, exact fix commands) — relay it to the user rather than guessing.
 
 ## 2. Ask the user (one round of questions)
 
@@ -33,6 +38,7 @@ NEXT_PUBLIC_SITE_NAME="<site name>" bun run init -- -y \
 
 - Add `--no-seed` if the user chose a clean start.
 - `--modules` accepts ids (`core-payments,core-subscriptions`), `all`, or `recommended`. Unknown ids exit 1 and print the valid list — fix and re-run; init is idempotent.
+- Init derives the database name from the project folder (`my-app` → `my_app`) and creates it if missing. To use a different database or server, set `DATABASE_URL` in `.env` **before** running init.
 - Capture the generated admin password from the output.
 
 ## 4. Verify and hand over
@@ -40,7 +46,7 @@ NEXT_PUBLIC_SITE_NAME="<site name>" bun run init -- -y \
 1. `bun run indigo doctor` — must pass.
 2. Start the dev server in the background (`bun run dev`) and wait for "Server Ready".
 3. Fetch `http://localhost:<PORT>` (PORT from `.env`, default 3000) to confirm the homepage renders.
-4. Report back: the app URL, admin login (email + generated password), which modules are installed, and that removed modules can return via `bun run indigo add <id>`.
+4. Report back: the app URL, admin login (email + generated password), the installed modules **as printed by `bun run indigo list`** (don't recite from memory), and that removed modules can return via `bun run indigo add <id>`.
 
 ## Troubleshooting
 

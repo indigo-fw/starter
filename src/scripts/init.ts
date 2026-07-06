@@ -119,13 +119,25 @@ async function ensureDatabaseUrl(): Promise<string> {
   reloadEnv();
 
   let url = process.env.DATABASE_URL;
-  const defaultUrl = "postgresql://postgres:@localhost:5432/indigo";
+  // The .env.example placeholder — treated as "not configured yet"
+  const placeholderUrl = "postgresql://postgres:@localhost:5432/indigo";
+  // Derive the default db name from the project folder so a second project on
+  // the same machine never collides with an earlier install's database.
+  const dirName = path
+    .basename(PROJECT_ROOT)
+    .toLowerCase()
+    .replace(/[^a-z0-9_]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .slice(0, 48);
+  const dbName = !dirName ? "indigo" : /^[a-z_]/.test(dirName) ? dirName : `app_${dirName}`;
+  const defaultUrl = `postgresql://postgres:@localhost:5432/${dbName}`;
 
-  if (!url || url === defaultUrl) {
+  if (!url || url === placeholderUrl) {
     if (AUTO_YES) {
-      url = url || defaultUrl;
+      url = defaultUrl;
+      log("🗄️", `Database name "${dbName}" derived from folder name (set DATABASE_URL in .env to override).`);
     } else {
-      url = await promptWithDefault("  Database URL:", url || defaultUrl);
+      url = await promptWithDefault("  Database URL:", defaultUrl);
     }
 
     // Write back to .env
@@ -607,6 +619,15 @@ function getInstalledModuleIds(): string[] {
   ).map((e) => e.id);
 }
 
+/** Registry modules whose folder ships on disk but isn't wired into indigo.config.ts. */
+function getDormantModuleIds(installed: string[]): string[] {
+  return REGISTRY.filter(
+    (e) =>
+      !installed.includes(e.id) &&
+      fs.existsSync(path.resolve(process.cwd(), "src", e.id)),
+  ).map((e) => e.id);
+}
+
 /**
  * The starter ships with every module. On a fresh install, let the user keep
  * only the ones they want — the rest are removed via `indigo remove`. Skipped
@@ -618,9 +639,20 @@ async function selectModules(): Promise<void> {
   const installed = getInstalledModuleIds();
   if (installed.length === 0) return;
 
+  // Modules that ship as a folder but aren't enabled (e.g. core-multisite) —
+  // `indigo remove` can't see them, so their folders are pruned directly below.
+  const dormant = getDormantModuleIds(installed);
+
   const entries = installed
     .map((id) => REGISTRY.find((e) => e.id === id))
     .filter((e): e is NonNullable<typeof e> => Boolean(e));
+  const dormantEntries = dormant
+    .map((id) => REGISTRY.find((e) => e.id === id))
+    .filter((e): e is NonNullable<typeof e> => Boolean(e));
+  const hintDormant = (ids: string[]) => {
+    for (const id of ids)
+      log("📦", `${id} ships dormant — enable it with \`bun run indigo add ${id}\`.`);
+  };
 
   const keep = new Set<string>();
 
@@ -628,22 +660,24 @@ async function selectModules(): Promise<void> {
     const value = MODULES_FLAG.trim().toLowerCase();
     if (value === "all") {
       log("📦", `Keeping all ${installed.length} module(s) (--modules all).`);
+      hintDormant(dormant);
       return;
     }
     if (value === "recommended") {
       for (const e of entries) if (e.free) keep.add(e.id);
+      for (const e of dormantEntries) if (e.free) keep.add(e.id);
     } else {
       const unknown: string[] = [];
       for (const part of value.split(",")) {
         const id = part.trim();
         if (!id) continue;
-        if (installed.includes(id)) keep.add(id);
+        if (installed.includes(id) || dormant.includes(id)) keep.add(id);
         else unknown.push(id);
       }
       if (unknown.length > 0) {
         console.error(
           `Unknown module id(s) in --modules: ${unknown.join(", ")}\n` +
-            `Installed modules: ${installed.join(", ")}`,
+            `Available modules: ${[...installed, ...dormant].join(", ")}`,
         );
         process.exit(1);
       }
@@ -651,6 +685,7 @@ async function selectModules(): Promise<void> {
     log("📦", `Module keep-list from --modules: ${[...keep].join(", ")}`);
   } else if (AUTO_YES) {
     log("📦", `Keeping all ${installed.length} module(s) (auto mode).`);
+    hintDormant(dormant);
     return;
   } else {
     console.log("");
@@ -662,15 +697,22 @@ async function selectModules(): Promise<void> {
       "   rest are removed (re-add later with `bun run indigo add <id>`).",
     );
     console.log("");
-    entries.forEach((e, i) => {
-      const tag = e.required ? "  (required)" : e.free ? "  (recommended)" : "";
+    const selectable = [...entries, ...dormantEntries];
+    selectable.forEach((e, i) => {
+      const tag = e.required
+        ? "  (required)"
+        : dormant.includes(e.id)
+          ? "  (ships dormant)"
+          : e.free
+            ? "  (recommended)"
+            : "";
       console.log(`   ${String(i + 1).padStart(2)}. ${e.id}${tag}`);
       console.log(`       ${e.description}`);
     });
     console.log("");
 
-    const freeIdx = entries
-      .map((e, i) => (e.free ? i + 1 : null))
+    const freeIdx = selectable
+      .map((e, i) => (e.free && !dormant.includes(e.id) ? i + 1 : null))
       .filter((n): n is number => n !== null);
 
     const answer = (
@@ -683,15 +725,17 @@ async function selectModules(): Promise<void> {
 
     if (answer === "all") {
       log("✔", "Keeping all modules.");
+      hintDormant(dormant);
       return;
     }
 
     if (answer === "") {
       for (const e of entries) if (e.free) keep.add(e.id);
+      for (const e of dormantEntries) if (e.free) keep.add(e.id);
     } else {
       for (const part of answer.split(",")) {
         const n = Number.parseInt(part.trim(), 10);
-        if (n >= 1 && n <= entries.length) keep.add(entries[n - 1]!.id);
+        if (n >= 1 && n <= selectable.length) keep.add(selectable[n - 1]!.id);
       }
     }
   }
@@ -711,7 +755,7 @@ async function selectModules(): Promise<void> {
     for (const id of [...keep]) {
       const e = REGISTRY.find((r) => r.id === id);
       for (const dep of e?.requires ?? []) {
-        if (installed.includes(dep) && !keep.has(dep)) {
+        if ((installed.includes(dep) || dormant.includes(dep)) && !keep.has(dep)) {
           keep.add(dep);
           changed = true;
         }
@@ -719,9 +763,20 @@ async function selectModules(): Promise<void> {
     }
   }
 
+  // Dormant folders are pruned directly — `indigo remove` only knows installed modules.
+  const dormantToRemove = dormant.filter((id) => !keep.has(id));
+  for (const id of dormantToRemove) {
+    fs.rmSync(path.resolve(process.cwd(), "src", id), {
+      recursive: true,
+      force: true,
+    });
+    log("🗑️", `Removed dormant module folder src/${id}.`);
+  }
+  hintDormant(dormant.filter((id) => keep.has(id)));
+
   const toRemove = installed.filter((id) => !keep.has(id));
   if (toRemove.length === 0) {
-    log("✔", "Keeping all modules.");
+    log("✔", "Keeping all installed modules.");
     return;
   }
 
@@ -1322,20 +1377,24 @@ async function main() {
 
     // Mint a dev MCP API key so Claude Code (via .mcp.json) works out-of-the-box.
     // Idempotent: skips if .env.local already has INDIGO_MCP_KEY.
-    try {
-      // Computed specifier: core-api is optional — typecheck must pass without it.
-      const coreApiInitKey = '../core-api/lib/init-dev-key';
-      const { mintDevMcpKey } = await import(coreApiInitKey);
-      const result = await mintDevMcpKey(db, superadminUserId);
-      if (result.status === 'minted') {
-        log('🤖', `Minted dev MCP key — Claude Code is wired up via ${result.envPath}`);
-      } else if (result.status === 'already-present') {
-        log('🤖', `MCP key already in .env.local — skipped`);
-      } else if (result.status === 'no-org') {
-        log('⚠️', `MCP key skipped: superadmin has no organization yet`);
+    if (!fs.existsSync(path.join(PROJECT_ROOT, 'src', 'core-api'))) {
+      log('⏭️', 'core-api module not installed — skipped dev MCP key (optional; the rest of .mcp.json works without it).');
+    } else {
+      try {
+        // Computed specifier: core-api is optional — typecheck must pass without it.
+        const coreApiInitKey = '../core-api/lib/init-dev-key';
+        const { mintDevMcpKey } = await import(coreApiInitKey);
+        const result = await mintDevMcpKey(db, superadminUserId);
+        if (result.status === 'minted') {
+          log('🤖', `Minted dev MCP key — Claude Code is wired up via ${result.envPath}`);
+        } else if (result.status === 'already-present') {
+          log('🤖', `MCP key already in .env.local — skipped`);
+        } else if (result.status === 'no-org') {
+          log('⚠️', `MCP key skipped: superadmin has no organization yet`);
+        }
+      } catch (err) {
+        console.warn('  Skipped MCP key minting:', err instanceof Error ? err.message : String(err));
       }
-    } catch (err) {
-      console.warn('  Skipped MCP key minting:', err instanceof Error ? err.message : String(err));
     }
   } finally {
     await sql.end();
