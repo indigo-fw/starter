@@ -28,4 +28,4 @@ bun run indigo add core-subscriptions
 
 ## Time to Ship
 
-14 days from `bunx degit` to first paying customer. Most of that time was spent on branding and onboarding copy — the actual product was functional in 3 days.
+14 days from one prompt to first paying customer. Most of that time was spent on branding and onboarding copy — the actual product was functional in 3 days.

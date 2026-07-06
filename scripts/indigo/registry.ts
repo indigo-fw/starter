@@ -19,6 +19,13 @@ export interface ModuleRegistryEntry {
   requires?: string[];
   /** Whether this is a free module (shipped with starter) */
   free?: boolean;
+  /**
+   * Required primitive — core code still depends on it (e.g. TokenBalance,
+   * pricing config on core-subscriptions; auth/org billing profiles on
+   * core-payments). Cannot be deselected in init or removed via the CLI
+   * until that coupling is factored out.
+   */
+  required?: boolean;
   /** Short description */
   description: string;
 }
@@ -31,6 +38,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     repo: 'git@github.com:indigo-fw/core-payments.git',
     importName: 'corePayments',
     free: true,
+    required: true,
     description: 'Payment provider abstraction layer (Stripe integration)',
   },
   {
@@ -40,6 +48,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     importName: 'coreSubscriptions',
     requires: ['core-payments'],
     free: true,
+    required: true,
     description: 'Subscription plans, tokens, discounts, dunning',
   },
   {
@@ -114,6 +123,14 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     importName: 'coreComments',
     free: true,
     description: 'Polymorphic threaded comments with moderation',
+  },
+  {
+    id: 'core-brand',
+    category: 'primitive',
+    repo: 'git@github.com:indigo-fw/core-brand.git',
+    importName: 'coreBrand',
+    free: true,
+    description: 'Brand asset generator — favicons, OG images, manifest, press kit + <BrandLogo /> + /brand page',
   },
   {
     id: 'core-activity',

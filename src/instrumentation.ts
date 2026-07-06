@@ -15,6 +15,20 @@ export async function register() {
   // Only Node.js runtime — Edge runtime doesn't have access to the DB / Redis.
   if (process.env.NEXT_RUNTIME !== 'nodejs') return;
 
+  // Register ALL module deps in the Next.js bundle context (RSC pages, tRPC
+  // routers, and webhook routes read them, so they must run here — not just
+  // from server.ts, whose Bun-direct module instances are separate). Covers
+  // brand config, plans + billing mode/token packs, the payment webhook
+  // handler registry, store totals collectors, etc. Idempotent: deps files
+  // are side-effect modules, so double-loading (server.ts + here) is a no-op
+  // within each context.
+  try {
+    const { initModuleDeps } = await import('@/generated/module-server');
+    await initModuleDeps();
+  } catch (error) {
+    console.error('Failed to register module deps:', error);
+  }
+
   // Preload content variables cache + subscribe to Redis pub/sub invalidation.
   try {
     const { preloadContentVars, initContentVarsSync } = await import(

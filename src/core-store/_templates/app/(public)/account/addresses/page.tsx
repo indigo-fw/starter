@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Loader2, MapPin, Plus, Star, Trash2, Pencil, X } from 'lucide-react';
 import { trpc } from '@/lib/trpc/client';
 import { useBlankTranslations, dataTranslations } from '@/lib/translations';
-import { cn } from '@/lib/utils';
 import '@/core-store/components/cart/store-cart.css';
 
 const _d = dataTranslations('General');

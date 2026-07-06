@@ -31,7 +31,17 @@
     border: 1px solid var(--border-primary, #e5e7eb);
     border-radius: 12px;
     padding: 20px 24px;
+    /* Shadow projects upward from the bottom edge of the screen. */
     box-shadow: 0 -2px 16px var(--shadow-overlay, rgb(0 0 0 / 0.08));
+  }
+
+  /* Corner-anchored variants — shadow should expand outward from the panel,
+     not project upward (which looks broken on a floating card). */
+  .cookie-consent--bottom-left .cookie-consent__simple,
+  .cookie-consent--bottom-left .cookie-consent__details,
+  .cookie-consent--bottom-right .cookie-consent__simple,
+  .cookie-consent--bottom-right .cookie-consent__details {
+    box-shadow: 0 8px 32px var(--shadow-overlay, rgb(0 0 0 / 0.12));
   }
 
   .cookie-consent__text {
@@ -79,6 +89,11 @@
     opacity: 0.85;
   }
 
+  .cookie-consent__btn:focus-visible {
+    outline: 2px solid var(--focus-ring, var(--text-accent, #e91e63));
+    outline-offset: 2px;
+  }
+
   .cookie-consent__btn--primary {
     background: var(--btn-primary-bg, #111827);
     color: var(--btn-primary-text, #fff);
@@ -89,12 +104,22 @@
     color: var(--text-primary, #374151);
   }
 
+  .cookie-consent__btn--ghost {
+    background: transparent;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .cookie-consent__btn--ghost:hover {
+    color: var(--text-primary, #111827);
+    opacity: 1;
+  }
+
   /* Details / preferences view */
   .cookie-consent__categories {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 16px;
+    margin: 16px 0;
   }
 
   .cookie-consent__category {
@@ -135,5 +160,24 @@
   .cookie-consent__checkbox:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  /* Footer "Cookie settings" button — link-styled but a real <button> for a11y. */
+  .cookie-settings-button {
+    display: inline-block;
+    background: none;
+    border: none;
+    padding: 0.25rem 0;
+    font: inherit;
+    color: var(--text-muted, #6b7280);
+    text-decoration: none;
+    cursor: pointer;
+    text-align: left;
+    transition: color var(--duration-fast, 150ms) ease;
+  }
+
+  .cookie-settings-button:hover,
+  .cookie-settings-button:focus-visible {
+    color: var(--text-primary, #111827);
   }
 }

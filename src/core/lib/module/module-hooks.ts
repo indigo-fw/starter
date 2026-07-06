@@ -39,6 +39,32 @@ export interface HookMap {
    * step failed).
    */
   'user.created': [user: { id: string; email: string; name: string | null }, orgId: string | null];
+  /**
+   * The four events below are core-owned because their *emitters* live in
+   * always-present code (auth router, ws server, organizations router,
+   * subscriptions webhook). The consuming modules are optional — with no
+   * handler registered, runHook/runGuard is a no-op. Declaring them in the
+   * consumer module would break typecheck the moment that module is removed.
+   */
+  /** First-touch marketing attribution captured after auth (consumed by core-affiliates). */
+  'attribution.capture': [
+    userId: string,
+    data: {
+      refCode?: string;
+      utmSource?: string;
+      utmMedium?: string;
+      utmCampaign?: string;
+      extra?: Record<string, string>;
+    },
+  ];
+  /** A payment converted (consumed by core-affiliates for commissions). */
+  'payment.conversion': [userId: string, referenceId: string, amountCents: number];
+  /** Unhandled WS message types delegated to modules (e.g. core-chat voice calls). */
+  'ws.message': [userId: string, msg: { type?: string; payload?: Record<string, unknown> }];
+  /** Feature gate guard (consumed by core-subscriptions; passes when absent). */
+  'feature.require': [orgId: string, feature: string, currentUsage?: number];
+  /** Fired after an organization is created (consumed by core-payments to seed a billing profile). */
+  'org.created': [orgId: string, name: string];
 }
 
 // ─── Typed hook registry ───────────────────────────────────────────────────

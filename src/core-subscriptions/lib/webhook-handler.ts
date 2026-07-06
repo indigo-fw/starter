@@ -12,6 +12,7 @@ import { member } from '@/server/db/schema/organization';
 import type { WebhookEvent } from '@/core-payments/types/payment';
 import { activateSubscription, updateSubscription, cancelSubscription, getOrgByProviderSubscription } from './subscription-service';
 import { finalizeUsage } from './discount-service';
+import { grantSubscriptionTokensForOrg, isYearlyPeriodLength } from './token-grants';
 import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
 import { logAudit } from '@/core/lib/infra/audit';
 import { invalidateStats } from '@/core/lib/infra/stats-cache';
@@ -30,6 +31,28 @@ export interface SubscriptionWebhookParams {
 }
 
 /**
+ * Infer the billing interval from the provider price ID, falling back to the
+ * period length (e.g. NOWPayments one-time payments carry no price ID but a
+ * 365-day period). Undefined when the event carries no signal at all.
+ */
+function inferInterval(
+  event: WebhookEvent,
+  providerId: string,
+  deps: ReturnType<typeof getSubscriptionsDeps>,
+): 'monthly' | 'yearly' | undefined {
+  if (event.providerPriceId) {
+    const prices = deps.getPlanByProviderPriceId(providerId, event.providerPriceId)
+      ?.providerPrices[providerId];
+    if (prices?.yearly === event.providerPriceId) return 'yearly';
+    if (prices?.monthly === event.providerPriceId) return 'monthly';
+  }
+  if (event.periodStart && event.periodEnd) {
+    return isYearlyPeriodLength(event.periodStart, event.periodEnd) ? 'yearly' : 'monthly';
+  }
+  return undefined;
+}
+
+/**
  * Handle a subscription-related webhook event.
  * Called from both the Stripe and NOWPayments webhook routes.
  */
@@ -41,14 +64,7 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
     case 'subscription.activated': {
       if (!event.organizationId) break;
 
-      // Infer interval from provider price ID
-      const activatedPlan = event.providerPriceId
-        ? deps.getPlanByProviderPriceId(providerId, event.providerPriceId)
-        : null;
-      const inferredInterval: 'monthly' | 'yearly' =
-        activatedPlan && event.providerPriceId &&
-        activatedPlan.providerPrices[providerId]?.yearly === event.providerPriceId
-          ? 'yearly' : 'monthly';
+      const inferredInterval = inferInterval(event, providerId, deps) ?? 'monthly';
 
       await activateSubscription({
         organizationId: event.organizationId,
@@ -68,6 +84,10 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
       if (discountUsageId) {
         await finalizeUsage(discountUsageId, event.providerSubscriptionId ?? '');
       }
+
+      // Credit the plan's monthly tokens immediately (idempotent; the daily
+      // token-grants cron covers later months of yearly subscriptions)
+      await grantSubscriptionTokensForOrg(event.organizationId);
 
       logAudit({
         db,
@@ -118,12 +138,20 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
 
       await updateSubscription(event.providerSubscriptionId, {
         planId: event.planId,
+        interval: inferInterval(event, providerId, deps),
         status: event.status,
         providerPriceId: event.providerPriceId,
         periodStart: event.periodStart,
         periodEnd: event.periodEnd,
         cancelAtPeriodEnd: event.cancelAtPeriodEnd,
       });
+
+      // Monthly-interval renewals arrive as subscription.updated with a new
+      // period start — credit the new month's tokens right away (idempotent)
+      const updatedOrgId = await getOrgByProviderSubscription(event.providerSubscriptionId);
+      if (updatedOrgId) {
+        await grantSubscriptionTokensForOrg(updatedOrgId);
+      }
 
       invalidateStats('billing');
       break;

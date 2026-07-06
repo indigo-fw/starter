@@ -27,7 +27,7 @@ Built with Next.js 16 (App Router), tRPC, Drizzle ORM, PostgreSQL, and Bun. Depl
 ## Get the Starter
 
 ```bash
-bunx degit indigo-fw/starter my-saas
-cd my-saas
-bun install && bun run init
+claude "Set up a new project named my-saas from https://github.com/indigo-fw/starter — ask me what you need"
 ```
+
+Or by hand: `bunx degit indigo-fw/starter my-saas`, then `bun install && bun run init`.

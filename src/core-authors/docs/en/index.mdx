@@ -1,0 +1,94 @@
+---
+title: core-authors
+section: Module Reference
+order: 321
+description: Multi-author profiles, polymorphic content attribution, author pages, bylines, and per-author feeds.
+---
+
+# core-authors
+
+<Badge>Primitive</Badge> <Badge>Paid</Badge>
+
+`core-authors` decouples editorial identity from user accounts. Authors are
+first-class profiles that can be attached to any content type, with public
+profile pages, bylines, JSON-LD, and a Google News sitemap.
+
+## What it does
+
+- Author profiles with name, slug, bio, avatar, and social URLs — optionally linked to a user account
+- Polymorphic attribution so any content type can have one or more authors
+- Admin CRUD at `/dashboard/authors` and an `AuthorPickerPanel` for the post form
+- Public `/author/[slug]` profile page with a post archive and `Person` JSON-LD
+- `AuthorByline` server component, per-author RSS feed, and a Google News sitemap
+
+## Installation
+
+`core-authors` is a paid module and requires a valid Indigo license.
+
+```bash
+bun run indigo add core-authors
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+No `deps.ts` and no environment variables. Enable author fields per content
+type in `src/config/cms.ts`:
+
+```typescript
+postFormFields: { authors: true },
+authorInJsonLd: true,
+```
+
+The seed step (`seedAuthors`) creates three demo authors — Alex Rivera, Jordan
+Chen, and Sam Patel — on `bun run init`.
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `cms_authors` | `name`, `slug`, `bio`, `avatar`, social URLs, optional `userId` link |
+| `cms_author_relationships` | Polymorphic junction — `objectId`, `contentType`, `authorId`, order |
+
+## API
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `authors.list` | content editors | Paginated list with search |
+| `authors.get` | content editors | Single author by ID |
+| `authors.create` | content editors | Create an author |
+| `authors.update` | content editors | Update an author |
+| `authors.delete` | content editors | Delete an author |
+| `authors.candidates` | content editors | Lightweight list for the picker |
+| `authors.syncRelationships` | content editors | Set the authors on a content object |
+| `authors.getRelationships` | content editors | Get author IDs for a content object |
+| `authors.getBySlug` | public | Author profile page data |
+| `authors.getPostsByAuthor` | public | Paginated author archive |
+| `authors.getForObject` | public | Authors for a content object |
+| `authors.sitemapEntries` | public | All author slugs for the sitemap |
+
+## Components
+
+- `AuthorByline` — server component rendering a content item's bylines.
+- `AuthorPickerPanel` — admin panel for the post form; manages its own state and saves via `trpc.authors.syncRelationships`. For new posts it buffers selections until the parent form supplies the new post ID.
+
+## Integration
+
+Key server helpers for frontend and admin code:
+
+- `syncAuthorRelationships(db, objectId, contentType, authorIds)` — replace all authors for an object
+- `getAuthorsForObject(db, objectId, contentType)` — author profiles for display
+- `batchGetAuthorsForObjects(db, objectIds, contentType)` — avoids N+1 on list pages
+- `getAuthorIds(db, objectId, contentType)` — ordered IDs for the admin form
+- `generateNewsSitemap(config, articles)` — Google News sitemap for recent articles
+
+Project files scaffolded on install: the `/author/[slug]` page, the
+`/dashboard/authors` admin pages, `news-sitemap.xml`, and the per-author RSS
+feed route. An **Authors** entry is added to the dashboard *Content* group.
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [core-import](/docs/modules/core-import) — attribute imported content to authors
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules

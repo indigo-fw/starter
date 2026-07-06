@@ -19,111 +19,55 @@ git subtree push --prefix=src/core git@github.com:indigo-fw/core.git main
 - Core may only import from: `@/server/db`, `@/server/db/schema/*`, `@/lib/trpc/client`, `@/lib/trpc/server`, `@/lib/utils`, `@/lib/constants`, `@/lib/translations`, `@/config/plans`, `@/config/site`
 - Core components needing project data accept it via **props** (not config imports)
 - Feature-gate: `setPlanResolver()` DI — project calls once in `plans.ts`
-- Module hooks: type-safe via `HookMap` interface + declaration merging. `registerHook(event, handler)` / `runHook(event, ...args)` / `runGuard(event, ...args)`. Modules extend `HookMap` in `types/hooks.ts`
+- Module hooks: type-safe via `HookMap` (`src/core/lib/module/module-hooks.ts` — signatures + JSDoc live there). Event ownership follows the *emitter* (see Module decoupling below)
 - WS channel auth: `registerChannelAuthorizer(fn)`
 - Schema overrides: modules declare `overridableSchema` in `module.config.ts`; project extends at `src/schema/overrides/`
 
-### `user.created` hook — per-signup module setup
+### Signup & org lifecycle hooks
 
-Fired by `handleUserCreated()` in `src/lib/auth.ts` right after a new user + their personal org are created (from Better Auth's `databaseHooks.user.create.after`). Replaces the old pattern of hard-importing module schemas into `auth.ts` — `auth.ts` doesn't know what modules are installed; modules opt themselves in via this hook.
+`user.created` (fired by `handleUserCreated` in `src/lib/auth-hooks.ts`) and `org.created` (auth-hooks + organizations router) let modules do per-signup/per-org setup from their deps files — auth/org code never imports module schemas. Signatures + JSDoc: `src/core/lib/module/module-hooks.ts`. Handler errors are logged and never fail signup (`Promise.allSettled`). Worked examples: `support-deps.ts` (guest-chat linking), `subscriptions-deps.ts` (reverse trial), `payments-deps.ts` (billing profile).
 
-**Signature** (from `src/core/lib/module/module-hooks.ts`):
-```ts
-'user.created': [user: { id: string; email: string; name: string | null }, orgId: string | null]
-```
-`orgId` is the personal org just created — `null` if that step failed (so handlers can decide whether to skip org-scoped work or fall back to user-scoped).
+## Module decoupling (so `indigo remove <module>` stays clean)
 
-**Register a handler** in your module's deps file (runs once during `serverInit`):
-```ts
-// src/config/deps/<module>-deps.ts
-import { registerHook } from '@/core/lib/module/module-hooks';
+Verified 2026-07 by a clean-room `init -- -y --modules recommended` run (10 modules removed): the pruned install typechecks clean and serves 200s. The mechanisms that make removal mechanical:
 
-registerHook('user.created', async (user, orgId) => {
-  if (!orgId) return;                       // org creation failed upstream
-  // …link orphaned guest records, grant reverse trial, seed module data, etc.
-});
-```
+- **Header widgets**: modules contribute header-area components via `layoutWidgets: [{ slot: 'header', name, from }]` → generated `HEADER_WIDGETS` in `src/generated/module-widgets.ts` (e.g. core-store's `CartWidget`). Never hard-import module components in `layout.tsx`.
+- **Sitemap fetchers**: modules declare `sitemapFetchers: [{ name, from }]` → generated `MODULE_SITEMAP_FETCHERS` in `src/generated/module-sitemap.ts`, spread into `src/app/sitemap.ts`'s `CONTENT_FETCHERS`. Never import module schemas in `sitemap.ts`.
+- **Hook-event ownership rule**: an event belongs in the `HookMap` of whoever *emits* it. Events fired by always-present code (auth router, ws server, organizations router) but consumed by optional modules are **core-owned** — `attribution.capture`, `payment.conversion`, `ws.message`, `feature.require` live in core's `HookMap`. A module-owned declaration for a core-emitted event breaks typecheck the moment the module is removed.
+- **`projectFiles` must be exhaustive**: every page/config/test a module scaffolds into project space (including client components next to pages, `__tests__`, and `config/*` files) must be listed, or removal orphans them with dangling imports. When adding a scaffolded file to a module, add it to `projectFiles` in the same commit.
+- **Optional-module imports in scripts**: use computed specifiers + try/catch (see `scripts/indigo/personas.ts`, init's MCP-key minting) so typecheck passes on installs without the module.
 
-Handler errors are caught + logged — they never fail signup. Multiple handlers run via `Promise.allSettled`, so one failing doesn't block the others.
+- **Content slots**: modules contribute components to named slots via `contentSlots: [{ slot, name, from }]` → generated `src/generated/content-slots.tsx` (`CONTENT_SLOTS` + `<ContentSlot>`; special slot `showcase-comments` re-exports `useShowcaseComments` with an inert fallback). This is how core-comments reaches PostDetail/ShowcaseDetail/ShowcaseFeed without hard imports.
+- **`org.created` hook**: fired by `auth-hooks.ts` (personal org at signup) and the organizations router; core-payments' handler in `payments-deps.ts` seeds the billing profile. No always-present file imports payment schemas.
 
-**Worked examples in the repo:**
-- `core-support` — links any guest chat sessions started before signup (`src/config/deps/support-deps.ts`)
-- `core-subscriptions` — grants the reverse trial (`src/config/deps/subscriptions-deps.ts` → `grantReverseTrialOnSignup`)
+### Remaining debt
 
-**Adding a new hook event:** declare-merge `HookMap` in `src/core/lib/module/module-hooks.ts` (core-owned events) or in a module's `types/hooks.ts` (module-owned). Keep the tuple labels descriptive — they show up in IDE hover.
-
-## Known decoupling debt (so `indigo remove <module>` stays clean)
-
-`indigo remove <module>` regenerates `src/generated/*` but the **starter still hard-imports a few optional-module symbols in core files**, so removing a module leaves the build red until you hand-patch them. These should move to the registry/hook/widget pattern so removal is mechanical:
-
-- `src/app/(public)/[...slug]/renderers/PostDetail.tsx` & `ShowcaseDetail.tsx` → `<CommentSection>` from `core-comments`. Should be a *content-slot widget*: modules contribute `{ slot: 'post-footer', from, export }` in `module.config.ts`, `indigo:sync` generates `src/generated/content-slots.tsx`, the renderer does `<ContentSlot name="post-footer" targetType="post" targetId={id} />`.
-- `src/app/(public)/layout.tsx` → `<CartWidget>` from `core-store`. Same idea — a `headerWidgets` slot, or fold into the existing `PUBLIC_LAYOUT_WIDGETS`.
-- `src/lib/auth.ts` → `billingProfiles` from `core-payments` (personal-org billing-profile creation). Move to a `'user.created'` hook in `payments-deps.ts` (like core-support's chat-linking already is).
-- `src/app/sitemap.ts` → `cmsAuthors` from `core-authors`, dynamic `core-store/schema/products`. Sitemap fetchers should come from a `registerSitemapFetcher()` registry that modules populate in their deps files.
-- `src/app/api/webhooks/stripe/route.ts` → dynamic `import('@/core-store/lib/webhook-handler')` for store-order events. Route provider events through a `registerWebhookEventRouter()` registry instead.
-- `src/components/public/ShowcaseFeed.tsx` → `<CommentPanel>` + `trpc.comments.*`. Same content-slot pattern.
-- `src/config/chat-presets/*` → `@/core-chat/*` — these are project files shipped *by* `core-chat`; `indigo remove core-chat` should delete them (it removes `projectFiles`, so this may already work — verify).
-- `src/app/dashboard/(panel)/settings/chat/queue/page.tsx`, `store/orders/[id]/page.tsx`, etc. → `trpc.chatTaskQueue` / `trpc.storeOrders` — these are module dashboard pages; they should be `projectFiles` of their module so `indigo remove` deletes them.
+- **core-payments + core-subscriptions are `required: true` primitives** (enforced in the init picker and `indigo remove`): core code still depends on them — `src/core/components/TokenBalance.tsx` uses `trpc.billing`, and `src/config/pricing.ts` is typed by subscription plan types. Making them truly optional means a token/billing DI seam in core; until then the picker keeps them automatically.
 
 ## Shared Utilities — Use These, Don't Reinvent
 
-**CRUD & queries:**
-- `fetchOrNotFound(db, table, id, entityName)` — throws TRPCError NOT_FOUND
-- `buildAdminList()` — conditions, sort, pagination, count in parallel
-- `softDelete()` / `softRestore()` / `permanentDelete()` — soft-delete lifecycle
-- `parsePagination()` + `paginatedResult()` — `{ results, total, page, pageSize, totalPages }`
-- `updateWithRevision()` — wraps revision + slug redirect + update
-- `updateContentStatus()` — handles auto-publishedAt
-- `prepareTranslationCopy()` — group creation, unique slug, preview token
-- `narrowRecoveredData(recovered, defaults)` — autosave recovery (from `@/core/hooks`)
-- `serializeExport(items, headers, format)` — JSON/TSV bulk export
+Before writing a helper, check whether core already ships it. The inventory is
+the code, not this file — look it up live:
 
-**Slugs:**
-- `slugify()` / `slugifyFilename()` — never inline slug regex
-- `ensureSlugUnique()` — DB-checked uniqueness
-- `generateCopySlug()` — retry loop for "copy-of-" slugs
+- **Where to look:** category barrels — `src/core/crud/index.ts` (CRUD, slugs,
+  pagination, revisions, export), `src/core/lib/<area>/` (content, i18n, seo,
+  email, infra, consent, mcp, module), `src/core/components/`, `src/core/hooks/`.
+  Every export carries JSDoc; `bun run indigo map src/core` renders the full map.
+- **Categories that exist** (so you know to look before reinventing): CRUD +
+  admin-list helpers · slug utilities · shared router Zod schemas · content
+  pipeline (markdown⇄html, MDX compile, `%VAR%` resolution, content sync) ·
+  locale fallback · `cms://` link resolution · audit/webhook/email/push/logging
+  infra · `withApiRoute` REST wrapper · RSS/sitemap/canonical/JSON-LD builders ·
+  registries (cron, maintenance, scheduled publish, health checks) · consent,
+  pagination, skeleton/avatar components · `useConfirm`/`useAlert`/`usePrompt`
+  dialogs.
 
-**Router Zod schemas:** `adminListInput`, `updateStatusInput`, `duplicateAsTranslationInput`, `exportBulkInput`
-
-**Content:**
-- `htmlToMarkdown()` / `markdownToHtml()` — preserves shortcodes via placeholder strategy
-- `resolveContentVars()` — replaces `%VAR%` placeholders with `site.ts` values. Fast path skips if no `%` present
-- `compileMdx()` + `registerMdxComponent()` — unified remark→rehype pipeline, LRU-cached
-- `syncContentFiles()` — syncs `.md` from `content/{locale}/` to CMS DB
-- `seedContentFiles()` — copies `core/_templates/content/` to `content/` on init
-- `parseFrontmatter<T>()` — shared YAML parser for `.md`/`.mdx`
-
-**Locale fallback:**
-- `mergeWithLocaleFallback(localeItems, defaultItems)` — deduplicates by `translationGroup` (if present), includes all items without it. Used by `listPublished` endpoints
-- `needsLocaleFallback(lang)` — returns true for non-default locales
-
-**CMS links:** `cms://` protocol — `resolveCmsLink()`, `resolveCmsLinks(text, locale)`, `resolveRecordCmsLinks(record, locale)`. LRU + Redis pub/sub invalidation. Client: `<CmsLink>`, project wraps as `<Link>`
-
-**Infrastructure:**
-- `logAudit()` — fire-and-forget, logs errors via logger
-- `dispatchWebhook()` — fire-and-forget, logs failures
-- `enqueueTemplateEmail(to, template, vars, locale)` / `enqueueEmail({ to, subject, html })` — BullMQ queue
-- `sendPushToUser(userId, payload)` — sends to all devices, auto-cleans 410 Gone
-- `createLogger(namespace)` — structured logger
-- `withApiRoute(request, handler)` — REST v1 wrapper (auth + rate-limit + try/catch)
-
-**SEO:**
-- `generateRssFeed(config, items)` + `createRssResponse(xml)` — RSS 2.0
-- `generateSitemap(config, staticPages, fetchers)` — multilingual with hreflang
-- `buildCanonicalUrl(path, locale)` + `buildAlternates(path, locales)` — locale-aware URLs
-- `buildArticleJsonLd()` / `buildBreadcrumbJsonLd()` / `buildOrganizationJsonLd()` — JSON-LD builders
-
-**Registries:**
-- `registerCronJob({ name, pattern, handler })` + `startCronScheduler()` — BullMQ repeatable or DB-queue fallback
-- `registerMaintenanceTask(name, fn)` — sequential execution, independent error handling
-- `registerScheduledPublishTarget(target)` — auto-publishes scheduled content
-- `createHealthHandler(checks)` — factory for `/api/health`
-
-**Components:**
-- `<ConsentProvider>` + `<CookieConsent>` + `<ConsentGate category="analytics">` — cookie consent
-- `<PaginationNumbered>` / `<PaginationSimple>` / `<PaginationLoadMore>` / `<PaginationInfinite>` — 4 pagination variants
-- `<Skeleton variant="line|circle|card">` / `<Avatar>` / `<StructuredData>` — UI primitives
-- `useConfirm()` / `useAlert()` / `usePrompt()` — imperative dialog replacements for native confirm/alert/prompt
+Non-obvious constraints (these *don't* live in JSDoc):
+- Never inline a slug regex — `slugify()`/`ensureSlugUnique()` exist and are DB-aware.
+- `resolveContentVars()` has a fast path that skips work when no `%` is present — don't pre-filter.
+- CMS-link resolution is LRU + Redis pub/sub invalidated — never cache resolved links yourself.
+- `logAudit()`/`dispatchWebhook()`/`sendNotification()` are fire-and-forget by design; they log their own errors.
+- Use `enqueueEmail`/`enqueueTemplateEmail` — never a direct send.
 
 ## Translations
 

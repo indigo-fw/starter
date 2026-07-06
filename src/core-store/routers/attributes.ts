@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { and, count, eq, inArray, isNull, sql } from 'drizzle-orm';
+import { and, eq, inArray, isNull, sql } from 'drizzle-orm';
 import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
 import { storeAttributes, storeProductAttributeValues } from '@/core-store/schema/attributes';
 import { storeProducts, storeCategories, storeProductCategories } from '@/core-store/schema/products';

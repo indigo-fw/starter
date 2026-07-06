@@ -15,6 +15,7 @@ export class StripeProvider implements PaymentProvider {
     name: 'Stripe',
     description: 'Credit card payments via Stripe',
     supportsRecurring: true,
+    supportsOneTimePayments: true,
     enabled: !!getStripe(),
     allowedIntervals: ['monthly', 'yearly'] as ('monthly' | 'yearly')[],
     capabilities: {
@@ -47,6 +48,9 @@ export class StripeProvider implements PaymentProvider {
         success_url: params.successUrl,
         cancel_url: params.cancelUrl,
         metadata: { ...params.metadata },
+        // Copy metadata onto the payment intent so downstream charge events
+        // (charge.refunded) can be routed back to the order / token pack
+        payment_intent_data: { metadata: { ...params.metadata } },
       };
 
       if (params.customerEmail) {
@@ -198,6 +202,26 @@ export class StripeProvider implements PaymentProvider {
           providerSubscriptionId: subscription.id,
           status: 'canceled',
           providerData: baseProviderData,
+        };
+      }
+
+      case 'charge.refunded': {
+        // One-time payment refunds (token packs, store orders). The charge
+        // carries our metadata via payment_intent_data at checkout.
+        // Stripe fires this for EVERY refund creation, including partials —
+        // only fully-refunded charges are routed to handlers (which treat
+        // payment.refunded as "undo the purchase": restore stock, claw back
+        // tokens). Partial refunds return no metadata so no handler matches.
+        const charge = event.data.object as Stripe.Charge;
+        const fullyRefunded = charge.amount_refunded >= charge.amount;
+        return {
+          type: 'payment.refunded',
+          providerData: {
+            ...baseProviderData,
+            ...(fullyRefunded && { metadata: charge.metadata }),
+            amountRefunded: charge.amount_refunded,
+            amount: charge.amount,
+          },
         };
       }
 

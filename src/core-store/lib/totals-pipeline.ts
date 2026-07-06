@@ -48,7 +48,12 @@ export interface TotalsContext {
   shippingOption?: ShippingOption | null;
   discountResult?: DiscountResult | null;
 
-  // Open extension bag for cross-collector data (e.g. coupon code, loyalty balance)
+  /**
+   * Open extension bag for cross-collector data. Well-known keys seeded by
+   * checkout: `userId` (authenticated buyer), `orgId` (buyer's organization —
+   * lets collectors consult entitlements, e.g. subscription member pricing),
+   * `discountCode` (manual coupon). Absent on guest checkout.
+   */
   extensions: Record<string, unknown>;
 }
 

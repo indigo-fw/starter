@@ -55,7 +55,22 @@ vi.mock('@/core-store/lib/webhook-handler', () => ({
 
 import { POST } from '../route';
 import { getProvider } from '@/core-payments/lib/factory';
+import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
 import { asMock } from '@/test-utils';
+
+// In production this registration happens in src/config/deps/store-deps.ts at
+// server init. Tests register the same bridge (same payload mapping) because
+// importing the real deps file would drag in the whole store dependency graph.
+registerPaymentWebhookHandler('store_order', async ({ event, providerId, eventId, metadata }) => {
+  const { handleStorePaymentEvent } = await import('@/core-store/lib/webhook-handler');
+  return handleStorePaymentEvent({
+    orderId: metadata.orderId,
+    eventType: event.type,
+    eventId,
+    providerId,
+    transactionId: (event.providerData as Record<string, unknown> | undefined)?.transactionId as string | undefined,
+  });
+});
 
 function makeRequest(body: string, signature = 'sig_valid') {
   return new Request('http://localhost/api/webhooks/stripe', {

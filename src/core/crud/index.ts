@@ -7,8 +7,8 @@ export {
   getTranslationSiblings, serializeExport, prepareTranslationCopy,
 } from './admin-crud';
 export type { CrudColumns, AdminListInput, AdminListCols, StatusCountCols } from './admin-crud';
-export { updateWithRevision, batchGroupLangs, findTranslations } from './cms-helpers';
-export type { TranslationCols, UpdateWithRevisionOpts } from './cms-helpers';
+export { updateWithRevision } from './cms-helpers';
+export type { UpdateWithRevisionOpts } from './cms-helpers';
 export {
   syncTermRelationships, getTermRelationships,
   deleteAllTermRelationships, deleteTermRelationshipsByTerm,

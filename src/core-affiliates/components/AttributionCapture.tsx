@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 
 import { useSession } from '@/lib/auth-client';
 import { trpc } from '@/lib/trpc/client';
+import { useConsentSafe } from '@/core/lib/consent/context';
 
 const COOKIE_NAME = 'indigo_attribution';
 const COOKIE_MAX_AGE = 30 * 24 * 60 * 60; // 30 days
@@ -33,14 +34,30 @@ function clearCookie(name: string) {
  *
  * First-touch: only sets the cookie if no attribution cookie exists yet.
  * Renders nothing — drop into any layout.
+ *
+ * Consent: this component is also wrapped by <ConsentGate category="marketing">
+ * at the layout-rendering site (via WidgetEntry.consentCategory). The internal
+ * check below is defense-in-depth — if a host project ever renders this widget
+ * without the wrapper (or without a <ConsentProvider> at all), we still refuse
+ * to write the marketing cookie. The effect re-fires when consent flips to true,
+ * so users who accept marketing on the same pageview as their UTM landing still
+ * get captured.
  */
 export function AttributionCapture() {
   const { data: session } = useSession();
   const captured = useRef(false);
   const captureAttribution = trpc.auth.captureAttribution.useMutation();
 
-  // Step 1: Capture attribution params into cookie (first-touch only)
+  // Soft consent read — null when no <ConsentProvider> is in the tree.
+  // Without consent infrastructure or without explicit marketing consent,
+  // we don't read the URL, don't read the referrer, and don't write the cookie.
+  const consentCtx = useConsentSafe();
+  const marketingConsent = consentCtx?.consent.marketing ?? false;
+
+  // Step 1: Capture attribution params into cookie (first-touch only, post-consent).
   useEffect(() => {
+    if (!marketingConsent) return;
+
     // Don't overwrite existing attribution
     if (getCookie(COOKIE_NAME)) return;
 
@@ -62,10 +79,11 @@ export function AttributionCapture() {
     if (Object.keys(data).length > 1 || data.ref) {
       setCookie(COOKIE_NAME, JSON.stringify(data));
     }
-  }, []);
+  }, [marketingConsent]);
 
-  // Step 2: After auth, send attribution to server and clear cookie
+  // Step 2: After auth, send attribution to server and clear cookie.
   useEffect(() => {
+    if (!marketingConsent) return;
     if (!session?.user?.id || captured.current) return;
     const raw = getCookie(COOKIE_NAME);
     if (!raw) return;
@@ -91,7 +109,13 @@ export function AttributionCapture() {
     } catch {
       // Malformed cookie — ignore
     }
-  }, [session?.user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [marketingConsent, session?.user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // When marketing consent is withdrawn, sweep up any leftover attribution cookie.
+  useEffect(() => {
+    if (marketingConsent) return;
+    if (getCookie(COOKIE_NAME)) clearCookie(COOKIE_NAME);
+  }, [marketingConsent]);
 
   return null;
 }

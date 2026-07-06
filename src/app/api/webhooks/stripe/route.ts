@@ -1,10 +1,33 @@
 import { NextResponse } from 'next/server';
+import { and, eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { saasSubscriptionEvents } from '@/server/db/schema';
 import { getProvider } from '@/core-payments/lib/factory';
+import { getPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
 import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('stripe-webhook');
+
+/**
+ * Release the idempotency claim for a failed event so Stripe's automatic
+ * retry is processed instead of being swallowed as a duplicate. Best-effort:
+ * if the delete itself fails, the event needs manual replay.
+ */
+async function releaseEventClaim(stripeEventId: string): Promise<void> {
+  try {
+    await db.delete(saasSubscriptionEvents).where(
+      and(
+        eq(saasSubscriptionEvents.providerId, 'stripe'),
+        eq(saasSubscriptionEvents.providerEventId, stripeEventId),
+      )
+    );
+  } catch (err) {
+    logger.error('Failed to release webhook idempotency claim — replay manually', {
+      stripeEventId,
+      error: String(err),
+    });
+  }
+}
 
 export async function POST(request: Request) {
   const stripeProvider = await getProvider('stripe');
@@ -43,21 +66,24 @@ export async function POST(request: Request) {
     throw err;
   }
 
-  // ── Route store order events (dynamic — core-store may not be installed) ──
+  // ── Route one-time purchases by checkout metadata.type ────────────────────
+  // Modules register handlers ('store_order', 'token_pack', …) at server
+  // init via registerPaymentWebhookHandler(); unmatched events fall through
+  // to the subscription handler below.
   const eventMetadata = (event.providerData as Record<string, unknown>)?.metadata as Record<string, string> | undefined;
-  if (eventMetadata?.type === 'store_order' && eventMetadata?.orderId) {
+  const oneTimeHandler = getPaymentWebhookHandler(eventMetadata?.type);
+  if (oneTimeHandler) {
     try {
-      const { handleStorePaymentEvent } = await import('@/core-store/lib/webhook-handler');
-      const result = await handleStorePaymentEvent({
-        orderId: eventMetadata.orderId,
-        eventType: event.type,
-        eventId: stripeEventId,
+      const result = await oneTimeHandler({
+        event,
         providerId: 'stripe',
-        transactionId: (event.providerData as Record<string, unknown>)?.transactionId as string | undefined,
+        eventId: stripeEventId,
+        metadata: eventMetadata ?? {},
       });
-      return NextResponse.json({ received: true, ...result });
+      return NextResponse.json({ received: true, ...(result ?? {}) });
     } catch (err) {
-      logger.error('Error processing store order webhook', { error: String(err) });
+      logger.error('Error processing one-time payment webhook', { type: eventMetadata?.type, error: String(err) });
+      await releaseEventClaim(stripeEventId);
       return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
   }
@@ -68,6 +94,7 @@ export async function POST(request: Request) {
     await handleSubscriptionWebhookEvent({ event, providerId: 'stripe' });
   } catch (err) {
     logger.error('Error processing Stripe subscription webhook', { error: String(err) });
+    await releaseEventClaim(stripeEventId);
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
   }
 

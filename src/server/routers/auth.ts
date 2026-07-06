@@ -16,9 +16,11 @@ export const authRouter = createTRPCRouter({
     return ctx.session;
   }),
 
-  me: protectedProcedure.query(({ ctx }) => {
-    return ctx.session.user;
-  }),
+  me: protectedProcedure
+    .meta({ mcp: { description: 'Get the currently authenticated user (id, email, role). Call this first to confirm who you are acting as.', readOnly: true } })
+    .query(({ ctx }) => {
+      return ctx.session.user;
+    }),
 
   /**
    * Sync geo data (country, state, timezone, currency, IP) to the user record.

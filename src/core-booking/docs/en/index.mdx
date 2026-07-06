@@ -1,0 +1,107 @@
+---
+title: core-booking
+section: Module Reference
+order: 326
+description: Booking and appointment scheduling — services, availability, appointments, classes, and resource reservations.
+---
+
+# core-booking
+
+<Badge>Product</Badge> <Badge>Paid</Badge>
+
+`core-booking` is a booking and scheduling product covering 1-on-1
+appointments, group classes, resource reservations, and one-time events — with
+timezone-aware availability, paid bookings, reminders, and calendar export.
+
+## What it does
+
+- Four service types — **appointment**, **class**, **resource**, and **event**
+- Recurring weekly availability schedules plus date-specific overrides
+- Timezone-aware slot generation with min/max advance booking limits
+- Booking flow with optional approval and paid bookings via `core-payments`
+- Double-booking protection using `SELECT FOR UPDATE` in a transaction
+- 24h and 1h reminders, plus auto-cancellation of unpaid pending bookings
+- iCal (`.ics`) export with alarms and a Google Calendar URL
+
+## Installation
+
+`core-booking` is a paid module and requires a valid Indigo license.
+
+```bash
+bun run indigo add core-booking
+bun run db:generate
+bun run db:migrate
+```
+
+`core-booking` requires the Indigo core. `core-payments` is optional — needed
+only for paid bookings.
+
+## Configuration
+
+DI is configured in `config/deps/booking-deps.ts` (scaffolded on install) via
+`setBookingDeps()`:
+
+| Dependency | Required | Purpose |
+|---|---|---|
+| `sendNotification` | Yes | In-app booking notifications |
+| `enqueueTemplateEmail` | Yes | Confirmation and reminder emails |
+| `createPaymentCheckout` | No | Payment session for paid bookings (`core-payments`) |
+| `getOrganizationName` | No | Organization name used in iCal output |
+
+The `seedBooking` step adds demo services and schedules on `bun run init`.
+
+## Schema
+
+| Table | Purpose |
+|---|---|
+| `booking_services` | Bookable services — type, duration, price, approval flag |
+| `booking_schedules` | Recurring weekly availability per service |
+| `booking_overrides` | Date-specific availability overrides |
+| `bookings` | Booking records with status and booking number |
+| `booking_events` | Booking lifecycle event log |
+| `booking_reminders` | Scheduled reminder records |
+
+<Callout type="info">
+`booking_services` is declared as an overridable schema, so projects can extend
+it via `src/schema/overrides/`.
+</Callout>
+
+## API
+
+`core-booking` registers three routers — `bookingServices`,
+`bookingAvailability`, and `bookings`.
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `bookingServices.adminList` / `adminGet` | booking admin | List and read services |
+| `bookingServices.create` / `update` / `delete` | booking admin | Service CRUD |
+| `bookingAvailability.getSlots` | public | Available time slots for a date |
+| `bookingAvailability.getAvailableDates` | public | Bookable dates for a service |
+| `bookingAvailability.setSchedule` / `getSchedule` | booking admin | Weekly availability |
+| `bookingAvailability.setOverride` / `removeOverride` / `listOverrides` | booking admin | Date overrides |
+| `bookings.listServices` / `getServiceBySlug` | public | Public service browsing |
+| `bookings.create` | protected | Create a booking as a logged-in user |
+| `bookings.createGuest` | public | Create a booking as a guest |
+| `bookings.myBookings` / `myBookingDetail` | protected | Customer booking history |
+| `bookings.getIcal` | protected | iCal export for a booking |
+| `bookings.cancel` / `reschedule` | protected | Customer cancel and reschedule |
+| `bookings.adminList` / `adminGet` / `adminStats` | booking admin | Admin booking management |
+| `bookings.adminUpdateStatus` / `adminAddNote` | booking admin | Update status and add notes |
+
+## Integration
+
+The booking flow: browse a service → pick a date → choose a slot → create the
+booking. A booking that `requiresApproval` starts **pending**; one with a
+price stays pending until paid; a free booking with no approval is confirmed
+immediately.
+
+A background worker (`startBookingWorker`) runs every 60 seconds to send due
+reminders and auto-cancel expired pending bookings. Installing scaffolds the
+paid-booking webhook handler (`app/api/webhooks/booking/route.ts`) and adds a
+**Bookings** entry to the dashboard *Settings* group.
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [core-payments](/docs/modules/core-payments) — optional, for paid bookings
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules

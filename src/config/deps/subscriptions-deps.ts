@@ -5,12 +5,15 @@
 import { setSubscriptionsDeps } from '@/core-subscriptions/deps';
 import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
 import { PLANS, getPlan, getPlanByProviderPriceId, getProviderPriceId } from '@/config/plans';
+// Billing mode + token packs (side-effect: calls setBillingConfig)
+import '@/config/billing';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 import { sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { enqueueTemplateEmail } from '@/core/lib/email';
 import { registerHook } from '@/core/lib/module/module-hooks';
 import { getProvider, isBillingEnabled, getEnabledProviders } from '@/core-payments/lib/factory';
+import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
 import {
   getTransactionRevenue,
   getRecentTransactionsWithOrg,
@@ -105,9 +108,15 @@ registerHook('user.beforeDelete', async (userId) => {
 
 // Register feature gate so other modules can call runGuard('feature.require', ...)
 // without importing from core-subscriptions directly.
-// Type safety enforced via HookMap declaration merging (see core-subscriptions/types/hooks.ts).
+// Type safety via HookMap — core-owned events (see @/core/lib/module/module-hooks).
 registerHook('feature.require', async (orgId, feature, currentUsage) => {
   await requireFeature(orgId, feature, currentUsage as number);
+});
+
+// Route one-time 'token_pack' payments from provider webhooks to token grants
+registerPaymentWebhookHandler('token_pack', async ({ event, providerId }) => {
+  const { handleTokenPackWebhookEvent } = await import('@/core-subscriptions/lib/token-grants');
+  return handleTokenPackWebhookEvent({ event, providerId });
 });
 
 // ─── Reverse trial (opt-in) ────────────────────────────────────────────────
@@ -121,6 +130,9 @@ registerHook('feature.require', async (orgId, feature, currentUsage) => {
 // import { setReverseTrialConfig } from '@/core-subscriptions/lib/reverse-trial';
 // setReverseTrialConfig({ plan: 'pro', days: 14 });
 import { grantReverseTrialOnSignup } from '@/core-subscriptions/lib/reverse-trial';
+import { grantSignupBonusTokens } from '@/core-subscriptions/lib/token-grants';
 registerHook('user.created', async (_user, orgId) => {
   await grantReverseTrialOnSignup(orgId);
+  // One-time token credit for new orgs (no-op unless BILLING.signupBonusTokens is set)
+  await grantSignupBonusTokens(orgId);
 });

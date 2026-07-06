@@ -14,6 +14,7 @@ import coreSubscriptions from './src/core-subscriptions/module.config';
 import corePaymentsCrypto from './src/core-payments-crypto/module.config';
 import coreDocs from './src/core-docs/module.config';
 import coreComments from './src/core-comments/module.config';
+import coreBrand from './src/core-brand/module.config';
 import coreActivity from './src/core-activity/module.config';
 import coreSupport from './src/core-support/module.config';
 import coreAffiliates from './src/core-affiliates/module.config';
@@ -34,6 +35,7 @@ const modules: ModuleConfig[] = [
   corePaymentsCrypto,
   coreDocs,
   coreComments,
+  coreBrand,
   coreActivity,
   coreSupport,
   coreAffiliates,

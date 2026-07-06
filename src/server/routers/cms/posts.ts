@@ -1,12 +1,12 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, desc, eq, inArray, isNull, ne, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray, isNull } from 'drizzle-orm';
 import { z } from 'zod';
 import crypto from 'crypto';
 
 import { getContentTypeByPostType } from '@/config/cms';
 import { env } from '@/lib/env';
 import { DEFAULT_LOCALE } from '@/lib/constants';
-import { cmsPosts, cmsCategories, cmsTerms, cmsTermRelationships } from '@/server/db/schema';
+import { cmsPosts, cmsCategories, cmsTerms } from '@/server/db/schema';
 import { ContentStatus, PostType } from '@/core/types/cms';
 import { getMdxManagedSlugs } from '@/core/lib/content/loader';
 import { getContentVarDefs } from '@/core/lib/content/vars';

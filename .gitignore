@@ -39,6 +39,9 @@ yarn-error.log*
 .env.local
 .env.*.local
 
+# personal MCP overrides (project-shared servers live in .mcp.json)
+.mcp.json.local
+
 # uploads (user content)
 /uploads/*
 !/uploads/.gitkeep

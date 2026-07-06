@@ -11,21 +11,14 @@ File-based docs take priority over CMS docs with same slug. Both locale-aware.
 
 ## Architecture
 
-- **Compiler:** `@/core/lib/markdown/mdx-compiler` — remark → rehype pipeline with component registry, LRU-cached
+- **Compiler:** `@/core/lib/markdown/mdx-compiler` — remark → rehype pipeline with component registry (extend via `registerMdxComponent()`), LRU-cached
 - **Service:** `getDocBySlug()` returns compiled HTML, `getAllDocs()` returns metadata (nav/search/export)
 - **Rendering:** server-rendered RSC. `MdxTabsHydrator` adds tab switching via event delegation
 - **Dedup:** `data.ts` wraps fetchers with `React.cache()` — `generateMetadata` and page share one compilation
 
-## MDX Components
+## Router
 
-`<Callout type="info|warning|tip|danger">`, `<CodeTabs>` + `<Tab>`, `<Steps>` + `<Step>`, `<Badge>`. Register custom via `registerMdxComponent()`.
-
-## Key Endpoints
-
-- `docs.getBySlug` — unified lookup (file → CMS fallback), compiled HTML
-- `docs.getNavigation` — merged nav tree from all sources
-- `docs.search` — tsvector for CMS, substring for files
-- `docs.llmExport` — all docs as markdown (also at `/api/docs/llms.txt?lang=en`)
+Non-obvious: `search` uses tsvector for CMS docs but substring matching for file docs; `llmExport` is also served at `/api/docs/llms.txt?lang=en`.
 
 ## Wiring
 

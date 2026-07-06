@@ -29,36 +29,33 @@ src/core-mymodule/
 Every module needs a `module.config.ts` that self-describes its capabilities:
 
 ```typescript
-import type { ModuleConfig } from "@/core/lib/module/module-config";
+import type { ModuleConfig } from '@/core/lib/module/module-config';
 
 const config: ModuleConfig = {
-  id: "core-mymodule",
+  id: 'core-mymodule',
+  category: 'primitive', // 'primitive' (building block) or 'product' (domain app)
   routers: [
-    { name: "myRouter", key: "my", from: "@/core-mymodule/routers/my" },
+    { name: 'myRouter', key: 'my', from: '@/core-mymodule/routers/my' },
   ],
-  schema: ["@/core-mymodule/schema/my-table"],
-  serverInit: ["@/core-mymodule/lib/init"],
+  schema: ['@/core-mymodule/schema/my-table'],
+  serverInit: ['@/core-mymodule/lib/init'],
   jobs: [],
-  seed: ["@/core-mymodule/lib/seed"],
   layoutWidgets: [],
   pageWidgets: [],
-  navItems: [
-    {
-      group: "content",
-      label: "My Module",
-      href: "/dashboard/my-module",
-      icon: "Box",
-    },
+  seed: [
+    { name: 'seedMyModule', from: '@/core-mymodule/lib/seed', label: 'My Module demo data' },
   ],
-  projectFiles: ["app/my-module/page.tsx"],
+  navItems: [
+    { groupId: 'content', name: 'My Module', href: '/dashboard/my-module', icon: 'Box' },
+  ],
+  projectFiles: ['app/my-module/page.tsx'],
 };
 
 export default config;
 ```
 
 <Callout type="info">
-  After creating or modifying `module.config.ts`, run `bun run indigo:sync` to
-  regenerate the glue files in `src/generated/`.
+After creating or modifying `module.config.ts`, run `bun run indigo:sync` to regenerate the glue files in `src/generated/`.
 </Callout>
 
 ## Quick Start
@@ -73,13 +70,13 @@ Create the directory structure under `src/core-mymodule/` with the files shown a
 
 ```typescript
 // src/core-mymodule/schema/my-table.ts
-import { pgTable, uuid, varchar, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar, timestamp } from 'drizzle-orm/pg-core';
 
-export const myItems = pgTable("my_items", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  name: varchar("name", { length: 255 }).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+export const myItems = pgTable('my_items', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 ```
 
@@ -88,9 +85,9 @@ export const myItems = pgTable("my_items", {
 
 ```typescript
 // src/core-mymodule/routers/my.ts
-import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "@/server/trpc";
-import { myItems } from "@/core-mymodule/schema/my-table";
+import { z } from 'zod';
+import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
+import { myItems } from '@/core-mymodule/schema/my-table';
 
 export const myRouter = createTRPCRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
@@ -128,7 +125,7 @@ export function setMyModuleDeps(deps: MyModuleDeps) {
 }
 
 export function getMyModuleDeps(): MyModuleDeps {
-  if (!_deps) throw new Error("MyModule deps not initialized");
+  if (!_deps) throw new Error('MyModule deps not initialized');
   return _deps;
 }
 ```
@@ -138,7 +135,7 @@ export function getMyModuleDeps(): MyModuleDeps {
 
 ```typescript
 // src/config/deps/mymodule-deps.ts
-import { setMyModuleDeps } from "@/core-mymodule/deps";
+import { setMyModuleDeps } from '@/core-mymodule/deps';
 
 setMyModuleDeps({
   getFeatureLimit: async (orgId) => {
@@ -156,8 +153,7 @@ setMyModuleDeps({
 </CodeTabs>
 
 <Callout type="warning">
-  The project wires deps in `src/config/*-deps.ts`, imported as side-effects in
-  `server.ts`. If deps aren't initialized, the module will throw at runtime.
+The project wires deps in `src/config/*-deps.ts`, imported as side-effects in `server.ts`. If deps aren't initialized, the module will throw at runtime.
 </Callout>
 
 ## Cross-Module Communication
@@ -165,27 +161,26 @@ setMyModuleDeps({
 Use the hook registry for loose coupling between modules:
 
 ```typescript
-import { registerHook, runHook } from "@/core/lib/module/module-hooks";
+import { registerHook, runHook } from '@/core/lib/module/module-hooks';
 
 // Register (in your deps/init file)
-registerHook("mymodule.event", async (userId, data) => {
+registerHook('mymodule.event', async (userId, data) => {
   // handle event
 });
 
 // Trigger (from another module)
-await runHook("mymodule.event", userId, eventData);
+await runHook('mymodule.event', userId, eventData);
 // No-ops if no handler registered (module not installed)
 ```
 
 ### Available Hook Types
 
-| Type         | Function                     | Behavior                                                    |
-| ------------ | ---------------------------- | ----------------------------------------------------------- |
-| Hook         | `registerHook` / `runHook`   | Fire-and-forget, no-ops if unregistered                     |
-| Guard        | `registerGuard` / `runGuard` | Blocking — throws if handler throws, no-ops if unregistered |
-| Channel Auth | `registerChannelAuthorizer`  | Returns `true`/`false`/`null` (not my channel)              |
+| Type | Function | Behavior |
+|------|----------|----------|
+| Hook | `registerHook` / `runHook` | Fire-and-forget, no-ops if unregistered |
+| Guard | `registerGuard` / `runGuard` | Blocking — throws if handler throws, no-ops if unregistered |
+| Channel Auth | `registerChannelAuthorizer` | Returns `true`/`false`/`null` (not my channel) |
 
 <Callout type="tip">
-  Always document your module's hooks in its `CLAUDE.md` so AI agents can
-  understand the integration points.
+Always document your module's hooks in its `CLAUDE.md` so AI agents can understand the integration points.
 </Callout>

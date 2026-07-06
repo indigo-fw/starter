@@ -102,13 +102,46 @@ function loadDir(dir: string, baseDir: string): FileDoc[] {
 
 /** Root docs directory (contains locale subdirectories) */
 const DOCS_ROOT = join(process.cwd(), 'docs');
+/** Source root — module-shipped docs live at src/core-X/docs/{locale}/. */
+const SRC_ROOT = join(process.cwd(), 'src');
 
 /** Simple TTL cache for file docs, keyed by locale */
 const CACHE_TTL = process.env.NODE_ENV === 'production' ? 5 * 60 * 1000 : 30 * 1000;
 const _cache = new Map<string, { docs: FileDoc[]; ts: number }>();
 
 /**
+ * Load docs that ship inside installed modules — each `core-*` subtree may
+ * carry its own `docs/{locale}/` folder. Slugs are namespaced under the
+ * module id, e.g. `src/core-payments/docs/en/index.mdx` → `modules/core-payments`,
+ * and `src/core-payments/docs/en/setup.mdx` → `modules/core-payments/setup`.
+ * Module folder presence ≡ install state, so uninstalled modules contribute
+ * nothing (their folder is gone after `indigo remove`).
+ */
+function loadModuleDocs(locale: string): FileDoc[] {
+  if (!existsSync(SRC_ROOT)) return [];
+  const out: FileDoc[] = [];
+  for (const entry of readdirSync(SRC_ROOT)) {
+    if (!entry.startsWith('core-')) continue;
+    const moduleDir = join(SRC_ROOT, entry, 'docs', locale);
+    if (!existsSync(moduleDir)) continue;
+    for (const d of loadDir(moduleDir, moduleDir)) {
+      // d.slug from loadDir is relative to the module's docs/{locale}/ root —
+      // e.g. 'index' for index.mdx, 'setup' for setup.mdx. Re-namespace it.
+      const rel = d.slug === 'index' ? '' : d.slug.replace(/\/index$/, '');
+      const slug = rel ? `modules/${entry}/${rel}` : `modules/${entry}`;
+      out.push({ ...d, slug });
+    }
+  }
+  return out;
+}
+
+/**
  * Load all file-based documentation for a given locale.
+ *
+ * Merges two sources, with project docs winning on slug collision:
+ *   1. `docs/{locale}/` — project-owned docs (customer-authored, framework demo).
+ *   2. `src/core-X/docs/{locale}/` — docs shipped inside installed modules.
+ *
  * Falls back to default locale if the requested locale directory doesn't exist.
  * Results are cached per locale with a TTL to avoid re-reading disk on every request.
  */
@@ -126,7 +159,15 @@ export function loadFileDocs(locale: string = DEFAULT_LOCALE): FileDoc[] {
     return loadFileDocs(DEFAULT_LOCALE);
   }
 
-  const docs = existsSync(localeDir) ? loadDir(localeDir, localeDir) : [];
+  const moduleDocs = loadModuleDocs(locale);
+  const projectDocs = existsSync(localeDir) ? loadDir(localeDir, localeDir) : [];
+
+  // Merge: project docs override module-shipped docs on slug collision.
+  const bySlug = new Map<string, FileDoc>();
+  for (const d of moduleDocs) bySlug.set(d.slug, d);
+  for (const d of projectDocs) bySlug.set(d.slug, d);
+  const docs = [...bySlug.values()];
+
   _cache.set(locale, { docs, ts: now });
   return docs;
 }

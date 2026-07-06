@@ -25,7 +25,7 @@ const CookieConsent = dynamic(
 
 interface Props {
   /** Renders <CookieConsent>. Requires ConsentProvider in the tree. */
-  cookieConsent?: { privacyPolicyUrl?: string } | false;
+  cookieConsent?: { privacyPolicyUrl?: string; cookiePolicyUrl?: string } | false;
 }
 
 export function DeferredGlobalUI({ cookieConsent }: Props) {
@@ -33,7 +33,10 @@ export function DeferredGlobalUI({ cookieConsent }: Props) {
     <>
       <AuthDialogs />
       {cookieConsent !== false && cookieConsent && (
-        <CookieConsent privacyPolicyUrl={cookieConsent.privacyPolicyUrl} />
+        <CookieConsent
+          privacyPolicyUrl={cookieConsent.privacyPolicyUrl}
+          cookiePolicyUrl={cookieConsent.cookiePolicyUrl}
+        />
       )}
     </>
   );

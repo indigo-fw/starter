@@ -252,7 +252,7 @@ export function RichTextEditor({
 
   // Build slash command render function (stable ref)
   const slashCommandRenderRef = useRef<ReturnType<typeof createSlashCommandRender> | null>(null);
-  // eslint-disable-next-line react-hooks/refs -- lazy init pattern: ref is only set once
+   
   if (!slashCommandRenderRef.current) {
     slashCommandRenderRef.current = createSlashCommandRender();
   }
@@ -279,7 +279,7 @@ export function RichTextEditor({
     },
   })) ?? [];
 
-  /* eslint-disable react-hooks/refs -- useEditor config reads stable refs for initial setup */
+   
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -407,7 +407,7 @@ export function RichTextEditor({
       },
     },
   });
-  /* eslint-enable react-hooks/refs */
+   
 
   // Sync content from parent when it changes externally (e.g. autosave restore)
   useEffect(() => {

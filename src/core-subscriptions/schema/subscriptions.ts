@@ -19,12 +19,22 @@ export const saasSubscriptions = pgTable(
     providerSubscriptionId: text('provider_subscription_id').unique(),
     providerPriceId: text('provider_price_id'),
     planId: varchar('plan_id', { length: 50 }).notNull().default('free'),
+    /** Billing interval ('monthly' | 'yearly'), recorded at activation. Null on legacy rows. */
+    interval: varchar('interval', { length: 10 }),
     status: varchar('status', { length: 30 }).notNull().default('active'),
     currentPeriodStart: timestamp('current_period_start'),
     currentPeriodEnd: timestamp('current_period_end'),
     cancelAtPeriodEnd: boolean('cancel_at_period_end').notNull().default(false),
     trialEnd: timestamp('trial_end'),
     gracePeriodEndsAt: timestamp('grace_period_ends_at'),
+    /**
+     * Last token-grant claim key credited to this subscription:
+     * 'YYYY-MM-DD' for a monthly drip, 'U:YYYY-MM-DD' for an upfront yearly
+     * grant (encode/decode lives in token-grants.ts only). Written via an
+     * atomic compare-and-set, so concurrent webhook + cron grant attempts
+     * can never double-credit a period.
+     */
+    lastGrantPeriodKey: varchar('last_grant_period_key', { length: 20 }),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
   },
@@ -81,6 +91,9 @@ export const saasDiscountUsages = pgTable('saas_discount_usages', {
 
 // ─── saas_token_balances ────────────────────────────────────────────────────
 // Per-organization token/credit balances for usage-based billing.
+// Two buckets: `balance` holds permanent tokens (purchases, bonuses, refunds);
+// `planBalance` holds the subscription allowance, which monthly grants top up
+// and `resetBalanceOnGrant` may expire. Deductions spend planBalance first.
 
 export const saasTokenBalances = pgTable('saas_token_balances', {
   id: text('id')
@@ -90,12 +103,38 @@ export const saasTokenBalances = pgTable('saas_token_balances', {
     .notNull()
     .unique()
     .references(() => organization.id, { onDelete: 'cascade' }),
+  /** Permanent bucket: purchased packs, bonuses, refunds, admin credits */
   balance: integer('balance').notNull().default(0),
+  /** Expiring bucket: monthly subscription grants */
+  planBalance: integer('plan_balance').notNull().default(0),
   lifetimeAdded: integer('lifetime_added').notNull().default(0),
   lifetimeUsed: integer('lifetime_used').notNull().default(0),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
+
+// ─── saas_token_lots ────────────────────────────────────────────────────────
+// Per-grant expiry lots. Only created when `BillingConfig.planTokenValidityMonths`
+// is set: each subscription grant becomes a lot that expires N months after
+// issuance. Deductions drain lots soonest-expiry-first; `plan_balance` on
+// saas_token_balances stays the materialized sum of live lot remainders
+// (plus any legacy lot-less plan tokens).
+
+export const saasTokenLots = pgTable('saas_token_lots', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  organizationId: text('organization_id')
+    .notNull()
+    .references(() => organization.id, { onDelete: 'cascade' }),
+  initialAmount: integer('initial_amount').notNull(),
+  remaining: integer('remaining').notNull(),
+  expiresAt: timestamp('expires_at').notNull(),
+  metadata: jsonb('metadata'),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+}, (t) => [
+  index('saas_token_lots_org_expiry_idx').on(t.organizationId, t.expiresAt),
+]);
 
 // ─── saas_token_transactions ────────────────────────────────────────────────
 // Ledger of every token credit/debit for auditability.

@@ -92,6 +92,11 @@ export interface PaymentProviderConfig {
   name: string;
   description: string;
   supportsRecurring: boolean;
+  /**
+   * Provider can process `mode: 'payment'` checkouts AND its webhook route
+   * can route one-time purchases (token packs) back to their handlers.
+   */
+  supportsOneTimePayments?: boolean;
   enabled: boolean;
   allowedIntervals?: ('monthly' | 'yearly')[];
   capabilities?: {

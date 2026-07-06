@@ -218,6 +218,7 @@ export const contentSearchRouter = createTRPCRouter({
 
   /** Public: full-text search across published posts */
   fullTextSearch: publicProcedure
+    .meta({ mcp: { description: 'Full-text search across all published content (pages, blog posts, etc). The fastest way to find content by keyword. Public — works without authentication.', readOnly: true } })
     .input(
       z.object({
         query: z.string().min(1).max(200),

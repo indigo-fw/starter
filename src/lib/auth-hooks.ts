@@ -18,7 +18,6 @@ import { count, eq } from 'drizzle-orm';
 
 import { db } from '@/server/db';
 import { organization as organizationTable, member } from '@/server/db/schema/organization';
-import { billingProfiles } from '@/core-payments/schema/billing-profile';
 import { runHook } from '@/core/lib/module/module-hooks';
 import { createLogger } from '@/core/lib/infra/logger';
 import { slugify } from '@/core/lib/content/slug';
@@ -57,10 +56,9 @@ export async function handleUserCreated(
       role: 'owner',
       createdAt: new Date(),
     });
-    await db.insert(billingProfiles).values({
-      organizationId: orgId,
-      legalName: user.name ?? user.email,
-    });
+    // Billing profile (and any other per-org module setup) via the hook —
+    // this file never imports module schemas.
+    await runHook('org.created', orgId, user.name ?? user.email);
 
     log.info('Personal org created', { userId: user.id, orgId });
   } catch (err: unknown) {

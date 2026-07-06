@@ -41,7 +41,7 @@ async function main() {
     | null = null;
 
   if (enableNextjs) {
-    const app = next({ dev, hostname, port, turbopack: dev });
+    const app = next({ dev, hostname, port, turbopack: dev, dir: import.meta.dirname });
     handle = app.getRequestHandler();
     await app.prepare();
   }
@@ -137,8 +137,19 @@ async function main() {
       },
     });
 
+    // Monthly subscription token grants (no-op unless a plan sets monthlyTokens).
+    // Daily sweep: catches yearly-interval anniversaries and missed webhooks.
+    registerCronJob({
+      name: 'token-grants',
+      pattern: '0 1 * * *',
+      handler: async () => {
+        const { runTokenGrantChecks } = await import('./src/core-subscriptions/lib/token-grants');
+        await runTokenGrantChecks();
+      },
+    });
+
     await startCronScheduler();
-    console.log('Cron scheduler ready (maintenance at 3 AM, dunning at 8 AM)');
+    console.log('Cron scheduler ready (maintenance at 3 AM, dunning at 8 AM, token grants at 1 AM)');
 
     // Recover stale DB queue tasks on startup
     try {

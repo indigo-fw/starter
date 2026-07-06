@@ -3,10 +3,22 @@
 
 import type { ComponentType } from 'react';
 
+export interface LayoutWidgetEntry {
+  /** The widget component. */
+  Component: ComponentType;
+  /** If set, only render when the user has granted consent for this category. */
+  consentCategory?: string;
+}
+
 import { SupportChatWidgetWrapper } from '@/components/public/SupportChatWidgetWrapper';
 import { AttributionCapture } from '@/core-affiliates/components/AttributionCapture';
+import { CartWidget } from '@/core-store/components/cart/CartWidget';
 
-export const PUBLIC_LAYOUT_WIDGETS: ComponentType[] = [
-  SupportChatWidgetWrapper,
-  AttributionCapture,
+export const PUBLIC_LAYOUT_WIDGETS: LayoutWidgetEntry[] = [
+  { Component: SupportChatWidgetWrapper },
+  { Component: AttributionCapture },
+];
+
+export const HEADER_WIDGETS: LayoutWidgetEntry[] = [
+  { Component: CartWidget },
 ];

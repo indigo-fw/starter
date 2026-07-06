@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { and, count, desc, eq, ilike } from 'drizzle-orm';
 import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
-import { storeDiscountCodes, storeDiscountUsage } from '@/core-store/schema/discount-codes';
+import { storeDiscountCodes } from '@/core-store/schema/discount-codes';
 import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { validateDiscount } from '@/core-store/lib/discount-service';
 

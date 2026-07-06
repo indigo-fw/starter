@@ -1,0 +1,114 @@
+---
+title: core-multisite
+section: Module Reference
+order: 323
+description: Multi-tenant site isolation with PostgreSQL schema-per-site, domain mapping, and scoped caches.
+---
+
+# core-multisite
+
+<Badge>Primitive</Badge> <Badge>Paid</Badge>
+
+`core-multisite` turns a single Indigo install into a multi-tenant network.
+Each site gets its own PostgreSQL schema, with domain-based resolution and
+fully isolated caches, jobs, and real-time channels.
+
+## What it does
+
+- **Schema-per-site** isolation — each site's CMS tables live in their own PG schema
+- Domain and slug resolution — the proxy maps an incoming host to a site
+- Automatic scoping of caches, Redis keys, WebSocket channels, and BullMQ jobs
+- A full site lifecycle — create, suspend, restore, clone, and hard-delete
+- Domain management with background DNS TXT verification
+- A network admin dashboard at `/dashboard/settings/sites`
+
+## Installation
+
+`core-multisite` is a paid module and requires a valid Indigo license.
+
+```bash
+bun run indigo add core-multisite
+bun run db:generate
+bun run db:migrate
+```
+
+<Callout type="info">
+Without this module installed, Indigo runs single-site with zero overhead:
+`getScope()` returns `null`, `getScopedKey('foo')` returns `'foo'`, and the
+PostgreSQL `search_path` stays on `public`.
+</Callout>
+
+## Configuration
+
+DI is configured in `config/deps/multisite-deps.ts` (scaffolded on install).
+The module also ships CLI scripts for site management — `site-create`,
+`site-delete`, `site-list`, `site-suspend`, `site-unsuspend`, `site-restore`,
+and `migrate-sites`.
+
+## Schema
+
+Shared tables live in the `public` schema; per-site CMS tables live in each
+site's own schema (e.g. `site_abc.cms_posts`).
+
+| Table | Notable columns |
+|---|---|
+| `sites` | `slug`, `schemaName`, `status`, soft-delete fields |
+| `site_domains` | `siteId`, `domain`, verification state |
+| `site_members` | `siteId`, `userId`, role |
+
+## API
+
+The `sites` router is restricted to network operators — `staff` for read and
+activation, `superadmin` for all management.
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `sites.list` | staff | List sites |
+| `sites.getById` | superadmin | Site detail |
+| `sites.stats` | superadmin | Network statistics |
+| `sites.create` | superadmin | Create a site and its schema |
+| `sites.update` | superadmin | Update site settings |
+| `sites.suspend` / `sites.unsuspend` | superadmin | Toggle suspension |
+| `sites.softDelete` / `sites.restore` | superadmin | Soft-delete and restore |
+| `sites.hardDelete` | superadmin | Permanently drop a site and its schema |
+| `sites.clone` | superadmin | Clone an existing site |
+| `sites.addDomain` / `sites.removeDomain` / `sites.listDomains` | superadmin | Manage domains |
+| `sites.addMember` / `sites.removeMember` | superadmin | Manage site members |
+| `sites.setActive` | staff | Switch the active site context |
+
+## Integration
+
+The request flow threads site context end to end:
+
+<Steps>
+<Step title="Proxy resolves the domain">
+
+`applySiteHeaders(request)` looks up the host and sets `x-site-*` headers.
+
+</Step>
+<Step title="tRPC extracts the context">
+
+`createContext` calls `extractSiteContext(headers)` to obtain `{ siteId, schemaName }`.
+
+</Step>
+<Step title="Search path is applied">
+
+`applySiteSearchPath(schemaName)` sets `search_path = site_abc, public`.
+
+</Step>
+<Step title="Handler runs scoped">
+
+`withScope(siteId, ...)` wraps the handler so every query, cache, and channel is site-scoped.
+
+</Step>
+</Steps>
+
+The module registers a DNS verification background worker (`startDnsVerificationWorker`)
+and a `seedNetworkAdmin` step that creates the network admin site on
+`bun run init`. It adds a **Sites** entry to the dashboard *Settings* group.
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules
+- [Module Development](/docs/api/module-development) — scope-aware module patterns

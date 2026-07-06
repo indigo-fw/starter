@@ -43,6 +43,7 @@ export const PLANS: ExtendedPlanDefinition[] = [
     priceMonthly: 1900, // $19
     priceYearly: 19000, // $190
     trialDays: 14,
+    monthlyTokens: 1_000,
     features: {
       maxMembers: 5,
       maxStorageMb: 1024,
@@ -50,7 +51,7 @@ export const PLANS: ExtendedPlanDefinition[] = [
       apiAccess: true,
       prioritySupport: false,
     },
-    displayFeatures: ['5 team members', '1 GB storage', 'API access', 'Email support', 'All CMS features'],
+    displayFeatures: ['1,000 tokens / month', '5 team members', '1 GB storage', 'API access', 'Email support', 'All CMS features'],
     cta: 'Start Free Trial',
   },
   {
@@ -67,14 +68,18 @@ export const PLANS: ExtendedPlanDefinition[] = [
     priceMonthly: 4900, // $49
     priceYearly: 49000, // $490
     trialDays: 14,
+    monthlyTokens: 10_000,
     features: {
       maxMembers: 20,
       maxStorageMb: 10240,
       customDomain: true,
       apiAccess: true,
       prioritySupport: false,
+      // Store member pricing (see config/store-pricing.ts): % off store orders
+      storeDiscountPercent: 5,
     },
     displayFeatures: [
+      '10,000 tokens / month',
       '20 team members',
       '10 GB storage',
       'Custom domain',
@@ -98,14 +103,17 @@ export const PLANS: ExtendedPlanDefinition[] = [
     },
     priceMonthly: 9900, // $99
     priceYearly: 99000, // $990
+    monthlyTokens: 50_000,
     features: {
       maxMembers: 100,
       maxStorageMb: 102400,
       customDomain: true,
       apiAccess: true,
       prioritySupport: true,
+      storeDiscountPercent: 10,
     },
     displayFeatures: [
+      '50,000 tokens / month',
       '100 team members',
       '100 GB storage',
       'Custom domain',

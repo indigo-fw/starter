@@ -7,7 +7,6 @@ import Image from 'next/image';
 import {
   Loader2,
   Package,
-  ChevronRight,
   Download,
   Truck,
   Clock,

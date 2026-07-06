@@ -236,13 +236,15 @@ export async function seedBilling(
 
   for (let i = 0; i < orgIds.length; i++) {
     const balance = faker.number.int({ min: 50, max: 5000 });
-    const lifetimeAdded = balance + faker.number.int({ min: 100, max: 3000 });
-    const lifetimeUsed = lifetimeAdded - balance;
+    const planBalance = faker.number.int({ min: 0, max: 2000 });
+    const lifetimeAdded = balance + planBalance + faker.number.int({ min: 100, max: 3000 });
+    const lifetimeUsed = lifetimeAdded - balance - planBalance;
 
     await db.insert(saasTokenBalances).values({
       id: uuid(),
       organizationId: orgIds[i]!,
       balance,
+      planBalance,
       lifetimeAdded,
       lifetimeUsed,
       createdAt: faker.date.past({ years: 1 }),

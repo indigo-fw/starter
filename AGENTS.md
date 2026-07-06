@@ -1,3 +1,5 @@
+Project instructions live in [CLAUDE.md](CLAUDE.md) — read it before working here (setup, coding standards, parallel-work/worktree rules).
+
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 

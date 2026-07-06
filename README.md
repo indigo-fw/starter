@@ -1,11 +1,12 @@
 # Indigo
 
-**The complete SaaS framework for Next.js** — CMS, billing, auth, real-time, AI chat, and modular architecture out of the box.
+**The agent-native SaaS framework for Next.js.** Describe the product; your coding agent builds, tests and verifies it on rails — CMS, billing, auth, real-time and modular architecture already wired.
 
-Clone, install modules, ship. Designed for professionals who know what they're building.
+Your agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded test personas). You describe, review and decide — the code stays typed, tested and yours.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Findigo-fw%2Fstarter&env=DATABASE_URL,REDIS_URL&envDescription=PostgreSQL%20and%20Redis%20connection%20strings&project-name=my-indigo-app)
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/indigo?referralCode=indigo)
+
+> Vercel's serverless runtime doesn't run the custom server — real-time WebSocket features degrade gracefully (background jobs fall back to the DB queue). For full features, use the Docker/VPS path in the [deployment guide](https://indigo-fw.dev/docs/guides/deployment).
 
 ## What's Included
 
@@ -37,6 +38,7 @@ Modules are split into **primitives** (horizontal building blocks) and **product
 | `core-docs` | Free | Documentation system (CMS + MDX, LLM export) |
 | `core-comments` | Free | Polymorphic threaded comments with moderation |
 | `core-activity` | Free | User-facing activity feed and timeline |
+| `core-brand` | Free | Brand asset generation — favicons, OG images, web manifest |
 | `core-support` | Paid | AI support chat + ticket system + live agent |
 | `core-affiliates` | Paid | Referral tracking, attribution, commissions |
 | `core-ai-writer` | Paid | AI content generation, SEO, translation |
@@ -61,11 +63,48 @@ Modules are self-contained git subtrees. Install with `bun run indigo add <modul
 
 - [Bun](https://bun.sh) (v1.1+)
 - PostgreSQL + Redis (or `docker compose up -d`)
+- [ffmpeg](https://ffmpeg.org) — only if you use `core-chat`'s video features (media optimization + seeding)
 
-### Setup
+Missing something? Your agent handles it: `bun run init` detects what's unreachable and prints the exact fix for your OS — the agent relays the options and asks before installing anything.
+
+### Setup with an agent (recommended)
+
+Run this from wherever you keep your projects — the agent creates the folder, reads this README, installs everything, and asks *you* the setup questions in chat; nothing ever blocks on a terminal prompt:
 
 ```bash
-bunx degit indigo-fw/starter my-app   # download files only — no .git, no starter history
+claude "Set up a new project named my-app from https://github.com/indigo-fw/starter — ask me what you need"
+```
+
+The same one-liner works with other agents:
+
+```bash
+codex "Set up a new project named my-app from https://github.com/indigo-fw/starter — ask me what you need"
+gemini "Set up a new project named my-app from https://github.com/indigo-fw/starter — ask me what you need"
+```
+
+When it finishes, open your next agent session **inside `my-app`** — the project's `CLAUDE.md`, `.mcp.json` and skills load automatically from there.
+
+No terminal at all? The **Claude Code desktop app** works the same way: new session → choose an empty folder → "Set up a new project here from https://github.com/indigo-fw/starter — ask me what you need".
+
+Already have the files? Open your agent in the folder and type `/setup`.
+
+#### Instructions for agents
+
+If you are a coding agent installing this starter, follow these steps:
+
+1. Verify prerequisites: Bun v1.1+, PostgreSQL + Redis reachable. If they aren't: with Docker present, offer `docker compose up -d`; without Docker, present the options in chat (install Docker: `winget install Docker.DockerDesktop` / `brew install --cask docker` / distro guide — or use an existing PostgreSQL via `DATABASE_URL`) and **ask before installing anything**. When `bun run init` can't connect it prints an environment-diagnostics block with these exact options — relay it.
+2. `bunx degit indigo-fw/starter <folder>` — degit creates the folder and copies files only, no git history. (Use `.` if the user already started you inside an empty project folder.) If degit fails, fall back to `bunx tiged indigo-fw/starter <folder>`, or `git clone --depth=1 https://github.com/indigo-fw/starter <folder>` followed by deleting `<folder>/.git`. Run everything below inside that folder.
+3. `bun install`, then read `.claude/skills/setup/SKILL.md` and follow it: gather the user's choices **in chat** (modules to keep, site name, admin email, demo content or clean start).
+4. Run init non-interactively — never without `-y`, the interactive prompts will block you:
+   `bun run init -- -y --modules <ids|all|recommended> --admin-email <email>`
+5. Verify with `bun run indigo doctor`, start `bun run dev`, and report the URL plus the generated admin password back to the user — and remind them to open future agent sessions inside the project folder.
+
+### Set up by hand
+
+No agent required — the classic path, fully supported.
+
+```bash
+bunx degit indigo-fw/starter my-app
 cd my-app
 bun install
 cp .env.example .env    # edit DATABASE_URL if needed
@@ -73,11 +112,14 @@ bun run init            # git init + creates DB, runs migrations, seeds demo dat
 bun run dev             # http://localhost:3000
 ```
 
-`bun run init` initializes a **fresh git repository** for you (so the project is yours from commit 1, and `bun run indigo add` can subtree-pull modules) and offers to set your own `origin`. It's interactive — it also asks what to seed. For non-interactive setup:
+`bun run init` initializes a **fresh git repository** for you (so the project is yours from commit 1, and `bun run indigo add` can subtree-pull modules) and offers to set your own `origin`. It's interactive — it also asks what to seed. For non-interactive setup (agents, CI, Docker):
 
 ```bash
 # Auto-accept all prompts (CI, Docker, demo deployments)
 bun run init -- -y
+
+# Answer the questions via flags instead of prompts
+bun run init -- -y --modules core-payments,core-subscriptions --admin-email you@example.com
 
 # Force reset + re-seed (demo server cron)
 bun run init -- -y --reset

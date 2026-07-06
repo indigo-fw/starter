@@ -1,0 +1,78 @@
+---
+title: core-ai-writer
+section: Module Reference
+order: 319
+description: AI-powered content generation, SEO optimization, translation, and image alt text for the Indigo editor.
+---
+
+# core-ai-writer
+
+<Badge>Primitive</Badge> <Badge>Paid</Badge>
+
+`core-ai-writer` adds AI authoring capabilities to the CMS editor — generating
+full posts, outlines, SEO metadata, translations, and image alt text. It is a
+thin module: a single tRPC router plus an AI client library, with no schema and
+no admin pages of its own.
+
+## What it does
+
+- Generate complete blog posts from a topic, tone, and target length (returns HTML)
+- Produce structured outlines with sections and key points
+- Generate SEO meta title, description, and keywords from content
+- Analyze existing content for an SEO score plus issues and fixes
+- Translate content while preserving HTML markup and shortcodes
+- Generate descriptive image alt text via a vision-capable model
+
+## Installation
+
+`core-ai-writer` is a paid module and requires a valid Indigo license.
+
+```bash
+bun run indigo add core-ai-writer
+```
+
+It registers a router via `module.config.ts` and `indigo sync`. There is no
+schema, so no migration step is needed.
+
+## Configuration
+
+The module has no `deps.ts` — it injects no project-specific behavior. It reads
+the same AI environment variables as the core editor AI:
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `AI_API_KEY` | Yes | API key for the OpenAI-compatible provider |
+| `AI_API_URL` | No | Override the provider endpoint |
+| `AI_MODEL` | No | Model used for generation |
+
+<Callout type="warning">
+The `generateAltText` procedure requires a model that accepts image inputs
+(e.g. GPT-4o or Claude). If `AI_API_KEY` is unset, procedures fail with a
+`PRECONDITION_FAILED` error.
+</Callout>
+
+## API
+
+All procedures are guarded by the `content` section permission — only users who
+can edit content may call them.
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `aiWriter.generatePost` | content editors | Full blog post from a topic and outline (HTML) |
+| `aiWriter.generateOutline` | content editors | Structured outline with sections and key points |
+| `aiWriter.generateSeo` | content editors | Meta title, description, and keywords from content |
+| `aiWriter.analyzeSeo` | content editors | SEO score plus issues and suggested fixes |
+| `aiWriter.translate` | content editors | AI translation preserving HTML and shortcodes |
+| `aiWriter.generateAltText` | content editors | Image alt text via a vision model |
+
+## Integration
+
+The router is mounted under the `aiWriter` key. The CMS post editor calls these
+procedures directly from its toolbar — there are no extra pages or hooks to
+wire up. Adding the module to `indigo.config.ts` and running `indigo sync` is
+the entire setup.
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules

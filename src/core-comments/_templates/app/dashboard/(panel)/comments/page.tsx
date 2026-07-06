@@ -213,6 +213,9 @@ export default function CommentsPage() {
                         <div className="flex items-center gap-2">
                           <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-(--surface-secondary) text-xs font-semibold text-(--text-muted)">
                             {c.userImage ? (
+                              /* OAuth avatar from an arbitrary external host — next/image
+                                 would require an open remotePatterns config. */
+                              // eslint-disable-next-line @next/next/no-img-element
                               <img
                                 src={c.userImage}
                                 alt=""

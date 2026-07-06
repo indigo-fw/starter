@@ -8,7 +8,6 @@ import {
   ChevronRight,
   Loader2,
   MessageSquare,
-  Star,
   Trash2,
   XCircle,
 } from 'lucide-react';

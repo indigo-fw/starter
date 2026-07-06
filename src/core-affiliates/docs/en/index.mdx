@@ -1,0 +1,109 @@
+---
+title: core-affiliates
+section: Module Reference
+order: 318
+description: Referral tracking, marketing attribution, and affiliate partner management with commissions.
+---
+
+# core-affiliates
+
+<Badge>Primitive</Badge> <Badge>Paid</Badge>
+
+`core-affiliates` provides referral tracking, first-touch marketing attribution, and affiliate partner management. Users can register as affiliates, earn commissions on conversions, and admins can analyze acquisition channels.
+
+<Callout type="warning">
+This is a paid module. Adding it requires a valid Indigo license.
+</Callout>
+
+## What it does
+
+- **Affiliate partners** — users register, get a unique referral code, and earn a commission percentage.
+- **Referral tracking** — captures the affiliate → referred-user relationship and records conversions.
+- **Marketing attribution** — first-touch capture of UTM parameters, referrer, ref code, and landing page per user.
+- **Admin analytics** — affiliate leaderboards, conversion rates, and attribution breakdowns by channel.
+- Ships an `AttributionCapture` component and an `AffiliateOverview` widget.
+
+## Installation
+
+```bash
+bun run indigo add core-affiliates
+```
+
+After installing, generate and apply the schema:
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+Dependencies are wired through `setAffiliatesDeps()` in `config/deps/affiliates-deps.ts`:
+
+- `paymentTransactionsTable` — a Drizzle table reference from `core-payments`, used to compute revenue breakdowns. Pass `null` if billing is not installed.
+- `getRevenueByUsers` — reserved for future use.
+
+The deps file also registers two module hooks:
+
+```typescript
+import { registerHook } from '@/core/lib/module/module-hooks';
+import { recordConversion } from '@/core-affiliates/lib/affiliates';
+import { captureAttribution } from '@/core-affiliates/lib/attribution';
+
+registerHook('payment.conversion', (userId, referenceId, amountCents) =>
+  recordConversion(userId, referenceId, amountCents),
+);
+registerHook('attribution.capture', (userId, data) =>
+  captureAttribution(userId, data),
+);
+```
+
+<Callout type="info">
+`core-affiliates` has an optional dependency on `core-payments` — revenue figures in attribution breakdowns appear only when the payment transactions table is injected.
+</Callout>
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `saas_affiliates` | `userId` (unique), `code` (unique referral code), `commissionPercent` (default 20), `status` (`active`/`suspended`/`banned`), `totalReferrals`, `totalEarningsCents` |
+| `saas_referrals` | `affiliateId`, `referredUserId` (unique), `referredOrgId`, `status` (`pending`/`converted`), `convertedAt` |
+| `saas_affiliate_events` | `affiliateId`, `referralId`, `type`, `amountCents`, `metadata` — affiliate activity log |
+| `saas_user_acquisitions` | `userId` (unique), `refCode`, `utmSource`, `utmMedium`, `utmCampaign`, `extra` (JSONB — utm_term/content, referrer, landing page), `capturedAt` |
+
+## API
+
+`affiliatesRouter` (mounted as `affiliates`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `affiliates.getMyAffiliate` | protected | Get the current user's affiliate record |
+| `affiliates.register` | protected | Register the current user as an affiliate |
+| `affiliates.getStats` | protected | The user's own referral stats and recent events |
+| `affiliates.adminList` | admin (`billing`) | List all affiliates with filters |
+| `affiliates.adminGet` | admin (`billing`) | Affiliate detail with referrals and events |
+| `affiliates.updateStatus` | admin (`billing`) | Change an affiliate's status |
+| `affiliates.updateCommission` | admin (`billing`) | Change an affiliate's commission percentage |
+| `affiliates.getAffiliateStats` | admin (`billing`) | Dashboard stats and the top-affiliates leaderboard |
+
+`attributionsRouter` (mounted as `attributions`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `attributions.distinctValues` | admin (`billing`) | Distinct sources/mediums/campaigns/ref codes for filters |
+| `attributions.breakdown` | admin (`billing`) | Signups (and revenue, if billing installed) grouped by a dimension |
+| `attributions.list` | admin (`billing`) | Paginated attribution list with filters |
+
+## Integration
+
+- Call `captureAttribution()` from your auth/registration flow to record first-touch attribution, and `recordConversion()` from payment webhooks — or trigger them via the `attribution.capture` and `payment.conversion` hooks.
+- `captureReferral()` records a referral after registration (active affiliates only, self-referrals blocked).
+- Render the `AttributionCapture` layout widget in your public layout to capture UTM parameters on landing.
+- The `AffiliateOverview` page widget renders in the `billing` slot; a nav item `Affiliates` is registered under the `billing` group.
+- The seed `seedAffiliates` creates demo referrals and commissions.
+
+## Related
+
+- [core-payments](/docs/modules/core-payments)
+- [core-subscriptions](/docs/modules/core-subscriptions)
+- [Module Development](/docs/api/module-development)

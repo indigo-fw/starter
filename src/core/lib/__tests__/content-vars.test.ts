@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 // Mock external dependencies so the module can be imported without DB/Redis
 vi.mock('@/server/db', () => ({ db: {} }));

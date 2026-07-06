@@ -48,6 +48,11 @@ const config: ModuleConfig = {
   ],
   projectFiles: [
     'config/deps/chat-deps.ts',
+    'config/chat-presets/index.ts',
+    'config/chat-presets/anime.ts',
+    'config/chat-presets/realistic.ts',
+    'app/(public)/characters/page.tsx',
+    'app/(public)/characters/client.tsx',
     'app/(public)/chat/layout.tsx',
     'app/(public)/chat/page.tsx',
     'app/(public)/chat/[conversationId]/page.tsx',
@@ -58,6 +63,7 @@ const config: ModuleConfig = {
     'app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx',
     'app/dashboard/(panel)/settings/chat/flagged/page.tsx',
     'app/dashboard/(panel)/settings/chat/providers/page.tsx',
+    'app/dashboard/(panel)/settings/chat/queue/page.tsx',
     'app/dashboard/(panel)/settings/chat/stats/page.tsx',
   ],
 };

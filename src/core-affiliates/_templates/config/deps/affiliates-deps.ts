@@ -17,7 +17,7 @@ setAffiliatesDeps({
 });
 
 // Register affiliate hooks so other modules can call runHook() without direct imports.
-// Type safety enforced via HookMap declaration merging (see core-affiliates/types/hooks.ts).
+// Type safety via HookMap — core-owned events (see @/core/lib/module/module-hooks).
 registerHook('payment.conversion', async (userId, referenceId, amountCents) => {
   await recordConversion(userId, referenceId, amountCents);
 });

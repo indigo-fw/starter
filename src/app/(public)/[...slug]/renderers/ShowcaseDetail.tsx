@@ -5,7 +5,7 @@ import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { getLocale } from '@/lib/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';
 import { getCachedShowcase } from '../data';
-import { CommentSection } from '@/core-comments/components/CommentSection';
+import { CONTENT_SLOTS, ContentSlot } from '@/generated/content-slots';
 
 interface Props {
   slug: string;
@@ -64,10 +64,12 @@ export async function ShowcaseDetail({ slug, preview }: Props) {
         </div>
       )}
 
-      {/* Comments */}
-      <section className="mt-12 border-t border-(--border-secondary) pt-8">
-        <CommentSection targetType="showcase" targetId={item.id} />
-      </section>
+      {/* Module-contributed footer (e.g. core-comments' CommentSection) */}
+      {CONTENT_SLOTS['post-footer']?.length ? (
+        <section className="mt-12 border-t border-(--border-secondary) pt-8">
+          <ContentSlot slot="post-footer" targetType="showcase" targetId={item.id} />
+        </section>
+      ) : null}
     </article>
   );
 }

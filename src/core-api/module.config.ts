@@ -13,6 +13,9 @@ const config: ModuleConfig = {
     '@/config/deps/api-deps',
     '@/core-api/lib/api-init',
   ],
+  mcpInit: [
+    '@/core-api/lib/mcp-key-verifier',
+  ],
   jobs: [],
   seed: [],
   layoutWidgets: [],

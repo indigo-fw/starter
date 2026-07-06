@@ -1,4 +1,6 @@
 import 'server-only';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
 import { headers } from 'next/headers';
 import { IS_MULTILINGUAL } from '@/lib/constants';
 
@@ -72,7 +74,9 @@ export async function getLanguageSuggestion(
  */
 async function loadSuggestionMessage(locale: string, languageLabel: string): Promise<string> {
   try {
-    const messages = (await import(`../../../locales/build/${locale}.json`)).default as Record<string, Record<string, string>>;
+    const filePath = join(process.cwd(), 'locales', 'build', `${locale}.json`);
+    const content = await readFile(filePath, 'utf-8');
+    const messages = JSON.parse(content) as Record<string, Record<string, string>>;
     const key = SUGGESTION_KEY.replace(/\./g, '@@@');
     const translated = messages?.General?.[key];
     if (translated) {

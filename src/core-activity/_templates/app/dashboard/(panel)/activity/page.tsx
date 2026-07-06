@@ -16,7 +16,6 @@ import { trpc } from '@/lib/trpc/client';
 import { useAdminTranslations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
 import { formatRelativeTime } from '@/core/lib/infra/datetime';
-import { ActivityItem } from '@/core-activity/components/ActivityItem';
 import '@/core-activity/styles/activity.css';
 
 type ActionFilter = 'all' | 'post' | 'comment' | 'order' | 'user';
@@ -232,6 +231,9 @@ export default function ActivityLogPage() {
                       <td className="table-td">
                         <div className="flex items-center gap-2">
                           {event.actorImage ? (
+                            /* OAuth avatar from an arbitrary external host — next/image
+                               would require an open remotePatterns config. */
+                            // eslint-disable-next-line @next/next/no-img-element
                             <img
                               src={event.actorImage}
                               alt=""

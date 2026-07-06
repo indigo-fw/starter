@@ -21,9 +21,15 @@ const config: ModuleConfig = {
   navItems: [
     { groupId: 'content', name: 'Comments', href: '/dashboard/comments', icon: 'MessageSquare' },
   ],
+  contentSlots: [
+    { slot: 'post-footer', name: 'CommentSection', from: '@/core-comments/components/CommentSection' },
+    { slot: 'showcase-comments', name: 'useShowcaseComments', from: '@/components/public/useShowcaseComments' },
+  ],
   projectFiles: [
     'config/deps/comments-deps.ts',
     'app/dashboard/(panel)/comments/page.tsx',
+    'components/public/CommentPanel.tsx',
+    'components/public/useShowcaseComments.tsx',
   ],
 };
 

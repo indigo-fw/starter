@@ -7,19 +7,14 @@
  *   bun run init -- -y --reset    — force reset + re-seed (for demo deployments)
  *   bun run init -- --no-seed     — DB + migrations + superadmin only, skip all seeding
  *
- * What it does:
- * 1. Ensures .env exists (copies from .env.example if missing)
- * 2. Creates the database if it doesn't exist
- * 3. Runs Drizzle migrations
- * 4. Detects existing data — offers reset (TRUNCATE + re-seed)
- * 5. Creates superadmin user if none exists (interactive or from env)
- * 6. Prompts for company info (legal page templates)
- * 7. Writes site name / URL back to .env
- * 8. Seeds default site options
- * 9. Selectively seeds: CMS content, module data, extras
- * 10. Ensures a clean, self-owned git repo (`git init` + first commit when there
- *     is none — e.g. after `degit` — then offers to set `origin`). Skips the
- *     framework dev repo entirely (`indigo.role=framework` / `INDIGO_MAINTAINER=1`).
+ * Non-interactive answers (for agents/CI — no TTY required):
+ *   --modules <ids|all|recommended>  — module keep-list, e.g. --modules core-payments,core-subscriptions
+ *   --admin-email / --admin-password / --admin-name — override the INIT_* env vars
+ *
+ * Flow: .env + secrets → create DB → migrate → module selection → superadmin →
+ * company info → seeding → translations → git init + first commit (degit
+ * installs get a fresh, self-owned repo; the framework dev repo is never
+ * touched — `indigo.role=framework` / `INDIGO_MAINTAINER=1`).
  */
 
 import postgres from "postgres";
@@ -28,8 +23,10 @@ import { count, eq } from "drizzle-orm";
 import { execSync, execFileSync } from "child_process";
 import crypto from "crypto";
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { hashPassword } from "@/lib/password";
+import { REGISTRY } from "../../scripts/indigo/registry";
 import {
   log,
   prompt,
@@ -55,6 +52,27 @@ const args = process.argv.slice(2);
 const AUTO_YES = args.includes("-y") || args.includes("--yes");
 const FORCE_RESET = args.includes("--reset");
 const NO_SEED = args.includes("--no-seed");
+
+/** Value of `--flag <value>`, or null when absent. */
+function flagValue(name: string): string | null {
+  const i = args.indexOf(name);
+  return i >= 0 && args[i + 1] && !args[i + 1]!.startsWith("--")
+    ? args[i + 1]!
+    : null;
+}
+
+// Module keep-list for non-interactive runs: IDs, 'all', or 'recommended'.
+const MODULES_FLAG = flagValue("--modules");
+
+// Flag overrides for the INIT_* env vars (same downstream behavior).
+for (const [flag, env] of [
+  ["--admin-email", "INIT_ADMIN_EMAIL"],
+  ["--admin-password", "INIT_ADMIN_PASSWORD"],
+  ["--admin-name", "INIT_ADMIN_NAME"],
+] as const) {
+  const v = flagValue(flag);
+  if (v) process.env[env] = v;
+}
 
 /** Prompt or auto-accept. In -y mode, always returns the default value. */
 async function confirm(message: string, defaultValue = true): Promise<boolean> {
@@ -272,6 +290,32 @@ function freshGitInit(): boolean {
   return true;
 }
 
+/**
+ * Files that belong to the indigo-fw/starter repo itself, not to apps built
+ * from it. deploy-demo.yml can never succeed in a customer repo (its secrets
+ * and registry permissions live in the starter; it also self-guards with
+ * `if: github.repository == 'indigo-fw/starter'`). Deleted before the first
+ * commit so a fresh project's history never carries them. The framework/dev
+ * repo never reaches this path — ensureGitRepo returns earlier for it.
+ */
+const STARTER_ONLY_FILES = [
+  ".github/workflows/deploy-demo.yml",
+  ".degitignore", // legacy — degit never actually supported it
+];
+
+function removeStarterOnlyFiles(): void {
+  for (const rel of STARTER_ONLY_FILES) {
+    const p = path.join(PROJECT_ROOT, rel);
+    if (!fs.existsSync(p)) continue;
+    try {
+      fs.rmSync(p);
+      log("🧹", `Removed starter-only file: ${rel}`);
+    } catch {
+      /* non-critical */
+    }
+  }
+}
+
 async function promptForOrigin(): Promise<void> {
   if (AUTO_YES) return;
   const url = (await prompt("  Your git remote URL (blank to skip): ")).trim();
@@ -317,6 +361,7 @@ async function ensureGitRepo(): Promise<void> {
   // Case A: no repo (degit / ZIP), or a repo with no commits yet (a previous
   // run init'd it but the commit failed). Either way: get to a committed state.
   if (!hasRepo || !gitHasCommits()) {
+    removeStarterOnlyFiles();
     if (freshGitInit()) {
       log("📦", hasRepo ? "Created the initial commit." : "Initialized a fresh git repository (no starter history).");
       await promptForOrigin();
@@ -356,6 +401,7 @@ async function ensureGitRepo(): Promise<void> {
   }
 
   fs.rmSync(path.join(PROJECT_ROOT, ".git"), { recursive: true, force: true });
+  removeStarterOnlyFiles();
   if (freshGitInit()) {
     log("📦", "Re-initialized git with a fresh history.");
     await promptForOrigin();
@@ -425,6 +471,70 @@ function ensureEnvFile(): boolean {
 
 // ─── Step 2: Create database ──────────────────────────────────────────────────
 
+/**
+ * Environment diagnostics for the "can't reach PostgreSQL" failure path.
+ * Written for coding agents as much as humans: states the OS, what was
+ * detected, and the exact commands that fix it — so an agent can relay the
+ * options to its user in chat and (with consent) run the right one.
+ */
+function printEnvironmentDiagnostics(): void {
+  const platform =
+    process.platform === "win32"
+      ? "Windows"
+      : process.platform === "darwin"
+        ? "macOS"
+        : "Linux";
+  const has = (cmd: string, args: string[]): boolean => {
+    try {
+      execFileSync(cmd, args, { stdio: "ignore" });
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  const hasDocker = has("docker", ["--version"]);
+  const dockerRunning = hasDocker && has("docker", ["info"]);
+
+  console.error("");
+  console.error("── Environment diagnostics (for you or your coding agent) ──");
+  console.error(`   OS: ${platform} (${os.release()}) · Bun ${Bun.version}`);
+  console.error(
+    `   Docker: ${hasDocker ? (dockerRunning ? "installed, running" : "installed, daemon NOT running") : "not found"}`,
+  );
+  console.error("");
+  if (dockerRunning) {
+    console.error("   Fix: start PostgreSQL + Redis from the bundled compose file:");
+    console.error("        docker compose up -d");
+    console.error("   then re-run `bun run init` (idempotent).");
+  } else if (hasDocker) {
+    console.error("   Fix: Docker is installed but the daemon isn't running.");
+    console.error(
+      platform === "Linux"
+        ? "        sudo systemctl start docker   then: docker compose up -d"
+        : "        Start Docker Desktop, then: docker compose up -d",
+    );
+  } else {
+    console.error(
+      "   Option A — install Docker, then `docker compose up -d` starts PostgreSQL + Redis:",
+    );
+    if (platform === "Windows") {
+      console.error("        winget install Docker.DockerDesktop   (needs admin; may require a restart)");
+    } else if (platform === "macOS") {
+      console.error("        brew install --cask docker");
+    } else {
+      console.error("        https://docs.docker.com/engine/install/  (pick your distro)");
+    }
+    console.error(
+      "   Option B — use an existing PostgreSQL server: set DATABASE_URL in .env, re-run `bun run init`.",
+    );
+  }
+  console.error("");
+  console.error(
+    "   Agents: relay these options to your user in chat and ask before installing anything.",
+  );
+  console.error("─────────────────────────────────────────────────────────────");
+}
+
 async function ensureDatabase(): Promise<string> {
   const databaseUrl = await ensureDatabaseUrl();
   const dbUrl = new URL(databaseUrl);
@@ -452,6 +562,7 @@ async function ensureDatabase(): Promise<string> {
     console.error(
       "Make sure PostgreSQL is running and DATABASE_URL is correct.",
     );
+    printEnvironmentDiagnostics();
     process.exit(1);
   } finally {
     await sql.end();
@@ -482,6 +593,176 @@ function runMigrations() {
     console.error("Migration failed. Check the error above.");
     process.exit(1);
   }
+}
+
+// ─── Step 3.5: Choose which optional modules to keep ────────────────────────
+
+/** Module IDs currently wired into indigo.config.ts. */
+function getInstalledModuleIds(): string[] {
+  const configPath = path.resolve(process.cwd(), "indigo.config.ts");
+  if (!fs.existsSync(configPath)) return [];
+  const content = fs.readFileSync(configPath, "utf-8");
+  return REGISTRY.filter((e) =>
+    content.includes(`./src/${e.id}/module.config`),
+  ).map((e) => e.id);
+}
+
+/**
+ * The starter ships with every module. On a fresh install, let the user keep
+ * only the ones they want — the rest are removed via `indigo remove`. Skipped
+ * for the framework dev repo and for `-y` runs (demo keeps all modules).
+ */
+async function selectModules(): Promise<void> {
+  if (isProtectedFrameworkRepo()) return;
+
+  const installed = getInstalledModuleIds();
+  if (installed.length === 0) return;
+
+  const entries = installed
+    .map((id) => REGISTRY.find((e) => e.id === id))
+    .filter((e): e is NonNullable<typeof e> => Boolean(e));
+
+  const keep = new Set<string>();
+
+  if (MODULES_FLAG) {
+    const value = MODULES_FLAG.trim().toLowerCase();
+    if (value === "all") {
+      log("📦", `Keeping all ${installed.length} module(s) (--modules all).`);
+      return;
+    }
+    if (value === "recommended") {
+      for (const e of entries) if (e.free) keep.add(e.id);
+    } else {
+      const unknown: string[] = [];
+      for (const part of value.split(",")) {
+        const id = part.trim();
+        if (!id) continue;
+        if (installed.includes(id)) keep.add(id);
+        else unknown.push(id);
+      }
+      if (unknown.length > 0) {
+        console.error(
+          `Unknown module id(s) in --modules: ${unknown.join(", ")}\n` +
+            `Installed modules: ${installed.join(", ")}`,
+        );
+        process.exit(1);
+      }
+    }
+    log("📦", `Module keep-list from --modules: ${[...keep].join(", ")}`);
+  } else if (AUTO_YES) {
+    log("📦", `Keeping all ${installed.length} module(s) (auto mode).`);
+    return;
+  } else {
+    console.log("");
+    log("📦", "Optional modules:");
+    console.log(
+      "   This starter ships with every module. Keep the ones you want — the",
+    );
+    console.log(
+      "   rest are removed (re-add later with `bun run indigo add <id>`).",
+    );
+    console.log("");
+    entries.forEach((e, i) => {
+      const tag = e.required ? "  (required)" : e.free ? "  (recommended)" : "";
+      console.log(`   ${String(i + 1).padStart(2)}. ${e.id}${tag}`);
+      console.log(`       ${e.description}`);
+    });
+    console.log("");
+
+    const freeIdx = entries
+      .map((e, i) => (e.free ? i + 1 : null))
+      .filter((n): n is number => n !== null);
+
+    const answer = (
+      await prompt(
+        `  Modules to KEEP — comma-separated numbers, 'all', or blank for recommended [${freeIdx.join(",")}]: `,
+      )
+    )
+      .trim()
+      .toLowerCase();
+
+    if (answer === "all") {
+      log("✔", "Keeping all modules.");
+      return;
+    }
+
+    if (answer === "") {
+      for (const e of entries) if (e.free) keep.add(e.id);
+    } else {
+      for (const part of answer.split(",")) {
+        const n = Number.parseInt(part.trim(), 10);
+        if (n >= 1 && n <= entries.length) keep.add(entries[n - 1]!.id);
+      }
+    }
+  }
+
+  // Required primitives — core still depends on them (see registry.ts).
+  for (const e of entries) {
+    if (e.required && !keep.has(e.id)) {
+      keep.add(e.id);
+      log("📌", `${e.id} is a required primitive — kept.`);
+    }
+  }
+
+  // Transitively pull in required dependencies of kept modules.
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const id of [...keep]) {
+      const e = REGISTRY.find((r) => r.id === id);
+      for (const dep of e?.requires ?? []) {
+        if (installed.includes(dep) && !keep.has(dep)) {
+          keep.add(dep);
+          changed = true;
+        }
+      }
+    }
+  }
+
+  const toRemove = installed.filter((id) => !keep.has(id));
+  if (toRemove.length === 0) {
+    log("✔", "Keeping all modules.");
+    return;
+  }
+
+  // Order so a dependent module is removed before the module it requires —
+  // `indigo remove` refuses to remove a module that still-installed code needs.
+  const ordered: string[] = [];
+  const pending = new Set(toRemove);
+  while (pending.size > 0) {
+    let progressed = false;
+    for (const id of [...pending]) {
+      const blocked = [...pending].some((other) =>
+        REGISTRY.find((r) => r.id === other)?.requires?.includes(id),
+      );
+      if (!blocked) {
+        ordered.push(id);
+        pending.delete(id);
+        progressed = true;
+      }
+    }
+    if (!progressed) {
+      ordered.push(...pending);
+      break;
+    }
+  }
+
+  console.log("");
+  log("🗑️", `Removing ${ordered.length} module(s): ${ordered.join(", ")}`);
+  for (const id of ordered) {
+    try {
+      execSync(`bun run indigo remove ${id} --yes --keep-db`, {
+        cwd: process.cwd(),
+        stdio: "inherit",
+      });
+    } catch {
+      log(
+        "⚠️",
+        `Could not remove ${id} — remove it later with \`bun run indigo remove ${id}\`.`,
+      );
+    }
+  }
+  log("✔", `Kept: ${[...keep].join(", ") || "none"}`);
 }
 
 // ─── Step 4: Check existing data & offer reset ──────────────────────────────
@@ -886,6 +1167,9 @@ async function main() {
   // Step 3
   await runMigrations();
 
+  // Step 3.5 — pick which optional modules to keep (removes the rest)
+  await selectModules();
+
   const sql = postgres(databaseUrl, { max: 1 });
   const db = drizzle(sql);
 
@@ -1035,12 +1319,41 @@ async function main() {
         }
       } // end if (!NO_SEED)
     }
+
+    // Mint a dev MCP API key so Claude Code (via .mcp.json) works out-of-the-box.
+    // Idempotent: skips if .env.local already has INDIGO_MCP_KEY.
+    try {
+      // Computed specifier: core-api is optional — typecheck must pass without it.
+      const coreApiInitKey = '../core-api/lib/init-dev-key';
+      const { mintDevMcpKey } = await import(coreApiInitKey);
+      const result = await mintDevMcpKey(db, superadminUserId);
+      if (result.status === 'minted') {
+        log('🤖', `Minted dev MCP key — Claude Code is wired up via ${result.envPath}`);
+      } else if (result.status === 'already-present') {
+        log('🤖', `MCP key already in .env.local — skipped`);
+      } else if (result.status === 'no-org') {
+        log('⚠️', `MCP key skipped: superadmin has no organization yet`);
+      }
+    } catch (err) {
+      console.warn('  Skipped MCP key minting:', err instanceof Error ? err.message : String(err));
+    }
   } finally {
     await sql.end();
   }
 
   // Final step — make this the user's own repo, not the starter's (after seeding,
   // so the initial commit reflects the full project).
+  // Compile translations (locales/build/ is gitignored, so fresh installs
+  // lack it until this runs — the i18n request handler falls back to English
+  // source strings without it, but typecheck and non-EN locales need it).
+  log("🌐", "Compiling translations...");
+  try {
+    execSync("bun scripts/i18n/po-to-json.mjs", { stdio: "ignore" });
+    log("✅", "Translations compiled.");
+  } catch {
+    log("⚠️", "Translation compile failed — run `bun run i18n` manually.");
+  }
+
   await ensureGitRepo();
 
   console.log("");

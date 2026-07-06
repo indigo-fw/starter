@@ -5,7 +5,26 @@
 import { setCommentsDeps } from '@/core-comments/deps';
 import { sendNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { recordActivity } from '@/core-activity/lib/activity-service';
+
+// Optional cross-module wiring: activity-feed entries for comment events.
+// Computed specifier + guard — core-activity is independently removable, and
+// this file belongs to core-comments, so a hard import would dangle.
+let recordActivity:
+  | ((entry: {
+      actorId: string;
+      action: string;
+      targetType: string;
+      targetId: string;
+      isPublic?: boolean;
+    }) => void)
+  | null = null;
+try {
+  // module-manifest-ignore: core-activity
+  const activityService = '@/core-activity/lib/activity-service';
+  ({ recordActivity } = await import(activityService));
+} catch {
+  /* core-activity not installed */
+}
 
 setCommentsDeps({
   async sendNotification({ userId, title, body, url }) {
@@ -20,7 +39,7 @@ setCommentsDeps({
   },
 
   onCommentCreated(event) {
-    recordActivity({
+    recordActivity?.({
       actorId: event.userId,
       action: 'comment.created',
       targetType: event.targetType,
@@ -30,7 +49,7 @@ setCommentsDeps({
   },
 
   onCommentDeleted(event) {
-    recordActivity({
+    recordActivity?.({
       actorId: event.userId,
       action: 'comment.deleted',
       targetType: event.targetType,

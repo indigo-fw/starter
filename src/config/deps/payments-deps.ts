@@ -3,10 +3,23 @@
  * Imported as a side-effect in server.ts.
  */
 import { setPaymentsDeps, type PaymentsDeps } from '@/core-payments/deps';
+import { billingProfiles } from '@/core-payments/schema/billing-profile';
+import { registerHook } from '@/core/lib/module/module-hooks';
+import { db } from '@/server/db';
 import { getPlan, getPlanByProviderPriceId, getProviderPriceId } from '@/config/plans';
 import { getEnabledProviderConfigs } from '@/config/payment-providers';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
+
+// Seed a billing profile for every newly created organization. Lives here (a
+// core-payments project file) so the organizations router never imports
+// module schemas — `indigo remove core-payments` stays mechanical.
+registerHook('org.created', async (orgId, name) => {
+  await db.insert(billingProfiles).values({
+    organizationId: orgId,
+    legalName: name,
+  });
+});
 
 setPaymentsDeps({
   getEnabledProviderConfigs,

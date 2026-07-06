@@ -34,8 +34,14 @@ setChatDeps({
   deductTokens: (orgId, amount, reason, metadata) =>
     deductTokens(orgId, amount, reason, metadata),
 
+  // Chat credits are refunds of failed pre-paid requests. Deductions drain
+  // the expiring plan bucket first, so refunds go back there too — otherwise
+  // every failed request would launder expiring plan tokens into permanent
+  // purchased tokens.
   addTokens: (orgId, amount, reason, metadata) =>
-    addTokens(orgId, amount, reason, metadata),
+    addTokens(orgId, amount, reason, metadata, {
+      bucket: reason.includes('refund') ? 'plan' : 'purchased',
+    }),
 
   getTokenBalance: (orgId) => getTokenBalance(orgId),
 

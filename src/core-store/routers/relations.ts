@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { and, eq, isNull, inArray } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
 import { storeRelatedProducts } from '@/core-store/schema/relations';
 import { storeProducts } from '@/core-store/schema/products';

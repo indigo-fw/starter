@@ -1,0 +1,122 @@
+---
+title: core-chat
+section: Module Reference
+order: 325
+description: AI character chat — text, image, and video generation plus voice calls, with DB-stored encrypted providers.
+---
+
+# core-chat
+
+<Badge>Product</Badge> <Badge>Paid</Badge>
+
+`core-chat` is an AI character chat product. Users converse with AI personas
+through streamed text, generated images and video, and real-time voice calls.
+AI providers are stored in the database with encrypted credentials and
+round-robin selection with fallback.
+
+## What it does
+
+- AI character personas with traits, featured media, and per-conversation overrides
+- Streamed LLM chat over WebSocket, plus on-demand image and video generation
+- Real-time voice calls — speech-to-text, LLM, and text-to-speech over a WebSocket
+- DB-stored AI providers (LLM, image, video, TTS, STT) with encrypted credentials
+- Round-robin provider selection with cooldown, retry, and fallback
+- Content moderation, user reporting, an audit log, and auto-blocking
+- A token-based usage model with pre-pay and refund-on-failure
+
+## Installation
+
+`core-chat` is a paid module and requires a valid Indigo license.
+
+```bash
+bun run indigo add core-chat
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+DI is configured in `config/deps/chat-deps.ts` (scaffolded on install) via
+`setChatDeps()` — it injects token operations (deduct/refund) from
+`core-subscriptions`, registers WebSocket channel authorization, and initializes
+the image pipeline.
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `ENCRYPTION_KEY` | For providers | 64-char hex key for AES-256-GCM credential encryption |
+| `AI_API_KEY` | For default LLM | Seeds the default LLM provider |
+| `AI_API_URL` | No | Override the OpenAI-compatible endpoint |
+| `AI_MODEL` | No | Default model (`gpt-4o-mini`) |
+| `ELEVENLABS_API_KEY` | For voice | TTS and STT for voice calls |
+| `MOCK_AI` | No | `true` seeds mock adapters — no API keys needed |
+
+<Callout type="tip">
+Set `MOCK_AI=true` to develop and test the full chat flow without any real AI
+provider credentials.
+</Callout>
+
+## Schema
+
+`core-chat` ships 11 tables:
+
+| Table | Purpose |
+|---|---|
+| `chat_characters` | AI personas with trait IDs and featured media |
+| `chat_conversations` | User conversations with trait overrides and read tracking |
+| `chat_messages` | Messages — user, assistant, voice, system, and call events |
+| `chat_conversation_summaries` | LLM-generated summaries to manage context windows |
+| `chat_media` | Images, videos, and avatars with content hash and NSFW flag |
+| `chat_providers` | DB-stored AI providers with encrypted credentials |
+| `chat_provider_logs` | Per-request provider health logging |
+| `chat_reports` | User-submitted message reports |
+| `chat_audit_log` | Moderation events used for auto-blocking |
+| `chat_voice_calls` | Voice call billing records |
+| `chat_user_preferences` | User chat preferences — an overridable table |
+
+<Callout type="info">
+`chat_user_preferences` is declared as an overridable schema. Projects can
+extend it by dropping a file in `src/schema/overrides/` and running
+`bun run indigo:sync`.
+</Callout>
+
+## API
+
+`core-chat` registers 9 tRPC routers:
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `characters` | admin | Character CRUD |
+| `conversations` | protected | User conversations — list, create, archive, traits, preferences |
+| `messages` | protected | List, send, retry, and report messages |
+| `chatPublic` | public | Public character browsing, filters, and detail |
+| `chatProviders` | superadmin | Provider CRUD and connectivity test |
+| `chatAdmin` | admin | Stats, conversation review, and flag moderation |
+| `chatMedia` | protected | Media upload |
+| `chatTaskQueue` | superadmin | Background task queue — list, failed, retry |
+| `chatVoice` | protected | Voice call eligibility, status, and history |
+
+## Components
+
+The module ships 20+ UI components, including character browsing
+(`CharacterBrowsePage`, `CharacterCard`, `CharacterFilterBar`,
+`CharacterPicker`), the chat surface (`ChatLayout`, `ChatPanel`, `ChatInput`,
+`ChatMessage`, `ConversationList`, `TypingIndicator`), moderation overlays
+(`BlockMessage`, `CensoredMessage`, `NsfwBlurOverlay`), and voice call UI.
+
+## Integration
+
+Installing scaffolds the public chat pages (`/chat`, `/chat/[conversationId]`)
+and the dashboard chat admin pages (characters, conversations, providers,
+flagged, stats), and adds a **Chat** entry to the dashboard *Settings* group.
+
+The module registers four BullMQ workers — the AI engine, conversation
+summarization, cleanup, and video optimization. Real-time updates flow over the
+`chat:<conversationId>` WebSocket channel (`MSG_STREAM_*`, `MSG_IMAGE_*`,
+`BALANCE_UPDATE`, voice call events). A `seedChatCharacters` step adds demo
+characters on `bun run init`.
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [core-subscriptions](/docs/modules/core-subscriptions) — token balances for the chat usage model
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules

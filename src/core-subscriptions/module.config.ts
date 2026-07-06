@@ -24,6 +24,7 @@ const config: ModuleConfig = {
     { groupId: 'billing', name: 'Discount Codes', href: '/dashboard/settings/discount-codes', icon: 'Tag' },
   ],
   projectFiles: [
+    'config/billing.ts',
     'config/deps/subscriptions-deps.ts',
     'app/dashboard/(panel)/settings/billing/page.tsx',
     'app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx',
@@ -35,6 +36,7 @@ const config: ModuleConfig = {
     'app/dashboard/(panel)/settings/discount-codes/page.tsx',
     'app/(public)/account/billing/page.tsx',
     'app/(public)/pricing/page.tsx',
+    'components/public/TokenPackCard.tsx',
   ],
 };
 

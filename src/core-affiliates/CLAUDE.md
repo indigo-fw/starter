@@ -2,10 +2,6 @@
 
 Referral tracking, marketing attribution, and affiliate management.
 
-## Module Boundary
-
-**core-affiliates owns:** Affiliate/referral/attribution schema, routers, `captureReferral`/`recordConversion`/`captureAttribution` lib functions, `AttributionCapture` component.
-
 **Project owns:** Admin pages, account page, `AffiliateOverview` widget, `config/deps/affiliates-deps.ts`.
 
 ## DI (`setAffiliatesDeps()`)

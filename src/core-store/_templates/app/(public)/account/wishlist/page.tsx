@@ -63,6 +63,9 @@ export default function WishlistPage() {
           <div key={item.productId} className="product-card">
             <Link href={`/store/${item.slug}`} className="product-card-image">
               {item.featuredImage ? (
+                /* Uploaded media URL (host varies per deployment) — next/image
+                   would require per-project remotePatterns config. */
+                // eslint-disable-next-line @next/next/no-img-element
                 <img src={item.featuredImage} alt={item.name} />
               ) : (
                 <div className="product-card-image-placeholder">

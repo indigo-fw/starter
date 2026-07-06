@@ -25,10 +25,84 @@ import {
   deductTokens,
   getTokenTransactions,
 } from '@/core-subscriptions/lib/token-service';
+import { getBillingConfig, getTokenPack } from '@/core-subscriptions/lib/billing-config';
+// app-url-runtime, not app-url: appRouter is reachable from Bun-direct code
+// (MCP discovery), where the 'server-only' guard in app-url.ts would throw.
+import { getServerAppUrl } from '@/lib/app-url-runtime';
+import type { db } from '@/server/db';
 
 const billingAdminProcedure = sectionProcedure('billing');
 
+/**
+ * Procedures that only exist for recurring plans — gated by construction so
+ * a tokens-only install can never reach checkout, renewal, the provider
+ * portal, or subscription discount codes (also via MCP tool calls).
+ */
+const subscriptionProcedure = protectedProcedure.use(({ next }) => {
+  if (getBillingConfig().mode === 'tokens') {
+    throw new TRPCError({
+      code: 'PRECONDITION_FAILED',
+      message: 'This site uses token-based billing — subscriptions are disabled',
+    });
+  }
+  return next();
+});
+
+function assertBillingEnabled(): void {
+  if (!getSubscriptionsDeps().isBillingEnabled?.()) {
+    throw new TRPCError({
+      code: 'PRECONDITION_FAILED',
+      message: 'Billing is not configured',
+    });
+  }
+}
+
+/** Resolve the caller's org and require owner/admin membership for billing changes. */
+async function requireBillingAdmin(ctx: {
+  db: typeof db;
+  activeOrganizationId: string | null;
+  session: { user: { id: string } };
+}): Promise<string> {
+  const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+
+  const [memberRecord] = await ctx.db
+    .select()
+    .from(member)
+    .where(and(eq(member.organizationId, orgId), eq(member.userId, ctx.session.user.id)))
+    .limit(1);
+
+  if (!memberRecord || !['owner', 'admin'].includes(memberRecord.role)) {
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: 'Only org owners/admins can manage billing',
+    });
+  }
+
+  return orgId;
+}
+
+/**
+ * Checkout redirect URLs. Uses getServerAppUrl() — NEXT_PUBLIC_APP_URL is
+ * inlined at build time and yields localhost URLs on pre-built images.
+ */
+function checkoutReturnUrls(page: string, successQuery: string): { successUrl: string; cancelUrl: string } {
+  const appUrl = getServerAppUrl();
+  return {
+    successUrl: `${appUrl}${page}?${successQuery}`,
+    cancelUrl: `${appUrl}${page}?canceled=true`,
+  };
+}
+
 export const billingRouter = createTRPCRouter({
+  /** Billing mode + purchasable token packs, for mode-aware billing UI */
+  getBillingConfig: protectedProcedure.query(() => {
+    const config = getBillingConfig();
+    return {
+      mode: config.mode,
+      tokenPacks: config.tokenPacks ?? [],
+    };
+  }),
+
   getPlans: protectedProcedure.query(() => {
     return getSubscriptionsDeps().getPlans().map(({ providerPrices: _pp, ...plan }) => plan);
   }),
@@ -44,7 +118,7 @@ export const billingRouter = createTRPCRouter({
     return sub;
   }),
 
-  createCheckoutSession: protectedProcedure
+  createCheckoutSession: subscriptionProcedure
     .input(
       z.object({
         planId: z.string().min(1).max(50),
@@ -54,12 +128,7 @@ export const billingRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (!getSubscriptionsDeps().isBillingEnabled?.()) {
-        throw new TRPCError({
-          code: 'PRECONDITION_FAILED',
-          message: 'Billing is not configured',
-        });
-      }
+      assertBillingEnabled();
 
       const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
       if (!provider) {
@@ -77,23 +146,7 @@ export const billingRouter = createTRPCRouter({
         });
       }
 
-      const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
-
-      // Verify user is owner or admin of org
-      const [memberRecord] = await ctx.db
-        .select()
-        .from(member)
-        .where(
-          and(eq(member.organizationId, orgId), eq(member.userId, ctx.session.user.id))
-        )
-        .limit(1);
-
-      if (!memberRecord || !['owner', 'admin'].includes(memberRecord.role)) {
-        throw new TRPCError({
-          code: 'FORBIDDEN',
-          message: 'Only org owners/admins can manage billing',
-        });
-      }
+      const orgId = await requireBillingAdmin(ctx);
 
       const plan = getSubscriptionsDeps().getPlan(input.planId);
       if (!plan) {
@@ -125,14 +178,11 @@ export const billingRouter = createTRPCRouter({
         finalPriceCents = validation.finalPriceCents ?? undefined;
       }
 
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
-
       const result = await provider.createCheckout({
         organizationId: orgId,
         planId: input.planId,
         interval: input.interval,
-        successUrl: `${appUrl}/dashboard/settings/billing?success=true`,
-        cancelUrl: `${appUrl}/dashboard/settings/billing?canceled=true`,
+        ...checkoutReturnUrls('/dashboard/settings/billing', 'success=true'),
         discount: resolvedDiscount,
         originalPriceCents,
         finalPriceCents,
@@ -147,7 +197,7 @@ export const billingRouter = createTRPCRouter({
       return { url: result.url, providerId: result.providerId };
     }),
 
-  createPortalSession: protectedProcedure
+  createPortalSession: subscriptionProcedure
     .input(
       z.object({
         providerId: z.string().min(1).max(50).default('stripe'),
@@ -163,17 +213,16 @@ export const billingRouter = createTRPCRouter({
       }
 
       const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
       const url = await provider.createPortalSession(
         orgId,
-        `${appUrl}/dashboard/settings/billing`
+        `${getServerAppUrl()}/dashboard/settings/billing`
       );
       return { url };
     }),
 
   // ─── Discount Code mutations (customer-facing) ───────────────────────────
 
-  applyDiscountCode: protectedProcedure
+  applyDiscountCode: subscriptionProcedure
     .input(z.object({
       code: z.string().min(1).max(50),
       planId: z.string().min(1).max(50),
@@ -199,7 +248,7 @@ export const billingRouter = createTRPCRouter({
       return { discount, finalPriceCents: validation.finalPriceCents };
     }),
 
-  removeDiscountCode: protectedProcedure.mutation(async ({ ctx }) => {
+  removeDiscountCode: subscriptionProcedure.mutation(async ({ ctx }) => {
     await removeDiscount(ctx.session.user.id);
     return { success: true };
   }),
@@ -211,7 +260,7 @@ export const billingRouter = createTRPCRouter({
   // ─── Renewal ──────────────────────────────────────────────────────────────
 
   /** Renew an expired or past_due subscription — creates new checkout */
-  renewSubscription: protectedProcedure
+  renewSubscription: subscriptionProcedure
     .input(
       z.object({
         planId: z.string().min(1).max(50),
@@ -220,30 +269,9 @@ export const billingRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (!getSubscriptionsDeps().isBillingEnabled?.()) {
-        throw new TRPCError({
-          code: 'PRECONDITION_FAILED',
-          message: 'Billing is not configured',
-        });
-      }
+      assertBillingEnabled();
 
-      const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
-
-      // Verify user is owner or admin of org
-      const [memberRecord] = await ctx.db
-        .select()
-        .from(member)
-        .where(
-          and(eq(member.organizationId, orgId), eq(member.userId, ctx.session.user.id))
-        )
-        .limit(1);
-
-      if (!memberRecord || !['owner', 'admin'].includes(memberRecord.role)) {
-        throw new TRPCError({
-          code: 'FORBIDDEN',
-          message: 'Only org owners/admins can manage billing',
-        });
-      }
+      const orgId = await requireBillingAdmin(ctx);
 
       const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
       if (!provider) {
@@ -258,15 +286,65 @@ export const billingRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Plan not found' });
       }
 
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
-
       const result = await provider.createCheckout({
         organizationId: orgId,
         planId: input.planId,
         interval: input.interval,
-        successUrl: `${appUrl}/dashboard/settings/billing?success=true`,
-        cancelUrl: `${appUrl}/dashboard/settings/billing?canceled=true`,
+        ...checkoutReturnUrls('/dashboard/settings/billing', 'success=true'),
         metadata: { userId: ctx.session.user.id, renewal: 'true' },
+      });
+
+      return { url: result.url, providerId: result.providerId };
+    }),
+
+  // ─── Token pack purchase (customer-facing, one-time payment) ─────────────
+
+  purchaseTokenPack: protectedProcedure
+    .input(
+      z.object({
+        packId: z.string().min(1).max(50),
+        providerId: z.string().min(1).max(50).default('stripe'),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      assertBillingEnabled();
+
+      const pack = getTokenPack(input.packId);
+      if (!pack) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Token pack not found' });
+      }
+
+      const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
+      if (!provider) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `Payment provider "${input.providerId}" is not available`,
+        });
+      }
+
+      // One-time pack purchases need both checkout AND webhook routing
+      // support — a provider without it would take the payment and never
+      // credit the tokens
+      if (!provider.config.supportsOneTimePayments) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `${provider.config.name} does not support token pack purchases`,
+        });
+      }
+
+      const orgId = await requireBillingAdmin(ctx);
+
+      const result = await provider.createCheckout({
+        mode: 'payment',
+        finalPriceCents: pack.priceCents,
+        productName: `${pack.name} — ${pack.tokens.toLocaleString()} tokens`,
+        ...checkoutReturnUrls('/account/billing', 'tokens=purchased'),
+        metadata: {
+          type: 'token_pack',
+          packId: pack.id,
+          orgId,
+          userId: ctx.session.user.id,
+        },
       });
 
       return { url: result.url, providerId: result.providerId };
@@ -633,9 +711,16 @@ export const billingRouter = createTRPCRouter({
   getTokenBalance: protectedProcedure.query(async ({ ctx }) => {
     const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
     const record = await getTokenBalanceRecord(orgId);
+    const planBalance = record?.planBalance ?? 0;
+    const purchasedBalance = record?.balance ?? 0;
     return {
       orgId,
-      balance: record?.balance ?? 0,
+      /** Total spendable (plan + purchased) */
+      balance: planBalance + purchasedBalance,
+      /** Expiring subscription allowance */
+      planBalance,
+      /** Permanent tokens (packs, bonuses, refunds) */
+      purchasedBalance,
       lifetimeAdded: record?.lifetimeAdded ?? 0,
       lifetimeUsed: record?.lifetimeUsed ?? 0,
     };
@@ -655,9 +740,10 @@ export const billingRouter = createTRPCRouter({
       organizationId: z.string().uuid(),
       amount: z.number().int().min(1).max(1_000_000),
       reason: z.string().min(1).max(100),
+      bucket: z.enum(['plan', 'purchased']).default('purchased'),
     }))
     .mutation(async ({ input }) => {
-      const balance = await addTokens(input.organizationId, input.amount, input.reason);
+      const balance = await addTokens(input.organizationId, input.amount, input.reason, undefined, { bucket: input.bucket });
       return { balance };
     }),
 

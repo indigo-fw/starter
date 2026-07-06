@@ -10,7 +10,7 @@ import { useSession } from '@/lib/auth-client';
 import { ShortcodeRenderer } from '@/core/components/content/ShortcodeRenderer';
 import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
 import { ShowcaseActionBar } from './ShowcaseActionBar';
-import { CommentPanel } from './CommentPanel';
+import { useShowcaseComments } from '@/generated/content-slots';
 import { useTranslations } from '@/lib/translations';
 
 type ShowcaseVariant = 'shorts' | 'contained' | 'full';
@@ -172,7 +172,6 @@ function RichTextCard({ item }: { item: ShowcaseItem }) {
 export function ShowcaseFeed({ items, showNavDots = true }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [commentPanelId, setCommentPanelId] = useState<string | null>(null);
   const { data: session } = useSession();
   const __ = useTranslations();
 
@@ -182,10 +181,10 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
     { contentType: 'showcase', contentIds: itemIds },
     { enabled: itemIds.length > 0 }
   );
-  const { data: commentCounts } = trpc.comments.countMany.useQuery(
-    { targetType: 'showcase', targetIds: itemIds },
-    { enabled: itemIds.length > 0 }
-  );
+  // Comments layer comes from the generated content-slots module — an inert
+  // no-op when core-comments is not installed.
+  const { counts: commentCounts, openPanel: openCommentPanel, isPanelOpen, panel: commentPanel } =
+    useShowcaseComments(itemIds);
   const { data: userReactions } = trpc.reactions.getUserBatchReactions.useQuery(
     { contentType: 'showcase', contentIds: itemIds },
     { enabled: itemIds.length > 0 && !!session }
@@ -224,7 +223,7 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
   }, [items]);
 
   useEffect(() => {
-    if (commentPanelId) return;
+    if (isPanelOpen) return;
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'ArrowDown' || e.key === 'j') {
         e.preventDefault();
@@ -236,7 +235,7 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
     }
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, items.length, scrollToIndex, commentPanelId]);
+  }, [currentIndex, items.length, scrollToIndex, isPanelOpen]);
 
   if (items.length === 0) {
     return (
@@ -245,8 +244,6 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
       </div>
     );
   }
-
-  const isPanelOpen = commentPanelId !== null;
 
   return (
     <div className="relative">
@@ -259,7 +256,7 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
       >
         {items.map((item, index) => {
           const counts = reactionCounts?.[item.id] ?? { likes: 0, dislikes: 0 };
-          const cCount = commentCounts?.[item.id] ?? 0;
+          const cCount = commentCounts[item.id] ?? 0;
           const uReaction = userReactions?.[item.id] ?? null;
           const v = (item.variant || 'full') as ShowcaseVariant;
           const cfg = VARIANT_CONFIG[v];
@@ -296,7 +293,7 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
                   dislikes={counts.dislikes}
                   commentCount={cCount}
                   userReaction={uReaction}
-                  onCommentClick={() => setCommentPanelId(item.id)}
+                  onCommentClick={() => openCommentPanel(item.id)}
                   allItemIds={itemIds}
                 />
               </div>
@@ -337,12 +334,8 @@ export function ShowcaseFeed({ items, showNavDots = true }: Props) {
         </div>
       )}
 
-      {/* Comment panel */}
-      <CommentPanel
-        targetType="showcase"
-        targetId={commentPanelId}
-        onClose={() => setCommentPanelId(null)}
-      />
+      {/* Comment panel — rendered by the comments layer (null when module absent) */}
+      {commentPanel}
     </div>
   );
 }

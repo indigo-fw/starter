@@ -10,6 +10,7 @@ export async function initModuleDeps(): Promise<void> {
   try { await import('@/config/deps/subscriptions-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
   try { await import('@/core-payments-crypto/register'); } catch (e) { console.error('[module:payments-crypto] init failed:', e); throw e; }
   try { await import('@/config/deps/comments-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
+  try { await import('@/config/deps/brand-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
   try { await import('@/config/deps/activity-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
   try { await import('@/config/deps/support-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }
   try { await import('@/config/deps/affiliates-deps'); } catch (e) { console.error('[module:deps] init failed:', e); throw e; }

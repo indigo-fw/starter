@@ -16,9 +16,9 @@ const config: ModuleConfig = {
   pageWidgets: [],
   navItems: [],
   projectFiles: [
-    'app/docs/data.ts',
-    'app/docs/page.tsx',
-    'app/docs/[...slug]/page.tsx',
+    'app/(public)/docs/data.ts',
+    'app/(public)/docs/page.tsx',
+    'app/(public)/docs/[...slug]/page.tsx',
     'app/api/docs/llms.txt/route.ts',
   ],
 };

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Indigo">
+  <!-- Indigo brand mark — the Cycle: two arrows chasing CW around the
+       core (the self-improving loop). Standalone icon variant: white
+       arrows on the brand's signature pink→purple gradient disc so the
+       icon works on any background (favicons, app tiles). Colors are
+       baked hex from the starter theme (brand hue 350 / accent 303) —
+       this file is rasterized by `bun run indigo brand:generate`.
+       Source geometry: site/src/components/public/IndigoMarkCycle.tsx
+       (mark scaled 0.9 inside the disc for edge margin). -->
+
+  <defs>
+    <!-- Signature brand gradient: pink (brand-500) → purple (accent-500) -->
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f034a3"/>
+      <stop offset="100%" stop-color="#9421ee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Brand disc — full-bleed circular envelope -->
+  <circle cx="50" cy="50" r="50" fill="url(#brand)"/>
+
+  <!-- Two white arrows, 180° apart, rotated 8.9° CW so each arrowhead
+       tip sits on the horizontal axis -->
+  <g transform="rotate(8.9 50 50) translate(5 5) scale(0.9)" fill="#ffffff">
+    <path d="M 8 50 A 42 42 0 0 1 85.23 27.13 L 90.26 23.86 L 86.27 44.34 L 65.94 39.65 L 70.97 36.39 A 25 25 0 0 0 25 50 L 16.52 44.10 Z"/>
+    <path d="M 8 50 A 42 42 0 0 1 85.23 27.13 L 90.26 23.86 L 86.27 44.34 L 65.94 39.65 L 70.97 36.39 A 25 25 0 0 0 25 50 L 16.52 44.10 Z"
+          transform="rotate(180 50 50)"/>
+  </g>
+
+  <!-- Core — deep purple (accent-700) for contrast on both gradient ends -->
+  <circle cx="50" cy="50" r="13.5" fill="#6600b2"/>
+</svg>

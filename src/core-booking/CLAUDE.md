@@ -2,10 +2,6 @@
 
 Booking/scheduling system — services, availability, appointments, classes, resource reservations.
 
-## Module Boundary
-
-**core-booking owns:** Service/availability/booking schema, all routers, availability/booking/reminder/ical services, background worker.
-
 **Project owns:** Admin pages, public booking pages, `config/deps/booking-deps.ts`, webhook handler for paid bookings.
 
 ## DI (`setBookingDeps()`)

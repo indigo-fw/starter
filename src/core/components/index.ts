@@ -76,6 +76,7 @@ export { GeoSyncer } from './GeoSyncer';
 // Consent
 export { CookieConsent } from './consent/CookieConsent';
 export { ConsentGate } from './consent/ConsentGate';
+export { CookieSettingsButton } from './consent/CookieSettingsButton';
 
 // Pagination
 export { PaginationNumbered } from './pagination/PaginationNumbered';

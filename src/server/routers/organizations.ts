@@ -4,12 +4,11 @@ import { TRPCError } from '@trpc/server';
 
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { organization, member, invitation } from '@/server/db/schema';
-import { billingProfiles } from '@/core-payments/schema/billing-profile';
 import { auth } from '@/lib/auth';
 import { logAudit } from '@/core/lib/infra/audit';
 import { sendNotification, sendBulkNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { runGuard } from '@/core/lib/module/module-hooks';
+import { runGuard, runHook } from '@/core/lib/module/module-hooks';
 
 export const organizationsRouter = createTRPCRouter({
   /** List organizations the current user is a member of */
@@ -66,12 +65,10 @@ export const organizationsRouter = createTRPCRouter({
         body: { name: input.name, slug: input.slug },
       });
 
-      // Create billing profile for the new org
+      // Modules react per-org-creation via the hook (e.g. core-payments seeds
+      // a billing profile) — this router never imports module schemas.
       const orgId = (result as { id: string }).id;
-      await ctx.db.insert(billingProfiles).values({
-        organizationId: orgId,
-        legalName: input.name,
-      });
+      await runHook('org.created', orgId, input.name);
 
       logAudit({
         db: ctx.db,

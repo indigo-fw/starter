@@ -1,84 +1,62 @@
 # CLAUDE.md
 
-## Overview
+Indigo — agent-native T3 SaaS framework with integrated CMS. Next.js 16 (App Router) + tRPC + Drizzle (PostgreSQL, UUID PKs) + Better Auth, run with `bun`. Optional features are modules: `bun run indigo add|remove <id>`.
 
-Indigo is an open-source, AI agent-driven T3 SaaS framework with integrated CMS: Next.js 16 (App Router) + tRPC + Drizzle ORM + Better Auth. PostgreSQL with UUID primary keys. Scaffold a new SaaS/social/AI app from this repo — either clone it directly or use `bunx degit indigo-fw/starter my-app` for a clean copy without git history. CMS stays global (marketing site); SaaS primitives (orgs, billing, notifications, real-time) scope to organizations. Modular architecture — premium features available as installable modules via `bun run indigo add <module>`.
+## Orient — ask the code, not this file
 
-## Development
+| Need | Source |
+| --- | --- |
+| First-time setup | `README.md` (agent path + by hand) · `src/scripts/init.ts` header for flags |
+| All commands | `bun run` (bare) · `bun run indigo` (CLI usage) · scripts print usage on bad args |
+| Modules installed/available | `bun run indigo list` |
+| Any tRPC procedure | MCP `search_tools` → `describe_tool` · offline: `src/generated/procedure-docs.ts` |
+| REST API | `/api/v1/openapi` |
+| Architecture / datamodel / workers / startup | `bun run indigo visualize --mermaid` → `.indigo/*.mmd` |
+| Map of any folder or module | `bun run indigo map <dir\|module>` |
+| Health, env, generated-file state | `bun run indigo doctor` |
+| Core helpers (don't reinvent) | barrels: `src/core/crud/index.ts`, `src/core/lib/**` |
+| A module's surface & rules | `src/core-X/module.config.ts` + its `CLAUDE.md` |
+| Folder rules & feature docs | nearest `CLAUDE.md` (`src/app`, `src/server`, `src/config`, `src/core`, `content`, `locales`, each module) |
+| Hard constraints at code sites | file headers — e.g. `src/instrumentation.ts`, `src/core/lib/content/cms-link.ts`, `server.ts` |
+| Operate the running app / test as a user | `/llms.txt` · `bun run indigo personas` · docs → Guides → AI Agents & MCP (`.mcp.json` wires Claude Code automatically) |
+| i18n routing/fallback | `src/app/CLAUDE.md` · translation pipeline: `locales/CLAUDE.md` |
 
-- **Package manager:** `bun`
-- **Dev server:** `bun run dev` (custom server with Turbopack, port 3000)
-- **First-time setup:** `bun run init` — creates DB, runs migrations, sets up search triggers, creates superadmin, seeds content + email templates to `content/` and `emails/`. If you cloned from GitHub, init will offer to replace the starter's remote with your own repo URL.
-- **Content sync:** `bun run content:sync` — syncs `.md` files from `content/` to CMS database (also runs automatically on server start)
-- **Promote user:** `bun run promote <email>`
-- **Change password:** `bun run change-password <email>`
-- **Database:** `bun run db:generate` after schema changes (requires real terminal/TTY), `bun run db:migrate` to apply, `bun run db:studio` for viewer. After editing a `src/**/schema/*.ts`, run `db:generate`, answer any prompts, and commit the new `drizzle/NNNN_*.sql` **and** the updated `drizzle/meta/`
-- **Type check:** `bun run typecheck`
-- **Tests:** `bunx vitest run` (CI uses vitest for proper mock isolation). Use `asMock(fn)` from `@/test-utils` instead of `vi.mocked()`
-- **Translations:** PO files in `locales/admin/*.po` and `locales/public/*.po`. After editing: `bun run i18n`
-- **Environment:** Zod-validated env vars in `src/lib/env.ts`
-- **Project health:** `bun run indigo doctor` — validates env, DB, modules, generated files, deps
-- **Visualize:** `bun run indigo visualize` — interactive architecture diagram → `.indigo/architecture.html`. `--mermaid` for `.mmd` files, `--imports` for dependency-cruiser reports + boundary violations, `--imports <module>` for single module deep dive
-- **Architecture context:** Before cross-module or architectural work, run `bun run indigo visualize --mermaid` and read the `.indigo/*.mmd` files (deps, datamodel, startup, workers). Fast to generate, low-token, high-signal
+Only invariants live in CLAUDE.md files; enumerable facts are fetched live from the sources above. Feature specifics belong to the owning folder's CLAUDE.md.
 
-## Coding Standards
+## Iron rules
 
 - No `any` — use `unknown` and narrow, or generics/interfaces
-- Use `cn()` from `@/lib/utils` for conditional classes — never template literals or raw `clsx()`
+- `cn()` from `@/lib/utils` for conditional classes — never template literals or raw `clsx()`
 - No plain `Error` in server code — always `TRPCError` with proper code
 - Constrain Zod inputs — `.max()` on strings, `.uuid()` on IDs, `.max(N)` on arrays
 - Safety `limit` on all `.findMany()` / `.select()` queries
 - `isNull(deletedAt)` on user-facing queries for soft-deleted tables
 - Verify resource ownership — `protectedProcedure` must filter by `ctx.session.user.id`
 - UUIDs everywhere — never `number` for primary keys
-- DRY where it reduces bugs, but type-specific redundancy is OK when abstraction would obscure intent
-- Open-closed principle — extend via registration/config, don't edit shared code for new types
-- Config-driven over hardcoded — new content types, features, etc. should be addable without touching core logic
-- Schema overrides — modules can declare overridable tables; projects extend by dropping a file in `src/schema/overrides/` and running `bun run indigo:sync`
+- DRY where it reduces bugs; type-specific redundancy is OK when abstraction would obscure intent
+- Comments explain *why*, never *what* — step narration belongs in function names; CLI usage in `--help`
+- Open-closed — extend via registration/config, never edit shared code for new types
+- Schema overrides: drop a file in `src/schema/overrides/` + `bun run indigo:sync`
+- Tests: `bunx vitest run`; use `asMock(fn)` from `@/test-utils`, not `vi.mocked()`
+- `db:generate` needs a real TTY (drizzle rename prompts); commit `drizzle/NNNN_*.sql` **and** `drizzle/meta/`
+- MCP: `.meta({ mcp: { description } })` promotes a procedure to `tools/list`; `.meta({ mcp: false })` hides it; JSDoc becomes searchable on `indigo:sync`
 
 ### Plans
 
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
-- At the end of each plan, give a list of unresolved questions, if any.
+- End each plan with unresolved questions, if any.
 
-## Internationalization (i18n)
+## Parallel work (git worktrees)
 
-Locale config in `src/lib/constants.ts`: `LOCALES`, `DEFAULT_LOCALE`, `LOCALE_LABELS`, `IS_MULTILINGUAL`.
-
-### Locale Routing
-
-- `localeDetection: false` — no auto-redirect from Accept-Language header (SEO-safe)
-- `proxy.ts` handles locale prefix stripping (`/de/blog/post` → `/blog/post` with `x-locale: de` header)
-- `preferred_locale` cookie stores user's locale choice (set by proxy on locale-prefixed visits). Proxy redirects unprefixed URLs to preferred locale when cookie is set. Must be whitelisted as "Strictly Necessary" in cookie consent tool.
-- `/en/xxx` (default locale prefix): proxy passes through (next-intl handles), sets cookie to `en`
-- Anonymous users: cookie persists preference. Registered users: also saved to `user.lang` in DB via `auth.setPreferredLocale` mutation
-
-### Content Locale Fallback
-
-Per-type `fallbackToDefault` in `src/config/cms.ts` controls fallback behavior:
-- `true` (page, blog, category, portfolio, showcase): missing locale content falls back to `DEFAULT_LOCALE` with `isFallback: true` + noindex metadata
-- `false` (tag): returns 404 when content missing in requested locale
-
-**Detail pages** (`getBySlug`): tries requested locale → falls back to DEFAULT_LOCALE if allowed → returns `isFallback` flag. `applyFallbackMetadata()` in `register-renderers.tsx` sets noindex + canonical to default locale URL.
-
-**List pages** (`listPublished`): merges locale items + DEFAULT_LOCALE fallbacks via `mergeWithLocaleFallback()` from `@/core/lib/i18n/locale-fallback`. Deduplicates by `translationGroup` when available (items without it are included as-is). Sitemaps use separate direct DB queries — no fallback pollution.
-
-**Content sync translation grouping** (`src/core/lib/content/sync.ts`):
-- Same slug across locales → auto-grouped by `translationGroup` UUID on sync
-- Different slugs → use `translationOf: en-slug` frontmatter in non-EN files
-- Groups enable LanguageSwitcher cross-language slug mapping + hreflang tags
-
-### Translation Workflow
-
-PO files in `locales/admin/*.po` and `locales/public/*.po`. Pipeline: `bun run i18n` (extract → compile to JSON). `bun run i18n:translate` translates only enabled locales via DeepL (parsed from `LOCALES` in constants.ts). Explicit CLI target bypasses filter: `bun run i18n:translate fr`.
+Each running instance needs its **own `PORT` and its own database** (suffix the DB with the port, e.g. `myapp_3001`; own Redis DB index if `REDIS_URL` is set) — the server syncs `content/` into the DB at boot and runs workers, so shared state corrupts. Worktrees live as **siblings** of the repo (`git worktree add ../my-app-wt1`), then `bun install`, copy + edit `.env`, `bun run init`. Use one when tasks run in parallel or need their own server/DB; a plain branch is enough otherwise.
 
 ## Troubleshooting
 
-- **Port 3000 already in use:** Kill stale `bun` or `node` process
-- **Type errors after schema change:** Run `bun run db:generate` then restart dev server
-- **"Cannot find module" after branch switch:** Run `bun install`
-- **Migration fails:** Check `DATABASE_URL` in `.env`, ensure PostgreSQL is running. The init script creates the database automatically
-- **Tiptap editor not rendering:** Ensure `@tiptap/react` and `@tiptap/starter-kit` are installed. Run `bun install`
+- **Port already in use:** kill stale `bun`/`node` processes
+- **Type errors after schema change:** `bun run db:generate`, restart dev server
+- **"Cannot find module" after branch switch:** `bun install`
+- **Migration fails:** check `DATABASE_URL` in `.env`, ensure PostgreSQL runs (init creates the DB itself)
+- **Tiptap editor not rendering:** `bun install` (`@tiptap/react` + `@tiptap/starter-kit`)
 
 ## Project notes
 

@@ -1,0 +1,111 @@
+---
+title: core-comments
+section: Module Reference
+order: 314
+description: Polymorphic threaded comment system that attaches to any content type, with moderation.
+---
+
+# core-comments
+
+<Badge>Primitive</Badge> <Badge>Free</Badge>
+
+`core-comments` is a polymorphic threaded comment system. It attaches to any content type via a `targetType` / `targetId` pair, supports nested replies, and ships a moderation queue plus ready-to-use public React components.
+
+## What it does
+
+- **Polymorphic** — attach comments to any content type via a `targetType` string.
+- **Threaded** — nested replies via a self-referencing `parentId` (clients build the tree up to depth 3).
+- **Moderation** — pending/approved/rejected/spam statuses with an admin queue.
+- **Auto-approve** — comments from logged-in users are approved immediately.
+- **Cursor pagination** and **batch counts** (`countMany`) to avoid N+1 on list pages.
+- Ships public components: `CommentSection`, `CommentForm`, `CommentItem`, `CommentCount`.
+
+## Installation
+
+```bash
+bun run indigo add core-comments
+```
+
+After installing, generate and apply the schema:
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+Dependencies are wired through `setCommentsDeps()` in `config/deps/comments-deps.ts`:
+
+- `sendNotification` — notifies the parent comment's author on a reply (self-replies are skipped).
+- `onCommentCreated?` — optional lifecycle callback (e.g. record an activity event).
+- `onCommentDeleted?` — optional lifecycle callback.
+
+```typescript
+import { setCommentsDeps } from '@/core-comments/deps';
+import { sendNotification } from '@/server/lib/notifications';
+import { recordActivity } from '@/core-activity/lib/activity-service';
+
+setCommentsDeps({
+  async sendNotification({ userId, title, body, url }) { /* ... */ },
+  onCommentCreated(event) { recordActivity({ /* ... */ }); },
+  onCommentDeleted(event) { recordActivity({ /* ... */ }); },
+});
+```
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `cms_comments` | `targetType`, `targetId` (polymorphic target), `parentId` (threading, nullable self-reference), `userId`, `authorName` (display override), `content`, `status` (`0` pending / `1` approved / `2` rejected / `3` spam), `deletedAt` (soft-delete) |
+
+## API
+
+`commentsRouter` (mounted as `comments`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `comments.list` | public | Approved comments for a target (cursor-paginated) |
+| `comments.count` | public | Approved comment count for a target |
+| `comments.countMany` | public | Batch counts for grids (max 100 IDs) |
+| `comments.create` | protected | Post a comment (auto-approved) |
+| `comments.update` | protected | Edit your own comment |
+| `comments.delete` | protected | Soft-delete your own comment |
+| `comments.adminList` | admin (`content`) | Paginated list with status/type/search filters |
+| `comments.updateStatus` | admin (`content`) | Moderate a comment (approve/reject/spam) |
+| `comments.adminDelete` | admin (`content`) | Permanently delete a comment |
+| `comments.statusCounts` | admin (`content`) | Counts per status for filter tabs |
+
+## Components
+
+| Component | Purpose |
+|---|---|
+| `CommentSection` | Main public component — comment form, threaded list, count header. Props: `targetType`, `targetId` |
+| `CommentForm` | Textarea + submit. Props: `targetType`, `targetId`, optional `parentId`, `onSubmitted`, `onCancel`, `autoFocus` |
+| `CommentItem` | A single comment with avatar, name, time, content, and reply/edit/delete actions |
+| `CommentCount` | Inline count badge. Props: `targetType`, `targetId`, optional `className` |
+
+## Integration
+
+Drop `CommentSection` into any page template:
+
+```tsx
+import { CommentSection } from '@/core-comments/components/CommentSection';
+
+<CommentSection targetType="post" targetId={post.id} />
+```
+
+For inline count badges on list pages:
+
+```tsx
+import { CommentCount } from '@/core-comments/components/CommentCount';
+
+<CommentCount targetType="post" targetId={post.id} />
+```
+
+The moderation queue is available at `/dashboard/comments` (nav item under the `content` group).
+
+## Related
+
+- [core-activity](/docs/modules/core-activity)
+- [Module Development](/docs/api/module-development)

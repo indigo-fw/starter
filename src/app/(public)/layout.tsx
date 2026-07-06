@@ -4,7 +4,7 @@ import '@/core/styles/frontend/index.css';
 import { Suspense } from 'react';
 import NextLink from 'next/link';
 import { Link } from '@/components/Link';
-import { Rss, Search, ShoppingBag } from 'lucide-react';
+import { Rss, Search } from 'lucide-react';
 
 import { siteConfig } from '@/config/site';
 import { db } from '@/server/db';
@@ -23,13 +23,15 @@ import { adminRoutes, contentRoutes, apiRoutes } from '@/config/routes';
 import { AppNav } from '@/components/public/AppNav';
 import { AppFooter } from '@/components/public/AppFooter';
 import { DeferredGlobalUI } from '@/components/public/DeferredGlobalUI';
-import { PUBLIC_LAYOUT_WIDGETS } from '@/generated/module-widgets';
+import { PUBLIC_LAYOUT_WIDGETS, HEADER_WIDGETS } from '@/generated/module-widgets';
 import { getServerTranslations, type TranslationFn } from '@/lib/translations-server';
 import { LanguageSuggestionBanner } from '@/core/components/i18n/LanguageSuggestionBanner';
-import { CartWidget } from '@/core-store/components/cart/CartWidget';
 import { getLanguageSuggestion } from '@/core/lib/i18n/language-suggestion';
 import { dataTranslations } from '@/lib/translations';
 import { ConsentProvider } from '@/core/lib/consent/context';
+import { getServerConsent } from '@/core/lib/consent/server';
+import { ConsentGate } from '@/core/components/consent/ConsentGate';
+import { CookieSettingsButton } from '@/core/components/consent/CookieSettingsButton';
 
 // Extraction marker — ensures the language suggestion key appears in public PO files
 const _d = dataTranslations('General');
@@ -106,18 +108,29 @@ export default async function PublicLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const [__, categories, langSuggestion] = await Promise.all([
+  const [__, categories, langSuggestion, initialConsent] = await Promise.all([
     getServerTranslations(),
     getPublishedCategories(locale),
     getLanguageSuggestion(locale, LOCALES, LOCALE_LABELS),
+    getServerConsent(),
   ]);
   const mobileItems = await getMobileNavItems(categories, locale, __);
 
   return (
-    <ConsentProvider>
+    <ConsentProvider initialConsent={initialConsent}>
     <div className="app-wrapper" data-page="public">
       <Suspense fallback={null}>
-        {PUBLIC_LAYOUT_WIDGETS.map((Widget, i) => <Widget key={i} />)}
+        {PUBLIC_LAYOUT_WIDGETS.map((entry, i) => {
+          const W = entry.Component;
+          if (entry.consentCategory) {
+            return (
+              <ConsentGate key={i} category={entry.consentCategory}>
+                <W />
+              </ConsentGate>
+            );
+          }
+          return <W key={i} />;
+        })}
       </Suspense>
       <link
         rel="alternate"
@@ -166,13 +179,16 @@ export default async function PublicLayout({
             }
             actions={
               <>
-                <Link href="/store" className="icon-btn" title={__('Store')}>
-                  <ShoppingBag className="h-4 w-4" />
-                </Link>
                 <Link href="/search" className="icon-btn" title={__('Search')}>
                   <Search className="h-4 w-4" />
                 </Link>
-                <CartWidget />
+                {/* Module-contributed header widgets (e.g. core-store's CartWidget) —
+                    declared via `layoutWidgets: [{ slot: 'header', … }]` in module
+                    config, so removing a module never breaks this layout. */}
+                {HEADER_WIDGETS.map((entry, i) => {
+                  const W = entry.Component;
+                  return <W key={i} />;
+                })}
                 <LanguageSwitcher />
                 <ThemeToggle />
                 <UserMenu />
@@ -240,6 +256,7 @@ export default async function PublicLayout({
               {__('RSS Feed')}
             </NextLink>
             <NextLink href={adminRoutes.home} className="app-footer-link">{__('Admin')}</NextLink>
+            <CookieSettingsButton className="app-footer-link" />
           </div>
         </div>
 
@@ -248,7 +265,12 @@ export default async function PublicLayout({
           <span>{__('Powered by Indigo')}</span>
         </div>
       </AppFooter>
-      <DeferredGlobalUI cookieConsent={{ privacyPolicyUrl: '/privacy-policy' }} />
+      <DeferredGlobalUI
+        cookieConsent={{
+          privacyPolicyUrl: '/privacy-policy',
+          cookiePolicyUrl: '/cookie-policy',
+        }}
+      />
     </div>
     </ConsentProvider>
   );

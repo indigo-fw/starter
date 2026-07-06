@@ -5,16 +5,39 @@
 import { eq } from 'drizzle-orm';
 import { setStoreDeps } from '@/core-store/deps';
 import { getProvider } from '@/core-payments/lib/factory';
+import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
 import { billingProfiles } from '@/core-payments/schema/billing-profile';
 import { sendNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { enqueueTemplateEmail } from '@/core/lib/email';
 import { updateOrderStatus, deductOrderInventory } from '@/core-store/lib/order-service';
 import { resolveOrgId } from '@/server/lib/resolve-org';
+// app-url-runtime, not app-url: this file loads Bun-direct via serverInit,
+// where the 'server-only' guard in app-url.ts would throw (see CLAUDE.md).
+import { getServerAppUrl } from '@/lib/app-url-runtime';
 import { db } from '@/server/db';
 import { createLogger } from '@/core/lib/infra/logger';
 
+// Project totals collectors (member discount etc.) — side-effect registration
+import '@/config/store-pricing';
+
 const logger = createLogger('store-deps');
+
+// Route one-time 'store_order' payments from provider webhooks to the store
+registerPaymentWebhookHandler('store_order', async ({ event, providerId, eventId, metadata }) => {
+  if (!metadata.orderId) {
+    logger.error('store_order webhook missing orderId metadata', { providerId, eventId });
+    return { skipped: true };
+  }
+  const { handleStorePaymentEvent } = await import('@/core-store/lib/webhook-handler');
+  return handleStorePaymentEvent({
+    orderId: metadata.orderId,
+    eventType: event.type,
+    eventId,
+    providerId,
+    transactionId: (event.providerData as Record<string, unknown> | undefined)?.transactionId as string | undefined,
+  });
+});
 
 setStoreDeps({
   resolveOrgId,
@@ -43,7 +66,7 @@ setStoreDeps({
   },
 
   async createPaymentCheckout({ orderId, orderNumber, totalCents, currency, customerEmail, providerId, metadata, successUrl }) {
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+    const appUrl = getServerAppUrl();
     const defaultSuccessUrl = successUrl ?? `${appUrl}/account/orders/${orderId}?success=1`;
     const provider = await getProvider(providerId);
 
@@ -85,7 +108,7 @@ setStoreDeps({
   },
 
   async createSubscriptionCheckout({ planId, organizationId, customerEmail, providerId }) {
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+    const appUrl = getServerAppUrl();
 
     // Dynamic import — core-subscriptions is optional
     const { getSubscriptionsDeps } = await import('@/core-subscriptions/deps');

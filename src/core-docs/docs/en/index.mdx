@@ -1,0 +1,105 @@
+---
+title: core-docs
+section: Module Reference
+order: 313
+description: Documentation system with two content sources — CMS-authored pages and git-tracked .mdx files.
+---
+
+# core-docs
+
+<Badge>Primitive</Badge> <Badge>Free</Badge>
+
+`core-docs` is a locale-aware documentation system with two content sources: pages authored in the CMS admin and `.mdx` files tracked in git. It compiles MDX to server-rendered HTML, builds a unified navigation tree, and exposes full-text search.
+
+<Callout type="info">
+This very documentation site is powered by `core-docs`. The page you are reading is an `.mdx` file under `docs/en/`.
+</Callout>
+
+## What it does
+
+- **Two content sources** — CMS database (`cms_docs`) and `.mdx` files in `docs/{locale}/`. File-based docs take priority over CMS docs with the same slug.
+- **MDX compiler** — remark/rehype pipeline with a component registry, LRU-cached.
+- **Unified navigation** — a single nav tree merged from both sources.
+- **Search** — `tsvector` full-text for CMS docs, substring matching for files.
+- **LLM export** — all docs as plain markdown, also served at `/api/docs/llms.txt`.
+- Fully **locale-aware** with fallback to the default locale.
+
+## Installation
+
+```bash
+bun run indigo add core-docs
+```
+
+After installing, generate and apply the schema:
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+`core-docs` has no DI dependencies. Wiring is done by copying the scaffolded project files:
+
+<Steps>
+<Step title="Sync the module">
+
+Add the module to `indigo.config.ts` and run `bun run indigo:sync`.
+
+</Step>
+<Step title="Copy templates">
+
+Copy the scaffolded files from `_templates/` — `app/docs/data.ts`, `app/docs/page.tsx`, `app/docs/[...slug]/page.tsx`, and `app/api/docs/llms.txt/route.ts`.
+
+</Step>
+<Step title="Create content">
+
+Create `docs/en/` and add `.mdx` files. Add the docs routes to `src/i18n/routing.ts`.
+
+</Step>
+</Steps>
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `cms_docs` | `slug`, `locale` (slug unique per locale), `title`, `body` (HTML), `bodyText` (search text), `section`, `sortOrder`, `parentId`, `metaTitle`, `metaDescription`, `status` (`published`/`draft`), `searchVector` |
+
+File-based docs are loaded from the filesystem and merged at runtime — they are not stored in `cms_docs`.
+
+## API
+
+`docsRouter` (mounted as `docs`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `docs.getBySlug` | public | Get a single doc (file then CMS fallback), compiled HTML |
+| `docs.getNavigation` | public | Unified navigation tree across both sources |
+| `docs.search` | public | Search docs in a locale |
+| `docs.llmExport` | public | LLM-friendly plain text export of all docs |
+| `docs.adminList` | admin (`content`) | List CMS-authored docs with filters |
+| `docs.adminGet` | admin (`content`) | Get a single CMS doc for editing |
+| `docs.adminCreate` | admin (`content`) | Create a CMS doc |
+| `docs.adminUpdate` | admin (`content`) | Update a CMS doc |
+| `docs.adminDelete` | admin (`content`) | Delete a CMS doc |
+| `docs.adminReorder` | admin (`content`) | Reorder docs within a section |
+
+## Authoring `.mdx` files
+
+Each file uses a numeric prefix for sort order (`01-installation.mdx` → slug `installation`) and YAML frontmatter:
+
+```yaml
+---
+title: Installation
+section: Getting Started
+order: 1
+description: How to install and set up the project
+---
+```
+
+Available MDX components: `<Callout>`, `<CodeTabs>` / `<Tab>`, `<Steps>` / `<Step>`, `<Badge>`. Register custom components with `registerMdxComponent()`. ALL-CAPS filenames are ignored by the loader.
+
+## Related
+
+- [core-comments](/docs/modules/core-comments)
+- [Module Development](/docs/api/module-development)

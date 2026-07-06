@@ -23,12 +23,7 @@ Multi-tenant site isolation using PostgreSQL schema-per-site.
 
 ## Key Files
 
-- `lib/site-resolver.ts` — domain/slug → site lookup (in-memory cache)
-- `lib/schema-manager.ts` — CREATE/DROP SCHEMA, migration runner
-- `lib/context-helper.ts` — proxy + tRPC integration helper
-- `lib/cli.ts` — CLI: create, delete, suspend, unsuspend, restore, list
-- `hooks/useSitesApi.ts` — typed React hook (eliminates `as any` casts)
-- `jobs/dns-verification.ts` — background DNS TXT verification
+Non-obvious: `lib/site-resolver.ts` caches domain→site lookups in-memory; domain verification is background DNS TXT checking (`jobs/dns-verification.ts`); site lifecycle ops have a CLI (`lib/cli.ts`, prints usage); client code uses `hooks/useSitesApi.ts` instead of `as any` casts.
 
 ## Single-Site Compatibility
 

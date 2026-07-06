@@ -70,8 +70,30 @@ export { createHealthHandler } from './api/health';
 export type { HealthCheckDef } from './api/health';
 
 // Consent
-export { useConsent, ConsentProvider } from './consent/context';
-export type { ConsentCategory, ConsentState, BuiltInConsentCategory } from './consent/types';
-export { DEFAULT_CATEGORIES, DEFAULT_CONSENT, buildDefaultConsent } from './consent/types';
-export { getStoredConsent, setStoredConsent, hasConsentChoice } from './consent/storage';
+export { useConsent, useConsentSafe, ConsentProvider } from './consent/context';
+export type { ConsentContextValue } from './consent/context';
+export type {
+  ConsentCategory,
+  ConsentState,
+  StoredConsent,
+  BuiltInConsentCategory,
+} from './consent/types';
+export {
+  CONSENT_RECORD_VERSION,
+  DEFAULT_CATEGORIES,
+  DEFAULT_CONSENT,
+  DEFAULT_POLICY_VERSION,
+  buildDefaultConsent,
+  categoriesEqual,
+  isStoredConsentCurrent,
+  parseStoredConsent,
+} from './consent/types';
+export {
+  getStoredConsent,
+  setStoredConsent,
+  clearStoredConsent,
+  hasConsentChoice,
+} from './consent/storage';
 export type { ConsentStorageOptions } from './consent/storage';
+// Server-only reader is intentionally not re-exported here — import directly
+// from '@/core/lib/consent/server' to keep the 'server-only' boundary intact.

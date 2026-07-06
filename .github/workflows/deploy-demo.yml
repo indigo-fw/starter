@@ -11,6 +11,10 @@ concurrency:
 
 jobs:
   build:
+    # Guard: this workflow only makes sense in indigo-fw/starter (secrets +
+    # registry perms live there). In customer copies/forks it skips instantly
+    # instead of burning minutes and failing red.
+    if: github.repository == 'indigo-fw/starter'
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -39,6 +43,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
+    if: github.repository == 'indigo-fw/starter'
     needs: build
     runs-on: ubuntu-latest
     permissions:

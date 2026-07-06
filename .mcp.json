@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json.schemastore.org/mcp.json",
+  "_comment": "Project-scoped MCP servers — auto-loaded by Claude Code and other MCP clients that read .mcp.json from the repo root. Per-user keys/secrets live in env vars so this file is safe to commit. The persona entries (indigo-free/pro/admin/super) let an agent test the app as different user types — seed them with `bun run indigo personas`. Override or add personal servers in .mcp.json.local (gitignored).",
+  "mcpServers": {
+    "indigo": {
+      "_comment": "Default: acts as the superadmin created by `bun run init` (key auto-minted into .env.local). Or mint your own at /dashboard/settings/api-keys (mcp:invoke scope).",
+      "type": "http",
+      "url": "${INDIGO_MCP_URL:-http://localhost:4000/api/mcp}",
+      "headers": {
+        "Authorization": "Bearer ${INDIGO_MCP_KEY:-unset}"
+      }
+    },
+    "indigo-anon": {
+      "_comment": "Logged-out persona — no credentials. Dev servers allow anonymous MCP access: public tools work, protected ones fail with UNAUTHORIZED (exactly like a logged-out visitor). Production always requires auth.",
+      "type": "http",
+      "url": "${INDIGO_MCP_URL:-http://localhost:4000/api/mcp}"
+    },
+    "indigo-free": {
+      "_comment": "Registered user, no subscription (free@test.local). Seed: bun run indigo personas.",
+      "type": "http",
+      "url": "${INDIGO_MCP_URL:-http://localhost:4000/api/mcp}",
+      "headers": {
+        "Authorization": "Bearer ${INDIGO_MCP_KEY_FREE:-unset}"
+      }
+    },
+    "indigo-pro": {
+      "_comment": "Registered user with an active paid plan (pro@test.local).",
+      "type": "http",
+      "url": "${INDIGO_MCP_URL:-http://localhost:4000/api/mcp}",
+      "headers": {
+        "Authorization": "Bearer ${INDIGO_MCP_KEY_PRO:-unset}"
+      }
+    },
+    "indigo-admin": {
+      "_comment": "Staff/admin role (admin-persona@test.local).",
+      "type": "http",
+      "url": "${INDIGO_MCP_URL:-http://localhost:4000/api/mcp}",
+      "headers": {
+        "Authorization": "Bearer ${INDIGO_MCP_KEY_ADMIN:-unset}"
+      }
+    },
+    "indigo-super": {
+      "_comment": "Superadmin persona (super@test.local).",
+      "type": "http",
+      "url": "${INDIGO_MCP_URL:-http://localhost:4000/api/mcp}",
+      "headers": {
+        "Authorization": "Bearer ${INDIGO_MCP_KEY_SUPER:-unset}"
+      }
+    },
+    "postgres-dev": {
+      "_comment": "Read/write SQL access to the local dev database. DO NOT enable in production. Pulls DATABASE_URL from the shell — same env as the app. If your local DB isn't running, this server fails to start and the indigo servers above still work.",
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "${DATABASE_URL:-postgresql://postgres:postgres@localhost:5432/postgres}"
+      ]
+    }
+  }
+}

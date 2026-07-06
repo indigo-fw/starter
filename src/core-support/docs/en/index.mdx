@@ -1,0 +1,128 @@
+---
+title: core-support
+section: Module Reference
+order: 317
+description: AI-powered support chat widget plus a ticket system with escalation and real-time updates.
+---
+
+# core-support
+
+<Badge>Primitive</Badge> <Badge>Paid</Badge>
+
+`core-support` combines an AI-powered support chat widget with a full ticket system. Most conversations resolve via AI in the chat widget; when the AI cannot help, the session escalates to a support ticket.
+
+<Callout type="warning">
+This is a paid module. Adding it requires a valid Indigo license.
+</Callout>
+
+## What it does
+
+- **AI chat widget** — visitors chat with an AI assistant; the AI escalates when it cannot confidently answer.
+- **Ticket system** — org-scoped tickets with status transitions, priority, assignment, and satisfaction feedback.
+- **Escalation** — authenticated users get a ticket with the chat transcript; anonymous users provide an email for follow-up.
+- **Real-time updates** via WebSocket channels (`support:<ticketId>`, `supportChat:<sessionId>`).
+- **Cleanup job** for stale chat sessions.
+
+## Installation
+
+```bash
+bun run indigo add core-support
+```
+
+After installing, generate and apply the schema:
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+Dependencies are wired through `setSupportDeps()` in `config/deps/support-deps.ts`: `createTicketFromChat`, `resolveOrgId`, `sendNotification` / `sendOrgNotification`, `broadcastEvent`, `lookupUsers`, and `callAI`.
+
+The AI uses an OpenAI-compatible API. It is optional — without an API key the widget still works and simply creates tickets immediately.
+
+### Environment variables
+
+| Variable | Purpose |
+|---|---|
+| `AI_API_KEY` | API key for the chat AI — without it, AI responses are disabled |
+| `AI_API_URL` | OpenAI-compatible endpoint (defaults to OpenAI) |
+| `AI_MODEL` | Model to use (defaults to `gpt-4o-mini`) |
+
+### Chat config
+
+Override widget defaults with `setSupportConfig()` (typically in `support-deps.ts`). It merges with defaults — only provide the fields you want to change:
+
+```typescript
+import { setSupportConfig } from '@/core-support/config';
+
+setSupportConfig({
+  welcomeMessage: 'Hi! How can we help?',
+  systemPrompt: 'You are a support assistant for Acme...',
+  maxMessagesBeforeEscalation: 20,
+});
+```
+
+When the AI begins a reply with `[ESCALATE]`, or when the message count reaches `maxMessagesBeforeEscalation`, the session escalates.
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `saas_tickets` | `organizationId`, `userId`, `subject`, `status` (`open`/`awaiting_user`/`awaiting_admin`/`resolved`/`closed`), `priority`, `assignedTo`, `source` (`form`/`chat`), `chatSessionId`, `satisfaction`, `closedAt`, `resolvedAt` |
+| `saas_ticket_messages` | `ticketId`, `userId`, `isStaff`, `body`, `attachments` |
+| `saas_support_chat_sessions` | `visitorId`, `userId`, `email`, `status` (`ai_active`/`agent_active`/`escalated`/`closed`), `ticketId`, `subject` |
+| `saas_support_chat_messages` | `sessionId`, `role` (`user`/`ai`/`agent`), `body`, `metadata` |
+
+## API
+
+`supportRouter` (mounted as `support`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `support.list` | protected | List the user's tickets in the active org |
+| `support.get` | protected | Get a ticket and its messages (owner or staff) |
+| `support.create` | protected | Create a new ticket |
+| `support.reply` | protected | Reply to a ticket as the customer |
+| `support.provideFeedback` | protected | Submit satisfaction feedback on a closed ticket |
+| `support.close` | protected | Close your own ticket |
+| `support.adminList` | admin (`settings`) | List all tickets with filters |
+| `support.adminGet` | admin (`settings`) | Get any ticket and its messages |
+| `support.adminReply` | admin (`settings`) | Staff reply on a ticket |
+| `support.assign` | admin (`settings`) | Assign a ticket to a staff user |
+| `support.changeStatus` | admin (`settings`) | Manually transition a ticket's status |
+| `support.getStats` | admin (`settings`) | Ticket counts by status |
+
+`supportChatRouter` (mounted as `supportChat`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `supportChat.startSession` | public | Start or resume a chat session |
+| `supportChat.sendMessage` | public | Send a message; AI replies asynchronously over WebSocket |
+| `supportChat.getSession` | public | Get a session and its messages (visitor-scoped) |
+| `supportChat.escalate` | public | Escalate to a ticket (or capture email for anonymous visitors) |
+| `supportChat.setEmail` | public | Store an email on a session |
+| `supportChat.close` | public | Close a chat session |
+| `supportChat.adminList` | admin (`settings`) | List active chat sessions |
+| `supportChat.adminGet` | admin (`settings`) | Get a chat session and all messages |
+| `supportChat.adminReply` | admin (`settings`) | Staff takes over a chat from the AI |
+| `supportChat.adminClose` | admin (`settings`) | Close a chat session |
+| `supportChat.getStats` | admin (`settings`) | Chat session counts by status |
+
+<Callout type="tip">
+The public chat endpoints are rate-limited to 20 messages per minute per IP, on top of the global rate limit.
+</Callout>
+
+## Integration
+
+- The module registers a `SupportChatWidgetWrapper` layout widget — render it in your public layout to show the chat widget.
+- A nav item `Support` is registered under the `settings` group.
+- The `startSupportChatCleanupWorker` job cleans up stale chat sessions.
+- WebSocket channel authorization is registered automatically for `support:` and `supportChat:` channels.
+
+## Related
+
+- [core-comments](/docs/modules/core-comments)
+- [core-activity](/docs/modules/core-activity)
+- [Module Development](/docs/api/module-development)

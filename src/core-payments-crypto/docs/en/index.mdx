@@ -1,0 +1,88 @@
+---
+title: core-payments-crypto
+section: Module Reference
+order: 316
+description: NOWPayments cryptocurrency payment provider for the core-payments system.
+---
+
+# core-payments-crypto
+
+<Badge>Primitive</Badge> <Badge>Paid</Badge>
+
+`core-payments-crypto` adds a cryptocurrency payment provider, powered by [NOWPayments](https://nowpayments.io/), to the `core-payments` registry. It registers itself as the `nowpayments` provider and handles invoice creation and IPN webhooks.
+
+<Callout type="warning">
+This is a paid module. Adding it requires a valid Indigo license.
+</Callout>
+
+## What it does
+
+- Registers a **NOWPayments** crypto payment provider with the `core-payments` factory.
+- Creates **crypto invoices** for plan checkout.
+- Verifies **IPN webhooks** with HMAC-SHA512 signature checks and timing-safe comparison.
+- Maps NOWPayments payment statuses to subscription/payment events.
+
+<Callout type="info">
+Crypto payments are one-time, not recurring. NOWPayments supports only the **yearly** interval — a confirmed payment activates the subscription for 365 days.
+</Callout>
+
+## Installation
+
+```bash
+bun run indigo add core-payments-crypto
+```
+
+After installing, generate and apply any schema changes:
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+`core-payments-crypto` depends on `core-payments` being installed. It declares no schema or routers of its own — it reuses the `core-payments` transaction and event tables.
+
+## Configuration
+
+The module auto-registers the provider via `registerPaymentProvider('nowpayments', ...)` when its `register` entrypoint is imported as a side-effect in `server.ts`. The factory returns `null` when `NOWPAYMENTS_API_KEY` is missing, so the provider stays disabled until configured.
+
+<Steps>
+<Step title="Register the provider">
+
+Import `@/core-payments-crypto/register` as a side-effect in `server.ts`.
+
+</Step>
+<Step title="Add the provider config">
+
+Add a NOWPayments entry to `config/payment-providers.ts`.
+
+</Step>
+<Step title="Keep the webhook route">
+
+The scaffolded webhook route at `app/api/webhooks/nowpayments/route.ts` must stay in place for Next.js routing.
+
+</Step>
+<Step title="Set environment variables">
+
+Configure the env vars below.
+
+</Step>
+</Steps>
+
+### Environment variables
+
+| Variable | Purpose |
+|---|---|
+| `NOWPAYMENTS_API_KEY` | NOWPayments API key — required to enable the provider |
+| `NOWPAYMENTS_IPN_SECRET` | IPN secret used to verify webhook signatures |
+| `NOWPAYMENTS_SANDBOX` | Set to `false` to use the production API (defaults to sandbox) |
+
+## Integration
+
+- The webhook route verifies the IPN signature, enforces idempotency via `saas_subscription_events`, and on a confirmed payment activates the subscription, finalizes any discount usage, sends notifications, and runs the `payment.conversion` hook (consumed by `core-affiliates` if installed).
+- Status mapping: `finished`/`confirmed` → subscription activated; `failed`/`expired` → payment failed; `refunded` → payment refunded.
+
+## Related
+
+- [core-payments](/docs/modules/core-payments)
+- [core-subscriptions](/docs/modules/core-subscriptions)
+- [Module Development](/docs/api/module-development)

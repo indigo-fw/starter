@@ -12,8 +12,10 @@
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// Capture DB writes by table so we can assert org/member/billing-profile
-// were created — and so the function returns the right orgId on success.
+// Capture DB writes by table so we can assert org/member were created — and
+// so the function returns the right orgId on success. (The billing profile is
+// no longer inserted here: it seeds via the `org.created` hook, whose handler
+// lives in payments-deps.ts. We assert the hook fires with the right args.)
 const { insertCalls, selectExistingRef } = vi.hoisted(() => {
   const insertCalls: Array<{ table: unknown; values: unknown }> = [];
   const selectExistingRef = { current: 0 };
@@ -39,9 +41,6 @@ vi.mock('@/server/db/schema/organization', () => ({
   organization: { __tag: 'organization' },
   member: { __tag: 'member' },
 }));
-vi.mock('@/core-payments/schema/billing-profile', () => ({
-  billingProfiles: { __tag: 'billingProfiles' },
-}));
 
 vi.mock('@/core/lib/content/slug', () => ({
   slugify: (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
@@ -64,22 +63,23 @@ beforeEach(() => {
   // Critical: clear the process-global hook registry so handlers registered
   // by previous test cases don't fire (and pollute call counts) in this one.
   clearHooks('user.created');
+  clearHooks('org.created');
 });
 
 describe('handleUserCreated — happy path', () => {
-  it('creates org + member + billing profile, fires user.created hook with the right shape', async () => {
+  it('creates org + member, fires org.created and user.created hooks with the right shape', async () => {
     const hookSpy = vi.fn<(...args: HookMap['user.created']) => void | Promise<void>>();
+    const orgHookSpy = vi.fn<(...args: HookMap['org.created']) => void | Promise<void>>();
     registerHook('user.created', hookSpy);
+    registerHook('org.created', orgHookSpy);
 
     const result = await handleUserCreated({ id: 'user-1', email: 'a@b.com', name: 'Alice' });
 
-    // org/member/billing inserts all happened
+    // org/member inserts both happened
     const orgInsert = findTable('organization');
     const memberInsert = findTable('member');
-    const billingInsert = findTable('billingProfiles');
     expect(orgInsert).toBeDefined();
     expect(memberInsert).toBeDefined();
-    expect(billingInsert).toBeDefined();
 
     const orgValues = orgInsert!.values as { id: string; name: string; slug: string; createdAt: Date };
     expect(orgValues.name).toBe("Alice's workspace");
@@ -92,9 +92,10 @@ describe('handleUserCreated — happy path', () => {
     expect(memberValues.organizationId).toBe(result.orgId);
     expect(memberValues.role).toBe('owner');
 
-    const billingValues = billingInsert!.values as { organizationId: string; legalName: string };
-    expect(billingValues.organizationId).toBe(result.orgId);
-    expect(billingValues.legalName).toBe('Alice');
+    // billing-profile seeding moved behind the org.created hook — assert the
+    // hook carried the new orgId + the legal name the handler will insert
+    expect(orgHookSpy).toHaveBeenCalledTimes(1);
+    expect(orgHookSpy).toHaveBeenCalledWith(result.orgId, 'Alice');
 
     // hook fired exactly once with the right shape + the same orgId we returned
     expect(hookSpy).toHaveBeenCalledTimes(1);
@@ -103,14 +104,15 @@ describe('handleUserCreated — happy path', () => {
     expect(hookOrgId).toBe(result.orgId);
   });
 
-  it('falls back legalName to email when user has no name; passes null name to hook', async () => {
+  it('falls back org.created name to email when user has no name; passes null name to hook', async () => {
     const hookSpy = vi.fn<(...args: HookMap['user.created']) => void | Promise<void>>();
+    const orgHookSpy = vi.fn<(...args: HookMap['org.created']) => void | Promise<void>>();
     registerHook('user.created', hookSpy);
+    registerHook('org.created', orgHookSpy);
 
     await handleUserCreated({ id: 'user-2', email: 'noname@x.com', name: null });
 
-    const billingValues = findTable('billingProfiles')!.values as { legalName: string };
-    expect(billingValues.legalName).toBe('noname@x.com');
+    expect(orgHookSpy).toHaveBeenCalledWith(expect.any(String), 'noname@x.com');
 
     const [hookUser] = hookSpy.mock.calls[0];
     expect(hookUser).toEqual({ id: 'user-2', email: 'noname@x.com', name: null });

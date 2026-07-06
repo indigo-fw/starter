@@ -113,7 +113,7 @@ export const storeAddressesRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const orgId = await resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
 
-      const result = await ctx.db.delete(storeAddresses)
+      await ctx.db.delete(storeAddresses)
         .where(and(eq(storeAddresses.id, input.id), eq(storeAddresses.organizationId, orgId)));
 
       return { success: true };

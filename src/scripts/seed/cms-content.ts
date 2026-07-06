@@ -475,7 +475,7 @@ Built a comprehensive analytics platform for DataViz Inc that processes millions
       title: 'Get Started',
       slug: 'get-started',
       lang: DEFAULT_LOCALE,
-      description: `## Copy. Init. Ship.\n\n\`\`\`bash\nbunx degit indigo-fw/starter my-app\ncd my-app && bun install\nbun run init\nbun run dev\n\`\`\`\n\nYou'll have a running app with auth, CMS, and a dashboard in under 5 minutes.`,
+      description: `## One prompt. Running app.\n\n\`\`\`bash\nclaude "Set up a new project named my-app from\n  https://github.com/indigo-fw/starter — ask me what you need"\n\`\`\`\n\nYour agent installs everything and asks your choices in chat. Prefer the terminal? \`bunx degit indigo-fw/starter my-app\`, then \`bun install\` and \`bun run init\` — same result.`,
       cardType: 'richtext',
       variant: 'shorts',
       status: 1,

@@ -86,7 +86,7 @@ function getRegistryMap(): Map<string, ModuleRegistryEntry> {
 function parseSchemaFiles(
   coreFiles: string[],
   moduleFiles: string[],
-  modules: ModuleConfig[],
+  _modules: ModuleConfig[],
 ): { tables: TableInfo[]; relations: FkRelation[] } {
   const tables: TableInfo[] = [];
   const varToDb = new Map<string, string>();

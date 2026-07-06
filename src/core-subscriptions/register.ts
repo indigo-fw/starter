@@ -16,6 +16,7 @@ export {
   saasDiscountCodes,
   saasDiscountUsages,
   saasTokenBalances,
+  saasTokenLots,
   saasTokenTransactions,
 } from './schema/subscriptions';
 
@@ -24,6 +25,9 @@ export type {
   PlanDefinition,
   PlanFeatures,
   ProviderPriceIds,
+  BillingMode,
+  BillingConfig,
+  TokenPackDefinition,
 } from './types/billing';
 export { SubscriptionStatus } from './types/billing';
 
@@ -31,7 +35,9 @@ export { SubscriptionStatus } from './types/billing';
 export { activateSubscription, updateSubscription, cancelSubscription, getSubscription, getOrgByProviderSubscription } from './lib/subscription-service';
 export { validateCode, applyDiscount, removeDiscount, finalizeUsage, getActiveDiscount } from './lib/discount-service';
 export { setPlanResolver, getPlanFeatures, checkFeature, requireFeature } from './lib/feature-gate';
-export { getTokenBalance, getTokenBalanceRecord, addTokens, deductTokens, getTokenTransactions } from './lib/token-service';
+export { getTokenBalance, getTokenBalanceRecord, addTokens, deductTokens, expirePlanTokens, expireDueTokenLots, broadcastTokenBalance, getTokenTransactions } from './lib/token-service';
+export { setBillingConfig, getBillingConfig } from './lib/billing-config';
+export { grantSubscriptionTokensForOrg, runTokenGrantChecks, grantSignupBonusTokens, handleTokenPackWebhookEvent } from './lib/token-grants';
 
 // Lib — webhook handler
 export { handleSubscriptionWebhookEvent } from './lib/webhook-handler';

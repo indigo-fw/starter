@@ -1,19 +1,8 @@
 # core-payments-crypto -- CLAUDE.md
 
-Paid module. NOWPayments cryptocurrency payment provider for the core-payments system.
-
-## Module Boundary
-
-**core-payments-crypto owns:** NOWPayments provider implementation.
+Paid module. NOWPayments cryptocurrency payment provider for the core-payments system. Requires core-payments (imports its types/schema/factory).
 
 **Project owns:** Webhook route (`app/api/webhooks/nowpayments/`), NOWPayments entry in `config/payment-providers.ts`.
-
-## Import Rules
-
-- Imports from `@/core-payments/*` (types, schema, factory)
-- Imports framework conventions: `@/server/db`, `@/core/lib/infra/logger`
-- Project imports from `@/core-payments-crypto/*`
-- Depends on core-payments being installed
 
 ## Wiring Into a Project
 

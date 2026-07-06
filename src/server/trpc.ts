@@ -8,6 +8,7 @@ import { db } from '@/server/db';
 import { applyRateLimit } from '@/core/lib/api/trpc-rate-limit';
 import { isEmailVerificationRequired } from '@/lib/email-verification';
 import { runAuthMiddleware } from '@/core/lib/module/module-hooks';
+import type { IndigoTrpcMeta } from '@/core/lib/mcp/types';
 
 /**
  * Context for tRPC procedures — session + Drizzle DB + headers
@@ -36,7 +37,7 @@ type SessionUser = {
   createdAt?: string;
 };
 
-const t = initTRPC.context<Context>().create({
+const t = initTRPC.context<Context>().meta<IndigoTrpcMeta>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
     return {
@@ -52,6 +53,7 @@ const t = initTRPC.context<Context>().create({
 
 export const createTRPCRouter = t.router;
 export const mergeRouters = t.mergeRouters;
+export const createCallerFactory = t.createCallerFactory;
 
 /** Rate limit middleware for public (unauthenticated) procedures */
 const publicRateLimit = t.middleware(async ({ ctx, next }) => {

@@ -1,37 +1,22 @@
 #!/usr/bin/env bun
 /**
- * Indigo module CLI.
+ * Indigo module CLI — run `bun run indigo` with no arguments for full usage.
  *
- * Usage:
- *   bun run indigo add <module>                Install a module (subtree + scaffold + sync + migrate)
- *   bun run indigo remove <module> [--yes]      Remove a module (config + sync + cleanup)
- *   bun run indigo remove <module> --drop-tables Remove module and generate DROP migration
- *   bun run indigo update <module>              Update a module (subtree pull --squash)
- *   bun run indigo update --all                 Update all installed modules
- *   bun run indigo push <module>                Push module changes upstream — framework repo only*
- *   bun run indigo push --all                   Push all installed modules to their repos*
- *   bun run indigo push core                    Push the core engine to its repo*
- *
- *   * `push` rewrites/force-publishes subtree history to the module repos, which
- *     only works from the framework dev repo (real split ancestry). It's gated by
- *     assertMaintainerRepo() — origin must be indigo-fw/framework, or INDIGO_MAINTAINER=1.
- *     Downstream app repos consume modules with `add`/`update` (subtree pull --squash,
- *     no shared ancestry needed) and never push.
- *   bun run indigo list                         Show installed and available modules
- *   bun run indigo sync                         Regenerate glue files from indigo.config.ts
- *   bun run indigo doctor                       Validate project health (env, DB, modules, deps)
- *   bun run indigo visualize                    Generate interactive architecture diagram
- *   bun run indigo visualize --mermaid          Export raw .mmd Mermaid files
- *   bun run indigo visualize --imports          Import analysis + boundary violations
- *   bun run indigo visualize --imports <module> Import analysis for a specific module
+ * `push` force-publishes subtree history to the module repos, which only works
+ * from the framework dev repo (real split ancestry; gated by
+ * assertMaintainerRepo() — origin must be indigo-fw/framework, or
+ * INDIGO_MAINTAINER=1). Downstream apps consume modules with `add`/`update` —
+ * subtree pull --squash needs no shared ancestry — and never push.
  */
 
 import { execSync } from 'child_process';
 import { existsSync, readFileSync, writeFileSync, cpSync, rmSync, readdirSync, rmdirSync } from 'fs';
-import { resolve, dirname } from 'path';
+import { resolve, dirname, relative } from 'path';
 import { REGISTRY, getRegistryEntry } from './indigo/registry';
 import { visualize, imports } from './indigo/visualize';
 import { codemap } from './indigo/codemap';
+import { brandGenerate } from './indigo/brand';
+import { seedPersonas } from './indigo/personas';
 
 const root = process.cwd();
 const configPath = resolve(root, 'indigo.config.ts');
@@ -174,17 +159,28 @@ function scaffoldTemplates(id: string) {
   if (!existsSync(templatesDir)) return;
 
   console.log('  Scaffolding template files...');
+  // Email templates live at the repo root (emails/en/), not under src/.
+  const emailsDir = resolve(templatesDir, 'emails');
+  if (existsSync(emailsDir)) {
+    cpSync(emailsDir, resolve(root, 'emails', 'en'), { recursive: true, force: false });
+  }
   // force: false = don't overwrite existing files (preserve user customizations)
-  cpSync(templatesDir, resolve(root, 'src'), { recursive: true, force: false });
+  cpSync(templatesDir, resolve(root, 'src'), {
+    recursive: true,
+    force: false,
+    filter: (src) => !resolve(src).startsWith(emailsDir),
+  });
 }
 
 async function _cleanupScaffoldedFiles(id: string) {
   const projectFiles = await getModuleProjectFiles(id);
 
   for (const relPath of projectFiles) {
-    const targetPath = resolve(root, 'src', relPath);
+    // src-relative first; root-relative fallback for entries like emails/…
+    const srcPath = resolve(root, 'src', relPath);
+    const targetPath = existsSync(srcPath) ? srcPath : resolve(root, relPath);
     if (existsSync(targetPath)) {
-      console.log(`  Removing: src/${relPath}`);
+      console.log(`  Removing: ${relative(root, targetPath)}`);
       rmSync(targetPath);
     }
   }
@@ -340,7 +336,7 @@ async function update(id: string) {
   console.log(`\n✓ ${id} updated successfully`);
 }
 
-async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean }) {
+async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean; keepDb?: boolean }) {
   const entry = getRegistryEntry(id);
   if (!entry) {
     console.error(`Unknown module: ${id}`);
@@ -360,6 +356,11 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean }
   if (dependents.length > 0) {
     console.error(`Cannot remove ${id} — required by: ${dependents.map((d) => d.id).join(', ')}`);
     console.error(`Remove them first: bun run indigo remove ${dependents.map((d) => d.id).join(' && bun run indigo remove ')}`);
+    process.exit(1);
+  }
+
+  if (entry.required) {
+    console.error(`Cannot remove ${id} — it is a required primitive (core still depends on it; see src/core/CLAUDE.md).`);
     process.exit(1);
   }
 
@@ -405,9 +406,11 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean }
   // Step 3: Clean up scaffolded files and prune empty dirs
   const projectFiles = await getModuleProjectFiles(id);
   for (const relPath of projectFiles) {
-    const targetPath = resolve(root, 'src', relPath);
+    // src-relative first; root-relative fallback for entries like emails/…
+    const srcPath = resolve(root, 'src', relPath);
+    const targetPath = existsSync(srcPath) ? srcPath : resolve(root, relPath);
     if (existsSync(targetPath)) {
-      console.log(`  Removing: src/${relPath}`);
+      console.log(`  Removing: ${relative(root, targetPath)}`);
       rmSync(targetPath);
       // Prune empty parent directories up to src/
       pruneEmptyDirs(dirname(targetPath), resolve(root, 'src'));
@@ -439,7 +442,13 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean }
   }
 
   // Step 6: Regenerate schema
-  run('bun run db:generate', 'Regenerating schema...');
+  // Skipped with --keep-db: db:generate needs an interactive TTY (CLAUDE.dev.md)
+  // and downstream/degit installs never run it — they only `db:migrate`.
+  if (flags.keepDb) {
+    console.log('  Skipping db:generate (--keep-db)');
+  } else {
+    run('bun run db:generate', 'Regenerating schema...');
+  }
 
   console.log(`\n✓ ${id} removed successfully`);
   if (!flags.dropTables) {
@@ -714,9 +723,12 @@ const [command, ...args] = process.argv.slice(2);
 const flags = {
   yes: args.includes('--yes') || args.includes('-y'),
   dropTables: args.includes('--drop-tables'),
+  keepDb: args.includes('--keep-db'),
   all: args.includes('--all'),
   mermaid: args.includes('--mermaid'),
   imports: args.includes('--imports'),
+  check: args.includes('--check'),
+  reset: args.includes('--reset'),
 };
 const positionalArgs = args.filter((a) => !a.startsWith('--') && !a.startsWith('-'));
 
@@ -769,12 +781,19 @@ switch (command) {
   case 'map':
     await codemap(positionalArgs[0]);
     break;
+  case 'brand:generate':
+    await brandGenerate({ check: flags.check });
+    break;
+  case 'personas':
+    await seedPersonas({ reset: flags.reset });
+    break;
   default:
     console.log('Indigo Module Manager\n');
     console.log('Usage:');
     console.log('  bun run indigo add <module>                Install a module');
     console.log('  bun run indigo remove <module> [--yes]      Remove a module');
     console.log('  bun run indigo remove <module> --drop-tables Remove + generate DROP migration');
+    console.log('  bun run indigo remove <module> --keep-db     Remove a module, skip db:generate');
     console.log('  bun run indigo update <module>              Update a module (pull latest)');
     console.log('  bun run indigo update --all                 Update all installed modules');
     console.log('  bun run indigo push <module>                Push module upstream (framework repo only)');
@@ -788,5 +807,9 @@ switch (command) {
     console.log('  bun run indigo visualize --imports <module> Import analysis for a specific module');
     console.log('  bun run indigo map                          Code map (defaults to src/core)');
     console.log('  bun run indigo map <module|path>            Code map for a specific module');
+    console.log('  bun run indigo brand:generate               Generate all brand assets from src/config/brand.ts');
+    console.log('  bun run indigo brand:generate --check       Validate brand config without writing files');
+    console.log('  bun run indigo personas                     Seed test personas + per-persona MCP keys (dev)');
+    console.log('  bun run indigo personas --reset             Wipe persona users/orgs and re-seed fresh');
     break;
 }

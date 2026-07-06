@@ -79,6 +79,9 @@ export function CommentItem({
       <div className="comment-item-inner">
         <div className="comment-avatar">
           {comment.userImage ? (
+            /* OAuth avatar from an arbitrary external host — next/image
+               would require an open remotePatterns config. */
+            // eslint-disable-next-line @next/next/no-img-element
             <img src={comment.userImage} alt={displayName} />
           ) : (
             initial

@@ -2,35 +2,15 @@
 
 Paid module. AI-powered content generation, SEO optimization, translation, and image alt text.
 
-## Module Boundary
-
-**core-ai-writer owns:** AI writer router, AI client lib, system prompts.
-
-**Project owns:** Nothing — this module has no project-layer files, no schema, no admin pages. It adds tRPC procedures that the editor UI calls.
-
-## Import Rules
-
-- Imports from `@/server/trpc` (framework convention)
-- Imports from `@/core/lib/infra/logger` (core utility)
-- Imports from `@/lib/env` (dynamic, for AI_API_KEY)
-- No deps.ts needed — no project-specific behavior to inject
-- Project imports from `@/core-ai-writer/*`
+**Project owns:** Nothing — no project-layer files, no schema, no admin pages, no deps.ts. The module only adds tRPC procedures the editor UI calls.
 
 ## Procedures
 
-| Procedure | What it does |
-|-----------|-------------|
-| `aiWriter.generatePost` | Full blog post from topic/outline (returns HTML) |
-| `aiWriter.generateOutline` | Structured outline with sections and key points |
-| `aiWriter.generateSeo` | Meta title, description, keywords from content |
-| `aiWriter.analyzeSeo` | SEO score + issues + fixes for existing content |
-| `aiWriter.translate` | AI translation preserving HTML + shortcodes |
-| `aiWriter.generateAltText` | Image alt text via vision API |
+Non-obvious: `generatePost` returns HTML (not markdown); `translate` preserves HTML tags + shortcodes; `generateAltText` requires a vision-capable model.
 
-## Wiring Into a Project
+## Wiring
 
-1. Add to `indigo.config.ts` and run `bun run indigo:sync`
-2. That's it — no deps, no schema, no admin pages needed
+Add to `indigo.config.ts` + `bun run indigo:sync` — that's the whole install.
 
 ## AI Provider Requirements
 

@@ -729,7 +729,9 @@ export function StorePageClient() {
     sort: urlSort,
   });
 
-  const products = productsQuery.data?.results ?? [];
+  // Memoized so downstream useMemos (productIds, filteredProducts) get a
+  // stable identity instead of a fresh `?? []` array every render.
+  const products = useMemo(() => productsQuery.data?.results ?? [], [productsQuery.data]);
   const totalPages = productsQuery.data?.totalPages ?? 1;
   const total = productsQuery.data?.total ?? 0;
   const isLoading = productsQuery.isLoading;

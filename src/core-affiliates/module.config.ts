@@ -19,6 +19,11 @@ const config: ModuleConfig = {
     { name: 'seedAffiliates', from: '@/core-affiliates/seed', label: 'Affiliate demo data (referrals, commissions)' },
   ],
   layoutWidgets: [
+    // AttributionCapture is consent-aware internally (uses useConsentSafe).
+    // We intentionally do NOT set consentCategory here: the framework would
+    // wrap it in <ConsentGate>, which unmounts the component on withdrawal —
+    // and that prevents its cookie-cleanup effect from running. By staying
+    // mounted, the component can react to both grant and revoke transitions.
     { name: 'AttributionCapture', from: '@/core-affiliates/components/AttributionCapture' },
   ],
   pageWidgets: [

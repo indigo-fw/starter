@@ -84,6 +84,7 @@ export const storeCheckoutRouter = createTRPCRouter({
         country: input.country,
         shippingRateId: input.shippingRateId,
         vatId: billingProfile?.vatId ?? undefined,
+        extensions: { userId, orgId },
       });
 
       return totals;
@@ -246,7 +247,7 @@ export const storeCheckoutRouter = createTRPCRouter({
         country,
         shippingRateId: input.shippingRateId,
         vatId: billingProfile.vatId ?? undefined,
-        extensions: { discountCode: input.discountCode, userId },
+        extensions: { discountCode: input.discountCode, userId, orgId },
       });
 
       const shippingMethod = totals.shippingOption

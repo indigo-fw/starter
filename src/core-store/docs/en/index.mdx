@@ -1,0 +1,124 @@
+---
+title: core-store
+section: Module Reference
+order: 324
+description: Full e-commerce — products, variants, cart, checkout, orders, shipping, EU-compliant tax, reviews, and refunds.
+---
+
+# core-store
+
+<Badge>Product</Badge> <Badge>Paid</Badge>
+
+`core-store` is a complete e-commerce product: a storefront, cart, checkout,
+order management, shipping and tax, discounts, wishlists, reviews, returns, and
+EU-compliant invoicing — all wired into the Indigo dashboard.
+
+## What it does
+
+- Product catalog with **simple**, **variable**, **digital**, and **subscription** product types
+- Server-side cart for both anonymous (`sessionId` cookie) and logged-in users, merged on login
+- Checkout pipeline — subtotal → discount → shipping → tax — with server-validated discount codes
+- Order management, status emails, customer order history, and TSV/JSON export
+- Wishlists, 1-5 star reviews with verified-purchase detection and a moderation queue
+- Filterable product attributes, related/upsell/cross-sell relations, and inventory alerts
+- Returns, refunds, abandoned-cart recovery, and print-ready PDF invoices
+
+## Installation
+
+`core-store` is a paid module and requires a valid Indigo license.
+
+```bash
+bun run indigo add core-store
+bun run db:generate
+bun run db:migrate
+```
+
+`core-store` **requires `core-payments`** for checkout. `core-subscriptions` is
+optional, enabling subscription products.
+
+## Configuration
+
+Dependency injection is configured in `config/deps/store-deps.ts` (scaffolded
+on install) via `setStoreDeps()`:
+
+| Dependency | Required | Purpose |
+|---|---|---|
+| `createPaymentCheckout` | Yes | Start a payment session (via `core-payments`) |
+| `resolveOrgId` | Yes | Resolve the order's organization |
+| `getBillingProfile` | Yes | Billing details for tax and invoices |
+| `sendNotification` | Yes | In-app order notifications |
+| `enqueueTemplateEmail` | Yes | Transactional order emails |
+| `createSubscriptionCheckout` | No | Checkout for subscription products |
+
+`setRefundHandler()` optionally registers a payment refund handler (e.g. a
+Stripe refund). The `seedStore` step creates demo products, shipping zones, and
+tax rates on `bun run init`.
+
+## Schema
+
+`core-store` ships 14 schema files. Key tables include:
+
+| Table | Purpose |
+|---|---|
+| `store_products`, `store_product_variants`, `store_variant_groups` | Catalog and variants |
+| `store_product_images`, `store_categories`, `store_product_categories` | Media and categorization |
+| `store_carts`, `store_cart_items` | Server-side cart |
+| `store_orders`, `store_order_items`, `store_order_events`, `store_downloads` | Orders and digital downloads |
+| `store_addresses` | Customer addresses |
+| `store_shipping_zones`, `store_shipping_rates`, `store_tax_rates`, `store_settings` | Shipping and tax |
+| `store_discount_codes`, `store_discount_usage` | Discounts and usage tracking |
+| `store_reviews` | Product reviews |
+| `store_attributes`, `store_product_attribute_values` | Filterable attributes |
+| `store_wishlists`, `store_related_products` | Wishlists and product relations |
+| `store_inventory_reservations`, `store_back_in_stock_alerts` | Inventory and stock alerts |
+| `store_shipments`, `store_shipment_items` | Fulfillment |
+| `store_returns`, `store_return_items` | Returns and refunds |
+| `store_exchange_rates`, `store_bundle_items` | Currency and product bundles |
+
+## API
+
+`core-store` registers 16 tRPC routers. The principal ones:
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `storeProducts` | public + admin | Product list/detail and admin CRUD, variants, categories |
+| `storeCart` | public | Cart for anonymous and authenticated users |
+| `storeCheckout` | protected | Shipping options, totals preview, place order |
+| `storeOrders` | protected + admin | Customer order history and admin order management |
+| `storeAdminOrders` | admin | Export, refund, and invoice generation |
+| `storeWishlist` | protected | Toggle, list, check, and batch-check |
+| `storeDiscounts` | public + admin | Public code validation, admin CRUD |
+| `storeReviews` | public + protected + admin | List/ratings, create, and moderation |
+| `storeRelations` | public + admin | Related products — get and admin set |
+| `storeAttributes` | public + admin | Filterable attribute list and admin CRUD |
+| `storeAddresses` | protected | Customer address book |
+| `storeReturns` | protected + admin | Return requests and processing |
+| `storeFulfillment` | admin | Shipments and shipment items |
+| `storeAnalytics`, `storeAlerts`, `storeAdmin` | admin / mixed | Store analytics, stock alerts, admin tooling |
+
+## Components
+
+Public components ship under `components/`:
+
+- **Cart** — `CartWidget`, `AddToCartForm`
+- **Product** — `ProductGallery`, `VariantSelector`, `WishlistButton`, `StarRating`, `ReviewForm`
+
+## Integration
+
+Installing scaffolds the storefront (`/store`, `/cart`, `/checkout`,
+`/order-confirmation`), account pages (orders, wishlist, addresses), the
+dashboard store admin pages, the payment webhook handler
+(`app/api/webhooks/store/route.ts`), and a set of order email templates. A
+**Store** entry is added to the dashboard *Content* group.
+
+EU compliance is built in: per-country tax classes, `priceIncludesTax`,
+reverse charge for B2B, sequential `INV-YYYY-XXXXX` invoice numbers, and a
+per-item tax breakdown. An abandoned-cart maintenance task emails reminders for
+24h-idle carts.
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [core-payments](/docs/modules/core-payments) — required for checkout
+- [core-subscriptions](/docs/modules/core-subscriptions) — optional, for subscription products
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules

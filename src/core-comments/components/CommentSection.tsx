@@ -26,10 +26,11 @@ export function CommentSection({ targetType, targetId }: CommentSectionProps) {
 
   const { data: count } = trpc.comments.count.useQuery({ targetType, targetId });
 
-  const items = commentsData?.items ?? [];
-
-  // Build thread tree: group direct children by parentId
+  // Build thread tree: group direct children by parentId. `items` lives
+  // inside the memo so the dependency is the stable query result, not a
+  // fresh `?? []` array identity every render.
   const { topLevel, repliesByParent } = useMemo(() => {
+    const items = commentsData?.items ?? [];
     const top: typeof items = [];
     const byParent = new Map<string, typeof items>();
 
@@ -44,7 +45,7 @@ export function CommentSection({ targetType, targetId }: CommentSectionProps) {
     }
 
     return { topLevel: top, repliesByParent: byParent };
-  }, [items]);
+  }, [commentsData]);
 
   return (
     <section className="comment-section">

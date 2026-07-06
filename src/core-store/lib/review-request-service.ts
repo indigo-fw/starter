@@ -1,4 +1,4 @@
-import { and, eq, lt, sql, exists, notExists } from 'drizzle-orm';
+import { and, eq, lt, sql, exists } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { storeOrders, storeOrderItems } from '@/core-store/schema/orders';
 import { storeReviews } from '@/core-store/schema/reviews';

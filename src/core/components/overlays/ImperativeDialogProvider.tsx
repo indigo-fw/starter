@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -65,12 +66,17 @@ export function ImperativeDialogProvider({ children }: { children: ReactNode }) 
 
   // Refs for stable callbacks — no dep on state/inputValue
   const stateRef = useRef(state);
-  stateRef.current = state;
   const inputRef = useRef(inputValue);
-  inputRef.current = inputValue;
   const resolveRef = useRef<((value: unknown) => void) | null>(null);
   const activeRef = useRef(false);
   const queueRef = useRef<QueueEntry[]>([]);
+
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+  useEffect(() => {
+    inputRef.current = inputValue;
+  }, [inputValue]);
 
   const open = state !== null;
 

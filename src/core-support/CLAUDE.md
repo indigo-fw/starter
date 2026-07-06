@@ -2,10 +2,6 @@
 
 AI-powered support chat widget + ticket system with escalation.
 
-## Module Boundary
-
-**core-support owns:** SupportChatWidget, chat session/message schema, ticket schema, support-chat + support routers, cleanup job.
-
 **Project owns:** Admin pages, `SupportChatWidgetWrapper`, account support pages, `config/deps/support-deps.ts`.
 
 ## DI (`setSupportDeps()`)

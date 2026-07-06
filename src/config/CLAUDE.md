@@ -44,10 +44,6 @@ Config files are the extension points for this template. Most new features are a
 
 `src/config/monitoring.ts` — optional. Call `setMonitoringProvider({ captureError, captureWarning? })` at server startup. The core logger automatically forwards `error()` and `warn()` calls to the provider. Zero-cost when not configured. See file for Sentry and Axiom examples.
 
-## Doctor CLI
-
-`bun run indigo doctor` — validates .env (DATABASE_URL, BETTER_AUTH_SECRET, REDIS_URL), migrations, installed modules, generated files, deps files, storage, node_modules. Exits 1 on errors.
-
 ## How to Add a Custom Field Type
 
 Core's `CustomFieldsEditor` accepts optional `fieldRenderers` prop — pass custom renderers to override/extend built-in types. No core edit needed.
@@ -81,7 +77,7 @@ Adding a *new* theme beyond light/dark is config-ready (`modes` takes any string
 
 ## Sitemap
 
-`CONTENT_FETCHERS` array in `src/app/sitemap.ts` + static pages pass into `generateSitemap()` from `@/core/lib/seo/sitemap`. Adding a content type = adding a fetcher entry. Sitemap includes x-default hreflang for multilingual sites.
+`CONTENT_FETCHERS` array in `src/app/sitemap.ts` + static pages pass into `generateSitemap()` from `@/core/lib/seo/sitemap`. Project content type = add a fetcher entry there. **Module** content = declare `sitemapFetchers: [{ name, from }]` in the module's `module.config.ts` (generated into `MODULE_SITEMAP_FETCHERS` — never import module schemas in `sitemap.ts`). Includes x-default hreflang for multilingual sites.
 
 ## Maintenance Tasks
 
@@ -90,3 +86,12 @@ Register project-specific cleanup tasks in `src/server/jobs/maintenance/index.ts
 ## Cron Jobs
 
 Register in `server.ts` via `registerCronJob({ name, pattern, handler })` before calling `startCronScheduler()`. Core handles BullMQ repeatable jobs vs DB-queue fallback automatically.
+
+## Store Pricing Rules (Totals Collectors)
+
+`src/config/store-pricing.ts` — project-owned totals collectors for the store checkout
+(`registerTotalsCollector`; built-ins: subtotal=0, auto-discount=95, coupon=100, shipping=200, tax=300).
+Authenticated checkouts seed `ctx.extensions.userId` + `ctx.extensions.orgId`, so collectors can consult
+entitlements. Shipped example: member discount — set `storeDiscountPercent: 10` in a plan's `features`
+map (`config/plans.ts`) and subscribers on that plan get 10% off store orders. Add loyalty points, gift
+cards, bundles the same way — no core edits.

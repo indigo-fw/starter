@@ -68,7 +68,8 @@ function GA4WidgetWrapper({ dragHandle }: { dragHandle?: ReactNode }) {
 const PROJECT_WIDGETS: DashboardWidgetDef[] = [
   { id: 'content-status', label: 'Content Status', colSpan: 6, minSpan: 4, maxSpan: 12, defaultVisible: true },
   { id: 'quick-actions', label: 'Quick Actions', colSpan: 6, minSpan: 4, maxSpan: 12, defaultVisible: true },
-  { id: 'ga4', label: 'Google Analytics', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true },
+  // Hidden until a GCP service account is configured — the widget is empty without one
+  { id: 'ga4', label: 'Google Analytics', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: false },
   { id: 'recent-activity', label: 'Recent Activity', colSpan: 12, minSpan: 6, maxSpan: 12, defaultVisible: true },
 ];
 

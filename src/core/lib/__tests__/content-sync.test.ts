@@ -254,10 +254,6 @@ const {
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 
-function asMock<T extends (...args: unknown[]) => unknown>(fn: T) {
-  return fn as unknown as ReturnType<typeof vi.fn>;
-}
-
 // Helper: build a fake stat object
 function fakeStat(isDir: boolean, mtime = new Date('2024-01-01')) {
   return {

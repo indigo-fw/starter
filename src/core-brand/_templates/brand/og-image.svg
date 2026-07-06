@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Indigo OG image — Cycle mark + wordmark + tagline on dark bg.
+       Rasterized by `bun run indigo brand:generate` to og-image.png,
+       og-image-dark.png, twitter-card.png. -->
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1c1d28"/>
+
+  <!-- Subtle brand glow behind the mark -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="38%">
+      <stop offset="0%" stop-color="#f034a3" stop-opacity="0.30"/>
+      <stop offset="60%" stop-color="#9421ee" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#9421ee" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Signature brand gradient: pink (brand-500) → purple (accent-500) -->
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f034a3"/>
+      <stop offset="100%" stop-color="#9421ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Mark — the Cycle (two arrows chasing CW around the core), white
+       on the dark bg as the brand presents on dark surfaces. Source
+       geometry: site/src/components/public/IndigoMarkCycle.tsx -->
+  <g transform="translate(420 105) scale(3.6)">
+    <g transform="rotate(8.9 50 50)" fill="#f3f4f8">
+      <path d="M 8 50 A 42 42 0 0 1 85.23 27.13 L 90.26 23.86 L 86.27 44.34 L 65.94 39.65 L 70.97 36.39 A 25 25 0 0 0 25 50 L 16.52 44.10 Z"/>
+      <path d="M 8 50 A 42 42 0 0 1 85.23 27.13 L 90.26 23.86 L 86.27 44.34 L 65.94 39.65 L 70.97 36.39 A 25 25 0 0 0 25 50 L 16.52 44.10 Z"
+            transform="rotate(180 50 50)"/>
+    </g>
+    <circle cx="50" cy="50" r="15" fill="url(#brand)"/>
+  </g>
+
+  <!-- Wordmark — {{name}} is substituted from brand.ts at generate time -->
+  <text x="600" y="540" text-anchor="middle"
+        font-family="Manrope, Inter, system-ui, sans-serif" font-weight="800"
+        font-size="78" letter-spacing="-2" fill="#f3f4f8">{{name}}</text>
+
+  <!-- Tagline — {{tagline}} is substituted from brand.ts at generate time -->
+  <text x="600" y="585" text-anchor="middle"
+        font-family="Inter, system-ui, sans-serif" font-weight="500"
+        font-size="22" letter-spacing="0.3" fill="#9fa1ab">{{tagline}}</text>
+</svg>

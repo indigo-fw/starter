@@ -26,6 +26,7 @@ export async function activateSubscription(params: {
     organizationId,
     planId,
     providerId,
+    interval,
     providerCustomerId,
     providerSubscriptionId,
     providerPriceId,
@@ -45,6 +46,7 @@ export async function activateSubscription(params: {
         providerSubscriptionId,
         providerPriceId: providerPriceId ?? null,
         planId,
+        interval,
         status,
         currentPeriodStart: periodStart ?? null,
         currentPeriodEnd: periodEnd ?? null,
@@ -55,6 +57,7 @@ export async function activateSubscription(params: {
         set: {
           providerPriceId: providerPriceId ?? null,
           planId,
+          interval,
           status,
           currentPeriodStart: periodStart ?? null,
           currentPeriodEnd: periodEnd ?? null,
@@ -82,6 +85,7 @@ export async function activateSubscription(params: {
           providerCustomerId,
           providerPriceId: providerPriceId ?? null,
           planId,
+          interval,
           status,
           currentPeriodStart: periodStart ?? null,
           currentPeriodEnd: periodEnd ?? null,
@@ -95,6 +99,7 @@ export async function activateSubscription(params: {
         providerCustomerId,
         providerPriceId: providerPriceId ?? null,
         planId,
+        interval,
         status,
         currentPeriodStart: periodStart ?? null,
         currentPeriodEnd: periodEnd ?? null,
@@ -112,6 +117,7 @@ export async function updateSubscription(
   providerSubscriptionId: string,
   data: {
     planId?: string;
+    interval?: 'monthly' | 'yearly';
     status?: string;
     providerPriceId?: string;
     periodStart?: Date;
@@ -123,6 +129,7 @@ export async function updateSubscription(
     .update(saasSubscriptions)
     .set({
       ...(data.planId !== undefined && { planId: data.planId }),
+      ...(data.interval !== undefined && { interval: data.interval }),
       ...(data.status !== undefined && { status: data.status }),
       ...(data.providerPriceId !== undefined && { providerPriceId: data.providerPriceId }),
       ...(data.periodStart !== undefined && { currentPeriodStart: data.periodStart }),

@@ -1,0 +1,89 @@
+---
+title: core-payments
+section: Module Reference
+order: 311
+description: Multi-provider payment infrastructure — provider registry, Stripe integration, and transaction tracking.
+---
+
+# core-payments
+
+<Badge>Primitive</Badge> <Badge>Free</Badge>
+
+`core-payments` is the payment foundation for Indigo. It provides a pluggable provider registry, a built-in Stripe integration, organization billing profiles, and a provider-agnostic transaction log. Other modules (`core-subscriptions`, `core-payments-crypto`) build on top of it.
+
+## What it does
+
+- Pluggable **payment provider registry** — register any provider via a lazy factory.
+- Built-in **Stripe provider** with customer and address syncing.
+- Per-organization **billing profiles** (legal name, VAT ID, invoice address).
+- Provider-agnostic **transaction log** for payments, authorizations, captures, refunds, and voids.
+- **Idempotency log** for processed webhook events.
+
+## Installation
+
+```bash
+bun run indigo add core-payments
+```
+
+After installing, generate and apply the schema:
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+The module exposes its dependencies through `setPaymentsDeps()`. The project wires them in `config/deps/payments-deps.ts` (scaffolded on install and imported as a side-effect):
+
+```typescript
+import { setPaymentsDeps, type PaymentsDeps } from '@/core-payments/deps';
+import { getPlan, getPlanByProviderPriceId, getProviderPriceId } from '@/config/plans';
+import { getEnabledProviderConfigs } from '@/config/payment-providers';
+import { resolveOrgId } from '@/server/lib/resolve-org';
+
+setPaymentsDeps({
+  getEnabledProviderConfigs,
+  getPlan,
+  getPlanByProviderPriceId,
+  getProviderPriceId,
+  resolveOrgId,
+  broadcastEvent: (channel, type, payload) => { /* ... */ },
+});
+```
+
+Project-owned config files:
+
+- `config/deps/payments-deps.ts` — dependency wiring.
+- `config/payment-providers.ts` — enabled provider configs.
+
+Stripe requires `STRIPE_SECRET_KEY` and a webhook secret in your environment. Configure these alongside your Stripe provider entry in `config/payment-providers.ts`.
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `billing_profiles` | `organizationId` (unique, 1:1 with org), `legalName`, `companyRegistrationId`, `vatId`, `taxExempt`, `invoiceEmail`, address fields, `defaultCurrency` |
+| `saas_payment_transactions` | `organizationId`, `providerId`, `providerTxId`, `amountCents`, `currency`, `status`, `transactionType` (`payment`/`authorization`/`capture`/`refund`/`void`), `paymentIntentId`, `authorizedAmountCents`, `capturedAmountCents` |
+| `saas_subscription_events` | `providerEventId` (unique idempotency key), `type`, `data` — log of processed webhook events |
+
+## API
+
+`billingProfileRouter` (mounted as `billingProfile`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `billingProfile.get` | protected | Get the billing profile for the user's active organization |
+| `billingProfile.upsert` | protected | Create or update the org billing profile; syncs the address to Stripe |
+
+## Integration
+
+- **Provider registry** — register a provider with `registerPaymentProvider(id, factory)` from `@/core-payments/lib/factory`. The factory is lazy and cached; return `null` when required env vars are missing. Stripe is registered out of the box; other modules register via a side-effect import.
+- **Transactions** — use the transaction service in `@/core-payments/lib/transaction-service` to create and update transaction records from provider webhooks.
+- **Webhook routes** stay in the project under `app/api/webhooks/`.
+
+## Related
+
+- [core-subscriptions](/docs/modules/core-subscriptions)
+- [core-payments-crypto](/docs/modules/core-payments-crypto)
+- [Module Development](/docs/api/module-development)

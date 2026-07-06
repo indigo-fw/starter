@@ -1,0 +1,59 @@
+---
+title: core-import
+section: Module Reference
+order: 320
+description: Content import from WordPress, Ghost, CSV, and Indigo JSON, plus full CMS export.
+---
+
+# core-import
+
+<Badge>Primitive</Badge> <Badge>Paid</Badge>
+
+`core-import` brings content into Indigo from other platforms and exports your
+CMS content back out. Parsers are pure functions, so the module needs no
+dependency injection — just a router and an admin page.
+
+## What it does
+
+- Import from **WordPress** WXR (XML) export files
+- Import from **Ghost** JSON export files
+- Import from **CSV** with column mapping
+- Import from **Indigo** native JSON backups
+- **Export** the full CMS — posts, categories, and tags — as JSON
+- Preview an import before committing it
+
+## Installation
+
+`core-import` is a paid module and requires a valid Indigo license.
+
+```bash
+bun run indigo add core-import
+```
+
+This registers the `import` router and scaffolds the admin import page at
+`app/dashboard/(panel)/settings/import/page.tsx`. The module ships no schema,
+so no migration is needed.
+
+## Configuration
+
+No `deps.ts` and no environment variables. Parsers are pure functions that
+transform uploaded files into CMS records.
+
+## API
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `import.preview` | content editors | Parse an upload and return a dry-run summary |
+| `import.execute` | content editors | Run the import and write content |
+| `import.export` | settings admins | Export the full CMS as JSON |
+
+## Integration
+
+- **Router** — registered via `module.config.ts` and `indigo sync`, mounted under the `import` key.
+- **Admin page** — adds an **Import** entry to the dashboard *Settings* group, scaffolded into the project from the module's templates during `indigo add`.
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [core-authors](/docs/modules/core-authors) — attribute imported content to authors
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules

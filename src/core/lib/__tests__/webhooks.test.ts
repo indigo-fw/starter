@@ -90,7 +90,7 @@ describe('dispatchWebhook', () => {
     // Reset the internal _queue cache by re-importing isn't feasible,
     // so we control behavior through mockQueueInstance returned by createQueue.
     // Since _queue is lazily initialized and cached, we reset modules where needed.
-    global.fetch = vi.fn().mockResolvedValue({ ok: true });
+    global.fetch = vi.fn().mockResolvedValue({ ok: true }) as unknown as typeof fetch;
   });
 
   it('queries active webhooks from DB matching the event', async () => {
@@ -172,7 +172,7 @@ describe('dispatchWebhook', () => {
     }));
 
     const mockFetch = vi.fn().mockResolvedValue({ ok: true });
-    global.fetch = mockFetch;
+    global.fetch = mockFetch as unknown as typeof fetch;
 
     const { dispatchWebhook: dispatch } = await import('../webhooks/webhooks');
     const db = createMockDb([sampleHook]);
@@ -224,7 +224,7 @@ describe('dispatchWebhook', () => {
     }));
 
     const mockFetch = vi.fn();
-    global.fetch = mockFetch;
+    global.fetch = mockFetch as unknown as typeof fetch;
 
     const { dispatchWebhook: dispatch } = await import('../webhooks/webhooks');
 
@@ -264,7 +264,7 @@ describe('dispatchWebhook', () => {
     }));
 
     const mockFetch = vi.fn();
-    global.fetch = mockFetch;
+    global.fetch = mockFetch as unknown as typeof fetch;
 
     const { dispatchWebhook: dispatch } = await import('../webhooks/webhooks');
     const db = createMockDb([]);
@@ -336,7 +336,7 @@ describe('dispatchWebhook', () => {
     }));
 
     const mockFetch = vi.fn().mockRejectedValue(new Error('Network error'));
-    global.fetch = mockFetch;
+    global.fetch = mockFetch as unknown as typeof fetch;
 
     const { dispatchWebhook: dispatch } = await import('../webhooks/webhooks');
     const db = createMockDb([sampleHook]);
@@ -376,7 +376,7 @@ describe('dispatchWebhook', () => {
       createWorker: vi.fn().mockReturnValue(null),
     }));
 
-    global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 500 });
+    global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 500 }) as unknown as typeof fetch;
 
     const { dispatchWebhook: dispatch } = await import('../webhooks/webhooks');
     const db = createMockDb([sampleHook]);
@@ -415,7 +415,7 @@ describe('dispatchWebhook', () => {
     }));
 
     const mockFetch = vi.fn().mockResolvedValue({ ok: true });
-    global.fetch = mockFetch;
+    global.fetch = mockFetch as unknown as typeof fetch;
 
     const { dispatchWebhook: dispatch } = await import('../webhooks/webhooks');
 

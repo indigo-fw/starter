@@ -5,11 +5,20 @@
 import { setSubscriptionsDeps } from '@/core-subscriptions/deps';
 import { requireFeature } from '@/core-subscriptions/lib/feature-gate';
 import { PLANS, getPlan, getPlanByProviderPriceId, getProviderPriceId } from '@/config/plans';
+// Billing mode + token packs (side-effect: calls setBillingConfig)
+import '@/config/billing';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 import { sendOrgNotification } from '@/server/lib/notifications';
 import { NotificationType, NotificationCategory } from '@/core/types/notifications';
 import { enqueueTemplateEmail } from '@/core/lib/email';
 import { registerHook } from '@/core/lib/module/module-hooks';
+import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
+
+// Route one-time 'token_pack' payments from provider webhooks to token grants
+registerPaymentWebhookHandler('token_pack', async ({ event, providerId }) => {
+  const { handleTokenPackWebhookEvent } = await import('@/core-subscriptions/lib/token-grants');
+  return handleTokenPackWebhookEvent({ event, providerId });
+});
 
 setSubscriptionsDeps({
   getPlans: () => PLANS,
@@ -92,4 +101,10 @@ registerHook('user.beforeDelete', async (userId) => {
 // Type safety enforced via HookMap declaration merging (see core-subscriptions/types/hooks.ts).
 registerHook('feature.require', async (orgId, feature, currentUsage) => {
   await requireFeature(orgId, feature, currentUsage as number);
+});
+
+// One-time token credit for new orgs (no-op unless BILLING.signupBonusTokens is set)
+import { grantSignupBonusTokens } from '@/core-subscriptions/lib/token-grants';
+registerHook('user.created', async (_user, orgId) => {
+  await grantSignupBonusTokens(orgId);
 });

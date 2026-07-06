@@ -94,9 +94,27 @@ export async function getAllDocs(locale: string = DEFAULT_LOCALE): Promise<Unifi
   for (const doc of cmsUnified) slugMap.set(doc.slug, doc);
   for (const doc of fileDocs) slugMap.set(doc.slug, doc); // file wins
 
-  return [...slugMap.values()].sort((a, b) => {
-    // Sort by section, then order
-    if (a.section !== b.section) return (a.section ?? '').localeCompare(b.section ?? '');
+  const merged = [...slugMap.values()];
+
+  // Order sections by the minimum sortOrder of the docs they contain, so that
+  // section order is driven by `order:` frontmatter rather than alphabetically.
+  const sectionOrder = new Map<string, number>();
+  for (const doc of merged) {
+    const section = doc.section ?? '';
+    const current = sectionOrder.get(section);
+    if (current === undefined || doc.sortOrder < current) {
+      sectionOrder.set(section, doc.sortOrder);
+    }
+  }
+
+  return merged.sort((a, b) => {
+    // Sort by section (by its minimum doc order), then by doc order.
+    if (a.section !== b.section) {
+      const ao = sectionOrder.get(a.section ?? '') ?? 0;
+      const bo = sectionOrder.get(b.section ?? '') ?? 0;
+      if (ao !== bo) return ao - bo;
+      return (a.section ?? '').localeCompare(b.section ?? '');
+    }
     return a.sortOrder - b.sortOrder;
   });
 }

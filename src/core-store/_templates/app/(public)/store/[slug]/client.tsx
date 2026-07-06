@@ -6,7 +6,6 @@ import { useBlankTranslations } from '@/lib/translations';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
 import { Loader2, Package, ChevronRight, Truck, Download, Shield, ArrowLeft } from 'lucide-react';
 import { formatPrice } from '@/core-store/lib/store-utils';
 import { ProductGallery } from '@/core-store/components/product/ProductGallery';

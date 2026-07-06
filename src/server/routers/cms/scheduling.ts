@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, desc, eq, gte, isNotNull, isNull, lte } from 'drizzle-orm';
+import { and, asc, eq, gte, isNotNull, isNull, lte } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { cmsPosts, cmsCategories } from '@/server/db/schema';

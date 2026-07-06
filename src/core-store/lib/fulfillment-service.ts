@@ -1,8 +1,8 @@
-import { eq, and, sql, inArray } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
 import { db } from '@/server/db';
 import { storeShipments, storeShipmentItems } from '@/core-store/schema/fulfillment';
-import { storeOrders, storeOrderItems, storeOrderEvents } from '@/core-store/schema/orders';
+import { storeOrders, storeOrderItems } from '@/core-store/schema/orders';
 import { updateOrderStatus } from './order-service';
 import { createLogger } from '@/core/lib/infra/logger';
 

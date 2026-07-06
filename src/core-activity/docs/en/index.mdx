@@ -1,0 +1,103 @@
+---
+title: core-activity
+section: Module Reference
+order: 315
+description: User-facing activity feed and timeline system with public, user, org, and entity-scoped feeds.
+---
+
+# core-activity
+
+<Badge>Primitive</Badge> <Badge>Free</Badge>
+
+`core-activity` records events from across the app and exposes them as activity feeds — public, current-user, organization-scoped, and per-entity. It ships feed components, a dashboard widget, an admin log, and a simple `recordActivity()` API for other modules.
+
+## What it does
+
+- A single `recordActivity()` call records a user-facing event from anywhere in the app.
+- **Four feed scopes** — public, current user, organization, and per-entity.
+- **Admin activity log** with filters by action, actor, and target type.
+- Ships components: `ActivityFeed`, `ActivityItem`, `AdminActivityFeed`, `DashboardActivityWidget`.
+- Supports **system events** (no actor) alongside user-driven events.
+
+## Installation
+
+```bash
+bun run indigo add core-activity
+```
+
+After installing, generate and apply the schema:
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+Dependencies are wired through `setActivityDeps()` in `config/deps/activity-deps.ts`:
+
+- `resolveOrgId` — validates that a user belongs to an org (from `@/server/lib/resolve-org`).
+
+```typescript
+import { setActivityDeps } from '@/core-activity/deps';
+import { resolveOrgId } from '@/server/lib/resolve-org';
+
+setActivityDeps({
+  resolveOrgId: (activeOrgId, userId) => resolveOrgId(activeOrgId, userId),
+});
+```
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `activity_events` | `actorId` (nullable for system events), `actorType`, `action` (dotted identifier, e.g. `comment.created`), `targetType`, `targetId`, `targetLabel`, `metadata` (JSONB), `organizationId` (nullable scope), `isPublic` |
+
+## API
+
+`activityRouter` (mounted as `activity`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `activity.publicFeed` | public | Public events (`isPublic = true`), cursor-paginated |
+| `activity.myFeed` | protected | Current user's events, cursor-paginated |
+| `activity.orgFeed` | protected | Org-scoped events (validates membership via DI) |
+| `activity.forTarget` | protected | Events for a specific entity (type + id) |
+| `activity.adminFeed` | admin (`dashboard`) | All events with filters, offset-paginated |
+
+## Recording events
+
+Call `recordActivity()` from any module. It is fire-and-forget — it never throws and logs errors internally.
+
+```typescript
+import { recordActivity } from '@/core-activity/lib/activity-service';
+
+await recordActivity({
+  actorId: userId,
+  action: 'comment.created',
+  targetType: 'post',
+  targetId: postId,
+  targetLabel: 'My Blog Post',
+  organizationId: orgId,
+  isPublic: true,
+});
+
+// System event (no actor)
+await recordActivity({
+  actorType: 'system',
+  action: 'maintenance.completed',
+  metadata: { duration: 42 },
+});
+```
+
+## Integration
+
+- The module registers a `DashboardActivityWidget` page widget and an `activity-feed` dashboard widget (12-column, visible by default).
+- A nav item `Activity` is registered under the `dashboard` group, linking to `/dashboard/activity`.
+- The seed `seedActivity` creates demo events across post/comment/order/user actions.
+- `ActivityItem` maps action prefixes to lucide icons (e.g. `comment.*` → MessageSquare, `order.*` → ShoppingCart).
+
+## Related
+
+- [core-comments](/docs/modules/core-comments)
+- [Module Development](/docs/api/module-development)

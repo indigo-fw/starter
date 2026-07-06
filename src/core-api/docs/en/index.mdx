@@ -1,0 +1,93 @@
+---
+title: core-api
+section: Module Reference
+order: 322
+description: Org-scoped REST API v2 with API key management, scopes, rate limiting, and usage metering.
+---
+
+# core-api
+
+<Badge>Primitive</Badge> <Badge>Paid</Badge>
+
+`core-api` adds a production REST API layer to Indigo: organization-scoped
+API keys with Bearer authentication, an extensible scope system, rate limiting,
+and optional usage metering.
+
+## What it does
+
+- Org-scoped **API key** management — create, rename, roll, and revoke keys
+- A **v2 REST API** (`/api/v2/`) with Bearer auth, scope checks, and rate limiting
+- An extensible **scope registry** so modules can register their own scopes
+- Key lifecycle states: `active` → `expiring` (rolled) → `expired` / `revoked`
+- Optional per-call **usage metering** through `core-subscriptions`
+- An `ApiKeyManager` UI for account and admin pages
+
+<Callout type="info">
+Indigo's core ships a free, read-only **v1** API (`/api/v1/`) using a single
+global key. `core-api` adds **v2** — org-scoped, scoped, rate-limited, and
+metered.
+</Callout>
+
+## Installation
+
+`core-api` is a paid module and requires a valid Indigo license.
+
+```bash
+bun run indigo add core-api
+bun run db:generate
+bun run db:migrate
+```
+
+## Configuration
+
+The module exposes dependency injection through `setApiDeps()`, configured in
+`config/deps/api-deps.ts` (scaffolded on install):
+
+| Dependency | Required | Purpose |
+|---|---|---|
+| `resolveOrgId` | Yes | Resolve the organization for a request |
+| `deductApiCallToken` | No | Per-call metering, typically via `core-subscriptions` |
+
+Scopes are registered in the same file with `registerApiScopes([{ id, label, module }])`.
+Core registers the CMS scopes; other modules register their scopes in their own
+`serverInit`. A `null` scope set is a superkey; an empty array grants no access.
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `saas_api_keys` | hashed key, `orgId`, `scopes`, `status`, `expiresAt` |
+| `saas_api_request_logs` | per-request log — endpoint, status, timestamp |
+
+## API
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `apiKeys.list` | protected | List the caller's keys |
+| `apiKeys.create` | protected | Create a key (plaintext shown once) |
+| `apiKeys.revoke` | protected | Permanently revoke a key |
+| `apiKeys.roll` | protected | Roll a key — old key keeps working until it expires |
+| `apiKeys.rename` | protected | Rename a key |
+| `apiKeys.updateScopes` | protected | Change a key's scopes |
+| `apiKeys.getScopes` | protected | List available scopes |
+| `apiKeys.getKeyStats` | protected | Usage stats for a key |
+| `apiKeys.adminGetLogs` | admin (`settings`) | Request logs across keys |
+| `apiKeys.adminListKeys` | admin (`settings`) | List keys across organizations |
+
+## Components
+
+- `ApiKeyManager` — UI for creating, rolling, renaming, and revoking keys, used on both the dashboard settings page and the public account API page.
+
+## Integration
+
+- `serverInit` runs `config/deps/api-deps.ts` and the module's `api-init`, registering scopes and DI.
+- v2 routes are built with the `withApiV2Route()` wrapper, which handles Bearer auth, scope checks, and rate limiting. Scaffolded examples live under `app/api/v2/projects/`.
+- An expired-key maintenance task transitions `expiring` keys to `expired` after their `expiresAt`.
+- Adds an **API Keys** entry to the dashboard *Settings* group.
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [core-subscriptions](/docs/modules/core-subscriptions) — enables per-call metering
+- [Authentication API](/docs/api/authentication) — session-based auth for the app
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules

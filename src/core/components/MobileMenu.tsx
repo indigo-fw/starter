@@ -2,7 +2,7 @@
 
 import './MobileMenu.css';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -18,13 +18,21 @@ interface Props {
   items: NavItem[];
 }
 
+// Stable no-op subscription for useSyncExternalStore hydration detection.
+const emptySubscribe = () => () => {};
+
 export function MobileMenu({ items }: Props) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
   // Portal target requires `document` — only available after hydration.
-  useEffect(() => setMounted(true), []);
+  // useSyncExternalStore's server/client snapshot split is the render-safe
+  // way to detect hydration (no setState-in-effect).
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
   const close = useCallback(() => setOpen(false), []);
 

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { trpc } from '@/lib/trpc/client';
 import { useConfirm } from '@/core/hooks';
+import { AgentConnectPanel } from './AgentConnectPanel';
 
 // The apiKeys router is registered dynamically by the core-api module.
 // Cast to any to avoid TS errors when the module isn't in the generated router type.
@@ -19,6 +20,7 @@ export function ApiKeyManager({ __ }: ApiKeyManagerProps) {
   const [selectedScopes, setSelectedScopes] = useState<string[]>([]);
   const [useSuperkey, setUseSuperkey] = useState(true);
   const [createdKey, setCreatedKey] = useState<string | null>(null);
+  const [createdKeyIsAgentReady, setCreatedKeyIsAgentReady] = useState(false);
   const [rolledKey, setRolledKey] = useState<{ key: string; oldExpiresAt: Date } | null>(null);
   const [editingScopesKeyId, setEditingScopesKeyId] = useState<string | null>(null);
   const [editingScopes, setEditingScopes] = useState<string[]>([]);
@@ -59,6 +61,8 @@ export function ApiKeyManager({ __ }: ApiKeyManagerProps) {
   });
 
   function handleCreate() {
+    // Superkeys and keys carrying mcp:invoke can drive the MCP agent endpoint.
+    setCreatedKeyIsAgentReady(useSuperkey || selectedScopes.includes('mcp:invoke'));
     createKey.mutate({
       name: newKeyName.trim(),
       scopes: useSuperkey ? null : selectedScopes,
@@ -146,6 +150,9 @@ export function ApiKeyManager({ __ }: ApiKeyManagerProps) {
           />
         )}
       </div>
+
+      {/* ─── Agent access snippets ──────────────────────────────────────── */}
+      <AgentConnectPanel __={__} apiKey={createdKeyIsAgentReady ? createdKey : null} />
 
       {/* ─── Keys list ───────────────────────────────────────────────────── */}
       <div className="card">

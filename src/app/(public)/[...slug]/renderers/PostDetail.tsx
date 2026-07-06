@@ -18,7 +18,7 @@ import { user } from '@/server/db/schema/auth';
 import { eq } from 'drizzle-orm';
 import { getCachedPost, getCachedTRPC } from '../data';
 import { getAncestors } from '../queries';
-import { CommentSection } from '@/core-comments/components/CommentSection';
+import { CONTENT_SLOTS, ContentSlot } from '@/generated/content-slots';
 
 interface Props {
   slug: string;
@@ -148,12 +148,12 @@ export async function PostDetail({ slug, postType, preview }: Props) {
         </section>
       )}
 
-      {/* Comments */}
-      {isBlog && (
+      {/* Module-contributed footer (e.g. core-comments' CommentSection) */}
+      {isBlog && CONTENT_SLOTS['post-footer']?.length ? (
         <section className="mt-12 border-t border-(--border-secondary) pt-8">
-          <CommentSection targetType="post" targetId={post.id} />
+          <ContentSlot slot="post-footer" targetType="post" targetId={post.id} />
         </section>
-      )}
+      ) : null}
 
       {/* JSON-LD: manual override or auto-generated */}
       {post.jsonLd ? (

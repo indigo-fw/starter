@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { admin, customSession, organization } from 'better-auth/plugins';
+import { admin, customSession, mcp, organization } from 'better-auth/plugins';
 import { role } from 'better-auth/plugins/access';
 
 import { Role } from '@/core/policy';
@@ -103,6 +103,13 @@ function createAuth() {
             appUrl,
           });
         },
+      }),
+      // OAuth 2.1 authorization server for MCP clients — lets agents log a
+      // user in via browser popup (claude.ai custom connectors, Claude Code
+      // OAuth flow) instead of manual API-key handoff. Dynamic client
+      // registration is enabled so MCP clients can self-register.
+      mcp({
+        loginPage: '/login',
       }),
       customSession(async ({ user, session }) => {
         const u = user as Record<string, unknown>;

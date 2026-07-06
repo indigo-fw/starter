@@ -1,0 +1,165 @@
+---
+title: core-subscriptions
+section: Module Reference
+order: 312
+description: Subscription lifecycle management — checkout, tokens, discount codes, feature gates, and dunning.
+---
+
+# core-subscriptions
+
+<Badge>Primitive</Badge> <Badge>Free</Badge>
+
+`core-subscriptions` manages the full subscription lifecycle on top of `core-payments`: checkout and customer portal sessions, plan changes, discount codes, usage-based token balances, feature gating, and dunning for failed payments.
+
+## What it does
+
+- **Three billing modes** — subscription-only, subscription + monthly token grants, or prepaid token packs only.
+- **Checkout and portal sessions** through any registered payment provider.
+- **Discount codes** — percentage, fixed-price, and trial discounts with per-plan overrides, usage limits, and time-limited offers.
+- **Token balances** — race-safe usage-based credit accounting (`addTokens`, `deductTokens`) with two buckets: an expiring plan allowance and permanent purchased credits (spent plan-first).
+- **Monthly token grants** — plans drip `monthlyTokens` every month (yearly subscribers included), race-proof via an atomic per-period claim.
+- **Token packs** — one-time purchasable credit bundles with Stripe checkout.
+- **Feature gates** — gate functionality by the org's plan.
+- **Dunning** — handle past-due and unpaid subscriptions.
+- **Admin billing analytics** — MRR, churn, plan distribution, revenue over time.
+
+## Billing modes
+
+Set the mode in `config/billing.ts` via `setBillingConfig()`:
+
+| Mode | Behavior |
+|---|---|
+| `subscription` | Recurring plans only — no token accounting. |
+| `subscription-tokens` | Recurring plans that grant `plan.monthlyTokens` every month. By default yearly subscribers receive their tokens **month by month** (via the `token-grants` daily cron); set `yearlyTokenGrant: 'upfront'` to credit `monthlyTokens × 12` at once per yearly period. Token packs can be sold as top-ups. |
+| `tokens` | Prepaid token packs only. Subscription checkout is disabled; users buy packs and spend the balance until it runs out. |
+
+```ts
+// config/billing.ts
+setBillingConfig({
+  mode: 'subscription-tokens',
+  tokenPacks: [{ id: 'pack-small', name: 'Small', tokens: 1_000, priceCents: 900 }],
+  signupBonusTokens: 100,      // one-time credit for new signups
+  resetBalanceOnGrant: false,  // true = unspent PLAN tokens expire each month (purchased tokens never expire)
+  yearlyTokenGrant: 'monthly', // 'upfront' = yearly subs get monthlyTokens × 12 at once (never during trials)
+  // planTokenValidityMonths: 12, // each grant expires N months after issuance (per-grant lots)
+  // grantTokensDuringTrial: false, // withhold monthly grants from trialing subs (anti-farming)
+});
+```
+
+Balances have **two buckets**: subscription grants fill the expiring *plan* bucket, while packs, bonuses, and refunds fill the permanent *purchased* bucket. Deductions spend the plan bucket first, and `resetBalanceOnGrant` only ever expires plan tokens — purchased tokens are safe. Every debit records its per-bucket split (`planUsed` / `purchasedUsed`) in the ledger.
+
+With `planTokenValidityMonths` set, each grant becomes an **expiry lot** (`saas_token_lots`) that lapses N months after issuance. Deductions drain lots soonest-expiry-first; overdue lots are expired lazily on spend and swept by the daily cron.
+
+Monthly grants are race-proof: each grant starts with an atomic compare-and-set on the subscription's `lastGrantPeriodKey` (the scheduled grant date, anchored to the period start) inside the same transaction as the credit, so webhooks and the daily cron can never double-credit a period. Grants fire instantly on activation/renewal webhooks; the cron (1 AM UTC) sweeps all subscriptions in keyset-paginated batches and covers yearly-interval anniversaries and missed webhooks. Register it in `server.ts` alongside dunning:
+
+```ts
+registerCronJob({ name: 'token-grants', pattern: '0 1 * * *', handler: async () => {
+  const { runTokenGrantChecks } = await import('./src/core-subscriptions/lib/token-grants');
+  await runTokenGrantChecks();
+}});
+```
+
+Token pack purchases go through one-time Stripe checkout (`metadata.type === 'token_pack'`); the Stripe webhook route credits the pack on `payment.completed`. Packs are Stripe-only — the crypto provider does not support one-time pack checkout.
+
+## Installation
+
+```bash
+bun run indigo add core-subscriptions
+```
+
+After installing, generate and apply the schema:
+
+```bash
+bun run db:generate
+bun run db:migrate
+```
+
+<Callout type="info">
+`core-subscriptions` depends on `core-payments` for payment provider and transaction access (wired via DI). Install `core-payments` first.
+</Callout>
+
+## Configuration
+
+Dependencies are wired through `setSubscriptionsDeps()` in `config/deps/subscriptions-deps.ts`. It supplies `getPlans` / `getPlan` / `getPlanByProviderPriceId` / `getProviderPriceId`, `resolveOrgId`, `sendOrgNotification`, `enqueueTemplateEmail`, and `broadcastEvent`.
+
+<Steps>
+<Step title="Wire dependencies">
+
+Create `config/deps/subscriptions-deps.ts` (scaffolded on install) and import it as a side-effect in `server.ts`.
+
+</Step>
+<Step title="Define plans">
+
+Define your plans in `config/plans.ts` and call `setPlanResolver()` so the feature-gate can resolve plans.
+
+</Step>
+<Step title="Sync and migrate">
+
+Run `bun run indigo:sync` to register routers and schema, then `bun run db:generate` and `bun run db:migrate`.
+
+</Step>
+</Steps>
+
+Webhook routes remain in the project under `app/api/webhooks/`.
+
+## Schema
+
+| Table | Notable columns |
+|---|---|
+| `saas_subscriptions` | `organizationId`, `providerId`, `providerCustomerId`, `providerSubscriptionId`, `planId`, `interval`, `status`, `currentPeriodStart/End`, `cancelAtPeriodEnd`, `trialEnd`, `gracePeriodEndsAt`, `lastGrantPeriodKey` |
+| `saas_discount_codes` | `code` (unique), `discountType`, `discountValue`, `trialDays`, `trialPriceCents`, `planSpecificDiscounts`, `maxUses`, `maxUsesPerUser`, `validFrom/Until`, `timeLimitHours` |
+| `saas_discount_usages` | `userId`, `discountCodeId`, `planId`, `appliedAt`, `usedAt`, `removedAt`, `transactionId` |
+| `saas_token_balances` | `organizationId` (unique), `balance` (purchased bucket), `planBalance` (expiring bucket), `lifetimeAdded`, `lifetimeUsed` |
+| `saas_token_lots` | `organizationId`, `initialAmount`, `remaining`, `expiresAt` — per-grant expiry lots (only with `planTokenValidityMonths`) |
+| `saas_token_transactions` | `organizationId`, `amount` (signed), `balanceAfter`, `reason`, `metadata` — append-only ledger |
+
+## API
+
+`billingRouter` (mounted as `billing`):
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `billing.getBillingConfig` | protected | Billing mode + purchasable token packs |
+| `billing.getPlans` | protected | List available plans |
+| `billing.getProviders` | protected | List enabled payment providers |
+| `billing.getSubscription` | protected | Current org subscription (defaults to `free`) |
+| `billing.createCheckoutSession` | protected | Start checkout for a plan/interval |
+| `billing.createPortalSession` | protected | Open the provider customer portal |
+| `billing.applyDiscountCode` | protected | Validate and apply a discount code |
+| `billing.removeDiscountCode` | protected | Remove the user's active discount |
+| `billing.getActiveDiscount` | protected | Get the user's currently applied discount |
+| `billing.renewSubscription` | protected | Renew an expired/past-due subscription |
+| `billing.purchaseTokenPack` | protected | One-time checkout for a token pack |
+| `billing.getTokenBalance` | protected | Org token balance and lifetime totals |
+| `billing.getTokenTransactions` | protected | Token ledger history |
+| `billing.getStats` | admin (`billing`) | MRR, churn, plan distribution, revenue |
+| `billing.listSubscriptions` | admin (`billing`) | Paginated subscription list with filters |
+| `billing.listChurned` | admin (`billing`) | Canceled/past-due/unpaid subscriptions |
+| `billing.listDiscountCodes` | admin (`billing`) | Discount codes with usage stats |
+| `billing.revenueOverTime` | admin (`billing`) | Revenue time series |
+| `billing.addTokens` | admin (`billing`) | Credit tokens to an org |
+| `billing.deductTokens` | admin (`billing`) | Debit tokens from an org |
+
+`discountCodesRouter` (mounted as `discountCodes`) — admin (`billing`) CRUD:
+
+| Endpoint | Access | Purpose |
+|---|---|---|
+| `discountCodes.list` | admin (`billing`) | List discount codes |
+| `discountCodes.get` | admin (`billing`) | Get a single discount code |
+| `discountCodes.create` | admin (`billing`) | Create a discount code |
+| `discountCodes.update` | admin (`billing`) | Update a discount code |
+| `discountCodes.delete` | admin (`billing`) | Delete a discount code |
+| `discountCodes.getUsageStats` | admin (`billing`) | Usage stats for a code |
+
+## Integration
+
+- Token mutations `addTokens()` and `deductTokens()` use an atomic `UPDATE WHERE balance >= amount` and are race-safe — call them from feature handlers for usage-based billing.
+- Dunning checks (`runDunningChecks`) process past-due and unpaid subscriptions.
+- Nav items are registered under the `billing` group (`Overview`, `Discount Codes`).
+- The seed `seedBilling` creates demo users, orgs, subscriptions, and token balances.
+
+## Related
+
+- [core-payments](/docs/modules/core-payments)
+- [core-payments-crypto](/docs/modules/core-payments-crypto)
+- [Module Development](/docs/api/module-development)

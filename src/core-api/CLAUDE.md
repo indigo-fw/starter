@@ -2,10 +2,6 @@
 
 Org-scoped REST API with key management, scopes, rate limiting, and usage metering.
 
-## Module Boundary
-
-**core-api owns:** API key schema (2 tables), key service, scope registry, v2 route wrapper, api-keys router, `ApiKeyManager` UI, maintenance tasks.
-
 **Project owns:** v2 REST endpoints (`app/api/v2/`), admin/account pages, `config/deps/api-deps.ts`, project-specific scope registration.
 
 ## DI (`setApiDeps()`)

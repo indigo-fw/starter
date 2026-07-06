@@ -13,7 +13,43 @@ description: How to install and set up Indigo for a new project
 - [PostgreSQL](https://www.postgresql.org/) 15+ with a running instance
 - [Git](https://git-scm.com/)
 
-## Quick Start
+Missing PostgreSQL or Redis? If you're setting up with an agent, it handles this: `bun run init` detects what's unreachable and prints an environment-diagnostics block with the exact fix for your OS (usually `docker compose up -d`, or installing Docker first). The agent relays the options in chat and asks before installing anything.
+
+## Set up with an agent (recommended)
+
+Setup is a conversation. Hand your agent the repo URL — it reads the README (which carries instructions for agents), installs everything, and asks *you* the setup questions in chat:
+
+<CodeTabs>
+<Tab label="Claude Code">
+
+```bash
+claude "Set up a new project named my-app from https://github.com/indigo-fw/starter — ask me what you need"
+```
+
+</Tab>
+<Tab label="Codex CLI">
+
+```bash
+codex "Set up a new project named my-app from https://github.com/indigo-fw/starter — ask me what you need"
+```
+
+</Tab>
+<Tab label="Gemini CLI">
+
+```bash
+gemini "Set up a new project named my-app from https://github.com/indigo-fw/starter — ask me what you need"
+```
+
+</Tab>
+</CodeTabs>
+
+The agent creates the folder itself (degit makes it), asks for your choices in chat — modules, site name, admin account, demo content — then runs the install and hands you the URL and generated credentials. When it finishes, open your next agent session **inside `my-app`**. Already have the files? Open your agent in the folder and type `/setup`.
+
+**No terminal at all?** The Claude Code desktop app works the same way: new session → choose an empty folder → "Set up a new project here from https://github.com/indigo-fw/starter — ask me what you need".
+
+## Set up by hand
+
+No agent required — the classic path, fully supported and identical underneath.
 
 Download the starter template (files only — no git history) and install dependencies:
 
@@ -48,7 +84,7 @@ Run the init script. It creates the database, runs migrations, creates a superad
 bun run init
 ```
 
-This will prompt you for a superadmin email and password. For non-interactive setup (CI, Docker), use `bun run init -- -y` — in that mode it leaves git alone.
+This will prompt you for a superadmin email and password. For non-interactive setup (agents, CI, Docker), every question has a flag or env-var answer — e.g. `bun run init -- -y --modules recommended --admin-email you@example.com`. In `-y` mode init leaves git alone.
 
 ## Start Development
 

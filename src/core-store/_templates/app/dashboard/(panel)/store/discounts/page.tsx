@@ -10,7 +10,6 @@ import {
   Search,
   Tag,
   Trash2,
-  ToggleLeft,
   ToggleRight,
   X,
 } from 'lucide-react';
