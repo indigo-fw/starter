@@ -10,7 +10,7 @@ noindex: false
 
 ### %SITE_NAME%とは何ですか？
 
-%SITE_NAME%は、T3 Stack（Next.js、tRPC、Drizzle ORM、Better Auth）上に構築されたオープンソースのAIエージェント駆動型CMSおよびSaaSスターターです。組織管理、課金、リアルタイム通知などのSaaS基盤を備えた包括的なコンテンツ管理システムを提供します。
+%SITE_NAME%は、T3 Stack（Next.js、tRPC、Drizzle ORM、Better Auth）上に構築されたオープンソースのエージェントネイティブなCMSおよびSaaSスターターです。組織管理、課金、リアルタイム通知などのSaaS基盤を備えた包括的なコンテンツ管理システムを提供します。
 
 ### %SITE_NAME%はどのような方を対象としていますか？
 

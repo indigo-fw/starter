@@ -24,6 +24,7 @@ import { db } from '@/server/db';
 import { cmsOptions } from '@/server/db/schema/cms';
 import { sql } from 'drizzle-orm';
 import { clientEnv, siteDefaults } from '@/config/site';
+import { LOCALES } from '@/lib/constants';
 import { getScope } from '@/core/lib/infra/scope';
 
 // ─── Cached Options Fetch ───────────────────────────────────────────────────
@@ -119,6 +120,8 @@ function buildVarMap(opts: Record<string, string>): Record<string, string> {
     // Auto-generated
     CURRENT_YEAR: new Date().getFullYear().toString(),
     CURRENT_DATE: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    // Derived from config, so copy that cites them can never drift
+    LOCALE_COUNT: String(LOCALES.length),
   };
 
   // Custom variables: var.MY_THING → %MY_THING%
@@ -227,6 +230,7 @@ const BUILTIN_VAR_LABELS: Record<string, string> = {
   SOCIAL_PINTEREST: 'Pinterest',
   CURRENT_YEAR: 'Current Year',
   CURRENT_DATE: 'Current Date',
+  LOCALE_COUNT: 'Locale Count',
 };
 
 /**

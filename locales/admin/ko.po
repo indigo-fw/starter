@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.556Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.556Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.988Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.988Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko\n"
 "Language: ko\n"
@@ -11,6 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:49
 msgid "Activity Log"
@@ -655,12 +656,6 @@ msgstr "업로드 실패"
 #: src/app/dashboard/(panel)/media/page.tsx:108
 msgid "Failed to upload {name}"
 msgstr "{name} 업로드 실패"
-
-#: src/app/dashboard/(panel)/media/page.tsx:113
-msgid "1 file uploaded"
-msgid_plural "{count} files uploaded"
-msgstr[0] "1 file uploaded"
-msgstr[1] "{count} files uploaded"
 
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
@@ -1820,13 +1815,8 @@ msgstr "콘텐츠 유형"
 msgid "Choices (one per line)"
 msgstr "선택지 (줄당 하나)"
 
-#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
-msgid "Option A
-Option B
-Option C"
-msgstr "Option A
-Option B
-Option C"
+msgid "Option "
+msgstr "옵션 "
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
@@ -2178,12 +2168,6 @@ msgstr "\"{key}\"을(를) 기본값으로 초기화"
 msgid "GA4 connection successful"
 msgstr "GA4 연결 성공"
 
-#: src/app/dashboard/(panel)/settings/page.tsx:67
-msgid "Created 1 SEO override page"
-msgid_plural "Created {count} SEO override pages"
-msgstr[0] "Created 1 SEO override page"
-msgstr[1] "Created {count} SEO override pages"
-
 #: src/app/dashboard/(panel)/settings/page.tsx:201
 msgid "Settings"
 msgstr "설정"
@@ -2346,31 +2330,31 @@ msgstr "티켓 목록으로"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "보내지 않은 답장"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "수신함에는 보내지 않은 답장이 하나 있습니다. 상태를 변경하기 전에 보내시겠습니까?"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "보내기 및 상태 변경"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "클립보드에 복사하지 못했습니다"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "전체 대화 내용을 클립보드에 복사하기 (LLM 호환 형식)"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "복사했습니다!"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "대화 내용 복사"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
@@ -2399,7 +2383,7 @@ msgstr "이 티켓은 종료되었습니다."
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "티켓 재개"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
@@ -2447,7 +2431,7 @@ msgstr "테스트 발송 완료 (상태 {status})"
 
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:114
 msgid "Webhooks"
-msgstr "Webhooks"
+msgstr "웹훅"
 
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:119
 msgid "New Webhook"
@@ -2476,67 +2460,67 @@ msgstr "\"{name}\"이(가) 영구적으로 삭제됩니다."
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:41
 msgid "Product created"
-msgstr "Product created"
+msgstr "제품 생성됨"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:50
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:296
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "이름은 필수 입력 사항입니다."
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:83
 msgid "New Product"
-msgstr "New Product"
+msgstr "신제품"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:98
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:390
 msgid "Product Details"
-msgstr "Product Details"
+msgstr "제품 상세 정보"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:107
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:404
 msgid "Simple"
-msgstr "Simple"
+msgstr "간단한"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:108
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:405
 msgid "Variable"
-msgstr "Variable"
+msgstr "변수"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:109
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:406
 msgid "Digital"
-msgstr "Digital"
+msgstr "디지털"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:110
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:407
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "구독"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:114
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:419
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "간략한 설명"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:126
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:430
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "가격"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:129
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:433
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:597
 msgid "Price (EUR)"
-msgstr "Price (EUR)"
+msgstr "가격 (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:139
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:443
 msgid "Compare Price (EUR)"
-msgstr "Compare Price (EUR)"
+msgstr "가격 비교 (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:146
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:450
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "할인 상품의 원래 가격"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:454
@@ -2548,122 +2532,122 @@ msgstr "SKU"
 #: src/app/dashboard/(panel)/store/new/page.tsx:154
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:458
 msgid "Tax Class"
-msgstr "Tax Class"
+msgstr "세금 등급"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:460
 msgid "Standard"
-msgstr "Standard"
+msgstr "표준"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:157
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:461
 msgid "Reduced"
-msgstr "Reduced"
+msgstr "감소된"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:158
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:462
 msgid "Zero"
-msgstr "Zero"
+msgstr "0"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:469
 msgid "Inventory & Shipping"
-msgstr "Inventory & Shipping"
+msgstr "재고 및 배송"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:171
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:474
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "재고 추적"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:175
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:478
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "재고 수량"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:482
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "무게 (그램)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:185
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:488
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "배송이 필요합니다"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:193
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:495
 msgid "Media & SEO"
-msgstr "Media & SEO"
+msgstr "미디어 및 SEO"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:196
 msgid "Featured Image URL"
-msgstr "Featured Image URL"
+msgstr "대표 이미지 URL"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:200
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:505
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "메타 제목"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:204
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:509
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "메타 설명"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:213
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:517
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "디지털 제품"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:216
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:520
 msgid "File URL"
-msgstr "File URL"
+msgstr "파일 URL"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:220
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:525
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "다운로드 제한"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:526
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "무제한"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:82
 msgid "Orders"
-msgstr "Orders"
+msgstr "주문"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:113
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "주문 번호로 검색..."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:156
 msgid "No orders"
-msgstr "No orders"
+msgstr "주문 없음"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "검색 조건에 맞는 주문이 없습니다."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "아직 주문이 없습니다."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:165
 msgid "Order #"
-msgstr "Order #"
+msgstr "주문 번호 #"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:199
 msgid "View"
-msgstr "View"
+msgstr "보기"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:119
 msgid "Order not found."
-msgstr "Order not found."
+msgstr "주문을 찾을 수 없습니다."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:138
 msgid "Select a status"
-msgstr "Select a status"
+msgstr "상태 선택"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:160
 #: src/components/admin/CategoryForm.tsx:471
@@ -2673,198 +2657,198 @@ msgstr "순서"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:174
 msgid "Order Information"
-msgstr "Order Information"
+msgstr "주문 정보"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:177
 msgid "Order Number"
-msgstr "Order Number"
+msgstr "주문 번호"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:185
 msgid "Payment"
-msgstr "Payment"
+msgstr "결제"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:192
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "청구서"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:198
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "소계"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:202
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "배송"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:206
 msgid "Tax"
-msgstr "Tax"
+msgstr "세금"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:216
 msgid "Discount"
-msgstr "Discount"
+msgstr "할인"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:222
 msgid "Tracking"
-msgstr "Tracking"
+msgstr "추적"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:231
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:268
 msgid "Update Status"
-msgstr "Update Status"
+msgstr "상태 업데이트"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:234
 msgid "New Status"
-msgstr "New Status"
+msgstr "새로운 상태"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:236
 msgid "Select status..."
-msgstr "Select status..."
+msgstr "상태 선택..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:237
 msgid "Processing"
-msgstr "Processing"
+msgstr "처리"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:238
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "발송됨"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:239
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "배송 완료"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:240
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "취소됨"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:241
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "환불됨"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:245
 msgid "Note (optional)"
-msgstr "Note (optional)"
+msgstr "참고 (선택 사항)"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:246
 msgid "Internal note..."
-msgstr "Internal note..."
+msgstr "내부 메모..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:251
 msgid "Tracking Number"
-msgstr "Tracking Number"
+msgstr "추적 번호"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:255
 msgid "Tracking URL"
-msgstr "Tracking URL"
+msgstr "추적 URL"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:276
 msgid "Order Items"
-msgstr "Order Items"
+msgstr "주문 내역"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:281
 msgid "Product"
-msgstr "Product"
+msgstr "제품"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:282
 msgid "Variant"
-msgstr "Variant"
+msgstr "변형"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:283
 msgid "Qty"
-msgstr "Qty"
+msgstr "수량"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:284
 msgid "Unit Price"
-msgstr "Unit Price"
+msgstr "단가"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:307
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "연표"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:323
 msgid "by"
-msgstr "by"
+msgstr "작성자:"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:340
 msgid "Admin Note"
-msgstr "Admin Note"
+msgstr "관리자 참고 사항"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:348
 msgid "Customer Note"
-msgstr "Customer Note"
+msgstr "고객 참고 사항"
 
 #: src/app/dashboard/(panel)/store/page.tsx:69
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:217
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "상품이 삭제되었습니다"
 
 #: src/app/dashboard/(panel)/store/page.tsx:88
 msgid "Store Products"
-msgstr "Store Products"
+msgstr "상품 저장"
 
 #: src/app/dashboard/(panel)/store/page.tsx:91
 #: src/app/dashboard/(panel)/store/page.tsx:165
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "상품 추가"
 
 #: src/app/dashboard/(panel)/store/page.tsx:123
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "상품 검색..."
 
 #: src/app/dashboard/(panel)/store/page.tsx:158
 msgid "No products"
-msgstr "No products"
+msgstr "상품이 없습니다"
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "검색 조건에 맞는 상품이 없습니다."
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "시작하려면 첫 번째 제품을 만들어 보세요."
 
 #: src/app/dashboard/(panel)/store/page.tsx:176
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:549
 msgid "Price"
-msgstr "Price"
+msgstr "가격"
 
 #: src/app/dashboard/(panel)/store/page.tsx:178
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:550
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Stock"
-msgstr "Stock"
+msgstr "재고"
 
 #: src/app/dashboard/(panel)/store/page.tsx:279
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:630
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "상품을 삭제하시겠습니까?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:209
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "상품 저장됨"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:225
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "변형 추가됨"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:235
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "변이 삭제됨"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:297
 msgid "Price cannot be negative"
-msgstr "Price cannot be negative"
+msgstr "가격은 음수가 될 수 없습니다."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:298
 msgid "File URL is required for digital products"
-msgstr "File URL is required for digital products"
+msgstr "디지털 제품의 경우 파일 URL을 입력해야 합니다."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:329
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "변형명을 입력해야 합니다."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:354
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "상품 편집"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:498
 #: src/components/admin/PortfolioForm.tsx:531
@@ -2873,43 +2857,43 @@ msgstr "대표 이미지"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:534
 msgid "Variants"
-msgstr "Variants"
+msgstr "변형"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:538
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "변형 추가"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:579
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "아직 변형 상품이 없습니다. 다양한 옵션을 제공하려면 변형 상품을 추가하세요."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:586
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "새로운 변종"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:590
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "예: 대 / 빨강"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:611
 msgid "Weight (g)"
-msgstr "Weight (g)"
+msgstr "무게 (g)"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:619
 msgid "Add"
-msgstr "Add"
+msgstr "추가"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:641
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "변형 삭제하시겠습니까?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:642
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "이 변종은 영구적으로 삭제될 예정입니다."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:677
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "해당 상품을 찾을 수 없습니다."
 
 #: src/app/dashboard/(panel)/users/page.tsx:80
 msgid "Role updated"
@@ -3045,7 +3029,7 @@ msgstr "IP 주소"
 
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:351
 msgid "User Agent"
-msgstr "User Agent"
+msgstr "사용자 에이전트"
 
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:400
 msgid "Audit Trail"
@@ -3202,12 +3186,6 @@ msgstr "영구 삭제됨"
 msgid "Duplicated"
 msgstr "복제됨"
 
-#: src/components/admin/CmsListView.tsx:366
-msgid "Exported 1 item"
-msgid_plural "Exported {count} items"
-msgstr[0] "Exported 1 item"
-msgstr[1] "Exported {count} items"
-
 #: src/components/admin/CmsListView.tsx:569
 msgid "Toggle columns"
 msgstr "열 표시 전환"
@@ -3291,18 +3269,6 @@ msgstr "\"{title}\"이(가) 영구적으로 삭제됩니다. 되돌릴 수 없�
 #: src/components/admin/CmsListView.tsx:989
 msgid "\"{title}\" will be moved to trash."
 msgstr "\"{title}\"이(가) 휴지통으로 이동됩니다."
-
-#: src/components/admin/CmsListView.tsx:1001
-msgid "1 item will be moved to trash."
-msgid_plural "{count} items will be moved to trash."
-msgstr[0] "1 item will be moved to trash."
-msgstr[1] "{count} items will be moved to trash."
-
-#: src/components/admin/CmsListView.tsx:1018
-msgid "Created 1 SEO override"
-msgid_plural "Created {count} SEO overrides"
-msgstr[0] "Created 1 SEO override"
-msgstr[1] "Created {count} SEO overrides"
 
 #: src/components/admin/CmsListView.tsx:1022
 msgid "All SEO overrides already exist"
@@ -3572,7 +3538,3 @@ msgstr "최근 활동"
 #: src/config/dashboard-widgets.tsx:44
 msgid "View all"
 msgstr "전체 보기"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Option A\nOption B\nOption C"
-#~ msgstr "옵션 A\n옵션 B\n옵션 C"

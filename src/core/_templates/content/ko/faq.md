@@ -10,7 +10,7 @@ noindex: false
 
 ### %SITE_NAME%이란 무엇입니까?
 
-%SITE_NAME%은 T3 Stack(Next.js, tRPC, Drizzle ORM, Better Auth) 기반의 오픈 소스 AI 에이전트 중심 CMS 및 SaaS 스타터입니다. 조직, 결제, 실시간 알림 등 SaaS 기본 요소를 갖춘 완전한 콘텐츠 관리 시스템을 제공합니다.
+%SITE_NAME%은 T3 Stack(Next.js, tRPC, Drizzle ORM, Better Auth) 기반의 오픈 소스 에이전트 네이티브 CMS 및 SaaS 스타터입니다. 조직, 결제, 실시간 알림 등 SaaS 기본 요소를 갖춘 완전한 콘텐츠 관리 시스템을 제공합니다.
 
 ### %SITE_NAME%은 누구를 위한 것입니까?
 

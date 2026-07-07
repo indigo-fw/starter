@@ -10,7 +10,7 @@ noindex: false
 
 ### Mikä on %SITE_NAME%?
 
-%SITE_NAME% on avoimen lähdekoodin tekoälyagenttipohjainen CMS- ja SaaS-aloituspaketti, joka on rakennettu T3 Stackille (Next.js, tRPC, Drizzle ORM, Better Auth). Se tarjoaa täydellisen sisällönhallintajärjestelmän SaaS-primitiiveillä, kuten organisaatiot, laskutus ja reaaliaikaiset ilmoitukset.
+%SITE_NAME% on avoimen lähdekoodin agenttinatiivi CMS- ja SaaS-aloituspaketti, joka on rakennettu T3 Stackille (Next.js, tRPC, Drizzle ORM, Better Auth). Se tarjoaa täydellisen sisällönhallintajärjestelmän SaaS-primitiiveillä, kuten organisaatiot, laskutus ja reaaliaikaiset ilmoitukset.
 
 ### Kenelle %SITE_NAME% on tarkoitettu?
 

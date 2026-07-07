@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.660Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.660Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:39.055Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:39.055Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: da\n"
 "Language: da\n"
@@ -11,6 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:49
 msgid "Activity Log"
@@ -656,12 +657,6 @@ msgstr "Upload mislykkedes"
 msgid "Failed to upload {name}"
 msgstr "Kunne ikke uploade {name}"
 
-#: src/app/dashboard/(panel)/media/page.tsx:113
-msgid "1 file uploaded"
-msgid_plural "{count} files uploaded"
-msgstr[0] "1 file uploaded"
-msgstr[1] "{count} files uploaded"
-
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
 msgid "Media Library"
@@ -1034,7 +1029,7 @@ msgstr "Slet \"{name}\"? Denne handling kan ikke fortrydes."
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
-msgstr "Affiliates"
+msgstr "Partnere"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:37
 #: src/app/dashboard/(panel)/settings/support/page.tsx:87
@@ -1334,7 +1329,7 @@ msgstr "Ingen karakterer endnu. Opret din første AI-persona."
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:188
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "Slogan"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:191
 msgid "System Prompt"
@@ -1500,7 +1495,7 @@ msgstr "Beskeder"
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:130
 msgid "Tokens"
-msgstr "Tokens"
+msgstr "Token"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:55
 msgid "Last Active"
@@ -1663,7 +1658,7 @@ msgstr "Maks. samtidige"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:134
 msgid "Timeout (s)"
-msgstr "Timeout (s)"
+msgstr "Timeout (sek.)"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:153
 msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
@@ -1781,7 +1776,7 @@ msgstr "Gns. ms"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:179
 msgid "Rate"
-msgstr "Rate"
+msgstr "Kurs"
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:60
 msgid "Custom field created"
@@ -1820,13 +1815,8 @@ msgstr "Indholdstyper"
 msgid "Choices (one per line)"
 msgstr "Valg (ét pr. linje)"
 
-#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
-msgid "Option A
-Option B
-Option C"
-msgstr "Option A
-Option B
-Option C"
+msgid "Option "
+msgstr "Valgmulighed "
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
@@ -2178,12 +2168,6 @@ msgstr "Nulstil \"{key}\" til standard"
 msgid "GA4 connection successful"
 msgstr "GA4-forbindelse vellykket"
 
-#: src/app/dashboard/(panel)/settings/page.tsx:67
-msgid "Created 1 SEO override page"
-msgid_plural "Created {count} SEO override pages"
-msgstr[0] "Created 1 SEO override page"
-msgstr[1] "Created {count} SEO override pages"
-
 #: src/app/dashboard/(panel)/settings/page.tsx:201
 msgid "Settings"
 msgstr "Indstillinger"
@@ -2229,7 +2213,7 @@ msgstr "Chatsession ikke fundet."
 
 #: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
 msgid "Live Chat"
-msgstr "Live Chat"
+msgstr "Livechat"
 
 #: src/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
 msgid "View Ticket"
@@ -2321,7 +2305,7 @@ msgstr "Billetter"
 
 #: src/app/dashboard/(panel)/settings/support/page.tsx:368
 msgid "Live Chats"
-msgstr "Live Chats"
+msgstr "Livechats"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:157
 msgid "Reply sent"
@@ -2346,31 +2330,31 @@ msgstr "Tilbage til billetter"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "Ikke-afsendt svar"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "Du har et uafsendt svar i indbakken. Vil du sende det, før du ændrer status?"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "Send og ændr status"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "Det lykkedes ikke at kopiere til udklipsholderen"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "Kopier hele samtalen til udklipsholderen (LLM-venligt format)"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "Kopieret!"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "Kopier samtale"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
@@ -2399,7 +2383,7 @@ msgstr "Denne billet er lukket."
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "Genåbn sag"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
@@ -2476,79 +2460,79 @@ msgstr "\"{name}\" vil blive permanent slettet."
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:41
 msgid "Product created"
-msgstr "Product created"
+msgstr "Produkt oprettet"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:50
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:296
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "Navn er obligatorisk"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:83
 msgid "New Product"
-msgstr "New Product"
+msgstr "Nyt produkt"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:98
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:390
 msgid "Product Details"
-msgstr "Product Details"
+msgstr "Produktoplysninger"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:107
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:404
 msgid "Simple"
-msgstr "Simple"
+msgstr "Enkelt"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:108
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:405
 msgid "Variable"
-msgstr "Variable"
+msgstr "Variabel"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:109
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:406
 msgid "Digital"
-msgstr "Digital"
+msgstr "Digitalt"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:110
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:407
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "Abonnement"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:114
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:419
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "Kort beskrivelse"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:126
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:430
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "Priser"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:129
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:433
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:597
 msgid "Price (EUR)"
-msgstr "Price (EUR)"
+msgstr "Pris (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:139
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:443
 msgid "Compare Price (EUR)"
-msgstr "Compare Price (EUR)"
+msgstr "Sammenlign priser (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:146
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:450
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "Oprindelig pris for udsalgsvarer"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:454
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:548
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:593
 msgid "SKU"
-msgstr "SKU"
+msgstr "Varenummer"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:154
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:458
 msgid "Tax Class"
-msgstr "Tax Class"
+msgstr "Skatteklasse"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:460
@@ -2558,112 +2542,112 @@ msgstr "Standard"
 #: src/app/dashboard/(panel)/store/new/page.tsx:157
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:461
 msgid "Reduced"
-msgstr "Reduced"
+msgstr "Nedsat"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:158
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:462
 msgid "Zero"
-msgstr "Zero"
+msgstr "Nul"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:469
 msgid "Inventory & Shipping"
-msgstr "Inventory & Shipping"
+msgstr "Lager og forsendelse"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:171
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:474
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "Overvåg lagerbeholdningen"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:175
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:478
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "Lagerbeholdning"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:482
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "Vægt (gram)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:185
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:488
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "Kræver forsendelse"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:193
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:495
 msgid "Media & SEO"
-msgstr "Media & SEO"
+msgstr "Medier og SEO"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:196
 msgid "Featured Image URL"
-msgstr "Featured Image URL"
+msgstr "URL til det fremhævede billede"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:200
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:505
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "Metatitel"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:204
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:509
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "Metabeskrivelse"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:213
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:517
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "Digitalt produkt"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:216
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:520
 msgid "File URL"
-msgstr "File URL"
+msgstr "Fil-URL"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:220
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:525
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "Downloadgrænse"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:526
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "Ubegrænset"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:82
 msgid "Orders"
-msgstr "Orders"
+msgstr "Bestillinger"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:113
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "Søg efter ordrenummer..."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:156
 msgid "No orders"
-msgstr "No orders"
+msgstr "Ingen ordrer"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "Der er ingen ordrer, der matcher din søgning."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "Der er endnu ingen ordrer."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:165
 msgid "Order #"
-msgstr "Order #"
+msgstr "Ordrenr."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:199
 msgid "View"
-msgstr "View"
+msgstr "Vis"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:119
 msgid "Order not found."
-msgstr "Order not found."
+msgstr "Ordren blev ikke fundet."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:138
 msgid "Select a status"
-msgstr "Select a status"
+msgstr "Vælg en status"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:160
 #: src/components/admin/CategoryForm.tsx:471
@@ -2673,96 +2657,96 @@ msgstr "Rækkefølge"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:174
 msgid "Order Information"
-msgstr "Order Information"
+msgstr "Bestillingsoplysninger"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:177
 msgid "Order Number"
-msgstr "Order Number"
+msgstr "Ordrenummer"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:185
 msgid "Payment"
-msgstr "Payment"
+msgstr "Betaling"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:192
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "Faktura"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:198
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "Delsum"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:202
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "Forsendelse"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:206
 msgid "Tax"
-msgstr "Tax"
+msgstr "Skat"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:216
 msgid "Discount"
-msgstr "Discount"
+msgstr "Rabat"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:222
 msgid "Tracking"
-msgstr "Tracking"
+msgstr "Sporing"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:231
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:268
 msgid "Update Status"
-msgstr "Update Status"
+msgstr "Opdateringsstatus"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:234
 msgid "New Status"
-msgstr "New Status"
+msgstr "Ny status"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:236
 msgid "Select status..."
-msgstr "Select status..."
+msgstr "Vælg status..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:237
 msgid "Processing"
-msgstr "Processing"
+msgstr "Behandling"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:238
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "Afsendt"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:239
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "Leveret"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:240
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "Aflyst"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:241
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "Refunderet"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:245
 msgid "Note (optional)"
-msgstr "Note (optional)"
+msgstr "Bemærkning (valgfri)"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:246
 msgid "Internal note..."
-msgstr "Internal note..."
+msgstr "Intern bemærkning..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:251
 msgid "Tracking Number"
-msgstr "Tracking Number"
+msgstr "Sporingsnummer"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:255
 msgid "Tracking URL"
-msgstr "Tracking URL"
+msgstr "Sporings-URL"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:276
 msgid "Order Items"
-msgstr "Order Items"
+msgstr "Bestilte varer"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:281
 msgid "Product"
-msgstr "Product"
+msgstr "Produkt"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:282
 msgid "Variant"
@@ -2770,101 +2754,101 @@ msgstr "Variant"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:283
 msgid "Qty"
-msgstr "Qty"
+msgstr "Antal"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:284
 msgid "Unit Price"
-msgstr "Unit Price"
+msgstr "Enhedspris"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:307
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "Tidslinje"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:323
 msgid "by"
-msgstr "by"
+msgstr "af"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:340
 msgid "Admin Note"
-msgstr "Admin Note"
+msgstr "Administratorens bemærkning"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:348
 msgid "Customer Note"
-msgstr "Customer Note"
+msgstr "Bemærkning fra kunden"
 
 #: src/app/dashboard/(panel)/store/page.tsx:69
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:217
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "Produktet er slettet"
 
 #: src/app/dashboard/(panel)/store/page.tsx:88
 msgid "Store Products"
-msgstr "Store Products"
+msgstr "Butiksprodukter"
 
 #: src/app/dashboard/(panel)/store/page.tsx:91
 #: src/app/dashboard/(panel)/store/page.tsx:165
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "Tilføj produkt"
 
 #: src/app/dashboard/(panel)/store/page.tsx:123
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "Søg efter produkter..."
 
 #: src/app/dashboard/(panel)/store/page.tsx:158
 msgid "No products"
-msgstr "No products"
+msgstr "Ingen produkter"
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "Der er ingen produkter, der matcher din søgning."
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "Opret dit første produkt for at komme i gang."
 
 #: src/app/dashboard/(panel)/store/page.tsx:176
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:549
 msgid "Price"
-msgstr "Price"
+msgstr "Pris"
 
 #: src/app/dashboard/(panel)/store/page.tsx:178
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:550
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Stock"
-msgstr "Stock"
+msgstr "Lagerbeholdning"
 
 #: src/app/dashboard/(panel)/store/page.tsx:279
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:630
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "Skal produktet slettes?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:209
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "Produkt gemt"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:225
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "Variant tilføjet"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:235
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "Variant slettet"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:297
 msgid "Price cannot be negative"
-msgstr "Price cannot be negative"
+msgstr "Prisen kan ikke være negativ"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:298
 msgid "File URL is required for digital products"
-msgstr "File URL is required for digital products"
+msgstr "Fil-URL er påkrævet for digitale produkter"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:329
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "Variantnavn er obligatorisk"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:354
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "Rediger produkt"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:498
 #: src/components/admin/PortfolioForm.tsx:531
@@ -2873,43 +2857,43 @@ msgstr "Fremhævet billede"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:534
 msgid "Variants"
-msgstr "Variants"
+msgstr "Variationer"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:538
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "Tilføj variant"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:579
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "Der er endnu ingen varianter. Tilføj varianter for at tilbyde forskellige muligheder."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:586
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "Ny variant"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:590
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "f.eks. Stor / Rød"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:611
 msgid "Weight (g)"
-msgstr "Weight (g)"
+msgstr "Vægt (g)"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:619
 msgid "Add"
-msgstr "Add"
+msgstr "Tilføj"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:641
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "Skal varianten slettes?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:642
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "Denne variant vil blive fjernet permanent."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:677
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "Produktet blev ikke fundet."
 
 #: src/app/dashboard/(panel)/users/page.tsx:80
 msgid "Role updated"
@@ -3202,12 +3186,6 @@ msgstr "Permanent slettet"
 msgid "Duplicated"
 msgstr "Duplikeret"
 
-#: src/components/admin/CmsListView.tsx:366
-msgid "Exported 1 item"
-msgid_plural "Exported {count} items"
-msgstr[0] "Exported 1 item"
-msgstr[1] "Exported {count} items"
-
 #: src/components/admin/CmsListView.tsx:569
 msgid "Toggle columns"
 msgstr "Skift kolonner"
@@ -3291,18 +3269,6 @@ msgstr "\"{title}\" vil blive permanent slettet. Dette kan ikke fortrydes."
 #: src/components/admin/CmsListView.tsx:989
 msgid "\"{title}\" will be moved to trash."
 msgstr "\"{title}\" vil blive flyttet til papirkurv."
-
-#: src/components/admin/CmsListView.tsx:1001
-msgid "1 item will be moved to trash."
-msgid_plural "{count} items will be moved to trash."
-msgstr[0] "1 item will be moved to trash."
-msgstr[1] "{count} items will be moved to trash."
-
-#: src/components/admin/CmsListView.tsx:1018
-msgid "Created 1 SEO override"
-msgid_plural "Created {count} SEO overrides"
-msgstr[0] "Created 1 SEO override"
-msgstr[1] "Created {count} SEO overrides"
 
 #: src/components/admin/CmsListView.tsx:1022
 msgid "All SEO overrides already exist"
@@ -3572,7 +3538,3 @@ msgstr "Seneste aktivitet"
 #: src/config/dashboard-widgets.tsx:44
 msgid "View all"
 msgstr "Se alle"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Option "
-#~ msgstr "Valgmulighed "

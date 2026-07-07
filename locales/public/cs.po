@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.417Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.417Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.912Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.912Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: cs\n"
 "Language: cs\n"
@@ -12,9 +12,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+
 #: src/app/(public)/account/orders/[id]/page.tsx:19
 msgid "Order Details"
-msgstr "Order Details"
+msgstr "Podrobnosti objednávky"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "Welcome"
@@ -132,9 +133,9 @@ msgstr "Naléhavé"
 
 #: src/app/(public)/blog/page.tsx:28
 #: src/app/(public)/blog/page.tsx:70
-#: src/app/(public)/layout.tsx:94
-#: src/app/(public)/layout.tsx:159
-#: src/app/(public)/layout.tsx:242
+#: src/app/(public)/layout.tsx:93
+#: src/app/(public)/layout.tsx:158
+#: src/app/(public)/layout.tsx:244
 #: src/app/(showcase)/layout.tsx:53
 #: src/app/(showcase)/layout.tsx:75
 msgid "Blog"
@@ -153,11 +154,11 @@ msgstr "Blog"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:178
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:314
 msgid "Page"
-msgstr "Page"
+msgstr "Stránka"
 
 #: src/app/(public)/blog/page.tsx:36
 msgid "Latest blog posts"
-msgstr "Latest blog posts"
+msgstr "Nejnovější příspěvky na blogu"
 
 #: src/app/(public)/blog/page.tsx:94
 #: src/app/(public)/store/page.tsx:170
@@ -172,13 +173,13 @@ msgstr "Latest blog posts"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:175
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:311
 msgid "Previous"
-msgstr "Previous"
+msgstr "Předchozí"
 
 #: src/app/(public)/blog/page.tsx:98
 #: src/app/(public)/store/page.tsx:174
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:108
 msgid "Page {page} of {totalPages}"
-msgstr "Page {page} of {totalPages}"
+msgstr "Stránka {page} z webu {totalPages}"
 
 #: src/app/(public)/blog/page.tsx:105
 #: src/app/(public)/store/page.tsx:186
@@ -193,173 +194,175 @@ msgstr "Page {page} of {totalPages}"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:185
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:321
 msgid "Next"
-msgstr "Next"
+msgstr "Další"
 
 #: src/app/(public)/blog/page.tsx:112
 msgid "No blog posts yet."
-msgstr "No blog posts yet."
+msgstr "Zatím zde nejsou žádné příspěvky na blogu."
 
 #: src/app/(public)/cart/page.tsx:13
 msgid "Cart"
-msgstr "Cart"
+msgstr "Nákupní košík"
 
 #: src/app/(public)/cart/page.tsx:14
 msgid "Your shopping cart"
-msgstr "Your shopping cart"
+msgstr "Váš nákupní košík"
 
 #: src/app/(public)/cart/page.tsx:23
 msgid "Shopping Cart"
-msgstr "Shopping Cart"
+msgstr "Nákupní košík"
 
 #: src/app/(public)/characters/page.tsx:13
 msgid "AI Characters"
-msgstr "AI Characters"
+msgstr "Postavy vytvořené umělou inteligencí"
 
 #: src/app/(public)/characters/page.tsx:14
 msgid "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
-msgstr "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
+msgstr "Prohlédněte si postavy s umělou inteligencí, které mají jedinečné osobnosti. Najděte si ideálního společníka a začněte s ním hned chatovat."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:52
 msgid "This field is required"
-msgstr "This field is required"
+msgstr "Toto pole je povinné"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:86
 msgid "First Name"
-msgstr "First Name"
+msgstr "Křestní jméno"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:91
 msgid "Last Name"
-msgstr "Last Name"
+msgstr "Příjmení"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:97
 msgid "Company"
-msgstr "Company"
+msgstr "Společnost"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:101
 msgid "Address"
-msgstr "Address"
+msgstr "Adresa"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:106
 msgid "Address line 2"
-msgstr "Address line 2"
+msgstr "Adresní řádek 2"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:111
 msgid "City"
-msgstr "City"
+msgstr "Město"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:116
 msgid "Postal Code"
-msgstr "Postal Code"
+msgstr "PSČ"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:123
 msgid "Country"
-msgstr "Country"
+msgstr "Země"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:129
 msgid "Phone"
-msgstr "Phone"
+msgstr "Telefon"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:213
 msgid "Shipping Address"
-msgstr "Shipping Address"
+msgstr "Doručovací adresa"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:220
 msgid "Shipping Method"
-msgstr "Shipping Method"
+msgstr "Způsob dopravy"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:233
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "days"
-msgstr "days"
+msgstr "dny"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:236
 #: src/app/(public)/checkout/CheckoutForm.tsx:273
 #: src/app/(public)/page.tsx:313
 msgid "Free"
-msgstr "Free"
+msgstr "Zdarma"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:245
 msgid "Order Note"
-msgstr "Order Note"
+msgstr "Poznámka k objednávce"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:249
 msgid "Any special instructions..."
-msgstr "Any special instructions..."
+msgstr "Máte nějaké zvláštní pokyny..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:258
 msgid "Order Summary"
-msgstr "Order Summary"
+msgstr "Souhrn objednávky"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:268
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "Mezisoučet"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:272
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "Doprava"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:277
 msgid "Tax"
-msgstr "Tax"
+msgstr "Daně"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:282
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:304
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:408
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:69
 msgid "Total"
-msgstr "Total"
+msgstr "Celkem"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:299
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Processing..."
-msgstr "Processing..."
+msgstr "Zpracovává se..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:301
 msgid "Place Order"
-msgstr "Place Order"
+msgstr "Objednat"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:306
 msgid "Back to Cart"
-msgstr "Back to Cart"
+msgstr "Zpět do košíku"
 
 #: src/app/(public)/checkout/page.tsx:15
 #: src/app/(public)/checkout/page.tsx:40
 msgid "Checkout"
-msgstr "Checkout"
+msgstr "Pokladna"
 
 #: src/app/(public)/checkout/page.tsx:16
 msgid "Complete your order"
-msgstr "Complete your order"
+msgstr "Dokončete objednávku"
 
 #: src/app/(public)/docs/page.tsx:24
 #: src/app/(public)/page.tsx:346
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
-msgstr "Documentation"
+msgstr "Dokumentace"
 
 #: src/app/(public)/docs/page.tsx:25
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:25
 msgid "No documentation pages found yet."
-msgstr "No documentation pages found yet."
+msgstr "Zatím nebyly nalezeny žádné stránky s dokumentací."
 
 #: src/app/(public)/forgot-password/page.tsx:9
 #: src/app/(public)/forgot-password/page.tsx:20
 msgid "Forgot Password"
-msgstr "Forgot Password"
+msgstr "Zapomněli jste heslo?"
 
 #: src/app/(public)/forgot-password/page.tsx:10
 msgid "Reset your password"
-msgstr "Reset your password"
+msgstr "Obnovit heslo"
 
 #: src/app/(public)/forgot-password/page.tsx:21
 msgid "Enter your email to receive a reset link."
-msgstr "Enter your email to receive a reset link."
+msgstr "Zadejte svou e-mailovou adresu, abyste obdrželi odkaz pro obnovení hesla."
 
-#: src/app/(public)/layout.tsx:39
+#: src/app/(public)/layout.tsx:38
 msgctxt "General"
 msgid "This page is available in {language}"
-msgstr "This page is available in {language}"
+msgstr "Tato stránka je k dispozici na adrese {language}"
 
-#: src/app/(public)/layout.tsx:99
-#: src/app/(public)/layout.tsx:243
+#: src/app/(public)/layout.tsx:98
+#: src/app/(public)/layout.tsx:245
 #: src/app/(public)/portfolio/page.tsx:24
 #: src/app/(public)/portfolio/page.tsx:45
 #: src/app/(showcase)/layout.tsx:54
@@ -367,17 +370,16 @@ msgstr "This page is available in {language}"
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: src/app/(public)/layout.tsx:100
-#: src/app/(public)/layout.tsx:171
-#: src/app/(public)/layout.tsx:244
+#: src/app/(public)/layout.tsx:99
+#: src/app/(public)/layout.tsx:170
+#: src/app/(public)/layout.tsx:246
 #: src/app/(showcase)/showcase/page.tsx:24
 msgid "Showcase"
-msgstr "Showcase"
+msgstr "Prezentace"
 
-#: src/app/(public)/layout.tsx:101
-#: src/app/(public)/layout.tsx:174
-#: src/app/(public)/layout.tsx:183
-#: src/app/(public)/layout.tsx:245
+#: src/app/(public)/layout.tsx:100
+#: src/app/(public)/layout.tsx:173
+#: src/app/(public)/layout.tsx:247
 #: src/app/(public)/store/page.tsx:22
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:936
@@ -385,11 +387,11 @@ msgstr "Showcase"
 #: src/core-store/_templates/app/(public)/store/page.tsx:9
 #: src/core-store/_templates/app/(public)/store/page.tsx:12
 msgid "Store"
-msgstr "Store"
+msgstr "Obchod"
 
-#: src/app/(public)/layout.tsx:102
-#: src/app/(public)/layout.tsx:186
-#: src/app/(public)/layout.tsx:246
+#: src/app/(public)/layout.tsx:101
+#: src/app/(public)/layout.tsx:182
+#: src/app/(public)/layout.tsx:248
 #: src/app/(public)/search/page.tsx:20
 #: src/app/(showcase)/showcase/search/page.tsx:66
 #: src/components/public/BlogSidebar.tsx:78
@@ -399,100 +401,100 @@ msgstr "Store"
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:251
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:156
 msgid "Search"
-msgstr "Search"
+msgstr "Hledat"
 
-#: src/app/(public)/layout.tsx:139
+#: src/app/(public)/layout.tsx:138
 msgid "Blog RSS"
-msgstr "Blog RSS"
+msgstr "RSS kanál blogu"
 
-#: src/app/(public)/layout.tsx:226
+#: src/app/(public)/layout.tsx:228
 #: src/components/public/BlogSidebar.tsx:92
 #: src/core-store/_templates/app/(public)/store/client.tsx:512
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:721
 msgid "Categories"
-msgstr "Categories"
+msgstr "Kategorie"
 
-#: src/app/(public)/layout.tsx:241
+#: src/app/(public)/layout.tsx:243
 msgid "Quick Links"
-msgstr "Quick Links"
+msgstr "Rychlé odkazy"
 
-#: src/app/(public)/layout.tsx:251
+#: src/app/(public)/layout.tsx:253
 msgid "More"
-msgstr "More"
-
-#: src/app/(public)/layout.tsx:254
-#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
-msgid "RSS Feed"
-msgstr "RSS Feed"
+msgstr "Více"
 
 #: src/app/(public)/layout.tsx:256
-msgid "Admin"
-msgstr "Admin"
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
+msgid "RSS Feed"
+msgstr "RSS kanál"
 
-#: src/app/(public)/layout.tsx:263
+#: src/app/(public)/layout.tsx:258
+msgid "Admin"
+msgstr "Správce"
+
+#: src/app/(public)/layout.tsx:265
 msgid "Powered by Indigo"
-msgstr "Powered by Indigo"
+msgstr "Provozuje Indigo"
 
 #: src/app/(public)/login/page.tsx:9
 #: src/app/(public)/login/page.tsx:27
 #: src/components/public/AuthDialogs.tsx:24
 #: src/components/public/UserMenu.tsx:40
 msgid "Sign In"
-msgstr "Sign In"
+msgstr "Přihlásit se"
 
 #: src/app/(public)/login/page.tsx:10
 msgid "Sign in to your account"
-msgstr "Sign in to your account"
+msgstr "Přihlaste se ke svému účtu"
 
 #: src/app/(public)/login/page.tsx:28
 msgid "Welcome back! Sign in to your account."
-msgstr "Welcome back! Sign in to your account."
+msgstr "Vítejte zpět! Přihlaste se ke svému účtu."
 
 #: src/app/(public)/page.tsx:54
 #: src/app/(public)/page.tsx:171
 msgid "Browse Characters"
-msgstr "Browse Characters"
+msgstr "Procházet postavy"
 
 #: src/app/(public)/page.tsx:55
 msgid "30 AI characters with filters, pagination, and video hover."
-msgstr "30 AI characters with filters, pagination, and video hover."
+msgstr "30 postav vytvořených pomocí umělé inteligence s filtry, stránkováním a videem při najetí myší."
 
 #: src/app/(public)/page.tsx:60
 msgid "AI Chat"
-msgstr "AI Chat"
+msgstr "Chat s umělou inteligencí"
 
 #: src/app/(public)/page.tsx:61
 msgid "Real-time text chat with LLM streaming and typing animation."
-msgstr "Real-time text chat with LLM streaming and typing animation."
+msgstr "Textový chat v reálném čase s přenosem dat z velkého jazykového modelu (LLM) a animací psaní."
 
 #: src/app/(public)/page.tsx:67
 msgid "Image Generation"
-msgstr "Image Generation"
+msgstr "Generování obrázků"
 
 #: src/app/(public)/page.tsx:68
 msgid "Full keyword orchestration — type \"send me a photo\" in chat."
-msgstr "Full keyword orchestration — type \"send me a photo\" in chat."
+msgstr "Plná integrace klíčových slov — do chatu zadejte „pošli mi fotku“."
 
 #: src/app/(public)/page.tsx:73
 msgid "Voice Calls"
-msgstr "Voice Calls"
+msgstr "Hlasové hovory"
 
 #: src/app/(public)/page.tsx:74
 msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
-msgstr "Call AI characters — STT → LLM → TTS with per-minute billing."
+msgstr "Volání postav s umělou inteligencí — STT → LLM → TTS s účtováním za minutu."
 
 #: src/app/(public)/page.tsx:76
 msgid "New"
-msgstr "New"
+msgstr "Novinka"
 
 #: src/app/(public)/page.tsx:80
 #: src/app/(public)/page.tsx:177
 msgid "Admin Dashboard"
-msgstr "Admin Dashboard"
+msgstr "Administrátorský panel"
 
 #: src/app/(public)/page.tsx:81
 msgid "Content, users, settings, analytics, provider management."
-msgstr "Content, users, settings, analytics, provider management."
+msgstr "Obsah, uživatelé, nastavení, analytika, správa poskytovatelů."
 
 #: src/app/(public)/page.tsx:86
 msgid "CMS"
@@ -500,238 +502,238 @@ msgstr "CMS"
 
 #: src/app/(public)/page.tsx:87
 msgid "Blog, pages, portfolio, categories, tags — config-driven."
-msgstr "Blog, pages, portfolio, categories, tags — config-driven."
+msgstr "Blog, stránky, portfolio, kategorie, štítky — řízené konfigurací."
 
 #: src/app/(public)/page.tsx:92
 msgid "Billing & Tokens"
-msgstr "Billing & Tokens"
+msgstr "Fakturace a tokeny"
 
 #: src/app/(public)/page.tsx:93
 msgid "Stripe subscriptions, token balance, discount codes."
-msgstr "Stripe subscriptions, token balance, discount codes."
+msgstr "Předplatné přes Stripe, zůstatek tokenů, slevové kódy."
 
 #: src/app/(public)/page.tsx:98
 msgid "Organizations"
-msgstr "Organizations"
+msgstr "Organizace"
 
 #: src/app/(public)/page.tsx:99
 msgid "Multi-tenant with roles for billing scoping."
-msgstr "Multi-tenant with roles for billing scoping."
+msgstr "Víceuživatelské prostředí s rolemi pro vymezení rozsahu fakturace."
 
 #: src/app/(public)/page.tsx:104
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Moderation"
-msgstr "Moderation"
+msgstr "Moderování"
 
 #: src/app/(public)/page.tsx:105
 msgid "Keyword filter + audit log + auto-block."
-msgstr "Keyword filter + audit log + auto-block."
+msgstr "Filtr klíčových slov + protokol auditu + automatické blokování."
 
 #: src/app/(public)/page.tsx:110
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Analytics"
-msgstr "Analytics"
+msgstr "Analytika"
 
 #: src/app/(public)/page.tsx:111
 msgid "Character stats, user activity, provider health."
-msgstr "Character stats, user activity, provider health."
+msgstr "Statistiky postav, aktivita uživatelů, stav poskytovatele."
 
 #: src/app/(public)/page.tsx:116
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:86
 msgid "AI Providers"
-msgstr "AI Providers"
+msgstr "Poskytovatelé umělé inteligence"
 
 #: src/app/(public)/page.tsx:117
 msgid "DB-stored with encryption, round-robin, fallback."
-msgstr "DB-stored with encryption, round-robin, fallback."
+msgstr "Uloženo v databázi s šifrováním, metodou round-robin, s náhradním řešením."
 
 #: src/app/(public)/page.tsx:122
 msgid "Theme & Branding"
-msgstr "Theme & Branding"
+msgstr "Téma a branding"
 
 #: src/app/(public)/page.tsx:123
 msgid "OKLCH design tokens, dark mode, CSS variables."
-msgstr "OKLCH design tokens, dark mode, CSS variables."
+msgstr "Designové tokeny OKLCH, tmavý režim, proměnné CSS."
 
 #: src/app/(public)/page.tsx:134
 msgid "Live Demo — resets hourly"
-msgstr "Live Demo — resets hourly"
+msgstr "Živá ukázka — obnovuje se každou hodinu"
 
 #: src/app/(public)/page.tsx:142
 msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+msgstr "Kompletní SaaS framework pro Next.js – CMS, fakturace, autentizace, funkce v reálném čase, AI chat a modulární architektura."
 
 #: src/app/(public)/page.tsx:152
 msgid "Demo login"
-msgstr "Demo login"
+msgstr "Ukázkové přihlášení"
 
 #: src/app/(public)/page.tsx:162
 msgid "Log in"
-msgstr "Log in"
+msgstr "Přihlásit se"
 
 #: src/app/(public)/page.tsx:187
 msgid "Explore the Features"
-msgstr "Explore the Features"
+msgstr "Prozkoumejte funkce"
 
 #: src/app/(public)/page.tsx:190
 msgid "Click any card to see it in action. Everything is live and functional."
-msgstr "Click any card to see it in action. Everything is live and functional."
+msgstr "Klikněte na libovolnou kartu a podívejte se, jak funguje. Vše je v reálném čase a plně funkční."
 
 #: src/app/(public)/page.tsx:217
 msgid "Explore"
-msgstr "Explore"
+msgstr "Prozkoumat"
 
 #: src/app/(public)/page.tsx:230
 msgid "Built With"
-msgstr "Built With"
+msgstr "Vytvořeno pomocí"
 
 #: src/app/(public)/page.tsx:264
 msgid "Modular Architecture"
-msgstr "Modular Architecture"
+msgstr "Modulární architektura"
 
 #: src/app/(public)/page.tsx:267
 msgid "Install only what you need. Each module is a self-contained git subtree."
-msgstr "Install only what you need. Each module is a self-contained git subtree."
+msgstr "Nainstalujte si pouze to, co potřebujete. Každý modul představuje samostatný podstrom repozitáře Git."
 
 #: src/app/(public)/page.tsx:275
 msgid "AI character chat, image/video gen, voice calls"
-msgstr "AI character chat, image/video gen, voice calls"
+msgstr "Chat s umělou inteligencí, generování obrázků a videí, hlasové hovory"
 
 #: src/app/(public)/page.tsx:280
 msgid "Stripe subscriptions, tokens, discounts"
-msgstr "Stripe subscriptions, tokens, discounts"
+msgstr "Předplatné Stripe, tokeny, slevy"
 
 #: src/app/(public)/page.tsx:285
 msgid "AI support chat + ticket system"
-msgstr "AI support chat + ticket system"
+msgstr "Chat s podporou umělé inteligence + systém ticketů"
 
 #: src/app/(public)/page.tsx:288
 msgid "Documentation system"
-msgstr "Documentation system"
+msgstr "Systém dokumentace"
 
 #: src/app/(public)/page.tsx:291
 msgid "E-commerce (products, cart, checkout)"
-msgstr "E-commerce (products, cart, checkout)"
+msgstr "Elektronický obchod (produkty, nákupní košík, pokladna)"
 
 #: src/app/(public)/page.tsx:296
 msgid "Referral tracking, commissions"
-msgstr "Referral tracking, commissions"
+msgstr "Sledování doporučení, provize"
 
 #: src/app/(public)/page.tsx:313
 msgid "Premium"
-msgstr "Premium"
+msgstr "Prémiové"
 
 #: src/app/(public)/page.tsx:330
 msgid "Ready to build?"
-msgstr "Ready to build?"
+msgstr "Jste připraveni začít stavět?"
 
 #: src/app/(public)/page.tsx:333
 msgid "Clone, init, ship. It's that simple."
-msgstr "Clone, init, ship. It's that simple."
+msgstr "Zkopírovat, inicializovat, odeslat. Je to tak jednoduché."
 
 #: src/app/(public)/page.tsx:340
 msgid "Clone on GitHub"
-msgstr "Clone on GitHub"
+msgstr "Klonovat na GitHubu"
 
 #: src/app/(public)/page.tsx:350
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
-msgstr "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
+msgstr "Dvojí licence: AGPL-3.0 (open source) nebo komerční licence"
 
 #: src/app/(public)/portfolio/page.tsx:27
 msgid "Browse our portfolio of projects and case studies."
-msgstr "Browse our portfolio of projects and case studies."
+msgstr "Prohlédněte si naše portfolio projektů a případových studií."
 
 #: src/app/(public)/portfolio/page.tsx:48
 msgid "Browse our projects and case studies."
-msgstr "Browse our projects and case studies."
+msgstr "Prohlédněte si naše projekty a případové studie."
 
 #: src/app/(public)/portfolio/page.tsx:103
 msgid "No portfolio items yet."
-msgstr "No portfolio items yet."
+msgstr "Zatím žádné položky v portfoliu."
 
 #: src/app/(public)/pricing/page.tsx:22
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:409
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:22
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "Ceny"
 
 #: src/app/(public)/pricing/page.tsx:23
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:23
 msgid "Simple, transparent pricing for teams of all sizes."
-msgstr "Simple, transparent pricing for teams of all sizes."
+msgstr "Jednoduché a transparentní ceny pro týmy všech velikostí."
 
 #: src/app/(public)/pricing/page.tsx:39
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:39
 msgid "Simple, transparent pricing"
-msgstr "Simple, transparent pricing"
+msgstr "Jednoduché a transparentní ceny"
 
 #: src/app/(public)/pricing/page.tsx:42
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:42
 msgid "Pay as you go: buy tokens once, use them until they run out. No subscription required."
-msgstr "Pay as you go: buy tokens once, use them until they run out. No subscription required."
+msgstr "Platba podle spotřeby: zakoupíte si žetony jednou a využíváte je, dokud nedojdou. Není třeba žádné předplatné."
 
 #: src/app/(public)/pricing/page.tsx:43
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:43
 msgid "Choose the plan that fits your team. All plans include a 14-day free trial."
-msgstr "Choose the plan that fits your team. All plans include a 14-day free trial."
+msgstr "Vyberte si tarif, který vyhovuje vašemu týmu. Všechny tarify zahrnují 14denní bezplatnou zkušební verzi."
 
 #: src/app/(public)/pricing/page.tsx:58
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:58
 msgid "Get Started"
-msgstr "Get Started"
+msgstr "Začít"
 
 #: src/app/(public)/pricing/page.tsx:70
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:70
 msgid "Frequently asked questions"
-msgstr "Frequently asked questions"
+msgstr "Často kladené otázky"
 
 #: src/app/(public)/register/page.tsx:9
 #: src/app/(public)/register/page.tsx:31
 #: src/components/public/AuthDialogs.tsx:53
 msgid "Create Account"
-msgstr "Create Account"
+msgstr "Vytvořit účet"
 
 #: src/app/(public)/register/page.tsx:10
 msgid "Create a new account"
-msgstr "Create a new account"
+msgstr "Vytvořit nový účet"
 
 #: src/app/(public)/register/page.tsx:22
 msgid "Registration Closed"
-msgstr "Registration Closed"
+msgstr "Registrace ukončena"
 
 #: src/app/(public)/register/page.tsx:23
 #: src/components/public/AuthDialogs.tsx:65
 msgid "Registration is currently not available. Please contact us for access."
-msgstr "Registration is currently not available. Please contact us for access."
+msgstr "Registrace není v současné době k dispozici. Pro získání přístupu nás prosím kontaktujte."
 
 #: src/app/(public)/register/page.tsx:32
 msgid "Start your journey with a free account."
-msgstr "Start your journey with a free account."
+msgstr "Začněte svou cestu s bezplatným účtem."
 
 #: src/app/(public)/reset-password/page.tsx:9
 #: src/app/(public)/reset-password/page.tsx:20
 msgid "Reset Password"
-msgstr "Reset Password"
+msgstr "Obnovit heslo"
 
 #: src/app/(public)/reset-password/page.tsx:10
 msgid "Set a new password"
-msgstr "Set a new password"
+msgstr "Nastavit nové heslo"
 
 #: src/app/(public)/reset-password/page.tsx:21
 msgid "Enter your new password below."
-msgstr "Enter your new password below."
+msgstr "Zadejte níže své nové heslo."
 
 #: src/app/(public)/store/page.tsx:23
 msgid "Browse our products"
-msgstr "Browse our products"
+msgstr "Prohlédněte si naše produkty"
 
 #: src/app/(public)/store/page.tsx:64
 #: src/app/(public)/store/page.tsx:98
 #: src/core-store/_templates/app/(public)/store/client.tsx:424
 msgid "Sale"
-msgstr "Sale"
+msgstr "Výprodej"
 
 #: src/app/(public)/store/page.tsx:65
 #: src/core-store/_templates/app/(public)/store/client.tsx:132
@@ -739,152 +741,152 @@ msgstr "Sale"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:151
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:381
 msgid "Digital"
-msgstr "Digital"
+msgstr "Digitální"
 
 #: src/app/(public)/store/page.tsx:66
 msgid "From variants"
-msgstr "From variants"
+msgstr "Z variant"
 
 #: src/app/(public)/store/page.tsx:114
 msgid "Shop Now"
-msgstr "Shop Now"
+msgstr "Nakupovat nyní"
 
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:523
 msgid "All Products"
-msgstr "All Products"
+msgstr "Všechny produkty"
 
 #: src/app/(public)/store/page.tsx:133
 #: src/core-api/components/ApiKeyManager.tsx:224
 #: src/core-store/_templates/app/(public)/store/client.tsx:816
 msgid "All"
-msgstr "All"
+msgstr "Vše"
 
 #: src/app/(public)/store/page.tsx:196
 #: src/core-store/_templates/app/(public)/store/client.tsx:1022
 msgid "No products found"
-msgstr "No products found"
+msgstr "Nebyly nalezeny žádné produkty"
 
 #: src/app/(public)/store/page.tsx:196
 msgid "Coming soon"
-msgstr "Coming soon"
+msgstr "Již brzy"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Try a different search term"
-msgstr "Try a different search term"
+msgstr "Zkuste zadat jiný vyhledávací dotaz"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Check back soon for new products"
-msgstr "Check back soon for new products"
+msgstr "Brzy se sem vraťte a podívejte se na nové produkty"
 
 #: src/app/(public)/[...slug]/renderers/CategoryDetail.tsx:44
 msgid "Posts in this category"
-msgstr "Posts in this category"
+msgstr "Příspěvky v této kategorii"
 
 #: src/app/(public)/[...slug]/renderers/PortfolioDetail.tsx:23
 #: src/app/(public)/[...slug]/renderers/PostDetail.tsx:57
 #: src/app/(public)/[...slug]/renderers/ShowcaseDetail.tsx:24
 msgid "Preview mode — this content is not yet published."
-msgstr "Preview mode — this content is not yet published."
+msgstr "Režim náhledu — tento obsah ještě nebyl zveřejněn."
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:53
 msgid "Tag"
-msgstr "Tag"
+msgstr "Štítek"
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:124
 msgid "No content found with this tag."
-msgstr "No content found with this tag."
+msgstr "S tímto štítkem nebyl nalezen žádný obsah."
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:130
 msgid "Browse More Tags"
-msgstr "Browse More Tags"
+msgstr "Prohlédnout si další štítky"
 
 #: src/app/(showcase)/layout.tsx:51
 msgid "Home"
-msgstr "Home"
+msgstr "Domů"
 
 #: src/app/(showcase)/layout.tsx:52
 #: src/app/(showcase)/layout.tsx:72
 msgid "Feed"
-msgstr "Feed"
+msgstr "Zdroje"
 
 #: src/app/(showcase)/showcase/page.tsx:27
 msgid "Explore our showcase — swipe through videos, images, and stories."
-msgstr "Explore our showcase — swipe through videos, images, and stories."
+msgstr "Prohlédněte si naši galerii – listujte mezi videi, obrázky a příběhy."
 
 #: src/app/(showcase)/showcase/search/page.tsx:66
 msgid "Results for \"{query}\""
-msgstr "Results for \"{query}\""
+msgstr "Výsledky pro „{query}“"
 
 #: src/app/(showcase)/showcase/search/page.tsx:70
 msgid "No results found for \"{query}\""
-msgstr "No results found for \"{query}\""
+msgstr "Nebyly nalezeny žádné výsledky pro „{query}“"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "Use the search bar above or press"
-msgstr "Use the search bar above or press"
+msgstr "Použijte vyhledávací lištu nahoře nebo stiskněte"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "to search."
-msgstr "to search."
+msgstr "vyhledat."
 
 #: src/app/not-found.tsx:17
 msgid "Page not found"
-msgstr "Page not found"
+msgstr "Stránka nebyla nalezena"
 
 #: src/app/not-found.tsx:19
 msgid "The page you're looking for doesn't exist or has been moved."
-msgstr "The page you're looking for doesn't exist or has been moved."
+msgstr "Stránka, kterou hledáte, neexistuje nebo byla přesunuta."
 
 #: src/app/not-found.tsx:27
 msgid "Go Home"
-msgstr "Go Home"
+msgstr "Jdi domů"
 
 #: src/app/not-found.tsx:33
 msgid "Browse Blog"
-msgstr "Browse Blog"
+msgstr "Procházet blog"
 
 #: src/components/public/AccountNav.tsx:12
 msgid "Overview"
-msgstr "Overview"
+msgstr "Přehled"
 
 #: src/components/public/AccountNav.tsx:13
 #: src/components/public/UserMenu.tsx:104
 msgid "Settings"
-msgstr "Settings"
+msgstr "Nastavení"
 
 #: src/components/public/AccountNav.tsx:16
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:96
 msgid "Orders"
-msgstr "Orders"
+msgstr "Objednávky"
 
 #: src/components/public/AccountNav.tsx:17
 msgid "Wishlist"
-msgstr "Wishlist"
+msgstr "Seznam přání"
 
 #: src/components/public/AccountNav.tsx:18
 msgid "Addresses"
-msgstr "Addresses"
+msgstr "Adresy"
 
 #: src/components/public/AccountNav.tsx:20
 #: src/core-affiliates/components/AffiliateOverview.tsx:23
 #: src/core-affiliates/components/AffiliateOverview.tsx:36
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
-msgstr "Affiliates"
+msgstr "Partneři"
 
 #: src/components/public/BlogSidebar.tsx:83
 msgid "Search posts..."
-msgstr "Search posts..."
+msgstr "Vyhledat příspěvky..."
 
 #: src/components/public/BlogSidebar.tsx:113
 msgid "Tags"
-msgstr "Tags"
+msgstr "Štítky"
 
 #: src/components/public/CommentPanel.tsx:121
 msgid "Reply"
-msgstr "Reply"
+msgstr "Odpovědět"
 
 #: src/components/public/CommentPanel.tsx:129
 #: src/core/components/media/MediaPickerDialog.tsx:490
@@ -908,137 +910,137 @@ msgstr "Reply"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
 msgid "Delete"
-msgstr "Delete"
+msgstr "Odstranit"
 
 #: src/components/public/CommentPanel.tsx:142
 msgid "Reply..."
-msgstr "Reply..."
+msgstr "Odpovědět..."
 
 #: src/components/public/CommentPanel.tsx:295
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:115
 msgid "Comments"
-msgstr "Comments"
+msgstr "Komentáře"
 
 #: src/components/public/CommentPanel.tsx:313
 msgid "No comments yet. Be the first!"
-msgstr "No comments yet. Be the first!"
+msgstr "Zatím žádné komentáře. Buďte první!"
 
 #: src/components/public/CommentPanel.tsx:344
 msgid "Add a comment..."
-msgstr "Add a comment..."
+msgstr "Přidat komentář..."
 
 #: src/components/public/CommentPanel.tsx:363
 msgid "Sign in"
-msgstr "Sign in"
+msgstr "Přihlásit se"
 
 #: src/components/public/CommentPanel.tsx:365
 msgid "to comment"
-msgstr "to comment"
+msgstr "k komentáři"
 
 #: src/components/public/ContactForm.tsx:75
 msgid "Network error. Please try again."
-msgstr "Network error. Please try again."
+msgstr "Chyba sítě. Zkuste to prosím znovu."
 
 #: src/components/public/ContactForm.tsx:140
 msgid "Select..."
-msgstr "Select..."
+msgstr "Vyberte..."
 
 #: src/components/public/ContactForm.tsx:217
 msgid "Submitting..."
-msgstr "Submitting..."
+msgstr "Odesílám..."
 
 #: src/components/public/ContactForm.tsx:220
 msgid "Submit"
-msgstr "Submit"
+msgstr "Odeslat"
 
 #: src/components/public/CreateOrgCard.tsx:39
 msgid "Create your organization"
-msgstr "Create your organization"
+msgstr "Vytvořte svou organizaci"
 
 #: src/components/public/CreateOrgCard.tsx:41
 msgid "Get started by creating an organization. You can invite team members later."
-msgstr "Get started by creating an organization. You can invite team members later."
+msgstr "Začněte tím, že vytvoříte organizaci. Členy týmu můžete pozvat později."
 
 #: src/components/public/CreateOrgCard.tsx:47
 msgid "Organization name"
-msgstr "Organization name"
+msgstr "Název organizace"
 
 #: src/components/public/CreateOrgCard.tsx:54
 msgid "My Company"
-msgstr "My Company"
+msgstr "Moje společnost"
 
 #: src/components/public/CreateOrgCard.tsx:71
 #: src/core-api/components/ApiKeyManager.tsx:122
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 msgid "Creating..."
-msgstr "Creating..."
+msgstr "Vytváření..."
 
 #: src/components/public/CreateOrgCard.tsx:71
 msgid "Create Organization"
-msgstr "Create Organization"
+msgstr "Vytvořit organizaci"
 
 #: src/components/public/ExpandableSearch.tsx:72
 msgid "Search (/)"
-msgstr "Search (/)"
+msgstr "Hledat (/)"
 
 #: src/components/public/ExpandableSearch.tsx:91
 #: src/components/public/ExpandableSearch.tsx:111
 msgid "Search..."
-msgstr "Search..."
+msgstr "Hledat..."
 
 #: src/components/public/ShowcaseActionBar.tsx:93
 msgid "Sign in to react"
-msgstr "Sign in to react"
+msgstr "Přihlaste se, abyste mohli reagovat"
 
 #: src/components/public/ShowcaseActionBar.tsx:105
 msgid "Link copied"
-msgstr "Link copied"
+msgstr "Odkaz zkopírován"
 
-#: src/components/public/ShowcaseFeed.tsx:244
+#: src/components/public/ShowcaseFeed.tsx:243
 msgid "No showcase items yet."
-msgstr "No showcase items yet."
+msgstr "Zatím zde nejsou žádné vystavené položky."
 
 #: src/components/public/SocialLoginButtons.tsx:30
 msgid "Continue with Google"
-msgstr "Continue with Google"
+msgstr "Pokračovat přes Google"
 
 #: src/components/public/SocialLoginButtons.tsx:41
 msgid "Continue with Discord"
-msgstr "Continue with Discord"
+msgstr "Pokračovat na Discord"
 
 #: src/components/public/SubscribeOrTokens.tsx:46
 msgid "Subscribe"
-msgstr "Subscribe"
+msgstr "Přihlásit se k odběru"
 
 #: src/components/public/TokenPackCard.tsx:40
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:40
 msgid "Most popular"
-msgstr "Most popular"
+msgstr "Nejoblíbenější"
 
 #: src/components/public/TokenPackCard.tsx:46
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:46
 msgid "tokens"
-msgstr "tokens"
+msgstr "žetony"
 
 #: src/components/public/UserMenu.tsx:46
 msgid "Sign Up"
-msgstr "Sign Up"
+msgstr "Zaregistrovat se"
 
 #: src/components/public/UserMenu.tsx:96
 msgid "Account"
-msgstr "Account"
+msgstr "Účet"
 
 #: src/components/public/UserMenu.tsx:129
 msgid "Sign Out"
-msgstr "Sign Out"
+msgstr "Odhlásit se"
 
 #: src/core/components/cms/AutosaveIndicator.tsx:39
 msgid "Autosaved"
-msgstr "Autosaved"
+msgstr "Automaticky uložen"
 
 #: src/core/components/cms/AutosaveRecoveryBanner.tsx:36
 msgid "Unsaved changes recovered from"
-msgstr "Unsaved changes recovered from"
+msgstr "Neuložené změny obnoveny z"
 
 #: src/core/components/cms/AutosaveRecoveryBanner.tsx:44
 #: src/core/components/cms/BulkActionBar.tsx:62
@@ -1046,99 +1048,99 @@ msgstr "Unsaved changes recovered from"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:127
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:151
 msgid "Restore"
-msgstr "Restore"
+msgstr "Obnovit"
 
 #: src/core/components/cms/BrokenLinksBanner.tsx:23
 msgid "Broken internal links detected:"
-msgstr "Broken internal links detected:"
+msgstr "Byly zjištěny nefunkční interní odkazy:"
 
 #: src/core/components/cms/BulkActionBar.tsx:50
 msgid "Deselect all"
-msgstr "Deselect all"
+msgstr "Zrušit výběr všeho"
 
 #: src/core/components/cms/BulkActionBar.tsx:77
 msgid "Set status..."
-msgstr "Set status..."
+msgstr "Nastavit stav..."
 
 #: src/core/components/cms/BulkActionBar.tsx:79
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:366
 msgid "Draft"
-msgstr "Draft"
+msgstr "Návrh"
 
 #: src/core/components/cms/BulkActionBar.tsx:80
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:367
 msgid "Published"
-msgstr "Published"
+msgstr "Zveřejněno"
 
 #: src/core/components/cms/BulkActionBar.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Export"
-msgstr "Export"
+msgstr "Exportovat"
 
 #: src/core/components/cms/BulkActionBar.tsx:118
 msgid "Move to Trash"
-msgstr "Move to Trash"
+msgstr "Přesunout do koše"
 
 #: src/core/components/cms/ContentCalendar.tsx:89
 msgid "Calendar"
-msgstr "Calendar"
+msgstr "Kalendář"
 
 #: src/core/components/cms/ContentCalendar.tsx:167
 msgid "more"
-msgstr "more"
+msgstr "více"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:109
 msgid "Loading custom fields..."
-msgstr "Loading custom fields..."
+msgstr "Načítání vlastních polí..."
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:121
 msgid "Custom Fields"
-msgstr "Custom Fields"
+msgstr "Vlastní pole"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:142
 msgid "Saving custom fields..."
-msgstr "Saving custom fields..."
+msgstr "Ukládání vlastních polí..."
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:195
 msgid "Enabled"
-msgstr "Enabled"
+msgstr "Zapnuto"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:764
 msgid "-- Select --"
-msgstr "-- Select --"
+msgstr "-- Vybrat --"
 
 #: src/core/components/cms/FallbackRadio.tsx:21
 msgid "Language Fallback"
-msgstr "Language Fallback"
+msgstr "Záložní jazyk"
 
 #: src/core/components/cms/FallbackRadio.tsx:28
 msgid "Default"
-msgstr "Default"
+msgstr "Výchozí"
 
 #: src/core/components/cms/FallbackRadio.tsx:31
 msgid "Show EN version for missing translations"
-msgstr "Show EN version for missing translations"
+msgstr "Zobrazit anglickou verzi v případě chybějících překladů"
 
 #: src/core/components/cms/FallbackRadio.tsx:32
 msgid "404 for missing translations"
-msgstr "404 for missing translations"
+msgstr "Chyba 404 kvůli chybějícím překladům"
 
 #: src/core/components/cms/FallbackRadio.tsx:39
 msgid "Always Fallback"
-msgstr "Always Fallback"
+msgstr "Vždy použít záložní řešení"
 
 #: src/core/components/cms/FallbackRadio.tsx:45
 msgid "Never Fallback"
-msgstr "Never Fallback"
+msgstr "Nikdy se nevracet k záložnímu řešení"
 
 #: src/core/components/cms/FallbackRadio.tsx:49
 msgid "Controls whether this content is shown when visiting in a language without a translation"
-msgstr "Controls whether this content is shown when visiting in a language without a translation"
+msgstr "Určuje, zda se tento obsah zobrazí při návštěvě stránky v jazyce, pro který není k dispozici překlad"
 
 #: src/core/components/cms/MenuBuilder.tsx:96
 msgid "Label"
-msgstr "Label"
+msgstr "Štítek"
 
 #: src/core/components/cms/MenuBuilder.tsx:104
 #: src/core/components/RichTextEditor.tsx:511
@@ -1147,11 +1149,11 @@ msgstr "URL"
 
 #: src/core/components/cms/MenuBuilder.tsx:115
 msgid "New tab"
-msgstr "New tab"
+msgstr "Nová karta"
 
 #: src/core/components/cms/MenuBuilder.tsx:123
 msgid "Indent"
-msgstr "Indent"
+msgstr "Odsazení"
 
 #: src/core/components/cms/MenuBuilder.tsx:131
 msgid "Outdent"
@@ -1159,76 +1161,76 @@ msgstr "Outdent"
 
 #: src/core/components/cms/MenuBuilder.tsx:176
 msgid "Menu saved"
-msgstr "Menu saved"
+msgstr "Nabídka uložena"
 
 #: src/core/components/cms/MenuBuilder.tsx:325
 msgid "No menu items yet. Add one below."
-msgstr "No menu items yet. Add one below."
+msgstr "Zatím zde nejsou žádné položky nabídky. Přidejte jednu níže."
 
 #: src/core/components/cms/MenuBuilder.tsx:332
 msgid "Add Item"
-msgstr "Add Item"
+msgstr "Přidat položku"
 
 #: src/core/components/cms/MenuBuilder.tsx:341
 msgid "Save Menu"
-msgstr "Save Menu"
+msgstr "Nabídka „Uložit“"
 
 #: src/core/components/cms/RevisionHistory.tsx:71
 msgid "Revision restored"
-msgstr "Revision restored"
+msgstr "Revize obnovena"
 
 #: src/core/components/cms/RevisionHistory.tsx:74
 msgid "Failed to restore revision"
-msgstr "Failed to restore revision"
+msgstr "Obnovení revize se nezdařilo"
 
 #: src/core/components/cms/RevisionHistory.tsx:93
 msgid "Revision History"
-msgstr "Revision History"
+msgstr "Historie revizí"
 
 #: src/core/components/cms/RevisionHistory.tsx:110
 msgid "Oldest"
-msgstr "Oldest"
+msgstr "Nejstarší"
 
 #: src/core/components/cms/RevisionHistory.tsx:111
 #: src/core-store/_templates/app/(public)/store/client.tsx:315
 msgid "Newest"
-msgstr "Newest"
+msgstr "Nejnovější"
 
 #: src/core/components/cms/RevisionHistory.tsx:119
 msgid "No revisions yet"
-msgstr "No revisions yet"
+msgstr "Zatím žádné revize"
 
 #: src/core/components/cms/RevisionHistory.tsx:129
 msgid "(untitled)"
-msgstr "(untitled)"
+msgstr "(bez názvu)"
 
 #: src/core/components/cms/RevisionHistory.tsx:158
 msgid "No changes in this revision"
-msgstr "No changes in this revision"
+msgstr "V této revizi nedošlo k žádným změnám"
 
 #: src/core/components/cms/RevisionHistory.tsx:206
 msgid "Restore this version"
-msgstr "Restore this version"
+msgstr "Obnovit tuto verzi"
 
 #: src/core/components/cms/RevisionHistory.tsx:217
 msgid "Restore revision?"
-msgstr "Restore revision?"
+msgstr "Obnovit revizi?"
 
 #: src/core/components/cms/RevisionHistory.tsx:218
 msgid "Current state will be saved as a new revision before restoring."
-msgstr "Current state will be saved as a new revision before restoring."
+msgstr "Aktuální stav bude před obnovením uložen jako nová revize."
 
 #: src/core/components/cms/RevisionHistory.tsx:241
 msgid "Revisions"
-msgstr "Revisions"
+msgstr "Změny"
 
 #: src/core/components/cms/TagInput.tsx:198
 msgid "Type to add tags..."
-msgstr "Type to add tags..."
+msgstr "Zadejte text pro přidání štítků..."
 
 #: src/core/components/cms/TagInput.tsx:239
 msgid "Press Enter to create \""
-msgstr "Press Enter to create \""
+msgstr "Stiskněte klávesu Enter pro vytvoření „“"
 
 #: src/core/components/cms/TagInput.tsx:241
 msgid "\""
@@ -1236,58 +1238,58 @@ msgstr "\""
 
 #: src/core/components/dashboard/CommandPalette.tsx:76
 msgid "Navigation"
-msgstr "Navigation"
+msgstr "Navigace"
 
 #: src/core/components/dashboard/CommandPalette.tsx:88
 #: src/core/components/dashboard/CommandPalette.tsx:229
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:79
 msgid "Content"
-msgstr "Content"
+msgstr "Obsah"
 
 #: src/core/components/dashboard/CommandPalette.tsx:201
 msgid "Search pages, content, settings..."
-msgstr "Search pages, content, settings..."
+msgstr "Vyhledávání stránek, obsahu, nastavení..."
 
 #: src/core/components/dashboard/CommandPalette.tsx:242
 #: src/core/components/overlays/InternalLinkDialog.tsx:77
 msgid "No results found"
-msgstr "No results found"
+msgstr "Nebyly nalezeny žádné výsledky"
 
 #: src/core/components/dashboard/CommandPalette.tsx:248
 msgid "Start typing to search..."
-msgstr "Start typing to search..."
+msgstr "Začněte psát a vyhledávejte..."
 
 #: src/core/components/dashboard/ContentStatusWidget.tsx:38
 msgid "Scheduled"
-msgstr "Scheduled"
+msgstr "Plánováno"
 
 #: src/core/components/dashboard/ContentStatusWidget.tsx:58
 msgid "Content Status"
-msgstr "Content Status"
+msgstr "Stav obsahu"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:112
 msgid "Show widget"
-msgstr "Show widget"
+msgstr "Zobrazit widget"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:112
 msgid "Hide widget"
-msgstr "Hide widget"
+msgstr "Skrýt widget"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:121
 msgid "Columns"
-msgstr "Columns"
+msgstr "Sloupce"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:214
 msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
-msgstr "Drag to reorder widgets. Toggle visibility with the eye icon."
+msgstr "Přetažením můžete změnit pořadí widgetů. Viditelnost přepínáte pomocí ikony oka."
 
 #: src/core/components/dashboard/DashboardConfig.tsx:257
 msgid "Configure dashboard"
-msgstr "Configure dashboard"
+msgstr "Nastavit ovládací panel"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:262
 msgid "Dashboard Layout"
-msgstr "Dashboard Layout"
+msgstr "Rozložení ovládacího panelu"
 
 #: src/core/components/dashboard/GA4Widget.tsx:183
 #: src/core/components/dashboard/GA4Widget.tsx:214
@@ -1296,84 +1298,84 @@ msgstr "Google Analytics"
 
 #: src/core/components/dashboard/GA4Widget.tsx:190
 msgid "Connect Google Analytics to see page views, sessions, and top pages."
-msgstr "Connect Google Analytics to see page views, sessions, and top pages."
+msgstr "Propojte službu Google Analytics a sledujte počet zobrazení stránek, relací a nejnavštěvovanějších stránek."
 
 #: src/core/components/dashboard/GA4Widget.tsx:198
 msgid "Configure in Settings"
-msgstr "Configure in Settings"
+msgstr "Nastavit v nabídce Nastavení"
 
 #: src/core/components/dashboard/GA4Widget.tsx:247
 msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
-msgstr "Failed to load analytics data. Check your GA4 configuration in Settings."
+msgstr "Načtení analytických dat se nezdařilo. Zkontrolujte nastavení GA4 v sekci Nastavení."
 
 #: src/core/components/dashboard/GA4Widget.tsx:259
 msgid "Page Views"
-msgstr "Page Views"
+msgstr "Počet zobrazení stránky"
 
 #: src/core/components/dashboard/GA4Widget.tsx:268
 msgid "Sessions"
-msgstr "Sessions"
+msgstr "Zasedání"
 
 #: src/core/components/dashboard/GA4Widget.tsx:279
 msgid "Daily Page Views"
-msgstr "Daily Page Views"
+msgstr "Denní počet zobrazení stránek"
 
 #: src/core/components/dashboard/GA4Widget.tsx:290
 msgid "Top Pages"
-msgstr "Top Pages"
+msgstr "Nejnavštěvovanější stránky"
 
 #: src/core/components/dashboard/GA4Widget.tsx:297
 msgid "Views"
-msgstr "Views"
+msgstr "Zobrazení"
 
 #: src/core/components/dashboard/NotificationBell.tsx:62
 #: src/core/components/dashboard/NotificationBell.tsx:75
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "Oznámení"
 
 #: src/core/components/dashboard/NotificationBell.tsx:82
 msgid "Mark all read"
-msgstr "Mark all read"
+msgstr "Označit vše jako přečtené"
 
 #: src/core/components/dashboard/NotificationBell.tsx:90
 msgid "No notifications"
-msgstr "No notifications"
+msgstr "Žádná oznámení"
 
 #: src/core/components/dashboard/NotificationBell.tsx:130
 msgid "View all notifications"
-msgstr "View all notifications"
+msgstr "Zobrazit všechna oznámení"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:46
 msgid "Switch organization"
-msgstr "Switch organization"
+msgstr "Změnit organizaci"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:58
 msgid "Personal"
-msgstr "Personal"
+msgstr "Osobní"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:77
 msgid "Manage organizations"
-msgstr "Manage organizations"
+msgstr "Správa organizací"
 
 #: src/core/components/dashboard/RecentActivity.tsx:13
 msgid "created"
-msgstr "created"
+msgstr "vytvořeno"
 
 #: src/core/components/dashboard/RecentActivity.tsx:14
 msgid "updated"
-msgstr "updated"
+msgstr "aktualizováno"
 
 #: src/core/components/dashboard/RecentActivity.tsx:15
 msgid "deleted"
-msgstr "deleted"
+msgstr "smazáno"
 
 #: src/core/components/dashboard/RecentActivity.tsx:16
 msgid "restored"
-msgstr "restored"
+msgstr "obnovený"
 
 #: src/core/components/dashboard/RecentActivity.tsx:17
 msgid "published"
-msgstr "published"
+msgstr "zveřejněno"
 
 #: src/core/components/dashboard/RecentActivity.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:16
@@ -1385,40 +1387,40 @@ msgstr "published"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
 msgid "Loading..."
-msgstr "Loading..."
+msgstr "Načítání..."
 
 #: src/core/components/dashboard/RecentActivity.tsx:33
 msgid "No activity recorded yet."
-msgstr "No activity recorded yet."
+msgstr "Zatím nebyla zaznamenána žádná aktivita."
 
 #: src/core/components/dashboard/RecentActivity.tsx:44
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
 msgid "System"
-msgstr "System"
+msgstr "Systém"
 
 #: src/core/components/editor/AiAssistMenu.tsx:32
 msgid "Rewrite"
-msgstr "Rewrite"
+msgstr "Přepsat"
 
 #: src/core/components/editor/AiAssistMenu.tsx:38
 msgid "Shorten"
-msgstr "Shorten"
+msgstr "Zkrátit"
 
 #: src/core/components/editor/AiAssistMenu.tsx:44
 msgid "Expand"
-msgstr "Expand"
+msgstr "Rozbalit"
 
 #: src/core/components/editor/AiAssistMenu.tsx:50
 msgid "Fix grammar"
-msgstr "Fix grammar"
+msgstr "Opravit gramatiku"
 
 #: src/core/components/editor/AiAssistMenu.tsx:56
 msgid "Translate to English"
-msgstr "Translate to English"
+msgstr "Přeložit do angličtiny"
 
 #: src/core/components/editor/AiAssistMenu.tsx:148
 msgid "AI request failed"
-msgstr "AI request failed"
+msgstr "Žádost o AI selhala"
 
 #: src/core/components/editor/AiAssistMenu.tsx:252
 #: src/core/components/editor/EditorBubbleMenu.tsx:123
@@ -1428,45 +1430,45 @@ msgstr "AI Assist"
 
 #: src/core/components/editor/AiAssistMenu.tsx:266
 msgid "Thinking..."
-msgstr "Thinking..."
+msgstr "Přemýšlím..."
 
 #: src/core/components/editor/AiAssistMenu.tsx:279
 msgid "Try again"
-msgstr "Try again"
+msgstr "Zkuste to znovu"
 
 #: src/core/components/editor/AiAssistMenu.tsx:297
 #: src/core-store/_templates/app/(public)/store/client.tsx:565
 msgid "Apply"
-msgstr "Apply"
+msgstr "Přihlásit se"
 
 #: src/core/components/editor/AiAssistMenu.tsx:304
 msgid "Discard"
-msgstr "Discard"
+msgstr "Zrušit"
 
 #: src/core/components/editor/AiAssistMenu.tsx:340
 #: src/core/components/editor/AiAssistMenu.tsx:352
 msgid "Custom instruction..."
-msgstr "Custom instruction..."
+msgstr "Vlastní pokyny..."
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:75
 #: src/core/components/RichTextEditor.tsx:544
 msgid "Bold"
-msgstr "Bold"
+msgstr "Tučné písmo"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:82
 #: src/core/components/RichTextEditor.tsx:551
 msgid "Italic"
-msgstr "Italic"
+msgstr "Kurzíva"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:89
 #: src/core/components/RichTextEditor.tsx:558
 msgid "Underline"
-msgstr "Underline"
+msgstr "Podtrhnout"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:96
 #: src/core/components/RichTextEditor.tsx:565
 msgid "Strikethrough"
-msgstr "Strikethrough"
+msgstr "Přeškrtnutí"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:103
 #: src/core-affiliates/components/AffiliateOverview.tsx:71
@@ -1477,315 +1479,315 @@ msgstr "Strikethrough"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
 msgid "Code"
-msgstr "Code"
+msgstr "Kód"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:113
 #: src/core/components/RichTextEditor.tsx:680
 msgid "Link"
-msgstr "Link"
+msgstr "Odkaz"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:99
 msgid "Alt text"
-msgstr "Alt text"
+msgstr "Alternativní text"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:109
 msgid "Align left"
-msgstr "Align left"
+msgstr "Zarovnat vlevo"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:120
 msgid "Center"
-msgstr "Center"
+msgstr "Střed"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:132
 msgid "Align right"
-msgstr "Align right"
+msgstr "Zarovnat vpravo"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:140
 msgid "Replace image"
-msgstr "Replace image"
+msgstr "Nahradit obrázek"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:147
 msgid "Remove image"
-msgstr "Remove image"
+msgstr "Odstranit obrázek"
 
 #: src/core/components/editor/slash-commands.ts:18
 #: src/core/components/RichTextEditor.tsx:582
 msgid "Heading 1"
-msgstr "Heading 1"
+msgstr "Nadpis 1"
 
 #: src/core/components/editor/slash-commands.ts:19
 msgid "Large section heading"
-msgstr "Large section heading"
+msgstr "Nadpis velké části"
 
 #: src/core/components/editor/slash-commands.ts:21
 #: src/core/components/editor/slash-commands.ts:30
 #: src/core/components/editor/slash-commands.ts:39
 msgid "Headings"
-msgstr "Headings"
+msgstr "Nadpisy"
 
 #: src/core/components/editor/slash-commands.ts:27
 #: src/core/components/RichTextEditor.tsx:589
 msgid "Heading 2"
-msgstr "Heading 2"
+msgstr "Nadpis 2"
 
 #: src/core/components/editor/slash-commands.ts:28
 msgid "Medium section heading"
-msgstr "Medium section heading"
+msgstr "Nadpis střední úrovně"
 
 #: src/core/components/editor/slash-commands.ts:36
 #: src/core/components/RichTextEditor.tsx:596
 msgid "Heading 3"
-msgstr "Heading 3"
+msgstr "Nadpis 3"
 
 #: src/core/components/editor/slash-commands.ts:37
 msgid "Small section heading"
-msgstr "Small section heading"
+msgstr "Nadpis malé části"
 
 #: src/core/components/editor/slash-commands.ts:45
 #: src/core/components/RichTextEditor.tsx:606
 msgid "Bullet List"
-msgstr "Bullet List"
+msgstr "Seznam s odrážkami"
 
 #: src/core/components/editor/slash-commands.ts:46
 msgid "Unordered list"
-msgstr "Unordered list"
+msgstr "Neuspořádaný seznam"
 
 #: src/core/components/editor/slash-commands.ts:48
 #: src/core/components/editor/slash-commands.ts:57
 msgid "Lists"
-msgstr "Lists"
+msgstr "Seznamy"
 
 #: src/core/components/editor/slash-commands.ts:54
 msgid "Numbered List"
-msgstr "Numbered List"
+msgstr "Číslovaný seznam"
 
 #: src/core/components/editor/slash-commands.ts:55
 msgid "Ordered list"
-msgstr "Ordered list"
+msgstr "Seřazený seznam"
 
 #: src/core/components/editor/slash-commands.ts:63
 msgid "Blockquote"
-msgstr "Blockquote"
+msgstr "Citát"
 
 #: src/core/components/editor/slash-commands.ts:64
 msgid "Quote block"
-msgstr "Quote block"
+msgstr "Blok citátu"
 
 #: src/core/components/editor/slash-commands.ts:66
 #: src/core/components/editor/slash-commands.ts:75
 #: src/core/components/editor/slash-commands.ts:84
 #: src/core/components/editor/slash-commands.ts:93
 msgid "Blocks"
-msgstr "Blocks"
+msgstr "Bloky"
 
 #: src/core/components/editor/slash-commands.ts:72
 #: src/core/components/RichTextEditor.tsx:627
 msgid "Code Block"
-msgstr "Code Block"
+msgstr "Blok kódu"
 
 #: src/core/components/editor/slash-commands.ts:73
 msgid "Fenced code block"
-msgstr "Fenced code block"
+msgstr "Blok kódu v rámečku"
 
 #: src/core/components/editor/slash-commands.ts:81
 #: src/core/components/RichTextEditor.tsx:633
 msgid "Horizontal Rule"
-msgstr "Horizontal Rule"
+msgstr "Vodorovná čára"
 
 #: src/core/components/editor/slash-commands.ts:82
 msgid "Divider line"
-msgstr "Divider line"
+msgstr "Oddělovací čára"
 
 #: src/core/components/editor/slash-commands.ts:90
 #: src/core/components/editor/TableMenu.tsx:138
 msgid "Table"
-msgstr "Table"
+msgstr "Tabulka"
 
 #: src/core/components/editor/slash-commands.ts:91
 msgid "Insert a table"
-msgstr "Insert a table"
+msgstr "Vložit tabulku"
 
 #: src/core/components/editor/slash-commands.ts:101
 #: src/core/components/RichTextEditor.tsx:689
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:108
 msgid "Image"
-msgstr "Image"
+msgstr "Obrázek"
 
 #: src/core/components/editor/slash-commands.ts:102
 msgid "Upload or embed an image"
-msgstr "Upload or embed an image"
+msgstr "Nahrajte nebo vložte obrázek"
 
 #: src/core/components/editor/slash-commands.ts:104
 msgid "Media"
-msgstr "Media"
+msgstr "Média"
 
 #: src/core/components/editor/TableMenu.tsx:71
 msgid "Add row above"
-msgstr "Add row above"
+msgstr "Vložit řádek nad tímto"
 
 #: src/core/components/editor/TableMenu.tsx:77
 msgid "Add row below"
-msgstr "Add row below"
+msgstr "Vložit řádek pod tento"
 
 #: src/core/components/editor/TableMenu.tsx:86
 msgid "Add column left"
-msgstr "Add column left"
+msgstr "Přidat sloupec vlevo"
 
 #: src/core/components/editor/TableMenu.tsx:92
 msgid "Add column right"
-msgstr "Add column right"
+msgstr "Přidat sloupec vpravo"
 
 #: src/core/components/editor/TableMenu.tsx:101
 msgid "Merge cells"
-msgstr "Merge cells"
+msgstr "Sloučit buňky"
 
 #: src/core/components/editor/TableMenu.tsx:108
 msgid "Split cell"
-msgstr "Split cell"
+msgstr "Rozdělená buňka"
 
 #: src/core/components/editor/TableMenu.tsx:118
 msgid "Delete row"
-msgstr "Delete row"
+msgstr "Odstranit řádek"
 
 #: src/core/components/editor/TableMenu.tsx:122
 msgid "Row"
-msgstr "Row"
+msgstr "Řádek"
 
 #: src/core/components/editor/TableMenu.tsx:126
 msgid "Delete column"
-msgstr "Delete column"
+msgstr "Odstranit sloupec"
 
 #: src/core/components/editor/TableMenu.tsx:130
 msgid "Col"
-msgstr "Col"
+msgstr "Plk"
 
 #: src/core/components/editor/TableMenu.tsx:134
 msgid "Delete table"
-msgstr "Delete table"
+msgstr "Odstranit tabulku"
 
 #: src/core/components/i18n/TranslationBar.tsx:68
 msgid "Failed to create translation"
-msgstr "Failed to create translation"
+msgstr "Vytvoření překladu se nezdařilo"
 
 #: src/core/components/i18n/TranslationBar.tsx:76
 msgid "Language"
-msgstr "Language"
+msgstr "Jazyk"
 
 #: src/core/components/i18n/TranslationBar.tsx:131
 #: src/core-api/components/AgentConnectPanel.tsx:114
 msgid "Copy"
-msgstr "Copy"
+msgstr "Kopírovat"
 
 #: src/core/components/i18n/TranslationBar.tsx:140
 msgid "Copy & Translate"
-msgstr "Copy & Translate"
+msgstr "Kopírovat a přeložit"
 
 #: src/core/components/media/MediaPickerButton.tsx:79
 msgid "Change"
-msgstr "Change"
+msgstr "Změna"
 
 #: src/core/components/media/MediaPickerButton.tsx:92
 msgid "Select Image"
-msgstr "Select Image"
+msgstr "Vybrat obrázek"
 
 #: src/core/components/media/MediaPickerButton.tsx:102
 #: src/core/components/media/MediaPickerDialog.tsx:448
 msgid "Alt Text"
-msgstr "Alt Text"
+msgstr "Alternativní text"
 
 #: src/core/components/media/MediaPickerButton.tsx:108
 msgid "Describe the image..."
-msgstr "Describe the image..."
+msgstr "Popište obrázek..."
 
 #: src/core/components/media/MediaPickerDialog.tsx:112
 msgid "Only image files are supported"
-msgstr "Only image files are supported"
+msgstr "Podporovány jsou pouze obrazové soubory"
 
 #: src/core/components/media/MediaPickerDialog.tsx:150
 msgid "Failed to upload {name}"
-msgstr "Failed to upload {name}"
+msgstr "Nepodařilo se nahrát soubor {name}"
 
 #: src/core/components/media/MediaPickerDialog.tsx:215
 msgid "Media Library"
-msgstr "Media Library"
+msgstr "Mediální knihovna"
 
 #: src/core/components/media/MediaPickerDialog.tsx:225
 msgid "Search media..."
-msgstr "Search media..."
+msgstr "Prohledat média..."
 
 #: src/core/components/media/MediaPickerDialog.tsx:239
 msgid "All types"
-msgstr "All types"
+msgstr "Všechny typy"
 
 #: src/core/components/media/MediaPickerDialog.tsx:240
 msgid "Images"
-msgstr "Images"
+msgstr "Obrázky"
 
 #: src/core/components/media/MediaPickerDialog.tsx:241
 msgid "Videos"
-msgstr "Videos"
+msgstr "Videa"
 
 #: src/core/components/media/MediaPickerDialog.tsx:242
 msgid "Documents"
-msgstr "Documents"
+msgstr "Dokumenty"
 
 #: src/core/components/media/MediaPickerDialog.tsx:243
 msgid "Other"
-msgstr "Other"
+msgstr "Ostatní"
 
 #: src/core/components/media/MediaPickerDialog.tsx:256
 msgid "All users"
-msgstr "All users"
+msgstr "Všichni uživatelé"
 
 #: src/core/components/media/MediaPickerDialog.tsx:283
 #: src/core/components/media/PostAttachments.tsx:153
 msgid "Upload"
-msgstr "Upload"
+msgstr "Nahrát"
 
 #: src/core/components/media/MediaPickerDialog.tsx:314
 msgid "Drop files to upload"
-msgstr "Drop files to upload"
+msgstr "Převeďte soubory pro nahrání"
 
 #: src/core/components/media/MediaPickerDialog.tsx:329
 msgid "No images match your search."
-msgstr "No images match your search."
+msgstr "Žádné obrázky neodpovídají vašemu vyhledávání."
 
 #: src/core/components/media/MediaPickerDialog.tsx:330
 msgid "No images yet. Upload or drag files here."
-msgstr "No images yet. Upload or drag files here."
+msgstr "Zatím zde nejsou žádné obrázky. Nahrajte soubory nebo je sem přetáhněte."
 
 #: src/core/components/media/MediaPickerDialog.tsx:430
 #: src/core/components/seo/SeoPreviewCard.tsx:121
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:137
 msgid "Title"
-msgstr "Title"
+msgstr "Název"
 
 #: src/core/components/media/MediaPickerDialog.tsx:442
 msgid "Image title"
-msgstr "Image title"
+msgstr "Název obrázku"
 
 #: src/core/components/media/MediaPickerDialog.tsx:460
 msgid "Describe the image"
-msgstr "Describe the image"
+msgstr "Popište obrázek"
 
 #: src/core/components/media/MediaPickerDialog.tsx:466
 #: src/core/components/seo/SeoPreviewCard.tsx:124
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:396
 msgid "Description"
-msgstr "Description"
+msgstr "Popis"
 
 #: src/core/components/media/MediaPickerDialog.tsx:478
 msgid "Optional description"
-msgstr "Optional description"
+msgstr "Volitelný popis"
 
 #: src/core/components/media/MediaPickerDialog.tsx:496
 msgid "Select an image to view details"
-msgstr "Select an image to view details"
+msgstr "Vyberte obrázek a zobrazte podrobnosti"
 
 #: src/core/components/media/MediaPickerDialog.tsx:506
 msgid "No image selected"
-msgstr "No image selected"
+msgstr "Není vybrán žádný obrázek"
 
 #: src/core/components/media/MediaPickerDialog.tsx:510
 #: src/core/components/media/PostAttachments.tsx:252
@@ -1800,59 +1802,59 @@ msgstr "No image selected"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:703
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Zrušit"
 
 #: src/core/components/media/MediaPickerDialog.tsx:517
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:133
 msgid "Select"
-msgstr "Select"
+msgstr "Vybrat"
 
 #: src/core/components/media/MediaPickerDialog.tsx:525
 msgid "Delete media file?"
-msgstr "Delete media file?"
+msgstr "Chcete smazat mediální soubor?"
 
 #: src/core/components/media/MediaPickerDialog.tsx:526
 msgid "This file will be permanently deleted."
-msgstr "This file will be permanently deleted."
+msgstr "Tento soubor bude trvale smazán."
 
 #: src/core/components/media/PostAttachments.tsx:75
 msgid "Alt text updated"
-msgstr "Alt text updated"
+msgstr "Aktualizován alternativní text"
 
 #: src/core/components/media/PostAttachments.tsx:84
 msgid "Attachment removed"
-msgstr "Attachment removed"
+msgstr "Příloha byla odstraněna"
 
 #: src/core/components/media/PostAttachments.tsx:133
 #: src/core/components/media/PostAttachments.tsx:146
 msgid "Attachments"
-msgstr "Attachments"
+msgstr "Přílohy"
 
 #: src/core/components/media/PostAttachments.tsx:135
 msgid "Save the post first to add attachments."
-msgstr "Save the post first to add attachments."
+msgstr "Chcete-li přidat přílohy, nejprve příspěvek uložte."
 
 #: src/core/components/media/PostAttachments.tsx:169
 msgid "No attachments yet."
-msgstr "No attachments yet."
+msgstr "Zatím nejsou žádné přílohy."
 
 #: src/core/components/media/PostAttachments.tsx:202
 msgid "Edit alt text"
-msgstr "Edit alt text"
+msgstr "Upravit alternativní text"
 
 #: src/core/components/media/PostAttachments.tsx:209
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:158
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove"
-msgstr "Remove"
+msgstr "Odstranit"
 
 #: src/core/components/media/PostAttachments.tsx:229
 msgid "Edit Alt Text"
-msgstr "Edit Alt Text"
+msgstr "Upravit alternativní text"
 
 #: src/core/components/media/PostAttachments.tsx:244
 msgid "Describe this file..."
-msgstr "Describe this file..."
+msgstr "Popište tento soubor..."
 
 #: src/core/components/media/PostAttachments.tsx:264
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:95
@@ -1865,161 +1867,161 @@ msgstr "Describe this file..."
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:337
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:825
 msgid "Save"
-msgstr "Save"
+msgstr "Uložit"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:54
 msgid "Insert Internal Link"
-msgstr "Insert Internal Link"
+msgstr "Vložit interní odkaz"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:63
 msgid "Search pages, blog posts, categories..."
-msgstr "Search pages, blog posts, categories..."
+msgstr "Prohledávat stránky, příspěvky na blogu, kategorie..."
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:72
 msgid "Searching..."
-msgstr "Searching..."
+msgstr "Hledám..."
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:81
 msgid "Type at least 2 characters to search"
-msgstr "Type at least 2 characters to search"
+msgstr "Pro vyhledávání zadejte alespoň 2 znaky"
 
 #: src/core/components/overlays/SlideOver.tsx:102
 msgid "Close"
-msgstr "Close"
+msgstr "Zavřít"
 
 #: src/core/components/PushToggle.tsx:28
 #: src/core/components/PushToggle.tsx:46
 msgid "Push notifications blocked by browser"
-msgstr "Push notifications blocked by browser"
+msgstr "Oznámení typu „push“ blokovaná prohlížečem"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Push enabled"
-msgstr "Push enabled"
+msgstr "Funkce Push je zapnutá"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Enable push"
-msgstr "Enable push"
+msgstr "Povolit push"
 
 #: src/core/components/PushToggle.tsx:51
 msgid "Push notifications on"
-msgstr "Push notifications on"
+msgstr "Zapnout push notifikace"
 
 #: src/core/components/PushToggle.tsx:56
 msgid "Enable push notifications"
-msgstr "Enable push notifications"
+msgstr "Zapnout push oznámení"
 
 #: src/core/components/RichTextEditor.tsx:263
 msgid "Insert"
-msgstr "Insert"
+msgstr "Vložit"
 
 #: src/core/components/RichTextEditor.tsx:265
 msgid "Shortcodes"
-msgstr "Shortcodes"
+msgstr "Zkrácené kódy"
 
 #: src/core/components/RichTextEditor.tsx:319
 msgid "Start writing or type / for commands..."
-msgstr "Start writing or type / for commands..."
+msgstr "Začněte psát nebo zadejte / pro příkazy..."
 
 #: src/core/components/RichTextEditor.tsx:384
 #: src/core/components/RichTextEditor.tsx:401
 #: src/core/components/RichTextEditor.tsx:831
 msgid "Image upload failed"
-msgstr "Image upload failed"
+msgstr "Nahrání obrázku se nezdařilo"
 
 #: src/core/components/RichTextEditor.tsx:572
 msgid "Inline Code"
-msgstr "Inline Code"
+msgstr "Kód v textu"
 
 #: src/core/components/RichTextEditor.tsx:613
 msgid "Ordered List"
-msgstr "Ordered List"
+msgstr "Uspořádaný seznam"
 
 #: src/core/components/RichTextEditor.tsx:620
 msgid "Quote"
-msgstr "Quote"
+msgstr "Citát"
 
 #: src/core/components/RichTextEditor.tsx:646
 msgid "Insert Table"
-msgstr "Insert Table"
+msgstr "Vložit tabulku"
 
 #: src/core/components/RichTextEditor.tsx:656
 msgid "Align Left"
-msgstr "Align Left"
+msgstr "Zarovnat vlevo"
 
 #: src/core/components/RichTextEditor.tsx:663
 msgid "Align Center"
-msgstr "Align Center"
+msgstr "Zarovnat na střed"
 
 #: src/core/components/RichTextEditor.tsx:670
 msgid "Align Right"
-msgstr "Align Right"
+msgstr "Zarovnat vpravo"
 
 #: src/core/components/RichTextEditor.tsx:685
 msgid "Internal Link"
-msgstr "Internal Link"
+msgstr "Vnitřní odkaz"
 
 #: src/core/components/RichTextEditor.tsx:700
 msgid "Insert Variable"
-msgstr "Insert Variable"
+msgstr "Vložit proměnnou"
 
 #: src/core/components/RichTextEditor.tsx:738
 msgid "Insert Block"
-msgstr "Insert Block"
+msgstr "Vložit blok"
 
 #: src/core/components/RichTextEditor.tsx:784
 msgid "Undo"
-msgstr "Undo"
+msgstr "Zpět"
 
 #: src/core/components/RichTextEditor.tsx:791
 msgid "Redo"
-msgstr "Redo"
+msgstr "Znovu"
 
 #: src/core/components/RichTextEditor.tsx:807
 msgid "Hide Preview"
-msgstr "Hide Preview"
+msgstr "Skrýt náhled"
 
 #: src/core/components/RichTextEditor.tsx:807
 msgid "Show Preview"
-msgstr "Show Preview"
+msgstr "Zobrazit náhled"
 
 #: src/core/components/RichTextEditor.tsx:914
 msgid "AI Assist (works in both Visual and Source mode)"
-msgstr "AI Assist (works in both Visual and Source mode)"
+msgstr "AI Assist (funguje v režimu „Visual“ i „Source“)"
 
 #: src/core/components/RichTextEditor.tsx:932
 msgid "Visual"
-msgstr "Visual"
+msgstr "Vizuální"
 
 #: src/core/components/RichTextEditor.tsx:944
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:121
 msgid "Source"
-msgstr "Source"
+msgstr "Zdroj"
 
 #: src/core/components/RichTextEditor.tsx:962
 msgid "Preview"
-msgstr "Preview"
+msgstr "Náhled"
 
 #: src/core/components/seo/SEOFields.tsx:27
 msgid "SEO Title"
-msgstr "SEO Title"
+msgstr "SEO nadpis"
 
 #: src/core/components/seo/SEOFields.tsx:33
 msgid "Optional SEO title for {titleTag} tag"
-msgstr "Optional SEO title for {titleTag} tag"
+msgstr "Volitelný SEO nadpis pro značku {titleTag}"
 
 #: src/core/components/seo/SEOFields.tsx:40
 msgid "Falls back to Title if empty"
-msgstr "Falls back to Title if empty"
+msgstr "Pokud je pole prázdné, použije se název"
 
 #: src/core/components/seo/SEOFields.tsx:46
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:337
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:566
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "Popis meta"
 
 #: src/core/components/seo/SEOFields.tsx:51
 msgid "SEO meta description (max 160 chars)"
-msgstr "SEO meta description (max 160 chars)"
+msgstr "SEO meta popis (max. 160 znaků)"
 
 #: src/core/components/seo/SEOFields.tsx:71
 msgid "Noindex"
@@ -2027,15 +2029,15 @@ msgstr "Noindex"
 
 #: src/core/components/seo/SEOFields.tsx:74
 msgid "Exclude from search engine indexing (adds noindex meta tag)"
-msgstr "Exclude from search engine indexing (adds noindex meta tag)"
+msgstr "Vyloučit z indexování vyhledávači (přidá meta tag „noindex“)"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:120
 msgid "Create SEO Override Pages"
-msgstr "Create SEO Override Pages"
+msgstr "Vytvořit stránky s přepsáním pro SEO"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:132
 msgid "Route"
-msgstr "Route"
+msgstr "Trasa"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:135
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:62
@@ -2047,15 +2049,15 @@ msgstr "Route"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:199
 msgid "Slug"
-msgstr "Slug"
+msgstr "Šnek"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:205
 msgid "Create Selected"
-msgstr "Create Selected"
+msgstr "Vytvořit vybrané"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:27
 msgid "No image"
-msgstr "No image"
+msgstr "Žádný obrázek"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:41
 msgid "Google"
@@ -2071,78 +2073,72 @@ msgstr "Twitter / X"
 
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:35
 msgid "Edit {label}"
-msgstr "Edit {label}"
+msgstr "Upravit {label}"
 
 #: src/core/components/TokenBalance.tsx:71
 msgid "Token balance"
-msgstr "Token balance"
+msgstr "Zůstatek tokenů"
 
 #: src/core/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
-msgstr "{succeeded} {action}, {failed} failed"
-
-#: src/core/hooks/useBulkActions.ts:52
-msgid "1 item {action}"
-msgid_plural "{count} items {action}"
-msgstr[0] "1 item {action}"
-msgstr[1] "{count} items {action}"
+msgstr "{succeeded}, {action} a {failed} selhaly"
 
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
-msgstr "Please check the form for errors"
+msgstr "Zkontrolujte prosím, zda formulář neobsahuje chyby"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:20
 msgid "Activity Feed"
-msgstr "Activity Feed"
+msgstr "Zpravodaj aktivit"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:27
 msgid "View all"
-msgstr "View all"
+msgstr "Zobrazit vše"
 
 #: src/core-activity/components/DashboardActivityWidget.tsx:30
 msgid "No recent activity"
-msgstr "No recent activity"
+msgstr "Žádná nedávná aktivita"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:108
 msgid "Activity Log"
-msgstr "Activity Log"
+msgstr "Protokol aktivit"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:163
 msgid "Search by actor name..."
-msgstr "Search by actor name..."
+msgstr "Vyhledat podle jména herce..."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:210
 msgid "No activity events"
-msgstr "No activity events"
+msgstr "Žádné akce"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:214
 msgid "No events match your filters."
-msgstr "No events match your filters."
+msgstr "Žádné události neodpovídají vašim filtrům."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:215
 msgid "Activity events will appear here as users interact with the app."
-msgstr "Activity events will appear here as users interact with the app."
+msgstr "Zde se budou zobrazovat události z aktivity, jakmile uživatelé budou s aplikací pracovat."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:222
 msgid "Actor"
-msgstr "Actor"
+msgstr "Herec"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:223
 msgid "Action"
-msgstr "Action"
+msgstr "Akce"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:224
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:203
 msgid "Target"
-msgstr "Target"
+msgstr "Cíl"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:225
 msgid "Time"
-msgstr "Time"
+msgstr "Čas"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
 msgid "Unknown"
-msgstr "Unknown"
+msgstr "Neznámé"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:290
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:310
@@ -2155,7 +2151,7 @@ msgstr "Unknown"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "of"
-msgstr "of"
+msgstr "z"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:291
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:311
@@ -2164,61 +2160,61 @@ msgstr "of"
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:214
 msgid "total"
-msgstr "total"
+msgstr "celkem"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:38
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
 msgid "Manage"
-msgstr "Manage"
+msgstr "Spravovat"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:28
 msgid "No affiliates yet."
-msgstr "No affiliates yet."
+msgstr "Zatím žádné přidružené subjekty."
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:44
 msgid "Active Affiliates"
-msgstr "Active Affiliates"
+msgstr "Aktivní partneři"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:48
 msgid "Total Referrals"
-msgstr "Total Referrals"
+msgstr "Celkový počet doporučení"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:52
 msgid "Conversion Rate"
-msgstr "Conversion Rate"
+msgstr "Míra konverze"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:56
 msgid "Total Earnings"
-msgstr "Total Earnings"
+msgstr "Celkové výnosy"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:64
 msgid "Top Affiliates"
-msgstr "Top Affiliates"
+msgstr "Nejlepší partneři"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:70
 msgid "Affiliate"
-msgstr "Affiliate"
+msgstr "Partnerský program"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:72
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:56
 msgid "Referrals"
-msgstr "Referrals"
+msgstr "Doporučení"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:73
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:57
 msgid "Earnings"
-msgstr "Earnings"
+msgstr "Zisky"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:74
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:55
 msgid "Commission"
-msgstr "Commission"
+msgstr "Komise"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:37
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:87
 msgid "All Statuses"
-msgstr "All Statuses"
+msgstr "Všechny stavy"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:38
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
@@ -2232,21 +2228,21 @@ msgstr "All Statuses"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Active"
-msgstr "Active"
+msgstr "Aktivní"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:39
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:132
 msgid "Suspended"
-msgstr "Suspended"
+msgstr "Pozastaveno"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:40
 msgid "Banned"
-msgstr "Banned"
+msgstr "Zablokováno"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:47
 msgid "No affiliates found"
-msgstr "No affiliates found"
+msgstr "Nebyly nalezeny žádné přidružené společnosti"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:58
 #: src/core-api/components/ApiKeyManager.tsx:175
@@ -2270,14 +2266,14 @@ msgstr "No affiliates found"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:250
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:380
 msgid "Status"
-msgstr "Status"
+msgstr "Stav"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:59
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:63
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:62
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:166
 msgid "Actions"
-msgstr "Actions"
+msgstr "Akce"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:81
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
@@ -2285,86 +2281,86 @@ msgstr "Actions"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:141
 msgid "Suspend"
-msgstr "Suspend"
+msgstr "Pozastavit"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:89
 msgid "Activate"
-msgstr "Activate"
+msgstr "Aktivovat"
 
 #: src/core-api/components/AgentConnectPanel.tsx:31
 msgid "Claude Code"
-msgstr "Claude Code"
+msgstr "Claudeův kód"
 
 #: src/core-api/components/AgentConnectPanel.tsx:33
 msgid "Run in any terminal. The agent can then operate this site directly — no browser needed."
-msgstr "Run in any terminal. The agent can then operate this site directly — no browser needed."
+msgstr "Spusťte v libovolném terminálu. Agent pak může tento web ovládat přímo – není potřeba žádný prohlížeč."
 
 #: src/core-api/components/AgentConnectPanel.tsx:50
 msgid "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
-msgstr "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
+msgstr "Přejděte do kořenového adresáře projektu – programy Claude Code, Cursor a většina klientů MCP jej rozpoznají automaticky."
 
 #: src/core-api/components/AgentConnectPanel.tsx:53
 msgid "Any MCP client"
-msgstr "Any MCP client"
+msgstr "Jakýkoli klient MCP"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Endpoint"
-msgstr "Endpoint"
+msgstr "Koncový bod"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Transport"
-msgstr "Transport"
+msgstr "Doprava"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Auth"
-msgstr "Auth"
+msgstr "Autorizace"
 
 #: src/core-api/components/AgentConnectPanel.tsx:55
 msgid "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
-msgstr "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
+msgstr "Funguje s jakýmkoli klientem, který komunikuje protokolem MCP přes Streamable HTTP s autentizací typu „bearer“."
 
 #: src/core-api/components/AgentConnectPanel.tsx:61
 msgid "Agent Access (MCP)"
-msgstr "Agent Access (MCP)"
+msgstr "Přístup agenta (MCP)"
 
 #: src/core-api/components/AgentConnectPanel.tsx:63
 msgid "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
-msgstr "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
+msgstr "AI agenti mohou tento web ovládat přímo prostřednictvím koncového bodu MCP – každá akce API je k dispozici jako nástroj, jehož rozsah je omezen na váš účet a organizaci. Klíče musí mít rozsah mcp:invoke (nebo plný přístup)."
 
 #: src/core-api/components/AgentConnectPanel.tsx:83
 msgid "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
-msgstr "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
+msgstr "Vytvořte výše uvedený klíč s rozsahem mcp:invoke a tyto úryvky kódu jej automaticky zahrnou."
 
 #: src/core-api/components/AgentConnectPanel.tsx:114
 #: src/core-api/components/ApiKeyManager.tsx:366
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "Zkopírováno!"
 
 #: src/core-api/components/ApiKeyManager.tsx:106
 msgid "Create API Key"
-msgstr "Create API Key"
+msgstr "Vytvořit klíč API"
 
 #: src/core-api/components/ApiKeyManager.tsx:112
 msgid "Key name (e.g. Production, Staging)"
-msgstr "Key name (e.g. Production, Staging)"
+msgstr "Název klíče (např. Production, Staging)"
 
 #: src/core-api/components/ApiKeyManager.tsx:122
 msgid "Create Key"
-msgstr "Create Key"
+msgstr "Vytvořit klíč"
 
 #: src/core-api/components/ApiKeyManager.tsx:138
 msgid "Your API key has been created. Copy it now — it won't be shown again."
-msgstr "Your API key has been created. Copy it now — it won't be shown again."
+msgstr "Váš klíč API byl vytvořen. Zkopírujte si ho hned – už se znovu nezobrazí."
 
 #: src/core-api/components/ApiKeyManager.tsx:160
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:12
 msgid "API Keys"
-msgstr "API Keys"
+msgstr "Klíče API"
 
 #: src/core-api/components/ApiKeyManager.tsx:166
 msgid "No API keys yet."
-msgstr "No API keys yet."
+msgstr "Zatím žádné klíče API."
 
 #: src/core-api/components/ApiKeyManager.tsx:172
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:61
@@ -2382,19 +2378,19 @@ msgstr "No API keys yet."
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:616
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:657
 msgid "Name"
-msgstr "Name"
+msgstr "Jméno"
 
 #: src/core-api/components/ApiKeyManager.tsx:173
 msgid "Key"
-msgstr "Key"
+msgstr "Klíč"
 
 #: src/core-api/components/ApiKeyManager.tsx:174
 msgid "Scopes"
-msgstr "Scopes"
+msgstr "Rozsahy"
 
 #: src/core-api/components/ApiKeyManager.tsx:176
 msgid "Last Used"
-msgstr "Last Used"
+msgstr "Naposledy použito"
 
 #: src/core-api/components/ApiKeyManager.tsx:177
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:83
@@ -2402,136 +2398,136 @@ msgstr "Last Used"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:122
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:388
 msgid "Created"
-msgstr "Created"
+msgstr "Vytvořeno"
 
 #: src/core-api/components/ApiKeyManager.tsx:206
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:169
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:222
 msgid "Saving..."
-msgstr "Saving..."
+msgstr "Ukládání..."
 
 #: src/core-api/components/ApiKeyManager.tsx:221
 msgid "Click to edit scopes"
-msgstr "Click to edit scopes"
+msgstr "Kliknutím upravíte rozsahy"
 
 #: src/core-api/components/ApiKeyManager.tsx:226
 msgid "None"
-msgstr "None"
+msgstr "Žádné"
 
 #: src/core-api/components/ApiKeyManager.tsx:228
 msgid "scopes"
-msgstr "scopes"
+msgstr "oblasti použití"
 
 #: src/core-api/components/ApiKeyManager.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:367
 msgid "Never"
-msgstr "Never"
+msgstr "Nikdy"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "Roll this key?"
-msgstr "Roll this key?"
+msgstr "Tento klíč použít?"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "A new key will be created and the old one will expire in 24 hours."
-msgstr "A new key will be created and the old one will expire in 24 hours."
+msgstr "Bude vytvořen nový klíč a platnost starého vyprší za 24 hodin."
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 #: src/core-api/components/ApiKeyManager.tsx:255
 msgid "Roll"
-msgstr "Roll"
+msgstr "Hod kostkou"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "Revoke this API key?"
-msgstr "Revoke this API key?"
+msgstr "Zrušit tento klíč API?"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "This is immediate and cannot be undone."
-msgstr "This is immediate and cannot be undone."
+msgstr "Tato akce je okamžitá a nelze ji vrátit zpět."
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 #: src/core-api/components/ApiKeyManager.tsx:267
 msgid "Revoke"
-msgstr "Revoke"
+msgstr "Zrušit"
 
 #: src/core-api/components/ApiKeyManager.tsx:305
 msgid "Full access"
-msgstr "Full access"
+msgstr "Plný přístup"
 
 #: src/core-api/components/ApiKeyManager.tsx:327
 msgid "No scopes selected — no access."
-msgstr "No scopes selected — no access."
+msgstr "Nebyly vybrány žádné rozsahy – žádný přístup."
 
 #: src/core-api/components/ApiKeyManager.tsx:366
 msgid "Copy to Clipboard"
-msgstr "Copy to Clipboard"
+msgstr "Kopírovat do schránky"
 
 #: src/core-api/components/ApiKeyManager.tsx:381
 msgid "Expiring"
-msgstr "Expiring"
+msgstr "Končí platnost"
 
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:13
 msgid "Manage API keys for programmatic access to your data."
-msgstr "Manage API keys for programmatic access to your data."
+msgstr "Spravujte klíče API pro programový přístup k vašim datům."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:109
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:44
 msgid "Search authors..."
-msgstr "Search authors..."
+msgstr "Vyhledat autory..."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:116
 msgid "No authors found. Create one first."
-msgstr "No authors found. Create one first."
+msgstr "Nebyli nalezeni žádní autoři. Nejprve nějakého vytvořte."
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:22
 msgid "Author deleted"
-msgstr "Author deleted"
+msgstr "Autor smazal"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:30
 msgid "Authors"
-msgstr "Authors"
+msgstr "Autoři"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:35
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "New Author"
-msgstr "New Author"
+msgstr "Nový autor"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:56
 msgid "No authors yet."
-msgstr "No authors yet."
+msgstr "Zatím žádní autoři."
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:83
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:132
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:282
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
 msgid "Edit"
-msgstr "Edit"
+msgstr "Upravit"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:89
 msgid "Delete this author?"
-msgstr "Delete this author?"
+msgstr "Smazat tohoto autora?"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:42
 msgid "Author created"
-msgstr "Author created"
+msgstr "Vytvořil autor"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:50
 msgid "Author saved"
-msgstr "Author saved"
+msgstr "Autor uložen"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "Edit Author"
-msgstr "Edit Author"
+msgstr "Upravit autora"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:108
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:142
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:121
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Create"
-msgstr "Create"
+msgstr "Vytvořit"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:136
 msgid "Bio"
-msgstr "Bio"
+msgstr "Životopis"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:146
 msgid "Avatar"
@@ -2539,11 +2535,11 @@ msgstr "Avatar"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:165
 msgid "Social Links"
-msgstr "Social Links"
+msgstr "Odkazy na sociální sítě"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:168
 msgid "Website"
-msgstr "Website"
+msgstr "Webové stránky"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:172
 msgid "Twitter"
@@ -2559,25 +2555,25 @@ msgstr "LinkedIn"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:22
 msgid "Are you sure you want to delete this character?"
-msgstr "Are you sure you want to delete this character?"
+msgstr "Opravdu chcete tuto postavu smazat?"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:32
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Characters"
-msgstr "Characters"
+msgstr "Postavy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:34
 msgid "AI personas that users can chat with."
-msgstr "AI personas that users can chat with."
+msgstr "Umělé inteligence, se kterými mohou uživatelé chatovat."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:42
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
 msgid "New Character"
-msgstr "New Character"
+msgstr "Nová postava"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:52
 msgid "No characters yet. Create your first AI persona."
-msgstr "No characters yet. Create your first AI persona."
+msgstr "Zatím žádné postavy. Vytvořte si svou první postavu s umělou inteligencí."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
@@ -2585,254 +2581,254 @@ msgstr "No characters yet. Create your first AI persona."
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Inactive"
-msgstr "Inactive"
+msgstr "Neaktivní"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:188
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "Slogan"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:191
 msgid "System Prompt"
-msgstr "System Prompt"
+msgstr "Systémová výzva"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:194
 msgid "Personality (visible to users)"
-msgstr "Personality (visible to users)"
+msgstr "Osobnost (viditelná pro uživatele)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:197
 msgid "Greeting Message"
-msgstr "Greeting Message"
+msgstr "Úvodní zpráva"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:200
 msgid "Avatar URL"
-msgstr "Avatar URL"
+msgstr "URL avatara"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
 msgid "Character Traits"
-msgstr "Character Traits"
+msgstr "Charakterové vlastnosti"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
 msgid "Gender"
-msgstr "Gender"
+msgstr "Pohlaví"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
 msgid "Sexuality"
-msgstr "Sexuality"
+msgstr "Sexualita"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
 msgid "Ethnicity"
-msgstr "Ethnicity"
+msgstr "Etnická příslušnost"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
 msgid "Personality"
-msgstr "Personality"
+msgstr "Osobnost"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
 msgid "Kink"
-msgstr "Kink"
+msgstr "Zlom"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:212
 msgid "Job"
-msgstr "Job"
+msgstr "Práce"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:213
 msgid "Relationship"
-msgstr "Relationship"
+msgstr "Vztah"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:216
 msgid "Hobbies"
-msgstr "Hobbies"
+msgstr "Záliby"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
 msgid "Visual Appearance"
-msgstr "Visual Appearance"
+msgstr "Vzhled"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
 msgid "Hair Color"
-msgstr "Hair Color"
+msgstr "Barva vlasů"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
 msgid "Hair Texture"
-msgstr "Hair Texture"
+msgstr "Struktura vlasů"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
 msgid "Hair Style"
-msgstr "Hair Style"
+msgstr "Účes"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
 msgid "Eye Color"
-msgstr "Eye Color"
+msgstr "Barva očí"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:228
 msgid "Skin"
-msgstr "Skin"
+msgstr "Kůže"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:229
 msgid "Body Type"
-msgstr "Body Type"
+msgstr "Typ postavy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
 msgid "Image Generation Settings"
-msgstr "Image Generation Settings"
+msgstr "Nastavení generování obrázků"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
 msgid "Model Preset"
-msgstr "Model Preset"
+msgstr "Předvolba modelu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
 msgid "Sort Order"
-msgstr "Sort Order"
+msgstr "Pořadí řazení"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:241
 msgid "Token Cost Multiplier"
-msgstr "Token Cost Multiplier"
+msgstr "Násobitel nákladů na tokeny"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
 msgid "Custom Negative Prompt"
-msgstr "Custom Negative Prompt"
+msgstr "Vlastní negativní výzva"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:246
 msgid "LoRA Config"
-msgstr "LoRA Config"
+msgstr "Nastavení LoRA"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:252
 msgid "Active (visible to users)"
-msgstr "Active (visible to users)"
+msgstr "Aktivní (viditelné pro uživatele)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
 msgid "Create Character"
-msgstr "Create Character"
+msgstr "Vytvořit postavu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
 msgid "Save Changes"
-msgstr "Save Changes"
+msgstr "Uložit změny"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
 msgid "Edit Character"
-msgstr "Edit Character"
+msgstr "Upravit postavu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:12
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
 msgid "Conversations"
-msgstr "Conversations"
+msgstr "Rozhovory"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:26
 msgid "Browse all chat conversations"
-msgstr "Browse all chat conversations"
+msgstr "Prohlédnout si všechny chatové konverzace"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
 msgid "All statuses"
-msgstr "All statuses"
+msgstr "Všechny stavy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:368
 msgid "Archived"
-msgstr "Archived"
+msgstr "Archivováno"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:36
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:133
 msgid "Deleted"
-msgstr "Deleted"
+msgstr "Smazáno"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:43
 msgid "No conversations found."
-msgstr "No conversations found."
+msgstr "Nebyly nalezeny žádné konverzace."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
 msgid "User"
-msgstr "User"
+msgstr "Uživatel"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
 msgid "Character"
-msgstr "Character"
+msgstr "Postava"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
 msgid "Messages"
-msgstr "Messages"
+msgstr "Zprávy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:130
 msgid "Tokens"
-msgstr "Tokens"
+msgstr "Žetony"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:55
 msgid "Last Active"
-msgstr "Last Active"
+msgstr "Poslední aktivita"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:26
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
 msgid "Conversation"
-msgstr "Conversation"
+msgstr "Rozhovor"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:33
 msgid "No messages."
-msgstr "No messages."
+msgstr "Žádné zprávy."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:15
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Flagged Messages"
-msgstr "Flagged Messages"
+msgstr "Označené zprávy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
 msgid "Messages blocked by content moderation"
-msgstr "Messages blocked by content moderation"
+msgstr "Zprávy zablokované v rámci moderace obsahu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
 msgid "No flagged messages."
-msgstr "No flagged messages."
+msgstr "Žádné označené zprávy."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "Reason"
-msgstr "Reason"
+msgstr "Důvod"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
 msgid "Dismiss flag"
-msgstr "Dismiss flag"
+msgstr "Zrušit označení"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
 msgid "Dismiss"
-msgstr "Dismiss"
+msgstr "Zavřít"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:13
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
 msgid "Total Messages"
-msgstr "Total Messages"
+msgstr "Celkový počet zpráv"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:14
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:27
 msgid "Active Users (24h)"
-msgstr "Active Users (24h)"
+msgstr "Aktivní uživatelé (za posledních 24 hodin)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Manage AI personas"
-msgstr "Manage AI personas"
+msgstr "Správa AI osobností"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 msgid "Browse all conversations"
-msgstr "Browse all conversations"
+msgstr "Prohlédnout si všechny konverzace"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Review moderated content"
-msgstr "Review moderated content"
+msgstr "Zkontrolovat moderovaný obsah"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 msgid "Manage LLM providers"
-msgstr "Manage LLM providers"
+msgstr "Správa poskytovatelů LLM"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Usage statistics and charts"
-msgstr "Usage statistics and charts"
+msgstr "Statistiky a grafy využití"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Keywords, action, and rate limits"
-msgstr "Keywords, action, and rate limits"
+msgstr "Klíčová slova, akce a omezení rychlosti"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:30
 msgid "Chat"
@@ -2840,27 +2836,27 @@ msgstr "Chat"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:31
 msgid "AI character chat management"
-msgstr "AI character chat management"
+msgstr "Správa chatů s AI postavami"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:69
 msgid "Delete this provider?"
-msgstr "Delete this provider?"
+msgstr "Chcete tohoto poskytovatele smazat?"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:87
 msgid "Manage LLM provider credentials and routing"
-msgstr "Manage LLM provider credentials and routing"
+msgstr "Správa přihlašovacích údajů poskytovatelů LLM a směrování"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:91
 msgid "Add Provider"
-msgstr "Add Provider"
+msgstr "Přidat poskytovatele"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
 msgid "Edit Provider"
-msgstr "Edit Provider"
+msgstr "Upravit poskytovatele"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
 msgid "New Provider"
-msgstr "New Provider"
+msgstr "Nový poskytovatel"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
@@ -2876,11 +2872,11 @@ msgstr "New Provider"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
 msgid "Type"
-msgstr "Type"
+msgstr "Typ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
 msgid "LLM (Text)"
-msgstr "LLM (Text)"
+msgstr "LLM (text)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
 msgid "Video"
@@ -2888,7 +2884,7 @@ msgstr "Video"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:111
 msgid "Adapter"
-msgstr "Adapter"
+msgstr "Adaptér"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:118
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
@@ -2897,35 +2893,35 @@ msgstr "Model"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
 msgid "Base URL (leave empty for OpenAI)"
-msgstr "Base URL (leave empty for OpenAI)"
+msgstr "Základní URL (v případě OpenAI nechte prázdné)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:123
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
 msgid "API Key"
-msgstr "API Key"
+msgstr "Klíč API"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
 msgid "Leave empty to keep current"
-msgstr "Leave empty to keep current"
+msgstr "Nechte prázdné, pokud chcete zachovat aktuální stav"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:120
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:384
 msgid "Priority"
-msgstr "Priority"
+msgstr "Priorita"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
 msgid "Max Concurrent"
-msgstr "Max Concurrent"
+msgstr "Maximální počet souběžných procesů"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:134
 msgid "Timeout (s)"
-msgstr "Timeout (s)"
+msgstr "Časový limit (s)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:153
 msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
-msgstr "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "Není nakonfigurován žádný poskytovatel. Pro rychlý start přidejte jednoho nebo nastavte proměnnou AI_API_KEY v souboru .env."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:189
 msgid "Test"
@@ -2933,64 +2929,64 @@ msgstr "Test"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
 msgid "Task Queues"
-msgstr "Task Queues"
+msgstr "Fronty úloh"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
 msgid "BullMQ job queue status and failed job management"
-msgstr "BullMQ job queue status and failed job management"
+msgstr "Stav fronty úloh v BullMQ a správa neúspěšných úloh"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
 msgid "No queues found. Workers may not be running."
-msgstr "No queues found. Workers may not be running."
+msgstr "Nebyly nalezeny žádné fronty. Je možné, že pracovní procesy nejsou spuštěny."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
 msgid "Waiting"
-msgstr "Waiting"
+msgstr "Čekání"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
 msgid "Done"
-msgstr "Done"
+msgstr "Hotovo"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
 msgid "Failed"
-msgstr "Failed"
+msgstr "Neúspěšné"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
 msgid "Failed Jobs"
-msgstr "Failed Jobs"
+msgstr "Neúspěšné úlohy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
 msgid "Attempts"
-msgstr "Attempts"
+msgstr "Pokusy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
 msgid "Retry"
-msgstr "Retry"
+msgstr "Zkusit znovu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:28
 msgid "Tokens Consumed"
-msgstr "Tokens Consumed"
+msgstr "Spotřebované žetony"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:34
 msgid "Chat Analytics"
-msgstr "Chat Analytics"
+msgstr "Analýza chatu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:35
 msgid "Usage statistics and trends"
-msgstr "Usage statistics and trends"
+msgstr "Statistiky a trendy v používání"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:55
 msgid "Messages (30 days)"
-msgstr "Messages (30 days)"
+msgstr "Zprávy (30 dní)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:74
 msgid "Popular Characters"
-msgstr "Popular Characters"
+msgstr "Oblíbené postavy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:78
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:121
 msgid "No data yet"
-msgstr "No data yet"
+msgstr "Zatím nejsou k dispozici žádné údaje"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
@@ -3000,103 +2996,103 @@ msgstr "Convs"
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:87
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:129
 msgid "Msgs"
-msgstr "Msgs"
+msgstr "Zprávy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:88
 msgid "Avg"
-msgstr "Avg"
+msgstr "Průměr"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:117
 msgid "Most Active Users"
-msgstr "Most Active Users"
+msgstr "Nejaktivnější uživatelé"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:164
 msgid "Provider Health (24h)"
-msgstr "Provider Health (24h)"
+msgstr "Zdravotní péče poskytovatele (24 hodin)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:168
 msgid "No provider activity yet"
-msgstr "No provider activity yet"
+msgstr "Zatím žádná aktivita poskytovatele"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
 msgid "Provider"
-msgstr "Provider"
+msgstr "Poskytovatel"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
 msgid "Requests"
-msgstr "Requests"
+msgstr "Žádosti"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
 msgid "Success"
-msgstr "Success"
+msgstr "Úspěch"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
 msgid "Failures"
-msgstr "Failures"
+msgstr "Selhání"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:178
 msgid "Avg ms"
-msgstr "Avg ms"
+msgstr "Průměr v ms"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:179
 msgid "Rate"
-msgstr "Rate"
+msgstr "Sazba"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:69
 msgid "Comment updated"
-msgstr "Comment updated"
+msgstr "Komentář byl aktualizován"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:78
 msgid "Comment deleted"
-msgstr "Comment deleted"
+msgstr "Komentář byl smazán"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:156
 msgid "Search comments..."
-msgstr "Search comments..."
+msgstr "Vyhledat komentáře..."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:189
 msgid "No comments"
-msgstr "No comments"
+msgstr "Žádné komentáře"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:193
 msgid "No comments match your search."
-msgstr "No comments match your search."
+msgstr "Žádné komentáře neodpovídají vašemu vyhledávání."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:194
 msgid "No comments found."
-msgstr "No comments found."
+msgstr "Nebyly nalezeny žádné komentáře."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:201
 msgid "Author"
-msgstr "Author"
+msgstr "Autor"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:202
 msgid "Comment"
-msgstr "Comment"
+msgstr "Komentář"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:205
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:305
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:139
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
 msgid "Date"
-msgstr "Date"
+msgstr "Datum"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:230
 msgid "Anonymous"
-msgstr "Anonymous"
+msgstr "Anonymní"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:267
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:179
 msgid "Approve"
-msgstr "Approve"
+msgstr "Schválit"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:276
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:187
 msgid "Reject"
-msgstr "Reject"
+msgstr "Odmítnout"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:285
 msgid "Spam"
@@ -3104,35 +3100,35 @@ msgstr "Spam"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:334
 msgid "Delete comment?"
-msgstr "Delete comment?"
+msgstr "Smazat komentář?"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:335
 msgid "Permanently delete this comment? This action cannot be undone."
-msgstr "Permanently delete this comment? This action cannot be undone."
+msgstr "Chcete tento komentář trvale smazat? Tuto akci nelze vrátit zpět."
 
 #: src/core-multisite/components/SiteSwitcher.tsx:61
 msgid "Switch site"
-msgstr "Switch site"
+msgstr "Změnit web"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:77
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:94
 msgid "Network"
-msgstr "Network"
+msgstr "Síť"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:89
 msgid "Network Admin"
-msgstr "Network Admin"
+msgstr "Správce sítě"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:38
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:65
 msgid "Create Site"
-msgstr "Create Site"
+msgstr "Vytvořit web"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:46
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:169
 msgid "Site Name"
-msgstr "Site Name"
+msgstr "Název webu"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:50
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
@@ -3141,203 +3137,203 @@ msgstr "Site Name"
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "optional"
-msgstr "optional"
+msgstr "volitelné"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:51
 msgid "auto-generated from name"
-msgstr "auto-generated from name"
+msgstr "automaticky vygenerováno na základě jména"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:52
 msgid "Used for subdomain: {slug}.yourdomain.com"
-msgstr "Used for subdomain: {slug}.yourdomain.com"
+msgstr "Používá se pro subdoménu: {slug}.yourdomain.com"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
 msgid "Default Locale"
-msgstr "Default Locale"
+msgstr "Výchozí národní prostředí"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "Suspend this site?"
-msgstr "Suspend this site?"
+msgstr "Zablokovat tuto stránku?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "It will become inaccessible to visitors."
-msgstr "It will become inaccessible to visitors."
+msgstr "Pro návštěvníky bude nepřístupné."
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:53
 msgid "Sites"
-msgstr "Sites"
+msgstr "Webové stránky"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:62
 msgid "Show deleted"
-msgstr "Show deleted"
+msgstr "Zobrazit smazané"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:75
 msgid "No sites yet. Create your first site."
-msgstr "No sites yet. Create your first site."
+msgstr "Zatím žádné stránky. Vytvořte svou první stránku."
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:118
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:146
 msgid "Unsuspend"
-msgstr "Unsuspend"
+msgstr "Zrušit pozastavení"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:56
 msgid "Site not found"
-msgstr "Site not found"
+msgstr "Stránka nebyla nalezena"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:93
 msgid "Are you sure you want to disable this site?"
-msgstr "Are you sure you want to disable this site?"
+msgstr "Opravdu chcete tuto stránku zablokovat?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Name for the cloned site:"
-msgstr "Name for the cloned site:"
+msgstr "Název klonované stránky:"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Site name"
-msgstr "Site name"
+msgstr "Název webu"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove this domain?"
-msgstr "Remove this domain?"
+msgstr "Chcete tuto doménu odstranit?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:136
 msgid "Clone Site"
-msgstr "Clone Site"
+msgstr "Klonovat web"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:137
 msgid "Clone"
-msgstr "Clone"
+msgstr "Klonovat"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:156
 msgid "Disable Site"
-msgstr "Disable Site"
+msgstr "Zakázat web"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:166
 msgid "General"
-msgstr "General"
+msgstr "Obecné informace"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:177
 msgid "Schema"
-msgstr "Schema"
+msgstr "Schéma"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:189
 msgid "Branding"
-msgstr "Branding"
+msgstr "Budování značky"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:194
 msgid "Brand Hue"
-msgstr "Brand Hue"
+msgstr "Značka Hue"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:206
 msgid "Accent Hue"
-msgstr "Accent Hue"
+msgstr "Akcentní odstín"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:218
 msgid "Gray Hue"
-msgstr "Gray Hue"
+msgstr "Šedý odstín"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:231
 msgid "Logo URL"
-msgstr "Logo URL"
+msgstr "URL loga"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:235
 msgid "Favicon URL"
-msgstr "Favicon URL"
+msgstr "URL faviconu"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:239
 msgid "Contact Email"
-msgstr "Contact Email"
+msgstr "Kontaktní e-mail"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:243
 msgid "Save Branding"
-msgstr "Save Branding"
+msgstr "Uložit značku"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:250
 msgid "Domains"
-msgstr "Domains"
+msgstr "Domény"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:257
 msgid "Verified"
-msgstr "Verified"
+msgstr "Ověřeno"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:259
 msgid "Pending"
-msgstr "Pending"
+msgstr "V řešení"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:261
 msgid "Primary"
-msgstr "Primary"
+msgstr "Základní"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:272
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:711
 msgid "Add"
-msgstr "Add"
+msgstr "Přidat"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:285
 msgid "Members"
-msgstr "Members"
+msgstr "Členové"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:287
 msgid "No members yet."
-msgstr "No members yet."
+msgstr "Zatím žádní členové."
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:16
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:26
 msgctxt "General"
 msgid "Pending"
-msgstr "Pending"
+msgstr "V řešení"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:17
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:27
 msgctxt "General"
 msgid "Processing"
-msgstr "Processing"
+msgstr "Zpracování"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:18
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:28
 msgctxt "General"
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "Odesláno"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:19
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:29
 msgctxt "General"
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "Doručeno"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:20
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:30
 msgctxt "General"
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "Zrušeno"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:21
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:31
 msgctxt "General"
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "Vráceno"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:316
 msgid "Price: Low to High"
-msgstr "Price: Low to High"
+msgstr "Cena: Od nejnižší po nejvyšší"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:317
 msgid "Price: High to Low"
-msgstr "Price: High to Low"
+msgstr "Cena: Od nejvyšší k nejnižší"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:318
 msgid "Name A-Z"
-msgstr "Name A-Z"
+msgstr "Jméno A–Z"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:440
 msgid "Shop now"
-msgstr "Shop now"
+msgstr "Nakupujte hned"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:531
 msgid "Price Range"
-msgstr "Price Range"
+msgstr "Cenové rozpětí"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:536
 msgid "Min"
@@ -3350,56 +3346,56 @@ msgstr "Max"
 #: src/core-store/_templates/app/(public)/store/client.tsx:876
 #: src/core-store/_templates/app/(public)/store/client.tsx:906
 msgid "Filters"
-msgstr "Filters"
+msgstr "Filtry"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "Showing"
-msgstr "Showing"
+msgstr "Zobrazit"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 msgid "products"
-msgstr "products"
+msgstr "výrobky"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1025
 msgid "Try adjusting your search terms or clearing filters."
-msgstr "Try adjusting your search terms or clearing filters."
+msgstr "Zkuste upravit vyhledávací kritéria nebo vymazat filtry."
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1026
 msgid "Check back soon for new products."
-msgstr "Check back soon for new products."
+msgstr "Brzy se sem vraťte a podívejte se na nové produkty."
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1041
 msgid "Browse our collection of products"
-msgstr "Browse our collection of products"
+msgstr "Prohlédněte si naši nabídku produktů"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1050
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:138
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "Vyhledat produkty..."
 
 #: src/core-store/_templates/app/(public)/store/page.tsx:10
 #: src/core-store/_templates/app/(public)/store/page.tsx:13
 msgid "Browse our collection of products. Find exactly what you need."
-msgstr "Browse our collection of products. Find exactly what you need."
+msgstr "Prohlédněte si naši nabídku produktů. Najděte přesně to, co potřebujete."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:748
 msgid "Attributes"
-msgstr "Attributes"
+msgstr "Atributy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:98
 msgid "Add Attribute"
-msgstr "Add Attribute"
+msgstr "Přidat atribut"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:108
 msgid "New Attribute"
-msgstr "New Attribute"
+msgstr "Nový atribut"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:119
 msgid "e.g. Color, Size"
-msgstr "e.g. Color, Size"
+msgstr "např. barva, velikost"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:134
 msgid "Text"
@@ -3407,158 +3403,158 @@ msgstr "Text"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:135
 msgid "Number"
-msgstr "Number"
+msgstr "Číslo"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:201
 msgid "Values"
-msgstr "Values"
+msgstr "Hodnoty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 msgid "comma-separated"
-msgstr "comma-separated"
+msgstr "oddělené čárkami"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:202
 msgid "Filterable"
-msgstr "Filterable"
+msgstr "Lze filtrovat"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:188
 msgid "No attributes defined"
-msgstr "No attributes defined"
+msgstr "Nebyly definovány žádné atributy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:191
 msgid "Add your first attribute to enable product filtering."
-msgstr "Add your first attribute to enable product filtering."
+msgstr "Přidejte svůj první atribut, abyste mohli filtrovat produkty."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:315
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
 msgid "Usage"
-msgstr "Usage"
+msgstr "Použití"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:116
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
 msgid "Discount Codes"
-msgstr "Discount Codes"
+msgstr "Slevové kódy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:123
 msgid "Add Code"
-msgstr "Add Code"
+msgstr "Vložit kód"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:133
 msgid "New Discount Code"
-msgstr "New Discount Code"
+msgstr "Nový slevový kód"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:158
 msgid "Percentage"
-msgstr "Percentage"
+msgstr "Procento"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:159
 msgid "Fixed Amount"
-msgstr "Fixed Amount"
+msgstr "Pevná částka"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (%)"
-msgstr "Value (%)"
+msgstr "Hodnota (%)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (EUR)"
-msgstr "Value (EUR)"
+msgstr "Hodnota (EUR)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:179
 msgid "Min Order (EUR)"
-msgstr "Min Order (EUR)"
+msgstr "Minimální objednávka (EUR)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:193
 msgid "Max Uses"
-msgstr "Max Uses"
+msgstr "Maximální využití"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:317
 msgid "Expires"
-msgstr "Expires"
+msgstr "Platnost končí"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:266
 msgid "Search codes..."
-msgstr "Search codes..."
+msgstr "Vyhledat kódy..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:299
 msgid "No discount codes"
-msgstr "No discount codes"
+msgstr "Žádné slevové kódy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:303
 msgid "No codes match your search."
-msgstr "No codes match your search."
+msgstr "Žádný kód neodpovídá vašemu vyhledávání."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:304
 msgid "Create your first discount code to offer promotions."
-msgstr "Create your first discount code to offer promotions."
+msgstr "Vytvořte si svůj první slevový kód a nabídněte zákazníkům slevové akce."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:313
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
 msgid "Value"
-msgstr "Value"
+msgstr "Hodnota"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:314
 msgid "Min Order"
-msgstr "Min Order"
+msgstr "Minimální objednávka"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Percent"
-msgstr "Percent"
+msgstr "Procent"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Fixed"
-msgstr "Fixed"
+msgstr "Opraveno"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:376
 msgid "Deactivate"
-msgstr "Deactivate"
+msgstr "Deaktivovat"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:59
 msgid "Product created"
-msgstr "Product created"
+msgstr "Produkt vytvořen"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:75
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:239
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "Jméno je povinné"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:113
 msgid "New Product"
-msgstr "New Product"
+msgstr "Nový produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:130
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:347
 msgid "Basic Info"
-msgstr "Basic Info"
+msgstr "Základní informace"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:139
 msgid "Product name"
-msgstr "Product name"
+msgstr "Název produktu"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:149
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:379
 msgid "Simple"
-msgstr "Simple"
+msgstr "Jednoduché"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:380
 msgid "Variable"
-msgstr "Variable"
+msgstr "Proměnná"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:152
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:382
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "Předplatné"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:386
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "Stručný popis"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:183
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:209
@@ -3566,22 +3562,22 @@ msgstr "Short Description"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:618
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:676
 msgid "Price"
-msgstr "Price"
+msgstr "Cena"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:195
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:425
 msgid "Compare Price"
-msgstr "Compare Price"
+msgstr "Porovnat ceny"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:433
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "Původní cena pro slevovou akci"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:209
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:439
 msgid "Currency"
-msgstr "Currency"
+msgstr "Měna"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:451
@@ -3592,57 +3588,57 @@ msgstr "SKU"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:227
 msgid "Optional stock keeping unit"
-msgstr "Optional stock keeping unit"
+msgstr "Volitelná skladová jednotka"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:466
 msgid "Inventory"
-msgstr "Inventory"
+msgstr "Skladové zásoby"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:246
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:475
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "Sledování zásob"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:250
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:479
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "Skladové množství"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:261
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:490
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "Hmotnost (gramy)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:268
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:497
 msgid "Optional"
-msgstr "Optional"
+msgstr "Volitelné"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:278
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:507
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "Vyžaduje dopravu"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:287
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:516
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "Digitální produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:290
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:519
 msgid "File URL"
-msgstr "File URL"
+msgstr "URL souboru"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:300
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:529
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "Limit stahování"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:536
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "Neomezený"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:321
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:550
@@ -3652,354 +3648,354 @@ msgstr "SEO"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:327
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:556
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "Meta název"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:352
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:581
 msgid "Featured Image"
-msgstr "Featured Image"
+msgstr "Úvodní obrázek"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:354
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:583
 msgid "Image URL"
-msgstr "Image URL"
+msgstr "URL obrázku"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:363
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:592
 msgid "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
-msgstr "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
+msgstr "Tip: V rámci projektů lze tento prvek nahradit tlačítkem MediaPickerButton pro nahrávání souborů."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Exporting..."
-msgstr "Exporting..."
+msgstr "Exportuji..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:98
 msgid "Products"
-msgstr "Products"
+msgstr "Produkty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:233
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "Vyhledat podle čísla objednávky..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:263
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:258
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:187
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:393
 msgid "From"
-msgstr "From"
+msgstr "Od"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:265
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "to"
-msgstr "to"
+msgstr "do"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:274
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:194
 msgid "To"
-msgstr "To"
+msgstr "K"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:289
 msgid "No orders"
-msgstr "No orders"
+msgstr "Žádné objednávky"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:293
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "Žádná objednávka neodpovídá vašemu vyhledávání."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:294
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "Zatím žádné objednávky."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:301
 msgid "Order #"
-msgstr "Order #"
+msgstr "Číslo objednávky:"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:302
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Customer"
-msgstr "Customer"
+msgstr "Zákazník"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:344
 msgid "View"
-msgstr "View"
+msgstr "Zobrazit"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:351
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "Faktura"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:359
 msgid "Refund"
-msgstr "Refund"
+msgstr "Vrácení peněz"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:405
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Refund Order"
-msgstr "Refund Order"
+msgstr "Žádost o vrácení peněz"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:419
 msgid "Enter reason for refund..."
-msgstr "Enter reason for refund..."
+msgstr "Zadejte důvod vrácení peněz..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:72
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:187
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "Produkt byl odstraněn"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:102
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:198
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "Přidat produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:185
 msgid "No products"
-msgstr "No products"
+msgstr "Žádné produkty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:189
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "Žádné produkty neodpovídají vašemu vyhledávání."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:190
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "Vytvořte svůj první produkt a začněte."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:211
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:619
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:688
 msgid "Stock"
-msgstr "Stock"
+msgstr "Skladové zásoby"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:330
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:844
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "Smazat produkt?"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:331
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:845
 msgid "Delete \"{name}\"? This action cannot be undone."
-msgstr "Delete \"{name}\"? This action cannot be undone."
+msgstr "Odstranit „{name}“? Tuto akci nelze vrátit zpět."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:79
 msgid "Reviews"
-msgstr "Reviews"
+msgstr "Recenze"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:123
 msgid "No reviews to moderate"
-msgstr "No reviews to moderate"
+msgstr "Žádné recenze k moderování"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:127
 msgid "No reviews with this status."
-msgstr "No reviews with this status."
+msgstr "Žádné recenze s tímto stavem."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:128
 msgid "Reviews will appear here once customers submit them."
-msgstr "Reviews will appear here once customers submit them."
+msgstr "Recenze se zde zobrazí, jakmile je zákazníci odešlou."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:135
 msgid "Product"
-msgstr "Product"
+msgstr "Produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:136
 msgid "Rating"
-msgstr "Rating"
+msgstr "Hodnocení"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:179
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "Produkt uložen"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:195
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "Varianta přidána"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:205
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "Varianta byla odstraněna"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:214
 msgid "Attributes saved"
-msgstr "Attributes saved"
+msgstr "Uložené atributy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:222
 msgid "Related products saved"
-msgstr "Related products saved"
+msgstr "Uložené související produkty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:265
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "Název varianty je povinný"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:318
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "Upravit produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:601
 msgid "Variants"
-msgstr "Variants"
+msgstr "Varianty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "Přidat variantu"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:648
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "Zatím nejsou k dispozici žádné varianty. Přidejte varianty, abyste mohli nabídnout různé možnosti."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:654
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "Nová varianta"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:663
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "např. Velký / Červený"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:725
 msgid "No categories defined."
-msgstr "No categories defined."
+msgstr "Nebyly definovány žádné kategorie."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:740
 msgid "Category assignment is saved with the product. Extend this section to call a category update mutation."
-msgstr "Category assignment is saved with the product. Extend this section to call a category update mutation."
+msgstr "Přiřazení kategorie se ukládá společně s produktem. Rozšiřte tuto sekci tak, aby volala mutaci pro aktualizaci kategorie."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:752
 msgid "No attributes defined."
-msgstr "No attributes defined."
+msgstr "Nebyly definovány žádné atributy."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:785
 msgid "Save Attributes"
-msgstr "Save Attributes"
+msgstr "Uložit atributy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:793
 msgid "Related Products"
-msgstr "Related Products"
+msgstr "Související produkty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:818
 msgid "Comma-separated product IDs"
-msgstr "Comma-separated product IDs"
+msgstr "ID produktů oddělené čárkami"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:832
 msgid "Tip: Replace comma-separated IDs with a product search/select component for better UX."
-msgstr "Tip: Replace comma-separated IDs with a product search/select component for better UX."
+msgstr "Tip: Pro lepší uživatelský zážitek nahraďte ID oddělená čárkami komponentou pro vyhledávání a výběr produktů."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:855
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "Odstranit variantu?"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:856
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "Tato varianta bude trvale odstraněna."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:890
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "Produkt nebyl nalezen."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
 msgid "Canceled"
-msgstr "Canceled"
+msgstr "Zrušeno"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
 msgid "Payment Failed"
-msgstr "Payment Failed"
+msgstr "Platba se nezdařila"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
 msgid "Unpaid"
-msgstr "Unpaid"
+msgstr "Neuhrazené"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
 msgid "Churned Subscriptions"
-msgstr "Churned Subscriptions"
+msgstr "Zrušená předplatná"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
 msgid "Search by organization..."
-msgstr "Search by organization..."
+msgstr "Vyhledávání podle organizace..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
 msgid "No churned subscriptions found."
-msgstr "No churned subscriptions found."
+msgstr "Nebyly nalezeny žádné zrušené předplatné."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
 msgid "Organization"
-msgstr "Organization"
+msgstr "Organizace"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:113
 msgid "Plan"
-msgstr "Plan"
+msgstr "Plán"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
 msgid "Churn Date"
-msgstr "Churn Date"
+msgstr "Datum odchodu zákazníka"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
 msgid "Subscription Start"
-msgstr "Subscription Start"
+msgstr "Zahájení předplatného"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "results"
-msgstr "results"
+msgstr "výsledky"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
 msgid "No discount codes yet."
-msgstr "No discount codes yet."
+msgstr "Zatím nejsou k dispozici žádné slevové kódy."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
 msgid "unlimited"
-msgstr "unlimited"
+msgstr "neomezený"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
 msgid "Recent Transactions"
-msgstr "Recent Transactions"
+msgstr "Nedávné transakce"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
 msgid "No transactions yet."
-msgstr "No transactions yet."
+msgstr "Zatím žádné transakce."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
 msgid "Amount"
-msgstr "Amount"
+msgstr "Částka"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
 msgid "Revenue"
-msgstr "Revenue"
+msgstr "Tržby"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
 msgid "Transactions"
-msgstr "Transactions"
+msgstr "Transakce"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
 msgid "Revenue Over Time"
-msgstr "Revenue Over Time"
+msgstr "Výnosy v čase"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
 msgid "No revenue data for this period."
-msgstr "No revenue data for this period."
+msgstr "Za toto období nejsou k dispozici žádné údaje o tržbách."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
 msgid "Active Subscriptions"
-msgstr "Active Subscriptions"
+msgstr "Aktivní předplatné"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
 msgid "Search organizations..."
-msgstr "Search organizations..."
+msgstr "Vyhledat organizace..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
 msgid "per page"
-msgstr "per page"
+msgstr "za stránku"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
 msgid "No subscriptions found."
-msgstr "No subscriptions found."
+msgstr "Nebyly nalezeny žádné předplatné."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
 msgid "Period"
-msgstr "Period"
+msgstr "Období"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
 msgid "MRR"
@@ -4007,143 +4003,143 @@ msgstr "MRR"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
 msgid "Total Revenue"
-msgstr "Total Revenue"
+msgstr "Celkové tržby"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
 msgid "Trialing"
-msgstr "Trialing"
+msgstr "Zkušební provoz"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
 msgid "Trial"
-msgstr "Trial"
+msgstr "Zkušební verze"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
 msgid "Plan Distribution"
-msgstr "Plan Distribution"
+msgstr "Rozdělení plánu"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
 msgid "No subscriptions yet"
-msgstr "No subscriptions yet"
+msgstr "Zatím žádné předplatné"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
 msgid "Churn Metrics"
-msgstr "Churn Metrics"
+msgstr "Ukazatele odchodu zákazníků"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
 msgid "Churn Rate (30d)"
-msgstr "Churn Rate (30d)"
+msgstr "Míra odchodu zákazníků (30 dní)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
 msgid "Canceled (30d)"
-msgstr "Canceled (30d)"
+msgstr "Zrušeno (30d)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
 msgid "Past Due (at risk)"
-msgstr "Past Due (at risk)"
+msgstr "Po splatnosti (rizikové)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
 msgid "Unpaid (lost)"
-msgstr "Unpaid (lost)"
+msgstr "Neuhrazené (ztracené)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
 msgid "Total Ever Subscribed"
-msgstr "Total Ever Subscribed"
+msgstr "Celkový počet předplatitelů za celou dobu"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:156
 msgid "Monitor revenue, track churn, and manage subscriptions."
-msgstr "Monitor revenue, track churn, and manage subscriptions."
+msgstr "Sledujte tržby, sledujte odchod zákazníků a spravujte předplatné."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:181
 msgid "Custom range"
-msgstr "Custom range"
+msgstr "Vlastní rozsah"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "Last"
-msgstr "Last"
+msgstr "Poslední"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:235
 msgid "All time"
-msgstr "All time"
+msgstr "Celkem"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
 msgid "Discount code created"
-msgstr "Discount code created"
+msgstr "Slevový kód byl vytvořen"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
 msgid "Discount code updated"
-msgstr "Discount code updated"
+msgstr "Aktualizován slevový kód"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
 msgid "Discount code deleted"
-msgstr "Discount code deleted"
+msgstr "Slevový kód byl smazán"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
 msgid "New Code"
-msgstr "New Code"
+msgstr "Nový kód"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Percentage (0-100)"
-msgstr "Percentage (0-100)"
+msgstr "Procento (0–100)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Price (cents)"
-msgstr "Price (cents)"
+msgstr "Cena (centy)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
 msgid "Trial Days"
-msgstr "Trial Days"
+msgstr "Zkušební dny"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
 msgid "Trial Price (cents)"
-msgstr "Trial Price (cents)"
+msgstr "Zkušební cena (centy)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
 msgid "Max Uses (leave empty for unlimited)"
-msgstr "Max Uses (leave empty for unlimited)"
+msgstr "Maximální počet použití (pro neomezený počet ponechte prázdné)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
 msgid "Max Uses Per User"
-msgstr "Max Uses Per User"
+msgstr "Maximální počet použití na uživatele"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Update"
-msgstr "Update"
+msgstr "Aktualizace"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
 msgid "No discount codes configured."
-msgstr "No discount codes configured."
+msgstr "Nebyly nastaveny žádné slevové kódy."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
 msgid "Uses"
-msgstr "Uses"
+msgstr "Použití"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
 msgid "Delete discount code?"
-msgstr "Delete discount code?"
+msgstr "Smazat slevový kód?"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
 msgid "Code \"{code}\" will be permanently deleted."
-msgstr "Code \"{code}\" will be permanently deleted."
+msgstr "Kód „{code}“ bude trvale smazán."
 
 #: src/core-support/components/SupportChatWidget.tsx:275
 msgid "Hi! How can I help you today?"
-msgstr "Hi! How can I help you today?"
+msgstr "Ahoj! S čím ti dnes mohu pomoci?"
 
 #: src/core-support/components/SupportChatWidget.tsx:276
 msgid "Type your message..."
-msgstr "Type your message..."
+msgstr "Napište svou zprávu..."
 
 #: src/core-support/components/SupportChatWidget.tsx:286
 msgid "Support Chat"
-msgstr "Support Chat"
+msgstr "Chat podpory"
 
 #: src/core-support/components/SupportChatWidget.tsx:333
 msgid "Support Agent"
-msgstr "Support Agent"
+msgstr "Pracovník podpory"
 
 #: src/core-support/components/SupportChatWidget.tsx:351
 msgid "Enter your email so our team can follow up:"
-msgstr "Enter your email so our team can follow up:"
+msgstr "Zadejte svou e-mailovou adresu, aby vás náš tým mohl kontaktovat:"
 
 #: src/core-support/components/SupportChatWidget.tsx:361
 msgid "your@email.com"
@@ -4151,239 +4147,227 @@ msgstr "your@email.com"
 
 #: src/core-support/components/SupportChatWidget.tsx:366
 msgid "Connect with support"
-msgstr "Connect with support"
+msgstr "Kontaktujte podporu"
 
 #: src/core-support/components/SupportChatWidget.tsx:375
 msgid "Would you like to create a support ticket so our team can follow up?"
-msgstr "Would you like to create a support ticket so our team can follow up?"
+msgstr "Chtěli byste vytvořit žádost o podporu, aby se tím mohl náš tým zabývat?"
 
 #: src/core-support/components/SupportChatWidget.tsx:378
 msgid "Create Support Ticket"
-msgstr "Create Support Ticket"
+msgstr "Vytvořit žádost o podporu"
 
 #: src/core-support/components/SupportChatWidget.tsx:385
 msgid "Thanks! Our team will follow up at your email soon."
-msgstr "Thanks! Our team will follow up at your email soon."
+msgstr "Děkujeme! Náš tým se vám brzy ozve na váš e-mail."
 
 #: src/core-support/components/SupportChatWidget.tsx:391
 msgid "Your ticket has been created. Our team will follow up soon."
-msgstr "Your ticket has been created. Our team will follow up soon."
+msgstr "Váš ticket byl vytvořen. Náš tým se vám brzy ozve."
 
 #: src/core-support/components/SupportChatWidget.tsx:394
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
 msgid "View Ticket"
-msgstr "View Ticket"
+msgstr "Zobrazit lístek"
 
 #: src/core-support/components/SupportChatWidget.tsx:427
 msgid "Talk to a human"
-msgstr "Talk to a human"
+msgstr "Promluvte si s živým člověkem"
 
 #: src/core-support/components/SupportChatWidget.tsx:434
 msgid "Start New Chat"
-msgstr "Start New Chat"
+msgstr "Zahájit nový chat"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Close chat"
-msgstr "Close chat"
+msgstr "Zavřít chat"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Open chat"
-msgstr "Open chat"
+msgstr "Otevřít chat"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
 msgid "Chat closed"
-msgstr "Chat closed"
+msgstr "Chat byl ukončen"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
 msgid "Chat session not found."
-msgstr "Chat session not found."
+msgstr "Chatová relace nebyla nalezena."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
 msgid "Live Chat"
-msgstr "Live Chat"
+msgstr "Živý chat"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
 msgid "Close Chat"
-msgstr "Close Chat"
+msgstr "Zavřít chat"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
 msgid "Visitor"
-msgstr "Visitor"
+msgstr "Návštěvník"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
 msgid "Chat email"
-msgstr "Chat email"
+msgstr "Chat, e-mail"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:252
 msgid "Started"
-msgstr "Started"
+msgstr "Zahájeno"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:118
 msgid "Subject"
-msgstr "Subject"
+msgstr "Předmět"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
 msgid "Reply as agent..."
-msgstr "Reply as agent..."
+msgstr "Odpovědět jako zástupce..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:97
 msgid "All Priorities"
-msgstr "All Priorities"
+msgstr "Všechny priority"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:112
 msgid "No tickets found."
-msgstr "No tickets found."
+msgstr "Nebyly nalezeny žádné vstupenky."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:123
 msgid "Updated"
-msgstr "Updated"
+msgstr "Aktualizováno"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:227
 msgid "Active (non-closed)"
-msgstr "Active (non-closed)"
+msgstr "Aktivní (neuzavřené)"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:228
 msgid "AI Active"
-msgstr "AI Active"
+msgstr "AI aktivní"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:229
 msgid "Agent Active"
-msgstr "Agent Active"
+msgstr "Agent je aktivní"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:230
 msgid "Escalated"
-msgstr "Escalated"
+msgstr "Zhoršilo se"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:231
 msgid "Closed"
-msgstr "Closed"
+msgstr "Uzavřeno"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:243
 msgid "No active chats."
-msgstr "No active chats."
+msgstr "Žádné aktivní konverzace."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:249
 msgid "Visitor / User"
-msgstr "Visitor / User"
+msgstr "Návštěvník / Uživatel"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:251
 msgid "Last Message"
-msgstr "Last Message"
+msgstr "Poslední zpráva"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:360
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "Vstupenky"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:368
 msgid "Live Chats"
-msgstr "Live Chats"
+msgstr "Živé chaty"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:157
 msgid "Reply sent"
-msgstr "Reply sent"
+msgstr "Odpověď odeslána"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:165
 msgid "Status updated"
-msgstr "Status updated"
+msgstr "Stav aktualizován"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:173
 msgid "Assignment updated"
-msgstr "Assignment updated"
+msgstr "Úkol byl aktualizován"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:190
 msgid "Ticket not found."
-msgstr "Ticket not found."
+msgstr "Vstupenka nebyla nalezena."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:192
 msgid "Back to tickets"
-msgstr "Back to tickets"
+msgstr "Zpět na vstupenky"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "Neodeslaná odpověď"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "Ve schránce máte neodeslanou odpověď. Chcete ji odeslat před změnou stavu?"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "Odeslat a změnit stav"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "Kopírování do schránky se nezdařilo"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "Zkopírujte celou konverzaci do schránky (ve formátu vhodném pro LLM)"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "Zkopírovat konverzaci"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
-msgstr "Staff"
+msgstr "Zaměstnanci"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:316
 msgid "Staff Reply"
-msgstr "Staff Reply"
+msgstr "Odpověď zaměstnance"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:325
 msgid "Type your reply..."
-msgstr "Type your reply..."
+msgstr "Napište svou odpověď..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:337
 msgid "Send Reply"
-msgstr "Send Reply"
+msgstr "Odeslat odpověď"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:342
 msgid "This ticket is closed."
-msgstr "This ticket is closed."
+msgstr "Tento ticket je uzavřen."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "Znovu otevřít ticket"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
-msgstr "User feedback"
+msgstr "Zpětná vazba od uživatelů"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:377
 msgid "Details"
-msgstr "Details"
+msgstr "Podrobnosti"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:399
 msgid "Assigned"
-msgstr "Assigned"
+msgstr "Přiřazeno"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:408
 msgid "Change Status"
-msgstr "Change Status"
+msgstr "Změnit stav"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:423
 msgid "Assignment"
-msgstr "Assignment"
+msgstr "Úkol"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:432
 msgid "Unassign"
-msgstr "Unassign"
+msgstr "Zrušit přiřazení"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
-msgstr "Not assigned"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "AI Characters — Browse & Chat"
-#~ msgstr "AI Characters — Browse & Chat"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Browse AI characters with unique personalities and start chatting."
-#~ msgstr "Browse AI characters with unique personalities and start chatting."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Hide"
-#~ msgstr "Hide"
+msgstr "Není přiřazeno"

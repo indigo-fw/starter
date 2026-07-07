@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.583Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.583Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:39.005Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:39.005Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko\n"
 "Language: ko\n"
@@ -12,9 +12,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+
 #: src/app/(public)/account/orders/[id]/page.tsx:19
 msgid "Order Details"
-msgstr "Order Details"
+msgstr "주문 내역"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "Welcome"
@@ -132,9 +133,9 @@ msgstr "긴급"
 
 #: src/app/(public)/blog/page.tsx:28
 #: src/app/(public)/blog/page.tsx:70
-#: src/app/(public)/layout.tsx:94
-#: src/app/(public)/layout.tsx:159
-#: src/app/(public)/layout.tsx:242
+#: src/app/(public)/layout.tsx:93
+#: src/app/(public)/layout.tsx:158
+#: src/app/(public)/layout.tsx:244
 #: src/app/(showcase)/layout.tsx:53
 #: src/app/(showcase)/layout.tsx:75
 msgid "Blog"
@@ -201,15 +202,15 @@ msgstr "아직 블로그 글이 없습니다."
 
 #: src/app/(public)/cart/page.tsx:13
 msgid "Cart"
-msgstr "Cart"
+msgstr "장바구니"
 
 #: src/app/(public)/cart/page.tsx:14
 msgid "Your shopping cart"
-msgstr "Your shopping cart"
+msgstr "장바구니"
 
 #: src/app/(public)/cart/page.tsx:23
 msgid "Shopping Cart"
-msgstr "Shopping Cart"
+msgstr "장바구니"
 
 #: src/app/(public)/characters/page.tsx:13
 msgid "AI Characters"
@@ -221,51 +222,51 @@ msgstr "독특한 성격을 가진 AI 캐릭터를 탐색하세요. 완벽한 �
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:52
 msgid "This field is required"
-msgstr "This field is required"
+msgstr "이 항목은 필수 입력 사항입니다."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:86
 msgid "First Name"
-msgstr "First Name"
+msgstr "이름"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:91
 msgid "Last Name"
-msgstr "Last Name"
+msgstr "성"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:97
 msgid "Company"
-msgstr "Company"
+msgstr "회사"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:101
 msgid "Address"
-msgstr "Address"
+msgstr "주소"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:106
 msgid "Address line 2"
-msgstr "Address line 2"
+msgstr "주소 2행"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:111
 msgid "City"
-msgstr "City"
+msgstr "도시"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:116
 msgid "Postal Code"
-msgstr "Postal Code"
+msgstr "우편번호"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:123
 msgid "Country"
-msgstr "Country"
+msgstr "국가"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:129
 msgid "Phone"
-msgstr "Phone"
+msgstr "전화"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:213
 msgid "Shipping Address"
-msgstr "Shipping Address"
+msgstr "배송지 주소"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:220
 msgid "Shipping Method"
-msgstr "Shipping Method"
+msgstr "배송 방법"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:233
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
@@ -280,27 +281,27 @@ msgstr "무료"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:245
 msgid "Order Note"
-msgstr "Order Note"
+msgstr "주문 참고 사항"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:249
 msgid "Any special instructions..."
-msgstr "Any special instructions..."
+msgstr "특별히 주의해야 할 사항이 있나요..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:258
 msgid "Order Summary"
-msgstr "Order Summary"
+msgstr "주문 내역"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:268
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "소계"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:272
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "배송"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:277
 msgid "Tax"
-msgstr "Tax"
+msgstr "세금"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:282
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:304
@@ -312,31 +313,33 @@ msgstr "전체"
 #: src/app/(public)/checkout/CheckoutForm.tsx:299
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Processing..."
-msgstr "Processing..."
+msgstr "처리 중..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:301
 msgid "Place Order"
-msgstr "Place Order"
+msgstr "주문하기"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:306
 msgid "Back to Cart"
-msgstr "Back to Cart"
+msgstr "장바구니로 돌아가기"
 
 #: src/app/(public)/checkout/page.tsx:15
 #: src/app/(public)/checkout/page.tsx:40
 msgid "Checkout"
-msgstr "Checkout"
+msgstr "결제"
 
 #: src/app/(public)/checkout/page.tsx:16
 msgid "Complete your order"
-msgstr "Complete your order"
+msgstr "주문 완료하기"
 
 #: src/app/(public)/docs/page.tsx:24
 #: src/app/(public)/page.tsx:346
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
 msgstr "문서"
 
 #: src/app/(public)/docs/page.tsx:25
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:25
 msgid "No documentation pages found yet."
 msgstr "아직 문서 페이지가 없습니다."
 
@@ -353,13 +356,13 @@ msgstr "비밀번호를 재설정합니다"
 msgid "Enter your email to receive a reset link."
 msgstr "재설정 링크를 받으려면 이메일을 입력하세요."
 
-#: src/app/(public)/layout.tsx:39
+#: src/app/(public)/layout.tsx:38
 msgctxt "General"
 msgid "This page is available in {language}"
 msgstr "이 페이지는 {language}로 이용할 수 있습니다"
 
-#: src/app/(public)/layout.tsx:99
-#: src/app/(public)/layout.tsx:243
+#: src/app/(public)/layout.tsx:98
+#: src/app/(public)/layout.tsx:245
 #: src/app/(public)/portfolio/page.tsx:24
 #: src/app/(public)/portfolio/page.tsx:45
 #: src/app/(showcase)/layout.tsx:54
@@ -367,17 +370,16 @@ msgstr "이 페이지는 {language}로 이용할 수 있습니다"
 msgid "Portfolio"
 msgstr "포트폴리오"
 
-#: src/app/(public)/layout.tsx:100
-#: src/app/(public)/layout.tsx:171
-#: src/app/(public)/layout.tsx:244
+#: src/app/(public)/layout.tsx:99
+#: src/app/(public)/layout.tsx:170
+#: src/app/(public)/layout.tsx:246
 #: src/app/(showcase)/showcase/page.tsx:24
 msgid "Showcase"
 msgstr "쇼케이스"
 
-#: src/app/(public)/layout.tsx:101
-#: src/app/(public)/layout.tsx:174
-#: src/app/(public)/layout.tsx:183
-#: src/app/(public)/layout.tsx:245
+#: src/app/(public)/layout.tsx:100
+#: src/app/(public)/layout.tsx:173
+#: src/app/(public)/layout.tsx:247
 #: src/app/(public)/store/page.tsx:22
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:936
@@ -385,11 +387,11 @@ msgstr "쇼케이스"
 #: src/core-store/_templates/app/(public)/store/page.tsx:9
 #: src/core-store/_templates/app/(public)/store/page.tsx:12
 msgid "Store"
-msgstr "Store"
+msgstr "상점"
 
-#: src/app/(public)/layout.tsx:102
-#: src/app/(public)/layout.tsx:186
-#: src/app/(public)/layout.tsx:246
+#: src/app/(public)/layout.tsx:101
+#: src/app/(public)/layout.tsx:182
+#: src/app/(public)/layout.tsx:248
 #: src/app/(public)/search/page.tsx:20
 #: src/app/(showcase)/showcase/search/page.tsx:66
 #: src/components/public/BlogSidebar.tsx:78
@@ -401,37 +403,37 @@ msgstr "Store"
 msgid "Search"
 msgstr "검색"
 
-#: src/app/(public)/layout.tsx:139
+#: src/app/(public)/layout.tsx:138
 msgid "Blog RSS"
 msgstr "블로그 RSS"
 
-#: src/app/(public)/layout.tsx:226
+#: src/app/(public)/layout.tsx:228
 #: src/components/public/BlogSidebar.tsx:92
 #: src/core-store/_templates/app/(public)/store/client.tsx:512
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:721
 msgid "Categories"
 msgstr "카테고리"
 
-#: src/app/(public)/layout.tsx:241
+#: src/app/(public)/layout.tsx:243
 msgid "Quick Links"
 msgstr "빠른 링크"
 
-#: src/app/(public)/layout.tsx:251
+#: src/app/(public)/layout.tsx:253
 msgid "More"
 msgstr "더보기"
 
-#: src/app/(public)/layout.tsx:254
+#: src/app/(public)/layout.tsx:256
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
 msgid "RSS Feed"
 msgstr "RSS 피드"
 
-#: src/app/(public)/layout.tsx:256
+#: src/app/(public)/layout.tsx:258
 msgid "Admin"
 msgstr "관리자"
 
-#: src/app/(public)/layout.tsx:263
+#: src/app/(public)/layout.tsx:265
 msgid "Powered by Indigo"
-msgstr "Powered by Indigo"
+msgstr "Indigo 제공"
 
 #: src/app/(public)/login/page.tsx:9
 #: src/app/(public)/login/page.tsx:27
@@ -670,7 +672,7 @@ msgstr "간단하고 투명한 요금제"
 #: src/app/(public)/pricing/page.tsx:42
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:42
 msgid "Pay as you go: buy tokens once, use them until they run out. No subscription required."
-msgstr "Pay as you go: buy tokens once, use them until they run out. No subscription required."
+msgstr "사용량 기반 결제: 토큰을 한 번 구매하면 소진될 때까지 사용할 수 있습니다. 정기 구독이 필요하지 않습니다."
 
 #: src/app/(public)/pricing/page.tsx:43
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:43
@@ -680,7 +682,7 @@ msgstr "팀에 맞는 플랜을 선택하세요. 모든 플랜에 14일 무료 �
 #: src/app/(public)/pricing/page.tsx:58
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:58
 msgid "Get Started"
-msgstr "Get Started"
+msgstr "시작하기"
 
 #: src/app/(public)/pricing/page.tsx:70
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:70
@@ -725,13 +727,13 @@ msgstr "아래에 새 비밀번호를 입력하세요."
 
 #: src/app/(public)/store/page.tsx:23
 msgid "Browse our products"
-msgstr "Browse our products"
+msgstr "제품 둘러보기"
 
 #: src/app/(public)/store/page.tsx:64
 #: src/app/(public)/store/page.tsx:98
 #: src/core-store/_templates/app/(public)/store/client.tsx:424
 msgid "Sale"
-msgstr "Sale"
+msgstr "세일"
 
 #: src/app/(public)/store/page.tsx:65
 #: src/core-store/_templates/app/(public)/store/client.tsx:132
@@ -739,43 +741,43 @@ msgstr "Sale"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:151
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:381
 msgid "Digital"
-msgstr "Digital"
+msgstr "디지털"
 
 #: src/app/(public)/store/page.tsx:66
 msgid "From variants"
-msgstr "From variants"
+msgstr "변형에서"
 
 #: src/app/(public)/store/page.tsx:114
 msgid "Shop Now"
-msgstr "Shop Now"
+msgstr "지금 구매하기"
 
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:523
 msgid "All Products"
-msgstr "All Products"
+msgstr "모든 상품"
 
 #: src/app/(public)/store/page.tsx:133
 #: src/core-api/components/ApiKeyManager.tsx:224
 #: src/core-store/_templates/app/(public)/store/client.tsx:816
 msgid "All"
-msgstr "All"
+msgstr "전체"
 
 #: src/app/(public)/store/page.tsx:196
 #: src/core-store/_templates/app/(public)/store/client.tsx:1022
 msgid "No products found"
-msgstr "No products found"
+msgstr "해당 상품이 없습니다."
 
 #: src/app/(public)/store/page.tsx:196
 msgid "Coming soon"
-msgstr "Coming soon"
+msgstr "곧 공개됩니다"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Try a different search term"
-msgstr "Try a different search term"
+msgstr "다른 검색어를 사용해 보세요"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Check back soon for new products"
-msgstr "Check back soon for new products"
+msgstr "신제품 소식은 곧 다시 확인해 주세요"
 
 #: src/app/(public)/[...slug]/renderers/CategoryDetail.tsx:44
 msgid "Posts in this category"
@@ -830,19 +832,19 @@ msgstr "을(를) 눌러 검색하세요."
 
 #: src/app/not-found.tsx:17
 msgid "Page not found"
-msgstr "Page not found"
+msgstr "페이지를 찾을 수 없습니다"
 
 #: src/app/not-found.tsx:19
 msgid "The page you're looking for doesn't exist or has been moved."
-msgstr "The page you're looking for doesn't exist or has been moved."
+msgstr "찾으시는 페이지는 존재하지 않거나 다른 곳으로 이동되었습니다."
 
 #: src/app/not-found.tsx:27
 msgid "Go Home"
-msgstr "Go Home"
+msgstr "집으로 가기"
 
 #: src/app/not-found.tsx:33
 msgid "Browse Blog"
-msgstr "Browse Blog"
+msgstr "블로그 둘러보기"
 
 #: src/components/public/AccountNav.tsx:12
 msgid "Overview"
@@ -857,15 +859,15 @@ msgstr "설정"
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:96
 msgid "Orders"
-msgstr "Orders"
+msgstr "주문"
 
 #: src/components/public/AccountNav.tsx:17
 msgid "Wishlist"
-msgstr "Wishlist"
+msgstr "위시리스트"
 
 #: src/components/public/AccountNav.tsx:18
 msgid "Addresses"
-msgstr "Addresses"
+msgstr "주소"
 
 #: src/components/public/AccountNav.tsx:20
 #: src/core-affiliates/components/AffiliateOverview.tsx:23
@@ -994,7 +996,7 @@ msgstr "로그인하여 반응하기"
 msgid "Link copied"
 msgstr "링크가 복사되었습니다"
 
-#: src/components/public/ShowcaseFeed.tsx:244
+#: src/components/public/ShowcaseFeed.tsx:243
 msgid "No showcase items yet."
 msgstr "아직 쇼케이스 항목이 없습니다."
 
@@ -1013,12 +1015,12 @@ msgstr "구독"
 #: src/components/public/TokenPackCard.tsx:40
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:40
 msgid "Most popular"
-msgstr "Most popular"
+msgstr "가장 인기 있는"
 
 #: src/components/public/TokenPackCard.tsx:46
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:46
 msgid "tokens"
-msgstr "tokens"
+msgstr "토큰"
 
 #: src/components/public/UserMenu.tsx:46
 msgid "Sign Up"
@@ -1292,7 +1294,7 @@ msgstr "대시보드 레이아웃"
 #: src/core/components/dashboard/GA4Widget.tsx:183
 #: src/core/components/dashboard/GA4Widget.tsx:214
 msgid "Google Analytics"
-msgstr "Google Analytics"
+msgstr "구글 애널리틱스"
 
 #: src/core/components/dashboard/GA4Widget.tsx:190
 msgid "Connect Google Analytics to see page views, sessions, and top pages."
@@ -1890,23 +1892,23 @@ msgstr "닫기"
 #: src/core/components/PushToggle.tsx:28
 #: src/core/components/PushToggle.tsx:46
 msgid "Push notifications blocked by browser"
-msgstr "Push notifications blocked by browser"
+msgstr "브라우저에 의해 푸시 알림이 차단됨"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Push enabled"
-msgstr "Push enabled"
+msgstr "푸시 알림 활성화됨"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Enable push"
-msgstr "Enable push"
+msgstr "푸시 알림 활성화"
 
 #: src/core/components/PushToggle.tsx:51
 msgid "Push notifications on"
-msgstr "Push notifications on"
+msgstr "푸시 알림 켜기"
 
 #: src/core/components/PushToggle.tsx:56
 msgid "Enable push notifications"
-msgstr "Enable push notifications"
+msgstr "푸시 알림 활성화"
 
 #: src/core/components/RichTextEditor.tsx:263
 msgid "Insert"
@@ -1960,7 +1962,7 @@ msgstr "내부 링크"
 
 #: src/core/components/RichTextEditor.tsx:700
 msgid "Insert Variable"
-msgstr "Insert Variable"
+msgstr "변수 삽입"
 
 #: src/core/components/RichTextEditor.tsx:738
 msgid "Insert Block"
@@ -1984,7 +1986,7 @@ msgstr "미리보기 표시"
 
 #: src/core/components/RichTextEditor.tsx:914
 msgid "AI Assist (works in both Visual and Source mode)"
-msgstr "AI Assist (works in both Visual and Source mode)"
+msgstr "AI 어시스트 (비주얼 모드와 소스 모드 모두에서 작동)"
 
 #: src/core/components/RichTextEditor.tsx:932
 msgid "Visual"
@@ -2059,15 +2061,15 @@ msgstr "이미지 없음"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:41
 msgid "Google"
-msgstr "Google"
+msgstr "구글"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:42
 msgid "Facebook"
-msgstr "Facebook"
+msgstr "페이스북"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:43
 msgid "Twitter / X"
-msgstr "Twitter / X"
+msgstr "트위터 / X"
 
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:35
 msgid "Edit {label}"
@@ -2081,68 +2083,62 @@ msgstr "토큰 잔액"
 msgid "{succeeded} {action}, {failed} failed"
 msgstr "{succeeded} {action}, {failed} 실패"
 
-#: src/core/hooks/useBulkActions.ts:52
-msgid "1 item {action}"
-msgid_plural "{count} items {action}"
-msgstr[0] "1 item {action}"
-msgstr[1] "{count} items {action}"
-
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
 msgstr "폼의 오류를 확인해 주세요"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:20
 msgid "Activity Feed"
-msgstr "Activity Feed"
+msgstr "활동 피드"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:27
 msgid "View all"
-msgstr "View all"
+msgstr "모두 보기"
 
 #: src/core-activity/components/DashboardActivityWidget.tsx:30
 msgid "No recent activity"
-msgstr "No recent activity"
+msgstr "최근 활동 없음"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:108
 msgid "Activity Log"
-msgstr "Activity Log"
+msgstr "활동 기록"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:163
 msgid "Search by actor name..."
-msgstr "Search by actor name..."
+msgstr "배우 이름으로 검색..."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:210
 msgid "No activity events"
-msgstr "No activity events"
+msgstr "활동 이벤트 없음"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:214
 msgid "No events match your filters."
-msgstr "No events match your filters."
+msgstr "필터 조건에 맞는 이벤트가 없습니다."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:215
 msgid "Activity events will appear here as users interact with the app."
-msgstr "Activity events will appear here as users interact with the app."
+msgstr "사용자가 앱을 사용하는 동안 활동 내역이 이곳에 표시됩니다."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:222
 msgid "Actor"
-msgstr "Actor"
+msgstr "배우"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:223
 msgid "Action"
-msgstr "Action"
+msgstr "액션"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:224
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:203
 msgid "Target"
-msgstr "Target"
+msgstr "대상"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:225
 msgid "Time"
-msgstr "Time"
+msgstr "시간"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
 msgid "Unknown"
-msgstr "Unknown"
+msgstr "알 수 없음"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:290
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:310
@@ -2164,7 +2160,7 @@ msgstr "/"
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:214
 msgid "total"
-msgstr "total"
+msgstr "합계"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:38
@@ -2293,27 +2289,27 @@ msgstr "활성화"
 
 #: src/core-api/components/AgentConnectPanel.tsx:31
 msgid "Claude Code"
-msgstr "Claude Code"
+msgstr "클로드 코드"
 
 #: src/core-api/components/AgentConnectPanel.tsx:33
 msgid "Run in any terminal. The agent can then operate this site directly — no browser needed."
-msgstr "Run in any terminal. The agent can then operate this site directly — no browser needed."
+msgstr "터미널에서 실행하세요. 그러면 에이전트가 브라우저 없이도 이 사이트를 직접 운영할 수 있습니다."
 
 #: src/core-api/components/AgentConnectPanel.tsx:50
 msgid "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
-msgstr "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
+msgstr "프로젝트 루트 디렉터리로 이동하세요. Claude Code, Cursor 및 대부분의 MCP 클라이언트는 이를 자동으로 인식합니다."
 
 #: src/core-api/components/AgentConnectPanel.tsx:53
 msgid "Any MCP client"
-msgstr "Any MCP client"
+msgstr "모든 MCP 클라이언트"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Endpoint"
-msgstr "Endpoint"
+msgstr "엔드포인트"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Transport"
-msgstr "Transport"
+msgstr "교통"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Auth"
@@ -2321,50 +2317,50 @@ msgstr "Auth"
 
 #: src/core-api/components/AgentConnectPanel.tsx:55
 msgid "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
-msgstr "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
+msgstr "베어러 인증을 사용하는 Streamable HTTP를 통해 MCP를 지원하는 모든 클라이언트와 호환됩니다."
 
 #: src/core-api/components/AgentConnectPanel.tsx:61
 msgid "Agent Access (MCP)"
-msgstr "Agent Access (MCP)"
+msgstr "에이전트 액세스 (MCP)"
 
 #: src/core-api/components/AgentConnectPanel.tsx:63
 msgid "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
-msgstr "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
+msgstr "AI 에이전트는 MCP 엔드포인트를 통해 이 사이트를 직접 운영할 수 있습니다. 모든 API 작업은 사용자의 계정 및 조직 범위로 제한된 도구 형태로 제공됩니다. 키에는 mcp:invoke 범위(또는 전체 액세스 권한)가 필요합니다."
 
 #: src/core-api/components/AgentConnectPanel.tsx:83
 msgid "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
-msgstr "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
+msgstr "위에서 mcp:invoke 범위를 가진 키를 생성하면, 이 코드 조각들이 해당 키를 자동으로 포함하게 됩니다."
 
 #: src/core-api/components/AgentConnectPanel.tsx:114
 #: src/core-api/components/ApiKeyManager.tsx:366
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "복사했습니다!"
 
 #: src/core-api/components/ApiKeyManager.tsx:106
 msgid "Create API Key"
-msgstr "Create API Key"
+msgstr "API 키 생성"
 
 #: src/core-api/components/ApiKeyManager.tsx:112
 msgid "Key name (e.g. Production, Staging)"
-msgstr "Key name (e.g. Production, Staging)"
+msgstr "키 이름 (예: Production, Staging)"
 
 #: src/core-api/components/ApiKeyManager.tsx:122
 msgid "Create Key"
-msgstr "Create Key"
+msgstr "키 생성"
 
 #: src/core-api/components/ApiKeyManager.tsx:138
 msgid "Your API key has been created. Copy it now — it won't be shown again."
-msgstr "Your API key has been created. Copy it now — it won't be shown again."
+msgstr "API 키가 생성되었습니다. 지금 바로 복사해 두세요. 이후에는 다시 표시되지 않습니다."
 
 #: src/core-api/components/ApiKeyManager.tsx:160
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:12
 msgid "API Keys"
-msgstr "API Keys"
+msgstr "API 키"
 
 #: src/core-api/components/ApiKeyManager.tsx:166
 msgid "No API keys yet."
-msgstr "No API keys yet."
+msgstr "아직 API 키가 없습니다."
 
 #: src/core-api/components/ApiKeyManager.tsx:172
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:61
@@ -2386,15 +2382,15 @@ msgstr "이름"
 
 #: src/core-api/components/ApiKeyManager.tsx:173
 msgid "Key"
-msgstr "Key"
+msgstr "키"
 
 #: src/core-api/components/ApiKeyManager.tsx:174
 msgid "Scopes"
-msgstr "Scopes"
+msgstr "범위"
 
 #: src/core-api/components/ApiKeyManager.tsx:176
 msgid "Last Used"
-msgstr "Last Used"
+msgstr "마지막 사용일"
 
 #: src/core-api/components/ApiKeyManager.tsx:177
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:83
@@ -2408,96 +2404,96 @@ msgstr "생성일"
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:169
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:222
 msgid "Saving..."
-msgstr "Saving..."
+msgstr "저장 중..."
 
 #: src/core-api/components/ApiKeyManager.tsx:221
 msgid "Click to edit scopes"
-msgstr "Click to edit scopes"
+msgstr "범위를 편집하려면 클릭하세요"
 
 #: src/core-api/components/ApiKeyManager.tsx:226
 msgid "None"
-msgstr "None"
+msgstr "없음"
 
 #: src/core-api/components/ApiKeyManager.tsx:228
 msgid "scopes"
-msgstr "scopes"
+msgstr "범위"
 
 #: src/core-api/components/ApiKeyManager.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:367
 msgid "Never"
-msgstr "Never"
+msgstr "절대"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "Roll this key?"
-msgstr "Roll this key?"
+msgstr "이 키를 굴릴까요?"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "A new key will be created and the old one will expire in 24 hours."
-msgstr "A new key will be created and the old one will expire in 24 hours."
+msgstr "새로운 키가 생성되며, 기존 키는 24시간 후에 만료됩니다."
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 #: src/core-api/components/ApiKeyManager.tsx:255
 msgid "Roll"
-msgstr "Roll"
+msgstr "롤"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "Revoke this API key?"
-msgstr "Revoke this API key?"
+msgstr "이 API 키를 취소하시겠습니까?"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "This is immediate and cannot be undone."
-msgstr "This is immediate and cannot be undone."
+msgstr "이 작업은 즉시 실행되며 되돌릴 수 없습니다."
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 #: src/core-api/components/ApiKeyManager.tsx:267
 msgid "Revoke"
-msgstr "Revoke"
+msgstr "취소"
 
 #: src/core-api/components/ApiKeyManager.tsx:305
 msgid "Full access"
-msgstr "Full access"
+msgstr "전체 이용 권한"
 
 #: src/core-api/components/ApiKeyManager.tsx:327
 msgid "No scopes selected — no access."
-msgstr "No scopes selected — no access."
+msgstr "선택된 범위가 없으므로 액세스할 수 없습니다."
 
 #: src/core-api/components/ApiKeyManager.tsx:366
 msgid "Copy to Clipboard"
-msgstr "Copy to Clipboard"
+msgstr "클립보드에 복사"
 
 #: src/core-api/components/ApiKeyManager.tsx:381
 msgid "Expiring"
-msgstr "Expiring"
+msgstr "만료 예정"
 
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:13
 msgid "Manage API keys for programmatic access to your data."
-msgstr "Manage API keys for programmatic access to your data."
+msgstr "데이터에 프로그래밍 방식으로 액세스하기 위한 API 키를 관리하세요."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:109
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:44
 msgid "Search authors..."
-msgstr "Search authors..."
+msgstr "저자 검색..."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:116
 msgid "No authors found. Create one first."
-msgstr "No authors found. Create one first."
+msgstr "작성자가 없습니다. 먼저 작성자를 생성해 주세요."
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:22
 msgid "Author deleted"
-msgstr "Author deleted"
+msgstr "작성자가 삭제함"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:30
 msgid "Authors"
-msgstr "Authors"
+msgstr "저자"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:35
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "New Author"
-msgstr "New Author"
+msgstr "신인 작가"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:56
 msgid "No authors yet."
-msgstr "No authors yet."
+msgstr "아직 저자가 없습니다."
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:83
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:132
@@ -2508,19 +2504,19 @@ msgstr "편집"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:89
 msgid "Delete this author?"
-msgstr "Delete this author?"
+msgstr "이 작성자를 삭제하시겠습니까?"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:42
 msgid "Author created"
-msgstr "Author created"
+msgstr "작성자 작성"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:50
 msgid "Author saved"
-msgstr "Author saved"
+msgstr "작성자 저장됨"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "Edit Author"
-msgstr "Edit Author"
+msgstr "작성자 편집"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:108
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:142
@@ -2531,23 +2527,23 @@ msgstr "생성"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:136
 msgid "Bio"
-msgstr "Bio"
+msgstr "약력"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:146
 msgid "Avatar"
-msgstr "Avatar"
+msgstr "아바타"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:165
 msgid "Social Links"
-msgstr "Social Links"
+msgstr "소셜 링크"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:168
 msgid "Website"
-msgstr "Website"
+msgstr "웹사이트"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:172
 msgid "Twitter"
-msgstr "Twitter"
+msgstr "트위터"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:176
 msgid "GitHub"
@@ -3047,35 +3043,35 @@ msgstr "비율"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:69
 msgid "Comment updated"
-msgstr "Comment updated"
+msgstr "댓글이 업데이트되었습니다."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:78
 msgid "Comment deleted"
-msgstr "Comment deleted"
+msgstr "댓글이 삭제되었습니다."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:156
 msgid "Search comments..."
-msgstr "Search comments..."
+msgstr "댓글 검색..."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:189
 msgid "No comments"
-msgstr "No comments"
+msgstr "댓글 없음"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:193
 msgid "No comments match your search."
-msgstr "No comments match your search."
+msgstr "검색 조건에 맞는 댓글이 없습니다."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:194
 msgid "No comments found."
-msgstr "No comments found."
+msgstr "댓글이 없습니다."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:201
 msgid "Author"
-msgstr "Author"
+msgstr "저자"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:202
 msgid "Comment"
-msgstr "Comment"
+msgstr "댓글"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:205
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:305
@@ -3086,53 +3082,53 @@ msgstr "날짜"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:230
 msgid "Anonymous"
-msgstr "Anonymous"
+msgstr "익명"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:267
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:179
 msgid "Approve"
-msgstr "Approve"
+msgstr "승인"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:276
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:187
 msgid "Reject"
-msgstr "Reject"
+msgstr "거절"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:285
 msgid "Spam"
-msgstr "Spam"
+msgstr "스팸"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:334
 msgid "Delete comment?"
-msgstr "Delete comment?"
+msgstr "댓글 삭제하시겠습니까?"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:335
 msgid "Permanently delete this comment? This action cannot be undone."
-msgstr "Permanently delete this comment? This action cannot be undone."
+msgstr "이 댓글을 영구적으로 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
 
 #: src/core-multisite/components/SiteSwitcher.tsx:61
 msgid "Switch site"
-msgstr "Switch site"
+msgstr "사이트 변경"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:77
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:94
 msgid "Network"
-msgstr "Network"
+msgstr "네트워크"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:89
 msgid "Network Admin"
-msgstr "Network Admin"
+msgstr "네트워크 관리자"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:38
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:65
 msgid "Create Site"
-msgstr "Create Site"
+msgstr "사이트 만들기"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:46
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:169
 msgid "Site Name"
-msgstr "Site Name"
+msgstr "사이트 이름"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:50
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
@@ -3141,203 +3137,203 @@ msgstr "Site Name"
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "optional"
-msgstr "optional"
+msgstr "선택 사항"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:51
 msgid "auto-generated from name"
-msgstr "auto-generated from name"
+msgstr "이름을 기반으로 자동 생성됨"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:52
 msgid "Used for subdomain: {slug}.yourdomain.com"
-msgstr "Used for subdomain: {slug}.yourdomain.com"
+msgstr "서브도메인 {slug}.yourdomain.com에 사용됨"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
 msgid "Default Locale"
-msgstr "Default Locale"
+msgstr "기본 로케일"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "Suspend this site?"
-msgstr "Suspend this site?"
+msgstr "이 사이트를 일시 정지하시겠습니까?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "It will become inaccessible to visitors."
-msgstr "It will become inaccessible to visitors."
+msgstr "방문객들은 이곳에 들어갈 수 없게 될 것입니다."
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:53
 msgid "Sites"
-msgstr "Sites"
+msgstr "사이트"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:62
 msgid "Show deleted"
-msgstr "Show deleted"
+msgstr "삭제된 항목 표시"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:75
 msgid "No sites yet. Create your first site."
-msgstr "No sites yet. Create your first site."
+msgstr "아직 사이트가 없습니다. 첫 번째 사이트를 만들어 보세요."
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:118
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:146
 msgid "Unsuspend"
-msgstr "Unsuspend"
+msgstr "정지 해제"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:56
 msgid "Site not found"
-msgstr "Site not found"
+msgstr "해당 페이지를 찾을 수 없습니다"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:93
 msgid "Are you sure you want to disable this site?"
-msgstr "Are you sure you want to disable this site?"
+msgstr "이 사이트를 비활성화하시겠습니까?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Name for the cloned site:"
-msgstr "Name for the cloned site:"
+msgstr "복제된 사이트의 이름:"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Site name"
-msgstr "Site name"
+msgstr "사이트 이름"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove this domain?"
-msgstr "Remove this domain?"
+msgstr "이 도메인을 삭제하시겠습니까?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:136
 msgid "Clone Site"
-msgstr "Clone Site"
+msgstr "사이트 복제"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:137
 msgid "Clone"
-msgstr "Clone"
+msgstr "복제"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:156
 msgid "Disable Site"
-msgstr "Disable Site"
+msgstr "사이트 비활성화"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:166
 msgid "General"
-msgstr "General"
+msgstr "일반"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:177
 msgid "Schema"
-msgstr "Schema"
+msgstr "스키마"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:189
 msgid "Branding"
-msgstr "Branding"
+msgstr "브랜딩"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:194
 msgid "Brand Hue"
-msgstr "Brand Hue"
+msgstr "브랜드 휴"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:206
 msgid "Accent Hue"
-msgstr "Accent Hue"
+msgstr "악센트 색조"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:218
 msgid "Gray Hue"
-msgstr "Gray Hue"
+msgstr "회색 계열"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:231
 msgid "Logo URL"
-msgstr "Logo URL"
+msgstr "로고 URL"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:235
 msgid "Favicon URL"
-msgstr "Favicon URL"
+msgstr "파비콘 URL"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:239
 msgid "Contact Email"
-msgstr "Contact Email"
+msgstr "연락처 이메일"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:243
 msgid "Save Branding"
-msgstr "Save Branding"
+msgstr "브랜딩 저장"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:250
 msgid "Domains"
-msgstr "Domains"
+msgstr "도메인"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:257
 msgid "Verified"
-msgstr "Verified"
+msgstr "인증됨"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:259
 msgid "Pending"
-msgstr "Pending"
+msgstr "처리 중"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:261
 msgid "Primary"
-msgstr "Primary"
+msgstr "초등"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:272
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:711
 msgid "Add"
-msgstr "Add"
+msgstr "추가"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:285
 msgid "Members"
-msgstr "Members"
+msgstr "회원"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:287
 msgid "No members yet."
-msgstr "No members yet."
+msgstr "아직 회원이 없습니다."
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:16
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:26
 msgctxt "General"
 msgid "Pending"
-msgstr "Pending"
+msgstr "처리 중"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:17
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:27
 msgctxt "General"
 msgid "Processing"
-msgstr "Processing"
+msgstr "처리"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:18
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:28
 msgctxt "General"
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "발송됨"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:19
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:29
 msgctxt "General"
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "배송 완료"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:20
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:30
 msgctxt "General"
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "취소됨"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:21
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:31
 msgctxt "General"
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "환불됨"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:316
 msgid "Price: Low to High"
-msgstr "Price: Low to High"
+msgstr "가격: 낮은 순서 → 높은 순서"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:317
 msgid "Price: High to Low"
-msgstr "Price: High to Low"
+msgstr "가격: 높은 순서 → 낮은 순서"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:318
 msgid "Name A-Z"
-msgstr "Name A-Z"
+msgstr "이름 A-Z"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:440
 msgid "Shop now"
-msgstr "Shop now"
+msgstr "지금 구매하기"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:531
 msgid "Price Range"
-msgstr "Price Range"
+msgstr "가격대"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:536
 msgid "Min"
@@ -3345,12 +3341,12 @@ msgstr "Min"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:547
 msgid "Max"
-msgstr "Max"
+msgstr "맥스"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:876
 #: src/core-store/_templates/app/(public)/store/client.tsx:906
 msgid "Filters"
-msgstr "Filters"
+msgstr "필터"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
@@ -3360,76 +3356,76 @@ msgstr "표시 중"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 msgid "products"
-msgstr "products"
+msgstr "제품"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1025
 msgid "Try adjusting your search terms or clearing filters."
-msgstr "Try adjusting your search terms or clearing filters."
+msgstr "검색어를 수정하거나 필터를 해제해 보세요."
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1026
 msgid "Check back soon for new products."
-msgstr "Check back soon for new products."
+msgstr "신제품 소식은 곧 다시 확인해 주세요."
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1041
 msgid "Browse our collection of products"
-msgstr "Browse our collection of products"
+msgstr "당사의 제품 컬렉션을 둘러보세요"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1050
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:138
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "상품 검색..."
 
 #: src/core-store/_templates/app/(public)/store/page.tsx:10
 #: src/core-store/_templates/app/(public)/store/page.tsx:13
 msgid "Browse our collection of products. Find exactly what you need."
-msgstr "Browse our collection of products. Find exactly what you need."
+msgstr "저희 제품 컬렉션을 둘러보세요. 여러분이 필요로 하는 제품을 정확히 찾아보세요."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:748
 msgid "Attributes"
-msgstr "Attributes"
+msgstr "속성"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:98
 msgid "Add Attribute"
-msgstr "Add Attribute"
+msgstr "속성 추가"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:108
 msgid "New Attribute"
-msgstr "New Attribute"
+msgstr "새로운 속성"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:119
 msgid "e.g. Color, Size"
-msgstr "e.g. Color, Size"
+msgstr "예: 색상, 크기"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:134
 msgid "Text"
-msgstr "Text"
+msgstr "본문"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:135
 msgid "Number"
-msgstr "Number"
+msgstr "숫자"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:201
 msgid "Values"
-msgstr "Values"
+msgstr "가치"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 msgid "comma-separated"
-msgstr "comma-separated"
+msgstr "쉼표로 구분된"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:202
 msgid "Filterable"
-msgstr "Filterable"
+msgstr "필터 적용 가능"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:188
 msgid "No attributes defined"
-msgstr "No attributes defined"
+msgstr "정의된 속성이 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:191
 msgid "Add your first attribute to enable product filtering."
-msgstr "Add your first attribute to enable product filtering."
+msgstr "상품 필터링을 활성화하려면 첫 번째 속성을 추가하세요."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:315
@@ -3445,56 +3441,56 @@ msgstr "할인 코드"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:123
 msgid "Add Code"
-msgstr "Add Code"
+msgstr "코드 추가"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:133
 msgid "New Discount Code"
-msgstr "New Discount Code"
+msgstr "새로운 할인 코드"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:158
 msgid "Percentage"
-msgstr "Percentage"
+msgstr "비율"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:159
 msgid "Fixed Amount"
-msgstr "Fixed Amount"
+msgstr "정액"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (%)"
-msgstr "Value (%)"
+msgstr "값 (%)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (EUR)"
-msgstr "Value (EUR)"
+msgstr "금액 (EUR)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:179
 msgid "Min Order (EUR)"
-msgstr "Min Order (EUR)"
+msgstr "최소 주문 금액 (EUR)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:193
 msgid "Max Uses"
-msgstr "Max Uses"
+msgstr "Max의 용도"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:317
 msgid "Expires"
-msgstr "Expires"
+msgstr "만료일"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:266
 msgid "Search codes..."
-msgstr "Search codes..."
+msgstr "코드 검색..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:299
 msgid "No discount codes"
-msgstr "No discount codes"
+msgstr "할인 코드 없음"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:303
 msgid "No codes match your search."
-msgstr "No codes match your search."
+msgstr "검색 조건에 맞는 코드가 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:304
 msgid "Create your first discount code to offer promotions."
-msgstr "Create your first discount code to offer promotions."
+msgstr "프로모션을 진행하기 위해 첫 번째 할인 코드를 생성하세요."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:313
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
@@ -3504,61 +3500,61 @@ msgstr "값"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:314
 msgid "Min Order"
-msgstr "Min Order"
+msgstr "최소 주문량"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Percent"
-msgstr "Percent"
+msgstr "퍼센트"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Fixed"
-msgstr "Fixed"
+msgstr "수정됨"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:376
 msgid "Deactivate"
-msgstr "Deactivate"
+msgstr "비활성화"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:59
 msgid "Product created"
-msgstr "Product created"
+msgstr "제품 생성됨"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:75
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:239
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "이름은 필수 입력 항목입니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:113
 msgid "New Product"
-msgstr "New Product"
+msgstr "신제품"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:130
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:347
 msgid "Basic Info"
-msgstr "Basic Info"
+msgstr "기본 정보"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:139
 msgid "Product name"
-msgstr "Product name"
+msgstr "제품명"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:149
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:379
 msgid "Simple"
-msgstr "Simple"
+msgstr "간단한"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:380
 msgid "Variable"
-msgstr "Variable"
+msgstr "변수"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:152
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:382
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "구독"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:386
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "간략한 설명"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:183
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:209
@@ -3566,22 +3562,22 @@ msgstr "Short Description"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:618
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:676
 msgid "Price"
-msgstr "Price"
+msgstr "가격"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:195
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:425
 msgid "Compare Price"
-msgstr "Compare Price"
+msgstr "가격 비교"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:433
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "할인 상품의 원래 가격"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:209
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:439
 msgid "Currency"
-msgstr "Currency"
+msgstr "통화"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:451
@@ -3592,57 +3588,57 @@ msgstr "SKU"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:227
 msgid "Optional stock keeping unit"
-msgstr "Optional stock keeping unit"
+msgstr "선택적 재고 관리 단위"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:466
 msgid "Inventory"
-msgstr "Inventory"
+msgstr "재고"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:246
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:475
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "재고 추적"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:250
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:479
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "재고 수량"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:261
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:490
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "무게 (그램)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:268
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:497
 msgid "Optional"
-msgstr "Optional"
+msgstr "선택 사항"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:278
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:507
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "배송이 필요합니다"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:287
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:516
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "디지털 제품"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:290
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:519
 msgid "File URL"
-msgstr "File URL"
+msgstr "파일 URL"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:300
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:529
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "다운로드 제한"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:536
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "무제한"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:321
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:550
@@ -3652,35 +3648,35 @@ msgstr "SEO"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:327
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:556
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "메타 제목"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:352
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:581
 msgid "Featured Image"
-msgstr "Featured Image"
+msgstr "대표 이미지"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:354
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:583
 msgid "Image URL"
-msgstr "Image URL"
+msgstr "이미지 URL"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:363
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:592
 msgid "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
-msgstr "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
+msgstr "팁: 프로젝트에서는 파일 업로드를 위해 이를 MediaPickerButton으로 업그레이드할 수 있습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Exporting..."
-msgstr "Exporting..."
+msgstr "내보내기 중..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:98
 msgid "Products"
-msgstr "Products"
+msgstr "제품"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:233
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "주문 번호로 검색..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:263
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:258
@@ -3702,19 +3698,19 @@ msgstr "종료"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:289
 msgid "No orders"
-msgstr "No orders"
+msgstr "주문 없음"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:293
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "검색 조건에 맞는 주문이 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:294
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "아직 주문이 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:301
 msgid "Order #"
-msgstr "Order #"
+msgstr "주문 번호 #"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:302
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
@@ -3723,174 +3719,174 @@ msgstr "고객"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:344
 msgid "View"
-msgstr "View"
+msgstr "보기"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:351
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "청구서"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:359
 msgid "Refund"
-msgstr "Refund"
+msgstr "환불"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:405
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Refund Order"
-msgstr "Refund Order"
+msgstr "환불 요청"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:419
 msgid "Enter reason for refund..."
-msgstr "Enter reason for refund..."
+msgstr "환불 사유를 입력해 주세요..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:72
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:187
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "상품이 삭제되었습니다"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:102
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:198
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "상품 추가"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:185
 msgid "No products"
-msgstr "No products"
+msgstr "상품이 없습니다"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:189
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "검색 조건에 맞는 상품이 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:190
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "시작하려면 첫 번째 제품을 만들어 보세요."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:211
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:619
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:688
 msgid "Stock"
-msgstr "Stock"
+msgstr "재고"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:330
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:844
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "상품을 삭제하시겠습니까?"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:331
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:845
 msgid "Delete \"{name}\"? This action cannot be undone."
-msgstr "Delete \"{name}\"? This action cannot be undone."
+msgstr "\"{name}\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:79
 msgid "Reviews"
-msgstr "Reviews"
+msgstr "리뷰"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:123
 msgid "No reviews to moderate"
-msgstr "No reviews to moderate"
+msgstr "검토할 리뷰가 없습니다"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:127
 msgid "No reviews with this status."
-msgstr "No reviews with this status."
+msgstr "이 상태의 리뷰는 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:128
 msgid "Reviews will appear here once customers submit them."
-msgstr "Reviews will appear here once customers submit them."
+msgstr "고객들이 리뷰를 작성하면 이곳에 표시됩니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:135
 msgid "Product"
-msgstr "Product"
+msgstr "제품"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:136
 msgid "Rating"
-msgstr "Rating"
+msgstr "평점"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:179
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "상품 저장됨"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:195
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "변형 추가됨"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:205
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "변이 삭제됨"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:214
 msgid "Attributes saved"
-msgstr "Attributes saved"
+msgstr "속성이 저장되었습니다"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:222
 msgid "Related products saved"
-msgstr "Related products saved"
+msgstr "저장된 관련 상품"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:265
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "변형명을 입력해야 합니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:318
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "상품 편집"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:601
 msgid "Variants"
-msgstr "Variants"
+msgstr "변형"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "변형 추가"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:648
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "아직 변형 상품이 없습니다. 다양한 옵션을 제공하려면 변형 상품을 추가하세요."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:654
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "새로운 변종"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:663
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "예: 대 / 빨강"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:725
 msgid "No categories defined."
-msgstr "No categories defined."
+msgstr "정의된 카테고리가 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:740
 msgid "Category assignment is saved with the product. Extend this section to call a category update mutation."
-msgstr "Category assignment is saved with the product. Extend this section to call a category update mutation."
+msgstr "카테고리 할당 정보는 상품과 함께 저장됩니다. 이 섹션을 확장하여 카테고리 업데이트 뮤테이션을 호출하세요."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:752
 msgid "No attributes defined."
-msgstr "No attributes defined."
+msgstr "정의된 속성이 없습니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:785
 msgid "Save Attributes"
-msgstr "Save Attributes"
+msgstr "속성 저장"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:793
 msgid "Related Products"
-msgstr "Related Products"
+msgstr "관련 상품"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:818
 msgid "Comma-separated product IDs"
-msgstr "Comma-separated product IDs"
+msgstr "쉼표로 구분된 상품 ID"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:832
 msgid "Tip: Replace comma-separated IDs with a product search/select component for better UX."
-msgstr "Tip: Replace comma-separated IDs with a product search/select component for better UX."
+msgstr "팁: 더 나은 사용자 경험을 위해 쉼표로 구분된 ID를 제품 검색/선택 구성 요소로 대체하세요."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:855
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "변형 삭제하시겠습니까?"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:856
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "이 변종은 영구적으로 삭제될 예정입니다."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:890
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "해당 상품을 찾을 수 없습니다."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
 msgid "Canceled"
@@ -4302,27 +4298,27 @@ msgstr "티켓 목록으로"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "보내지 않은 답장"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "수신함에는 보내지 않은 답장이 하나 있습니다. 상태를 변경하기 전에 보내시겠습니까?"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "보내기 및 상태 변경"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "클립보드에 복사하지 못했습니다"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "전체 대화 내용을 클립보드에 복사하기 (LLM 호환 형식)"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "대화 내용 복사"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
@@ -4346,7 +4342,7 @@ msgstr "이 티켓은 종료되었습니다."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "티켓 재개"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
@@ -4375,15 +4371,3 @@ msgstr "배정 해제"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
 msgstr "미배정"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "AI Characters — Browse & Chat"
-#~ msgstr "AI 캐릭터 — 탐색 및 채팅"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Browse AI characters with unique personalities and start chatting."
-#~ msgstr "독특한 성격의 AI 캐릭터를 탐색하고 채팅을 시작하세요."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Hide"
-#~ msgstr "숨기기"

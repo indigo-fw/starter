@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.480Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.480Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.942Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.942Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: tr\n"
 "Language: tr\n"
@@ -12,59 +12,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+
 #: src/app/(public)/account/orders/[id]/page.tsx:19
 msgid "Order Details"
-msgstr "Order Details"
+msgstr "Sipariş Detayları"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "Welcome"
-msgstr "Welcome"
+msgstr "Hoş geldiniz"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "there"
-msgstr "there"
+msgstr "orada"
 
 #: src/app/(public)/account/page.tsx:31
 msgid "Account Overview"
-msgstr "Account Overview"
+msgstr "Hesap Özeti"
 
 #: src/app/(public)/account/page.tsx:51
 msgid "Profile Settings"
-msgstr "Profile Settings"
+msgstr "Profil Ayarları"
 
 #: src/app/(public)/account/page.tsx:52
 msgid "Update your name and profile information."
-msgstr "Update your name and profile information."
+msgstr "Adınızı ve profil bilgilerinizi güncelleyin."
 
 #: src/app/(public)/account/page.tsx:55
 #: src/components/public/AccountNav.tsx:14
 #: src/components/public/UserMenu.tsx:112
 msgid "Security"
-msgstr "Security"
+msgstr "Güvenlik"
 
 #: src/app/(public)/account/page.tsx:56
 msgid "Change your password and manage sessions."
-msgstr "Change your password and manage sessions."
+msgstr "Şifrenizi değiştirin ve oturumlarınızı yönetin."
 
 #: src/app/(public)/account/page.tsx:59
 #: src/components/public/AccountNav.tsx:15
 #: src/components/public/UserMenu.tsx:120
 msgid "Billing"
-msgstr "Billing"
+msgstr "Faturalandırma"
 
 #: src/app/(public)/account/page.tsx:60
 msgid "Manage your subscription and payment methods."
-msgstr "Manage your subscription and payment methods."
+msgstr "Aboneliğinizi ve ödeme yöntemlerinizi yönetin."
 
 #: src/app/(public)/account/page.tsx:63
 #: src/components/public/AccountNav.tsx:19
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:348
 msgid "Support"
-msgstr "Support"
+msgstr "Destek"
 
 #: src/app/(public)/account/page.tsx:64
 msgid "View your support tickets or create a new one."
-msgstr "View your support tickets or create a new one."
+msgstr "Destek biletlerinizi görüntüleyin veya yeni bir bilet oluşturun."
 
 #: src/app/(public)/account/support/page.tsx:14
 #: src/app/(public)/account/support/[id]/page.tsx:33
@@ -72,7 +73,7 @@ msgstr "View your support tickets or create a new one."
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:33
 msgctxt "General"
 msgid "Open"
-msgstr "Open"
+msgstr "Aç"
 
 #: src/app/(public)/account/support/page.tsx:15
 #: src/app/(public)/account/support/[id]/page.tsx:34
@@ -80,7 +81,7 @@ msgstr "Open"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:34
 msgctxt "General"
 msgid "Awaiting You"
-msgstr "Awaiting You"
+msgstr "Sizi Bekliyoruz"
 
 #: src/app/(public)/account/support/page.tsx:16
 #: src/app/(public)/account/support/[id]/page.tsx:35
@@ -88,7 +89,7 @@ msgstr "Awaiting You"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:35
 msgctxt "General"
 msgid "Awaiting Staff"
-msgstr "Awaiting Staff"
+msgstr "Personel Bekleniyor"
 
 #: src/app/(public)/account/support/page.tsx:17
 #: src/app/(public)/account/support/[id]/page.tsx:36
@@ -96,7 +97,7 @@ msgstr "Awaiting Staff"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:36
 msgctxt "General"
 msgid "Resolved"
-msgstr "Resolved"
+msgstr "Karar verildi"
 
 #: src/app/(public)/account/support/page.tsx:18
 #: src/app/(public)/account/support/[id]/page.tsx:37
@@ -104,13 +105,13 @@ msgstr "Resolved"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:37
 msgctxt "General"
 msgid "Closed"
-msgstr "Closed"
+msgstr "Kapalı"
 
 #: src/app/(public)/account/support/page.tsx:30
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:30
 msgctxt "General"
 msgid "Low"
-msgstr "Low"
+msgstr "Düşük"
 
 #: src/app/(public)/account/support/page.tsx:31
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:31
@@ -122,19 +123,19 @@ msgstr "Normal"
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:32
 msgctxt "General"
 msgid "High"
-msgstr "High"
+msgstr "Yüksek"
 
 #: src/app/(public)/account/support/page.tsx:33
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:33
 msgctxt "General"
 msgid "Urgent"
-msgstr "Urgent"
+msgstr "Acil"
 
 #: src/app/(public)/blog/page.tsx:28
 #: src/app/(public)/blog/page.tsx:70
-#: src/app/(public)/layout.tsx:94
-#: src/app/(public)/layout.tsx:159
-#: src/app/(public)/layout.tsx:242
+#: src/app/(public)/layout.tsx:93
+#: src/app/(public)/layout.tsx:158
+#: src/app/(public)/layout.tsx:244
 #: src/app/(showcase)/layout.tsx:53
 #: src/app/(showcase)/layout.tsx:75
 msgid "Blog"
@@ -153,11 +154,11 @@ msgstr "Blog"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:178
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:314
 msgid "Page"
-msgstr "Page"
+msgstr "Sayfa"
 
 #: src/app/(public)/blog/page.tsx:36
 msgid "Latest blog posts"
-msgstr "Latest blog posts"
+msgstr "En son blog yazıları"
 
 #: src/app/(public)/blog/page.tsx:94
 #: src/app/(public)/store/page.tsx:170
@@ -172,13 +173,13 @@ msgstr "Latest blog posts"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:175
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:311
 msgid "Previous"
-msgstr "Previous"
+msgstr "Önceki"
 
 #: src/app/(public)/blog/page.tsx:98
 #: src/app/(public)/store/page.tsx:174
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:108
 msgid "Page {page} of {totalPages}"
-msgstr "Page {page} of {totalPages}"
+msgstr "Sayfa {page}, {totalPages} adresinden"
 
 #: src/app/(public)/blog/page.tsx:105
 #: src/app/(public)/store/page.tsx:186
@@ -193,191 +194,192 @@ msgstr "Page {page} of {totalPages}"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:185
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:321
 msgid "Next"
-msgstr "Next"
+msgstr "Sonraki"
 
 #: src/app/(public)/blog/page.tsx:112
 msgid "No blog posts yet."
-msgstr "No blog posts yet."
+msgstr "Henüz blog yazısı yok."
 
 #: src/app/(public)/cart/page.tsx:13
 msgid "Cart"
-msgstr "Cart"
+msgstr "Sepet"
 
 #: src/app/(public)/cart/page.tsx:14
 msgid "Your shopping cart"
-msgstr "Your shopping cart"
+msgstr "Alışveriş sepetiniz"
 
 #: src/app/(public)/cart/page.tsx:23
 msgid "Shopping Cart"
-msgstr "Shopping Cart"
+msgstr "Alışveriş Sepeti"
 
 #: src/app/(public)/characters/page.tsx:13
 msgid "AI Characters"
-msgstr "AI Characters"
+msgstr "Yapay Zeka Karakterleri"
 
 #: src/app/(public)/characters/page.tsx:14
 msgid "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
-msgstr "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
+msgstr "Eşsiz kişiliklere sahip yapay zeka karakterlerini keşfedin. Size en uygun arkadaşı bulun ve hemen sohbet etmeye başlayın."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:52
 msgid "This field is required"
-msgstr "This field is required"
+msgstr "Bu alan zorunludur"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:86
 msgid "First Name"
-msgstr "First Name"
+msgstr "Ad"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:91
 msgid "Last Name"
-msgstr "Last Name"
+msgstr "Soyadı"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:97
 msgid "Company"
-msgstr "Company"
+msgstr "Şirket"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:101
 msgid "Address"
-msgstr "Address"
+msgstr "Adres"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:106
 msgid "Address line 2"
-msgstr "Address line 2"
+msgstr "2. adres satırı"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:111
 msgid "City"
-msgstr "City"
+msgstr "Şehir"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:116
 msgid "Postal Code"
-msgstr "Postal Code"
+msgstr "Posta Kodu"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:123
 msgid "Country"
-msgstr "Country"
+msgstr "Ülke"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:129
 msgid "Phone"
-msgstr "Phone"
+msgstr "Telefon"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:213
 msgid "Shipping Address"
-msgstr "Shipping Address"
+msgstr "Teslimat Adresi"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:220
 msgid "Shipping Method"
-msgstr "Shipping Method"
+msgstr "Kargo Yöntemi"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:233
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "days"
-msgstr "days"
+msgstr "gün"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:236
 #: src/app/(public)/checkout/CheckoutForm.tsx:273
 #: src/app/(public)/page.tsx:313
 msgid "Free"
-msgstr "Free"
+msgstr "Ücretsiz"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:245
 msgid "Order Note"
-msgstr "Order Note"
+msgstr "Sipariş Notu"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:249
 msgid "Any special instructions..."
-msgstr "Any special instructions..."
+msgstr "Herhangi bir özel talimat var mı..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:258
 msgid "Order Summary"
-msgstr "Order Summary"
+msgstr "Sipariş Özeti"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:268
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "Ara toplam"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:272
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "Kargo"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:277
 msgid "Tax"
-msgstr "Tax"
+msgstr "Vergi"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:282
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:304
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:408
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:69
 msgid "Total"
-msgstr "Total"
+msgstr "Toplam"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:299
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Processing..."
-msgstr "Processing..."
+msgstr "İşleniyor..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:301
 msgid "Place Order"
-msgstr "Place Order"
+msgstr "Sipariş Ver"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:306
 msgid "Back to Cart"
-msgstr "Back to Cart"
+msgstr "Sepete Geri Dön"
 
 #: src/app/(public)/checkout/page.tsx:15
 #: src/app/(public)/checkout/page.tsx:40
 msgid "Checkout"
-msgstr "Checkout"
+msgstr "Ödeme"
 
 #: src/app/(public)/checkout/page.tsx:16
 msgid "Complete your order"
-msgstr "Complete your order"
+msgstr "Siparişinizi tamamlayın"
 
 #: src/app/(public)/docs/page.tsx:24
 #: src/app/(public)/page.tsx:346
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
-msgstr "Documentation"
+msgstr "Belgeler"
 
 #: src/app/(public)/docs/page.tsx:25
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:25
 msgid "No documentation pages found yet."
-msgstr "No documentation pages found yet."
+msgstr "Henüz herhangi bir dokümantasyon sayfası bulunamadı."
 
 #: src/app/(public)/forgot-password/page.tsx:9
 #: src/app/(public)/forgot-password/page.tsx:20
 msgid "Forgot Password"
-msgstr "Forgot Password"
+msgstr "Şifremi Unuttum"
 
 #: src/app/(public)/forgot-password/page.tsx:10
 msgid "Reset your password"
-msgstr "Reset your password"
+msgstr "Şifrenizi sıfırlayın"
 
 #: src/app/(public)/forgot-password/page.tsx:21
 msgid "Enter your email to receive a reset link."
-msgstr "Enter your email to receive a reset link."
+msgstr "Şifre sıfırlama bağlantısını almak için e-posta adresinizi girin."
 
-#: src/app/(public)/layout.tsx:39
+#: src/app/(public)/layout.tsx:38
 msgctxt "General"
 msgid "This page is available in {language}"
-msgstr "This page is available in {language}"
+msgstr "Bu sayfa şu dillerde mevcuttur{language}"
 
-#: src/app/(public)/layout.tsx:99
-#: src/app/(public)/layout.tsx:243
+#: src/app/(public)/layout.tsx:98
+#: src/app/(public)/layout.tsx:245
 #: src/app/(public)/portfolio/page.tsx:24
 #: src/app/(public)/portfolio/page.tsx:45
 #: src/app/(showcase)/layout.tsx:54
 #: src/app/(showcase)/layout.tsx:78
 msgid "Portfolio"
-msgstr "Portfolio"
+msgstr "Portföy"
 
-#: src/app/(public)/layout.tsx:100
-#: src/app/(public)/layout.tsx:171
-#: src/app/(public)/layout.tsx:244
+#: src/app/(public)/layout.tsx:99
+#: src/app/(public)/layout.tsx:170
+#: src/app/(public)/layout.tsx:246
 #: src/app/(showcase)/showcase/page.tsx:24
 msgid "Showcase"
-msgstr "Showcase"
+msgstr "Vitrin"
 
-#: src/app/(public)/layout.tsx:101
-#: src/app/(public)/layout.tsx:174
-#: src/app/(public)/layout.tsx:183
-#: src/app/(public)/layout.tsx:245
+#: src/app/(public)/layout.tsx:100
+#: src/app/(public)/layout.tsx:173
+#: src/app/(public)/layout.tsx:247
 #: src/app/(public)/store/page.tsx:22
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:936
@@ -385,11 +387,11 @@ msgstr "Showcase"
 #: src/core-store/_templates/app/(public)/store/page.tsx:9
 #: src/core-store/_templates/app/(public)/store/page.tsx:12
 msgid "Store"
-msgstr "Store"
+msgstr "Mağaza"
 
-#: src/app/(public)/layout.tsx:102
-#: src/app/(public)/layout.tsx:186
-#: src/app/(public)/layout.tsx:246
+#: src/app/(public)/layout.tsx:101
+#: src/app/(public)/layout.tsx:182
+#: src/app/(public)/layout.tsx:248
 #: src/app/(public)/search/page.tsx:20
 #: src/app/(showcase)/showcase/search/page.tsx:66
 #: src/components/public/BlogSidebar.tsx:78
@@ -399,100 +401,100 @@ msgstr "Store"
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:251
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:156
 msgid "Search"
-msgstr "Search"
+msgstr "Arama"
 
-#: src/app/(public)/layout.tsx:139
+#: src/app/(public)/layout.tsx:138
 msgid "Blog RSS"
 msgstr "Blog RSS"
 
-#: src/app/(public)/layout.tsx:226
+#: src/app/(public)/layout.tsx:228
 #: src/components/public/BlogSidebar.tsx:92
 #: src/core-store/_templates/app/(public)/store/client.tsx:512
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:721
 msgid "Categories"
-msgstr "Categories"
+msgstr "Kategoriler"
 
-#: src/app/(public)/layout.tsx:241
+#: src/app/(public)/layout.tsx:243
 msgid "Quick Links"
-msgstr "Quick Links"
+msgstr "Hızlı Bağlantılar"
 
-#: src/app/(public)/layout.tsx:251
+#: src/app/(public)/layout.tsx:253
 msgid "More"
-msgstr "More"
-
-#: src/app/(public)/layout.tsx:254
-#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
-msgid "RSS Feed"
-msgstr "RSS Feed"
+msgstr "Daha fazla"
 
 #: src/app/(public)/layout.tsx:256
-msgid "Admin"
-msgstr "Admin"
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
+msgid "RSS Feed"
+msgstr "RSS Beslemesi"
 
-#: src/app/(public)/layout.tsx:263
+#: src/app/(public)/layout.tsx:258
+msgid "Admin"
+msgstr "Yönetici"
+
+#: src/app/(public)/layout.tsx:265
 msgid "Powered by Indigo"
-msgstr "Powered by Indigo"
+msgstr "Indigo tarafından desteklenmektedir"
 
 #: src/app/(public)/login/page.tsx:9
 #: src/app/(public)/login/page.tsx:27
 #: src/components/public/AuthDialogs.tsx:24
 #: src/components/public/UserMenu.tsx:40
 msgid "Sign In"
-msgstr "Sign In"
+msgstr "Giriş Yap"
 
 #: src/app/(public)/login/page.tsx:10
 msgid "Sign in to your account"
-msgstr "Sign in to your account"
+msgstr "Hesabınıza giriş yapın"
 
 #: src/app/(public)/login/page.tsx:28
 msgid "Welcome back! Sign in to your account."
-msgstr "Welcome back! Sign in to your account."
+msgstr "Hoş geldiniz! Hesabınıza giriş yapın."
 
 #: src/app/(public)/page.tsx:54
 #: src/app/(public)/page.tsx:171
 msgid "Browse Characters"
-msgstr "Browse Characters"
+msgstr "Karakterlere Göz At"
 
 #: src/app/(public)/page.tsx:55
 msgid "30 AI characters with filters, pagination, and video hover."
-msgstr "30 AI characters with filters, pagination, and video hover."
+msgstr "Filtreler, sayfalandırma ve fareyle üzerine gelindiğinde video oynatma özelliğine sahip 30 AI karakteri."
 
 #: src/app/(public)/page.tsx:60
 msgid "AI Chat"
-msgstr "AI Chat"
+msgstr "AI Sohbeti"
 
 #: src/app/(public)/page.tsx:61
 msgid "Real-time text chat with LLM streaming and typing animation."
-msgstr "Real-time text chat with LLM streaming and typing animation."
+msgstr "LLM akışı ve yazma animasyonu içeren gerçek zamanlı metin sohbeti."
 
 #: src/app/(public)/page.tsx:67
 msgid "Image Generation"
-msgstr "Image Generation"
+msgstr "Görüntü Oluşturma"
 
 #: src/app/(public)/page.tsx:68
 msgid "Full keyword orchestration — type \"send me a photo\" in chat."
-msgstr "Full keyword orchestration — type \"send me a photo\" in chat."
+msgstr "Tam anahtar kelime entegrasyonu — sohbette “bana bir fotoğraf gönder” yazın."
 
 #: src/app/(public)/page.tsx:73
 msgid "Voice Calls"
-msgstr "Voice Calls"
+msgstr "Sesli Aramalar"
 
 #: src/app/(public)/page.tsx:74
 msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
-msgstr "Call AI characters — STT → LLM → TTS with per-minute billing."
+msgstr "AI karakterlerini arayın — STT → LLM → TTS; dakika başına faturalandırma."
 
 #: src/app/(public)/page.tsx:76
 msgid "New"
-msgstr "New"
+msgstr "Yeni"
 
 #: src/app/(public)/page.tsx:80
 #: src/app/(public)/page.tsx:177
 msgid "Admin Dashboard"
-msgstr "Admin Dashboard"
+msgstr "Yönetici Paneli"
 
 #: src/app/(public)/page.tsx:81
 msgid "Content, users, settings, analytics, provider management."
-msgstr "Content, users, settings, analytics, provider management."
+msgstr "İçerik, kullanıcılar, ayarlar, analizler, sağlayıcı yönetimi."
 
 #: src/app/(public)/page.tsx:86
 msgid "CMS"
@@ -500,123 +502,123 @@ msgstr "CMS"
 
 #: src/app/(public)/page.tsx:87
 msgid "Blog, pages, portfolio, categories, tags — config-driven."
-msgstr "Blog, pages, portfolio, categories, tags — config-driven."
+msgstr "Blog, sayfalar, portföy, kategoriler, etiketler — yapılandırma tabanlı."
 
 #: src/app/(public)/page.tsx:92
 msgid "Billing & Tokens"
-msgstr "Billing & Tokens"
+msgstr "Faturalandırma ve Jetonlar"
 
 #: src/app/(public)/page.tsx:93
 msgid "Stripe subscriptions, token balance, discount codes."
-msgstr "Stripe subscriptions, token balance, discount codes."
+msgstr "Stripe abonelikleri, jeton bakiyesi, indirim kodları."
 
 #: src/app/(public)/page.tsx:98
 msgid "Organizations"
-msgstr "Organizations"
+msgstr "Kuruluşlar"
 
 #: src/app/(public)/page.tsx:99
 msgid "Multi-tenant with roles for billing scoping."
-msgstr "Multi-tenant with roles for billing scoping."
+msgstr "Faturalandırma kapsamını belirlemeye yönelik rollere sahip çoklu kiracılı yapı."
 
 #: src/app/(public)/page.tsx:104
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Moderation"
-msgstr "Moderation"
+msgstr "Denetim"
 
 #: src/app/(public)/page.tsx:105
 msgid "Keyword filter + audit log + auto-block."
-msgstr "Keyword filter + audit log + auto-block."
+msgstr "Anahtar kelime filtresi + denetim günlüğü + otomatik engelleme."
 
 #: src/app/(public)/page.tsx:110
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Analytics"
-msgstr "Analytics"
+msgstr "Analitik"
 
 #: src/app/(public)/page.tsx:111
 msgid "Character stats, user activity, provider health."
-msgstr "Character stats, user activity, provider health."
+msgstr "Karakter istatistikleri, kullanıcı etkinliği, sağlayıcı durumu."
 
 #: src/app/(public)/page.tsx:116
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:86
 msgid "AI Providers"
-msgstr "AI Providers"
+msgstr "Yapay Zeka Sağlayıcıları"
 
 #: src/app/(public)/page.tsx:117
 msgid "DB-stored with encryption, round-robin, fallback."
-msgstr "DB-stored with encryption, round-robin, fallback."
+msgstr "Veritabanında şifrelenmiş olarak depolanır; round-robin ve yedekleme özellikleri mevcuttur."
 
 #: src/app/(public)/page.tsx:122
 msgid "Theme & Branding"
-msgstr "Theme & Branding"
+msgstr "Tema ve Markalaşma"
 
 #: src/app/(public)/page.tsx:123
 msgid "OKLCH design tokens, dark mode, CSS variables."
-msgstr "OKLCH design tokens, dark mode, CSS variables."
+msgstr "OKLCH tasarım simgeleri, karanlık mod, CSS değişkenleri."
 
 #: src/app/(public)/page.tsx:134
 msgid "Live Demo — resets hourly"
-msgstr "Live Demo — resets hourly"
+msgstr "Canlı Demo — her saat başı sıfırlanır"
 
 #: src/app/(public)/page.tsx:142
 msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+msgstr "Next.js için eksiksiz bir SaaS çerçevesi — CMS, faturalandırma, kimlik doğrulama, gerçek zamanlı işlevler, yapay zeka destekli sohbet ve modüler mimari."
 
 #: src/app/(public)/page.tsx:152
 msgid "Demo login"
-msgstr "Demo login"
+msgstr "Demo girişi"
 
 #: src/app/(public)/page.tsx:162
 msgid "Log in"
-msgstr "Log in"
+msgstr "Giriş yap"
 
 #: src/app/(public)/page.tsx:187
 msgid "Explore the Features"
-msgstr "Explore the Features"
+msgstr "Özellikleri Keşfedin"
 
 #: src/app/(public)/page.tsx:190
 msgid "Click any card to see it in action. Everything is live and functional."
-msgstr "Click any card to see it in action. Everything is live and functional."
+msgstr "Herhangi bir kartı tıklayarak nasıl çalıştığını görebilirsiniz. Her şey canlı ve işlevseldir."
 
 #: src/app/(public)/page.tsx:217
 msgid "Explore"
-msgstr "Explore"
+msgstr "Keşfet"
 
 #: src/app/(public)/page.tsx:230
 msgid "Built With"
-msgstr "Built With"
+msgstr "Geliştirildi"
 
 #: src/app/(public)/page.tsx:264
 msgid "Modular Architecture"
-msgstr "Modular Architecture"
+msgstr "Modüler Mimari"
 
 #: src/app/(public)/page.tsx:267
 msgid "Install only what you need. Each module is a self-contained git subtree."
-msgstr "Install only what you need. Each module is a self-contained git subtree."
+msgstr "Sadece ihtiyacınız olanları yükleyin. Her modül, bağımsız bir git alt ağacıdır."
 
 #: src/app/(public)/page.tsx:275
 msgid "AI character chat, image/video gen, voice calls"
-msgstr "AI character chat, image/video gen, voice calls"
+msgstr "Yapay zeka destekli karakter sohbeti, resim/video oluşturma, sesli aramalar"
 
 #: src/app/(public)/page.tsx:280
 msgid "Stripe subscriptions, tokens, discounts"
-msgstr "Stripe subscriptions, tokens, discounts"
+msgstr "Stripe abonelikleri, jetonlar, indirimler"
 
 #: src/app/(public)/page.tsx:285
 msgid "AI support chat + ticket system"
-msgstr "AI support chat + ticket system"
+msgstr "AI destekli sohbet + bilet sistemi"
 
 #: src/app/(public)/page.tsx:288
 msgid "Documentation system"
-msgstr "Documentation system"
+msgstr "Belgeleme sistemi"
 
 #: src/app/(public)/page.tsx:291
 msgid "E-commerce (products, cart, checkout)"
-msgstr "E-commerce (products, cart, checkout)"
+msgstr "E-ticaret (ürünler, alışveriş sepeti, ödeme)"
 
 #: src/app/(public)/page.tsx:296
 msgid "Referral tracking, commissions"
-msgstr "Referral tracking, commissions"
+msgstr "Yönlendirme takibi, komisyonlar"
 
 #: src/app/(public)/page.tsx:313
 msgid "Premium"
@@ -624,114 +626,114 @@ msgstr "Premium"
 
 #: src/app/(public)/page.tsx:330
 msgid "Ready to build?"
-msgstr "Ready to build?"
+msgstr "İnşa etmeye hazır mısınız?"
 
 #: src/app/(public)/page.tsx:333
 msgid "Clone, init, ship. It's that simple."
-msgstr "Clone, init, ship. It's that simple."
+msgstr "Kopyala, başlat, gönder. İşte bu kadar basit."
 
 #: src/app/(public)/page.tsx:340
 msgid "Clone on GitHub"
-msgstr "Clone on GitHub"
+msgstr "GitHub'da klonla"
 
 #: src/app/(public)/page.tsx:350
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
-msgstr "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
+msgstr "Çift lisanslı: AGPL-3.0 (açık kaynak) veya Ticari Lisans"
 
 #: src/app/(public)/portfolio/page.tsx:27
 msgid "Browse our portfolio of projects and case studies."
-msgstr "Browse our portfolio of projects and case studies."
+msgstr "Proje ve vaka çalışmaları portföyümüzü inceleyin."
 
 #: src/app/(public)/portfolio/page.tsx:48
 msgid "Browse our projects and case studies."
-msgstr "Browse our projects and case studies."
+msgstr "Projelerimize ve vaka çalışmalarımıza göz atın."
 
 #: src/app/(public)/portfolio/page.tsx:103
 msgid "No portfolio items yet."
-msgstr "No portfolio items yet."
+msgstr "Henüz portföyde hiçbir öğe yok."
 
 #: src/app/(public)/pricing/page.tsx:22
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:409
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:22
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "Fiyatlandırma"
 
 #: src/app/(public)/pricing/page.tsx:23
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:23
 msgid "Simple, transparent pricing for teams of all sizes."
-msgstr "Simple, transparent pricing for teams of all sizes."
+msgstr "Her büyüklükteki ekip için basit ve şeffaf fiyatlandırma."
 
 #: src/app/(public)/pricing/page.tsx:39
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:39
 msgid "Simple, transparent pricing"
-msgstr "Simple, transparent pricing"
+msgstr "Basit ve şeffaf fiyatlandırma"
 
 #: src/app/(public)/pricing/page.tsx:42
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:42
 msgid "Pay as you go: buy tokens once, use them until they run out. No subscription required."
-msgstr "Pay as you go: buy tokens once, use them until they run out. No subscription required."
+msgstr "Kullandıkça öde: Jetonları bir kez satın alın, bitene kadar kullanın. Abonelik gerekmez."
 
 #: src/app/(public)/pricing/page.tsx:43
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:43
 msgid "Choose the plan that fits your team. All plans include a 14-day free trial."
-msgstr "Choose the plan that fits your team. All plans include a 14-day free trial."
+msgstr "Ekibinize en uygun paketi seçin. Tüm paketlerde 14 günlük ücretsiz deneme süresi bulunmaktadır."
 
 #: src/app/(public)/pricing/page.tsx:58
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:58
 msgid "Get Started"
-msgstr "Get Started"
+msgstr "Başlayın"
 
 #: src/app/(public)/pricing/page.tsx:70
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:70
 msgid "Frequently asked questions"
-msgstr "Frequently asked questions"
+msgstr "Sıkça sorulan sorular"
 
 #: src/app/(public)/register/page.tsx:9
 #: src/app/(public)/register/page.tsx:31
 #: src/components/public/AuthDialogs.tsx:53
 msgid "Create Account"
-msgstr "Create Account"
+msgstr "Hesap Oluştur"
 
 #: src/app/(public)/register/page.tsx:10
 msgid "Create a new account"
-msgstr "Create a new account"
+msgstr "Yeni bir hesap oluşturun"
 
 #: src/app/(public)/register/page.tsx:22
 msgid "Registration Closed"
-msgstr "Registration Closed"
+msgstr "Kayıtlar Kapatıldı"
 
 #: src/app/(public)/register/page.tsx:23
 #: src/components/public/AuthDialogs.tsx:65
 msgid "Registration is currently not available. Please contact us for access."
-msgstr "Registration is currently not available. Please contact us for access."
+msgstr "Kayıt işlemi şu anda yapılamamaktadır. Erişim için lütfen bizimle iletişime geçin."
 
 #: src/app/(public)/register/page.tsx:32
 msgid "Start your journey with a free account."
-msgstr "Start your journey with a free account."
+msgstr "Ücretsiz bir hesap açarak yolculuğunuza başlayın."
 
 #: src/app/(public)/reset-password/page.tsx:9
 #: src/app/(public)/reset-password/page.tsx:20
 msgid "Reset Password"
-msgstr "Reset Password"
+msgstr "Şifreyi Sıfırla"
 
 #: src/app/(public)/reset-password/page.tsx:10
 msgid "Set a new password"
-msgstr "Set a new password"
+msgstr "Yeni bir şifre belirleyin"
 
 #: src/app/(public)/reset-password/page.tsx:21
 msgid "Enter your new password below."
-msgstr "Enter your new password below."
+msgstr "Aşağıya yeni şifrenizi girin."
 
 #: src/app/(public)/store/page.tsx:23
 msgid "Browse our products"
-msgstr "Browse our products"
+msgstr "Ürünlerimize göz atın"
 
 #: src/app/(public)/store/page.tsx:64
 #: src/app/(public)/store/page.tsx:98
 #: src/core-store/_templates/app/(public)/store/client.tsx:424
 msgid "Sale"
-msgstr "Sale"
+msgstr "İndirim"
 
 #: src/app/(public)/store/page.tsx:65
 #: src/core-store/_templates/app/(public)/store/client.tsx:132
@@ -739,152 +741,152 @@ msgstr "Sale"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:151
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:381
 msgid "Digital"
-msgstr "Digital"
+msgstr "Dijital"
 
 #: src/app/(public)/store/page.tsx:66
 msgid "From variants"
-msgstr "From variants"
+msgstr "Varyantlardan"
 
 #: src/app/(public)/store/page.tsx:114
 msgid "Shop Now"
-msgstr "Shop Now"
+msgstr "Şimdi Al"
 
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:523
 msgid "All Products"
-msgstr "All Products"
+msgstr "Tüm Ürünler"
 
 #: src/app/(public)/store/page.tsx:133
 #: src/core-api/components/ApiKeyManager.tsx:224
 #: src/core-store/_templates/app/(public)/store/client.tsx:816
 msgid "All"
-msgstr "All"
+msgstr "Tümü"
 
 #: src/app/(public)/store/page.tsx:196
 #: src/core-store/_templates/app/(public)/store/client.tsx:1022
 msgid "No products found"
-msgstr "No products found"
+msgstr "Hiçbir ürün bulunamadı"
 
 #: src/app/(public)/store/page.tsx:196
 msgid "Coming soon"
-msgstr "Coming soon"
+msgstr "Yakında"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Try a different search term"
-msgstr "Try a different search term"
+msgstr "Farklı bir arama terimi deneyin"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Check back soon for new products"
-msgstr "Check back soon for new products"
+msgstr "Yeni ürünler için yakında tekrar kontrol edin"
 
 #: src/app/(public)/[...slug]/renderers/CategoryDetail.tsx:44
 msgid "Posts in this category"
-msgstr "Posts in this category"
+msgstr "Bu kategorideki yazılar"
 
 #: src/app/(public)/[...slug]/renderers/PortfolioDetail.tsx:23
 #: src/app/(public)/[...slug]/renderers/PostDetail.tsx:57
 #: src/app/(public)/[...slug]/renderers/ShowcaseDetail.tsx:24
 msgid "Preview mode — this content is not yet published."
-msgstr "Preview mode — this content is not yet published."
+msgstr "Önizleme modu — bu içerik henüz yayınlanmamıştır."
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:53
 msgid "Tag"
-msgstr "Tag"
+msgstr "Etiket"
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:124
 msgid "No content found with this tag."
-msgstr "No content found with this tag."
+msgstr "Bu etiketle ilgili içerik bulunamadı."
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:130
 msgid "Browse More Tags"
-msgstr "Browse More Tags"
+msgstr "Diğer Etiketlere Göz At"
 
 #: src/app/(showcase)/layout.tsx:51
 msgid "Home"
-msgstr "Home"
+msgstr "Ana Sayfa"
 
 #: src/app/(showcase)/layout.tsx:52
 #: src/app/(showcase)/layout.tsx:72
 msgid "Feed"
-msgstr "Feed"
+msgstr "Besleme"
 
 #: src/app/(showcase)/showcase/page.tsx:27
 msgid "Explore our showcase — swipe through videos, images, and stories."
-msgstr "Explore our showcase — swipe through videos, images, and stories."
+msgstr "Vitrinimizi keşfedin — videolar, resimler ve hikayeler arasında kaydırarak gezinin."
 
 #: src/app/(showcase)/showcase/search/page.tsx:66
 msgid "Results for \"{query}\""
-msgstr "Results for \"{query}\""
+msgstr "“{query}” için sonuçlar"
 
 #: src/app/(showcase)/showcase/search/page.tsx:70
 msgid "No results found for \"{query}\""
-msgstr "No results found for \"{query}\""
+msgstr "\"{query}\" için hiçbir sonuç bulunamadı"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "Use the search bar above or press"
-msgstr "Use the search bar above or press"
+msgstr "Yukarıdaki arama çubuğunu kullanın veya şuraya basın"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "to search."
-msgstr "to search."
+msgstr "arama yapmak için."
 
 #: src/app/not-found.tsx:17
 msgid "Page not found"
-msgstr "Page not found"
+msgstr "Sayfa bulunamadı"
 
 #: src/app/not-found.tsx:19
 msgid "The page you're looking for doesn't exist or has been moved."
-msgstr "The page you're looking for doesn't exist or has been moved."
+msgstr "Aradığınız sayfa mevcut değil veya başka bir yere taşınmıştır."
 
 #: src/app/not-found.tsx:27
 msgid "Go Home"
-msgstr "Go Home"
+msgstr "Eve Git"
 
 #: src/app/not-found.tsx:33
 msgid "Browse Blog"
-msgstr "Browse Blog"
+msgstr "Blog’a Göz At"
 
 #: src/components/public/AccountNav.tsx:12
 msgid "Overview"
-msgstr "Overview"
+msgstr "Genel Bakış"
 
 #: src/components/public/AccountNav.tsx:13
 #: src/components/public/UserMenu.tsx:104
 msgid "Settings"
-msgstr "Settings"
+msgstr "Ayarlar"
 
 #: src/components/public/AccountNav.tsx:16
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:96
 msgid "Orders"
-msgstr "Orders"
+msgstr "Siparişler"
 
 #: src/components/public/AccountNav.tsx:17
 msgid "Wishlist"
-msgstr "Wishlist"
+msgstr "İstek Listesi"
 
 #: src/components/public/AccountNav.tsx:18
 msgid "Addresses"
-msgstr "Addresses"
+msgstr "Adresler"
 
 #: src/components/public/AccountNav.tsx:20
 #: src/core-affiliates/components/AffiliateOverview.tsx:23
 #: src/core-affiliates/components/AffiliateOverview.tsx:36
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
-msgstr "Affiliates"
+msgstr "Ortaklar"
 
 #: src/components/public/BlogSidebar.tsx:83
 msgid "Search posts..."
-msgstr "Search posts..."
+msgstr "Gönderileri ara..."
 
 #: src/components/public/BlogSidebar.tsx:113
 msgid "Tags"
-msgstr "Tags"
+msgstr "Etiketler"
 
 #: src/components/public/CommentPanel.tsx:121
 msgid "Reply"
-msgstr "Reply"
+msgstr "Yanıtla"
 
 #: src/components/public/CommentPanel.tsx:129
 #: src/core/components/media/MediaPickerDialog.tsx:490
@@ -908,137 +910,137 @@ msgstr "Reply"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
 msgid "Delete"
-msgstr "Delete"
+msgstr "Sil"
 
 #: src/components/public/CommentPanel.tsx:142
 msgid "Reply..."
-msgstr "Reply..."
+msgstr "Cevapla..."
 
 #: src/components/public/CommentPanel.tsx:295
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:115
 msgid "Comments"
-msgstr "Comments"
+msgstr "Yorumlar"
 
 #: src/components/public/CommentPanel.tsx:313
 msgid "No comments yet. Be the first!"
-msgstr "No comments yet. Be the first!"
+msgstr "Henüz yorum yok. İlk yorum yapan siz olun!"
 
 #: src/components/public/CommentPanel.tsx:344
 msgid "Add a comment..."
-msgstr "Add a comment..."
+msgstr "Yorum ekle..."
 
 #: src/components/public/CommentPanel.tsx:363
 msgid "Sign in"
-msgstr "Sign in"
+msgstr "Giriş yap"
 
 #: src/components/public/CommentPanel.tsx:365
 msgid "to comment"
-msgstr "to comment"
+msgstr "yorum yapmak için"
 
 #: src/components/public/ContactForm.tsx:75
 msgid "Network error. Please try again."
-msgstr "Network error. Please try again."
+msgstr "Ağ hatası. Lütfen tekrar deneyin."
 
 #: src/components/public/ContactForm.tsx:140
 msgid "Select..."
-msgstr "Select..."
+msgstr "Seç..."
 
 #: src/components/public/ContactForm.tsx:217
 msgid "Submitting..."
-msgstr "Submitting..."
+msgstr "Gönderiliyor..."
 
 #: src/components/public/ContactForm.tsx:220
 msgid "Submit"
-msgstr "Submit"
+msgstr "Gönder"
 
 #: src/components/public/CreateOrgCard.tsx:39
 msgid "Create your organization"
-msgstr "Create your organization"
+msgstr "Kuruluşunuzu oluşturun"
 
 #: src/components/public/CreateOrgCard.tsx:41
 msgid "Get started by creating an organization. You can invite team members later."
-msgstr "Get started by creating an organization. You can invite team members later."
+msgstr "İlk olarak bir organizasyon oluşturun. Ekip üyelerini daha sonra davet edebilirsiniz."
 
 #: src/components/public/CreateOrgCard.tsx:47
 msgid "Organization name"
-msgstr "Organization name"
+msgstr "Kuruluş adı"
 
 #: src/components/public/CreateOrgCard.tsx:54
 msgid "My Company"
-msgstr "My Company"
+msgstr "Şirketim"
 
 #: src/components/public/CreateOrgCard.tsx:71
 #: src/core-api/components/ApiKeyManager.tsx:122
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 msgid "Creating..."
-msgstr "Creating..."
+msgstr "Oluşturuluyor..."
 
 #: src/components/public/CreateOrgCard.tsx:71
 msgid "Create Organization"
-msgstr "Create Organization"
+msgstr "Kuruluş Oluştur"
 
 #: src/components/public/ExpandableSearch.tsx:72
 msgid "Search (/)"
-msgstr "Search (/)"
+msgstr "Arama (/)"
 
 #: src/components/public/ExpandableSearch.tsx:91
 #: src/components/public/ExpandableSearch.tsx:111
 msgid "Search..."
-msgstr "Search..."
+msgstr "Ara..."
 
 #: src/components/public/ShowcaseActionBar.tsx:93
 msgid "Sign in to react"
-msgstr "Sign in to react"
+msgstr "Yorum yapmak için oturum açın"
 
 #: src/components/public/ShowcaseActionBar.tsx:105
 msgid "Link copied"
-msgstr "Link copied"
+msgstr "Bağlantı kopyalandı"
 
-#: src/components/public/ShowcaseFeed.tsx:244
+#: src/components/public/ShowcaseFeed.tsx:243
 msgid "No showcase items yet."
-msgstr "No showcase items yet."
+msgstr "Henüz sergilenen ürün yok."
 
 #: src/components/public/SocialLoginButtons.tsx:30
 msgid "Continue with Google"
-msgstr "Continue with Google"
+msgstr "Google ile devam et"
 
 #: src/components/public/SocialLoginButtons.tsx:41
 msgid "Continue with Discord"
-msgstr "Continue with Discord"
+msgstr "Discord ile devam et"
 
 #: src/components/public/SubscribeOrTokens.tsx:46
 msgid "Subscribe"
-msgstr "Subscribe"
+msgstr "Abone ol"
 
 #: src/components/public/TokenPackCard.tsx:40
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:40
 msgid "Most popular"
-msgstr "Most popular"
+msgstr "En popüler"
 
 #: src/components/public/TokenPackCard.tsx:46
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:46
 msgid "tokens"
-msgstr "tokens"
+msgstr "jetonlar"
 
 #: src/components/public/UserMenu.tsx:46
 msgid "Sign Up"
-msgstr "Sign Up"
+msgstr "Kaydol"
 
 #: src/components/public/UserMenu.tsx:96
 msgid "Account"
-msgstr "Account"
+msgstr "Hesap"
 
 #: src/components/public/UserMenu.tsx:129
 msgid "Sign Out"
-msgstr "Sign Out"
+msgstr "Çıkış"
 
 #: src/core/components/cms/AutosaveIndicator.tsx:39
 msgid "Autosaved"
-msgstr "Autosaved"
+msgstr "Otomatik olarak kaydedildi"
 
 #: src/core/components/cms/AutosaveRecoveryBanner.tsx:36
 msgid "Unsaved changes recovered from"
-msgstr "Unsaved changes recovered from"
+msgstr "Kaydedilmemiş değişiklikler şu yerden kurtarıldı:"
 
 #: src/core/components/cms/AutosaveRecoveryBanner.tsx:44
 #: src/core/components/cms/BulkActionBar.tsx:62
@@ -1046,99 +1048,99 @@ msgstr "Unsaved changes recovered from"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:127
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:151
 msgid "Restore"
-msgstr "Restore"
+msgstr "Geri Yükle"
 
 #: src/core/components/cms/BrokenLinksBanner.tsx:23
 msgid "Broken internal links detected:"
-msgstr "Broken internal links detected:"
+msgstr "Tespit edilen bozuk iç bağlantılar:"
 
 #: src/core/components/cms/BulkActionBar.tsx:50
 msgid "Deselect all"
-msgstr "Deselect all"
+msgstr "Tümünü seçmeyi kaldır"
 
 #: src/core/components/cms/BulkActionBar.tsx:77
 msgid "Set status..."
-msgstr "Set status..."
+msgstr "Durumu ayarla..."
 
 #: src/core/components/cms/BulkActionBar.tsx:79
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:366
 msgid "Draft"
-msgstr "Draft"
+msgstr "Taslak"
 
 #: src/core/components/cms/BulkActionBar.tsx:80
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:367
 msgid "Published"
-msgstr "Published"
+msgstr "Yayınlandı"
 
 #: src/core/components/cms/BulkActionBar.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Export"
-msgstr "Export"
+msgstr "Dışa Aktar"
 
 #: src/core/components/cms/BulkActionBar.tsx:118
 msgid "Move to Trash"
-msgstr "Move to Trash"
+msgstr "Çöp Kutusuna Taşı"
 
 #: src/core/components/cms/ContentCalendar.tsx:89
 msgid "Calendar"
-msgstr "Calendar"
+msgstr "Takvim"
 
 #: src/core/components/cms/ContentCalendar.tsx:167
 msgid "more"
-msgstr "more"
+msgstr "daha fazla"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:109
 msgid "Loading custom fields..."
-msgstr "Loading custom fields..."
+msgstr "Özel alanlar yükleniyor..."
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:121
 msgid "Custom Fields"
-msgstr "Custom Fields"
+msgstr "Özel Alanlar"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:142
 msgid "Saving custom fields..."
-msgstr "Saving custom fields..."
+msgstr "Özel alanlar kaydediliyor..."
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:195
 msgid "Enabled"
-msgstr "Enabled"
+msgstr "Etkin"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:764
 msgid "-- Select --"
-msgstr "-- Select --"
+msgstr "-- Seç --"
 
 #: src/core/components/cms/FallbackRadio.tsx:21
 msgid "Language Fallback"
-msgstr "Language Fallback"
+msgstr "Yedek Dil"
 
 #: src/core/components/cms/FallbackRadio.tsx:28
 msgid "Default"
-msgstr "Default"
+msgstr "Varsayılan"
 
 #: src/core/components/cms/FallbackRadio.tsx:31
 msgid "Show EN version for missing translations"
-msgstr "Show EN version for missing translations"
+msgstr "Eksik çeviriler için İngilizce sürümünü göster"
 
 #: src/core/components/cms/FallbackRadio.tsx:32
 msgid "404 for missing translations"
-msgstr "404 for missing translations"
+msgstr "Çevirilerin eksik olması nedeniyle 404 hatası"
 
 #: src/core/components/cms/FallbackRadio.tsx:39
 msgid "Always Fallback"
-msgstr "Always Fallback"
+msgstr "Her Zaman Yedek Çözüm"
 
 #: src/core/components/cms/FallbackRadio.tsx:45
 msgid "Never Fallback"
-msgstr "Never Fallback"
+msgstr "Asla Yedek Çözüme Geçme"
 
 #: src/core/components/cms/FallbackRadio.tsx:49
 msgid "Controls whether this content is shown when visiting in a language without a translation"
-msgstr "Controls whether this content is shown when visiting in a language without a translation"
+msgstr "Çevirisi bulunmayan bir dilde siteye girildiğinde bu içeriğin gösterilip gösterilmeyeceğini belirler"
 
 #: src/core/components/cms/MenuBuilder.tsx:96
 msgid "Label"
-msgstr "Label"
+msgstr "Etiket"
 
 #: src/core/components/cms/MenuBuilder.tsx:104
 #: src/core/components/RichTextEditor.tsx:511
@@ -1147,11 +1149,11 @@ msgstr "URL"
 
 #: src/core/components/cms/MenuBuilder.tsx:115
 msgid "New tab"
-msgstr "New tab"
+msgstr "Yeni sekme"
 
 #: src/core/components/cms/MenuBuilder.tsx:123
 msgid "Indent"
-msgstr "Indent"
+msgstr "Girinti"
 
 #: src/core/components/cms/MenuBuilder.tsx:131
 msgid "Outdent"
@@ -1159,76 +1161,76 @@ msgstr "Outdent"
 
 #: src/core/components/cms/MenuBuilder.tsx:176
 msgid "Menu saved"
-msgstr "Menu saved"
+msgstr "Menü kaydedildi"
 
 #: src/core/components/cms/MenuBuilder.tsx:325
 msgid "No menu items yet. Add one below."
-msgstr "No menu items yet. Add one below."
+msgstr "Henüz menü öğesi yok. Aşağıya bir tane ekleyin."
 
 #: src/core/components/cms/MenuBuilder.tsx:332
 msgid "Add Item"
-msgstr "Add Item"
+msgstr "Öğe Ekle"
 
 #: src/core/components/cms/MenuBuilder.tsx:341
 msgid "Save Menu"
-msgstr "Save Menu"
+msgstr "Menüyü Kaydet"
 
 #: src/core/components/cms/RevisionHistory.tsx:71
 msgid "Revision restored"
-msgstr "Revision restored"
+msgstr "Düzeltme geri yüklendi"
 
 #: src/core/components/cms/RevisionHistory.tsx:74
 msgid "Failed to restore revision"
-msgstr "Failed to restore revision"
+msgstr "Revizyonun geri yüklenemedi"
 
 #: src/core/components/cms/RevisionHistory.tsx:93
 msgid "Revision History"
-msgstr "Revision History"
+msgstr "Değişiklik Geçmişi"
 
 #: src/core/components/cms/RevisionHistory.tsx:110
 msgid "Oldest"
-msgstr "Oldest"
+msgstr "En eski"
 
 #: src/core/components/cms/RevisionHistory.tsx:111
 #: src/core-store/_templates/app/(public)/store/client.tsx:315
 msgid "Newest"
-msgstr "Newest"
+msgstr "En yeni"
 
 #: src/core/components/cms/RevisionHistory.tsx:119
 msgid "No revisions yet"
-msgstr "No revisions yet"
+msgstr "Henüz herhangi bir düzeltme yapılmadı"
 
 #: src/core/components/cms/RevisionHistory.tsx:129
 msgid "(untitled)"
-msgstr "(untitled)"
+msgstr "(başlıksız)"
 
 #: src/core/components/cms/RevisionHistory.tsx:158
 msgid "No changes in this revision"
-msgstr "No changes in this revision"
+msgstr "Bu revizyonda herhangi bir değişiklik yapılmamıştır"
 
 #: src/core/components/cms/RevisionHistory.tsx:206
 msgid "Restore this version"
-msgstr "Restore this version"
+msgstr "Bu sürümü geri yükle"
 
 #: src/core/components/cms/RevisionHistory.tsx:217
 msgid "Restore revision?"
-msgstr "Restore revision?"
+msgstr "Revizyonu geri yüklemek mi?"
 
 #: src/core/components/cms/RevisionHistory.tsx:218
 msgid "Current state will be saved as a new revision before restoring."
-msgstr "Current state will be saved as a new revision before restoring."
+msgstr "Geri yükleme işleminden önce mevcut durum yeni bir revizyon olarak kaydedilecektir."
 
 #: src/core/components/cms/RevisionHistory.tsx:241
 msgid "Revisions"
-msgstr "Revisions"
+msgstr "Düzeltmeler"
 
 #: src/core/components/cms/TagInput.tsx:198
 msgid "Type to add tags..."
-msgstr "Type to add tags..."
+msgstr "Etiket eklemek için yazın..."
 
 #: src/core/components/cms/TagInput.tsx:239
 msgid "Press Enter to create \""
-msgstr "Press Enter to create \""
+msgstr "\" oluşturmak için Enter tuşuna basın\""
 
 #: src/core/components/cms/TagInput.tsx:241
 msgid "\""
@@ -1236,58 +1238,58 @@ msgstr "\""
 
 #: src/core/components/dashboard/CommandPalette.tsx:76
 msgid "Navigation"
-msgstr "Navigation"
+msgstr "Gezinti"
 
 #: src/core/components/dashboard/CommandPalette.tsx:88
 #: src/core/components/dashboard/CommandPalette.tsx:229
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:79
 msgid "Content"
-msgstr "Content"
+msgstr "İçerik"
 
 #: src/core/components/dashboard/CommandPalette.tsx:201
 msgid "Search pages, content, settings..."
-msgstr "Search pages, content, settings..."
+msgstr "Sayfaları, içeriği, ayarları ara..."
 
 #: src/core/components/dashboard/CommandPalette.tsx:242
 #: src/core/components/overlays/InternalLinkDialog.tsx:77
 msgid "No results found"
-msgstr "No results found"
+msgstr "Sonuç bulunamadı"
 
 #: src/core/components/dashboard/CommandPalette.tsx:248
 msgid "Start typing to search..."
-msgstr "Start typing to search..."
+msgstr "Arama yapmak için yazmaya başlayın..."
 
 #: src/core/components/dashboard/ContentStatusWidget.tsx:38
 msgid "Scheduled"
-msgstr "Scheduled"
+msgstr "Planlanmış"
 
 #: src/core/components/dashboard/ContentStatusWidget.tsx:58
 msgid "Content Status"
-msgstr "Content Status"
+msgstr "İçerik Durumu"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:112
 msgid "Show widget"
-msgstr "Show widget"
+msgstr "Widget'ı göster"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:112
 msgid "Hide widget"
-msgstr "Hide widget"
+msgstr "Widget'ı gizle"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:121
 msgid "Columns"
-msgstr "Columns"
+msgstr "Sütunlar"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:214
 msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
-msgstr "Drag to reorder widgets. Toggle visibility with the eye icon."
+msgstr "Widget’ları yeniden sıralamak için sürükleyin. Göz simgesiyle görünürlüğünü açıp kapatın."
 
 #: src/core/components/dashboard/DashboardConfig.tsx:257
 msgid "Configure dashboard"
-msgstr "Configure dashboard"
+msgstr "Kontrol panelini yapılandır"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:262
 msgid "Dashboard Layout"
-msgstr "Dashboard Layout"
+msgstr "Kontrol Paneli Düzeni"
 
 #: src/core/components/dashboard/GA4Widget.tsx:183
 #: src/core/components/dashboard/GA4Widget.tsx:214
@@ -1296,84 +1298,84 @@ msgstr "Google Analytics"
 
 #: src/core/components/dashboard/GA4Widget.tsx:190
 msgid "Connect Google Analytics to see page views, sessions, and top pages."
-msgstr "Connect Google Analytics to see page views, sessions, and top pages."
+msgstr "Google Analytics'i bağlayarak sayfa görüntülemelerini, oturumları ve en çok ziyaret edilen sayfaları görüntüleyin."
 
 #: src/core/components/dashboard/GA4Widget.tsx:198
 msgid "Configure in Settings"
-msgstr "Configure in Settings"
+msgstr "Ayarlar'dan yapılandırın"
 
 #: src/core/components/dashboard/GA4Widget.tsx:247
 msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
-msgstr "Failed to load analytics data. Check your GA4 configuration in Settings."
+msgstr "Analitik verileri yüklenemedi. Ayarlar bölümünden GA4 yapılandırmanızı kontrol edin."
 
 #: src/core/components/dashboard/GA4Widget.tsx:259
 msgid "Page Views"
-msgstr "Page Views"
+msgstr "Sayfa Görüntülemeleri"
 
 #: src/core/components/dashboard/GA4Widget.tsx:268
 msgid "Sessions"
-msgstr "Sessions"
+msgstr "Oturumlar"
 
 #: src/core/components/dashboard/GA4Widget.tsx:279
 msgid "Daily Page Views"
-msgstr "Daily Page Views"
+msgstr "Günlük Sayfa Görüntüleme Sayısı"
 
 #: src/core/components/dashboard/GA4Widget.tsx:290
 msgid "Top Pages"
-msgstr "Top Pages"
+msgstr "En Çok Ziyaret Edilen Sayfalar"
 
 #: src/core/components/dashboard/GA4Widget.tsx:297
 msgid "Views"
-msgstr "Views"
+msgstr "Görüntüleme sayısı"
 
 #: src/core/components/dashboard/NotificationBell.tsx:62
 #: src/core/components/dashboard/NotificationBell.tsx:75
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "Bildirimler"
 
 #: src/core/components/dashboard/NotificationBell.tsx:82
 msgid "Mark all read"
-msgstr "Mark all read"
+msgstr "Hepsini okundu olarak işaretle"
 
 #: src/core/components/dashboard/NotificationBell.tsx:90
 msgid "No notifications"
-msgstr "No notifications"
+msgstr "Bildirim yok"
 
 #: src/core/components/dashboard/NotificationBell.tsx:130
 msgid "View all notifications"
-msgstr "View all notifications"
+msgstr "Tüm bildirimleri görüntüle"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:46
 msgid "Switch organization"
-msgstr "Switch organization"
+msgstr "Kuruluş değiştir"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:58
 msgid "Personal"
-msgstr "Personal"
+msgstr "Kişisel"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:77
 msgid "Manage organizations"
-msgstr "Manage organizations"
+msgstr "Kuruluşları yönetme"
 
 #: src/core/components/dashboard/RecentActivity.tsx:13
 msgid "created"
-msgstr "created"
+msgstr "oluşturuldu"
 
 #: src/core/components/dashboard/RecentActivity.tsx:14
 msgid "updated"
-msgstr "updated"
+msgstr "güncellendi"
 
 #: src/core/components/dashboard/RecentActivity.tsx:15
 msgid "deleted"
-msgstr "deleted"
+msgstr "silindi"
 
 #: src/core/components/dashboard/RecentActivity.tsx:16
 msgid "restored"
-msgstr "restored"
+msgstr "yeniden düzenlenmiş"
 
 #: src/core/components/dashboard/RecentActivity.tsx:17
 msgid "published"
-msgstr "published"
+msgstr "yayınlandı"
 
 #: src/core/components/dashboard/RecentActivity.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:16
@@ -1385,88 +1387,88 @@ msgstr "published"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
 msgid "Loading..."
-msgstr "Loading..."
+msgstr "Yükleniyor..."
 
 #: src/core/components/dashboard/RecentActivity.tsx:33
 msgid "No activity recorded yet."
-msgstr "No activity recorded yet."
+msgstr "Henüz kaydedilmiş bir etkinlik yok."
 
 #: src/core/components/dashboard/RecentActivity.tsx:44
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
 msgid "System"
-msgstr "System"
+msgstr "Sistem"
 
 #: src/core/components/editor/AiAssistMenu.tsx:32
 msgid "Rewrite"
-msgstr "Rewrite"
+msgstr "Yeniden yaz"
 
 #: src/core/components/editor/AiAssistMenu.tsx:38
 msgid "Shorten"
-msgstr "Shorten"
+msgstr "Kısalt"
 
 #: src/core/components/editor/AiAssistMenu.tsx:44
 msgid "Expand"
-msgstr "Expand"
+msgstr "Genişlet"
 
 #: src/core/components/editor/AiAssistMenu.tsx:50
 msgid "Fix grammar"
-msgstr "Fix grammar"
+msgstr "Dilbilgisi düzeltmesi"
 
 #: src/core/components/editor/AiAssistMenu.tsx:56
 msgid "Translate to English"
-msgstr "Translate to English"
+msgstr "İngilizceye çevir"
 
 #: src/core/components/editor/AiAssistMenu.tsx:148
 msgid "AI request failed"
-msgstr "AI request failed"
+msgstr "AI isteği başarısız oldu"
 
 #: src/core/components/editor/AiAssistMenu.tsx:252
 #: src/core/components/editor/EditorBubbleMenu.tsx:123
 #: src/core/components/RichTextEditor.tsx:917
 msgid "AI Assist"
-msgstr "AI Assist"
+msgstr "AI Yardımı"
 
 #: src/core/components/editor/AiAssistMenu.tsx:266
 msgid "Thinking..."
-msgstr "Thinking..."
+msgstr "Düşünüyorum..."
 
 #: src/core/components/editor/AiAssistMenu.tsx:279
 msgid "Try again"
-msgstr "Try again"
+msgstr "Tekrar deneyin"
 
 #: src/core/components/editor/AiAssistMenu.tsx:297
 #: src/core-store/_templates/app/(public)/store/client.tsx:565
 msgid "Apply"
-msgstr "Apply"
+msgstr "Başvur"
 
 #: src/core/components/editor/AiAssistMenu.tsx:304
 msgid "Discard"
-msgstr "Discard"
+msgstr "Sil"
 
 #: src/core/components/editor/AiAssistMenu.tsx:340
 #: src/core/components/editor/AiAssistMenu.tsx:352
 msgid "Custom instruction..."
-msgstr "Custom instruction..."
+msgstr "Özel talimat..."
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:75
 #: src/core/components/RichTextEditor.tsx:544
 msgid "Bold"
-msgstr "Bold"
+msgstr "Kalın"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:82
 #: src/core/components/RichTextEditor.tsx:551
 msgid "Italic"
-msgstr "Italic"
+msgstr "İtalik"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:89
 #: src/core/components/RichTextEditor.tsx:558
 msgid "Underline"
-msgstr "Underline"
+msgstr "Altı çizili"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:96
 #: src/core/components/RichTextEditor.tsx:565
 msgid "Strikethrough"
-msgstr "Strikethrough"
+msgstr "Üstü çizili"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:103
 #: src/core-affiliates/components/AffiliateOverview.tsx:71
@@ -1477,315 +1479,315 @@ msgstr "Strikethrough"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
 msgid "Code"
-msgstr "Code"
+msgstr "Kod"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:113
 #: src/core/components/RichTextEditor.tsx:680
 msgid "Link"
-msgstr "Link"
+msgstr "Bağlantı"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:99
 msgid "Alt text"
-msgstr "Alt text"
+msgstr "Alternatif metin"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:109
 msgid "Align left"
-msgstr "Align left"
+msgstr "Sola hizala"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:120
 msgid "Center"
-msgstr "Center"
+msgstr "Merkez"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:132
 msgid "Align right"
-msgstr "Align right"
+msgstr "Sağa hizala"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:140
 msgid "Replace image"
-msgstr "Replace image"
+msgstr "Resmi değiştir"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:147
 msgid "Remove image"
-msgstr "Remove image"
+msgstr "Resmi kaldır"
 
 #: src/core/components/editor/slash-commands.ts:18
 #: src/core/components/RichTextEditor.tsx:582
 msgid "Heading 1"
-msgstr "Heading 1"
+msgstr "Başlık 1"
 
 #: src/core/components/editor/slash-commands.ts:19
 msgid "Large section heading"
-msgstr "Large section heading"
+msgstr "Büyük bölüm başlığı"
 
 #: src/core/components/editor/slash-commands.ts:21
 #: src/core/components/editor/slash-commands.ts:30
 #: src/core/components/editor/slash-commands.ts:39
 msgid "Headings"
-msgstr "Headings"
+msgstr "Başlıklar"
 
 #: src/core/components/editor/slash-commands.ts:27
 #: src/core/components/RichTextEditor.tsx:589
 msgid "Heading 2"
-msgstr "Heading 2"
+msgstr "Başlık 2"
 
 #: src/core/components/editor/slash-commands.ts:28
 msgid "Medium section heading"
-msgstr "Medium section heading"
+msgstr "Orta boy bölüm başlığı"
 
 #: src/core/components/editor/slash-commands.ts:36
 #: src/core/components/RichTextEditor.tsx:596
 msgid "Heading 3"
-msgstr "Heading 3"
+msgstr "3. Başlık"
 
 #: src/core/components/editor/slash-commands.ts:37
 msgid "Small section heading"
-msgstr "Small section heading"
+msgstr "Küçük bölüm başlığı"
 
 #: src/core/components/editor/slash-commands.ts:45
 #: src/core/components/RichTextEditor.tsx:606
 msgid "Bullet List"
-msgstr "Bullet List"
+msgstr "Madde İşaretli Liste"
 
 #: src/core/components/editor/slash-commands.ts:46
 msgid "Unordered list"
-msgstr "Unordered list"
+msgstr "Sırasız liste"
 
 #: src/core/components/editor/slash-commands.ts:48
 #: src/core/components/editor/slash-commands.ts:57
 msgid "Lists"
-msgstr "Lists"
+msgstr "Listeler"
 
 #: src/core/components/editor/slash-commands.ts:54
 msgid "Numbered List"
-msgstr "Numbered List"
+msgstr "Numaralı Liste"
 
 #: src/core/components/editor/slash-commands.ts:55
 msgid "Ordered list"
-msgstr "Ordered list"
+msgstr "Sıralı liste"
 
 #: src/core/components/editor/slash-commands.ts:63
 msgid "Blockquote"
-msgstr "Blockquote"
+msgstr "Alıntı"
 
 #: src/core/components/editor/slash-commands.ts:64
 msgid "Quote block"
-msgstr "Quote block"
+msgstr "Alıntı bloğu"
 
 #: src/core/components/editor/slash-commands.ts:66
 #: src/core/components/editor/slash-commands.ts:75
 #: src/core/components/editor/slash-commands.ts:84
 #: src/core/components/editor/slash-commands.ts:93
 msgid "Blocks"
-msgstr "Blocks"
+msgstr "Bloklar"
 
 #: src/core/components/editor/slash-commands.ts:72
 #: src/core/components/RichTextEditor.tsx:627
 msgid "Code Block"
-msgstr "Code Block"
+msgstr "Kod Bloğu"
 
 #: src/core/components/editor/slash-commands.ts:73
 msgid "Fenced code block"
-msgstr "Fenced code block"
+msgstr "Çitlerle çevrili kod bloğu"
 
 #: src/core/components/editor/slash-commands.ts:81
 #: src/core/components/RichTextEditor.tsx:633
 msgid "Horizontal Rule"
-msgstr "Horizontal Rule"
+msgstr "Yatay Çizgi"
 
 #: src/core/components/editor/slash-commands.ts:82
 msgid "Divider line"
-msgstr "Divider line"
+msgstr "Ayırma çizgisi"
 
 #: src/core/components/editor/slash-commands.ts:90
 #: src/core/components/editor/TableMenu.tsx:138
 msgid "Table"
-msgstr "Table"
+msgstr "Tablo"
 
 #: src/core/components/editor/slash-commands.ts:91
 msgid "Insert a table"
-msgstr "Insert a table"
+msgstr "Tablo ekle"
 
 #: src/core/components/editor/slash-commands.ts:101
 #: src/core/components/RichTextEditor.tsx:689
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:108
 msgid "Image"
-msgstr "Image"
+msgstr "Resim"
 
 #: src/core/components/editor/slash-commands.ts:102
 msgid "Upload or embed an image"
-msgstr "Upload or embed an image"
+msgstr "Bir resim yükleyin veya resim ekleyin"
 
 #: src/core/components/editor/slash-commands.ts:104
 msgid "Media"
-msgstr "Media"
+msgstr "Medya"
 
 #: src/core/components/editor/TableMenu.tsx:71
 msgid "Add row above"
-msgstr "Add row above"
+msgstr "Yukarıya satır ekle"
 
 #: src/core/components/editor/TableMenu.tsx:77
 msgid "Add row below"
-msgstr "Add row below"
+msgstr "Aşağıya satır ekle"
 
 #: src/core/components/editor/TableMenu.tsx:86
 msgid "Add column left"
-msgstr "Add column left"
+msgstr "Sütunu sola ekle"
 
 #: src/core/components/editor/TableMenu.tsx:92
 msgid "Add column right"
-msgstr "Add column right"
+msgstr "Sağa sütun ekle"
 
 #: src/core/components/editor/TableMenu.tsx:101
 msgid "Merge cells"
-msgstr "Merge cells"
+msgstr "Hücreleri birleştir"
 
 #: src/core/components/editor/TableMenu.tsx:108
 msgid "Split cell"
-msgstr "Split cell"
+msgstr "Bölünmüş hücre"
 
 #: src/core/components/editor/TableMenu.tsx:118
 msgid "Delete row"
-msgstr "Delete row"
+msgstr "Satırı sil"
 
 #: src/core/components/editor/TableMenu.tsx:122
 msgid "Row"
-msgstr "Row"
+msgstr "Satır"
 
 #: src/core/components/editor/TableMenu.tsx:126
 msgid "Delete column"
-msgstr "Delete column"
+msgstr "Sütunu sil"
 
 #: src/core/components/editor/TableMenu.tsx:130
 msgid "Col"
-msgstr "Col"
+msgstr "Albay"
 
 #: src/core/components/editor/TableMenu.tsx:134
 msgid "Delete table"
-msgstr "Delete table"
+msgstr "Tabloyu sil"
 
 #: src/core/components/i18n/TranslationBar.tsx:68
 msgid "Failed to create translation"
-msgstr "Failed to create translation"
+msgstr "Çeviri oluşturulamadı"
 
 #: src/core/components/i18n/TranslationBar.tsx:76
 msgid "Language"
-msgstr "Language"
+msgstr "Dil"
 
 #: src/core/components/i18n/TranslationBar.tsx:131
 #: src/core-api/components/AgentConnectPanel.tsx:114
 msgid "Copy"
-msgstr "Copy"
+msgstr "Kopyala"
 
 #: src/core/components/i18n/TranslationBar.tsx:140
 msgid "Copy & Translate"
-msgstr "Copy & Translate"
+msgstr "Kopyala ve Çevir"
 
 #: src/core/components/media/MediaPickerButton.tsx:79
 msgid "Change"
-msgstr "Change"
+msgstr "Değişiklik"
 
 #: src/core/components/media/MediaPickerButton.tsx:92
 msgid "Select Image"
-msgstr "Select Image"
+msgstr "Resim Seç"
 
 #: src/core/components/media/MediaPickerButton.tsx:102
 #: src/core/components/media/MediaPickerDialog.tsx:448
 msgid "Alt Text"
-msgstr "Alt Text"
+msgstr "Alternatif Metin"
 
 #: src/core/components/media/MediaPickerButton.tsx:108
 msgid "Describe the image..."
-msgstr "Describe the image..."
+msgstr "Resmi anlatın..."
 
 #: src/core/components/media/MediaPickerDialog.tsx:112
 msgid "Only image files are supported"
-msgstr "Only image files are supported"
+msgstr "Yalnızca resim dosyaları desteklenmektedir"
 
 #: src/core/components/media/MediaPickerDialog.tsx:150
 msgid "Failed to upload {name}"
-msgstr "Failed to upload {name}"
+msgstr "{name} dosyasını yükleyemedi"
 
 #: src/core/components/media/MediaPickerDialog.tsx:215
 msgid "Media Library"
-msgstr "Media Library"
+msgstr "Medya Kütüphanesi"
 
 #: src/core/components/media/MediaPickerDialog.tsx:225
 msgid "Search media..."
-msgstr "Search media..."
+msgstr "Medyayı ara..."
 
 #: src/core/components/media/MediaPickerDialog.tsx:239
 msgid "All types"
-msgstr "All types"
+msgstr "Tüm türler"
 
 #: src/core/components/media/MediaPickerDialog.tsx:240
 msgid "Images"
-msgstr "Images"
+msgstr "Görseller"
 
 #: src/core/components/media/MediaPickerDialog.tsx:241
 msgid "Videos"
-msgstr "Videos"
+msgstr "Videolar"
 
 #: src/core/components/media/MediaPickerDialog.tsx:242
 msgid "Documents"
-msgstr "Documents"
+msgstr "Belgeler"
 
 #: src/core/components/media/MediaPickerDialog.tsx:243
 msgid "Other"
-msgstr "Other"
+msgstr "Diğer"
 
 #: src/core/components/media/MediaPickerDialog.tsx:256
 msgid "All users"
-msgstr "All users"
+msgstr "Tüm kullanıcılar"
 
 #: src/core/components/media/MediaPickerDialog.tsx:283
 #: src/core/components/media/PostAttachments.tsx:153
 msgid "Upload"
-msgstr "Upload"
+msgstr "Yükle"
 
 #: src/core/components/media/MediaPickerDialog.tsx:314
 msgid "Drop files to upload"
-msgstr "Drop files to upload"
+msgstr "Yüklemek için dosyaları buraya sürükleyin"
 
 #: src/core/components/media/MediaPickerDialog.tsx:329
 msgid "No images match your search."
-msgstr "No images match your search."
+msgstr "Aramanızla eşleşen hiçbir resim bulunamadı."
 
 #: src/core/components/media/MediaPickerDialog.tsx:330
 msgid "No images yet. Upload or drag files here."
-msgstr "No images yet. Upload or drag files here."
+msgstr "Henüz resim yok. Dosyaları buraya yükleyin veya sürükleyip bırakın."
 
 #: src/core/components/media/MediaPickerDialog.tsx:430
 #: src/core/components/seo/SeoPreviewCard.tsx:121
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:137
 msgid "Title"
-msgstr "Title"
+msgstr "Başlık"
 
 #: src/core/components/media/MediaPickerDialog.tsx:442
 msgid "Image title"
-msgstr "Image title"
+msgstr "Resim başlığı"
 
 #: src/core/components/media/MediaPickerDialog.tsx:460
 msgid "Describe the image"
-msgstr "Describe the image"
+msgstr "Resmi tanımlayın"
 
 #: src/core/components/media/MediaPickerDialog.tsx:466
 #: src/core/components/seo/SeoPreviewCard.tsx:124
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:396
 msgid "Description"
-msgstr "Description"
+msgstr "Açıklama"
 
 #: src/core/components/media/MediaPickerDialog.tsx:478
 msgid "Optional description"
-msgstr "Optional description"
+msgstr "İsteğe bağlı açıklama"
 
 #: src/core/components/media/MediaPickerDialog.tsx:496
 msgid "Select an image to view details"
-msgstr "Select an image to view details"
+msgstr "Ayrıntıları görüntülemek için bir resim seçin"
 
 #: src/core/components/media/MediaPickerDialog.tsx:506
 msgid "No image selected"
-msgstr "No image selected"
+msgstr "Seçilen resim yok"
 
 #: src/core/components/media/MediaPickerDialog.tsx:510
 #: src/core/components/media/PostAttachments.tsx:252
@@ -1800,59 +1802,59 @@ msgstr "No image selected"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:703
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "İptal et"
 
 #: src/core/components/media/MediaPickerDialog.tsx:517
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:133
 msgid "Select"
-msgstr "Select"
+msgstr "Seç"
 
 #: src/core/components/media/MediaPickerDialog.tsx:525
 msgid "Delete media file?"
-msgstr "Delete media file?"
+msgstr "Medya dosyasını silmek istiyor musunuz?"
 
 #: src/core/components/media/MediaPickerDialog.tsx:526
 msgid "This file will be permanently deleted."
-msgstr "This file will be permanently deleted."
+msgstr "Bu dosya kalıcı olarak silinecektir."
 
 #: src/core/components/media/PostAttachments.tsx:75
 msgid "Alt text updated"
-msgstr "Alt text updated"
+msgstr "Alternatif metin güncellendi"
 
 #: src/core/components/media/PostAttachments.tsx:84
 msgid "Attachment removed"
-msgstr "Attachment removed"
+msgstr "Ek kaldırıldı"
 
 #: src/core/components/media/PostAttachments.tsx:133
 #: src/core/components/media/PostAttachments.tsx:146
 msgid "Attachments"
-msgstr "Attachments"
+msgstr "Ekler"
 
 #: src/core/components/media/PostAttachments.tsx:135
 msgid "Save the post first to add attachments."
-msgstr "Save the post first to add attachments."
+msgstr "Ek eklemek için önce gönderiyi kaydedin."
 
 #: src/core/components/media/PostAttachments.tsx:169
 msgid "No attachments yet."
-msgstr "No attachments yet."
+msgstr "Henüz ek yok."
 
 #: src/core/components/media/PostAttachments.tsx:202
 msgid "Edit alt text"
-msgstr "Edit alt text"
+msgstr "Alternatif metni düzenle"
 
 #: src/core/components/media/PostAttachments.tsx:209
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:158
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove"
-msgstr "Remove"
+msgstr "Kaldır"
 
 #: src/core/components/media/PostAttachments.tsx:229
 msgid "Edit Alt Text"
-msgstr "Edit Alt Text"
+msgstr "Alternatif Metni Düzenle"
 
 #: src/core/components/media/PostAttachments.tsx:244
 msgid "Describe this file..."
-msgstr "Describe this file..."
+msgstr "Bu dosyayı açıklayın..."
 
 #: src/core/components/media/PostAttachments.tsx:264
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:95
@@ -1865,161 +1867,161 @@ msgstr "Describe this file..."
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:337
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:825
 msgid "Save"
-msgstr "Save"
+msgstr "Kaydet"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:54
 msgid "Insert Internal Link"
-msgstr "Insert Internal Link"
+msgstr "İç Bağlantı Ekle"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:63
 msgid "Search pages, blog posts, categories..."
-msgstr "Search pages, blog posts, categories..."
+msgstr "Sayfaları, blog yazıları, kategorileri ara..."
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:72
 msgid "Searching..."
-msgstr "Searching..."
+msgstr "Aranıyor..."
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:81
 msgid "Type at least 2 characters to search"
-msgstr "Type at least 2 characters to search"
+msgstr "Arama yapmak için en az 2 karakter girin"
 
 #: src/core/components/overlays/SlideOver.tsx:102
 msgid "Close"
-msgstr "Close"
+msgstr "Kapat"
 
 #: src/core/components/PushToggle.tsx:28
 #: src/core/components/PushToggle.tsx:46
 msgid "Push notifications blocked by browser"
-msgstr "Push notifications blocked by browser"
+msgstr "Tarayıcı tarafından engellenen anlık bildirimler"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Push enabled"
-msgstr "Push enabled"
+msgstr "İtme özelliği etkinleştirildi"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Enable push"
-msgstr "Enable push"
+msgstr "Push bildirimlerini etkinleştir"
 
 #: src/core/components/PushToggle.tsx:51
 msgid "Push notifications on"
-msgstr "Push notifications on"
+msgstr "Anlık bildirimler açık"
 
 #: src/core/components/PushToggle.tsx:56
 msgid "Enable push notifications"
-msgstr "Enable push notifications"
+msgstr "Anlık bildirimleri etkinleştir"
 
 #: src/core/components/RichTextEditor.tsx:263
 msgid "Insert"
-msgstr "Insert"
+msgstr "Ekle"
 
 #: src/core/components/RichTextEditor.tsx:265
 msgid "Shortcodes"
-msgstr "Shortcodes"
+msgstr "Kısa kodlar"
 
 #: src/core/components/RichTextEditor.tsx:319
 msgid "Start writing or type / for commands..."
-msgstr "Start writing or type / for commands..."
+msgstr "Yazmaya başlayın veya komutlar için / yazın..."
 
 #: src/core/components/RichTextEditor.tsx:384
 #: src/core/components/RichTextEditor.tsx:401
 #: src/core/components/RichTextEditor.tsx:831
 msgid "Image upload failed"
-msgstr "Image upload failed"
+msgstr "Resim yükleme başarısız oldu"
 
 #: src/core/components/RichTextEditor.tsx:572
 msgid "Inline Code"
-msgstr "Inline Code"
+msgstr "Satır İçi Kod"
 
 #: src/core/components/RichTextEditor.tsx:613
 msgid "Ordered List"
-msgstr "Ordered List"
+msgstr "Sıralı Liste"
 
 #: src/core/components/RichTextEditor.tsx:620
 msgid "Quote"
-msgstr "Quote"
+msgstr "Alıntı"
 
 #: src/core/components/RichTextEditor.tsx:646
 msgid "Insert Table"
-msgstr "Insert Table"
+msgstr "Tablo Ekle"
 
 #: src/core/components/RichTextEditor.tsx:656
 msgid "Align Left"
-msgstr "Align Left"
+msgstr "Sola hizala"
 
 #: src/core/components/RichTextEditor.tsx:663
 msgid "Align Center"
-msgstr "Align Center"
+msgstr "Ortala"
 
 #: src/core/components/RichTextEditor.tsx:670
 msgid "Align Right"
-msgstr "Align Right"
+msgstr "Sağa Hizala"
 
 #: src/core/components/RichTextEditor.tsx:685
 msgid "Internal Link"
-msgstr "Internal Link"
+msgstr "İç Bağlantı"
 
 #: src/core/components/RichTextEditor.tsx:700
 msgid "Insert Variable"
-msgstr "Insert Variable"
+msgstr "Değişken Ekle"
 
 #: src/core/components/RichTextEditor.tsx:738
 msgid "Insert Block"
-msgstr "Insert Block"
+msgstr "Blok Ekle"
 
 #: src/core/components/RichTextEditor.tsx:784
 msgid "Undo"
-msgstr "Undo"
+msgstr "Geri Al"
 
 #: src/core/components/RichTextEditor.tsx:791
 msgid "Redo"
-msgstr "Redo"
+msgstr "Tekrarla"
 
 #: src/core/components/RichTextEditor.tsx:807
 msgid "Hide Preview"
-msgstr "Hide Preview"
+msgstr "Önizlemeyi Gizle"
 
 #: src/core/components/RichTextEditor.tsx:807
 msgid "Show Preview"
-msgstr "Show Preview"
+msgstr "Önizlemeyi Göster"
 
 #: src/core/components/RichTextEditor.tsx:914
 msgid "AI Assist (works in both Visual and Source mode)"
-msgstr "AI Assist (works in both Visual and Source mode)"
+msgstr "AI Assist (hem Görsel hem de Kaynak modunda çalışır)"
 
 #: src/core/components/RichTextEditor.tsx:932
 msgid "Visual"
-msgstr "Visual"
+msgstr "Görsel"
 
 #: src/core/components/RichTextEditor.tsx:944
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:121
 msgid "Source"
-msgstr "Source"
+msgstr "Kaynak"
 
 #: src/core/components/RichTextEditor.tsx:962
 msgid "Preview"
-msgstr "Preview"
+msgstr "Önizleme"
 
 #: src/core/components/seo/SEOFields.tsx:27
 msgid "SEO Title"
-msgstr "SEO Title"
+msgstr "SEO Başlığı"
 
 #: src/core/components/seo/SEOFields.tsx:33
 msgid "Optional SEO title for {titleTag} tag"
-msgstr "Optional SEO title for {titleTag} tag"
+msgstr "{titleTag} etiketi için isteğe bağlı SEO başlığı"
 
 #: src/core/components/seo/SEOFields.tsx:40
 msgid "Falls back to Title if empty"
-msgstr "Falls back to Title if empty"
+msgstr "Boşsa başlığa geri döner"
 
 #: src/core/components/seo/SEOFields.tsx:46
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:337
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:566
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "Meta Açıklama"
 
 #: src/core/components/seo/SEOFields.tsx:51
 msgid "SEO meta description (max 160 chars)"
-msgstr "SEO meta description (max 160 chars)"
+msgstr "SEO meta açıklaması (en fazla 160 karakter)"
 
 #: src/core/components/seo/SEOFields.tsx:71
 msgid "Noindex"
@@ -2027,15 +2029,15 @@ msgstr "Noindex"
 
 #: src/core/components/seo/SEOFields.tsx:74
 msgid "Exclude from search engine indexing (adds noindex meta tag)"
-msgstr "Exclude from search engine indexing (adds noindex meta tag)"
+msgstr "Arama motoru indekslemesinden hariç tut (noindex meta etiketi ekler)"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:120
 msgid "Create SEO Override Pages"
-msgstr "Create SEO Override Pages"
+msgstr "SEO Geçersiz Kılma Sayfaları Oluşturma"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:132
 msgid "Route"
-msgstr "Route"
+msgstr "Güzergâh"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:135
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:62
@@ -2047,15 +2049,15 @@ msgstr "Route"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:199
 msgid "Slug"
-msgstr "Slug"
+msgstr "Sümüklü böcek"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:205
 msgid "Create Selected"
-msgstr "Create Selected"
+msgstr "Seçilenleri Oluştur"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:27
 msgid "No image"
-msgstr "No image"
+msgstr "Resim yok"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:41
 msgid "Google"
@@ -2071,78 +2073,72 @@ msgstr "Twitter / X"
 
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:35
 msgid "Edit {label}"
-msgstr "Edit {label}"
+msgstr "{label} dosyasını düzenle"
 
 #: src/core/components/TokenBalance.tsx:71
 msgid "Token balance"
-msgstr "Token balance"
+msgstr "Token bakiyesi"
 
 #: src/core/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
-msgstr "{succeeded} {action}, {failed} failed"
-
-#: src/core/hooks/useBulkActions.ts:52
-msgid "1 item {action}"
-msgid_plural "{count} items {action}"
-msgstr[0] "1 item {action}"
-msgstr[1] "{count} items {action}"
+msgstr "{succeeded} {action}, {failed} başarısız oldu"
 
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
-msgstr "Please check the form for errors"
+msgstr "Lütfen formda hata olup olmadığını kontrol edin"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:20
 msgid "Activity Feed"
-msgstr "Activity Feed"
+msgstr "Etkinlik Akışı"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:27
 msgid "View all"
-msgstr "View all"
+msgstr "Tümünü görüntüle"
 
 #: src/core-activity/components/DashboardActivityWidget.tsx:30
 msgid "No recent activity"
-msgstr "No recent activity"
+msgstr "Son zamanlarda herhangi bir etkinlik yok"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:108
 msgid "Activity Log"
-msgstr "Activity Log"
+msgstr "Etkinlik Günlüğü"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:163
 msgid "Search by actor name..."
-msgstr "Search by actor name..."
+msgstr "Oyuncu adına göre arama yap..."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:210
 msgid "No activity events"
-msgstr "No activity events"
+msgstr "Etkinlik yok"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:214
 msgid "No events match your filters."
-msgstr "No events match your filters."
+msgstr "Filtrelerinize uyan etkinlik bulunamadı."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:215
 msgid "Activity events will appear here as users interact with the app."
-msgstr "Activity events will appear here as users interact with the app."
+msgstr "Kullanıcılar uygulamayla etkileşime girdikçe etkinlikler burada görünecektir."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:222
 msgid "Actor"
-msgstr "Actor"
+msgstr "Oyuncu"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:223
 msgid "Action"
-msgstr "Action"
+msgstr "Eylem"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:224
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:203
 msgid "Target"
-msgstr "Target"
+msgstr "Hedef"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:225
 msgid "Time"
-msgstr "Time"
+msgstr "Zaman"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
 msgid "Unknown"
-msgstr "Unknown"
+msgstr "Bilinmiyor"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:290
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:310
@@ -2155,7 +2151,7 @@ msgstr "Unknown"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "of"
-msgstr "of"
+msgstr "...'nin"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:291
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:311
@@ -2164,61 +2160,61 @@ msgstr "of"
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:214
 msgid "total"
-msgstr "total"
+msgstr "toplam"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:38
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
 msgid "Manage"
-msgstr "Manage"
+msgstr "Yönet"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:28
 msgid "No affiliates yet."
-msgstr "No affiliates yet."
+msgstr "Henüz hiçbir iş ortağı yok."
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:44
 msgid "Active Affiliates"
-msgstr "Active Affiliates"
+msgstr "Aktif Ortaklar"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:48
 msgid "Total Referrals"
-msgstr "Total Referrals"
+msgstr "Toplam Yönlendirmeler"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:52
 msgid "Conversion Rate"
-msgstr "Conversion Rate"
+msgstr "Dönüşüm Oranı"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:56
 msgid "Total Earnings"
-msgstr "Total Earnings"
+msgstr "Toplam Kazanç"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:64
 msgid "Top Affiliates"
-msgstr "Top Affiliates"
+msgstr "En İyi Ortaklar"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:70
 msgid "Affiliate"
-msgstr "Affiliate"
+msgstr "Ortaklık"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:72
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:56
 msgid "Referrals"
-msgstr "Referrals"
+msgstr "Yönlendirmeler"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:73
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:57
 msgid "Earnings"
-msgstr "Earnings"
+msgstr "Kâr"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:74
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:55
 msgid "Commission"
-msgstr "Commission"
+msgstr "Komisyon"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:37
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:87
 msgid "All Statuses"
-msgstr "All Statuses"
+msgstr "Tüm Durumlar"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:38
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
@@ -2232,21 +2228,21 @@ msgstr "All Statuses"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Active"
-msgstr "Active"
+msgstr "Etkin"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:39
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:132
 msgid "Suspended"
-msgstr "Suspended"
+msgstr "Askıya alınmış"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:40
 msgid "Banned"
-msgstr "Banned"
+msgstr "Engellendi"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:47
 msgid "No affiliates found"
-msgstr "No affiliates found"
+msgstr "Bağlı kuruluş bulunamadı"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:58
 #: src/core-api/components/ApiKeyManager.tsx:175
@@ -2270,14 +2266,14 @@ msgstr "No affiliates found"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:250
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:380
 msgid "Status"
-msgstr "Status"
+msgstr "Durum"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:59
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:63
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:62
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:166
 msgid "Actions"
-msgstr "Actions"
+msgstr "Eylemler"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:81
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
@@ -2285,35 +2281,35 @@ msgstr "Actions"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:141
 msgid "Suspend"
-msgstr "Suspend"
+msgstr "Askıya al"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:89
 msgid "Activate"
-msgstr "Activate"
+msgstr "Etkinleştir"
 
 #: src/core-api/components/AgentConnectPanel.tsx:31
 msgid "Claude Code"
-msgstr "Claude Code"
+msgstr "Claude Kodu"
 
 #: src/core-api/components/AgentConnectPanel.tsx:33
 msgid "Run in any terminal. The agent can then operate this site directly — no browser needed."
-msgstr "Run in any terminal. The agent can then operate this site directly — no browser needed."
+msgstr "Herhangi bir terminalde çalıştırın. Ardından, ajan bu siteyi doğrudan çalıştırabilir — tarayıcıya gerek yoktur."
 
 #: src/core-api/components/AgentConnectPanel.tsx:50
 msgid "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
-msgstr "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
+msgstr "Projenin kök dizinine girin — Claude Code, Cursor ve çoğu MCP istemcisi bunu otomatik olarak algılar."
 
 #: src/core-api/components/AgentConnectPanel.tsx:53
 msgid "Any MCP client"
-msgstr "Any MCP client"
+msgstr "Herhangi bir MCP müşterisi"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Endpoint"
-msgstr "Endpoint"
+msgstr "Uç nokta"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Transport"
-msgstr "Transport"
+msgstr "Ulaşım"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Auth"
@@ -2321,50 +2317,50 @@ msgstr "Auth"
 
 #: src/core-api/components/AgentConnectPanel.tsx:55
 msgid "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
-msgstr "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
+msgstr "Bearer kimlik doğrulaması ile Streamable HTTP üzerinden MCP protokolünü destekleyen herhangi bir istemciyle çalışır."
 
 #: src/core-api/components/AgentConnectPanel.tsx:61
 msgid "Agent Access (MCP)"
-msgstr "Agent Access (MCP)"
+msgstr "Ajan Erişimi (MCP)"
 
 #: src/core-api/components/AgentConnectPanel.tsx:63
 msgid "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
-msgstr "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
+msgstr "AI ajanları bu siteyi doğrudan MCP uç noktası üzerinden çalıştırabilir — her API eylemi, hesabınız ve kuruluşunuzla sınırlı bir araç olarak kullanılabilir. Anahtarlar için mcp:invoke kapsamı (veya tam erişim) gereklidir."
 
 #: src/core-api/components/AgentConnectPanel.tsx:83
 msgid "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
-msgstr "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
+msgstr "Yukarıda mcp:invoke kapsamına sahip bir anahtar oluşturun; bu kod parçacıkları onu otomatik olarak dahil edecektir."
 
 #: src/core-api/components/AgentConnectPanel.tsx:114
 #: src/core-api/components/ApiKeyManager.tsx:366
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "Kopyalandı!"
 
 #: src/core-api/components/ApiKeyManager.tsx:106
 msgid "Create API Key"
-msgstr "Create API Key"
+msgstr "API Anahtarı Oluştur"
 
 #: src/core-api/components/ApiKeyManager.tsx:112
 msgid "Key name (e.g. Production, Staging)"
-msgstr "Key name (e.g. Production, Staging)"
+msgstr "Anahtar adı (örn. Üretim, Hazırlık)"
 
 #: src/core-api/components/ApiKeyManager.tsx:122
 msgid "Create Key"
-msgstr "Create Key"
+msgstr "Anahtar Oluştur"
 
 #: src/core-api/components/ApiKeyManager.tsx:138
 msgid "Your API key has been created. Copy it now — it won't be shown again."
-msgstr "Your API key has been created. Copy it now — it won't be shown again."
+msgstr "API anahtarınız oluşturuldu. Hemen kopyalayın — bir daha gösterilmeyecektir."
 
 #: src/core-api/components/ApiKeyManager.tsx:160
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:12
 msgid "API Keys"
-msgstr "API Keys"
+msgstr "API Anahtarları"
 
 #: src/core-api/components/ApiKeyManager.tsx:166
 msgid "No API keys yet."
-msgstr "No API keys yet."
+msgstr "Henüz API anahtarı yok."
 
 #: src/core-api/components/ApiKeyManager.tsx:172
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:61
@@ -2382,19 +2378,19 @@ msgstr "No API keys yet."
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:616
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:657
 msgid "Name"
-msgstr "Name"
+msgstr "Ad"
 
 #: src/core-api/components/ApiKeyManager.tsx:173
 msgid "Key"
-msgstr "Key"
+msgstr "Anahtar"
 
 #: src/core-api/components/ApiKeyManager.tsx:174
 msgid "Scopes"
-msgstr "Scopes"
+msgstr "Kapsamlar"
 
 #: src/core-api/components/ApiKeyManager.tsx:176
 msgid "Last Used"
-msgstr "Last Used"
+msgstr "En Son Kullanım Tarihi"
 
 #: src/core-api/components/ApiKeyManager.tsx:177
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:83
@@ -2402,136 +2398,136 @@ msgstr "Last Used"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:122
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:388
 msgid "Created"
-msgstr "Created"
+msgstr "Oluşturuldu"
 
 #: src/core-api/components/ApiKeyManager.tsx:206
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:169
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:222
 msgid "Saving..."
-msgstr "Saving..."
+msgstr "Kaydediliyor..."
 
 #: src/core-api/components/ApiKeyManager.tsx:221
 msgid "Click to edit scopes"
-msgstr "Click to edit scopes"
+msgstr "Kapsamları düzenlemek için tıklayın"
 
 #: src/core-api/components/ApiKeyManager.tsx:226
 msgid "None"
-msgstr "None"
+msgstr "Yok"
 
 #: src/core-api/components/ApiKeyManager.tsx:228
 msgid "scopes"
-msgstr "scopes"
+msgstr "kapsamlar"
 
 #: src/core-api/components/ApiKeyManager.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:367
 msgid "Never"
-msgstr "Never"
+msgstr "Asla"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "Roll this key?"
-msgstr "Roll this key?"
+msgstr "Bu anahtarı çevirelim mi?"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "A new key will be created and the old one will expire in 24 hours."
-msgstr "A new key will be created and the old one will expire in 24 hours."
+msgstr "Yeni bir anahtar oluşturulacak ve eskisinin geçerlilik süresi 24 saat içinde sona erecektir."
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 #: src/core-api/components/ApiKeyManager.tsx:255
 msgid "Roll"
-msgstr "Roll"
+msgstr "Rulo"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "Revoke this API key?"
-msgstr "Revoke this API key?"
+msgstr "Bu API anahtarını iptal etmek ister misiniz?"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "This is immediate and cannot be undone."
-msgstr "This is immediate and cannot be undone."
+msgstr "Bu işlem anında gerçekleşir ve geri alınamaz."
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 #: src/core-api/components/ApiKeyManager.tsx:267
 msgid "Revoke"
-msgstr "Revoke"
+msgstr "İptal et"
 
 #: src/core-api/components/ApiKeyManager.tsx:305
 msgid "Full access"
-msgstr "Full access"
+msgstr "Tam erişim"
 
 #: src/core-api/components/ApiKeyManager.tsx:327
 msgid "No scopes selected — no access."
-msgstr "No scopes selected — no access."
+msgstr "Seçilen kapsam yok — erişim yok."
 
 #: src/core-api/components/ApiKeyManager.tsx:366
 msgid "Copy to Clipboard"
-msgstr "Copy to Clipboard"
+msgstr "Panoya Kopyala"
 
 #: src/core-api/components/ApiKeyManager.tsx:381
 msgid "Expiring"
-msgstr "Expiring"
+msgstr "Süresi dolmak üzere"
 
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:13
 msgid "Manage API keys for programmatic access to your data."
-msgstr "Manage API keys for programmatic access to your data."
+msgstr "Verilerinize programlı erişim için API anahtarlarını yönetin."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:109
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:44
 msgid "Search authors..."
-msgstr "Search authors..."
+msgstr "Yazarları ara..."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:116
 msgid "No authors found. Create one first."
-msgstr "No authors found. Create one first."
+msgstr "Yazar bulunamadı. Önce bir yazar oluşturun."
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:22
 msgid "Author deleted"
-msgstr "Author deleted"
+msgstr "Yazar silindi"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:30
 msgid "Authors"
-msgstr "Authors"
+msgstr "Yazarlar"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:35
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "New Author"
-msgstr "New Author"
+msgstr "Yeni Yazar"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:56
 msgid "No authors yet."
-msgstr "No authors yet."
+msgstr "Henüz yazar yok."
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:83
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:132
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:282
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
 msgid "Edit"
-msgstr "Edit"
+msgstr "Düzenle"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:89
 msgid "Delete this author?"
-msgstr "Delete this author?"
+msgstr "Bu yazarı silmek ister misiniz?"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:42
 msgid "Author created"
-msgstr "Author created"
+msgstr "Yazar tarafından oluşturuldu"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:50
 msgid "Author saved"
-msgstr "Author saved"
+msgstr "Yazar kaydedildi"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "Edit Author"
-msgstr "Edit Author"
+msgstr "Yazarı Düzenle"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:108
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:142
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:121
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Create"
-msgstr "Create"
+msgstr "Oluştur"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:136
 msgid "Bio"
-msgstr "Bio"
+msgstr "Özgeçmiş"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:146
 msgid "Avatar"
@@ -2539,11 +2535,11 @@ msgstr "Avatar"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:165
 msgid "Social Links"
-msgstr "Social Links"
+msgstr "Sosyal Medya Bağlantıları"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:168
 msgid "Website"
-msgstr "Website"
+msgstr "Web sitesi"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:172
 msgid "Twitter"
@@ -2559,25 +2555,25 @@ msgstr "LinkedIn"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:22
 msgid "Are you sure you want to delete this character?"
-msgstr "Are you sure you want to delete this character?"
+msgstr "Bu karakteri silmek istediğinizden emin misiniz?"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:32
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Characters"
-msgstr "Characters"
+msgstr "Karakterler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:34
 msgid "AI personas that users can chat with."
-msgstr "AI personas that users can chat with."
+msgstr "Kullanıcıların sohbet edebileceği yapay zeka karakterleri."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:42
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
 msgid "New Character"
-msgstr "New Character"
+msgstr "Yeni Karakter"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:52
 msgid "No characters yet. Create your first AI persona."
-msgstr "No characters yet. Create your first AI persona."
+msgstr "Henüz karakter yok. İlk yapay zeka karakterinizi oluşturun."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
@@ -2585,47 +2581,47 @@ msgstr "No characters yet. Create your first AI persona."
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Inactive"
-msgstr "Inactive"
+msgstr "Etkin değil"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:188
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "Slogan"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:191
 msgid "System Prompt"
-msgstr "System Prompt"
+msgstr "Sistem İstem"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:194
 msgid "Personality (visible to users)"
-msgstr "Personality (visible to users)"
+msgstr "Kişilik (kullanıcılar tarafından görülebilir)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:197
 msgid "Greeting Message"
-msgstr "Greeting Message"
+msgstr "Karşılama Mesajı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:200
 msgid "Avatar URL"
-msgstr "Avatar URL"
+msgstr "Avatar URL'si"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
 msgid "Character Traits"
-msgstr "Character Traits"
+msgstr "Kişilik Özellikleri"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
 msgid "Gender"
-msgstr "Gender"
+msgstr "Cinsiyet"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
 msgid "Sexuality"
-msgstr "Sexuality"
+msgstr "Cinsellik"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
 msgid "Ethnicity"
-msgstr "Ethnicity"
+msgstr "Etnik köken"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
 msgid "Personality"
-msgstr "Personality"
+msgstr "Kişilik"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
 msgid "Kink"
@@ -2633,234 +2629,234 @@ msgstr "Kink"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:212
 msgid "Job"
-msgstr "Job"
+msgstr "İş"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:213
 msgid "Relationship"
-msgstr "Relationship"
+msgstr "İlişki"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:216
 msgid "Hobbies"
-msgstr "Hobbies"
+msgstr "Hobiler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
 msgid "Visual Appearance"
-msgstr "Visual Appearance"
+msgstr "Görsel Görünüm"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
 msgid "Hair Color"
-msgstr "Hair Color"
+msgstr "Saç Rengi"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
 msgid "Hair Texture"
-msgstr "Hair Texture"
+msgstr "Saç Yapısı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
 msgid "Hair Style"
-msgstr "Hair Style"
+msgstr "Saç Stili"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
 msgid "Eye Color"
-msgstr "Eye Color"
+msgstr "Göz Rengi"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:228
 msgid "Skin"
-msgstr "Skin"
+msgstr "Cilt"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:229
 msgid "Body Type"
-msgstr "Body Type"
+msgstr "Vücut Tipi"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
 msgid "Image Generation Settings"
-msgstr "Image Generation Settings"
+msgstr "Görüntü Oluşturma Ayarları"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
 msgid "Model Preset"
-msgstr "Model Preset"
+msgstr "Model Ön Ayarı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
 msgid "Sort Order"
-msgstr "Sort Order"
+msgstr "Sıralama Düzeni"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:241
 msgid "Token Cost Multiplier"
-msgstr "Token Cost Multiplier"
+msgstr "Jeton Maliyet Çarpanı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
 msgid "Custom Negative Prompt"
-msgstr "Custom Negative Prompt"
+msgstr "Özel Olumsuz İstem"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:246
 msgid "LoRA Config"
-msgstr "LoRA Config"
+msgstr "LoRA Yapılandırması"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:252
 msgid "Active (visible to users)"
-msgstr "Active (visible to users)"
+msgstr "Etkin (kullanıcılar tarafından görülebilir)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
 msgid "Create Character"
-msgstr "Create Character"
+msgstr "Karakter Oluştur"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
 msgid "Save Changes"
-msgstr "Save Changes"
+msgstr "Değişiklikleri Kaydet"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
 msgid "Edit Character"
-msgstr "Edit Character"
+msgstr "Karakteri Düzenle"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:12
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
 msgid "Conversations"
-msgstr "Conversations"
+msgstr "Sohbetler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:26
 msgid "Browse all chat conversations"
-msgstr "Browse all chat conversations"
+msgstr "Tüm sohbetleri görüntüle"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
 msgid "All statuses"
-msgstr "All statuses"
+msgstr "Tüm durumlar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:368
 msgid "Archived"
-msgstr "Archived"
+msgstr "Arşivlenmiş"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:36
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:133
 msgid "Deleted"
-msgstr "Deleted"
+msgstr "Silindi"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:43
 msgid "No conversations found."
-msgstr "No conversations found."
+msgstr "Hiçbir konuşma bulunamadı."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
 msgid "User"
-msgstr "User"
+msgstr "Kullanıcı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
 msgid "Character"
-msgstr "Character"
+msgstr "Karakter"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
 msgid "Messages"
-msgstr "Messages"
+msgstr "Mesajlar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:130
 msgid "Tokens"
-msgstr "Tokens"
+msgstr "Jetonlar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:55
 msgid "Last Active"
-msgstr "Last Active"
+msgstr "Son Etkinlik Tarihi"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:26
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
 msgid "Conversation"
-msgstr "Conversation"
+msgstr "Sohbet"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:33
 msgid "No messages."
-msgstr "No messages."
+msgstr "Mesaj yok."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:15
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Flagged Messages"
-msgstr "Flagged Messages"
+msgstr "İşaretlenmiş Mesajlar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
 msgid "Messages blocked by content moderation"
-msgstr "Messages blocked by content moderation"
+msgstr "İçerik denetimi tarafından engellenen mesajlar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
 msgid "No flagged messages."
-msgstr "No flagged messages."
+msgstr "İşaretlenmiş mesaj yok."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "Reason"
-msgstr "Reason"
+msgstr "Sebep"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
 msgid "Dismiss flag"
-msgstr "Dismiss flag"
+msgstr "Bayrağı kapat"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
 msgid "Dismiss"
-msgstr "Dismiss"
+msgstr "Kapat"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:13
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
 msgid "Total Messages"
-msgstr "Total Messages"
+msgstr "Toplam Mesaj Sayısı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:14
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:27
 msgid "Active Users (24h)"
-msgstr "Active Users (24h)"
+msgstr "Aktif Kullanıcılar (24 saat)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Manage AI personas"
-msgstr "Manage AI personas"
+msgstr "AI karakterlerini yönetme"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 msgid "Browse all conversations"
-msgstr "Browse all conversations"
+msgstr "Tüm sohbetlere göz at"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Review moderated content"
-msgstr "Review moderated content"
+msgstr "Denetimden geçmiş içeriği incele"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 msgid "Manage LLM providers"
-msgstr "Manage LLM providers"
+msgstr "LLM sağlayıcılarını yönetme"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Usage statistics and charts"
-msgstr "Usage statistics and charts"
+msgstr "Kullanım istatistikleri ve grafikler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Keywords, action, and rate limits"
-msgstr "Keywords, action, and rate limits"
+msgstr "Anahtar kelimeler, eylemler ve hız sınırları"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:30
 msgid "Chat"
-msgstr "Chat"
+msgstr "Sohbet"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:31
 msgid "AI character chat management"
-msgstr "AI character chat management"
+msgstr "Yapay zeka karakterli sohbet yönetimi"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:69
 msgid "Delete this provider?"
-msgstr "Delete this provider?"
+msgstr "Bu sağlayıcıyı silmek ister misiniz?"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:87
 msgid "Manage LLM provider credentials and routing"
-msgstr "Manage LLM provider credentials and routing"
+msgstr "LLM sağlayıcılarının kimlik bilgilerini ve yönlendirme ayarlarını yönetme"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:91
 msgid "Add Provider"
-msgstr "Add Provider"
+msgstr "Sağlayıcı Ekle"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
 msgid "Edit Provider"
-msgstr "Edit Provider"
+msgstr "Sağlayıcıyı Düzenle"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
 msgid "New Provider"
-msgstr "New Provider"
+msgstr "Yeni Hizmet Sağlayıcı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
@@ -2876,11 +2872,11 @@ msgstr "New Provider"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
 msgid "Type"
-msgstr "Type"
+msgstr "Tür"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
 msgid "LLM (Text)"
-msgstr "LLM (Text)"
+msgstr "LLM (Metin)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
 msgid "Video"
@@ -2888,7 +2884,7 @@ msgstr "Video"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:111
 msgid "Adapter"
-msgstr "Adapter"
+msgstr "Adaptör"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:118
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
@@ -2897,35 +2893,35 @@ msgstr "Model"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
 msgid "Base URL (leave empty for OpenAI)"
-msgstr "Base URL (leave empty for OpenAI)"
+msgstr "Temel URL (OpenAI için boş bırakın)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:123
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
 msgid "API Key"
-msgstr "API Key"
+msgstr "API Anahtarı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
 msgid "Leave empty to keep current"
-msgstr "Leave empty to keep current"
+msgstr "Mevcut durumu korumak için boş bırakın"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:120
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:384
 msgid "Priority"
-msgstr "Priority"
+msgstr "Öncelik"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
 msgid "Max Concurrent"
-msgstr "Max Concurrent"
+msgstr "Maksimum Eşzamanlı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:134
 msgid "Timeout (s)"
-msgstr "Timeout (s)"
+msgstr "Zaman aşımı (s)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:153
 msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
-msgstr "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "Yapılandırılmış sağlayıcı yok. Hızlı bir başlangıç için bir sağlayıcı ekleyin veya .env dosyasında AI_API_KEY değerini ayarlayın."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:189
 msgid "Test"
@@ -2933,64 +2929,64 @@ msgstr "Test"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
 msgid "Task Queues"
-msgstr "Task Queues"
+msgstr "Görev Kuyrukları"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
 msgid "BullMQ job queue status and failed job management"
-msgstr "BullMQ job queue status and failed job management"
+msgstr "BullMQ iş kuyruğu durumu ve başarısız iş yönetimi"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
 msgid "No queues found. Workers may not be running."
-msgstr "No queues found. Workers may not be running."
+msgstr "Herhangi bir kuyruk bulunamadı. İşçiler çalışmıyor olabilir."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
 msgid "Waiting"
-msgstr "Waiting"
+msgstr "Bekleme"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
 msgid "Done"
-msgstr "Done"
+msgstr "Tamam"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
 msgid "Failed"
-msgstr "Failed"
+msgstr "Başarısız"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
 msgid "Failed Jobs"
-msgstr "Failed Jobs"
+msgstr "Başarısız İşlemler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
 msgid "Attempts"
-msgstr "Attempts"
+msgstr "Girişimler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
 msgid "Retry"
-msgstr "Retry"
+msgstr "Tekrar dene"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:28
 msgid "Tokens Consumed"
-msgstr "Tokens Consumed"
+msgstr "Tüketilen Jetonlar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:34
 msgid "Chat Analytics"
-msgstr "Chat Analytics"
+msgstr "Sohbet Analitiği"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:35
 msgid "Usage statistics and trends"
-msgstr "Usage statistics and trends"
+msgstr "Kullanım istatistikleri ve eğilimler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:55
 msgid "Messages (30 days)"
-msgstr "Messages (30 days)"
+msgstr "Mesajlar (30 gün)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:74
 msgid "Popular Characters"
-msgstr "Popular Characters"
+msgstr "Popüler Karakterler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:78
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:121
 msgid "No data yet"
-msgstr "No data yet"
+msgstr "Henüz veri yok"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
@@ -3000,139 +2996,139 @@ msgstr "Convs"
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:87
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:129
 msgid "Msgs"
-msgstr "Msgs"
+msgstr "Mesajlar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:88
 msgid "Avg"
-msgstr "Avg"
+msgstr "Ort."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:117
 msgid "Most Active Users"
-msgstr "Most Active Users"
+msgstr "En Aktif Kullanıcılar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:164
 msgid "Provider Health (24h)"
-msgstr "Provider Health (24h)"
+msgstr "Sağlık Hizmeti Sağlayıcısı (24 saat)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:168
 msgid "No provider activity yet"
-msgstr "No provider activity yet"
+msgstr "Henüz herhangi bir hizmet sağlayıcı faaliyeti yok"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
 msgid "Provider"
-msgstr "Provider"
+msgstr "Sağlayıcı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
 msgid "Requests"
-msgstr "Requests"
+msgstr "İstekler"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
 msgid "Success"
-msgstr "Success"
+msgstr "Başarı"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
 msgid "Failures"
-msgstr "Failures"
+msgstr "Arızalar"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:178
 msgid "Avg ms"
-msgstr "Avg ms"
+msgstr "Ort. ms"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:179
 msgid "Rate"
-msgstr "Rate"
+msgstr "Oran"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:69
 msgid "Comment updated"
-msgstr "Comment updated"
+msgstr "Yorum güncellendi"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:78
 msgid "Comment deleted"
-msgstr "Comment deleted"
+msgstr "Yorum silindi"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:156
 msgid "Search comments..."
-msgstr "Search comments..."
+msgstr "Yorumları ara..."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:189
 msgid "No comments"
-msgstr "No comments"
+msgstr "Yorum yok"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:193
 msgid "No comments match your search."
-msgstr "No comments match your search."
+msgstr "Aramanızla eşleşen yorum bulunamadı."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:194
 msgid "No comments found."
-msgstr "No comments found."
+msgstr "Yorum bulunamadı."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:201
 msgid "Author"
-msgstr "Author"
+msgstr "Yazar"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:202
 msgid "Comment"
-msgstr "Comment"
+msgstr "Yorum"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:205
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:305
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:139
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
 msgid "Date"
-msgstr "Date"
+msgstr "Tarih"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:230
 msgid "Anonymous"
-msgstr "Anonymous"
+msgstr "Anonim"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:267
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:179
 msgid "Approve"
-msgstr "Approve"
+msgstr "Onayla"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:276
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:187
 msgid "Reject"
-msgstr "Reject"
+msgstr "Reddet"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:285
 msgid "Spam"
-msgstr "Spam"
+msgstr "İstenmeyen posta"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:334
 msgid "Delete comment?"
-msgstr "Delete comment?"
+msgstr "Yorumu silmek ister misiniz?"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:335
 msgid "Permanently delete this comment? This action cannot be undone."
-msgstr "Permanently delete this comment? This action cannot be undone."
+msgstr "Bu yorumu kalıcı olarak silmek istiyor musunuz? Bu işlem geri alınamaz."
 
 #: src/core-multisite/components/SiteSwitcher.tsx:61
 msgid "Switch site"
-msgstr "Switch site"
+msgstr "Siteyi değiştir"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:77
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:94
 msgid "Network"
-msgstr "Network"
+msgstr "Ağ"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:89
 msgid "Network Admin"
-msgstr "Network Admin"
+msgstr "Ağ Yöneticisi"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:38
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:65
 msgid "Create Site"
-msgstr "Create Site"
+msgstr "Site Oluştur"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:46
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:169
 msgid "Site Name"
-msgstr "Site Name"
+msgstr "Site Adı"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:50
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
@@ -3141,203 +3137,203 @@ msgstr "Site Name"
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "optional"
-msgstr "optional"
+msgstr "isteğe bağlı"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:51
 msgid "auto-generated from name"
-msgstr "auto-generated from name"
+msgstr "adından otomatik olarak oluşturuldu"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:52
 msgid "Used for subdomain: {slug}.yourdomain.com"
-msgstr "Used for subdomain: {slug}.yourdomain.com"
+msgstr "Alt etki alanı olarak kullanılır: {slug}.yourdomain.com"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
 msgid "Default Locale"
-msgstr "Default Locale"
+msgstr "Varsayılan Dil Ayarı"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "Suspend this site?"
-msgstr "Suspend this site?"
+msgstr "Bu siteyi askıya almalı mıyız?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "It will become inaccessible to visitors."
-msgstr "It will become inaccessible to visitors."
+msgstr "Ziyaretçiler buraya giremeyecek."
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:53
 msgid "Sites"
-msgstr "Sites"
+msgstr "Siteler"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:62
 msgid "Show deleted"
-msgstr "Show deleted"
+msgstr "Silinmişleri göster"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:75
 msgid "No sites yet. Create your first site."
-msgstr "No sites yet. Create your first site."
+msgstr "Henüz site yok. İlk sitenizi oluşturun."
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:118
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:146
 msgid "Unsuspend"
-msgstr "Unsuspend"
+msgstr "Askıya Almayı Kaldır"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:56
 msgid "Site not found"
-msgstr "Site not found"
+msgstr "Sayfa bulunamadı"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:93
 msgid "Are you sure you want to disable this site?"
-msgstr "Are you sure you want to disable this site?"
+msgstr "Bu siteyi devre dışı bırakmak istediğinizden emin misiniz?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Name for the cloned site:"
-msgstr "Name for the cloned site:"
+msgstr "Klonlanan sitenin adı:"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Site name"
-msgstr "Site name"
+msgstr "Site adı"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove this domain?"
-msgstr "Remove this domain?"
+msgstr "Bu alan adını silmek ister misiniz?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:136
 msgid "Clone Site"
-msgstr "Clone Site"
+msgstr "Siteyi Kopyala"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:137
 msgid "Clone"
-msgstr "Clone"
+msgstr "Klonla"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:156
 msgid "Disable Site"
-msgstr "Disable Site"
+msgstr "Siteyi Devre Dışı Bırak"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:166
 msgid "General"
-msgstr "General"
+msgstr "Genel"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:177
 msgid "Schema"
-msgstr "Schema"
+msgstr "Şema"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:189
 msgid "Branding"
-msgstr "Branding"
+msgstr "Markalaşma"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:194
 msgid "Brand Hue"
-msgstr "Brand Hue"
+msgstr "Marka Rengi"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:206
 msgid "Accent Hue"
-msgstr "Accent Hue"
+msgstr "Vurgu Tonu"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:218
 msgid "Gray Hue"
-msgstr "Gray Hue"
+msgstr "Gri Tonu"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:231
 msgid "Logo URL"
-msgstr "Logo URL"
+msgstr "Logo URL'si"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:235
 msgid "Favicon URL"
-msgstr "Favicon URL"
+msgstr "Favicon URL'si"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:239
 msgid "Contact Email"
-msgstr "Contact Email"
+msgstr "İletişim E-postası"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:243
 msgid "Save Branding"
-msgstr "Save Branding"
+msgstr "Marka Kimliğini Koruyun"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:250
 msgid "Domains"
-msgstr "Domains"
+msgstr "Alan adları"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:257
 msgid "Verified"
-msgstr "Verified"
+msgstr "Doğrulanmış"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:259
 msgid "Pending"
-msgstr "Pending"
+msgstr "Beklemede"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:261
 msgid "Primary"
-msgstr "Primary"
+msgstr "İlkokul"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:272
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:711
 msgid "Add"
-msgstr "Add"
+msgstr "Ekle"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:285
 msgid "Members"
-msgstr "Members"
+msgstr "Üyeler"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:287
 msgid "No members yet."
-msgstr "No members yet."
+msgstr "Henüz üye yok."
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:16
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:26
 msgctxt "General"
 msgid "Pending"
-msgstr "Pending"
+msgstr "Beklemede"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:17
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:27
 msgctxt "General"
 msgid "Processing"
-msgstr "Processing"
+msgstr "İşleme"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:18
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:28
 msgctxt "General"
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "Gönderildi"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:19
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:29
 msgctxt "General"
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "Teslim edildi"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:20
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:30
 msgctxt "General"
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "İptal edildi"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:21
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:31
 msgctxt "General"
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "Geri Ödenen"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:316
 msgid "Price: Low to High"
-msgstr "Price: Low to High"
+msgstr "Fiyat: Düşükten Yüksek'e"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:317
 msgid "Price: High to Low"
-msgstr "Price: High to Low"
+msgstr "Fiyat: Yüksekten Düşüğe"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:318
 msgid "Name A-Z"
-msgstr "Name A-Z"
+msgstr "İsim A-Z"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:440
 msgid "Shop now"
-msgstr "Shop now"
+msgstr "Hemen alışveriş yapın"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:531
 msgid "Price Range"
-msgstr "Price Range"
+msgstr "Fiyat Aralığı"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:536
 msgid "Min"
@@ -3350,215 +3346,215 @@ msgstr "Max"
 #: src/core-store/_templates/app/(public)/store/client.tsx:876
 #: src/core-store/_templates/app/(public)/store/client.tsx:906
 msgid "Filters"
-msgstr "Filters"
+msgstr "Filtreler"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "Showing"
-msgstr "Showing"
+msgstr "Gösteriliyor"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 msgid "products"
-msgstr "products"
+msgstr "ürünler"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1025
 msgid "Try adjusting your search terms or clearing filters."
-msgstr "Try adjusting your search terms or clearing filters."
+msgstr "Arama terimlerinizi değiştirmeyi veya filtreleri temizlemeyi deneyin."
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1026
 msgid "Check back soon for new products."
-msgstr "Check back soon for new products."
+msgstr "Yeni ürünler için yakında tekrar kontrol edin."
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1041
 msgid "Browse our collection of products"
-msgstr "Browse our collection of products"
+msgstr "Ürün koleksiyonumuzu inceleyin"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1050
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:138
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "Ürünleri ara..."
 
 #: src/core-store/_templates/app/(public)/store/page.tsx:10
 #: src/core-store/_templates/app/(public)/store/page.tsx:13
 msgid "Browse our collection of products. Find exactly what you need."
-msgstr "Browse our collection of products. Find exactly what you need."
+msgstr "Ürün koleksiyonumuzu inceleyin. Tam olarak ihtiyacınız olanı bulun."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:748
 msgid "Attributes"
-msgstr "Attributes"
+msgstr "Özellikler"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:98
 msgid "Add Attribute"
-msgstr "Add Attribute"
+msgstr "Özellik Ekle"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:108
 msgid "New Attribute"
-msgstr "New Attribute"
+msgstr "Yeni Öznitelik"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:119
 msgid "e.g. Color, Size"
-msgstr "e.g. Color, Size"
+msgstr "örn. Renk, Boyut"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:134
 msgid "Text"
-msgstr "Text"
+msgstr "Metin"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:135
 msgid "Number"
-msgstr "Number"
+msgstr "Sayı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:201
 msgid "Values"
-msgstr "Values"
+msgstr "Değerler"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 msgid "comma-separated"
-msgstr "comma-separated"
+msgstr "virgülle ayrılmış"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:202
 msgid "Filterable"
-msgstr "Filterable"
+msgstr "Filtrelenebilir"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:188
 msgid "No attributes defined"
-msgstr "No attributes defined"
+msgstr "Tanımlanmış özellik yok"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:191
 msgid "Add your first attribute to enable product filtering."
-msgstr "Add your first attribute to enable product filtering."
+msgstr "Ürün filtrelemesini etkinleştirmek için ilk özniteliğinizi ekleyin."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:315
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
 msgid "Usage"
-msgstr "Usage"
+msgstr "Kullanım"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:116
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
 msgid "Discount Codes"
-msgstr "Discount Codes"
+msgstr "İndirim Kodları"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:123
 msgid "Add Code"
-msgstr "Add Code"
+msgstr "Kod Ekle"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:133
 msgid "New Discount Code"
-msgstr "New Discount Code"
+msgstr "Yeni İndirim Kodu"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:158
 msgid "Percentage"
-msgstr "Percentage"
+msgstr "Yüzde"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:159
 msgid "Fixed Amount"
-msgstr "Fixed Amount"
+msgstr "Sabit Tutar"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (%)"
-msgstr "Value (%)"
+msgstr "Değer (%)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (EUR)"
-msgstr "Value (EUR)"
+msgstr "Değer (EUR)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:179
 msgid "Min Order (EUR)"
-msgstr "Min Order (EUR)"
+msgstr "Minimum Sipariş Tutarı (EUR)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:193
 msgid "Max Uses"
-msgstr "Max Uses"
+msgstr "Max Kullanım Alanları"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:317
 msgid "Expires"
-msgstr "Expires"
+msgstr "Son kullanma tarihi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:266
 msgid "Search codes..."
-msgstr "Search codes..."
+msgstr "Kodları ara..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:299
 msgid "No discount codes"
-msgstr "No discount codes"
+msgstr "İndirim kodu yok"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:303
 msgid "No codes match your search."
-msgstr "No codes match your search."
+msgstr "Aramanızla eşleşen kod bulunamadı."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:304
 msgid "Create your first discount code to offer promotions."
-msgstr "Create your first discount code to offer promotions."
+msgstr "Promosyonlar sunmak için ilk indirim kodunuzu oluşturun."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:313
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
 msgid "Value"
-msgstr "Value"
+msgstr "Değer"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:314
 msgid "Min Order"
-msgstr "Min Order"
+msgstr "Minimum Sipariş Miktarı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Percent"
-msgstr "Percent"
+msgstr "Yüzde"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Fixed"
-msgstr "Fixed"
+msgstr "Düzeltildi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:376
 msgid "Deactivate"
-msgstr "Deactivate"
+msgstr "Devre dışı bırak"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:59
 msgid "Product created"
-msgstr "Product created"
+msgstr "Ürün oluşturuldu"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:75
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:239
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "Ad alanı zorunludur"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:113
 msgid "New Product"
-msgstr "New Product"
+msgstr "Yeni Ürün"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:130
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:347
 msgid "Basic Info"
-msgstr "Basic Info"
+msgstr "Temel Bilgiler"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:139
 msgid "Product name"
-msgstr "Product name"
+msgstr "Ürün adı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:149
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:379
 msgid "Simple"
-msgstr "Simple"
+msgstr "Basit"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:380
 msgid "Variable"
-msgstr "Variable"
+msgstr "Değişken"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:152
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:382
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "Abonelik"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:386
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "Kısa Açıklama"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:183
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:209
@@ -3566,22 +3562,22 @@ msgstr "Short Description"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:618
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:676
 msgid "Price"
-msgstr "Price"
+msgstr "Fiyat"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:195
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:425
 msgid "Compare Price"
-msgstr "Compare Price"
+msgstr "Fiyatları Karşılaştır"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:433
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "İndirimli ürünlerin orijinal fiyatı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:209
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:439
 msgid "Currency"
-msgstr "Currency"
+msgstr "Para birimi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:451
@@ -3592,57 +3588,57 @@ msgstr "SKU"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:227
 msgid "Optional stock keeping unit"
-msgstr "Optional stock keeping unit"
+msgstr "İsteğe bağlı stok birimi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:466
 msgid "Inventory"
-msgstr "Inventory"
+msgstr "Envanter"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:246
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:475
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "Stok Takibi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:250
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:479
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "Stok Miktarı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:261
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:490
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "Ağırlık (gram)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:268
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:497
 msgid "Optional"
-msgstr "Optional"
+msgstr "İsteğe bağlı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:278
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:507
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "Kargo gerektirir"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:287
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:516
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "Dijital Ürün"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:290
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:519
 msgid "File URL"
-msgstr "File URL"
+msgstr "Dosya URL'si"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:300
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:529
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "İndirme Sınırı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:536
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "Sınırsız"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:321
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:550
@@ -3652,275 +3648,275 @@ msgstr "SEO"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:327
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:556
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "Meta Başlığı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:352
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:581
 msgid "Featured Image"
-msgstr "Featured Image"
+msgstr "Öne Çıkan Resim"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:354
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:583
 msgid "Image URL"
-msgstr "Image URL"
+msgstr "Resim URL'si"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:363
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:592
 msgid "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
-msgstr "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
+msgstr "İpucu: Projelerde, dosya yüklemesi için bu öğeyi bir MediaPickerButton'a yükseltebilirsiniz."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Exporting..."
-msgstr "Exporting..."
+msgstr "Dışa aktarılıyor..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:98
 msgid "Products"
-msgstr "Products"
+msgstr "Ürünler"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:233
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "Sipariş numarasına göre arama yap..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:263
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:258
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:187
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:393
 msgid "From"
-msgstr "From"
+msgstr "Kaynak:"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:265
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "to"
-msgstr "to"
+msgstr "...'ye"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:274
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:194
 msgid "To"
-msgstr "To"
+msgstr "Şuna"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:289
 msgid "No orders"
-msgstr "No orders"
+msgstr "Sipariş yok"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:293
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "Aramanızla eşleşen sipariş bulunamadı."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:294
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "Henüz sipariş yok."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:301
 msgid "Order #"
-msgstr "Order #"
+msgstr "Sipariş No."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:302
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Customer"
-msgstr "Customer"
+msgstr "Müşteri"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:344
 msgid "View"
-msgstr "View"
+msgstr "Görüntüle"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:351
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "Fatura"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:359
 msgid "Refund"
-msgstr "Refund"
+msgstr "Para iadesi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:405
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Refund Order"
-msgstr "Refund Order"
+msgstr "İade Talebi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:419
 msgid "Enter reason for refund..."
-msgstr "Enter reason for refund..."
+msgstr "İade nedenini girin..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:72
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:187
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "Ürün silindi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:102
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:198
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "Ürün Ekle"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:185
 msgid "No products"
-msgstr "No products"
+msgstr "Ürün yok"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:189
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "Aramanızla eşleşen ürün bulunamadı."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:190
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "Başlamak için ilk ürününüzü oluşturun."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:211
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:619
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:688
 msgid "Stock"
-msgstr "Stock"
+msgstr "Stok"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:330
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:844
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "Ürünü silmek ister misiniz?"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:331
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:845
 msgid "Delete \"{name}\"? This action cannot be undone."
-msgstr "Delete \"{name}\"? This action cannot be undone."
+msgstr "\"{name}\" dosyasını silmek istiyor musunuz? Bu işlem geri alınamaz."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:79
 msgid "Reviews"
-msgstr "Reviews"
+msgstr "Yorumlar"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:123
 msgid "No reviews to moderate"
-msgstr "No reviews to moderate"
+msgstr "Modere edilecek yorum yok"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:127
 msgid "No reviews with this status."
-msgstr "No reviews with this status."
+msgstr "Bu durumdaki yorum yok."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:128
 msgid "Reviews will appear here once customers submit them."
-msgstr "Reviews will appear here once customers submit them."
+msgstr "Müşteriler yorumlarını gönderdikten sonra yorumlar burada görünecektir."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:135
 msgid "Product"
-msgstr "Product"
+msgstr "Ürün"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:136
 msgid "Rating"
-msgstr "Rating"
+msgstr "Değerlendirme"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:179
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "Ürün kaydedildi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:195
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "Varyant eklendi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:205
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "Varyant silindi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:214
 msgid "Attributes saved"
-msgstr "Attributes saved"
+msgstr "Özellikler kaydedildi"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:222
 msgid "Related products saved"
-msgstr "Related products saved"
+msgstr "Kaydedilen ilgili ürünler"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:265
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "Varyant adı zorunludur"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:318
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "Ürünü Düzenle"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:601
 msgid "Variants"
-msgstr "Variants"
+msgstr "Varyantlar"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "Varyant Ekle"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:648
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "Henüz varyant yok. Farklı seçenekler sunmak için varyantlar ekleyin."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:654
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "Yeni Varyant"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:663
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "örn. Büyük / Kırmızı"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:725
 msgid "No categories defined."
-msgstr "No categories defined."
+msgstr "Tanımlanmış kategori yok."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:740
 msgid "Category assignment is saved with the product. Extend this section to call a category update mutation."
-msgstr "Category assignment is saved with the product. Extend this section to call a category update mutation."
+msgstr "Kategori ataması ürünle birlikte kaydedilir. Bu bölümü genişleterek bir kategori güncelleme mutasyonunu çağırın."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:752
 msgid "No attributes defined."
-msgstr "No attributes defined."
+msgstr "Tanımlanmış özellik yok."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:785
 msgid "Save Attributes"
-msgstr "Save Attributes"
+msgstr "Özellikleri Kaydet"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:793
 msgid "Related Products"
-msgstr "Related Products"
+msgstr "İlgili Ürünler"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:818
 msgid "Comma-separated product IDs"
-msgstr "Comma-separated product IDs"
+msgstr "Virgülle ayrılmış ürün kimlikleri"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:832
 msgid "Tip: Replace comma-separated IDs with a product search/select component for better UX."
-msgstr "Tip: Replace comma-separated IDs with a product search/select component for better UX."
+msgstr "İpucu: Daha iyi bir kullanıcı deneyimi için virgülle ayrılmış kimlik numaralarını bir ürün arama/seçim bileşeniyle değiştirin."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:855
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "Varyantı silmek mi?"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:856
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "Bu varyant kalıcı olarak kaldırılacaktır."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:890
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "Ürün bulunamadı."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
 msgid "Canceled"
-msgstr "Canceled"
+msgstr "İptal edildi"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
 msgid "Payment Failed"
-msgstr "Payment Failed"
+msgstr "Ödeme Başarısız"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
 msgid "Unpaid"
-msgstr "Unpaid"
+msgstr "Ödenmemiş"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
 msgid "Churned Subscriptions"
-msgstr "Churned Subscriptions"
+msgstr "İptal Edilen Abonelikler"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
 msgid "Search by organization..."
-msgstr "Search by organization..."
+msgstr "Kuruluşa göre arama..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
 msgid "No churned subscriptions found."
-msgstr "No churned subscriptions found."
+msgstr "İptal edilen abonelik bulunamadı."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
 msgid "Organization"
-msgstr "Organization"
+msgstr "Kuruluş"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
@@ -3930,76 +3926,76 @@ msgstr "Plan"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
 msgid "Churn Date"
-msgstr "Churn Date"
+msgstr "Müşteri Kaybı Tarihi"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
 msgid "Subscription Start"
-msgstr "Subscription Start"
+msgstr "Aboneliğin Başlangıcı"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "results"
-msgstr "results"
+msgstr "sonuçlar"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
 msgid "No discount codes yet."
-msgstr "No discount codes yet."
+msgstr "Henüz indirim kodu yok."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
 msgid "unlimited"
-msgstr "unlimited"
+msgstr "sınırsız"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
 msgid "Recent Transactions"
-msgstr "Recent Transactions"
+msgstr "Son İşlemler"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
 msgid "No transactions yet."
-msgstr "No transactions yet."
+msgstr "Henüz herhangi bir işlem yapılmadı."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
 msgid "Amount"
-msgstr "Amount"
+msgstr "Miktar"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
 msgid "Revenue"
-msgstr "Revenue"
+msgstr "Gelir"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
 msgid "Transactions"
-msgstr "Transactions"
+msgstr "İşlemler"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
 msgid "Revenue Over Time"
-msgstr "Revenue Over Time"
+msgstr "Zaman İçinde Gelir"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
 msgid "No revenue data for this period."
-msgstr "No revenue data for this period."
+msgstr "Bu döneme ait gelir verisi bulunmamaktadır."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
 msgid "Active Subscriptions"
-msgstr "Active Subscriptions"
+msgstr "Aktif Abonelikler"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
 msgid "Search organizations..."
-msgstr "Search organizations..."
+msgstr "Kuruluşları ara..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
 msgid "per page"
-msgstr "per page"
+msgstr "sayfa başına"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
 msgid "No subscriptions found."
-msgstr "No subscriptions found."
+msgstr "Hiçbir abonelik bulunamadı."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
 msgid "Period"
-msgstr "Period"
+msgstr "Dönem"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
 msgid "MRR"
@@ -4007,143 +4003,143 @@ msgstr "MRR"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
 msgid "Total Revenue"
-msgstr "Total Revenue"
+msgstr "Toplam Gelir"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
 msgid "Trialing"
-msgstr "Trialing"
+msgstr "Deneme aşaması"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
 msgid "Trial"
-msgstr "Trial"
+msgstr "Deneme"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
 msgid "Plan Distribution"
-msgstr "Plan Distribution"
+msgstr "Plan Dağıtımı"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
 msgid "No subscriptions yet"
-msgstr "No subscriptions yet"
+msgstr "Henüz abonelik yok"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
 msgid "Churn Metrics"
-msgstr "Churn Metrics"
+msgstr "Müşteri Kaybı Göstergeleri"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
 msgid "Churn Rate (30d)"
-msgstr "Churn Rate (30d)"
+msgstr "Müşteri Kaybı Oranı (30 gün)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
 msgid "Canceled (30d)"
-msgstr "Canceled (30d)"
+msgstr "İptal edildi (30 gün)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
 msgid "Past Due (at risk)"
-msgstr "Past Due (at risk)"
+msgstr "Vadesi geçmiş (riskli)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
 msgid "Unpaid (lost)"
-msgstr "Unpaid (lost)"
+msgstr "Ödenmemiş (kayıp)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
 msgid "Total Ever Subscribed"
-msgstr "Total Ever Subscribed"
+msgstr "Toplam Abone Sayısı"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:156
 msgid "Monitor revenue, track churn, and manage subscriptions."
-msgstr "Monitor revenue, track churn, and manage subscriptions."
+msgstr "Gelirleri izleyin, müşteri kaybını takip edin ve abonelikleri yönetin."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:181
 msgid "Custom range"
-msgstr "Custom range"
+msgstr "Özel aralık"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "Last"
-msgstr "Last"
+msgstr "Son"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:235
 msgid "All time"
-msgstr "All time"
+msgstr "Tüm zamanlar"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
 msgid "Discount code created"
-msgstr "Discount code created"
+msgstr "İndirim kodu oluşturuldu"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
 msgid "Discount code updated"
-msgstr "Discount code updated"
+msgstr "İndirim kodu güncellendi"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
 msgid "Discount code deleted"
-msgstr "Discount code deleted"
+msgstr "İndirim kodu silindi"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
 msgid "New Code"
-msgstr "New Code"
+msgstr "Yeni Kod"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Percentage (0-100)"
-msgstr "Percentage (0-100)"
+msgstr "Yüzde (0-100)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Price (cents)"
-msgstr "Price (cents)"
+msgstr "Fiyat (sent)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
 msgid "Trial Days"
-msgstr "Trial Days"
+msgstr "Deneme Günleri"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
 msgid "Trial Price (cents)"
-msgstr "Trial Price (cents)"
+msgstr "Deneme Fiyatı (sent)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
 msgid "Max Uses (leave empty for unlimited)"
-msgstr "Max Uses (leave empty for unlimited)"
+msgstr "Maksimum Kullanım Sayısı (sınırsız olması için boş bırakın)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
 msgid "Max Uses Per User"
-msgstr "Max Uses Per User"
+msgstr "Kullanıcı Başına Maksimum Kullanım Sayısı"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Update"
-msgstr "Update"
+msgstr "Güncelleme"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
 msgid "No discount codes configured."
-msgstr "No discount codes configured."
+msgstr "Yapılandırılmış indirim kodu bulunmamaktadır."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
 msgid "Uses"
-msgstr "Uses"
+msgstr "Kullanım Alanları"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
 msgid "Delete discount code?"
-msgstr "Delete discount code?"
+msgstr "İndirim kodunu silmek ister misiniz?"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
 msgid "Code \"{code}\" will be permanently deleted."
-msgstr "Code \"{code}\" will be permanently deleted."
+msgstr "\"{code}\" kod adı kalıcı olarak silinecektir."
 
 #: src/core-support/components/SupportChatWidget.tsx:275
 msgid "Hi! How can I help you today?"
-msgstr "Hi! How can I help you today?"
+msgstr "Merhaba! Bugün size nasıl yardımcı olabilirim?"
 
 #: src/core-support/components/SupportChatWidget.tsx:276
 msgid "Type your message..."
-msgstr "Type your message..."
+msgstr "Mesajınızı yazın..."
 
 #: src/core-support/components/SupportChatWidget.tsx:286
 msgid "Support Chat"
-msgstr "Support Chat"
+msgstr "Destek Sohbeti"
 
 #: src/core-support/components/SupportChatWidget.tsx:333
 msgid "Support Agent"
-msgstr "Support Agent"
+msgstr "Müşteri Destek Temsilcisi"
 
 #: src/core-support/components/SupportChatWidget.tsx:351
 msgid "Enter your email so our team can follow up:"
-msgstr "Enter your email so our team can follow up:"
+msgstr "Ekibimizin sizinle iletişime geçebilmesi için e-posta adresinizi girin:"
 
 #: src/core-support/components/SupportChatWidget.tsx:361
 msgid "your@email.com"
@@ -4151,239 +4147,227 @@ msgstr "your@email.com"
 
 #: src/core-support/components/SupportChatWidget.tsx:366
 msgid "Connect with support"
-msgstr "Connect with support"
+msgstr "Destek ekibiyle iletişime geçin"
 
 #: src/core-support/components/SupportChatWidget.tsx:375
 msgid "Would you like to create a support ticket so our team can follow up?"
-msgstr "Would you like to create a support ticket so our team can follow up?"
+msgstr "Ekibimizin konuyu takip edebilmesi için bir destek talebi oluşturmak ister misiniz?"
 
 #: src/core-support/components/SupportChatWidget.tsx:378
 msgid "Create Support Ticket"
-msgstr "Create Support Ticket"
+msgstr "Destek Talebi Oluştur"
 
 #: src/core-support/components/SupportChatWidget.tsx:385
 msgid "Thanks! Our team will follow up at your email soon."
-msgstr "Thanks! Our team will follow up at your email soon."
+msgstr "Teşekkürler! Ekibimiz yakında e-postanıza yanıt verecektir."
 
 #: src/core-support/components/SupportChatWidget.tsx:391
 msgid "Your ticket has been created. Our team will follow up soon."
-msgstr "Your ticket has been created. Our team will follow up soon."
+msgstr "Biletiniz oluşturuldu. Ekibimiz yakında sizinle iletişime geçecektir."
 
 #: src/core-support/components/SupportChatWidget.tsx:394
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
 msgid "View Ticket"
-msgstr "View Ticket"
+msgstr "Bileti Görüntüle"
 
 #: src/core-support/components/SupportChatWidget.tsx:427
 msgid "Talk to a human"
-msgstr "Talk to a human"
+msgstr "Bir temsilciyle görüşün"
 
 #: src/core-support/components/SupportChatWidget.tsx:434
 msgid "Start New Chat"
-msgstr "Start New Chat"
+msgstr "Yeni Sohbet Başlat"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Close chat"
-msgstr "Close chat"
+msgstr "Sohbeti kapat"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Open chat"
-msgstr "Open chat"
+msgstr "Sohbeti aç"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
 msgid "Chat closed"
-msgstr "Chat closed"
+msgstr "Sohbet sona erdi"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
 msgid "Chat session not found."
-msgstr "Chat session not found."
+msgstr "Sohbet oturumu bulunamadı."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
 msgid "Live Chat"
-msgstr "Live Chat"
+msgstr "Canlı Sohbet"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
 msgid "Close Chat"
-msgstr "Close Chat"
+msgstr "Sohbeti Kapat"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
 msgid "Visitor"
-msgstr "Visitor"
+msgstr "Ziyaretçi"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
 msgid "Chat email"
-msgstr "Chat email"
+msgstr "Sohbet e-posta"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:252
 msgid "Started"
-msgstr "Started"
+msgstr "Başladı"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:118
 msgid "Subject"
-msgstr "Subject"
+msgstr "Konu"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
 msgid "Reply as agent..."
-msgstr "Reply as agent..."
+msgstr "Temsilci olarak yanıtla..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:97
 msgid "All Priorities"
-msgstr "All Priorities"
+msgstr "Tüm Öncelikler"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:112
 msgid "No tickets found."
-msgstr "No tickets found."
+msgstr "Bilet bulunamadı."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:123
 msgid "Updated"
-msgstr "Updated"
+msgstr "Güncellendi"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:227
 msgid "Active (non-closed)"
-msgstr "Active (non-closed)"
+msgstr "Aktif (kapalı değil)"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:228
 msgid "AI Active"
-msgstr "AI Active"
+msgstr "AI Etkin"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:229
 msgid "Agent Active"
-msgstr "Agent Active"
+msgstr "Ajan Aktif"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:230
 msgid "Escalated"
-msgstr "Escalated"
+msgstr "Şiddetlendi"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:231
 msgid "Closed"
-msgstr "Closed"
+msgstr "Kapalı"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:243
 msgid "No active chats."
-msgstr "No active chats."
+msgstr "Etkin sohbet yok."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:249
 msgid "Visitor / User"
-msgstr "Visitor / User"
+msgstr "Ziyaretçi / Kullanıcı"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:251
 msgid "Last Message"
-msgstr "Last Message"
+msgstr "Son Mesaj"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:360
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "Biletler"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:368
 msgid "Live Chats"
-msgstr "Live Chats"
+msgstr "Canlı Sohbetler"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:157
 msgid "Reply sent"
-msgstr "Reply sent"
+msgstr "Yanıt gönderildi"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:165
 msgid "Status updated"
-msgstr "Status updated"
+msgstr "Durum güncellendi"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:173
 msgid "Assignment updated"
-msgstr "Assignment updated"
+msgstr "Ödev güncellendi"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:190
 msgid "Ticket not found."
-msgstr "Ticket not found."
+msgstr "Bilet bulunamadı."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:192
 msgid "Back to tickets"
-msgstr "Back to tickets"
+msgstr "Biletlere geri dön"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "Gönderilmemiş yanıt"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "Gelen kutunuzda gönderilmemiş bir yanıt var. Durumu değiştirmeden önce göndermek ister misiniz?"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "Gönder ve durumu değiştir"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "Panoya kopyalanamadı"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "Tüm sohbeti panoya kopyala (LLM uyumlu format)"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "Sohbeti kopyala"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
-msgstr "Staff"
+msgstr "Personel"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:316
 msgid "Staff Reply"
-msgstr "Staff Reply"
+msgstr "Personel Yanıtı"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:325
 msgid "Type your reply..."
-msgstr "Type your reply..."
+msgstr "Cevabınızı yazın..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:337
 msgid "Send Reply"
-msgstr "Send Reply"
+msgstr "Yanıt Gönder"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:342
 msgid "This ticket is closed."
-msgstr "This ticket is closed."
+msgstr "Bu bilet kapatılmıştır."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "Bileti Yeniden Aç"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
-msgstr "User feedback"
+msgstr "Kullanıcı geri bildirimleri"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:377
 msgid "Details"
-msgstr "Details"
+msgstr "Ayrıntılar"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:399
 msgid "Assigned"
-msgstr "Assigned"
+msgstr "Atandı"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:408
 msgid "Change Status"
-msgstr "Change Status"
+msgstr "Durumu Değiştir"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:423
 msgid "Assignment"
-msgstr "Assignment"
+msgstr "Ödev"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:432
 msgid "Unassign"
-msgstr "Unassign"
+msgstr "Atamayı Kaldır"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
-msgstr "Not assigned"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "AI Characters — Browse & Chat"
-#~ msgstr "AI Characters — Browse & Chat"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Browse AI characters with unique personalities and start chatting."
-#~ msgstr "Browse AI characters with unique personalities and start chatting."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Hide"
-#~ msgstr "Hide"
+msgstr "Atanmamış"

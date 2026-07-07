@@ -10,7 +10,7 @@ noindex: false
 
 ### Was ist %SITE_NAME%?
 
-%SITE_NAME% ist ein quelloffenes, KI-agentengesteuertes CMS und SaaS-Starter, basierend auf dem T3 Stack (Next.js, tRPC, Drizzle ORM, Better Auth). Es bietet ein vollständiges Content-Management-System mit SaaS-Grundbausteinen wie Organisationen, Abrechnung und Echtzeit-Benachrichtigungen.
+%SITE_NAME% ist ein quelloffenes, agent-natives CMS und SaaS-Starter, basierend auf dem T3 Stack (Next.js, tRPC, Drizzle ORM, Better Auth). Es bietet ein vollständiges Content-Management-System mit SaaS-Grundbausteinen wie Organisationen, Abrechnung und Echtzeit-Benachrichtigungen.
 
 ### Für wen ist %SITE_NAME% gedacht?
 

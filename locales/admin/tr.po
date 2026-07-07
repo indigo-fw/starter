@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.452Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.452Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.925Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.925Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: tr\n"
 "Language: tr\n"
@@ -11,6 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:49
 msgid "Activity Log"
@@ -213,7 +214,7 @@ msgstr "Ad"
 #: src/components/admin/ShowcaseForm.tsx:341
 #: src/components/admin/TermForm.tsx:248
 msgid "Slug"
-msgstr "Slug"
+msgstr "Sümüklü böcek"
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:120
 #: src/app/dashboard/(panel)/projects/page.tsx:236
@@ -656,12 +657,6 @@ msgstr "Yükleme başarısız"
 msgid "Failed to upload {name}"
 msgstr "{name} yüklenemedi"
 
-#: src/app/dashboard/(panel)/media/page.tsx:113
-msgid "1 file uploaded"
-msgid_plural "{count} files uploaded"
-msgstr[0] "1 file uploaded"
-msgstr[1] "{count} files uploaded"
-
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
 msgid "Media Library"
@@ -1034,7 +1029,7 @@ msgstr "\"{name}\" silinsin mi? Bu işlem geri alınamaz."
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
-msgstr "Affiliates"
+msgstr "Ortaklar"
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:37
 #: src/app/dashboard/(panel)/settings/support/page.tsx:87
@@ -1350,7 +1345,7 @@ msgstr "Karşılama Mesajı"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:200
 msgid "Avatar URL"
-msgstr "Avatar URL"
+msgstr "Avatar URL'si"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
 msgid "Character Traits"
@@ -1441,7 +1436,7 @@ msgstr "Özel Negatif Prompt"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:246
 msgid "LoRA Config"
-msgstr "LoRA Config"
+msgstr "LoRA Yapılandırması"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:252
 msgid "Active (visible to users)"
@@ -1644,7 +1639,7 @@ msgstr "Temel URL (OpenAI için boş bırakın)"
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:123
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
 msgid "API Key"
-msgstr "API Key"
+msgstr "API Anahtarı"
 
 #: src/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
 msgid "Leave empty to keep current"
@@ -1820,13 +1815,8 @@ msgstr "İçerik Türleri"
 msgid "Choices (one per line)"
 msgstr "Seçenekler (her satıra bir tane)"
 
-#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
-msgid "Option A
-Option B
-Option C"
-msgstr "Option A
-Option B
-Option C"
+msgid "Option "
+msgstr "Seçenek "
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
@@ -2160,7 +2150,7 @@ msgstr "Bu durumda iş yok."
 
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:172
 msgid "ID"
-msgstr "ID"
+msgstr "Kimlik"
 
 #: src/app/dashboard/(panel)/settings/job-queue/page.tsx:177
 msgid "Error"
@@ -2177,12 +2167,6 @@ msgstr "\"{key}\" varsayılana sıfırlandı"
 #: src/app/dashboard/(panel)/settings/page.tsx:60
 msgid "GA4 connection successful"
 msgstr "GA4 bağlantısı başarılı"
-
-#: src/app/dashboard/(panel)/settings/page.tsx:67
-msgid "Created 1 SEO override page"
-msgid_plural "Created {count} SEO override pages"
-msgstr[0] "Created 1 SEO override page"
-msgstr[1] "Created {count} SEO override pages"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:201
 msgid "Settings"
@@ -2346,31 +2330,31 @@ msgstr "Biletlere dön"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "Gönderilmemiş yanıt"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "Gelen kutunuzda gönderilmemiş bir yanıt var. Durumu değiştirmeden önce göndermek ister misiniz?"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "Gönder ve durumu değiştir"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "Panoya kopyalanamadı"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "Tüm sohbeti panoya kopyala (LLM uyumlu format)"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "Kopyalandı!"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "Sohbeti kopyala"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
@@ -2399,7 +2383,7 @@ msgstr "Bu bilet kapatılmış."
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "Bileti Yeniden Aç"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
@@ -2476,67 +2460,67 @@ msgstr "\"{name}\" kalıcı olarak silinecek."
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:41
 msgid "Product created"
-msgstr "Product created"
+msgstr "Ürün oluşturuldu"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:50
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:296
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "Ad alanı zorunludur"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:83
 msgid "New Product"
-msgstr "New Product"
+msgstr "Yeni Ürün"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:98
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:390
 msgid "Product Details"
-msgstr "Product Details"
+msgstr "Ürün Detayları"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:107
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:404
 msgid "Simple"
-msgstr "Simple"
+msgstr "Basit"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:108
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:405
 msgid "Variable"
-msgstr "Variable"
+msgstr "Değişken"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:109
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:406
 msgid "Digital"
-msgstr "Digital"
+msgstr "Dijital"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:110
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:407
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "Abonelik"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:114
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:419
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "Kısa Açıklama"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:126
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:430
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "Fiyatlandırma"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:129
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:433
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:597
 msgid "Price (EUR)"
-msgstr "Price (EUR)"
+msgstr "Fiyat (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:139
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:443
 msgid "Compare Price (EUR)"
-msgstr "Compare Price (EUR)"
+msgstr "Fiyat Karşılaştırması (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:146
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:450
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "İndirimli ürünlerin orijinal fiyatı"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:454
@@ -2548,122 +2532,122 @@ msgstr "SKU"
 #: src/app/dashboard/(panel)/store/new/page.tsx:154
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:458
 msgid "Tax Class"
-msgstr "Tax Class"
+msgstr "Vergi Sınıfı"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:460
 msgid "Standard"
-msgstr "Standard"
+msgstr "Standart"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:157
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:461
 msgid "Reduced"
-msgstr "Reduced"
+msgstr "İndirimli"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:158
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:462
 msgid "Zero"
-msgstr "Zero"
+msgstr "Sıfır"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:469
 msgid "Inventory & Shipping"
-msgstr "Inventory & Shipping"
+msgstr "Stok ve Nakliye"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:171
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:474
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "Stok Takibi"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:175
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:478
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "Stok Miktarı"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:482
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "Ağırlık (gram)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:185
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:488
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "Kargo gerektirir"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:193
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:495
 msgid "Media & SEO"
-msgstr "Media & SEO"
+msgstr "Medya ve SEO"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:196
 msgid "Featured Image URL"
-msgstr "Featured Image URL"
+msgstr "Öne Çıkan Resim URL'si"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:200
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:505
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "Meta Başlığı"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:204
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:509
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "Meta Açıklama"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:213
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:517
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "Dijital Ürün"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:216
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:520
 msgid "File URL"
-msgstr "File URL"
+msgstr "Dosya URL'si"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:220
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:525
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "İndirme Sınırı"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:526
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "Sınırsız"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:82
 msgid "Orders"
-msgstr "Orders"
+msgstr "Siparişler"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:113
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "Sipariş numarasına göre arama yap..."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:156
 msgid "No orders"
-msgstr "No orders"
+msgstr "Sipariş yok"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "Aramanızla eşleşen sipariş bulunamadı."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "Henüz sipariş yok."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:165
 msgid "Order #"
-msgstr "Order #"
+msgstr "Sipariş No."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:199
 msgid "View"
-msgstr "View"
+msgstr "Görüntüle"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:119
 msgid "Order not found."
-msgstr "Order not found."
+msgstr "Sipariş bulunamadı."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:138
 msgid "Select a status"
-msgstr "Select a status"
+msgstr "Bir durum seçin"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:160
 #: src/components/admin/CategoryForm.tsx:471
@@ -2673,198 +2657,198 @@ msgstr "Sıra"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:174
 msgid "Order Information"
-msgstr "Order Information"
+msgstr "Sipariş Bilgileri"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:177
 msgid "Order Number"
-msgstr "Order Number"
+msgstr "Sipariş Numarası"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:185
 msgid "Payment"
-msgstr "Payment"
+msgstr "Ödeme"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:192
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "Fatura"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:198
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "Ara toplam"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:202
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "Kargo"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:206
 msgid "Tax"
-msgstr "Tax"
+msgstr "Vergi"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:216
 msgid "Discount"
-msgstr "Discount"
+msgstr "İndirim"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:222
 msgid "Tracking"
-msgstr "Tracking"
+msgstr "Takip"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:231
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:268
 msgid "Update Status"
-msgstr "Update Status"
+msgstr "Güncelleme Durumu"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:234
 msgid "New Status"
-msgstr "New Status"
+msgstr "Yeni Durum"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:236
 msgid "Select status..."
-msgstr "Select status..."
+msgstr "Durumu seçin..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:237
 msgid "Processing"
-msgstr "Processing"
+msgstr "İşleme"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:238
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "Gönderildi"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:239
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "Teslim edildi"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:240
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "İptal edildi"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:241
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "Geri Ödenen"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:245
 msgid "Note (optional)"
-msgstr "Note (optional)"
+msgstr "Not (isteğe bağlı)"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:246
 msgid "Internal note..."
-msgstr "Internal note..."
+msgstr "İç not..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:251
 msgid "Tracking Number"
-msgstr "Tracking Number"
+msgstr "Takip Numarası"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:255
 msgid "Tracking URL"
-msgstr "Tracking URL"
+msgstr "İzleme URL'si"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:276
 msgid "Order Items"
-msgstr "Order Items"
+msgstr "Sipariş Ürünleri"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:281
 msgid "Product"
-msgstr "Product"
+msgstr "Ürün"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:282
 msgid "Variant"
-msgstr "Variant"
+msgstr "Varyant"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:283
 msgid "Qty"
-msgstr "Qty"
+msgstr "Adet"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:284
 msgid "Unit Price"
-msgstr "Unit Price"
+msgstr "Birim Fiyatı"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:307
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "Zaman Çizelgesi"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:323
 msgid "by"
-msgstr "by"
+msgstr "yazan"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:340
 msgid "Admin Note"
-msgstr "Admin Note"
+msgstr "Yönetici Notu"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:348
 msgid "Customer Note"
-msgstr "Customer Note"
+msgstr "Müşteri Notu"
 
 #: src/app/dashboard/(panel)/store/page.tsx:69
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:217
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "Ürün silindi"
 
 #: src/app/dashboard/(panel)/store/page.tsx:88
 msgid "Store Products"
-msgstr "Store Products"
+msgstr "Ürünleri Depolama"
 
 #: src/app/dashboard/(panel)/store/page.tsx:91
 #: src/app/dashboard/(panel)/store/page.tsx:165
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "Ürün Ekle"
 
 #: src/app/dashboard/(panel)/store/page.tsx:123
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "Ürünleri ara..."
 
 #: src/app/dashboard/(panel)/store/page.tsx:158
 msgid "No products"
-msgstr "No products"
+msgstr "Ürün yok"
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "Aramanızla eşleşen ürün bulunamadı."
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "Başlamak için ilk ürününüzü oluşturun."
 
 #: src/app/dashboard/(panel)/store/page.tsx:176
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:549
 msgid "Price"
-msgstr "Price"
+msgstr "Fiyat"
 
 #: src/app/dashboard/(panel)/store/page.tsx:178
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:550
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Stock"
-msgstr "Stock"
+msgstr "Stok"
 
 #: src/app/dashboard/(panel)/store/page.tsx:279
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:630
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "Ürünü silmek ister misiniz?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:209
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "Ürün kaydedildi"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:225
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "Varyant eklendi"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:235
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "Varyant silindi"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:297
 msgid "Price cannot be negative"
-msgstr "Price cannot be negative"
+msgstr "Fiyat negatif olamaz"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:298
 msgid "File URL is required for digital products"
-msgstr "File URL is required for digital products"
+msgstr "Dijital ürünler için dosya URL’si gereklidir"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:329
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "Varyant adı zorunludur"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:354
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "Ürünü Düzenle"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:498
 #: src/components/admin/PortfolioForm.tsx:531
@@ -2873,43 +2857,43 @@ msgstr "Öne Çıkan Görsel"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:534
 msgid "Variants"
-msgstr "Variants"
+msgstr "Varyantlar"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:538
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "Varyant Ekle"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:579
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "Henüz varyant yok. Farklı seçenekler sunmak için varyantlar ekleyin."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:586
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "Yeni Varyant"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:590
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "örn. Büyük / Kırmızı"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:611
 msgid "Weight (g)"
-msgstr "Weight (g)"
+msgstr "Ağırlık (g)"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:619
 msgid "Add"
-msgstr "Add"
+msgstr "Ekle"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:641
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "Varyantı silmek mi?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:642
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "Bu varyant kalıcı olarak kaldırılacaktır."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:677
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "Ürün bulunamadı."
 
 #: src/app/dashboard/(panel)/users/page.tsx:80
 msgid "Role updated"
@@ -3045,7 +3029,7 @@ msgstr "IP Adresi"
 
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:351
 msgid "User Agent"
-msgstr "User Agent"
+msgstr "Kullanıcı Aracısı"
 
 #: src/app/dashboard/(panel)/users/[id]/page.tsx:400
 msgid "Audit Trail"
@@ -3202,12 +3186,6 @@ msgstr "Kalıcı olarak silindi"
 msgid "Duplicated"
 msgstr "Çoğaltıldı"
 
-#: src/components/admin/CmsListView.tsx:366
-msgid "Exported 1 item"
-msgid_plural "Exported {count} items"
-msgstr[0] "Exported 1 item"
-msgstr[1] "Exported {count} items"
-
 #: src/components/admin/CmsListView.tsx:569
 msgid "Toggle columns"
 msgstr "Sütunları aç/kapat"
@@ -3291,18 +3269,6 @@ msgstr "\"{title}\" kalıcı olarak silinecek. Bu işlem geri alınamaz."
 #: src/components/admin/CmsListView.tsx:989
 msgid "\"{title}\" will be moved to trash."
 msgstr "\"{title}\" çöp kutusuna taşınacak."
-
-#: src/components/admin/CmsListView.tsx:1001
-msgid "1 item will be moved to trash."
-msgid_plural "{count} items will be moved to trash."
-msgstr[0] "1 item will be moved to trash."
-msgstr[1] "{count} items will be moved to trash."
-
-#: src/components/admin/CmsListView.tsx:1018
-msgid "Created 1 SEO override"
-msgid_plural "Created {count} SEO overrides"
-msgstr[0] "Created 1 SEO override"
-msgstr[1] "Created {count} SEO overrides"
 
 #: src/components/admin/CmsListView.tsx:1022
 msgid "All SEO overrides already exist"
@@ -3572,7 +3538,3 @@ msgstr "Son Etkinlik"
 #: src/config/dashboard-widgets.tsx:44
 msgid "View all"
 msgstr "Tümünü görüntüle"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Option A\nOption B\nOption C"
-#~ msgstr "Seçenek A\nSeçenek B\nSeçenek C"

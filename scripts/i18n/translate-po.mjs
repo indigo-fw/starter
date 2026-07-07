@@ -180,9 +180,15 @@ async function translateBatch(texts, targetLang) {
 /**
  * Escape ICU placeholders before sending to DeepL, restore after.
  * Converts {name} → <x>{name}</x> so DeepL preserves them.
+ * XML-escapes &, <, > first — tag_handling: 'xml' rejects the whole batch
+ * on bare ampersands/angle brackets (e.g. "Send & change status").
  */
 function escapeICU(text) {
-  return text.replace(/\{([^}]+)\}/g, '<x>{$1}</x>');
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\{([^}]+)\}/g, '<x>{$1}</x>');
 }
 
 function unescapeICU(text) {
@@ -217,6 +223,16 @@ async function processPoFile(filePath, lang) {
     return untranslated.length;
   }
 
+  // Apply a raw DeepL result to an entry (unescape + PO quoting)
+  const applyResult = (entry, raw) => {
+    entry.msgstr = unescapeICU(raw)
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
+      .replace(/\\"/g, '"')
+      .replace(/"/g, '\\"');
+  };
+
   // Translate in batches
   let translated = 0;
   for (let i = 0; i < untranslated.length; i += BATCH_SIZE) {
@@ -227,13 +243,7 @@ async function processPoFile(filePath, lang) {
       const results = await translateBatch(texts, lang);
 
       for (let j = 0; j < batch.length; j++) {
-        // Escape quotes for PO format
-        batch[j].msgstr = unescapeICU(results[j])
-          .replace(/&amp;/g, '&')
-          .replace(/&lt;/g, '<')
-          .replace(/&gt;/g, '>')
-          .replace(/\\"/g, '"')
-          .replace(/"/g, '\\"');
+        applyResult(batch[j], results[j]);
         translated++;
       }
 
@@ -241,8 +251,19 @@ async function processPoFile(filePath, lang) {
         `\r    Translated ${translated}/${untranslated.length}...`
       );
     } catch (err) {
-      console.error(`\n    Error translating batch: ${err.message}`);
-      break;
+      // One bad entry fails the whole batch — retry entries individually so a
+      // single reject only skips itself, not the rest of the file.
+      console.error(`\n    Batch failed (${err.message}) — retrying entries individually`);
+      for (const entry of batch) {
+        try {
+          const [single] = await translateBatch([escapeICU(entry.msgid)], lang);
+          applyResult(entry, single);
+          translated++;
+        } catch (singleErr) {
+          console.error(`    Skipped "${entry.msgid.slice(0, 60)}": ${singleErr.message}`);
+        }
+        await new Promise((r) => setTimeout(r, DELAY_MS));
+      }
     }
 
     if (i + BATCH_SIZE < untranslated.length) {

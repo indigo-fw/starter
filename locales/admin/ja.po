@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.503Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.503Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.956Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.956Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ja\n"
 "Language: ja\n"
@@ -11,6 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:49
 msgid "Activity Log"
@@ -655,12 +656,6 @@ msgstr "アップロードに失敗しました"
 #: src/app/dashboard/(panel)/media/page.tsx:108
 msgid "Failed to upload {name}"
 msgstr "{name}のアップロードに失敗しました"
-
-#: src/app/dashboard/(panel)/media/page.tsx:113
-msgid "1 file uploaded"
-msgid_plural "{count} files uploaded"
-msgstr[0] "1 file uploaded"
-msgstr[1] "{count} files uploaded"
 
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
@@ -1820,13 +1815,8 @@ msgstr "コンテンツタイプ"
 msgid "Choices (one per line)"
 msgstr "選択肢（1行に1つ）"
 
-#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
-msgid "Option A
-Option B
-Option C"
-msgstr "Option A
-Option B
-Option C"
+msgid "Option "
+msgstr "オプション "
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
@@ -2178,12 +2168,6 @@ msgstr "\"{key}\"をデフォルトにリセットしました"
 msgid "GA4 connection successful"
 msgstr "GA4の接続に成功しました"
 
-#: src/app/dashboard/(panel)/settings/page.tsx:67
-msgid "Created 1 SEO override page"
-msgid_plural "Created {count} SEO override pages"
-msgstr[0] "Created 1 SEO override page"
-msgstr[1] "Created {count} SEO override pages"
-
 #: src/app/dashboard/(panel)/settings/page.tsx:201
 msgid "Settings"
 msgstr "設定"
@@ -2346,31 +2330,31 @@ msgstr "チケット一覧に戻る"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "未送信の返信"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "受信トレイに未送信の返信があります。ステータスを変更する前に送信しますか？"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "送信・ステータスの変更"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "クリップボードへのコピーに失敗しました"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "会話全文をクリップボードにコピーする（LLM対応形式）"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "コピーしました！"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "会話をコピーする"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
@@ -2399,7 +2383,7 @@ msgstr "このチケットはクローズ済みです。"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "チケットを再開する"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
@@ -2476,67 +2460,67 @@ msgstr "\"{name}\"が完全に削除されます。"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:41
 msgid "Product created"
-msgstr "Product created"
+msgstr "製品が作成されました"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:50
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:296
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "「名前」の入力は必須です"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:83
 msgid "New Product"
-msgstr "New Product"
+msgstr "新製品"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:98
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:390
 msgid "Product Details"
-msgstr "Product Details"
+msgstr "商品詳細"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:107
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:404
 msgid "Simple"
-msgstr "Simple"
+msgstr "シンプル"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:108
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:405
 msgid "Variable"
-msgstr "Variable"
+msgstr "変数"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:109
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:406
 msgid "Digital"
-msgstr "Digital"
+msgstr "デジタル"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:110
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:407
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "定期購読"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:114
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:419
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "概要"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:126
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:430
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "価格"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:129
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:433
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:597
 msgid "Price (EUR)"
-msgstr "Price (EUR)"
+msgstr "価格（ユーロ）"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:139
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:443
 msgid "Compare Price (EUR)"
-msgstr "Compare Price (EUR)"
+msgstr "価格を比較（EUR）"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:146
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:450
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "割引表示の元の価格"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:454
@@ -2548,122 +2532,122 @@ msgstr "SKU"
 #: src/app/dashboard/(panel)/store/new/page.tsx:154
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:458
 msgid "Tax Class"
-msgstr "Tax Class"
+msgstr "課税区分"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:460
 msgid "Standard"
-msgstr "Standard"
+msgstr "標準"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:157
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:461
 msgid "Reduced"
-msgstr "Reduced"
+msgstr "値下げ"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:158
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:462
 msgid "Zero"
-msgstr "Zero"
+msgstr "ゼロ"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:469
 msgid "Inventory & Shipping"
-msgstr "Inventory & Shipping"
+msgstr "在庫・発送"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:171
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:474
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "在庫の追跡"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:175
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:478
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "在庫数"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:482
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "重量（グラム）"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:185
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:488
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "配送が必要です"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:193
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:495
 msgid "Media & SEO"
-msgstr "Media & SEO"
+msgstr "メディアとSEO"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:196
 msgid "Featured Image URL"
-msgstr "Featured Image URL"
+msgstr "注目の画像のURL"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:200
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:505
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "メタタイトル"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:204
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:509
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "メタディスクリプション"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:213
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:517
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "デジタル製品"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:216
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:520
 msgid "File URL"
-msgstr "File URL"
+msgstr "ファイルのURL"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:220
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:525
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "ダウンロード制限"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:526
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "無制限"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:82
 msgid "Orders"
-msgstr "Orders"
+msgstr "注文"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:113
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "注文番号で検索..."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:156
 msgid "No orders"
-msgstr "No orders"
+msgstr "注文はありません"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "検索条件に一致する注文はありません。"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "まだ注文はありません。"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:165
 msgid "Order #"
-msgstr "Order #"
+msgstr "注文番号 #"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:199
 msgid "View"
-msgstr "View"
+msgstr "表示"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:119
 msgid "Order not found."
-msgstr "Order not found."
+msgstr "注文が見つかりません。"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:138
 msgid "Select a status"
-msgstr "Select a status"
+msgstr "ステータスを選択してください"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:160
 #: src/components/admin/CategoryForm.tsx:471
@@ -2673,198 +2657,198 @@ msgstr "並び順"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:174
 msgid "Order Information"
-msgstr "Order Information"
+msgstr "ご注文に関する情報"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:177
 msgid "Order Number"
-msgstr "Order Number"
+msgstr "注文番号"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:185
 msgid "Payment"
-msgstr "Payment"
+msgstr "お支払い"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:192
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "請求書"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:198
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "小計"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:202
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "配送"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:206
 msgid "Tax"
-msgstr "Tax"
+msgstr "税金"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:216
 msgid "Discount"
-msgstr "Discount"
+msgstr "割引"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:222
 msgid "Tracking"
-msgstr "Tracking"
+msgstr "追跡"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:231
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:268
 msgid "Update Status"
-msgstr "Update Status"
+msgstr "ステータスの更新"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:234
 msgid "New Status"
-msgstr "New Status"
+msgstr "新しいステータス"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:236
 msgid "Select status..."
-msgstr "Select status..."
+msgstr "ステータスを選択してください..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:237
 msgid "Processing"
-msgstr "Processing"
+msgstr "処理"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:238
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "発送済み"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:239
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "納品済み"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:240
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "中止"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:241
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "返金済み"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:245
 msgid "Note (optional)"
-msgstr "Note (optional)"
+msgstr "注（任意）"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:246
 msgid "Internal note..."
-msgstr "Internal note..."
+msgstr "内部メモ……"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:251
 msgid "Tracking Number"
-msgstr "Tracking Number"
+msgstr "追跡番号"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:255
 msgid "Tracking URL"
-msgstr "Tracking URL"
+msgstr "トラッキングURL"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:276
 msgid "Order Items"
-msgstr "Order Items"
+msgstr "注文商品"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:281
 msgid "Product"
-msgstr "Product"
+msgstr "製品"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:282
 msgid "Variant"
-msgstr "Variant"
+msgstr "バリアント"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:283
 msgid "Qty"
-msgstr "Qty"
+msgstr "数量"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:284
 msgid "Unit Price"
-msgstr "Unit Price"
+msgstr "単価"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:307
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "年表"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:323
 msgid "by"
-msgstr "by"
+msgstr "著者："
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:340
 msgid "Admin Note"
-msgstr "Admin Note"
+msgstr "管理者注記"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:348
 msgid "Customer Note"
-msgstr "Customer Note"
+msgstr "お客様へのご案内"
 
 #: src/app/dashboard/(panel)/store/page.tsx:69
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:217
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "商品が削除されました"
 
 #: src/app/dashboard/(panel)/store/page.tsx:88
 msgid "Store Products"
-msgstr "Store Products"
+msgstr "商品の保管"
 
 #: src/app/dashboard/(panel)/store/page.tsx:91
 #: src/app/dashboard/(panel)/store/page.tsx:165
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "商品を追加"
 
 #: src/app/dashboard/(panel)/store/page.tsx:123
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "商品を検索..."
 
 #: src/app/dashboard/(panel)/store/page.tsx:158
 msgid "No products"
-msgstr "No products"
+msgstr "商品はありません"
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "検索条件に一致する商品はありません。"
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "まずは最初の製品を作成して、始めましょう。"
 
 #: src/app/dashboard/(panel)/store/page.tsx:176
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:549
 msgid "Price"
-msgstr "Price"
+msgstr "価格"
 
 #: src/app/dashboard/(panel)/store/page.tsx:178
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:550
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Stock"
-msgstr "Stock"
+msgstr "在庫"
 
 #: src/app/dashboard/(panel)/store/page.tsx:279
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:630
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "商品を削除しますか？"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:209
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "商品が保存されました"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:225
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "バリアントが追加されました"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:235
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "バリアントが削除されました"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:297
 msgid "Price cannot be negative"
-msgstr "Price cannot be negative"
+msgstr "価格は負の値になることはできません"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:298
 msgid "File URL is required for digital products"
-msgstr "File URL is required for digital products"
+msgstr "デジタル商品にはファイルURLの入力が必要です"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:329
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "バリアント名は必須です"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:354
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "商品を編集"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:498
 #: src/components/admin/PortfolioForm.tsx:531
@@ -2873,43 +2857,43 @@ msgstr "アイキャッチ画像"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:534
 msgid "Variants"
-msgstr "Variants"
+msgstr "バリエーション"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:538
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "バリエーションを追加"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:579
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "まだバリエーションはありません。さまざまなオプションを提供するために、バリエーションを追加してください。"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:586
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "新しい亜種"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:590
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "例：大／赤"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:611
 msgid "Weight (g)"
-msgstr "Weight (g)"
+msgstr "重量（g）"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:619
 msgid "Add"
-msgstr "Add"
+msgstr "追加"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:641
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "バリアントを削除しますか？"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:642
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "このバリエーションは永久に削除されます。"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:677
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "該当する商品が見つかりませんでした。"
 
 #: src/app/dashboard/(panel)/users/page.tsx:80
 msgid "Role updated"
@@ -3202,12 +3186,6 @@ msgstr "完全に削除しました"
 msgid "Duplicated"
 msgstr "複製しました"
 
-#: src/components/admin/CmsListView.tsx:366
-msgid "Exported 1 item"
-msgid_plural "Exported {count} items"
-msgstr[0] "Exported 1 item"
-msgstr[1] "Exported {count} items"
-
 #: src/components/admin/CmsListView.tsx:569
 msgid "Toggle columns"
 msgstr "カラムの切り替え"
@@ -3291,18 +3269,6 @@ msgstr "\"{title}\"が完全に削除されます。この操作は取り消せ�
 #: src/components/admin/CmsListView.tsx:989
 msgid "\"{title}\" will be moved to trash."
 msgstr "\"{title}\"がゴミ箱に移動されます。"
-
-#: src/components/admin/CmsListView.tsx:1001
-msgid "1 item will be moved to trash."
-msgid_plural "{count} items will be moved to trash."
-msgstr[0] "1 item will be moved to trash."
-msgstr[1] "{count} items will be moved to trash."
-
-#: src/components/admin/CmsListView.tsx:1018
-msgid "Created 1 SEO override"
-msgid_plural "Created {count} SEO overrides"
-msgstr[0] "Created 1 SEO override"
-msgstr[1] "Created {count} SEO overrides"
 
 #: src/components/admin/CmsListView.tsx:1022
 msgid "All SEO overrides already exist"
@@ -3572,7 +3538,3 @@ msgstr "最近のアクティビティ"
 #: src/config/dashboard-widgets.tsx:44
 msgid "View all"
 msgstr "すべて表示"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Option A\nOption B\nOption C"
-#~ msgstr "選択肢A\n選択肢B\n選択肢C"

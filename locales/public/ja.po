@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.530Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.530Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.974Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.974Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ja\n"
 "Language: ja\n"
@@ -12,59 +12,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+
 #: src/app/(public)/account/orders/[id]/page.tsx:19
 msgid "Order Details"
-msgstr "Order Details"
+msgstr "注文の詳細"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "Welcome"
-msgstr "Welcome"
+msgstr "ようこそ"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "there"
-msgstr "there"
+msgstr "あそこ"
 
 #: src/app/(public)/account/page.tsx:31
 msgid "Account Overview"
-msgstr "Account Overview"
+msgstr "アカウントの概要"
 
 #: src/app/(public)/account/page.tsx:51
 msgid "Profile Settings"
-msgstr "Profile Settings"
+msgstr "プロフィール設定"
 
 #: src/app/(public)/account/page.tsx:52
 msgid "Update your name and profile information."
-msgstr "Update your name and profile information."
+msgstr "お名前やプロフィール情報を更新してください。"
 
 #: src/app/(public)/account/page.tsx:55
 #: src/components/public/AccountNav.tsx:14
 #: src/components/public/UserMenu.tsx:112
 msgid "Security"
-msgstr "Security"
+msgstr "セキュリティ"
 
 #: src/app/(public)/account/page.tsx:56
 msgid "Change your password and manage sessions."
-msgstr "Change your password and manage sessions."
+msgstr "パスワードの変更やセッションの管理を行ってください。"
 
 #: src/app/(public)/account/page.tsx:59
 #: src/components/public/AccountNav.tsx:15
 #: src/components/public/UserMenu.tsx:120
 msgid "Billing"
-msgstr "Billing"
+msgstr "請求"
 
 #: src/app/(public)/account/page.tsx:60
 msgid "Manage your subscription and payment methods."
-msgstr "Manage your subscription and payment methods."
+msgstr "定期購読と支払い方法を管理してください。"
 
 #: src/app/(public)/account/page.tsx:63
 #: src/components/public/AccountNav.tsx:19
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:348
 msgid "Support"
-msgstr "Support"
+msgstr "サポート"
 
 #: src/app/(public)/account/page.tsx:64
 msgid "View your support tickets or create a new one."
-msgstr "View your support tickets or create a new one."
+msgstr "サポートチケットを確認するか、新しいチケットを作成してください。"
 
 #: src/app/(public)/account/support/page.tsx:14
 #: src/app/(public)/account/support/[id]/page.tsx:33
@@ -72,7 +73,7 @@ msgstr "View your support tickets or create a new one."
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:33
 msgctxt "General"
 msgid "Open"
-msgstr "Open"
+msgstr "開く"
 
 #: src/app/(public)/account/support/page.tsx:15
 #: src/app/(public)/account/support/[id]/page.tsx:34
@@ -80,7 +81,7 @@ msgstr "Open"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:34
 msgctxt "General"
 msgid "Awaiting You"
-msgstr "Awaiting You"
+msgstr "あなたをお待ちしています"
 
 #: src/app/(public)/account/support/page.tsx:16
 #: src/app/(public)/account/support/[id]/page.tsx:35
@@ -88,7 +89,7 @@ msgstr "Awaiting You"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:35
 msgctxt "General"
 msgid "Awaiting Staff"
-msgstr "Awaiting Staff"
+msgstr "スタッフを募集しています"
 
 #: src/app/(public)/account/support/page.tsx:17
 #: src/app/(public)/account/support/[id]/page.tsx:36
@@ -96,7 +97,7 @@ msgstr "Awaiting Staff"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:36
 msgctxt "General"
 msgid "Resolved"
-msgstr "Resolved"
+msgstr "解決済み"
 
 #: src/app/(public)/account/support/page.tsx:18
 #: src/app/(public)/account/support/[id]/page.tsx:37
@@ -104,41 +105,41 @@ msgstr "Resolved"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:37
 msgctxt "General"
 msgid "Closed"
-msgstr "Closed"
+msgstr "終了"
 
 #: src/app/(public)/account/support/page.tsx:30
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:30
 msgctxt "General"
 msgid "Low"
-msgstr "Low"
+msgstr "低"
 
 #: src/app/(public)/account/support/page.tsx:31
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:31
 msgctxt "General"
 msgid "Normal"
-msgstr "Normal"
+msgstr "通常"
 
 #: src/app/(public)/account/support/page.tsx:32
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:32
 msgctxt "General"
 msgid "High"
-msgstr "High"
+msgstr "高い"
 
 #: src/app/(public)/account/support/page.tsx:33
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:33
 msgctxt "General"
 msgid "Urgent"
-msgstr "Urgent"
+msgstr "至急"
 
 #: src/app/(public)/blog/page.tsx:28
 #: src/app/(public)/blog/page.tsx:70
-#: src/app/(public)/layout.tsx:94
-#: src/app/(public)/layout.tsx:159
-#: src/app/(public)/layout.tsx:242
+#: src/app/(public)/layout.tsx:93
+#: src/app/(public)/layout.tsx:158
+#: src/app/(public)/layout.tsx:244
 #: src/app/(showcase)/layout.tsx:53
 #: src/app/(showcase)/layout.tsx:75
 msgid "Blog"
-msgstr "Blog"
+msgstr "ブログ"
 
 #: src/app/(public)/blog/page.tsx:31
 #: src/core/components/dashboard/GA4Widget.tsx:296
@@ -153,11 +154,11 @@ msgstr "Blog"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:178
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:314
 msgid "Page"
-msgstr "Page"
+msgstr "ページ"
 
 #: src/app/(public)/blog/page.tsx:36
 msgid "Latest blog posts"
-msgstr "Latest blog posts"
+msgstr "最新のブログ記事"
 
 #: src/app/(public)/blog/page.tsx:94
 #: src/app/(public)/store/page.tsx:170
@@ -172,13 +173,13 @@ msgstr "Latest blog posts"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:175
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:311
 msgid "Previous"
-msgstr "Previous"
+msgstr "前へ"
 
 #: src/app/(public)/blog/page.tsx:98
 #: src/app/(public)/store/page.tsx:174
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:108
 msgid "Page {page} of {totalPages}"
-msgstr "Page {page} of {totalPages}"
+msgstr "{totalPages} の{page}ページ"
 
 #: src/app/(public)/blog/page.tsx:105
 #: src/app/(public)/store/page.tsx:186
@@ -193,191 +194,192 @@ msgstr "Page {page} of {totalPages}"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:185
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:321
 msgid "Next"
-msgstr "Next"
+msgstr "次へ"
 
 #: src/app/(public)/blog/page.tsx:112
 msgid "No blog posts yet."
-msgstr "No blog posts yet."
+msgstr "まだブログ記事はありません。"
 
 #: src/app/(public)/cart/page.tsx:13
 msgid "Cart"
-msgstr "Cart"
+msgstr "カート"
 
 #: src/app/(public)/cart/page.tsx:14
 msgid "Your shopping cart"
-msgstr "Your shopping cart"
+msgstr "ショッピングカート"
 
 #: src/app/(public)/cart/page.tsx:23
 msgid "Shopping Cart"
-msgstr "Shopping Cart"
+msgstr "ショッピングカート"
 
 #: src/app/(public)/characters/page.tsx:13
 msgid "AI Characters"
-msgstr "AI Characters"
+msgstr "AIキャラクター"
 
 #: src/app/(public)/characters/page.tsx:14
 msgid "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
-msgstr "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
+msgstr "個性豊かなAIキャラクターを閲覧しましょう。あなたにぴったりの相棒を見つけて、すぐにチャットを始めましょう。"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:52
 msgid "This field is required"
-msgstr "This field is required"
+msgstr "この欄は必須です"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:86
 msgid "First Name"
-msgstr "First Name"
+msgstr "名"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:91
 msgid "Last Name"
-msgstr "Last Name"
+msgstr "姓"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:97
 msgid "Company"
-msgstr "Company"
+msgstr "会社"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:101
 msgid "Address"
-msgstr "Address"
+msgstr "住所"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:106
 msgid "Address line 2"
-msgstr "Address line 2"
+msgstr "宛先欄 2"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:111
 msgid "City"
-msgstr "City"
+msgstr "都市"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:116
 msgid "Postal Code"
-msgstr "Postal Code"
+msgstr "郵便番号"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:123
 msgid "Country"
-msgstr "Country"
+msgstr "国"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:129
 msgid "Phone"
-msgstr "Phone"
+msgstr "電話"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:213
 msgid "Shipping Address"
-msgstr "Shipping Address"
+msgstr "配送先住所"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:220
 msgid "Shipping Method"
-msgstr "Shipping Method"
+msgstr "配送方法"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:233
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "days"
-msgstr "days"
+msgstr "日"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:236
 #: src/app/(public)/checkout/CheckoutForm.tsx:273
 #: src/app/(public)/page.tsx:313
 msgid "Free"
-msgstr "Free"
+msgstr "無料"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:245
 msgid "Order Note"
-msgstr "Order Note"
+msgstr "注文に関する注意事項"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:249
 msgid "Any special instructions..."
-msgstr "Any special instructions..."
+msgstr "何か特別な指示はありますか……"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:258
 msgid "Order Summary"
-msgstr "Order Summary"
+msgstr "注文概要"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:268
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "小計"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:272
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "配送"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:277
 msgid "Tax"
-msgstr "Tax"
+msgstr "税金"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:282
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:304
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:408
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:69
 msgid "Total"
-msgstr "Total"
+msgstr "合計"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:299
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Processing..."
-msgstr "Processing..."
+msgstr "処理中..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:301
 msgid "Place Order"
-msgstr "Place Order"
+msgstr "注文する"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:306
 msgid "Back to Cart"
-msgstr "Back to Cart"
+msgstr "カートに戻る"
 
 #: src/app/(public)/checkout/page.tsx:15
 #: src/app/(public)/checkout/page.tsx:40
 msgid "Checkout"
-msgstr "Checkout"
+msgstr "お会計"
 
 #: src/app/(public)/checkout/page.tsx:16
 msgid "Complete your order"
-msgstr "Complete your order"
+msgstr "ご注文を完了してください"
 
 #: src/app/(public)/docs/page.tsx:24
 #: src/app/(public)/page.tsx:346
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
-msgstr "Documentation"
+msgstr "ドキュメント"
 
 #: src/app/(public)/docs/page.tsx:25
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:25
 msgid "No documentation pages found yet."
-msgstr "No documentation pages found yet."
+msgstr "まだドキュメントページは見つかりませんでした。"
 
 #: src/app/(public)/forgot-password/page.tsx:9
 #: src/app/(public)/forgot-password/page.tsx:20
 msgid "Forgot Password"
-msgstr "Forgot Password"
+msgstr "パスワードをお忘れの方"
 
 #: src/app/(public)/forgot-password/page.tsx:10
 msgid "Reset your password"
-msgstr "Reset your password"
+msgstr "パスワードをリセットする"
 
 #: src/app/(public)/forgot-password/page.tsx:21
 msgid "Enter your email to receive a reset link."
-msgstr "Enter your email to receive a reset link."
+msgstr "パスワード再設定用のリンクを受け取るには、メールアドレスを入力してください。"
 
-#: src/app/(public)/layout.tsx:39
+#: src/app/(public)/layout.tsx:38
 msgctxt "General"
 msgid "This page is available in {language}"
-msgstr "This page is available in {language}"
+msgstr "このページは、{language} でもご覧いただけます。"
 
-#: src/app/(public)/layout.tsx:99
-#: src/app/(public)/layout.tsx:243
+#: src/app/(public)/layout.tsx:98
+#: src/app/(public)/layout.tsx:245
 #: src/app/(public)/portfolio/page.tsx:24
 #: src/app/(public)/portfolio/page.tsx:45
 #: src/app/(showcase)/layout.tsx:54
 #: src/app/(showcase)/layout.tsx:78
 msgid "Portfolio"
-msgstr "Portfolio"
+msgstr "ポートフォリオ"
 
-#: src/app/(public)/layout.tsx:100
-#: src/app/(public)/layout.tsx:171
-#: src/app/(public)/layout.tsx:244
+#: src/app/(public)/layout.tsx:99
+#: src/app/(public)/layout.tsx:170
+#: src/app/(public)/layout.tsx:246
 #: src/app/(showcase)/showcase/page.tsx:24
 msgid "Showcase"
-msgstr "Showcase"
+msgstr "ショーケース"
 
-#: src/app/(public)/layout.tsx:101
-#: src/app/(public)/layout.tsx:174
-#: src/app/(public)/layout.tsx:183
-#: src/app/(public)/layout.tsx:245
+#: src/app/(public)/layout.tsx:100
+#: src/app/(public)/layout.tsx:173
+#: src/app/(public)/layout.tsx:247
 #: src/app/(public)/store/page.tsx:22
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:936
@@ -385,11 +387,11 @@ msgstr "Showcase"
 #: src/core-store/_templates/app/(public)/store/page.tsx:9
 #: src/core-store/_templates/app/(public)/store/page.tsx:12
 msgid "Store"
-msgstr "Store"
+msgstr "ストア"
 
-#: src/app/(public)/layout.tsx:102
-#: src/app/(public)/layout.tsx:186
-#: src/app/(public)/layout.tsx:246
+#: src/app/(public)/layout.tsx:101
+#: src/app/(public)/layout.tsx:182
+#: src/app/(public)/layout.tsx:248
 #: src/app/(public)/search/page.tsx:20
 #: src/app/(showcase)/showcase/search/page.tsx:66
 #: src/components/public/BlogSidebar.tsx:78
@@ -399,100 +401,100 @@ msgstr "Store"
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:251
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:156
 msgid "Search"
-msgstr "Search"
+msgstr "検索"
 
-#: src/app/(public)/layout.tsx:139
+#: src/app/(public)/layout.tsx:138
 msgid "Blog RSS"
-msgstr "Blog RSS"
+msgstr "ブログのRSS"
 
-#: src/app/(public)/layout.tsx:226
+#: src/app/(public)/layout.tsx:228
 #: src/components/public/BlogSidebar.tsx:92
 #: src/core-store/_templates/app/(public)/store/client.tsx:512
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:721
 msgid "Categories"
-msgstr "Categories"
+msgstr "カテゴリー"
 
-#: src/app/(public)/layout.tsx:241
+#: src/app/(public)/layout.tsx:243
 msgid "Quick Links"
-msgstr "Quick Links"
+msgstr "クイックリンク"
 
-#: src/app/(public)/layout.tsx:251
+#: src/app/(public)/layout.tsx:253
 msgid "More"
-msgstr "More"
-
-#: src/app/(public)/layout.tsx:254
-#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
-msgid "RSS Feed"
-msgstr "RSS Feed"
+msgstr "もっと見る"
 
 #: src/app/(public)/layout.tsx:256
-msgid "Admin"
-msgstr "Admin"
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
+msgid "RSS Feed"
+msgstr "RSSフィード"
 
-#: src/app/(public)/layout.tsx:263
+#: src/app/(public)/layout.tsx:258
+msgid "Admin"
+msgstr "管理者"
+
+#: src/app/(public)/layout.tsx:265
 msgid "Powered by Indigo"
-msgstr "Powered by Indigo"
+msgstr "Indigo提供"
 
 #: src/app/(public)/login/page.tsx:9
 #: src/app/(public)/login/page.tsx:27
 #: src/components/public/AuthDialogs.tsx:24
 #: src/components/public/UserMenu.tsx:40
 msgid "Sign In"
-msgstr "Sign In"
+msgstr "ログイン"
 
 #: src/app/(public)/login/page.tsx:10
 msgid "Sign in to your account"
-msgstr "Sign in to your account"
+msgstr "アカウントにログインしてください"
 
 #: src/app/(public)/login/page.tsx:28
 msgid "Welcome back! Sign in to your account."
-msgstr "Welcome back! Sign in to your account."
+msgstr "お帰りなさい！アカウントにログインしてください。"
 
 #: src/app/(public)/page.tsx:54
 #: src/app/(public)/page.tsx:171
 msgid "Browse Characters"
-msgstr "Browse Characters"
+msgstr "キャラクター一覧"
 
 #: src/app/(public)/page.tsx:55
 msgid "30 AI characters with filters, pagination, and video hover."
-msgstr "30 AI characters with filters, pagination, and video hover."
+msgstr "フィルター、ページネーション、動画のホバー機能を備えた30体のAIキャラクター。"
 
 #: src/app/(public)/page.tsx:60
 msgid "AI Chat"
-msgstr "AI Chat"
+msgstr "AIチャット"
 
 #: src/app/(public)/page.tsx:61
 msgid "Real-time text chat with LLM streaming and typing animation."
-msgstr "Real-time text chat with LLM streaming and typing animation."
+msgstr "LLMによるストリーミング機能と入力アニメーションを備えたリアルタイムテキストチャット。"
 
 #: src/app/(public)/page.tsx:67
 msgid "Image Generation"
-msgstr "Image Generation"
+msgstr "画像生成"
 
 #: src/app/(public)/page.tsx:68
 msgid "Full keyword orchestration — type \"send me a photo\" in chat."
-msgstr "Full keyword orchestration — type \"send me a photo\" in chat."
+msgstr "キーワードによる完全な操作 — チャットで「send me a photo」と入力してください。"
 
 #: src/app/(public)/page.tsx:73
 msgid "Voice Calls"
-msgstr "Voice Calls"
+msgstr "音声通話"
 
 #: src/app/(public)/page.tsx:74
 msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
-msgstr "Call AI characters — STT → LLM → TTS with per-minute billing."
+msgstr "AIキャラクターへの通話 — STT → LLM → TTS（1分単位の課金）。"
 
 #: src/app/(public)/page.tsx:76
 msgid "New"
-msgstr "New"
+msgstr "新着"
 
 #: src/app/(public)/page.tsx:80
 #: src/app/(public)/page.tsx:177
 msgid "Admin Dashboard"
-msgstr "Admin Dashboard"
+msgstr "管理ダッシュボード"
 
 #: src/app/(public)/page.tsx:81
 msgid "Content, users, settings, analytics, provider management."
-msgstr "Content, users, settings, analytics, provider management."
+msgstr "コンテンツ、ユーザー、設定、分析、プロバイダー管理。"
 
 #: src/app/(public)/page.tsx:86
 msgid "CMS"
@@ -500,238 +502,238 @@ msgstr "CMS"
 
 #: src/app/(public)/page.tsx:87
 msgid "Blog, pages, portfolio, categories, tags — config-driven."
-msgstr "Blog, pages, portfolio, categories, tags — config-driven."
+msgstr "ブログ、ページ、ポートフォリオ、カテゴリー、タグ — 設定主導型。"
 
 #: src/app/(public)/page.tsx:92
 msgid "Billing & Tokens"
-msgstr "Billing & Tokens"
+msgstr "課金とトークン"
 
 #: src/app/(public)/page.tsx:93
 msgid "Stripe subscriptions, token balance, discount codes."
-msgstr "Stripe subscriptions, token balance, discount codes."
+msgstr "Stripeの定期購読、トークン残高、割引コード。"
 
 #: src/app/(public)/page.tsx:98
 msgid "Organizations"
-msgstr "Organizations"
+msgstr "組織"
 
 #: src/app/(public)/page.tsx:99
 msgid "Multi-tenant with roles for billing scoping."
-msgstr "Multi-tenant with roles for billing scoping."
+msgstr "マルチテナント方式で、課金範囲を定義するためのロールが設定されています。"
 
 #: src/app/(public)/page.tsx:104
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Moderation"
-msgstr "Moderation"
+msgstr "モデレーション"
 
 #: src/app/(public)/page.tsx:105
 msgid "Keyword filter + audit log + auto-block."
-msgstr "Keyword filter + audit log + auto-block."
+msgstr "キーワードフィルター + 監査ログ + 自動ブロック。"
 
 #: src/app/(public)/page.tsx:110
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Analytics"
-msgstr "Analytics"
+msgstr "アナリティクス"
 
 #: src/app/(public)/page.tsx:111
 msgid "Character stats, user activity, provider health."
-msgstr "Character stats, user activity, provider health."
+msgstr "キャラクターのステータス、ユーザーの活動状況、プロバイダーの健全性。"
 
 #: src/app/(public)/page.tsx:116
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:86
 msgid "AI Providers"
-msgstr "AI Providers"
+msgstr "AIプロバイダー"
 
 #: src/app/(public)/page.tsx:117
 msgid "DB-stored with encryption, round-robin, fallback."
-msgstr "DB-stored with encryption, round-robin, fallback."
+msgstr "DBに暗号化して保存、ラウンドロビン方式、フォールバック。"
 
 #: src/app/(public)/page.tsx:122
 msgid "Theme & Branding"
-msgstr "Theme & Branding"
+msgstr "テーマとブランディング"
 
 #: src/app/(public)/page.tsx:123
 msgid "OKLCH design tokens, dark mode, CSS variables."
-msgstr "OKLCH design tokens, dark mode, CSS variables."
+msgstr "OKLCHのデザイントークン、ダークモード、CSS変数。"
 
 #: src/app/(public)/page.tsx:134
 msgid "Live Demo — resets hourly"
-msgstr "Live Demo — resets hourly"
+msgstr "ライブデモ — 1時間ごとにリセットされます"
 
 #: src/app/(public)/page.tsx:142
 msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+msgstr "Next.js 向けの包括的な SaaS フレームワーク — CMS、課金、認証、リアルタイム機能、AI チャット、そしてモジュール型アーキテクチャ。"
 
 #: src/app/(public)/page.tsx:152
 msgid "Demo login"
-msgstr "Demo login"
+msgstr "デモログイン"
 
 #: src/app/(public)/page.tsx:162
 msgid "Log in"
-msgstr "Log in"
+msgstr "ログイン"
 
 #: src/app/(public)/page.tsx:187
 msgid "Explore the Features"
-msgstr "Explore the Features"
+msgstr "機能の詳細を見る"
 
 #: src/app/(public)/page.tsx:190
 msgid "Click any card to see it in action. Everything is live and functional."
-msgstr "Click any card to see it in action. Everything is live and functional."
+msgstr "任意のカードをクリックすると、実際の動作を確認できます。すべてがライブで、正常に動作しています。"
 
 #: src/app/(public)/page.tsx:217
 msgid "Explore"
-msgstr "Explore"
+msgstr "探索する"
 
 #: src/app/(public)/page.tsx:230
 msgid "Built With"
-msgstr "Built With"
+msgstr "開発に使用したツール"
 
 #: src/app/(public)/page.tsx:264
 msgid "Modular Architecture"
-msgstr "Modular Architecture"
+msgstr "モジュール式アーキテクチャ"
 
 #: src/app/(public)/page.tsx:267
 msgid "Install only what you need. Each module is a self-contained git subtree."
-msgstr "Install only what you need. Each module is a self-contained git subtree."
+msgstr "必要なものだけをインストールしてください。各モジュールは、独立したGitサブツリーとなっています。"
 
 #: src/app/(public)/page.tsx:275
 msgid "AI character chat, image/video gen, voice calls"
-msgstr "AI character chat, image/video gen, voice calls"
+msgstr "AIキャラクターとのチャット、画像・動画生成、音声通話"
 
 #: src/app/(public)/page.tsx:280
 msgid "Stripe subscriptions, tokens, discounts"
-msgstr "Stripe subscriptions, tokens, discounts"
+msgstr "Stripeの定期購読、トークン、割引"
 
 #: src/app/(public)/page.tsx:285
 msgid "AI support chat + ticket system"
-msgstr "AI support chat + ticket system"
+msgstr "AIサポートチャット＋チケットシステム"
 
 #: src/app/(public)/page.tsx:288
 msgid "Documentation system"
-msgstr "Documentation system"
+msgstr "文書管理システム"
 
 #: src/app/(public)/page.tsx:291
 msgid "E-commerce (products, cart, checkout)"
-msgstr "E-commerce (products, cart, checkout)"
+msgstr "Eコマース（商品、カート、決済）"
 
 #: src/app/(public)/page.tsx:296
 msgid "Referral tracking, commissions"
-msgstr "Referral tracking, commissions"
+msgstr "紹介の追跡、紹介料"
 
 #: src/app/(public)/page.tsx:313
 msgid "Premium"
-msgstr "Premium"
+msgstr "プレミアム"
 
 #: src/app/(public)/page.tsx:330
 msgid "Ready to build?"
-msgstr "Ready to build?"
+msgstr "さあ、作り始めましょうか？"
 
 #: src/app/(public)/page.tsx:333
 msgid "Clone, init, ship. It's that simple."
-msgstr "Clone, init, ship. It's that simple."
+msgstr "クローン、初期化、リリース。これだけで完了です。"
 
 #: src/app/(public)/page.tsx:340
 msgid "Clone on GitHub"
-msgstr "Clone on GitHub"
+msgstr "GitHubでクローンする"
 
 #: src/app/(public)/page.tsx:350
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
-msgstr "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
+msgstr "デュアルライセンス：AGPL-3.0（オープンソース）または商用ライセンス"
 
 #: src/app/(public)/portfolio/page.tsx:27
 msgid "Browse our portfolio of projects and case studies."
-msgstr "Browse our portfolio of projects and case studies."
+msgstr "当社のプロジェクト事例やケーススタディをご覧ください。"
 
 #: src/app/(public)/portfolio/page.tsx:48
 msgid "Browse our projects and case studies."
-msgstr "Browse our projects and case studies."
+msgstr "当社のプロジェクトや事例をご覧ください。"
 
 #: src/app/(public)/portfolio/page.tsx:103
 msgid "No portfolio items yet."
-msgstr "No portfolio items yet."
+msgstr "まだポートフォリオのアイテムはありません。"
 
 #: src/app/(public)/pricing/page.tsx:22
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:409
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:22
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "価格"
 
 #: src/app/(public)/pricing/page.tsx:23
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:23
 msgid "Simple, transparent pricing for teams of all sizes."
-msgstr "Simple, transparent pricing for teams of all sizes."
+msgstr "あらゆる規模のチームに対応した、シンプルで透明性の高い料金体系。"
 
 #: src/app/(public)/pricing/page.tsx:39
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:39
 msgid "Simple, transparent pricing"
-msgstr "Simple, transparent pricing"
+msgstr "シンプルで透明性の高い価格設定"
 
 #: src/app/(public)/pricing/page.tsx:42
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:42
 msgid "Pay as you go: buy tokens once, use them until they run out. No subscription required."
-msgstr "Pay as you go: buy tokens once, use them until they run out. No subscription required."
+msgstr "従量課金制：トークンを一度購入すれば、使い切るまで利用できます。定期購読は不要です。"
 
 #: src/app/(public)/pricing/page.tsx:43
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:43
 msgid "Choose the plan that fits your team. All plans include a 14-day free trial."
-msgstr "Choose the plan that fits your team. All plans include a 14-day free trial."
+msgstr "チームに合ったプランをお選びください。すべてのプランには14日間の無料トライアルが含まれています。"
 
 #: src/app/(public)/pricing/page.tsx:58
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:58
 msgid "Get Started"
-msgstr "Get Started"
+msgstr "はじめに"
 
 #: src/app/(public)/pricing/page.tsx:70
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:70
 msgid "Frequently asked questions"
-msgstr "Frequently asked questions"
+msgstr "よくある質問"
 
 #: src/app/(public)/register/page.tsx:9
 #: src/app/(public)/register/page.tsx:31
 #: src/components/public/AuthDialogs.tsx:53
 msgid "Create Account"
-msgstr "Create Account"
+msgstr "アカウントを作成する"
 
 #: src/app/(public)/register/page.tsx:10
 msgid "Create a new account"
-msgstr "Create a new account"
+msgstr "新しいアカウントを作成する"
 
 #: src/app/(public)/register/page.tsx:22
 msgid "Registration Closed"
-msgstr "Registration Closed"
+msgstr "登録受付終了"
 
 #: src/app/(public)/register/page.tsx:23
 #: src/components/public/AuthDialogs.tsx:65
 msgid "Registration is currently not available. Please contact us for access."
-msgstr "Registration is currently not available. Please contact us for access."
+msgstr "現在、登録は受け付けておりません。ご利用をご希望の場合は、弊社までお問い合わせください。"
 
 #: src/app/(public)/register/page.tsx:32
 msgid "Start your journey with a free account."
-msgstr "Start your journey with a free account."
+msgstr "無料アカウントで旅を始めましょう。"
 
 #: src/app/(public)/reset-password/page.tsx:9
 #: src/app/(public)/reset-password/page.tsx:20
 msgid "Reset Password"
-msgstr "Reset Password"
+msgstr "パスワードのリセット"
 
 #: src/app/(public)/reset-password/page.tsx:10
 msgid "Set a new password"
-msgstr "Set a new password"
+msgstr "新しいパスワードを設定する"
 
 #: src/app/(public)/reset-password/page.tsx:21
 msgid "Enter your new password below."
-msgstr "Enter your new password below."
+msgstr "以下の欄に新しいパスワードを入力してください。"
 
 #: src/app/(public)/store/page.tsx:23
 msgid "Browse our products"
-msgstr "Browse our products"
+msgstr "当社の製品をご覧ください"
 
 #: src/app/(public)/store/page.tsx:64
 #: src/app/(public)/store/page.tsx:98
 #: src/core-store/_templates/app/(public)/store/client.tsx:424
 msgid "Sale"
-msgstr "Sale"
+msgstr "セール"
 
 #: src/app/(public)/store/page.tsx:65
 #: src/core-store/_templates/app/(public)/store/client.tsx:132
@@ -739,152 +741,152 @@ msgstr "Sale"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:151
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:381
 msgid "Digital"
-msgstr "Digital"
+msgstr "デジタル"
 
 #: src/app/(public)/store/page.tsx:66
 msgid "From variants"
-msgstr "From variants"
+msgstr "バリアントから"
 
 #: src/app/(public)/store/page.tsx:114
 msgid "Shop Now"
-msgstr "Shop Now"
+msgstr "今すぐ購入"
 
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:523
 msgid "All Products"
-msgstr "All Products"
+msgstr "すべての商品"
 
 #: src/app/(public)/store/page.tsx:133
 #: src/core-api/components/ApiKeyManager.tsx:224
 #: src/core-store/_templates/app/(public)/store/client.tsx:816
 msgid "All"
-msgstr "All"
+msgstr "すべて"
 
 #: src/app/(public)/store/page.tsx:196
 #: src/core-store/_templates/app/(public)/store/client.tsx:1022
 msgid "No products found"
-msgstr "No products found"
+msgstr "該当する商品が見つかりませんでした"
 
 #: src/app/(public)/store/page.tsx:196
 msgid "Coming soon"
-msgstr "Coming soon"
+msgstr "近日公開"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Try a different search term"
-msgstr "Try a different search term"
+msgstr "別の検索語句を試してみてください"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Check back soon for new products"
-msgstr "Check back soon for new products"
+msgstr "新製品については、まもなくまたご確認ください"
 
 #: src/app/(public)/[...slug]/renderers/CategoryDetail.tsx:44
 msgid "Posts in this category"
-msgstr "Posts in this category"
+msgstr "このカテゴリの記事"
 
 #: src/app/(public)/[...slug]/renderers/PortfolioDetail.tsx:23
 #: src/app/(public)/[...slug]/renderers/PostDetail.tsx:57
 #: src/app/(public)/[...slug]/renderers/ShowcaseDetail.tsx:24
 msgid "Preview mode — this content is not yet published."
-msgstr "Preview mode — this content is not yet published."
+msgstr "プレビューモード — このコンテンツはまだ公開されていません。"
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:53
 msgid "Tag"
-msgstr "Tag"
+msgstr "タグ"
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:124
 msgid "No content found with this tag."
-msgstr "No content found with this tag."
+msgstr "このタグに一致するコンテンツは見つかりませんでした。"
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:130
 msgid "Browse More Tags"
-msgstr "Browse More Tags"
+msgstr "その他のタグを見る"
 
 #: src/app/(showcase)/layout.tsx:51
 msgid "Home"
-msgstr "Home"
+msgstr "ホーム"
 
 #: src/app/(showcase)/layout.tsx:52
 #: src/app/(showcase)/layout.tsx:72
 msgid "Feed"
-msgstr "Feed"
+msgstr "フィード"
 
 #: src/app/(showcase)/showcase/page.tsx:27
 msgid "Explore our showcase — swipe through videos, images, and stories."
-msgstr "Explore our showcase — swipe through videos, images, and stories."
+msgstr "当社のショーケースをご覧ください。動画、画像、ストーリーをスワイプしてご覧ください。"
 
 #: src/app/(showcase)/showcase/search/page.tsx:66
 msgid "Results for \"{query}\""
-msgstr "Results for \"{query}\""
+msgstr "「{query}」の検索結果"
 
 #: src/app/(showcase)/showcase/search/page.tsx:70
 msgid "No results found for \"{query}\""
-msgstr "No results found for \"{query}\""
+msgstr "「{query}」の検索結果はありませんでした"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "Use the search bar above or press"
-msgstr "Use the search bar above or press"
+msgstr "上の検索バーを使用するか、または"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "to search."
-msgstr "to search."
+msgstr "検索するには。"
 
 #: src/app/not-found.tsx:17
 msgid "Page not found"
-msgstr "Page not found"
+msgstr "ページが見つかりません"
 
 #: src/app/not-found.tsx:19
 msgid "The page you're looking for doesn't exist or has been moved."
-msgstr "The page you're looking for doesn't exist or has been moved."
+msgstr "お探しのページは存在しません、または移動されました。"
 
 #: src/app/not-found.tsx:27
 msgid "Go Home"
-msgstr "Go Home"
+msgstr "ホームへ"
 
 #: src/app/not-found.tsx:33
 msgid "Browse Blog"
-msgstr "Browse Blog"
+msgstr "ブログを閲覧する"
 
 #: src/components/public/AccountNav.tsx:12
 msgid "Overview"
-msgstr "Overview"
+msgstr "概要"
 
 #: src/components/public/AccountNav.tsx:13
 #: src/components/public/UserMenu.tsx:104
 msgid "Settings"
-msgstr "Settings"
+msgstr "設定"
 
 #: src/components/public/AccountNav.tsx:16
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:96
 msgid "Orders"
-msgstr "Orders"
+msgstr "注文"
 
 #: src/components/public/AccountNav.tsx:17
 msgid "Wishlist"
-msgstr "Wishlist"
+msgstr "ウィッシュリスト"
 
 #: src/components/public/AccountNav.tsx:18
 msgid "Addresses"
-msgstr "Addresses"
+msgstr "住所"
 
 #: src/components/public/AccountNav.tsx:20
 #: src/core-affiliates/components/AffiliateOverview.tsx:23
 #: src/core-affiliates/components/AffiliateOverview.tsx:36
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
-msgstr "Affiliates"
+msgstr "提携先"
 
 #: src/components/public/BlogSidebar.tsx:83
 msgid "Search posts..."
-msgstr "Search posts..."
+msgstr "投稿を検索..."
 
 #: src/components/public/BlogSidebar.tsx:113
 msgid "Tags"
-msgstr "Tags"
+msgstr "タグ"
 
 #: src/components/public/CommentPanel.tsx:121
 msgid "Reply"
-msgstr "Reply"
+msgstr "返信"
 
 #: src/components/public/CommentPanel.tsx:129
 #: src/core/components/media/MediaPickerDialog.tsx:490
@@ -908,137 +910,137 @@ msgstr "Reply"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
 msgid "Delete"
-msgstr "Delete"
+msgstr "削除"
 
 #: src/components/public/CommentPanel.tsx:142
 msgid "Reply..."
-msgstr "Reply..."
+msgstr "返信..."
 
 #: src/components/public/CommentPanel.tsx:295
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:115
 msgid "Comments"
-msgstr "Comments"
+msgstr "コメント"
 
 #: src/components/public/CommentPanel.tsx:313
 msgid "No comments yet. Be the first!"
-msgstr "No comments yet. Be the first!"
+msgstr "まだコメントはありません。ぜひ最初のコメントを投稿してください！"
 
 #: src/components/public/CommentPanel.tsx:344
 msgid "Add a comment..."
-msgstr "Add a comment..."
+msgstr "コメントを追加..."
 
 #: src/components/public/CommentPanel.tsx:363
 msgid "Sign in"
-msgstr "Sign in"
+msgstr "ログイン"
 
 #: src/components/public/CommentPanel.tsx:365
 msgid "to comment"
-msgstr "to comment"
+msgstr "コメントする"
 
 #: src/components/public/ContactForm.tsx:75
 msgid "Network error. Please try again."
-msgstr "Network error. Please try again."
+msgstr "ネットワークエラーが発生しました。もう一度お試しください。"
 
 #: src/components/public/ContactForm.tsx:140
 msgid "Select..."
-msgstr "Select..."
+msgstr "選択..."
 
 #: src/components/public/ContactForm.tsx:217
 msgid "Submitting..."
-msgstr "Submitting..."
+msgstr "送信中..."
 
 #: src/components/public/ContactForm.tsx:220
 msgid "Submit"
-msgstr "Submit"
+msgstr "送信"
 
 #: src/components/public/CreateOrgCard.tsx:39
 msgid "Create your organization"
-msgstr "Create your organization"
+msgstr "組織を作成する"
 
 #: src/components/public/CreateOrgCard.tsx:41
 msgid "Get started by creating an organization. You can invite team members later."
-msgstr "Get started by creating an organization. You can invite team members later."
+msgstr "まずは組織を作成することから始めましょう。チームメンバーの招待は後ででも可能です。"
 
 #: src/components/public/CreateOrgCard.tsx:47
 msgid "Organization name"
-msgstr "Organization name"
+msgstr "組織名"
 
 #: src/components/public/CreateOrgCard.tsx:54
 msgid "My Company"
-msgstr "My Company"
+msgstr "私の会社"
 
 #: src/components/public/CreateOrgCard.tsx:71
 #: src/core-api/components/ApiKeyManager.tsx:122
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 msgid "Creating..."
-msgstr "Creating..."
+msgstr "作成中..."
 
 #: src/components/public/CreateOrgCard.tsx:71
 msgid "Create Organization"
-msgstr "Create Organization"
+msgstr "組織を作成する"
 
 #: src/components/public/ExpandableSearch.tsx:72
 msgid "Search (/)"
-msgstr "Search (/)"
+msgstr "検索 (/)"
 
 #: src/components/public/ExpandableSearch.tsx:91
 #: src/components/public/ExpandableSearch.tsx:111
 msgid "Search..."
-msgstr "Search..."
+msgstr "検索..."
 
 #: src/components/public/ShowcaseActionBar.tsx:93
 msgid "Sign in to react"
-msgstr "Sign in to react"
+msgstr "コメントするにはログインしてください"
 
 #: src/components/public/ShowcaseActionBar.tsx:105
 msgid "Link copied"
-msgstr "Link copied"
+msgstr "リンクがコピーされました"
 
-#: src/components/public/ShowcaseFeed.tsx:244
+#: src/components/public/ShowcaseFeed.tsx:243
 msgid "No showcase items yet."
-msgstr "No showcase items yet."
+msgstr "まだ紹介されている商品はありません。"
 
 #: src/components/public/SocialLoginButtons.tsx:30
 msgid "Continue with Google"
-msgstr "Continue with Google"
+msgstr "Googleで続ける"
 
 #: src/components/public/SocialLoginButtons.tsx:41
 msgid "Continue with Discord"
-msgstr "Continue with Discord"
+msgstr "Discordで続ける"
 
 #: src/components/public/SubscribeOrTokens.tsx:46
 msgid "Subscribe"
-msgstr "Subscribe"
+msgstr "購読する"
 
 #: src/components/public/TokenPackCard.tsx:40
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:40
 msgid "Most popular"
-msgstr "Most popular"
+msgstr "最も人気のある"
 
 #: src/components/public/TokenPackCard.tsx:46
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:46
 msgid "tokens"
-msgstr "tokens"
+msgstr "トークン"
 
 #: src/components/public/UserMenu.tsx:46
 msgid "Sign Up"
-msgstr "Sign Up"
+msgstr "登録する"
 
 #: src/components/public/UserMenu.tsx:96
 msgid "Account"
-msgstr "Account"
+msgstr "アカウント"
 
 #: src/components/public/UserMenu.tsx:129
 msgid "Sign Out"
-msgstr "Sign Out"
+msgstr "ログアウト"
 
 #: src/core/components/cms/AutosaveIndicator.tsx:39
 msgid "Autosaved"
-msgstr "Autosaved"
+msgstr "自動保存"
 
 #: src/core/components/cms/AutosaveRecoveryBanner.tsx:36
 msgid "Unsaved changes recovered from"
-msgstr "Unsaved changes recovered from"
+msgstr "保存されていない変更が以下から復元されました"
 
 #: src/core/components/cms/AutosaveRecoveryBanner.tsx:44
 #: src/core/components/cms/BulkActionBar.tsx:62
@@ -1046,99 +1048,99 @@ msgstr "Unsaved changes recovered from"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:127
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:151
 msgid "Restore"
-msgstr "Restore"
+msgstr "復元"
 
 #: src/core/components/cms/BrokenLinksBanner.tsx:23
 msgid "Broken internal links detected:"
-msgstr "Broken internal links detected:"
+msgstr "検出された内部リンクの破損："
 
 #: src/core/components/cms/BulkActionBar.tsx:50
 msgid "Deselect all"
-msgstr "Deselect all"
+msgstr "すべて選択解除"
 
 #: src/core/components/cms/BulkActionBar.tsx:77
 msgid "Set status..."
-msgstr "Set status..."
+msgstr "ステータスを設定..."
 
 #: src/core/components/cms/BulkActionBar.tsx:79
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:366
 msgid "Draft"
-msgstr "Draft"
+msgstr "草案"
 
 #: src/core/components/cms/BulkActionBar.tsx:80
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:367
 msgid "Published"
-msgstr "Published"
+msgstr "公開日"
 
 #: src/core/components/cms/BulkActionBar.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Export"
-msgstr "Export"
+msgstr "エクスポート"
 
 #: src/core/components/cms/BulkActionBar.tsx:118
 msgid "Move to Trash"
-msgstr "Move to Trash"
+msgstr "ごみ箱へ移動"
 
 #: src/core/components/cms/ContentCalendar.tsx:89
 msgid "Calendar"
-msgstr "Calendar"
+msgstr "カレンダー"
 
 #: src/core/components/cms/ContentCalendar.tsx:167
 msgid "more"
-msgstr "more"
+msgstr "続きを読む"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:109
 msgid "Loading custom fields..."
-msgstr "Loading custom fields..."
+msgstr "カスタムフィールドを読み込んでいます..."
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:121
 msgid "Custom Fields"
-msgstr "Custom Fields"
+msgstr "カスタムフィールド"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:142
 msgid "Saving custom fields..."
-msgstr "Saving custom fields..."
+msgstr "カスタムフィールドを保存中..."
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:195
 msgid "Enabled"
-msgstr "Enabled"
+msgstr "有効"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:764
 msgid "-- Select --"
-msgstr "-- Select --"
+msgstr "-- 選択 --"
 
 #: src/core/components/cms/FallbackRadio.tsx:21
 msgid "Language Fallback"
-msgstr "Language Fallback"
+msgstr "言語のフォールバック"
 
 #: src/core/components/cms/FallbackRadio.tsx:28
 msgid "Default"
-msgstr "Default"
+msgstr "デフォルト"
 
 #: src/core/components/cms/FallbackRadio.tsx:31
 msgid "Show EN version for missing translations"
-msgstr "Show EN version for missing translations"
+msgstr "翻訳がない場合は英語版を表示する"
 
 #: src/core/components/cms/FallbackRadio.tsx:32
 msgid "404 for missing translations"
-msgstr "404 for missing translations"
+msgstr "翻訳が見つからないため404エラー"
 
 #: src/core/components/cms/FallbackRadio.tsx:39
 msgid "Always Fallback"
-msgstr "Always Fallback"
+msgstr "常にフォールバック"
 
 #: src/core/components/cms/FallbackRadio.tsx:45
 msgid "Never Fallback"
-msgstr "Never Fallback"
+msgstr "決してフォールバックしない"
 
 #: src/core/components/cms/FallbackRadio.tsx:49
 msgid "Controls whether this content is shown when visiting in a language without a translation"
-msgstr "Controls whether this content is shown when visiting in a language without a translation"
+msgstr "翻訳がない言語でアクセスした場合に、このコンテンツを表示するかどうかを制御します"
 
 #: src/core/components/cms/MenuBuilder.tsx:96
 msgid "Label"
-msgstr "Label"
+msgstr "ラベル"
 
 #: src/core/components/cms/MenuBuilder.tsx:104
 #: src/core/components/RichTextEditor.tsx:511
@@ -1147,88 +1149,88 @@ msgstr "URL"
 
 #: src/core/components/cms/MenuBuilder.tsx:115
 msgid "New tab"
-msgstr "New tab"
+msgstr "新しいタブ"
 
 #: src/core/components/cms/MenuBuilder.tsx:123
 msgid "Indent"
-msgstr "Indent"
+msgstr "インデント"
 
 #: src/core/components/cms/MenuBuilder.tsx:131
 msgid "Outdent"
-msgstr "Outdent"
+msgstr "アウトデント"
 
 #: src/core/components/cms/MenuBuilder.tsx:176
 msgid "Menu saved"
-msgstr "Menu saved"
+msgstr "メニューが保存されました"
 
 #: src/core/components/cms/MenuBuilder.tsx:325
 msgid "No menu items yet. Add one below."
-msgstr "No menu items yet. Add one below."
+msgstr "まだメニュー項目はありません。以下に項目を追加してください。"
 
 #: src/core/components/cms/MenuBuilder.tsx:332
 msgid "Add Item"
-msgstr "Add Item"
+msgstr "アイテムを追加"
 
 #: src/core/components/cms/MenuBuilder.tsx:341
 msgid "Save Menu"
-msgstr "Save Menu"
+msgstr "メニューを保存"
 
 #: src/core/components/cms/RevisionHistory.tsx:71
 msgid "Revision restored"
-msgstr "Revision restored"
+msgstr "改訂版が復元されました"
 
 #: src/core/components/cms/RevisionHistory.tsx:74
 msgid "Failed to restore revision"
-msgstr "Failed to restore revision"
+msgstr "リビジョンの復元に失敗しました"
 
 #: src/core/components/cms/RevisionHistory.tsx:93
 msgid "Revision History"
-msgstr "Revision History"
+msgstr "改訂履歴"
 
 #: src/core/components/cms/RevisionHistory.tsx:110
 msgid "Oldest"
-msgstr "Oldest"
+msgstr "最も古い"
 
 #: src/core/components/cms/RevisionHistory.tsx:111
 #: src/core-store/_templates/app/(public)/store/client.tsx:315
 msgid "Newest"
-msgstr "Newest"
+msgstr "最新"
 
 #: src/core/components/cms/RevisionHistory.tsx:119
 msgid "No revisions yet"
-msgstr "No revisions yet"
+msgstr "まだ修正はありません"
 
 #: src/core/components/cms/RevisionHistory.tsx:129
 msgid "(untitled)"
-msgstr "(untitled)"
+msgstr "(無題)"
 
 #: src/core/components/cms/RevisionHistory.tsx:158
 msgid "No changes in this revision"
-msgstr "No changes in this revision"
+msgstr "今回の改訂では変更点はありません"
 
 #: src/core/components/cms/RevisionHistory.tsx:206
 msgid "Restore this version"
-msgstr "Restore this version"
+msgstr "このバージョンを復元する"
 
 #: src/core/components/cms/RevisionHistory.tsx:217
 msgid "Restore revision?"
-msgstr "Restore revision?"
+msgstr "リビジョンを復元しますか？"
 
 #: src/core/components/cms/RevisionHistory.tsx:218
 msgid "Current state will be saved as a new revision before restoring."
-msgstr "Current state will be saved as a new revision before restoring."
+msgstr "復元を行う前に、現在の状態が新しいリビジョンとして保存されます。"
 
 #: src/core/components/cms/RevisionHistory.tsx:241
 msgid "Revisions"
-msgstr "Revisions"
+msgstr "改訂"
 
 #: src/core/components/cms/TagInput.tsx:198
 msgid "Type to add tags..."
-msgstr "Type to add tags..."
+msgstr "タグを追加するには、以下に入力してください..."
 
 #: src/core/components/cms/TagInput.tsx:239
 msgid "Press Enter to create \""
-msgstr "Press Enter to create \""
+msgstr "Enter キーを押して「」を作成してください"
 
 #: src/core/components/cms/TagInput.tsx:241
 msgid "\""
@@ -1236,144 +1238,144 @@ msgstr "\""
 
 #: src/core/components/dashboard/CommandPalette.tsx:76
 msgid "Navigation"
-msgstr "Navigation"
+msgstr "ナビゲーション"
 
 #: src/core/components/dashboard/CommandPalette.tsx:88
 #: src/core/components/dashboard/CommandPalette.tsx:229
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:79
 msgid "Content"
-msgstr "Content"
+msgstr "目次"
 
 #: src/core/components/dashboard/CommandPalette.tsx:201
 msgid "Search pages, content, settings..."
-msgstr "Search pages, content, settings..."
+msgstr "ページ、コンテンツ、設定を検索…"
 
 #: src/core/components/dashboard/CommandPalette.tsx:242
 #: src/core/components/overlays/InternalLinkDialog.tsx:77
 msgid "No results found"
-msgstr "No results found"
+msgstr "結果が見つかりませんでした"
 
 #: src/core/components/dashboard/CommandPalette.tsx:248
 msgid "Start typing to search..."
-msgstr "Start typing to search..."
+msgstr "検索するには、文字を入力してください..."
 
 #: src/core/components/dashboard/ContentStatusWidget.tsx:38
 msgid "Scheduled"
-msgstr "Scheduled"
+msgstr "予定"
 
 #: src/core/components/dashboard/ContentStatusWidget.tsx:58
 msgid "Content Status"
-msgstr "Content Status"
+msgstr "コンテンツのステータス"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:112
 msgid "Show widget"
-msgstr "Show widget"
+msgstr "ウィジェットを表示"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:112
 msgid "Hide widget"
-msgstr "Hide widget"
+msgstr "ウィジェットを非表示にする"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:121
 msgid "Columns"
-msgstr "Columns"
+msgstr "コラム"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:214
 msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
-msgstr "Drag to reorder widgets. Toggle visibility with the eye icon."
+msgstr "ウィジェットをドラッグして順序を変更します。目のアイコンをクリックして表示/非表示を切り替えます。"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:257
 msgid "Configure dashboard"
-msgstr "Configure dashboard"
+msgstr "ダッシュボードの設定"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:262
 msgid "Dashboard Layout"
-msgstr "Dashboard Layout"
+msgstr "ダッシュボードのレイアウト"
 
 #: src/core/components/dashboard/GA4Widget.tsx:183
 #: src/core/components/dashboard/GA4Widget.tsx:214
 msgid "Google Analytics"
-msgstr "Google Analytics"
+msgstr "Google アナリティクス"
 
 #: src/core/components/dashboard/GA4Widget.tsx:190
 msgid "Connect Google Analytics to see page views, sessions, and top pages."
-msgstr "Connect Google Analytics to see page views, sessions, and top pages."
+msgstr "Google アナリティクスを連携させて、ページビュー、セッション数、人気ページを確認しましょう。"
 
 #: src/core/components/dashboard/GA4Widget.tsx:198
 msgid "Configure in Settings"
-msgstr "Configure in Settings"
+msgstr "「設定」で設定する"
 
 #: src/core/components/dashboard/GA4Widget.tsx:247
 msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
-msgstr "Failed to load analytics data. Check your GA4 configuration in Settings."
+msgstr "アナリティクスデータの読み込みに失敗しました。「設定」でGA4の設定を確認してください。"
 
 #: src/core/components/dashboard/GA4Widget.tsx:259
 msgid "Page Views"
-msgstr "Page Views"
+msgstr "ページビュー"
 
 #: src/core/components/dashboard/GA4Widget.tsx:268
 msgid "Sessions"
-msgstr "Sessions"
+msgstr "セッション"
 
 #: src/core/components/dashboard/GA4Widget.tsx:279
 msgid "Daily Page Views"
-msgstr "Daily Page Views"
+msgstr "1日あたりのページビュー数"
 
 #: src/core/components/dashboard/GA4Widget.tsx:290
 msgid "Top Pages"
-msgstr "Top Pages"
+msgstr "人気ページ"
 
 #: src/core/components/dashboard/GA4Widget.tsx:297
 msgid "Views"
-msgstr "Views"
+msgstr "閲覧数"
 
 #: src/core/components/dashboard/NotificationBell.tsx:62
 #: src/core/components/dashboard/NotificationBell.tsx:75
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "通知"
 
 #: src/core/components/dashboard/NotificationBell.tsx:82
 msgid "Mark all read"
-msgstr "Mark all read"
+msgstr "すべて既読にする"
 
 #: src/core/components/dashboard/NotificationBell.tsx:90
 msgid "No notifications"
-msgstr "No notifications"
+msgstr "通知はありません"
 
 #: src/core/components/dashboard/NotificationBell.tsx:130
 msgid "View all notifications"
-msgstr "View all notifications"
+msgstr "すべての通知を表示する"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:46
 msgid "Switch organization"
-msgstr "Switch organization"
+msgstr "組織を切り替える"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:58
 msgid "Personal"
-msgstr "Personal"
+msgstr "個人"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:77
 msgid "Manage organizations"
-msgstr "Manage organizations"
+msgstr "組織の管理"
 
 #: src/core/components/dashboard/RecentActivity.tsx:13
 msgid "created"
-msgstr "created"
+msgstr "作成"
 
 #: src/core/components/dashboard/RecentActivity.tsx:14
 msgid "updated"
-msgstr "updated"
+msgstr "更新されました"
 
 #: src/core/components/dashboard/RecentActivity.tsx:15
 msgid "deleted"
-msgstr "deleted"
+msgstr "削除済み"
 
 #: src/core/components/dashboard/RecentActivity.tsx:16
 msgid "restored"
-msgstr "restored"
+msgstr "復元された"
 
 #: src/core/components/dashboard/RecentActivity.tsx:17
 msgid "published"
-msgstr "published"
+msgstr "公開された"
 
 #: src/core/components/dashboard/RecentActivity.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:16
@@ -1385,88 +1387,88 @@ msgstr "published"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
 msgid "Loading..."
-msgstr "Loading..."
+msgstr "読み込み中..."
 
 #: src/core/components/dashboard/RecentActivity.tsx:33
 msgid "No activity recorded yet."
-msgstr "No activity recorded yet."
+msgstr "まだ活動は記録されていません。"
 
 #: src/core/components/dashboard/RecentActivity.tsx:44
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
 msgid "System"
-msgstr "System"
+msgstr "システム"
 
 #: src/core/components/editor/AiAssistMenu.tsx:32
 msgid "Rewrite"
-msgstr "Rewrite"
+msgstr "書き換え"
 
 #: src/core/components/editor/AiAssistMenu.tsx:38
 msgid "Shorten"
-msgstr "Shorten"
+msgstr "短縮する"
 
 #: src/core/components/editor/AiAssistMenu.tsx:44
 msgid "Expand"
-msgstr "Expand"
+msgstr "展開"
 
 #: src/core/components/editor/AiAssistMenu.tsx:50
 msgid "Fix grammar"
-msgstr "Fix grammar"
+msgstr "文法を修正する"
 
 #: src/core/components/editor/AiAssistMenu.tsx:56
 msgid "Translate to English"
-msgstr "Translate to English"
+msgstr "英語に翻訳"
 
 #: src/core/components/editor/AiAssistMenu.tsx:148
 msgid "AI request failed"
-msgstr "AI request failed"
+msgstr "AIリクエストが失敗しました"
 
 #: src/core/components/editor/AiAssistMenu.tsx:252
 #: src/core/components/editor/EditorBubbleMenu.tsx:123
 #: src/core/components/RichTextEditor.tsx:917
 msgid "AI Assist"
-msgstr "AI Assist"
+msgstr "AIアシスト"
 
 #: src/core/components/editor/AiAssistMenu.tsx:266
 msgid "Thinking..."
-msgstr "Thinking..."
+msgstr "考え中……"
 
 #: src/core/components/editor/AiAssistMenu.tsx:279
 msgid "Try again"
-msgstr "Try again"
+msgstr "もう一度試してみてください"
 
 #: src/core/components/editor/AiAssistMenu.tsx:297
 #: src/core-store/_templates/app/(public)/store/client.tsx:565
 msgid "Apply"
-msgstr "Apply"
+msgstr "応募する"
 
 #: src/core/components/editor/AiAssistMenu.tsx:304
 msgid "Discard"
-msgstr "Discard"
+msgstr "破棄"
 
 #: src/core/components/editor/AiAssistMenu.tsx:340
 #: src/core/components/editor/AiAssistMenu.tsx:352
 msgid "Custom instruction..."
-msgstr "Custom instruction..."
+msgstr "カスタム指示..."
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:75
 #: src/core/components/RichTextEditor.tsx:544
 msgid "Bold"
-msgstr "Bold"
+msgstr "太字"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:82
 #: src/core/components/RichTextEditor.tsx:551
 msgid "Italic"
-msgstr "Italic"
+msgstr "イタリック体"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:89
 #: src/core/components/RichTextEditor.tsx:558
 msgid "Underline"
-msgstr "Underline"
+msgstr "下線"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:96
 #: src/core/components/RichTextEditor.tsx:565
 msgid "Strikethrough"
-msgstr "Strikethrough"
+msgstr "取り消し線"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:103
 #: src/core-affiliates/components/AffiliateOverview.tsx:71
@@ -1477,315 +1479,315 @@ msgstr "Strikethrough"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
 msgid "Code"
-msgstr "Code"
+msgstr "コード"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:113
 #: src/core/components/RichTextEditor.tsx:680
 msgid "Link"
-msgstr "Link"
+msgstr "リンク"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:99
 msgid "Alt text"
-msgstr "Alt text"
+msgstr "代替テキスト"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:109
 msgid "Align left"
-msgstr "Align left"
+msgstr "左揃え"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:120
 msgid "Center"
-msgstr "Center"
+msgstr "センター"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:132
 msgid "Align right"
-msgstr "Align right"
+msgstr "右揃え"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:140
 msgid "Replace image"
-msgstr "Replace image"
+msgstr "画像を差し替える"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:147
 msgid "Remove image"
-msgstr "Remove image"
+msgstr "画像を削除する"
 
 #: src/core/components/editor/slash-commands.ts:18
 #: src/core/components/RichTextEditor.tsx:582
 msgid "Heading 1"
-msgstr "Heading 1"
+msgstr "見出し 1"
 
 #: src/core/components/editor/slash-commands.ts:19
 msgid "Large section heading"
-msgstr "Large section heading"
+msgstr "大きな見出し"
 
 #: src/core/components/editor/slash-commands.ts:21
 #: src/core/components/editor/slash-commands.ts:30
 #: src/core/components/editor/slash-commands.ts:39
 msgid "Headings"
-msgstr "Headings"
+msgstr "見出し"
 
 #: src/core/components/editor/slash-commands.ts:27
 #: src/core/components/RichTextEditor.tsx:589
 msgid "Heading 2"
-msgstr "Heading 2"
+msgstr "見出し 2"
 
 #: src/core/components/editor/slash-commands.ts:28
 msgid "Medium section heading"
-msgstr "Medium section heading"
+msgstr "中見出し"
 
 #: src/core/components/editor/slash-commands.ts:36
 #: src/core/components/RichTextEditor.tsx:596
 msgid "Heading 3"
-msgstr "Heading 3"
+msgstr "見出し3"
 
 #: src/core/components/editor/slash-commands.ts:37
 msgid "Small section heading"
-msgstr "Small section heading"
+msgstr "小見出し"
 
 #: src/core/components/editor/slash-commands.ts:45
 #: src/core/components/RichTextEditor.tsx:606
 msgid "Bullet List"
-msgstr "Bullet List"
+msgstr "箇条書き"
 
 #: src/core/components/editor/slash-commands.ts:46
 msgid "Unordered list"
-msgstr "Unordered list"
+msgstr "番号なしリスト"
 
 #: src/core/components/editor/slash-commands.ts:48
 #: src/core/components/editor/slash-commands.ts:57
 msgid "Lists"
-msgstr "Lists"
+msgstr "リスト"
 
 #: src/core/components/editor/slash-commands.ts:54
 msgid "Numbered List"
-msgstr "Numbered List"
+msgstr "番号付きリスト"
 
 #: src/core/components/editor/slash-commands.ts:55
 msgid "Ordered list"
-msgstr "Ordered list"
+msgstr "順序付きリスト"
 
 #: src/core/components/editor/slash-commands.ts:63
 msgid "Blockquote"
-msgstr "Blockquote"
+msgstr "引用ブロック"
 
 #: src/core/components/editor/slash-commands.ts:64
 msgid "Quote block"
-msgstr "Quote block"
+msgstr "引用ブロック"
 
 #: src/core/components/editor/slash-commands.ts:66
 #: src/core/components/editor/slash-commands.ts:75
 #: src/core/components/editor/slash-commands.ts:84
 #: src/core/components/editor/slash-commands.ts:93
 msgid "Blocks"
-msgstr "Blocks"
+msgstr "ブロック"
 
 #: src/core/components/editor/slash-commands.ts:72
 #: src/core/components/RichTextEditor.tsx:627
 msgid "Code Block"
-msgstr "Code Block"
+msgstr "コードブロック"
 
 #: src/core/components/editor/slash-commands.ts:73
 msgid "Fenced code block"
-msgstr "Fenced code block"
+msgstr "囲まれたコードブロック"
 
 #: src/core/components/editor/slash-commands.ts:81
 #: src/core/components/RichTextEditor.tsx:633
 msgid "Horizontal Rule"
-msgstr "Horizontal Rule"
+msgstr "水平線"
 
 #: src/core/components/editor/slash-commands.ts:82
 msgid "Divider line"
-msgstr "Divider line"
+msgstr "区切り線"
 
 #: src/core/components/editor/slash-commands.ts:90
 #: src/core/components/editor/TableMenu.tsx:138
 msgid "Table"
-msgstr "Table"
+msgstr "表"
 
 #: src/core/components/editor/slash-commands.ts:91
 msgid "Insert a table"
-msgstr "Insert a table"
+msgstr "表を挿入する"
 
 #: src/core/components/editor/slash-commands.ts:101
 #: src/core/components/RichTextEditor.tsx:689
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:108
 msgid "Image"
-msgstr "Image"
+msgstr "画像"
 
 #: src/core/components/editor/slash-commands.ts:102
 msgid "Upload or embed an image"
-msgstr "Upload or embed an image"
+msgstr "画像をアップロードまたは埋め込む"
 
 #: src/core/components/editor/slash-commands.ts:104
 msgid "Media"
-msgstr "Media"
+msgstr "メディア"
 
 #: src/core/components/editor/TableMenu.tsx:71
 msgid "Add row above"
-msgstr "Add row above"
+msgstr "その上に1行追加する"
 
 #: src/core/components/editor/TableMenu.tsx:77
 msgid "Add row below"
-msgstr "Add row below"
+msgstr "下に1行追加"
 
 #: src/core/components/editor/TableMenu.tsx:86
 msgid "Add column left"
-msgstr "Add column left"
+msgstr "左側に列を追加"
 
 #: src/core/components/editor/TableMenu.tsx:92
 msgid "Add column right"
-msgstr "Add column right"
+msgstr "右側に列を追加"
 
 #: src/core/components/editor/TableMenu.tsx:101
 msgid "Merge cells"
-msgstr "Merge cells"
+msgstr "セルの結合"
 
 #: src/core/components/editor/TableMenu.tsx:108
 msgid "Split cell"
-msgstr "Split cell"
+msgstr "分割セル"
 
 #: src/core/components/editor/TableMenu.tsx:118
 msgid "Delete row"
-msgstr "Delete row"
+msgstr "行を削除"
 
 #: src/core/components/editor/TableMenu.tsx:122
 msgid "Row"
-msgstr "Row"
+msgstr "行"
 
 #: src/core/components/editor/TableMenu.tsx:126
 msgid "Delete column"
-msgstr "Delete column"
+msgstr "列を削除する"
 
 #: src/core/components/editor/TableMenu.tsx:130
 msgid "Col"
-msgstr "Col"
+msgstr "大佐"
 
 #: src/core/components/editor/TableMenu.tsx:134
 msgid "Delete table"
-msgstr "Delete table"
+msgstr "テーブルを削除する"
 
 #: src/core/components/i18n/TranslationBar.tsx:68
 msgid "Failed to create translation"
-msgstr "Failed to create translation"
+msgstr "翻訳の作成に失敗しました"
 
 #: src/core/components/i18n/TranslationBar.tsx:76
 msgid "Language"
-msgstr "Language"
+msgstr "言語"
 
 #: src/core/components/i18n/TranslationBar.tsx:131
 #: src/core-api/components/AgentConnectPanel.tsx:114
 msgid "Copy"
-msgstr "Copy"
+msgstr "コピー"
 
 #: src/core/components/i18n/TranslationBar.tsx:140
 msgid "Copy & Translate"
-msgstr "Copy & Translate"
+msgstr "コピーして翻訳"
 
 #: src/core/components/media/MediaPickerButton.tsx:79
 msgid "Change"
-msgstr "Change"
+msgstr "変更"
 
 #: src/core/components/media/MediaPickerButton.tsx:92
 msgid "Select Image"
-msgstr "Select Image"
+msgstr "画像を選択"
 
 #: src/core/components/media/MediaPickerButton.tsx:102
 #: src/core/components/media/MediaPickerDialog.tsx:448
 msgid "Alt Text"
-msgstr "Alt Text"
+msgstr "代替テキスト"
 
 #: src/core/components/media/MediaPickerButton.tsx:108
 msgid "Describe the image..."
-msgstr "Describe the image..."
+msgstr "この画像について説明してください…"
 
 #: src/core/components/media/MediaPickerDialog.tsx:112
 msgid "Only image files are supported"
-msgstr "Only image files are supported"
+msgstr "画像ファイルのみ対応しています"
 
 #: src/core/components/media/MediaPickerDialog.tsx:150
 msgid "Failed to upload {name}"
-msgstr "Failed to upload {name}"
+msgstr "{name} のアップロードに失敗しました"
 
 #: src/core/components/media/MediaPickerDialog.tsx:215
 msgid "Media Library"
-msgstr "Media Library"
+msgstr "メディアライブラリ"
 
 #: src/core/components/media/MediaPickerDialog.tsx:225
 msgid "Search media..."
-msgstr "Search media..."
+msgstr "メディアを検索..."
 
 #: src/core/components/media/MediaPickerDialog.tsx:239
 msgid "All types"
-msgstr "All types"
+msgstr "すべてのタイプ"
 
 #: src/core/components/media/MediaPickerDialog.tsx:240
 msgid "Images"
-msgstr "Images"
+msgstr "画像"
 
 #: src/core/components/media/MediaPickerDialog.tsx:241
 msgid "Videos"
-msgstr "Videos"
+msgstr "動画"
 
 #: src/core/components/media/MediaPickerDialog.tsx:242
 msgid "Documents"
-msgstr "Documents"
+msgstr "文書"
 
 #: src/core/components/media/MediaPickerDialog.tsx:243
 msgid "Other"
-msgstr "Other"
+msgstr "その他"
 
 #: src/core/components/media/MediaPickerDialog.tsx:256
 msgid "All users"
-msgstr "All users"
+msgstr "すべてのユーザー"
 
 #: src/core/components/media/MediaPickerDialog.tsx:283
 #: src/core/components/media/PostAttachments.tsx:153
 msgid "Upload"
-msgstr "Upload"
+msgstr "アップロード"
 
 #: src/core/components/media/MediaPickerDialog.tsx:314
 msgid "Drop files to upload"
-msgstr "Drop files to upload"
+msgstr "アップロードしたいファイルをドラッグ＆ドロップしてください"
 
 #: src/core/components/media/MediaPickerDialog.tsx:329
 msgid "No images match your search."
-msgstr "No images match your search."
+msgstr "検索条件に一致する画像はありません。"
 
 #: src/core/components/media/MediaPickerDialog.tsx:330
 msgid "No images yet. Upload or drag files here."
-msgstr "No images yet. Upload or drag files here."
+msgstr "まだ画像はありません。画像をアップロードするか、ここにファイルをドラッグしてください。"
 
 #: src/core/components/media/MediaPickerDialog.tsx:430
 #: src/core/components/seo/SeoPreviewCard.tsx:121
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:137
 msgid "Title"
-msgstr "Title"
+msgstr "タイトル"
 
 #: src/core/components/media/MediaPickerDialog.tsx:442
 msgid "Image title"
-msgstr "Image title"
+msgstr "画像のタイトル"
 
 #: src/core/components/media/MediaPickerDialog.tsx:460
 msgid "Describe the image"
-msgstr "Describe the image"
+msgstr "この画像について説明してください"
 
 #: src/core/components/media/MediaPickerDialog.tsx:466
 #: src/core/components/seo/SeoPreviewCard.tsx:124
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:396
 msgid "Description"
-msgstr "Description"
+msgstr "説明"
 
 #: src/core/components/media/MediaPickerDialog.tsx:478
 msgid "Optional description"
-msgstr "Optional description"
+msgstr "任意の説明"
 
 #: src/core/components/media/MediaPickerDialog.tsx:496
 msgid "Select an image to view details"
-msgstr "Select an image to view details"
+msgstr "画像を選択して詳細を表示してください"
 
 #: src/core/components/media/MediaPickerDialog.tsx:506
 msgid "No image selected"
-msgstr "No image selected"
+msgstr "画像が選択されていません"
 
 #: src/core/components/media/MediaPickerDialog.tsx:510
 #: src/core/components/media/PostAttachments.tsx:252
@@ -1800,59 +1802,59 @@ msgstr "No image selected"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:703
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "キャンセル"
 
 #: src/core/components/media/MediaPickerDialog.tsx:517
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:133
 msgid "Select"
-msgstr "Select"
+msgstr "選択"
 
 #: src/core/components/media/MediaPickerDialog.tsx:525
 msgid "Delete media file?"
-msgstr "Delete media file?"
+msgstr "メディアファイルを削除しますか？"
 
 #: src/core/components/media/MediaPickerDialog.tsx:526
 msgid "This file will be permanently deleted."
-msgstr "This file will be permanently deleted."
+msgstr "このファイルは完全に削除されます。"
 
 #: src/core/components/media/PostAttachments.tsx:75
 msgid "Alt text updated"
-msgstr "Alt text updated"
+msgstr "代替テキストを更新しました"
 
 #: src/core/components/media/PostAttachments.tsx:84
 msgid "Attachment removed"
-msgstr "Attachment removed"
+msgstr "添付ファイルが削除されました"
 
 #: src/core/components/media/PostAttachments.tsx:133
 #: src/core/components/media/PostAttachments.tsx:146
 msgid "Attachments"
-msgstr "Attachments"
+msgstr "添付ファイル"
 
 #: src/core/components/media/PostAttachments.tsx:135
 msgid "Save the post first to add attachments."
-msgstr "Save the post first to add attachments."
+msgstr "添付ファイルを追加するには、まず投稿を保存してください。"
 
 #: src/core/components/media/PostAttachments.tsx:169
 msgid "No attachments yet."
-msgstr "No attachments yet."
+msgstr "まだ添付ファイルはありません。"
 
 #: src/core/components/media/PostAttachments.tsx:202
 msgid "Edit alt text"
-msgstr "Edit alt text"
+msgstr "代替テキストを編集する"
 
 #: src/core/components/media/PostAttachments.tsx:209
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:158
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove"
-msgstr "Remove"
+msgstr "削除"
 
 #: src/core/components/media/PostAttachments.tsx:229
 msgid "Edit Alt Text"
-msgstr "Edit Alt Text"
+msgstr "代替テキストを編集"
 
 #: src/core/components/media/PostAttachments.tsx:244
 msgid "Describe this file..."
-msgstr "Describe this file..."
+msgstr "このファイルについて説明してください…"
 
 #: src/core/components/media/PostAttachments.tsx:264
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:95
@@ -1865,177 +1867,177 @@ msgstr "Describe this file..."
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:337
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:825
 msgid "Save"
-msgstr "Save"
+msgstr "保存"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:54
 msgid "Insert Internal Link"
-msgstr "Insert Internal Link"
+msgstr "内部リンクを挿入"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:63
 msgid "Search pages, blog posts, categories..."
-msgstr "Search pages, blog posts, categories..."
+msgstr "ページ、ブログ記事、カテゴリを検索…"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:72
 msgid "Searching..."
-msgstr "Searching..."
+msgstr "検索中..."
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:81
 msgid "Type at least 2 characters to search"
-msgstr "Type at least 2 characters to search"
+msgstr "検索するには、2文字以上入力してください"
 
 #: src/core/components/overlays/SlideOver.tsx:102
 msgid "Close"
-msgstr "Close"
+msgstr "閉じる"
 
 #: src/core/components/PushToggle.tsx:28
 #: src/core/components/PushToggle.tsx:46
 msgid "Push notifications blocked by browser"
-msgstr "Push notifications blocked by browser"
+msgstr "ブラウザによってプッシュ通知がブロックされています"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Push enabled"
-msgstr "Push enabled"
+msgstr "プッシュ機能有効"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Enable push"
-msgstr "Enable push"
+msgstr "プッシュ通知を有効にする"
 
 #: src/core/components/PushToggle.tsx:51
 msgid "Push notifications on"
-msgstr "Push notifications on"
+msgstr "プッシュ通知をオンにする"
 
 #: src/core/components/PushToggle.tsx:56
 msgid "Enable push notifications"
-msgstr "Enable push notifications"
+msgstr "プッシュ通知を有効にする"
 
 #: src/core/components/RichTextEditor.tsx:263
 msgid "Insert"
-msgstr "Insert"
+msgstr "挿入"
 
 #: src/core/components/RichTextEditor.tsx:265
 msgid "Shortcodes"
-msgstr "Shortcodes"
+msgstr "ショートコード"
 
 #: src/core/components/RichTextEditor.tsx:319
 msgid "Start writing or type / for commands..."
-msgstr "Start writing or type / for commands..."
+msgstr "書き始めたり、コマンドを入力するには「/」と入力してください..."
 
 #: src/core/components/RichTextEditor.tsx:384
 #: src/core/components/RichTextEditor.tsx:401
 #: src/core/components/RichTextEditor.tsx:831
 msgid "Image upload failed"
-msgstr "Image upload failed"
+msgstr "画像のアップロードに失敗しました"
 
 #: src/core/components/RichTextEditor.tsx:572
 msgid "Inline Code"
-msgstr "Inline Code"
+msgstr "インラインコード"
 
 #: src/core/components/RichTextEditor.tsx:613
 msgid "Ordered List"
-msgstr "Ordered List"
+msgstr "順序付きリスト"
 
 #: src/core/components/RichTextEditor.tsx:620
 msgid "Quote"
-msgstr "Quote"
+msgstr "引用"
 
 #: src/core/components/RichTextEditor.tsx:646
 msgid "Insert Table"
-msgstr "Insert Table"
+msgstr "表を挿入"
 
 #: src/core/components/RichTextEditor.tsx:656
 msgid "Align Left"
-msgstr "Align Left"
+msgstr "左揃え"
 
 #: src/core/components/RichTextEditor.tsx:663
 msgid "Align Center"
-msgstr "Align Center"
+msgstr "中央揃え"
 
 #: src/core/components/RichTextEditor.tsx:670
 msgid "Align Right"
-msgstr "Align Right"
+msgstr "右揃え"
 
 #: src/core/components/RichTextEditor.tsx:685
 msgid "Internal Link"
-msgstr "Internal Link"
+msgstr "内部リンク"
 
 #: src/core/components/RichTextEditor.tsx:700
 msgid "Insert Variable"
-msgstr "Insert Variable"
+msgstr "変数を挿入"
 
 #: src/core/components/RichTextEditor.tsx:738
 msgid "Insert Block"
-msgstr "Insert Block"
+msgstr "ブロックの挿入"
 
 #: src/core/components/RichTextEditor.tsx:784
 msgid "Undo"
-msgstr "Undo"
+msgstr "元に戻す"
 
 #: src/core/components/RichTextEditor.tsx:791
 msgid "Redo"
-msgstr "Redo"
+msgstr "やり直し"
 
 #: src/core/components/RichTextEditor.tsx:807
 msgid "Hide Preview"
-msgstr "Hide Preview"
+msgstr "プレビューを非表示にする"
 
 #: src/core/components/RichTextEditor.tsx:807
 msgid "Show Preview"
-msgstr "Show Preview"
+msgstr "プレビューを表示"
 
 #: src/core/components/RichTextEditor.tsx:914
 msgid "AI Assist (works in both Visual and Source mode)"
-msgstr "AI Assist (works in both Visual and Source mode)"
+msgstr "AIアシスト（ビジュアルモードとソースモードの両方で利用可能）"
 
 #: src/core/components/RichTextEditor.tsx:932
 msgid "Visual"
-msgstr "Visual"
+msgstr "ビジュアル"
 
 #: src/core/components/RichTextEditor.tsx:944
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:121
 msgid "Source"
-msgstr "Source"
+msgstr "出典"
 
 #: src/core/components/RichTextEditor.tsx:962
 msgid "Preview"
-msgstr "Preview"
+msgstr "プレビュー"
 
 #: src/core/components/seo/SEOFields.tsx:27
 msgid "SEO Title"
-msgstr "SEO Title"
+msgstr "SEOタイトル"
 
 #: src/core/components/seo/SEOFields.tsx:33
 msgid "Optional SEO title for {titleTag} tag"
-msgstr "Optional SEO title for {titleTag} tag"
+msgstr "{titleTag}タグ用のオプションのSEOタイトル"
 
 #: src/core/components/seo/SEOFields.tsx:40
 msgid "Falls back to Title if empty"
-msgstr "Falls back to Title if empty"
+msgstr "空の場合はタイトルに戻る"
 
 #: src/core/components/seo/SEOFields.tsx:46
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:337
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:566
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "メタディスクリプション"
 
 #: src/core/components/seo/SEOFields.tsx:51
 msgid "SEO meta description (max 160 chars)"
-msgstr "SEO meta description (max 160 chars)"
+msgstr "SEOメタディスクリプション（最大160文字）"
 
 #: src/core/components/seo/SEOFields.tsx:71
 msgid "Noindex"
-msgstr "Noindex"
+msgstr "noindex"
 
 #: src/core/components/seo/SEOFields.tsx:74
 msgid "Exclude from search engine indexing (adds noindex meta tag)"
-msgstr "Exclude from search engine indexing (adds noindex meta tag)"
+msgstr "検索エンジンのインデックス登録から除外する（noindexメタタグを追加する）"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:120
 msgid "Create SEO Override Pages"
-msgstr "Create SEO Override Pages"
+msgstr "SEOオーバーライドページの作成"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:132
 msgid "Route"
-msgstr "Route"
+msgstr "ルート"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:135
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:62
@@ -2047,15 +2049,15 @@ msgstr "Route"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:199
 msgid "Slug"
-msgstr "Slug"
+msgstr "スラグ"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:205
 msgid "Create Selected"
-msgstr "Create Selected"
+msgstr "選択した項目を作成"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:27
 msgid "No image"
-msgstr "No image"
+msgstr "画像なし"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:41
 msgid "Google"
@@ -2071,78 +2073,72 @@ msgstr "Twitter / X"
 
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:35
 msgid "Edit {label}"
-msgstr "Edit {label}"
+msgstr "{label} を編集"
 
 #: src/core/components/TokenBalance.tsx:71
 msgid "Token balance"
-msgstr "Token balance"
+msgstr "トークンの残高"
 
 #: src/core/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
-msgstr "{succeeded} {action}, {failed} failed"
-
-#: src/core/hooks/useBulkActions.ts:52
-msgid "1 item {action}"
-msgid_plural "{count} items {action}"
-msgstr[0] "1 item {action}"
-msgstr[1] "{count} items {action}"
+msgstr "{succeeded} {action}、{failed} は失敗しました"
 
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
-msgstr "Please check the form for errors"
+msgstr "フォームに誤りがないかご確認ください"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:20
 msgid "Activity Feed"
-msgstr "Activity Feed"
+msgstr "アクティビティフィード"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:27
 msgid "View all"
-msgstr "View all"
+msgstr "すべて表示"
 
 #: src/core-activity/components/DashboardActivityWidget.tsx:30
 msgid "No recent activity"
-msgstr "No recent activity"
+msgstr "最近の活動はありません"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:108
 msgid "Activity Log"
-msgstr "Activity Log"
+msgstr "アクティビティログ"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:163
 msgid "Search by actor name..."
-msgstr "Search by actor name..."
+msgstr "俳優名で検索..."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:210
 msgid "No activity events"
-msgstr "No activity events"
+msgstr "イベントはありません"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:214
 msgid "No events match your filters."
-msgstr "No events match your filters."
+msgstr "指定した条件に一致するイベントはありません。"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:215
 msgid "Activity events will appear here as users interact with the app."
-msgstr "Activity events will appear here as users interact with the app."
+msgstr "ユーザーがアプリを操作すると、アクティビティのイベントがここに表示されます。"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:222
 msgid "Actor"
-msgstr "Actor"
+msgstr "俳優"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:223
 msgid "Action"
-msgstr "Action"
+msgstr "アクション"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:224
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:203
 msgid "Target"
-msgstr "Target"
+msgstr "ターゲット"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:225
 msgid "Time"
-msgstr "Time"
+msgstr "時間"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
 msgid "Unknown"
-msgstr "Unknown"
+msgstr "不明"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:290
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:310
@@ -2155,7 +2151,7 @@ msgstr "Unknown"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "of"
-msgstr "of"
+msgstr "の"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:291
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:311
@@ -2164,61 +2160,61 @@ msgstr "of"
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:214
 msgid "total"
-msgstr "total"
+msgstr "合計"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:38
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
 msgid "Manage"
-msgstr "Manage"
+msgstr "管理"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:28
 msgid "No affiliates yet."
-msgstr "No affiliates yet."
+msgstr "まだ提携先はありません。"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:44
 msgid "Active Affiliates"
-msgstr "Active Affiliates"
+msgstr "アクティブなアフィリエイト"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:48
 msgid "Total Referrals"
-msgstr "Total Referrals"
+msgstr "紹介総数"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:52
 msgid "Conversion Rate"
-msgstr "Conversion Rate"
+msgstr "コンバージョン率"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:56
 msgid "Total Earnings"
-msgstr "Total Earnings"
+msgstr "収益総額"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:64
 msgid "Top Affiliates"
-msgstr "Top Affiliates"
+msgstr "トップアフィリエイト"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:70
 msgid "Affiliate"
-msgstr "Affiliate"
+msgstr "アフィリエイト"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:72
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:56
 msgid "Referrals"
-msgstr "Referrals"
+msgstr "紹介"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:73
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:57
 msgid "Earnings"
-msgstr "Earnings"
+msgstr "収益"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:74
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:55
 msgid "Commission"
-msgstr "Commission"
+msgstr "委員会"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:37
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:87
 msgid "All Statuses"
-msgstr "All Statuses"
+msgstr "すべてのステータス"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:38
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
@@ -2232,21 +2228,21 @@ msgstr "All Statuses"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Active"
-msgstr "Active"
+msgstr "アクティブ"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:39
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:132
 msgid "Suspended"
-msgstr "Suspended"
+msgstr "停止中"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:40
 msgid "Banned"
-msgstr "Banned"
+msgstr "禁止"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:47
 msgid "No affiliates found"
-msgstr "No affiliates found"
+msgstr "関連サイトが見つかりませんでした"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:58
 #: src/core-api/components/ApiKeyManager.tsx:175
@@ -2270,14 +2266,14 @@ msgstr "No affiliates found"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:250
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:380
 msgid "Status"
-msgstr "Status"
+msgstr "ステータス"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:59
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:63
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:62
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:166
 msgid "Actions"
-msgstr "Actions"
+msgstr "アクション"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:81
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
@@ -2285,35 +2281,35 @@ msgstr "Actions"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:141
 msgid "Suspend"
-msgstr "Suspend"
+msgstr "一時停止"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:89
 msgid "Activate"
-msgstr "Activate"
+msgstr "有効にする"
 
 #: src/core-api/components/AgentConnectPanel.tsx:31
 msgid "Claude Code"
-msgstr "Claude Code"
+msgstr "クロード・コード"
 
 #: src/core-api/components/AgentConnectPanel.tsx:33
 msgid "Run in any terminal. The agent can then operate this site directly — no browser needed."
-msgstr "Run in any terminal. The agent can then operate this site directly — no browser needed."
+msgstr "任意のターミナルで実行してください。そうすれば、エージェントがこのサイトを直接操作できるようになります。ブラウザは必要ありません。"
 
 #: src/core-api/components/AgentConnectPanel.tsx:50
 msgid "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
-msgstr "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
+msgstr "プロジェクトのルートディレクトリに移動してください。Claude Code、Cursor、およびほとんどのMCPクライアントは、自動的にそれを認識します。"
 
 #: src/core-api/components/AgentConnectPanel.tsx:53
 msgid "Any MCP client"
-msgstr "Any MCP client"
+msgstr "任意のMCPクライアント"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Endpoint"
-msgstr "Endpoint"
+msgstr "エンドポイント"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Transport"
-msgstr "Transport"
+msgstr "輸送"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Auth"
@@ -2321,50 +2317,50 @@ msgstr "Auth"
 
 #: src/core-api/components/AgentConnectPanel.tsx:55
 msgid "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
-msgstr "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
+msgstr "ベアラー認証を用いたStreamable HTTP経由でMCPに対応しているクライアントであれば、どれでも動作します。"
 
 #: src/core-api/components/AgentConnectPanel.tsx:61
 msgid "Agent Access (MCP)"
-msgstr "Agent Access (MCP)"
+msgstr "エージェントへのアクセス (MCP)"
 
 #: src/core-api/components/AgentConnectPanel.tsx:63
 msgid "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
-msgstr "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
+msgstr "AIエージェントは、MCPエンドポイントを通じてこのサイトを直接操作できます。すべてのAPI操作がツールとして利用可能で、その適用範囲はアカウントおよび組織に限定されます。キーには「mcp:invoke」スコープ（またはフルアクセス権）が必要です。"
 
 #: src/core-api/components/AgentConnectPanel.tsx:83
 msgid "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
-msgstr "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
+msgstr "上記に「mcp:invoke」スコープを持つキーを作成すると、これらのスニペットにそれが自動的に組み込まれます。"
 
 #: src/core-api/components/AgentConnectPanel.tsx:114
 #: src/core-api/components/ApiKeyManager.tsx:366
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "コピーしました！"
 
 #: src/core-api/components/ApiKeyManager.tsx:106
 msgid "Create API Key"
-msgstr "Create API Key"
+msgstr "APIキーを作成する"
 
 #: src/core-api/components/ApiKeyManager.tsx:112
 msgid "Key name (e.g. Production, Staging)"
-msgstr "Key name (e.g. Production, Staging)"
+msgstr "キー名（例：Production、Staging）"
 
 #: src/core-api/components/ApiKeyManager.tsx:122
 msgid "Create Key"
-msgstr "Create Key"
+msgstr "キーの作成"
 
 #: src/core-api/components/ApiKeyManager.tsx:138
 msgid "Your API key has been created. Copy it now — it won't be shown again."
-msgstr "Your API key has been created. Copy it now — it won't be shown again."
+msgstr "APIキーが作成されました。今すぐコピーしてください。これ以降、表示されることはありません。"
 
 #: src/core-api/components/ApiKeyManager.tsx:160
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:12
 msgid "API Keys"
-msgstr "API Keys"
+msgstr "APIキー"
 
 #: src/core-api/components/ApiKeyManager.tsx:166
 msgid "No API keys yet."
-msgstr "No API keys yet."
+msgstr "まだAPIキーはありません。"
 
 #: src/core-api/components/ApiKeyManager.tsx:172
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:61
@@ -2382,19 +2378,19 @@ msgstr "No API keys yet."
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:616
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:657
 msgid "Name"
-msgstr "Name"
+msgstr "名前"
 
 #: src/core-api/components/ApiKeyManager.tsx:173
 msgid "Key"
-msgstr "Key"
+msgstr "キー"
 
 #: src/core-api/components/ApiKeyManager.tsx:174
 msgid "Scopes"
-msgstr "Scopes"
+msgstr "適用範囲"
 
 #: src/core-api/components/ApiKeyManager.tsx:176
 msgid "Last Used"
-msgstr "Last Used"
+msgstr "最終使用日"
 
 #: src/core-api/components/ApiKeyManager.tsx:177
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:83
@@ -2402,148 +2398,148 @@ msgstr "Last Used"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:122
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:388
 msgid "Created"
-msgstr "Created"
+msgstr "作成日"
 
 #: src/core-api/components/ApiKeyManager.tsx:206
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:169
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:222
 msgid "Saving..."
-msgstr "Saving..."
+msgstr "保存中..."
 
 #: src/core-api/components/ApiKeyManager.tsx:221
 msgid "Click to edit scopes"
-msgstr "Click to edit scopes"
+msgstr "範囲を編集するにはここをクリックしてください"
 
 #: src/core-api/components/ApiKeyManager.tsx:226
 msgid "None"
-msgstr "None"
+msgstr "なし"
 
 #: src/core-api/components/ApiKeyManager.tsx:228
 msgid "scopes"
-msgstr "scopes"
+msgstr "スコープ"
 
 #: src/core-api/components/ApiKeyManager.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:367
 msgid "Never"
-msgstr "Never"
+msgstr "決して"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "Roll this key?"
-msgstr "Roll this key?"
+msgstr "このキーをロールしますか？"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "A new key will be created and the old one will expire in 24 hours."
-msgstr "A new key will be created and the old one will expire in 24 hours."
+msgstr "新しいキーが作成され、古いキーは24時間後に失効します。"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 #: src/core-api/components/ApiKeyManager.tsx:255
 msgid "Roll"
-msgstr "Roll"
+msgstr "ロール"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "Revoke this API key?"
-msgstr "Revoke this API key?"
+msgstr "このAPIキーを無効にしますか？"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "This is immediate and cannot be undone."
-msgstr "This is immediate and cannot be undone."
+msgstr "この操作は即時に行われ、取り消すことはできません。"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 #: src/core-api/components/ApiKeyManager.tsx:267
 msgid "Revoke"
-msgstr "Revoke"
+msgstr "取り消す"
 
 #: src/core-api/components/ApiKeyManager.tsx:305
 msgid "Full access"
-msgstr "Full access"
+msgstr "すべてのコンテンツへのアクセス"
 
 #: src/core-api/components/ApiKeyManager.tsx:327
 msgid "No scopes selected — no access."
-msgstr "No scopes selected — no access."
+msgstr "スコープが選択されていないため、アクセスできません。"
 
 #: src/core-api/components/ApiKeyManager.tsx:366
 msgid "Copy to Clipboard"
-msgstr "Copy to Clipboard"
+msgstr "クリップボードにコピー"
 
 #: src/core-api/components/ApiKeyManager.tsx:381
 msgid "Expiring"
-msgstr "Expiring"
+msgstr "有効期限切れ"
 
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:13
 msgid "Manage API keys for programmatic access to your data."
-msgstr "Manage API keys for programmatic access to your data."
+msgstr "データへのプログラムによるアクセスに必要なAPIキーを管理します。"
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:109
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:44
 msgid "Search authors..."
-msgstr "Search authors..."
+msgstr "著者を検索..."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:116
 msgid "No authors found. Create one first."
-msgstr "No authors found. Create one first."
+msgstr "著者が見つかりませんでした。まず著者を作成してください。"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:22
 msgid "Author deleted"
-msgstr "Author deleted"
+msgstr "著者が削除しました"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:30
 msgid "Authors"
-msgstr "Authors"
+msgstr "著者"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:35
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "New Author"
-msgstr "New Author"
+msgstr "新着著者"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:56
 msgid "No authors yet."
-msgstr "No authors yet."
+msgstr "著者はまだいません。"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:83
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:132
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:282
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
 msgid "Edit"
-msgstr "Edit"
+msgstr "編集"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:89
 msgid "Delete this author?"
-msgstr "Delete this author?"
+msgstr "この著者を削除しますか？"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:42
 msgid "Author created"
-msgstr "Author created"
+msgstr "作成者："
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:50
 msgid "Author saved"
-msgstr "Author saved"
+msgstr "著者が保存されました"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "Edit Author"
-msgstr "Edit Author"
+msgstr "著者を編集"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:108
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:142
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:121
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Create"
-msgstr "Create"
+msgstr "作成"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:136
 msgid "Bio"
-msgstr "Bio"
+msgstr "プロフィール"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:146
 msgid "Avatar"
-msgstr "Avatar"
+msgstr "アバター"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:165
 msgid "Social Links"
-msgstr "Social Links"
+msgstr "ソーシャルリンク"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:168
 msgid "Website"
-msgstr "Website"
+msgstr "ウェブサイト"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:172
 msgid "Twitter"
@@ -2559,25 +2555,25 @@ msgstr "LinkedIn"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:22
 msgid "Are you sure you want to delete this character?"
-msgstr "Are you sure you want to delete this character?"
+msgstr "このキャラクターを削除してもよろしいですか？"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:32
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Characters"
-msgstr "Characters"
+msgstr "登場人物"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:34
 msgid "AI personas that users can chat with."
-msgstr "AI personas that users can chat with."
+msgstr "ユーザーがチャットできるAIキャラクター。"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:42
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
 msgid "New Character"
-msgstr "New Character"
+msgstr "新キャラクター"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:52
 msgid "No characters yet. Create your first AI persona."
-msgstr "No characters yet. Create your first AI persona."
+msgstr "まだキャラクターはいません。最初のAIキャラクターを作成しましょう。"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
@@ -2585,282 +2581,282 @@ msgstr "No characters yet. Create your first AI persona."
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Inactive"
-msgstr "Inactive"
+msgstr "非アクティブ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:188
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "キャッチコピー"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:191
 msgid "System Prompt"
-msgstr "System Prompt"
+msgstr "システムプロンプト"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:194
 msgid "Personality (visible to users)"
-msgstr "Personality (visible to users)"
+msgstr "性格（ユーザーに表示される）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:197
 msgid "Greeting Message"
-msgstr "Greeting Message"
+msgstr "ご挨拶"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:200
 msgid "Avatar URL"
-msgstr "Avatar URL"
+msgstr "アバターのURL"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
 msgid "Character Traits"
-msgstr "Character Traits"
+msgstr "性格の特徴"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
 msgid "Gender"
-msgstr "Gender"
+msgstr "性別"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
 msgid "Sexuality"
-msgstr "Sexuality"
+msgstr "セクシュアリティ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
 msgid "Ethnicity"
-msgstr "Ethnicity"
+msgstr "民族"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
 msgid "Personality"
-msgstr "Personality"
+msgstr "性格"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
 msgid "Kink"
-msgstr "Kink"
+msgstr "キンク"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:212
 msgid "Job"
-msgstr "Job"
+msgstr "求人"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:213
 msgid "Relationship"
-msgstr "Relationship"
+msgstr "関係"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:216
 msgid "Hobbies"
-msgstr "Hobbies"
+msgstr "趣味"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
 msgid "Visual Appearance"
-msgstr "Visual Appearance"
+msgstr "外観"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
 msgid "Hair Color"
-msgstr "Hair Color"
+msgstr "ヘアカラー"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
 msgid "Hair Texture"
-msgstr "Hair Texture"
+msgstr "髪の質感"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
 msgid "Hair Style"
-msgstr "Hair Style"
+msgstr "ヘアスタイル"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
 msgid "Eye Color"
-msgstr "Eye Color"
+msgstr "瞳の色"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:228
 msgid "Skin"
-msgstr "Skin"
+msgstr "肌"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:229
 msgid "Body Type"
-msgstr "Body Type"
+msgstr "体型"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
 msgid "Image Generation Settings"
-msgstr "Image Generation Settings"
+msgstr "画像生成の設定"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
 msgid "Model Preset"
-msgstr "Model Preset"
+msgstr "モデルプリセット"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
 msgid "Sort Order"
-msgstr "Sort Order"
+msgstr "並べ替え順"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:241
 msgid "Token Cost Multiplier"
-msgstr "Token Cost Multiplier"
+msgstr "トークンコスト乗数"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
 msgid "Custom Negative Prompt"
-msgstr "Custom Negative Prompt"
+msgstr "カスタムネガティブプロンプト"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:246
 msgid "LoRA Config"
-msgstr "LoRA Config"
+msgstr "LoRAの設定"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:252
 msgid "Active (visible to users)"
-msgstr "Active (visible to users)"
+msgstr "アクティブ（ユーザーに表示される）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
 msgid "Create Character"
-msgstr "Create Character"
+msgstr "キャラクターを作成する"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
 msgid "Save Changes"
-msgstr "Save Changes"
+msgstr "変更を保存"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
 msgid "Edit Character"
-msgstr "Edit Character"
+msgstr "キャラクターを編集"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:12
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
 msgid "Conversations"
-msgstr "Conversations"
+msgstr "会話"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:26
 msgid "Browse all chat conversations"
-msgstr "Browse all chat conversations"
+msgstr "すべてのチャット履歴を表示する"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
 msgid "All statuses"
-msgstr "All statuses"
+msgstr "すべてのステータス"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:368
 msgid "Archived"
-msgstr "Archived"
+msgstr "アーカイブ済み"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:36
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:133
 msgid "Deleted"
-msgstr "Deleted"
+msgstr "削除済み"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:43
 msgid "No conversations found."
-msgstr "No conversations found."
+msgstr "該当する会話は見つかりませんでした。"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
 msgid "User"
-msgstr "User"
+msgstr "ユーザー"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
 msgid "Character"
-msgstr "Character"
+msgstr "キャラクター"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
 msgid "Messages"
-msgstr "Messages"
+msgstr "メッセージ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:130
 msgid "Tokens"
-msgstr "Tokens"
+msgstr "トークン"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:55
 msgid "Last Active"
-msgstr "Last Active"
+msgstr "最終アクセス日時"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:26
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
 msgid "Conversation"
-msgstr "Conversation"
+msgstr "会話"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:33
 msgid "No messages."
-msgstr "No messages."
+msgstr "メッセージはありません。"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:15
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Flagged Messages"
-msgstr "Flagged Messages"
+msgstr "フラグが立てられたメッセージ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
 msgid "Messages blocked by content moderation"
-msgstr "Messages blocked by content moderation"
+msgstr "コンテンツのモデレーションによりブロックされたメッセージ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
 msgid "No flagged messages."
-msgstr "No flagged messages."
+msgstr "フラグが立てられたメッセージはありません。"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "Reason"
-msgstr "Reason"
+msgstr "理由"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
 msgid "Dismiss flag"
-msgstr "Dismiss flag"
+msgstr "フラグを非表示にする"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
 msgid "Dismiss"
-msgstr "Dismiss"
+msgstr "閉じる"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:13
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
 msgid "Total Messages"
-msgstr "Total Messages"
+msgstr "メッセージの総数"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:14
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:27
 msgid "Active Users (24h)"
-msgstr "Active Users (24h)"
+msgstr "アクティブユーザー（過去24時間）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Manage AI personas"
-msgstr "Manage AI personas"
+msgstr "AIペルソナの管理"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 msgid "Browse all conversations"
-msgstr "Browse all conversations"
+msgstr "すべての会話を閲覧する"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Review moderated content"
-msgstr "Review moderated content"
+msgstr "審査済みのコンテンツを確認する"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 msgid "Manage LLM providers"
-msgstr "Manage LLM providers"
+msgstr "LLMプロバイダーの管理"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Usage statistics and charts"
-msgstr "Usage statistics and charts"
+msgstr "利用統計とグラフ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Keywords, action, and rate limits"
-msgstr "Keywords, action, and rate limits"
+msgstr "キーワード、アクション、およびレート制限"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:30
 msgid "Chat"
-msgstr "Chat"
+msgstr "チャット"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:31
 msgid "AI character chat management"
-msgstr "AI character chat management"
+msgstr "AIキャラクターのチャット管理"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:69
 msgid "Delete this provider?"
-msgstr "Delete this provider?"
+msgstr "このプロバイダーを削除しますか？"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:87
 msgid "Manage LLM provider credentials and routing"
-msgstr "Manage LLM provider credentials and routing"
+msgstr "LLMプロバイダーの認証情報とルーティングの管理"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:91
 msgid "Add Provider"
-msgstr "Add Provider"
+msgstr "プロバイダーを追加"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
 msgid "Edit Provider"
-msgstr "Edit Provider"
+msgstr "プロバイダーを編集"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
 msgid "New Provider"
-msgstr "New Provider"
+msgstr "新規プロバイダー"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
@@ -2876,121 +2872,121 @@ msgstr "New Provider"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
 msgid "Type"
-msgstr "Type"
+msgstr "種類"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
 msgid "LLM (Text)"
-msgstr "LLM (Text)"
+msgstr "LLM（テキスト）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
 msgid "Video"
-msgstr "Video"
+msgstr "動画"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:111
 msgid "Adapter"
-msgstr "Adapter"
+msgstr "アダプター"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:118
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
 msgid "Model"
-msgstr "Model"
+msgstr "モデル"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
 msgid "Base URL (leave empty for OpenAI)"
-msgstr "Base URL (leave empty for OpenAI)"
+msgstr "ベースURL（OpenAIの場合は空欄のままにしてください）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:123
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
 msgid "API Key"
-msgstr "API Key"
+msgstr "APIキー"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
 msgid "Leave empty to keep current"
-msgstr "Leave empty to keep current"
+msgstr "現在の状態を維持するには、空欄のままにしてください"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:120
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:384
 msgid "Priority"
-msgstr "Priority"
+msgstr "優先順位"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
 msgid "Max Concurrent"
-msgstr "Max Concurrent"
+msgstr "最大同時接続数"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:134
 msgid "Timeout (s)"
-msgstr "Timeout (s)"
+msgstr "タイムアウト（秒）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:153
 msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
-msgstr "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "プロバイダーが設定されていません。プロバイダーを追加するか、.env ファイルで AI_API_KEY を設定して、すぐに使い始めましょう。"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:189
 msgid "Test"
-msgstr "Test"
+msgstr "テスト"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
 msgid "Task Queues"
-msgstr "Task Queues"
+msgstr "タスクキュー"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
 msgid "BullMQ job queue status and failed job management"
-msgstr "BullMQ job queue status and failed job management"
+msgstr "BullMQのジョブキューの状態と失敗したジョブの管理"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
 msgid "No queues found. Workers may not be running."
-msgstr "No queues found. Workers may not be running."
+msgstr "キューが見つかりませんでした。ワーカーが実行されていない可能性があります。"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
 msgid "Waiting"
-msgstr "Waiting"
+msgstr "待つ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
 msgid "Done"
-msgstr "Done"
+msgstr "完了"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
 msgid "Failed"
-msgstr "Failed"
+msgstr "失敗しました"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
 msgid "Failed Jobs"
-msgstr "Failed Jobs"
+msgstr "失敗したジョブ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
 msgid "Attempts"
-msgstr "Attempts"
+msgstr "試み"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
 msgid "Retry"
-msgstr "Retry"
+msgstr "再試行"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:28
 msgid "Tokens Consumed"
-msgstr "Tokens Consumed"
+msgstr "消費されたトークン"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:34
 msgid "Chat Analytics"
-msgstr "Chat Analytics"
+msgstr "チャット分析"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:35
 msgid "Usage statistics and trends"
-msgstr "Usage statistics and trends"
+msgstr "利用統計と傾向"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:55
 msgid "Messages (30 days)"
-msgstr "Messages (30 days)"
+msgstr "メッセージ（30日間）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:74
 msgid "Popular Characters"
-msgstr "Popular Characters"
+msgstr "人気キャラクター"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:78
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:121
 msgid "No data yet"
-msgstr "No data yet"
+msgstr "まだデータがありません"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
@@ -3000,139 +2996,139 @@ msgstr "Convs"
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:87
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:129
 msgid "Msgs"
-msgstr "Msgs"
+msgstr "メッセージ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:88
 msgid "Avg"
-msgstr "Avg"
+msgstr "平均"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:117
 msgid "Most Active Users"
-msgstr "Most Active Users"
+msgstr "最もアクティブなユーザー"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:164
 msgid "Provider Health (24h)"
-msgstr "Provider Health (24h)"
+msgstr "医療従事者向けヘルスケア（24時間対応）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:168
 msgid "No provider activity yet"
-msgstr "No provider activity yet"
+msgstr "まだプロバイダーによる活動はありません"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
 msgid "Provider"
-msgstr "Provider"
+msgstr "プロバイダー"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
 msgid "Requests"
-msgstr "Requests"
+msgstr "リクエスト"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
 msgid "Success"
-msgstr "Success"
+msgstr "成功"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
 msgid "Failures"
-msgstr "Failures"
+msgstr "失敗"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:178
 msgid "Avg ms"
-msgstr "Avg ms"
+msgstr "平均（ms）"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:179
 msgid "Rate"
-msgstr "Rate"
+msgstr "レート"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:69
 msgid "Comment updated"
-msgstr "Comment updated"
+msgstr "コメントが更新されました"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:78
 msgid "Comment deleted"
-msgstr "Comment deleted"
+msgstr "コメントが削除されました"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:156
 msgid "Search comments..."
-msgstr "Search comments..."
+msgstr "コメントを検索..."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:189
 msgid "No comments"
-msgstr "No comments"
+msgstr "コメントはありません"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:193
 msgid "No comments match your search."
-msgstr "No comments match your search."
+msgstr "検索条件に一致するコメントはありません。"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:194
 msgid "No comments found."
-msgstr "No comments found."
+msgstr "コメントは見つかりませんでした。"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:201
 msgid "Author"
-msgstr "Author"
+msgstr "著者"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:202
 msgid "Comment"
-msgstr "Comment"
+msgstr "コメント"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:205
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:305
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:139
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
 msgid "Date"
-msgstr "Date"
+msgstr "日付"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:230
 msgid "Anonymous"
-msgstr "Anonymous"
+msgstr "匿名"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:267
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:179
 msgid "Approve"
-msgstr "Approve"
+msgstr "承認する"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:276
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:187
 msgid "Reject"
-msgstr "Reject"
+msgstr "却下"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:285
 msgid "Spam"
-msgstr "Spam"
+msgstr "スパム"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:334
 msgid "Delete comment?"
-msgstr "Delete comment?"
+msgstr "コメントを削除しますか？"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:335
 msgid "Permanently delete this comment? This action cannot be undone."
-msgstr "Permanently delete this comment? This action cannot be undone."
+msgstr "このコメントを完全に削除しますか？この操作は元に戻せません。"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:61
 msgid "Switch site"
-msgstr "Switch site"
+msgstr "サイトを切り替える"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:77
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:94
 msgid "Network"
-msgstr "Network"
+msgstr "ネットワーク"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:89
 msgid "Network Admin"
-msgstr "Network Admin"
+msgstr "ネットワーク管理者"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:38
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:65
 msgid "Create Site"
-msgstr "Create Site"
+msgstr "サイトを作成する"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:46
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:169
 msgid "Site Name"
-msgstr "Site Name"
+msgstr "サイト名"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:50
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
@@ -3141,424 +3137,424 @@ msgstr "Site Name"
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "optional"
-msgstr "optional"
+msgstr "任意"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:51
 msgid "auto-generated from name"
-msgstr "auto-generated from name"
+msgstr "名前から自動生成"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:52
 msgid "Used for subdomain: {slug}.yourdomain.com"
-msgstr "Used for subdomain: {slug}.yourdomain.com"
+msgstr "サブドメイン「{slug}.yourdomain.com」で使用されています。"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
 msgid "Default Locale"
-msgstr "Default Locale"
+msgstr "デフォルトのロケール"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "Suspend this site?"
-msgstr "Suspend this site?"
+msgstr "このサイトを停止しますか？"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "It will become inaccessible to visitors."
-msgstr "It will become inaccessible to visitors."
+msgstr "来訪者は立ち入ることができなくなります。"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:53
 msgid "Sites"
-msgstr "Sites"
+msgstr "サイト"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:62
 msgid "Show deleted"
-msgstr "Show deleted"
+msgstr "削除済みを表示"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:75
 msgid "No sites yet. Create your first site."
-msgstr "No sites yet. Create your first site."
+msgstr "まだサイトはありません。最初のサイトを作成しましょう。"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:118
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:146
 msgid "Unsuspend"
-msgstr "Unsuspend"
+msgstr "停止解除"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:56
 msgid "Site not found"
-msgstr "Site not found"
+msgstr "ページが見つかりません"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:93
 msgid "Are you sure you want to disable this site?"
-msgstr "Are you sure you want to disable this site?"
+msgstr "このサイトを無効にしてもよろしいですか？"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Name for the cloned site:"
-msgstr "Name for the cloned site:"
+msgstr "クローンサイトの名称："
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Site name"
-msgstr "Site name"
+msgstr "サイト名"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove this domain?"
-msgstr "Remove this domain?"
+msgstr "このドメインを削除しますか？"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:136
 msgid "Clone Site"
-msgstr "Clone Site"
+msgstr "サイトのクローン作成"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:137
 msgid "Clone"
-msgstr "Clone"
+msgstr "クローン"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:156
 msgid "Disable Site"
-msgstr "Disable Site"
+msgstr "サイトを無効にする"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:166
 msgid "General"
-msgstr "General"
+msgstr "概要"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:177
 msgid "Schema"
-msgstr "Schema"
+msgstr "スキーマ"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:189
 msgid "Branding"
-msgstr "Branding"
+msgstr "ブランディング"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:194
 msgid "Brand Hue"
-msgstr "Brand Hue"
+msgstr "ブランド・ヒュー"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:206
 msgid "Accent Hue"
-msgstr "Accent Hue"
+msgstr "アクセントカラー"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:218
 msgid "Gray Hue"
-msgstr "Gray Hue"
+msgstr "グレーの色合い"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:231
 msgid "Logo URL"
-msgstr "Logo URL"
+msgstr "ロゴのURL"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:235
 msgid "Favicon URL"
-msgstr "Favicon URL"
+msgstr "ファビコンのURL"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:239
 msgid "Contact Email"
-msgstr "Contact Email"
+msgstr "お問い合わせ用メールアドレス"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:243
 msgid "Save Branding"
-msgstr "Save Branding"
+msgstr "ブランディングを保存"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:250
 msgid "Domains"
-msgstr "Domains"
+msgstr "ドメイン"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:257
 msgid "Verified"
-msgstr "Verified"
+msgstr "認証済み"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:259
 msgid "Pending"
-msgstr "Pending"
+msgstr "保留中"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:261
 msgid "Primary"
-msgstr "Primary"
+msgstr "初等"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:272
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:711
 msgid "Add"
-msgstr "Add"
+msgstr "追加"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:285
 msgid "Members"
-msgstr "Members"
+msgstr "メンバー"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:287
 msgid "No members yet."
-msgstr "No members yet."
+msgstr "まだメンバーはいません。"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:16
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:26
 msgctxt "General"
 msgid "Pending"
-msgstr "Pending"
+msgstr "保留中"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:17
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:27
 msgctxt "General"
 msgid "Processing"
-msgstr "Processing"
+msgstr "処理"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:18
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:28
 msgctxt "General"
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "発送済み"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:19
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:29
 msgctxt "General"
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "納品済み"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:20
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:30
 msgctxt "General"
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "中止"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:21
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:31
 msgctxt "General"
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "返金済み"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:316
 msgid "Price: Low to High"
-msgstr "Price: Low to High"
+msgstr "価格：安い順～高い順"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:317
 msgid "Price: High to Low"
-msgstr "Price: High to Low"
+msgstr "価格：高い順"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:318
 msgid "Name A-Z"
-msgstr "Name A-Z"
+msgstr "名前（A～Z）"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:440
 msgid "Shop now"
-msgstr "Shop now"
+msgstr "今すぐ購入"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:531
 msgid "Price Range"
-msgstr "Price Range"
+msgstr "価格帯"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:536
 msgid "Min"
-msgstr "Min"
+msgstr "分"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:547
 msgid "Max"
-msgstr "Max"
+msgstr "マックス"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:876
 #: src/core-store/_templates/app/(public)/store/client.tsx:906
 msgid "Filters"
-msgstr "Filters"
+msgstr "フィルター"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "Showing"
-msgstr "Showing"
+msgstr "表示中"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 msgid "products"
-msgstr "products"
+msgstr "製品"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1025
 msgid "Try adjusting your search terms or clearing filters."
-msgstr "Try adjusting your search terms or clearing filters."
+msgstr "検索キーワードを変更するか、フィルタを解除してみてください。"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1026
 msgid "Check back soon for new products."
-msgstr "Check back soon for new products."
+msgstr "新商品の情報は、まもなく公開されますので、ぜひまたチェックしてください。"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1041
 msgid "Browse our collection of products"
-msgstr "Browse our collection of products"
+msgstr "当社の製品ラインナップをご覧ください"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1050
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:138
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "商品を検索..."
 
 #: src/core-store/_templates/app/(public)/store/page.tsx:10
 #: src/core-store/_templates/app/(public)/store/page.tsx:13
 msgid "Browse our collection of products. Find exactly what you need."
-msgstr "Browse our collection of products. Find exactly what you need."
+msgstr "当社の商品ラインナップをご覧ください。お探しの商品がきっと見つかります。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:748
 msgid "Attributes"
-msgstr "Attributes"
+msgstr "属性"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:98
 msgid "Add Attribute"
-msgstr "Add Attribute"
+msgstr "属性を追加する"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:108
 msgid "New Attribute"
-msgstr "New Attribute"
+msgstr "新しい属性"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:119
 msgid "e.g. Color, Size"
-msgstr "e.g. Color, Size"
+msgstr "例：色、サイズ"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:134
 msgid "Text"
-msgstr "Text"
+msgstr "テキスト"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:135
 msgid "Number"
-msgstr "Number"
+msgstr "番号"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:201
 msgid "Values"
-msgstr "Values"
+msgstr "価値観"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 msgid "comma-separated"
-msgstr "comma-separated"
+msgstr "カンマ区切り"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:202
 msgid "Filterable"
-msgstr "Filterable"
+msgstr "フィルタリング可能"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:188
 msgid "No attributes defined"
-msgstr "No attributes defined"
+msgstr "属性が定義されていません"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:191
 msgid "Add your first attribute to enable product filtering."
-msgstr "Add your first attribute to enable product filtering."
+msgstr "商品のフィルタリングを有効にするには、最初の属性を追加してください。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:315
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
 msgid "Usage"
-msgstr "Usage"
+msgstr "使用方法"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:116
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
 msgid "Discount Codes"
-msgstr "Discount Codes"
+msgstr "割引コード"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:123
 msgid "Add Code"
-msgstr "Add Code"
+msgstr "コードを追加"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:133
 msgid "New Discount Code"
-msgstr "New Discount Code"
+msgstr "新しい割引コード"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:158
 msgid "Percentage"
-msgstr "Percentage"
+msgstr "割合"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:159
 msgid "Fixed Amount"
-msgstr "Fixed Amount"
+msgstr "定額"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (%)"
-msgstr "Value (%)"
+msgstr "値（％）"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (EUR)"
-msgstr "Value (EUR)"
+msgstr "金額（ユーロ）"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:179
 msgid "Min Order (EUR)"
-msgstr "Min Order (EUR)"
+msgstr "最低注文額（EUR）"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:193
 msgid "Max Uses"
-msgstr "Max Uses"
+msgstr "主な用途"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:317
 msgid "Expires"
-msgstr "Expires"
+msgstr "有効期限"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:266
 msgid "Search codes..."
-msgstr "Search codes..."
+msgstr "コードを検索..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:299
 msgid "No discount codes"
-msgstr "No discount codes"
+msgstr "割引コードはありません"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:303
 msgid "No codes match your search."
-msgstr "No codes match your search."
+msgstr "検索条件に一致するコードはありません。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:304
 msgid "Create your first discount code to offer promotions."
-msgstr "Create your first discount code to offer promotions."
+msgstr "プロモーションを行うために、最初の割引コードを作成しましょう。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:313
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
 msgid "Value"
-msgstr "Value"
+msgstr "値"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:314
 msgid "Min Order"
-msgstr "Min Order"
+msgstr "最小注文数量"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Percent"
-msgstr "Percent"
+msgstr "パーセント"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Fixed"
-msgstr "Fixed"
+msgstr "修正済み"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:376
 msgid "Deactivate"
-msgstr "Deactivate"
+msgstr "無効にする"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:59
 msgid "Product created"
-msgstr "Product created"
+msgstr "製品が作成されました"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:75
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:239
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "「名前」の入力は必須です"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:113
 msgid "New Product"
-msgstr "New Product"
+msgstr "新製品"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:130
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:347
 msgid "Basic Info"
-msgstr "Basic Info"
+msgstr "基本情報"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:139
 msgid "Product name"
-msgstr "Product name"
+msgstr "製品名"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:149
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:379
 msgid "Simple"
-msgstr "Simple"
+msgstr "シンプル"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:380
 msgid "Variable"
-msgstr "Variable"
+msgstr "変数"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:152
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:382
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "定期購読"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:386
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "概要"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:183
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:209
@@ -3566,22 +3562,22 @@ msgstr "Short Description"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:618
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:676
 msgid "Price"
-msgstr "Price"
+msgstr "価格"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:195
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:425
 msgid "Compare Price"
-msgstr "Compare Price"
+msgstr "価格を比較する"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:433
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "割引表示の元の価格"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:209
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:439
 msgid "Currency"
-msgstr "Currency"
+msgstr "通貨"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:451
@@ -3592,57 +3588,57 @@ msgstr "SKU"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:227
 msgid "Optional stock keeping unit"
-msgstr "Optional stock keeping unit"
+msgstr "任意の在庫管理単位"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:466
 msgid "Inventory"
-msgstr "Inventory"
+msgstr "在庫"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:246
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:475
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "在庫の追跡"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:250
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:479
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "在庫数"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:261
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:490
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "重量（グラム）"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:268
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:497
 msgid "Optional"
-msgstr "Optional"
+msgstr "任意"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:278
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:507
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "配送が必要です"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:287
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:516
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "デジタル製品"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:290
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:519
 msgid "File URL"
-msgstr "File URL"
+msgstr "ファイルのURL"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:300
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:529
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "ダウンロード制限"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:536
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "無制限"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:321
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:550
@@ -3652,354 +3648,354 @@ msgstr "SEO"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:327
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:556
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "メタタイトル"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:352
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:581
 msgid "Featured Image"
-msgstr "Featured Image"
+msgstr "注目の画像"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:354
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:583
 msgid "Image URL"
-msgstr "Image URL"
+msgstr "画像のURL"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:363
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:592
 msgid "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
-msgstr "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
+msgstr "ヒント：プロジェクトでは、ファイルアップロード用にこれをMediaPickerButtonにアップグレードすることができます。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Exporting..."
-msgstr "Exporting..."
+msgstr "エクスポート中..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:98
 msgid "Products"
-msgstr "Products"
+msgstr "製品"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:233
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "注文番号で検索..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:263
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:258
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:187
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:393
 msgid "From"
-msgstr "From"
+msgstr "差出人："
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:265
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "to"
-msgstr "to"
+msgstr "～へ"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:274
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:194
 msgid "To"
-msgstr "To"
+msgstr "宛先："
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:289
 msgid "No orders"
-msgstr "No orders"
+msgstr "注文はありません"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:293
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "検索条件に一致する注文はありません。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:294
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "まだ注文はありません。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:301
 msgid "Order #"
-msgstr "Order #"
+msgstr "注文番号 #"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:302
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Customer"
-msgstr "Customer"
+msgstr "お客様"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:344
 msgid "View"
-msgstr "View"
+msgstr "表示"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:351
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "請求書"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:359
 msgid "Refund"
-msgstr "Refund"
+msgstr "返金"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:405
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Refund Order"
-msgstr "Refund Order"
+msgstr "返金依頼"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:419
 msgid "Enter reason for refund..."
-msgstr "Enter reason for refund..."
+msgstr "返金の理由を入力してください..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:72
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:187
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "商品が削除されました"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:102
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:198
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "商品を追加"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:185
 msgid "No products"
-msgstr "No products"
+msgstr "商品はありません"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:189
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "検索条件に一致する商品はありません。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:190
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "まずは最初の製品を作成して、始めましょう。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:211
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:619
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:688
 msgid "Stock"
-msgstr "Stock"
+msgstr "在庫"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:330
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:844
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "商品を削除しますか？"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:331
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:845
 msgid "Delete \"{name}\"? This action cannot be undone."
-msgstr "Delete \"{name}\"? This action cannot be undone."
+msgstr "「{name}」を削除しますか？ この操作は元に戻せません。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:79
 msgid "Reviews"
-msgstr "Reviews"
+msgstr "レビュー"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:123
 msgid "No reviews to moderate"
-msgstr "No reviews to moderate"
+msgstr "モデレートすべきレビューはありません"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:127
 msgid "No reviews with this status."
-msgstr "No reviews with this status."
+msgstr "このステータスのレビューはありません。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:128
 msgid "Reviews will appear here once customers submit them."
-msgstr "Reviews will appear here once customers submit them."
+msgstr "お客様からのレビューは、投稿され次第、ここに表示されます。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:135
 msgid "Product"
-msgstr "Product"
+msgstr "製品"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:136
 msgid "Rating"
-msgstr "Rating"
+msgstr "評価"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:179
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "商品が保存されました"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:195
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "バリアントが追加されました"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:205
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "バリアントが削除されました"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:214
 msgid "Attributes saved"
-msgstr "Attributes saved"
+msgstr "属性が保存されました"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:222
 msgid "Related products saved"
-msgstr "Related products saved"
+msgstr "保存された関連商品"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:265
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "バリアント名は必須です"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:318
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "商品を編集"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:601
 msgid "Variants"
-msgstr "Variants"
+msgstr "バリエーション"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "バリエーションを追加"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:648
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "まだバリエーションはありません。さまざまなオプションを提供するために、バリエーションを追加してください。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:654
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "新しい亜種"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:663
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "例：大／赤"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:725
 msgid "No categories defined."
-msgstr "No categories defined."
+msgstr "カテゴリが定義されていません。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:740
 msgid "Category assignment is saved with the product. Extend this section to call a category update mutation."
-msgstr "Category assignment is saved with the product. Extend this section to call a category update mutation."
+msgstr "カテゴリの割り当ては商品とともに保存されます。このセクションを拡張して、カテゴリ更新ミューテーションを呼び出してください。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:752
 msgid "No attributes defined."
-msgstr "No attributes defined."
+msgstr "属性は定義されていません。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:785
 msgid "Save Attributes"
-msgstr "Save Attributes"
+msgstr "属性を保存"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:793
 msgid "Related Products"
-msgstr "Related Products"
+msgstr "関連商品"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:818
 msgid "Comma-separated product IDs"
-msgstr "Comma-separated product IDs"
+msgstr "カンマ区切りの商品ID"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:832
 msgid "Tip: Replace comma-separated IDs with a product search/select component for better UX."
-msgstr "Tip: Replace comma-separated IDs with a product search/select component for better UX."
+msgstr "ヒント：UXを向上させるため、カンマ区切りのIDを商品検索／選択コンポーネントに置き換えてください。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:855
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "バリアントを削除しますか？"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:856
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "このバリエーションは永久に削除されます。"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:890
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "該当する商品が見つかりませんでした。"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
 msgid "Canceled"
-msgstr "Canceled"
+msgstr "中止"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
 msgid "Payment Failed"
-msgstr "Payment Failed"
+msgstr "支払いが失敗しました"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
 msgid "Unpaid"
-msgstr "Unpaid"
+msgstr "未払い"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
 msgid "Churned Subscriptions"
-msgstr "Churned Subscriptions"
+msgstr "解約された定期購読"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
 msgid "Search by organization..."
-msgstr "Search by organization..."
+msgstr "組織名で検索..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
 msgid "No churned subscriptions found."
-msgstr "No churned subscriptions found."
+msgstr "解約された定期購読は見つかりませんでした。"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
 msgid "Organization"
-msgstr "Organization"
+msgstr "組織"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:113
 msgid "Plan"
-msgstr "Plan"
+msgstr "計画"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
 msgid "Churn Date"
-msgstr "Churn Date"
+msgstr "解約日"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
 msgid "Subscription Start"
-msgstr "Subscription Start"
+msgstr "定期購読の開始"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "results"
-msgstr "results"
+msgstr "結果"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
 msgid "No discount codes yet."
-msgstr "No discount codes yet."
+msgstr "割引コードはまだありません。"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
 msgid "unlimited"
-msgstr "unlimited"
+msgstr "無制限"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
 msgid "Recent Transactions"
-msgstr "Recent Transactions"
+msgstr "最近の取引"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
 msgid "No transactions yet."
-msgstr "No transactions yet."
+msgstr "まだ取引はありません。"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
 msgid "Amount"
-msgstr "Amount"
+msgstr "金額"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
 msgid "Revenue"
-msgstr "Revenue"
+msgstr "収益"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
 msgid "Transactions"
-msgstr "Transactions"
+msgstr "取引"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
 msgid "Revenue Over Time"
-msgstr "Revenue Over Time"
+msgstr "経時的な収益の推移"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
 msgid "No revenue data for this period."
-msgstr "No revenue data for this period."
+msgstr "この期間の収益データはありません。"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
 msgid "Active Subscriptions"
-msgstr "Active Subscriptions"
+msgstr "有効なサブスクリプション"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
 msgid "Search organizations..."
-msgstr "Search organizations..."
+msgstr "組織を検索..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
 msgid "per page"
-msgstr "per page"
+msgstr "1ページあたり"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
 msgid "No subscriptions found."
-msgstr "No subscriptions found."
+msgstr "登録されたものが見つかりませんでした。"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
 msgid "Period"
-msgstr "Period"
+msgstr "期間"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
 msgid "MRR"
@@ -4007,143 +4003,143 @@ msgstr "MRR"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
 msgid "Total Revenue"
-msgstr "Total Revenue"
+msgstr "総収益"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
 msgid "Trialing"
-msgstr "Trialing"
+msgstr "試験運用中"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
 msgid "Trial"
-msgstr "Trial"
+msgstr "試用版"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
 msgid "Plan Distribution"
-msgstr "Plan Distribution"
+msgstr "計画の配分"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
 msgid "No subscriptions yet"
-msgstr "No subscriptions yet"
+msgstr "まだ購読登録はありません"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
 msgid "Churn Metrics"
-msgstr "Churn Metrics"
+msgstr "解約率指標"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
 msgid "Churn Rate (30d)"
-msgstr "Churn Rate (30d)"
+msgstr "解約率（30日間）"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
 msgid "Canceled (30d)"
-msgstr "Canceled (30d)"
+msgstr "キャンセル済み（30日前）"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
 msgid "Past Due (at risk)"
-msgstr "Past Due (at risk)"
+msgstr "延滞（リスクあり）"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
 msgid "Unpaid (lost)"
-msgstr "Unpaid (lost)"
+msgstr "未払い（紛失）"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
 msgid "Total Ever Subscribed"
-msgstr "Total Ever Subscribed"
+msgstr "累計登録者数"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:156
 msgid "Monitor revenue, track churn, and manage subscriptions."
-msgstr "Monitor revenue, track churn, and manage subscriptions."
+msgstr "収益を監視し、解約率を追跡し、サブスクリプションを管理します。"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:181
 msgid "Custom range"
-msgstr "Custom range"
+msgstr "カスタム範囲"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "Last"
-msgstr "Last"
+msgstr "最後"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:235
 msgid "All time"
-msgstr "All time"
+msgstr "通算"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
 msgid "Discount code created"
-msgstr "Discount code created"
+msgstr "割引コードが作成されました"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
 msgid "Discount code updated"
-msgstr "Discount code updated"
+msgstr "割引コードが更新されました"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
 msgid "Discount code deleted"
-msgstr "Discount code deleted"
+msgstr "割引コードが削除されました"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
 msgid "New Code"
-msgstr "New Code"
+msgstr "新しいコード"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Percentage (0-100)"
-msgstr "Percentage (0-100)"
+msgstr "割合（0～100）"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Price (cents)"
-msgstr "Price (cents)"
+msgstr "価格（セント）"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
 msgid "Trial Days"
-msgstr "Trial Days"
+msgstr "体験期間"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
 msgid "Trial Price (cents)"
-msgstr "Trial Price (cents)"
+msgstr "トライアル価格（セント）"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
 msgid "Max Uses (leave empty for unlimited)"
-msgstr "Max Uses (leave empty for unlimited)"
+msgstr "最大使用回数（無制限の場合は空欄のままにしてください）"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
 msgid "Max Uses Per User"
-msgstr "Max Uses Per User"
+msgstr "ユーザーあたりの最大利用回数"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Update"
-msgstr "Update"
+msgstr "更新"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
 msgid "No discount codes configured."
-msgstr "No discount codes configured."
+msgstr "割引コードは設定されていません。"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
 msgid "Uses"
-msgstr "Uses"
+msgstr "用途"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
 msgid "Delete discount code?"
-msgstr "Delete discount code?"
+msgstr "割引コードを削除しますか？"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
 msgid "Code \"{code}\" will be permanently deleted."
-msgstr "Code \"{code}\" will be permanently deleted."
+msgstr "コード「{code}」は完全に削除されます。"
 
 #: src/core-support/components/SupportChatWidget.tsx:275
 msgid "Hi! How can I help you today?"
-msgstr "Hi! How can I help you today?"
+msgstr "こんにちは！本日はどのようなご用件でしょうか？"
 
 #: src/core-support/components/SupportChatWidget.tsx:276
 msgid "Type your message..."
-msgstr "Type your message..."
+msgstr "メッセージを入力してください..."
 
 #: src/core-support/components/SupportChatWidget.tsx:286
 msgid "Support Chat"
-msgstr "Support Chat"
+msgstr "サポートチャット"
 
 #: src/core-support/components/SupportChatWidget.tsx:333
 msgid "Support Agent"
-msgstr "Support Agent"
+msgstr "サポート担当者"
 
 #: src/core-support/components/SupportChatWidget.tsx:351
 msgid "Enter your email so our team can follow up:"
-msgstr "Enter your email so our team can follow up:"
+msgstr "弊社チームから折り返しご連絡できるよう、メールアドレスをご入力ください："
 
 #: src/core-support/components/SupportChatWidget.tsx:361
 msgid "your@email.com"
@@ -4151,239 +4147,227 @@ msgstr "your@email.com"
 
 #: src/core-support/components/SupportChatWidget.tsx:366
 msgid "Connect with support"
-msgstr "Connect with support"
+msgstr "サポートへお問い合わせください"
 
 #: src/core-support/components/SupportChatWidget.tsx:375
 msgid "Would you like to create a support ticket so our team can follow up?"
-msgstr "Would you like to create a support ticket so our team can follow up?"
+msgstr "弊社チームがフォローアップできるよう、サポートチケットを作成していただけますか？"
 
 #: src/core-support/components/SupportChatWidget.tsx:378
 msgid "Create Support Ticket"
-msgstr "Create Support Ticket"
+msgstr "サポートチケットを作成する"
 
 #: src/core-support/components/SupportChatWidget.tsx:385
 msgid "Thanks! Our team will follow up at your email soon."
-msgstr "Thanks! Our team will follow up at your email soon."
+msgstr "ありがとうございます！弊社チームより、まもなくご登録のメールアドレス宛に連絡いたします。"
 
 #: src/core-support/components/SupportChatWidget.tsx:391
 msgid "Your ticket has been created. Our team will follow up soon."
-msgstr "Your ticket has been created. Our team will follow up soon."
+msgstr "チケットが作成されました。弊社チームより、まもなくご連絡いたします。"
 
 #: src/core-support/components/SupportChatWidget.tsx:394
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
 msgid "View Ticket"
-msgstr "View Ticket"
+msgstr "チケットを表示"
 
 #: src/core-support/components/SupportChatWidget.tsx:427
 msgid "Talk to a human"
-msgstr "Talk to a human"
+msgstr "担当者と話す"
 
 #: src/core-support/components/SupportChatWidget.tsx:434
 msgid "Start New Chat"
-msgstr "Start New Chat"
+msgstr "新しいチャットを開始する"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Close chat"
-msgstr "Close chat"
+msgstr "チャットを閉じる"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Open chat"
-msgstr "Open chat"
+msgstr "チャットを開く"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
 msgid "Chat closed"
-msgstr "Chat closed"
+msgstr "チャットが終了しました"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
 msgid "Chat session not found."
-msgstr "Chat session not found."
+msgstr "チャットセッションが見つかりません。"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
 msgid "Live Chat"
-msgstr "Live Chat"
+msgstr "ライブチャット"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
 msgid "Close Chat"
-msgstr "Close Chat"
+msgstr "チャットを閉じる"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
 msgid "Visitor"
-msgstr "Visitor"
+msgstr "訪問者"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
 msgid "Chat email"
-msgstr "Chat email"
+msgstr "チャット・メール"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:252
 msgid "Started"
-msgstr "Started"
+msgstr "開始しました"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:118
 msgid "Subject"
-msgstr "Subject"
+msgstr "件名"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
 msgid "Reply as agent..."
-msgstr "Reply as agent..."
+msgstr "エージェントとして返信する..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:97
 msgid "All Priorities"
-msgstr "All Priorities"
+msgstr "すべての優先順位"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:112
 msgid "No tickets found."
-msgstr "No tickets found."
+msgstr "チケットが見つかりませんでした。"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:123
 msgid "Updated"
-msgstr "Updated"
+msgstr "更新されました"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:227
 msgid "Active (non-closed)"
-msgstr "Active (non-closed)"
+msgstr "アクティブ（未完了）"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:228
 msgid "AI Active"
-msgstr "AI Active"
+msgstr "AIアクティブ"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:229
 msgid "Agent Active"
-msgstr "Agent Active"
+msgstr "エージェントがアクティブ"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:230
 msgid "Escalated"
-msgstr "Escalated"
+msgstr "エスカレートした"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:231
 msgid "Closed"
-msgstr "Closed"
+msgstr "終了"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:243
 msgid "No active chats."
-msgstr "No active chats."
+msgstr "現在進行中のチャットはありません。"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:249
 msgid "Visitor / User"
-msgstr "Visitor / User"
+msgstr "訪問者／ユーザー"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:251
 msgid "Last Message"
-msgstr "Last Message"
+msgstr "最後のメッセージ"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:360
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "チケット"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:368
 msgid "Live Chats"
-msgstr "Live Chats"
+msgstr "ライブチャット"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:157
 msgid "Reply sent"
-msgstr "Reply sent"
+msgstr "返信を送信しました"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:165
 msgid "Status updated"
-msgstr "Status updated"
+msgstr "ステータスが更新されました"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:173
 msgid "Assignment updated"
-msgstr "Assignment updated"
+msgstr "課題を更新しました"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:190
 msgid "Ticket not found."
-msgstr "Ticket not found."
+msgstr "チケットが見つかりません。"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:192
 msgid "Back to tickets"
-msgstr "Back to tickets"
+msgstr "チケット一覧に戻る"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "未送信の返信"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "受信トレイに未送信の返信があります。ステータスを変更する前に送信しますか？"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "送信・ステータスの変更"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "クリップボードへのコピーに失敗しました"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "会話全文をクリップボードにコピーする（LLM対応形式）"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "会話をコピーする"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
-msgstr "Staff"
+msgstr "スタッフ"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:316
 msgid "Staff Reply"
-msgstr "Staff Reply"
+msgstr "スタッフからの返信"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:325
 msgid "Type your reply..."
-msgstr "Type your reply..."
+msgstr "返信を入力してください..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:337
 msgid "Send Reply"
-msgstr "Send Reply"
+msgstr "返信を送信"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:342
 msgid "This ticket is closed."
-msgstr "This ticket is closed."
+msgstr "このチケットはクローズされました。"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "チケットを再開する"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
-msgstr "User feedback"
+msgstr "ユーザーからのフィードバック"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:377
 msgid "Details"
-msgstr "Details"
+msgstr "詳細"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:399
 msgid "Assigned"
-msgstr "Assigned"
+msgstr "割り当て済み"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:408
 msgid "Change Status"
-msgstr "Change Status"
+msgstr "ステータスを変更する"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:423
 msgid "Assignment"
-msgstr "Assignment"
+msgstr "課題"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:432
 msgid "Unassign"
-msgstr "Unassign"
+msgstr "割り当てを解除"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
-msgstr "Not assigned"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "AI Characters — Browse & Chat"
-#~ msgstr "AI Characters — Browse & Chat"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Browse AI characters with unique personalities and start chatting."
-#~ msgstr "Browse AI characters with unique personalities and start chatting."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Hide"
-#~ msgstr "Hide"
+msgstr "未割り当て"

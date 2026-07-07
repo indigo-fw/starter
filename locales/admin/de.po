@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.038Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.038Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.677Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.677Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: de\n"
 "Language: de\n"
@@ -11,6 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:49
 msgid "Activity Log"
@@ -213,7 +214,7 @@ msgstr "Name"
 #: src/components/admin/ShowcaseForm.tsx:341
 #: src/components/admin/TermForm.tsx:248
 msgid "Slug"
-msgstr "Slug"
+msgstr "Schnecke"
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:120
 #: src/app/dashboard/(panel)/projects/page.tsx:236
@@ -655,12 +656,6 @@ msgstr "Der Upload ist fehlgeschlagen"
 #: src/app/dashboard/(panel)/media/page.tsx:108
 msgid "Failed to upload {name}"
 msgstr "Das Hochladen von „{name}“ ist fehlgeschlagen"
-
-#: src/app/dashboard/(panel)/media/page.tsx:113
-msgid "1 file uploaded"
-msgid_plural "{count} files uploaded"
-msgstr[0] "1 file uploaded"
-msgstr[1] "{count} files uploaded"
 
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
@@ -1334,7 +1329,7 @@ msgstr "Noch keine Charaktere. Erstellen Sie Ihre erste KI-Persönlichkeit."
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:188
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "Slogan"
 
 #: src/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:191
 msgid "System Prompt"
@@ -1500,7 +1495,7 @@ msgstr "Nachrichten"
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:130
 msgid "Tokens"
-msgstr "Tokens"
+msgstr "Token"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:55
 msgid "Last Active"
@@ -1820,13 +1815,8 @@ msgstr "Inhaltstypen"
 msgid "Choices (one per line)"
 msgstr "Auswahlmöglichkeiten (eine pro Zeile)"
 
-#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
-msgid "Option A
-Option B
-Option C"
-msgstr "Option A
-Option B
-Option C"
+msgid "Option "
+msgstr "Option "
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
@@ -2178,12 +2168,6 @@ msgstr "„{key}“ auf die Standardeinstellungen zurücksetzen"
 msgid "GA4 connection successful"
 msgstr "GA4-Verbindung erfolgreich hergestellt"
 
-#: src/app/dashboard/(panel)/settings/page.tsx:67
-msgid "Created 1 SEO override page"
-msgid_plural "Created {count} SEO override pages"
-msgstr[0] "Created 1 SEO override page"
-msgstr[1] "Created {count} SEO override pages"
-
 #: src/app/dashboard/(panel)/settings/page.tsx:201
 msgid "Settings"
 msgstr "Einstellungen"
@@ -2317,7 +2301,7 @@ msgstr "Support"
 
 #: src/app/dashboard/(panel)/settings/support/page.tsx:360
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "Eintrittskarten"
 
 #: src/app/dashboard/(panel)/settings/support/page.tsx:368
 msgid "Live Chats"
@@ -2346,31 +2330,31 @@ msgstr "Zurück zu den Tickets"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "Nicht gesendete Antwort"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "Sie haben eine noch nicht gesendete Antwort im Postfach. Möchten Sie diese senden, bevor Sie den Status ändern?"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "Senden & Status ändern"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "Das Kopieren in die Zwischenablage ist fehlgeschlagen"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "Den gesamten Chat in die Zwischenablage kopieren (LLM-kompatibles Format)"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "Kopiert!"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "Unterhaltung kopieren"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
@@ -2399,7 +2383,7 @@ msgstr "Dieses Ticket ist geschlossen."
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "Ticket wieder öffnen"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
@@ -2476,26 +2460,26 @@ msgstr "„{name}“ wird endgültig gelöscht."
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:41
 msgid "Product created"
-msgstr "Product created"
+msgstr "Produkt erstellt"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:50
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:296
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "Der Name ist ein Pflichtfeld"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:83
 msgid "New Product"
-msgstr "New Product"
+msgstr "Neues Produkt"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:98
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:390
 msgid "Product Details"
-msgstr "Product Details"
+msgstr "Produktdetails"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:107
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:404
 msgid "Simple"
-msgstr "Simple"
+msgstr "Einfach"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:108
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:405
@@ -2510,45 +2494,45 @@ msgstr "Digital"
 #: src/app/dashboard/(panel)/store/new/page.tsx:110
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:407
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "Abonnement"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:114
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:419
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "Kurzbeschreibung"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:126
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:430
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "Preise"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:129
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:433
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:597
 msgid "Price (EUR)"
-msgstr "Price (EUR)"
+msgstr "Preis (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:139
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:443
 msgid "Compare Price (EUR)"
-msgstr "Compare Price (EUR)"
+msgstr "Preis vergleichen (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:146
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:450
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "Ursprünglicher Preis für das Sonderangebot"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:454
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:548
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:593
 msgid "SKU"
-msgstr "SKU"
+msgstr "Artikelnummer"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:154
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:458
 msgid "Tax Class"
-msgstr "Tax Class"
+msgstr "Steuerklasse"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:460
@@ -2558,112 +2542,112 @@ msgstr "Standard"
 #: src/app/dashboard/(panel)/store/new/page.tsx:157
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:461
 msgid "Reduced"
-msgstr "Reduced"
+msgstr "Reduziert"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:158
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:462
 msgid "Zero"
-msgstr "Zero"
+msgstr "Null"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:469
 msgid "Inventory & Shipping"
-msgstr "Inventory & Shipping"
+msgstr "Lagerbestand und Versand"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:171
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:474
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "Bestand nachverfolgen"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:175
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:478
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "Lagerbestand"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:482
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "Gewicht (Gramm)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:185
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:488
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "Versand erforderlich"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:193
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:495
 msgid "Media & SEO"
-msgstr "Media & SEO"
+msgstr "Medien & SEO"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:196
 msgid "Featured Image URL"
-msgstr "Featured Image URL"
+msgstr "URL des Titelbildes"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:200
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:505
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "Meta-Titel"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:204
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:509
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "Meta-Beschreibung"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:213
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:517
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "Digitales Produkt"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:216
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:520
 msgid "File URL"
-msgstr "File URL"
+msgstr "Datei-URL"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:220
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:525
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "Download-Limit"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:526
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "Unbegrenzt"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:82
 msgid "Orders"
-msgstr "Orders"
+msgstr "Bestellungen"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:113
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "Nach Bestellnummer suchen..."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:156
 msgid "No orders"
-msgstr "No orders"
+msgstr "Keine Bestellungen"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "Es wurden keine Bestellungen gefunden, die Ihrer Suche entsprechen."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "Noch keine Bestellungen."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:165
 msgid "Order #"
-msgstr "Order #"
+msgstr "Bestellnummer"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:199
 msgid "View"
-msgstr "View"
+msgstr "Anzeigen"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:119
 msgid "Order not found."
-msgstr "Order not found."
+msgstr "Bestellung nicht gefunden."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:138
 msgid "Select a status"
-msgstr "Select a status"
+msgstr "Wählen Sie einen Status aus"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:160
 #: src/components/admin/CategoryForm.tsx:471
@@ -2673,198 +2657,198 @@ msgstr "Reihenfolge"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:174
 msgid "Order Information"
-msgstr "Order Information"
+msgstr "Bestellinformationen"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:177
 msgid "Order Number"
-msgstr "Order Number"
+msgstr "Bestellnummer"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:185
 msgid "Payment"
-msgstr "Payment"
+msgstr "Zahlung"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:192
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "Rechnung"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:198
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "Zwischensumme"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:202
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "Versand"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:206
 msgid "Tax"
-msgstr "Tax"
+msgstr "Steuern"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:216
 msgid "Discount"
-msgstr "Discount"
+msgstr "Rabatt"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:222
 msgid "Tracking"
-msgstr "Tracking"
+msgstr "Verfolgung"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:231
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:268
 msgid "Update Status"
-msgstr "Update Status"
+msgstr "Status aktualisieren"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:234
 msgid "New Status"
-msgstr "New Status"
+msgstr "Neuer Status"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:236
 msgid "Select status..."
-msgstr "Select status..."
+msgstr "Status auswählen..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:237
 msgid "Processing"
-msgstr "Processing"
+msgstr "Verarbeitung"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:238
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "Versandt"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:239
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "Geliefert"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:240
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "Abgesagt"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:241
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "Erstattet"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:245
 msgid "Note (optional)"
-msgstr "Note (optional)"
+msgstr "Anmerkung (optional)"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:246
 msgid "Internal note..."
-msgstr "Internal note..."
+msgstr "Interne Anmerkung..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:251
 msgid "Tracking Number"
-msgstr "Tracking Number"
+msgstr "Sendungsnummer"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:255
 msgid "Tracking URL"
-msgstr "Tracking URL"
+msgstr "Tracking-URL"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:276
 msgid "Order Items"
-msgstr "Order Items"
+msgstr "Bestellpositionen"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:281
 msgid "Product"
-msgstr "Product"
+msgstr "Produkt"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:282
 msgid "Variant"
-msgstr "Variant"
+msgstr "Variante"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:283
 msgid "Qty"
-msgstr "Qty"
+msgstr "Anzahl"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:284
 msgid "Unit Price"
-msgstr "Unit Price"
+msgstr "Stückpreis"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:307
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "Zeitleiste"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:323
 msgid "by"
-msgstr "by"
+msgstr "von"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:340
 msgid "Admin Note"
-msgstr "Admin Note"
+msgstr "Anmerkung der Verwaltung"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:348
 msgid "Customer Note"
-msgstr "Customer Note"
+msgstr "Kundenhinweis"
 
 #: src/app/dashboard/(panel)/store/page.tsx:69
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:217
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "Produkt gelöscht"
 
 #: src/app/dashboard/(panel)/store/page.tsx:88
 msgid "Store Products"
-msgstr "Store Products"
+msgstr "Produkte im Shop"
 
 #: src/app/dashboard/(panel)/store/page.tsx:91
 #: src/app/dashboard/(panel)/store/page.tsx:165
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "Produkt hinzufügen"
 
 #: src/app/dashboard/(panel)/store/page.tsx:123
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "Produkte suchen..."
 
 #: src/app/dashboard/(panel)/store/page.tsx:158
 msgid "No products"
-msgstr "No products"
+msgstr "Keine Produkte"
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "Es wurden keine Produkte gefunden, die Ihrer Suche entsprechen."
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "Erstellen Sie Ihr erstes Produkt, um loszulegen."
 
 #: src/app/dashboard/(panel)/store/page.tsx:176
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:549
 msgid "Price"
-msgstr "Price"
+msgstr "Preis"
 
 #: src/app/dashboard/(panel)/store/page.tsx:178
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:550
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Stock"
-msgstr "Stock"
+msgstr "Lagerbestand"
 
 #: src/app/dashboard/(panel)/store/page.tsx:279
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:630
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "Produkt löschen?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:209
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "Produkt gespeichert"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:225
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "Variante hinzugefügt"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:235
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "Variante gelöscht"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:297
 msgid "Price cannot be negative"
-msgstr "Price cannot be negative"
+msgstr "Der Preis darf nicht negativ sein"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:298
 msgid "File URL is required for digital products"
-msgstr "File URL is required for digital products"
+msgstr "Für digitale Produkte ist die Datei-URL erforderlich"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:329
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "Der Name der Variante ist erforderlich"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:354
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "Produkt bearbeiten"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:498
 #: src/components/admin/PortfolioForm.tsx:531
@@ -2873,43 +2857,43 @@ msgstr "Titelbild"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:534
 msgid "Variants"
-msgstr "Variants"
+msgstr "Varianten"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:538
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "Variante hinzufügen"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:579
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "Noch keine Varianten. Fügen Sie Varianten hinzu, um verschiedene Optionen anzubieten."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:586
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "Neue Variante"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:590
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "z. B. Groß / Rot"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:611
 msgid "Weight (g)"
-msgstr "Weight (g)"
+msgstr "Gewicht (g)"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:619
 msgid "Add"
-msgstr "Add"
+msgstr "Hinzufügen"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:641
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "Variante löschen?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:642
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "Diese Variante wird endgültig entfernt."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:677
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "Produkt nicht gefunden."
 
 #: src/app/dashboard/(panel)/users/page.tsx:80
 msgid "Role updated"
@@ -3139,7 +3123,7 @@ msgstr "SEO"
 #: src/components/admin/PortfolioForm.tsx:548
 #: src/components/admin/ShowcaseForm.tsx:611
 msgid "Tags"
-msgstr "Tags"
+msgstr "Stichwörter"
 
 #: src/components/admin/CategoryForm.tsx:503
 #: src/components/admin/PortfolioForm.tsx:596
@@ -3201,12 +3185,6 @@ msgstr "Endgültig gelöscht"
 #: src/components/admin/CmsListView.tsx:305
 msgid "Duplicated"
 msgstr "Dupliziert"
-
-#: src/components/admin/CmsListView.tsx:366
-msgid "Exported 1 item"
-msgid_plural "Exported {count} items"
-msgstr[0] "Exported 1 item"
-msgstr[1] "Exported {count} items"
 
 #: src/components/admin/CmsListView.tsx:569
 msgid "Toggle columns"
@@ -3291,18 +3269,6 @@ msgstr "„{title}“ wird endgültig gelöscht. Dieser Vorgang kann nicht rück
 #: src/components/admin/CmsListView.tsx:989
 msgid "\"{title}\" will be moved to trash."
 msgstr "„{title}“ wird in den Papierkorb verschoben."
-
-#: src/components/admin/CmsListView.tsx:1001
-msgid "1 item will be moved to trash."
-msgid_plural "{count} items will be moved to trash."
-msgstr[0] "1 item will be moved to trash."
-msgstr[1] "{count} items will be moved to trash."
-
-#: src/components/admin/CmsListView.tsx:1018
-msgid "Created 1 SEO override"
-msgid_plural "Created {count} SEO overrides"
-msgstr[0] "Created 1 SEO override"
-msgstr[1] "Created {count} SEO overrides"
 
 #: src/components/admin/CmsListView.tsx:1022
 msgid "All SEO overrides already exist"
@@ -3572,888 +3538,3 @@ msgstr "Letzte Aktivitäten"
 #: src/config/dashboard-widgets.tsx:44
 msgid "View all"
 msgstr "Alle anzeigen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Controls the card width in the feed"
-#~ msgstr "Controls the card width in the feed"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No affiliates yet."
-#~ msgstr "Noch keine Partner."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Active Affiliates"
-#~ msgstr "Aktive Partner"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Total Referrals"
-#~ msgstr "Gesamtzahl der Empfehlungen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Conversion Rate"
-#~ msgstr "Konversionsrate"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Total Earnings"
-#~ msgstr "Gesamtverdienst"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Top Affiliates"
-#~ msgstr "Top-Partner"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Affiliate"
-#~ msgstr "Partner"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Autosaved"
-#~ msgstr "Automatisch gespeichert"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Unsaved changes recovered from"
-#~ msgstr "Nicht gespeicherte Änderungen wurden wiederhergestellt aus"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Broken internal links detected:"
-#~ msgstr "Es wurden defekte interne Links festgestellt:"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Set status..."
-#~ msgstr "Status festlegen..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Move to Trash"
-#~ msgstr "In den Papierkorb verschieben"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Navigation"
-#~ msgstr "Navigation"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Content"
-#~ msgstr "Inhalt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Search pages, content, settings..."
-#~ msgstr "Seiten, Inhalte, Einstellungen suchen..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No results found"
-#~ msgstr "Es wurden keine Ergebnisse gefunden"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Start typing to search..."
-#~ msgstr "Beginne mit der Eingabe, um zu suchen..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Calendar"
-#~ msgstr "Kalender"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "more"
-#~ msgstr "mehr"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Content Status"
-#~ msgstr "Status des Inhalts"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Loading custom fields..."
-#~ msgstr "Benutzerdefinierte Felder werden geladen..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Saving custom fields..."
-#~ msgstr "Benutzerdefinierte Felder werden gespeichert..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Enabled"
-#~ msgstr "Aktiviert"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "-- Select --"
-#~ msgstr "-- Auswählen --"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Show widget"
-#~ msgstr "Widget anzeigen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Hide widget"
-#~ msgstr "Widget ausblenden"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
-#~ msgstr "Ziehe die Widgets per Drag & Drop, um ihre Reihenfolge zu ändern. Über das Augensymbol kannst du die Sichtbarkeit ein- und ausschalten."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Configure dashboard"
-#~ msgstr "Dashboard konfigurieren"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Dashboard Layout"
-#~ msgstr "Layout des Dashboards"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Rewrite"
-#~ msgstr "Umschreiben"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Shorten"
-#~ msgstr "Kürzen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Expand"
-#~ msgstr "Erweitern"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Fix grammar"
-#~ msgstr "Grammatik korrigieren"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Translate to English"
-#~ msgstr "Ins Englische übersetzen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "AI request failed"
-#~ msgstr "AI-Anfrage fehlgeschlagen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "AI Assist"
-#~ msgstr "KI-Assistent"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Thinking..."
-#~ msgstr "Ich denke nach..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Try again"
-#~ msgstr "Versuche es noch einmal"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Apply"
-#~ msgstr "Bewerben"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Discard"
-#~ msgstr "Verwerfen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Custom instruction..."
-#~ msgstr "Individueller Unterricht..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Bold"
-#~ msgstr "Fett"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Italic"
-#~ msgstr "kursiv"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Underline"
-#~ msgstr "Unterstreichen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Strikethrough"
-#~ msgstr "Durchgestrichen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Link"
-#~ msgstr "Link"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Alt text"
-#~ msgstr "Alternativtext"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Align left"
-#~ msgstr "Linksbündig"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Center"
-#~ msgstr "Mitte"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Align right"
-#~ msgstr "Rechtsbündig"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Replace image"
-#~ msgstr "Bild ersetzen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Remove image"
-#~ msgstr "Bild entfernen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Heading 1"
-#~ msgstr "Überschrift 1"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Large section heading"
-#~ msgstr "Überschrift eines großen Abschnitts"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Headings"
-#~ msgstr "Überschriften"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Heading 2"
-#~ msgstr "Überschrift 2"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Medium section heading"
-#~ msgstr "Überschrift mittlerer Abschnitt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Heading 3"
-#~ msgstr "Überschrift 3"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Small section heading"
-#~ msgstr "Kleine Überschrift"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Bullet List"
-#~ msgstr "Aufzählung"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Unordered list"
-#~ msgstr "Ungeordnete Liste"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Lists"
-#~ msgstr "Listen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Numbered List"
-#~ msgstr "Nummerierte Liste"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Ordered list"
-#~ msgstr "Aufzählung"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Blockquote"
-#~ msgstr "Zitat"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Quote block"
-#~ msgstr "Zitatblock"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Blocks"
-#~ msgstr "Blöcke"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Code Block"
-#~ msgstr "Code-Block"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Fenced code block"
-#~ msgstr "Eingeschränkter Code-Block"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Horizontal Rule"
-#~ msgstr "Horizontale Linie"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Divider line"
-#~ msgstr "Trennlinie"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Table"
-#~ msgstr "Tabelle"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Insert a table"
-#~ msgstr "Eine Tabelle einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Upload or embed an image"
-#~ msgstr "Ein Bild hochladen oder einbetten"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Media"
-#~ msgstr "Medien"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Add row above"
-#~ msgstr "Zeile darüber einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Add row below"
-#~ msgstr "Zeile darunter einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Add column left"
-#~ msgstr "Spalte links einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Add column right"
-#~ msgstr "Spalte rechts einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Merge cells"
-#~ msgstr "Zellen zusammenführen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Split cell"
-#~ msgstr "Geteilte Zelle"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Delete row"
-#~ msgstr "Zeile löschen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Row"
-#~ msgstr "Zeile"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Delete column"
-#~ msgstr "Spalte löschen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Col"
-#~ msgstr "Oberst"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Delete table"
-#~ msgstr "Tabelle löschen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Language Fallback"
-#~ msgstr "Ausweichsprache"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Show EN version for missing translations"
-#~ msgstr "EN-Version anzeigen, wenn Übersetzungen fehlen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "404 for missing translations"
-#~ msgstr "404 wegen fehlender Übersetzungen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Always Fallback"
-#~ msgstr "Immer auf die Ausweichlösung zurückgreifen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Never Fallback"
-#~ msgstr "Niemals auf Plan B zurückgreifen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Controls whether this content is shown when visiting in a language without a translation"
-#~ msgstr "Legt fest, ob dieser Inhalt angezeigt wird, wenn die Seite in einer Sprache aufgerufen wird, für die keine Übersetzung vorliegt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Google Analytics"
-#~ msgstr "Google Analytics"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Connect Google Analytics to see page views, sessions, and top pages."
-#~ msgstr "Verbinden Sie Google Analytics, um Seitenaufrufe, Sitzungen und die meistbesuchten Seiten anzuzeigen."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Configure in Settings"
-#~ msgstr "In den Einstellungen konfigurieren"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
-#~ msgstr "Die Analysedaten konnten nicht geladen werden. Überprüfen Sie Ihre GA4-Konfiguration in den Einstellungen."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Page Views"
-#~ msgstr "Seitenaufrufe"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Sessions"
-#~ msgstr "Sitzungen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Daily Page Views"
-#~ msgstr "Tägliche Seitenaufrufe"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Top Pages"
-#~ msgstr "Beliebteste Seiten"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Views"
-#~ msgstr "Aufrufe"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Insert Internal Link"
-#~ msgstr "Interner Link einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Search pages, blog posts, categories..."
-#~ msgstr "Suchseiten, Blogbeiträge, Kategorien..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Searching..."
-#~ msgstr "Suche..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Type at least 2 characters to search"
-#~ msgstr "Geben Sie mindestens 2 Zeichen für die Suche ein"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Change"
-#~ msgstr "Ändern"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Select Image"
-#~ msgstr "Bild auswählen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Alt Text"
-#~ msgstr "Alternativtext"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Describe the image..."
-#~ msgstr "Beschreibe das Bild..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Only image files are supported"
-#~ msgstr "Es werden nur Bilddateien unterstützt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Search media..."
-#~ msgstr "Medien suchen..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Images"
-#~ msgstr "Bilder"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Videos"
-#~ msgstr "Videos"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Documents"
-#~ msgstr "Dokumente"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Other"
-#~ msgstr "Sonstiges"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "All users"
-#~ msgstr "Alle Benutzer"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Drop files to upload"
-#~ msgstr "Dateien zum Hochladen hier ablegen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No images match your search."
-#~ msgstr "Es wurden keine Bilder gefunden, die Ihrer Suche entsprechen."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No images yet. Upload or drag files here."
-#~ msgstr "Noch keine Bilder. Lade Dateien hoch oder ziehe sie hierher."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Image title"
-#~ msgstr "Bildtitel"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Describe the image"
-#~ msgstr "Beschreibe das Bild"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Select an image to view details"
-#~ msgstr "Wählen Sie ein Bild aus, um Details anzuzeigen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No image selected"
-#~ msgstr "Es wurde kein Bild ausgewählt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Select"
-#~ msgstr "Auswählen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Delete media file?"
-#~ msgstr "Mediendatei löschen?"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "This file will be permanently deleted."
-#~ msgstr "Diese Datei wird endgültig gelöscht."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "New tab"
-#~ msgstr "Neuer Tab"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Indent"
-#~ msgstr "Einzug"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Outdent"
-#~ msgstr "Outdent"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Menu saved"
-#~ msgstr "Menü gespeichert"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No menu items yet. Add one below."
-#~ msgstr "Es gibt noch keine Menüpunkte. Füge unten einen hinzu."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Add Item"
-#~ msgstr "Artikel hinzufügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Save Menu"
-#~ msgstr "Menü speichern"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No notifications"
-#~ msgstr "Keine Benachrichtigungen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "View all notifications"
-#~ msgstr "Alle Benachrichtigungen anzeigen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Switch organization"
-#~ msgstr "Organisation wechseln"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Personal"
-#~ msgstr "Persönlich"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Manage organizations"
-#~ msgstr "Organisationen verwalten"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Alt text updated"
-#~ msgstr "Alt-Text aktualisiert"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Attachment removed"
-#~ msgstr "Anhang entfernt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Attachments"
-#~ msgstr "Anhänge"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Save the post first to add attachments."
-#~ msgstr "Speichere den Beitrag zunächst, um Anhänge hinzuzufügen."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No attachments yet."
-#~ msgstr "Noch keine Anhänge."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Edit alt text"
-#~ msgstr "Alt-Text bearbeiten"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Edit Alt Text"
-#~ msgstr "Alt-Text bearbeiten"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Describe this file..."
-#~ msgstr "Beschreibe diese Datei..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "created"
-#~ msgstr "erstellt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "updated"
-#~ msgstr "aktualisiert"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "deleted"
-#~ msgstr "gelöscht"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "restored"
-#~ msgstr "wiederhergestellt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "published"
-#~ msgstr "veröffentlicht"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "System"
-#~ msgstr "System"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Revision restored"
-#~ msgstr "Die Änderung wurde wiederhergestellt"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Failed to restore revision"
-#~ msgstr "Die Wiederherstellung der Revision ist fehlgeschlagen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Revision History"
-#~ msgstr "Änderungshistorie"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Oldest"
-#~ msgstr "Älteste"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Newest"
-#~ msgstr "Neueste"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No revisions yet"
-#~ msgstr "Noch keine Überarbeitungen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No changes in this revision"
-#~ msgstr "In dieser Überarbeitung wurden keine Änderungen vorgenommen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Restore this version"
-#~ msgstr "Diese Version wiederherstellen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Restore revision?"
-#~ msgstr "Revision wiederherstellen?"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Current state will be saved as a new revision before restoring."
-#~ msgstr "Der aktuelle Zustand wird vor der Wiederherstellung als neue Revision gespeichert."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Insert"
-#~ msgstr "Einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Shortcodes"
-#~ msgstr "Shortcodes"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Start writing or type / for commands..."
-#~ msgstr "Beginne mit dem Schreiben oder gib / für Befehle ein..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Image upload failed"
-#~ msgstr "Das Hochladen des Bildes ist fehlgeschlagen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Inline Code"
-#~ msgstr "Inline-Code"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Ordered List"
-#~ msgstr "Aufzählung"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Quote"
-#~ msgstr "Zitat"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Insert Table"
-#~ msgstr "Tabelle einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Align Left"
-#~ msgstr "Linksbündig"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Align Center"
-#~ msgstr "Zentrieren"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Align Right"
-#~ msgstr "Rechtsbündig"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Internal Link"
-#~ msgstr "Interner Link"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Insert Block"
-#~ msgstr "Block einfügen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Undo"
-#~ msgstr "Rückgängig"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Redo"
-#~ msgstr "Wiederholen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Hide Preview"
-#~ msgstr "Vorschau ausblenden"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Show Preview"
-#~ msgstr "Vorschau anzeigen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Visual"
-#~ msgstr "Visuell"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "SEO Title"
-#~ msgstr "SEO-Titel"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Optional SEO title for {titleTag} tag"
-#~ msgstr "Optionaler SEO-Titel für das `{titleTag}`-Tag"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Falls back to Title if empty"
-#~ msgstr "Wenn leer, wird auf den Titel zurückgegriffen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "SEO meta description (max 160 chars)"
-#~ msgstr "SEO-Meta-Beschreibung (max. 160 Zeichen)"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Noindex"
-#~ msgstr "Noindex"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Exclude from search engine indexing (adds noindex meta tag)"
-#~ msgstr "Von der Indizierung durch Suchmaschinen ausschließen (fügt den Meta-Tag „noindex“ hinzu)"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Create SEO Override Pages"
-#~ msgstr "SEO-Überschreibungsseiten erstellen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Route"
-#~ msgstr "Route"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Create Selected"
-#~ msgstr "Ausgewählte erstellen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "No image"
-#~ msgstr "Kein Bild"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Google"
-#~ msgstr "Google"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Twitter / X"
-#~ msgstr "Twitter / X"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Close"
-#~ msgstr "Schließen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Hi! How can I help you today?"
-#~ msgstr "Hallo! Wie kann ich Ihnen heute helfen?"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Type your message..."
-#~ msgstr "Geben Sie Ihre Nachricht ein..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Support Chat"
-#~ msgstr "Support-Chat"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Support Agent"
-#~ msgstr "Support-Mitarbeiter"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Enter your email so our team can follow up:"
-#~ msgstr "Geben Sie Ihre E-Mail-Adresse ein, damit unser Team sich bei Ihnen melden kann:"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "your@email.com"
-#~ msgstr "your@email.com"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Connect with support"
-#~ msgstr "Kontakt zum Support"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Would you like to create a support ticket so our team can follow up?"
-#~ msgstr "Möchten Sie ein Support-Ticket erstellen, damit unser Team sich darum kümmern kann?"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Create Support Ticket"
-#~ msgstr "Support-Ticket erstellen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Thanks! Our team will follow up at your email soon."
-#~ msgstr "Vielen Dank! Unser Team wird sich in Kürze per E-Mail bei Ihnen melden."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Your ticket has been created. Our team will follow up soon."
-#~ msgstr "Ihr Ticket wurde erstellt. Unser Team wird sich in Kürze bei Ihnen melden."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Talk to a human"
-#~ msgstr "Sprechen Sie mit einem Mitarbeiter"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Start New Chat"
-#~ msgstr "Neuen Chat starten"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Close chat"
-#~ msgstr "Chat schließen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Open chat"
-#~ msgstr "Chat öffnen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Type to add tags..."
-#~ msgstr "Gib etwas ein, um Tags hinzuzufügen..."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Press Enter to create \""
-#~ msgstr "Drücke die Eingabetaste, um \&quot; zu erstellen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "\""
-#~ msgstr "\&quot;"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Token balance"
-#~ msgstr "Token-Guthaben"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Failed to create translation"
-#~ msgstr "Die Übersetzung konnte nicht erstellt werden"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Copy"
-#~ msgstr "Kopieren"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Copy & Translate"
-#~ msgstr "Kopieren & Übersetzen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "{succeeded} {action}, {failed} failed"
-#~ msgstr "{succeeded} {action}, {failed} fehlgeschlagen"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Please check the form for errors"
-#~ msgstr "Bitte überprüfen Sie das Formular auf Fehler"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgctxt "General"
-#~ msgid "This page is available in {language}"
-#~ msgstr "This page is available in {language}"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Option "
-#~ msgstr "Option "

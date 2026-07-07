@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.363Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.363Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.887Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.887Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -12,59 +12,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+
 #: src/app/(public)/account/orders/[id]/page.tsx:19
 msgid "Order Details"
-msgstr "Order Details"
+msgstr "Szczegóły zamówienia"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "Welcome"
-msgstr "Welcome"
+msgstr "Witamy"
 
 #: src/app/(public)/account/page.tsx:23
 msgid "there"
-msgstr "there"
+msgstr "tam"
 
 #: src/app/(public)/account/page.tsx:31
 msgid "Account Overview"
-msgstr "Account Overview"
+msgstr "Przegląd konta"
 
 #: src/app/(public)/account/page.tsx:51
 msgid "Profile Settings"
-msgstr "Profile Settings"
+msgstr "Ustawienia profilu"
 
 #: src/app/(public)/account/page.tsx:52
 msgid "Update your name and profile information."
-msgstr "Update your name and profile information."
+msgstr "Zaktualizuj swoje imię i nazwisko oraz dane profilowe."
 
 #: src/app/(public)/account/page.tsx:55
 #: src/components/public/AccountNav.tsx:14
 #: src/components/public/UserMenu.tsx:112
 msgid "Security"
-msgstr "Security"
+msgstr "Bezpieczeństwo"
 
 #: src/app/(public)/account/page.tsx:56
 msgid "Change your password and manage sessions."
-msgstr "Change your password and manage sessions."
+msgstr "Zmień hasło i zarządzaj sesjami."
 
 #: src/app/(public)/account/page.tsx:59
 #: src/components/public/AccountNav.tsx:15
 #: src/components/public/UserMenu.tsx:120
 msgid "Billing"
-msgstr "Billing"
+msgstr "Rozliczenia"
 
 #: src/app/(public)/account/page.tsx:60
 msgid "Manage your subscription and payment methods."
-msgstr "Manage your subscription and payment methods."
+msgstr "Zarządzaj swoją subskrypcją i metodami płatności."
 
 #: src/app/(public)/account/page.tsx:63
 #: src/components/public/AccountNav.tsx:19
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:348
 msgid "Support"
-msgstr "Support"
+msgstr "Pomoc techniczna"
 
 #: src/app/(public)/account/page.tsx:64
 msgid "View your support tickets or create a new one."
-msgstr "View your support tickets or create a new one."
+msgstr "Wyświetl swoje zgłoszenia do pomocy technicznej lub utwórz nowe."
 
 #: src/app/(public)/account/support/page.tsx:14
 #: src/app/(public)/account/support/[id]/page.tsx:33
@@ -72,7 +73,7 @@ msgstr "View your support tickets or create a new one."
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:33
 msgctxt "General"
 msgid "Open"
-msgstr "Open"
+msgstr "Otwórz"
 
 #: src/app/(public)/account/support/page.tsx:15
 #: src/app/(public)/account/support/[id]/page.tsx:34
@@ -80,7 +81,7 @@ msgstr "Open"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:34
 msgctxt "General"
 msgid "Awaiting You"
-msgstr "Awaiting You"
+msgstr "Czekamy na Ciebie"
 
 #: src/app/(public)/account/support/page.tsx:16
 #: src/app/(public)/account/support/[id]/page.tsx:35
@@ -88,7 +89,7 @@ msgstr "Awaiting You"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:35
 msgctxt "General"
 msgid "Awaiting Staff"
-msgstr "Awaiting Staff"
+msgstr "Oczekujący pracownicy"
 
 #: src/app/(public)/account/support/page.tsx:17
 #: src/app/(public)/account/support/[id]/page.tsx:36
@@ -96,7 +97,7 @@ msgstr "Awaiting Staff"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:36
 msgctxt "General"
 msgid "Resolved"
-msgstr "Resolved"
+msgstr "Postanowiono"
 
 #: src/app/(public)/account/support/page.tsx:18
 #: src/app/(public)/account/support/[id]/page.tsx:37
@@ -104,37 +105,37 @@ msgstr "Resolved"
 #: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:37
 msgctxt "General"
 msgid "Closed"
-msgstr "Closed"
+msgstr "Zamknięte"
 
 #: src/app/(public)/account/support/page.tsx:30
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:30
 msgctxt "General"
 msgid "Low"
-msgstr "Low"
+msgstr "Niski"
 
 #: src/app/(public)/account/support/page.tsx:31
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:31
 msgctxt "General"
 msgid "Normal"
-msgstr "Normal"
+msgstr "Normalny"
 
 #: src/app/(public)/account/support/page.tsx:32
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:32
 msgctxt "General"
 msgid "High"
-msgstr "High"
+msgstr "Wysoki"
 
 #: src/app/(public)/account/support/page.tsx:33
 #: src/core-support/_templates/app/(public)/account/support/page.tsx:33
 msgctxt "General"
 msgid "Urgent"
-msgstr "Urgent"
+msgstr "Pilne"
 
 #: src/app/(public)/blog/page.tsx:28
 #: src/app/(public)/blog/page.tsx:70
-#: src/app/(public)/layout.tsx:94
-#: src/app/(public)/layout.tsx:159
-#: src/app/(public)/layout.tsx:242
+#: src/app/(public)/layout.tsx:93
+#: src/app/(public)/layout.tsx:158
+#: src/app/(public)/layout.tsx:244
 #: src/app/(showcase)/layout.tsx:53
 #: src/app/(showcase)/layout.tsx:75
 msgid "Blog"
@@ -153,11 +154,11 @@ msgstr "Blog"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:178
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:314
 msgid "Page"
-msgstr "Page"
+msgstr "Strona"
 
 #: src/app/(public)/blog/page.tsx:36
 msgid "Latest blog posts"
-msgstr "Latest blog posts"
+msgstr "Najnowsze wpisy na blogu"
 
 #: src/app/(public)/blog/page.tsx:94
 #: src/app/(public)/store/page.tsx:170
@@ -172,13 +173,13 @@ msgstr "Latest blog posts"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:175
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:311
 msgid "Previous"
-msgstr "Previous"
+msgstr "Poprzedni"
 
 #: src/app/(public)/blog/page.tsx:98
 #: src/app/(public)/store/page.tsx:174
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:108
 msgid "Page {page} of {totalPages}"
-msgstr "Page {page} of {totalPages}"
+msgstr "Strona {page} z {totalPages}"
 
 #: src/app/(public)/blog/page.tsx:105
 #: src/app/(public)/store/page.tsx:186
@@ -193,173 +194,175 @@ msgstr "Page {page} of {totalPages}"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:185
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:321
 msgid "Next"
-msgstr "Next"
+msgstr "Dalej"
 
 #: src/app/(public)/blog/page.tsx:112
 msgid "No blog posts yet."
-msgstr "No blog posts yet."
+msgstr "Nie ma jeszcze żadnych wpisów na blogu."
 
 #: src/app/(public)/cart/page.tsx:13
 msgid "Cart"
-msgstr "Cart"
+msgstr "Koszyk"
 
 #: src/app/(public)/cart/page.tsx:14
 msgid "Your shopping cart"
-msgstr "Your shopping cart"
+msgstr "Twój koszyk"
 
 #: src/app/(public)/cart/page.tsx:23
 msgid "Shopping Cart"
-msgstr "Shopping Cart"
+msgstr "Koszyk"
 
 #: src/app/(public)/characters/page.tsx:13
 msgid "AI Characters"
-msgstr "AI Characters"
+msgstr "Postacie generowane przez sztuczną inteligencję"
 
 #: src/app/(public)/characters/page.tsx:14
 msgid "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
-msgstr "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
+msgstr "Przeglądaj postacie oparte na sztucznej inteligencji o wyjątkowych osobowościach. Znajdź idealnego towarzysza i od razu zacznij z nim rozmawiać."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:52
 msgid "This field is required"
-msgstr "This field is required"
+msgstr "To pole jest obowiązkowe"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:86
 msgid "First Name"
-msgstr "First Name"
+msgstr "Imię"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:91
 msgid "Last Name"
-msgstr "Last Name"
+msgstr "Nazwisko"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:97
 msgid "Company"
-msgstr "Company"
+msgstr "Firma"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:101
 msgid "Address"
-msgstr "Address"
+msgstr "Adres"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:106
 msgid "Address line 2"
-msgstr "Address line 2"
+msgstr "Wiersz adresu 2"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:111
 msgid "City"
-msgstr "City"
+msgstr "Miasto"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:116
 msgid "Postal Code"
-msgstr "Postal Code"
+msgstr "Kod pocztowy"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:123
 msgid "Country"
-msgstr "Country"
+msgstr "Kraj"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:129
 msgid "Phone"
-msgstr "Phone"
+msgstr "Telefon"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:213
 msgid "Shipping Address"
-msgstr "Shipping Address"
+msgstr "Adres dostawy"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:220
 msgid "Shipping Method"
-msgstr "Shipping Method"
+msgstr "Sposób wysyłki"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:233
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "days"
-msgstr "days"
+msgstr "dni"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:236
 #: src/app/(public)/checkout/CheckoutForm.tsx:273
 #: src/app/(public)/page.tsx:313
 msgid "Free"
-msgstr "Free"
+msgstr "Bezpłatne"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:245
 msgid "Order Note"
-msgstr "Order Note"
+msgstr "Uwaga dotycząca zamówienia"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:249
 msgid "Any special instructions..."
-msgstr "Any special instructions..."
+msgstr "Czy są jakieś szczególne wskazówki..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:258
 msgid "Order Summary"
-msgstr "Order Summary"
+msgstr "Podsumowanie zamówienia"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:268
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "Suma częściowa"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:272
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "Wysyłka"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:277
 msgid "Tax"
-msgstr "Tax"
+msgstr "Podatek"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:282
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:304
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:408
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:69
 msgid "Total"
-msgstr "Total"
+msgstr "Razem"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:299
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Processing..."
-msgstr "Processing..."
+msgstr "Przetwarzanie..."
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:301
 msgid "Place Order"
-msgstr "Place Order"
+msgstr "Złóż zamówienie"
 
 #: src/app/(public)/checkout/CheckoutForm.tsx:306
 msgid "Back to Cart"
-msgstr "Back to Cart"
+msgstr "Powrót do koszyka"
 
 #: src/app/(public)/checkout/page.tsx:15
 #: src/app/(public)/checkout/page.tsx:40
 msgid "Checkout"
-msgstr "Checkout"
+msgstr "Do kasy"
 
 #: src/app/(public)/checkout/page.tsx:16
 msgid "Complete your order"
-msgstr "Complete your order"
+msgstr "Zrealizuj zamówienie"
 
 #: src/app/(public)/docs/page.tsx:24
 #: src/app/(public)/page.tsx:346
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
-msgstr "Documentation"
+msgstr "Dokumentacja"
 
 #: src/app/(public)/docs/page.tsx:25
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:25
 msgid "No documentation pages found yet."
-msgstr "No documentation pages found yet."
+msgstr "Nie znaleziono jeszcze żadnych stron z dokumentacją."
 
 #: src/app/(public)/forgot-password/page.tsx:9
 #: src/app/(public)/forgot-password/page.tsx:20
 msgid "Forgot Password"
-msgstr "Forgot Password"
+msgstr "Nie pamiętam hasła"
 
 #: src/app/(public)/forgot-password/page.tsx:10
 msgid "Reset your password"
-msgstr "Reset your password"
+msgstr "Zresetuj hasło"
 
 #: src/app/(public)/forgot-password/page.tsx:21
 msgid "Enter your email to receive a reset link."
-msgstr "Enter your email to receive a reset link."
+msgstr "Wpisz swój adres e-mail, aby otrzymać link do zresetowania hasła."
 
-#: src/app/(public)/layout.tsx:39
+#: src/app/(public)/layout.tsx:38
 msgctxt "General"
 msgid "This page is available in {language}"
-msgstr "This page is available in {language}"
+msgstr "Ta strona jest dostępna pod adresem {language}"
 
-#: src/app/(public)/layout.tsx:99
-#: src/app/(public)/layout.tsx:243
+#: src/app/(public)/layout.tsx:98
+#: src/app/(public)/layout.tsx:245
 #: src/app/(public)/portfolio/page.tsx:24
 #: src/app/(public)/portfolio/page.tsx:45
 #: src/app/(showcase)/layout.tsx:54
@@ -367,17 +370,16 @@ msgstr "This page is available in {language}"
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: src/app/(public)/layout.tsx:100
-#: src/app/(public)/layout.tsx:171
-#: src/app/(public)/layout.tsx:244
+#: src/app/(public)/layout.tsx:99
+#: src/app/(public)/layout.tsx:170
+#: src/app/(public)/layout.tsx:246
 #: src/app/(showcase)/showcase/page.tsx:24
 msgid "Showcase"
-msgstr "Showcase"
+msgstr "Prezentacja"
 
-#: src/app/(public)/layout.tsx:101
-#: src/app/(public)/layout.tsx:174
-#: src/app/(public)/layout.tsx:183
-#: src/app/(public)/layout.tsx:245
+#: src/app/(public)/layout.tsx:100
+#: src/app/(public)/layout.tsx:173
+#: src/app/(public)/layout.tsx:247
 #: src/app/(public)/store/page.tsx:22
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:936
@@ -385,11 +387,11 @@ msgstr "Showcase"
 #: src/core-store/_templates/app/(public)/store/page.tsx:9
 #: src/core-store/_templates/app/(public)/store/page.tsx:12
 msgid "Store"
-msgstr "Store"
+msgstr "Sklep"
 
-#: src/app/(public)/layout.tsx:102
-#: src/app/(public)/layout.tsx:186
-#: src/app/(public)/layout.tsx:246
+#: src/app/(public)/layout.tsx:101
+#: src/app/(public)/layout.tsx:182
+#: src/app/(public)/layout.tsx:248
 #: src/app/(public)/search/page.tsx:20
 #: src/app/(showcase)/showcase/search/page.tsx:66
 #: src/components/public/BlogSidebar.tsx:78
@@ -399,100 +401,100 @@ msgstr "Store"
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:251
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:156
 msgid "Search"
-msgstr "Search"
+msgstr "Wyszukiwanie"
 
-#: src/app/(public)/layout.tsx:139
+#: src/app/(public)/layout.tsx:138
 msgid "Blog RSS"
-msgstr "Blog RSS"
+msgstr "RSS bloga"
 
-#: src/app/(public)/layout.tsx:226
+#: src/app/(public)/layout.tsx:228
 #: src/components/public/BlogSidebar.tsx:92
 #: src/core-store/_templates/app/(public)/store/client.tsx:512
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:721
 msgid "Categories"
-msgstr "Categories"
+msgstr "Kategorie"
 
-#: src/app/(public)/layout.tsx:241
+#: src/app/(public)/layout.tsx:243
 msgid "Quick Links"
-msgstr "Quick Links"
+msgstr "Szybkie linki"
 
-#: src/app/(public)/layout.tsx:251
+#: src/app/(public)/layout.tsx:253
 msgid "More"
-msgstr "More"
-
-#: src/app/(public)/layout.tsx:254
-#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
-msgid "RSS Feed"
-msgstr "RSS Feed"
+msgstr "Więcej"
 
 #: src/app/(public)/layout.tsx:256
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
+msgid "RSS Feed"
+msgstr "Kanał RSS"
+
+#: src/app/(public)/layout.tsx:258
 msgid "Admin"
 msgstr "Admin"
 
-#: src/app/(public)/layout.tsx:263
+#: src/app/(public)/layout.tsx:265
 msgid "Powered by Indigo"
-msgstr "Powered by Indigo"
+msgstr "Obsługiwane przez Indigo"
 
 #: src/app/(public)/login/page.tsx:9
 #: src/app/(public)/login/page.tsx:27
 #: src/components/public/AuthDialogs.tsx:24
 #: src/components/public/UserMenu.tsx:40
 msgid "Sign In"
-msgstr "Sign In"
+msgstr "Zaloguj się"
 
 #: src/app/(public)/login/page.tsx:10
 msgid "Sign in to your account"
-msgstr "Sign in to your account"
+msgstr "Zaloguj się na swoje konto"
 
 #: src/app/(public)/login/page.tsx:28
 msgid "Welcome back! Sign in to your account."
-msgstr "Welcome back! Sign in to your account."
+msgstr "Witamy ponownie! Zaloguj się na swoje konto."
 
 #: src/app/(public)/page.tsx:54
 #: src/app/(public)/page.tsx:171
 msgid "Browse Characters"
-msgstr "Browse Characters"
+msgstr "Przeglądaj postacie"
 
 #: src/app/(public)/page.tsx:55
 msgid "30 AI characters with filters, pagination, and video hover."
-msgstr "30 AI characters with filters, pagination, and video hover."
+msgstr "30 postaci generowanych przez sztuczną inteligencję wraz z filtrami, paginacją i podglądem wideo po najechaniu kursorem."
 
 #: src/app/(public)/page.tsx:60
 msgid "AI Chat"
-msgstr "AI Chat"
+msgstr "Czat z wykorzystaniem sztucznej inteligencji"
 
 #: src/app/(public)/page.tsx:61
 msgid "Real-time text chat with LLM streaming and typing animation."
-msgstr "Real-time text chat with LLM streaming and typing animation."
+msgstr "Czat tekstowy w czasie rzeczywistym z transmisją danych z modelu LLM oraz animacją wpisywania tekstu."
 
 #: src/app/(public)/page.tsx:67
 msgid "Image Generation"
-msgstr "Image Generation"
+msgstr "Generowanie obrazów"
 
 #: src/app/(public)/page.tsx:68
 msgid "Full keyword orchestration — type \"send me a photo\" in chat."
-msgstr "Full keyword orchestration — type \"send me a photo\" in chat."
+msgstr "Pełna obsługa słów kluczowych — wpisz „wyślij mi zdjęcie” na czacie."
 
 #: src/app/(public)/page.tsx:73
 msgid "Voice Calls"
-msgstr "Voice Calls"
+msgstr "Połączenia głosowe"
 
 #: src/app/(public)/page.tsx:74
 msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
-msgstr "Call AI characters — STT → LLM → TTS with per-minute billing."
+msgstr "Połączenia z postaciami opartymi na sztucznej inteligencji — STT → LLM → TTS z rozliczeniem za minutę."
 
 #: src/app/(public)/page.tsx:76
 msgid "New"
-msgstr "New"
+msgstr "Nowość"
 
 #: src/app/(public)/page.tsx:80
 #: src/app/(public)/page.tsx:177
 msgid "Admin Dashboard"
-msgstr "Admin Dashboard"
+msgstr "Panel administracyjny"
 
 #: src/app/(public)/page.tsx:81
 msgid "Content, users, settings, analytics, provider management."
-msgstr "Content, users, settings, analytics, provider management."
+msgstr "Treści, użytkownicy, ustawienia, analityka, zarządzanie dostawcami."
 
 #: src/app/(public)/page.tsx:86
 msgid "CMS"
@@ -500,123 +502,123 @@ msgstr "CMS"
 
 #: src/app/(public)/page.tsx:87
 msgid "Blog, pages, portfolio, categories, tags — config-driven."
-msgstr "Blog, pages, portfolio, categories, tags — config-driven."
+msgstr "Blog, strony, portfolio, kategorie, tagi — oparte na konfiguracji."
 
 #: src/app/(public)/page.tsx:92
 msgid "Billing & Tokens"
-msgstr "Billing & Tokens"
+msgstr "Rozliczenia i tokeny"
 
 #: src/app/(public)/page.tsx:93
 msgid "Stripe subscriptions, token balance, discount codes."
-msgstr "Stripe subscriptions, token balance, discount codes."
+msgstr "Subskrypcje Stripe, saldo tokenów, kody rabatowe."
 
 #: src/app/(public)/page.tsx:98
 msgid "Organizations"
-msgstr "Organizations"
+msgstr "Organizacje"
 
 #: src/app/(public)/page.tsx:99
 msgid "Multi-tenant with roles for billing scoping."
-msgstr "Multi-tenant with roles for billing scoping."
+msgstr "Wielodostępna platforma z rolami służącymi do określania zakresu rozliczeń."
 
 #: src/app/(public)/page.tsx:104
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Moderation"
-msgstr "Moderation"
+msgstr "Moderacja"
 
 #: src/app/(public)/page.tsx:105
 msgid "Keyword filter + audit log + auto-block."
-msgstr "Keyword filter + audit log + auto-block."
+msgstr "Filtr słów kluczowych + dziennik audytowy + automatyczne blokowanie."
 
 #: src/app/(public)/page.tsx:110
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Analytics"
-msgstr "Analytics"
+msgstr "Analizy"
 
 #: src/app/(public)/page.tsx:111
 msgid "Character stats, user activity, provider health."
-msgstr "Character stats, user activity, provider health."
+msgstr "Statystyki postaci, aktywność użytkowników, kondycja dostawców."
 
 #: src/app/(public)/page.tsx:116
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:86
 msgid "AI Providers"
-msgstr "AI Providers"
+msgstr "Dostawcy rozwiązań AI"
 
 #: src/app/(public)/page.tsx:117
 msgid "DB-stored with encryption, round-robin, fallback."
-msgstr "DB-stored with encryption, round-robin, fallback."
+msgstr "Przechowywane w bazie danych z szyfrowaniem, algorytem round-robin i mechanizmem awaryjnym."
 
 #: src/app/(public)/page.tsx:122
 msgid "Theme & Branding"
-msgstr "Theme & Branding"
+msgstr "Motyw i identyfikacja wizualna"
 
 #: src/app/(public)/page.tsx:123
 msgid "OKLCH design tokens, dark mode, CSS variables."
-msgstr "OKLCH design tokens, dark mode, CSS variables."
+msgstr "Tokeny projektowe OKLCH, tryb ciemny, zmienne CSS."
 
 #: src/app/(public)/page.tsx:134
 msgid "Live Demo — resets hourly"
-msgstr "Live Demo — resets hourly"
+msgstr "Prezentacja na żywo — odświeża się co godzinę"
 
 #: src/app/(public)/page.tsx:142
 msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+msgstr "Kompletna platforma SaaS dla Next.js — system zarządzania treścią (CMS), rozliczenia, uwierzytelnianie, obsługa w czasie rzeczywistym, czat oparty na sztucznej inteligencji oraz architektura modułowa."
 
 #: src/app/(public)/page.tsx:152
 msgid "Demo login"
-msgstr "Demo login"
+msgstr "Logowanie do wersji demonstracyjnej"
 
 #: src/app/(public)/page.tsx:162
 msgid "Log in"
-msgstr "Log in"
+msgstr "Zaloguj się"
 
 #: src/app/(public)/page.tsx:187
 msgid "Explore the Features"
-msgstr "Explore the Features"
+msgstr "Poznaj funkcje"
 
 #: src/app/(public)/page.tsx:190
 msgid "Click any card to see it in action. Everything is live and functional."
-msgstr "Click any card to see it in action. Everything is live and functional."
+msgstr "Kliknij dowolną kartę, aby zobaczyć, jak działa. Wszystko działa na żywo i jest w pełni funkcjonalne."
 
 #: src/app/(public)/page.tsx:217
 msgid "Explore"
-msgstr "Explore"
+msgstr "Odkryj"
 
 #: src/app/(public)/page.tsx:230
 msgid "Built With"
-msgstr "Built With"
+msgstr "Stworzone przy użyciu"
 
 #: src/app/(public)/page.tsx:264
 msgid "Modular Architecture"
-msgstr "Modular Architecture"
+msgstr "Architektura modułowa"
 
 #: src/app/(public)/page.tsx:267
 msgid "Install only what you need. Each module is a self-contained git subtree."
-msgstr "Install only what you need. Each module is a self-contained git subtree."
+msgstr "Zainstaluj tylko to, czego potrzebujesz. Każdy moduł stanowi samodzielną podstruktura repozytorium Git."
 
 #: src/app/(public)/page.tsx:275
 msgid "AI character chat, image/video gen, voice calls"
-msgstr "AI character chat, image/video gen, voice calls"
+msgstr "Czat z postaciami opartymi na sztucznej inteligencji, generowanie obrazów i filmów, rozmowy głosowe"
 
 #: src/app/(public)/page.tsx:280
 msgid "Stripe subscriptions, tokens, discounts"
-msgstr "Stripe subscriptions, tokens, discounts"
+msgstr "Subskrypcje Stripe, tokeny, zniżki"
 
 #: src/app/(public)/page.tsx:285
 msgid "AI support chat + ticket system"
-msgstr "AI support chat + ticket system"
+msgstr "Czat z obsługą AI + system zgłoszeń"
 
 #: src/app/(public)/page.tsx:288
 msgid "Documentation system"
-msgstr "Documentation system"
+msgstr "System dokumentacji"
 
 #: src/app/(public)/page.tsx:291
 msgid "E-commerce (products, cart, checkout)"
-msgstr "E-commerce (products, cart, checkout)"
+msgstr "Handel elektroniczny (produkty, koszyk, realizacja zamówienia)"
 
 #: src/app/(public)/page.tsx:296
 msgid "Referral tracking, commissions"
-msgstr "Referral tracking, commissions"
+msgstr "Śledzenie poleceń, prowizje"
 
 #: src/app/(public)/page.tsx:313
 msgid "Premium"
@@ -624,114 +626,114 @@ msgstr "Premium"
 
 #: src/app/(public)/page.tsx:330
 msgid "Ready to build?"
-msgstr "Ready to build?"
+msgstr "Gotowi do budowy?"
 
 #: src/app/(public)/page.tsx:333
 msgid "Clone, init, ship. It's that simple."
-msgstr "Clone, init, ship. It's that simple."
+msgstr "Sklonuj, skonfiguruj, wyślij. To takie proste."
 
 #: src/app/(public)/page.tsx:340
 msgid "Clone on GitHub"
-msgstr "Clone on GitHub"
+msgstr "Sklonuj na GitHubie"
 
 #: src/app/(public)/page.tsx:350
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
-msgstr "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
+msgstr "Podwójna licencja: AGPL-3.0 (open source) lub licencja komercyjna"
 
 #: src/app/(public)/portfolio/page.tsx:27
 msgid "Browse our portfolio of projects and case studies."
-msgstr "Browse our portfolio of projects and case studies."
+msgstr "Zapoznaj się z naszym portfolio projektów i studiów przypadków."
 
 #: src/app/(public)/portfolio/page.tsx:48
 msgid "Browse our projects and case studies."
-msgstr "Browse our projects and case studies."
+msgstr "Zapoznaj się z naszymi projektami i studiami przypadków."
 
 #: src/app/(public)/portfolio/page.tsx:103
 msgid "No portfolio items yet."
-msgstr "No portfolio items yet."
+msgstr "Nie ma jeszcze żadnych pozycji w portfelu."
 
 #: src/app/(public)/pricing/page.tsx:22
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:409
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:22
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "Ceny"
 
 #: src/app/(public)/pricing/page.tsx:23
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:23
 msgid "Simple, transparent pricing for teams of all sizes."
-msgstr "Simple, transparent pricing for teams of all sizes."
+msgstr "Prosty i przejrzysty system cenowy dla zespołów każdej wielkości."
 
 #: src/app/(public)/pricing/page.tsx:39
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:39
 msgid "Simple, transparent pricing"
-msgstr "Simple, transparent pricing"
+msgstr "Prosty i przejrzysty system cenowy"
 
 #: src/app/(public)/pricing/page.tsx:42
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:42
 msgid "Pay as you go: buy tokens once, use them until they run out. No subscription required."
-msgstr "Pay as you go: buy tokens once, use them until they run out. No subscription required."
+msgstr "Płatność zgodnie z rzeczywistym zużyciem: kup tokeny raz i korzystaj z nich, dopóki się nie wyczerpią. Nie jest wymagana subskrypcja."
 
 #: src/app/(public)/pricing/page.tsx:43
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:43
 msgid "Choose the plan that fits your team. All plans include a 14-day free trial."
-msgstr "Choose the plan that fits your team. All plans include a 14-day free trial."
+msgstr "Wybierz plan dostosowany do potrzeb Twojego zespołu. Wszystkie plany obejmują 14-dniowy bezpłatny okres próbny."
 
 #: src/app/(public)/pricing/page.tsx:58
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:58
 msgid "Get Started"
-msgstr "Get Started"
+msgstr "Zacznij"
 
 #: src/app/(public)/pricing/page.tsx:70
 #: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:70
 msgid "Frequently asked questions"
-msgstr "Frequently asked questions"
+msgstr "Najczęściej zadawane pytania"
 
 #: src/app/(public)/register/page.tsx:9
 #: src/app/(public)/register/page.tsx:31
 #: src/components/public/AuthDialogs.tsx:53
 msgid "Create Account"
-msgstr "Create Account"
+msgstr "Załóż konto"
 
 #: src/app/(public)/register/page.tsx:10
 msgid "Create a new account"
-msgstr "Create a new account"
+msgstr "Załóż nowe konto"
 
 #: src/app/(public)/register/page.tsx:22
 msgid "Registration Closed"
-msgstr "Registration Closed"
+msgstr "Rejestracja zakończona"
 
 #: src/app/(public)/register/page.tsx:23
 #: src/components/public/AuthDialogs.tsx:65
 msgid "Registration is currently not available. Please contact us for access."
-msgstr "Registration is currently not available. Please contact us for access."
+msgstr "Rejestracja jest obecnie niedostępna. Prosimy o kontakt w celu uzyskania dostępu."
 
 #: src/app/(public)/register/page.tsx:32
 msgid "Start your journey with a free account."
-msgstr "Start your journey with a free account."
+msgstr "Rozpocznij swoją przygodę od założenia darmowego konta."
 
 #: src/app/(public)/reset-password/page.tsx:9
 #: src/app/(public)/reset-password/page.tsx:20
 msgid "Reset Password"
-msgstr "Reset Password"
+msgstr "Zresetuj hasło"
 
 #: src/app/(public)/reset-password/page.tsx:10
 msgid "Set a new password"
-msgstr "Set a new password"
+msgstr "Ustaw nowe hasło"
 
 #: src/app/(public)/reset-password/page.tsx:21
 msgid "Enter your new password below."
-msgstr "Enter your new password below."
+msgstr "Wpisz poniżej swoje nowe hasło."
 
 #: src/app/(public)/store/page.tsx:23
 msgid "Browse our products"
-msgstr "Browse our products"
+msgstr "Przejrzyj nasze produkty"
 
 #: src/app/(public)/store/page.tsx:64
 #: src/app/(public)/store/page.tsx:98
 #: src/core-store/_templates/app/(public)/store/client.tsx:424
 msgid "Sale"
-msgstr "Sale"
+msgstr "Wyprzedaż"
 
 #: src/app/(public)/store/page.tsx:65
 #: src/core-store/_templates/app/(public)/store/client.tsx:132
@@ -739,152 +741,152 @@ msgstr "Sale"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:151
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:381
 msgid "Digital"
-msgstr "Digital"
+msgstr "Cyfrowe"
 
 #: src/app/(public)/store/page.tsx:66
 msgid "From variants"
-msgstr "From variants"
+msgstr "Z wariantów"
 
 #: src/app/(public)/store/page.tsx:114
 msgid "Shop Now"
-msgstr "Shop Now"
+msgstr "Kup teraz"
 
 #: src/app/(public)/store/page.tsx:122
 #: src/core-store/_templates/app/(public)/store/client.tsx:523
 msgid "All Products"
-msgstr "All Products"
+msgstr "Wszystkie produkty"
 
 #: src/app/(public)/store/page.tsx:133
 #: src/core-api/components/ApiKeyManager.tsx:224
 #: src/core-store/_templates/app/(public)/store/client.tsx:816
 msgid "All"
-msgstr "All"
+msgstr "Wszystkie"
 
 #: src/app/(public)/store/page.tsx:196
 #: src/core-store/_templates/app/(public)/store/client.tsx:1022
 msgid "No products found"
-msgstr "No products found"
+msgstr "Nie znaleziono żadnych produktów"
 
 #: src/app/(public)/store/page.tsx:196
 msgid "Coming soon"
-msgstr "Coming soon"
+msgstr "Wkrótce"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Try a different search term"
-msgstr "Try a different search term"
+msgstr "Spróbuj wpisać inne hasło wyszukiwania"
 
 #: src/app/(public)/store/page.tsx:199
 msgid "Check back soon for new products"
-msgstr "Check back soon for new products"
+msgstr "Zajrzyj tu wkrótce, aby zapoznać się z nowościami"
 
 #: src/app/(public)/[...slug]/renderers/CategoryDetail.tsx:44
 msgid "Posts in this category"
-msgstr "Posts in this category"
+msgstr "Wpisy w tej kategorii"
 
 #: src/app/(public)/[...slug]/renderers/PortfolioDetail.tsx:23
 #: src/app/(public)/[...slug]/renderers/PostDetail.tsx:57
 #: src/app/(public)/[...slug]/renderers/ShowcaseDetail.tsx:24
 msgid "Preview mode — this content is not yet published."
-msgstr "Preview mode — this content is not yet published."
+msgstr "Tryb podglądu — ta treść nie została jeszcze opublikowana."
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:53
 msgid "Tag"
-msgstr "Tag"
+msgstr "Etykieta"
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:124
 msgid "No content found with this tag."
-msgstr "No content found with this tag."
+msgstr "Nie znaleziono treści z tym tagiem."
 
 #: src/app/(public)/[...slug]/renderers/TagDetail.tsx:130
 msgid "Browse More Tags"
-msgstr "Browse More Tags"
+msgstr "Zobacz więcej tagów"
 
 #: src/app/(showcase)/layout.tsx:51
 msgid "Home"
-msgstr "Home"
+msgstr "Strona główna"
 
 #: src/app/(showcase)/layout.tsx:52
 #: src/app/(showcase)/layout.tsx:72
 msgid "Feed"
-msgstr "Feed"
+msgstr "Kanał"
 
 #: src/app/(showcase)/showcase/page.tsx:27
 msgid "Explore our showcase — swipe through videos, images, and stories."
-msgstr "Explore our showcase — swipe through videos, images, and stories."
+msgstr "Zapoznaj się z naszą galerią — przeglądaj filmy, zdjęcia i relacje."
 
 #: src/app/(showcase)/showcase/search/page.tsx:66
 msgid "Results for \"{query}\""
-msgstr "Results for \"{query}\""
+msgstr "Wyniki wyszukiwania dla hasła „{query}”"
 
 #: src/app/(showcase)/showcase/search/page.tsx:70
 msgid "No results found for \"{query}\""
-msgstr "No results found for \"{query}\""
+msgstr "Nie znaleziono wyników dla hasła „{query}”"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "Use the search bar above or press"
-msgstr "Use the search bar above or press"
+msgstr "Skorzystaj z paska wyszukiwania powyżej lub naciśnij"
 
 #: src/app/(showcase)/showcase/search/page.tsx:96
 msgid "to search."
-msgstr "to search."
+msgstr "aby wyszukać."
 
 #: src/app/not-found.tsx:17
 msgid "Page not found"
-msgstr "Page not found"
+msgstr "Nie znaleziono strony"
 
 #: src/app/not-found.tsx:19
 msgid "The page you're looking for doesn't exist or has been moved."
-msgstr "The page you're looking for doesn't exist or has been moved."
+msgstr "Strona, której szukasz, nie istnieje lub została przeniesiona."
 
 #: src/app/not-found.tsx:27
 msgid "Go Home"
-msgstr "Go Home"
+msgstr "Wróć do strony głównej"
 
 #: src/app/not-found.tsx:33
 msgid "Browse Blog"
-msgstr "Browse Blog"
+msgstr "Przeglądaj bloga"
 
 #: src/components/public/AccountNav.tsx:12
 msgid "Overview"
-msgstr "Overview"
+msgstr "Przegląd"
 
 #: src/components/public/AccountNav.tsx:13
 #: src/components/public/UserMenu.tsx:104
 msgid "Settings"
-msgstr "Settings"
+msgstr "Ustawienia"
 
 #: src/components/public/AccountNav.tsx:16
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:96
 msgid "Orders"
-msgstr "Orders"
+msgstr "Zamówienia"
 
 #: src/components/public/AccountNav.tsx:17
 msgid "Wishlist"
-msgstr "Wishlist"
+msgstr "Lista życzeń"
 
 #: src/components/public/AccountNav.tsx:18
 msgid "Addresses"
-msgstr "Addresses"
+msgstr "Adresy"
 
 #: src/components/public/AccountNav.tsx:20
 #: src/core-affiliates/components/AffiliateOverview.tsx:23
 #: src/core-affiliates/components/AffiliateOverview.tsx:36
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
-msgstr "Affiliates"
+msgstr "Partnerzy"
 
 #: src/components/public/BlogSidebar.tsx:83
 msgid "Search posts..."
-msgstr "Search posts..."
+msgstr "Wyszukaj posty..."
 
 #: src/components/public/BlogSidebar.tsx:113
 msgid "Tags"
-msgstr "Tags"
+msgstr "Tagi"
 
 #: src/components/public/CommentPanel.tsx:121
 msgid "Reply"
-msgstr "Reply"
+msgstr "Odpowiedz"
 
 #: src/components/public/CommentPanel.tsx:129
 #: src/core/components/media/MediaPickerDialog.tsx:490
@@ -908,137 +910,137 @@ msgstr "Reply"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
 msgid "Delete"
-msgstr "Delete"
+msgstr "Usuń"
 
 #: src/components/public/CommentPanel.tsx:142
 msgid "Reply..."
-msgstr "Reply..."
+msgstr "Odpowiedz..."
 
 #: src/components/public/CommentPanel.tsx:295
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:115
 msgid "Comments"
-msgstr "Comments"
+msgstr "Komentarze"
 
 #: src/components/public/CommentPanel.tsx:313
 msgid "No comments yet. Be the first!"
-msgstr "No comments yet. Be the first!"
+msgstr "Jeszcze nie ma komentarzy. Napisz pierwszy!"
 
 #: src/components/public/CommentPanel.tsx:344
 msgid "Add a comment..."
-msgstr "Add a comment..."
+msgstr "Dodaj komentarz..."
 
 #: src/components/public/CommentPanel.tsx:363
 msgid "Sign in"
-msgstr "Sign in"
+msgstr "Zaloguj się"
 
 #: src/components/public/CommentPanel.tsx:365
 msgid "to comment"
-msgstr "to comment"
+msgstr "aby dodać komentarz"
 
 #: src/components/public/ContactForm.tsx:75
 msgid "Network error. Please try again."
-msgstr "Network error. Please try again."
+msgstr "Błąd sieci. Spróbuj ponownie."
 
 #: src/components/public/ContactForm.tsx:140
 msgid "Select..."
-msgstr "Select..."
+msgstr "Wybierz..."
 
 #: src/components/public/ContactForm.tsx:217
 msgid "Submitting..."
-msgstr "Submitting..."
+msgstr "Przesyłanie..."
 
 #: src/components/public/ContactForm.tsx:220
 msgid "Submit"
-msgstr "Submit"
+msgstr "Wyślij"
 
 #: src/components/public/CreateOrgCard.tsx:39
 msgid "Create your organization"
-msgstr "Create your organization"
+msgstr "Załóż swoją organizację"
 
 #: src/components/public/CreateOrgCard.tsx:41
 msgid "Get started by creating an organization. You can invite team members later."
-msgstr "Get started by creating an organization. You can invite team members later."
+msgstr "Zacznij od utworzenia organizacji. Członków zespołu możesz zaprosić później."
 
 #: src/components/public/CreateOrgCard.tsx:47
 msgid "Organization name"
-msgstr "Organization name"
+msgstr "Nazwa organizacji"
 
 #: src/components/public/CreateOrgCard.tsx:54
 msgid "My Company"
-msgstr "My Company"
+msgstr "Moja firma"
 
 #: src/components/public/CreateOrgCard.tsx:71
 #: src/core-api/components/ApiKeyManager.tsx:122
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 msgid "Creating..."
-msgstr "Creating..."
+msgstr "Tworzenie..."
 
 #: src/components/public/CreateOrgCard.tsx:71
 msgid "Create Organization"
-msgstr "Create Organization"
+msgstr "Utwórz organizację"
 
 #: src/components/public/ExpandableSearch.tsx:72
 msgid "Search (/)"
-msgstr "Search (/)"
+msgstr "Wyszukiwanie (/)"
 
 #: src/components/public/ExpandableSearch.tsx:91
 #: src/components/public/ExpandableSearch.tsx:111
 msgid "Search..."
-msgstr "Search..."
+msgstr "Wyszukaj..."
 
 #: src/components/public/ShowcaseActionBar.tsx:93
 msgid "Sign in to react"
-msgstr "Sign in to react"
+msgstr "Zaloguj się, aby skomentować"
 
 #: src/components/public/ShowcaseActionBar.tsx:105
 msgid "Link copied"
-msgstr "Link copied"
+msgstr "Link skopiowany"
 
-#: src/components/public/ShowcaseFeed.tsx:244
+#: src/components/public/ShowcaseFeed.tsx:243
 msgid "No showcase items yet."
-msgstr "No showcase items yet."
+msgstr "Nie ma jeszcze żadnych produktów w sekcji „Prezentacja”."
 
 #: src/components/public/SocialLoginButtons.tsx:30
 msgid "Continue with Google"
-msgstr "Continue with Google"
+msgstr "Kontynuuj za pomocą Google"
 
 #: src/components/public/SocialLoginButtons.tsx:41
 msgid "Continue with Discord"
-msgstr "Continue with Discord"
+msgstr "Przejdź do Discorda"
 
 #: src/components/public/SubscribeOrTokens.tsx:46
 msgid "Subscribe"
-msgstr "Subscribe"
+msgstr "Subskrybuj"
 
 #: src/components/public/TokenPackCard.tsx:40
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:40
 msgid "Most popular"
-msgstr "Most popular"
+msgstr "Najpopularniejsze"
 
 #: src/components/public/TokenPackCard.tsx:46
 #: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:46
 msgid "tokens"
-msgstr "tokens"
+msgstr "żetony"
 
 #: src/components/public/UserMenu.tsx:46
 msgid "Sign Up"
-msgstr "Sign Up"
+msgstr "Zarejestruj się"
 
 #: src/components/public/UserMenu.tsx:96
 msgid "Account"
-msgstr "Account"
+msgstr "Konto"
 
 #: src/components/public/UserMenu.tsx:129
 msgid "Sign Out"
-msgstr "Sign Out"
+msgstr "Wyloguj się"
 
 #: src/core/components/cms/AutosaveIndicator.tsx:39
 msgid "Autosaved"
-msgstr "Autosaved"
+msgstr "Zapisano automatycznie"
 
 #: src/core/components/cms/AutosaveRecoveryBanner.tsx:36
 msgid "Unsaved changes recovered from"
-msgstr "Unsaved changes recovered from"
+msgstr "Niezapisane zmiany odzyskane z"
 
 #: src/core/components/cms/AutosaveRecoveryBanner.tsx:44
 #: src/core/components/cms/BulkActionBar.tsx:62
@@ -1046,99 +1048,99 @@ msgstr "Unsaved changes recovered from"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:127
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:151
 msgid "Restore"
-msgstr "Restore"
+msgstr "Przywróć"
 
 #: src/core/components/cms/BrokenLinksBanner.tsx:23
 msgid "Broken internal links detected:"
-msgstr "Broken internal links detected:"
+msgstr "Wykryto uszkodzone linki wewnętrzne:"
 
 #: src/core/components/cms/BulkActionBar.tsx:50
 msgid "Deselect all"
-msgstr "Deselect all"
+msgstr "Odznacz wszystko"
 
 #: src/core/components/cms/BulkActionBar.tsx:77
 msgid "Set status..."
-msgstr "Set status..."
+msgstr "Ustaw status..."
 
 #: src/core/components/cms/BulkActionBar.tsx:79
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:366
 msgid "Draft"
-msgstr "Draft"
+msgstr "Projekt"
 
 #: src/core/components/cms/BulkActionBar.tsx:80
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:367
 msgid "Published"
-msgstr "Published"
+msgstr "Opublikowano"
 
 #: src/core/components/cms/BulkActionBar.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Export"
-msgstr "Export"
+msgstr "Eksport"
 
 #: src/core/components/cms/BulkActionBar.tsx:118
 msgid "Move to Trash"
-msgstr "Move to Trash"
+msgstr "Przenieś do kosza"
 
 #: src/core/components/cms/ContentCalendar.tsx:89
 msgid "Calendar"
-msgstr "Calendar"
+msgstr "Kalendarz"
 
 #: src/core/components/cms/ContentCalendar.tsx:167
 msgid "more"
-msgstr "more"
+msgstr "więcej"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:109
 msgid "Loading custom fields..."
-msgstr "Loading custom fields..."
+msgstr "Ładowanie pól niestandardowych..."
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:121
 msgid "Custom Fields"
-msgstr "Custom Fields"
+msgstr "Pola niestandardowe"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:142
 msgid "Saving custom fields..."
-msgstr "Saving custom fields..."
+msgstr "Zapisywanie pól niestandardowych..."
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:195
 msgid "Enabled"
-msgstr "Enabled"
+msgstr "Włączone"
 
 #: src/core/components/cms/CustomFieldsEditor.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:764
 msgid "-- Select --"
-msgstr "-- Select --"
+msgstr "-- Wybierz --"
 
 #: src/core/components/cms/FallbackRadio.tsx:21
 msgid "Language Fallback"
-msgstr "Language Fallback"
+msgstr "Język rezerwowy"
 
 #: src/core/components/cms/FallbackRadio.tsx:28
 msgid "Default"
-msgstr "Default"
+msgstr "Domyślnie"
 
 #: src/core/components/cms/FallbackRadio.tsx:31
 msgid "Show EN version for missing translations"
-msgstr "Show EN version for missing translations"
+msgstr "Pokaż wersję angielską w przypadku brakujących tłumaczeń"
 
 #: src/core/components/cms/FallbackRadio.tsx:32
 msgid "404 for missing translations"
-msgstr "404 for missing translations"
+msgstr "Błąd 404 z powodu brakujących tłumaczeń"
 
 #: src/core/components/cms/FallbackRadio.tsx:39
 msgid "Always Fallback"
-msgstr "Always Fallback"
+msgstr "Zawsze stosuj rozwiązanie awaryjne"
 
 #: src/core/components/cms/FallbackRadio.tsx:45
 msgid "Never Fallback"
-msgstr "Never Fallback"
+msgstr "Nigdy nie stosuj rozwiązania awaryjnego"
 
 #: src/core/components/cms/FallbackRadio.tsx:49
 msgid "Controls whether this content is shown when visiting in a language without a translation"
-msgstr "Controls whether this content is shown when visiting in a language without a translation"
+msgstr "Określa, czy ta treść będzie wyświetlana w przypadku odwiedzin w języku, dla którego nie ma tłumaczenia"
 
 #: src/core/components/cms/MenuBuilder.tsx:96
 msgid "Label"
-msgstr "Label"
+msgstr "Etykieta"
 
 #: src/core/components/cms/MenuBuilder.tsx:104
 #: src/core/components/RichTextEditor.tsx:511
@@ -1147,11 +1149,11 @@ msgstr "URL"
 
 #: src/core/components/cms/MenuBuilder.tsx:115
 msgid "New tab"
-msgstr "New tab"
+msgstr "Nowa karta"
 
 #: src/core/components/cms/MenuBuilder.tsx:123
 msgid "Indent"
-msgstr "Indent"
+msgstr "Wcięcie"
 
 #: src/core/components/cms/MenuBuilder.tsx:131
 msgid "Outdent"
@@ -1159,76 +1161,76 @@ msgstr "Outdent"
 
 #: src/core/components/cms/MenuBuilder.tsx:176
 msgid "Menu saved"
-msgstr "Menu saved"
+msgstr "Menu zapisano"
 
 #: src/core/components/cms/MenuBuilder.tsx:325
 msgid "No menu items yet. Add one below."
-msgstr "No menu items yet. Add one below."
+msgstr "Nie ma jeszcze żadnych pozycji w menu. Dodaj jedną poniżej."
 
 #: src/core/components/cms/MenuBuilder.tsx:332
 msgid "Add Item"
-msgstr "Add Item"
+msgstr "Dodaj pozycję"
 
 #: src/core/components/cms/MenuBuilder.tsx:341
 msgid "Save Menu"
-msgstr "Save Menu"
+msgstr "Menu „Zapisz”"
 
 #: src/core/components/cms/RevisionHistory.tsx:71
 msgid "Revision restored"
-msgstr "Revision restored"
+msgstr "Przywrócono wersję"
 
 #: src/core/components/cms/RevisionHistory.tsx:74
 msgid "Failed to restore revision"
-msgstr "Failed to restore revision"
+msgstr "Nie udało się przywrócić wersji"
 
 #: src/core/components/cms/RevisionHistory.tsx:93
 msgid "Revision History"
-msgstr "Revision History"
+msgstr "Historia zmian"
 
 #: src/core/components/cms/RevisionHistory.tsx:110
 msgid "Oldest"
-msgstr "Oldest"
+msgstr "Najstarsze"
 
 #: src/core/components/cms/RevisionHistory.tsx:111
 #: src/core-store/_templates/app/(public)/store/client.tsx:315
 msgid "Newest"
-msgstr "Newest"
+msgstr "Najnowsze"
 
 #: src/core/components/cms/RevisionHistory.tsx:119
 msgid "No revisions yet"
-msgstr "No revisions yet"
+msgstr "Na razie nie ma żadnych poprawek"
 
 #: src/core/components/cms/RevisionHistory.tsx:129
 msgid "(untitled)"
-msgstr "(untitled)"
+msgstr "(bez tytułu)"
 
 #: src/core/components/cms/RevisionHistory.tsx:158
 msgid "No changes in this revision"
-msgstr "No changes in this revision"
+msgstr "W tej wersji nie wprowadzono żadnych zmian"
 
 #: src/core/components/cms/RevisionHistory.tsx:206
 msgid "Restore this version"
-msgstr "Restore this version"
+msgstr "Przywróć tę wersję"
 
 #: src/core/components/cms/RevisionHistory.tsx:217
 msgid "Restore revision?"
-msgstr "Restore revision?"
+msgstr "Przywrócić wersję?"
 
 #: src/core/components/cms/RevisionHistory.tsx:218
 msgid "Current state will be saved as a new revision before restoring."
-msgstr "Current state will be saved as a new revision before restoring."
+msgstr "Przed przywróceniem aktualny stan zostanie zapisany jako nowa wersja."
 
 #: src/core/components/cms/RevisionHistory.tsx:241
 msgid "Revisions"
-msgstr "Revisions"
+msgstr "Poprawki"
 
 #: src/core/components/cms/TagInput.tsx:198
 msgid "Type to add tags..."
-msgstr "Type to add tags..."
+msgstr "Wpisz, aby dodać tagi..."
 
 #: src/core/components/cms/TagInput.tsx:239
 msgid "Press Enter to create \""
-msgstr "Press Enter to create \""
+msgstr "Naciśnij klawisz Enter, aby utworzyć „”"
 
 #: src/core/components/cms/TagInput.tsx:241
 msgid "\""
@@ -1236,58 +1238,58 @@ msgstr "\""
 
 #: src/core/components/dashboard/CommandPalette.tsx:76
 msgid "Navigation"
-msgstr "Navigation"
+msgstr "Nawigacja"
 
 #: src/core/components/dashboard/CommandPalette.tsx:88
 #: src/core/components/dashboard/CommandPalette.tsx:229
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:79
 msgid "Content"
-msgstr "Content"
+msgstr "Treść"
 
 #: src/core/components/dashboard/CommandPalette.tsx:201
 msgid "Search pages, content, settings..."
-msgstr "Search pages, content, settings..."
+msgstr "Wyszukiwanie stron, treści, ustawień..."
 
 #: src/core/components/dashboard/CommandPalette.tsx:242
 #: src/core/components/overlays/InternalLinkDialog.tsx:77
 msgid "No results found"
-msgstr "No results found"
+msgstr "Nie znaleziono żadnych wyników"
 
 #: src/core/components/dashboard/CommandPalette.tsx:248
 msgid "Start typing to search..."
-msgstr "Start typing to search..."
+msgstr "Zacznij pisać, aby wyszukać..."
 
 #: src/core/components/dashboard/ContentStatusWidget.tsx:38
 msgid "Scheduled"
-msgstr "Scheduled"
+msgstr "Zaplanowane"
 
 #: src/core/components/dashboard/ContentStatusWidget.tsx:58
 msgid "Content Status"
-msgstr "Content Status"
+msgstr "Status treści"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:112
 msgid "Show widget"
-msgstr "Show widget"
+msgstr "Pokaż widżet"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:112
 msgid "Hide widget"
-msgstr "Hide widget"
+msgstr "Ukryj widżet"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:121
 msgid "Columns"
-msgstr "Columns"
+msgstr "Kolumny"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:214
 msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
-msgstr "Drag to reorder widgets. Toggle visibility with the eye icon."
+msgstr "Przeciągnij, aby zmienić kolejność widżetów. Włącz lub wyłącz widoczność za pomocą ikony oka."
 
 #: src/core/components/dashboard/DashboardConfig.tsx:257
 msgid "Configure dashboard"
-msgstr "Configure dashboard"
+msgstr "Skonfiguruj pulpit nawigacyjny"
 
 #: src/core/components/dashboard/DashboardConfig.tsx:262
 msgid "Dashboard Layout"
-msgstr "Dashboard Layout"
+msgstr "Układ pulpitu nawigacyjnego"
 
 #: src/core/components/dashboard/GA4Widget.tsx:183
 #: src/core/components/dashboard/GA4Widget.tsx:214
@@ -1296,84 +1298,84 @@ msgstr "Google Analytics"
 
 #: src/core/components/dashboard/GA4Widget.tsx:190
 msgid "Connect Google Analytics to see page views, sessions, and top pages."
-msgstr "Connect Google Analytics to see page views, sessions, and top pages."
+msgstr "Połącz konto z Google Analytics, aby sprawdzić liczbę wyświetleń stron, sesji oraz najpopularniejsze strony."
 
 #: src/core/components/dashboard/GA4Widget.tsx:198
 msgid "Configure in Settings"
-msgstr "Configure in Settings"
+msgstr "Skonfiguruj w sekcji „Ustawienia”"
 
 #: src/core/components/dashboard/GA4Widget.tsx:247
 msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
-msgstr "Failed to load analytics data. Check your GA4 configuration in Settings."
+msgstr "Nie udało się załadować danych analitycznych. Sprawdź konfigurację GA4 w sekcji „Ustawienia”."
 
 #: src/core/components/dashboard/GA4Widget.tsx:259
 msgid "Page Views"
-msgstr "Page Views"
+msgstr "Liczba wyświetleń strony"
 
 #: src/core/components/dashboard/GA4Widget.tsx:268
 msgid "Sessions"
-msgstr "Sessions"
+msgstr "Sesje"
 
 #: src/core/components/dashboard/GA4Widget.tsx:279
 msgid "Daily Page Views"
-msgstr "Daily Page Views"
+msgstr "Liczba odsłon dziennie"
 
 #: src/core/components/dashboard/GA4Widget.tsx:290
 msgid "Top Pages"
-msgstr "Top Pages"
+msgstr "Najpopularniejsze strony"
 
 #: src/core/components/dashboard/GA4Widget.tsx:297
 msgid "Views"
-msgstr "Views"
+msgstr "Wyświetlenia"
 
 #: src/core/components/dashboard/NotificationBell.tsx:62
 #: src/core/components/dashboard/NotificationBell.tsx:75
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "Powiadomienia"
 
 #: src/core/components/dashboard/NotificationBell.tsx:82
 msgid "Mark all read"
-msgstr "Mark all read"
+msgstr "Oznacz wszystkie jako przeczytane"
 
 #: src/core/components/dashboard/NotificationBell.tsx:90
 msgid "No notifications"
-msgstr "No notifications"
+msgstr "Brak powiadomień"
 
 #: src/core/components/dashboard/NotificationBell.tsx:130
 msgid "View all notifications"
-msgstr "View all notifications"
+msgstr "Wyświetl wszystkie powiadomienia"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:46
 msgid "Switch organization"
-msgstr "Switch organization"
+msgstr "Zmiana organizacji"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:58
 msgid "Personal"
-msgstr "Personal"
+msgstr "Osobiste"
 
 #: src/core/components/dashboard/OrgSwitcher.tsx:77
 msgid "Manage organizations"
-msgstr "Manage organizations"
+msgstr "Zarządzaj organizacjami"
 
 #: src/core/components/dashboard/RecentActivity.tsx:13
 msgid "created"
-msgstr "created"
+msgstr "utworzono"
 
 #: src/core/components/dashboard/RecentActivity.tsx:14
 msgid "updated"
-msgstr "updated"
+msgstr "zaktualizowano"
 
 #: src/core/components/dashboard/RecentActivity.tsx:15
 msgid "deleted"
-msgstr "deleted"
+msgstr "usunięto"
 
 #: src/core/components/dashboard/RecentActivity.tsx:16
 msgid "restored"
-msgstr "restored"
+msgstr "odnowiony"
 
 #: src/core/components/dashboard/RecentActivity.tsx:17
 msgid "published"
-msgstr "published"
+msgstr "opublikowano"
 
 #: src/core/components/dashboard/RecentActivity.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:16
@@ -1385,11 +1387,11 @@ msgstr "published"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
 msgid "Loading..."
-msgstr "Loading..."
+msgstr "Ładowanie..."
 
 #: src/core/components/dashboard/RecentActivity.tsx:33
 msgid "No activity recorded yet."
-msgstr "No activity recorded yet."
+msgstr "Nie odnotowano jeszcze żadnej aktywności."
 
 #: src/core/components/dashboard/RecentActivity.tsx:44
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
@@ -1398,75 +1400,75 @@ msgstr "System"
 
 #: src/core/components/editor/AiAssistMenu.tsx:32
 msgid "Rewrite"
-msgstr "Rewrite"
+msgstr "Przepisz"
 
 #: src/core/components/editor/AiAssistMenu.tsx:38
 msgid "Shorten"
-msgstr "Shorten"
+msgstr "Skróć"
 
 #: src/core/components/editor/AiAssistMenu.tsx:44
 msgid "Expand"
-msgstr "Expand"
+msgstr "Rozwiń"
 
 #: src/core/components/editor/AiAssistMenu.tsx:50
 msgid "Fix grammar"
-msgstr "Fix grammar"
+msgstr "Popraw gramatykę"
 
 #: src/core/components/editor/AiAssistMenu.tsx:56
 msgid "Translate to English"
-msgstr "Translate to English"
+msgstr "Przetłumacz na angielski"
 
 #: src/core/components/editor/AiAssistMenu.tsx:148
 msgid "AI request failed"
-msgstr "AI request failed"
+msgstr "Nie udało się zrealizować żądania dotyczącego sztucznej inteligencji"
 
 #: src/core/components/editor/AiAssistMenu.tsx:252
 #: src/core/components/editor/EditorBubbleMenu.tsx:123
 #: src/core/components/RichTextEditor.tsx:917
 msgid "AI Assist"
-msgstr "AI Assist"
+msgstr "Asystent AI"
 
 #: src/core/components/editor/AiAssistMenu.tsx:266
 msgid "Thinking..."
-msgstr "Thinking..."
+msgstr "Zastanawiam się..."
 
 #: src/core/components/editor/AiAssistMenu.tsx:279
 msgid "Try again"
-msgstr "Try again"
+msgstr "Spróbuj jeszcze raz"
 
 #: src/core/components/editor/AiAssistMenu.tsx:297
 #: src/core-store/_templates/app/(public)/store/client.tsx:565
 msgid "Apply"
-msgstr "Apply"
+msgstr "Zgłoś się"
 
 #: src/core/components/editor/AiAssistMenu.tsx:304
 msgid "Discard"
-msgstr "Discard"
+msgstr "Odrzuć"
 
 #: src/core/components/editor/AiAssistMenu.tsx:340
 #: src/core/components/editor/AiAssistMenu.tsx:352
 msgid "Custom instruction..."
-msgstr "Custom instruction..."
+msgstr "Indywidualne wskazówki..."
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:75
 #: src/core/components/RichTextEditor.tsx:544
 msgid "Bold"
-msgstr "Bold"
+msgstr "Pogrubiona czcionka"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:82
 #: src/core/components/RichTextEditor.tsx:551
 msgid "Italic"
-msgstr "Italic"
+msgstr "Kursywa"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:89
 #: src/core/components/RichTextEditor.tsx:558
 msgid "Underline"
-msgstr "Underline"
+msgstr "Podkreślenie"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:96
 #: src/core/components/RichTextEditor.tsx:565
 msgid "Strikethrough"
-msgstr "Strikethrough"
+msgstr "Przekreślenie"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:103
 #: src/core-affiliates/components/AffiliateOverview.tsx:71
@@ -1477,7 +1479,7 @@ msgstr "Strikethrough"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
 msgid "Code"
-msgstr "Code"
+msgstr "Kod"
 
 #: src/core/components/editor/EditorBubbleMenu.tsx:113
 #: src/core/components/RichTextEditor.tsx:680
@@ -1486,134 +1488,134 @@ msgstr "Link"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:99
 msgid "Alt text"
-msgstr "Alt text"
+msgstr "Tekst alternatywny"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:109
 msgid "Align left"
-msgstr "Align left"
+msgstr "Wyrównaj do lewej"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:120
 msgid "Center"
-msgstr "Center"
+msgstr "Centrum"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:132
 msgid "Align right"
-msgstr "Align right"
+msgstr "Wyrównaj do prawej"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:140
 msgid "Replace image"
-msgstr "Replace image"
+msgstr "Wymień obraz"
 
 #: src/core/components/editor/ImageBubbleMenu.tsx:147
 msgid "Remove image"
-msgstr "Remove image"
+msgstr "Usuń obrazek"
 
 #: src/core/components/editor/slash-commands.ts:18
 #: src/core/components/RichTextEditor.tsx:582
 msgid "Heading 1"
-msgstr "Heading 1"
+msgstr "Nagłówek 1"
 
 #: src/core/components/editor/slash-commands.ts:19
 msgid "Large section heading"
-msgstr "Large section heading"
+msgstr "Nagłówek dużej sekcji"
 
 #: src/core/components/editor/slash-commands.ts:21
 #: src/core/components/editor/slash-commands.ts:30
 #: src/core/components/editor/slash-commands.ts:39
 msgid "Headings"
-msgstr "Headings"
+msgstr "Nagłówki"
 
 #: src/core/components/editor/slash-commands.ts:27
 #: src/core/components/RichTextEditor.tsx:589
 msgid "Heading 2"
-msgstr "Heading 2"
+msgstr "Nagłówek 2"
 
 #: src/core/components/editor/slash-commands.ts:28
 msgid "Medium section heading"
-msgstr "Medium section heading"
+msgstr "Średni nagłówek sekcji"
 
 #: src/core/components/editor/slash-commands.ts:36
 #: src/core/components/RichTextEditor.tsx:596
 msgid "Heading 3"
-msgstr "Heading 3"
+msgstr "Nagłówek 3"
 
 #: src/core/components/editor/slash-commands.ts:37
 msgid "Small section heading"
-msgstr "Small section heading"
+msgstr "Krótki nagłówek sekcji"
 
 #: src/core/components/editor/slash-commands.ts:45
 #: src/core/components/RichTextEditor.tsx:606
 msgid "Bullet List"
-msgstr "Bullet List"
+msgstr "Lista punktowana"
 
 #: src/core/components/editor/slash-commands.ts:46
 msgid "Unordered list"
-msgstr "Unordered list"
+msgstr "Lista nieuporządkowana"
 
 #: src/core/components/editor/slash-commands.ts:48
 #: src/core/components/editor/slash-commands.ts:57
 msgid "Lists"
-msgstr "Lists"
+msgstr "Listy"
 
 #: src/core/components/editor/slash-commands.ts:54
 msgid "Numbered List"
-msgstr "Numbered List"
+msgstr "Lista numerowana"
 
 #: src/core/components/editor/slash-commands.ts:55
 msgid "Ordered list"
-msgstr "Ordered list"
+msgstr "Lista uporządkowana"
 
 #: src/core/components/editor/slash-commands.ts:63
 msgid "Blockquote"
-msgstr "Blockquote"
+msgstr "Cytat"
 
 #: src/core/components/editor/slash-commands.ts:64
 msgid "Quote block"
-msgstr "Quote block"
+msgstr "Blok cytatu"
 
 #: src/core/components/editor/slash-commands.ts:66
 #: src/core/components/editor/slash-commands.ts:75
 #: src/core/components/editor/slash-commands.ts:84
 #: src/core/components/editor/slash-commands.ts:93
 msgid "Blocks"
-msgstr "Blocks"
+msgstr "Bloki"
 
 #: src/core/components/editor/slash-commands.ts:72
 #: src/core/components/RichTextEditor.tsx:627
 msgid "Code Block"
-msgstr "Code Block"
+msgstr "Blok kodu"
 
 #: src/core/components/editor/slash-commands.ts:73
 msgid "Fenced code block"
-msgstr "Fenced code block"
+msgstr "Blok kodu w ramce"
 
 #: src/core/components/editor/slash-commands.ts:81
 #: src/core/components/RichTextEditor.tsx:633
 msgid "Horizontal Rule"
-msgstr "Horizontal Rule"
+msgstr "Linia pozioma"
 
 #: src/core/components/editor/slash-commands.ts:82
 msgid "Divider line"
-msgstr "Divider line"
+msgstr "Linia oddzielająca"
 
 #: src/core/components/editor/slash-commands.ts:90
 #: src/core/components/editor/TableMenu.tsx:138
 msgid "Table"
-msgstr "Table"
+msgstr "Tabela"
 
 #: src/core/components/editor/slash-commands.ts:91
 msgid "Insert a table"
-msgstr "Insert a table"
+msgstr "Wstaw tabelę"
 
 #: src/core/components/editor/slash-commands.ts:101
 #: src/core/components/RichTextEditor.tsx:689
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:108
 msgid "Image"
-msgstr "Image"
+msgstr "Obraz"
 
 #: src/core/components/editor/slash-commands.ts:102
 msgid "Upload or embed an image"
-msgstr "Upload or embed an image"
+msgstr "Prześlij lub osadź obraz"
 
 #: src/core/components/editor/slash-commands.ts:104
 msgid "Media"
@@ -1621,39 +1623,39 @@ msgstr "Media"
 
 #: src/core/components/editor/TableMenu.tsx:71
 msgid "Add row above"
-msgstr "Add row above"
+msgstr "Dodaj wiersz powyżej"
 
 #: src/core/components/editor/TableMenu.tsx:77
 msgid "Add row below"
-msgstr "Add row below"
+msgstr "Dodaj wiersz poniżej"
 
 #: src/core/components/editor/TableMenu.tsx:86
 msgid "Add column left"
-msgstr "Add column left"
+msgstr "Dodaj kolumnę po lewej stronie"
 
 #: src/core/components/editor/TableMenu.tsx:92
 msgid "Add column right"
-msgstr "Add column right"
+msgstr "Dodaj kolumnę po prawej stronie"
 
 #: src/core/components/editor/TableMenu.tsx:101
 msgid "Merge cells"
-msgstr "Merge cells"
+msgstr "Połącz komórki"
 
 #: src/core/components/editor/TableMenu.tsx:108
 msgid "Split cell"
-msgstr "Split cell"
+msgstr "Komórka dzielona"
 
 #: src/core/components/editor/TableMenu.tsx:118
 msgid "Delete row"
-msgstr "Delete row"
+msgstr "Usuń wiersz"
 
 #: src/core/components/editor/TableMenu.tsx:122
 msgid "Row"
-msgstr "Row"
+msgstr "Wiersz"
 
 #: src/core/components/editor/TableMenu.tsx:126
 msgid "Delete column"
-msgstr "Delete column"
+msgstr "Usuń kolumnę"
 
 #: src/core/components/editor/TableMenu.tsx:130
 msgid "Col"
@@ -1661,131 +1663,131 @@ msgstr "Col"
 
 #: src/core/components/editor/TableMenu.tsx:134
 msgid "Delete table"
-msgstr "Delete table"
+msgstr "Usuń tabelę"
 
 #: src/core/components/i18n/TranslationBar.tsx:68
 msgid "Failed to create translation"
-msgstr "Failed to create translation"
+msgstr "Nie udało się utworzyć tłumaczenia"
 
 #: src/core/components/i18n/TranslationBar.tsx:76
 msgid "Language"
-msgstr "Language"
+msgstr "Język"
 
 #: src/core/components/i18n/TranslationBar.tsx:131
 #: src/core-api/components/AgentConnectPanel.tsx:114
 msgid "Copy"
-msgstr "Copy"
+msgstr "Kopiuj"
 
 #: src/core/components/i18n/TranslationBar.tsx:140
 msgid "Copy & Translate"
-msgstr "Copy & Translate"
+msgstr "Skopiuj i przetłumacz"
 
 #: src/core/components/media/MediaPickerButton.tsx:79
 msgid "Change"
-msgstr "Change"
+msgstr "Zmiana"
 
 #: src/core/components/media/MediaPickerButton.tsx:92
 msgid "Select Image"
-msgstr "Select Image"
+msgstr "Wybierz zdjęcie"
 
 #: src/core/components/media/MediaPickerButton.tsx:102
 #: src/core/components/media/MediaPickerDialog.tsx:448
 msgid "Alt Text"
-msgstr "Alt Text"
+msgstr "Tekst alternatywny"
 
 #: src/core/components/media/MediaPickerButton.tsx:108
 msgid "Describe the image..."
-msgstr "Describe the image..."
+msgstr "Opisz obrazek..."
 
 #: src/core/components/media/MediaPickerDialog.tsx:112
 msgid "Only image files are supported"
-msgstr "Only image files are supported"
+msgstr "Obsługiwane są wyłącznie pliki graficzne"
 
 #: src/core/components/media/MediaPickerDialog.tsx:150
 msgid "Failed to upload {name}"
-msgstr "Failed to upload {name}"
+msgstr "Nie udało się przesłać pliku {name}"
 
 #: src/core/components/media/MediaPickerDialog.tsx:215
 msgid "Media Library"
-msgstr "Media Library"
+msgstr "Biblioteka multimediów"
 
 #: src/core/components/media/MediaPickerDialog.tsx:225
 msgid "Search media..."
-msgstr "Search media..."
+msgstr "Wyszukaj w mediach..."
 
 #: src/core/components/media/MediaPickerDialog.tsx:239
 msgid "All types"
-msgstr "All types"
+msgstr "Wszystkie typy"
 
 #: src/core/components/media/MediaPickerDialog.tsx:240
 msgid "Images"
-msgstr "Images"
+msgstr "Zdjęcia"
 
 #: src/core/components/media/MediaPickerDialog.tsx:241
 msgid "Videos"
-msgstr "Videos"
+msgstr "Filmy"
 
 #: src/core/components/media/MediaPickerDialog.tsx:242
 msgid "Documents"
-msgstr "Documents"
+msgstr "Dokumenty"
 
 #: src/core/components/media/MediaPickerDialog.tsx:243
 msgid "Other"
-msgstr "Other"
+msgstr "Inne"
 
 #: src/core/components/media/MediaPickerDialog.tsx:256
 msgid "All users"
-msgstr "All users"
+msgstr "Wszyscy użytkownicy"
 
 #: src/core/components/media/MediaPickerDialog.tsx:283
 #: src/core/components/media/PostAttachments.tsx:153
 msgid "Upload"
-msgstr "Upload"
+msgstr "Prześlij"
 
 #: src/core/components/media/MediaPickerDialog.tsx:314
 msgid "Drop files to upload"
-msgstr "Drop files to upload"
+msgstr "Przeciągnij pliki, aby je przesłać"
 
 #: src/core/components/media/MediaPickerDialog.tsx:329
 msgid "No images match your search."
-msgstr "No images match your search."
+msgstr "Nie znaleziono żadnych obrazów pasujących do Twojego wyszukiwania."
 
 #: src/core/components/media/MediaPickerDialog.tsx:330
 msgid "No images yet. Upload or drag files here."
-msgstr "No images yet. Upload or drag files here."
+msgstr "Jeszcze nie ma żadnych zdjęć. Prześlij lub przeciągnij pliki tutaj."
 
 #: src/core/components/media/MediaPickerDialog.tsx:430
 #: src/core/components/seo/SeoPreviewCard.tsx:121
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:137
 msgid "Title"
-msgstr "Title"
+msgstr "Tytuł"
 
 #: src/core/components/media/MediaPickerDialog.tsx:442
 msgid "Image title"
-msgstr "Image title"
+msgstr "Tytuł obrazu"
 
 #: src/core/components/media/MediaPickerDialog.tsx:460
 msgid "Describe the image"
-msgstr "Describe the image"
+msgstr "Opisz obrazek"
 
 #: src/core/components/media/MediaPickerDialog.tsx:466
 #: src/core/components/seo/SeoPreviewCard.tsx:124
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:396
 msgid "Description"
-msgstr "Description"
+msgstr "Opis"
 
 #: src/core/components/media/MediaPickerDialog.tsx:478
 msgid "Optional description"
-msgstr "Optional description"
+msgstr "Opcjonalny opis"
 
 #: src/core/components/media/MediaPickerDialog.tsx:496
 msgid "Select an image to view details"
-msgstr "Select an image to view details"
+msgstr "Wybierz zdjęcie, aby wyświetlić szczegóły"
 
 #: src/core/components/media/MediaPickerDialog.tsx:506
 msgid "No image selected"
-msgstr "No image selected"
+msgstr "Nie wybrano żadnego obrazu"
 
 #: src/core/components/media/MediaPickerDialog.tsx:510
 #: src/core/components/media/PostAttachments.tsx:252
@@ -1800,59 +1802,59 @@ msgstr "No image selected"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:703
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Anuluj"
 
 #: src/core/components/media/MediaPickerDialog.tsx:517
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:133
 msgid "Select"
-msgstr "Select"
+msgstr "Wybierz"
 
 #: src/core/components/media/MediaPickerDialog.tsx:525
 msgid "Delete media file?"
-msgstr "Delete media file?"
+msgstr "Czy chcesz usunąć plik multimedialny?"
 
 #: src/core/components/media/MediaPickerDialog.tsx:526
 msgid "This file will be permanently deleted."
-msgstr "This file will be permanently deleted."
+msgstr "Ten plik zostanie trwale usunięty."
 
 #: src/core/components/media/PostAttachments.tsx:75
 msgid "Alt text updated"
-msgstr "Alt text updated"
+msgstr "Zaktualizowano tekst alternatywny"
 
 #: src/core/components/media/PostAttachments.tsx:84
 msgid "Attachment removed"
-msgstr "Attachment removed"
+msgstr "Załącznik usunięto"
 
 #: src/core/components/media/PostAttachments.tsx:133
 #: src/core/components/media/PostAttachments.tsx:146
 msgid "Attachments"
-msgstr "Attachments"
+msgstr "Załączniki"
 
 #: src/core/components/media/PostAttachments.tsx:135
 msgid "Save the post first to add attachments."
-msgstr "Save the post first to add attachments."
+msgstr "Najpierw zapisz wpis, aby dodać załączniki."
 
 #: src/core/components/media/PostAttachments.tsx:169
 msgid "No attachments yet."
-msgstr "No attachments yet."
+msgstr "Na razie nie ma żadnych załączników."
 
 #: src/core/components/media/PostAttachments.tsx:202
 msgid "Edit alt text"
-msgstr "Edit alt text"
+msgstr "Edytuj tekst alternatywny"
 
 #: src/core/components/media/PostAttachments.tsx:209
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:158
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove"
-msgstr "Remove"
+msgstr "Usuń"
 
 #: src/core/components/media/PostAttachments.tsx:229
 msgid "Edit Alt Text"
-msgstr "Edit Alt Text"
+msgstr "Edytuj tekst alternatywny"
 
 #: src/core/components/media/PostAttachments.tsx:244
 msgid "Describe this file..."
-msgstr "Describe this file..."
+msgstr "Opisz ten plik..."
 
 #: src/core/components/media/PostAttachments.tsx:264
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:95
@@ -1865,161 +1867,161 @@ msgstr "Describe this file..."
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:337
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:825
 msgid "Save"
-msgstr "Save"
+msgstr "Zapisz"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:54
 msgid "Insert Internal Link"
-msgstr "Insert Internal Link"
+msgstr "Wstaw link wewnętrzny"
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:63
 msgid "Search pages, blog posts, categories..."
-msgstr "Search pages, blog posts, categories..."
+msgstr "Wyszukaj strony, wpisy na blogu, kategorie..."
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:72
 msgid "Searching..."
-msgstr "Searching..."
+msgstr "Szukam..."
 
 #: src/core/components/overlays/InternalLinkDialog.tsx:81
 msgid "Type at least 2 characters to search"
-msgstr "Type at least 2 characters to search"
+msgstr "Wpisz co najmniej 2 znaki, aby rozpocząć wyszukiwanie"
 
 #: src/core/components/overlays/SlideOver.tsx:102
 msgid "Close"
-msgstr "Close"
+msgstr "Zamknij"
 
 #: src/core/components/PushToggle.tsx:28
 #: src/core/components/PushToggle.tsx:46
 msgid "Push notifications blocked by browser"
-msgstr "Push notifications blocked by browser"
+msgstr "Powiadomienia push zablokowane przez przeglądarkę"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Push enabled"
-msgstr "Push enabled"
+msgstr "Funkcja „Push” włączona"
 
 #: src/core/components/PushToggle.tsx:35
 msgid "Enable push"
-msgstr "Enable push"
+msgstr "Włącz powiadomienia push"
 
 #: src/core/components/PushToggle.tsx:51
 msgid "Push notifications on"
-msgstr "Push notifications on"
+msgstr "Włącz powiadomienia push"
 
 #: src/core/components/PushToggle.tsx:56
 msgid "Enable push notifications"
-msgstr "Enable push notifications"
+msgstr "Włącz powiadomienia push"
 
 #: src/core/components/RichTextEditor.tsx:263
 msgid "Insert"
-msgstr "Insert"
+msgstr "Wstaw"
 
 #: src/core/components/RichTextEditor.tsx:265
 msgid "Shortcodes"
-msgstr "Shortcodes"
+msgstr "Skróty"
 
 #: src/core/components/RichTextEditor.tsx:319
 msgid "Start writing or type / for commands..."
-msgstr "Start writing or type / for commands..."
+msgstr "Zacznij pisać lub wpisz /, aby wyświetlić listę poleceń..."
 
 #: src/core/components/RichTextEditor.tsx:384
 #: src/core/components/RichTextEditor.tsx:401
 #: src/core/components/RichTextEditor.tsx:831
 msgid "Image upload failed"
-msgstr "Image upload failed"
+msgstr "Przesyłanie obrazu nie powiodło się"
 
 #: src/core/components/RichTextEditor.tsx:572
 msgid "Inline Code"
-msgstr "Inline Code"
+msgstr "Kod w tekście"
 
 #: src/core/components/RichTextEditor.tsx:613
 msgid "Ordered List"
-msgstr "Ordered List"
+msgstr "Lista uporządkowana"
 
 #: src/core/components/RichTextEditor.tsx:620
 msgid "Quote"
-msgstr "Quote"
+msgstr "Cytat"
 
 #: src/core/components/RichTextEditor.tsx:646
 msgid "Insert Table"
-msgstr "Insert Table"
+msgstr "Wstaw tabelę"
 
 #: src/core/components/RichTextEditor.tsx:656
 msgid "Align Left"
-msgstr "Align Left"
+msgstr "Wyrównaj do lewej"
 
 #: src/core/components/RichTextEditor.tsx:663
 msgid "Align Center"
-msgstr "Align Center"
+msgstr "Wyrównaj do środka"
 
 #: src/core/components/RichTextEditor.tsx:670
 msgid "Align Right"
-msgstr "Align Right"
+msgstr "Wyrównaj do prawej"
 
 #: src/core/components/RichTextEditor.tsx:685
 msgid "Internal Link"
-msgstr "Internal Link"
+msgstr "Link wewnętrzny"
 
 #: src/core/components/RichTextEditor.tsx:700
 msgid "Insert Variable"
-msgstr "Insert Variable"
+msgstr "Wstaw zmienną"
 
 #: src/core/components/RichTextEditor.tsx:738
 msgid "Insert Block"
-msgstr "Insert Block"
+msgstr "Wstaw blok"
 
 #: src/core/components/RichTextEditor.tsx:784
 msgid "Undo"
-msgstr "Undo"
+msgstr "Cofnij"
 
 #: src/core/components/RichTextEditor.tsx:791
 msgid "Redo"
-msgstr "Redo"
+msgstr "Powtórz"
 
 #: src/core/components/RichTextEditor.tsx:807
 msgid "Hide Preview"
-msgstr "Hide Preview"
+msgstr "Ukryj podgląd"
 
 #: src/core/components/RichTextEditor.tsx:807
 msgid "Show Preview"
-msgstr "Show Preview"
+msgstr "Pokaż podgląd"
 
 #: src/core/components/RichTextEditor.tsx:914
 msgid "AI Assist (works in both Visual and Source mode)"
-msgstr "AI Assist (works in both Visual and Source mode)"
+msgstr "Asystent AI (działa zarówno w trybie wizualnym, jak i źródłowym)"
 
 #: src/core/components/RichTextEditor.tsx:932
 msgid "Visual"
-msgstr "Visual"
+msgstr "Wizualne"
 
 #: src/core/components/RichTextEditor.tsx:944
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:121
 msgid "Source"
-msgstr "Source"
+msgstr "Źródło"
 
 #: src/core/components/RichTextEditor.tsx:962
 msgid "Preview"
-msgstr "Preview"
+msgstr "Podgląd"
 
 #: src/core/components/seo/SEOFields.tsx:27
 msgid "SEO Title"
-msgstr "SEO Title"
+msgstr "Tytuł SEO"
 
 #: src/core/components/seo/SEOFields.tsx:33
 msgid "Optional SEO title for {titleTag} tag"
-msgstr "Optional SEO title for {titleTag} tag"
+msgstr "Opcjonalny tytuł SEO dla tagu {titleTag}"
 
 #: src/core/components/seo/SEOFields.tsx:40
 msgid "Falls back to Title if empty"
-msgstr "Falls back to Title if empty"
+msgstr "Jeśli pole jest puste, przywraca wartość z pola „Tytuł”"
 
 #: src/core/components/seo/SEOFields.tsx:46
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:337
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:566
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "Opis meta"
 
 #: src/core/components/seo/SEOFields.tsx:51
 msgid "SEO meta description (max 160 chars)"
-msgstr "SEO meta description (max 160 chars)"
+msgstr "Opis meta SEO (maks. 160 znaków)"
 
 #: src/core/components/seo/SEOFields.tsx:71
 msgid "Noindex"
@@ -2027,15 +2029,15 @@ msgstr "Noindex"
 
 #: src/core/components/seo/SEOFields.tsx:74
 msgid "Exclude from search engine indexing (adds noindex meta tag)"
-msgstr "Exclude from search engine indexing (adds noindex meta tag)"
+msgstr "Wyklucz z indeksowania przez wyszukiwarki (dodaje metatag „noindex”)"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:120
 msgid "Create SEO Override Pages"
-msgstr "Create SEO Override Pages"
+msgstr "Utwórz strony z nadpisaniem ustawień SEO"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:132
 msgid "Route"
-msgstr "Route"
+msgstr "Trasa"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:135
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:62
@@ -2047,15 +2049,15 @@ msgstr "Route"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:199
 msgid "Slug"
-msgstr "Slug"
+msgstr "Ślimak"
 
 #: src/core/components/seo/SeoOverridesDialog.tsx:205
 msgid "Create Selected"
-msgstr "Create Selected"
+msgstr "Utwórz zaznaczone"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:27
 msgid "No image"
-msgstr "No image"
+msgstr "Brak obrazu"
 
 #: src/core/components/seo/SeoPreviewCard.tsx:41
 msgid "Google"
@@ -2071,78 +2073,72 @@ msgstr "Twitter / X"
 
 #: src/core/components/shortcodes/ShortcodeEditDialog.tsx:35
 msgid "Edit {label}"
-msgstr "Edit {label}"
+msgstr "Edytuj {label}"
 
 #: src/core/components/TokenBalance.tsx:71
 msgid "Token balance"
-msgstr "Token balance"
+msgstr "Saldo tokenów"
 
 #: src/core/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
-msgstr "{succeeded} {action}, {failed} failed"
-
-#: src/core/hooks/useBulkActions.ts:52
-msgid "1 item {action}"
-msgid_plural "{count} items {action}"
-msgstr[0] "1 item {action}"
-msgstr[1] "{count} items {action}"
+msgstr "{succeeded} {action}, {failed} nie zadziałały"
 
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
-msgstr "Please check the form for errors"
+msgstr "Proszę sprawdzić, czy w formularzu nie ma błędów"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:20
 msgid "Activity Feed"
-msgstr "Activity Feed"
+msgstr "Kanał aktywności"
 
 #: src/core-activity/components/ActivityFeedDashboardWidget.tsx:27
 msgid "View all"
-msgstr "View all"
+msgstr "Zobacz wszystko"
 
 #: src/core-activity/components/DashboardActivityWidget.tsx:30
 msgid "No recent activity"
-msgstr "No recent activity"
+msgstr "Brak ostatnich działań"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:108
 msgid "Activity Log"
-msgstr "Activity Log"
+msgstr "Dziennik działań"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:163
 msgid "Search by actor name..."
-msgstr "Search by actor name..."
+msgstr "Wyszukaj według nazwiska aktora..."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:210
 msgid "No activity events"
-msgstr "No activity events"
+msgstr "Brak wydarzeń związanych z aktywnością"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:214
 msgid "No events match your filters."
-msgstr "No events match your filters."
+msgstr "Nie znaleziono wydarzeń spełniających podane kryteria."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:215
 msgid "Activity events will appear here as users interact with the app."
-msgstr "Activity events will appear here as users interact with the app."
+msgstr "W miarę jak użytkownicy będą korzystać z aplikacji, w tym miejscu będą pojawiać się informacje o ich działaniach."
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:222
 msgid "Actor"
-msgstr "Actor"
+msgstr "Aktor"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:223
 msgid "Action"
-msgstr "Action"
+msgstr "Akcja"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:224
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:203
 msgid "Target"
-msgstr "Target"
+msgstr "Cel"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:225
 msgid "Time"
-msgstr "Time"
+msgstr "Czas"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
 msgid "Unknown"
-msgstr "Unknown"
+msgstr "Nieznane"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:290
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:310
@@ -2155,7 +2151,7 @@ msgstr "Unknown"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "of"
-msgstr "of"
+msgstr "z"
 
 #: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:291
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:311
@@ -2164,61 +2160,61 @@ msgstr "of"
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:214
 msgid "total"
-msgstr "total"
+msgstr "łącznie"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:25
 #: src/core-affiliates/components/AffiliateOverview.tsx:38
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
 msgid "Manage"
-msgstr "Manage"
+msgstr "Zarządzaj"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:28
 msgid "No affiliates yet."
-msgstr "No affiliates yet."
+msgstr "Na razie nie ma żadnych partnerów."
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:44
 msgid "Active Affiliates"
-msgstr "Active Affiliates"
+msgstr "Aktywni partnerzy"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:48
 msgid "Total Referrals"
-msgstr "Total Referrals"
+msgstr "Łączna liczba poleceń"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:52
 msgid "Conversion Rate"
-msgstr "Conversion Rate"
+msgstr "Współczynnik konwersji"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:56
 msgid "Total Earnings"
-msgstr "Total Earnings"
+msgstr "Łączne przychody"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:64
 msgid "Top Affiliates"
-msgstr "Top Affiliates"
+msgstr "Najlepsi partnerzy afiliacyjni"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:70
 msgid "Affiliate"
-msgstr "Affiliate"
+msgstr "Partner"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:72
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:56
 msgid "Referrals"
-msgstr "Referrals"
+msgstr "Polecenia"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:73
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:57
 msgid "Earnings"
-msgstr "Earnings"
+msgstr "Wyniki finansowe"
 
 #: src/core-affiliates/components/AffiliateOverview.tsx:74
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:55
 msgid "Commission"
-msgstr "Commission"
+msgstr "Komisja"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:37
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:87
 msgid "All Statuses"
-msgstr "All Statuses"
+msgstr "Wszystkie statusy"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:38
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
@@ -2232,21 +2228,21 @@ msgstr "All Statuses"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Active"
-msgstr "Active"
+msgstr "Aktywne"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:39
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:132
 msgid "Suspended"
-msgstr "Suspended"
+msgstr "Zawieszone"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:40
 msgid "Banned"
-msgstr "Banned"
+msgstr "Zablokowany"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:47
 msgid "No affiliates found"
-msgstr "No affiliates found"
+msgstr "Nie znaleziono partnerów"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:58
 #: src/core-api/components/ApiKeyManager.tsx:175
@@ -2277,7 +2273,7 @@ msgstr "Status"
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:62
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:166
 msgid "Actions"
-msgstr "Actions"
+msgstr "Działania"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:81
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
@@ -2285,31 +2281,31 @@ msgstr "Actions"
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:141
 msgid "Suspend"
-msgstr "Suspend"
+msgstr "Zawiesić"
 
 #: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:89
 msgid "Activate"
-msgstr "Activate"
+msgstr "Aktywuj"
 
 #: src/core-api/components/AgentConnectPanel.tsx:31
 msgid "Claude Code"
-msgstr "Claude Code"
+msgstr "Kod Claude’a"
 
 #: src/core-api/components/AgentConnectPanel.tsx:33
 msgid "Run in any terminal. The agent can then operate this site directly — no browser needed."
-msgstr "Run in any terminal. The agent can then operate this site directly — no browser needed."
+msgstr "Uruchom w dowolnym terminalu. Agent będzie wtedy mógł obsługiwać tę stronę bezpośrednio — bez konieczności używania przeglądarki."
 
 #: src/core-api/components/AgentConnectPanel.tsx:50
 msgid "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
-msgstr "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
+msgstr "Przejdź do katalogu głównego projektu — programy Claude Code, Cursor i większość klientów MCP rozpoznają go automatycznie."
 
 #: src/core-api/components/AgentConnectPanel.tsx:53
 msgid "Any MCP client"
-msgstr "Any MCP client"
+msgstr "Każdy klient MCP"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Endpoint"
-msgstr "Endpoint"
+msgstr "Punkt końcowy"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Transport"
@@ -2317,54 +2313,54 @@ msgstr "Transport"
 
 #: src/core-api/components/AgentConnectPanel.tsx:54
 msgid "Auth"
-msgstr "Auth"
+msgstr "Autor"
 
 #: src/core-api/components/AgentConnectPanel.tsx:55
 msgid "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
-msgstr "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
+msgstr "Działa z każdym klientem obsługującym protokół MCP przez Streamable HTTP z uwierzytelnianiem typu „bearer”."
 
 #: src/core-api/components/AgentConnectPanel.tsx:61
 msgid "Agent Access (MCP)"
-msgstr "Agent Access (MCP)"
+msgstr "Dostęp agenta (MCP)"
 
 #: src/core-api/components/AgentConnectPanel.tsx:63
 msgid "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
-msgstr "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
+msgstr "Agenci AI mogą obsługiwać tę witrynę bezpośrednio poprzez punkt końcowy MCP — każda operacja API jest dostępna jako narzędzie, z zakresem ograniczonym do Twojego konta i organizacji. Klucze muszą posiadać zakres mcp:invoke (lub pełny dostęp)."
 
 #: src/core-api/components/AgentConnectPanel.tsx:83
 msgid "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
-msgstr "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
+msgstr "Utwórz powyżej klucz o zakresie mcp:invoke, a te fragmenty kodu automatycznie go uwzględnią."
 
 #: src/core-api/components/AgentConnectPanel.tsx:114
 #: src/core-api/components/ApiKeyManager.tsx:366
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "Skopiowano!"
 
 #: src/core-api/components/ApiKeyManager.tsx:106
 msgid "Create API Key"
-msgstr "Create API Key"
+msgstr "Utwórz klucz API"
 
 #: src/core-api/components/ApiKeyManager.tsx:112
 msgid "Key name (e.g. Production, Staging)"
-msgstr "Key name (e.g. Production, Staging)"
+msgstr "Nazwa klucza (np. Produkcja, Środowisko testowe)"
 
 #: src/core-api/components/ApiKeyManager.tsx:122
 msgid "Create Key"
-msgstr "Create Key"
+msgstr "Utwórz klucz"
 
 #: src/core-api/components/ApiKeyManager.tsx:138
 msgid "Your API key has been created. Copy it now — it won't be shown again."
-msgstr "Your API key has been created. Copy it now — it won't be shown again."
+msgstr "Twój klucz API został utworzony. Skopiuj go teraz — nie zostanie już ponownie wyświetlony."
 
 #: src/core-api/components/ApiKeyManager.tsx:160
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:12
 msgid "API Keys"
-msgstr "API Keys"
+msgstr "Klucze API"
 
 #: src/core-api/components/ApiKeyManager.tsx:166
 msgid "No API keys yet."
-msgstr "No API keys yet."
+msgstr "Nie ma jeszcze kluczy API."
 
 #: src/core-api/components/ApiKeyManager.tsx:172
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:61
@@ -2382,19 +2378,19 @@ msgstr "No API keys yet."
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:616
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:657
 msgid "Name"
-msgstr "Name"
+msgstr "Imię i nazwisko"
 
 #: src/core-api/components/ApiKeyManager.tsx:173
 msgid "Key"
-msgstr "Key"
+msgstr "Klucz"
 
 #: src/core-api/components/ApiKeyManager.tsx:174
 msgid "Scopes"
-msgstr "Scopes"
+msgstr "Zakresy"
 
 #: src/core-api/components/ApiKeyManager.tsx:176
 msgid "Last Used"
-msgstr "Last Used"
+msgstr "Ostatnio używane"
 
 #: src/core-api/components/ApiKeyManager.tsx:177
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:83
@@ -2402,136 +2398,136 @@ msgstr "Last Used"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:122
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:388
 msgid "Created"
-msgstr "Created"
+msgstr "Utworzono"
 
 #: src/core-api/components/ApiKeyManager.tsx:206
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:169
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:222
 msgid "Saving..."
-msgstr "Saving..."
+msgstr "Zapisywanie..."
 
 #: src/core-api/components/ApiKeyManager.tsx:221
 msgid "Click to edit scopes"
-msgstr "Click to edit scopes"
+msgstr "Kliknij, aby edytować zakresy"
 
 #: src/core-api/components/ApiKeyManager.tsx:226
 msgid "None"
-msgstr "None"
+msgstr "Brak"
 
 #: src/core-api/components/ApiKeyManager.tsx:228
 msgid "scopes"
-msgstr "scopes"
+msgstr "zakresy"
 
 #: src/core-api/components/ApiKeyManager.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:367
 msgid "Never"
-msgstr "Never"
+msgstr "Nigdy"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "Roll this key?"
-msgstr "Roll this key?"
+msgstr "Użyć tego klucza?"
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 msgid "A new key will be created and the old one will expire in 24 hours."
-msgstr "A new key will be created and the old one will expire in 24 hours."
+msgstr "Zostanie utworzony nowy klucz, a stary straci ważność za 24 godziny."
 
 #: src/core-api/components/ApiKeyManager.tsx:250
 #: src/core-api/components/ApiKeyManager.tsx:255
 msgid "Roll"
-msgstr "Roll"
+msgstr "Rolka"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "Revoke this API key?"
-msgstr "Revoke this API key?"
+msgstr "Czy chcesz unieważnić ten klucz API?"
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 msgid "This is immediate and cannot be undone."
-msgstr "This is immediate and cannot be undone."
+msgstr "Jest to działanie natychmiastowe i nie można go cofnąć."
 
 #: src/core-api/components/ApiKeyManager.tsx:262
 #: src/core-api/components/ApiKeyManager.tsx:267
 msgid "Revoke"
-msgstr "Revoke"
+msgstr "Cofnąć"
 
 #: src/core-api/components/ApiKeyManager.tsx:305
 msgid "Full access"
-msgstr "Full access"
+msgstr "Pełny dostęp"
 
 #: src/core-api/components/ApiKeyManager.tsx:327
 msgid "No scopes selected — no access."
-msgstr "No scopes selected — no access."
+msgstr "Nie wybrano żadnych zakresów — brak dostępu."
 
 #: src/core-api/components/ApiKeyManager.tsx:366
 msgid "Copy to Clipboard"
-msgstr "Copy to Clipboard"
+msgstr "Skopiuj do schowka"
 
 #: src/core-api/components/ApiKeyManager.tsx:381
 msgid "Expiring"
-msgstr "Expiring"
+msgstr "Wygasające"
 
 #: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:13
 msgid "Manage API keys for programmatic access to your data."
-msgstr "Manage API keys for programmatic access to your data."
+msgstr "Zarządzaj kluczami API umożliwiającymi programowy dostęp do Twoich danych."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:109
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:44
 msgid "Search authors..."
-msgstr "Search authors..."
+msgstr "Wyszukaj autorów..."
 
 #: src/core-authors/components/AuthorPickerPanel.tsx:116
 msgid "No authors found. Create one first."
-msgstr "No authors found. Create one first."
+msgstr "Nie znaleziono autorów. Najpierw należy utworzyć autora."
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:22
 msgid "Author deleted"
-msgstr "Author deleted"
+msgstr "Autor usunięty"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:30
 msgid "Authors"
-msgstr "Authors"
+msgstr "Autorzy"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:35
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "New Author"
-msgstr "New Author"
+msgstr "Nowy autor"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:56
 msgid "No authors yet."
-msgstr "No authors yet."
+msgstr "Na razie nie ma autorów."
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:83
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:132
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:282
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
 msgid "Edit"
-msgstr "Edit"
+msgstr "Edytuj"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:89
 msgid "Delete this author?"
-msgstr "Delete this author?"
+msgstr "Usunąć tego autora?"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:42
 msgid "Author created"
-msgstr "Author created"
+msgstr "Utworzone przez autora"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:50
 msgid "Author saved"
-msgstr "Author saved"
+msgstr "Autor zapisany"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
 msgid "Edit Author"
-msgstr "Edit Author"
+msgstr "Edytuj autora"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:108
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:142
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:121
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Create"
-msgstr "Create"
+msgstr "Utwórz"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:136
 msgid "Bio"
-msgstr "Bio"
+msgstr "Biografia"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:146
 msgid "Avatar"
@@ -2539,11 +2535,11 @@ msgstr "Avatar"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:165
 msgid "Social Links"
-msgstr "Social Links"
+msgstr "Linki do mediów społecznościowych"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:168
 msgid "Website"
-msgstr "Website"
+msgstr "Strona internetowa"
 
 #: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:172
 msgid "Twitter"
@@ -2559,25 +2555,25 @@ msgstr "LinkedIn"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:22
 msgid "Are you sure you want to delete this character?"
-msgstr "Are you sure you want to delete this character?"
+msgstr "Czy na pewno chcesz usunąć tę postać?"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:32
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Characters"
-msgstr "Characters"
+msgstr "Postacie"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:34
 msgid "AI personas that users can chat with."
-msgstr "AI personas that users can chat with."
+msgstr "Postacie oparte na sztucznej inteligencji, z którymi użytkownicy mogą rozmawiać."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:42
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
 msgid "New Character"
-msgstr "New Character"
+msgstr "Nowa postać"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:52
 msgid "No characters yet. Create your first AI persona."
-msgstr "No characters yet. Create your first AI persona."
+msgstr "Nie ma jeszcze żadnych postaci. Stwórz swoją pierwszą postać opartą na sztucznej inteligencji."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
@@ -2585,47 +2581,47 @@ msgstr "No characters yet. Create your first AI persona."
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
 msgid "Inactive"
-msgstr "Inactive"
+msgstr "Nieaktywny"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:188
 msgid "Tagline"
-msgstr "Tagline"
+msgstr "Slogan"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:191
 msgid "System Prompt"
-msgstr "System Prompt"
+msgstr "Komunikat systemowy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:194
 msgid "Personality (visible to users)"
-msgstr "Personality (visible to users)"
+msgstr "Osobowość (widoczna dla użytkowników)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:197
 msgid "Greeting Message"
-msgstr "Greeting Message"
+msgstr "Powitanie"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:200
 msgid "Avatar URL"
-msgstr "Avatar URL"
+msgstr "Adres URL awatara"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
 msgid "Character Traits"
-msgstr "Character Traits"
+msgstr "Cechy charakteru"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
 msgid "Gender"
-msgstr "Gender"
+msgstr "Płeć"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
 msgid "Sexuality"
-msgstr "Sexuality"
+msgstr "Seksualność"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
 msgid "Ethnicity"
-msgstr "Ethnicity"
+msgstr "Pochodzenie etniczne"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
 msgid "Personality"
-msgstr "Personality"
+msgstr "Osobowość"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
 msgid "Kink"
@@ -2633,234 +2629,234 @@ msgstr "Kink"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:212
 msgid "Job"
-msgstr "Job"
+msgstr "Praca"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:213
 msgid "Relationship"
-msgstr "Relationship"
+msgstr "Związek"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:216
 msgid "Hobbies"
-msgstr "Hobbies"
+msgstr "Zainteresowania"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
 msgid "Visual Appearance"
-msgstr "Visual Appearance"
+msgstr "Wygląd zewnętrzny"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
 msgid "Hair Color"
-msgstr "Hair Color"
+msgstr "Kolor włosów"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
 msgid "Hair Texture"
-msgstr "Hair Texture"
+msgstr "Struktura włosów"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
 msgid "Hair Style"
-msgstr "Hair Style"
+msgstr "Fryzura"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
 msgid "Eye Color"
-msgstr "Eye Color"
+msgstr "Kolor oczu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:228
 msgid "Skin"
-msgstr "Skin"
+msgstr "Skóra"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:229
 msgid "Body Type"
-msgstr "Body Type"
+msgstr "Typ sylwetki"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
 msgid "Image Generation Settings"
-msgstr "Image Generation Settings"
+msgstr "Ustawienia generowania obrazów"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
 msgid "Model Preset"
-msgstr "Model Preset"
+msgstr "Ustawienia wstępne modelu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
 msgid "Sort Order"
-msgstr "Sort Order"
+msgstr "Kolejność sortowania"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:241
 msgid "Token Cost Multiplier"
-msgstr "Token Cost Multiplier"
+msgstr "Współczynnik kosztu tokenu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
 msgid "Custom Negative Prompt"
-msgstr "Custom Negative Prompt"
+msgstr "Niestandardowa negatywna podpowiedź"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:246
 msgid "LoRA Config"
-msgstr "LoRA Config"
+msgstr "Konfiguracja LoRA"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:252
 msgid "Active (visible to users)"
-msgstr "Active (visible to users)"
+msgstr "Aktywne (widoczne dla użytkowników)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
 msgid "Create Character"
-msgstr "Create Character"
+msgstr "Stwórz postać"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
 msgid "Save Changes"
-msgstr "Save Changes"
+msgstr "Zapisz zmiany"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
 msgid "Edit Character"
-msgstr "Edit Character"
+msgstr "Edytuj postać"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:12
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
 msgid "Conversations"
-msgstr "Conversations"
+msgstr "Rozmowy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:26
 msgid "Browse all chat conversations"
-msgstr "Browse all chat conversations"
+msgstr "Przeglądaj wszystkie rozmowy na czacie"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
 msgid "All statuses"
-msgstr "All statuses"
+msgstr "Wszystkie statusy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:368
 msgid "Archived"
-msgstr "Archived"
+msgstr "Archiwum"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:36
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:133
 msgid "Deleted"
-msgstr "Deleted"
+msgstr "Usunięto"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:43
 msgid "No conversations found."
-msgstr "No conversations found."
+msgstr "Nie znaleziono żadnych rozmów."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
 msgid "User"
-msgstr "User"
+msgstr "Użytkownik"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
 msgid "Character"
-msgstr "Character"
+msgstr "Postać"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
 msgid "Messages"
-msgstr "Messages"
+msgstr "Wiadomości"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:130
 msgid "Tokens"
-msgstr "Tokens"
+msgstr "Żetony"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:55
 msgid "Last Active"
-msgstr "Last Active"
+msgstr "Ostatnia aktywność"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:26
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
 msgid "Conversation"
-msgstr "Conversation"
+msgstr "Rozmowa"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:33
 msgid "No messages."
-msgstr "No messages."
+msgstr "Brak wiadomości."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:15
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Flagged Messages"
-msgstr "Flagged Messages"
+msgstr "Oznaczone wiadomości"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
 msgid "Messages blocked by content moderation"
-msgstr "Messages blocked by content moderation"
+msgstr "Wiadomości zablokowane w ramach moderacji treści"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
 msgid "No flagged messages."
-msgstr "No flagged messages."
+msgstr "Brak oznaczonych wiadomości."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "Reason"
-msgstr "Reason"
+msgstr "Powód"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
 msgid "Dismiss flag"
-msgstr "Dismiss flag"
+msgstr "Usuń flagę"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
 msgid "Dismiss"
-msgstr "Dismiss"
+msgstr "Odrzuć"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:13
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
 msgid "Total Messages"
-msgstr "Total Messages"
+msgstr "Łączna liczba wiadomości"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:14
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:27
 msgid "Active Users (24h)"
-msgstr "Active Users (24h)"
+msgstr "Aktywni użytkownicy (w ciągu ostatnich 24 godzin)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
 msgid "Manage AI personas"
-msgstr "Manage AI personas"
+msgstr "Zarządzanie postaciami opartymi na sztucznej inteligencji"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
 msgid "Browse all conversations"
-msgstr "Browse all conversations"
+msgstr "Przeglądaj wszystkie rozmowy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
 msgid "Review moderated content"
-msgstr "Review moderated content"
+msgstr "Przejrzyj treści poddane moderacji"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
 msgid "Manage LLM providers"
-msgstr "Manage LLM providers"
+msgstr "Zarządzanie dostawcami modeli LLM"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
 msgid "Usage statistics and charts"
-msgstr "Usage statistics and charts"
+msgstr "Statystyki użytkowania i wykresy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
 msgid "Keywords, action, and rate limits"
-msgstr "Keywords, action, and rate limits"
+msgstr "Słowa kluczowe, akcje i limity częstotliwości"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:30
 msgid "Chat"
-msgstr "Chat"
+msgstr "Czat"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:31
 msgid "AI character chat management"
-msgstr "AI character chat management"
+msgstr "Zarządzanie czatem z postaciami opartymi na sztucznej inteligencji"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:69
 msgid "Delete this provider?"
-msgstr "Delete this provider?"
+msgstr "Czy chcesz usunąć tego dostawcę?"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:87
 msgid "Manage LLM provider credentials and routing"
-msgstr "Manage LLM provider credentials and routing"
+msgstr "Zarządzanie danymi uwierzytelniającymi dostawców modeli LLM oraz routingiem"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:91
 msgid "Add Provider"
-msgstr "Add Provider"
+msgstr "Dodaj dostawcę"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
 msgid "Edit Provider"
-msgstr "Edit Provider"
+msgstr "Edytuj dostawcę"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
 msgid "New Provider"
-msgstr "New Provider"
+msgstr "Nowy dostawca"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
@@ -2876,15 +2872,15 @@ msgstr "New Provider"
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
 msgid "Type"
-msgstr "Type"
+msgstr "Typ"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
 msgid "LLM (Text)"
-msgstr "LLM (Text)"
+msgstr "LLM (tekst)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
 msgid "Video"
-msgstr "Video"
+msgstr "Wideo"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:111
 msgid "Adapter"
@@ -2897,35 +2893,35 @@ msgstr "Model"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
 msgid "Base URL (leave empty for OpenAI)"
-msgstr "Base URL (leave empty for OpenAI)"
+msgstr "Adres bazowy (w przypadku OpenAI pozostaw puste)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:123
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
 msgid "API Key"
-msgstr "API Key"
+msgstr "Klucz API"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
 msgid "Leave empty to keep current"
-msgstr "Leave empty to keep current"
+msgstr "Pozostaw puste, aby zachować aktualny stan"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:120
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:384
 msgid "Priority"
-msgstr "Priority"
+msgstr "Priorytet"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
 msgid "Max Concurrent"
-msgstr "Max Concurrent"
+msgstr "Maksymalna liczba jednoczesnych połączeń"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:134
 msgid "Timeout (s)"
-msgstr "Timeout (s)"
+msgstr "Limit czasu (s)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:153
 msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
-msgstr "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "Nie skonfigurowano żadnych dostawców. Dodaj jednego lub ustaw zmienną AI_API_KEY w pliku .env, aby szybko rozpocząć pracę."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:189
 msgid "Test"
@@ -2933,64 +2929,64 @@ msgstr "Test"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
 msgid "Task Queues"
-msgstr "Task Queues"
+msgstr "Kolejki zadań"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
 msgid "BullMQ job queue status and failed job management"
-msgstr "BullMQ job queue status and failed job management"
+msgstr "Stan kolejki zadań BullMQ i zarządzanie nieudanymi zadaniami"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
 msgid "No queues found. Workers may not be running."
-msgstr "No queues found. Workers may not be running."
+msgstr "Nie znaleziono żadnych kolejek. Być może procesy nie są uruchomione."
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
 msgid "Waiting"
-msgstr "Waiting"
+msgstr "Oczekiwanie"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
 msgid "Done"
-msgstr "Done"
+msgstr "Gotowe"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
 msgid "Failed"
-msgstr "Failed"
+msgstr "Nie powiodło się"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
 msgid "Failed Jobs"
-msgstr "Failed Jobs"
+msgstr "Nieudane zadania"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
 msgid "Attempts"
-msgstr "Attempts"
+msgstr "Próby"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
 msgid "Retry"
-msgstr "Retry"
+msgstr "Spróbuj ponownie"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:28
 msgid "Tokens Consumed"
-msgstr "Tokens Consumed"
+msgstr "Wykorzystane tokeny"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:34
 msgid "Chat Analytics"
-msgstr "Chat Analytics"
+msgstr "Analiza czatu"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:35
 msgid "Usage statistics and trends"
-msgstr "Usage statistics and trends"
+msgstr "Statystyki użytkowania i trendy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:55
 msgid "Messages (30 days)"
-msgstr "Messages (30 days)"
+msgstr "Wiadomości (30 dni)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:74
 msgid "Popular Characters"
-msgstr "Popular Characters"
+msgstr "Popularne postacie"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:78
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:121
 msgid "No data yet"
-msgstr "No data yet"
+msgstr "Brak danych"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
@@ -3000,103 +2996,103 @@ msgstr "Convs"
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:87
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:129
 msgid "Msgs"
-msgstr "Msgs"
+msgstr "Wiadomości"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:88
 msgid "Avg"
-msgstr "Avg"
+msgstr "Średnia"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:117
 msgid "Most Active Users"
-msgstr "Most Active Users"
+msgstr "Najbardziej aktywni użytkownicy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:164
 msgid "Provider Health (24h)"
-msgstr "Provider Health (24h)"
+msgstr "Opieka zdrowotna dla pracowników (24 godziny na dobę)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:168
 msgid "No provider activity yet"
-msgstr "No provider activity yet"
+msgstr "Brak dotychczasowej aktywności dostawcy"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
 msgid "Provider"
-msgstr "Provider"
+msgstr "Dostawca"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
 msgid "Requests"
-msgstr "Requests"
+msgstr "Wnioski"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
 msgid "Success"
-msgstr "Success"
+msgstr "Sukces"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
 msgid "Failures"
-msgstr "Failures"
+msgstr "Awarie"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:178
 msgid "Avg ms"
-msgstr "Avg ms"
+msgstr "Średnia (w ms)"
 
 #: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:179
 msgid "Rate"
-msgstr "Rate"
+msgstr "Ocena"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:69
 msgid "Comment updated"
-msgstr "Comment updated"
+msgstr "Komentarz zaktualizowano"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:78
 msgid "Comment deleted"
-msgstr "Comment deleted"
+msgstr "Komentarz usunięty"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:156
 msgid "Search comments..."
-msgstr "Search comments..."
+msgstr "Wyszukaj komentarze..."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:189
 msgid "No comments"
-msgstr "No comments"
+msgstr "Brak komentarzy"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:193
 msgid "No comments match your search."
-msgstr "No comments match your search."
+msgstr "Nie znaleziono komentarzy pasujących do Twojego wyszukiwania."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:194
 msgid "No comments found."
-msgstr "No comments found."
+msgstr "Nie znaleziono żadnych komentarzy."
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:201
 msgid "Author"
-msgstr "Author"
+msgstr "Autor"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:202
 msgid "Comment"
-msgstr "Comment"
+msgstr "Komentarz"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:205
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:305
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:139
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
 msgid "Date"
-msgstr "Date"
+msgstr "Data"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:230
 msgid "Anonymous"
-msgstr "Anonymous"
+msgstr "Anonimowy"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:267
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:179
 msgid "Approve"
-msgstr "Approve"
+msgstr "Zatwierdzić"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:276
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:187
 msgid "Reject"
-msgstr "Reject"
+msgstr "Odrzuć"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:285
 msgid "Spam"
@@ -3104,35 +3100,35 @@ msgstr "Spam"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:334
 msgid "Delete comment?"
-msgstr "Delete comment?"
+msgstr "Usunąć komentarz?"
 
 #: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:335
 msgid "Permanently delete this comment? This action cannot be undone."
-msgstr "Permanently delete this comment? This action cannot be undone."
+msgstr "Czy chcesz trwale usunąć ten komentarz? Tego działania nie da się cofnąć."
 
 #: src/core-multisite/components/SiteSwitcher.tsx:61
 msgid "Switch site"
-msgstr "Switch site"
+msgstr "Zmień stronę"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:77
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:94
 msgid "Network"
-msgstr "Network"
+msgstr "Sieć"
 
 #: src/core-multisite/components/SiteSwitcher.tsx:89
 msgid "Network Admin"
-msgstr "Network Admin"
+msgstr "Administrator sieci"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:38
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:65
 msgid "Create Site"
-msgstr "Create Site"
+msgstr "Utwórz stronę"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:46
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:169
 msgid "Site Name"
-msgstr "Site Name"
+msgstr "Nazwa strony"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:50
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
@@ -3141,203 +3137,203 @@ msgstr "Site Name"
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
 msgid "optional"
-msgstr "optional"
+msgstr "opcjonalne"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:51
 msgid "auto-generated from name"
-msgstr "auto-generated from name"
+msgstr "wygenerowane automatycznie na podstawie nazwy"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:52
 msgid "Used for subdomain: {slug}.yourdomain.com"
-msgstr "Used for subdomain: {slug}.yourdomain.com"
+msgstr "Wykorzystywana jako subdomena: {slug}.yourdomain.com"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
 msgid "Default Locale"
-msgstr "Default Locale"
+msgstr "Domyślne ustawienia regionalne"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "Suspend this site?"
-msgstr "Suspend this site?"
+msgstr "Zablokować tę stronę?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
 msgid "It will become inaccessible to visitors."
-msgstr "It will become inaccessible to visitors."
+msgstr "Nie będzie już dostępne dla zwiedzających."
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:53
 msgid "Sites"
-msgstr "Sites"
+msgstr "Strony internetowe"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:62
 msgid "Show deleted"
-msgstr "Show deleted"
+msgstr "Pokaż usunięte"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:75
 msgid "No sites yet. Create your first site."
-msgstr "No sites yet. Create your first site."
+msgstr "Nie ma jeszcze żadnych stron. Utwórz swoją pierwszą stronę."
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:118
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:146
 msgid "Unsuspend"
-msgstr "Unsuspend"
+msgstr "Znieść zawieszenie"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:56
 msgid "Site not found"
-msgstr "Site not found"
+msgstr "Nie znaleziono strony"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:93
 msgid "Are you sure you want to disable this site?"
-msgstr "Are you sure you want to disable this site?"
+msgstr "Czy na pewno chcesz zablokować tę stronę?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Name for the cloned site:"
-msgstr "Name for the cloned site:"
+msgstr "Nazwa sklonowanej strony:"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
 msgid "Site name"
-msgstr "Site name"
+msgstr "Nazwa strony"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
 msgid "Remove this domain?"
-msgstr "Remove this domain?"
+msgstr "Usunąć tę domenę?"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:136
 msgid "Clone Site"
-msgstr "Clone Site"
+msgstr "Sklonuj stronę"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:137
 msgid "Clone"
-msgstr "Clone"
+msgstr "Klonuj"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:156
 msgid "Disable Site"
-msgstr "Disable Site"
+msgstr "Wyłącz stronę"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:166
 msgid "General"
-msgstr "General"
+msgstr "Ogólne informacje"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:177
 msgid "Schema"
-msgstr "Schema"
+msgstr "Schemat"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:189
 msgid "Branding"
-msgstr "Branding"
+msgstr "Budowanie marki"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:194
 msgid "Brand Hue"
-msgstr "Brand Hue"
+msgstr "Marka Hue"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:206
 msgid "Accent Hue"
-msgstr "Accent Hue"
+msgstr "Odcień akcentujący"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:218
 msgid "Gray Hue"
-msgstr "Gray Hue"
+msgstr "Odcień szarości"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:231
 msgid "Logo URL"
-msgstr "Logo URL"
+msgstr "Adres URL logo"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:235
 msgid "Favicon URL"
-msgstr "Favicon URL"
+msgstr "Adres URL favikony"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:239
 msgid "Contact Email"
-msgstr "Contact Email"
+msgstr "Adres e-mail do kontaktu"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:243
 msgid "Save Branding"
-msgstr "Save Branding"
+msgstr "Zapisz branding"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:250
 msgid "Domains"
-msgstr "Domains"
+msgstr "Domeny"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:257
 msgid "Verified"
-msgstr "Verified"
+msgstr "Zweryfikowane"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:259
 msgid "Pending"
-msgstr "Pending"
+msgstr "W toku"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:261
 msgid "Primary"
-msgstr "Primary"
+msgstr "Podstawowe"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:272
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:711
 msgid "Add"
-msgstr "Add"
+msgstr "Dodaj"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:285
 msgid "Members"
-msgstr "Members"
+msgstr "Członkowie"
 
 #: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:287
 msgid "No members yet."
-msgstr "No members yet."
+msgstr "Nie ma jeszcze żadnych członków."
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:16
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:26
 msgctxt "General"
 msgid "Pending"
-msgstr "Pending"
+msgstr "W toku"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:17
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:27
 msgctxt "General"
 msgid "Processing"
-msgstr "Processing"
+msgstr "Przetwarzanie"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:18
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:28
 msgctxt "General"
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "Wysłano"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:19
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:29
 msgctxt "General"
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "Dostarczono"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:20
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:30
 msgctxt "General"
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "Odwołane"
 
 #: src/core-store/_templates/app/(public)/account/orders/page.tsx:21
 #: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:31
 msgctxt "General"
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "Zwrot kosztów"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:316
 msgid "Price: Low to High"
-msgstr "Price: Low to High"
+msgstr "Cena: od najniższej do najwyższej"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:317
 msgid "Price: High to Low"
-msgstr "Price: High to Low"
+msgstr "Cena: od najwyższej do najniższej"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:318
 msgid "Name A-Z"
-msgstr "Name A-Z"
+msgstr "Nazwa od A do Z"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:440
 msgid "Shop now"
-msgstr "Shop now"
+msgstr "Kup teraz"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:531
 msgid "Price Range"
-msgstr "Price Range"
+msgstr "Zakres cenowy"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:536
 msgid "Min"
@@ -3350,215 +3346,215 @@ msgstr "Max"
 #: src/core-store/_templates/app/(public)/store/client.tsx:876
 #: src/core-store/_templates/app/(public)/store/client.tsx:906
 msgid "Filters"
-msgstr "Filters"
+msgstr "Filtry"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "Showing"
-msgstr "Showing"
+msgstr "Wyświetlanie"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:948
 msgid "products"
-msgstr "products"
+msgstr "produkty"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1025
 msgid "Try adjusting your search terms or clearing filters."
-msgstr "Try adjusting your search terms or clearing filters."
+msgstr "Spróbuj zmienić słowa kluczowe lub wyczyścić filtry."
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1026
 msgid "Check back soon for new products."
-msgstr "Check back soon for new products."
+msgstr "Zajrzyj tu wkrótce, aby zapoznać się z nowościami."
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1041
 msgid "Browse our collection of products"
-msgstr "Browse our collection of products"
+msgstr "Zapoznaj się z naszą ofertą produktów"
 
 #: src/core-store/_templates/app/(public)/store/client.tsx:1050
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:138
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "Wyszukaj produkty..."
 
 #: src/core-store/_templates/app/(public)/store/page.tsx:10
 #: src/core-store/_templates/app/(public)/store/page.tsx:13
 msgid "Browse our collection of products. Find exactly what you need."
-msgstr "Browse our collection of products. Find exactly what you need."
+msgstr "Zapoznaj się z naszą ofertą produktów. Znajdź dokładnie to, czego potrzebujesz."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:91
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:748
 msgid "Attributes"
-msgstr "Attributes"
+msgstr "Atrybuty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:98
 msgid "Add Attribute"
-msgstr "Add Attribute"
+msgstr "Dodaj atrybut"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:108
 msgid "New Attribute"
-msgstr "New Attribute"
+msgstr "Nowy atrybut"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:119
 msgid "e.g. Color, Size"
-msgstr "e.g. Color, Size"
+msgstr "np. kolor, rozmiar"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:134
 msgid "Text"
-msgstr "Text"
+msgstr "Tekst"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:135
 msgid "Number"
-msgstr "Number"
+msgstr "Liczba"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:201
 msgid "Values"
-msgstr "Values"
+msgstr "Wartości"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
 msgid "comma-separated"
-msgstr "comma-separated"
+msgstr "oddzielone przecinkami"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:160
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:202
 msgid "Filterable"
-msgstr "Filterable"
+msgstr "Z możliwością filtrowania"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:188
 msgid "No attributes defined"
-msgstr "No attributes defined"
+msgstr "Nie zdefiniowano żadnych atrybutów"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:191
 msgid "Add your first attribute to enable product filtering."
-msgstr "Add your first attribute to enable product filtering."
+msgstr "Dodaj swój pierwszy atrybut, aby umożliwić filtrowanie produktów."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:315
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
 msgid "Usage"
-msgstr "Usage"
+msgstr "Sposób użycia"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:116
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
 msgid "Discount Codes"
-msgstr "Discount Codes"
+msgstr "Kody rabatowe"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:123
 msgid "Add Code"
-msgstr "Add Code"
+msgstr "Dodaj kod"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:133
 msgid "New Discount Code"
-msgstr "New Discount Code"
+msgstr "Nowy kod rabatowy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:158
 msgid "Percentage"
-msgstr "Percentage"
+msgstr "Procent"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:159
 msgid "Fixed Amount"
-msgstr "Fixed Amount"
+msgstr "Stała kwota"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (%)"
-msgstr "Value (%)"
+msgstr "Wartość (%)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
 msgid "Value (EUR)"
-msgstr "Value (EUR)"
+msgstr "Wartość (EUR)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:179
 msgid "Min Order (EUR)"
-msgstr "Min Order (EUR)"
+msgstr "Minimalna wartość zamówienia (EUR)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:193
 msgid "Max Uses"
-msgstr "Max Uses"
+msgstr "Maksymalne zastosowania"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:317
 msgid "Expires"
-msgstr "Expires"
+msgstr "Wygasanie"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:266
 msgid "Search codes..."
-msgstr "Search codes..."
+msgstr "Wyszukaj kody..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:299
 msgid "No discount codes"
-msgstr "No discount codes"
+msgstr "Brak kodów rabatowych"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:303
 msgid "No codes match your search."
-msgstr "No codes match your search."
+msgstr "Nie znaleziono kodów pasujących do Twojego wyszukiwania."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:304
 msgid "Create your first discount code to offer promotions."
-msgstr "Create your first discount code to offer promotions."
+msgstr "Utwórz swój pierwszy kod rabatowy, aby oferować promocje."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:313
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
 msgid "Value"
-msgstr "Value"
+msgstr "Wartość"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:314
 msgid "Min Order"
-msgstr "Min Order"
+msgstr "Minimalne zamówienie"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Percent"
-msgstr "Percent"
+msgstr "Procent"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
 msgid "Fixed"
-msgstr "Fixed"
+msgstr "Naprawiono"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:376
 msgid "Deactivate"
-msgstr "Deactivate"
+msgstr "Wyłącz"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:59
 msgid "Product created"
-msgstr "Product created"
+msgstr "Produkt utworzono"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:75
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:239
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "Pole „Imię” jest obowiązkowe"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:113
 msgid "New Product"
-msgstr "New Product"
+msgstr "Nowy produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:130
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:347
 msgid "Basic Info"
-msgstr "Basic Info"
+msgstr "Podstawowe informacje"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:139
 msgid "Product name"
-msgstr "Product name"
+msgstr "Nazwa produktu"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:149
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:379
 msgid "Simple"
-msgstr "Simple"
+msgstr "Proste"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:380
 msgid "Variable"
-msgstr "Variable"
+msgstr "Zmienna"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:152
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:382
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "Subskrypcja"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:386
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "Krótki opis"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:183
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:209
@@ -3566,83 +3562,83 @@ msgstr "Short Description"
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:618
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:676
 msgid "Price"
-msgstr "Price"
+msgstr "Cena"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:195
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:425
 msgid "Compare Price"
-msgstr "Compare Price"
+msgstr "Porównaj ceny"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:203
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:433
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "Pierwotna cena na ekspozycji przecenionej"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:209
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:439
 msgid "Currency"
-msgstr "Currency"
+msgstr "Waluta"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:451
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:617
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:667
 msgid "SKU"
-msgstr "SKU"
+msgstr "Numer katalogowy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:227
 msgid "Optional stock keeping unit"
-msgstr "Optional stock keeping unit"
+msgstr "Opcjonalna jednostka magazynowa"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:237
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:466
 msgid "Inventory"
-msgstr "Inventory"
+msgstr "Zapasy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:246
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:475
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "Śledzenie stanów magazynowych"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:250
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:479
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "Ilość na stanie"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:261
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:490
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "Waga (gramy)"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:268
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:497
 msgid "Optional"
-msgstr "Optional"
+msgstr "Opcjonalnie"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:278
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:507
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "Wymagana wysyłka"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:287
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:516
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "Produkt cyfrowy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:290
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:519
 msgid "File URL"
-msgstr "File URL"
+msgstr "Adres URL pliku"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:300
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:529
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "Limit pobierania"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:307
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:536
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "Nieograniczone"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:321
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:550
@@ -3652,275 +3648,275 @@ msgstr "SEO"
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:327
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:556
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "Tytuł meta"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:352
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:581
 msgid "Featured Image"
-msgstr "Featured Image"
+msgstr "Zdjęcie główne"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:354
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:583
 msgid "Image URL"
-msgstr "Image URL"
+msgstr "Adres URL obrazu"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:363
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:592
 msgid "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
-msgstr "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
+msgstr "Wskazówka: W ramach projektów można to rozszerzyć do elementu MediaPickerButton w celu przesyłania plików."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
 msgid "Exporting..."
-msgstr "Exporting..."
+msgstr "Eksportowanie..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:173
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:98
 msgid "Products"
-msgstr "Products"
+msgstr "Produkty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:233
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "Wyszukaj według numeru zamówienia..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:263
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:258
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:187
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:393
 msgid "From"
-msgstr "From"
+msgstr "Od"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:265
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "to"
-msgstr "to"
+msgstr "do"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:274
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:194
 msgid "To"
-msgstr "To"
+msgstr "Do"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:289
 msgid "No orders"
-msgstr "No orders"
+msgstr "Brak zamówień"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:293
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "Nie znaleziono zamówień pasujących do Twojego wyszukiwania."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:294
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "Na razie nie ma żadnych zamówień."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:301
 msgid "Order #"
-msgstr "Order #"
+msgstr "Nr zamówienia:"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:302
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Customer"
-msgstr "Customer"
+msgstr "Klient"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:344
 msgid "View"
-msgstr "View"
+msgstr "Wyświetl"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:351
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "Faktura"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:359
 msgid "Refund"
-msgstr "Refund"
+msgstr "Zwrot pieniędzy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:405
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
 msgid "Refund Order"
-msgstr "Refund Order"
+msgstr "Zlecenie zwrotu środków"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:419
 msgid "Enter reason for refund..."
-msgstr "Enter reason for refund..."
+msgstr "Wpisz powód zwrotu..."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:72
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:187
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "Produkt usunięty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:102
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:198
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "Dodaj produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:185
 msgid "No products"
-msgstr "No products"
+msgstr "Brak produktów"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:189
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "Nie znaleziono produktów odpowiadających Twojemu wyszukiwaniu."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:190
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "Stwórz swój pierwszy produkt, aby rozpocząć."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:211
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:619
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:688
 msgid "Stock"
-msgstr "Stock"
+msgstr "Zapasy"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:330
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:844
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "Usunąć produkt?"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:331
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:845
 msgid "Delete \"{name}\"? This action cannot be undone."
-msgstr "Delete \"{name}\"? This action cannot be undone."
+msgstr "Czy chcesz usunąć „{name}”? Tego działania nie można cofnąć."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:79
 msgid "Reviews"
-msgstr "Reviews"
+msgstr "Recenzje"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:123
 msgid "No reviews to moderate"
-msgstr "No reviews to moderate"
+msgstr "Brak recenzji do moderacji"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:127
 msgid "No reviews with this status."
-msgstr "No reviews with this status."
+msgstr "Brak recenzji o tym statusie."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:128
 msgid "Reviews will appear here once customers submit them."
-msgstr "Reviews will appear here once customers submit them."
+msgstr "Recenzje pojawią się tutaj, gdy tylko klienci je opublikują."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:135
 msgid "Product"
-msgstr "Product"
+msgstr "Produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:136
 msgid "Rating"
-msgstr "Rating"
+msgstr "Ocena"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:179
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "Produkt zapisany"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:195
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "Dodano wariant"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:205
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "Wariant usunięty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:214
 msgid "Attributes saved"
-msgstr "Attributes saved"
+msgstr "Zapisane atrybuty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:222
 msgid "Related products saved"
-msgstr "Related products saved"
+msgstr "Zapisane produkty powiązane"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:265
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "Nazwa wariantu jest wymagana"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:318
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "Edytuj produkt"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:601
 msgid "Variants"
-msgstr "Variants"
+msgstr "Warianty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:607
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "Dodaj wariant"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:648
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "Na razie nie ma wariantów. Dodaj warianty, aby zaoferować różne opcje."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:654
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "Nowy wariant"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:663
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "np. Duży / Czerwony"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:725
 msgid "No categories defined."
-msgstr "No categories defined."
+msgstr "Nie zdefiniowano żadnych kategorii."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:740
 msgid "Category assignment is saved with the product. Extend this section to call a category update mutation."
-msgstr "Category assignment is saved with the product. Extend this section to call a category update mutation."
+msgstr "Przypisanie kategorii jest zapisywane wraz z produktem. Rozszerz tę sekcję, aby wywołać mutację aktualizującą kategorię."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:752
 msgid "No attributes defined."
-msgstr "No attributes defined."
+msgstr "Nie zdefiniowano żadnych atrybutów."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:785
 msgid "Save Attributes"
-msgstr "Save Attributes"
+msgstr "Zapisz atrybuty"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:793
 msgid "Related Products"
-msgstr "Related Products"
+msgstr "Produkty powiązane"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:818
 msgid "Comma-separated product IDs"
-msgstr "Comma-separated product IDs"
+msgstr "Identyfikatory produktów rozdzielone przecinkami"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:832
 msgid "Tip: Replace comma-separated IDs with a product search/select component for better UX."
-msgstr "Tip: Replace comma-separated IDs with a product search/select component for better UX."
+msgstr "Wskazówka: Aby poprawić komfort użytkowania, zastąp identyfikatory oddzielone przecinkami komponentem służącym do wyszukiwania i wybierania produktów."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:855
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "Usunąć wariant?"
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:856
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "Ta wersja zostanie trwale usunięta."
 
 #: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:890
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "Nie znaleziono produktu."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
 msgid "Canceled"
-msgstr "Canceled"
+msgstr "Odwołane"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
 msgid "Payment Failed"
-msgstr "Payment Failed"
+msgstr "Płatność nie powiodła się"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
 msgid "Unpaid"
-msgstr "Unpaid"
+msgstr "Niewypłacone"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
 msgid "Churned Subscriptions"
-msgstr "Churned Subscriptions"
+msgstr "Liczba rezygnacji z subskrypcji"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
 msgid "Search by organization..."
-msgstr "Search by organization..."
+msgstr "Wyszukiwanie według organizacji..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
 msgid "No churned subscriptions found."
-msgstr "No churned subscriptions found."
+msgstr "Nie znaleziono żadnych subskrypcji typu „churned”."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
 msgid "Organization"
-msgstr "Organization"
+msgstr "Organizacja"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
@@ -3930,76 +3926,76 @@ msgstr "Plan"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
 msgid "Churn Date"
-msgstr "Churn Date"
+msgstr "Data rezygnacji"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
 msgid "Subscription Start"
-msgstr "Subscription Start"
+msgstr "Początek subskrypcji"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
 msgid "results"
-msgstr "results"
+msgstr "wyniki"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
 msgid "No discount codes yet."
-msgstr "No discount codes yet."
+msgstr "Na razie nie ma żadnych kodów rabatowych."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
 msgid "unlimited"
-msgstr "unlimited"
+msgstr "nieograniczony"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
 msgid "Recent Transactions"
-msgstr "Recent Transactions"
+msgstr "Ostatnie transakcje"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
 msgid "No transactions yet."
-msgstr "No transactions yet."
+msgstr "Nie ma jeszcze żadnych transakcji."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
 msgid "Amount"
-msgstr "Amount"
+msgstr "Kwota"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
 msgid "Revenue"
-msgstr "Revenue"
+msgstr "Przychody"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
 msgid "Transactions"
-msgstr "Transactions"
+msgstr "Transakcje"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
 msgid "Revenue Over Time"
-msgstr "Revenue Over Time"
+msgstr "Przychody w czasie"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
 msgid "No revenue data for this period."
-msgstr "No revenue data for this period."
+msgstr "Brak danych dotyczących przychodów za ten okres."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
 msgid "Active Subscriptions"
-msgstr "Active Subscriptions"
+msgstr "Aktywne subskrypcje"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
 msgid "Search organizations..."
-msgstr "Search organizations..."
+msgstr "Wyszukaj organizacje..."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
 msgid "per page"
-msgstr "per page"
+msgstr "za stronę"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
 msgid "No subscriptions found."
-msgstr "No subscriptions found."
+msgstr "Nie znaleziono żadnych subskrypcji."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
 msgid "Period"
-msgstr "Period"
+msgstr "Okres"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
 msgid "MRR"
@@ -4007,143 +4003,143 @@ msgstr "MRR"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
 msgid "Total Revenue"
-msgstr "Total Revenue"
+msgstr "Przychody ogółem"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
 msgid "Trialing"
-msgstr "Trialing"
+msgstr "Okres próbny"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
 msgid "Trial"
-msgstr "Trial"
+msgstr "Wersja próbna"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
 msgid "Plan Distribution"
-msgstr "Plan Distribution"
+msgstr "Plan dystrybucji"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
 msgid "No subscriptions yet"
-msgstr "No subscriptions yet"
+msgstr "Nie ma jeszcze żadnych subskrypcji"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
 msgid "Churn Metrics"
-msgstr "Churn Metrics"
+msgstr "Wskaźniki rezygnacji"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
 msgid "Churn Rate (30d)"
-msgstr "Churn Rate (30d)"
+msgstr "Wskaźnik rezygnacji (30 dni)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
 msgid "Canceled (30d)"
-msgstr "Canceled (30d)"
+msgstr "Anulowano (30 dni)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
 msgid "Past Due (at risk)"
-msgstr "Past Due (at risk)"
+msgstr "Przeterminowane (zagrożone)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
 msgid "Unpaid (lost)"
-msgstr "Unpaid (lost)"
+msgstr "Niewypłacone (utracone)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
 msgid "Total Ever Subscribed"
-msgstr "Total Ever Subscribed"
+msgstr "Łączna liczba subskrypcji w historii"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:156
 msgid "Monitor revenue, track churn, and manage subscriptions."
-msgstr "Monitor revenue, track churn, and manage subscriptions."
+msgstr "Monitoruj przychody, śledź wskaźnik rezygnacji i zarządzaj subskrypcjami."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:181
 msgid "Custom range"
-msgstr "Custom range"
+msgstr "Zakres niestandardowy"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
 msgid "Last"
-msgstr "Last"
+msgstr "Ostatni"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:235
 msgid "All time"
-msgstr "All time"
+msgstr "Wszechczasów"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
 msgid "Discount code created"
-msgstr "Discount code created"
+msgstr "Utworzono kod rabatowy"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
 msgid "Discount code updated"
-msgstr "Discount code updated"
+msgstr "Zaktualizowano kod rabatowy"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
 msgid "Discount code deleted"
-msgstr "Discount code deleted"
+msgstr "Kod rabatowy został usunięty"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
 msgid "New Code"
-msgstr "New Code"
+msgstr "Nowy kodeks"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Percentage (0-100)"
-msgstr "Percentage (0-100)"
+msgstr "Wartość procentowa (0–100)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
 msgid "Price (cents)"
-msgstr "Price (cents)"
+msgstr "Cena (centy)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
 msgid "Trial Days"
-msgstr "Trial Days"
+msgstr "Dni próbne"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
 msgid "Trial Price (cents)"
-msgstr "Trial Price (cents)"
+msgstr "Cena próbna (centy)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
 msgid "Max Uses (leave empty for unlimited)"
-msgstr "Max Uses (leave empty for unlimited)"
+msgstr "Maksymalna liczba użyć (pozostaw puste, aby uzyskać nieograniczoną liczbę)"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
 msgid "Max Uses Per User"
-msgstr "Max Uses Per User"
+msgstr "Maksymalna liczba użyć na użytkownika"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
 msgid "Update"
-msgstr "Update"
+msgstr "Aktualizacja"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
 msgid "No discount codes configured."
-msgstr "No discount codes configured."
+msgstr "Nie skonfigurowano żadnych kodów rabatowych."
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
 msgid "Uses"
-msgstr "Uses"
+msgstr "Zastosowania"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
 msgid "Delete discount code?"
-msgstr "Delete discount code?"
+msgstr "Usunąć kod rabatowy?"
 
 #: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
 msgid "Code \"{code}\" will be permanently deleted."
-msgstr "Code \"{code}\" will be permanently deleted."
+msgstr "Kod „{code}” zostanie trwale usunięty."
 
 #: src/core-support/components/SupportChatWidget.tsx:275
 msgid "Hi! How can I help you today?"
-msgstr "Hi! How can I help you today?"
+msgstr "Cześć! W czym mogę pomóc?"
 
 #: src/core-support/components/SupportChatWidget.tsx:276
 msgid "Type your message..."
-msgstr "Type your message..."
+msgstr "Wpisz wiadomość..."
 
 #: src/core-support/components/SupportChatWidget.tsx:286
 msgid "Support Chat"
-msgstr "Support Chat"
+msgstr "Czat pomocy technicznej"
 
 #: src/core-support/components/SupportChatWidget.tsx:333
 msgid "Support Agent"
-msgstr "Support Agent"
+msgstr "Pracownik działu obsługi klienta"
 
 #: src/core-support/components/SupportChatWidget.tsx:351
 msgid "Enter your email so our team can follow up:"
-msgstr "Enter your email so our team can follow up:"
+msgstr "Podaj swój adres e-mail, aby nasz zespół mógł się z Tobą skontaktować:"
 
 #: src/core-support/components/SupportChatWidget.tsx:361
 msgid "your@email.com"
@@ -4151,98 +4147,98 @@ msgstr "your@email.com"
 
 #: src/core-support/components/SupportChatWidget.tsx:366
 msgid "Connect with support"
-msgstr "Connect with support"
+msgstr "Skontaktuj się z działem pomocy technicznej"
 
 #: src/core-support/components/SupportChatWidget.tsx:375
 msgid "Would you like to create a support ticket so our team can follow up?"
-msgstr "Would you like to create a support ticket so our team can follow up?"
+msgstr "Czy chcesz utworzyć zgłoszenie do pomocy technicznej, aby nasz zespół mógł się tym zająć?"
 
 #: src/core-support/components/SupportChatWidget.tsx:378
 msgid "Create Support Ticket"
-msgstr "Create Support Ticket"
+msgstr "Utwórz zgłoszenie do pomocy technicznej"
 
 #: src/core-support/components/SupportChatWidget.tsx:385
 msgid "Thanks! Our team will follow up at your email soon."
-msgstr "Thanks! Our team will follow up at your email soon."
+msgstr "Dziękujemy! Nasz zespół wkrótce skontaktuje się z Tobą na podany adres e-mail."
 
 #: src/core-support/components/SupportChatWidget.tsx:391
 msgid "Your ticket has been created. Our team will follow up soon."
-msgstr "Your ticket has been created. Our team will follow up soon."
+msgstr "Twoje zgłoszenie zostało utworzone. Nasz zespół wkrótce się z Tobą skontaktuje."
 
 #: src/core-support/components/SupportChatWidget.tsx:394
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
 msgid "View Ticket"
-msgstr "View Ticket"
+msgstr "Wyświetl bilet"
 
 #: src/core-support/components/SupportChatWidget.tsx:427
 msgid "Talk to a human"
-msgstr "Talk to a human"
+msgstr "Porozmawiaj z prawdziwą osobą"
 
 #: src/core-support/components/SupportChatWidget.tsx:434
 msgid "Start New Chat"
-msgstr "Start New Chat"
+msgstr "Rozpocznij nową rozmowę"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Close chat"
-msgstr "Close chat"
+msgstr "Zamknij czat"
 
 #: src/core-support/components/SupportChatWidget.tsx:444
 msgid "Open chat"
-msgstr "Open chat"
+msgstr "Otwórz czat"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
 msgid "Chat closed"
-msgstr "Chat closed"
+msgstr "Czat zamknięty"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
 msgid "Chat session not found."
-msgstr "Chat session not found."
+msgstr "Nie znaleziono sesji czatu."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
 msgid "Live Chat"
-msgstr "Live Chat"
+msgstr "Czat na żywo"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
 msgid "Close Chat"
-msgstr "Close Chat"
+msgstr "Zamknij czat"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
 msgid "Visitor"
-msgstr "Visitor"
+msgstr "Gość"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
 msgid "Chat email"
-msgstr "Chat email"
+msgstr "Czat, e-mail"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:252
 msgid "Started"
-msgstr "Started"
+msgstr "Rozpoczęto"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:118
 msgid "Subject"
-msgstr "Subject"
+msgstr "Temat"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
 msgid "Reply as agent..."
-msgstr "Reply as agent..."
+msgstr "Odpowiedz jako agent..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:97
 msgid "All Priorities"
-msgstr "All Priorities"
+msgstr "Wszystkie priorytety"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:112
 msgid "No tickets found."
-msgstr "No tickets found."
+msgstr "Nie znaleziono biletów."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:123
 msgid "Updated"
-msgstr "Updated"
+msgstr "Zaktualizowano"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:227
 msgid "Active (non-closed)"
-msgstr "Active (non-closed)"
+msgstr "Aktywne (niezamknięte)"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:228
 msgid "AI Active"
@@ -4250,140 +4246,128 @@ msgstr "AI Active"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:229
 msgid "Agent Active"
-msgstr "Agent Active"
+msgstr "Agent aktywny"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:230
 msgid "Escalated"
-msgstr "Escalated"
+msgstr "Eskalacja"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:231
 msgid "Closed"
-msgstr "Closed"
+msgstr "Zamknięte"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:243
 msgid "No active chats."
-msgstr "No active chats."
+msgstr "Brak aktywnych rozmów."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:249
 msgid "Visitor / User"
-msgstr "Visitor / User"
+msgstr "Gość / Użytkownik"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:251
 msgid "Last Message"
-msgstr "Last Message"
+msgstr "Ostatnia wiadomość"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:360
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "Bilety"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:368
 msgid "Live Chats"
-msgstr "Live Chats"
+msgstr "Czat na żywo"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:157
 msgid "Reply sent"
-msgstr "Reply sent"
+msgstr "Wysłano odpowiedź"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:165
 msgid "Status updated"
-msgstr "Status updated"
+msgstr "Zaktualizowano status"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:173
 msgid "Assignment updated"
-msgstr "Assignment updated"
+msgstr "Zadanie zaktualizowano"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:190
 msgid "Ticket not found."
-msgstr "Ticket not found."
+msgstr "Nie znaleziono biletu."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:192
 msgid "Back to tickets"
-msgstr "Back to tickets"
+msgstr "Powrót do biletów"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "Niewysłana odpowiedź"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "W skrzynce masz niewysłaną odpowiedź. Czy chcesz ją wysłać przed zmianą statusu?"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "Wyślij i zmień status"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "Nie udało się skopiować do schowka"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "Skopiuj całą rozmowę do schowka (w formacie dostosowanym do modeli LLM)"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "Skopiuj rozmowę"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
-msgstr "Staff"
+msgstr "Personel"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:316
 msgid "Staff Reply"
-msgstr "Staff Reply"
+msgstr "Odpowiedź personelu"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:325
 msgid "Type your reply..."
-msgstr "Type your reply..."
+msgstr "Wpisz swoją odpowiedź..."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:337
 msgid "Send Reply"
-msgstr "Send Reply"
+msgstr "Wyślij odpowiedź"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:342
 msgid "This ticket is closed."
-msgstr "This ticket is closed."
+msgstr "To zgłoszenie zostało zamknięte."
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "Ponowne otwarcie zgłoszenia"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
-msgstr "User feedback"
+msgstr "Opinie użytkowników"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:377
 msgid "Details"
-msgstr "Details"
+msgstr "Szczegóły"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:399
 msgid "Assigned"
-msgstr "Assigned"
+msgstr "Przypisane"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:408
 msgid "Change Status"
-msgstr "Change Status"
+msgstr "Zmień status"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:423
 msgid "Assignment"
-msgstr "Assignment"
+msgstr "Zadanie"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:432
 msgid "Unassign"
-msgstr "Unassign"
+msgstr "Cofnij przypisanie"
 
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
-msgstr "Not assigned"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "AI Characters — Browse & Chat"
-#~ msgstr "AI Characters — Browse & Chat"
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Browse AI characters with unique personalities and start chatting."
-#~ msgstr "Browse AI characters with unique personalities and start chatting."
-
-#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
-#~ msgid "Hide"
-#~ msgstr "Hide"
+msgstr "Nie przypisano"

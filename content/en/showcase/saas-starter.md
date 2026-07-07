@@ -18,7 +18,7 @@ This site itself is the live demo. Everything you interact with — auth, CMS, t
 - **CMS** — this blog, showcase, portfolio, and all pages are managed content
 - **Reverse trial** — 14-day Pro trial for new signups, automatic downgrade
 - **Real-time** — WebSocket pub/sub via BullMQ and Redis
-- **i18n** — 16 locales, locale-prefixed routing, content fallback
+- **i18n** — 17 locales, locale-prefixed routing, content fallback
 
 ## Stack
 

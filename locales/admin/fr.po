@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05T21:55:19.130Z\n"
-"PO-Revision-Date: 2026-07-05T21:55:19.130Z\n"
+"POT-Creation-Date: 2026-07-06T22:01:38.745Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:38.745Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -11,6 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:49
 msgid "Activity Log"
@@ -213,7 +214,7 @@ msgstr "Nom"
 #: src/components/admin/ShowcaseForm.tsx:341
 #: src/components/admin/TermForm.tsx:248
 msgid "Slug"
-msgstr "Slug"
+msgstr "Limace"
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:120
 #: src/app/dashboard/(panel)/projects/page.tsx:236
@@ -260,7 +261,7 @@ msgstr "Supprimer le menu ?"
 
 #: src/app/dashboard/(panel)/cms/menus/page.tsx:143
 msgid "\"{name}\" and all its items will be permanently deleted."
-msgstr "\"{name}\" and all its items will be permanently deleted."
+msgstr "« {name} » et tous ses éléments seront définitivement supprimés."
 
 #: src/app/dashboard/(panel)/cms/menus/[id]/page.tsx:33
 msgid "Menu updated"
@@ -579,7 +580,7 @@ msgstr "Supprimer le champ"
 
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:456
 msgid "No fields yet. Click \"Add Field\" to start building your form."
-msgstr "No fields yet. Click \"Add Field\" to start building your form."
+msgstr "Il n'y a pas encore de champs. Cliquez sur « Ajouter un champ » pour commencer à créer votre formulaire."
 
 #: src/app/dashboard/(panel)/forms/[id]/page.tsx:464
 msgid "Embed"
@@ -656,12 +657,6 @@ msgstr "Échec de l'envoi"
 msgid "Failed to upload {name}"
 msgstr "Échec de l'envoi de {name}"
 
-#: src/app/dashboard/(panel)/media/page.tsx:113
-msgid "1 file uploaded"
-msgid_plural "{count} files uploaded"
-msgstr[0] "1 file uploaded"
-msgstr[1] "{count} files uploaded"
-
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
 msgid "Media Library"
@@ -693,7 +688,7 @@ msgstr "Supprimer le fichier ?"
 
 #: src/app/dashboard/(panel)/media/page.tsx:335
 msgid "\"{name}\" will be deleted."
-msgstr "\"{name}\" will be deleted."
+msgstr "« {name} » sera supprimé."
 
 #: src/app/dashboard/(panel)/notifications/page.tsx:40
 msgid "Notifications"
@@ -845,7 +840,7 @@ msgstr "Supprimer l'organisation ?"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:513
 msgid "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
-msgstr "Permanently delete \"{name}\"? This will remove all members and data. This action cannot be undone."
+msgstr "Souhaitez-vous supprimer définitivement « {name} » ? Cette action supprimera tous les membres et toutes les données. Elle est irréversible."
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:525
 msgid "Leave organization?"
@@ -853,7 +848,7 @@ msgstr "Quitter l'organisation ?"
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:526
 msgid "Leave \"{name}\"? You will lose access to this organization."
-msgstr "Leave \"{name}\"? You will lose access to this organization."
+msgstr "Vous souhaitez quitter « {name} » ? Vous perdrez alors l'accès à cette organisation."
 
 #: src/app/dashboard/(panel)/organizations/page.tsx:527
 msgid "Leave"
@@ -1030,7 +1025,7 @@ msgstr "Supprimer le projet ?"
 #: src/app/dashboard/(panel)/store/page.tsx:280
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:631
 msgid "Delete \"{name}\"? This action cannot be undone."
-msgstr "Delete \"{name}\"? This action cannot be undone."
+msgstr "Supprimer « {name} » ? Cette action ne peut pas être annulée."
 
 #: src/app/dashboard/(panel)/settings/affiliates/page.tsx:27
 msgid "Affiliates"
@@ -1500,7 +1495,7 @@ msgstr "Messages"
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:130
 msgid "Tokens"
-msgstr "Tokens"
+msgstr "Jetons"
 
 #: src/app/dashboard/(panel)/settings/chat/conversations/page.tsx:55
 msgid "Last Active"
@@ -1745,7 +1740,7 @@ msgstr "Conv."
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:87
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:129
 msgid "Msgs"
-msgstr "Msgs"
+msgstr "Messages"
 
 #: src/app/dashboard/(panel)/settings/chat/stats/page.tsx:88
 msgid "Avg"
@@ -1820,13 +1815,8 @@ msgstr "Types de contenu"
 msgid "Choices (one per line)"
 msgstr "Choix (un par ligne)"
 
-#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
-msgid "Option A
-Option B
-Option C"
-msgstr "Option A
-Option B
-Option C"
+msgid "Option "
+msgstr "Option "
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
@@ -1897,7 +1887,7 @@ msgstr "Supprimer le code de réduction ?"
 
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
 msgid "Code \"{code}\" will be permanently deleted."
-msgstr "Code \"{code}\" will be permanently deleted."
+msgstr "Le code « {code} » sera définitivement supprimé."
 
 #: src/app/dashboard/(panel)/settings/email-templates/page.tsx:90
 msgid "Template saved"
@@ -2172,17 +2162,11 @@ msgstr "Paramètres enregistrés"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:46
 msgid "Reset \"{key}\" to default"
-msgstr "Reset \"{key}\" to default"
+msgstr "Réinitialiser « {key} » aux paramètres par défaut"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:60
 msgid "GA4 connection successful"
 msgstr "Connexion GA4 réussie"
-
-#: src/app/dashboard/(panel)/settings/page.tsx:67
-msgid "Created 1 SEO override page"
-msgid_plural "Created {count} SEO override pages"
-msgstr[0] "Created 1 SEO override page"
-msgstr[1] "Created {count} SEO override pages"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:201
 msgid "Settings"
@@ -2313,11 +2297,11 @@ msgstr "Dernier message"
 
 #: src/app/dashboard/(panel)/settings/support/page.tsx:348
 msgid "Support"
-msgstr "Support"
+msgstr "Assistance"
 
 #: src/app/dashboard/(panel)/settings/support/page.tsx:360
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "Billets"
 
 #: src/app/dashboard/(panel)/settings/support/page.tsx:368
 msgid "Live Chats"
@@ -2346,31 +2330,31 @@ msgstr "Retour aux tickets"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
 msgid "Unsent reply"
-msgstr "Unsent reply"
+msgstr "Réponse non envoyée"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
 msgid "You have an unsent reply in the box. Send it before changing the status?"
-msgstr "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "Vous avez une réponse non envoyée dans votre boîte de réception. Voulez-vous l'envoyer avant de modifier le statut ?"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
 msgid "Send & change status"
-msgstr "Send & change status"
+msgstr "Envoyer et modifier le statut"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
 msgid "Failed to copy to clipboard"
-msgstr "Failed to copy to clipboard"
+msgstr "Échec de la copie dans le presse-papiers"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
 msgid "Copy the full conversation to clipboard (LLM-friendly format)"
-msgstr "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "Copier l'intégralité de la conversation dans le presse-papiers (format compatible avec les modèles de langage de grande envergure)"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copied!"
-msgstr "Copied!"
+msgstr "Copié !"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
 msgid "Copy conversation"
-msgstr "Copy conversation"
+msgstr "Copier la conversation"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
 msgid "Staff"
@@ -2399,7 +2383,7 @@ msgstr "Ce ticket est fermé."
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
 msgid "Reopen Ticket"
-msgstr "Reopen Ticket"
+msgstr "Réouvrir un ticket"
 
 #: src/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
 msgid "User feedback"
@@ -2472,25 +2456,25 @@ msgstr "Supprimer le webhook ?"
 
 #: src/app/dashboard/(panel)/settings/webhooks/page.tsx:254
 msgid "\"{name}\" will be permanently deleted."
-msgstr "\"{name}\" will be permanently deleted."
+msgstr "« {name} » sera définitivement supprimé."
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:41
 msgid "Product created"
-msgstr "Product created"
+msgstr "Produit créé"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:50
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:296
 msgid "Name is required"
-msgstr "Name is required"
+msgstr "Le nom est obligatoire"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:83
 msgid "New Product"
-msgstr "New Product"
+msgstr "Nouveau produit"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:98
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:390
 msgid "Product Details"
-msgstr "Product Details"
+msgstr "Détails du produit"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:107
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:404
@@ -2505,50 +2489,50 @@ msgstr "Variable"
 #: src/app/dashboard/(panel)/store/new/page.tsx:109
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:406
 msgid "Digital"
-msgstr "Digital"
+msgstr "Numérique"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:110
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:407
 msgid "Subscription"
-msgstr "Subscription"
+msgstr "Abonnement"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:114
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:419
 msgid "Short Description"
-msgstr "Short Description"
+msgstr "Brève description"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:126
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:430
 msgid "Pricing"
-msgstr "Pricing"
+msgstr "Tarifs"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:129
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:433
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:597
 msgid "Price (EUR)"
-msgstr "Price (EUR)"
+msgstr "Prix (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:139
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:443
 msgid "Compare Price (EUR)"
-msgstr "Compare Price (EUR)"
+msgstr "Comparer les prix (EUR)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:146
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:450
 msgid "Original price for discount display"
-msgstr "Original price for discount display"
+msgstr "Prix d'origine pour les articles en promotion"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:150
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:454
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:548
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:593
 msgid "SKU"
-msgstr "SKU"
+msgstr "Référence"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:154
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:458
 msgid "Tax Class"
-msgstr "Tax Class"
+msgstr "Catégorie fiscale"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:156
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:460
@@ -2558,112 +2542,112 @@ msgstr "Standard"
 #: src/app/dashboard/(panel)/store/new/page.tsx:157
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:461
 msgid "Reduced"
-msgstr "Reduced"
+msgstr "En promotion"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:158
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:462
 msgid "Zero"
-msgstr "Zero"
+msgstr "Zéro"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:166
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:469
 msgid "Inventory & Shipping"
-msgstr "Inventory & Shipping"
+msgstr "Stock et expédition"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:171
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:474
 msgid "Track Inventory"
-msgstr "Track Inventory"
+msgstr "Suivi des stocks"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:175
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:478
 msgid "Stock Quantity"
-msgstr "Stock Quantity"
+msgstr "Quantité en stock"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:179
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:482
 msgid "Weight (grams)"
-msgstr "Weight (grams)"
+msgstr "Poids (grammes)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:185
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:488
 msgid "Requires Shipping"
-msgstr "Requires Shipping"
+msgstr "Expédition obligatoire"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:193
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:495
 msgid "Media & SEO"
-msgstr "Media & SEO"
+msgstr "Médias et référencement naturel (SEO)"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:196
 msgid "Featured Image URL"
-msgstr "Featured Image URL"
+msgstr "URL de l'image en vedette"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:200
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:505
 msgid "Meta Title"
-msgstr "Meta Title"
+msgstr "Titre Meta"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:204
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:509
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "Méta-description"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:213
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:517
 msgid "Digital Product"
-msgstr "Digital Product"
+msgstr "Produit numérique"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:216
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:520
 msgid "File URL"
-msgstr "File URL"
+msgstr "URL du fichier"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:220
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:525
 msgid "Download Limit"
-msgstr "Download Limit"
+msgstr "Limite de téléchargement"
 
 #: src/app/dashboard/(panel)/store/new/page.tsx:221
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:526
 msgid "Unlimited"
-msgstr "Unlimited"
+msgstr "Illimité"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:82
 msgid "Orders"
-msgstr "Orders"
+msgstr "Commandes"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:113
 msgid "Search by order number..."
-msgstr "Search by order number..."
+msgstr "Recherche par numéro de commande..."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:156
 msgid "No orders"
-msgstr "No orders"
+msgstr "Aucune commande"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders match your search."
-msgstr "No orders match your search."
+msgstr "Aucune commande ne correspond à votre recherche."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:158
 msgid "No orders yet."
-msgstr "No orders yet."
+msgstr "Aucune commande pour l'instant."
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:165
 msgid "Order #"
-msgstr "Order #"
+msgstr "Numéro de commande :"
 
 #: src/app/dashboard/(panel)/store/orders/page.tsx:199
 msgid "View"
-msgstr "View"
+msgstr "Afficher"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:119
 msgid "Order not found."
-msgstr "Order not found."
+msgstr "Commande introuvable."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:138
 msgid "Select a status"
-msgstr "Select a status"
+msgstr "Sélectionnez un statut"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:160
 #: src/components/admin/CategoryForm.tsx:471
@@ -2673,159 +2657,159 @@ msgstr "Ordre"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:174
 msgid "Order Information"
-msgstr "Order Information"
+msgstr "Informations sur la commande"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:177
 msgid "Order Number"
-msgstr "Order Number"
+msgstr "Numéro de commande"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:185
 msgid "Payment"
-msgstr "Payment"
+msgstr "Paiement"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:192
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "Facture"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:198
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr "Sous-total"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:202
 msgid "Shipping"
-msgstr "Shipping"
+msgstr "Livraison"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:206
 msgid "Tax"
-msgstr "Tax"
+msgstr "Fiscalité"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:216
 msgid "Discount"
-msgstr "Discount"
+msgstr "Réduction"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:222
 msgid "Tracking"
-msgstr "Tracking"
+msgstr "Suivi"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:231
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:268
 msgid "Update Status"
-msgstr "Update Status"
+msgstr "Mettre à jour le statut"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:234
 msgid "New Status"
-msgstr "New Status"
+msgstr "Nouveau statut"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:236
 msgid "Select status..."
-msgstr "Select status..."
+msgstr "Sélectionnez un statut..."
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:237
 msgid "Processing"
-msgstr "Processing"
+msgstr "Traitement"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:238
 msgid "Shipped"
-msgstr "Shipped"
+msgstr "Expédié"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:239
 msgid "Delivered"
-msgstr "Delivered"
+msgstr "Livré"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:240
 msgid "Cancelled"
-msgstr "Cancelled"
+msgstr "Annulé"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:241
 msgid "Refunded"
-msgstr "Refunded"
+msgstr "Remboursé"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:245
 msgid "Note (optional)"
-msgstr "Note (optional)"
+msgstr "Remarque (facultative)"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:246
 msgid "Internal note..."
-msgstr "Internal note..."
+msgstr "Note interne…"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:251
 msgid "Tracking Number"
-msgstr "Tracking Number"
+msgstr "Numéro de suivi"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:255
 msgid "Tracking URL"
-msgstr "Tracking URL"
+msgstr "URL de suivi"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:276
 msgid "Order Items"
-msgstr "Order Items"
+msgstr "Articles de la commande"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:281
 msgid "Product"
-msgstr "Product"
+msgstr "Produit"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:282
 msgid "Variant"
-msgstr "Variant"
+msgstr "Variante"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:283
 msgid "Qty"
-msgstr "Qty"
+msgstr "Quantité"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:284
 msgid "Unit Price"
-msgstr "Unit Price"
+msgstr "Prix unitaire"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:307
 msgid "Timeline"
-msgstr "Timeline"
+msgstr "Chronologie"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:323
 msgid "by"
-msgstr "by"
+msgstr "par"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:340
 msgid "Admin Note"
-msgstr "Admin Note"
+msgstr "Note de l'administrateur"
 
 #: src/app/dashboard/(panel)/store/orders/[id]/page.tsx:348
 msgid "Customer Note"
-msgstr "Customer Note"
+msgstr "Remarque du client"
 
 #: src/app/dashboard/(panel)/store/page.tsx:69
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:217
 msgid "Product deleted"
-msgstr "Product deleted"
+msgstr "Produit supprimé"
 
 #: src/app/dashboard/(panel)/store/page.tsx:88
 msgid "Store Products"
-msgstr "Store Products"
+msgstr "Produits en magasin"
 
 #: src/app/dashboard/(panel)/store/page.tsx:91
 #: src/app/dashboard/(panel)/store/page.tsx:165
 msgid "Add Product"
-msgstr "Add Product"
+msgstr "Ajouter un produit"
 
 #: src/app/dashboard/(panel)/store/page.tsx:123
 msgid "Search products..."
-msgstr "Search products..."
+msgstr "Rechercher des produits..."
 
 #: src/app/dashboard/(panel)/store/page.tsx:158
 msgid "No products"
-msgstr "No products"
+msgstr "Aucun produit"
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "No products match your search."
-msgstr "No products match your search."
+msgstr "Aucun produit ne correspond à votre recherche."
 
 #: src/app/dashboard/(panel)/store/page.tsx:160
 msgid "Create your first product to get started."
-msgstr "Create your first product to get started."
+msgstr "Créez votre premier produit pour vous lancer."
 
 #: src/app/dashboard/(panel)/store/page.tsx:176
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:549
 msgid "Price"
-msgstr "Price"
+msgstr "Prix"
 
 #: src/app/dashboard/(panel)/store/page.tsx:178
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:550
@@ -2836,35 +2820,35 @@ msgstr "Stock"
 #: src/app/dashboard/(panel)/store/page.tsx:279
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:630
 msgid "Delete product?"
-msgstr "Delete product?"
+msgstr "Supprimer le produit ?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:209
 msgid "Product saved"
-msgstr "Product saved"
+msgstr "Produit enregistré"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:225
 msgid "Variant added"
-msgstr "Variant added"
+msgstr "Ajout d'une variante"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:235
 msgid "Variant deleted"
-msgstr "Variant deleted"
+msgstr "Variante supprimée"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:297
 msgid "Price cannot be negative"
-msgstr "Price cannot be negative"
+msgstr "Le prix ne peut pas être négatif"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:298
 msgid "File URL is required for digital products"
-msgstr "File URL is required for digital products"
+msgstr "L'URL du fichier est obligatoire pour les produits numériques"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:329
 msgid "Variant name is required"
-msgstr "Variant name is required"
+msgstr "Le nom de la variante est obligatoire"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:354
 msgid "Edit Product"
-msgstr "Edit Product"
+msgstr "Modifier le produit"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:498
 #: src/components/admin/PortfolioForm.tsx:531
@@ -2873,43 +2857,43 @@ msgstr "Image mise en avant"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:534
 msgid "Variants"
-msgstr "Variants"
+msgstr "Variantes"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:538
 msgid "Add Variant"
-msgstr "Add Variant"
+msgstr "Ajouter une variante"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:579
 msgid "No variants yet. Add variants to offer different options."
-msgstr "No variants yet. Add variants to offer different options."
+msgstr "Il n'y a pas encore de variantes. Ajoutez des variantes pour proposer différentes options."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:586
 msgid "New Variant"
-msgstr "New Variant"
+msgstr "Nouvelle variante"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:590
 msgid "e.g. Large / Red"
-msgstr "e.g. Large / Red"
+msgstr "par ex. Grand / Rouge"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:611
 msgid "Weight (g)"
-msgstr "Weight (g)"
+msgstr "Poids (g)"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:619
 msgid "Add"
-msgstr "Add"
+msgstr "Ajouter"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:641
 msgid "Delete variant?"
-msgstr "Delete variant?"
+msgstr "Supprimer la variante ?"
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:642
 msgid "This variant will be permanently removed."
-msgstr "This variant will be permanently removed."
+msgstr "Cette variante sera supprimée définitivement."
 
 #: src/app/dashboard/(panel)/store/[id]/page.tsx:677
 msgid "Product not found."
-msgstr "Product not found."
+msgstr "Produit introuvable."
 
 #: src/app/dashboard/(panel)/users/page.tsx:80
 msgid "Role updated"
@@ -3133,13 +3117,13 @@ msgstr "Description de la catégorie..."
 #: src/components/admin/PortfolioForm.tsx:490
 #: src/components/admin/ShowcaseForm.tsx:493
 msgid "SEO"
-msgstr "SEO"
+msgstr "Référencement naturel (SEO)"
 
 #: src/components/admin/CategoryForm.tsx:444
 #: src/components/admin/PortfolioForm.tsx:548
 #: src/components/admin/ShowcaseForm.tsx:611
 msgid "Tags"
-msgstr "Tags"
+msgstr "Mots-clés"
 
 #: src/components/admin/CategoryForm.tsx:503
 #: src/components/admin/PortfolioForm.tsx:596
@@ -3201,12 +3185,6 @@ msgstr "Supprimé définitivement"
 #: src/components/admin/CmsListView.tsx:305
 msgid "Duplicated"
 msgstr "Dupliqué"
-
-#: src/components/admin/CmsListView.tsx:366
-msgid "Exported 1 item"
-msgid_plural "Exported {count} items"
-msgstr[0] "Exported 1 item"
-msgstr[1] "Exported {count} items"
 
 #: src/components/admin/CmsListView.tsx:569
 msgid "Toggle columns"
@@ -3286,23 +3264,11 @@ msgstr "Déplacer dans la corbeille ?"
 
 #: src/components/admin/CmsListView.tsx:988
 msgid "\"{title}\" will be permanently deleted. This cannot be undone."
-msgstr "\"{title}\" will be permanently deleted. This cannot be undone."
+msgstr "« {title} » va être définitivement supprimé. Cette action ne peut pas être annulée."
 
 #: src/components/admin/CmsListView.tsx:989
 msgid "\"{title}\" will be moved to trash."
-msgstr "\"{title}\" will be moved to trash."
-
-#: src/components/admin/CmsListView.tsx:1001
-msgid "1 item will be moved to trash."
-msgid_plural "{count} items will be moved to trash."
-msgstr[0] "1 item will be moved to trash."
-msgstr[1] "{count} items will be moved to trash."
-
-#: src/components/admin/CmsListView.tsx:1018
-msgid "Created 1 SEO override"
-msgid_plural "Created {count} SEO overrides"
-msgstr[0] "Created 1 SEO override"
-msgstr[1] "Created {count} SEO overrides"
+msgstr "« {title} » sera déplacé vers la corbeille."
 
 #: src/components/admin/CmsListView.tsx:1022
 msgid "All SEO overrides already exist"
@@ -3539,7 +3505,7 @@ msgstr "Tags principaux"
 
 #: src/components/admin/TaxonomyOverview.tsx:73
 msgid "Tag"
-msgstr "Tag"
+msgstr "Balise"
 
 #: src/components/admin/TaxonomyOverview.tsx:74
 msgid "Posts"

@@ -10,7 +10,7 @@ noindex: false
 
 ### ¿Qué es %SITE_NAME%?
 
-%SITE_NAME% es un CMS y starter SaaS de código abierto impulsado por agentes de IA, construido sobre el T3 Stack (Next.js, tRPC, Drizzle ORM, Better Auth). Proporciona un sistema de gestión de contenidos completo con primitivas SaaS como organizaciones, facturación y notificaciones en tiempo real.
+%SITE_NAME% es un CMS y starter SaaS de código abierto nativo para agentes, construido sobre el T3 Stack (Next.js, tRPC, Drizzle ORM, Better Auth). Proporciona un sistema de gestión de contenidos completo con primitivas SaaS como organizaciones, facturación y notificaciones en tiempo real.
 
 ### ¿Para quién está diseñado %SITE_NAME%?
 

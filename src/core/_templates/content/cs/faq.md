@@ -10,7 +10,7 @@ noindex: false
 
 ### Co je %SITE_NAME%?
 
-%SITE_NAME% je open-source, agentově řízený CMS a SaaS starter postavený na T3 Stacku (Next.js, tRPC, Drizzle ORM, Better Auth). Poskytuje kompletní systém pro správu obsahu s SaaS prvky, jako jsou organizace, fakturace a upozornění v reálném čase.
+%SITE_NAME% je open-source, agentově nativní CMS a SaaS starter postavený na T3 Stacku (Next.js, tRPC, Drizzle ORM, Better Auth). Poskytuje kompletní systém pro správu obsahu s SaaS prvky, jako jsou organizace, fakturace a upozornění v reálném čase.
 
 ### Pro koho je %SITE_NAME% určen?
 

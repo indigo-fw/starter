@@ -10,7 +10,7 @@ noindex: false
 
 ### %SITE_NAME% nedir?
 
-%SITE_NAME%, T3 Stack (Next.js, tRPC, Drizzle ORM, Better Auth) üzerine inşa edilmiş açık kaynaklı, yapay zeka ajan odaklı bir CMS ve SaaS başlangıç paketidir. Organizasyonlar, faturalandırma ve gerçek zamanlı bildirimler gibi SaaS bileşenleriyle birlikte eksiksiz bir içerik yönetim sistemi sunar.
+%SITE_NAME%, T3 Stack (Next.js, tRPC, Drizzle ORM, Better Auth) üzerine inşa edilmiş açık kaynaklı, agent-native bir CMS ve SaaS başlangıç paketidir. Organizasyonlar, faturalandırma ve gerçek zamanlı bildirimler gibi SaaS bileşenleriyle birlikte eksiksiz bir içerik yönetim sistemi sunar.
 
 ### %SITE_NAME% kimin için tasarlanmıştır?
 

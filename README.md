@@ -1,6 +1,6 @@
 # Indigo
 
-**Describe your SaaS. Your agent ships it.** Indigo is the open-source Next.js SaaS framework built for coding agents — auth, billing, CMS, i18n, real-time and modular architecture pre-wired. The agent adds what you describe, verifies its own work as a real user, and improves the product pass after pass — a self-improving loop on rails.
+**Describe what you want. Your agent ships it.** Indigo is the open-source Next.js foundation for agent-built projects — anything from a static site to a full SaaS. Auth, billing, CMS, i18n, real-time and modular architecture come pre-wired; the agent shapes the install to your description — trims the modules you don't need, adds the ones you ask for — and loops until it's verifiably done: describe → build → verify → improve, on rails.
 
 Every pass of the loop is covered: the agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded personas to use the app as a free, pro or admin user). Iterations stay cheap — pointer-first docs and generated maps mean orientation costs hundreds of tokens, not a session. You describe, review and decide; the code stays typed, tested and yours.
 
@@ -279,6 +279,8 @@ Indigo is built for one workflow — a coding agent improving your product in a 
 4. **Improve** — failures feed the next pass automatically. Green means done — or the next thing you describe.
 
 Nothing blocks the loop: setup, module installs, migrations and checks run through non-interactive CLIs, and the agent asks its questions in chat. Iterations stay cheap: pointer-first docs, `indigo map` and module-scoped context mean the token budget goes into your feature, not into rediscovering the codebase.
+
+This is what makes goal-driven runs — `/loop`-style: describe the end state, let the agent work until it's true — practical instead of reckless. On Indigo, "done" is machine-checkable: checks green, seeded personas completing the journeys. See the [Improvement Loop guide](https://indigo-fw.dev/docs/guides/improvement-loop) for running the cycle on a schedule.
 
 ## License
 

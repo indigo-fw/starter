@@ -1,0 +1,4373 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: indigo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-06T22:01:39.153Z\n"
+"PO-Revision-Date: 2026-07-06T22:01:39.153Z\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: sk\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+#: src/app/(public)/account/orders/[id]/page.tsx:19
+msgid "Order Details"
+msgstr "Podrobnosti objednávky"
+
+#: src/app/(public)/account/page.tsx:23
+msgid "Welcome"
+msgstr "Vitajte"
+
+#: src/app/(public)/account/page.tsx:23
+msgid "there"
+msgstr "tam"
+
+#: src/app/(public)/account/page.tsx:31
+msgid "Account Overview"
+msgstr "Prehľad účtu"
+
+#: src/app/(public)/account/page.tsx:51
+msgid "Profile Settings"
+msgstr "Nastavenia profilu"
+
+#: src/app/(public)/account/page.tsx:52
+msgid "Update your name and profile information."
+msgstr "Aktualizujte svoje meno a údaje v profile."
+
+#: src/app/(public)/account/page.tsx:55
+#: src/components/public/AccountNav.tsx:14
+#: src/components/public/UserMenu.tsx:112
+msgid "Security"
+msgstr "Bezpečnosť"
+
+#: src/app/(public)/account/page.tsx:56
+msgid "Change your password and manage sessions."
+msgstr "Zmeňte si heslo a spravujte svoje relácie."
+
+#: src/app/(public)/account/page.tsx:59
+#: src/components/public/AccountNav.tsx:15
+#: src/components/public/UserMenu.tsx:120
+msgid "Billing"
+msgstr "Fakturácia"
+
+#: src/app/(public)/account/page.tsx:60
+msgid "Manage your subscription and payment methods."
+msgstr "Spravujte svoje predplatné a spôsoby platby."
+
+#: src/app/(public)/account/page.tsx:63
+#: src/components/public/AccountNav.tsx:19
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:348
+msgid "Support"
+msgstr "Podpora"
+
+#: src/app/(public)/account/page.tsx:64
+msgid "View your support tickets or create a new one."
+msgstr "Zobraziť svoje žiadosti o podporu alebo vytvoriť novú."
+
+#: src/app/(public)/account/support/page.tsx:14
+#: src/app/(public)/account/support/[id]/page.tsx:33
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:14
+#: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:33
+msgctxt "General"
+msgid "Open"
+msgstr "Otvoriť"
+
+#: src/app/(public)/account/support/page.tsx:15
+#: src/app/(public)/account/support/[id]/page.tsx:34
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:15
+#: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:34
+msgctxt "General"
+msgid "Awaiting You"
+msgstr "Čakáme na vás"
+
+#: src/app/(public)/account/support/page.tsx:16
+#: src/app/(public)/account/support/[id]/page.tsx:35
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:16
+#: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:35
+msgctxt "General"
+msgid "Awaiting Staff"
+msgstr "Čaká sa na zamestnancov"
+
+#: src/app/(public)/account/support/page.tsx:17
+#: src/app/(public)/account/support/[id]/page.tsx:36
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:17
+#: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:36
+msgctxt "General"
+msgid "Resolved"
+msgstr "Uznesenie"
+
+#: src/app/(public)/account/support/page.tsx:18
+#: src/app/(public)/account/support/[id]/page.tsx:37
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:18
+#: src/core-support/_templates/app/(public)/account/support/[id]/page.tsx:37
+msgctxt "General"
+msgid "Closed"
+msgstr "Zatvorené"
+
+#: src/app/(public)/account/support/page.tsx:30
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:30
+msgctxt "General"
+msgid "Low"
+msgstr "Nízka"
+
+#: src/app/(public)/account/support/page.tsx:31
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:31
+msgctxt "General"
+msgid "Normal"
+msgstr "Normálne"
+
+#: src/app/(public)/account/support/page.tsx:32
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:32
+msgctxt "General"
+msgid "High"
+msgstr "Vysoká"
+
+#: src/app/(public)/account/support/page.tsx:33
+#: src/core-support/_templates/app/(public)/account/support/page.tsx:33
+msgctxt "General"
+msgid "Urgent"
+msgstr "Naliehavé"
+
+#: src/app/(public)/blog/page.tsx:28
+#: src/app/(public)/blog/page.tsx:70
+#: src/app/(public)/layout.tsx:93
+#: src/app/(public)/layout.tsx:158
+#: src/app/(public)/layout.tsx:244
+#: src/app/(showcase)/layout.tsx:53
+#: src/app/(showcase)/layout.tsx:75
+msgid "Blog"
+msgstr "Blog"
+
+#: src/app/(public)/blog/page.tsx:31
+#: src/core/components/dashboard/GA4Widget.tsx:296
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:290
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:109
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:310
+#: src/core-store/_templates/app/(public)/store/client.tsx:356
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:396
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:376
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:306
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:213
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:178
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:314
+msgid "Page"
+msgstr "Stránka"
+
+#: src/app/(public)/blog/page.tsx:36
+msgid "Latest blog posts"
+msgstr "Najnovšie príspevky na blogu"
+
+#: src/app/(public)/blog/page.tsx:94
+#: src/app/(public)/store/page.tsx:170
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:102
+#: src/core/components/media/MediaPickerDialog.tsx:374
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:106
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:105
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:75
+#: src/core-store/_templates/app/(public)/store/client.tsx:353
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:182
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:158
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:175
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:311
+msgid "Previous"
+msgstr "Predchádzajúce"
+
+#: src/app/(public)/blog/page.tsx:98
+#: src/app/(public)/store/page.tsx:174
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:108
+msgid "Page {page} of {totalPages}"
+msgstr "Stránka {page} z {totalPages}"
+
+#: src/app/(public)/blog/page.tsx:105
+#: src/app/(public)/store/page.tsx:186
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:115
+#: src/core/components/media/MediaPickerDialog.tsx:386
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:116
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:108
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:78
+#: src/core-store/_templates/app/(public)/store/client.tsx:369
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:189
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:165
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:185
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:321
+msgid "Next"
+msgstr "Ďalej"
+
+#: src/app/(public)/blog/page.tsx:112
+msgid "No blog posts yet."
+msgstr "Zatiaľ tu nie sú žiadne príspevky na blogu."
+
+#: src/app/(public)/cart/page.tsx:13
+msgid "Cart"
+msgstr "Košík"
+
+#: src/app/(public)/cart/page.tsx:14
+msgid "Your shopping cart"
+msgstr "Váš nákupný košík"
+
+#: src/app/(public)/cart/page.tsx:23
+msgid "Shopping Cart"
+msgstr "Nákupný košík"
+
+#: src/app/(public)/characters/page.tsx:13
+msgid "AI Characters"
+msgstr "Postavy vytvorené umelou inteligenciou"
+
+#: src/app/(public)/characters/page.tsx:14
+msgid "Browse AI characters with unique personalities. Find your perfect companion and start chatting instantly."
+msgstr "Prezrite si postavy s umelou inteligenciou, ktoré majú jedinečné osobnosti. Nájdite si svojho ideálneho spoločníka a začnite s ním hneď chatovať."
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:52
+msgid "This field is required"
+msgstr "Toto pole je povinné"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:86
+msgid "First Name"
+msgstr "Krstné meno"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:91
+msgid "Last Name"
+msgstr "Priezvisko"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:97
+msgid "Company"
+msgstr "Spoločnosť"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:101
+msgid "Address"
+msgstr "Adresa"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:106
+msgid "Address line 2"
+msgstr "Adresný riadok 2"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:111
+msgid "City"
+msgstr "Mesto"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:116
+msgid "Postal Code"
+msgstr "PSČ"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:123
+msgid "Country"
+msgstr "Krajina"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:129
+msgid "Phone"
+msgstr "Telefón"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:213
+msgid "Shipping Address"
+msgstr "Doručovacia adresa"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:220
+msgid "Shipping Method"
+msgstr "Spôsob doručenia"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:233
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "days"
+msgstr "dni"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:236
+#: src/app/(public)/checkout/CheckoutForm.tsx:273
+#: src/app/(public)/page.tsx:313
+msgid "Free"
+msgstr "Zadarmo"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:245
+msgid "Order Note"
+msgstr "Poznámka k objednávke"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:249
+msgid "Any special instructions..."
+msgstr "Máte nejaké špeciálne pokyny..."
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:258
+msgid "Order Summary"
+msgstr "Prehľad objednávky"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:268
+msgid "Subtotal"
+msgstr "Medzisúčet"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:272
+msgid "Shipping"
+msgstr "Doprava"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:277
+msgid "Tax"
+msgstr "Daň"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:282
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:304
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:408
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:69
+msgid "Total"
+msgstr "Spolu"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:299
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
+msgid "Processing..."
+msgstr "Spracúva sa..."
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:301
+msgid "Place Order"
+msgstr "Objednať"
+
+#: src/app/(public)/checkout/CheckoutForm.tsx:306
+msgid "Back to Cart"
+msgstr "Späť do košíka"
+
+#: src/app/(public)/checkout/page.tsx:15
+#: src/app/(public)/checkout/page.tsx:40
+msgid "Checkout"
+msgstr "Pokladňa"
+
+#: src/app/(public)/checkout/page.tsx:16
+msgid "Complete your order"
+msgstr "Dokončite objednávku"
+
+#: src/app/(public)/docs/page.tsx:24
+#: src/app/(public)/page.tsx:346
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:24
+msgid "Documentation"
+msgstr "Dokumentácia"
+
+#: src/app/(public)/docs/page.tsx:25
+#: src/core-docs/_templates/app/(public)/docs/page.tsx:25
+msgid "No documentation pages found yet."
+msgstr "Zatiaľ neboli nájdené žiadne stránky s dokumentáciou."
+
+#: src/app/(public)/forgot-password/page.tsx:9
+#: src/app/(public)/forgot-password/page.tsx:20
+msgid "Forgot Password"
+msgstr "Zabudli ste heslo?"
+
+#: src/app/(public)/forgot-password/page.tsx:10
+msgid "Reset your password"
+msgstr "Obnoviť heslo"
+
+#: src/app/(public)/forgot-password/page.tsx:21
+msgid "Enter your email to receive a reset link."
+msgstr "Zadajte svoju e-mailovú adresu, aby ste dostali odkaz na obnovenie hesla."
+
+#: src/app/(public)/layout.tsx:38
+msgctxt "General"
+msgid "This page is available in {language}"
+msgstr "Táto stránka je k dispozícii v jazykoch{language}"
+
+#: src/app/(public)/layout.tsx:98
+#: src/app/(public)/layout.tsx:245
+#: src/app/(public)/portfolio/page.tsx:24
+#: src/app/(public)/portfolio/page.tsx:45
+#: src/app/(showcase)/layout.tsx:54
+#: src/app/(showcase)/layout.tsx:78
+msgid "Portfolio"
+msgstr "Portfólio"
+
+#: src/app/(public)/layout.tsx:99
+#: src/app/(public)/layout.tsx:170
+#: src/app/(public)/layout.tsx:246
+#: src/app/(showcase)/showcase/page.tsx:24
+msgid "Showcase"
+msgstr "Prezentácia"
+
+#: src/app/(public)/layout.tsx:100
+#: src/app/(public)/layout.tsx:173
+#: src/app/(public)/layout.tsx:247
+#: src/app/(public)/store/page.tsx:22
+#: src/app/(public)/store/page.tsx:122
+#: src/core-store/_templates/app/(public)/store/client.tsx:936
+#: src/core-store/_templates/app/(public)/store/client.tsx:1040
+#: src/core-store/_templates/app/(public)/store/page.tsx:9
+#: src/core-store/_templates/app/(public)/store/page.tsx:12
+msgid "Store"
+msgstr "Obchod"
+
+#: src/app/(public)/layout.tsx:101
+#: src/app/(public)/layout.tsx:182
+#: src/app/(public)/layout.tsx:248
+#: src/app/(public)/search/page.tsx:20
+#: src/app/(showcase)/showcase/search/page.tsx:66
+#: src/components/public/BlogSidebar.tsx:78
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:181
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:174
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:284
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:251
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:156
+msgid "Search"
+msgstr "Vyhľadávanie"
+
+#: src/app/(public)/layout.tsx:138
+msgid "Blog RSS"
+msgstr "RSS kanál blogu"
+
+#: src/app/(public)/layout.tsx:228
+#: src/components/public/BlogSidebar.tsx:92
+#: src/core-store/_templates/app/(public)/store/client.tsx:512
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:721
+msgid "Categories"
+msgstr "Kategórie"
+
+#: src/app/(public)/layout.tsx:243
+msgid "Quick Links"
+msgstr "Rýchle odkazy"
+
+#: src/app/(public)/layout.tsx:253
+msgid "More"
+msgstr "Viac"
+
+#: src/app/(public)/layout.tsx:256
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:58
+msgid "RSS Feed"
+msgstr "RSS kanál"
+
+#: src/app/(public)/layout.tsx:258
+msgid "Admin"
+msgstr "Správca"
+
+#: src/app/(public)/layout.tsx:265
+msgid "Powered by Indigo"
+msgstr "Vytvorené spoločnosťou Indigo"
+
+#: src/app/(public)/login/page.tsx:9
+#: src/app/(public)/login/page.tsx:27
+#: src/components/public/AuthDialogs.tsx:24
+#: src/components/public/UserMenu.tsx:40
+msgid "Sign In"
+msgstr "Prihlásiť sa"
+
+#: src/app/(public)/login/page.tsx:10
+msgid "Sign in to your account"
+msgstr "Prihláste sa do svojho účtu"
+
+#: src/app/(public)/login/page.tsx:28
+msgid "Welcome back! Sign in to your account."
+msgstr "Vitajte späť! Prihláste sa do svojho účtu."
+
+#: src/app/(public)/page.tsx:54
+#: src/app/(public)/page.tsx:171
+msgid "Browse Characters"
+msgstr "Prehliadať postavy"
+
+#: src/app/(public)/page.tsx:55
+msgid "30 AI characters with filters, pagination, and video hover."
+msgstr "30 postáv vytvorených umelou inteligenciou s filtrami, stránkovaním a videom pri prechode kurzorom."
+
+#: src/app/(public)/page.tsx:60
+msgid "AI Chat"
+msgstr "Chat s umelou inteligenciou"
+
+#: src/app/(public)/page.tsx:61
+msgid "Real-time text chat with LLM streaming and typing animation."
+msgstr "Textový chat v reálnom čase s prenosom z veľkého jazykového modelu (LLM) a animáciou písania."
+
+#: src/app/(public)/page.tsx:67
+msgid "Image Generation"
+msgstr "Generovanie obrázkov"
+
+#: src/app/(public)/page.tsx:68
+msgid "Full keyword orchestration — type \"send me a photo\" in chat."
+msgstr "Plná integrácia kľúčových slov — napíšte do chatu „pošli mi fotku“."
+
+#: src/app/(public)/page.tsx:73
+msgid "Voice Calls"
+msgstr "Hlasové hovory"
+
+#: src/app/(public)/page.tsx:74
+msgid "Call AI characters — STT → LLM → TTS with per-minute billing."
+msgstr "Volania s postavami umelej inteligencie — STT → LLM → TTS s účtovaním za minútu."
+
+#: src/app/(public)/page.tsx:76
+msgid "New"
+msgstr "Nové"
+
+#: src/app/(public)/page.tsx:80
+#: src/app/(public)/page.tsx:177
+msgid "Admin Dashboard"
+msgstr "Administrátorský panel"
+
+#: src/app/(public)/page.tsx:81
+msgid "Content, users, settings, analytics, provider management."
+msgstr "Obsah, používatelia, nastavenia, analytika, správa poskytovateľov."
+
+#: src/app/(public)/page.tsx:86
+msgid "CMS"
+msgstr "CMS"
+
+#: src/app/(public)/page.tsx:87
+msgid "Blog, pages, portfolio, categories, tags — config-driven."
+msgstr "Blog, stránky, portfólio, kategórie, tagy — riadené nastaveniami."
+
+#: src/app/(public)/page.tsx:92
+msgid "Billing & Tokens"
+msgstr "Fakturácia a tokeny"
+
+#: src/app/(public)/page.tsx:93
+msgid "Stripe subscriptions, token balance, discount codes."
+msgstr "Predplatné cez Stripe, zostatok tokenov, zľavové kódy."
+
+#: src/app/(public)/page.tsx:98
+msgid "Organizations"
+msgstr "Organizácie"
+
+#: src/app/(public)/page.tsx:99
+msgid "Multi-tenant with roles for billing scoping."
+msgstr "Viacnájomnícka architektúra s rolami na určenie rozsahu fakturácie."
+
+#: src/app/(public)/page.tsx:104
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Moderation"
+msgstr "Moderovanie"
+
+#: src/app/(public)/page.tsx:105
+msgid "Keyword filter + audit log + auto-block."
+msgstr "Filter kľúčových slov + protokol auditu + automatické blokovanie."
+
+#: src/app/(public)/page.tsx:110
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Analytics"
+msgstr "Analytika"
+
+#: src/app/(public)/page.tsx:111
+msgid "Character stats, user activity, provider health."
+msgstr "Štatistiky postáv, aktivita používateľov, stav poskytovateľa."
+
+#: src/app/(public)/page.tsx:116
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:86
+msgid "AI Providers"
+msgstr "Poskytovatelia umelej inteligencie"
+
+#: src/app/(public)/page.tsx:117
+msgid "DB-stored with encryption, round-robin, fallback."
+msgstr "Uložené v databáze so šifrovaním, algoritmom round-robin a záložným riešením."
+
+#: src/app/(public)/page.tsx:122
+msgid "Theme & Branding"
+msgstr "Téma a branding"
+
+#: src/app/(public)/page.tsx:123
+msgid "OKLCH design tokens, dark mode, CSS variables."
+msgstr "Dizajnové tokeny OKLCH, tmavý režim, premenné CSS."
+
+#: src/app/(public)/page.tsx:134
+msgid "Live Demo — resets hourly"
+msgstr "Živá ukážka — obnovuje sa každú hodinu"
+
+#: src/app/(public)/page.tsx:142
+msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+msgstr "Kompletný SaaS rámec pre Next.js — CMS, fakturácia, autentifikácia, funkcie v reálnom čase, AI chat a modulárna architektúra."
+
+#: src/app/(public)/page.tsx:152
+msgid "Demo login"
+msgstr "Ukážkové prihlásenie"
+
+#: src/app/(public)/page.tsx:162
+msgid "Log in"
+msgstr "Prihlásiť sa"
+
+#: src/app/(public)/page.tsx:187
+msgid "Explore the Features"
+msgstr "Objavte funkcie"
+
+#: src/app/(public)/page.tsx:190
+msgid "Click any card to see it in action. Everything is live and functional."
+msgstr "Kliknite na ľubovoľnú kartu, aby ste si ju vyskúšali v akcii. Všetko je v reálnom čase a plne funkčné."
+
+#: src/app/(public)/page.tsx:217
+msgid "Explore"
+msgstr "Objavovať"
+
+#: src/app/(public)/page.tsx:230
+msgid "Built With"
+msgstr "Vytvorené s"
+
+#: src/app/(public)/page.tsx:264
+msgid "Modular Architecture"
+msgstr "Modulárna architektúra"
+
+#: src/app/(public)/page.tsx:267
+msgid "Install only what you need. Each module is a self-contained git subtree."
+msgstr "Nainštalujte si len to, čo potrebujete. Každý modul je samostatná podštruktúra repozitára Git."
+
+#: src/app/(public)/page.tsx:275
+msgid "AI character chat, image/video gen, voice calls"
+msgstr "Chat s umelou inteligenciou, generovanie obrázkov a videí, hlasové hovory"
+
+#: src/app/(public)/page.tsx:280
+msgid "Stripe subscriptions, tokens, discounts"
+msgstr "Predplatné cez Stripe, tokeny, zľavy"
+
+#: src/app/(public)/page.tsx:285
+msgid "AI support chat + ticket system"
+msgstr "Chat s podporou umelej inteligencie + systém hlásení"
+
+#: src/app/(public)/page.tsx:288
+msgid "Documentation system"
+msgstr "Systém dokumentácie"
+
+#: src/app/(public)/page.tsx:291
+msgid "E-commerce (products, cart, checkout)"
+msgstr "Elektronický obchod (produkty, nákupný košík, platba)"
+
+#: src/app/(public)/page.tsx:296
+msgid "Referral tracking, commissions"
+msgstr "Sledovanie odporúčaní, provízie"
+
+#: src/app/(public)/page.tsx:313
+msgid "Premium"
+msgstr "Prémiové"
+
+#: src/app/(public)/page.tsx:330
+msgid "Ready to build?"
+msgstr "Ste pripravení začať stavať?"
+
+#: src/app/(public)/page.tsx:333
+msgid "Clone, init, ship. It's that simple."
+msgstr "Klonovať, inicializovať, odoslať. Je to také jednoduché."
+
+#: src/app/(public)/page.tsx:340
+msgid "Clone on GitHub"
+msgstr "Klonovať na GitHub-e"
+
+#: src/app/(public)/page.tsx:350
+msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
+msgstr "Dvojitá licencia: AGPL-3.0 (open source) alebo komerčná licencia"
+
+#: src/app/(public)/portfolio/page.tsx:27
+msgid "Browse our portfolio of projects and case studies."
+msgstr "Prezrite si naše portfólio projektov a prípadových štúdií."
+
+#: src/app/(public)/portfolio/page.tsx:48
+msgid "Browse our projects and case studies."
+msgstr "Prezrite si naše projekty a prípadové štúdie."
+
+#: src/app/(public)/portfolio/page.tsx:103
+msgid "No portfolio items yet."
+msgstr "Zatiaľ tu nie sú žiadne položky v portfóliu."
+
+#: src/app/(public)/pricing/page.tsx:22
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:179
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:409
+#: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:22
+msgid "Pricing"
+msgstr "Ceny"
+
+#: src/app/(public)/pricing/page.tsx:23
+#: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:23
+msgid "Simple, transparent pricing for teams of all sizes."
+msgstr "Jednoduché a prehľadné cenové podmienky pre tímy akejkoľvek veľkosti."
+
+#: src/app/(public)/pricing/page.tsx:39
+#: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:39
+msgid "Simple, transparent pricing"
+msgstr "Jednoduché a prehľadné ceny"
+
+#: src/app/(public)/pricing/page.tsx:42
+#: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:42
+msgid "Pay as you go: buy tokens once, use them until they run out. No subscription required."
+msgstr "Platba podľa skutočného využitia: žetóny si zakúpite raz a môžete ich používať, kým sa neminú. Nie je potrebné žiadne predplatné."
+
+#: src/app/(public)/pricing/page.tsx:43
+#: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:43
+msgid "Choose the plan that fits your team. All plans include a 14-day free trial."
+msgstr "Vyberte si balík, ktorý vyhovuje vášmu tímu. Všetky balíky zahŕňajú 14-dňovú bezplatnú skúšobnú verziu."
+
+#: src/app/(public)/pricing/page.tsx:58
+#: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:58
+msgid "Get Started"
+msgstr "Začnite"
+
+#: src/app/(public)/pricing/page.tsx:70
+#: src/core-subscriptions/_templates/app/(public)/pricing/page.tsx:70
+msgid "Frequently asked questions"
+msgstr "Najčastejšie kladené otázky"
+
+#: src/app/(public)/register/page.tsx:9
+#: src/app/(public)/register/page.tsx:31
+#: src/components/public/AuthDialogs.tsx:53
+msgid "Create Account"
+msgstr "Vytvoriť účet"
+
+#: src/app/(public)/register/page.tsx:10
+msgid "Create a new account"
+msgstr "Vytvoriť nový účet"
+
+#: src/app/(public)/register/page.tsx:22
+msgid "Registration Closed"
+msgstr "Registrácia je uzavretá"
+
+#: src/app/(public)/register/page.tsx:23
+#: src/components/public/AuthDialogs.tsx:65
+msgid "Registration is currently not available. Please contact us for access."
+msgstr "Registrácia momentálne nie je k dispozícii. Ak chcete získať prístup, kontaktujte nás, prosím."
+
+#: src/app/(public)/register/page.tsx:32
+msgid "Start your journey with a free account."
+msgstr "Začnite svoju cestu s bezplatným účtom."
+
+#: src/app/(public)/reset-password/page.tsx:9
+#: src/app/(public)/reset-password/page.tsx:20
+msgid "Reset Password"
+msgstr "Obnoviť heslo"
+
+#: src/app/(public)/reset-password/page.tsx:10
+msgid "Set a new password"
+msgstr "Nastavte nové heslo"
+
+#: src/app/(public)/reset-password/page.tsx:21
+msgid "Enter your new password below."
+msgstr "Do poľa nižšie zadajte nové heslo."
+
+#: src/app/(public)/store/page.tsx:23
+msgid "Browse our products"
+msgstr "Prezrite si naše produkty"
+
+#: src/app/(public)/store/page.tsx:64
+#: src/app/(public)/store/page.tsx:98
+#: src/core-store/_templates/app/(public)/store/client.tsx:424
+msgid "Sale"
+msgstr "Výpredaj"
+
+#: src/app/(public)/store/page.tsx:65
+#: src/core-store/_templates/app/(public)/store/client.tsx:132
+#: src/core-store/_templates/app/(public)/store/client.tsx:224
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:151
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:381
+msgid "Digital"
+msgstr "Digitálny"
+
+#: src/app/(public)/store/page.tsx:66
+msgid "From variants"
+msgstr "Z variantov"
+
+#: src/app/(public)/store/page.tsx:114
+msgid "Shop Now"
+msgstr "Nakupovať teraz"
+
+#: src/app/(public)/store/page.tsx:122
+#: src/core-store/_templates/app/(public)/store/client.tsx:523
+msgid "All Products"
+msgstr "Všetky produkty"
+
+#: src/app/(public)/store/page.tsx:133
+#: src/core-api/components/ApiKeyManager.tsx:224
+#: src/core-store/_templates/app/(public)/store/client.tsx:816
+msgid "All"
+msgstr "Všetko"
+
+#: src/app/(public)/store/page.tsx:196
+#: src/core-store/_templates/app/(public)/store/client.tsx:1022
+msgid "No products found"
+msgstr "Nenašli sa žiadne produkty"
+
+#: src/app/(public)/store/page.tsx:196
+msgid "Coming soon"
+msgstr "Už čoskoro"
+
+#: src/app/(public)/store/page.tsx:199
+msgid "Try a different search term"
+msgstr "Skúste iný vyhľadávací výraz"
+
+#: src/app/(public)/store/page.tsx:199
+msgid "Check back soon for new products"
+msgstr "Sledujte nás, čoskoro prinesieme nové produkty"
+
+#: src/app/(public)/[...slug]/renderers/CategoryDetail.tsx:44
+msgid "Posts in this category"
+msgstr "Príspevky v tejto kategórii"
+
+#: src/app/(public)/[...slug]/renderers/PortfolioDetail.tsx:23
+#: src/app/(public)/[...slug]/renderers/PostDetail.tsx:57
+#: src/app/(public)/[...slug]/renderers/ShowcaseDetail.tsx:24
+msgid "Preview mode — this content is not yet published."
+msgstr "Režim náhľadu — tento obsah ešte nie je zverejnený."
+
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:53
+msgid "Tag"
+msgstr "Štítok"
+
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:124
+msgid "No content found with this tag."
+msgstr "Nenašiel sa žiadny obsah s touto značkou."
+
+#: src/app/(public)/[...slug]/renderers/TagDetail.tsx:130
+msgid "Browse More Tags"
+msgstr "Prezrieť ďalšie tagy"
+
+#: src/app/(showcase)/layout.tsx:51
+msgid "Home"
+msgstr "Domov"
+
+#: src/app/(showcase)/layout.tsx:52
+#: src/app/(showcase)/layout.tsx:72
+msgid "Feed"
+msgstr "Krmivo"
+
+#: src/app/(showcase)/showcase/page.tsx:27
+msgid "Explore our showcase — swipe through videos, images, and stories."
+msgstr "Prezrite si našu galériu — prechádzajte videá, obrázky a príbehy."
+
+#: src/app/(showcase)/showcase/search/page.tsx:66
+msgid "Results for \"{query}\""
+msgstr "Výsledky pre „{query}“"
+
+#: src/app/(showcase)/showcase/search/page.tsx:70
+msgid "No results found for \"{query}\""
+msgstr "Nenašli sa žiadne výsledky pre „{query}“"
+
+#: src/app/(showcase)/showcase/search/page.tsx:96
+msgid "Use the search bar above or press"
+msgstr "Použite vyhľadávací riadok hore alebo stlačte"
+
+#: src/app/(showcase)/showcase/search/page.tsx:96
+msgid "to search."
+msgstr "vyhľadať."
+
+#: src/app/not-found.tsx:17
+msgid "Page not found"
+msgstr "Stránka nebola nájdená"
+
+#: src/app/not-found.tsx:19
+msgid "The page you're looking for doesn't exist or has been moved."
+msgstr "Stránka, ktorú hľadáte, neexistuje alebo bola presunutá."
+
+#: src/app/not-found.tsx:27
+msgid "Go Home"
+msgstr "Vráť sa domov"
+
+#: src/app/not-found.tsx:33
+msgid "Browse Blog"
+msgstr "Prehliadať blog"
+
+#: src/components/public/AccountNav.tsx:12
+msgid "Overview"
+msgstr "Prehľad"
+
+#: src/components/public/AccountNav.tsx:13
+#: src/components/public/UserMenu.tsx:104
+msgid "Settings"
+msgstr "Nastavenia"
+
+#: src/components/public/AccountNav.tsx:16
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:160
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:96
+msgid "Orders"
+msgstr "Objednávky"
+
+#: src/components/public/AccountNav.tsx:17
+msgid "Wishlist"
+msgstr "Zoznam želaní"
+
+#: src/components/public/AccountNav.tsx:18
+msgid "Addresses"
+msgstr "Adresy"
+
+#: src/components/public/AccountNav.tsx:20
+#: src/core-affiliates/components/AffiliateOverview.tsx:23
+#: src/core-affiliates/components/AffiliateOverview.tsx:36
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:27
+msgid "Affiliates"
+msgstr "Partneri"
+
+#: src/components/public/BlogSidebar.tsx:83
+msgid "Search posts..."
+msgstr "Vyhľadávať príspevky..."
+
+#: src/components/public/BlogSidebar.tsx:113
+msgid "Tags"
+msgstr "Tagy"
+
+#: src/components/public/CommentPanel.tsx:121
+msgid "Reply"
+msgstr "Odpovedať"
+
+#: src/components/public/CommentPanel.tsx:129
+#: src/core/components/media/MediaPickerDialog.tsx:490
+#: src/core/components/media/MediaPickerDialog.tsx:527
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:89
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:94
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:22
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:69
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:293
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:338
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:93
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:246
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:376
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:289
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:335
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:197
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:329
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:634
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:846
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:857
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:320
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:337
+msgid "Delete"
+msgstr "Odstrániť"
+
+#: src/components/public/CommentPanel.tsx:142
+msgid "Reply..."
+msgstr "Odpovedať..."
+
+#: src/components/public/CommentPanel.tsx:295
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:115
+msgid "Comments"
+msgstr "Komentáre"
+
+#: src/components/public/CommentPanel.tsx:313
+msgid "No comments yet. Be the first!"
+msgstr "Zatiaľ žiadne komentáre. Buďte prvý!"
+
+#: src/components/public/CommentPanel.tsx:344
+msgid "Add a comment..."
+msgstr "Pridať komentár..."
+
+#: src/components/public/CommentPanel.tsx:363
+msgid "Sign in"
+msgstr "Prihlásiť sa"
+
+#: src/components/public/CommentPanel.tsx:365
+msgid "to comment"
+msgstr "pridať komentár"
+
+#: src/components/public/ContactForm.tsx:75
+msgid "Network error. Please try again."
+msgstr "Chyba siete. Skúste to prosím znova."
+
+#: src/components/public/ContactForm.tsx:140
+msgid "Select..."
+msgstr "Vyberte..."
+
+#: src/components/public/ContactForm.tsx:217
+msgid "Submitting..."
+msgstr "Odosielam..."
+
+#: src/components/public/ContactForm.tsx:220
+msgid "Submit"
+msgstr "Odoslať"
+
+#: src/components/public/CreateOrgCard.tsx:39
+msgid "Create your organization"
+msgstr "Vytvorte si svoju organizáciu"
+
+#: src/components/public/CreateOrgCard.tsx:41
+msgid "Get started by creating an organization. You can invite team members later."
+msgstr "Začnite vytvorením organizácie. Členov tímu môžete pozvať neskôr."
+
+#: src/components/public/CreateOrgCard.tsx:47
+msgid "Organization name"
+msgstr "Názov organizácie"
+
+#: src/components/public/CreateOrgCard.tsx:54
+msgid "My Company"
+msgstr "Moja spoločnosť"
+
+#: src/components/public/CreateOrgCard.tsx:71
+#: src/core-api/components/ApiKeyManager.tsx:122
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
+msgid "Creating..."
+msgstr "Vytváranie..."
+
+#: src/components/public/CreateOrgCard.tsx:71
+msgid "Create Organization"
+msgstr "Vytvoriť organizáciu"
+
+#: src/components/public/ExpandableSearch.tsx:72
+msgid "Search (/)"
+msgstr "Vyhľadávanie (/)"
+
+#: src/components/public/ExpandableSearch.tsx:91
+#: src/components/public/ExpandableSearch.tsx:111
+msgid "Search..."
+msgstr "Vyhľadávať..."
+
+#: src/components/public/ShowcaseActionBar.tsx:93
+msgid "Sign in to react"
+msgstr "Prihláste sa, aby ste mohli reagovať"
+
+#: src/components/public/ShowcaseActionBar.tsx:105
+msgid "Link copied"
+msgstr "Odkaz bol skopírovaný"
+
+#: src/components/public/ShowcaseFeed.tsx:243
+msgid "No showcase items yet."
+msgstr "Zatiaľ tu nie sú žiadne vystavené položky."
+
+#: src/components/public/SocialLoginButtons.tsx:30
+msgid "Continue with Google"
+msgstr "Pokračovať cez Google"
+
+#: src/components/public/SocialLoginButtons.tsx:41
+msgid "Continue with Discord"
+msgstr "Pokračovať cez Discord"
+
+#: src/components/public/SubscribeOrTokens.tsx:46
+msgid "Subscribe"
+msgstr "Prihlásiť sa k odberu"
+
+#: src/components/public/TokenPackCard.tsx:40
+#: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:40
+msgid "Most popular"
+msgstr "Najpopulárnejšie"
+
+#: src/components/public/TokenPackCard.tsx:46
+#: src/core-subscriptions/_templates/components/public/TokenPackCard.tsx:46
+msgid "tokens"
+msgstr "žetóny"
+
+#: src/components/public/UserMenu.tsx:46
+msgid "Sign Up"
+msgstr "Zaregistrovať sa"
+
+#: src/components/public/UserMenu.tsx:96
+msgid "Account"
+msgstr "Účet"
+
+#: src/components/public/UserMenu.tsx:129
+msgid "Sign Out"
+msgstr "Odhlásiť sa"
+
+#: src/core/components/cms/AutosaveIndicator.tsx:39
+msgid "Autosaved"
+msgstr "Automaticky uložené"
+
+#: src/core/components/cms/AutosaveRecoveryBanner.tsx:36
+msgid "Unsaved changes recovered from"
+msgstr "Neuložené zmeny obnovené z"
+
+#: src/core/components/cms/AutosaveRecoveryBanner.tsx:44
+#: src/core/components/cms/BulkActionBar.tsx:62
+#: src/core/components/cms/RevisionHistory.tsx:219
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:127
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:151
+msgid "Restore"
+msgstr "Obnoviť"
+
+#: src/core/components/cms/BrokenLinksBanner.tsx:23
+msgid "Broken internal links detected:"
+msgstr "Zistené nefunkčné vnútorné odkazy:"
+
+#: src/core/components/cms/BulkActionBar.tsx:50
+msgid "Deselect all"
+msgstr "Zrušiť výber všetkých"
+
+#: src/core/components/cms/BulkActionBar.tsx:77
+msgid "Set status..."
+msgstr "Nastaviť stav..."
+
+#: src/core/components/cms/BulkActionBar.tsx:79
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:366
+msgid "Draft"
+msgstr "Návrh"
+
+#: src/core/components/cms/BulkActionBar.tsx:80
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:367
+msgid "Published"
+msgstr "Zverejnené"
+
+#: src/core/components/cms/BulkActionBar.tsx:91
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
+msgid "Export"
+msgstr "Export"
+
+#: src/core/components/cms/BulkActionBar.tsx:118
+msgid "Move to Trash"
+msgstr "Presunúť do koša"
+
+#: src/core/components/cms/ContentCalendar.tsx:89
+msgid "Calendar"
+msgstr "Kalendár"
+
+#: src/core/components/cms/ContentCalendar.tsx:167
+msgid "more"
+msgstr "viac"
+
+#: src/core/components/cms/CustomFieldsEditor.tsx:109
+msgid "Loading custom fields..."
+msgstr "Načítavanie vlastných polí..."
+
+#: src/core/components/cms/CustomFieldsEditor.tsx:121
+msgid "Custom Fields"
+msgstr "Vlastné polia"
+
+#: src/core/components/cms/CustomFieldsEditor.tsx:142
+msgid "Saving custom fields..."
+msgstr "Ukladanie vlastných polí..."
+
+#: src/core/components/cms/CustomFieldsEditor.tsx:195
+msgid "Enabled"
+msgstr "Zapnuté"
+
+#: src/core/components/cms/CustomFieldsEditor.tsx:207
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:764
+msgid "-- Select --"
+msgstr "-- Vybrať --"
+
+#: src/core/components/cms/FallbackRadio.tsx:21
+msgid "Language Fallback"
+msgstr "Záložný jazyk"
+
+#: src/core/components/cms/FallbackRadio.tsx:28
+msgid "Default"
+msgstr "Predvolené nastavenie"
+
+#: src/core/components/cms/FallbackRadio.tsx:31
+msgid "Show EN version for missing translations"
+msgstr "Zobraziť verziu v angličtine, ak chýbajú preklady"
+
+#: src/core/components/cms/FallbackRadio.tsx:32
+msgid "404 for missing translations"
+msgstr "Chyba 404 kvôli chýbajúcim prekladom"
+
+#: src/core/components/cms/FallbackRadio.tsx:39
+msgid "Always Fallback"
+msgstr "Vždy záložný plán"
+
+#: src/core/components/cms/FallbackRadio.tsx:45
+msgid "Never Fallback"
+msgstr "Nikdy sa nevráť k záložnému riešeniu"
+
+#: src/core/components/cms/FallbackRadio.tsx:49
+msgid "Controls whether this content is shown when visiting in a language without a translation"
+msgstr "Určuje, či sa tento obsah zobrazí pri návšteve stránky v jazyku, pre ktorý neexistuje preklad"
+
+#: src/core/components/cms/MenuBuilder.tsx:96
+msgid "Label"
+msgstr "Názov"
+
+#: src/core/components/cms/MenuBuilder.tsx:104
+#: src/core/components/RichTextEditor.tsx:511
+msgid "URL"
+msgstr "URL"
+
+#: src/core/components/cms/MenuBuilder.tsx:115
+msgid "New tab"
+msgstr "Nová karta"
+
+#: src/core/components/cms/MenuBuilder.tsx:123
+msgid "Indent"
+msgstr "Odsadenie"
+
+#: src/core/components/cms/MenuBuilder.tsx:131
+msgid "Outdent"
+msgstr "Outdent"
+
+#: src/core/components/cms/MenuBuilder.tsx:176
+msgid "Menu saved"
+msgstr "Ponuka bola uložená"
+
+#: src/core/components/cms/MenuBuilder.tsx:325
+msgid "No menu items yet. Add one below."
+msgstr "Zatiaľ tu nie sú žiadne položky v ponuke. Pridajte jednu nižšie."
+
+#: src/core/components/cms/MenuBuilder.tsx:332
+msgid "Add Item"
+msgstr "Pridať položku"
+
+#: src/core/components/cms/MenuBuilder.tsx:341
+msgid "Save Menu"
+msgstr "Ponuka „Uložiť“"
+
+#: src/core/components/cms/RevisionHistory.tsx:71
+msgid "Revision restored"
+msgstr "Revízia bola obnovená"
+
+#: src/core/components/cms/RevisionHistory.tsx:74
+msgid "Failed to restore revision"
+msgstr "Obnovenie revízie sa nepodarilo"
+
+#: src/core/components/cms/RevisionHistory.tsx:93
+msgid "Revision History"
+msgstr "História revízií"
+
+#: src/core/components/cms/RevisionHistory.tsx:110
+msgid "Oldest"
+msgstr "Najstarší"
+
+#: src/core/components/cms/RevisionHistory.tsx:111
+#: src/core-store/_templates/app/(public)/store/client.tsx:315
+msgid "Newest"
+msgstr "Najnovšie"
+
+#: src/core/components/cms/RevisionHistory.tsx:119
+msgid "No revisions yet"
+msgstr "Zatiaľ neboli vykonané žiadne úpravy"
+
+#: src/core/components/cms/RevisionHistory.tsx:129
+msgid "(untitled)"
+msgstr "(bez názvu)"
+
+#: src/core/components/cms/RevisionHistory.tsx:158
+msgid "No changes in this revision"
+msgstr "V tejto revízii neboli vykonané žiadne zmeny"
+
+#: src/core/components/cms/RevisionHistory.tsx:206
+msgid "Restore this version"
+msgstr "Obnoviť túto verziu"
+
+#: src/core/components/cms/RevisionHistory.tsx:217
+msgid "Restore revision?"
+msgstr "Obnoviť revíziu?"
+
+#: src/core/components/cms/RevisionHistory.tsx:218
+msgid "Current state will be saved as a new revision before restoring."
+msgstr "Aktuálny stav sa pred obnovením uloží ako nová revízia."
+
+#: src/core/components/cms/RevisionHistory.tsx:241
+msgid "Revisions"
+msgstr "Zmeny a doplnenia"
+
+#: src/core/components/cms/TagInput.tsx:198
+msgid "Type to add tags..."
+msgstr "Napíšte text na pridanie značiek..."
+
+#: src/core/components/cms/TagInput.tsx:239
+msgid "Press Enter to create \""
+msgstr "Stlačte kláves Enter na vytvorenie „“"
+
+#: src/core/components/cms/TagInput.tsx:241
+msgid "\""
+msgstr "\""
+
+#: src/core/components/dashboard/CommandPalette.tsx:76
+msgid "Navigation"
+msgstr "Navigácia"
+
+#: src/core/components/dashboard/CommandPalette.tsx:88
+#: src/core/components/dashboard/CommandPalette.tsx:229
+#: src/core/components/shortcodes/ShortcodeEditDialog.tsx:79
+msgid "Content"
+msgstr "Obsah"
+
+#: src/core/components/dashboard/CommandPalette.tsx:201
+msgid "Search pages, content, settings..."
+msgstr "Vyhľadávanie stránok, obsahu, nastavení..."
+
+#: src/core/components/dashboard/CommandPalette.tsx:242
+#: src/core/components/overlays/InternalLinkDialog.tsx:77
+msgid "No results found"
+msgstr "Nenašli sa žiadne výsledky"
+
+#: src/core/components/dashboard/CommandPalette.tsx:248
+msgid "Start typing to search..."
+msgstr "Začnite písať a vyhľadávajte..."
+
+#: src/core/components/dashboard/ContentStatusWidget.tsx:38
+msgid "Scheduled"
+msgstr "Plánované"
+
+#: src/core/components/dashboard/ContentStatusWidget.tsx:58
+msgid "Content Status"
+msgstr "Stav obsahu"
+
+#: src/core/components/dashboard/DashboardConfig.tsx:112
+msgid "Show widget"
+msgstr "Zobraziť widget"
+
+#: src/core/components/dashboard/DashboardConfig.tsx:112
+msgid "Hide widget"
+msgstr "Skryť widget"
+
+#: src/core/components/dashboard/DashboardConfig.tsx:121
+msgid "Columns"
+msgstr "Stĺpce"
+
+#: src/core/components/dashboard/DashboardConfig.tsx:214
+msgid "Drag to reorder widgets. Toggle visibility with the eye icon."
+msgstr "Pre zmenu poradia widgetov ich pretiahnite. Zobrazenie môžete zapnúť alebo vypnúť pomocou ikony oka."
+
+#: src/core/components/dashboard/DashboardConfig.tsx:257
+msgid "Configure dashboard"
+msgstr "Nastaviť riadiaci panel"
+
+#: src/core/components/dashboard/DashboardConfig.tsx:262
+msgid "Dashboard Layout"
+msgstr "Rozloženie riadiaceho panela"
+
+#: src/core/components/dashboard/GA4Widget.tsx:183
+#: src/core/components/dashboard/GA4Widget.tsx:214
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: src/core/components/dashboard/GA4Widget.tsx:190
+msgid "Connect Google Analytics to see page views, sessions, and top pages."
+msgstr "Prepojte službu Google Analytics, aby ste mohli sledovať počet zobrazení stránok, relácií a najnavštevovanejšie stránky."
+
+#: src/core/components/dashboard/GA4Widget.tsx:198
+msgid "Configure in Settings"
+msgstr "Nastaviť v nastaveniach"
+
+#: src/core/components/dashboard/GA4Widget.tsx:247
+msgid "Failed to load analytics data. Check your GA4 configuration in Settings."
+msgstr "Načítanie analytických údajov sa nepodarilo. Skontrolujte si nastavenia GA4 v časti Nastavenia."
+
+#: src/core/components/dashboard/GA4Widget.tsx:259
+msgid "Page Views"
+msgstr "Počet zobrazení stránky"
+
+#: src/core/components/dashboard/GA4Widget.tsx:268
+msgid "Sessions"
+msgstr "Relácie"
+
+#: src/core/components/dashboard/GA4Widget.tsx:279
+msgid "Daily Page Views"
+msgstr "Počet zobrazení stránok za deň"
+
+#: src/core/components/dashboard/GA4Widget.tsx:290
+msgid "Top Pages"
+msgstr "Najnavštevovanejšie stránky"
+
+#: src/core/components/dashboard/GA4Widget.tsx:297
+msgid "Views"
+msgstr "Počet zobrazení"
+
+#: src/core/components/dashboard/NotificationBell.tsx:62
+#: src/core/components/dashboard/NotificationBell.tsx:75
+msgid "Notifications"
+msgstr "Oznámenia"
+
+#: src/core/components/dashboard/NotificationBell.tsx:82
+msgid "Mark all read"
+msgstr "Označiť všetko ako prečítané"
+
+#: src/core/components/dashboard/NotificationBell.tsx:90
+msgid "No notifications"
+msgstr "Žiadne oznámenia"
+
+#: src/core/components/dashboard/NotificationBell.tsx:130
+msgid "View all notifications"
+msgstr "Zobraziť všetky upozornenia"
+
+#: src/core/components/dashboard/OrgSwitcher.tsx:46
+msgid "Switch organization"
+msgstr "Zmeniť organizáciu"
+
+#: src/core/components/dashboard/OrgSwitcher.tsx:58
+msgid "Personal"
+msgstr "Osobné"
+
+#: src/core/components/dashboard/OrgSwitcher.tsx:77
+msgid "Manage organizations"
+msgstr "Správa organizácií"
+
+#: src/core/components/dashboard/RecentActivity.tsx:13
+msgid "created"
+msgstr "vytvorené"
+
+#: src/core/components/dashboard/RecentActivity.tsx:14
+msgid "updated"
+msgstr "aktualizované"
+
+#: src/core/components/dashboard/RecentActivity.tsx:15
+msgid "deleted"
+msgstr "vymazané"
+
+#: src/core/components/dashboard/RecentActivity.tsx:16
+msgid "restored"
+msgstr "obnovený"
+
+#: src/core/components/dashboard/RecentActivity.tsx:17
+msgid "published"
+msgstr "zverejnené"
+
+#: src/core/components/dashboard/RecentActivity.tsx:25
+#: src/core-affiliates/components/AffiliateOverview.tsx:16
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:45
+#: src/core-api/components/ApiKeyManager.tsx:164
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:73
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:55
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:121
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:45
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:104
+msgid "Loading..."
+msgstr "Načítava sa..."
+
+#: src/core/components/dashboard/RecentActivity.tsx:33
+msgid "No activity recorded yet."
+msgstr "Zatiaľ nebola zaznamenaná žiadna aktivita."
+
+#: src/core/components/dashboard/RecentActivity.tsx:44
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
+msgid "System"
+msgstr "Systém"
+
+#: src/core/components/editor/AiAssistMenu.tsx:32
+msgid "Rewrite"
+msgstr "Prepísať"
+
+#: src/core/components/editor/AiAssistMenu.tsx:38
+msgid "Shorten"
+msgstr "Skrátiť"
+
+#: src/core/components/editor/AiAssistMenu.tsx:44
+msgid "Expand"
+msgstr "Rozbaliť"
+
+#: src/core/components/editor/AiAssistMenu.tsx:50
+msgid "Fix grammar"
+msgstr "Oprav gramatiku"
+
+#: src/core/components/editor/AiAssistMenu.tsx:56
+msgid "Translate to English"
+msgstr "Preložiť do angličtiny"
+
+#: src/core/components/editor/AiAssistMenu.tsx:148
+msgid "AI request failed"
+msgstr "Žiadosť o AI sa nepodarila"
+
+#: src/core/components/editor/AiAssistMenu.tsx:252
+#: src/core/components/editor/EditorBubbleMenu.tsx:123
+#: src/core/components/RichTextEditor.tsx:917
+msgid "AI Assist"
+msgstr "AI Assist"
+
+#: src/core/components/editor/AiAssistMenu.tsx:266
+msgid "Thinking..."
+msgstr "Premýšľam..."
+
+#: src/core/components/editor/AiAssistMenu.tsx:279
+msgid "Try again"
+msgstr "Skúste to znova"
+
+#: src/core/components/editor/AiAssistMenu.tsx:297
+#: src/core-store/_templates/app/(public)/store/client.tsx:565
+msgid "Apply"
+msgstr "Prihlásiť sa"
+
+#: src/core/components/editor/AiAssistMenu.tsx:304
+msgid "Discard"
+msgstr "Zrušiť"
+
+#: src/core/components/editor/AiAssistMenu.tsx:340
+#: src/core/components/editor/AiAssistMenu.tsx:352
+msgid "Custom instruction..."
+msgstr "Vlastné pokyny..."
+
+#: src/core/components/editor/EditorBubbleMenu.tsx:75
+#: src/core/components/RichTextEditor.tsx:544
+msgid "Bold"
+msgstr "Tučné písmo"
+
+#: src/core/components/editor/EditorBubbleMenu.tsx:82
+#: src/core/components/RichTextEditor.tsx:551
+msgid "Italic"
+msgstr "Kurzíva"
+
+#: src/core/components/editor/EditorBubbleMenu.tsx:89
+#: src/core/components/RichTextEditor.tsx:558
+msgid "Underline"
+msgstr "Podčiarknuť"
+
+#: src/core/components/editor/EditorBubbleMenu.tsx:96
+#: src/core/components/RichTextEditor.tsx:565
+msgid "Strikethrough"
+msgstr "Prečiarknuté"
+
+#: src/core/components/editor/EditorBubbleMenu.tsx:103
+#: src/core-affiliates/components/AffiliateOverview.tsx:71
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:54
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:138
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:311
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:60
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:148
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:276
+msgid "Code"
+msgstr "Kód"
+
+#: src/core/components/editor/EditorBubbleMenu.tsx:113
+#: src/core/components/RichTextEditor.tsx:680
+msgid "Link"
+msgstr "Odkaz"
+
+#: src/core/components/editor/ImageBubbleMenu.tsx:99
+msgid "Alt text"
+msgstr "Alternatívny text"
+
+#: src/core/components/editor/ImageBubbleMenu.tsx:109
+msgid "Align left"
+msgstr "Zarovnať vľavo"
+
+#: src/core/components/editor/ImageBubbleMenu.tsx:120
+msgid "Center"
+msgstr "Stred"
+
+#: src/core/components/editor/ImageBubbleMenu.tsx:132
+msgid "Align right"
+msgstr "Zarovnať doprava"
+
+#: src/core/components/editor/ImageBubbleMenu.tsx:140
+msgid "Replace image"
+msgstr "Nahradiť obrázok"
+
+#: src/core/components/editor/ImageBubbleMenu.tsx:147
+msgid "Remove image"
+msgstr "Odstrániť obrázok"
+
+#: src/core/components/editor/slash-commands.ts:18
+#: src/core/components/RichTextEditor.tsx:582
+msgid "Heading 1"
+msgstr "Nadpis 1"
+
+#: src/core/components/editor/slash-commands.ts:19
+msgid "Large section heading"
+msgstr "Nadpis veľkej časti"
+
+#: src/core/components/editor/slash-commands.ts:21
+#: src/core/components/editor/slash-commands.ts:30
+#: src/core/components/editor/slash-commands.ts:39
+msgid "Headings"
+msgstr "Nadpisy"
+
+#: src/core/components/editor/slash-commands.ts:27
+#: src/core/components/RichTextEditor.tsx:589
+msgid "Heading 2"
+msgstr "Nadpis 2"
+
+#: src/core/components/editor/slash-commands.ts:28
+msgid "Medium section heading"
+msgstr "Nadpis strednej časti"
+
+#: src/core/components/editor/slash-commands.ts:36
+#: src/core/components/RichTextEditor.tsx:596
+msgid "Heading 3"
+msgstr "Nadpis 3"
+
+#: src/core/components/editor/slash-commands.ts:37
+msgid "Small section heading"
+msgstr "Nadpis malej časti"
+
+#: src/core/components/editor/slash-commands.ts:45
+#: src/core/components/RichTextEditor.tsx:606
+msgid "Bullet List"
+msgstr "Zoznam s odrážkami"
+
+#: src/core/components/editor/slash-commands.ts:46
+msgid "Unordered list"
+msgstr "Neusporiadaný zoznam"
+
+#: src/core/components/editor/slash-commands.ts:48
+#: src/core/components/editor/slash-commands.ts:57
+msgid "Lists"
+msgstr "Zoznamy"
+
+#: src/core/components/editor/slash-commands.ts:54
+msgid "Numbered List"
+msgstr "Číslovaný zoznam"
+
+#: src/core/components/editor/slash-commands.ts:55
+msgid "Ordered list"
+msgstr "Usporiadaný zoznam"
+
+#: src/core/components/editor/slash-commands.ts:63
+msgid "Blockquote"
+msgstr "Citát"
+
+#: src/core/components/editor/slash-commands.ts:64
+msgid "Quote block"
+msgstr "Blok citátu"
+
+#: src/core/components/editor/slash-commands.ts:66
+#: src/core/components/editor/slash-commands.ts:75
+#: src/core/components/editor/slash-commands.ts:84
+#: src/core/components/editor/slash-commands.ts:93
+msgid "Blocks"
+msgstr "Bloky"
+
+#: src/core/components/editor/slash-commands.ts:72
+#: src/core/components/RichTextEditor.tsx:627
+msgid "Code Block"
+msgstr "Blok kódu"
+
+#: src/core/components/editor/slash-commands.ts:73
+msgid "Fenced code block"
+msgstr "Blok kódu ohraničený zátvorkami"
+
+#: src/core/components/editor/slash-commands.ts:81
+#: src/core/components/RichTextEditor.tsx:633
+msgid "Horizontal Rule"
+msgstr "Vodorovná čiara"
+
+#: src/core/components/editor/slash-commands.ts:82
+msgid "Divider line"
+msgstr "Oddeľovacia čiara"
+
+#: src/core/components/editor/slash-commands.ts:90
+#: src/core/components/editor/TableMenu.tsx:138
+msgid "Table"
+msgstr "Tabuľka"
+
+#: src/core/components/editor/slash-commands.ts:91
+msgid "Insert a table"
+msgstr "Vložiť tabuľku"
+
+#: src/core/components/editor/slash-commands.ts:101
+#: src/core/components/RichTextEditor.tsx:689
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:108
+msgid "Image"
+msgstr "Obrázok"
+
+#: src/core/components/editor/slash-commands.ts:102
+msgid "Upload or embed an image"
+msgstr "Nahrať alebo vložiť obrázok"
+
+#: src/core/components/editor/slash-commands.ts:104
+msgid "Media"
+msgstr "Médiá"
+
+#: src/core/components/editor/TableMenu.tsx:71
+msgid "Add row above"
+msgstr "Vložiť riadok nad týmto"
+
+#: src/core/components/editor/TableMenu.tsx:77
+msgid "Add row below"
+msgstr "Pridať riadok pod týmto"
+
+#: src/core/components/editor/TableMenu.tsx:86
+msgid "Add column left"
+msgstr "Pridať stĺpec vľavo"
+
+#: src/core/components/editor/TableMenu.tsx:92
+msgid "Add column right"
+msgstr "Pridať stĺpec vpravo"
+
+#: src/core/components/editor/TableMenu.tsx:101
+msgid "Merge cells"
+msgstr "Zlúčiť bunky"
+
+#: src/core/components/editor/TableMenu.tsx:108
+msgid "Split cell"
+msgstr "Rozdelená bunka"
+
+#: src/core/components/editor/TableMenu.tsx:118
+msgid "Delete row"
+msgstr "Odstrániť riadok"
+
+#: src/core/components/editor/TableMenu.tsx:122
+msgid "Row"
+msgstr "Riadok"
+
+#: src/core/components/editor/TableMenu.tsx:126
+msgid "Delete column"
+msgstr "Odstrániť stĺpec"
+
+#: src/core/components/editor/TableMenu.tsx:130
+msgid "Col"
+msgstr "Plk"
+
+#: src/core/components/editor/TableMenu.tsx:134
+msgid "Delete table"
+msgstr "Odstrániť tabuľku"
+
+#: src/core/components/i18n/TranslationBar.tsx:68
+msgid "Failed to create translation"
+msgstr "Vytvorenie prekladu sa nepodarilo"
+
+#: src/core/components/i18n/TranslationBar.tsx:76
+msgid "Language"
+msgstr "Jazyk"
+
+#: src/core/components/i18n/TranslationBar.tsx:131
+#: src/core-api/components/AgentConnectPanel.tsx:114
+msgid "Copy"
+msgstr "Kopírovať"
+
+#: src/core/components/i18n/TranslationBar.tsx:140
+msgid "Copy & Translate"
+msgstr "Kopírovať a preložiť"
+
+#: src/core/components/media/MediaPickerButton.tsx:79
+msgid "Change"
+msgstr "Zmena"
+
+#: src/core/components/media/MediaPickerButton.tsx:92
+msgid "Select Image"
+msgstr "Vyber obrázok"
+
+#: src/core/components/media/MediaPickerButton.tsx:102
+#: src/core/components/media/MediaPickerDialog.tsx:448
+msgid "Alt Text"
+msgstr "Alternatívny text"
+
+#: src/core/components/media/MediaPickerButton.tsx:108
+msgid "Describe the image..."
+msgstr "Opíšte obrázok..."
+
+#: src/core/components/media/MediaPickerDialog.tsx:112
+msgid "Only image files are supported"
+msgstr "Podporované sú iba obrazové súbory"
+
+#: src/core/components/media/MediaPickerDialog.tsx:150
+msgid "Failed to upload {name}"
+msgstr "Nepodarilo sa nahrať súbor {name}"
+
+#: src/core/components/media/MediaPickerDialog.tsx:215
+msgid "Media Library"
+msgstr "Mediálna knižnica"
+
+#: src/core/components/media/MediaPickerDialog.tsx:225
+msgid "Search media..."
+msgstr "Vyhľadávať médiá..."
+
+#: src/core/components/media/MediaPickerDialog.tsx:239
+msgid "All types"
+msgstr "Všetky typy"
+
+#: src/core/components/media/MediaPickerDialog.tsx:240
+msgid "Images"
+msgstr "Obrázky"
+
+#: src/core/components/media/MediaPickerDialog.tsx:241
+msgid "Videos"
+msgstr "Videá"
+
+#: src/core/components/media/MediaPickerDialog.tsx:242
+msgid "Documents"
+msgstr "Dokumenty"
+
+#: src/core/components/media/MediaPickerDialog.tsx:243
+msgid "Other"
+msgstr "Ostatné"
+
+#: src/core/components/media/MediaPickerDialog.tsx:256
+msgid "All users"
+msgstr "Všetci používatelia"
+
+#: src/core/components/media/MediaPickerDialog.tsx:283
+#: src/core/components/media/PostAttachments.tsx:153
+msgid "Upload"
+msgstr "Nahrať"
+
+#: src/core/components/media/MediaPickerDialog.tsx:314
+msgid "Drop files to upload"
+msgstr "Na nahratie súborov ich presuňte do tohto priečinka"
+
+#: src/core/components/media/MediaPickerDialog.tsx:329
+msgid "No images match your search."
+msgstr "Žiadne obrázky nezodpovedajú vášmu vyhľadávaniu."
+
+#: src/core/components/media/MediaPickerDialog.tsx:330
+msgid "No images yet. Upload or drag files here."
+msgstr "Zatiaľ nie sú k dispozícii žiadne obrázky. Nahrajte súbory alebo ich sem pretiahnite."
+
+#: src/core/components/media/MediaPickerDialog.tsx:430
+#: src/core/components/seo/SeoPreviewCard.tsx:121
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:137
+msgid "Title"
+msgstr "Názov"
+
+#: src/core/components/media/MediaPickerDialog.tsx:442
+msgid "Image title"
+msgstr "Názov obrázku"
+
+#: src/core/components/media/MediaPickerDialog.tsx:460
+msgid "Describe the image"
+msgstr "Opíšte obrázok"
+
+#: src/core/components/media/MediaPickerDialog.tsx:466
+#: src/core/components/seo/SeoPreviewCard.tsx:124
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:166
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:396
+msgid "Description"
+msgstr "Popis"
+
+#: src/core/components/media/MediaPickerDialog.tsx:478
+msgid "Optional description"
+msgstr "Voliteľný popis"
+
+#: src/core/components/media/MediaPickerDialog.tsx:496
+msgid "Select an image to view details"
+msgstr "Vyberte obrázok, aby ste si prezreli podrobnosti"
+
+#: src/core/components/media/MediaPickerDialog.tsx:506
+msgid "No image selected"
+msgstr "Nie je vybraný žiadny obrázok"
+
+#: src/core/components/media/MediaPickerDialog.tsx:510
+#: src/core/components/media/PostAttachments.tsx:252
+#: src/core/components/overlays/InternalLinkDialog.tsx:117
+#: src/core/components/seo/SeoOverridesDialog.tsx:197
+#: src/core/components/shortcodes/ShortcodeEditDialog.tsx:92
+#: src/core-api/components/ApiKeyManager.tsx:212
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:138
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:172
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:225
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:430
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:703
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:257
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: src/core/components/media/MediaPickerDialog.tsx:517
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:133
+msgid "Select"
+msgstr "Vybrať"
+
+#: src/core/components/media/MediaPickerDialog.tsx:525
+msgid "Delete media file?"
+msgstr "Chcete odstrániť mediálny súbor?"
+
+#: src/core/components/media/MediaPickerDialog.tsx:526
+msgid "This file will be permanently deleted."
+msgstr "Tento súbor bude natrvalo odstránený."
+
+#: src/core/components/media/PostAttachments.tsx:75
+msgid "Alt text updated"
+msgstr "Aktualizovaný alternatívny text"
+
+#: src/core/components/media/PostAttachments.tsx:84
+msgid "Attachment removed"
+msgstr "Príloha bola odstránená"
+
+#: src/core/components/media/PostAttachments.tsx:133
+#: src/core/components/media/PostAttachments.tsx:146
+msgid "Attachments"
+msgstr "Prílohy"
+
+#: src/core/components/media/PostAttachments.tsx:135
+msgid "Save the post first to add attachments."
+msgstr "Najskôr príspevok uložte, aby ste mohli pridať prílohy."
+
+#: src/core/components/media/PostAttachments.tsx:169
+msgid "No attachments yet."
+msgstr "Zatiaľ nie sú žiadne prílohy."
+
+#: src/core/components/media/PostAttachments.tsx:202
+msgid "Edit alt text"
+msgstr "Upraviť alternatívny text"
+
+#: src/core/components/media/PostAttachments.tsx:209
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:158
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
+msgid "Remove"
+msgstr "Odstrániť"
+
+#: src/core/components/media/PostAttachments.tsx:229
+msgid "Edit Alt Text"
+msgstr "Upraviť alternatívny text"
+
+#: src/core/components/media/PostAttachments.tsx:244
+msgid "Describe this file..."
+msgstr "Popíšte tento súbor..."
+
+#: src/core/components/media/PostAttachments.tsx:264
+#: src/core/components/shortcodes/ShortcodeEditDialog.tsx:95
+#: src/core-api/components/ApiKeyManager.tsx:206
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:108
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:142
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:181
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:169
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:222
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:337
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:825
+msgid "Save"
+msgstr "Uložiť"
+
+#: src/core/components/overlays/InternalLinkDialog.tsx:54
+msgid "Insert Internal Link"
+msgstr "Vložiť interný odkaz"
+
+#: src/core/components/overlays/InternalLinkDialog.tsx:63
+msgid "Search pages, blog posts, categories..."
+msgstr "Vyhľadávanie stránok, príspevkov na blogu, kategórií..."
+
+#: src/core/components/overlays/InternalLinkDialog.tsx:72
+msgid "Searching..."
+msgstr "Hľadám..."
+
+#: src/core/components/overlays/InternalLinkDialog.tsx:81
+msgid "Type at least 2 characters to search"
+msgstr "Na vyhľadávanie zadajte aspoň 2 znaky"
+
+#: src/core/components/overlays/SlideOver.tsx:102
+msgid "Close"
+msgstr "Zatvoriť"
+
+#: src/core/components/PushToggle.tsx:28
+#: src/core/components/PushToggle.tsx:46
+msgid "Push notifications blocked by browser"
+msgstr "Push notifikácie blokované prehliadačom"
+
+#: src/core/components/PushToggle.tsx:35
+msgid "Push enabled"
+msgstr "Funkcia Push je zapnutá"
+
+#: src/core/components/PushToggle.tsx:35
+msgid "Enable push"
+msgstr "Zapnúť push"
+
+#: src/core/components/PushToggle.tsx:51
+msgid "Push notifications on"
+msgstr "Zapnúť push notifikácie"
+
+#: src/core/components/PushToggle.tsx:56
+msgid "Enable push notifications"
+msgstr "Zapnúť push notifikácie"
+
+#: src/core/components/RichTextEditor.tsx:263
+msgid "Insert"
+msgstr "Vložiť"
+
+#: src/core/components/RichTextEditor.tsx:265
+msgid "Shortcodes"
+msgstr "Krátke kódy"
+
+#: src/core/components/RichTextEditor.tsx:319
+msgid "Start writing or type / for commands..."
+msgstr "Začnite písať alebo zadajte / pre príkazy..."
+
+#: src/core/components/RichTextEditor.tsx:384
+#: src/core/components/RichTextEditor.tsx:401
+#: src/core/components/RichTextEditor.tsx:831
+msgid "Image upload failed"
+msgstr "Nahratie obrázku sa nepodarilo"
+
+#: src/core/components/RichTextEditor.tsx:572
+msgid "Inline Code"
+msgstr "Kód v texte"
+
+#: src/core/components/RichTextEditor.tsx:613
+msgid "Ordered List"
+msgstr "Usporiadaný zoznam"
+
+#: src/core/components/RichTextEditor.tsx:620
+msgid "Quote"
+msgstr "Citát"
+
+#: src/core/components/RichTextEditor.tsx:646
+msgid "Insert Table"
+msgstr "Vložiť tabuľku"
+
+#: src/core/components/RichTextEditor.tsx:656
+msgid "Align Left"
+msgstr "Zarovnať vľavo"
+
+#: src/core/components/RichTextEditor.tsx:663
+msgid "Align Center"
+msgstr "Vyrovnať na stred"
+
+#: src/core/components/RichTextEditor.tsx:670
+msgid "Align Right"
+msgstr "Zarovnať doprava"
+
+#: src/core/components/RichTextEditor.tsx:685
+msgid "Internal Link"
+msgstr "Vnútorný odkaz"
+
+#: src/core/components/RichTextEditor.tsx:700
+msgid "Insert Variable"
+msgstr "Vložiť premennú"
+
+#: src/core/components/RichTextEditor.tsx:738
+msgid "Insert Block"
+msgstr "Vložiť blok"
+
+#: src/core/components/RichTextEditor.tsx:784
+msgid "Undo"
+msgstr "Vrátiť späť"
+
+#: src/core/components/RichTextEditor.tsx:791
+msgid "Redo"
+msgstr "Zopakovať"
+
+#: src/core/components/RichTextEditor.tsx:807
+msgid "Hide Preview"
+msgstr "Skryť náhľad"
+
+#: src/core/components/RichTextEditor.tsx:807
+msgid "Show Preview"
+msgstr "Zobraziť náhľad"
+
+#: src/core/components/RichTextEditor.tsx:914
+msgid "AI Assist (works in both Visual and Source mode)"
+msgstr "AI Assist (funguje v režime Visual aj Source)"
+
+#: src/core/components/RichTextEditor.tsx:932
+msgid "Visual"
+msgstr "Vizuálne"
+
+#: src/core/components/RichTextEditor.tsx:944
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:121
+msgid "Source"
+msgstr "Zdroj"
+
+#: src/core/components/RichTextEditor.tsx:962
+msgid "Preview"
+msgstr "Náhľad"
+
+#: src/core/components/seo/SEOFields.tsx:27
+msgid "SEO Title"
+msgstr "SEO nadpis"
+
+#: src/core/components/seo/SEOFields.tsx:33
+msgid "Optional SEO title for {titleTag} tag"
+msgstr "Voliteľný SEO nadpis pre tag {titleTag}"
+
+#: src/core/components/seo/SEOFields.tsx:40
+msgid "Falls back to Title if empty"
+msgstr "Ak je pole prázdne, použije sa názov"
+
+#: src/core/components/seo/SEOFields.tsx:46
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:337
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:566
+msgid "Meta Description"
+msgstr "Meta popis"
+
+#: src/core/components/seo/SEOFields.tsx:51
+msgid "SEO meta description (max 160 chars)"
+msgstr "SEO meta popis (max. 160 znakov)"
+
+#: src/core/components/seo/SEOFields.tsx:71
+msgid "Noindex"
+msgstr "Noindex"
+
+#: src/core/components/seo/SEOFields.tsx:74
+msgid "Exclude from search engine indexing (adds noindex meta tag)"
+msgstr "Vylúčiť z indexovania vyhľadávačmi (pridá meta tag „noindex“)"
+
+#: src/core/components/seo/SeoOverridesDialog.tsx:120
+msgid "Create SEO Override Pages"
+msgstr "Vytvoriť stránky s prepisom pre SEO"
+
+#: src/core/components/seo/SeoOverridesDialog.tsx:132
+msgid "Route"
+msgstr "Trasa"
+
+#: src/core/components/seo/SeoOverridesDialog.tsx:135
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:62
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:125
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:60
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:184
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:50
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:81
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:173
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:199
+msgid "Slug"
+msgstr "Slimák"
+
+#: src/core/components/seo/SeoOverridesDialog.tsx:205
+msgid "Create Selected"
+msgstr "Vytvoriť vybrané"
+
+#: src/core/components/seo/SeoPreviewCard.tsx:27
+msgid "No image"
+msgstr "Žiadny obrázok"
+
+#: src/core/components/seo/SeoPreviewCard.tsx:41
+msgid "Google"
+msgstr "Google"
+
+#: src/core/components/seo/SeoPreviewCard.tsx:42
+msgid "Facebook"
+msgstr "Facebook"
+
+#: src/core/components/seo/SeoPreviewCard.tsx:43
+msgid "Twitter / X"
+msgstr "Twitter / X"
+
+#: src/core/components/shortcodes/ShortcodeEditDialog.tsx:35
+msgid "Edit {label}"
+msgstr "Upraviť {label}"
+
+#: src/core/components/TokenBalance.tsx:71
+msgid "Token balance"
+msgstr "Zostatok tokenov"
+
+#: src/core/hooks/useBulkActions.ts:50
+msgid "{succeeded} {action}, {failed} failed"
+msgstr "{succeeded}, {action} a {failed} nefungujú"
+
+#: src/core/hooks/useCmsFormState.ts:49
+msgid "Please check the form for errors"
+msgstr "Skontrolujte, či formulár neobsahuje chyby"
+
+#: src/core-activity/components/ActivityFeedDashboardWidget.tsx:20
+msgid "Activity Feed"
+msgstr "Zoznam aktivít"
+
+#: src/core-activity/components/ActivityFeedDashboardWidget.tsx:27
+msgid "View all"
+msgstr "Zobraziť všetko"
+
+#: src/core-activity/components/DashboardActivityWidget.tsx:30
+msgid "No recent activity"
+msgstr "Žiadna nedávna aktivita"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:108
+msgid "Activity Log"
+msgstr "Záznam aktivít"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:163
+msgid "Search by actor name..."
+msgstr "Vyhľadávanie podľa mena herca..."
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:210
+msgid "No activity events"
+msgstr "Žiadne podujatia"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:214
+msgid "No events match your filters."
+msgstr "Žiadne udalosti nezodpovedajú vašim filtrom."
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:215
+msgid "Activity events will appear here as users interact with the app."
+msgstr "Tu sa budú zobrazovať udalosti z aktivity, keď používatelia budú pracovať s aplikáciou."
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:222
+msgid "Actor"
+msgstr "Herec"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:223
+msgid "Action"
+msgstr "Akcia"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:224
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:203
+msgid "Target"
+msgstr "Cieľ"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:225
+msgid "Time"
+msgstr "Čas"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:249
+msgid "Unknown"
+msgstr "Neznáme"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:290
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:310
+#: src/core-store/_templates/app/(public)/store/client.tsx:356
+#: src/core-store/_templates/app/(public)/store/client.tsx:948
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:396
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:376
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:306
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:213
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "of"
+msgstr "z"
+
+#: src/core-activity/_templates/app/dashboard/(panel)/activity/page.tsx:291
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:311
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:397
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:377
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:307
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:214
+msgid "total"
+msgstr "celkom"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:25
+#: src/core-affiliates/components/AffiliateOverview.tsx:38
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:49
+msgid "Manage"
+msgstr "Spravovať"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:28
+msgid "No affiliates yet."
+msgstr "Zatiaľ žiadni partneri."
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:44
+msgid "Active Affiliates"
+msgstr "Aktívni partneri"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:48
+msgid "Total Referrals"
+msgstr "Celkový počet odporúčaní"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:52
+msgid "Conversion Rate"
+msgstr "Konverzný kurz"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:56
+msgid "Total Earnings"
+msgstr "Celkové príjmy"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:64
+msgid "Top Affiliates"
+msgstr "Najlepší partneri"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:70
+msgid "Affiliate"
+msgstr "Partnerský program"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:72
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:56
+msgid "Referrals"
+msgstr "Odporúčania"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:73
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:57
+msgid "Earnings"
+msgstr "Zisky"
+
+#: src/core-affiliates/components/AffiliateOverview.tsx:74
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:55
+msgid "Commission"
+msgstr "Komisia"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:37
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:87
+msgid "All Statuses"
+msgstr "Všetky stavy"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:38
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:34
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:61
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:363
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:47
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:248
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+msgid "Active"
+msgstr "Aktívny"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:39
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:132
+msgid "Suspended"
+msgstr "Pozastavené"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:40
+msgid "Banned"
+msgstr "Zablokované"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:47
+msgid "No affiliates found"
+msgstr "Nenašli sa žiadne partnerské spoločnosti"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:58
+#: src/core-api/components/ApiKeyManager.tsx:175
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:61
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:54
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:128
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:165
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:204
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:82
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:316
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:303
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:210
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:138
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:360
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:131
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:64
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:55
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:114
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:280
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:119
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:250
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:380
+msgid "Status"
+msgstr "Stav"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:59
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:63
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:62
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:166
+msgid "Actions"
+msgstr "Akcie"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:81
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:109
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:141
+msgid "Suspend"
+msgstr "Pozastaviť"
+
+#: src/core-affiliates/_templates/app/dashboard/(panel)/settings/affiliates/page.tsx:89
+msgid "Activate"
+msgstr "Aktivovať"
+
+#: src/core-api/components/AgentConnectPanel.tsx:31
+msgid "Claude Code"
+msgstr "Claude Code"
+
+#: src/core-api/components/AgentConnectPanel.tsx:33
+msgid "Run in any terminal. The agent can then operate this site directly — no browser needed."
+msgstr "Spustite v ľubovoľnom termináli. Agent potom môže túto stránku ovládať priamo – prehliadač nie je potrebný."
+
+#: src/core-api/components/AgentConnectPanel.tsx:50
+msgid "Drop into a project root — Claude Code, Cursor and most MCP clients pick it up automatically."
+msgstr "Prejdite do koreňového adresára projektu — programy Claude Code, Cursor a väčšina klientov MCP ho rozpoznajú automaticky."
+
+#: src/core-api/components/AgentConnectPanel.tsx:53
+msgid "Any MCP client"
+msgstr "Akýkoľvek klient MCP"
+
+#: src/core-api/components/AgentConnectPanel.tsx:54
+msgid "Endpoint"
+msgstr "Koncový bod"
+
+#: src/core-api/components/AgentConnectPanel.tsx:54
+msgid "Transport"
+msgstr "Doprava"
+
+#: src/core-api/components/AgentConnectPanel.tsx:54
+msgid "Auth"
+msgstr "Autorizácia"
+
+#: src/core-api/components/AgentConnectPanel.tsx:55
+msgid "Works with any client that speaks MCP over Streamable HTTP with bearer auth."
+msgstr "Funguje s akýmkoľvek klientom, ktorý komunikuje prostredníctvom protokolu MCP cez Streamable HTTP s overovaním typu „bearer“."
+
+#: src/core-api/components/AgentConnectPanel.tsx:61
+msgid "Agent Access (MCP)"
+msgstr "Prístup agenta (MCP)"
+
+#: src/core-api/components/AgentConnectPanel.tsx:63
+msgid "AI agents can operate this site directly through the MCP endpoint — every API action is available as a tool, scoped to your account and organization. Keys need the mcp:invoke scope (or full access)."
+msgstr "AI agenti môžu túto stránku ovládať priamo prostredníctvom koncového bodu MCP – každá akcia API je k dispozícii ako nástroj, ktorého rozsah pôsobnosti je obmedzený na váš účet a organizáciu. Kľúče musia mať rozsah pôsobnosti mcp:invoke (alebo plný prístup)."
+
+#: src/core-api/components/AgentConnectPanel.tsx:83
+msgid "Create a key above with the mcp:invoke scope, and these snippets will include it automatically."
+msgstr "Vytvorte vyššie uvedený kľúč s rozsahom pôsobnosti mcp:invoke a tieto úryvky kódu ho automaticky zahrnú."
+
+#: src/core-api/components/AgentConnectPanel.tsx:114
+#: src/core-api/components/ApiKeyManager.tsx:366
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
+msgid "Copied!"
+msgstr "Skopírované!"
+
+#: src/core-api/components/ApiKeyManager.tsx:106
+msgid "Create API Key"
+msgstr "Vytvoriť kľúč API"
+
+#: src/core-api/components/ApiKeyManager.tsx:112
+msgid "Key name (e.g. Production, Staging)"
+msgstr "Názov kľúča (napr. Produkcia, Testovacie prostredie)"
+
+#: src/core-api/components/ApiKeyManager.tsx:122
+msgid "Create Key"
+msgstr "Vytvoriť kľúč"
+
+#: src/core-api/components/ApiKeyManager.tsx:138
+msgid "Your API key has been created. Copy it now — it won't be shown again."
+msgstr "Váš kľúč API bol vytvorený. Skopírujte si ho teraz – už sa viac nezobrazí."
+
+#: src/core-api/components/ApiKeyManager.tsx:160
+#: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:12
+msgid "API Keys"
+msgstr "Kľúče API"
+
+#: src/core-api/components/ApiKeyManager.tsx:166
+msgid "No API keys yet."
+msgstr "Zatiaľ nie sú k dispozícii žiadne kľúče API."
+
+#: src/core-api/components/ApiKeyManager.tsx:172
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:61
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:116
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:59
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:179
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:103
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:160
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:80
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:113
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:198
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:133
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:207
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:351
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:616
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:657
+msgid "Name"
+msgstr "Meno"
+
+#: src/core-api/components/ApiKeyManager.tsx:173
+msgid "Key"
+msgstr "Kľúč"
+
+#: src/core-api/components/ApiKeyManager.tsx:174
+msgid "Scopes"
+msgstr "Rozsahy"
+
+#: src/core-api/components/ApiKeyManager.tsx:176
+msgid "Last Used"
+msgstr "Naposledy použité"
+
+#: src/core-api/components/ApiKeyManager.tsx:177
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:83
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:117
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:122
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:388
+msgid "Created"
+msgstr "Vytvorené"
+
+#: src/core-api/components/ApiKeyManager.tsx:206
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:169
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:222
+msgid "Saving..."
+msgstr "Ukladá sa..."
+
+#: src/core-api/components/ApiKeyManager.tsx:221
+msgid "Click to edit scopes"
+msgstr "Kliknite na tlačidlo na úpravu rozsahov"
+
+#: src/core-api/components/ApiKeyManager.tsx:226
+msgid "None"
+msgstr "Žiadne"
+
+#: src/core-api/components/ApiKeyManager.tsx:228
+msgid "scopes"
+msgstr "oblasti pôsobnosti"
+
+#: src/core-api/components/ApiKeyManager.tsx:237
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:367
+msgid "Never"
+msgstr "Nikdy"
+
+#: src/core-api/components/ApiKeyManager.tsx:250
+msgid "Roll this key?"
+msgstr "Mám tento kľúč otočiť?"
+
+#: src/core-api/components/ApiKeyManager.tsx:250
+msgid "A new key will be created and the old one will expire in 24 hours."
+msgstr "Vytvorí sa nový kľúč a platnosť starého kľúča vyprší za 24 hodín."
+
+#: src/core-api/components/ApiKeyManager.tsx:250
+#: src/core-api/components/ApiKeyManager.tsx:255
+msgid "Roll"
+msgstr "Hod kockou"
+
+#: src/core-api/components/ApiKeyManager.tsx:262
+msgid "Revoke this API key?"
+msgstr "Zrušiť tento kľúč API?"
+
+#: src/core-api/components/ApiKeyManager.tsx:262
+msgid "This is immediate and cannot be undone."
+msgstr "Táto akcia je okamžitá a nedá sa vrátiť späť."
+
+#: src/core-api/components/ApiKeyManager.tsx:262
+#: src/core-api/components/ApiKeyManager.tsx:267
+msgid "Revoke"
+msgstr "Zrušiť"
+
+#: src/core-api/components/ApiKeyManager.tsx:305
+msgid "Full access"
+msgstr "Plný prístup"
+
+#: src/core-api/components/ApiKeyManager.tsx:327
+msgid "No scopes selected — no access."
+msgstr "Neboli vybrané žiadne rozsahy — žiadny prístup."
+
+#: src/core-api/components/ApiKeyManager.tsx:366
+msgid "Copy to Clipboard"
+msgstr "Kopírovať do schránky"
+
+#: src/core-api/components/ApiKeyManager.tsx:381
+msgid "Expiring"
+msgstr "Končí platnosť"
+
+#: src/core-api/_templates/app/dashboard/(panel)/settings/api-keys/page.tsx:13
+msgid "Manage API keys for programmatic access to your data."
+msgstr "Spravujte kľúče API pre programový prístup k vašim údajom."
+
+#: src/core-authors/components/AuthorPickerPanel.tsx:109
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:44
+msgid "Search authors..."
+msgstr "Vyhľadávať autorov..."
+
+#: src/core-authors/components/AuthorPickerPanel.tsx:116
+msgid "No authors found. Create one first."
+msgstr "Nenašli sa žiadni autori. Najprv jedného vytvorte."
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:22
+msgid "Author deleted"
+msgstr "Autor vymazal"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:30
+msgid "Authors"
+msgstr "Autori"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:35
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
+msgid "New Author"
+msgstr "Nový autor"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:56
+msgid "No authors yet."
+msgstr "Zatiaľ žiadni autori."
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:83
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:132
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:282
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:313
+msgid "Edit"
+msgstr "Upraviť"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/page.tsx:89
+msgid "Delete this author?"
+msgstr "Odstrániť tohto autora?"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:42
+msgid "Author created"
+msgstr "Vytvoril autor"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:50
+msgid "Author saved"
+msgstr "Autor uložený"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:100
+msgid "Edit Author"
+msgstr "Upraviť autora"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:108
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:142
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:121
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+msgid "Create"
+msgstr "Vytvoriť"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:136
+msgid "Bio"
+msgstr "Životopis"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:146
+msgid "Avatar"
+msgstr "Avatar"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:165
+msgid "Social Links"
+msgstr "Odkazy na sociálne siete"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:168
+msgid "Website"
+msgstr "Webová stránka"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:172
+msgid "Twitter"
+msgstr "Twitter"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:176
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/core-authors/_templates/app/dashboard/(panel)/authors/[id]/page.tsx:180
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:22
+msgid "Are you sure you want to delete this character?"
+msgstr "Naozaj chcete túto postavu vymazať?"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:32
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Characters"
+msgstr "Postavy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:34
+msgid "AI personas that users can chat with."
+msgstr "Postavy umelej inteligencie, s ktorými môžu používatelia komunikovať prostredníctvom chatu."
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:42
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
+msgid "New Character"
+msgstr "Nová postava"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:52
+msgid "No characters yet. Create your first AI persona."
+msgstr "Zatiaľ žiadne postavy. Vytvorte si svoju prvú postavu s umelou inteligenciou."
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/page.tsx:93
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:130
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:363
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:80
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:305
+msgid "Inactive"
+msgstr "Neaktívny"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:188
+msgid "Tagline"
+msgstr "Slogan"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:191
+msgid "System Prompt"
+msgstr "Systémová výzva"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:194
+msgid "Personality (visible to users)"
+msgstr "Osobnosť (viditeľná pre používateľov)"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:197
+msgid "Greeting Message"
+msgstr "Pozdravný odkaz"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:200
+msgid "Avatar URL"
+msgstr "URL avatara"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:205
+msgid "Character Traits"
+msgstr "Charakterové vlastnosti"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:207
+msgid "Gender"
+msgstr "Rod"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:208
+msgid "Sexuality"
+msgstr "Sexualita"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:209
+msgid "Ethnicity"
+msgstr "Etnická príslušnosť"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:210
+msgid "Personality"
+msgstr "Osobnosť"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:211
+msgid "Kink"
+msgstr "Zlom"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:212
+msgid "Job"
+msgstr "Práca"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:213
+msgid "Relationship"
+msgstr "Vzťah"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:216
+msgid "Hobbies"
+msgstr "Koníčky"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:222
+msgid "Visual Appearance"
+msgstr "Vzhľad"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:224
+msgid "Hair Color"
+msgstr "Farba vlasov"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:225
+msgid "Hair Texture"
+msgstr "Textúra vlasov"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:226
+msgid "Hair Style"
+msgstr "Účes"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:227
+msgid "Eye Color"
+msgstr "Farba očí"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:228
+msgid "Skin"
+msgstr "Koža"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:229
+msgid "Body Type"
+msgstr "Typ postavy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:235
+msgid "Image Generation Settings"
+msgstr "Nastavenia generovania obrázkov"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:237
+msgid "Model Preset"
+msgstr "Prednastavenie modelu"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:239
+msgid "Sort Order"
+msgstr "Poradie triedenia"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:241
+msgid "Token Cost Multiplier"
+msgstr "Multiplikátor nákladov na token"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:244
+msgid "Custom Negative Prompt"
+msgstr "Vlastná negatívna výzva"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:246
+msgid "LoRA Config"
+msgstr "Nastavenie LoRA"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:252
+msgid "Active (visible to users)"
+msgstr "Aktívny (viditeľný pre používateľov)"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
+msgid "Create Character"
+msgstr "Vytvoriť postavu"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:259
+msgid "Save Changes"
+msgstr "Uložiť zmeny"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/characters/[id]/page.tsx:286
+msgid "Edit Character"
+msgstr "Upraviť postavu"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:25
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:12
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:25
+msgid "Conversations"
+msgstr "Rozhovory"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:26
+msgid "Browse all chat conversations"
+msgstr "Prezrieť všetky konverzácie v chate"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:33
+msgid "All statuses"
+msgstr "Všetky stavy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:35
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:368
+msgid "Archived"
+msgstr "Archív"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:36
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:27
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:133
+msgid "Deleted"
+msgstr "Vymazané"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:43
+msgid "No conversations found."
+msgstr "Nenašli sa žiadne konverzácie."
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:50
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:127
+msgid "User"
+msgstr "Používateľ"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:51
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:85
+msgid "Character"
+msgstr "Postava"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:52
+msgid "Messages"
+msgstr "Správy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:53
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:130
+msgid "Tokens"
+msgstr "Žetóny"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/page.tsx:55
+msgid "Last Active"
+msgstr "Posledná aktivita"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:26
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:269
+msgid "Conversation"
+msgstr "Rozhovor"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/conversations/[id]/page.tsx:33
+msgid "No messages."
+msgstr "Žiadne správy."
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:24
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:15
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Flagged Messages"
+msgstr "Označené správy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:25
+msgid "Messages blocked by content moderation"
+msgstr "Správy zablokované v rámci moderácie obsahu"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:31
+msgid "No flagged messages."
+msgstr "Žiadne označené správy."
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:53
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
+msgid "Reason"
+msgstr "Dôvod"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:61
+msgid "Dismiss flag"
+msgstr "Zrušiť označenie"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/flagged/page.tsx:64
+msgid "Dismiss"
+msgstr "Zatvoriť"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:13
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:26
+msgid "Total Messages"
+msgstr "Celkový počet správ"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:14
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:27
+msgid "Active Users (24h)"
+msgstr "Aktívni používatelia (za posledných 24 hodín)"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:19
+msgid "Manage AI personas"
+msgstr "Správa AI osobností"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:20
+msgid "Browse all conversations"
+msgstr "Prezrieť všetky konverzácie"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:21
+msgid "Review moderated content"
+msgstr "Skontrolujte moderovaný obsah"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:22
+msgid "Manage LLM providers"
+msgstr "Správa poskytovateľov LLM"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:23
+msgid "Usage statistics and charts"
+msgstr "Štatistiky a grafy využitia"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:24
+msgid "Keywords, action, and rate limits"
+msgstr "Kľúčové slová, akcie a obmedzenia rýchlosti"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:30
+msgid "Chat"
+msgstr "Chat"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/page.tsx:31
+msgid "AI character chat management"
+msgstr "Správa chatu s umelou inteligenciou"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:69
+msgid "Delete this provider?"
+msgstr "Odstrániť tohto poskytovateľa?"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:87
+msgid "Manage LLM provider credentials and routing"
+msgstr "Správa prihlasovacích údajov poskytovateľov LLM a smerovanie"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:91
+msgid "Add Provider"
+msgstr "Pridať poskytovateľa"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
+msgid "Edit Provider"
+msgstr "Upraviť poskytovateľa"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:99
+msgid "New Provider"
+msgstr "Nový poskytovateľ"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:105
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:161
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:174
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:126
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:200
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:151
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:312
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:143
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:208
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:373
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:61
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:159
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:277
+msgid "Type"
+msgstr "Typ"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:107
+msgid "LLM (Text)"
+msgstr "LLM (text)"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:109
+msgid "Video"
+msgstr "Video"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:111
+msgid "Adapter"
+msgstr "Adaptér"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:118
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:162
+msgid "Model"
+msgstr "Model"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:121
+msgid "Base URL (leave empty for OpenAI)"
+msgstr "Základná URL adresa (v prípade OpenAI nechajte prázdne)"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:123
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:163
+msgid "API Key"
+msgstr "Kľúč API"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:124
+msgid "Leave empty to keep current"
+msgstr "Nechajte prázdne, ak chcete zachovať aktuálny stav"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:126
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:164
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:120
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:384
+msgid "Priority"
+msgstr "Priorita"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:132
+msgid "Max Concurrent"
+msgstr "Maximálny počet súbežných operácií"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:134
+msgid "Timeout (s)"
+msgstr "Časový limit (s)"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:153
+msgid "No providers configured. Add one or set AI_API_KEY in .env for a quick start."
+msgstr "Nie sú nakonfigurovaní žiadni poskytovatelia. Pridajte jedného alebo nastavte AI_API_KEY v súbore .env, aby ste mohli rýchlo začať."
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/providers/page.tsx:189
+msgid "Test"
+msgstr "Test"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:17
+msgid "Task Queues"
+msgstr "Fronty úloh"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:18
+msgid "BullMQ job queue status and failed job management"
+msgstr "Stav fronty úloh v BullMQ a správa neúspešných úloh"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:25
+msgid "No queues found. Workers may not be running."
+msgstr "Nenašli sa žiadne fronty. Je možné, že procesy nebežia."
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:60
+msgid "Waiting"
+msgstr "Čakanie"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:62
+msgid "Done"
+msgstr "Hotovo"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:63
+msgid "Failed"
+msgstr "Neúspešné"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:69
+msgid "Failed Jobs"
+msgstr "Neúspešné úlohy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:76
+msgid "Attempts"
+msgstr "Pokusy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/queue/page.tsx:81
+msgid "Retry"
+msgstr "Skúsiť znova"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:28
+msgid "Tokens Consumed"
+msgstr "Spotrebované žetóny"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:34
+msgid "Chat Analytics"
+msgstr "Analýza chatu"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:35
+msgid "Usage statistics and trends"
+msgstr "Štatistiky a trendy v používaní"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:55
+msgid "Messages (30 days)"
+msgstr "Správy (30 dní)"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:74
+msgid "Popular Characters"
+msgstr "Obľúbené postavy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:78
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:121
+msgid "No data yet"
+msgstr "Zatiaľ nie sú k dispozícii žiadne údaje"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:86
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:128
+msgid "Convs"
+msgstr "Konverzácie"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:87
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:129
+msgid "Msgs"
+msgstr "Správy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:88
+msgid "Avg"
+msgstr "Priemer"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:117
+msgid "Most Active Users"
+msgstr "Najaktívnejší používatelia"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:164
+msgid "Provider Health (24h)"
+msgstr "Zdravotná starostlivosť (24 hod.)"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:168
+msgid "No provider activity yet"
+msgstr "Zatiaľ nebola zaznamenaná žiadna aktivita poskytovateľa"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:173
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:132
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:56
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:115
+msgid "Provider"
+msgstr "Poskytovateľ"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:175
+msgid "Requests"
+msgstr "Žiadosti"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:176
+msgid "Success"
+msgstr "Úspech"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:177
+msgid "Failures"
+msgstr "Poruchy"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:178
+msgid "Avg ms"
+msgstr "Priemerná hodnota v ms"
+
+#: src/core-chat/_templates/app/dashboard/(panel)/settings/chat/stats/page.tsx:179
+msgid "Rate"
+msgstr "Hodnotenie"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:69
+msgid "Comment updated"
+msgstr "Komentár bol aktualizovaný"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:78
+msgid "Comment deleted"
+msgstr "Komentár bol vymazaný"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:156
+msgid "Search comments..."
+msgstr "Vyhľadávať komentáre..."
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:189
+msgid "No comments"
+msgstr "Žiadne komentáre"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:193
+msgid "No comments match your search."
+msgstr "Žiadne komentáre nezodpovedajú vášmu vyhľadávaniu."
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:194
+msgid "No comments found."
+msgstr "Nenašli sa žiadne komentáre."
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:201
+msgid "Author"
+msgstr "Autor"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:202
+msgid "Comment"
+msgstr "Komentár"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:205
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:305
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:139
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:57
+msgid "Date"
+msgstr "Dátum"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:230
+msgid "Anonymous"
+msgstr "Anonymný"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:267
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:179
+msgid "Approve"
+msgstr "Schváliť"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:276
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:187
+msgid "Reject"
+msgstr "Odmietnuť"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:285
+msgid "Spam"
+msgstr "Spam"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:334
+msgid "Delete comment?"
+msgstr "Odstrániť komentár?"
+
+#: src/core-comments/_templates/app/dashboard/(panel)/comments/page.tsx:335
+msgid "Permanently delete this comment? This action cannot be undone."
+msgstr "Chcete tento komentár natrvalo odstrániť? Túto akciu nie je možné vrátiť späť."
+
+#: src/core-multisite/components/SiteSwitcher.tsx:61
+msgid "Switch site"
+msgstr "Zmeniť lokalitu"
+
+#: src/core-multisite/components/SiteSwitcher.tsx:77
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:94
+msgid "Network"
+msgstr "Sieť"
+
+#: src/core-multisite/components/SiteSwitcher.tsx:89
+msgid "Network Admin"
+msgstr "Správca siete"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:38
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:66
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:65
+msgid "Create Site"
+msgstr "Vytvoriť stránku"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:46
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:169
+msgid "Site Name"
+msgstr "Názov stránky"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:50
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:179
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:193
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:411
+msgid "optional"
+msgstr "voliteľné"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:51
+msgid "auto-generated from name"
+msgstr "automaticky vygenerované na základe mena"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:52
+msgid "Used for subdomain: {slug}.yourdomain.com"
+msgstr "Používa sa pre subdoménu: {slug}.yourdomain.com"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/create/page.tsx:55
+msgid "Default Locale"
+msgstr "Predvolené národné prostredie"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
+msgid "Suspend this site?"
+msgstr "Zablokovať túto stránku?"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:35
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:82
+msgid "It will become inaccessible to visitors."
+msgstr "Pre návštevníkov bude neprístupné."
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:53
+msgid "Sites"
+msgstr "Webové stránky"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:62
+msgid "Show deleted"
+msgstr "Zobraziť zmazané"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:75
+msgid "No sites yet. Create your first site."
+msgstr "Zatiaľ žiadne stránky. Vytvorte si svoju prvú stránku."
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/page.tsx:118
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:146
+msgid "Unsuspend"
+msgstr "Zrušiť pozastavenie"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:56
+msgid "Site not found"
+msgstr "Stránka nebola nájdená"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:93
+msgid "Are you sure you want to disable this site?"
+msgstr "Naozaj chcete túto stránku zablokovať?"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
+msgid "Name for the cloned site:"
+msgstr "Názov klonovanej stránky:"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:104
+msgid "Site name"
+msgstr "Názov stránky"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:119
+msgid "Remove this domain?"
+msgstr "Odstrániť túto doménu?"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:136
+msgid "Clone Site"
+msgstr "Klonovať stránku"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:137
+msgid "Clone"
+msgstr "Klonovať"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:156
+msgid "Disable Site"
+msgstr "Deaktivovať stránku"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:166
+msgid "General"
+msgstr "Všeobecné informácie"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:177
+msgid "Schema"
+msgstr "Schéma"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:189
+msgid "Branding"
+msgstr "Budovanie značky"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:194
+msgid "Brand Hue"
+msgstr "Značka Hue"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:206
+msgid "Accent Hue"
+msgstr "Odtieň akcentu"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:218
+msgid "Gray Hue"
+msgstr "Sivý odtieň"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:231
+msgid "Logo URL"
+msgstr "URL loga"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:235
+msgid "Favicon URL"
+msgstr "URL faviconu"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:239
+msgid "Contact Email"
+msgstr "Kontaktný e-mail"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:243
+msgid "Save Branding"
+msgstr "Uložiť značku"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:250
+msgid "Domains"
+msgstr "Domény"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:257
+msgid "Verified"
+msgstr "Overené"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:259
+msgid "Pending"
+msgstr "V riešení"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:261
+msgid "Primary"
+msgstr "Základná škola"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:272
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:711
+msgid "Add"
+msgstr "Pridať"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:285
+msgid "Members"
+msgstr "Členovia"
+
+#: src/core-multisite/_templates/app/dashboard/(panel)/settings/sites/[id]/page.tsx:287
+msgid "No members yet."
+msgstr "Zatiaľ nie sú žiadni členovia."
+
+#: src/core-store/_templates/app/(public)/account/orders/page.tsx:16
+#: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:26
+msgctxt "General"
+msgid "Pending"
+msgstr "V riešení"
+
+#: src/core-store/_templates/app/(public)/account/orders/page.tsx:17
+#: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:27
+msgctxt "General"
+msgid "Processing"
+msgstr "Spracovanie"
+
+#: src/core-store/_templates/app/(public)/account/orders/page.tsx:18
+#: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:28
+msgctxt "General"
+msgid "Shipped"
+msgstr "Odoslané"
+
+#: src/core-store/_templates/app/(public)/account/orders/page.tsx:19
+#: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:29
+msgctxt "General"
+msgid "Delivered"
+msgstr "Doručené"
+
+#: src/core-store/_templates/app/(public)/account/orders/page.tsx:20
+#: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:30
+msgctxt "General"
+msgid "Cancelled"
+msgstr "Zrušené"
+
+#: src/core-store/_templates/app/(public)/account/orders/page.tsx:21
+#: src/core-store/_templates/app/(public)/account/orders/[id]/page.tsx:31
+msgctxt "General"
+msgid "Refunded"
+msgstr "Vrátené"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:316
+msgid "Price: Low to High"
+msgstr "Cena: Od najnižšej po najvyššiu"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:317
+msgid "Price: High to Low"
+msgstr "Cena: Od najvyššej po najnižšiu"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:318
+msgid "Name A-Z"
+msgstr "Meno A–Z"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:440
+msgid "Shop now"
+msgstr "Nakupujte teraz"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:531
+msgid "Price Range"
+msgstr "Cenové rozpätie"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:536
+msgid "Min"
+msgstr "Min"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:547
+msgid "Max"
+msgstr "Max"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:876
+#: src/core-store/_templates/app/(public)/store/client.tsx:906
+msgid "Filters"
+msgstr "Filtre"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:948
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "Showing"
+msgstr "Zobrazenie"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:948
+msgid "products"
+msgstr "výrobky"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:1025
+msgid "Try adjusting your search terms or clearing filters."
+msgstr "Skúste upraviť vyhľadávacie kritériá alebo zrušiť filtre."
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:1026
+msgid "Check back soon for new products."
+msgstr "Sledujte nás, čoskoro sa môžete tešiť na nové produkty."
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:1041
+msgid "Browse our collection of products"
+msgstr "Prezrite si našu ponuku produktov"
+
+#: src/core-store/_templates/app/(public)/store/client.tsx:1050
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:138
+msgid "Search products..."
+msgstr "Vyhľadávať produkty..."
+
+#: src/core-store/_templates/app/(public)/store/page.tsx:10
+#: src/core-store/_templates/app/(public)/store/page.tsx:13
+msgid "Browse our collection of products. Find exactly what you need."
+msgstr "Prezrite si našu ponuku produktov. Nájdite presne to, čo potrebujete."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:91
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:748
+msgid "Attributes"
+msgstr "Vlastnosti"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:98
+msgid "Add Attribute"
+msgstr "Pridať atribút"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:108
+msgid "New Attribute"
+msgstr "Nový atribút"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:119
+msgid "e.g. Color, Size"
+msgstr "napr. farba, veľkosť"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:134
+msgid "Text"
+msgstr "Text"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:135
+msgid "Number"
+msgstr "Číslo"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:201
+msgid "Values"
+msgstr "Hodnoty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:141
+msgid "comma-separated"
+msgstr "oddelené čiarkami"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:160
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:202
+msgid "Filterable"
+msgstr "S možnosťou filtrovania"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:188
+msgid "No attributes defined"
+msgstr "Nie sú definované žiadne atribúty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:191
+msgid "Add your first attribute to enable product filtering."
+msgstr "Pridajte svoj prvý atribút, aby ste mohli filtrovať produkty."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/attributes/page.tsx:203
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:315
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:63
+msgid "Usage"
+msgstr "Použitie"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:116
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:47
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:133
+msgid "Discount Codes"
+msgstr "Zľavové kódy"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:123
+msgid "Add Code"
+msgstr "Pridať kód"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:133
+msgid "New Discount Code"
+msgstr "Nový zľavový kód"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:158
+msgid "Percentage"
+msgstr "Percentuálny podiel"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:159
+msgid "Fixed Amount"
+msgstr "Pevná suma"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
+msgid "Value (%)"
+msgstr "Hodnota (%)"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:164
+msgid "Value (EUR)"
+msgstr "Hodnota (EUR)"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:179
+msgid "Min Order (EUR)"
+msgstr "Minimálna hodnota objednávky (EUR)"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:193
+msgid "Max Uses"
+msgstr "Maximálny počet použití"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:207
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:317
+msgid "Expires"
+msgstr "Platnosť končí"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:266
+msgid "Search codes..."
+msgstr "Vyhľadávať kódy..."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:299
+msgid "No discount codes"
+msgstr "Žiadne zľavové kódy"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:303
+msgid "No codes match your search."
+msgstr "Žiadny kód nezodpovedá vášmu vyhľadávaniu."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:304
+msgid "Create your first discount code to offer promotions."
+msgstr "Vytvorte si svoj prvý zľavový kód a ponúknite svojim zákazníkom zľavy."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:313
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:62
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:278
+msgid "Value"
+msgstr "Hodnota"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:314
+msgid "Min Order"
+msgstr "Minimálna objednávka"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
+msgid "Percent"
+msgstr "Percent"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:338
+msgid "Fixed"
+msgstr "Opravené"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/discounts/page.tsx:376
+msgid "Deactivate"
+msgstr "Deaktivovať"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:59
+msgid "Product created"
+msgstr "Produkt bol vytvorený"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:75
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:239
+msgid "Name is required"
+msgstr "Meno je povinné"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:113
+msgid "New Product"
+msgstr "Nový produkt"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:130
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:347
+msgid "Basic Info"
+msgstr "Základné informácie"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:139
+msgid "Product name"
+msgstr "Názov produktu"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:149
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:379
+msgid "Simple"
+msgstr "Jednoduché"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:150
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:380
+msgid "Variable"
+msgstr "Premenná"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:152
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:382
+msgid "Subscription"
+msgstr "Predplatné"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:156
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:386
+msgid "Short Description"
+msgstr "Stručný popis"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:183
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:209
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:413
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:618
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:676
+msgid "Price"
+msgstr "Cena"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:195
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:425
+msgid "Compare Price"
+msgstr "Porovnať ceny"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:203
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:433
+msgid "Original price for discount display"
+msgstr "Pôvodná cena pre zľavovú ponuku"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:209
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:439
+msgid "Currency"
+msgstr "Mena"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:221
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:451
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:617
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:667
+msgid "SKU"
+msgstr "SKU"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:227
+msgid "Optional stock keeping unit"
+msgstr "Voliteľná skladová jednotka"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:237
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:466
+msgid "Inventory"
+msgstr "Zásoby"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:246
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:475
+msgid "Track Inventory"
+msgstr "Sledovanie zásob"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:250
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:479
+msgid "Stock Quantity"
+msgstr "Skladové množstvo"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:261
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:490
+msgid "Weight (grams)"
+msgstr "Hmotnosť (gramy)"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:268
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:497
+msgid "Optional"
+msgstr "Voliteľné"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:278
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:507
+msgid "Requires Shipping"
+msgstr "Vyžaduje sa doručenie"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:287
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:516
+msgid "Digital Product"
+msgstr "Digitálny produkt"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:290
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:519
+msgid "File URL"
+msgstr "URL súboru"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:300
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:529
+msgid "Download Limit"
+msgstr "Limit stiahnutia"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:307
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:536
+msgid "Unlimited"
+msgstr "Neobmedzené"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:321
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:550
+msgid "SEO"
+msgstr "SEO"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:327
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:556
+msgid "Meta Title"
+msgstr "Meta názov"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:352
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:581
+msgid "Featured Image"
+msgstr "Hlavný obrázok"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:354
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:583
+msgid "Image URL"
+msgstr "URL obrázku"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/new/page.tsx:363
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:592
+msgid "Tip: Projects can upgrade this to a MediaPickerButton for file uploads."
+msgstr "Tip: V rámci projektov je možné túto funkciu nahradiť komponentom MediaPickerButton na nahrávanie súborov."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:167
+msgid "Exporting..."
+msgstr "Exportuje sa..."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:173
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:98
+msgid "Products"
+msgstr "Produkty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:233
+msgid "Search by order number..."
+msgstr "Vyhľadávanie podľa čísla objednávky..."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:263
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:258
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:187
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:393
+msgid "From"
+msgstr "Od"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:265
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "to"
+msgstr "do"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:274
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:194
+msgid "To"
+msgstr "Do"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:289
+msgid "No orders"
+msgstr "Žiadne objednávky"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:293
+msgid "No orders match your search."
+msgstr "Žiadne objednávky nezodpovedajú vášmu vyhľadávaniu."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:294
+msgid "No orders yet."
+msgstr "Zatiaľ žiadne objednávky."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:301
+msgid "Order #"
+msgstr "Číslo objednávky:"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:302
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
+msgid "Customer"
+msgstr "Zákazník"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:344
+msgid "View"
+msgstr "Zobraziť"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:351
+msgid "Invoice"
+msgstr "Faktúra"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:359
+msgid "Refund"
+msgstr "Vrátenie peňazí"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:405
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:437
+msgid "Refund Order"
+msgstr "Žiadosť o vrátenie peňazí"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/orders/page.tsx:419
+msgid "Enter reason for refund..."
+msgstr "Zadajte dôvod vrátenia peňazí..."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:72
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:187
+msgid "Product deleted"
+msgstr "Produkt bol odstránený"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:102
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:198
+msgid "Add Product"
+msgstr "Pridať produkt"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:185
+msgid "No products"
+msgstr "Žiadne produkty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:189
+msgid "No products match your search."
+msgstr "Žiadny produkt nezodpovedá vášmu vyhľadávaniu."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:190
+msgid "Create your first product to get started."
+msgstr "Vytvorte si svoj prvý produkt a začnite."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:211
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:619
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:688
+msgid "Stock"
+msgstr "Zásoby"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:330
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:844
+msgid "Delete product?"
+msgstr "Odstrániť produkt?"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/page.tsx:331
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:845
+msgid "Delete \"{name}\"? This action cannot be undone."
+msgstr "Odstrániť „{name}“? Túto akciu nie je možné vrátiť späť."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:79
+msgid "Reviews"
+msgstr "Recenzie"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:123
+msgid "No reviews to moderate"
+msgstr "Nie sú žiadne recenzie na schválenie"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:127
+msgid "No reviews with this status."
+msgstr "Žiadne recenzie s týmto stavom."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:128
+msgid "Reviews will appear here once customers submit them."
+msgstr "Recenzie sa tu zobrazia hneď, ako ich zákazníci odošlú."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:135
+msgid "Product"
+msgstr "Produkt"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/reviews/page.tsx:136
+msgid "Rating"
+msgstr "Hodnotenie"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:179
+msgid "Product saved"
+msgstr "Produkt bol uložený"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:195
+msgid "Variant added"
+msgstr "Pridaná varianta"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:205
+msgid "Variant deleted"
+msgstr "Variant bol odstránený"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:214
+msgid "Attributes saved"
+msgstr "Uložené atribúty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:222
+msgid "Related products saved"
+msgstr "Uložené súvisiace produkty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:265
+msgid "Variant name is required"
+msgstr "Názov variantu je povinný"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:318
+msgid "Edit Product"
+msgstr "Upraviť produkt"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:601
+msgid "Variants"
+msgstr "Varianty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:607
+msgid "Add Variant"
+msgstr "Pridať variant"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:648
+msgid "No variants yet. Add variants to offer different options."
+msgstr "Zatiaľ nie sú k dispozícii žiadne varianty. Pridajte varianty, aby ste mohli ponúknuť rôzne možnosti."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:654
+msgid "New Variant"
+msgstr "Nová verzia"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:663
+msgid "e.g. Large / Red"
+msgstr "napr. veľký / červený"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:725
+msgid "No categories defined."
+msgstr "Nie sú definované žiadne kategórie."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:740
+msgid "Category assignment is saved with the product. Extend this section to call a category update mutation."
+msgstr "Priradenie kategórie sa ukladá spolu s produktom. Rozšírte túto časť tak, aby volala mutáciu na aktualizáciu kategórie."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:752
+msgid "No attributes defined."
+msgstr "Nie sú definované žiadne atribúty."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:785
+msgid "Save Attributes"
+msgstr "Uložiť atribúty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:793
+msgid "Related Products"
+msgstr "Súvisiace produkty"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:818
+msgid "Comma-separated product IDs"
+msgstr "ID produktov oddelené čiarkami"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:832
+msgid "Tip: Replace comma-separated IDs with a product search/select component for better UX."
+msgstr "Tip: Pre lepšiu používateľskú skúsenosť nahraďte ID oddelené čiarkami komponentom na vyhľadávanie/výber produktov."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:855
+msgid "Delete variant?"
+msgstr "Odstrániť variantu?"
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:856
+msgid "This variant will be permanently removed."
+msgstr "Táto verzia bude natrvalo odstránená."
+
+#: src/core-store/_templates/app/dashboard/(panel)/store/[id]/page.tsx:890
+msgid "Product not found."
+msgstr "Produkt sa nenašiel."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:84
+msgid "Canceled"
+msgstr "Zrušené"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:85
+msgid "Payment Failed"
+msgstr "Platba sa nepodarila"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:86
+msgid "Unpaid"
+msgstr "Nezaplatené"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:92
+msgid "Churned Subscriptions"
+msgstr "Zrušené predplatné"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:113
+msgid "Search by organization..."
+msgstr "Vyhľadávanie podľa organizácie..."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:123
+msgid "No churned subscriptions found."
+msgstr "Nenašli sa žiadne zrušené predplatné."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:129
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:52
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:112
+msgid "Organization"
+msgstr "Organizácia"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:130
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:54
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:113
+msgid "Plan"
+msgstr "Plán"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:133
+msgid "Churn Date"
+msgstr "Dátum odchodu zákazníka"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:134
+msgid "Subscription Start"
+msgstr "Začiatok predplatného"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/ChurnedSubscriptionsTable.tsx:165
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:150
+msgid "results"
+msgstr "výsledky"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:54
+msgid "No discount codes yet."
+msgstr "Zatiaľ nie sú k dispozícii žiadne zľavové kódy."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/DiscountCodesTable.tsx:99
+msgid "unlimited"
+msgstr "neobmedzený"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:42
+msgid "Recent Transactions"
+msgstr "Nedávne transakcie"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:47
+msgid "No transactions yet."
+msgstr "Zatiaľ neboli vykonané žiadne transakcie."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RecentTransactionsTable.tsx:53
+msgid "Amount"
+msgstr "Suma"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:32
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:89
+msgid "Revenue"
+msgstr "Tržby"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:33
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:99
+msgid "Transactions"
+msgstr "Transakcie"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:56
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:70
+msgid "Revenue Over Time"
+msgstr "Výnosy v priebehu času"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/RevenueChart.tsx:73
+msgid "No revenue data for this period."
+msgstr "Za toto obdobie nie sú k dispozícii žiadne údaje o tržbách."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:78
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:41
+msgid "Active Subscriptions"
+msgstr "Aktívne predplatné"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:86
+msgid "Search organizations..."
+msgstr "Vyhľadávať organizácie..."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:97
+msgid "per page"
+msgstr "na stranu"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:106
+msgid "No subscriptions found."
+msgstr "Nenašli sa žiadne predplatné."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionsTable.tsx:116
+msgid "Period"
+msgstr "Obdobie"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:53
+msgid "MRR"
+msgstr "MRR"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:62
+msgid "Total Revenue"
+msgstr "Celkové tržby"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:71
+msgid "Trialing"
+msgstr "Testovanie"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:77
+msgid "Trial"
+msgstr "Skúšobná verzia"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:85
+msgid "Plan Distribution"
+msgstr "Plán distribúcie"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:100
+msgid "No subscriptions yet"
+msgstr "Zatiaľ žiadne predplatné"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:108
+msgid "Churn Metrics"
+msgstr "Ukazovatele odchodu zákazníkov"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:118
+msgid "Churn Rate (30d)"
+msgstr "Miera odchodu zákazníkov (30 dní)"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:122
+msgid "Canceled (30d)"
+msgstr "Zrušené (30 dní)"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:126
+msgid "Past Due (at risk)"
+msgstr "Po splatnosti (rizikové)"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:130
+msgid "Unpaid (lost)"
+msgstr "Nezaplatené (stratené)"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/components/SubscriptionSummary.tsx:134
+msgid "Total Ever Subscribed"
+msgstr "Celkový počet predplatiteľov za celú dobu"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:156
+msgid "Monitor revenue, track churn, and manage subscriptions."
+msgstr "Sledujte tržby, monitorujte úbytok zákazníkov a spravujte predplatné."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:181
+msgid "Custom range"
+msgstr "Vlastný rozsah"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:231
+msgid "Last"
+msgstr "Posledný"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/billing/page.tsx:235
+msgid "All time"
+msgstr "Všetky časy"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:41
+msgid "Discount code created"
+msgstr "Zľavový kód bol vytvorený"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:50
+msgid "Discount code updated"
+msgstr "Aktualizovaný zľavový kód"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:59
+msgid "Discount code deleted"
+msgstr "Zľavový kód bol odstránený"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:138
+msgid "New Code"
+msgstr "Nový kód"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Percentage (0-100)"
+msgstr "Percentuálny podiel (0–100)"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:176
+msgid "Price (cents)"
+msgstr "Cena (centy)"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:191
+msgid "Trial Days"
+msgstr "Skúšobné dni"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:203
+msgid "Trial Price (cents)"
+msgstr "Cena skúšobnej verzie (centy)"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:219
+msgid "Max Uses (leave empty for unlimited)"
+msgstr "Maximálny počet použití (ak chcete neobmedzený počet, ponechajte políčko prázdne)"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:229
+msgid "Max Uses Per User"
+msgstr "Maximálny počet použití na používateľa"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
+msgid "Update"
+msgstr "Aktualizácia"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:270
+msgid "No discount codes configured."
+msgstr "Nie sú nastavené žiadne zľavové kódy."
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:279
+msgid "Uses"
+msgstr "Použitie"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:335
+msgid "Delete discount code?"
+msgstr "Odstrániť kód na zľavu?"
+
+#: src/core-subscriptions/_templates/app/dashboard/(panel)/settings/discount-codes/page.tsx:336
+msgid "Code \"{code}\" will be permanently deleted."
+msgstr "Kód „{code}“ bude natrvalo vymazaný."
+
+#: src/core-support/components/SupportChatWidget.tsx:275
+msgid "Hi! How can I help you today?"
+msgstr "Ahoj! Čím vám môžem dnes pomôcť?"
+
+#: src/core-support/components/SupportChatWidget.tsx:276
+msgid "Type your message..."
+msgstr "Napíšte správu..."
+
+#: src/core-support/components/SupportChatWidget.tsx:286
+msgid "Support Chat"
+msgstr "Podpora prostredníctvom chatu"
+
+#: src/core-support/components/SupportChatWidget.tsx:333
+msgid "Support Agent"
+msgstr "Pracovník podpory"
+
+#: src/core-support/components/SupportChatWidget.tsx:351
+msgid "Enter your email so our team can follow up:"
+msgstr "Zadajte svoju e-mailovú adresu, aby vás náš tím mohol kontaktovať:"
+
+#: src/core-support/components/SupportChatWidget.tsx:361
+msgid "your@email.com"
+msgstr "your@email.com"
+
+#: src/core-support/components/SupportChatWidget.tsx:366
+msgid "Connect with support"
+msgstr "Kontaktujte podporu"
+
+#: src/core-support/components/SupportChatWidget.tsx:375
+msgid "Would you like to create a support ticket so our team can follow up?"
+msgstr "Chceli by ste vytvoriť žiadosť o podporu, aby sa tomu mohol náš tím venovať?"
+
+#: src/core-support/components/SupportChatWidget.tsx:378
+msgid "Create Support Ticket"
+msgstr "Vytvoriť žiadosť o podporu"
+
+#: src/core-support/components/SupportChatWidget.tsx:385
+msgid "Thanks! Our team will follow up at your email soon."
+msgstr "Ďakujeme! Náš tím sa vám čoskoro ozve na vašu e-mailovú adresu."
+
+#: src/core-support/components/SupportChatWidget.tsx:391
+msgid "Your ticket has been created. Our team will follow up soon."
+msgstr "Váš lístok bol vytvorený. Náš tím sa vám čoskoro ozve."
+
+#: src/core-support/components/SupportChatWidget.tsx:394
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:167
+msgid "View Ticket"
+msgstr "Zobraziť lístok"
+
+#: src/core-support/components/SupportChatWidget.tsx:427
+msgid "Talk to a human"
+msgstr "Porozprávajte sa s človekom"
+
+#: src/core-support/components/SupportChatWidget.tsx:434
+msgid "Start New Chat"
+msgstr "Začať nový chat"
+
+#: src/core-support/components/SupportChatWidget.tsx:444
+msgid "Close chat"
+msgstr "Zatvoriť chat"
+
+#: src/core-support/components/SupportChatWidget.tsx:444
+msgid "Open chat"
+msgstr "Otvoriť chat"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:65
+msgid "Chat closed"
+msgstr "Chat bol ukončený"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:129
+msgid "Chat session not found."
+msgstr "Chatová relácia nebola nájdená."
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:149
+msgid "Live Chat"
+msgstr "Živý chat"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:177
+msgid "Close Chat"
+msgstr "Zatvoriť chat"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:187
+msgid "Visitor"
+msgstr "Návštevník"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:196
+msgid "Chat email"
+msgstr "Chat, e-mail"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:200
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:252
+msgid "Started"
+msgstr "Začalo sa"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:205
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:118
+msgid "Subject"
+msgstr "Predmet"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/chat/[id]/page.tsx:252
+msgid "Reply as agent..."
+msgstr "Odpovedať ako agent..."
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:97
+msgid "All Priorities"
+msgstr "Všetky priority"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:112
+msgid "No tickets found."
+msgstr "Nenašli sa žiadne lístky."
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:123
+msgid "Updated"
+msgstr "Aktualizované"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:227
+msgid "Active (non-closed)"
+msgstr "Aktívny (neuzavretý)"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:228
+msgid "AI Active"
+msgstr "AI aktívna"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:229
+msgid "Agent Active"
+msgstr "Agent je aktívny"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:230
+msgid "Escalated"
+msgstr "Zhoršilo sa"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:231
+msgid "Closed"
+msgstr "Zatvorené"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:243
+msgid "No active chats."
+msgstr "Žiadne aktívne konverzácie."
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:249
+msgid "Visitor / User"
+msgstr "Návštevník / Používateľ"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:251
+msgid "Last Message"
+msgstr "Posledná správa"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:360
+msgid "Tickets"
+msgstr "Vstupenky"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/page.tsx:368
+msgid "Live Chats"
+msgstr "Živé chaty"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:157
+msgid "Reply sent"
+msgstr "Odpoveď odoslaná"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:165
+msgid "Status updated"
+msgstr "Stav aktualizovaný"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:173
+msgid "Assignment updated"
+msgstr "Úloha bola aktualizovaná"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:190
+msgid "Ticket not found."
+msgstr "Lístok sa nenašiel."
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:192
+msgid "Back to tickets"
+msgstr "Späť na vstupenky"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:213
+msgid "Unsent reply"
+msgstr "Neodoslaná odpoveď"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:214
+msgid "You have an unsent reply in the box. Send it before changing the status?"
+msgstr "V schránke máte neodoslanú odpoveď. Chcete ju odoslať pred zmenou stavu?"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:217
+msgid "Send & change status"
+msgstr "Odoslať a zmeniť stav"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:239
+msgid "Failed to copy to clipboard"
+msgstr "Kopírovanie do schránky sa nepodarilo"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:275
+msgid "Copy the full conversation to clipboard (LLM-friendly format)"
+msgstr "Skopírujte celú konverzáciu do schránky (vo formáte kompatibilnom s LLM)"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:284
+msgid "Copy conversation"
+msgstr "Kopírovať konverzáciu"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:303
+msgid "Staff"
+msgstr "Pracovníci"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:316
+msgid "Staff Reply"
+msgstr "Odpoveď zamestnanca"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:325
+msgid "Type your reply..."
+msgstr "Napíšte svoju odpoveď..."
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:337
+msgid "Send Reply"
+msgstr "Odoslať odpoveď"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:342
+msgid "This ticket is closed."
+msgstr "Tento lístok je uzavretý."
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:355
+msgid "Reopen Ticket"
+msgstr "Znovu otvoriť lístok"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:359
+msgid "User feedback"
+msgstr "Spätná väzba od používateľov"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:377
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:399
+msgid "Assigned"
+msgstr "Pridelené"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:408
+msgid "Change Status"
+msgstr "Zmeniť stav"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:423
+msgid "Assignment"
+msgstr "Úloha"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:432
+msgid "Unassign"
+msgstr "Zrušiť priradenie"
+
+#: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
+msgid "Not assigned"
+msgstr "Nepriradené"
