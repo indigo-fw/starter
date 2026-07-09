@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-06T22:01:39.005Z\n"
-"PO-Revision-Date: 2026-07-06T22:01:39.005Z\n"
+"POT-Creation-Date: 2026-07-07T13:10:06.341Z\n"
+"PO-Revision-Date: 2026-07-07T13:10:06.341Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko\n"
 "Language: ko\n"
@@ -11,7 +11,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
 
 #: src/app/(public)/account/orders/[id]/page.tsx:19
 msgid "Order Details"
@@ -333,7 +332,7 @@ msgid "Complete your order"
 msgstr "주문 완료하기"
 
 #: src/app/(public)/docs/page.tsx:24
-#: src/app/(public)/page.tsx:346
+#: src/app/(public)/page.tsx:352
 #: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
 msgstr "문서"
@@ -561,8 +560,8 @@ msgid "Live Demo — resets hourly"
 msgstr "라이브 데모 — 매시간 초기화"
 
 #: src/app/(public)/page.tsx:142
-msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "Next.js를 위한 완전한 SaaS 프레임워크 — CMS, 결제, 인증, 실시간, AI 채팅 및 모듈형 아키텍처."
+msgid "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS."
+msgstr "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS."
 
 #: src/app/(public)/page.tsx:152
 msgid "Demo login"
@@ -629,14 +628,18 @@ msgid "Ready to build?"
 msgstr "시작할 준비가 되셨나요?"
 
 #: src/app/(public)/page.tsx:333
-msgid "Clone, init, ship. It's that simple."
-msgstr "클론, 초기화, 배포. 이것만으로 충분합니다."
+msgid "One prompt from clone to running product — hand the repo to your coding agent."
+msgstr "One prompt from clone to running product — hand the repo to your coding agent."
 
 #: src/app/(public)/page.tsx:340
 msgid "Clone on GitHub"
 msgstr "GitHub에서 클론"
 
-#: src/app/(public)/page.tsx:350
+#: src/app/(public)/page.tsx:346
+msgid "What is Indigo?"
+msgstr "What is Indigo?"
+
+#: src/app/(public)/page.tsx:356
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
 msgstr "이중 라이선스: AGPL-3.0 (오픈 소스) 또는 상용 라이선스"
 
@@ -2082,6 +2085,12 @@ msgstr "토큰 잔액"
 #: src/core/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
 msgstr "{succeeded} {action}, {failed} 실패"
+
+#: src/core/hooks/useBulkActions.ts:52
+msgid "1 item {action}"
+msgid_plural "{count} items {action}"
+msgstr[0] "1 item {action}"
+msgstr[1] "{count} items {action}"
 
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
@@ -4371,3 +4380,11 @@ msgstr "배정 해제"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
 msgstr "미배정"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+#~ msgstr "Next.js를 위한 완전한 SaaS 프레임워크 — CMS, 결제, 인증, 실시간, AI 채팅 및 모듈형 아키텍처."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Clone, init, ship. It's that simple."
+#~ msgstr "클론, 초기화, 배포. 이것만으로 충분합니다."

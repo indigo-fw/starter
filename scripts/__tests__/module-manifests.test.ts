@@ -82,7 +82,11 @@ describe('module manifests', () => {
       }
     }
     expect(violations).toEqual([]);
-  });
+    // Generous timeout: this test cold-imports every module.config.ts AND walks
+    // the whole project tree reading each file — under a loaded full-suite run
+    // the default 5s is too tight (the work itself is ~200ms). See flaky-timeout
+    // note; raising the ceiling, not the actual cost.
+  }, 30000);
 
   it('projectFiles entries exist on disk and are src-relative', async () => {
     const configs = await loadModuleConfigs();

@@ -15,8 +15,14 @@ export default getRequestConfig(async () => {
   // Admin translations are loaded separately in the dashboard layout.
   let messages: Record<string, Record<string, string>> = {};
   try {
+    // Computed specifier (not a bare string literal) so `tsc` treats this as a
+    // runtime dynamic import and does NOT resolve it at type-check time — the
+    // generated `locales/build/*.json` are gitignored, so a fresh install would
+    // otherwise fail `bun run typecheck` before `bun run i18n`/`init` runs.
+    // Runtime is unchanged (DEFAULT_LOCALE === 'en'); the catch below already
+    // falls back to English keys when the JSON isn't generated yet.
     const en: Record<string, Record<string, string>> = (
-      await import('../locales/build/en.json')
+      await import(`../locales/build/${DEFAULT_LOCALE}.json`)
     ).default;
     if (locale === 'en') {
       messages = en;

@@ -21,13 +21,13 @@ export const clientEnv = {
 
 export const siteConfig = {
   name: clientEnv.siteName,
-  description: "AI Agent-driven T3 SaaS starter with integrated CMS",
+  description: "Built on Indigo — the open-source foundation for agent-built projects",
   url: clientEnv.appUrl,
 
   seo: {
-    title: `${clientEnv.siteName} — AI Agent-driven T3 SaaS Starter`,
+    title: `${clientEnv.siteName} — Describe what you want. Your agent ships it.`,
     description:
-      "Open-source SaaS starter kit with integrated CMS, built on Next.js, tRPC, Drizzle, and Better Auth. Multi-tenancy, Stripe billing, real-time WebSocket, and more.",
+      "An Indigo install — the open-source Next.js foundation coding agents shape into a website, a blog, a shop, or a full SaaS. CMS, auth, billing, i18n and SEO pre-wired.",
     /** Default OG image for pages without a featured image.
      * Recommended: 1200x630px (1.91:1), JPG/PNG/WebP, under 1MB.
      * Path relative to public/ or absolute URL. */

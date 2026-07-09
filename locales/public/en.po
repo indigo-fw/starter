@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-06T22:01:38.663Z\n"
-"PO-Revision-Date: 2026-07-06T22:01:38.663Z\n"
+"POT-Creation-Date: 2026-07-07T13:10:06.063Z\n"
+"PO-Revision-Date: 2026-07-07T13:10:06.063Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en\n"
 "Language: en\n"
@@ -332,7 +332,7 @@ msgid "Complete your order"
 msgstr "Complete your order"
 
 #: src/app/(public)/docs/page.tsx:24
-#: src/app/(public)/page.tsx:346
+#: src/app/(public)/page.tsx:352
 #: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
 msgstr "Documentation"
@@ -560,8 +560,8 @@ msgid "Live Demo — resets hourly"
 msgstr "Live Demo — resets hourly"
 
 #: src/app/(public)/page.tsx:142
-msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+msgid "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS."
+msgstr "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS."
 
 #: src/app/(public)/page.tsx:152
 msgid "Demo login"
@@ -628,14 +628,18 @@ msgid "Ready to build?"
 msgstr "Ready to build?"
 
 #: src/app/(public)/page.tsx:333
-msgid "Clone, init, ship. It's that simple."
-msgstr "Clone, init, ship. It's that simple."
+msgid "One prompt from clone to running product — hand the repo to your coding agent."
+msgstr "One prompt from clone to running product — hand the repo to your coding agent."
 
 #: src/app/(public)/page.tsx:340
 msgid "Clone on GitHub"
 msgstr "Clone on GitHub"
 
-#: src/app/(public)/page.tsx:350
+#: src/app/(public)/page.tsx:346
+msgid "What is Indigo?"
+msgstr "What is Indigo?"
+
+#: src/app/(public)/page.tsx:356
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
 msgstr "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
 
@@ -4376,6 +4380,14 @@ msgstr "Unassign"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
 msgstr "Not assigned"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+#~ msgstr "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Clone, init, ship. It's that simple."
+#~ msgstr "Clone, init, ship. It's that simple."
 
 #. REMOVED FROM CODE - PRESERVED FOR REFERENCE
 #~ msgid "AI Characters — Browse & Chat"

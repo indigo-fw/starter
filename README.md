@@ -34,18 +34,18 @@ Modules are split into **primitives** (horizontal building blocks) and **product
 |--------|--------|-------------|
 | `core-payments` | Free | Payment provider abstraction (Stripe) |
 | `core-subscriptions` | Free | Plans, tokens, discounts, dunning |
-| `core-payments-crypto` | Paid | NOWPayments crypto provider |
+| `core-payments-crypto` | Free | NOWPayments crypto provider |
 | `core-docs` | Free | Documentation system (CMS + MDX, LLM export) |
 | `core-comments` | Free | Polymorphic threaded comments with moderation |
 | `core-activity` | Free | User-facing activity feed and timeline |
 | `core-brand` | Free | Brand asset generation — favicons, OG images, web manifest |
-| `core-support` | Paid | AI support chat + ticket system + live agent |
-| `core-affiliates` | Paid | Referral tracking, attribution, commissions |
+| `core-support` | Free | AI support chat + ticket system + live agent |
+| `core-affiliates` | Free | Referral tracking, attribution, commissions |
 | `core-ai-writer` | Paid | AI content generation, SEO, translation |
-| `core-import` | Paid | WordPress/Ghost/CSV migration tools |
-| `core-authors` | Paid | Multi-author profiles and bylines |
-| `core-multisite` | Paid | Multi-tenant site isolation, domain mapping |
-| `core-api` | Paid | Org-scoped REST API v2 with key management |
+| `core-import` | Free | WordPress/Ghost/CSV migration tools |
+| `core-authors` | Free | Multi-author profiles and bylines |
+| `core-multisite` | Free | Multi-tenant site isolation, domain mapping |
+| `core-api` | Free | Org-scoped REST API v2 with key management |
 
 #### Products
 
@@ -53,7 +53,7 @@ Modules are split into **primitives** (horizontal building blocks) and **product
 |--------|--------|-------------|
 | `core-store` | Paid | E-commerce (products, cart, checkout, orders, EU VAT) |
 | `core-chat` | Paid | AI character chat — characters, conversations, providers |
-| `core-booking` | Paid | Booking and appointment scheduling |
+| `core-booking` | Free | Booking and appointment scheduling |
 
 Modules are self-contained git subtrees. Install with `bun run indigo add <module>`, remove with `bun run indigo remove <module>`. Each module brings its own routers, schema, seeds, and admin pages.
 
@@ -284,9 +284,13 @@ This is what makes goal-driven runs — `/loop`-style: describe the end state, l
 
 ## License
 
-Dual-licensed:
+**Open core.** The framework and its free modules are open source under the
+permissive **[Apache License 2.0](LICENSE)** — use them for anything, including
+closed-source commercial SaaS, with no copyleft obligation and nothing to buy.
 
-- **Open Source:** [AGPL-3.0](LICENSE) — free for open-source use
-- **Commercial:** [Commercial License](COMMERCIAL-LICENSE.md) — for proprietary use. [Contact us](mailto:peter@visual.sk)
+Three premium vertical modules — `core-store` (e-commerce), `core-chat` (AI
+character chat) and `core-ai-writer` (AI content generation) — are sold under a
+**[commercial license](COMMERCIAL-LICENSE.md)** and fund continued development
+of the free core. [Contact us](mailto:info@indigo-fw.dev) for a quote.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contributor license agreement details.

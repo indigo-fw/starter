@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-06T22:01:38.731Z\n"
-"PO-Revision-Date: 2026-07-06T22:01:38.731Z\n"
+"POT-Creation-Date: 2026-07-07T13:10:06.116Z\n"
+"PO-Revision-Date: 2026-07-07T13:10:06.116Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: es\n"
 "Language: es\n"
@@ -11,7 +11,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
 
 #: src/app/(public)/account/orders/[id]/page.tsx:19
 msgid "Order Details"
@@ -333,7 +332,7 @@ msgid "Complete your order"
 msgstr "Finaliza tu pedido"
 
 #: src/app/(public)/docs/page.tsx:24
-#: src/app/(public)/page.tsx:346
+#: src/app/(public)/page.tsx:352
 #: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
 msgstr "Documentaci\u00f3n"
@@ -561,8 +560,8 @@ msgid "Live Demo — resets hourly"
 msgstr "Demo en vivo — se reinicia cada hora"
 
 #: src/app/(public)/page.tsx:142
-msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "El framework SaaS completo para Next.js — CMS, facturación, autenticación, tiempo real, chat de IA y arquitectura modular."
+msgid "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS."
+msgstr "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS."
 
 #: src/app/(public)/page.tsx:152
 msgid "Demo login"
@@ -629,14 +628,18 @@ msgid "Ready to build?"
 msgstr "\u00bfListo para construir?"
 
 #: src/app/(public)/page.tsx:333
-msgid "Clone, init, ship. It's that simple."
-msgstr "Clona, inicializa, despliega. As\u00ed de simple."
+msgid "One prompt from clone to running product — hand the repo to your coding agent."
+msgstr "One prompt from clone to running product — hand the repo to your coding agent."
 
 #: src/app/(public)/page.tsx:340
 msgid "Clone on GitHub"
 msgstr "Clonar en GitHub"
 
-#: src/app/(public)/page.tsx:350
+#: src/app/(public)/page.tsx:346
+msgid "What is Indigo?"
+msgstr "What is Indigo?"
+
+#: src/app/(public)/page.tsx:356
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
 msgstr "Doble licencia: AGPL-3.0 (c\u00f3digo abierto) o licencia comercial"
 
@@ -2082,6 +2085,12 @@ msgstr "Saldo de tokens"
 #: src/core/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
 msgstr "{succeeded} {action}, {failed} fallidos"
+
+#: src/core/hooks/useBulkActions.ts:52
+msgid "1 item {action}"
+msgid_plural "{count} items {action}"
+msgstr[0] "1 item {action}"
+msgstr[1] "{count} items {action}"
 
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
@@ -4371,3 +4380,11 @@ msgstr "Desasignar"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
 msgstr "Sin asignar"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+#~ msgstr "El framework SaaS completo para Next.js — CMS, facturación, autenticación, tiempo real, chat de IA y arquitectura modular."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Clone, init, ship. It's that simple."
+#~ msgstr "Clona, inicializa, despliega. As\u00ed de simple."

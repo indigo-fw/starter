@@ -57,6 +57,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     repo: 'git@github.com:indigo-fw/core-payments-crypto.git',
     importName: 'corePaymentsCrypto',
     requires: ['core-payments'],
+    free: true,
     description: 'Cryptocurrency payments via NOWPayments',
   },
   {
@@ -64,6 +65,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     category: 'primitive',
     repo: 'git@github.com:indigo-fw/core-support.git',
     importName: 'coreSupport',
+    free: true,
     description: 'AI support chat + ticket system with escalation',
   },
   {
@@ -71,6 +73,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     category: 'primitive',
     repo: 'git@github.com:indigo-fw/core-affiliates.git',
     importName: 'coreAffiliates',
+    free: true,
     description: 'Referral tracking, attribution, affiliate management',
   },
   {
@@ -85,6 +88,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     category: 'primitive',
     repo: 'git@github.com:indigo-fw/core-import.git',
     importName: 'coreImport',
+    free: true,
     description: 'Data import and migration tools',
   },
   {
@@ -100,6 +104,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     category: 'primitive',
     repo: 'git@github.com:indigo-fw/core-authors.git',
     importName: 'coreAuthors',
+    free: true,
     description: 'Multi-author profiles, bylines, and polymorphic content attribution',
   },
   {
@@ -107,6 +112,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     category: 'primitive',
     repo: 'git@github.com:indigo-fw/core-multisite.git',
     importName: 'coreMultisite',
+    free: true,
     description: 'Multi-tenant site isolation — PostgreSQL schema-per-site, domain mapping',
   },
   {
@@ -114,6 +120,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     category: 'primitive',
     repo: 'git@github.com:indigo-fw/core-api.git',
     importName: 'coreApi',
+    free: true,
     description: 'Org-scoped REST API v2 with key management, scopes, rate limiting, metering',
   },
   {
@@ -162,6 +169,7 @@ export const REGISTRY: ModuleRegistryEntry[] = [
     category: 'product',
     repo: 'git@github.com:indigo-fw/core-booking.git',
     importName: 'coreBooking',
+    free: true,
     description: 'Booking and appointment scheduling — services, availability, reservations',
   },
 ];

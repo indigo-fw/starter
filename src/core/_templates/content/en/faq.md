@@ -18,7 +18,7 @@ noindex: false
 
 ### Is %SITE_NAME% free to use?
 
-Yes. %SITE_NAME% is open source under the AGPL-3.0 license. You can use it freely for any project. Commercial licenses are available if you need proprietary deployment without the AGPL requirements.
+Yes. %SITE_NAME% is built on Indigo, whose framework and free modules are open source under the permissive Apache-2.0 license — free to use for any project, including closed-source commercial ones. A few premium modules (e-commerce, AI chat, AI content generation) are commercially licensed.
 
 ## Technical Questions
 

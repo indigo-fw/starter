@@ -1,53 +1,54 @@
-# Commercial License for Indigo
+# Indigo Licensing
 
 Copyright (c) 2024-present Peter Ostrosedlik
 
-## Dual Licensing
+Indigo is **open core**. The framework and its free modules are open source
+under a permissive license; a small set of premium modules are commercial.
 
-Indigo is dual-licensed:
+## The free core — Apache-2.0
 
-1. **[GNU Affero General Public License v3.0 (AGPL-3.0)](./LICENSE)** — free for open-source use
-2. **Commercial License** — for proprietary/closed-source use
+The Indigo framework and all free modules are licensed under the
+**[Apache License 2.0](./LICENSE)**. You can use them for anything —
+personal, commercial, closed-source SaaS, client work — with no copyleft
+obligation and no license to buy. Build your business on them freely; the
+code is yours (see the No lock-in guarantees in the README).
 
-## When You Need a Commercial License
+This is everything you need to ship a real product: auth, organizations,
+RBAC, payments, subscriptions, CMS, comments, docs, i18n, admin panel,
+real-time, background jobs, REST API, support desk, affiliates, multisite,
+booking, and more.
 
-The AGPL-3.0 requires that if you modify Indigo and deploy it over a network (including as a SaaS product), you must release your **complete** source code under the AGPL-3.0. This includes all server-side code that interacts with users remotely (Section 13 of AGPL-3.0).
+## Premium modules — commercial license
 
-**You need a commercial license if:**
+Three high-value vertical modules are sold under a commercial license and
+are not part of the free core:
 
-- You deploy a modified version of Indigo as a SaaS, web app, or API without releasing your source code
-- You embed Indigo in a closed-source or proprietary product
-- You distribute Indigo as part of a product without AGPL-3.0 compliance
-- Your organization's legal policy prohibits AGPL dependencies
+| Module | What it is |
+|---|---|
+| `core-store` | Full e-commerce — products, cart, checkout, orders, EU VAT |
+| `core-chat` | AI character chat — characters, conversations, providers, media |
+| `core-ai-writer` | AI content generation, SEO, translation, image alt text |
 
-**You do NOT need a commercial license if:**
+Installing one of these (`bun run indigo add core-store`) requires a valid
+commercial license key. They are the modules where the buyer is clearly
+running a revenue-generating product — so paying for them is proportional to
+the value they create, and it funds continued development of the free core.
 
-- You use Indigo internally and don't provide network access to outside users
-- You deploy modifications and release your entire source code under AGPL-3.0
-- You use it for personal projects, education, or research
+### Grant
 
-## Commercial License Tiers
+A commercial module license grants a perpetual, non-exclusive,
+non-transferable license to use, modify, and deploy the licensed module(s)
+in your own applications. It does not grant rights to sublicense or resell
+the modules themselves.
 
-| | Startup | Business | Enterprise |
-|---|---|---|---|
-| Team size | up to 5 developers | up to 20 developers | Unlimited |
-| Projects | 1 production app | 5 production apps | Unlimited |
-| Source code modifications | Yes | Yes | Yes |
-| No AGPL obligations | Yes | Yes | Yes |
-| Priority email support | — | Yes | Yes |
-| Custom SLA | — | — | Yes |
-
-Pricing is determined per engagement. Contact us for a quote.
+Pricing is per engagement. Contact us for a quote.
 
 ## Contact
 
-- **Email:** peter@visual.sk
-- **GitHub:** [github.com/PayteR/indigo](https://github.com/PayteR/indigo)
-
-## Grant
-
-Upon purchasing a commercial license, the licensee receives a perpetual, non-exclusive, non-transferable license to use, modify, and deploy Indigo in proprietary applications, subject to the tier limitations above. The commercial license does not grant rights to sublicense or resell Indigo itself.
+- **Email:** info@indigo-fw.dev
+- **GitHub:** [github.com/indigo-fw](https://github.com/indigo-fw)
 
 ## Third-Party Dependencies
 
-Indigo includes third-party open-source packages, each under their own licenses (MIT, Apache-2.0, ISC, etc.). The commercial license applies only to the Indigo codebase — third-party dependencies retain their original licenses.
+Indigo includes third-party open-source packages, each under their own
+licenses (MIT, Apache-2.0, ISC, etc.). Those retain their original licenses.

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-06T22:01:38.837Z\n"
-"PO-Revision-Date: 2026-07-06T22:01:38.837Z\n"
+"POT-Creation-Date: 2026-07-07T13:10:06.203Z\n"
+"PO-Revision-Date: 2026-07-07T13:10:06.203Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: nl\n"
 "Language: nl\n"
@@ -11,7 +11,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
 
 #: src/app/dashboard/(panel)/cms/activity/page.tsx:49
 msgid "Activity Log"
@@ -656,6 +655,12 @@ msgstr "Het uploaden is mislukt"
 #: src/app/dashboard/(panel)/media/page.tsx:108
 msgid "Failed to upload {name}"
 msgstr "Het uploaden van {name} is mislukt"
+
+#: src/app/dashboard/(panel)/media/page.tsx:113
+msgid "1 file uploaded"
+msgid_plural "{count} files uploaded"
+msgstr[0] "1 file uploaded"
+msgstr[1] "{count} files uploaded"
 
 #: src/app/dashboard/(panel)/media/page.tsx:162
 #: src/components/admin/QuickActionsWidget.tsx:42
@@ -1815,8 +1820,13 @@ msgstr "Inhoudstypen"
 msgid "Choices (one per line)"
 msgstr "Keuzes (één per regel)"
 
-msgid "Option "
-msgstr "Optie "
+#: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:285
+msgid "Option A
+Option B
+Option C"
+msgstr "Option A
+Option B
+Option C"
 
 #: src/app/dashboard/(panel)/settings/custom-fields/page.tsx:299
 #: src/app/dashboard/(panel)/settings/discount-codes/page.tsx:254
@@ -2167,6 +2177,12 @@ msgstr "\"{key}\" terugzetten naar de standaardinstellingen"
 #: src/app/dashboard/(panel)/settings/page.tsx:60
 msgid "GA4 connection successful"
 msgstr "GA4-verbinding tot stand gebracht"
+
+#: src/app/dashboard/(panel)/settings/page.tsx:67
+msgid "Created 1 SEO override page"
+msgid_plural "Created {count} SEO override pages"
+msgstr[0] "Created 1 SEO override page"
+msgstr[1] "Created {count} SEO override pages"
 
 #: src/app/dashboard/(panel)/settings/page.tsx:201
 msgid "Settings"
@@ -3186,6 +3202,12 @@ msgstr "Definitief verwijderd"
 msgid "Duplicated"
 msgstr "In dubbele exemplaren"
 
+#: src/components/admin/CmsListView.tsx:366
+msgid "Exported 1 item"
+msgid_plural "Exported {count} items"
+msgstr[0] "Exported 1 item"
+msgstr[1] "Exported {count} items"
+
 #: src/components/admin/CmsListView.tsx:569
 msgid "Toggle columns"
 msgstr "Kolommen in- en uitschakelen"
@@ -3269,6 +3291,18 @@ msgstr "\"{title}\" wordt definitief verwijderd. Dit kan niet ongedaan worden ge
 #: src/components/admin/CmsListView.tsx:989
 msgid "\"{title}\" will be moved to trash."
 msgstr "\"{title}\" wordt naar de prullenbak verplaatst."
+
+#: src/components/admin/CmsListView.tsx:1001
+msgid "1 item will be moved to trash."
+msgid_plural "{count} items will be moved to trash."
+msgstr[0] "1 item will be moved to trash."
+msgstr[1] "{count} items will be moved to trash."
+
+#: src/components/admin/CmsListView.tsx:1018
+msgid "Created 1 SEO override"
+msgid_plural "Created {count} SEO overrides"
+msgstr[0] "Created 1 SEO override"
+msgstr[1] "Created {count} SEO overrides"
 
 #: src/components/admin/CmsListView.tsx:1022
 msgid "All SEO overrides already exist"
@@ -3538,3 +3572,7 @@ msgstr "Recente activiteiten"
 #: src/config/dashboard-widgets.tsx:44
 msgid "View all"
 msgstr "Alles bekijken"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Option "
+#~ msgstr "Optie "

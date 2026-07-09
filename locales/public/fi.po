@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indigo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-06T22:01:39.128Z\n"
-"PO-Revision-Date: 2026-07-06T22:01:39.128Z\n"
+"POT-Creation-Date: 2026-07-07T13:10:06.437Z\n"
+"PO-Revision-Date: 2026-07-07T13:10:06.437Z\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fi\n"
 "Language: fi\n"
@@ -11,7 +11,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
 
 #: src/app/(public)/account/orders/[id]/page.tsx:19
 msgid "Order Details"
@@ -333,7 +332,7 @@ msgid "Complete your order"
 msgstr "Viimeistele tilauksesi"
 
 #: src/app/(public)/docs/page.tsx:24
-#: src/app/(public)/page.tsx:346
+#: src/app/(public)/page.tsx:352
 #: src/core-docs/_templates/app/(public)/docs/page.tsx:24
 msgid "Documentation"
 msgstr "Dokumentaatio"
@@ -561,8 +560,8 @@ msgid "Live Demo — resets hourly"
 msgstr "Live-esittely — nollautuu tunnin välein"
 
 #: src/app/(public)/page.tsx:142
-msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
-msgstr "Kattava SaaS-kehys Next.js:lle — sisällönhallintajärjestelmä (CMS), laskutus, käyttäjätunnistautuminen, reaaliaikaisuus, tekoälypohjainen chat ja modulaarinen arkkitehtuuri."
+msgid "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS."
+msgstr "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS."
 
 #: src/app/(public)/page.tsx:152
 msgid "Demo login"
@@ -629,14 +628,18 @@ msgid "Ready to build?"
 msgstr "Oletko valmis rakentamaan?"
 
 #: src/app/(public)/page.tsx:333
-msgid "Clone, init, ship. It's that simple."
-msgstr "Kopioi, käynnistä, toimita. Niin yksinkertaista se on."
+msgid "One prompt from clone to running product — hand the repo to your coding agent."
+msgstr "One prompt from clone to running product — hand the repo to your coding agent."
 
 #: src/app/(public)/page.tsx:340
 msgid "Clone on GitHub"
 msgstr "Kloonaa GitHubissa"
 
-#: src/app/(public)/page.tsx:350
+#: src/app/(public)/page.tsx:346
+msgid "What is Indigo?"
+msgstr "What is Indigo?"
+
+#: src/app/(public)/page.tsx:356
 msgid "Dual-licensed: AGPL-3.0 (open source) or Commercial License"
 msgstr "Kaksoislisenssi: AGPL-3.0 (avoin lähdekoodi) tai kaupallinen lisenssi"
 
@@ -2082,6 +2085,12 @@ msgstr "Token-saldon"
 #: src/core/hooks/useBulkActions.ts:50
 msgid "{succeeded} {action}, {failed} failed"
 msgstr "{succeeded} {action}, {failed} epäonnistui"
+
+#: src/core/hooks/useBulkActions.ts:52
+msgid "1 item {action}"
+msgid_plural "{count} items {action}"
+msgstr[0] "1 item {action}"
+msgstr[1] "{count} items {action}"
 
 #: src/core/hooks/useCmsFormState.ts:49
 msgid "Please check the form for errors"
@@ -4371,3 +4380,11 @@ msgstr "Poista määrittely"
 #: src/core-support/_templates/app/dashboard/(panel)/settings/support/[id]/page.tsx:436
 msgid "Not assigned"
 msgstr "Ei määritetty"
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture."
+#~ msgstr "Kattava SaaS-kehys Next.js:lle — sisällönhallintajärjestelmä (CMS), laskutus, käyttäjätunnistautuminen, reaaliaikaisuus, tekoälypohjainen chat ja modulaarinen arkkitehtuuri."
+
+#. REMOVED FROM CODE - PRESERVED FOR REFERENCE
+#~ msgid "Clone, init, ship. It's that simple."
+#~ msgstr "Kopioi, käynnistä, toimita. Niin yksinkertaista se on."

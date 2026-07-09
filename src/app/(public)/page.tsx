@@ -140,7 +140,7 @@ export default async function DemoHomePage() {
 
           <p className="mt-4 text-lg text-(--text-secondary) max-w-2xl mx-auto">
             {__(
-              "The complete SaaS framework for Next.js — CMS, billing, auth, real-time, AI chat, and modular architecture.",
+              "Describe what you want. Your agent ships it — one open-source foundation your coding agent shapes into a website, a blog, a shop, or a full SaaS.",
             )}
           </p>
 
@@ -330,7 +330,7 @@ export default async function DemoHomePage() {
             {__("Ready to build?")}
           </h2>
           <p className="mt-2 text-sm text-(--text-secondary)">
-            {__("Clone, init, ship. It's that simple.")}
+            {__("One prompt from clone to running product — hand the repo to your coding agent.")}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
@@ -340,6 +340,12 @@ export default async function DemoHomePage() {
               <ExternalLink size={16} /> {__("Clone on GitHub")}
             </a>
             <a
+              href="https://indigo-fw.dev"
+              className="btn btn-secondary rounded-xl px-6 py-3 text-sm font-semibold inline-flex items-center gap-2"
+            >
+              <Bot size={16} /> {__("What is Indigo?")}
+            </a>
+            <a
               href="https://indigo-fw.dev/docs"
               className="btn btn-secondary rounded-xl px-6 py-3 text-sm font-semibold inline-flex items-center gap-2"
             >
@@ -347,7 +353,7 @@ export default async function DemoHomePage() {
             </a>
           </div>
           <p className="mt-8 text-xs text-(--text-tertiary)">
-            {__("Dual-licensed: AGPL-3.0 (open source) or Commercial License")}
+            {__("Open core — Apache-2.0 framework, commercial premium modules")}
           </p>
         </div>
       </section>
