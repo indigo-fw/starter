@@ -32,4 +32,4 @@ types/        — PostType, ContentStatus, FileType, ContentSnapshot, billing, n
 
 ## License
 
-[AGPL-3.0](LICENSE) — same as Indigo. See [COMMERCIAL-LICENSE.md](https://github.com/indigo-fw/starter/blob/main/COMMERCIAL-LICENSE.md) for proprietary use.
+[Apache-2.0](LICENSE) — same as Indigo's free core. Three premium modules are licensed separately; see [COMMERCIAL-LICENSE.md](https://github.com/indigo-fw/starter/blob/main/COMMERCIAL-LICENSE.md).

@@ -61,6 +61,6 @@ Use GitHub Issues. Include:
 
 ## License & CLA
 
-Indigo is dual-licensed under [AGPL-3.0](LICENSE) and a [commercial license](COMMERCIAL-LICENSE.md).
+Indigo is open core: the framework and free modules are licensed under [Apache-2.0](LICENSE); three premium modules carry a [commercial license](COMMERCIAL-LICENSE.md).
 
-By submitting a pull request, you agree to the [Contributor License Agreement (CLA)](CLA.md). This grants the project maintainers the right to include your contributions in both the open-source and commercially licensed versions of Indigo. Your Git commit metadata (name and email) serves as your electronic signature.
+By submitting a pull request, you agree to the [Contributor License Agreement (CLA)](CLA.md). This grants the project maintainers the right to include your contributions in both the open-source core and the commercially licensed modules. Your Git commit metadata (name and email) serves as your electronic signature.

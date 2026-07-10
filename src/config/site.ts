@@ -25,7 +25,7 @@ export const siteConfig = {
   url: clientEnv.appUrl,
 
   seo: {
-    title: `${clientEnv.siteName} — Describe what you want. Your agent ships it.`,
+    title: `${clientEnv.siteName} — Describe what you want. Your agent ships it — and proves it's done.`,
     description:
       "An Indigo install — the open-source Next.js foundation coding agents shape into a website, a blog, a shop, or a full SaaS. CMS, auth, billing, i18n and SEO pre-wired.",
     /** Default OG image for pages without a featured image.
