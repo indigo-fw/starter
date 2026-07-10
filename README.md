@@ -1,8 +1,10 @@
 # Indigo
 
-**Describe what you want. Your agent ships it.** Indigo is the open-source Next.js foundation for agent-built projects — anything from a static site to a full SaaS. Auth, billing, CMS, i18n, real-time and modular architecture come pre-wired; the agent shapes the install to your description — trims the modules you don't need, adds the ones you ask for — and loops until it's verifiably done: describe → build → verify → improve, on rails.
+**Describe what you want. Your agent ships it — and proves it's done.** Indigo is the open-source Next.js foundation for agent-built projects — anything from a static site to a full SaaS. Auth, billing, CMS, i18n, real-time and modular architecture come pre-wired; the agent shapes the install to your description — trims the modules you don't need, adds the ones you ask for — and loops until it's verifiably done: describe → build → verify → improve, on rails. On Indigo, "done" isn't the agent's opinion — it's checks going green and seeded personas completing the journeys.
 
-Every pass of the loop is covered: the agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded personas to use the app as a free, pro or admin user). Iterations stay cheap — pointer-first docs and generated maps mean orientation costs hundreds of tokens, not a session. You describe, review and decide; the code stays typed, tested and yours.
+![The Indigo loop, mid-flight — the agent builds, typecheck catches the miss, the fix lands, the test suite and health checks go green. Terminal output verbatim from real runs.](https://indigo-fw.dev/loop.gif)
+
+Every pass of the loop is covered: the agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded personas to use the app as a free, pro or admin user). Iterations stay cheap — pointer-first docs and generated maps mean the agent orients from a map instead of re-reading the codebase. You describe, review and decide; the code stays typed, tested and yours.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Findigo-fw%2Fstarter&env=DATABASE_URL,REDIS_URL&envDescription=PostgreSQL%20and%20Redis%20connection%20strings&project-name=my-indigo-app)
 
