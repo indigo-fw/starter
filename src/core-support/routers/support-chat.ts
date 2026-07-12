@@ -7,7 +7,8 @@ import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { getSupportDeps } from '@/core-support/deps';
 import { supportChatConfig } from '@/core-support/config';
 import { createLogger } from '@/core/lib/infra/logger';
-import { getRedis } from '@/core/lib/infra/redis';
+import { getRequestRedis } from '@/core/lib/infra/redis';
+import { getClientIp } from '@/core/lib/api/client-ip';
 import { checkRateLimit } from '@/core/lib/infra/rate-limit';
 
 const logger = createLogger('support-chat');
@@ -16,8 +17,8 @@ const logger = createLogger('support-chat');
 const CHAT_RATE_LIMIT = { windowMs: 60_000, maxRequests: 20 };
 
 async function applyChatRateLimit(headers: Headers): Promise<void> {
-  const redis = getRedis();
-  const ip = headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const redis = getRequestRedis();
+  const ip = getClientIp(headers);
   const result = await checkRateLimit(redis, `rl:supportChat:${ip}`, CHAT_RATE_LIMIT);
   if (!result.allowed) {
     throw new TRPCError({

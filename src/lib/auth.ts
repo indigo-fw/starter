@@ -129,6 +129,28 @@ function createAuth() {
       }),
     ],
 
+    // Defense-in-depth rate limiting at the Better Auth layer. The edge proxy
+    // also throttles /api/auth/* (see src/proxy.ts), but that only runs on
+    // hosted requests; this covers server-action / direct API-handler paths and
+    // applies per-path caps regardless of the edge layer.
+    //
+    // Storage: default in-memory. This auth config has no secondaryStorage /
+    // Redis handle wired in, so rate-limit counters are per-instance (not
+    // shared across replicas). To make it multi-instance-safe, add
+    // `secondaryStorage` (backed by getRequestRedis()) and switch this to
+    // `storage: 'secondary-storage'`.
+    rateLimit: {
+      enabled: true,
+      window: 60, // seconds
+      max: 100, // default cap per window per IP
+      customRules: {
+        // Brute-force-sensitive endpoints get a much tighter window.
+        '/sign-in/email': { window: 60, max: 5 },
+        '/forget-password': { window: 60, max: 3 },
+      },
+      storage: 'memory',
+    },
+
     advanced: {
       useSecureCookies: process.env.NODE_ENV === 'production',
     },

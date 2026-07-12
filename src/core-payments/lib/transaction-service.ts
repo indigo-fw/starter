@@ -19,6 +19,16 @@ import {
 
 const log = createLogger('transaction-service');
 
+/**
+ * Resolve the NOWPayments API base URL. Sandbox is opt-in — a bare production
+ * deploy that only sets NOWPAYMENTS_API_KEY must invoice against live, so we
+ * require the explicit string 'true' rather than defaulting to sandbox.
+ */
+export function getNowPaymentsApiBase(): string {
+  const sandbox = process.env.NOWPAYMENTS_SANDBOX === 'true';
+  return sandbox ? 'https://api-sandbox.nowpayments.io' : 'https://api.nowpayments.io';
+}
+
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 export interface CreateTransactionParams {
@@ -380,10 +390,7 @@ async function checkNowPaymentsTransaction(
   const apiKey = process.env.NOWPAYMENTS_API_KEY;
   if (!apiKey) return 'pending';
 
-  const isSandbox = process.env.NOWPAYMENTS_SANDBOX !== 'false';
-  const baseUrl = isSandbox
-    ? 'https://api-sandbox.nowpayments.io/v1'
-    : 'https://api.nowpayments.io/v1';
+  const baseUrl = `${getNowPaymentsApiBase()}/v1`;
 
   const res = await fetch(`${baseUrl}/payment/${providerTxId}`, {
     headers: { 'x-api-key': apiKey },

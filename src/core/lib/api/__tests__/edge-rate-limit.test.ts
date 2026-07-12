@@ -13,6 +13,7 @@ const mockCheckRateLimit = vi.fn();
 
 vi.mock('@/core/lib/infra/redis', () => ({
   getRedis: (...args: unknown[]) => mockGetRedis(...args),
+  getRequestRedis: (...args: unknown[]) => mockGetRedis(...args),
 }));
 
 vi.mock('@/core/lib/infra/rate-limit', () => ({

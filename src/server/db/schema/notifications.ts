@@ -19,7 +19,7 @@ export const saasNotifications = pgTable(
     read: boolean('read').notNull().default(false),
     readAt: timestamp('read_at'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
-    expiresAt: timestamp('expires_at'),
+    expiresAt: timestamp('expires_at', { withTimezone: true }),
   },
   (t) => [
     index('saas_notifications_user_idx').on(t.userId, t.read, t.createdAt),

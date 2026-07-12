@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { eq, and, desc, sql } from 'drizzle-orm';
+import { eq, and, or, lt, desc, sql } from 'drizzle-orm';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { saasNotifications, saasPushSubscriptions } from '@/server/db/schema';
 import { isPushEnabled } from '@/core/lib/push/web-push';
@@ -26,20 +26,43 @@ export const notificationsRouter = createTRPCRouter({
         sql`(${saasNotifications.expiresAt} IS NULL OR ${saasNotifications.expiresAt} > NOW())`
       );
 
+      // Keyset pagination: cursor encodes the last row's (createdAt, id) so we
+      // continue strictly after it under the `createdAt desc, id desc` order.
+      if (input.cursor) {
+        const sep = input.cursor.indexOf('|');
+        const cursorDate = new Date(input.cursor.slice(0, sep));
+        const cursorId = input.cursor.slice(sep + 1);
+        conditions.push(
+          or(
+            lt(saasNotifications.createdAt, cursorDate),
+            and(
+              eq(saasNotifications.createdAt, cursorDate),
+              lt(saasNotifications.id, cursorId)
+            )
+          )!
+        );
+      }
+
       const results = await ctx.db
         .select()
         .from(saasNotifications)
         .where(and(...conditions))
-        .orderBy(desc(saasNotifications.createdAt))
+        .orderBy(desc(saasNotifications.createdAt), desc(saasNotifications.id))
         .limit(input.limit + 1);
 
       const hasMore = results.length > input.limit;
       const items = hasMore ? results.slice(0, -1) : results;
 
+      const last = items[items.length - 1];
+      const nextCursor =
+        hasMore && last
+          ? `${last.createdAt.toISOString()}|${last.id}`
+          : undefined;
+
       return {
         items,
         hasMore,
-        nextCursor: hasMore ? items[items.length - 1]?.id : undefined,
+        nextCursor,
       };
     }),
 

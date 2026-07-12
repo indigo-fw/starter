@@ -200,10 +200,13 @@ export const authRouter = createTRPCRouter({
     }),
 
   revokeAllSessions: protectedProcedure.mutation(async ({ ctx }) => {
-    // Get current session token to exclude it
-    const currentSessionToken = ctx.headers.get('cookie')?.match(/better-auth\.session_token=([^;]+)/)?.[1];
+    // Identify the current session by its DB token from context, NOT by parsing
+    // the cookie: Better Auth stores a *signed* value in the cookie while
+    // `session.token` in the DB is the bare token, so a cookie-derived match
+    // never succeeds and the caller ends up logged out too.
+    const currentToken = ctx.session.session?.token;
 
-    if (currentSessionToken) {
+    if (currentToken) {
       // Delete all sessions except the current one
       const [currentSession] = await ctx.db
         .select({ id: session.id })
@@ -211,7 +214,7 @@ export const authRouter = createTRPCRouter({
         .where(
           and(
             eq(session.userId, ctx.session.user.id),
-            eq(session.token, decodeURIComponent(currentSessionToken))
+            eq(session.token, currentToken)
           )
         )
         .limit(1);

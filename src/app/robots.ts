@@ -7,6 +7,7 @@ export const dynamic = 'force-dynamic';
 import { env } from '@/lib/env';
 import { getServerAppUrl } from '@/lib/app-url';
 import { DASHBOARD_PREFIX } from '@/config/routes';
+import { moduleRouters } from '@/generated/module-routers';
 
 /**
  * Dynamic robots.txt — branches by `INDIGO_ROBOTS_PROFILE`:
@@ -25,7 +26,11 @@ import { DASHBOARD_PREFIX } from '@/config/routes';
  */
 export default function robots(): MetadataRoute.Robots {
   const base = getServerAppUrl();
-  const sitemap = [`${base}/sitemap.xml`, `${base}/news-sitemap.xml`];
+  // /news-sitemap.xml is served by core-authors (Google News). Advertise it only
+  // when that module is installed — otherwise crawlers hit a 404. Its `authors`
+  // router is present in the generated map iff core-authors is installed.
+  const sitemap = [`${base}/sitemap.xml`];
+  if ('authors' in moduleRouters) sitemap.push(`${base}/news-sitemap.xml`);
 
   if (env.INDIGO_ROBOTS_PROFILE === 'preview') {
     return { rules: [{ userAgent: '*', disallow: '/' }], sitemap };

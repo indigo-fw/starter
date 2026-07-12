@@ -123,8 +123,13 @@ export const auditRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
+      // Intersect caller-supplied actions with the allowlist so an editor can't
+      // request admin-only actions (user.ban, user.updateRole, …) and read
+      // privileged audit rows.
+      const actions = input.actions?.filter((a) => CONTENT_ACTIONS.includes(a));
+
       const conditions = [
-        inArray(cmsAuditLog.action, input.actions ?? CONTENT_ACTIONS),
+        inArray(cmsAuditLog.action, actions?.length ? actions : CONTENT_ACTIONS),
       ];
       if (input.entityTypes && input.entityTypes.length > 0) {
         conditions.push(inArray(cmsAuditLog.entityType, input.entityTypes));

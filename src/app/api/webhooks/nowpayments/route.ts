@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { and, eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { saasSubscriptionEvents } from '@/server/db/schema';
 import { getProvider } from '@/core-payments/lib/factory';
@@ -6,6 +7,27 @@ import { getPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
 import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('nowpayments-webhook');
+
+/**
+ * Release the idempotency claim for a failed event so NOWPayments' automatic
+ * IPN retry is processed instead of being swallowed as a duplicate. Best-effort:
+ * if the delete itself fails, the event needs manual replay.
+ */
+async function releaseEventClaim(idempotencyKey: string): Promise<void> {
+  try {
+    await db.delete(saasSubscriptionEvents).where(
+      and(
+        eq(saasSubscriptionEvents.providerId, 'nowpayments'),
+        eq(saasSubscriptionEvents.providerEventId, idempotencyKey),
+      )
+    );
+  } catch (err) {
+    logger.error('Failed to release webhook idempotency claim — replay manually', {
+      idempotencyKey,
+      error: String(err),
+    });
+  }
+}
 
 export async function POST(request: Request) {
   const provider = await getProvider('nowpayments');
@@ -21,10 +43,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid webhook' }, { status: 400 });
   }
 
-  // Idempotency check
+  // Idempotency: NOWPayments sends one IPN per status change, and non-final
+  // statuses (waiting/confirming/partially_paid) surface as subscription.updated
+  // carrying the same order_id. Keying on order_id alone lets the first
+  // non-final IPN claim the key and dedupe away the decisive `finished` IPN.
+  // Key per payment *event* instead — payment_id + payment_status is stable
+  // per delivery but distinct across transitions; fall back to order_id when
+  // payment_id is absent.
   const providerData = event.providerData as Record<string, unknown> | undefined;
   const orderId = providerData?.order_id as string | undefined;
-  const idempotencyKey = orderId ? `np_${orderId}` : null;
+  const paymentId = providerData?.payment_id as string | number | undefined;
+  const paymentStatus = providerData?.payment_status as string | undefined;
+  const eventDiscriminator = paymentId != null ? String(paymentId) : orderId;
+  const idempotencyKey = eventDiscriminator
+    ? `np_${eventDiscriminator}_${paymentStatus ?? event.type}`
+    : null;
 
   if (idempotencyKey) {
     try {
@@ -59,6 +92,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ received: true, ...(result ?? {}) });
     } catch (err) {
       logger.error('Error processing NOWPayments one-time webhook', { type: eventMetadata?.type, error: String(err) });
+      await releaseEventClaim(idempotencyKey);
       return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
   }
@@ -68,6 +102,7 @@ export async function POST(request: Request) {
     await handleSubscriptionWebhookEvent({ event, providerId: 'nowpayments' });
   } catch (err) {
     logger.error('Error processing NOWPayments webhook', { error: String(err) });
+    if (idempotencyKey) await releaseEventClaim(idempotencyKey);
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
   }
 

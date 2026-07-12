@@ -17,6 +17,27 @@ import {
 
 const mediaProcedure = sectionProcedure('media');
 
+/**
+ * A storage-relative path is safe only if it can't escape the uploads root:
+ * no `..` segments, no leading separator, no absolute/Windows path, no
+ * backslashes. Defense-in-depth with FilesystemStorage's own containment check
+ * — validating at the boundary gives a clean BAD_REQUEST instead of a 500.
+ */
+function isSafeStoragePath(value: string): boolean {
+  return (
+    !value.includes('..') &&
+    !value.includes('\\') &&
+    !value.startsWith('/') &&
+    !/^[a-zA-Z]:/.test(value)
+  );
+}
+
+const safeStoragePath = (max: number) =>
+  z
+    .string()
+    .max(max)
+    .refine(isSafeStoragePath, { message: 'Invalid storage path' });
+
 function getFileType(mimeType: string): number {
   if (mimeType.startsWith('image/')) return FileType.IMAGE;
   if (mimeType.startsWith('video/')) return FileType.VIDEO;
@@ -103,7 +124,7 @@ export const mediaRouter = createTRPCRouter({
     .input(
       z.object({
         filename: z.string().max(255),
-        filepath: z.string().max(1024),
+        filepath: safeStoragePath(1024),
         mimeType: z.string().max(100),
         fileSize: z.number().int().min(0),
         title: z.string().max(255).optional(),
@@ -111,8 +132,8 @@ export const mediaRouter = createTRPCRouter({
         description: z.string().max(5000).optional(),
         width: z.number().int().min(0).optional(),
         height: z.number().int().min(0).optional(),
-        thumbnailPath: z.string().max(1024).optional(),
-        mediumPath: z.string().max(1024).optional(),
+        thumbnailPath: safeStoragePath(1024).optional(),
+        mediumPath: safeStoragePath(1024).optional(),
         blurDataUrl: z.string().max(5000).optional(),
       })
     )

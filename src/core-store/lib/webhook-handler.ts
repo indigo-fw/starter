@@ -6,7 +6,7 @@
  * - The store webhook route (for non-Stripe providers)
  */
 
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { storeOrders, storeOrderEvents } from '@/core-store/schema/orders';
 import { updateOrderStatus, deductOrderInventory, restoreOrderInventory } from '@/core-store/lib/order-service';
@@ -35,7 +35,10 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
 }> {
   const { orderId, eventType, eventId, providerId, transactionId } = data;
 
-  // Idempotency: log webhook event, skip on duplicate
+  // Append the webhook to the order's event log (history/audit only).
+  // NOTE: storeOrderEvents has no unique constraint, so this insert never
+  // dedupes — real double-delivery protection is the atomic compare-and-set
+  // on the order status transition below, not this log.
   try {
     await db.insert(storeOrderEvents).values({
       orderId,
@@ -45,11 +48,7 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
       metadata: { eventId, providerId },
     });
   } catch (err) {
-    const msg = String(err);
-    if (msg.includes('duplicate') || msg.includes('unique')) {
-      return { processed: false, reason: 'duplicate' };
-    }
-    logger.warn('Store webhook: event insert error (non-duplicate)', { error: msg });
+    logger.warn('Store webhook: event log insert failed', { error: String(err) });
   }
 
   // Verify order exists
@@ -78,11 +77,35 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
 
   if (!isFailure) {
     // ── Payment success ──────────────────────────────────────────────
-    if (order.status !== 'pending') {
+    // Atomic compare-and-set: flip pending → processing in a single UPDATE
+    // guarded on status = 'pending'. Two concurrent deliveries race here;
+    // exactly one gets the row back, the other sees 0 rows and bails — so
+    // inventory is deducted and the confirmation email is sent only once.
+    const claimed = await db
+      .update(storeOrders)
+      .set({
+        status: 'processing',
+        paidAt: new Date(),
+        updatedAt: new Date(),
+        ...(transactionId ? { paymentTransactionId: transactionId } : {}),
+      })
+      .where(and(eq(storeOrders.id, orderId), eq(storeOrders.status, 'pending')))
+      .returning({ id: storeOrders.id });
+
+    if (claimed.length === 0) {
+      // Lost the race (or already processed) — another delivery owns this order.
       return { processed: false, reason: 'already processed' };
     }
 
-    await updateOrderStatus(orderId, 'processing', 'system', 'Payment confirmed via webhook');
+    // Mirror updateOrderStatus's side effects (status-event log + webhook +
+    // status notification) that the atomic CAS above replaced.
+    await db.insert(storeOrderEvents).values({
+      orderId,
+      status: 'processing',
+      note: 'Payment confirmed via webhook',
+      actor: 'system',
+    });
+    dispatchWebhook(db, 'store.order.processing', { orderId, status: 'processing', actor: 'system' });
 
     // Deduct inventory now that payment is confirmed
     await deductOrderInventory(orderId);
@@ -92,12 +115,6 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
     if (cartId) {
       const { releaseCartReservations } = await import('./reservation-service');
       await releaseCartReservations(cartId);
-    }
-
-    if (transactionId) {
-      await db.update(storeOrders)
-        .set({ paymentTransactionId: transactionId, paidAt: new Date() })
-        .where(eq(storeOrders.id, orderId));
     }
 
     const deps = getStoreDeps();

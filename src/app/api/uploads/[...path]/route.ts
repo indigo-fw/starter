@@ -28,9 +28,12 @@ export async function GET(
   const { path: segments } = await params;
   const filePath = path.join(UPLOADS_DIR, ...segments);
 
-  // Security: prevent directory traversal
+  // Security: prevent directory traversal. The trailing `path.sep` on the
+  // prefix stops sibling-dir escape (e.g. a resolved `uploads-private/...`
+  // would otherwise pass a bare `startsWith(<uploads>)` check).
+  const uploadsRoot = path.resolve(UPLOADS_DIR);
   const resolved = path.resolve(filePath);
-  if (!resolved.startsWith(path.resolve(UPLOADS_DIR))) {
+  if (resolved !== uploadsRoot && !resolved.startsWith(uploadsRoot + path.sep)) {
     return new NextResponse('Forbidden', { status: 403 });
   }
 

@@ -263,6 +263,15 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next|uploads|favicon\\.ico|sitemap\\.xml|robots\\.txt).*)",
+    // Pages (everything except API/internals/static). The rate-limit branches at
+    // the top of `proxy()` return early for API paths, so page/i18n/CSP logic
+    // below them only ever runs for these page routes.
+    "/((?!api|_next|uploads|favicon\\.ico|sitemap\\.xml|news-sitemap\\.xml|robots\\.txt).*)",
+    // API paths that MUST hit the edge rate limiter. Without these explicit
+    // entries the negative-lookahead above excludes all of `/api/*`, so the
+    // auth-brute-force and tRPC/v1 limiters were dead code.
+    "/api/auth/:path*",
+    "/api/trpc/:path*",
+    "/api/v1/:path*",
   ],
 };

@@ -7,13 +7,9 @@ description: NOWPayments cryptocurrency payment provider for the core-payments s
 
 # core-payments-crypto
 
-<Badge>Primitive</Badge> <Badge>Paid</Badge>
+<Badge>Primitive</Badge> <Badge>Free</Badge>
 
 `core-payments-crypto` adds a cryptocurrency payment provider, powered by [NOWPayments](https://nowpayments.io/), to the `core-payments` registry. It registers itself as the `nowpayments` provider and handles invoice creation and IPN webhooks.
-
-<Callout type="warning">
-This is a paid module. Adding it requires a valid Indigo license.
-</Callout>
 
 ## What it does
 
@@ -74,7 +70,7 @@ Configure the env vars below.
 |---|---|
 | `NOWPAYMENTS_API_KEY` | NOWPayments API key — required to enable the provider |
 | `NOWPAYMENTS_IPN_SECRET` | IPN secret used to verify webhook signatures |
-| `NOWPAYMENTS_SANDBOX` | Set to `false` to use the production API (defaults to sandbox) |
+| `NOWPAYMENTS_SANDBOX` | Set to `true` to use the sandbox API (defaults to production) |
 
 ## Integration
 

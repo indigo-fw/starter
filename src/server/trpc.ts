@@ -22,7 +22,11 @@ export async function createTRPCContext(opts: { headers: Headers }) {
     session,
     db,
     headers: opts.headers,
-    activeOrganizationId: (session as Record<string, unknown> | null)?.activeOrganizationId as string | null ?? null,
+    // `auth.api.getSession()` returns the customSession shape (see src/lib/auth.ts),
+    // where activeOrganizationId is nested under `session.session`, not the top level.
+    activeOrganizationId:
+      (session?.session as { activeOrganizationId?: string | null } | undefined)
+        ?.activeOrganizationId ?? null,
   };
 }
 

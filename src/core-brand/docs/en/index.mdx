@@ -1,0 +1,105 @@
+---
+title: core-brand
+section: Module Reference
+order: 327
+description: Generate every derived brand asset — favicons, app icons, OG and social images, web manifest, and a press kit — from one config file.
+---
+
+# core-brand
+
+<Badge>Primitive</Badge> <Badge>Free</Badge>
+
+`core-brand` is the single source of truth for a project's visual identity. You
+edit **one** config file (`src/config/brand.ts`) and run **one** command; the
+module renders every favicon, app icon, social image and manifest your app
+needs, plus a `<BrandLogo>` React component. Generation is idempotent — safe to
+re-run whenever the config changes.
+
+## What it does
+
+- **One command, every asset** — `bun run indigo brand:generate` produces
+  `favicon.ico` (multi-resolution 16/32/48), `icon.svg`, `icon-192.png` and
+  `icon-512.png`, `apple-icon.png` (180×180), a `site.webmanifest`, and a
+  `press-kit.zip` bundle of every variant.
+- **Open Graph & social images** — `og-image.png`, a dark variant (1200×630)
+  and a `twitter-card.png` (1200×675), rasterized from a `custom-svg` template
+  you supply, with `{{name}}` and `{{tagline}}` substitution (brand colors stay
+  hand-authored in the SVG). The auto-composed `gradient-mark` and
+  `centered-lockup` templates are on the roadmap — supply a custom SVG for now.
+- **Three brand modes** — `icon+text`, `text-only`, or `lockup`, expressed as a
+  typed discriminated union so the compiler flags a config that's missing the
+  assets its mode requires.
+- **`<BrandLogo>` component** — a server component the navbar, footer and emails
+  consume; the `auto` variant renders the lockup on larger screens and the mark
+  on mobile, with sensible fallbacks for every mode.
+- **Validation first** — `brand:generate --check` validates the config (file
+  existence, square-source checks, per-mode rules) and reports what would change
+  without writing anything.
+
+## Installation
+
+```bash
+bun run indigo add core-brand
+```
+
+The module ships **no schema and no routers**, so there's no migration. It does
+pull in the image-generation toolchain — add these runtime dependencies:
+
+```bash
+bun add sharp @resvg/resvg-js to-ico archiver satori
+```
+
+## Configuration
+
+Branding is declared in `src/config/brand.ts` and registered once at boot via
+`setBrandConfig(brand)` in `src/config/deps/brand-deps.ts` — the same
+dependency-injection pattern the other modules use, so `core-brand` never
+imports project config directly.
+
+```typescript
+// src/config/brand.ts
+export const brand: BrandConfig = {
+  mode: 'icon+text',
+  name: 'Indigo',
+  icon: 'src/brand/icon.svg',     // square source
+  colors: { brand: 'oklch(0.62 0.19 350)', bgLight: '#fff', bgDark: '#0b0b0f' },
+  ogImage: { template: 'custom-svg', customSvg: 'brand/og-image.svg' },
+};
+```
+
+Non-obvious rules: `text-only` mode **requires** a `faviconGlyph`; `lockup` mode
+**requires** an `icon` or `faviconGlyph` alongside the lockup SVG. Favicon
+sources must be **square** — a lockup is never auto-cropped into one. SVG files
+are read into memory at registration, so changing an SVG needs a server restart
+(fine for a config-grade file).
+
+## CLI
+
+| Command | Purpose |
+|---|---|
+| `bun run indigo brand:generate` | Render all assets from `brand.ts` into `public/` |
+| `bun run indigo brand:generate --check` | Validate the config and report changes without writing |
+
+## Component
+
+```tsx
+import { BrandLogo } from '@/core-brand/components/BrandLogo';
+
+<BrandLogo variant="auto" className="h-8 w-auto" />
+```
+
+Variants: `auto` (lockup on `sm+`, mark on mobile), `mark`, `wordmark`, and
+`lockup`. Every mode × variant combination renders with a fallback — asking for
+`mark` in `text-only` mode renders the favicon glyph square.
+
+## Out of scope
+
+No in-browser image editor, no AI-generated logos, no auto-cropping of
+non-square sources, and no multi-brand support yet (deferred until
+`core-multisite` integration).
+
+## Related
+
+- [Module Reference](/docs/modules) — full module catalog
+- [Managing Modules](/docs/guides/managing-modules) — install and update modules
+- [core-multisite](/docs/modules/core-multisite) — multi-tenant sites (future multi-brand host)

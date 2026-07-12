@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
 import { db } from '@/server/db';
 import { member } from '@/server/db/schema/organization';
@@ -20,11 +20,14 @@ export async function resolveOrgId(
 ): Promise<string> {
   if (activeOrganizationId) return activeOrganizationId;
 
-  // Fall back to user's first org membership
+  // Fall back to user's first org membership. Order by createdAt (then id as a
+  // tie-breaker) so the fallback is deterministic — without an ORDER BY, `.limit(1)`
+  // returns an arbitrary row and the effective org can change between requests.
   const [firstMembership] = await db
     .select({ organizationId: member.organizationId })
     .from(member)
     .where(eq(member.userId, userId))
+    .orderBy(asc(member.createdAt), asc(member.id))
     .limit(1);
 
   if (!firstMembership) {

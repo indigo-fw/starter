@@ -14,6 +14,7 @@ vi.mock('@/lib/auth', () => ({
 
 vi.mock('@/core/lib/infra/redis', () => ({
   getRedis: vi.fn().mockReturnValue(null),
+  getRequestRedis: vi.fn().mockReturnValue(null),
 }));
 
 vi.mock('@/core/lib/infra/rate-limit', () => ({

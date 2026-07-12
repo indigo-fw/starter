@@ -2,14 +2,38 @@ import { TRPCError } from '@trpc/server';
 import { and, count, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { cmsPosts, cmsCategories, cmsContentRevisions } from '@/server/db/schema';
+import type { DbClient } from '@/server/db';
+import {
+  cmsPosts,
+  cmsCategories,
+  cmsPortfolio,
+  cmsShowcase,
+  cmsContentRevisions,
+} from '@/server/db/schema';
 import { getRevisions } from '@/core/crud/content-revisions';
 import { logAudit } from '@/core/lib/infra/audit';
 import { createTRPCRouter, sectionProcedure } from '../trpc';
 
 const contentProcedure = sectionProcedure('content');
 
-/** Only these fields are allowed when restoring a revision */
+/**
+ * Restore registry: maps each revision `contentType` to the snapshot fields that
+ * are safe to write back plus a typed update closure for its target table. Field
+ * allowlists must mirror the `*_SNAPSHOT_KEYS` used by each router when it records
+ * revisions (posts.ts, categories.ts, portfolio.ts, showcase.ts) — otherwise a
+ * restore silently drops fields (e.g. the category body is snapshotted under
+ * `content`, not `text`). The per-type `applyRestore` closure keeps drizzle's
+ * column typing intact instead of updating through a generic `PgTable`.
+ */
+interface RestoreTarget {
+  fields: Set<string>;
+  applyRestore: (
+    db: DbClient,
+    contentId: string,
+    safeData: Record<string, unknown>
+  ) => Promise<void>;
+}
+
 const SAFE_POST_FIELDS = new Set([
   'title',
   'slug',
@@ -29,7 +53,7 @@ const SAFE_CATEGORY_FIELDS = new Set([
   'name',
   'slug',
   'title',
-  'text',
+  'content',
   'status',
   'metaDescription',
   'seoTitle',
@@ -39,6 +63,83 @@ const SAFE_CATEGORY_FIELDS = new Set([
   'publishedAt',
   'lang',
 ]);
+
+const SAFE_PORTFOLIO_FIELDS = new Set([
+  'name',
+  'slug',
+  'title',
+  'content',
+  'status',
+  'metaDescription',
+  'seoTitle',
+  'noindex',
+  'publishedAt',
+  'lang',
+  'clientName',
+  'projectUrl',
+  'techStack',
+  'completedAt',
+  'featuredImage',
+  'featuredImageAlt',
+]);
+
+const SAFE_SHOWCASE_FIELDS = new Set([
+  'title',
+  'slug',
+  'description',
+  'cardType',
+  'variant',
+  'mediaUrl',
+  'thumbnailUrl',
+  'status',
+  'sortOrder',
+  'metaDescription',
+  'seoTitle',
+  'noindex',
+  'publishedAt',
+  'lang',
+]);
+
+const restorePost: RestoreTarget['applyRestore'] = (db, contentId, safeData) =>
+  db
+    .update(cmsPosts)
+    .set({ ...safeData, updatedAt: new Date() })
+    .where(eq(cmsPosts.id, contentId))
+    .then(() => undefined);
+
+/** contentType → restore target. Page/blog/post all restore into cmsPosts. */
+const RESTORE_TARGETS: Record<string, RestoreTarget> = {
+  page: { fields: SAFE_POST_FIELDS, applyRestore: restorePost },
+  blog: { fields: SAFE_POST_FIELDS, applyRestore: restorePost },
+  post: { fields: SAFE_POST_FIELDS, applyRestore: restorePost },
+  category: {
+    fields: SAFE_CATEGORY_FIELDS,
+    applyRestore: (db, contentId, safeData) =>
+      db
+        .update(cmsCategories)
+        .set({ ...safeData, updatedAt: new Date() })
+        .where(eq(cmsCategories.id, contentId))
+        .then(() => undefined),
+  },
+  portfolio: {
+    fields: SAFE_PORTFOLIO_FIELDS,
+    applyRestore: (db, contentId, safeData) =>
+      db
+        .update(cmsPortfolio)
+        .set({ ...safeData, updatedAt: new Date() })
+        .where(eq(cmsPortfolio.id, contentId))
+        .then(() => undefined),
+  },
+  showcase: {
+    fields: SAFE_SHOWCASE_FIELDS,
+    applyRestore: (db, contentId, safeData) =>
+      db
+        .update(cmsShowcase)
+        .set({ ...safeData, updatedAt: new Date() })
+        .where(eq(cmsShowcase.id, contentId))
+        .then(() => undefined),
+  },
+};
 
 function filterSnapshot(
   snapshot: Record<string, unknown>,
@@ -121,36 +222,23 @@ export const revisionsRouter = createTRPCRouter({
 
       const rawSnapshot = revision.snapshot as Record<string, unknown>;
 
-      if (['page', 'blog', 'post'].includes(revision.contentType)) {
-        const safeData = filterSnapshot(rawSnapshot, SAFE_POST_FIELDS);
-        if (Object.keys(safeData).length === 0) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: 'Revision snapshot contains no restorable fields',
-          });
-        }
-        await ctx.db
-          .update(cmsPosts)
-          .set({ ...safeData, updatedAt: new Date() })
-          .where(eq(cmsPosts.id, revision.contentId));
-      } else if (revision.contentType === 'category') {
-        const safeData = filterSnapshot(rawSnapshot, SAFE_CATEGORY_FIELDS);
-        if (Object.keys(safeData).length === 0) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: 'Revision snapshot contains no restorable fields',
-          });
-        }
-        await ctx.db
-          .update(cmsCategories)
-          .set({ ...safeData, updatedAt: new Date() })
-          .where(eq(cmsCategories.id, revision.contentId));
-      } else {
+      const target = RESTORE_TARGETS[revision.contentType];
+      if (!target) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: `Unknown content type: ${revision.contentType}`,
         });
       }
+
+      const safeData = filterSnapshot(rawSnapshot, target.fields);
+      if (Object.keys(safeData).length === 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Revision snapshot contains no restorable fields',
+        });
+      }
+
+      await target.applyRestore(ctx.db, revision.contentId, safeData);
 
       logAudit({
         db: ctx.db,

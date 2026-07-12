@@ -1,7 +1,9 @@
 import { z } from 'zod';
-import { count, desc, eq } from 'drizzle-orm';
+import { and, count, desc, eq } from 'drizzle-orm';
+import { TRPCError } from '@trpc/server';
 import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
 import { storeReturns } from '@/core-store/schema/returns';
+import { storeOrders } from '@/core-store/schema/orders';
 import { organization } from '@/server/db/schema/organization';
 import {
   createReturn,
@@ -39,6 +41,24 @@ export const storeReturnsRouter = createTRPCRouter({
       const userId = ctx.session.user.id;
       const deps = getStoreDeps();
       const orgId = await deps.resolveOrgId(ctx.activeOrganizationId, userId);
+
+      // Verify the order belongs to the caller before flipping its status.
+      // NOT_FOUND (not FORBIDDEN) so we don't leak existence of others' orders.
+      const [order] = await ctx.db
+        .select({ id: storeOrders.id })
+        .from(storeOrders)
+        .where(
+          and(
+            eq(storeOrders.id, input.orderId),
+            eq(storeOrders.organizationId, orgId),
+            eq(storeOrders.placedByUserId, userId),
+          ),
+        )
+        .limit(1);
+
+      if (!order) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'Order not found' });
+      }
 
       const returnId = await createReturn({
         orderId: input.orderId,

@@ -3,7 +3,8 @@ import { eq } from 'drizzle-orm';
 
 import { db } from '@/server/db';
 import { cmsOptions } from '@/server/db/schema';
-import { getRedis } from '@/core/lib/infra/redis';
+import { getRequestRedis } from '@/core/lib/infra/redis';
+import { getClientIp } from '@/core/lib/api/client-ip';
 import { checkRateLimit as redisRateLimit } from '@/core/lib/infra/rate-limit';
 
 /** Validate API key from x-api-key header. Returns true if valid or if no key is configured. */
@@ -27,9 +28,8 @@ export async function validateApiKey(request: Request): Promise<boolean> {
 
 /** Redis-backed rate limiter: 100 req/min per IP. Falls back to allowing if Redis unavailable. */
 export async function checkRateLimit(request: Request): Promise<boolean> {
-  const ip =
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  const redis = getRedis();
+  const ip = getClientIp(request.headers);
+  const redis = getRequestRedis();
   const result = await redisRateLimit(redis, `api:ip:${ip}`, {
     windowMs: 60_000,
     maxRequests: 100,

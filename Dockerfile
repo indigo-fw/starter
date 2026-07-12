@@ -44,6 +44,7 @@ COPY --from=builder /app/emails ./emails
 COPY --from=builder /app/content ./content
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/docs ./docs
+COPY --from=builder /app/locales ./locales
 
 # Remove test files from runtime image
 RUN find /app/src -name "__tests__" -type d -exec rm -rf {} + 2>/dev/null; \

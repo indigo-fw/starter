@@ -235,6 +235,16 @@ export const usersRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' });
       }
 
+      // Only a superadmin may modify a superadmin — guards email/name/role alike.
+      // Without this, a non-superadmin could set a superadmin's email to their own
+      // and trigger a password-reset takeover.
+      if (isSuperAdmin(target.role) && !isSuperAdmin(ctx.session.user.role as string)) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Only superadmin can modify a superadmin',
+        });
+      }
+
       // Role change RBAC — same as updateRole
       if (input.role && input.role !== target.role) {
         const actorRole = ctx.session.user.role as string;

@@ -138,6 +138,7 @@ describe('dispatchWebhook', () => {
     expect(mockAdd).toHaveBeenCalledWith(
       'deliver',
       {
+        webhookId: sampleHook.id,
         url: sampleHook.url,
         secret: sampleHook.secret,
         event: 'post.created',

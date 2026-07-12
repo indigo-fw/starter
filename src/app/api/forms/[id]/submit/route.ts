@@ -4,7 +4,8 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { cmsForms, cmsFormSubmissions } from '@/server/db/schema';
 import { enqueueEmail } from '@/core/lib/email';
-import { getRedis } from '@/core/lib/infra/redis';
+import { getRequestRedis } from '@/core/lib/infra/redis';
+import { getClientIp } from '@/core/lib/api/client-ip';
 import { checkRateLimit } from '@/core/lib/infra/rate-limit';
 
 interface RouteParams {
@@ -16,10 +17,9 @@ export async function POST(request: Request, { params }: RouteParams) {
     const { id } = await params;
 
     // Rate limit: 5 submissions per form per IP per hour (Redis-backed, fail-open)
-    const ip =
-      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+    const ip = getClientIp(request.headers);
     const rateKey = `form-submit:${id}:${ip}`;
-    const redis = getRedis();
+    const redis = getRequestRedis();
     const rl = await checkRateLimit(redis, rateKey, {
       windowMs: 3600_000,
       maxRequests: 5,

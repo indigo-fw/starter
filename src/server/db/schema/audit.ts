@@ -21,7 +21,7 @@ export const cmsAuditLog = pgTable(
     }),
     action: varchar('action', { length: 30 }).notNull(),
     entityType: varchar('entity_type', { length: 30 }).notNull(),
-    entityId: uuid('entity_id').notNull(),
+    entityId: text('entity_id').notNull(),
     entityTitle: varchar('entity_title', { length: 255 }),
     metadata: jsonb('metadata'),
     createdAt: timestamp('created_at').notNull().defaultNow(),

@@ -34,7 +34,7 @@ export const cmsMedia = pgTable(
       onDelete: 'set null',
     }),
     createdAt: timestamp('created_at').notNull().defaultNow(),
-    deletedAt: timestamp('deleted_at'),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
   (t) => [
     index('cms_media_file_type_idx').on(t.fileType),

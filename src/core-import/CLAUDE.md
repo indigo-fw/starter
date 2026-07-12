@@ -1,6 +1,6 @@
 # core-import — CLAUDE.md
 
-Paid module. Content import from external platforms, plus full CMS export.
+Free module. Content import from external platforms, plus full CMS export.
 
 **Project owns:** Admin import page (`dashboard/settings/import/`). No DI — parsers are pure functions.
 

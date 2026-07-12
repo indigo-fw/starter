@@ -41,7 +41,7 @@ export async function softDelete(
   id: string
 ): Promise<void> {
   const result = await db.execute(
-    sql`UPDATE ${cols.table} SET ${cols.deleted_at} = NOW() WHERE ${cols.id} = ${id} AND ${cols.deleted_at} IS NULL`
+    sql`UPDATE ${cols.table} SET ${sql.identifier(cols.deleted_at.name)} = NOW() WHERE ${cols.id} = ${id} AND ${cols.deleted_at} IS NULL`
   );
   if (getAffectedRows(result) === 0) {
     throw new TRPCError({ code: 'NOT_FOUND', message: 'Record not found' });
@@ -58,7 +58,7 @@ export async function softRestore(
     await preRestoreCheck(db, id);
   }
   const result = await db.execute(
-    sql`UPDATE ${cols.table} SET ${cols.deleted_at} = NULL WHERE ${cols.id} = ${id} AND ${cols.deleted_at} IS NOT NULL`
+    sql`UPDATE ${cols.table} SET ${sql.identifier(cols.deleted_at.name)} = NULL WHERE ${cols.id} = ${id} AND ${cols.deleted_at} IS NOT NULL`
   );
   if (getAffectedRows(result) === 0) {
     throw new TRPCError({
@@ -176,9 +176,10 @@ export async function buildAdminList<T>(
 
   const where = and(...conditions.filter(Boolean));
 
-  const sortCol = sortColumns[input?.sortBy ?? defaultSort];
+  const sortBy = input?.sortBy ?? defaultSort;
+  const sortCol = sortColumns[sortBy] ?? sortColumns[defaultSort]!;
   const orderBy =
-    (input?.sortDir ?? 'desc') === 'asc' ? asc(sortCol!) : desc(sortCol!);
+    (input?.sortDir ?? 'desc') === 'asc' ? asc(sortCol) : desc(sortCol);
 
   const [items, countResult] = await Promise.all([
     findFn({ where, orderBy, offset, limit: pageSize }),

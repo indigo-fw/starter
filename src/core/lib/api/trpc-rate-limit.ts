@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server';
-import { getRedis } from '@/core/lib/infra/redis';
+import { getRequestRedis } from '@/core/lib/infra/redis';
+import { getClientIp } from '@/core/lib/api/client-ip';
 import {
   checkRateLimit,
   type RateLimitConfig,
@@ -17,25 +18,25 @@ export const AUTH_RATE_LIMIT: RateLimitConfig = {
   maxRequests: 200,
 };
 
-function getClientIp(headers: Headers): string {
-  return (
-    headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
-  );
-}
-
 /**
  * tRPC rate-limit middleware factory.
  *
  * - `'public'`: keyed by client IP, uses PUBLIC_RATE_LIMIT
  * - `'authenticated'`: keyed by user ID (falls back to IP), uses AUTH_RATE_LIMIT
  *
- * Fail-open when Redis is unavailable.
+ * IP keying uses `getClientIp` (trusted rightmost hop), not the
+ * attacker-controlled leftmost `x-forwarded-for` value.
+ *
+ * Fail-open when Redis is unavailable (see `checkRateLimit`). This is
+ * acceptable for these general traffic limiters, but auth and AI/token
+ * limiters must fail CLOSED (reject when Redis is down) — that stricter wiring
+ * lives with those limiters (api-auth / AI procedures), not here.
  */
 export async function applyRateLimit(
   type: 'public' | 'authenticated',
   ctx: { session?: { user?: { id: string } } | null; headers: Headers }
 ): Promise<void> {
-  const redis = getRedis();
+  const redis = getRequestRedis();
   const config = type === 'authenticated' ? AUTH_RATE_LIMIT : PUBLIC_RATE_LIMIT;
 
   const key =

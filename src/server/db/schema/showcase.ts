@@ -1,4 +1,5 @@
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import { isNull } from 'drizzle-orm';
 import {
   boolean,
   index,
@@ -10,6 +11,8 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
+
+import { user } from './auth';
 
 // ─── cms_showcase ───────────────────────────────────────────────────────────────
 
@@ -34,13 +37,17 @@ export const cmsShowcase = pgTable(
     previewToken: varchar('preview_token', { length: 64 }),
     translationGroup: uuid('translation_group'),
     fallbackToDefault: boolean('fallback_to_default'),
-    createdBy: uuid('created_by'),
+    createdBy: text('created_by').references(() => user.id, {
+      onDelete: 'set null',
+    }),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
-    deletedAt: timestamp('deleted_at'),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
   (t) => [
-    uniqueIndex('cms_showcase_slug_lang_uniq').on(t.slug, t.lang),
+    uniqueIndex('cms_showcase_slug_lang_uniq')
+      .on(t.slug, t.lang)
+      .where(isNull(t.deletedAt)),
     index('cms_showcase_status_idx').on(t.status),
     index('cms_showcase_sort_order_idx').on(t.sortOrder),
     index('cms_showcase_deleted_at_idx').on(t.deletedAt),

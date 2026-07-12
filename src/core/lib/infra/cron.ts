@@ -3,10 +3,44 @@
  * BullMQ repeatable jobs vs DB-queue fallback automatically.
  */
 
+import { and, eq, inArray } from 'drizzle-orm';
 import { createQueue, createWorker } from './queue';
 import { createLogger } from './logger';
+import { getRequestRedis } from './redis';
 
 const logger = createLogger('cron');
+
+/**
+ * Probe whether Redis is actually reachable (not merely configured).
+ *
+ * Uses the fail-fast request-profile connection and a bounded timeout so a
+ * configured-but-unreachable Redis can't block `server.ts` startup. A plain
+ * `REDIS_URL`-is-set check (or a BullMQ queue whose commands buffer forever)
+ * would hang here instead.
+ */
+async function isRedisReachable(timeoutMs = 2000): Promise<boolean> {
+  const redis = getRequestRedis();
+  if (!redis) return false;
+  const TIMED_OUT = Symbol('redis-ping-timeout');
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const ping = redis.ping();
+    const timeout = new Promise<typeof TIMED_OUT>((resolve) => {
+      timer = setTimeout(() => resolve(TIMED_OUT), timeoutMs);
+      // Don't let the timer keep the event loop alive.
+      if (typeof timer === 'object' && 'unref' in timer) timer.unref();
+    });
+    const result = await Promise.race([ping, timeout]);
+    return result === 'PONG';
+  } catch (err: unknown) {
+    logger.warn('Redis ping probe failed — falling back to DB queue cron', {
+      error: err instanceof Error ? err.message : String(err),
+    });
+    return false;
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -40,10 +74,11 @@ export function registerCronJob(def: CronJobDef): void {
 export async function startCronScheduler(): Promise<void> {
   if (cronJobs.length === 0) return;
 
-  // Test if BullMQ/Redis is available by trying to create a queue
-  const testQueue = createQueue('cron-test');
+  // Probe whether Redis is actually reachable (bounded, fail-fast) — a merely
+  // configured-but-unreachable Redis must not hang startup or the request path.
+  const redisReachable = await isRedisReachable();
 
-  if (testQueue) {
+  if (redisReachable) {
     // Redis available — use BullMQ repeatable jobs
     for (const job of cronJobs) {
       const queue = createQueue(job.name);
@@ -65,8 +100,18 @@ export async function startCronScheduler(): Promise<void> {
       const { startDbQueueWorker, enqueueTask } = await import('./db-queue');
 
       for (const job of cronJobs) {
-        // Seed initial task
-        await enqueueTask(job.name, { action: 'run' }).catch(() => {});
+        // Seed the next run only if one isn't already pending. Without this
+        // guard the job fired immediately (default runAfter = now) on every
+        // boot and each restart stacked a fresh chain, multiplying runs.
+        if (!(await hasPendingTask(job.name))) {
+          await enqueueTask(job.name, { action: 'run' }, {
+            runAfter: getNextCronRun(job.pattern),
+          }).catch((err: unknown) => {
+            logger.error(`Failed to seed cron "${job.name}"`, {
+              error: err instanceof Error ? err.message : String(err),
+            });
+          });
+        }
 
         startDbQueueWorker(job.name, async () => {
           await job.handler();
@@ -86,9 +131,39 @@ export async function startCronScheduler(): Promise<void> {
 
         logger.info(`Cron job "${job.name}" scheduled via DB queue (${job.pattern})`);
       }
-    } catch {
-      logger.error('Failed to start DB queue cron scheduler');
+    } catch (err: unknown) {
+      logger.error('Failed to start DB queue cron scheduler', {
+        error: err instanceof Error ? err.message : String(err),
+      });
     }
+  }
+}
+
+/**
+ * True if the DB task queue already has an unfinished task for this cron job,
+ * so a restart doesn't seed a duplicate chain. Treats `pending` and
+ * `processing` as unfinished; failures during the check fail open (seed anyway).
+ */
+async function hasPendingTask(queue: string): Promise<boolean> {
+  try {
+    const { db } = await import('@/server/db');
+    const { saasTaskQueue } = await import('@/server/db/schema/task-queue');
+    const [existing] = await db
+      .select({ id: saasTaskQueue.id })
+      .from(saasTaskQueue)
+      .where(
+        and(
+          eq(saasTaskQueue.queue, queue),
+          inArray(saasTaskQueue.status, ['pending', 'processing']),
+        ),
+      )
+      .limit(1);
+    return Boolean(existing);
+  } catch (err: unknown) {
+    logger.warn(`Pending-task check failed for cron "${queue}"`, {
+      error: err instanceof Error ? err.message : String(err),
+    });
+    return false;
   }
 }
 

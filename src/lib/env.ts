@@ -1,6 +1,6 @@
 import "server-only";
 import { z } from "zod";
-import { clientEnvSchema } from "./env-schema";
+import { boolFromEnv, clientEnvSchema } from "./env-schema";
 
 const serverEnvSchema = z.object({
   // Database
@@ -28,7 +28,7 @@ const serverEnvSchema = z.object({
 
   // DeepL Translation (optional)
   DEEPL_API_KEY: z.string().optional(),
-  DEEPL_API_FREE: z.coerce.boolean().default(true),
+  DEEPL_API_FREE: boolFromEnv.default(true),
 
   // Storage
   STORAGE_BACKEND: z.enum(["s3", "filesystem"]).default("filesystem"),
@@ -60,7 +60,7 @@ const serverEnvSchema = z.object({
   // NOWPayments (optional — crypto payments disabled without API key)
   NOWPAYMENTS_API_KEY: z.string().optional(),
   NOWPAYMENTS_IPN_SECRET: z.string().optional(),
-  NOWPAYMENTS_SANDBOX: z.coerce.boolean().default(true),
+  NOWPAYMENTS_SANDBOX: boolFromEnv.default(false),
 
   // AI Assist (optional — editor AI features disabled without API key)
   AI_API_KEY: z.string().optional(),
@@ -71,7 +71,7 @@ const serverEnvSchema = z.object({
   ENCRYPTION_KEY: z.string().length(64).optional(),
 
   // Set to 'true' to use mock AI adapters (random text, placeholder images/videos)
-  MOCK_AI: z.coerce.boolean().default(false),
+  MOCK_AI: boolFromEnv.default(false),
 
   // ElevenLabs (optional — voice calls disabled without API key)
   ELEVENLABS_API_KEY: z.string().optional(),
@@ -89,7 +89,7 @@ const serverEnvSchema = z.object({
   PORT: z.string().regex(/^\d+$/).default("3000"),
 
   // WebSocket
-  WS_ENABLED: z.coerce.boolean().default(true),
+  WS_ENABLED: boolFromEnv.default(true),
 
   // Web Push (VAPID) — push notifications disabled without keys
   VAPID_PUBLIC_KEY: z.string().optional(),
@@ -114,7 +114,7 @@ const serverEnvSchema = z.object({
   // When true, emails are logged to console and NOT delivered.
   // Set EMAIL_DRY_RUN=1 on the demo VPS to prevent spam to signup addresses.
   // Also auto-enabled when INDIGO_ROBOTS_PROFILE=demo.
-  EMAIL_DRY_RUN: z.coerce.boolean().optional(),
+  EMAIL_DRY_RUN: boolFromEnv.optional(),
 });
 
 const envSchema = serverEnvSchema.merge(clientEnvSchema);

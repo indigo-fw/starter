@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { index, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { user } from './auth';
 
 // ─── organization ─────────────────────────────────────────────────────────────
@@ -16,17 +16,24 @@ export const organization = pgTable('organization', {
 
 // ─── member ───────────────────────────────────────────────────────────────────
 
-export const member = pgTable('member', {
-  id: text('id').primaryKey(),
-  organizationId: text('organization_id')
-    .notNull()
-    .references(() => organization.id, { onDelete: 'cascade' }),
-  userId: text('user_id')
-    .notNull()
-    .references(() => user.id, { onDelete: 'cascade' }),
-  role: text('role').notNull().default('member'),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-});
+export const member = pgTable(
+  'member',
+  {
+    id: text('id').primaryKey(),
+    organizationId: text('organization_id')
+      .notNull()
+      .references(() => organization.id, { onDelete: 'cascade' }),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    role: text('role').notNull().default('member'),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+  },
+  (t) => [
+    index('member_user_id_idx').on(t.userId),
+    index('member_organization_id_idx').on(t.organizationId),
+  ]
+);
 
 // ─── invitation ───────────────────────────────────────────────────────────────
 

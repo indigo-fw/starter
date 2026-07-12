@@ -1,18 +1,33 @@
 import { NextResponse } from 'next/server';
+import { and, eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { saasSubscriptionEvents } from '@/server/db/schema';
 import { getProvider } from '@/core-payments/lib/factory';
-import { activateSubscription } from '@/core-subscriptions/lib/subscription-service';
-import { finalizeUsage } from '@/core-subscriptions/lib/discount-service';
-import { logAudit } from '@/core/lib/infra/audit';
-import { sendOrgNotification } from '@/server/lib/notifications';
-import { NotificationType, NotificationCategory } from '@/core/types/notifications';
+import { getPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
 import { createLogger } from '@/core/lib/infra/logger';
-import { adminPanel } from '@/config/routes';
-import { invalidateStats } from '@/core/lib/infra/stats-cache';
-import { runHook } from '@/core/lib/module/module-hooks';
 
 const logger = createLogger('nowpayments-webhook');
+
+/**
+ * Release the idempotency claim for a failed event so NOWPayments' automatic
+ * IPN retry is processed instead of being swallowed as a duplicate. Best-effort:
+ * if the delete itself fails, the event needs manual replay.
+ */
+async function releaseEventClaim(idempotencyKey: string): Promise<void> {
+  try {
+    await db.delete(saasSubscriptionEvents).where(
+      and(
+        eq(saasSubscriptionEvents.providerId, 'nowpayments'),
+        eq(saasSubscriptionEvents.providerEventId, idempotencyKey),
+      )
+    );
+  } catch (err) {
+    logger.error('Failed to release webhook idempotency claim — replay manually', {
+      idempotencyKey,
+      error: String(err),
+    });
+  }
+}
 
 export async function POST(request: Request) {
   const provider = await getProvider('nowpayments');
@@ -28,13 +43,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid webhook' }, { status: 400 });
   }
 
-  // Idempotency check: use order_id from providerData as unique event ID
+  // Idempotency: NOWPayments sends one IPN per status change, and non-final
+  // statuses (waiting/confirming/partially_paid) surface as subscription.updated
+  // carrying the same order_id. Keying on order_id alone lets the first
+  // non-final IPN claim the key and dedupe away the decisive `finished` IPN.
+  // Key per payment *event* instead — payment_id + payment_status is stable
+  // per delivery but distinct across transitions; fall back to order_id when
+  // payment_id is absent.
   const providerData = event.providerData as Record<string, unknown> | undefined;
   const orderId = providerData?.order_id as string | undefined;
-  const idempotencyKey = orderId ? `np_${orderId}` : null;
+  const paymentId = providerData?.payment_id as string | number | undefined;
+  const paymentStatus = providerData?.payment_status as string | undefined;
+  const eventDiscriminator = paymentId != null ? String(paymentId) : orderId;
+  const idempotencyKey = eventDiscriminator
+    ? `np_${eventDiscriminator}_${paymentStatus ?? event.type}`
+    : null;
 
   if (idempotencyKey) {
-    // Atomic idempotency: INSERT or bail if already processed
     try {
       await db.insert(saasSubscriptionEvents).values({
         providerId: 'nowpayments',
@@ -43,7 +68,6 @@ export async function POST(request: Request) {
         data: providerData as Record<string, unknown>,
       });
     } catch (err) {
-      // Unique constraint violation = already processed
       if (String(err).includes('unique') || String(err).includes('duplicate')) {
         return NextResponse.json({ received: true, duplicate: true });
       }
@@ -51,85 +75,34 @@ export async function POST(request: Request) {
     }
   }
 
-  try {
-    switch (event.type) {
-      case 'subscription.activated': {
-        if (!event.organizationId) break;
-
-        await activateSubscription({
-          organizationId: event.organizationId,
-          planId: event.planId ?? 'free',
-          providerId: 'nowpayments',
-          interval: 'yearly',
-          providerCustomerId: event.providerCustomerId ?? '',
-          status: event.status,
-          periodStart: event.periodStart,
-          periodEnd: event.periodEnd,
-        });
-
-        // Finalize discount usage if one was applied at checkout
-        // The discountUsageId is stored in the transaction metadata (set by billing router)
-        const discountUsageId = providerData?.discountUsageId as string | undefined;
-        if (discountUsageId && orderId) {
-          await finalizeUsage(discountUsageId, orderId);
-        }
-
-        logAudit({
-          db,
-          userId: 'system',
-          action: 'subscription.created',
-          entityType: 'subscription',
-          entityId: orderId ?? 'unknown',
-          metadata: { orgId: event.organizationId, planId: event.planId, provider: 'nowpayments' },
-        });
-
-        sendOrgNotification(event.organizationId, {
-          title: 'Payment confirmed',
-          body: `Your crypto payment for the ${event.planId ?? 'selected'} plan has been confirmed. Your subscription is now active.`,
-          type: NotificationType.SUCCESS,
-          category: NotificationCategory.BILLING,
-          actionUrl: adminPanel.settingsBilling,
-        });
-
-        // Record affiliate conversion if applicable (via module hooks registry)
-        const checkoutUserId = providerData?.userId as string | undefined;
-        const amountCents = providerData?.amountCents as number | undefined;
-        if (checkoutUserId && amountCents) {
-          runHook('payment.conversion', checkoutUserId, orderId ?? 'unknown', amountCents);
-        }
-
-        invalidateStats('billing');
-        break;
-      }
-
-      case 'payment.failed': {
-        if (!event.organizationId) break;
-
-        sendOrgNotification(event.organizationId, {
-          title: 'Payment failed',
-          body: 'Your crypto payment has failed or expired. Please try again.',
-          type: NotificationType.ERROR,
-          category: NotificationCategory.BILLING,
-          actionUrl: adminPanel.settingsBilling,
-        });
-        break;
-      }
-
-      case 'payment.refunded': {
-        if (!event.organizationId) break;
-
-        sendOrgNotification(event.organizationId, {
-          title: 'Payment refunded',
-          body: 'Your crypto payment has been refunded.',
-          type: NotificationType.WARNING,
-          category: NotificationCategory.BILLING,
-          actionUrl: adminPanel.settingsBilling,
-        });
-        break;
-      }
+  // ── Route one-time purchases by checkout metadata.type ────────────────────
+  // Same registry the Stripe route consults — future crypto one-time flows
+  // plug in here without route edits. Unmatched events fall through to the
+  // subscription handler (today's only NOWPayments flow).
+  const eventMetadata = providerData?.metadata as Record<string, string> | undefined;
+  const oneTimeHandler = getPaymentWebhookHandler(eventMetadata?.type);
+  if (oneTimeHandler && idempotencyKey) {
+    try {
+      const result = await oneTimeHandler({
+        event,
+        providerId: 'nowpayments',
+        eventId: idempotencyKey,
+        metadata: eventMetadata ?? {},
+      });
+      return NextResponse.json({ received: true, ...(result ?? {}) });
+    } catch (err) {
+      logger.error('Error processing NOWPayments one-time webhook', { type: eventMetadata?.type, error: String(err) });
+      await releaseEventClaim(idempotencyKey);
+      return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
+  }
+
+  try {
+    const { handleSubscriptionWebhookEvent } = await import('@/core-subscriptions/lib/webhook-handler');
+    await handleSubscriptionWebhookEvent({ event, providerId: 'nowpayments' });
   } catch (err) {
     logger.error('Error processing NOWPayments webhook', { error: String(err) });
+    if (idempotencyKey) await releaseEventClaim(idempotencyKey);
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
   }
 

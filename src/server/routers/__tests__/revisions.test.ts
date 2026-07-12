@@ -110,6 +110,14 @@ vi.mock('@/server/db/schema', () => ({
     id: 'cms_categories.id',
     updatedAt: 'cms_categories.updated_at',
   },
+  cmsPortfolio: {
+    id: 'cms_portfolio.id',
+    updatedAt: 'cms_portfolio.updated_at',
+  },
+  cmsShowcase: {
+    id: 'cms_showcase.id',
+    updatedAt: 'cms_showcase.updated_at',
+  },
 }));
 
 vi.mock('@/lib/env', () => ({
@@ -168,7 +176,8 @@ const MOCK_CATEGORY_REVISION = {
     name: 'Old Category',
     slug: 'old-category',
     title: 'Old Title',
-    text: 'Old text',
+    // Category bodies are snapshotted under `content` (matches CATEGORY_SNAPSHOT_KEYS)
+    content: 'Old body',
     status: 1,
     metaDescription: 'Old meta',
     seoTitle: null,
@@ -180,6 +189,43 @@ const MOCK_CATEGORY_REVISION = {
   },
   createdBy: 'user-1',
   createdAt: new Date('2025-01-02'),
+};
+
+const MOCK_PORTFOLIO_REVISION = {
+  id: 'c3d4e5f6-a7b8-4c9d-ae0f-1a2b3c4d5e6f',
+  contentType: 'portfolio',
+  contentId: CONTENT_ID,
+  snapshot: {
+    name: 'Old Project',
+    slug: 'old-project',
+    title: 'Old Title',
+    content: 'Old body',
+    status: 1,
+    clientName: 'Acme',
+    projectUrl: 'https://example.com',
+    lang: 'en',
+  },
+  createdBy: 'user-1',
+  createdAt: new Date('2025-01-03'),
+};
+
+const MOCK_SHOWCASE_REVISION = {
+  id: 'd4e5f6a7-b8c9-4d0e-af1a-2b3c4d5e6f70',
+  contentType: 'showcase',
+  contentId: CONTENT_ID,
+  snapshot: {
+    title: 'Old Showcase',
+    slug: 'old-showcase',
+    description: 'Old description',
+    cardType: 'video',
+    variant: 'contained',
+    mediaUrl: 'https://example.com/v.mp4',
+    status: 1,
+    sortOrder: 0,
+    lang: 'en',
+  },
+  createdBy: 'user-1',
+  createdAt: new Date('2025-01-04'),
 };
 
 // ---------------------------------------------------------------------------
@@ -297,6 +343,47 @@ describe('revisionsRouter', () => {
         expect.objectContaining({
           name: 'Old Category',
           slug: 'old-category',
+          // `content` (not `text`) must survive the restore — H5 regression guard
+          content: 'Old body',
+          updatedAt: expect.any(Date),
+        })
+      );
+    });
+
+    it('restores a portfolio revision — updates cmsPortfolio with safe snapshot fields', async () => {
+      const ctx = createMockCtx();
+      ctx.db._chains.select.limit.mockResolvedValue([MOCK_PORTFOLIO_REVISION]);
+
+      const caller = revisionsRouter.createCaller(ctx as never);
+      const result = await caller.restore({ id: MOCK_PORTFOLIO_REVISION.id });
+
+      expect(result).toEqual({ success: true });
+      expect(ctx.db.update).toHaveBeenCalled();
+      expect(ctx.db._chains.update.set).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: 'Old Project',
+          slug: 'old-project',
+          content: 'Old body',
+          clientName: 'Acme',
+          updatedAt: expect.any(Date),
+        })
+      );
+    });
+
+    it('restores a showcase revision — updates cmsShowcase with safe snapshot fields', async () => {
+      const ctx = createMockCtx();
+      ctx.db._chains.select.limit.mockResolvedValue([MOCK_SHOWCASE_REVISION]);
+
+      const caller = revisionsRouter.createCaller(ctx as never);
+      const result = await caller.restore({ id: MOCK_SHOWCASE_REVISION.id });
+
+      expect(result).toEqual({ success: true });
+      expect(ctx.db.update).toHaveBeenCalled();
+      expect(ctx.db._chains.update.set).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: 'Old Showcase',
+          slug: 'old-showcase',
+          cardType: 'video',
           updatedAt: expect.any(Date),
         })
       );
@@ -316,7 +403,7 @@ describe('revisionsRouter', () => {
     it('throws BAD_REQUEST for unknown content type', async () => {
       const unknownRevision = {
         ...MOCK_POST_REVISION,
-        contentType: 'portfolio',
+        contentType: 'widget',
       };
       const ctx = createMockCtx();
       ctx.db._chains.select.limit.mockResolvedValue([unknownRevision]);
@@ -325,7 +412,7 @@ describe('revisionsRouter', () => {
 
       await expect(
         caller.restore({ id: REVISION_ID })
-      ).rejects.toThrow('Unknown content type: portfolio');
+      ).rejects.toThrow('Unknown content type: widget');
     });
 
     it('throws BAD_REQUEST when snapshot has no restorable post fields', async () => {

@@ -36,7 +36,17 @@ export const cmsAttachmentsRouter = createTRPCRouter({
     .input(
       z.object({
         postId: z.string().uuid(),
-        filepath: z.string().max(1024),
+        filepath: z
+          .string()
+          .max(1024)
+          .refine(
+            (p) =>
+              !p.includes('..') &&
+              !p.startsWith('/') &&
+              !p.includes('\\') &&
+              !/^[a-zA-Z]:/.test(p),
+            'Invalid storage path'
+          ),
         filename: z.string().max(255),
         mimeType: z.string().max(100),
         fileSize: z.number().int().min(0),

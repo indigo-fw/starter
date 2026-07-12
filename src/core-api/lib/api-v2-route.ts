@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/server/db';
-import { getRedis } from '@/core/lib/infra/redis';
+import { getRequestRedis } from '@/core/lib/infra/redis';
+import { getClientIp } from '@/core/lib/api/client-ip';
 import { checkRateLimit } from '@/core/lib/infra/rate-limit';
 import { createLogger } from '@/core/lib/infra/logger';
 import { verifyApiKey, touchKeyLastUsed, type VerifiedKey } from './api-key-service';
@@ -95,7 +96,7 @@ export async function withApiV2Route(
   }
 
   // ─── 4. Rate limit per key ────────────────────────────────────────────────
-  const redis = getRedis();
+  const redis = getRequestRedis();
   const maxRequests = options.rateLimit ?? 60;
   const rl = await checkRateLimit(redis, `api:v2:key:${key.id}`, {
     windowMs: 60_000,
@@ -149,13 +150,9 @@ export async function withApiV2Route(
   }
 }
 
-/** Extract client IP from request headers (Cloudflare / proxy aware). */
+/** Extract client IP from request headers (trusted proxy hop aware). */
 function extractIp(request: Request): string {
-  return (
-    request.headers.get('cf-connecting-ip') ??
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-    'unknown'
-  );
+  return getClientIp(request.headers);
 }
 
 /** Fire-and-forget request log insert. */

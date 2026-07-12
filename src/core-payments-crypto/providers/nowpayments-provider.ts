@@ -6,6 +6,7 @@ import {
   updateTransactionProvider,
   updateTransactionStatus,
   getTransaction,
+  getNowPaymentsApiBase,
 } from '@/core-payments/lib/transaction-service';
 import { getPaymentsDeps } from '@/core-payments/deps';
 import { createLogger } from '@/core/lib/infra/logger';
@@ -13,8 +14,7 @@ import { createLogger } from '@/core/lib/infra/logger';
 const logger = createLogger('nowpayments');
 
 function getApiBase(): string {
-  const sandbox = process.env.NOWPAYMENTS_SANDBOX !== 'false';
-  return sandbox ? 'https://api-sandbox.nowpayments.io' : 'https://api.nowpayments.io';
+  return getNowPaymentsApiBase();
 }
 
 function getApiKey(): string {

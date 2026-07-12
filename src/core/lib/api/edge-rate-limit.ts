@@ -55,9 +55,9 @@ export async function edgeRateLimit(
   }
 
   try {
-    const { getRedis } = await import('@/core/lib/infra/redis');
+    const { getRequestRedis } = await import('@/core/lib/infra/redis');
     const { checkRateLimit } = await import('@/core/lib/infra/rate-limit');
-    const redis = getRedis();
+    const redis = getRequestRedis();
     if (!redis) {
       redisAvailable = false;
       return memoryRateLimit(ip, windowMs, maxRequests);

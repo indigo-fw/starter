@@ -49,25 +49,72 @@ function getWebhookQueue() {
 // Internal delivery — shared between worker and direct fallback
 // ---------------------------------------------------------------------------
 
-async function deliverWebhook(url: string, secret: string, event: string, payload: Record<string, unknown>): Promise<void> {
+interface DeliverArgs {
+  webhookId: string;
+  url: string;
+  secret: string;
+  event: string;
+  payload: Record<string, unknown>;
+}
+
+async function deliverWebhook(args: DeliverArgs): Promise<void> {
+  const { webhookId, url, secret, event, payload } = args;
   const body = JSON.stringify({ event, timestamp: new Date().toISOString(), data: payload });
   const signature = crypto
     .createHmac('sha256', secret)
     .update(body)
     .digest('hex');
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Webhook-Signature': signature,
-    },
-    body,
-  });
+  const logDelivery = getDeliveryLogger();
+  const startedAt = Date.now();
+
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Signature': signature,
+      },
+      body,
+      // Fail a stalling endpoint instead of blocking the concurrency-1 queue.
+      signal: AbortSignal.timeout(10_000),
+      // Don't follow redirects — an attacker-controlled 3xx could point the
+      // signed request at an internal service (SSRF).
+      redirect: 'manual',
+    });
+  } catch (err: unknown) {
+    logDelivery?.({
+      webhookId,
+      event,
+      status: 'failed',
+      error: String(err),
+      durationMs: Date.now() - startedAt,
+    });
+    throw err;
+  }
+
+  const durationMs = Date.now() - startedAt;
 
   if (!res.ok) {
+    logDelivery?.({
+      webhookId,
+      event,
+      status: 'failed',
+      statusCode: res.status,
+      error: `HTTP ${res.status}`,
+      durationMs,
+    });
     throw new Error(`Webhook delivery failed: HTTP ${res.status} from ${url}`);
   }
+
+  logDelivery?.({
+    webhookId,
+    event,
+    status: 'success',
+    statusCode: res.status,
+    durationMs,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -77,13 +124,8 @@ async function deliverWebhook(url: string, secret: string, event: string, payloa
 /** Start the webhook delivery worker. Call once from server.ts. */
 export function startWebhookWorker() {
   return createWorker(WEBHOOK_QUEUE, async (job) => {
-    const { url, secret, event, payload } = job.data as {
-      url: string;
-      secret: string;
-      event: string;
-      payload: Record<string, unknown>;
-    };
-    await deliverWebhook(url, secret, event, payload);
+    const { webhookId, url, secret, event, payload } = job.data as DeliverArgs;
+    await deliverWebhook({ webhookId, url, secret, event, payload });
   });
 }
 
@@ -107,17 +149,21 @@ export function dispatchWebhook(
         const events = hook.events as string[];
         if (!events.includes(event)) continue;
 
+        const deliverArgs: DeliverArgs = {
+          webhookId: hook.id,
+          url: hook.url,
+          secret: hook.secret,
+          event,
+          payload,
+        };
+
         if (queue) {
           // Enqueue with retry via BullMQ
           await queue
-            .add(
-              'deliver',
-              { url: hook.url, secret: hook.secret, event, payload },
-              {
-                attempts: 3,
-                backoff: { type: 'exponential', delay: 5000 },
-              }
-            )
+            .add('deliver', deliverArgs, {
+              attempts: 3,
+              backoff: { type: 'exponential', delay: 5000 },
+            })
             .catch((err: unknown) => {
               log.error('Failed to enqueue webhook job, attempting direct delivery', {
                 url: hook.url,
@@ -125,13 +171,13 @@ export function dispatchWebhook(
                 error: String(err),
               });
               // Fallback to fire-and-forget direct delivery
-              deliverWebhook(hook.url, hook.secret, event, payload).catch((deliveryErr: unknown) => {
+              deliverWebhook(deliverArgs).catch((deliveryErr: unknown) => {
                 log.warn('Direct webhook delivery also failed', { url: hook.url, event, error: String(deliveryErr) });
               });
             });
         } else {
           // No Redis — deliver directly (fire-and-forget)
-          deliverWebhook(hook.url, hook.secret, event, payload).catch((err: unknown) => {
+          deliverWebhook(deliverArgs).catch((err: unknown) => {
             log.warn('Webhook delivery failed', { url: hook.url, event, error: String(err) });
           });
         }

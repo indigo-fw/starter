@@ -33,6 +33,7 @@ vi.mock('drizzle-orm', () => ({
     })),
     {
       join: vi.fn(),
+      identifier: vi.fn((name: unknown) => ({ type: 'identifier', name })),
     }
   ),
 }));

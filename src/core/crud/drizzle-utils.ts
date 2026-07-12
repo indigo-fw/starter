@@ -40,11 +40,15 @@ export function wordSplitLike(
 
 /**
  * Get the number of affected rows from a raw `.execute()` result.
- * PostgreSQL returns rowCount on the result object.
+ * postgres-js exposes the affected-row count as `count` on its `Result`
+ * (an Array subclass); the `rowCount` branch is a fallback for other drivers.
  */
 export function getAffectedRows(result: unknown): number {
+  if (result && typeof result === 'object' && 'count' in result) {
+    return Number((result as { count: number }).count);
+  }
   if (result && typeof result === 'object' && 'rowCount' in result) {
-    return (result as { rowCount: number }).rowCount;
+    return Number((result as { rowCount: number }).rowCount);
   }
   return 0;
 }

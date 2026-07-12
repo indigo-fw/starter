@@ -1,4 +1,5 @@
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import { isNull } from 'drizzle-orm';
 import {
   boolean,
   index,
@@ -42,10 +43,12 @@ export const cmsPortfolio = pgTable(
 
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
-    deletedAt: timestamp('deleted_at'),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
   (t) => [
-    uniqueIndex('cms_portfolio_slug_lang_uniq').on(t.slug, t.lang),
+    uniqueIndex('cms_portfolio_slug_lang_uniq')
+      .on(t.slug, t.lang)
+      .where(isNull(t.deletedAt)),
     index('cms_portfolio_status_idx').on(t.status),
     index('cms_portfolio_published_at_idx').on(t.publishedAt),
     index('cms_portfolio_deleted_at_idx').on(t.deletedAt),

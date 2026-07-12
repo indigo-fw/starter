@@ -1,4 +1,5 @@
 import { DEFAULT_LOCALE } from '@/lib/constants';
+import { isNull } from 'drizzle-orm';
 import {
   boolean,
   index,
@@ -35,10 +36,12 @@ export const cmsCategories = pgTable(
     previewToken: varchar('preview_token', { length: 64 }),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
-    deletedAt: timestamp('deleted_at'),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
   (t) => [
-    uniqueIndex('cms_categories_slug_lang_uniq').on(t.slug, t.lang),
+    uniqueIndex('cms_categories_slug_lang_uniq')
+      .on(t.slug, t.lang)
+      .where(isNull(t.deletedAt)),
     index('cms_categories_status_order_idx').on(t.status, t.order),
     index('cms_categories_published_at_idx').on(t.publishedAt),
     index('cms_categories_deleted_at_idx').on(t.deletedAt),

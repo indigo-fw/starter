@@ -24,20 +24,53 @@ class FilesystemStorage implements StorageProvider {
       'http://localhost:3000';
   }
 
+  /**
+   * Resolve `filepath` under `basePath` and enforce containment. Rejects
+   * traversal (`..`), leading separators, and anything that resolves outside
+   * the uploads root — an editor can otherwise target `../.env` via
+   * media.register's arbitrary `filepath`. The trailing `path.sep` on the
+   * prefix check prevents sibling-dir escape (`uploads-private/`).
+   */
+  private resolveWithin(filepath: string): string {
+    if (
+      filepath.includes('..') ||
+      filepath.startsWith('/') ||
+      filepath.startsWith('\\') ||
+      path.isAbsolute(filepath)
+    ) {
+      throw new Error(`Invalid storage path: "${filepath}"`);
+    }
+    const root = path.resolve(this.basePath);
+    const resolved = path.resolve(root, filepath);
+    if (resolved !== root && !resolved.startsWith(root + path.sep)) {
+      throw new Error(`Storage path escapes uploads root: "${filepath}"`);
+    }
+    return resolved;
+  }
+
   async upload(filepath: string, buffer: Buffer): Promise<string> {
-    const fullPath = path.join(this.basePath, filepath);
+    const fullPath = this.resolveWithin(filepath);
     await fs.mkdir(path.dirname(fullPath), { recursive: true });
     await fs.writeFile(fullPath, buffer);
     return filepath;
   }
 
   async download(filepath: string): Promise<Buffer> {
-    const fullPath = path.join(this.basePath, filepath);
+    const fullPath = this.resolveWithin(filepath);
     return fs.readFile(fullPath);
   }
 
   async delete(filepath: string): Promise<void> {
-    const fullPath = path.join(this.basePath, filepath);
+    let fullPath: string;
+    try {
+      fullPath = this.resolveWithin(filepath);
+    } catch (err: unknown) {
+      log.warn('Refusing to delete file outside uploads root', {
+        path: filepath,
+        error: String(err),
+      });
+      return;
+    }
     await fs.unlink(fullPath).catch((err: unknown) => {
       log.warn('Failed to delete file', { path: filepath, error: String(err) });
     });

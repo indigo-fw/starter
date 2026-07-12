@@ -1,3 +1,4 @@
+import { isNull } from 'drizzle-orm';
 import {
   boolean,
   index,
@@ -44,10 +45,12 @@ export const cmsPosts = pgTable(
     searchVector: tsvector('search_vector'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
-    deletedAt: timestamp('deleted_at'),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
   (t) => [
-    uniqueIndex('cms_posts_type_lang_slug_uniq').on(t.type, t.lang, t.slug),
+    uniqueIndex('cms_posts_type_lang_slug_uniq')
+      .on(t.type, t.lang, t.slug)
+      .where(isNull(t.deletedAt)),
     index('cms_posts_type_status_lang_idx').on(t.type, t.status, t.lang),
     index('cms_posts_slug_lang_idx').on(t.slug, t.lang),
     index('cms_posts_status_idx').on(t.status),
@@ -83,7 +86,7 @@ export const cmsPostAttachments = pgTable(
       onDelete: 'set null',
     }),
     createdAt: timestamp('created_at').notNull().defaultNow(),
-    deletedAt: timestamp('deleted_at'),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
   (t) => [
     index('cms_post_attachments_post_id_idx').on(t.postId),

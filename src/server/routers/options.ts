@@ -16,7 +16,7 @@ export const optionsRouter = createTRPCRouter({
   })),
 
   /** Get a single option by key */
-  get: staffProcedure
+  get: settingsProcedure
     .input(z.object({ key: z.string().max(255) }))
     .query(async ({ ctx, input }) => {
       const [row] = await ctx.db
@@ -29,8 +29,8 @@ export const optionsRouter = createTRPCRouter({
     }),
 
   /** Get multiple options by prefix (e.g. 'site.' returns all site.* keys) */
-  getByPrefix: staffProcedure
-    .input(z.object({ prefix: z.string().max(255) }))
+  getByPrefix: settingsProcedure
+    .input(z.object({ prefix: z.string().min(1).max(255) }))
     .query(async ({ ctx, input }) => {
       const rows = await ctx.db
         .select()

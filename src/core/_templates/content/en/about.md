@@ -22,4 +22,4 @@ noindex: false
 
 ### Open Source
 
-%SITE_NAME% is open source (AGPL-3.0) and available on GitHub. Commercial licenses available for proprietary use. Contributions are welcome!
+%SITE_NAME% is open source (Apache-2.0) and available on GitHub. Permissive licensing — commercial and closed-source use is fine. Contributions are welcome!

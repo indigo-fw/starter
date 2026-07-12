@@ -1,10 +1,25 @@
 # Indigo
 
-**Describe what you want. Your agent ships it — and proves it's done.** Indigo is the open-source Next.js foundation for agent-built projects — anything from a static site to a full SaaS. Auth, billing, CMS, i18n, real-time and modular architecture come pre-wired; the agent shapes the install to your description — trims the modules you don't need, adds the ones you ask for — and loops until it's verifiably done: describe → build → verify → improve, on rails. On Indigo, "done" isn't the agent's opinion — it's checks going green and seeded personas completing the journeys.
+**Describe what you want. Your agent ships it — and proves it's done.** Indigo is the open-source Next.js foundation for agent-built projects — a website, a blog, a shop, a full SaaS. Not a website builder, not a template: real, typed code you own. Point your coding agent at it — Claude Code, Codex, Gemini — and it shapes one pre-wired foundation to your description (auth, billing, CMS, i18n, real-time and a modular architecture come ready; the agent trims the modules you don't need and adds the ones you ask for), then loops until it's verifiably done. On Indigo, "done" isn't the agent's opinion — it's checks going green and seeded personas completing the journeys.
+
+**[Live demo](https://demo.indigo-fw.dev)** · [Website](https://indigo-fw.dev) · [Docs](https://indigo-fw.dev/docs) · [Feature catalog](https://indigo-fw.dev/features)
 
 ![The Indigo loop, mid-flight — the agent builds, typecheck catches the miss, the fix lands, the test suite and health checks go green. Terminal output verbatim from real runs.](https://indigo-fw.dev/loop.gif)
 
-Every pass of the loop is covered: the agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded personas to use the app as a free, pro or admin user). Iterations stay cheap — pointer-first docs and generated maps mean the agent orients from a map instead of re-reading the codebase. You describe, review and decide; the code stays typed, tested and yours.
+**The loop, in four beats:**
+
+1. **Describe** — say what the product should be, in plain language; the agent asks when a decision is yours.
+2. **Build** — the agent orients from nested `CLAUDE.md` maps and `indigo visualize`, then extends through config and modules — never by editing shared core.
+3. **Verify** — typecheck, tests and `indigo doctor` grade the pass; then the agent logs in through MCP as a seeded persona and uses the feature like a customer would.
+4. **Improve** — failures feed the next pass automatically. Green means done — or the next thing you describe.
+
+This is what makes goal-driven runs — `/loop`-style: describe the end state once, let the agent work until it's true — practical instead of reckless. Nothing blocks the loop: setup, installs, migrations and checks all run through non-interactive CLIs, and the agent asks its questions in chat. Because "done" is machine-checkable here, the cycle can even run on a schedule — see the [Improvement Loop guide](https://indigo-fw.dev/docs/guides/improvement-loop).
+
+Every pass is covered: the agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded personas to use the app as a free, pro or admin user). Each iteration stays small — pointer-first docs and generated maps mean the agent orients from a map instead of re-reading the codebase every pass. You describe, review and decide; the code stays typed, tested and yours.
+
+[![Watch Indigo build, restyle and translate a real product in about 80 seconds](https://indigo-fw.dev/story-poster.png)](https://indigo-fw.dev/#watch)
+
+*[Watch the 80-second story](https://indigo-fw.dev/#watch) — one real install, reshaped live on request: recolour, gradient hero, dark mode, and a full translation pass.*
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Findigo-fw%2Fstarter&env=DATABASE_URL,REDIS_URL&envDescription=PostgreSQL%20and%20Redis%20connection%20strings&project-name=my-indigo-app)
 
@@ -270,19 +285,6 @@ bun run init -- -y --reset
 ```
 
 Set `INIT_ADMIN_EMAIL` and `INIT_ADMIN_PASSWORD` in env for the demo login credentials.
-
-## Agent-Driven Development
-
-Indigo is built for one workflow — a coding agent improving your product in a loop:
-
-1. **Describe** — you say what the product should be, in chat.
-2. **Build** — the agent orients from nested `CLAUDE.md` maps and `indigo visualize`, then extends through config and modules — never by editing shared core.
-3. **Verify** — typecheck, tests and `indigo doctor` grade the pass; then the agent logs in through MCP as a seeded persona and uses the feature like a customer would.
-4. **Improve** — failures feed the next pass automatically. Green means done — or the next thing you describe.
-
-Nothing blocks the loop: setup, module installs, migrations and checks run through non-interactive CLIs, and the agent asks its questions in chat. Iterations stay cheap: pointer-first docs, `indigo map` and module-scoped context mean the token budget goes into your feature, not into rediscovering the codebase.
-
-This is what makes goal-driven runs — `/loop`-style: describe the end state, let the agent work until it's true — practical instead of reckless. On Indigo, "done" is machine-checkable: checks green, seeded personas completing the journeys. See the [Improvement Loop guide](https://indigo-fw.dev/docs/guides/improvement-loop) for running the cycle on a schedule.
 
 ## License
 
