@@ -41,6 +41,11 @@ yarn-error.log*
 
 # personal MCP overrides (project-shared servers live in .mcp.json)
 .mcp.json.local
+# personal Claude Code settings (see .claude/settings.local.json.example)
+.claude/settings.local.json
+
+# deploy metadata written by `bun run build-info` (CI, before docker build)
+/build-info.json
 
 # uploads (user content)
 /uploads/*

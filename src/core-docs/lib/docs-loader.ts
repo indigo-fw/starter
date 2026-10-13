@@ -1,7 +1,8 @@
-import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
-import { join, relative, extname, basename } from 'path';
-import { createLogger } from '@/core/lib/infra/logger';
+import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
+import { basename, extname, join, relative } from 'path';
+
 import { parseFrontmatter } from '@/core/lib/content/frontmatter';
+import { createLogger } from '@/core/lib/infra/logger';
 import { DEFAULT_LOCALE } from '@/lib/constants';
 
 const logger = createLogger('docs-loader');
@@ -61,7 +62,7 @@ function loadDir(dir: string, baseDir: string): FileDoc[] {
 
     const ext = extname(entry).toLowerCase();
     if (ext !== '.mdx') continue;
-    // Skip documentation/meta files (ALL-CAPS names like CLAUDE.mdx, README.mdx, etc.)
+    // Skip documentation/meta files (ALL-CAPS names like AGENTS.mdx, CLAUDE.mdx, README.mdx, etc.)
     if (/^[A-Z][A-Z0-9_-]*\.mdx$/.test(entry)) continue;
 
     try {
@@ -93,7 +94,10 @@ function loadDir(dir: string, baseDir: string): FileDoc[] {
         updatedAt: stat.mtime,
       });
     } catch (err) {
-      logger.error('Failed to load doc file', { path: fullPath, error: String(err) });
+      logger.error('Failed to load doc file', {
+        path: fullPath,
+        error: String(err),
+      });
     }
   }
 
@@ -106,7 +110,8 @@ const DOCS_ROOT = join(process.cwd(), 'docs');
 const SRC_ROOT = join(process.cwd(), 'src');
 
 /** Simple TTL cache for file docs, keyed by locale */
-const CACHE_TTL = process.env.NODE_ENV === 'production' ? 5 * 60 * 1000 : 30 * 1000;
+const CACHE_TTL =
+  process.env.NODE_ENV === 'production' ? 5 * 60 * 1000 : 30 * 1000;
 const _cache = new Map<string, { docs: FileDoc[]; ts: number }>();
 
 /**
@@ -160,7 +165,9 @@ export function loadFileDocs(locale: string = DEFAULT_LOCALE): FileDoc[] {
   }
 
   const moduleDocs = loadModuleDocs(locale);
-  const projectDocs = existsSync(localeDir) ? loadDir(localeDir, localeDir) : [];
+  const projectDocs = existsSync(localeDir)
+    ? loadDir(localeDir, localeDir)
+    : [];
 
   // Merge: project docs override module-shipped docs on slug collision.
   const bySlug = new Map<string, FileDoc>();
@@ -175,7 +182,10 @@ export function loadFileDocs(locale: string = DEFAULT_LOCALE): FileDoc[] {
 /**
  * Load a single file doc by slug for a given locale.
  */
-export function loadFileDoc(slug: string, locale: string = DEFAULT_LOCALE): FileDoc | null {
+export function loadFileDoc(
+  slug: string,
+  locale: string = DEFAULT_LOCALE
+): FileDoc | null {
   const docs = loadFileDocs(locale);
   return docs.find((d) => d.slug === slug) ?? null;
 }
@@ -189,7 +199,10 @@ export function invalidateFileDocsCache(): void {
  * Strip HTML tags from content for plain text / search indexing.
  */
 export function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  return html
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /**

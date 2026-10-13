@@ -31,6 +31,28 @@
 export interface HookMap {
   'user.beforeDelete': [userId: string];
   /**
+   * Erase or pseudonymize this user's personal data inside a module (GDPR
+   * Art. 17). Core scrubs only `user`/`session`/`account`; anything a module
+   * stores about a person — ticket bodies, comment authorship, chat messages,
+   * shipping addresses — is invisible to core and must be handled here.
+   *
+   * Run as a GUARD, not a fire-and-forget hook: a scrubber that throws aborts
+   * the erasure before the user row is destroyed, so the request can be
+   * retried. Swallowing the error would report success while leaving the
+   * personal data in place — the one outcome erasure must never produce.
+   */
+  'user.anonymize': [userId: string];
+  /**
+   * Contribute this module's data about the user to a portability export
+   * (GDPR Art. 20). Handlers WRITE into `bundle` under their own key —
+   * `bundle.support = [...]` — because hooks return void; the caller reads
+   * the mutated object afterwards.
+   *
+   * Also a guard: a silently-failing exporter yields an export that looks
+   * complete but isn't.
+   */
+  'user.export': [userId: string, bundle: Record<string, unknown>];
+  /**
    * Fired right after a user + their personal org are created (from Better
    * Auth's `databaseHooks.user.create.after`). Optional modules hook in here
    * for per-signup setup — link orphaned guest records, seed module data,
@@ -38,7 +60,10 @@ export interface HookMap {
    * module's schema. `orgId` is the personal org just created (null if that
    * step failed).
    */
-  'user.created': [user: { id: string; email: string; name: string | null }, orgId: string | null];
+  'user.created': [
+    user: { id: string; email: string; name: string | null },
+    orgId: string | null,
+  ];
   /**
    * The four events below are core-owned because their *emitters* live in
    * always-present code (auth router, ws server, organizations router,
@@ -58,9 +83,23 @@ export interface HookMap {
     },
   ];
   /** A payment converted (consumed by core-affiliates for commissions). */
-  'payment.conversion': [userId: string, referenceId: string, amountCents: number];
+  'payment.conversion': [
+    userId: string,
+    referenceId: string,
+    amountCents: number,
+  ];
+  /**
+   * A converted payment was refunded (consumed by core-affiliates to claw the
+   * commission back). `referenceId` must match the one passed to
+   * `payment.conversion` for the same purchase; `amountCents` is the refunded
+   * amount, so a partial refund claws back proportionally.
+   */
+  'payment.refund': [userId: string, referenceId: string, amountCents: number];
   /** Unhandled WS message types delegated to modules (e.g. core-chat voice calls). */
-  'ws.message': [userId: string, msg: { type?: string; payload?: Record<string, unknown> }];
+  'ws.message': [
+    userId: string,
+    msg: { type?: string; payload?: Record<string, unknown> },
+  ];
   /** Feature gate guard (consumed by core-subscriptions; passes when absent). */
   'feature.require': [orgId: string, feature: string, currentUsage?: number];
   /** Fired after an organization is created (consumed by core-payments to seed a billing profile). */
@@ -79,7 +118,7 @@ const hooks = new Map<string, ((...args: any[]) => Promise<void> | void)[]>();
  */
 export function registerHook<K extends keyof HookMap>(
   event: K,
-  handler: (...args: HookMap[K]) => Promise<void> | void,
+  handler: (...args: HookMap[K]) => Promise<void> | void
 ): void {
   const list = hooks.get(event as string) ?? [];
   list.push(handler);
@@ -104,7 +143,7 @@ export async function runHook<K extends keyof HookMap>(
   const list = hooks.get(event as string) ?? [];
   if (list.length === 0) return;
   await Promise.allSettled(
-    list.map((fn) => Promise.resolve().then(() => fn(...args))),
+    list.map((fn) => Promise.resolve().then(() => fn(...args)))
   );
 }
 
@@ -143,7 +182,10 @@ export async function runGuard<K extends keyof HookMap>(
  * Channel authorizer function.
  * Returns true (authorized), false (denied), or null (not my channel — skip).
  */
-type ChannelAuthorizer = (userId: string | undefined, channel: string) => Promise<boolean | null>;
+type ChannelAuthorizer = (
+  userId: string | undefined,
+  channel: string
+) => Promise<boolean | null>;
 
 const channelAuthorizers: ChannelAuthorizer[] = [];
 
@@ -160,7 +202,10 @@ export function registerChannelAuthorizer(fn: ChannelAuthorizer): void {
  * Iterates registered authorizers until one claims the channel.
  * Returns false if no authorizer recognizes the channel.
  */
-export async function authorizeChannel(userId: string | undefined, channel: string): Promise<boolean> {
+export async function authorizeChannel(
+  userId: string | undefined,
+  channel: string
+): Promise<boolean> {
   for (const fn of channelAuthorizers) {
     const result = await fn(userId, channel);
     if (result !== null) return result;
@@ -183,7 +228,10 @@ const healthCheckers = new Map<string, HealthChecker>();
  * Register a module health check.
  * Called during serverInit. The health endpoint runs all registered checks.
  */
-export function registerHealthCheck(moduleName: string, checker: HealthChecker): void {
+export function registerHealthCheck(
+  moduleName: string,
+  checker: HealthChecker
+): void {
   healthCheckers.set(moduleName, checker);
 }
 
@@ -191,7 +239,9 @@ export function registerHealthCheck(moduleName: string, checker: HealthChecker):
  * Run all registered module health checks.
  * Returns a map of module name → check result.
  */
-export async function runHealthChecks(): Promise<Record<string, HealthCheckResult>> {
+export async function runHealthChecks(): Promise<
+  Record<string, HealthCheckResult>
+> {
   const results: Record<string, HealthCheckResult> = {};
   const entries = [...healthCheckers.entries()];
 
@@ -199,7 +249,7 @@ export async function runHealthChecks(): Promise<Record<string, HealthCheckResul
     entries.map(async ([name, checker]) => {
       const result = await checker();
       return { name, result };
-    }),
+    })
   );
 
   for (const outcome of settled) {
@@ -207,7 +257,10 @@ export async function runHealthChecks(): Promise<Record<string, HealthCheckResul
       results[outcome.value.name] = outcome.value.result;
     } else {
       const name = entries[settled.indexOf(outcome)]?.[0] ?? 'unknown';
-      results[name] = { status: 'error', details: { error: String(outcome.reason) } };
+      results[name] = {
+        status: 'error',
+        details: { error: String(outcome.reason) },
+      };
     }
   }
 
@@ -224,7 +277,9 @@ export function getRegisteredModules(): string[] {
 // ─── Auth middleware (for tRPC) ─────────────────────────────────────────────
 
 type AuthMiddlewareCtx = {
-  session: { user: { id: string; role?: string; email?: string; banned?: boolean } };
+  session: {
+    user: { id: string; role?: string; email?: string; banned?: boolean };
+  };
 };
 type AuthMiddlewareFn = (ctx: AuthMiddlewareCtx) => Promise<void>;
 
@@ -235,7 +290,10 @@ const authMiddlewares: { name: string; fn: AuthMiddlewareFn }[] = [];
  * Called during serverInit by modules that need custom auth checks (2FA, IP whitelist, etc.).
  * Throw a TRPCError to block access.
  */
-export function registerAuthMiddleware(name: string, fn: AuthMiddlewareFn): void {
+export function registerAuthMiddleware(
+  name: string,
+  fn: AuthMiddlewareFn
+): void {
   authMiddlewares.push({ name, fn });
 }
 

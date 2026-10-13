@@ -1,13 +1,19 @@
-import { z } from 'zod';
+import {
+  appealProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from '../trpc';
 import { TRPCError } from '@trpc/server';
-import { eq, and, ne } from 'drizzle-orm';
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
-import { auth } from '@/lib/auth';
-import { user, session } from '@/server/db/schema/auth';
+import { and, eq, ne } from 'drizzle-orm';
+import { z } from 'zod';
+
 import { detectGeo } from '@/core/lib/analytics/geo';
 import { extractRequestContext } from '@/core/lib/api/request-context';
 import { createLogger } from '@/core/lib/infra/logger';
 import { runHook } from '@/core/lib/module/module-hooks';
+import { auth } from '@/lib/auth';
+import { session, user } from '@/server/db/schema/auth';
 
 const geoLog = createLogger('geo-sync');
 
@@ -17,7 +23,13 @@ export const authRouter = createTRPCRouter({
   }),
 
   me: protectedProcedure
-    .meta({ mcp: { description: 'Get the currently authenticated user (id, email, role). Call this first to confirm who you are acting as.', readOnly: true } })
+    .meta({
+      mcp: {
+        description:
+          'Get the currently authenticated user (id, email, role). Call this first to confirm who you are acting as.',
+        readOnly: true,
+      },
+    })
     .query(({ ctx }) => {
       return ctx.session.user;
     }),
@@ -81,14 +93,17 @@ export const authRouter = createTRPCRouter({
 
       await ctx.db.update(user).set(updates).where(eq(user.id, userId));
 
-      geoLog.info('Geo synced', { userId, ip: reqCtx.ip, country: geo.country });
+      geoLog.info('Geo synced', {
+        userId,
+        ip: reqCtx.ip,
+        country: geo.country,
+      });
       return { synced: true };
     } catch (err: unknown) {
       geoLog.warn('Geo sync failed', { userId, error: String(err) });
       return { synced: false };
     }
   }),
-
 
   updateProfile: protectedProcedure
     .input(z.object({ name: z.string().min(1).max(100) }))
@@ -135,16 +150,23 @@ export const authRouter = createTRPCRouter({
       }
     }),
 
-  deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
+  // appealProcedure, not protectedProcedure: a ban must not remove the user's
+  // GDPR Art. 17 erasure path. Scoped to the caller's own id as always.
+  deleteAccount: appealProcedure.mutation(async ({ ctx }) => {
     const userId = ctx.session.user.id;
     const { anonymizeUser } = await import('@/core/lib/analytics/gdpr');
 
     try {
       await anonymizeUser(ctx.db, userId);
     } catch (err) {
+      // anonymizeUser's refusals are TRPCErrors with the right code. Anything
+      // else is an infrastructure failure: the client gets a generic message,
+      // the logging middleware gets the real one via `cause`.
+      if (err instanceof TRPCError) throw err;
       throw new TRPCError({
-        code: 'FORBIDDEN',
-        message: err instanceof Error ? err.message : 'Account deletion failed',
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Account deletion failed',
+        cause: err,
       });
     }
 
@@ -177,7 +199,10 @@ export const authRouter = createTRPCRouter({
         .limit(1);
 
       if (!target || target.userId !== ctx.session.user.id) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Session not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Session not found',
+        });
       }
 
       await ctx.db.delete(session).where(eq(session.id, input.sessionId));
@@ -187,13 +212,15 @@ export const authRouter = createTRPCRouter({
   /** Capture marketing attribution after registration (ref code, UTM params, referrer, etc.)
    *  Uses module hooks — no-ops if core-affiliates is not installed. */
   captureAttribution: protectedProcedure
-    .input(z.object({
-      refCode: z.string().max(255).optional(),
-      utmSource: z.string().max(255).optional(),
-      utmMedium: z.string().max(255).optional(),
-      utmCampaign: z.string().max(500).optional(),
-      extra: z.record(z.string(), z.string().max(2000)).optional(),
-    }))
+    .input(
+      z.object({
+        refCode: z.string().max(255).optional(),
+        utmSource: z.string().max(255).optional(),
+        utmMedium: z.string().max(255).optional(),
+        utmCampaign: z.string().max(500).optional(),
+        extra: z.record(z.string(), z.string().max(2000)).optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       await runHook('attribution.capture', ctx.session.user.id, input);
       return { success: true };

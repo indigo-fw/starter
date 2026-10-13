@@ -11,12 +11,23 @@
  *   - Changing company info in site.ts takes effect immediately
  *   - No file overwrites on re-init
  */
-
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync } from 'fs';
-import { join, dirname, extname } from 'path';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  statSync,
+  writeFileSync,
+} from 'fs';
+import { dirname, extname, join } from 'path';
 import { fileURLToPath } from 'url';
 
-const TEMPLATES_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '_templates', 'content');
+const TEMPLATES_DIR = join(
+  dirname(fileURLToPath(import.meta.url)),
+  '..',
+  '_templates',
+  'content'
+);
 const CONTENT_DIR = join(process.cwd(), 'content');
 
 /**
@@ -83,8 +94,15 @@ function copyDir(sourceDir: string, targetDir: string): number {
 
     // Substitute %CURRENT_DATE% at copy time (one-time value, not a live variable).
     // All other %VAR% placeholders stay as-is — resolved at render time from site.ts.
-    const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    const content = readFileSync(sourcePath, 'utf-8').replace(/%CURRENT_DATE%/g, currentDate);
+    const currentDate = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    const content = readFileSync(sourcePath, 'utf-8').replace(
+      /%CURRENT_DATE%/g,
+      currentDate
+    );
     writeFileSync(targetPath, content, 'utf-8');
     count++;
   }
@@ -98,8 +116,10 @@ function getTemplateFilenames(): string[] {
   for (const localeDir of readdirSync(TEMPLATES_DIR)) {
     const localePath = join(TEMPLATES_DIR, localeDir);
     if (!statSync(localePath).isDirectory()) continue;
-    // Filter out documentation/meta files (ALL-CAPS names like CLAUDE.md, README.md, etc.)
-    return readdirSync(localePath).filter((f) => f.endsWith('.md') && !/^[A-Z][A-Z0-9_-]*\.md$/.test(f));
+    // Filter out documentation/meta files (ALL-CAPS names like AGENTS.md, CLAUDE.md, README.md, etc.)
+    return readdirSync(localePath).filter(
+      (f) => f.endsWith('.md') && !/^[A-Z][A-Z0-9_-]*\.md$/.test(f)
+    );
   }
 
   return [];

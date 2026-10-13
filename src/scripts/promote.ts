@@ -4,10 +4,11 @@
  * Promote a user to superadmin by email:
  *   bun run promote <email>
  */
-
-import postgres from 'postgres';
-import { drizzle } from 'drizzle-orm/postgres-js';
 import { eq } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import postgres from 'postgres';
+
+import { invalidateUserSessions } from '@/core/lib/auth/session-invalidation';
 
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
@@ -29,7 +30,12 @@ async function main() {
     const { user } = await import('../server/db/schema/auth');
 
     const [found] = await db
-      .select({ id: user.id, name: user.name, email: user.email, role: user.role })
+      .select({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      })
       .from(user)
       .where(eq(user.email, email))
       .limit(1);
@@ -49,9 +55,22 @@ async function main() {
       .set({ role: 'superadmin', updatedAt: new Date() })
       .where(eq(user.id, found.id));
 
-    console.log(`Promoted "${found.name}" <${found.email}> from "${found.role}" to superadmin.`);
+    // The role rides in the cookie-cached session for up to 5 min. This script
+    // is its own process, so only the Redis broadcast reaches the running
+    // server; without REDIS_URL the promotion bites at the next cache refresh.
+    invalidateUserSessions(found.id);
+
+    console.log(
+      `Promoted "${found.name}" <${found.email}> from "${found.role}" to superadmin.`
+    );
   } finally {
     await sql.end();
+    // The broadcast above is fire-and-forget; give the publish a beat to leave,
+    // then close the Redis socket — an open ioredis connection would otherwise
+    // keep this process alive forever.
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    const { disconnectAll } = await import('@/core/lib/infra/redis');
+    await disconnectAll();
   }
 }
 

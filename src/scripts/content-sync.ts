@@ -15,6 +15,7 @@ import * as schema from '@/server/db/schema';
 import { CONTENT_TYPES } from '@/config/cms';
 import { LOCALES } from '@/lib/constants';
 import { syncContentFiles } from '@/core/lib/content/sync';
+import { syncContentImages } from '@/core/lib/content/image-sync';
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
@@ -38,6 +39,11 @@ async function main() {
   });
 
   console.log(`\n✅ Done: ${result.created} created, ${result.updated} updated, ${result.skipped} skipped`);
+
+  const img = await syncContentImages(db, { dryRun });
+  console.log(
+    `✅ Images: ${img.uploaded} uploaded, ${img.updated} updated, ${img.skipped} unchanged, ${img.missing} missing, ${img.pointers} lfs-pointer`,
+  );
   await sql.end();
 }
 

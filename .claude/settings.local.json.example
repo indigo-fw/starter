@@ -1,0 +1,18 @@
+{
+  "_readme": [
+    "Copy to settings.local.json (gitignored — personal, per checkout) or merge these keys into your existing one.",
+    "MCP servers are read from .mcp.json in this folder AND parent folders (merged by name) — see .mcp.json.",
+    "enabledMcpjsonServers = pre-approved, loads silently. disabledMcpjsonServers = never loaded, never asked.",
+    "A server name in NEITHER list triggers an interactive approval prompt at session start.",
+    "The persona servers (indigo-free/pro/admin/super) need `bun run indigo personas` once; postgres-dev needs a running local DB."
+  ],
+  "enabledMcpjsonServers": [
+    "indigo",
+    "indigo-anon",
+    "indigo-free",
+    "indigo-pro",
+    "indigo-admin",
+    "indigo-super"
+  ],
+  "disabledMcpjsonServers": ["postgres-dev"]
+}

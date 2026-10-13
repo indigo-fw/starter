@@ -1,14 +1,21 @@
 import crypto from 'crypto';
-import type { PaymentProvider, CheckoutParams, CheckoutResult, WebhookEvent } from '@/core-payments/types/payment';
-import { TransactionStatus } from '@/core-payments/types/payment';
+
+import { getPaymentsDeps } from '@/core-payments/deps';
 import {
+  type TransactionRow,
   createTransaction,
+  getNowPaymentsApiBase,
+  getTransaction,
   updateTransactionProvider,
   updateTransactionStatus,
-  getTransaction,
-  getNowPaymentsApiBase,
 } from '@/core-payments/lib/transaction-service';
-import { getPaymentsDeps } from '@/core-payments/deps';
+import type {
+  CheckoutParams,
+  CheckoutResult,
+  PaymentProvider,
+  WebhookEvent,
+} from '@/core-payments/types/payment';
+import { TransactionStatus } from '@/core-payments/types/payment';
 import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('nowpayments');
@@ -48,7 +55,10 @@ function sortObject(obj: Record<string, unknown>): Record<string, unknown> {
 /**
  * Verify NOWPayments IPN HMAC-SHA512 signature.
  */
-async function verifySignature(body: Record<string, unknown>, signatureHeader: string): Promise<boolean> {
+async function verifySignature(
+  body: Record<string, unknown>,
+  signatureHeader: string
+): Promise<boolean> {
   const secret = getIpnSecret();
   const sorted = sortObject(body);
   const payload = JSON.stringify(sorted);
@@ -94,11 +104,13 @@ export class NowPaymentsProvider implements PaymentProvider {
     if (!plan) throw new Error(`Plan not found: ${params.planId}`);
 
     const originalPriceCents = plan.priceYearly;
-    if (originalPriceCents <= 0) throw new Error('Cannot checkout free plan with crypto');
+    if (originalPriceCents <= 0)
+      throw new Error('Cannot checkout free plan with crypto');
 
     // Use discounted price if available
     const priceCents = params.finalPriceCents ?? originalPriceCents;
-    if (priceCents <= 0) throw new Error('Discounted price cannot be zero for crypto payments');
+    if (priceCents <= 0)
+      throw new Error('Discounted price cannot be zero for crypto payments');
 
     const discountAmountCents = originalPriceCents - priceCents;
 
@@ -112,7 +124,7 @@ export class NowPaymentsProvider implements PaymentProvider {
       interval: params.interval,
       discountCodeId: (params.metadata?.discountCodeId as string) ?? null,
       discountAmountCents: discountAmountCents > 0 ? discountAmountCents : 0,
-      metadata: params.metadata as Record<string, unknown> ?? null,
+      metadata: (params.metadata as Record<string, unknown>) ?? null,
     });
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
 
@@ -145,7 +157,11 @@ export class NowPaymentsProvider implements PaymentProvider {
     const data = (await response.json()) as { id: string; invoice_url: string };
 
     // Update transaction with provider reference
-    await updateTransactionProvider(orderId, String(data.id), data as unknown as Record<string, unknown>);
+    await updateTransactionProvider(
+      orderId,
+      String(data.id),
+      data as unknown as Record<string, unknown>
+    );
 
     return {
       url: data.invoice_url,
@@ -178,15 +194,44 @@ export class NowPaymentsProvider implements PaymentProvider {
       throw new Error(`Unknown order: ${orderId}`);
     }
 
-    // Map NOWPayments status to our event types
+    // Map NOWPayments status to our event types. IPNs arrive out of order and
+    // are redelivered, so every status write is a compare-and-set on the
+    // transaction row — the row is the state machine, the route's per-event
+    // dedupe only stops exact replays. See the transition table in
+    // `__tests__/nowpayments-provider.test.ts`.
     switch (paymentStatus) {
-      case 'finished':
-      case 'confirmed': {
-        // Update transaction as successful
-        await updateTransactionStatus(orderId, TransactionStatus.SUCCESSFUL, body);
+      case 'finished': {
+        // Only `finished` means the full amount settled. `confirmed` is an
+        // on-chain confirmation that can still be partial, so it must not
+        // activate (it used to, and both IPNs activated the plan twice).
+        // Resurrect from FAILED too: a signed `finished` after a slow
+        // confirmation is real money. Never override REFUNDED.
+        const won = await updateTransactionStatus(
+          orderId,
+          TransactionStatus.SUCCESSFUL,
+          body,
+          [TransactionStatus.PENDING, TransactionStatus.FAILED]
+        );
+
+        if (!won) {
+          if (tx.status === TransactionStatus.REFUNDED) {
+            logger.error(
+              'NOWPayments finished IPN for a refunded transaction — manual review needed',
+              {
+                orderId,
+                paymentId: body.payment_id,
+              }
+            );
+          }
+          // Already SUCCESSFUL (a concurrent IPN won the CAS) — safe no-op.
+          return noopEvent(tx, body);
+        }
 
         // Merge checkout metadata (contains discountUsageId etc.) into providerData
-        const checkoutMetadata = tx.rawRequest as Record<string, unknown> | null;
+        const checkoutMetadata = tx.rawRequest as Record<
+          string,
+          unknown
+        > | null;
         return {
           type: 'subscription.activated',
           organizationId: tx.organizationId,
@@ -200,9 +245,43 @@ export class NowPaymentsProvider implements PaymentProvider {
         };
       }
 
+      case 'partially_paid': {
+        // Store the payload for support, keep waiting for the remainder.
+        await updateTransactionStatus(
+          orderId,
+          TransactionStatus.PENDING,
+          body,
+          [TransactionStatus.PENDING]
+        );
+        logger.warn('NOWPayments partial payment received', {
+          orderId,
+          actuallyPaid: body.actually_paid,
+          expectedAmount: body.price_amount,
+        });
+        return noopEvent(tx, body);
+      }
+
       case 'failed':
       case 'expired': {
-        await updateTransactionStatus(orderId, TransactionStatus.FAILED, body);
+        // Only a still-pending payment can fail; a late failure must not
+        // overwrite a SUCCESSFUL/REFUNDED row or notify a paying customer.
+        const won = await updateTransactionStatus(
+          orderId,
+          TransactionStatus.FAILED,
+          body,
+          [TransactionStatus.PENDING]
+        );
+        if (!won) {
+          logger.warn(
+            'NOWPayments failed/expired IPN did not match a pending transaction (ignored)',
+            {
+              orderId,
+              paymentStatus,
+              currentStatus: tx.status,
+            }
+          );
+          return noopEvent(tx, body);
+        }
 
         return {
           type: 'payment.failed',
@@ -213,7 +292,24 @@ export class NowPaymentsProvider implements PaymentProvider {
       }
 
       case 'refunded': {
-        await updateTransactionStatus(orderId, TransactionStatus.REFUNDED, body);
+        // Refund only a real charge (PENDING covers a refund issued before our
+        // `finished` arrived); never resurrect a FAILED row or re-refund.
+        const won = await updateTransactionStatus(
+          orderId,
+          TransactionStatus.REFUNDED,
+          body,
+          [TransactionStatus.PENDING, TransactionStatus.SUCCESSFUL]
+        );
+        if (!won) {
+          logger.warn(
+            'NOWPayments refunded IPN did not match a pending/successful transaction (ignored)',
+            {
+              orderId,
+              currentStatus: tx.status,
+            }
+          );
+          return noopEvent(tx, body);
+        }
 
         return {
           type: 'payment.refunded',
@@ -224,12 +320,37 @@ export class NowPaymentsProvider implements PaymentProvider {
       }
 
       default:
-        logger.info('NOWPayments IPN unhandled status', { paymentStatus, orderId });
-        return {
-          type: 'subscription.updated',
-          organizationId: tx.organizationId,
-          providerData: body,
-        };
+        // waiting / confirming / confirmed / sending: progress only. Record
+        // the latest payload while pending so support can see where a stuck
+        // payment is.
+        await updateTransactionStatus(
+          orderId,
+          TransactionStatus.PENDING,
+          body,
+          [TransactionStatus.PENDING]
+        );
+        logger.info('NOWPayments IPN progress status', {
+          paymentStatus,
+          orderId,
+        });
+        return noopEvent(tx, body);
     }
   }
+}
+
+/**
+ * An event the subscription handler treats as a no-op: `subscription.updated`
+ * without a `providerSubscriptionId` bails before touching anything. Used for
+ * progress IPNs and for transitions the CAS rejected, so the route still
+ * records the delivery and answers 200 without activating or notifying.
+ */
+function noopEvent(
+  tx: TransactionRow,
+  body: Record<string, unknown>
+): WebhookEvent {
+  return {
+    type: 'subscription.updated',
+    organizationId: tx.organizationId,
+    providerData: body,
+  };
 }

@@ -12,7 +12,7 @@ noindex: false
 
 ### Klíčové vlastnosti
 
-- **Agentově řízený vývoj** — CLAUDE.md slouží jako komplexní průvodce projektem, který umožňuje AI agentům efektivně porozumět kódové základně a upravovat ji
+- **Agentově řízený vývoj** — AGENTS.md slouží jako komplexní průvodce projektem, který umožňuje AI agentům efektivně porozumět kódové základně a upravovat ji
 - **Moderní stack** — Postaven s Next.js 16, TypeScript a Tailwind CSS v4
 - **Flexibilní obsah** — Stránky, blogové příspěvky, položky portfolia, ukázkové karty, kategorie a štítky
 - **Přístup na základě rolí** — Uživatel, redaktor, administrátor a superadministrátor s oprávněními na základě politik

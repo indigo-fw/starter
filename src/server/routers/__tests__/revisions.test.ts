@@ -1,4 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { revisionsRouter } from '../revisions';
+import { createMockCtx } from './test-helpers';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { createRevision, getRevisions } from '@/core/crud/content-revisions';
+import { logAudit } from '@/core/lib/infra/audit';
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import { asMock } from '@/test-utils';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -58,26 +68,42 @@ vi.mock('@/core/crud/admin-crud', () => ({
   updateContentStatus: vi.fn().mockResolvedValue(undefined),
   generateCopySlug: vi.fn().mockResolvedValue('slug-copy'),
   getTranslationSiblings: vi.fn().mockResolvedValue([]),
-  serializeExport: vi.fn().mockReturnValue({ data: '[]', contentType: 'application/json' }),
-  prepareTranslationCopy: vi.fn().mockResolvedValue({ slug: 'slug-en', translationGroup: 'group-1', previewToken: 'tok' }),
-  parsePagination: vi.fn().mockImplementation((input: { page?: number; pageSize?: number }) => {
-    const page = input.page ?? 1;
-    const pageSize = input.pageSize ?? 100;
-    return { page, pageSize, offset: (page - 1) * pageSize };
-  }),
-  paginatedResult: vi.fn().mockImplementation(
-    (items: unknown[], total: number, page: number, pageSize: number) => ({
-      results: items,
-      total,
-      page,
-      pageSize,
-      totalPages: Math.ceil(total / pageSize),
-    })
-  ),
+  serializeExport: vi
+    .fn()
+    .mockReturnValue({ data: '[]', contentType: 'application/json' }),
+  prepareTranslationCopy: vi
+    .fn()
+    .mockResolvedValue({
+      slug: 'slug-en',
+      translationGroup: 'group-1',
+      previewToken: 'tok',
+    }),
+  parsePagination: vi
+    .fn()
+    .mockImplementation((input: { page?: number; pageSize?: number }) => {
+      const page = input.page ?? 1;
+      const pageSize = input.pageSize ?? 100;
+      return { page, pageSize, offset: (page - 1) * pageSize };
+    }),
+  paginatedResult: vi
+    .fn()
+    .mockImplementation(
+      (items: unknown[], total: number, page: number, pageSize: number) => ({
+        results: items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      })
+    ),
 }));
 
 vi.mock('@/core/crud/content-revisions', () => ({
   getRevisions: vi.fn().mockResolvedValue([]),
+  createRevision: vi.fn().mockResolvedValue(undefined),
+  pickSnapshot: vi.fn((record: Record<string, unknown>, keys: string[]) =>
+    Object.fromEntries(keys.map((k) => [k, record[k]]))
+  ),
 }));
 
 vi.mock('@/core/lib/infra/audit', () => ({
@@ -128,16 +154,6 @@ vi.mock('@/lib/env', () => ({
     DEEPL_API_KEY: '',
   },
 }));
-
-// ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { asMock } from '@/test-utils';
-import { revisionsRouter } from '../revisions';
-import { getRevisions } from '@/core/crud/content-revisions';
-import { logAudit } from '@/core/lib/infra/audit';
-import { createMockCtx } from './test-helpers';
 
 // ---------------------------------------------------------------------------
 // Fixtures
@@ -242,7 +258,10 @@ describe('revisionsRouter', () => {
   // =========================================================================
   describe('list', () => {
     it('returns revisions for a content item', async () => {
-      const revisions = [MOCK_POST_REVISION, { ...MOCK_POST_REVISION, id: 'c3d4e5f6-a7b8-4c9d-ae0f-1a2b3c4d5e6f' }];
+      const revisions = [
+        MOCK_POST_REVISION,
+        { ...MOCK_POST_REVISION, id: 'c3d4e5f6-a7b8-4c9d-ae0f-1a2b3c4d5e6f' },
+      ];
       asMock(getRevisions).mockResolvedValue(revisions);
 
       const ctx = createMockCtx();
@@ -262,7 +281,11 @@ describe('revisionsRouter', () => {
 
       const ctx = createMockCtx();
       const caller = revisionsRouter.createCaller(ctx as never);
-      await caller.list({ contentType: 'post', contentId: CONTENT_ID, limit: 10 });
+      await caller.list({
+        contentType: 'post',
+        contentId: CONTENT_ID,
+        limit: 10,
+      });
 
       expect(getRevisions).toHaveBeenCalledWith(ctx.db, 'post', CONTENT_ID, 10);
     });
@@ -272,7 +295,10 @@ describe('revisionsRouter', () => {
 
       const ctx = createMockCtx();
       const caller = revisionsRouter.createCaller(ctx as never);
-      const result = await caller.list({ contentType: 'blog', contentId: CONTENT_ID });
+      const result = await caller.list({
+        contentType: 'blog',
+        contentId: CONTENT_ID,
+      });
 
       expect(result).toEqual([]);
     });
@@ -410,9 +436,9 @@ describe('revisionsRouter', () => {
 
       const caller = revisionsRouter.createCaller(ctx as never);
 
-      await expect(
-        caller.restore({ id: REVISION_ID })
-      ).rejects.toThrow('Unknown content type: widget');
+      await expect(caller.restore({ id: REVISION_ID })).rejects.toThrow(
+        'Unknown content type: widget'
+      );
     });
 
     it('throws BAD_REQUEST when snapshot has no restorable post fields', async () => {
@@ -425,9 +451,9 @@ describe('revisionsRouter', () => {
 
       const caller = revisionsRouter.createCaller(ctx as never);
 
-      await expect(
-        caller.restore({ id: REVISION_ID })
-      ).rejects.toThrow('Revision snapshot contains no restorable fields');
+      await expect(caller.restore({ id: REVISION_ID })).rejects.toThrow(
+        'Revision snapshot contains no restorable fields'
+      );
     });
 
     it('calls logAudit after a successful restore', async () => {
@@ -449,13 +475,97 @@ describe('revisionsRouter', () => {
       );
     });
 
+    it('snapshots the live row before overwriting, inside one transaction', async () => {
+      const liveRow = {
+        id: CONTENT_ID,
+        title: 'Current Title',
+        slug: 'current-title',
+        content: 'Current content',
+        status: 1,
+        lang: 'en',
+        deletedAt: null,
+      };
+      const ctx = createMockCtx();
+      ctx.db._chains.select.limit
+        .mockResolvedValueOnce([MOCK_POST_REVISION])
+        .mockResolvedValueOnce([liveRow]);
+
+      const caller = revisionsRouter.createCaller(ctx as never);
+      await caller.restore({ id: REVISION_ID });
+
+      expect(ctx.db.transaction).toHaveBeenCalledTimes(1);
+      expect(createRevision).toHaveBeenCalledWith(
+        ctx.db, // our mock tx is the same object
+        'post',
+        CONTENT_ID,
+        expect.objectContaining({
+          title: 'Current Title',
+          slug: 'current-title',
+        }),
+        'user-1'
+      );
+      // Pre-restore snapshot must be taken before the overwrite
+      expect(asMock(createRevision).mock.invocationCallOrder[0]).toBeLessThan(
+        ctx.db._chains.update.set.mock.invocationCallOrder[0]!
+      );
+      // Snapshot must not leak non-allowlisted columns
+      expect(asMock(createRevision).mock.calls[0]![3]).not.toHaveProperty('id');
+    });
+
+    it('throws NOT_FOUND when the target is soft-deleted and does not write', async () => {
+      const ctx = createMockCtx();
+      ctx.db._chains.select.limit
+        .mockResolvedValueOnce([MOCK_POST_REVISION])
+        .mockResolvedValueOnce([{ id: CONTENT_ID, deletedAt: new Date() }]);
+
+      const caller = revisionsRouter.createCaller(ctx as never);
+
+      await expect(caller.restore({ id: REVISION_ID })).rejects.toMatchObject({
+        code: 'NOT_FOUND',
+      });
+      expect(createRevision).not.toHaveBeenCalled();
+      expect(ctx.db.update).not.toHaveBeenCalled();
+    });
+
+    it('throws NOT_FOUND when the target row no longer exists', async () => {
+      const ctx = createMockCtx();
+      ctx.db._chains.select.limit
+        .mockResolvedValueOnce([MOCK_POST_REVISION])
+        .mockResolvedValueOnce([]);
+
+      const caller = revisionsRouter.createCaller(ctx as never);
+
+      await expect(caller.restore({ id: REVISION_ID })).rejects.toMatchObject({
+        code: 'NOT_FOUND',
+      });
+      expect(ctx.db.update).not.toHaveBeenCalled();
+    });
+
+    it('throws BAD_REQUEST when the snapshot lacks required fields', async () => {
+      const partial = {
+        ...MOCK_POST_REVISION,
+        snapshot: { content: 'only a body', status: 1 }, // allowlisted, but no title/slug
+      };
+      const ctx = createMockCtx();
+      ctx.db._chains.select.limit.mockResolvedValue([partial]);
+
+      const caller = revisionsRouter.createCaller(ctx as never);
+
+      await expect(caller.restore({ id: REVISION_ID })).rejects.toThrow(
+        'missing required fields: title, slug'
+      );
+      expect(ctx.db.update).not.toHaveBeenCalled();
+    });
+
     it('does not call logAudit when restore fails (NOT_FOUND)', async () => {
       const ctx = createMockCtx();
       ctx.db._chains.select.limit.mockResolvedValue([]);
 
       const caller = revisionsRouter.createCaller(ctx as never);
 
-      await expect(caller.restore({ id: 'f0f0f0f0-a1a1-4b2b-9c3c-d4d4d4d4d4d4' })).rejects.toThrow();
+      await expect(
+        caller.restore({ id: 'f0f0f0f0-a1a1-4b2b-9c3c-d4d4d4d4d4d4' })
+      ).rejects.toThrow();
       expect(logAudit).not.toHaveBeenCalled();
     });
   });

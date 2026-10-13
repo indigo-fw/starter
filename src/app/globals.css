@@ -8,6 +8,11 @@
    classes never reach the compiled stylesheet. */
 @source "../../content/**/*.md";
 @source "../../content/**/*.mdx";
+/* Internal notes are never class-name sources, and Tailwind's escape decoder
+   chokes on Windows paths inside them: `\429f0f...` in a backslash path parses
+   as a CSS escape beyond the Unicode max -> fromCodePoint RangeError that
+   takes down the whole build. Keep the scanner out. */
+@source not "../../todos";
 
 @utility app-container {
   max-width: 80rem;

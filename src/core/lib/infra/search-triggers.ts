@@ -6,6 +6,9 @@
  *
  * Safe to run multiple times (uses CREATE OR REPLACE / DROP IF EXISTS).
  */
+import { createLogger } from './logger';
+
+const log = createLogger('search-triggers');
 
 // ---------------------------------------------------------------------------
 // Types
@@ -61,9 +64,13 @@ export const DEFAULT_LANGUAGE_MAP: LanguageMap = {
 // ---------------------------------------------------------------------------
 
 /** Build the `cms_ts_config()` PL/pgSQL function that maps lang codes to regconfigs. */
-export function buildTsConfigFunction(langMap: LanguageMap = DEFAULT_LANGUAGE_MAP): string {
+export function buildTsConfigFunction(
+  langMap: LanguageMap = DEFAULT_LANGUAGE_MAP
+): string {
   const cases = Object.entries(langMap)
-    .map(([code, config]) => `        WHEN '${code}' THEN '${config}'::regconfig`)
+    .map(
+      ([code, config]) => `        WHEN '${code}' THEN '${config}'::regconfig`
+    )
     .join('\n');
 
   return `CREATE OR REPLACE FUNCTION cms_ts_config(lang text) RETURNS regconfig AS $$
@@ -76,23 +83,35 @@ ${cases}
     $$ LANGUAGE plpgsql IMMUTABLE`;
 }
 
-function columnExpression(col: { name: string; stripHtml?: boolean }, cfgExpr: string): string {
+function columnExpression(
+  col: { name: string; stripHtml?: boolean },
+  cfgExpr: string
+): string {
   const value = col.stripHtml
     ? `regexp_replace(coalesce(NEW.${col.name}, ''), '<[^>]*>', '', 'g')`
     : `coalesce(NEW.${col.name}, '')`;
   return `to_tsvector(${cfgExpr}, ${value})`;
 }
 
-function backfillColumnExpression(col: { name: string; stripHtml?: boolean }, cfgExpr: string): string {
+function backfillColumnExpression(
+  col: { name: string; stripHtml?: boolean },
+  cfgExpr: string
+): string {
   const value = col.stripHtml
     ? `regexp_replace(coalesce(${col.name}, ''), '<[^>]*>', '', 'g')`
     : `coalesce(${col.name}, '')`;
   return `to_tsvector(${cfgExpr}, ${value})`;
 }
 
-function getLangConfig(langSource: SearchTriggerTable['langSource'], prefix: string): { cfgExpr: string; langColumn: string | null } {
+function getLangConfig(
+  langSource: SearchTriggerTable['langSource'],
+  prefix: string
+): { cfgExpr: string; langColumn: string | null } {
   if ('column' in langSource) {
-    return { cfgExpr: `cms_ts_config(${prefix}${langSource.column})`, langColumn: langSource.column };
+    return {
+      cfgExpr: `cms_ts_config(${prefix}${langSource.column})`,
+      langColumn: langSource.column,
+    };
   }
   return { cfgExpr: `'${langSource.fixed}'::regconfig`, langColumn: null };
 }
@@ -103,7 +122,9 @@ export function buildSearchTriggerSql(config: SearchTriggerTable): string[] {
   const { cfgExpr, langColumn } = getLangConfig(config.langSource, 'NEW.');
 
   const vectorParts = config.columns
-    .map((col) => `setweight(${columnExpression(col, cfgExpr)}, '${col.weight}')`)
+    .map(
+      (col) => `setweight(${columnExpression(col, cfgExpr)}, '${col.weight}')`
+    )
     .join(' ||\n        ');
 
   const triggerColumns = [
@@ -145,7 +166,10 @@ export function buildBackfillSql(config: SearchTriggerTable): string {
   const { cfgExpr } = getLangConfig(config.langSource, '');
 
   const parts = config.columns
-    .map((col) => `setweight(${backfillColumnExpression(col, cfgExpr)}, '${col.weight}')`)
+    .map(
+      (col) =>
+        `setweight(${backfillColumnExpression(col, cfgExpr)}, '${col.weight}')`
+    )
     .join(' ||\n      ');
 
   return `UPDATE ${config.table} SET ${vec} =\n      ${parts}`;
@@ -166,7 +190,7 @@ type SqlConnection = {
 export async function applySearchTriggers(
   sql: SqlConnection,
   configs: SearchTriggerTable[],
-  langMap?: LanguageMap,
+  langMap?: LanguageMap
 ): Promise<void> {
   // Create/update the shared language config function
   const hasLangAware = configs.some((c) => 'column' in c.langSource);
@@ -183,6 +207,9 @@ export async function applySearchTriggers(
     const backfill = buildBackfillSql(config);
     const result = await sql.unsafe(backfill);
     const count = (result as unknown as { count?: number }).count ?? 0;
-    console.log(`  Search trigger applied: ${config.table} (${count} rows backfilled)`);
+    log.info('Search trigger applied', {
+      table: config.table,
+      backfilled: count,
+    });
   }
 }

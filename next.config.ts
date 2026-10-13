@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -15,6 +16,11 @@ const nextConfig: NextConfig = {
   // each replica has its own deployed copy and doesn't need this.
   ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
 
+  // Keep the queue/redis clients out of the server bundle: BullMQ spawns
+  // sandboxed processors and ioredis ships native-ish lazy requires that
+  // bundlers mangle. They're plain `require`s from node_modules at runtime.
+  serverExternalPackages: ['bullmq', 'ioredis'],
+
   // Security headers for all routes
   async headers() {
     return [
@@ -25,6 +31,14 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          // Browsers ignore HSTS over plain HTTP, so this is inert in local dev
+          // and only takes effect once the site is served over TLS. No
+          // `preload` — that is a long-lived, hard-to-revoke public commitment
+          // a project should opt into deliberately.
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains',
+          },
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
@@ -66,4 +80,18 @@ const nextConfig: NextConfig = {
   // in (public)/ — no redirects needed.
 };
 
-export default withNextIntl(nextConfig);
+export default function config(phase: string): NextConfig {
+  // `next build` with NODE_ENV=development (a stray shell export, a CI job
+  // that sets it globally) emits a dev-mode bundle whose prerender step then
+  // crashes with an unrelated-looking error. Fail loudly at the real cause.
+  if (
+    phase === PHASE_PRODUCTION_BUILD &&
+    process.env.NODE_ENV !== 'production'
+  ) {
+    throw new Error(
+      `next build requires NODE_ENV=production (got "${process.env.NODE_ENV}"). ` +
+        'Unset NODE_ENV or export NODE_ENV=production before building.'
+    );
+  }
+  return withNextIntl(nextConfig);
+}

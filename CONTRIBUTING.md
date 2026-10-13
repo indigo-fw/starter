@@ -32,7 +32,7 @@ Thanks for your interest in contributing! This guide will help you get started.
 - **Slugs** — use `slugify()` / `slugifyFilename()` from `@/lib/slug`
 - **Email** — use `enqueueEmail()`, never call `sendEmail()` directly
 
-See `CLAUDE.md` for the full coding standards and architecture guide.
+See `AGENTS.md` for the full coding standards and architecture guide.
 
 ## Adding a Content Type
 
@@ -48,7 +48,7 @@ Indigo is config-driven. To add a new content type:
 - Keep PRs focused — one feature or fix per PR
 - Include a description of what changed and why
 - Ensure `bun run typecheck` passes with zero errors
-- Update `CLAUDE.md` if you change architecture, add routers, or modify conventions
+- Update `AGENTS.md` if you change architecture, add routers, or modify conventions
 
 ## Reporting Issues
 

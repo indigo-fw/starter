@@ -9,13 +9,13 @@
 **The loop, in four beats:**
 
 1. **Describe** — say what the product should be, in plain language; the agent asks when a decision is yours.
-2. **Build** — the agent orients from nested `CLAUDE.md` maps and `indigo visualize`, then extends through config and modules — never by editing shared core.
+2. **Build** — the agent orients from nested `AGENTS.md` maps and `indigo visualize`, then extends through config and modules — never by editing shared core.
 3. **Verify** — typecheck, tests and `indigo doctor` grade the pass; then the agent logs in through MCP as a seeded persona and uses the feature like a customer would.
 4. **Improve** — failures feed the next pass automatically. Green means done — or the next thing you describe.
 
 This is what makes goal-driven runs — `/loop`-style: describe the end state once, let the agent work until it's true — practical instead of reckless. Nothing blocks the loop: setup, installs, migrations and checks all run through non-interactive CLIs, and the agent asks its questions in chat. Because "done" is machine-checkable here, the cycle can even run on a schedule — see the [Improvement Loop guide](https://indigo-fw.dev/docs/guides/improvement-loop).
 
-Every pass is covered: the agent gets a map (nested `CLAUDE.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded personas to use the app as a free, pro or admin user). Each iteration stays small — pointer-first docs and generated maps mean the agent orients from a map instead of re-reading the codebase every pass. You describe, review and decide; the code stays typed, tested and yours.
+Every pass is covered: the agent gets a map (nested `AGENTS.md`s, `indigo visualize`), a feedback signal (strict types, tests, `indigo doctor`) and hands on the app itself (an MCP endpoint that turns every tRPC procedure into a typed tool, plus seeded personas to use the app as a free, pro or admin user). Each iteration stays small — pointer-first docs and generated maps mean the agent orients from a map instead of re-reading the codebase every pass. You describe, review and decide; the code stays typed, tested and yours.
 
 [![Watch Indigo build, restyle and translate a real product in about 80 seconds](https://indigo-fw.dev/story-poster.png)](https://indigo-fw.dev/#watch)
 
@@ -99,7 +99,7 @@ codex "Set up a new project named my-app from https://github.com/indigo-fw/start
 gemini "Set up a new project named my-app from https://github.com/indigo-fw/starter — ask me what you need"
 ```
 
-When it finishes, open your next agent session **inside `my-app`** — the project's `CLAUDE.md`, `.mcp.json` and skills load automatically from there.
+When it finishes, open your next agent session **inside `my-app`** — the project's `AGENTS.md` (Claude Code reads it through the `CLAUDE.md` wrapper), `.mcp.json` and skills load automatically from there.
 
 No terminal at all? The **Claude Code desktop app** works the same way: new session → choose an empty folder → "Set up a new project here from https://github.com/indigo-fw/starter — ask me what you need".
 

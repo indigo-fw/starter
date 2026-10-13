@@ -1,6 +1,10 @@
-import { describe, it, expect } from 'vitest';
 import { generateSitemap } from '../seo/sitemap';
-import type { SitemapConfig, SitemapStaticPage, SitemapFetcher } from '../seo/sitemap';
+import type {
+  SitemapConfig,
+  SitemapFetcher,
+  SitemapStaticPage,
+} from '../seo/sitemap';
+import { describe, expect, it } from 'vitest';
 
 const BASE_CONFIG: SitemapConfig = {
   siteUrl: 'https://example.com',
@@ -19,7 +23,12 @@ const SINGLE_LOCALE_CONFIG: SitemapConfig = {
 describe('generateSitemap', () => {
   it('generates entries for static pages per locale', async () => {
     const pages: SitemapStaticPage[] = [
-      { path: '/', changeFrequency: 'daily', priority: 0.9, defaultLocalePriority: 1 },
+      {
+        path: '/',
+        changeFrequency: 'daily',
+        priority: 0.9,
+        defaultLocalePriority: 1,
+      },
     ];
 
     const entries = await generateSitemap(BASE_CONFIG, pages, []);
@@ -106,7 +115,11 @@ describe('generateSitemap', () => {
       },
     ];
 
-    const entries = await generateSitemap(SINGLE_LOCALE_CONFIG, pages, fetchers);
+    const entries = await generateSitemap(
+      SINGLE_LOCALE_CONFIG,
+      pages,
+      fetchers
+    );
 
     expect(entries).toHaveLength(2);
     expect(entries[0].url).toContain('/');
@@ -133,6 +146,67 @@ describe('generateSitemap', () => {
     expect(entries).toHaveLength(2);
     expect(entries[0].url).toBe('https://example.com/blog/post-en');
     expect(entries[1].url).toBe('https://example.com/de/blog/post-de');
+  });
+
+  it('does not stamp static pages with "now" as lastModified', async () => {
+    const pages: SitemapStaticPage[] = [
+      { path: '/', changeFrequency: 'daily', priority: 1 },
+      {
+        path: '/about',
+        changeFrequency: 'monthly',
+        priority: 0.5,
+        lastModified: new Date('2025-06-01'),
+      },
+    ];
+
+    const entries = await generateSitemap(SINGLE_LOCALE_CONFIG, pages, []);
+
+    expect(entries[0].lastModified).toBeUndefined();
+    expect(entries[1].lastModified).toEqual(new Date('2025-06-01'));
+  });
+
+  it('omits an invalid updatedAt instead of serializing Invalid Date', async () => {
+    const fetchers: SitemapFetcher[] = [
+      {
+        urlPrefix: '/blog/',
+        priority: 0.6,
+        changeFrequency: 'weekly',
+        fetch: async () => [
+          { slug: 'broken', updatedAt: new Date('not-a-date') },
+        ],
+      },
+    ];
+
+    const entries = await generateSitemap(SINGLE_LOCALE_CONFIG, [], fetchers);
+
+    expect(entries[0].lastModified).toBeUndefined();
+  });
+
+  it('lists each URL once', async () => {
+    const pages: SitemapStaticPage[] = [
+      { path: '/', changeFrequency: 'daily', priority: 1 },
+    ];
+    const fetchers: SitemapFetcher[] = [
+      {
+        urlPrefix: '/',
+        priority: 0.7,
+        changeFrequency: 'weekly',
+        // Same slug reported for both locales by a locale-agnostic fetcher
+        fetch: async () => [{ slug: 'shared' }],
+      },
+    ];
+    // localePath that drops the locale prefix entirely
+    const config: SitemapConfig = {
+      ...BASE_CONFIG,
+      localePath: (path) => path,
+    };
+
+    const entries = await generateSitemap(config, pages, fetchers);
+
+    expect(entries.map((e) => e.url)).toEqual([
+      'https://example.com/',
+      'https://example.com/shared',
+    ]);
   });
 
   it('returns empty array when no pages or fetchers', async () => {

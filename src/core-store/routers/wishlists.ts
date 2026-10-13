@@ -1,9 +1,11 @@
-import { z } from 'zod';
 import { and, count, desc, eq, inArray, isNull } from 'drizzle-orm';
-import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
-import { storeWishlists } from '@/core-store/schema/wishlists';
+import { z } from 'zod';
+
 import { storeProducts } from '@/core-store/schema/products';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
+import { storeWishlists } from '@/core-store/schema/wishlists';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
 
 export const storeWishlistRouter = createTRPCRouter({
   /** Toggle a product in the user's wishlist */
@@ -15,11 +17,18 @@ export const storeWishlistRouter = createTRPCRouter({
       const [existing] = await ctx.db
         .select({ id: storeWishlists.id })
         .from(storeWishlists)
-        .where(and(eq(storeWishlists.userId, userId), eq(storeWishlists.productId, input.productId)))
+        .where(
+          and(
+            eq(storeWishlists.userId, userId),
+            eq(storeWishlists.productId, input.productId)
+          )
+        )
         .limit(1);
 
       if (existing) {
-        await ctx.db.delete(storeWishlists).where(eq(storeWishlists.id, existing.id));
+        await ctx.db
+          .delete(storeWishlists)
+          .where(eq(storeWishlists.id, existing.id));
         return { wishlisted: false };
       }
 
@@ -32,10 +41,12 @@ export const storeWishlistRouter = createTRPCRouter({
 
   /** List user's wishlisted products with product details */
   list: protectedProcedure
-    .input(z.object({
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(50).default(20),
-    }))
+    .input(
+      z.object({
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(50).default(20),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
       const { page, pageSize, offset } = parsePagination(input);
@@ -61,7 +72,10 @@ export const storeWishlistRouter = createTRPCRouter({
             addedAt: storeWishlists.createdAt,
           })
           .from(storeWishlists)
-          .innerJoin(storeProducts, eq(storeWishlists.productId, storeProducts.id))
+          .innerJoin(
+            storeProducts,
+            eq(storeWishlists.productId, storeProducts.id)
+          )
           .where(and(...conditions))
           .orderBy(desc(storeWishlists.createdAt))
           .offset(offset)
@@ -69,7 +83,10 @@ export const storeWishlistRouter = createTRPCRouter({
         ctx.db
           .select({ count: count() })
           .from(storeWishlists)
-          .innerJoin(storeProducts, eq(storeWishlists.productId, storeProducts.id))
+          .innerJoin(
+            storeProducts,
+            eq(storeWishlists.productId, storeProducts.id)
+          )
           .where(and(...conditions)),
       ]);
 
@@ -83,7 +100,12 @@ export const storeWishlistRouter = createTRPCRouter({
       const [row] = await ctx.db
         .select({ id: storeWishlists.id })
         .from(storeWishlists)
-        .where(and(eq(storeWishlists.userId, ctx.session.user.id), eq(storeWishlists.productId, input.productId)))
+        .where(
+          and(
+            eq(storeWishlists.userId, ctx.session.user.id),
+            eq(storeWishlists.productId, input.productId)
+          )
+        )
         .limit(1);
 
       return { wishlisted: !!row };
@@ -98,10 +120,12 @@ export const storeWishlistRouter = createTRPCRouter({
       const rows = await ctx.db
         .select({ productId: storeWishlists.productId })
         .from(storeWishlists)
-        .where(and(
-          eq(storeWishlists.userId, ctx.session.user.id),
-          inArray(storeWishlists.productId, input.productIds),
-        ))
+        .where(
+          and(
+            eq(storeWishlists.userId, ctx.session.user.id),
+            inArray(storeWishlists.productId, input.productIds)
+          )
+        )
         .limit(100);
 
       return { wishlistedIds: rows.map((r) => r.productId) };

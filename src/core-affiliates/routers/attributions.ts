@@ -1,11 +1,11 @@
 import { and, count, desc, eq, gte, isNotNull, lte, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { saasUserAcquisitions } from '@/core-affiliates/schema/attributions';
-import { user } from '@/server/db/schema/auth';
 import { getAffiliatesDeps } from '@/core-affiliates/deps';
-
+import { saasUserAcquisitions } from '@/core-affiliates/schema/attributions';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { user } from '@/server/db/schema/auth';
 import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
 
 const billingProcedure = sectionProcedure('billing');
@@ -71,10 +71,17 @@ export const attributionsRouter = createTRPCRouter({
 
       const conditions = [isNotNull(groupByCol)];
       if (input.startDate) {
-        conditions.push(gte(saasUserAcquisitions.capturedAt, new Date(input.startDate)));
+        conditions.push(
+          gte(saasUserAcquisitions.capturedAt, new Date(input.startDate))
+        );
       }
       if (input.endDate) {
-        conditions.push(lte(saasUserAcquisitions.capturedAt, new Date(input.endDate + 'T23:59:59')));
+        conditions.push(
+          lte(
+            saasUserAcquisitions.capturedAt,
+            new Date(input.endDate + 'T23:59:59')
+          )
+        );
       }
 
       const txTable = deps.paymentTransactionsTable;
@@ -92,7 +99,10 @@ export const attributionsRouter = createTRPCRouter({
           })
           .from(saasUserAcquisitions)
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .leftJoin(txTable as any, eq((txTable as any).userId, saasUserAcquisitions.userId))
+          .leftJoin(
+            txTable as any,
+            eq((txTable as any).userId, saasUserAcquisitions.userId)
+          )
           .where(and(...conditions))
           .groupBy(groupByCol)
           .orderBy(desc(sql`COUNT(DISTINCT ${saasUserAcquisitions.userId})`))
@@ -105,7 +115,8 @@ export const attributionsRouter = createTRPCRouter({
             label: r.label ?? '(unknown)',
             signups,
             paidUsers,
-            conversionRate: signups > 0 ? Math.round((paidUsers / signups) * 1000) / 10 : 0,
+            conversionRate:
+              signups > 0 ? Math.round((paidUsers / signups) * 1000) / 10 : 0,
             totalRevenueCents: Number(r.totalRevenueCents),
           };
         });
@@ -142,7 +153,7 @@ export const attributionsRouter = createTRPCRouter({
         refCode: z.string().max(255).optional(),
         startDate: z.string().max(10).optional(),
         endDate: z.string().max(10).optional(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(25),
       })
     )
@@ -150,12 +161,27 @@ export const attributionsRouter = createTRPCRouter({
       const { page, pageSize, offset } = parsePagination(input);
 
       const conditions = [];
-      if (input.utmSource) conditions.push(eq(saasUserAcquisitions.utmSource, input.utmSource));
-      if (input.utmMedium) conditions.push(eq(saasUserAcquisitions.utmMedium, input.utmMedium));
-      if (input.utmCampaign) conditions.push(eq(saasUserAcquisitions.utmCampaign, input.utmCampaign));
-      if (input.refCode) conditions.push(eq(saasUserAcquisitions.refCode, input.refCode));
-      if (input.startDate) conditions.push(gte(saasUserAcquisitions.capturedAt, new Date(input.startDate)));
-      if (input.endDate) conditions.push(lte(saasUserAcquisitions.capturedAt, new Date(input.endDate + 'T23:59:59')));
+      if (input.utmSource)
+        conditions.push(eq(saasUserAcquisitions.utmSource, input.utmSource));
+      if (input.utmMedium)
+        conditions.push(eq(saasUserAcquisitions.utmMedium, input.utmMedium));
+      if (input.utmCampaign)
+        conditions.push(
+          eq(saasUserAcquisitions.utmCampaign, input.utmCampaign)
+        );
+      if (input.refCode)
+        conditions.push(eq(saasUserAcquisitions.refCode, input.refCode));
+      if (input.startDate)
+        conditions.push(
+          gte(saasUserAcquisitions.capturedAt, new Date(input.startDate))
+        );
+      if (input.endDate)
+        conditions.push(
+          lte(
+            saasUserAcquisitions.capturedAt,
+            new Date(input.endDate + 'T23:59:59')
+          )
+        );
 
       const where = conditions.length > 0 ? and(...conditions) : undefined;
 
@@ -179,7 +205,10 @@ export const attributionsRouter = createTRPCRouter({
           .orderBy(desc(saasUserAcquisitions.capturedAt))
           .offset(offset)
           .limit(pageSize),
-        ctx.db.select({ count: count() }).from(saasUserAcquisitions).where(where),
+        ctx.db
+          .select({ count: count() })
+          .from(saasUserAcquisitions)
+          .where(where),
       ]);
 
       return paginatedResult(items, countRow?.count ?? 0, page, pageSize);

@@ -1,13 +1,23 @@
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  sectionProcedure,
+} from '../trpc';
 import { TRPCError } from '@trpc/server';
 import { and, count, desc, eq, ilike, or } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { user, session, cmsUserPreferences } from '@/server/db/schema';
-import { ROLES, Role, isSuperAdmin } from '@/core/policy';
-import { parsePagination, paginatedResult, fetchOrNotFound } from '@/core/crud/admin-crud';
+import {
+  fetchOrNotFound,
+  paginatedResult,
+  parsePagination,
+} from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { anonymizeUser } from '@/core/lib/analytics/gdpr';
+import { invalidateUserSessions } from '@/core/lib/auth/session-invalidation';
 import { logAudit } from '@/core/lib/infra/audit';
-import { createTRPCRouter, protectedProcedure, sectionProcedure } from '../trpc';
+import { ROLES, Role, isSuperAdmin } from '@/core/policy';
+import { cmsUserPreferences, session, user } from '@/server/db/schema';
 
 const usersProcedure = sectionProcedure('users');
 
@@ -18,7 +28,7 @@ export const usersRouter = createTRPCRouter({
       z.object({
         search: z.string().max(100).optional(),
         role: z.string().max(20).optional(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(20),
       })
     )
@@ -57,10 +67,7 @@ export const usersRouter = createTRPCRouter({
           .orderBy(desc(user.createdAt))
           .offset(offset)
           .limit(pageSize),
-        ctx.db
-          .select({ count: count() })
-          .from(user)
-          .where(where),
+        ctx.db.select({ count: count() }).from(user).where(where),
       ]);
 
       return paginatedResult(items, countRow?.count ?? 0, page, pageSize);
@@ -70,7 +77,12 @@ export const usersRouter = createTRPCRouter({
   get: usersProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      return fetchOrNotFound<typeof user.$inferSelect>(ctx.db, user, input.id, 'User');
+      return fetchOrNotFound<typeof user.$inferSelect>(
+        ctx.db,
+        user,
+        input.id,
+        'User'
+      );
     }),
 
   /** Update user role */
@@ -109,6 +121,10 @@ export const usersRouter = createTRPCRouter({
         .update(user)
         .set({ role: input.role, updatedAt: new Date() })
         .where(eq(user.id, input.id));
+
+      // The role rides in the cookie-cached session for up to 5 min, so a
+      // demotion (or promotion) would otherwise not bite until then.
+      invalidateUserSessions(input.id);
 
       logAudit({
         db: ctx.db,
@@ -156,6 +172,11 @@ export const usersRouter = createTRPCRouter({
           updatedAt: new Date(),
         })
         .where(eq(user.id, input.id));
+
+      // A ban must bite now, not at the next DB lookup: drop the user's
+      // sessions AND void the cookie-cached ones (see session-invalidation.ts).
+      await ctx.db.delete(session).where(eq(session.userId, input.id));
+      invalidateUserSessions(input.id);
 
       logAudit({
         db: ctx.db,
@@ -207,9 +228,14 @@ export const usersRouter = createTRPCRouter({
         await anonymizeUser(ctx.db, input.id, ctx.session.user.id, input.mode);
         return { success: true };
       } catch (err) {
+        // anonymizeUser's refusals are TRPCErrors with the right code. Anything
+        // else is an infrastructure failure: generic message to the client, the
+        // real one reaches the logging middleware via `cause`.
+        if (err instanceof TRPCError) throw err;
         throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: err instanceof Error ? err.message : 'Anonymization failed',
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Anonymization failed',
+          cause: err,
         });
       }
     }),
@@ -238,7 +264,10 @@ export const usersRouter = createTRPCRouter({
       // Only a superadmin may modify a superadmin — guards email/name/role alike.
       // Without this, a non-superadmin could set a superadmin's email to their own
       // and trigger a password-reset takeover.
-      if (isSuperAdmin(target.role) && !isSuperAdmin(ctx.session.user.role as string)) {
+      if (
+        isSuperAdmin(target.role) &&
+        !isSuperAdmin(ctx.session.user.role as string)
+      ) {
         throw new TRPCError({
           code: 'FORBIDDEN',
           message: 'Only superadmin can modify a superadmin',
@@ -264,10 +293,12 @@ export const usersRouter = createTRPCRouter({
       if (input.email !== undefined) updates.email = input.email;
       if (input.role !== undefined) updates.role = input.role;
 
-      await ctx.db
-        .update(user)
-        .set(updates)
-        .where(eq(user.id, input.id));
+      await ctx.db.update(user).set(updates).where(eq(user.id, input.id));
+
+      // Same reason as updateRole: the cookie-cached session carries the role.
+      if (input.role !== undefined && input.role !== target.role) {
+        invalidateUserSessions(input.id);
+      }
 
       logAudit({
         db: ctx.db,
@@ -275,7 +306,9 @@ export const usersRouter = createTRPCRouter({
         action: 'user.update',
         entityType: 'user',
         entityId: input.id,
-        metadata: { fields: Object.keys(updates).filter((k) => k !== 'updatedAt') },
+        metadata: {
+          fields: Object.keys(updates).filter((k) => k !== 'updatedAt'),
+        },
       });
 
       return { success: true };
@@ -286,7 +319,7 @@ export const usersRouter = createTRPCRouter({
     .input(
       z.object({
         userId: z.string(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(20),
       })
     )
@@ -387,10 +420,11 @@ export const usersRouter = createTRPCRouter({
   updatePreferences: protectedProcedure
     .input(
       z.object({
-        preferences: z.record(z.string().max(200), z.unknown()).refine(
-          (obj) => Object.keys(obj).length <= 30,
-          { message: 'Max 30 keys per batch' }
-        ),
+        preferences: z
+          .record(z.string().max(200), z.unknown())
+          .refine((obj) => Object.keys(obj).length <= 30, {
+            message: 'Max 30 keys per batch',
+          }),
       })
     )
     .mutation(async ({ ctx, input }) => {

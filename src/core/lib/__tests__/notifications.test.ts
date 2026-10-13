@@ -1,4 +1,13 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+// ---------------------------------------------------------------------------
+// Import module under test
+// ---------------------------------------------------------------------------
+import {
+  sendBulkNotification,
+  sendNotification,
+  sendOrgNotification,
+} from '@/server/lib/notifications';
 
 // ---------------------------------------------------------------------------
 // Mock chain for db.insert().values().returning()
@@ -22,12 +31,8 @@ const mockInsert = vi.fn().mockReturnValue({ values: mockInsertValues });
 // Mock chain for db.select().from().where().limit()
 // ---------------------------------------------------------------------------
 const mockSelectLimit = vi.fn().mockResolvedValue([]);
-const mockSelectWhere = vi
-  .fn()
-  .mockReturnValue({ limit: mockSelectLimit });
-const mockSelectFrom = vi
-  .fn()
-  .mockReturnValue({ where: mockSelectWhere });
+const mockSelectWhere = vi.fn().mockReturnValue({ limit: mockSelectLimit });
+const mockSelectFrom = vi.fn().mockReturnValue({ where: mockSelectWhere });
 const mockSelect = vi.fn().mockReturnValue({ from: mockSelectFrom });
 
 // ---------------------------------------------------------------------------
@@ -57,15 +62,6 @@ vi.mock('@/core/lib/push/web-push', () => ({
 
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/env', () => ({ env: {} }));
-
-// ---------------------------------------------------------------------------
-// Import module under test
-// ---------------------------------------------------------------------------
-import {
-  sendNotification,
-  sendOrgNotification,
-  sendBulkNotification,
-} from '@/server/lib/notifications';
 
 /** Let fire-and-forget async closures settle. */
 const settle = () => new Promise((r) => setTimeout(r, 50));
@@ -121,7 +117,7 @@ describe('sendNotification', () => {
     expect(mockSendToUser).toHaveBeenCalledWith(
       'user-1',
       'notification',
-      expect.objectContaining({ id: 'notif-1', userId: 'user-1' }),
+      expect.objectContaining({ id: 'notif-1', userId: 'user-1' })
     );
   });
 
@@ -148,9 +144,7 @@ describe('sendNotification', () => {
 
   it('does not throw on DB error (fire-and-forget)', async () => {
     mockInsertReturning.mockRejectedValue(new Error('DB connection lost'));
-    const consoleSpy = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     // Must not throw synchronously or reject unhandled
     sendNotification({
@@ -162,8 +156,7 @@ describe('sendNotification', () => {
     await settle();
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Failed to send notification:',
-      expect.any(Error),
+      expect.stringContaining('Failed to send notification')
     );
 
     // WS and push should NOT be called when DB insert failed
@@ -315,9 +308,7 @@ describe('sendOrgNotification', () => {
 
   it('does not throw on member query failure', async () => {
     mockSelectLimit.mockRejectedValue(new Error('Query failed'));
-    const consoleSpy = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     sendOrgNotification('org-fail', {
       title: 'Fail',
@@ -327,8 +318,7 @@ describe('sendOrgNotification', () => {
     await settle();
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Failed to send org notification:',
-      expect.any(Error),
+      expect.stringContaining('Failed to send org notification')
     );
     expect(mockInsert).not.toHaveBeenCalled();
 

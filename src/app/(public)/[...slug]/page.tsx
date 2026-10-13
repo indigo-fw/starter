@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { CONTENT_TYPES } from '@/config/cms';
 import { siteConfig } from '@/config/site';
 import { getLocale } from '@/lib/locale-server';
+import { getForwardedSearch } from '@/core/lib/i18n/locale-server';
 import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
 import { resolveSlugRedirect } from '@/core/crud/slug-redirects';
 import { getCachedCompiledContent } from '@/core/lib/content/renderer';
@@ -17,6 +18,19 @@ import './register-renderers';
 interface Props {
   params: Promise<{ slug: string[] }>;
   searchParams: Promise<{ preview?: string; page?: string }>;
+}
+
+/**
+ * Rethrow Next.js redirect control flow (e.g. the localized-slug redirect
+ * thrown by the data layer) so a catch-all `catch` doesn't swallow it into a
+ * 404. notFound() errors are deliberately NOT rethrown — the catch blocks
+ * below turn them into a slug-redirect-table lookup before 404-ing.
+ */
+function rethrowIfRedirect(err: unknown): void {
+  const digest = (err as { digest?: string } | null)?.digest;
+  if (typeof digest === 'string' && digest.startsWith('NEXT_REDIRECT')) {
+    throw err;
+  }
 }
 
 // ── Metadata ──
@@ -68,7 +82,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       meta.robots = { index: false, follow: false };
     }
     return meta;
-  } catch {
+  } catch (err) {
+    rethrowIfRedirect(err);
     return {};
   }
 }
@@ -96,7 +111,7 @@ export default async function CatchAllPage({ params, searchParams }: Props) {
   const resolved = resolveSlug(slug);
 
   if (!resolved) {
-    // Try slug redirect before 404-ing
+    // Try slug redirect before 404-ing (query string preserved for attribution)
     for (const ct of CONTENT_TYPES) {
       const slugStr = slug.length === 2 && ct.listSegment === slug[0]
         ? slug[1]!
@@ -105,7 +120,7 @@ export default async function CatchAllPage({ params, searchParams }: Props) {
           : null;
       if (!slugStr) continue;
       const redirectPath = await resolveSlugRedirect(slugStr, ct.urlPrefix);
-      if (redirectPath) permanentRedirect(redirectPath);
+      if (redirectPath) permanentRedirect(redirectPath + (await getForwardedSearch()));
     }
     notFound();
   }
@@ -120,13 +135,14 @@ export default async function CatchAllPage({ params, searchParams }: Props) {
       currentPage,
       locale,
     });
-  } catch {
-    // Try slug redirect before 404-ing
+  } catch (err) {
+    rethrowIfRedirect(err);
+    // Try slug redirect before 404-ing (query string preserved for attribution)
     const redirectPath = await resolveSlugRedirect(
       resolved.slug,
       resolved.contentType.urlPrefix
     );
-    if (redirectPath) permanentRedirect(redirectPath);
+    if (redirectPath) permanentRedirect(redirectPath + (await getForwardedSearch()));
     notFound();
   }
 }

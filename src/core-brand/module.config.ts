@@ -6,11 +6,9 @@ const config: ModuleConfig = {
   routers: [],
   schema: [],
   // Registers the project's brand config via DI (per core boundary rules —
-  // see src/core-brand/CLAUDE.md). Picked up by `initModuleDeps()` in the
+  // see src/core-brand/AGENTS.md). Picked up by `initModuleDeps()` in the
   // generated module-server bootstrap.
-  serverInit: [
-    '@/config/deps/brand-deps',
-  ],
+  serverInit: ['@/config/deps/brand-deps'],
   jobs: [],
   layoutWidgets: [],
   seed: [],

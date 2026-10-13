@@ -5,17 +5,17 @@
  * functions instead of importing the schema directly. This keeps the
  * table structure as an internal detail of core-payments.
  */
+import { and, desc, eq, gte, inArray, lte, sql } from 'drizzle-orm';
 
-import { eq, and, desc, sql, gte, lte, inArray } from 'drizzle-orm';
-import { db } from '@/server/db';
+import {
+  type ProviderCheckFn,
+  reconcileStalePendingTransactions,
+} from '@/core-payments/lib/reconciliation-service';
 import { saasPaymentTransactions } from '@/core-payments/schema/payments';
-import { organization } from '@/server/db/schema/organization';
 import { TransactionStatus } from '@/core-payments/types/payment';
 import { createLogger } from '@/core/lib/infra/logger';
-import {
-  reconcileStalePendingTransactions,
-  type ProviderCheckFn,
-} from '@/core-payments/lib/reconciliation-service';
+import { db } from '@/server/db';
+import { organization } from '@/server/db/schema/organization';
 
 const log = createLogger('transaction-service');
 
@@ -26,7 +26,9 @@ const log = createLogger('transaction-service');
  */
 export function getNowPaymentsApiBase(): string {
   const sandbox = process.env.NOWPAYMENTS_SANDBOX === 'true';
-  return sandbox ? 'https://api-sandbox.nowpayments.io' : 'https://api.nowpayments.io';
+  return sandbox
+    ? 'https://api-sandbox.nowpayments.io'
+    : 'https://api.nowpayments.io';
 }
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -107,7 +109,9 @@ export interface RawTransactionValues {
  * Used by seeds and migrations — sibling modules should use this instead
  * of importing saasPaymentTransactions schema directly.
  */
-export async function insertRawTransaction(values: RawTransactionValues): Promise<void> {
+export async function insertRawTransaction(
+  values: RawTransactionValues
+): Promise<void> {
   await db.insert(saasPaymentTransactions).values({
     id: values.id,
     organizationId: values.organizationId,
@@ -136,7 +140,9 @@ export async function insertRawTransaction(values: RawTransactionValues): Promis
 
 // ─── CRUD ───────────────────────────────────────────────────────────────────
 
-export async function createTransaction(params: CreateTransactionParams): Promise<string> {
+export async function createTransaction(
+  params: CreateTransactionParams
+): Promise<string> {
   const [tx] = await db
     .insert(saasPaymentTransactions)
     .values({
@@ -159,7 +165,7 @@ export async function createTransaction(params: CreateTransactionParams): Promis
 export async function updateTransactionProvider(
   id: string,
   providerTxId: string,
-  rawResponse: Record<string, unknown>,
+  rawResponse: Record<string, unknown>
 ): Promise<void> {
   await db
     .update(saasPaymentTransactions)
@@ -167,22 +173,45 @@ export async function updateTransactionProvider(
     .where(eq(saasPaymentTransactions.id, id));
 }
 
+/**
+ * Set a transaction's status, optionally as a compare-and-set.
+ *
+ * Provider webhooks arrive out of order and get redelivered, so a status
+ * write that ignores the current row lets a late `failed` IPN flip a paid
+ * transaction back to FAILED, or a second `finished` activate twice. Pass
+ * `allowedFrom` to only transition from those statuses; the boolean tells the
+ * caller whether *this* call won the transition (false = someone else already
+ * moved the row, or it was in a state the transition doesn't apply to), so
+ * fulfilment runs exactly once. Omitting `allowedFrom` keeps the plain
+ * unconditional write (Stripe's handler relies on it).
+ */
 export async function updateTransactionStatus(
   id: string,
   status: TransactionStatus,
   rawResponse?: Record<string, unknown>,
-): Promise<void> {
-  await db
+  allowedFrom?: TransactionStatus[]
+): Promise<boolean> {
+  const conditions = [eq(saasPaymentTransactions.id, id)];
+  if (allowedFrom && allowedFrom.length > 0) {
+    conditions.push(inArray(saasPaymentTransactions.status, allowedFrom));
+  }
+
+  const updated = await db
     .update(saasPaymentTransactions)
     .set({
       status,
       ...(rawResponse && { rawResponse }),
       updatedAt: new Date(),
     })
-    .where(eq(saasPaymentTransactions.id, id));
+    .where(and(...conditions))
+    .returning({ id: saasPaymentTransactions.id });
+
+  return updated.length > 0;
 }
 
-export async function getTransaction(id: string): Promise<TransactionRow | null> {
+export async function getTransaction(
+  id: string
+): Promise<TransactionRow | null> {
   const [tx] = await db
     .select()
     .from(saasPaymentTransactions)
@@ -197,7 +226,10 @@ export async function getTransaction(id: string): Promise<TransactionRow | null>
 export async function getTransactionRevenue(status: string): Promise<number> {
   const [result] = await db
     .select({
-      total: sql<number>`coalesce(sum(${saasPaymentTransactions.amountCents}), 0)`.as('total'),
+      total:
+        sql<number>`coalesce(sum(${saasPaymentTransactions.amountCents}), 0)`.as(
+          'total'
+        ),
     })
     .from(saasPaymentTransactions)
     .where(eq(saasPaymentTransactions.status, status));
@@ -205,7 +237,9 @@ export async function getTransactionRevenue(status: string): Promise<number> {
   return Number(result?.total ?? 0);
 }
 
-export async function getRecentTransactionsWithOrg(limit: number): Promise<RecentTransactionRow[]> {
+export async function getRecentTransactionsWithOrg(
+  limit: number
+): Promise<RecentTransactionRow[]> {
   const rows = await db
     .select({
       id: saasPaymentTransactions.id,
@@ -220,7 +254,10 @@ export async function getRecentTransactionsWithOrg(limit: number): Promise<Recen
       createdAt: saasPaymentTransactions.createdAt,
     })
     .from(saasPaymentTransactions)
-    .leftJoin(organization, eq(saasPaymentTransactions.organizationId, organization.id))
+    .leftJoin(
+      organization,
+      eq(saasPaymentTransactions.organizationId, organization.id)
+    )
     .orderBy(desc(saasPaymentTransactions.createdAt))
     .limit(limit);
 
@@ -229,16 +266,21 @@ export async function getRecentTransactionsWithOrg(limit: number): Promise<Recen
 
 export async function getRevenueOverTime(
   from?: string,
-  to?: string,
+  to?: string
 ): Promise<Array<{ date: string; revenue: number; count: number }>> {
   const conditions = [eq(saasPaymentTransactions.status, 'successful')];
-  if (from) conditions.push(gte(saasPaymentTransactions.createdAt, new Date(from)));
+  if (from)
+    conditions.push(gte(saasPaymentTransactions.createdAt, new Date(from)));
   if (to) conditions.push(lte(saasPaymentTransactions.createdAt, new Date(to)));
 
   const rows = await db
     .select({
-      date: sql<string>`to_char(${saasPaymentTransactions.createdAt}, 'YYYY-MM-DD')`.as('date'),
-      revenue: sql<number>`sum(${saasPaymentTransactions.amountCents})`.as('revenue'),
+      date: sql<string>`to_char(${saasPaymentTransactions.createdAt}, 'YYYY-MM-DD')`.as(
+        'date'
+      ),
+      revenue: sql<number>`sum(${saasPaymentTransactions.amountCents})`.as(
+        'revenue'
+      ),
       count: sql<number>`count(*)`.as('count'),
     })
     .from(saasPaymentTransactions)
@@ -257,21 +299,24 @@ export async function getRevenueOverTime(
 // ─── Revenue by users (for affiliates) ──────────────────────────────────────
 
 export async function getRevenueByUsers(
-  userIds: string[],
+  userIds: string[]
 ): Promise<Map<string, { totalRevenueCents: number }>> {
   if (userIds.length === 0) return new Map();
 
   const rows = await db
     .select({
       userId: saasPaymentTransactions.userId,
-      total: sql<number>`coalesce(sum(${saasPaymentTransactions.amountCents}), 0)`.as('total'),
+      total:
+        sql<number>`coalesce(sum(${saasPaymentTransactions.amountCents}), 0)`.as(
+          'total'
+        ),
     })
     .from(saasPaymentTransactions)
     .where(
       and(
         inArray(saasPaymentTransactions.userId, userIds),
-        eq(saasPaymentTransactions.status, 'successful'),
-      ),
+        eq(saasPaymentTransactions.status, 'successful')
+      )
     )
     .groupBy(saasPaymentTransactions.userId);
 
@@ -320,7 +365,7 @@ export async function createAuthorizationTransaction(params: {
 
 export async function recordCapture(
   transactionId: string,
-  capturedAmountCents: number,
+  capturedAmountCents: number
 ): Promise<void> {
   await db
     .update(saasPaymentTransactions)
@@ -350,7 +395,7 @@ export async function recordVoid(transactionId: string): Promise<void> {
 const PROVIDER_TIMEOUT_MS = 10_000;
 
 async function checkStripeTransaction(
-  providerTxId: string,
+  providerTxId: string
 ): Promise<'successful' | 'pending' | 'failed'> {
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   if (!stripeKey) return 'pending';
@@ -374,7 +419,8 @@ async function checkStripeTransaction(
   if (isCheckout) {
     const status = data.payment_status as string;
     if (status === 'paid') return 'successful';
-    if (status === 'unpaid' || status === 'no_payment_required') return 'pending';
+    if (status === 'unpaid' || status === 'no_payment_required')
+      return 'pending';
     return 'failed';
   }
 
@@ -385,7 +431,7 @@ async function checkStripeTransaction(
 }
 
 async function checkNowPaymentsTransaction(
-  providerTxId: string,
+  providerTxId: string
 ): Promise<'successful' | 'pending' | 'failed'> {
   const apiKey = process.env.NOWPAYMENTS_API_KEY;
   if (!apiKey) return 'pending';
@@ -397,7 +443,8 @@ async function checkNowPaymentsTransaction(
     signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
   });
 
-  if (res.status === 429 || res.status === 401 || res.status === 403) return 'pending';
+  if (res.status === 429 || res.status === 401 || res.status === 403)
+    return 'pending';
   if (res.status === 404) return 'failed';
   if (!res.ok) return 'pending';
 
@@ -405,7 +452,8 @@ async function checkNowPaymentsTransaction(
   const status = data.payment_status as string;
 
   if (status === 'finished' || status === 'confirmed') return 'successful';
-  if (status === 'waiting' || status === 'confirming' || status === 'sending') return 'pending';
+  if (status === 'waiting' || status === 'confirming' || status === 'sending')
+    return 'pending';
   return 'failed';
 }
 
@@ -431,7 +479,7 @@ export async function runReconciliation(): Promise<void> {
     db,
     saasPaymentTransactions,
     providerChecks,
-    { staleThresholdHours: 24 },
+    { staleThresholdHours: 24 }
   );
 
   if (result.checked > 0) {

@@ -1,70 +1,87 @@
 'use client';
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
+
+import {
+  AiAssistMenu,
+  codeMirrorAiAdapter,
+  tiptapAiAdapter,
+} from './editor/AiAssistMenu';
+import {
+  ContentVariableNode,
+  prepareVarsForEditor,
+  serializeVarsForStorage,
+} from './editor/ContentVariableNode';
+import { DragHandle } from './editor/DragHandle';
+import { EditorBubbleMenu } from './editor/EditorBubbleMenu';
+import {
+  ClassStylePreserver,
+  HtmlDivNode,
+  HtmlInlineDivNode,
+  HtmlSpanMark,
+} from './editor/HtmlContainerNodes';
+import { ImageBubbleMenu } from './editor/ImageBubbleMenu';
+import { LivePreview } from './editor/LivePreview';
+import { MarkdownSourceEditor } from './editor/MarkdownSourceEditor';
+import { ResizableImage } from './editor/ResizableImage';
+import { TableMenu } from './editor/TableMenu';
+import './editor/editor-styles.css';
+import { createSlashCommandRender } from './editor/slash-command-renderer';
+import { createSlashCommandExtension } from './editor/slash-commands';
+import type { SlashCommandItem } from './editor/slash-commands';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
 import { Table } from '@tiptap/extension-table';
-import { TableRow } from '@tiptap/extension-table-row';
-import { TableHeader } from '@tiptap/extension-table-header';
 import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { TableRow } from '@tiptap/extension-table-row';
+import TextAlign from '@tiptap/extension-text-align';
+import Underline from '@tiptap/extension-underline';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import type { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import {
+  AlignCenter,
+  AlignLeft,
+  AlignRight,
+  Blocks,
   Bold,
-  Italic,
-  Underline as UnderlineIcon,
-  Strikethrough,
+  Braces,
   Code,
+  Code2,
+  FileSearch,
   Heading1,
   Heading2,
   Heading3,
+  Image as ImageIcon,
+  Italic,
+  Link as LinkIcon,
   List,
   ListOrdered,
-  Quote,
-  Link as LinkIcon,
-  Image as ImageIcon,
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
-  Undo,
-  Redo,
-  Code2,
   Minus,
-  Blocks,
-  FileSearch,
-  Table as TableIcon,
-  PanelRightOpen,
   PanelRightClose,
-  Braces,
+  PanelRightOpen,
+  Quote,
+  Redo,
   Sparkles,
+  Strikethrough,
+  Table as TableIcon,
+  Underline as UnderlineIcon,
+  Undo,
 } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
-import { useAdminTranslations } from '@/core/lib/i18n/translations';
-import { htmlToMarkdown, markdownToHtml } from '@/core/lib/markdown/markdown';
-import { trpc } from '@/lib/trpc/client';
-import { toast } from '@/core/store/toast-store';
 import { usePrompt } from '@/core/hooks';
 import type { EditorHandle } from '@/core/hooks/useLinkPicker';
+import { useAdminTranslations } from '@/core/lib/i18n/translations';
+import { htmlToMarkdown, markdownToHtml } from '@/core/lib/markdown/markdown';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from '@/core/lib/storage/local-storage';
+import { toast } from '@/core/store/toast-store';
 import type { ShortcodeConfig } from '@/core/types/shortcodes';
-import { ContentVariableNode, prepareVarsForEditor, serializeVarsForStorage } from './editor/ContentVariableNode';
-import { ClassStylePreserver, HtmlDivNode, HtmlInlineDivNode, HtmlSpanMark } from './editor/HtmlContainerNodes';
-import { MarkdownSourceEditor } from './editor/MarkdownSourceEditor';
-import type { ReactCodeMirrorRef } from '@uiw/react-codemirror';
-import { ResizableImage } from './editor/ResizableImage';
-import { DragHandle } from './editor/DragHandle';
-import { createSlashCommandExtension } from './editor/slash-commands';
-import type { SlashCommandItem } from './editor/slash-commands';
-import { createSlashCommandRender } from './editor/slash-command-renderer';
-import { EditorBubbleMenu } from './editor/EditorBubbleMenu';
-import { ImageBubbleMenu } from './editor/ImageBubbleMenu';
-import { TableMenu } from './editor/TableMenu';
-import { AiAssistMenu, codeMirrorAiAdapter, tiptapAiAdapter } from './editor/AiAssistMenu';
-import { LivePreview } from './editor/LivePreview';
-
-import './editor/editor-styles.css';
+import { trpc } from '@/lib/trpc/client';
+import { cn } from '@/lib/utils';
 
 interface Props {
   content: string;
@@ -82,7 +99,9 @@ interface Props {
   /** Additional CSS class for the outer wrapper (e.g. to remove rounding when embedded) */
   wrapperClassName?: string;
   /** Called when user wants to replace an image via media picker. Receives callback to set the new URL. */
-  onRequestMediaPicker?: (onSelect: (url: string, alt?: string) => void) => void;
+  onRequestMediaPicker?: (
+    onSelect: (url: string, alt?: string) => void
+  ) => void;
 }
 
 const HEIGHT_STORAGE_PREFIX = 'cms-editor-h:';
@@ -93,10 +112,10 @@ async function uploadImage(file: File, postId?: string): Promise<string> {
   if (postId) formData.append('postId', postId);
   const res = await fetch('/api/upload', { method: 'POST', body: formData });
   if (!res.ok) {
-    const err = await res.json().catch(() => ({})) as { error?: string };
+    const err = (await res.json().catch(() => ({}))) as { error?: string };
     throw new Error(err.error ?? 'Upload failed');
   }
-  const data = await res.json() as { url: string };
+  const data = (await res.json()) as { url: string };
   return data.url;
 }
 
@@ -122,7 +141,7 @@ function ToolbarButton({
       className={cn(
         'rounded p-1.5 transition-colors',
         active
-          ? 'bg-brand-50 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.15)] text-brand-700 dark:text-brand-400'
+          ? 'bg-brand-50 text-brand-700 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.15)] dark:text-brand-400'
           : 'text-(--text-secondary) hover:bg-(--surface-secondary) hover:text-(--text-primary)',
         disabled && 'cursor-not-allowed opacity-30'
       )}
@@ -139,7 +158,10 @@ function ToolbarDivider() {
 const identity = (html: string) => html;
 
 /** Serialize editor HTML to markdown, handling shortcodes and content variables. */
-async function editorToMarkdown(html: string, scSerialize: (html: string) => string): Promise<string> {
+async function editorToMarkdown(
+  html: string,
+  scSerialize: (html: string) => string
+): Promise<string> {
   return htmlToMarkdown(serializeVarsForStorage(scSerialize(html)));
 }
 
@@ -167,25 +189,25 @@ export function RichTextEditor({
   const prompt = usePrompt();
   const [shortcodeMenuOpen, setShortcodeMenuOpen] = useState(false);
   const [varsMenuOpen, setVarsMenuOpen] = useState(false);
-  const { data: contentVarDefs } = trpc.cms.contentVars.useQuery(undefined, { staleTime: 60_000 });
+  const { data: contentVarDefs } = trpc.cms.contentVars.useQuery(undefined, {
+    staleTime: 60_000,
+  });
   const [aiAssistOpen, setAiAssistOpen] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewMarkdown, setPreviewMarkdown] = useState(content);
-  const [mode, setMode] = useState<'wysiwyg' | 'source'>(() => {
-    try {
-      return localStorage.getItem('cms-editor-mode') === 'source'
-        ? 'source'
-        : 'wysiwyg';
-    } catch {
-      return 'wysiwyg';
-    }
-  });
+  const [mode, setMode] = useState<'wysiwyg' | 'source'>(() =>
+    getLocalStorageItem('cms-editor-mode') === 'source' ? 'source' : 'wysiwyg'
+  );
   const [sourceValue, setSourceValue] = useState(content);
   const lastEmittedContent = useRef(content);
   const onChangeRef = useRef(onChange);
-  useEffect(() => { onChangeRef.current = onChange; });
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  });
   const showPreviewRef = useRef(showPreview);
-  useEffect(() => { showPreviewRef.current = showPreview; });
+  useEffect(() => {
+    showPreviewRef.current = showPreview;
+  });
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -219,67 +241,76 @@ export function RichTextEditor({
   useEffect(() => {
     if (!storageKey || heightInitialized.current) return;
     heightInitialized.current = true;
-    const saved = localStorage.getItem(HEIGHT_STORAGE_PREFIX + storageKey);
+    const saved = getLocalStorageItem(HEIGHT_STORAGE_PREFIX + storageKey);
     if (saved) setEditorHeight(saved);
   }, [storageKey]);
 
   // Custom resize handle — drag to resize editor height
-  const handleResizePointerDown = useCallback((e: React.PointerEvent) => {
-    e.preventDefault();
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-    const startY = e.clientY;
-    const startH = wrapper.offsetHeight;
+  const handleResizePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      e.preventDefault();
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
+      const startY = e.clientY;
+      const startH = wrapper.offsetHeight;
 
-    function onPointerMove(ev: PointerEvent) {
-      const newH = Math.max(200, startH + ev.clientY - startY);
-      const val = `${newH}px`;
-      wrapper!.style.height = val;
-      setEditorHeight(val);
-    }
-    function onPointerUp() {
-      document.removeEventListener('pointermove', onPointerMove);
-      document.removeEventListener('pointerup', onPointerUp);
-      // Persist
-      const h = wrapper!.offsetHeight;
-      if (h > 0 && storageKey) {
-        localStorage.setItem(HEIGHT_STORAGE_PREFIX + storageKey, `${h}px`);
+      function onPointerMove(ev: PointerEvent) {
+        const newH = Math.max(200, startH + ev.clientY - startY);
+        const val = `${newH}px`;
+        wrapper!.style.height = val;
+        setEditorHeight(val);
       }
-    }
-    document.addEventListener('pointermove', onPointerMove);
-    document.addEventListener('pointerup', onPointerUp);
-  }, [storageKey]);
+      function onPointerUp() {
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointerup', onPointerUp);
+        // Persist
+        const h = wrapper!.offsetHeight;
+        if (h > 0 && storageKey) {
+          setLocalStorageItem(HEIGHT_STORAGE_PREFIX + storageKey, `${h}px`);
+        }
+      }
+      document.addEventListener('pointermove', onPointerMove);
+      document.addEventListener('pointerup', onPointerUp);
+    },
+    [storageKey]
+  );
 
   // Build slash command render function (stable ref)
-  const slashCommandRenderRef = useRef<ReturnType<typeof createSlashCommandRender> | null>(null);
-   
+  const slashCommandRenderRef = useRef<ReturnType<
+    typeof createSlashCommandRender
+  > | null>(null);
+
   if (!slashCommandRenderRef.current) {
     slashCommandRenderRef.current = createSlashCommandRender();
   }
 
   // Build extra slash items from shortcodes
-  const extraSlashItems: SlashCommandItem[] = shortcodes?.registry.map((sc) => ({
-    title: sc.label,
-    description: `${__('Insert')} ${sc.label}`,
-    icon: 'blocks',
-    group: __('Shortcodes'),
-    command: ({ editor: e, range }) => {
-      const defaultAttrs: Record<string, string> = {};
-      for (const attr of sc.attrs) {
-        if (attr.default) defaultAttrs[attr.name] = attr.default;
-      }
-      e.chain().focus().deleteRange(range).insertContent({
-        type: 'shortcode',
-        attrs: {
-          shortcodeName: sc.name,
-          shortcodeAttrs: JSON.stringify(defaultAttrs),
-          shortcodeContent: '',
-        },
-      }).run();
-    },
-  })) ?? [];
+  const extraSlashItems: SlashCommandItem[] =
+    shortcodes?.registry.map((sc) => ({
+      title: sc.label,
+      description: `${__('Insert')} ${sc.label}`,
+      icon: 'blocks',
+      group: __('Shortcodes'),
+      command: ({ editor: e, range }) => {
+        const defaultAttrs: Record<string, string> = {};
+        for (const attr of sc.attrs) {
+          if (attr.default) defaultAttrs[attr.name] = attr.default;
+        }
+        e.chain()
+          .focus()
+          .deleteRange(range)
+          .insertContent({
+            type: 'shortcode',
+            attrs: {
+              shortcodeName: sc.name,
+              shortcodeAttrs: JSON.stringify(defaultAttrs),
+              shortcodeContent: '',
+            },
+          })
+          .run();
+      },
+    })) ?? [];
 
-   
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -316,7 +347,8 @@ export function RichTextEditor({
         types: ['heading', 'paragraph'],
       }),
       Placeholder.configure({
-        placeholder: placeholder ?? __('Start writing or type / for commands...'),
+        placeholder:
+          placeholder ?? __('Start writing or type / for commands...'),
       }),
       // Table support
       Table.configure({
@@ -329,7 +361,11 @@ export function RichTextEditor({
       // Drag handles for block reordering
       DragHandle,
       // Slash commands
-      createSlashCommandExtension(__, extraSlashItems, editorIdRef.current).configure({
+      createSlashCommandExtension(
+        __,
+        extraSlashItems,
+        editorIdRef.current
+      ).configure({
         suggestion: {
           render: slashCommandRenderRef.current!,
         },
@@ -341,7 +377,9 @@ export function RichTextEditor({
       HtmlInlineDivNode,
       HtmlSpanMark,
     ],
-    content: prepareVarsForEditor(scPrepareRef.current(markdownToHtml(content))),
+    content: prepareVarsForEditor(
+      scPrepareRef.current(markdownToHtml(content))
+    ),
     onUpdate: ({ editor: e }) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
 
@@ -378,11 +416,17 @@ export function RichTextEditor({
             event.preventDefault();
             const file = item.getAsFile();
             if (file) {
-              uploadImage(file, postId).then((url) => {
-                editor?.chain().focus().setImage({ src: url }).run();
-              }).catch((err: unknown) => {
-                toast.error(err instanceof Error ? err.message : __('Image upload failed'));
-              });
+              uploadImage(file, postId)
+                .then((url) => {
+                  editor?.chain().focus().setImage({ src: url }).run();
+                })
+                .catch((err: unknown) => {
+                  toast.error(
+                    err instanceof Error
+                      ? err.message
+                      : __('Image upload failed')
+                  );
+                });
             }
             return true;
           }
@@ -395,11 +439,15 @@ export function RichTextEditor({
         for (const file of files) {
           if (file.type.startsWith('image/')) {
             event.preventDefault();
-            uploadImage(file, postId).then((url) => {
-              editor?.chain().focus().setImage({ src: url }).run();
-            }).catch((err: unknown) => {
-              toast.error(err instanceof Error ? err.message : __('Image upload failed'));
-            });
+            uploadImage(file, postId)
+              .then((url) => {
+                editor?.chain().focus().setImage({ src: url }).run();
+              })
+              .catch((err: unknown) => {
+                toast.error(
+                  err instanceof Error ? err.message : __('Image upload failed')
+                );
+              });
             return true;
           }
         }
@@ -407,7 +455,6 @@ export function RichTextEditor({
       },
     },
   });
-   
 
   // Sync content from parent when it changes externally (e.g. autosave restore)
   useEffect(() => {
@@ -416,9 +463,12 @@ export function RichTextEditor({
     lastEmittedContent.current = content;
     if (mode === 'source') setSourceValue(content);
     setPreviewMarkdown(content);
-    editor.commands.setContent(prepareVarsForEditor(scPrepareRef.current(markdownToHtml(content))), {
-      emitUpdate: false,
-    });
+    editor.commands.setContent(
+      prepareVarsForEditor(scPrepareRef.current(markdownToHtml(content))),
+      {
+        emitUpdate: false,
+      }
+    );
   }, [editor, content, mode]);
 
   // EditorHandle — expose replaceSelection to parent via editorRef
@@ -441,11 +491,15 @@ export function RichTextEditor({
           const linkMatch = text.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
           if (linkMatch) {
             const [, title, url] = linkMatch;
-            editor.chain().focus().insertContent({
-              type: 'text',
-              marks: [{ type: 'link', attrs: { href: url } }],
-              text: title,
-            }).run();
+            editor
+              .chain()
+              .focus()
+              .insertContent({
+                type: 'text',
+                marks: [{ type: 'link', attrs: { href: url } }],
+                text: title,
+              })
+              .run();
           } else {
             editor.chain().focus().insertContent(text).run();
           }
@@ -465,7 +519,11 @@ export function RichTextEditor({
             view.focus();
           }
         } else if (editor) {
-          editor.chain().focus().setImage({ src, alt: alt ?? '' }).run();
+          editor
+            .chain()
+            .focus()
+            .setImage({ src, alt: alt ?? '' })
+            .run();
         }
       },
     };
@@ -487,18 +545,21 @@ export function RichTextEditor({
         lastEmittedContent.current = md;
         onChangeRef.current(md);
         setMode('source');
-        try { localStorage.setItem('cms-editor-mode', 'source'); } catch { /* quota */ }
+        setLocalStorageItem('cms-editor-mode', 'source');
       });
     } else {
       // Source → WYSIWYG: suppress emitUpdate to avoid double-fire
-      editor.commands.setContent(prepareVarsForEditor(scPrepareRef.current(markdownToHtml(sourceValue))), {
-        emitUpdate: false,
-      });
+      editor.commands.setContent(
+        prepareVarsForEditor(scPrepareRef.current(markdownToHtml(sourceValue))),
+        {
+          emitUpdate: false,
+        }
+      );
       editorToMarkdown(editor.getHTML(), scSerializeRef.current).then((md) => {
         lastEmittedContent.current = md;
         onChangeRef.current(md);
         setMode('wysiwyg');
-        try { localStorage.setItem('cms-editor-mode', 'wysiwyg'); } catch { /* quota */ }
+        setLocalStorageItem('cms-editor-mode', 'wysiwyg');
       });
     }
   }, [editor, mode, sourceValue]);
@@ -508,7 +569,11 @@ export function RichTextEditor({
   async function addLink() {
     if (!editor) return;
     const previousUrl = editor.getAttributes('link').href as string | undefined;
-    const url = await prompt({ title: __('URL'), defaultValue: previousUrl ?? 'https://', placeholder: 'https://' });
+    const url = await prompt({
+      title: __('URL'),
+      defaultValue: previousUrl ?? 'https://',
+      placeholder: 'https://',
+    });
     if (url === null) return;
     if (url === '') {
       editor.chain().focus().extendMarkRange('link').unsetLink().run();
@@ -530,14 +595,16 @@ export function RichTextEditor({
         style={{ height: editorHeight, overflow: 'hidden' }}
         className={cn(
           'relative flex flex-col overflow-hidden rounded-md border border-(--border-primary) focus-within:border-accent-500 focus-within:ring-1 focus-within:ring-accent-500',
-          wrapperClassName,
+          wrapperClassName
         )}
       >
         {/* Toolbar — disabled in source mode to prevent modifying the hidden editor */}
-        <div className={cn(
-          'editor-toolbar flex flex-wrap items-center gap-0.5 border-b border-(--border-primary) bg-(--surface-inset) px-2 py-1.5 shrink-0',
-          mode === 'source' && 'pointer-events-none opacity-40',
-        )}>
+        <div
+          className={cn(
+            'editor-toolbar flex shrink-0 flex-wrap items-center gap-0.5 border-b border-(--border-primary) bg-(--surface-inset) px-2 py-1.5',
+            mode === 'source' && 'pointer-events-none opacity-40'
+          )}
+        >
           <ToolbarButton
             onClick={() => editor.chain().focus().toggleBold().run()}
             active={editor.isActive('bold')}
@@ -577,21 +644,27 @@ export function RichTextEditor({
           <ToolbarDivider />
 
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 1 }).run()
+            }
             active={editor.isActive('heading', { level: 1 })}
             title={__('Heading 1')}
           >
             <Heading1 className={iconSize} />
           </ToolbarButton>
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 2 }).run()
+            }
             active={editor.isActive('heading', { level: 2 })}
             title={__('Heading 2')}
           >
             <Heading2 className={iconSize} />
           </ToolbarButton>
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 3 }).run()
+            }
             active={editor.isActive('heading', { level: 3 })}
             title={__('Heading 3')}
           >
@@ -640,7 +713,11 @@ export function RichTextEditor({
           {/* Table insert */}
           <ToolbarButton
             onClick={() =>
-              editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+              editor
+                .chain()
+                .focus()
+                .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+                .run()
             }
             active={editor.isActive('table')}
             title={__('Insert Table')}
@@ -682,11 +759,18 @@ export function RichTextEditor({
             <LinkIcon className={iconSize} />
           </ToolbarButton>
           {onRequestLinkPicker && (
-            <ToolbarButton onClick={onRequestLinkPicker} title={__('Internal Link')} active={false}>
+            <ToolbarButton
+              onClick={onRequestLinkPicker}
+              title={__('Internal Link')}
+              active={false}
+            >
               <FileSearch size={18} />
             </ToolbarButton>
           )}
-          <ToolbarButton onClick={() => imageInputRef.current?.click()} title={__('Image')}>
+          <ToolbarButton
+            onClick={() => imageInputRef.current?.click()}
+            title={__('Image')}
+          >
             <ImageIcon className={iconSize} />
           </ToolbarButton>
 
@@ -696,13 +780,16 @@ export function RichTextEditor({
           {contentVarDefs && contentVarDefs.length > 0 && (
             <div className="editor-toolbar-menu relative">
               <ToolbarButton
-                onClick={() => { setVarsMenuOpen(!varsMenuOpen); setShortcodeMenuOpen(false); }}
+                onClick={() => {
+                  setVarsMenuOpen(!varsMenuOpen);
+                  setShortcodeMenuOpen(false);
+                }}
                 title={__('Insert Variable')}
               >
                 <Braces className={iconSize} />
               </ToolbarButton>
               {varsMenuOpen && (
-                <div className="absolute left-0 top-full z-10 mt-1 w-52 rounded-md border border-(--border-primary) bg-(--surface-primary) py-1 shadow-lg">
+                <div className="absolute top-full left-0 z-10 mt-1 w-52 rounded-md border border-(--border-primary) bg-(--surface-primary) py-1 shadow-lg">
                   {contentVarDefs.map((v) => (
                     <button
                       key={v.key}
@@ -711,15 +798,21 @@ export function RichTextEditor({
                       title={v.value}
                       onClick={() => {
                         if (!editor) return;
-                        editor.chain().focus().insertContent({
-                          type: 'contentVariable',
-                          attrs: { variableName: v.key },
-                        }).run();
+                        editor
+                          .chain()
+                          .focus()
+                          .insertContent({
+                            type: 'contentVariable',
+                            attrs: { variableName: v.key },
+                          })
+                          .run();
                         setVarsMenuOpen(false);
                       }}
                     >
                       <span>{__(v.label)}</span>
-                      <span className="max-w-24 truncate text-xs text-(--text-muted)">{v.value}</span>
+                      <span className="max-w-24 truncate text-xs text-(--text-muted)">
+                        {v.value}
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -734,13 +827,16 @@ export function RichTextEditor({
             <>
               <div className="editor-toolbar-menu relative">
                 <ToolbarButton
-                  onClick={() => { setShortcodeMenuOpen(!shortcodeMenuOpen); setVarsMenuOpen(false); }}
+                  onClick={() => {
+                    setShortcodeMenuOpen(!shortcodeMenuOpen);
+                    setVarsMenuOpen(false);
+                  }}
                   title={__('Insert Block')}
                 >
                   <Blocks className={iconSize} />
                 </ToolbarButton>
                 {shortcodeMenuOpen && (
-                  <div className="editor-shortcode-menu absolute left-0 top-full z-10 mt-1 w-40 rounded-md border border-(--border-primary) bg-(--surface-primary) py-1 shadow-lg">
+                  <div className="editor-shortcode-menu absolute top-full left-0 z-10 mt-1 w-40 rounded-md border border-(--border-primary) bg-(--surface-primary) py-1 shadow-lg">
                     {shortcodes.registry.map((sc) => (
                       <button
                         key={sc.name}
@@ -750,7 +846,8 @@ export function RichTextEditor({
                           if (!editor) return;
                           const defaultAttrs: Record<string, string> = {};
                           for (const attr of sc.attrs) {
-                            if (attr.default) defaultAttrs[attr.name] = attr.default;
+                            if (attr.default)
+                              defaultAttrs[attr.name] = attr.default;
                           }
                           editor
                             .chain()
@@ -799,7 +896,9 @@ export function RichTextEditor({
             onClick={() => {
               if (!showPreview && editor && mode === 'wysiwyg') {
                 // Sync preview with current editor content when toggling on
-                editorToMarkdown(editor.getHTML(), scSerializeRef.current).then(setPreviewMarkdown);
+                editorToMarkdown(editor.getHTML(), scSerializeRef.current).then(
+                  setPreviewMarkdown
+                );
               }
               setShowPreview(!showPreview);
             }}
@@ -828,18 +927,22 @@ export function RichTextEditor({
               const url = await uploadImage(file, postId);
               editor.chain().focus().setImage({ src: url }).run();
             } catch (err) {
-              toast.error(err instanceof Error ? err.message : __('Image upload failed'));
+              toast.error(
+                err instanceof Error ? err.message : __('Image upload failed')
+              );
             }
           }}
         />
 
         {/* Editor / Source */}
-        <div className={cn('editor-content flex-1 bg-(--surface-secondary)', mode === 'wysiwyg' ? 'overflow-auto' : 'overflow-hidden')}>
+        <div
+          className={cn(
+            'editor-content flex-1 bg-(--surface-secondary)',
+            mode === 'wysiwyg' ? 'overflow-auto' : 'overflow-hidden'
+          )}
+        >
           {mode === 'wysiwyg' ? (
-            <EditorContent
-              editor={editor}
-              className="h-full"
-            />
+            <EditorContent editor={editor} className="h-full" />
           ) : (
             <MarkdownSourceEditor
               editorRef={sourceEditorRef}
@@ -861,7 +964,9 @@ export function RichTextEditor({
               editor={editor}
               __={__}
               onAddLink={addLink}
-              onAiAssist={onAiTransform ? () => setAiAssistOpen(true) : undefined}
+              onAiAssist={
+                onAiTransform ? () => setAiAssistOpen(true) : undefined
+              }
             />
             <TableMenu editor={editor} __={__} />
             <ImageBubbleMenu
@@ -870,10 +975,14 @@ export function RichTextEditor({
               onReplace={() => {
                 if (onRequestMediaPicker) {
                   onRequestMediaPicker((url, alt) => {
-                    editor.chain().focus().updateAttributes('image', {
-                      src: url,
-                      ...(alt ? { alt } : {}),
-                    }).run();
+                    editor
+                      .chain()
+                      .focus()
+                      .updateAttributes('image', {
+                        src: url,
+                        ...(alt ? { alt } : {}),
+                      })
+                      .run();
                   });
                 }
               }}
@@ -884,33 +993,34 @@ export function RichTextEditor({
         {/* AI Assist floating menu — works in both WYSIWYG and Source mode
             via per-mode editor adapters. Source mode is the primary surface
             for LLM-generated content authoring. */}
-        {onAiTransform && (() => {
-          const adapter =
-            mode === 'wysiwyg'
-              ? tiptapAiAdapter(editor)
-              : sourceEditorRef.current?.view
-                ? codeMirrorAiAdapter(sourceEditorRef.current.view)
-                : null;
-          if (!adapter) return null;
-          return (
-            <AiAssistMenu
-              adapter={adapter}
-              __={__}
-              open={aiAssistOpen}
-              onClose={() => setAiAssistOpen(false)}
-              onSubmit={onAiTransform}
-            />
-          );
-        })()}
+        {onAiTransform &&
+          (() => {
+            const adapter =
+              mode === 'wysiwyg'
+                ? tiptapAiAdapter(editor)
+                : sourceEditorRef.current?.view
+                  ? codeMirrorAiAdapter(sourceEditorRef.current.view)
+                  : null;
+            if (!adapter) return null;
+            return (
+              <AiAssistMenu
+                adapter={adapter}
+                __={__}
+                open={aiAssistOpen}
+                onClose={() => setAiAssistOpen(false)}
+                onSubmit={onAiTransform}
+              />
+            );
+          })()}
 
         {/* Mode tabs + always-visible AI assist (works in both modes) */}
-        <div className="editor-mode-tabs flex items-center justify-between border-t border-(--border-primary) bg-(--surface-secondary) shrink-0">
+        <div className="editor-mode-tabs flex shrink-0 items-center justify-between border-t border-(--border-primary) bg-(--surface-secondary)">
           <div>
             {onAiTransform && (
               <button
                 type="button"
                 onClick={() => setAiAssistOpen(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-[13px] text-(--text-secondary) hover:text-accent-500 hover:bg-(--surface-primary) transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-[13px] text-(--text-secondary) transition-colors hover:bg-(--surface-primary) hover:text-accent-500"
                 title={__('AI Assist (works in both Visual and Source mode)')}
               >
                 <Sparkles className="h-3.5 w-3.5" />
@@ -924,8 +1034,8 @@ export function RichTextEditor({
               className={cn(
                 '-mt-px border-t-2 px-4 py-1.5 text-[13px] transition-colors',
                 mode === 'wysiwyg'
-                  ? 'border-brand-500 text-brand-500 dark:border-brand-400 dark:text-brand-400 bg-(--surface-primary)'
-                  : 'border-transparent text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--surface-primary)',
+                  ? 'border-brand-500 bg-(--surface-primary) text-brand-500 dark:border-brand-400 dark:text-brand-400'
+                  : 'border-transparent text-(--text-secondary) hover:bg-(--surface-primary) hover:text-(--text-primary)'
               )}
               onClick={() => mode !== 'wysiwyg' && toggleMode()}
             >
@@ -936,8 +1046,8 @@ export function RichTextEditor({
               className={cn(
                 '-mt-px border-t-2 px-4 py-1.5 text-[13px] transition-colors',
                 mode === 'source'
-                  ? 'border-brand-500 text-brand-500 dark:border-brand-400 dark:text-brand-400 bg-(--surface-primary)'
-                  : 'border-transparent text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--surface-primary)',
+                  ? 'border-brand-500 bg-(--surface-primary) text-brand-500 dark:border-brand-400 dark:text-brand-400'
+                  : 'border-transparent text-(--text-secondary) hover:bg-(--surface-primary) hover:text-(--text-primary)'
               )}
               onClick={() => mode !== 'source' && toggleMode()}
             >
@@ -949,21 +1059,24 @@ export function RichTextEditor({
         {/* Resize handle */}
         <div
           onPointerDown={handleResizePointerDown}
-          className="shrink-0 flex items-center justify-center h-2 cursor-row-resize bg-(--surface-inset) hover:bg-brand-500/20 transition-colors border-t border-(--border-primary) select-none"
+          className="flex h-2 shrink-0 cursor-row-resize items-center justify-center border-t border-(--border-primary) bg-(--surface-inset) transition-colors select-none hover:bg-brand-500/20"
         >
-          <div className="w-8 h-0.5 rounded-full bg-(--text-muted)/60" />
+          <div className="h-0.5 w-8 rounded-full bg-(--text-muted)/60" />
         </div>
       </div>
 
       {/* Live Preview Panel */}
       {showPreview && (
-        <div className="rounded-md border border-(--border-primary) overflow-auto" style={{ height: editorHeight }}>
-          <div className="border-b border-(--border-primary) px-3 py-2 text-xs font-medium text-(--text-muted) uppercase tracking-wider">
+        <div
+          className="overflow-auto rounded-md border border-(--border-primary)"
+          style={{ height: editorHeight }}
+        >
+          <div className="border-b border-(--border-primary) px-3 py-2 text-xs font-medium tracking-wider text-(--text-muted) uppercase">
             {__('Preview')}
           </div>
           <LivePreview
             content={previewContent}
-            className="prose prose-sm dark:prose-invert max-w-none px-4 py-3"
+            className="prose prose-sm max-w-none px-4 py-3 dark:prose-invert"
           />
         </div>
       )}

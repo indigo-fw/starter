@@ -26,6 +26,10 @@ export interface ResolvedSite {
 
 // In-memory cache with 60s TTL
 const CACHE_TTL = 60 * 1000;
+// Keys come from the Host header (domain / subdomain slug), so they are
+// attacker-controlled — without a cap, scanner noise grows the maps forever
+// (expired entries are only deleted when the same key is read again).
+const CACHE_MAX = 500;
 const _domainCache = new Map<string, { site: ResolvedSite | null; ts: number }>();
 const _slugCache = new Map<string, { site: ResolvedSite | null; ts: number }>();
 
@@ -37,6 +41,14 @@ function getCached(cache: Map<string, { site: ResolvedSite | null; ts: number }>
     return undefined;
   }
   return entry.site;
+}
+
+function setCached(cache: Map<string, { site: ResolvedSite | null; ts: number }>, key: string, site: ResolvedSite | null): void {
+  if (cache.size >= CACHE_MAX) {
+    const oldest = cache.keys().next().value;
+    if (oldest !== undefined) cache.delete(oldest);
+  }
+  cache.set(key, { site, ts: Date.now() });
 }
 
 /** Resolve a custom domain to a site */
@@ -54,12 +66,12 @@ export async function resolveSiteByDomain(domain: string): Promise<ResolvedSite 
     .limit(1);
 
   if (!domainRow) {
-    _domainCache.set(domain, { site: null, ts: Date.now() });
+    setCached(_domainCache, domain, null);
     return null;
   }
 
   const site = await resolveSiteById(domainRow.siteId);
-  _domainCache.set(domain, { site, ts: Date.now() });
+  setCached(_domainCache, domain, site);
   return site;
 }
 
@@ -69,7 +81,7 @@ export async function resolveSiteBySlug(slug: string): Promise<ResolvedSite | nu
   if (cached !== undefined) return cached;
 
   const site = await resolveSiteById(null, slug);
-  _slugCache.set(slug, { site, ts: Date.now() });
+  setCached(_slugCache, slug, site);
   return site;
 }
 

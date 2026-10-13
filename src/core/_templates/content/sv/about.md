@@ -12,7 +12,7 @@ noindex: false
 
 ### Nyckelfunktioner
 
-- **Agentdriven utveckling** — CLAUDE.md fungerar som en omfattande projektguide som gör det möjligt för AI-agenter att förstå och modifiera kodbasen effektivt
+- **Agentdriven utveckling** — AGENTS.md fungerar som en omfattande projektguide som gör det möjligt för AI-agenter att förstå och modifiera kodbasen effektivt
 - **Modern teknikstack** — Byggt med Next.js 16, TypeScript och Tailwind CSS v4
 - **Flexibelt innehåll** — Sidor, blogginlägg, portfolioobjekt, utvalda kort, kategorier och taggar
 - **Rollbaserad åtkomstkontroll** — Roller för användare, redaktör, administratör och superadmin med policybaserade behörigheter

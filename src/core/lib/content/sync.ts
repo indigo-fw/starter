@@ -18,6 +18,7 @@ import { parseFrontmatter } from '@/core/lib/content/frontmatter';
 import { createRevision, pickSnapshot } from '@/core/crud/content-revisions';
 import { createLogger } from '@/core/lib/infra/logger';
 import { PostType, ContentStatus } from '@/core/types/cms';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { cmsPosts } from '@/server/db/schema/cms';
 import type { DbClient } from '@/server/db';
 
@@ -135,7 +136,7 @@ function scanDir(
     }
 
     if (extname(entry).toLowerCase() !== '.md') continue;
-    // Skip documentation/meta files (ALL-CAPS names like CLAUDE.md, README.md, LICENSE.md, etc.)
+    // Skip documentation/meta files (ALL-CAPS names like AGENTS.md, CLAUDE.md, README.md, LICENSE.md, etc.)
     if (/^[A-Z][A-Z0-9_-]*\.md$/.test(entry)) continue;
 
     const raw = readFileSync(fullPath, 'utf-8');
@@ -290,7 +291,8 @@ export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise
   // Two mechanisms:
   //   1. Same slug across locales → auto-grouped (e.g. en/privacy-policy + de/privacy-policy)
   //   2. Different slugs + frontmatter `translationOf` → linked to the default-locale version
-  // Only touches entries without a translationGroup (won't override admin edits).
+  // Ungrouped translations join their siblings' group; a set split across
+  // multiple groups is merged onto the default-locale group.
   if (!dryRun) {
     const linked = await linkTranslationGroups(db, files);
     if (linked > 0) {
@@ -303,10 +305,26 @@ export async function syncContentFiles(db: DbClient, opts: SyncOptions): Promise
 }
 
 /**
+ * Pick the translationGroup a same-slug locale set should share: the
+ * default-locale post's existing group, else the first existing group,
+ * else null (caller mints a fresh one).
+ */
+export function pickCanonicalGroup(
+  posts: { lang: string; translationGroup: string | null }[]
+): string | null {
+  return (
+    posts.find((p) => p.lang === DEFAULT_LOCALE)?.translationGroup ??
+    posts.find((p) => p.translationGroup)?.translationGroup ??
+    null
+  );
+}
+
+/**
  * Link content files across locales via translationGroup.
  *
  * 1. `translationOf` frontmatter: file declares which default-locale slug it translates.
- * 2. Same slug+type across locales: auto-group ungrouped entries that share a slug.
+ * 2. Same slug+type across locales: unify every locale set onto one shared group
+ *    (prefer the default-locale post's group), backfilling latecomers and merging splits.
  */
 async function linkTranslationGroups(
   db: DbClient,
@@ -329,7 +347,7 @@ async function linkTranslationGroups(
         and(
           eq(cmsPosts.slug, targetSlug),
           eq(cmsPosts.type, file.postType),
-          eq(cmsPosts.lang, 'en')
+          eq(cmsPosts.lang, DEFAULT_LOCALE)
         )
       )
       .limit(1);
@@ -369,31 +387,45 @@ async function linkTranslationGroups(
     }
   }
 
-  // Step 2: Auto-group same slug+type across locales
-  const ungrouped = await db
-    .select({
-      slug: cmsPosts.slug,
-      type: cmsPosts.type,
-      count: sql<number>`count(*)`,
-    })
+  // Step 2: Ensure every same slug+type set across locales shares ONE group.
+  // Prefer the default-locale post's existing group, else any member's, else
+  // mint a new one. Backfills translations added after their siblings were
+  // grouped (the old count-of-ungrouped query skipped lone latecomers forever)
+  // and merges sets that got split across multiple groups.
+  const multiLocale = await db
+    .select({ slug: cmsPosts.slug, type: cmsPosts.type })
     .from(cmsPosts)
-    .where(isNull(cmsPosts.translationGroup))
+    .where(isNull(cmsPosts.deletedAt))
     .groupBy(cmsPosts.slug, cmsPosts.type)
     .having(sql`count(*) > 1`);
 
-  for (const { slug, type } of ungrouped) {
-    const groupId = crypto.randomUUID();
-    await db
-      .update(cmsPosts)
-      .set({ translationGroup: groupId })
+  for (const { slug, type } of multiLocale) {
+    const posts = await db
+      .select({
+        id: cmsPosts.id,
+        lang: cmsPosts.lang,
+        translationGroup: cmsPosts.translationGroup,
+      })
+      .from(cmsPosts)
       .where(
         and(
           eq(cmsPosts.slug, slug),
           eq(cmsPosts.type, type),
-          isNull(cmsPosts.translationGroup)
+          isNull(cmsPosts.deletedAt)
         )
       );
-    linked++;
+
+    const canonical = pickCanonicalGroup(posts) ?? crypto.randomUUID();
+
+    for (const post of posts) {
+      if (post.translationGroup !== canonical) {
+        await db
+          .update(cmsPosts)
+          .set({ translationGroup: canonical })
+          .where(eq(cmsPosts.id, post.id));
+        linked++;
+      }
+    }
   }
 
   return linked;

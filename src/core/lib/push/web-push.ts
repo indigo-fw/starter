@@ -6,6 +6,7 @@
  * No-op if VAPID keys are not configured.
  */
 import { eq } from 'drizzle-orm';
+
 import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('web-push');
@@ -19,6 +20,17 @@ interface PushPayload {
   actionUrl?: string | null;
   type?: string;
   category?: string;
+  /**
+   * Notification tag: a new push with the same tag REPLACES the one already in
+   * the tray instead of stacking (e.g. `chat:<conversationId>`, `order:<id>`).
+   * Defaults to `type` in the service worker.
+   */
+  tag?: string;
+  /** Icon / badge URLs shown by the OS (absolute or site-relative). */
+  icon?: string;
+  badge?: string;
+  /** Arbitrary data handed to the service worker's notificationclick handler. */
+  data?: Record<string, unknown>;
 }
 
 /** Lazy-initialize web-push with VAPID credentials. */
@@ -34,9 +46,10 @@ async function getWebPush(): Promise<typeof import('web-push') | null> {
   try {
     const wp = await import('web-push');
     wp.setVapidDetails(
-      env.VAPID_SUBJECT ?? `mailto:admin@${new URL(env.NEXT_PUBLIC_APP_URL).hostname}`,
+      env.VAPID_SUBJECT ??
+        `mailto:admin@${new URL(env.NEXT_PUBLIC_APP_URL).hostname}`,
       env.VAPID_PUBLIC_KEY,
-      env.VAPID_PRIVATE_KEY,
+      env.VAPID_PRIVATE_KEY
     );
     webPushModule = wp;
     logger.info('Web Push initialized with VAPID credentials');
@@ -57,12 +70,16 @@ export async function isPushEnabled(): Promise<boolean> {
  * Fire-and-forget — logs errors, never throws.
  * Automatically deletes subscriptions that return 410 Gone.
  */
-export async function sendPushToUser(userId: string, payload: PushPayload): Promise<void> {
+export async function sendPushToUser(
+  userId: string,
+  payload: PushPayload
+): Promise<void> {
   const wp = await getWebPush();
   if (!wp) return;
 
   const { db } = await import('@/server/db');
-  const { saasPushSubscriptions } = await import('@/server/db/schema/push-subscriptions');
+  const { saasPushSubscriptions } =
+    await import('@/server/db/schema/push-subscriptions');
 
   const subscriptions = await db
     .select({
@@ -83,6 +100,10 @@ export async function sendPushToUser(userId: string, payload: PushPayload): Prom
     actionUrl: payload.actionUrl ?? null,
     type: payload.type ?? 'info',
     category: payload.category ?? 'system',
+    tag: payload.tag ?? payload.type ?? 'info',
+    icon: payload.icon,
+    badge: payload.badge,
+    data: payload.data,
   });
 
   const staleIds: string[] = [];
@@ -96,7 +117,7 @@ export async function sendPushToUser(userId: string, payload: PushPayload): Prom
             keys: { p256dh: sub.p256dh, auth: sub.auth },
           },
           jsonPayload,
-          { TTL: 86400 }, // 24h
+          { TTL: 86400 } // 24h
         );
       } catch (err: unknown) {
         const statusCode = (err as { statusCode?: number })?.statusCode;
@@ -111,7 +132,7 @@ export async function sendPushToUser(userId: string, payload: PushPayload): Prom
           });
         }
       }
-    }),
+    })
   );
 
   // Clean up stale subscriptions
@@ -120,6 +141,10 @@ export async function sendPushToUser(userId: string, payload: PushPayload): Prom
     await db
       .delete(saasPushSubscriptions)
       .where(inArray(saasPushSubscriptions.id, staleIds))
-      .catch((err) => logger.error('Failed to cleanup stale push subscriptions', { error: String(err) }));
+      .catch((err) =>
+        logger.error('Failed to cleanup stale push subscriptions', {
+          error: String(err),
+        })
+      );
   }
 }

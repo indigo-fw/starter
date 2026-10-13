@@ -1,10 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { trpc } from '@/lib/trpc/client';
-import { useBlankTranslations } from '@/lib/translations';
-import { formatRelativeTime } from '@/core/lib/infra/datetime';
+
 import { CommentForm } from './CommentForm';
+
+import { useConfirm } from '@/core/hooks';
+import { formatRelativeTime } from '@/core/lib/infra/datetime';
+import { useBlankTranslations } from '@/lib/translations';
+import { trpc } from '@/lib/trpc/client';
 
 interface CommentData {
   id: string;
@@ -37,6 +40,7 @@ export function CommentItem({
   depth,
 }: CommentItemProps) {
   const __ = useBlankTranslations();
+  const confirm = useConfirm();
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(comment.content);
@@ -69,8 +73,13 @@ export function CommentItem({
     updateMutation.mutate({ id: comment.id, content: trimmed });
   };
 
-  const handleDelete = () => {
-    if (!confirm(__('Are you sure you want to delete this comment?'))) return;
+  const handleDelete = async () => {
+    const ok = await confirm({
+      title: __('Are you sure you want to delete this comment?'),
+      variant: 'danger',
+      confirmLabel: __('Delete'),
+    });
+    if (!ok) return;
     deleteMutation.mutate({ id: comment.id });
   };
 
@@ -103,7 +112,9 @@ export function CommentItem({
                 autoFocus
               />
               {updateMutation.error && (
-                <p className="comment-form-error">{updateMutation.error.message}</p>
+                <p className="comment-form-error">
+                  {updateMutation.error.message}
+                </p>
               )}
               <div className="comment-form-actions">
                 <button
@@ -155,7 +166,9 @@ export function CommentItem({
                     onClick={handleDelete}
                     disabled={deleteMutation.isPending}
                   >
-                    {deleteMutation.isPending ? __('Deleting...') : __('Delete')}
+                    {deleteMutation.isPending
+                      ? __('Deleting...')
+                      : __('Delete')}
                   </button>
                 </>
               )}

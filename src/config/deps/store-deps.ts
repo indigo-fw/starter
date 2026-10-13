@@ -3,41 +3,55 @@
  * Imported as a side-effect in server.ts.
  */
 import { eq } from 'drizzle-orm';
-import { setStoreDeps } from '@/core-store/deps';
-import { getProvider } from '@/core-payments/lib/factory';
-import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
-import { billingProfiles } from '@/core-payments/schema/billing-profile';
-import { sendNotification } from '@/server/lib/notifications';
-import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { enqueueTemplateEmail } from '@/core/lib/email';
-import { updateOrderStatus, deductOrderInventory } from '@/core-store/lib/order-service';
-import { resolveOrgId } from '@/server/lib/resolve-org';
-// app-url-runtime, not app-url: this file loads Bun-direct via serverInit,
-// where the 'server-only' guard in app-url.ts would throw (see CLAUDE.md).
-import { getServerAppUrl } from '@/lib/app-url-runtime';
-import { db } from '@/server/db';
-import { createLogger } from '@/core/lib/infra/logger';
 
 // Project totals collectors (member discount etc.) — side-effect registration
 import '@/config/store-pricing';
+import { getProvider } from '@/core-payments/lib/factory';
+import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
+import { billingProfiles } from '@/core-payments/schema/billing-profile';
+import { setStoreDeps } from '@/core-store/deps';
+import {
+  deductOrderInventory,
+  updateOrderStatus,
+} from '@/core-store/lib/order-service';
+import { enqueueTemplateEmail } from '@/core/lib/email';
+import { createLogger } from '@/core/lib/infra/logger';
+import {
+  NotificationCategory,
+  NotificationType,
+} from '@/core/types/notifications';
+// app-url-runtime, not app-url: this file loads Bun-direct via serverInit,
+// where the 'server-only' guard in app-url.ts would throw (see AGENTS.md).
+import { getServerAppUrl } from '@/lib/app-url-runtime';
+import { db } from '@/server/db';
+import { sendNotification } from '@/server/lib/notifications';
+import { resolveOrgId } from '@/server/lib/resolve-org';
 
 const logger = createLogger('store-deps');
 
 // Route one-time 'store_order' payments from provider webhooks to the store
-registerPaymentWebhookHandler('store_order', async ({ event, providerId, eventId, metadata }) => {
-  if (!metadata.orderId) {
-    logger.error('store_order webhook missing orderId metadata', { providerId, eventId });
-    return { skipped: true };
+registerPaymentWebhookHandler(
+  'store_order',
+  async ({ event, providerId, eventId, metadata }) => {
+    if (!metadata.orderId) {
+      logger.error('store_order webhook missing orderId metadata', {
+        providerId,
+        eventId,
+      });
+      return { skipped: true };
+    }
+    const { handleStorePaymentEvent } =
+      await import('@/core-store/lib/webhook-handler');
+    return handleStorePaymentEvent({
+      orderId: metadata.orderId,
+      eventType: event.type,
+      eventId,
+      providerId,
+      transactionId: (event.providerData as Record<string, unknown> | undefined)
+        ?.transactionId as string | undefined,
+    });
   }
-  const { handleStorePaymentEvent } = await import('@/core-store/lib/webhook-handler');
-  return handleStorePaymentEvent({
-    orderId: metadata.orderId,
-    eventType: event.type,
-    eventId,
-    providerId,
-    transactionId: (event.providerData as Record<string, unknown> | undefined)?.transactionId as string | undefined,
-  });
-});
+);
 
 setStoreDeps({
   resolveOrgId,
@@ -65,15 +79,33 @@ setStoreDeps({
     return profile ?? null;
   },
 
-  async createPaymentCheckout({ orderId, orderNumber, totalCents, currency, customerEmail, providerId, metadata, successUrl }) {
+  async createPaymentCheckout({
+    orderId,
+    orderNumber,
+    totalCents,
+    currency,
+    customerEmail,
+    providerId,
+    metadata,
+    successUrl,
+  }) {
     const appUrl = getServerAppUrl();
-    const defaultSuccessUrl = successUrl ?? `${appUrl}/account/orders/${orderId}?success=1`;
+    const defaultSuccessUrl =
+      successUrl ?? `${appUrl}/account/orders/${orderId}?success=1`;
     const provider = await getProvider(providerId);
 
     if (!provider) {
       // Dev mode fallback: skip payment, mark order as processing immediately
-      logger.warn('No payment provider configured — using dev mode (order auto-confirmed)', { orderId, providerId });
-      await updateOrderStatus(orderId, 'processing', 'system', 'Dev mode: payment skipped (no provider configured)');
+      logger.warn(
+        'No payment provider configured — using dev mode (order auto-confirmed)',
+        { orderId, providerId }
+      );
+      await updateOrderStatus(
+        orderId,
+        'processing',
+        'system',
+        'Dev mode: payment skipped (no provider configured)'
+      );
       await deductOrderInventory(orderId);
       return defaultSuccessUrl;
     }
@@ -107,7 +139,12 @@ setStoreDeps({
     return enqueueTemplateEmail(to, template, data as Record<string, string>);
   },
 
-  async createSubscriptionCheckout({ planId, organizationId, customerEmail, providerId }) {
+  async createSubscriptionCheckout({
+    planId,
+    organizationId,
+    customerEmail,
+    providerId,
+  }) {
     const appUrl = getServerAppUrl();
 
     // Dynamic import — core-subscriptions is optional
@@ -116,7 +153,9 @@ setStoreDeps({
 
     const provider = await subDeps.getProvider?.(providerId);
     if (!provider) {
-      throw new Error(`Payment provider "${providerId}" is not available for subscription checkout`);
+      throw new Error(
+        `Payment provider "${providerId}" is not available for subscription checkout`
+      );
     }
 
     const result = await provider.createCheckout({

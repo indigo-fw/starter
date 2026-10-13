@@ -39,15 +39,18 @@ Dependencies are wired through `setAffiliatesDeps()` in `config/deps/affiliates-
 - `paymentTransactionsTable` — a Drizzle table reference from `core-payments`, used to compute revenue breakdowns. Pass `null` if billing is not installed.
 - `getRevenueByUsers` — reserved for future use.
 
-The deps file also registers two module hooks:
+The deps file also registers three module hooks:
 
 ```typescript
 import { registerHook } from '@/core/lib/module/module-hooks';
-import { recordConversion } from '@/core-affiliates/lib/affiliates';
+import { recordConversion, recordRefund } from '@/core-affiliates/lib/affiliates';
 import { captureAttribution } from '@/core-affiliates/lib/attribution';
 
 registerHook('payment.conversion', (userId, referenceId, amountCents) =>
   recordConversion(userId, referenceId, amountCents),
+);
+registerHook('payment.refund', (userId, referenceId, amountCents) =>
+  recordRefund(userId, referenceId, amountCents),
 );
 registerHook('attribution.capture', (userId, data) =>
   captureAttribution(userId, data),
@@ -92,7 +95,7 @@ registerHook('attribution.capture', (userId, data) =>
 
 ## Integration
 
-- Call `captureAttribution()` from your auth/registration flow to record first-touch attribution, and `recordConversion()` from payment webhooks — or trigger them via the `attribution.capture` and `payment.conversion` hooks.
+- Call `captureAttribution()` from your auth/registration flow to record first-touch attribution, and `recordConversion()` / `recordRefund()` from payment webhooks — or trigger them via the `attribution.capture`, `payment.conversion` and `payment.refund` hooks. A refund claws the commission back proportionally (partial refunds included) and is idempotent per `referenceId`, so redelivered webhooks are safe.
 - `captureReferral()` records a referral after registration (active affiliates only, self-referrals blocked).
 - Render the `AttributionCapture` layout widget in your public layout to capture UTM parameters on landing.
 - The `AffiliateOverview` page widget renders in the `billing` slot; a nav item `Affiliates` is registered under the `billing` group.

@@ -1,0 +1,39 @@
+{
+  // Hide Claude Code's per-session worktrees from the SCM panel — each is a
+  // real git worktree, so VS Code would otherwise list every one as a repo.
+  "git.ignoredRepositories": [".claude/worktrees"],
+
+  // Don't watch tooling/build output — Turbopack already saturates the file
+  // watcher; excluding these noticeably reduces dev-server CPU.
+  "files.watcherExclude": {
+    "**/.claude/**": true,
+    "**/.next/**": true,
+    "**/.next-*/**": true,
+    "**/.indigo/**": true,
+    "**/node_modules/**": true,
+    "**/coverage/**": true,
+    "**/e2e/test-results/**": true,
+    "**/e2e/playwright-report/**": true
+  },
+
+  // Keep these out of search results too.
+  "search.exclude": {
+    "**/.claude/**": true,
+    "**/.next/**": true,
+    "**/.next-*/**": true,
+    "**/.indigo/**": true,
+    "**/coverage/**": true,
+    "**/locales/build/**": true,
+    "**/e2e/test-results/**": true,
+    "**/e2e/playwright-report/**": true
+  },
+
+  // Hide ephemeral worktrees from the explorer (skills/settings remain visible
+  // because they're tracked team config).
+  "files.exclude": {
+    "**/.claude/worktrees": true,
+    "**/.claude/projects": true,
+    "**/.claude/cache": true,
+    "**/.claude/*.lock": true
+  }
+}

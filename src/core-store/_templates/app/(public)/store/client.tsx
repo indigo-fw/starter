@@ -1,29 +1,36 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
-import { trpc } from '@/lib/trpc/client';
-import { useBlankTranslations } from '@/lib/translations';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import {
-  Search,
-  Package,
-  Loader2,
-  ChevronRight,
   ArrowRight,
+  ChevronRight,
   LayoutGrid,
   List,
+  Loader2,
+  Package,
+  Search,
   SlidersHorizontal,
   X,
 } from 'lucide-react';
-import { formatPrice } from '@/core-store/lib/store-utils';
-import { useSession } from '@/lib/auth-client';
-import { WishlistButton } from '@/core-store/components/product/WishlistButton';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { StarRating } from '@/core-store/components/product/StarRating';
-import '@/core-store/components/product/store-grid.css';
+import { WishlistButton } from '@/core-store/components/product/WishlistButton';
+import { formatPrice } from '@/core-store/lib/store-utils';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from '@/core/lib/storage/local-storage';
+import { useSession } from '@/lib/auth-client';
+import { useBlankTranslations } from '@/lib/translations';
+import { trpc } from '@/lib/trpc/client';
+import { cn } from '@/lib/utils';
+
 import '@/core-store/components/product/WishlistButton.css';
+import '@/core-store/components/product/store-grid.css';
 import '@/core-store/components/product/store-reviews.css';
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -74,8 +81,8 @@ function getSalePercent(price: number, compare: number): number {
 }
 
 function getInitialLayout(): LayoutMode {
-  if (typeof window === 'undefined') return 'modern';
-  return (localStorage.getItem(LAYOUT_STORAGE_KEY) as LayoutMode) || 'modern';
+  const stored = getLocalStorageItem(LAYOUT_STORAGE_KEY);
+  return stored === 'classic' ? 'classic' : 'modern';
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -135,8 +142,18 @@ function ProductCard({
             </span>
           </div>
         )}
-        <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', zIndex: 1 }}>
-          <WishlistButton productId={product.id} initialWishlisted={wishlisted} />
+        <div
+          style={{
+            position: 'absolute',
+            top: '0.5rem',
+            right: '0.5rem',
+            zIndex: 1,
+          }}
+        >
+          <WishlistButton
+            productId={product.id}
+            initialWishlisted={wishlisted}
+          />
         </div>
       </div>
       <div className="product-card-body">
@@ -155,7 +172,11 @@ function ProductCard({
           )}
         </div>
         {rating && rating.totalReviews > 0 && (
-          <StarRating rating={rating.averageRating} totalReviews={rating.totalReviews} size="sm" />
+          <StarRating
+            rating={rating.averageRating}
+            totalReviews={rating.totalReviews}
+            size="sm"
+          />
         )}
       </div>
     </Link>
@@ -189,9 +210,9 @@ function ProductListCard({
   return (
     <Link
       href={`/store/${product.slug}`}
-      className="flex gap-4 p-4 rounded-xl bg-(--surface-secondary) border border-(--border-subtle) hover:border-(--border-primary) transition-colors no-underline text-inherit"
+      className="flex gap-4 rounded-xl border border-(--border-subtle) bg-(--surface-secondary) p-4 text-inherit no-underline transition-colors hover:border-(--border-primary)"
     >
-      <div className="w-[120px] h-[120px] rounded-lg overflow-hidden shrink-0 bg-(--surface-primary) relative">
+      <div className="relative h-[120px] w-[120px] shrink-0 overflow-hidden rounded-lg bg-(--surface-primary)">
         {product.featuredImage ? (
           <Image
             src={product.featuredImage}
@@ -201,17 +222,27 @@ function ProductListCard({
             className="object-cover"
           />
         ) : (
-          <div className="flex items-center justify-center w-full h-full text-(--text-muted) opacity-40">
+          <div className="flex h-full w-full items-center justify-center text-(--text-muted) opacity-40">
             <Package size={32} />
           </div>
         )}
-        <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', zIndex: 1 }}>
-          <WishlistButton productId={product.id} initialWishlisted={wishlisted} />
+        <div
+          style={{
+            position: 'absolute',
+            top: '0.5rem',
+            right: '0.5rem',
+            zIndex: 1,
+          }}
+        >
+          <WishlistButton
+            productId={product.id}
+            initialWishlisted={wishlisted}
+          />
         </div>
       </div>
-      <div className="flex flex-col flex-1 min-w-0 py-0.5">
+      <div className="flex min-w-0 flex-1 flex-col py-0.5">
         <div className="flex items-start gap-2">
-          <span className="text-[0.9375rem] font-semibold text-(--text-primary) truncate">
+          <span className="truncate text-[0.9375rem] font-semibold text-(--text-primary)">
             {product.name}
           </span>
           {hasSale && (
@@ -226,11 +257,11 @@ function ProductListCard({
           )}
         </div>
         {product.shortDescription && (
-          <p className="text-[0.8125rem] text-(--text-muted) leading-relaxed line-clamp-2 mt-1">
+          <p className="mt-1 line-clamp-2 text-[0.8125rem] leading-relaxed text-(--text-muted)">
             {product.shortDescription}
           </p>
         )}
-        <div className="flex items-baseline gap-2 mt-auto pt-1">
+        <div className="mt-auto flex items-baseline gap-2 pt-1">
           <span className="text-[1.0625rem] font-bold text-(--text-primary)">
             {formatPrice(product.priceCents, product.currency)}
           </span>
@@ -241,7 +272,11 @@ function ProductListCard({
           )}
         </div>
         {rating && rating.totalReviews > 0 && (
-          <StarRating rating={rating.averageRating} totalReviews={rating.totalReviews} size="sm" />
+          <StarRating
+            rating={rating.averageRating}
+            totalReviews={rating.totalReviews}
+            size="sm"
+          />
         )}
       </div>
     </Link>
@@ -262,8 +297,14 @@ function GridSkeleton({ count = 8 }: { count?: number }) {
           </div>
           <div className="product-card-body">
             <div className="skeleton-line" style={{ width: '75%' }} />
-            <div className="skeleton-line" style={{ width: '100%', marginTop: 6 }} />
-            <div className="skeleton-line" style={{ width: '40%', marginTop: 12 }} />
+            <div
+              className="skeleton-line"
+              style={{ width: '100%', marginTop: 6 }}
+            />
+            <div
+              className="skeleton-line"
+              style={{ width: '40%', marginTop: 12 }}
+            />
           </div>
         </div>
       ))}
@@ -277,15 +318,18 @@ function ListSkeleton({ count = 4 }: { count?: number }) {
       {Array.from({ length: count }).map((_, i) => (
         <div
           key={i}
-          className="flex gap-4 p-4 rounded-xl bg-(--surface-secondary) border border-(--border-subtle)"
+          className="flex gap-4 rounded-xl border border-(--border-subtle) bg-(--surface-secondary) p-4"
         >
-          <div className="w-[120px] h-[120px] rounded-lg overflow-hidden shrink-0">
+          <div className="h-[120px] w-[120px] shrink-0 overflow-hidden rounded-lg">
             <div className="skeleton-box" />
           </div>
-          <div className="flex flex-col flex-1 gap-2 py-1">
+          <div className="flex flex-1 flex-col gap-2 py-1">
             <div className="skeleton-line" style={{ width: '50%' }} />
             <div className="skeleton-line" style={{ width: '80%' }} />
-            <div className="skeleton-line" style={{ width: '30%', marginTop: 'auto' }} />
+            <div
+              className="skeleton-line"
+              style={{ width: '30%', marginTop: 'auto' }}
+            />
           </div>
         </div>
       ))}
@@ -338,16 +382,16 @@ function Pagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center gap-4 mt-10">
+    <div className="mt-10 flex items-center justify-center gap-4">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page <= 1}
         className={cn(
-          'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+          'rounded-lg px-4 py-2 text-sm font-medium transition-colors',
           'border border-(--border-primary) bg-(--surface-secondary)',
           page <= 1
-            ? 'opacity-40 cursor-not-allowed'
-            : 'hover:border-(--border-primary) hover:bg-(--surface-hover) cursor-pointer',
+            ? 'cursor-not-allowed opacity-40'
+            : 'cursor-pointer hover:border-(--border-primary) hover:bg-(--surface-hover)'
         )}
       >
         {__('Previous')}
@@ -359,11 +403,11 @@ function Pagination({
         onClick={() => onPageChange(page + 1)}
         disabled={page >= totalPages}
         className={cn(
-          'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+          'rounded-lg px-4 py-2 text-sm font-medium transition-colors',
           'border border-(--border-primary) bg-(--surface-secondary)',
           page >= totalPages
-            ? 'opacity-40 cursor-not-allowed'
-            : 'hover:border-(--border-primary) hover:bg-(--surface-hover) cursor-pointer',
+            ? 'cursor-not-allowed opacity-40'
+            : 'cursor-pointer hover:border-(--border-primary) hover:bg-(--surface-hover)'
         )}
       >
         {__('Next')}
@@ -387,13 +431,21 @@ function LayoutSwitcher({
     <button
       onClick={onToggle}
       className={cn(
-        'flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-colors',
+        'flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors',
         'border border-(--border-primary) bg-(--surface-secondary) text-(--text-muted)',
-        'hover:text-(--text-primary) hover:border-(--border-primary) cursor-pointer',
+        'cursor-pointer hover:border-(--border-primary) hover:text-(--text-primary)'
       )}
-      title={layout === 'modern' ? 'Switch to classic layout' : 'Switch to modern layout'}
+      title={
+        layout === 'modern'
+          ? 'Switch to classic layout'
+          : 'Switch to modern layout'
+      }
     >
-      {layout === 'modern' ? <SlidersHorizontal size={14} /> : <LayoutGrid size={14} />}
+      {layout === 'modern' ? (
+        <SlidersHorizontal size={14} />
+      ) : (
+        <LayoutGrid size={14} />
+      )}
     </button>
   );
 }
@@ -402,7 +454,13 @@ function LayoutSwitcher({
    Hero Section (modern layout)
    ═══════════════════════════════════════════════════════════════════════════ */
 
-function HeroProduct({ product, __ }: { product: Product; __: (s: string) => string }) {
+function HeroProduct({
+  product,
+  __,
+}: {
+  product: Product;
+  __: (s: string) => string;
+}) {
   return (
     <Link href={`/store/${product.slug}`} className="store-hero">
       <div className="store-hero-image">
@@ -415,13 +473,15 @@ function HeroProduct({ product, __ }: { product: Product; __: (s: string) => str
             priority
           />
         ) : (
-          <div className="flex items-center justify-center w-full h-full text-(--text-muted) opacity-30">
+          <div className="flex h-full w-full items-center justify-center text-(--text-muted) opacity-30">
             <Package size={80} />
           </div>
         )}
       </div>
       <div className="store-hero-content">
-        <div className="product-card-badge product-card-badge-sale">{__('Sale')}</div>
+        <div className="product-card-badge product-card-badge-sale">
+          {__('Sale')}
+        </div>
         <h2 className="store-hero-title">{product.name}</h2>
         {product.shortDescription && (
           <p className="store-hero-desc">{product.shortDescription}</p>
@@ -472,7 +532,12 @@ function ClassicSidebar({
   onApplyPrice: () => void;
   onClearPrice: () => void;
   hasPriceFilter: boolean;
-  filterableAttributes?: { id: string; name: string; slug: string; values: string[] }[];
+  filterableAttributes?: {
+    id: string;
+    name: string;
+    slug: string;
+    values: string[];
+  }[];
   __: (s: string) => string;
 }) {
   const rootCategories = categories.filter((c) => !c.parentId);
@@ -486,10 +551,10 @@ function ClassicSidebar({
         <button
           onClick={() => onSelectCategory(isActive ? null : cat.slug)}
           className={cn(
-            'w-full text-left text-sm py-1.5 px-3 rounded-lg transition-colors cursor-pointer',
+            'w-full cursor-pointer rounded-lg px-3 py-1.5 text-left text-sm transition-colors',
             isActive
-              ? 'bg-brand-500/10 text-brand-500 font-medium'
-              : 'text-(--text-secondary) hover:bg-(--surface-hover) hover:text-(--text-primary)',
+              ? 'bg-brand-500/10 font-medium text-brand-500'
+              : 'text-(--text-secondary) hover:bg-(--surface-hover) hover:text-(--text-primary)'
           )}
           style={{ paddingLeft: `${0.75 + depth * 1}rem` }}
         >
@@ -505,19 +570,19 @@ function ClassicSidebar({
   }
 
   return (
-    <aside className="w-[280px] shrink-0 sticky top-[calc(var(--app-header-h,3.5rem)+1.5rem)] self-start">
+    <aside className="sticky top-[calc(var(--app-header-h,3.5rem)+1.5rem)] w-[280px] shrink-0 self-start">
       {/* Categories */}
-      <div className="border-b border-(--border-subtle) pb-4 mb-4">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-(--text-muted) mb-2 px-3">
+      <div className="mb-4 border-b border-(--border-subtle) pb-4">
+        <h3 className="mb-2 px-3 text-xs font-semibold tracking-wider text-(--text-muted) uppercase">
           {__('Categories')}
         </h3>
         <button
           onClick={() => onSelectCategory(null)}
           className={cn(
-            'w-full text-left text-sm py-1.5 px-3 rounded-lg transition-colors cursor-pointer',
+            'w-full cursor-pointer rounded-lg px-3 py-1.5 text-left text-sm transition-colors',
             !activeSlug
-              ? 'bg-brand-500/10 text-brand-500 font-medium'
-              : 'text-(--text-secondary) hover:bg-(--surface-hover) hover:text-(--text-primary)',
+              ? 'bg-brand-500/10 font-medium text-brand-500'
+              : 'text-(--text-secondary) hover:bg-(--surface-hover) hover:text-(--text-primary)'
           )}
         >
           {__('All Products')}
@@ -526,8 +591,8 @@ function ClassicSidebar({
       </div>
 
       {/* Price Range */}
-      <div className="border-b border-(--border-subtle) pb-4 mb-4">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-(--text-muted) mb-3 px-3">
+      <div className="mb-4 border-b border-(--border-subtle) pb-4">
+        <h3 className="mb-3 px-3 text-xs font-semibold tracking-wider text-(--text-muted) uppercase">
           {__('Price Range')}
         </h3>
         <div className="flex gap-2 px-3">
@@ -537,9 +602,9 @@ function ClassicSidebar({
             value={priceMin}
             onChange={(e) => onPriceMinChange(e.target.value)}
             className={cn(
-              'w-full h-9 px-2.5 rounded-lg text-sm',
+              'h-9 w-full rounded-lg px-2.5 text-sm',
               'border border-(--border-primary) bg-(--surface-secondary) text-(--text-primary)',
-              'outline-none focus:border-brand-400 transition-colors',
+              'transition-colors outline-none focus:border-brand-400'
             )}
           />
           <input
@@ -548,18 +613,18 @@ function ClassicSidebar({
             value={priceMax}
             onChange={(e) => onPriceMaxChange(e.target.value)}
             className={cn(
-              'w-full h-9 px-2.5 rounded-lg text-sm',
+              'h-9 w-full rounded-lg px-2.5 text-sm',
               'border border-(--border-primary) bg-(--surface-secondary) text-(--text-primary)',
-              'outline-none focus:border-brand-400 transition-colors',
+              'transition-colors outline-none focus:border-brand-400'
             )}
           />
         </div>
-        <div className="flex gap-2 mt-2 px-3">
+        <div className="mt-2 flex gap-2 px-3">
           <button
             onClick={onApplyPrice}
             className={cn(
-              'flex-1 h-8 rounded-lg text-xs font-medium transition-colors cursor-pointer',
-              'bg-brand-500 text-white hover:bg-brand-600',
+              'h-8 flex-1 cursor-pointer rounded-lg text-xs font-medium transition-colors',
+              'bg-brand-500 text-white hover:bg-brand-600'
             )}
           >
             {__('Apply')}
@@ -568,8 +633,8 @@ function ClassicSidebar({
             <button
               onClick={onClearPrice}
               className={cn(
-                'h-8 px-2.5 rounded-lg text-xs font-medium transition-colors cursor-pointer',
-                'border border-(--border-primary) text-(--text-muted) hover:text-(--text-primary)',
+                'h-8 cursor-pointer rounded-lg px-2.5 text-xs font-medium transition-colors',
+                'border border-(--border-primary) text-(--text-muted) hover:text-(--text-primary)'
               )}
             >
               <X size={12} />
@@ -581,14 +646,17 @@ function ClassicSidebar({
       {/* Attribute Filters */}
       {/* TODO: Server-side attribute filtering can be added to the products router for full filtering support */}
       {filterableAttributes?.map((attr) => (
-        <div key={attr.id} className="border-b border-(--border-subtle) pb-4 mb-4">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-(--text-muted) mb-2 px-3">
+        <div
+          key={attr.id}
+          className="mb-4 border-b border-(--border-subtle) pb-4"
+        >
+          <h3 className="mb-2 px-3 text-xs font-semibold tracking-wider text-(--text-muted) uppercase">
             {attr.name}
           </h3>
           {attr.values.map((val) => (
             <div
               key={val}
-              className="w-full text-left text-sm py-1.5 px-3 rounded-lg text-(--text-secondary)"
+              className="w-full rounded-lg px-3 py-1.5 text-left text-sm text-(--text-secondary)"
             >
               {val}
             </div>
@@ -652,7 +720,11 @@ export function StorePageClient() {
     (params: Record<string, string | null>) => {
       const sp = new URLSearchParams(searchParams.toString());
       for (const [key, value] of Object.entries(params)) {
-        if (value == null || value === '' || value === '1' && key === 'page') {
+        if (
+          value == null ||
+          value === '' ||
+          (value === '1' && key === 'page')
+        ) {
           sp.delete(key);
         } else {
           sp.set(key, value);
@@ -661,7 +733,7 @@ export function StorePageClient() {
       const qs = sp.toString();
       router.push(qs ? `/store?${qs}` : '/store', { scroll: false });
     },
-    [router, searchParams],
+    [router, searchParams]
   );
 
   useEffect(() => {
@@ -676,14 +748,14 @@ export function StorePageClient() {
       updateUrl({ category: slug, page: null });
       setMobileSidebarOpen(false);
     },
-    [updateUrl],
+    [updateUrl]
   );
 
   const handleSortChange = useCallback(
     (sort: SortOption) => {
       updateUrl({ sort: sort === 'newest' ? null : sort, page: null });
     },
-    [updateUrl],
+    [updateUrl]
   );
 
   const handlePageChange = useCallback(
@@ -691,13 +763,13 @@ export function StorePageClient() {
       updateUrl({ page: page <= 1 ? null : String(page) });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
-    [updateUrl],
+    [updateUrl]
   );
 
   const toggleLayout = useCallback(() => {
     setLayout((prev) => {
       const next = prev === 'modern' ? 'classic' : 'modern';
-      localStorage.setItem(LAYOUT_STORAGE_KEY, next);
+      setLocalStorageItem(LAYOUT_STORAGE_KEY, next);
       return next;
     });
   }, []);
@@ -731,7 +803,10 @@ export function StorePageClient() {
 
   // Memoized so downstream useMemos (productIds, filteredProducts) get a
   // stable identity instead of a fresh `?? []` array every render.
-  const products = useMemo(() => productsQuery.data?.results ?? [], [productsQuery.data]);
+  const products = useMemo(
+    () => productsQuery.data?.results ?? [],
+    [productsQuery.data]
+  );
   const totalPages = productsQuery.data?.totalPages ?? 1;
   const total = productsQuery.data?.total ?? 0;
   const isLoading = productsQuery.isLoading;
@@ -742,29 +817,30 @@ export function StorePageClient() {
 
   const { data: wishlistData } = trpc.storeWishlist.checkMany.useQuery(
     { productIds },
-    { enabled: !!session?.user && productIds.length > 0 },
+    { enabled: !!session?.user && productIds.length > 0 }
   );
   const wishlistedIds = useMemo(
     () => new Set(wishlistData?.wishlistedIds ?? []),
-    [wishlistData],
+    [wishlistData]
   );
 
   /* ── Ratings batch query ─────────────────────────────────────────────── */
 
   const { data: ratingsData } = trpc.storeReviews.getProductRatings.useQuery(
     { productIds },
-    { enabled: productIds.length > 0 },
+    { enabled: productIds.length > 0 }
   );
   const ratingsMap = useMemo(
     () => new Map((ratingsData ?? []).map((r) => [r.productId, r])),
-    [ratingsData],
+    [ratingsData]
   );
 
   /* ── Filterable attributes (classic sidebar) ─────────────────────────── */
 
-  const { data: filterableAttributes } = trpc.storeAttributes.listFilterable.useQuery(
-    { categorySlug: urlCategory ?? undefined },
-  );
+  const { data: filterableAttributes } =
+    trpc.storeAttributes.listFilterable.useQuery({
+      categorySlug: urlCategory ?? undefined,
+    });
 
   /* ── Derived data ─────────────────────────────────────────────────────── */
 
@@ -785,12 +861,14 @@ export function StorePageClient() {
   // Hero: first on-sale product (modern layout only)
   const heroProduct = useMemo(() => {
     if (layout !== 'modern') return null;
-    return filteredProducts.find(
-      (p) =>
-        p.comparePriceCents != null &&
-        p.priceCents != null &&
-        p.comparePriceCents > p.priceCents,
-    ) ?? null;
+    return (
+      filteredProducts.find(
+        (p) =>
+          p.comparePriceCents != null &&
+          p.priceCents != null &&
+          p.comparePriceCents > p.priceCents
+      ) ?? null
+    );
   }, [filteredProducts, layout]);
 
   const gridProducts = useMemo(() => {
@@ -863,13 +941,13 @@ export function StorePageClient() {
 
   function renderClassicLayout() {
     return (
-      <div className="flex gap-8 relative">
+      <div className="relative flex gap-8">
         {/* Mobile sidebar toggle */}
         <button
           onClick={() => setMobileSidebarOpen(true)}
           className={cn(
-            'md:hidden flex items-center gap-1.5 mb-4 px-3 py-2 rounded-lg text-sm font-medium cursor-pointer',
-            'border border-(--border-primary) bg-(--surface-secondary) text-(--text-secondary)',
+            'mb-4 flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium md:hidden',
+            'border border-(--border-primary) bg-(--surface-secondary) text-(--text-secondary)'
           )}
         >
           <SlidersHorizontal size={14} />
@@ -901,12 +979,14 @@ export function StorePageClient() {
               className="absolute inset-0 bg-black/40"
               onClick={() => setMobileSidebarOpen(false)}
             />
-            <div className="absolute left-0 top-0 bottom-0 w-[300px] bg-(--surface-primary) p-4 overflow-y-auto shadow-xl">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-(--text-primary)">{__('Filters')}</h3>
+            <div className="absolute top-0 bottom-0 left-0 w-[300px] overflow-y-auto bg-(--surface-primary) p-4 shadow-xl">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-(--text-primary)">
+                  {__('Filters')}
+                </h3>
                 <button
                   onClick={() => setMobileSidebarOpen(false)}
-                  className="p-1 rounded-md hover:bg-(--surface-hover) cursor-pointer"
+                  className="cursor-pointer rounded-md p-1 hover:bg-(--surface-hover)"
                 >
                   <X size={18} />
                 </button>
@@ -921,7 +1001,9 @@ export function StorePageClient() {
                 onPriceMaxChange={setPriceMax}
                 onApplyPrice={handleApplyPrice}
                 onClearPrice={handleClearPrice}
-                hasPriceFilter={appliedPriceMin != null || appliedPriceMax != null}
+                hasPriceFilter={
+                  appliedPriceMin != null || appliedPriceMax != null
+                }
                 filterableAttributes={filterableAttributes}
                 __={__}
               />
@@ -930,7 +1012,7 @@ export function StorePageClient() {
         )}
 
         {/* Main content */}
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           {/* Breadcrumb */}
           <div className="store-breadcrumb">
             <Link href="/store">{__('Store')}</Link>
@@ -943,20 +1025,21 @@ export function StorePageClient() {
           </div>
 
           {/* Sort bar */}
-          <div className="flex items-center justify-between gap-4 mb-5 flex-wrap">
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
             <span className="text-sm text-(--text-muted)">
-              {__('Showing')} {filteredProducts.length} {__('of')} {total} {__('products')}
+              {__('Showing')} {filteredProducts.length} {__('of')} {total}{' '}
+              {__('products')}
             </span>
             <div className="flex items-center gap-2">
               <SortSelect value={urlSort} onChange={handleSortChange} __={__} />
-              <div className="flex rounded-lg border border-(--border-primary) overflow-hidden">
+              <div className="flex overflow-hidden rounded-lg border border-(--border-primary)">
                 <button
                   onClick={() => setViewMode('grid')}
                   className={cn(
-                    'p-2 transition-colors cursor-pointer',
+                    'cursor-pointer p-2 transition-colors',
                     viewMode === 'grid'
                       ? 'bg-brand-500 text-white'
-                      : 'bg-(--surface-secondary) text-(--text-muted) hover:text-(--text-primary)',
+                      : 'bg-(--surface-secondary) text-(--text-muted) hover:text-(--text-primary)'
                   )}
                 >
                   <LayoutGrid size={14} />
@@ -964,10 +1047,10 @@ export function StorePageClient() {
                 <button
                   onClick={() => setViewMode('list')}
                   className={cn(
-                    'p-2 transition-colors cursor-pointer',
+                    'cursor-pointer p-2 transition-colors',
                     viewMode === 'list'
                       ? 'bg-brand-500 text-white'
-                      : 'bg-(--surface-secondary) text-(--text-muted) hover:text-(--text-primary)',
+                      : 'bg-(--surface-secondary) text-(--text-muted) hover:text-(--text-primary)'
                   )}
                 >
                   <List size={14} />
@@ -978,7 +1061,11 @@ export function StorePageClient() {
 
           {/* Products */}
           {isLoading ? (
-            viewMode === 'grid' ? <GridSkeleton /> : <ListSkeleton />
+            viewMode === 'grid' ? (
+              <GridSkeleton />
+            ) : (
+              <ListSkeleton />
+            )
           ) : filteredProducts.length === 0 ? (
             <EmptyState __={__} />
           ) : viewMode === 'grid' ? (
@@ -1038,7 +1125,9 @@ export function StorePageClient() {
       {/* Header */}
       <div className="store-header">
         <h1 className="store-title">{__('Store')}</h1>
-        <p className="store-subtitle">{__('Browse our collection of products')}</p>
+        <p className="store-subtitle">
+          {__('Browse our collection of products')}
+        </p>
       </div>
 
       {/* Toolbar */}
@@ -1055,7 +1144,9 @@ export function StorePageClient() {
         {layout === 'modern' && (
           <SortSelect value={urlSort} onChange={handleSortChange} __={__} />
         )}
-        {isLoading && <Loader2 size={16} className="animate-spin text-(--text-muted)" />}
+        {isLoading && (
+          <Loader2 size={16} className="animate-spin text-(--text-muted)" />
+        )}
         <div className="ml-auto">
           <LayoutSwitcher layout={layout} onToggle={toggleLayout} />
         </div>

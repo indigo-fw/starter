@@ -1,0 +1,26 @@
+# Build output and caches
+.next/
+.next-*/
+.indigo/
+coverage/
+node_modules/
+bun.lock
+
+# Generated — the generators own the formatting (indigo:sync, drizzle-kit, po-to-json)
+src/generated/
+drizzle/
+locales/build/
+
+# Static assets
+public/
+
+# Authored content: MDX is whitespace-sensitive (single-line component
+# children parse differently), and prettier would reflow prose.
+content/
+docs/
+docs-site/
+
+# Agent config folders (skill markdown, worktrees)
+.agents/
+.claude/
+.codex/

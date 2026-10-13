@@ -251,6 +251,7 @@ const {
   invalidateContentCache,
   loadAllFileContent,
 } = await import('../content/loader');
+const { pickCanonicalGroup } = await import('../content/sync');
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 
@@ -581,5 +582,69 @@ Updated.`);
     const second = loadAllFileContent();
     expect(second[0].frontmatter.title).toBe('Version 2');
     expect(first).not.toBe(second);
+  });
+});
+
+// ─── pickCanonicalGroup (pure) ───────────────────────────────────────────────
+// Decision logic for Step 2 translation grouping: which group a same-slug
+// locale set converges on. The DB walk around it is exercised by live sync.
+
+describe('pickCanonicalGroup', () => {
+  it('prefers the default-locale (en) post group', () => {
+    expect(
+      pickCanonicalGroup([
+        { lang: 'de', translationGroup: 'group-de' },
+        { lang: 'en', translationGroup: 'group-en' },
+        { lang: 'fr', translationGroup: null },
+      ])
+    ).toBe('group-en');
+  });
+
+  it('backfills a lone ungrouped latecomer into its siblings group', () => {
+    // en+de already grouped, fr synced later with NULL group — the old
+    // count-of-ungrouped logic skipped this case forever.
+    expect(
+      pickCanonicalGroup([
+        { lang: 'en', translationGroup: 'shared' },
+        { lang: 'de', translationGroup: 'shared' },
+        { lang: 'fr', translationGroup: null },
+      ])
+    ).toBe('shared');
+  });
+
+  it('merges a split set onto the en group', () => {
+    expect(
+      pickCanonicalGroup([
+        { lang: 'en', translationGroup: 'group-a' },
+        { lang: 'de', translationGroup: 'group-b' },
+      ])
+    ).toBe('group-a');
+  });
+
+  it('falls back to any existing group when en has none', () => {
+    expect(
+      pickCanonicalGroup([
+        { lang: 'en', translationGroup: null },
+        { lang: 'es', translationGroup: 'group-es' },
+      ])
+    ).toBe('group-es');
+  });
+
+  it('falls back to the first existing group when there is no en post', () => {
+    expect(
+      pickCanonicalGroup([
+        { lang: 'de', translationGroup: null },
+        { lang: 'fr', translationGroup: 'group-fr' },
+      ])
+    ).toBe('group-fr');
+  });
+
+  it('returns null when every member is ungrouped (caller mints)', () => {
+    expect(
+      pickCanonicalGroup([
+        { lang: 'en', translationGroup: null },
+        { lang: 'de', translationGroup: null },
+      ])
+    ).toBeNull();
   });
 });

@@ -1,35 +1,44 @@
-import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { eq, and, desc, sql, gte, lte, inArray } from 'drizzle-orm';
-import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
+import { and, desc, eq, gte, inArray, lte, sql } from 'drizzle-orm';
+import { z } from 'zod';
+
+import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
+import {
+  getBillingConfig,
+  getTokenPack,
+} from '@/core-subscriptions/lib/billing-config';
+import {
+  applyDiscount,
+  getActiveDiscount,
+  removeDiscount,
+  validateCode,
+} from '@/core-subscriptions/lib/discount-service';
 import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
 import {
-  validateCode,
-  applyDiscount,
-  removeDiscount,
-  getActiveDiscount,
-} from '@/core-subscriptions/lib/discount-service';
-import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
-import { member } from '@/server/db/schema/organization';
-import {
-  saasSubscriptions,
-  saasDiscountCodes,
-} from '@/core-subscriptions/schema/subscriptions';
-import { organization } from '@/server/db/schema/organization';
-import { getStats as getCachedStats } from '@/core/lib/infra/stats-cache';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { user as _user } from '@/server/db/schema/auth';
-import {
-  getTokenBalanceRecord,
   addTokens,
   deductTokens,
+  getTokenBalanceRecord,
   getTokenTransactions,
 } from '@/core-subscriptions/lib/token-service';
-import { getBillingConfig, getTokenPack } from '@/core-subscriptions/lib/billing-config';
+import {
+  saasDiscountCodes,
+  saasSubscriptions,
+} from '@/core-subscriptions/schema/subscriptions';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { getStats as getCachedStats } from '@/core/lib/infra/stats-cache';
 // app-url-runtime, not app-url: appRouter is reachable from Bun-direct code
 // (MCP discovery), where the 'server-only' guard in app-url.ts would throw.
 import { getServerAppUrl } from '@/lib/app-url-runtime';
 import type { db } from '@/server/db';
+import { user as _user } from '@/server/db/schema/auth';
+import { member } from '@/server/db/schema/organization';
+import { organization } from '@/server/db/schema/organization';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  sectionProcedure,
+} from '@/server/trpc';
 
 const billingAdminProcedure = sectionProcedure('billing');
 
@@ -42,7 +51,8 @@ const subscriptionProcedure = protectedProcedure.use(({ next }) => {
   if (getBillingConfig().mode === 'tokens') {
     throw new TRPCError({
       code: 'PRECONDITION_FAILED',
-      message: 'This site uses token-based billing — subscriptions are disabled',
+      message:
+        'This site uses token-based billing — subscriptions are disabled',
     });
   }
   return next();
@@ -63,12 +73,20 @@ async function requireBillingAdmin(ctx: {
   activeOrganizationId: string | null;
   session: { user: { id: string } };
 }): Promise<string> {
-  const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+  const orgId = await getSubscriptionsDeps().resolveOrgId(
+    ctx.activeOrganizationId,
+    ctx.session.user.id
+  );
 
   const [memberRecord] = await ctx.db
     .select()
     .from(member)
-    .where(and(eq(member.organizationId, orgId), eq(member.userId, ctx.session.user.id)))
+    .where(
+      and(
+        eq(member.organizationId, orgId),
+        eq(member.userId, ctx.session.user.id)
+      )
+    )
     .limit(1);
 
   if (!memberRecord || !['owner', 'admin'].includes(memberRecord.role)) {
@@ -85,7 +103,10 @@ async function requireBillingAdmin(ctx: {
  * Checkout redirect URLs. Uses getServerAppUrl() — NEXT_PUBLIC_APP_URL is
  * inlined at build time and yields localhost URLs on pre-built images.
  */
-function checkoutReturnUrls(page: string, successQuery: string): { successUrl: string; cancelUrl: string } {
+function checkoutReturnUrls(
+  page: string,
+  successQuery: string
+): { successUrl: string; cancelUrl: string } {
   const appUrl = getServerAppUrl();
   return {
     successUrl: `${appUrl}${page}?${successQuery}`,
@@ -104,7 +125,9 @@ export const billingRouter = createTRPCRouter({
   }),
 
   getPlans: protectedProcedure.query(() => {
-    return getSubscriptionsDeps().getPlans().map(({ providerPrices: _pp, ...plan }) => plan);
+    return getSubscriptionsDeps()
+      .getPlans()
+      .map(({ providerPrices: _pp, ...plan }) => plan);
   }),
 
   getProviders: protectedProcedure.query(() => {
@@ -112,7 +135,10 @@ export const billingRouter = createTRPCRouter({
   }),
 
   getSubscription: protectedProcedure.query(async ({ ctx }) => {
-    const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+    const orgId = await getSubscriptionsDeps().resolveOrgId(
+      ctx.activeOrganizationId,
+      ctx.session.user.id
+    );
     const sub = await getSubscription(orgId);
     if (!sub) return { planId: 'free', status: 'active' as const };
     return sub;
@@ -130,7 +156,8 @@ export const billingRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       assertBillingEnabled();
 
-      const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
+      const provider =
+        (await getSubscriptionsDeps().getProvider?.(input.providerId)) ?? null;
       if (!provider) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -139,7 +166,10 @@ export const billingRouter = createTRPCRouter({
       }
 
       // Check interval is allowed for this provider
-      if (provider.config.allowedIntervals && !provider.config.allowedIntervals.includes(input.interval)) {
+      if (
+        provider.config.allowedIntervals &&
+        !provider.config.allowedIntervals.includes(input.interval)
+      ) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: `${provider.config.name} only supports ${provider.config.allowedIntervals.join(', ')} billing`,
@@ -153,8 +183,10 @@ export const billingRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Plan not found' });
       }
 
-      const originalPriceCents = input.interval === 'yearly' ? plan.priceYearly : plan.priceMonthly;
-      let resolvedDiscount: import('@/core-payments/types/payment').DiscountDefinition | undefined;
+      const originalPriceCents =
+        input.interval === 'yearly' ? plan.priceYearly : plan.priceMonthly;
+      let resolvedDiscount:
+        import('@/core-payments/types/payment').DiscountDefinition | undefined;
       let finalPriceCents: number | undefined;
 
       // Validate discount code if provided
@@ -165,13 +197,20 @@ export const billingRouter = createTRPCRouter({
           input.discountCode,
           ctx.session.user.id,
           input.planId,
-          originalPriceCents,
+          originalPriceCents
         );
         if (!validation.valid) {
-          throw new TRPCError({ code: 'BAD_REQUEST', message: validation.message ?? 'Invalid discount code' });
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: validation.message ?? 'Invalid discount code',
+          });
         }
         // Apply the discount (creates usage record)
-        const applied = await applyDiscount(input.discountCode, ctx.session.user.id, input.planId);
+        const applied = await applyDiscount(
+          input.discountCode,
+          ctx.session.user.id,
+          input.planId
+        );
         resolvedDiscount = applied.discount;
         discountUsageId = applied.usageId;
         discountCodeId = applied.discountCodeId;
@@ -204,7 +243,8 @@ export const billingRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
+      const provider =
+        (await getSubscriptionsDeps().getProvider?.(input.providerId)) ?? null;
       if (!provider?.createPortalSession) {
         throw new TRPCError({
           code: 'PRECONDITION_FAILED',
@@ -212,7 +252,10 @@ export const billingRouter = createTRPCRouter({
         });
       }
 
-      const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await getSubscriptionsDeps().resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       const url = await provider.createPortalSession(
         orgId,
         `${getServerAppUrl()}/dashboard/settings/billing`
@@ -223,10 +266,12 @@ export const billingRouter = createTRPCRouter({
   // ─── Discount Code mutations (customer-facing) ───────────────────────────
 
   applyDiscountCode: subscriptionProcedure
-    .input(z.object({
-      code: z.string().min(1).max(50),
-      planId: z.string().min(1).max(50),
-    }))
+    .input(
+      z.object({
+        code: z.string().min(1).max(50),
+        planId: z.string().min(1).max(50),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const plan = getSubscriptionsDeps().getPlan(input.planId);
       if (!plan) {
@@ -237,14 +282,21 @@ export const billingRouter = createTRPCRouter({
         input.code,
         ctx.session.user.id,
         input.planId,
-        plan.priceYearly,
+        plan.priceYearly
       );
 
       if (!validation.valid) {
-        throw new TRPCError({ code: 'BAD_REQUEST', message: validation.message ?? 'Invalid discount code' });
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: validation.message ?? 'Invalid discount code',
+        });
       }
 
-      const { discount } = await applyDiscount(input.code, ctx.session.user.id, input.planId);
+      const { discount } = await applyDiscount(
+        input.code,
+        ctx.session.user.id,
+        input.planId
+      );
       return { discount, finalPriceCents: validation.finalPriceCents };
     }),
 
@@ -273,7 +325,8 @@ export const billingRouter = createTRPCRouter({
 
       const orgId = await requireBillingAdmin(ctx);
 
-      const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
+      const provider =
+        (await getSubscriptionsDeps().getProvider?.(input.providerId)) ?? null;
       if (!provider) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -311,10 +364,14 @@ export const billingRouter = createTRPCRouter({
 
       const pack = getTokenPack(input.packId);
       if (!pack) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Token pack not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Token pack not found',
+        });
       }
 
-      const provider = await getSubscriptionsDeps().getProvider?.(input.providerId) ?? null;
+      const provider =
+        (await getSubscriptionsDeps().getProvider?.(input.providerId)) ?? null;
       if (!provider) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -354,126 +411,154 @@ export const billingRouter = createTRPCRouter({
 
   getStats: billingAdminProcedure
     .input(
-      z.object({
-        from: z.string().datetime().optional(),
-        to: z.string().datetime().optional(),
-      }).optional()
+      z
+        .object({
+          from: z.string().datetime().optional(),
+          to: z.string().datetime().optional(),
+        })
+        .optional()
     )
     .query(async ({ ctx, input }) => {
       const from = input?.from;
       const to = input?.to;
       const cacheKey = `billing:stats:${from ?? 'all'}:${to ?? 'all'}`;
 
-      return getCachedStats(cacheKey, async () => {
-        const dateConditions = [];
-        if (from) dateConditions.push(gte(saasSubscriptions.createdAt, new Date(from)));
-        if (to) dateConditions.push(lte(saasSubscriptions.createdAt, new Date(to)));
+      return getCachedStats(
+        cacheKey,
+        async () => {
+          const dateConditions = [];
+          if (from)
+            dateConditions.push(
+              gte(saasSubscriptions.createdAt, new Date(from))
+            );
+          if (to)
+            dateConditions.push(lte(saasSubscriptions.createdAt, new Date(to)));
 
-        // Active subscriptions by plan
-        const planDistribution = await ctx.db
-          .select({
-            planId: saasSubscriptions.planId,
-            count: sql<number>`count(*)`.as('count'),
-          })
-          .from(saasSubscriptions)
-          .where(and(eq(saasSubscriptions.status, 'active'), ...dateConditions))
-          .groupBy(saasSubscriptions.planId);
+          // Active subscriptions by plan
+          const planDistribution = await ctx.db
+            .select({
+              planId: saasSubscriptions.planId,
+              count: sql<number>`count(*)`.as('count'),
+            })
+            .from(saasSubscriptions)
+            .where(
+              and(eq(saasSubscriptions.status, 'active'), ...dateConditions)
+            )
+            .groupBy(saasSubscriptions.planId);
 
-        const totalActive = planDistribution.reduce((sum, p) => sum + Number(p.count), 0);
-
-        // MRR calculation — group by plan+provider+priceId to avoid fetching individual rows
-        const activeSubGroups = await ctx.db
-          .select({
-            planId: saasSubscriptions.planId,
-            providerId: saasSubscriptions.providerId,
-            providerPriceId: saasSubscriptions.providerPriceId,
-            count: sql<number>`count(*)`.as('count'),
-          })
-          .from(saasSubscriptions)
-          .where(eq(saasSubscriptions.status, 'active'))
-          .groupBy(
-            saasSubscriptions.planId,
-            saasSubscriptions.providerId,
-            saasSubscriptions.providerPriceId,
+          const totalActive = planDistribution.reduce(
+            (sum, p) => sum + Number(p.count),
+            0
           );
 
-        let mrr = 0;
-        for (const group of activeSubGroups) {
-          const plan = getSubscriptionsDeps().getPlan(group.planId);
-          if (!plan) continue;
-          let isYearly = false;
-          if (group.providerPriceId && group.providerId) {
-            const prices = plan.providerPrices[group.providerId];
-            if (prices) isYearly = prices.yearly === group.providerPriceId;
+          // MRR calculation — group by plan+provider+priceId to avoid fetching individual rows
+          const activeSubGroups = await ctx.db
+            .select({
+              planId: saasSubscriptions.planId,
+              providerId: saasSubscriptions.providerId,
+              providerPriceId: saasSubscriptions.providerPriceId,
+              count: sql<number>`count(*)`.as('count'),
+            })
+            .from(saasSubscriptions)
+            .where(eq(saasSubscriptions.status, 'active'))
+            .groupBy(
+              saasSubscriptions.planId,
+              saasSubscriptions.providerId,
+              saasSubscriptions.providerPriceId
+            );
+
+          let mrr = 0;
+          for (const group of activeSubGroups) {
+            const plan = getSubscriptionsDeps().getPlan(group.planId);
+            if (!plan) continue;
+            let isYearly = false;
+            if (group.providerPriceId && group.providerId) {
+              const prices = plan.providerPrices[group.providerId];
+              if (prices) isYearly = prices.yearly === group.providerPriceId;
+            }
+            if (group.providerId === 'nowpayments') isYearly = true;
+            const centsPerSub = isYearly
+              ? Math.round(plan.priceYearly / 12)
+              : plan.priceMonthly;
+            mrr += centsPerSub * Number(group.count);
           }
-          if (group.providerId === 'nowpayments') isYearly = true;
-          const centsPerSub = isYearly
-            ? Math.round(plan.priceYearly / 12)
-            : plan.priceMonthly;
-          mrr += centsPerSub * Number(group.count);
-        }
 
-        // Trialing
-        const [trialingResult] = await ctx.db
-          .select({ count: sql<number>`count(*)`.as('count') })
-          .from(saasSubscriptions)
-          .where(eq(saasSubscriptions.status, 'trialing'));
+          // Trialing
+          const [trialingResult] = await ctx.db
+            .select({ count: sql<number>`count(*)`.as('count') })
+            .from(saasSubscriptions)
+            .where(eq(saasSubscriptions.status, 'trialing'));
 
-        // Churn metrics
-        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-        const [canceledResult] = await ctx.db
-          .select({ count: sql<number>`count(*)`.as('count') })
-          .from(saasSubscriptions)
-          .where(and(eq(saasSubscriptions.status, 'canceled'), gte(saasSubscriptions.updatedAt, thirtyDaysAgo)));
+          // Churn metrics
+          const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+          const [canceledResult] = await ctx.db
+            .select({ count: sql<number>`count(*)`.as('count') })
+            .from(saasSubscriptions)
+            .where(
+              and(
+                eq(saasSubscriptions.status, 'canceled'),
+                gte(saasSubscriptions.updatedAt, thirtyDaysAgo)
+              )
+            );
 
-        const [pastDueResult] = await ctx.db
-          .select({ count: sql<number>`count(*)`.as('count') })
-          .from(saasSubscriptions)
-          .where(eq(saasSubscriptions.status, 'past_due'));
+          const [pastDueResult] = await ctx.db
+            .select({ count: sql<number>`count(*)`.as('count') })
+            .from(saasSubscriptions)
+            .where(eq(saasSubscriptions.status, 'past_due'));
 
-        const [unpaidResult] = await ctx.db
-          .select({ count: sql<number>`count(*)`.as('count') })
-          .from(saasSubscriptions)
-          .where(eq(saasSubscriptions.status, 'unpaid'));
+          const [unpaidResult] = await ctx.db
+            .select({ count: sql<number>`count(*)`.as('count') })
+            .from(saasSubscriptions)
+            .where(eq(saasSubscriptions.status, 'unpaid'));
 
-        const [totalEverResult] = await ctx.db
-          .select({ count: sql<number>`count(*)`.as('count') })
-          .from(saasSubscriptions);
+          const [totalEverResult] = await ctx.db
+            .select({ count: sql<number>`count(*)`.as('count') })
+            .from(saasSubscriptions);
 
-        const totalEver = Number(totalEverResult?.count ?? 0);
-        const canceledCount = Number(canceledResult?.count ?? 0);
-        const churnRate = totalEver > 0 ? Math.round((canceledCount / totalEver) * 10000) / 100 : 0;
+          const totalEver = Number(totalEverResult?.count ?? 0);
+          const canceledCount = Number(canceledResult?.count ?? 0);
+          const churnRate =
+            totalEver > 0
+              ? Math.round((canceledCount / totalEver) * 10000) / 100
+              : 0;
 
-        // Total revenue (via DI — provided by core-payments)
-        const deps = getSubscriptionsDeps();
-        const totalRevenueValue = await deps.getTransactionRevenue?.('successful') ?? 0;
+          // Total revenue (via DI — provided by core-payments)
+          const deps = getSubscriptionsDeps();
+          const totalRevenueValue =
+            (await deps.getTransactionRevenue?.('successful')) ?? 0;
 
-        // Recent transactions with org names (via DI — provided by core-payments)
-        const recentTransactions = await deps.getRecentTransactions?.(10) ?? [];
+          // Recent transactions with org names (via DI — provided by core-payments)
+          const recentTransactions =
+            (await deps.getRecentTransactions?.(10)) ?? [];
 
-        // Active discount codes count
-        const [discountResult] = await ctx.db
-          .select({ count: sql<number>`count(*)`.as('count') })
-          .from(saasDiscountCodes)
-          .where(eq(saasDiscountCodes.isActive, true));
+          // Active discount codes count
+          const [discountResult] = await ctx.db
+            .select({ count: sql<number>`count(*)`.as('count') })
+            .from(saasDiscountCodes)
+            .where(eq(saasDiscountCodes.isActive, true));
 
-        return {
-          totalActive,
-          mrr,
-          trialing: Number(trialingResult?.count ?? 0),
-          planDistribution: planDistribution.map((p) => ({ planId: p.planId, count: Number(p.count) })),
-          churn: {
-            canceled30d: canceledCount,
-            pastDue: Number(pastDueResult?.count ?? 0),
-            unpaid: Number(unpaidResult?.count ?? 0),
-            totalEver,
-            churnRate,
-          },
-          totalRevenue: totalRevenueValue,
-          recentTransactions,
-          activeDiscountCodes: Number(discountResult?.count ?? 0),
-        };
-      }, 120);
+          return {
+            totalActive,
+            mrr,
+            trialing: Number(trialingResult?.count ?? 0),
+            planDistribution: planDistribution.map((p) => ({
+              planId: p.planId,
+              count: Number(p.count),
+            })),
+            churn: {
+              canceled30d: canceledCount,
+              pastDue: Number(pastDueResult?.count ?? 0),
+              unpaid: Number(unpaidResult?.count ?? 0),
+              totalEver,
+              churnRate,
+            },
+            totalRevenue: totalRevenueValue,
+            recentTransactions,
+            activeDiscountCodes: Number(discountResult?.count ?? 0),
+          };
+        },
+        120
+      );
     }),
 
   // ─── Admin: list subscriptions ──────────────────────────────────────────────
@@ -481,7 +566,7 @@ export const billingRouter = createTRPCRouter({
   listSubscriptions: billingAdminProcedure
     .input(
       z.object({
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(10).max(100).default(20),
         status: z.string().max(30).optional(),
         planId: z.string().max(50).optional(),
@@ -515,7 +600,9 @@ export const billingRouter = createTRPCRouter({
         const matchingOrgs = await ctx.db
           .select({ id: organization.id })
           .from(organization)
-          .where(sql`lower(${organization.name}) like lower(${'%' + input.search.trim() + '%'})`)
+          .where(
+            sql`lower(${organization.name}) like lower(${'%' + input.search.trim() + '%'})`
+          )
           .limit(100);
         orgIdFilter = matchingOrgs.map((o) => o.id);
         if (orgIdFilter.length === 0) {
@@ -551,7 +638,10 @@ export const billingRouter = createTRPCRouter({
           createdAt: saasSubscriptions.createdAt,
         })
         .from(saasSubscriptions)
-        .leftJoin(organization, eq(saasSubscriptions.organizationId, organization.id))
+        .leftJoin(
+          organization,
+          eq(saasSubscriptions.organizationId, organization.id)
+        )
         .where(searchCondition)
         .orderBy(desc(saasSubscriptions.createdAt))
         .limit(pageSize)
@@ -565,7 +655,7 @@ export const billingRouter = createTRPCRouter({
   listChurned: billingAdminProcedure
     .input(
       z.object({
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(10).max(100).default(20),
         type: z.enum(['all', 'canceled', 'past_due', 'unpaid']).default('all'),
         from: z.string().datetime().optional(),
@@ -575,13 +665,12 @@ export const billingRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const { page, pageSize } = parsePagination(input);
-      const churnStatuses = input.type === 'all'
-        ? ['canceled', 'past_due', 'unpaid']
-        : [input.type];
+      const churnStatuses =
+        input.type === 'all'
+          ? ['canceled', 'past_due', 'unpaid']
+          : [input.type];
 
-      const conditions = [
-        inArray(saasSubscriptions.status, churnStatuses),
-      ];
+      const conditions = [inArray(saasSubscriptions.status, churnStatuses)];
 
       if (input.from) {
         conditions.push(gte(saasSubscriptions.updatedAt, new Date(input.from)));
@@ -595,23 +684,40 @@ export const billingRouter = createTRPCRouter({
         const matchingOrgs = await ctx.db
           .select({ id: organization.id })
           .from(organization)
-          .where(sql`lower(${organization.name}) like lower(${'%' + input.search.trim() + '%'})`)
+          .where(
+            sql`lower(${organization.name}) like lower(${'%' + input.search.trim() + '%'})`
+          )
           .limit(100);
         orgIdFilter = matchingOrgs.map((o) => o.id);
         if (orgIdFilter.length === 0) {
-          return { ...paginatedResult([], 0, page, pageSize), typeCounts: { canceled: 0, past_due: 0, unpaid: 0 } };
+          return {
+            ...paginatedResult([], 0, page, pageSize),
+            typeCounts: { canceled: 0, past_due: 0, unpaid: 0 },
+          };
         }
       }
 
       const searchCondition = orgIdFilter
-        ? and(...conditions, inArray(saasSubscriptions.organizationId, orgIdFilter))
+        ? and(
+            ...conditions,
+            inArray(saasSubscriptions.organizationId, orgIdFilter)
+          )
         : and(...conditions);
 
       // Run list, count, and type counts in parallel
       const baseConditions = [];
-      if (input.from) baseConditions.push(gte(saasSubscriptions.updatedAt, new Date(input.from)));
-      if (input.to) baseConditions.push(lte(saasSubscriptions.updatedAt, new Date(input.to)));
-      if (orgIdFilter) baseConditions.push(inArray(saasSubscriptions.organizationId, orgIdFilter));
+      if (input.from)
+        baseConditions.push(
+          gte(saasSubscriptions.updatedAt, new Date(input.from))
+        );
+      if (input.to)
+        baseConditions.push(
+          lte(saasSubscriptions.updatedAt, new Date(input.to))
+        );
+      if (orgIdFilter)
+        baseConditions.push(
+          inArray(saasSubscriptions.organizationId, orgIdFilter)
+        );
 
       const [countResult, rows, typeCountRows] = await Promise.all([
         ctx.db
@@ -634,7 +740,10 @@ export const billingRouter = createTRPCRouter({
             updatedAt: saasSubscriptions.updatedAt,
           })
           .from(saasSubscriptions)
-          .leftJoin(organization, eq(saasSubscriptions.organizationId, organization.id))
+          .leftJoin(
+            organization,
+            eq(saasSubscriptions.organizationId, organization.id)
+          )
           .where(searchCondition)
           .orderBy(desc(saasSubscriptions.updatedAt))
           .limit(pageSize)
@@ -648,8 +757,12 @@ export const billingRouter = createTRPCRouter({
           .from(saasSubscriptions)
           .where(
             and(
-              inArray(saasSubscriptions.status, ['canceled', 'past_due', 'unpaid']),
-              ...baseConditions,
+              inArray(saasSubscriptions.status, [
+                'canceled',
+                'past_due',
+                'unpaid',
+              ]),
+              ...baseConditions
             )
           )
           .groupBy(saasSubscriptions.status),
@@ -663,7 +776,12 @@ export const billingRouter = createTRPCRouter({
       }
 
       return {
-        ...paginatedResult(rows, Number(countResult?.count ?? 0), page, pageSize),
+        ...paginatedResult(
+          rows,
+          Number(countResult?.count ?? 0),
+          page,
+          pageSize
+        ),
         typeCounts,
       };
     }),
@@ -703,13 +821,21 @@ export const billingRouter = createTRPCRouter({
     )
     .query(async ({ input }) => {
       // Revenue over time (via DI — provided by core-payments)
-      return await getSubscriptionsDeps().getRevenueOverTime?.(input.from, input.to) ?? [];
+      return (
+        (await getSubscriptionsDeps().getRevenueOverTime?.(
+          input.from,
+          input.to
+        )) ?? []
+      );
     }),
 
   // ─── Token balance (customer-facing) ────────────────────────────────────
 
   getTokenBalance: protectedProcedure.query(async ({ ctx }) => {
-    const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+    const orgId = await getSubscriptionsDeps().resolveOrgId(
+      ctx.activeOrganizationId,
+      ctx.session.user.id
+    );
     const record = await getTokenBalanceRecord(orgId);
     const planBalance = record?.planBalance ?? 0;
     const purchasedBalance = record?.balance ?? 0;
@@ -729,38 +855,56 @@ export const billingRouter = createTRPCRouter({
   getTokenTransactions: protectedProcedure
     .input(z.object({ limit: z.number().int().min(1).max(100).default(20) }))
     .query(async ({ ctx, input }) => {
-      const orgId = await getSubscriptionsDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await getSubscriptionsDeps().resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       return getTokenTransactions(orgId, input.limit);
     }),
 
   // ─── Token admin mutations ──────────────────────────────────────────────
 
   addTokens: billingAdminProcedure
-    .input(z.object({
-      organizationId: z.string().uuid(),
-      amount: z.number().int().min(1).max(1_000_000),
-      reason: z.string().min(1).max(100),
-      bucket: z.enum(['plan', 'purchased']).default('purchased'),
-    }))
+    .input(
+      z.object({
+        organizationId: z.string().uuid(),
+        amount: z.number().int().min(1).max(1_000_000),
+        reason: z.string().min(1).max(100),
+        bucket: z.enum(['plan', 'purchased']).default('purchased'),
+      })
+    )
     .mutation(async ({ input }) => {
-      const balance = await addTokens(input.organizationId, input.amount, input.reason, undefined, { bucket: input.bucket });
+      const balance = await addTokens(
+        input.organizationId,
+        input.amount,
+        input.reason,
+        undefined,
+        { bucket: input.bucket }
+      );
       return { balance };
     }),
 
   deductTokens: billingAdminProcedure
-    .input(z.object({
-      organizationId: z.string().uuid(),
-      amount: z.number().int().min(1).max(1_000_000),
-      reason: z.string().min(1).max(100),
-    }))
+    .input(
+      z.object({
+        organizationId: z.string().uuid(),
+        amount: z.number().int().min(1).max(1_000_000),
+        reason: z.string().min(1).max(100),
+      })
+    )
     .mutation(async ({ input }) => {
       try {
-        const balance = await deductTokens(input.organizationId, input.amount, input.reason);
+        const balance = await deductTokens(
+          input.organizationId,
+          input.amount,
+          input.reason
+        );
         return { balance };
       } catch (err) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: err instanceof Error ? err.message : 'Failed to deduct tokens',
+          message:
+            err instanceof Error ? err.message : 'Failed to deduct tokens',
         });
       }
     }),

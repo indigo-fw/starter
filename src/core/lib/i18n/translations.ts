@@ -5,8 +5,9 @@
  *   Requires messages loaded by the dashboard layout (public + admin merged).
  *   Do NOT use in components rendered on public pages — the admin namespace won't exist.
  *
- * `useBlankTranslations()` — public/shared client components (identity function).
- *   Returns keys as-is. Use for components that render outside the dashboard layout.
+ * `useBlankTranslations()` — public/shared client components (no catalog lookup).
+ *   Returns the key with `{values}` filled in. Use for components that render
+ *   outside the dashboard layout.
  *
  * `dataTranslations(namespace)` — module-scope extraction marker (identity at runtime).
  *
@@ -16,9 +17,16 @@
  * The PO→JSON pipeline replaces dots with @@@ in keys, so we apply the same
  * transform at lookup time to match.
  */
+import { useMemo } from 'react';
 
+import {
+  type TranslationFn,
+  type TranslationValues,
+  createTranslationFunction,
+  fillFallback,
+  wrapWithFallback,
+} from './translation-shared';
 import { useTranslations as useBaseTranslations } from 'next-intl';
-import { createTranslationFunction, wrapWithFallback, type TranslationFn } from './translation-shared';
 
 export type { TranslationFn, TranslationValues } from './translation-shared';
 
@@ -35,7 +43,13 @@ export function useAdminTranslations(
   namespace: string = 'General'
 ): TranslationFn {
   const t = useBaseTranslations(namespace);
-  return wrapWithFallback(createTranslationFunction(t), namespace);
+  // Stable identity: `__` lands in useMemo/useCallback/useEffect dependency
+  // lists all over the dashboard. A fresh function every render would
+  // silently re-run every one of those on every render.
+  return useMemo(
+    () => wrapWithFallback(createTranslationFunction(t), namespace),
+    [t, namespace]
+  );
 }
 
 /**
@@ -48,12 +62,20 @@ export const useBlankTranslations = (): TranslationFn => blankTranslator;
 /** Alias */
 export const useTranslations = useAdminTranslations;
 
+// Not a pure identity: values are still substituted, otherwise
+// __('Page {page} of {totalPages}', { page, totalPages }) renders its braces.
 const blankTranslator: TranslationFn = Object.assign(
-  (key: string) => key,
+  (key: string, values?: TranslationValues) => fillFallback(key, values),
   {
-    _n: (singular: string, plural: string, count: number) => count === 1 ? singular : plural,
-    _x: (key: string) => key,
-  },
+    _n: (
+      singular: string,
+      plural: string,
+      count: number,
+      values?: TranslationValues
+    ) => fillFallback(count === 1 ? singular : plural, { count, ...values }),
+    _x: (key: string, _context: string, values?: TranslationValues) =>
+      fillFallback(key, values),
+  }
 );
 
 /**

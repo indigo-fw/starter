@@ -1,11 +1,10 @@
-import { describe, it, expect, vi } from 'vitest';
+import { createHealthHandler } from '../api/health';
+import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/core/lib/module/module-hooks', () => ({
   runHealthChecks: vi.fn().mockResolvedValue({}),
   getRegisteredModules: vi.fn().mockReturnValue([]),
 }));
-
-import { createHealthHandler } from '../api/health';
 
 describe('createHealthHandler', () => {
   it('returns 200 when all checks pass', async () => {
@@ -24,7 +23,12 @@ describe('createHealthHandler', () => {
 
   it('returns 503 when a core check fails', async () => {
     const handler = createHealthHandler([
-      { name: 'database', check: async () => { throw new Error('connection refused'); } },
+      {
+        name: 'database',
+        check: async () => {
+          throw new Error('connection refused');
+        },
+      },
     ]);
 
     const res = await handler();
@@ -57,7 +61,12 @@ describe('createHealthHandler', () => {
   it('runs multiple checks independently', async () => {
     const handler = createHealthHandler([
       { name: 'db', check: async () => {} },
-      { name: 'redis', check: async () => { throw new Error('no redis'); } },
+      {
+        name: 'redis',
+        check: async () => {
+          throw new Error('no redis');
+        },
+      },
       { name: 'storage', check: async () => {} },
     ]);
 
@@ -67,6 +76,53 @@ describe('createHealthHandler', () => {
     expect(body.checks.db.status).toBe('ok');
     expect(body.checks.redis.status).toBe('error');
     expect(body.checks.storage.status).toBe('ok');
+    expect(body.status).toBe('unhealthy');
+  });
+
+  it('reports a failed non-critical check as degraded without gating', async () => {
+    const handler = createHealthHandler([
+      { name: 'database', check: async () => {} },
+      {
+        name: 'queue',
+        critical: false,
+        check: async () => {
+          throw new Error('backlog: 140 jobs waiting');
+        },
+      },
+    ]);
+
+    const res = await handler();
+    const body = await res.json();
+
+    // The LB / Dockerfile HEALTHCHECK only read the status code: a backlog
+    // must never eject or restart a replica.
+    expect(res.status).toBe(200);
+    expect(body.status).toBe('degraded');
+    expect(body.checks.queue.status).toBe('degraded');
+    expect(body.checks.queue.error).toContain('backlog');
+  });
+
+  it('a critical failure still wins over degraded signals', async () => {
+    const handler = createHealthHandler([
+      {
+        name: 'database',
+        check: async () => {
+          throw new Error('down');
+        },
+      },
+      {
+        name: 'memory',
+        critical: false,
+        check: async () => {
+          throw new Error('high');
+        },
+      },
+    ]);
+
+    const res = await handler();
+    const body = await res.json();
+
+    expect(res.status).toBe(503);
     expect(body.status).toBe('unhealthy');
   });
 

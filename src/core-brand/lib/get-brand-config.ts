@@ -1,7 +1,7 @@
 /**
  * Brand config registry — DI registration + access.
  *
- * Why DI: per the core boundary rules (`dev/src/core/CLAUDE.md`), modules
+ * Why DI: per the core boundary rules (`dev/src/core/AGENTS.md`), modules
  * may only import from a small allowlist of project paths. `@/config/brand`
  * is not on that list. So instead of the module importing the project's
  * config directly, the project calls `setBrandConfig(brand)` once at boot
@@ -12,7 +12,7 @@
  *   - `src/config/deps/brand-deps.ts` calls `setBrandConfig(brand)` once
  *   - Imported as side-effect from BOTH `src/server.ts` (Bun-direct context)
  *     AND `src/instrumentation.ts` (Next.js bundle context — needed because
- *     RSC runs there, not in server.ts; see the CLAUDE.md note about module
+ *     RSC runs there, not in server.ts; see the AGENTS.md note about module
  *     instance separation)
  *
  * SVG caching: at `setBrandConfig()` time we eagerly read the referenced
@@ -20,11 +20,10 @@
  * touches the filesystem at render time. Trade-off: SVG file changes
  * require server restart (acceptable for a config-grade file).
  */
-
+import type { BrandConfig } from '../types/brand-config';
+import { formatValidationErrors, validateBrandConfig } from './validate-config';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { validateBrandConfig, formatValidationErrors } from './validate-config';
-import type { BrandConfig } from '../types/brand-config';
 
 interface CachedSvgs {
   icon?: string;
@@ -37,7 +36,9 @@ let svgs: CachedSvgs = {};
 const PROJECT_ROOT = process.cwd();
 
 function absPath(relativePath: string): string {
-  const cleaned = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath;
+  const cleaned = relativePath.startsWith('/')
+    ? relativePath.slice(1)
+    : relativePath;
   return resolve(PROJECT_ROOT, cleaned);
 }
 
@@ -56,7 +57,7 @@ export function setBrandConfig(config: BrandConfig): void {
   const result = validateBrandConfig(config);
   if (!result.ok) {
     throw new Error(
-      `core-brand: brand config is invalid:\n${formatValidationErrors(result.errors)}`,
+      `core-brand: brand config is invalid:\n${formatValidationErrors(result.errors)}`
     );
   }
 
@@ -66,7 +67,7 @@ export function setBrandConfig(config: BrandConfig): void {
       next.icon = readFileSync(absPath(config.icon), 'utf-8');
     } catch (err) {
       throw new Error(
-        `core-brand: failed to read icon SVG at ${config.icon}: ${(err as Error).message}`,
+        `core-brand: failed to read icon SVG at ${config.icon}: ${(err as Error).message}`
       );
     }
   }
@@ -75,7 +76,7 @@ export function setBrandConfig(config: BrandConfig): void {
       next.lockup = readFileSync(absPath(config.lockup), 'utf-8');
     } catch (err) {
       throw new Error(
-        `core-brand: failed to read lockup SVG at ${config.lockup}: ${(err as Error).message}`,
+        `core-brand: failed to read lockup SVG at ${config.lockup}: ${(err as Error).message}`
       );
     }
   }
@@ -92,7 +93,7 @@ export function setBrandConfig(config: BrandConfig): void {
 export function getBrandConfig(): BrandConfig {
   if (!registered) {
     throw new Error(
-      "core-brand: brand config not registered. Add `import '@/config/deps/brand-deps';` to server.ts and instrumentation.ts. See src/core-brand/CLAUDE.md.",
+      "core-brand: brand config not registered. Add `import '@/config/deps/brand-deps';` to server.ts and instrumentation.ts. See src/core-brand/AGENTS.md."
     );
   }
   return registered;

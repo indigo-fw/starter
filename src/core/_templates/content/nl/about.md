@@ -12,7 +12,7 @@ noindex: false
 
 ### Belangrijkste kenmerken
 
-- **Agent-gestuurde ontwikkeling** — CLAUDE.md dient als uitgebreide projectgids, waardoor AI-agenten de codebase effectief kunnen begrijpen en aanpassen
+- **Agent-gestuurde ontwikkeling** — AGENTS.md dient als uitgebreide projectgids, waardoor AI-agenten de codebase effectief kunnen begrijpen en aanpassen
 - **Moderne stack** — Gebouwd met Next.js 16, TypeScript en Tailwind CSS v4
 - **Flexibele content** — Pagina's, blogberichten, portfolio-items, showcase-kaarten, categorieën en tags
 - **Rolgebaseerde toegang** — Gebruiker, redacteur, beheerder en superbeheerder met beleidsgebaseerde rechten

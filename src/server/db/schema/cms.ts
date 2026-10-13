@@ -87,11 +87,30 @@ export const cmsPostAttachments = pgTable(
     }),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     deletedAt: timestamp('deleted_at', { withTimezone: true }),
+    // ── Content-image sync (src/core/lib/content/image-sync.ts) ──
+    // Set only on rows managed by the co-located `.md` content-image sync. A
+    // non-null sourcePath marks the row as sync-managed (hand-uploads leave it
+    // null), which scopes the orphan pruner so it never touches manual uploads.
+    // sourcePath: content-root-relative path of the source file in content/
+    //   (e.g. "en/create-ai-girlfriend-cover.webp").
+    // sourceHash: md5 of the source bytes as 32-char hex — change detection +
+    //   the cache-busting CDN key (first 8 chars).
+    sourcePath: varchar('source_path', { length: 512 }),
+    sourceHash: varchar('source_hash', { length: 32 }),
   },
   (t) => [
     index('cms_post_attachments_post_id_idx').on(t.postId),
     index('cms_post_attachments_file_type_idx').on(t.fileType),
     index('cms_post_attachments_deleted_at_idx').on(t.deletedAt),
+    // One active row per source_path (partial unique, Postgres). Enforces the
+    // sync's "one current version per asset" invariant at the schema level and
+    // makes concurrent boots safe (a racing insert hits 23505 → skip) — no
+    // advisory lock needed. Mirrors cms_posts_type_lang_slug_uniq. Tombstoned
+    // rows (deletedAt set) are excluded so past versions coexist; NULL
+    // sourcePath rows (hand-uploads) don't collide (NULLs are distinct).
+    uniqueIndex('cms_post_attachments_source_path_active_uniq')
+      .on(t.sourcePath)
+      .where(isNull(t.deletedAt)),
   ]
 );
 

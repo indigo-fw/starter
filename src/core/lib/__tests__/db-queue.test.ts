@@ -1,4 +1,12 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import {
+  enqueueTask,
+  pollAndProcess,
+  recoverStaleTasks,
+  startDbQueueWorker,
+} from '../infra/db-queue';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { db as mockDb } from '@/server/db';
 import { asMock } from '@/test-utils';
 
 // --- Mocks ---
@@ -48,14 +56,6 @@ vi.mock('drizzle-orm', () => ({
   desc: (col: unknown) => ({ _desc: col }),
 }));
 
-import { db as mockDb } from '@/server/db';
-import {
-  enqueueTask,
-  pollAndProcess,
-  startDbQueueWorker,
-  recoverStaleTasks,
-} from '../infra/db-queue';
-
 // --- Helpers ---
 
 /** Set up a chain: db.insert(table).values(data) */
@@ -65,9 +65,17 @@ function mockInsertChain(resolvedValue: unknown = undefined) {
   return { values };
 }
 
-/** Set up a chain: db.select().from(t).where(c).orderBy(o).limit(n) OR db.select({}).from(t).where(c).limit(n) */
-function mockSelectChain(rows: unknown[] = []) {
-  const limit = vi.fn().mockResolvedValue(rows);
+/**
+ * Set up a chain: db.select().from(t).where(c).orderBy(o).limit(n) OR
+ * db.select({}).from(t).where(c).limit(n). With several batches, successive
+ * selects resolve to successive batches (the last one repeats) — pollAndProcess
+ * runs the stale-recovery select before the pending-task select.
+ */
+function mockSelectChain(...batches: unknown[][]) {
+  const limit = vi.fn();
+  if (batches.length === 0) batches = [[]];
+  for (const rows of batches.slice(0, -1)) limit.mockResolvedValueOnce(rows);
+  limit.mockResolvedValue(batches[batches.length - 1]);
   const orderBy = vi.fn().mockReturnValue({ limit });
   const where = vi.fn().mockReturnValue({ orderBy, limit });
   const from = vi.fn().mockReturnValue({ where });
@@ -78,11 +86,11 @@ function mockSelectChain(rows: unknown[] = []) {
 /** Set up a chain: db.update(table).set(data).where(cond).returning(cols) OR db.update(table).set(data).where(cond) */
 function _mockUpdateChain(returningRows?: unknown[]) {
   const returning = vi.fn().mockResolvedValue(returningRows ?? []);
-  const where = vi.fn().mockReturnValue(
-    returningRows !== undefined
-      ? { returning }
-      : Promise.resolve(undefined)
-  );
+  const where = vi
+    .fn()
+    .mockReturnValue(
+      returningRows !== undefined ? { returning } : Promise.resolve(undefined)
+    );
   const set = vi.fn().mockReturnValue({ where });
   asMock(mockDb.update).mockReturnValue({ set });
   return { set, where, returning };
@@ -123,11 +131,15 @@ describe('db-queue', () => {
       const chain = mockInsertChain();
       const runAfter = new Date('2026-06-01T00:00:00Z');
 
-      await enqueueTask('email', { data: 1 }, {
-        priority: 10,
-        maxAttempts: 5,
-        runAfter,
-      });
+      await enqueueTask(
+        'email',
+        { data: 1 },
+        {
+          priority: 10,
+          maxAttempts: 5,
+          runAfter,
+        }
+      );
 
       const inserted = chain.values.mock.calls[0][0];
       expect(inserted.priority).toBe(10);
@@ -155,7 +167,7 @@ describe('db-queue', () => {
       };
 
       // SELECT pending tasks
-      mockSelectChain([task]);
+      mockSelectChain([], [task]); // no stale rows, then the pending task
 
       // First update call: lock (returning with id) -> success
       // Second update call: mark completed -> void
@@ -197,7 +209,7 @@ describe('db-queue', () => {
         updatedAt: new Date(),
       };
 
-      mockSelectChain([task]);
+      mockSelectChain([], [task]); // no stale rows, then the pending task
 
       // Lock succeeds, then error update
       const lockReturning = vi.fn().mockResolvedValue([{ id: 'task-2' }]);
@@ -247,7 +259,7 @@ describe('db-queue', () => {
         updatedAt: new Date(),
       };
 
-      mockSelectChain([task]);
+      mockSelectChain([], [task]); // no stale rows, then the pending task
 
       const lockReturning = vi.fn().mockResolvedValue([{ id: 'task-3' }]);
       const lockWhere = vi.fn().mockReturnValue({ returning: lockReturning });
@@ -292,7 +304,7 @@ describe('db-queue', () => {
         updatedAt: new Date(),
       };
 
-      mockSelectChain([task]);
+      mockSelectChain([], [task]); // no stale rows, then the pending task
 
       // Lock returns empty (another worker grabbed it)
       const lockReturning = vi.fn().mockResolvedValue([]);
@@ -306,6 +318,36 @@ describe('db-queue', () => {
 
       expect(processed).toBe(0);
       expect(handler).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('pollAndProcess stale recovery', () => {
+    it('resets an expired processing row for its queue before picking up work', async () => {
+      const stale = { id: 'stale-1', attempts: 0, maxAttempts: 3 };
+      const chain = mockSelectChain([stale], []);
+
+      const setMock = vi.fn();
+      const updateWhere = vi.fn().mockResolvedValue(undefined);
+      setMock.mockReturnValue({ where: updateWhere });
+      asMock(mockDb.update).mockReturnValue({ set: setMock });
+
+      const handler = vi.fn();
+      const processed = await pollAndProcess('email', handler);
+
+      expect(processed).toBe(0);
+      expect(handler).not.toHaveBeenCalled();
+      // The recovery select is scoped to this poller's queue.
+      const recoveryWhere = chain.where.mock.calls[0][0];
+      expect(JSON.stringify(recoveryWhere)).toContain('"email"');
+      // The stale row goes back to pending with a counted attempt...
+      const setArg = setMock.mock.calls[0][0];
+      expect(setArg.status).toBe('pending');
+      expect(setArg.attempts).toBe(1);
+      expect(setArg.lockedUntil).toBeNull();
+      // ...guarded on status so a concurrent sweeper can't double-count.
+      expect(JSON.stringify(updateWhere.mock.calls[0][0])).toContain(
+        '"processing"'
+      );
     });
   });
 
@@ -333,7 +375,9 @@ describe('db-queue', () => {
       expect(firstSetArg.status).toBe('pending');
       expect(firstSetArg.attempts).toBe(1);
       expect(firstSetArg.lockedUntil).toBeNull();
-      expect(firstSetArg.lastError).toBe('Recovered from stale processing state');
+      expect(firstSetArg.lastError).toBe(
+        'Recovered from stale processing state'
+      );
 
       // Second task: attempts 1+1=2, still under maxAttempts=3 -> pending
       const secondSetArg = setMock.mock.calls[1][0];
@@ -342,9 +386,7 @@ describe('db-queue', () => {
     });
 
     it('marks stale tasks as dead when max attempts exceeded', async () => {
-      const staleTasks = [
-        { id: 'stale-dead', attempts: 2, maxAttempts: 3 },
-      ];
+      const staleTasks = [{ id: 'stale-dead', attempts: 2, maxAttempts: 3 }];
 
       mockSelectChain(staleTasks);
 

@@ -1,7 +1,8 @@
-import { and, eq, lte, asc, desc } from 'drizzle-orm';
+import { and, asc, desc, eq, lte } from 'drizzle-orm';
+
+import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { saasTaskQueue } from '@/server/db/schema/task-queue';
-import { createLogger } from '@/core/lib/infra/logger';
 
 const log = createLogger('db-queue');
 
@@ -37,6 +38,12 @@ export async function pollAndProcess(
   handler: TaskHandler,
   batchSize = 5
 ): Promise<number> {
+  // A handler that took the process down leaves its task `processing` with an
+  // expired lock; nothing else revisits it (the boot-time sweep in server.ts
+  // only runs once per deploy). Sweep per poll — the stale index makes the
+  // empty case a no-op.
+  await recoverStaleTasks(queue);
+
   const now = new Date();
 
   // SELECT pending tasks ready to run, ordered by priority DESC, createdAt ASC
@@ -66,10 +73,7 @@ export async function pollAndProcess(
         updatedAt: new Date(),
       })
       .where(
-        and(
-          eq(saasTaskQueue.id, task.id),
-          eq(saasTaskQueue.status, 'pending')
-        )
+        and(eq(saasTaskQueue.id, task.id), eq(saasTaskQueue.status, 'pending'))
       )
       .returning({ id: saasTaskQueue.id });
 
@@ -82,6 +86,8 @@ export async function pollAndProcess(
         .set({
           status: 'completed',
           result: result as Record<string, unknown> | null,
+          // A retry that succeeds must not keep advertising the earlier failure.
+          lastError: null,
           lockedUntil: null,
           updatedAt: new Date(),
         })
@@ -139,7 +145,9 @@ export function startDbQueueWorker(
   }
 
   poll();
-  log.info(`DB queue worker started for "${queue}" (interval: ${intervalMs}ms)`);
+  log.info(
+    `DB queue worker started for "${queue}" (interval: ${intervalMs}ms)`
+  );
 
   return {
     stop() {
@@ -150,16 +158,25 @@ export function startDbQueueWorker(
   };
 }
 
-/** Recover stale tasks (processing but lock expired) */
-export async function recoverStaleTasks(): Promise<number> {
+/**
+ * Recover stale tasks (processing but lock expired), optionally for one queue.
+ * Counts as a failed attempt so a handler that crashes the process every time
+ * dead-letters instead of retrying forever.
+ */
+export async function recoverStaleTasks(queue?: string): Promise<number> {
   const now = new Date();
   const stale = await db
-    .select({ id: saasTaskQueue.id, attempts: saasTaskQueue.attempts, maxAttempts: saasTaskQueue.maxAttempts })
+    .select({
+      id: saasTaskQueue.id,
+      attempts: saasTaskQueue.attempts,
+      maxAttempts: saasTaskQueue.maxAttempts,
+    })
     .from(saasTaskQueue)
     .where(
       and(
         eq(saasTaskQueue.status, 'processing'),
-        lte(saasTaskQueue.lockedUntil, now)
+        lte(saasTaskQueue.lockedUntil, now),
+        ...(queue ? [eq(saasTaskQueue.queue, queue)] : [])
       )
     )
     .limit(100);
@@ -176,10 +193,19 @@ export async function recoverStaleTasks(): Promise<number> {
         attempts,
         lockedUntil: null,
         lastError: 'Recovered from stale processing state',
-        runAfter: isDead ? undefined : new Date(Date.now() + getBackoff(attempts)),
+        runAfter: isDead
+          ? undefined
+          : new Date(Date.now() + getBackoff(attempts)),
         updatedAt: new Date(),
       })
-      .where(eq(saasTaskQueue.id, task.id));
+      // Guarded on status so two pollers sweeping the same row don't both
+      // count an attempt.
+      .where(
+        and(
+          eq(saasTaskQueue.id, task.id),
+          eq(saasTaskQueue.status, 'processing')
+        )
+      );
     recovered++;
   }
 

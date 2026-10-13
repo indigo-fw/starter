@@ -1,4 +1,10 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { authRouter } from '../auth';
+import { createMockDb } from './test-helpers';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { anonymizeUser } from '@/core/lib/analytics/gdpr';
+import { auth } from '@/lib/auth';
+import { asMock } from '@/test-utils';
 
 // Mock dependencies
 vi.mock('@/lib/auth', () => ({
@@ -49,12 +55,6 @@ vi.mock('@/lib/env', () => ({
   },
 }));
 
-import { asMock } from '@/test-utils';
-import { authRouter } from '../auth';
-import { auth } from '@/lib/auth';
-import { anonymizeUser } from '@/core/lib/analytics/gdpr';
-import { createMockDb } from './test-helpers';
-
 // Auth tests use role:'user' and email:'test@test.com' — differs from the
 // shared createMockCtx default (editor/editor@test.com). Keep a local version
 // that preserves the auth-specific session shape.
@@ -99,7 +99,11 @@ describe('authRouter', () => {
       const caller = authRouter.createCaller(ctx as never);
       const result = await caller.me();
 
-      expect(result).toEqual({ id: 'user-1', email: 'test@test.com', role: 'user' });
+      expect(result).toEqual({
+        id: 'user-1',
+        email: 'test@test.com',
+        role: 'user',
+      });
     });
   });
 
@@ -145,7 +149,9 @@ describe('authRouter', () => {
     });
 
     it('throws BAD_REQUEST when auth.api.changePassword fails', async () => {
-      asMock(auth.api.changePassword).mockRejectedValue(new Error('Wrong password'));
+      asMock(auth.api.changePassword).mockRejectedValue(
+        new Error('Wrong password')
+      );
       const ctx = createMockCtx();
       const caller = authRouter.createCaller(ctx as never);
 
@@ -182,24 +188,75 @@ describe('authRouter', () => {
       expect(anonymizeUser).toHaveBeenCalledWith(ctx.db, 'user-1');
     });
 
-    it('prevents staff accounts from self-deleting', async () => {
+    it('prevents staff accounts from self-deleting (refusal passes through with its code)', async () => {
+      const { TRPCError } = await import('@trpc/server');
       const ctx = createMockCtx();
-      asMock(anonymizeUser).mockRejectedValue(new Error('Cannot anonymize a staff account'));
+      asMock(anonymizeUser).mockRejectedValue(
+        new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Cannot anonymize a staff account',
+        })
+      );
 
       const caller = authRouter.createCaller(ctx as never);
 
-      await expect(caller.deleteAccount()).rejects.toThrow(
-        'Cannot anonymize a staff account'
-      );
+      await expect(caller.deleteAccount()).rejects.toMatchObject({
+        code: 'FORBIDDEN',
+        message: 'Cannot anonymize a staff account',
+      });
     });
 
-    it('throws when user does not exist', async () => {
+    it('throws NOT_FOUND when user does not exist', async () => {
+      const { TRPCError } = await import('@trpc/server');
       const ctx = createMockCtx();
-      asMock(anonymizeUser).mockRejectedValue(new Error('User not found'));
+      asMock(anonymizeUser).mockRejectedValue(
+        new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
+      );
 
       const caller = authRouter.createCaller(ctx as never);
 
-      await expect(caller.deleteAccount()).rejects.toThrow('User not found');
+      await expect(caller.deleteAccount()).rejects.toMatchObject({
+        code: 'NOT_FOUND',
+      });
+    });
+
+    it('does not leak infrastructure error messages to the client', async () => {
+      const ctx = createMockCtx();
+      asMock(anonymizeUser).mockRejectedValue(
+        new Error('connect ECONNREFUSED 10.0.0.5:5432 (user=indigo)')
+      );
+
+      const caller = authRouter.createCaller(ctx as never);
+
+      await expect(caller.deleteAccount()).rejects.toMatchObject({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Account deletion failed',
+      });
+    });
+
+    it('stays available to banned users (GDPR erasure survives a ban)', async () => {
+      const ctx = createMockCtx({
+        session: {
+          user: {
+            id: 'user-1',
+            email: 'test@test.com',
+            role: 'user',
+            banned: true,
+            emailVerified: true,
+            createdAt: new Date().toISOString(),
+          },
+        },
+      });
+      asMock(anonymizeUser).mockResolvedValue(undefined);
+
+      const caller = authRouter.createCaller(ctx as never);
+
+      await expect(caller.deleteAccount()).resolves.toEqual({ success: true });
+      expect(anonymizeUser).toHaveBeenCalledWith(ctx.db, 'user-1');
+      // Sanity: the regular protected gate still refuses the same session.
+      await expect(caller.updateProfile({ name: 'x' })).rejects.toThrow(
+        'Your account has been suspended'
+      );
     });
   });
 
@@ -207,8 +264,18 @@ describe('authRouter', () => {
     it('returns list of user sessions', async () => {
       const ctx = createMockCtx();
       const sessions = [
-        { id: 'sess-1', ipAddress: '1.2.3.4', userAgent: 'Chrome', createdAt: new Date() },
-        { id: 'sess-2', ipAddress: '5.6.7.8', userAgent: 'Firefox', createdAt: new Date() },
+        {
+          id: 'sess-1',
+          ipAddress: '1.2.3.4',
+          userAgent: 'Chrome',
+          createdAt: new Date(),
+        },
+        {
+          id: 'sess-2',
+          ipAddress: '5.6.7.8',
+          userAgent: 'Firefox',
+          createdAt: new Date(),
+        },
       ];
       ctx.db._chains.select.limit.mockResolvedValue(sessions);
 

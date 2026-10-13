@@ -1,10 +1,12 @@
-import { NextResponse } from 'next/server';
 import { and, eq } from 'drizzle-orm';
-import { db } from '@/server/db';
-import { saasSubscriptionEvents } from '@/server/db/schema';
+import { NextResponse } from 'next/server';
+
 import { getProvider } from '@/core-payments/lib/factory';
 import { getPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
+import { isDuplicateKeyError } from '@/core/crud/drizzle-utils';
 import { createLogger } from '@/core/lib/infra/logger';
+import { db } from '@/server/db';
+import { saasSubscriptionEvents } from '@/server/db/schema';
 
 const logger = createLogger('stripe-webhook');
 
@@ -15,24 +17,32 @@ const logger = createLogger('stripe-webhook');
  */
 async function releaseEventClaim(stripeEventId: string): Promise<void> {
   try {
-    await db.delete(saasSubscriptionEvents).where(
-      and(
-        eq(saasSubscriptionEvents.providerId, 'stripe'),
-        eq(saasSubscriptionEvents.providerEventId, stripeEventId),
-      )
-    );
+    await db
+      .delete(saasSubscriptionEvents)
+      .where(
+        and(
+          eq(saasSubscriptionEvents.providerId, 'stripe'),
+          eq(saasSubscriptionEvents.providerEventId, stripeEventId)
+        )
+      );
   } catch (err) {
-    logger.error('Failed to release webhook idempotency claim — replay manually', {
-      stripeEventId,
-      error: String(err),
-    });
+    logger.error(
+      'Failed to release webhook idempotency claim — replay manually',
+      {
+        stripeEventId,
+        error: String(err),
+      }
+    );
   }
 }
 
 export async function POST(request: Request) {
   const stripeProvider = await getProvider('stripe');
   if (!stripeProvider) {
-    return NextResponse.json({ error: 'Billing not configured' }, { status: 503 });
+    return NextResponse.json(
+      { error: 'Billing not configured' },
+      { status: 503 }
+    );
   }
 
   const clonedRequest = request.clone();
@@ -46,7 +56,8 @@ export async function POST(request: Request) {
   }
 
   // Idempotency check via _eventId set by the Stripe provider
-  const stripeEventId = (event.providerData as Record<string, unknown>)?._eventId as string | undefined;
+  const stripeEventId = (event.providerData as Record<string, unknown>)
+    ?._eventId as string | undefined;
   if (!stripeEventId) {
     return NextResponse.json({ error: 'Missing event ID' }, { status: 400 });
   }
@@ -60,7 +71,8 @@ export async function POST(request: Request) {
       data: event.providerData as Record<string, unknown>,
     });
   } catch (err) {
-    if (String(err).includes('unique') || String(err).includes('duplicate')) {
+    // Drizzle wraps the pg error (code sits on err.cause) — never string-match the message.
+    if (isDuplicateKeyError(err)) {
       return NextResponse.json({ received: true, duplicate: true });
     }
     throw err;
@@ -70,7 +82,8 @@ export async function POST(request: Request) {
   // Modules register handlers ('store_order', 'token_pack', …) at server
   // init via registerPaymentWebhookHandler(); unmatched events fall through
   // to the subscription handler below.
-  const eventMetadata = (event.providerData as Record<string, unknown>)?.metadata as Record<string, string> | undefined;
+  const eventMetadata = (event.providerData as Record<string, unknown>)
+    ?.metadata as Record<string, string> | undefined;
   const oneTimeHandler = getPaymentWebhookHandler(eventMetadata?.type);
   if (oneTimeHandler) {
     try {
@@ -82,7 +95,10 @@ export async function POST(request: Request) {
       });
       return NextResponse.json({ received: true, ...(result ?? {}) });
     } catch (err) {
-      logger.error('Error processing one-time payment webhook', { type: eventMetadata?.type, error: String(err) });
+      logger.error('Error processing one-time payment webhook', {
+        type: eventMetadata?.type,
+        error: String(err),
+      });
       await releaseEventClaim(stripeEventId);
       return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
@@ -90,10 +106,13 @@ export async function POST(request: Request) {
 
   // ── Route subscription events (dynamic — core-subscriptions may not be installed) ──
   try {
-    const { handleSubscriptionWebhookEvent } = await import('@/core-subscriptions/lib/webhook-handler');
+    const { handleSubscriptionWebhookEvent } =
+      await import('@/core-subscriptions/lib/webhook-handler');
     await handleSubscriptionWebhookEvent({ event, providerId: 'stripe' });
   } catch (err) {
-    logger.error('Error processing Stripe subscription webhook', { error: String(err) });
+    logger.error('Error processing Stripe subscription webhook', {
+      error: String(err),
+    });
     await releaseEventClaim(stripeEventId);
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
   }

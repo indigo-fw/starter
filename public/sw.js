@@ -15,10 +15,15 @@ self.addEventListener('push', (event) => {
     payload = { title: 'New notification', body: event.data.text() };
   }
 
+  // `tag`: a push with the same tag replaces the one already in the tray
+  // (chat threads, order updates) instead of stacking up.
   const options = {
     body: payload.body || '',
-    tag: payload.type || 'default',
+    tag: payload.tag || payload.type || 'default',
+    ...(payload.icon ? { icon: payload.icon } : {}),
+    ...(payload.badge ? { badge: payload.badge } : {}),
     data: {
+      ...(payload.data || {}),
       actionUrl: payload.actionUrl || '/',
     },
   };

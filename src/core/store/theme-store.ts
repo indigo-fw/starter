@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 
 import { siteConfig } from '@/config/site';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from '@/core/lib/storage/local-storage';
 
 const DASHBOARD_PREFIX = '/dashboard';
 
@@ -28,7 +32,7 @@ function scopeModes(): ThemeMode[] {
   if (onDashboard()) return ADMIN_MODES;
   const configured: readonly string[] = siteConfig.theme.modes;
   const modes = configured.filter(
-    (m): m is ThemeMode => m === 'light' || m === 'dark',
+    (m): m is ThemeMode => m === 'light' || m === 'dark'
   );
   return modes.length > 0 ? modes : ['light'];
 }
@@ -80,7 +84,7 @@ function applyTheme(mode: ThemeMode) {
 function readStoredState(modes: ThemeMode[]): ThemeState {
   const states = toggleStates(modes) as string[];
   const raw =
-    localStorage.getItem(storageKey()) ?? localStorage.getItem(LEGACY_KEY);
+    getLocalStorageItem(storageKey()) ?? getLocalStorageItem(LEGACY_KEY);
   return raw && states.includes(raw)
     ? (raw as ThemeState)
     : defaultState(modes);
@@ -108,7 +112,7 @@ export const useThemeStore = create<ThemeStore>((set, get) => ({
     // Single configured mode → locked; nothing to switch to.
     if (modes.length <= 1) return;
     if (!toggleStates(modes).includes(state)) return;
-    localStorage.setItem(storageKey(), state);
+    setLocalStorageItem(storageKey(), state);
     const resolved = resolve(state);
     applyTheme(resolved);
     set({ theme: state, resolvedTheme: resolved });

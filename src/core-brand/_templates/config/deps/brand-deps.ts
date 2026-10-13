@@ -7,9 +7,9 @@
  *
  * Both are required because RSC runs in the Next.js bundle and workers/CLI
  * run in the Bun-direct bundle, and the two are separate module instances
- * (see the CLAUDE.md note about module-instance separation).
+ * (see the AGENTS.md note about module-instance separation).
  */
-import { setBrandConfig } from '@/core-brand/lib/get-brand-config';
 import { brand } from '@/config/brand';
+import { setBrandConfig } from '@/core-brand/lib/get-brand-config';
 
 setBrandConfig(brand);

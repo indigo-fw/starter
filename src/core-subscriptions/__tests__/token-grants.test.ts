@@ -1,6 +1,29 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { addTokensMock, deductTokensMock, getTokenBalanceMock, expirePlanTokensMock, sendOrgNotificationMock, runHookMock, claimedRowsRef } = vi.hoisted(() => ({
+import type { WebhookEvent } from '@/core-payments/types/payment';
+import {
+  clearBillingConfig,
+  getBillingConfig,
+  getTokenPack,
+  setBillingConfig,
+} from '@/core-subscriptions/lib/billing-config';
+import {
+  addMonthsClamped,
+  computeDuePeriodKey,
+  grantDueSubscriptionTokens,
+  grantSignupBonusTokens,
+  handleTokenPackWebhookEvent,
+} from '@/core-subscriptions/lib/token-grants';
+
+const {
+  addTokensMock,
+  deductTokensMock,
+  getTokenBalanceMock,
+  expirePlanTokensMock,
+  sendOrgNotificationMock,
+  runHookMock,
+  claimedRowsRef,
+} = vi.hoisted(() => ({
   addTokensMock: vi.fn().mockResolvedValue(100),
   deductTokensMock: vi.fn().mockResolvedValue(0),
   getTokenBalanceMock: vi.fn().mockResolvedValue(0),
@@ -28,7 +51,10 @@ vi.mock('@/server/db', () => {
     },
   };
 });
-vi.mock('@/core-subscriptions/schema/subscriptions', () => ({ saasSubscriptions: {}, saasTokenTransactions: {} }));
+vi.mock('@/core-subscriptions/schema/subscriptions', () => ({
+  saasSubscriptions: {},
+  saasTokenTransactions: {},
+}));
 vi.mock('@/core-subscriptions/lib/token-service', () => ({
   addTokens: addTokensMock,
   deductTokens: deductTokensMock,
@@ -47,18 +73,13 @@ vi.mock('@/core-subscriptions/deps', () => ({
 }));
 vi.mock('@/core/lib/module/module-hooks', () => ({ runHook: runHookMock }));
 vi.mock('@/core/lib/infra/logger', () => ({
-  createLogger: () => ({ info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() }),
+  createLogger: () => ({
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    debug: vi.fn(),
+  }),
 }));
-
-import {
-  addMonthsClamped,
-  computeDuePeriodKey,
-  grantDueSubscriptionTokens,
-  grantSignupBonusTokens,
-  handleTokenPackWebhookEvent,
-} from '@/core-subscriptions/lib/token-grants';
-import { setBillingConfig, clearBillingConfig, getBillingConfig, getTokenPack } from '@/core-subscriptions/lib/billing-config';
-import type { WebhookEvent } from '@/core-payments/types/payment';
 
 beforeEach(() => {
   addTokensMock.mockClear();
@@ -74,53 +95,82 @@ beforeEach(() => {
 
 describe('addMonthsClamped', () => {
   it('adds plain months', () => {
-    expect(addMonthsClamped(new Date('2026-03-15T10:00:00Z'), 2).toISOString())
-      .toBe('2026-05-15T10:00:00.000Z');
+    expect(
+      addMonthsClamped(new Date('2026-03-15T10:00:00Z'), 2).toISOString()
+    ).toBe('2026-05-15T10:00:00.000Z');
   });
 
   it('clamps Jan 31 to Feb 28 in non-leap years', () => {
-    expect(addMonthsClamped(new Date('2026-01-31T00:00:00Z'), 1).toISOString().slice(0, 10))
-      .toBe('2026-02-28');
+    expect(
+      addMonthsClamped(new Date('2026-01-31T00:00:00Z'), 1)
+        .toISOString()
+        .slice(0, 10)
+    ).toBe('2026-02-28');
   });
 
   it('clamps Jan 31 to Feb 29 in leap years', () => {
-    expect(addMonthsClamped(new Date('2028-01-31T00:00:00Z'), 1).toISOString().slice(0, 10))
-      .toBe('2028-02-29');
+    expect(
+      addMonthsClamped(new Date('2028-01-31T00:00:00Z'), 1)
+        .toISOString()
+        .slice(0, 10)
+    ).toBe('2028-02-29');
   });
 
   it('crosses year boundaries', () => {
-    expect(addMonthsClamped(new Date('2026-11-30T00:00:00Z'), 3).toISOString().slice(0, 10))
-      .toBe('2027-02-28');
+    expect(
+      addMonthsClamped(new Date('2026-11-30T00:00:00Z'), 3)
+        .toISOString()
+        .slice(0, 10)
+    ).toBe('2027-02-28');
   });
 });
 
 describe('computeDuePeriodKey', () => {
   it('returns null when the anchor is in the future', () => {
-    expect(computeDuePeriodKey(new Date('2026-08-01T00:00:00Z'), new Date('2026-07-01T00:00:00Z'))).toBeNull();
+    expect(
+      computeDuePeriodKey(
+        new Date('2026-08-01T00:00:00Z'),
+        new Date('2026-07-01T00:00:00Z')
+      )
+    ).toBeNull();
   });
 
   it('returns the anchor date itself on activation day (k=0)', () => {
-    expect(computeDuePeriodKey(new Date('2026-07-01T08:00:00Z'), new Date('2026-07-01T09:00:00Z')))
-      .toBe('2026-07-01');
+    expect(
+      computeDuePeriodKey(
+        new Date('2026-07-01T08:00:00Z'),
+        new Date('2026-07-01T09:00:00Z')
+      )
+    ).toBe('2026-07-01');
   });
 
   it('stays on the previous key until the monthly anniversary time passes', () => {
     const anchor = new Date('2026-01-15T14:00:00Z');
     // Feb 15 09:00 — anniversary time (14:00) not yet reached → still January's key
-    expect(computeDuePeriodKey(anchor, new Date('2026-02-15T09:00:00Z'))).toBe('2026-01-15');
+    expect(computeDuePeriodKey(anchor, new Date('2026-02-15T09:00:00Z'))).toBe(
+      '2026-01-15'
+    );
     // Feb 15 15:00 — anniversary passed → February's key is due
-    expect(computeDuePeriodKey(anchor, new Date('2026-02-15T15:00:00Z'))).toBe('2026-02-15');
+    expect(computeDuePeriodKey(anchor, new Date('2026-02-15T15:00:00Z'))).toBe(
+      '2026-02-15'
+    );
   });
 
   it('walks a yearly subscription month by month', () => {
     const anchor = new Date('2026-01-10T00:00:00Z');
-    expect(computeDuePeriodKey(anchor, new Date('2026-04-20T00:00:00Z'))).toBe('2026-04-10');
-    expect(computeDuePeriodKey(anchor, new Date('2026-12-31T00:00:00Z'))).toBe('2026-12-10');
+    expect(computeDuePeriodKey(anchor, new Date('2026-04-20T00:00:00Z'))).toBe(
+      '2026-04-10'
+    );
+    expect(computeDuePeriodKey(anchor, new Date('2026-12-31T00:00:00Z'))).toBe(
+      '2026-12-10'
+    );
   });
 
   it('handles month-end anchors with clamped schedule dates', () => {
     const anchor = new Date('2026-01-31T00:00:00Z');
-    expect(computeDuePeriodKey(anchor, new Date('2026-03-01T00:00:00Z'))).toBe('2026-02-28');
+    expect(computeDuePeriodKey(anchor, new Date('2026-03-01T00:00:00Z'))).toBe(
+      '2026-02-28'
+    );
   });
 });
 
@@ -144,7 +194,8 @@ describe('billing config', () => {
 
 describe('grantDueSubscriptionTokens', () => {
   const daysAgo = (n: number) => new Date(Date.now() - n * 24 * 60 * 60 * 1000);
-  const daysFromNow = (n: number) => new Date(Date.now() + n * 24 * 60 * 60 * 1000);
+  const daysFromNow = (n: number) =>
+    new Date(Date.now() + n * 24 * 60 * 60 * 1000);
 
   const yearlySub = () => ({
     id: 'sub-1',
@@ -168,7 +219,10 @@ describe('grantDueSubscriptionTokens', () => {
   });
 
   it('grants monthlyTokens × 12 up front when yearlyTokenGrant is upfront', async () => {
-    setBillingConfig({ mode: 'subscription-tokens', yearlyTokenGrant: 'upfront' });
+    setBillingConfig({
+      mode: 'subscription-tokens',
+      yearlyTokenGrant: 'upfront',
+    });
     const sub = yearlySub();
     await grantDueSubscriptionTokens(sub);
     expect(addTokensMock).toHaveBeenCalledTimes(1);
@@ -176,12 +230,16 @@ describe('grantDueSubscriptionTokens', () => {
     expect(amount).toBe(12_000);
     expect(reason).toBe('subscription_grant');
     // keyed by the yearly period start, so the whole year is one grant
-    expect((metadata as Record<string, unknown>).periodKey)
-      .toBe(sub.currentPeriodStart.toISOString().slice(0, 10));
+    expect((metadata as Record<string, unknown>).periodKey).toBe(
+      sub.currentPeriodStart.toISOString().slice(0, 10)
+    );
   });
 
   it('upfront mode leaves monthly-interval subscriptions on the monthly drip', async () => {
-    setBillingConfig({ mode: 'subscription-tokens', yearlyTokenGrant: 'upfront' });
+    setBillingConfig({
+      mode: 'subscription-tokens',
+      yearlyTokenGrant: 'upfront',
+    });
     await grantDueSubscriptionTokens({
       ...yearlySub(),
       currentPeriodStart: daysAgo(5),
@@ -193,18 +251,25 @@ describe('grantDueSubscriptionTokens', () => {
   });
 
   it('trusts the stored interval over the period-length heuristic', async () => {
-    setBillingConfig({ mode: 'subscription-tokens', yearlyTokenGrant: 'upfront' });
+    setBillingConfig({
+      mode: 'subscription-tokens',
+      yearlyTokenGrant: 'upfront',
+    });
     // Long period but explicitly monthly → stays on the 1,000 drip
     await grantDueSubscriptionTokens({ ...yearlySub(), interval: 'monthly' });
     expect(addTokensMock.mock.calls[0]![1]).toBe(1000);
   });
 
   it('attaches an expiry when planTokenValidityMonths is set', async () => {
-    setBillingConfig({ mode: 'subscription-tokens', planTokenValidityMonths: 3 });
+    setBillingConfig({
+      mode: 'subscription-tokens',
+      planTokenValidityMonths: 3,
+    });
     await grantDueSubscriptionTokens(yearlySub());
     const opts = addTokensMock.mock.calls[0]![4] as { expiresAt?: Date };
     expect(opts.expiresAt).toBeInstanceOf(Date);
-    const monthsOut = (opts.expiresAt!.getTime() - Date.now()) / (30 * 24 * 60 * 60 * 1000);
+    const monthsOut =
+      (opts.expiresAt!.getTime() - Date.now()) / (30 * 24 * 60 * 60 * 1000);
     expect(monthsOut).toBeGreaterThan(2.5);
     expect(monthsOut).toBeLessThan(3.5);
   });
@@ -213,7 +278,10 @@ describe('grantDueSubscriptionTokens', () => {
     const sub = yearlySub();
     const granted = await grantDueSubscriptionTokens({
       ...sub,
-      lastGrantPeriodKey: computeDuePeriodKey(sub.currentPeriodStart, new Date()),
+      lastGrantPeriodKey: computeDuePeriodKey(
+        sub.currentPeriodStart,
+        new Date()
+      ),
     });
     expect(granted).toBe(false);
     expect(addTokensMock).not.toHaveBeenCalled();
@@ -228,7 +296,10 @@ describe('grantDueSubscriptionTokens', () => {
   });
 
   it('expires the plan bucket before granting when resetBalanceOnGrant is set', async () => {
-    setBillingConfig({ mode: 'subscription-tokens', resetBalanceOnGrant: true });
+    setBillingConfig({
+      mode: 'subscription-tokens',
+      resetBalanceOnGrant: true,
+    });
     await grantDueSubscriptionTokens(yearlySub());
     expect(expirePlanTokensMock).toHaveBeenCalledTimes(1);
     expect(addTokensMock).toHaveBeenCalledTimes(1);
@@ -246,14 +317,22 @@ describe('grantSignupBonusTokens', () => {
   it('grants the configured bonus into the purchased bucket', async () => {
     setBillingConfig({ mode: 'subscription-tokens', signupBonusTokens: 100 });
     await grantSignupBonusTokens('org-1');
-    expect(addTokensMock).toHaveBeenCalledWith('org-1', 100, 'bonus', { grant: 'signup' }, { bucket: 'purchased' });
+    expect(addTokensMock).toHaveBeenCalledWith(
+      'org-1',
+      100,
+      'bonus',
+      { grant: 'signup' },
+      { bucket: 'purchased' }
+    );
   });
 });
 
 describe('handleTokenPackWebhookEvent', () => {
   const packConfig = {
     mode: 'tokens' as const,
-    tokenPacks: [{ id: 'pack-1', name: 'Starter Pack', tokens: 1000, priceCents: 900 }],
+    tokenPacks: [
+      { id: 'pack-1', name: 'Starter Pack', tokens: 1000, priceCents: 900 },
+    ],
   };
 
   const completedEvent = (metadata: Record<string, string>): WebhookEvent => ({
@@ -264,7 +343,12 @@ describe('handleTokenPackWebhookEvent', () => {
   it('credits the pack into the purchased bucket and notifies', async () => {
     setBillingConfig(packConfig);
     const result = await handleTokenPackWebhookEvent({
-      event: completedEvent({ type: 'token_pack', packId: 'pack-1', orgId: 'org-1', userId: 'user-1' }),
+      event: completedEvent({
+        type: 'token_pack',
+        packId: 'pack-1',
+        orgId: 'org-1',
+        userId: 'user-1',
+      }),
       providerId: 'stripe',
     });
     expect(result.credited).toBe(true);
@@ -273,16 +357,24 @@ describe('handleTokenPackWebhookEvent', () => {
       1000,
       'purchase',
       { packId: 'pack-1', providerId: 'stripe', eventId: 'evt_1' },
-      { bucket: 'purchased' },
+      { bucket: 'purchased' }
     );
     expect(sendOrgNotificationMock).toHaveBeenCalled();
-    expect(runHookMock).toHaveBeenCalledWith('payment.conversion', 'user-1', 'token_pack:pack-1', 900);
+    expect(runHookMock).toHaveBeenCalledWith(
+      'payment.conversion',
+      'user-1',
+      'token_pack:pack-1',
+      900
+    );
   });
 
   it('ignores non-completed events', async () => {
     setBillingConfig(packConfig);
     const result = await handleTokenPackWebhookEvent({
-      event: { type: 'payment.failed', providerData: { metadata: { packId: 'pack-1', orgId: 'org-1' } } },
+      event: {
+        type: 'payment.failed',
+        providerData: { metadata: { packId: 'pack-1', orgId: 'org-1' } },
+      },
       providerId: 'stripe',
     });
     expect(result.credited).toBe(false);
@@ -295,7 +387,10 @@ describe('handleTokenPackWebhookEvent', () => {
     const result = await handleTokenPackWebhookEvent({
       event: {
         type: 'payment.refunded',
-        providerData: { _eventId: 'evt_r', metadata: { type: 'token_pack', packId: 'pack-1', orgId: 'org-1' } },
+        providerData: {
+          _eventId: 'evt_r',
+          metadata: { type: 'token_pack', packId: 'pack-1', orgId: 'org-1' },
+        },
       },
       providerId: 'stripe',
     });
@@ -309,9 +404,56 @@ describe('handleTokenPackWebhookEvent', () => {
         providerId: 'stripe',
         eventId: 'evt_r',
       },
-      { clamp: true, spendOrder: 'purchased-first' },
+      { clamp: true, spendOrder: 'purchased-first' }
     );
     expect(sendOrgNotificationMock).toHaveBeenCalled();
+  });
+
+  it('refund emits payment.refund for the buyer so the commission is clawed back', async () => {
+    setBillingConfig(packConfig);
+    getTokenBalanceMock.mockResolvedValue(1000);
+    await handleTokenPackWebhookEvent({
+      event: {
+        type: 'payment.refunded',
+        providerData: {
+          _eventId: 'evt_r',
+          metadata: {
+            type: 'token_pack',
+            packId: 'pack-1',
+            orgId: 'org-1',
+            userId: 'user-1',
+          },
+          amountRefunded: 900,
+        },
+      },
+      providerId: 'stripe',
+    });
+    expect(runHookMock).toHaveBeenCalledWith(
+      'payment.refund',
+      'user-1',
+      'token_pack:pack-1',
+      900
+    );
+  });
+
+  it('refund without a buyer in metadata emits no payment.refund', async () => {
+    setBillingConfig(packConfig);
+    getTokenBalanceMock.mockResolvedValue(1000);
+    await handleTokenPackWebhookEvent({
+      event: {
+        type: 'payment.refunded',
+        providerData: {
+          metadata: { type: 'token_pack', packId: 'pack-1', orgId: 'org-1' },
+        },
+      },
+      providerId: 'stripe',
+    });
+    expect(runHookMock).not.toHaveBeenCalledWith(
+      'payment.refund',
+      expect.anything(),
+      expect.anything(),
+      expect.anything()
+    );
   });
 
   it('refund with zero balance deducts nothing', async () => {
@@ -320,7 +462,9 @@ describe('handleTokenPackWebhookEvent', () => {
     await handleTokenPackWebhookEvent({
       event: {
         type: 'payment.refunded',
-        providerData: { metadata: { type: 'token_pack', packId: 'pack-1', orgId: 'org-1' } },
+        providerData: {
+          metadata: { type: 'token_pack', packId: 'pack-1', orgId: 'org-1' },
+        },
       },
       providerId: 'stripe',
     });
@@ -333,9 +477,13 @@ describe('handleTokenPackWebhookEvent', () => {
     // no longer knows — that must surface as a webhook failure, not silence.
     await expect(
       handleTokenPackWebhookEvent({
-        event: completedEvent({ type: 'token_pack', packId: 'ghost', orgId: 'org-1' }),
+        event: completedEvent({
+          type: 'token_pack',
+          packId: 'ghost',
+          orgId: 'org-1',
+        }),
         providerId: 'stripe',
-      }),
+      })
     ).rejects.toThrow('not found in billing config');
     expect(addTokensMock).not.toHaveBeenCalled();
   });

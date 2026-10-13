@@ -7,11 +7,19 @@ export { affiliatesRouter } from './routers/affiliates';
 export { attributionsRouter } from './routers/attributions';
 
 // Schema
-export { saasAffiliates, saasReferrals, saasAffiliateEvents } from './schema/affiliates';
+export {
+  saasAffiliates,
+  saasReferrals,
+  saasAffiliateEvents,
+} from './schema/affiliates';
 export { saasUserAcquisitions } from './schema/attributions';
 
 // Lib
-export { captureReferral, recordConversion } from './lib/affiliates';
+export {
+  captureReferral,
+  recordConversion,
+  recordRefund,
+} from './lib/affiliates';
 export { captureAttribution } from './lib/attribution';
 export type { AttributionData } from './lib/attribution';
 

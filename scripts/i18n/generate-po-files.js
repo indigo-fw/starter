@@ -132,14 +132,21 @@ async function readExistingTranslations(filePath) {
   }
 }
 
-// Recursively find all files in a directory
+// Test files never render UI: strings in their __() calls are fixtures, and
+// extracting them would ship untranslatable test text in every locale.
+const isTestFile = (name) => /\.(test|spec)\.[jt]sx?$/.test(name);
+
+// Recursively find all files in a directory (test files and __tests__ skipped)
 async function findFiles(dir, extensions = ['.js', '.jsx', '.ts', '.tsx']) {
   const dirents = fs.readdirSync(dir, { withFileTypes: true });
   const files = await Promise.all(
     dirents.map((dirent) => {
       const res = path.resolve(dir, dirent.name);
-      return dirent.isDirectory()
-        ? findFiles(res, extensions)
+      if (dirent.isDirectory()) {
+        return dirent.name === '__tests__' ? [] : findFiles(res, extensions);
+      }
+      return isTestFile(dirent.name)
+        ? []
         : extensions.includes(path.extname(res))
           ? res
           : [];

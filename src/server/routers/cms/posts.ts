@@ -1,41 +1,77 @@
+import { createTRPCRouter } from '../../trpc';
+import {
+  POST_SNAPSHOT_KEYS,
+  contentProcedure,
+  crudCols,
+  logger,
+  notifyContentPublished,
+} from './_shared';
 import { TRPCError } from '@trpc/server';
+import crypto from 'crypto';
 import { and, asc, desc, eq, inArray, isNull } from 'drizzle-orm';
 import { z } from 'zod';
-import crypto from 'crypto';
 
-import { getContentTypeByPostType } from '@/config/cms';
-import { env } from '@/lib/env';
-import { DEFAULT_LOCALE } from '@/lib/constants';
-import { cmsPosts, cmsCategories, cmsTerms } from '@/server/db/schema';
-import { ContentStatus, PostType } from '@/core/types/cms';
-import { getMdxManagedSlugs } from '@/core/lib/content/loader';
-import { getContentVarDefs } from '@/core/lib/content/vars';
+import { CONTENT_TYPES, getContentTypeByPostType } from '@/config/cms';
 import {
   buildAdminList,
   buildStatusCounts,
+  createSlugRestoreCheck,
   ensureSlugUnique,
-  softDelete,
-  softRestore,
-  permanentDelete,
   fetchOrNotFound,
   generateCopySlug,
   getTranslationSiblings,
-  serializeExport,
+  permanentDelete,
   prepareTranslationCopy,
+  serializeExport,
+  softDelete,
+  softRestore,
 } from '@/core/crud/admin-crud';
-import { adminListInput, exportBulkInput } from '@/core/crud/router-schemas';
 import { updateWithRevision } from '@/core/crud/cms-helpers';
+import { adminListInput, exportBulkInput } from '@/core/crud/router-schemas';
 import {
-  syncTermRelationships,
-  getTermRelationships,
+  createTableSlugResolver,
+  registerSlugResolver,
+} from '@/core/crud/slug-redirects';
+import {
   deleteAllTermRelationships,
+  getTermRelationships,
+  syncTermRelationships,
 } from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/infra/audit';
-import { createFieldTranslator } from '@/server/translation/translate-fields';
-import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { broadcastCmsLinkInvalidation } from '@/core/lib/content/cms-link';
-import { createTRPCRouter } from '../../trpc';
-import { contentProcedure, POST_SNAPSHOT_KEYS, crudCols, notifyContentPublished, logger } from './_shared';
+import { getMdxManagedSlugs } from '@/core/lib/content/loader';
+import { getContentVarDefs } from '@/core/lib/content/vars';
+import { logAudit } from '@/core/lib/infra/audit';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
+import { ContentStatus, PostType } from '@/core/types/cms';
+import { DEFAULT_LOCALE } from '@/lib/constants';
+import { env } from '@/lib/env';
+import { cmsCategories, cmsPosts, cmsTerms } from '@/server/db/schema';
+import { createFieldTranslator } from '@/server/translation/translate-fields';
+
+// Slug redirects are written under each post-backed type's own id (see `update`),
+// so every one of them must resolve back to cmsPosts for old URLs to keep working.
+const resolvePostSlug = createTableSlugResolver({
+  table: cmsPosts,
+  id: cmsPosts.id,
+  slug: cmsPosts.slug,
+  deletedAt: cmsPosts.deletedAt,
+});
+for (const ct of CONTENT_TYPES) {
+  if (ct.postType != null) registerSlugResolver(ct.id, resolvePostSlug);
+}
+
+// Same scope as the create/update slug checks: slug unique per lang + post type.
+const restoreSlugCheck = createSlugRestoreCheck(
+  {
+    table: cmsPosts,
+    idCol: cmsPosts.id,
+    slugCol: cmsPosts.slug,
+    langCol: cmsPosts.lang,
+    deletedAtCol: cmsPosts.deletedAt,
+    scopeCols: [cmsPosts.type],
+  },
+  'post'
+);
 
 export const cmsPostsRouter = createTRPCRouter({
   /** List posts with search, pagination, status tabs */
@@ -92,7 +128,9 @@ export const cmsPostsRouter = createTRPCRouter({
 
   /** Get slugs that have .mdx file overrides (not editable in admin). */
   mdxManagedSlugs: contentProcedure
-    .input(z.object({ type: z.number().int().min(1), lang: z.string().length(2) }))
+    .input(
+      z.object({ type: z.number().int().min(1), lang: z.string().length(2) })
+    )
     .query(({ input }) => {
       const ct = getContentTypeByPostType(input.type);
       const allSlugs = getMdxManagedSlugs(input.lang);
@@ -122,7 +160,10 @@ export const cmsPostsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       const post = await fetchOrNotFound<typeof cmsPosts.$inferSelect>(
-        ctx.db, cmsPosts, input.id, 'Post'
+        ctx.db,
+        cmsPosts,
+        input.id,
+        'Post'
       );
 
       const rels = await getTermRelationships(ctx.db, post.id);
@@ -195,7 +236,9 @@ export const cmsPostsRouter = createTRPCRouter({
           featuredImageAlt: postInput.featuredImageAlt ?? null,
           jsonLd: postInput.jsonLd ?? null,
           noindex: postInput.noindex,
-          publishedAt: postInput.publishedAt ? new Date(postInput.publishedAt) : null,
+          publishedAt: postInput.publishedAt
+            ? new Date(postInput.publishedAt)
+            : null,
           previewToken,
           translationGroup: postInput.translationGroup ?? null,
           fallbackToDefault: postInput.fallbackToDefault ?? null,
@@ -219,11 +262,21 @@ export const cmsPostsRouter = createTRPCRouter({
         entityId: post!.id,
         entityTitle: post!.title,
       });
-      dispatchWebhook(ctx.db, 'post.created', { id: post!.id, title: post!.title, type: post!.type });
+      dispatchWebhook(ctx.db, 'post.created', {
+        id: post!.id,
+        title: post!.title,
+        type: post!.type,
+      });
       broadcastCmsLinkInvalidation();
 
       if (post!.status === ContentStatus.PUBLISHED) {
-        notifyContentPublished(ctx.db, post!.title, post!.slug, ctx.session.user.id, contentType);
+        notifyContentPublished(
+          ctx.db,
+          post!.title,
+          post!.slug,
+          ctx.session.user.id,
+          contentType
+        );
       }
 
       return post!;
@@ -300,11 +353,12 @@ export const cmsPostsRouter = createTRPCRouter({
             .update(cmsPosts)
             .set({
               ...updates,
-              publishedAt: updates.publishedAt !== undefined
-                ? updates.publishedAt
-                  ? new Date(updates.publishedAt)
-                  : null
-                : undefined,
+              publishedAt:
+                updates.publishedAt !== undefined
+                  ? updates.publishedAt
+                    ? new Date(updates.publishedAt)
+                    : null
+                  : undefined,
               updatedAt: new Date(),
             })
             .where(eq(cmsPosts.id, id));
@@ -326,7 +380,10 @@ export const cmsPostsRouter = createTRPCRouter({
         entityId: id,
         entityTitle: updates.title ?? existing.title,
       });
-      dispatchWebhook(ctx.db, 'post.updated', { id, title: updates.title ?? existing.title });
+      dispatchWebhook(ctx.db, 'post.updated', {
+        id,
+        title: updates.title ?? existing.title,
+      });
       broadcastCmsLinkInvalidation();
 
       if (
@@ -338,7 +395,7 @@ export const cmsPostsRouter = createTRPCRouter({
           updates.title ?? existing.title,
           updates.slug ?? existing.slug,
           ctx.session.user.id,
-          contentType,
+          contentType
         );
       }
 
@@ -402,7 +459,13 @@ export const cmsPostsRouter = createTRPCRouter({
         existing.status !== ContentStatus.PUBLISHED
       ) {
         const ct = getContentTypeByPostType(existing.type);
-        notifyContentPublished(ctx.db, existing.title, existing.slug, ctx.session.user.id, ct);
+        notifyContentPublished(
+          ctx.db,
+          existing.title,
+          existing.slug,
+          ctx.session.user.id,
+          ct
+        );
       }
 
       return { success: true };
@@ -421,7 +484,7 @@ export const cmsPostsRouter = createTRPCRouter({
   restore: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await softRestore(ctx.db, crudCols, input.id);
+      await softRestore(ctx.db, crudCols, input.id, restoreSlugCheck);
       broadcastCmsLinkInvalidation();
       return { success: true };
     }),
@@ -441,9 +504,15 @@ export const cmsPostsRouter = createTRPCRouter({
       }
 
       const contentType = getContentTypeByPostType(post.type);
-      await permanentDelete(ctx.db, crudCols, input.id, contentType.id, async (tx) => {
-        await deleteAllTermRelationships(tx, input.id);
-      });
+      await permanentDelete(
+        ctx.db,
+        crudCols,
+        input.id,
+        contentType.id,
+        async (tx) => {
+          await deleteAllTermRelationships(tx, input.id);
+        }
+      );
       broadcastCmsLinkInvalidation();
       return { success: true };
     }),
@@ -453,12 +522,20 @@ export const cmsPostsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const original = await fetchOrNotFound<typeof cmsPosts.$inferSelect>(
-        ctx.db, cmsPosts, input.id, 'Post'
+        ctx.db,
+        cmsPosts,
+        input.id,
+        'Post'
       );
 
       const copySlug = await generateCopySlug(
-        ctx.db, cmsPosts, cmsPosts.slug, cmsPosts.deletedAt,
-        original.slug, cmsPosts.lang, original.lang,
+        ctx.db,
+        cmsPosts,
+        cmsPosts.slug,
+        cmsPosts.deletedAt,
+        original.slug,
+        cmsPosts.lang,
+        original.lang
       );
 
       const previewToken = crypto.randomBytes(32).toString('hex');
@@ -597,7 +674,10 @@ export const cmsPostsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const source = await fetchOrNotFound<typeof cmsPosts.$inferSelect>(
-        ctx.db, cmsPosts, input.id, 'Post',
+        ctx.db,
+        cmsPosts,
+        input.id,
+        'Post'
       );
 
       let title = source.title;
@@ -610,20 +690,32 @@ export const cmsPostsRouter = createTRPCRouter({
         const sl = source.lang ?? DEFAULT_LOCALE;
         const tl = input.targetLang;
         const safe = createFieldTranslator(tl, sl, logger);
-        [title, content, metaDescription, seoTitle, featuredImageAlt] = await Promise.all([
-          safe('title', title),
-          safe('content', content),
-          safe('metaDescription', metaDescription),
-          safe('seoTitle', seoTitle),
-          safe('featuredImageAlt', featuredImageAlt),
-        ]);
+        [title, content, metaDescription, seoTitle, featuredImageAlt] =
+          await Promise.all([
+            safe('title', title),
+            safe('content', content),
+            safe('metaDescription', metaDescription),
+            safe('seoTitle', seoTitle),
+            safe('featuredImageAlt', featuredImageAlt),
+          ]);
       }
 
-      const { slug, translationGroup, previewToken } = await prepareTranslationCopy(
-        ctx.db, cmsPosts,
-        { id: cmsPosts.id, slug: cmsPosts.slug, lang: cmsPosts.lang, deletedAt: cmsPosts.deletedAt, translationGroup: cmsPosts.translationGroup },
-        input.id, source.slug, source.translationGroup, input.targetLang,
-      );
+      const { slug, translationGroup, previewToken } =
+        await prepareTranslationCopy(
+          ctx.db,
+          cmsPosts,
+          {
+            id: cmsPosts.id,
+            slug: cmsPosts.slug,
+            lang: cmsPosts.lang,
+            deletedAt: cmsPosts.deletedAt,
+            translationGroup: cmsPosts.translationGroup,
+          },
+          input.id,
+          source.slug,
+          source.translationGroup,
+          input.targetLang
+        );
 
       const [newPost] = await ctx.db
         .insert(cmsPosts)
@@ -656,7 +748,11 @@ export const cmsPostsRouter = createTRPCRouter({
         entityType: 'post',
         entityId: newPost!.id,
         entityTitle: newPost!.title,
-        metadata: { originalId: input.id, targetLang: input.targetLang, autoTranslate: input.autoTranslate },
+        metadata: {
+          originalId: input.id,
+          targetLang: input.targetLang,
+          autoTranslate: input.autoTranslate,
+        },
       });
 
       return { id: newPost!.id, slug: newPost!.slug };
@@ -667,9 +763,14 @@ export const cmsPostsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return getTranslationSiblings(
-        ctx.db, cmsPosts,
-        cmsPosts.id, cmsPosts.translationGroup, cmsPosts.lang,
-        cmsPosts.slug, cmsPosts.deletedAt, input.id,
+        ctx.db,
+        cmsPosts,
+        cmsPosts.id,
+        cmsPosts.translationGroup,
+        cmsPosts.lang,
+        cmsPosts.slug,
+        cmsPosts.deletedAt,
+        input.id
       );
     }),
 
@@ -694,8 +795,24 @@ export const cmsPostsRouter = createTRPCRouter({
         .from(cmsPosts)
         .where(inArray(cmsPosts.id, input.ids));
 
-      const headers = ['id', 'title', 'slug', 'status', 'lang', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'content'];
-      return serializeExport(posts as Record<string, unknown>[], headers, input.format);
+      const headers = [
+        'id',
+        'title',
+        'slug',
+        'status',
+        'lang',
+        'metaDescription',
+        'seoTitle',
+        'publishedAt',
+        'createdAt',
+        'updatedAt',
+        'content',
+      ];
+      return serializeExport(
+        posts as Record<string, unknown>[],
+        headers,
+        input.format
+      );
     }),
 
   /** Export posts as JSON or CSV */
@@ -728,13 +845,18 @@ export const cmsPostsRouter = createTRPCRouter({
         .limit(5000);
 
       if (input.format === 'json') {
-        return { data: JSON.stringify(posts, null, 2), contentType: 'application/json' };
+        return {
+          data: JSON.stringify(posts, null, 2),
+          contentType: 'application/json',
+        };
       }
 
       const escape = (v: string | null | undefined) => {
         if (v == null) return '';
         const s = String(v).replace(/"/g, '""');
-        return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s}"` : s;
+        return s.includes(',') || s.includes('"') || s.includes('\n')
+          ? `"${s}"`
+          : s;
       };
       const header = 'title,slug,content,metaDescription,publishedAt,status';
       const rows = posts.map(

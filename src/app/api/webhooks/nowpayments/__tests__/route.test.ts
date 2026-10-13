@@ -1,4 +1,8 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { POST } from '../route';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { getProvider } from '@/core-payments/lib/factory';
+import { asMock } from '@/test-utils';
 
 // Mock payment factory
 const mockHandleWebhook = vi.fn();
@@ -11,7 +15,12 @@ vi.mock('@/core-payments/lib/factory', () => ({
 
 // Mock DB
 const mockInsertValues = vi.fn().mockResolvedValue(undefined);
-const mockInsert = vi.fn().mockReturnValue({ values: (...args: unknown[]) => { mockInsertValues(...args); return Promise.resolve(undefined); } });
+const mockInsert = vi.fn().mockReturnValue({
+  values: (...args: unknown[]) => {
+    mockInsertValues(...args);
+    return Promise.resolve(undefined);
+  },
+});
 
 vi.mock('@/server/db', () => ({
   db: {
@@ -37,12 +46,28 @@ vi.mock('@/core/lib/infra/logger', () => ({
 // Mock dynamically-imported handler
 const mockHandleSubscriptionWebhookEvent = vi.fn().mockResolvedValue(undefined);
 vi.mock('@/core-subscriptions/lib/webhook-handler', () => ({
-  handleSubscriptionWebhookEvent: (...args: unknown[]) => mockHandleSubscriptionWebhookEvent(...args),
+  handleSubscriptionWebhookEvent: (...args: unknown[]) =>
+    mockHandleSubscriptionWebhookEvent(...args),
 }));
 
-import { POST } from '../route';
-import { getProvider } from '@/core-payments/lib/factory';
-import { asMock } from '@/test-utils';
+/**
+ * What a unique violation looks like after drizzle-orm wraps it: the message
+ * is `Failed query: …` and the pg SQLSTATE lives on `cause`, so a message
+ * string-match never fires.
+ */
+function duplicateKeyError(): Error {
+  const pg = Object.assign(
+    new Error('duplicate key value violates unique constraint'),
+    {
+      code: '23505',
+      constraint_name: 'saas_subscription_events_provider_event_id_unique',
+    }
+  );
+  return Object.assign(
+    new Error('Failed query: insert into "saas_subscription_events" …'),
+    { cause: pg }
+  );
+}
 
 function makeRequest(body = '{}') {
   return new Request('http://localhost/api/webhooks/nowpayments', {
@@ -60,7 +85,10 @@ describe('NOWPayments webhook route', () => {
     });
     mockHandleSubscriptionWebhookEvent.mockResolvedValue(undefined);
     mockInsert.mockReturnValue({
-      values: (...args: unknown[]) => { mockInsertValues(...args); return Promise.resolve(undefined); },
+      values: (...args: unknown[]) => {
+        mockInsertValues(...args);
+        return Promise.resolve(undefined);
+      },
     });
   });
 
@@ -78,7 +106,7 @@ describe('NOWPayments webhook route', () => {
 
   it('returns duplicate:true for already-processed events', async () => {
     mockInsert.mockReturnValueOnce({
-      values: () => Promise.reject(new Error('unique constraint violation')),
+      values: () => Promise.reject(duplicateKeyError()),
     });
     mockHandleWebhook.mockResolvedValue({
       type: 'subscription.activated',
@@ -86,8 +114,22 @@ describe('NOWPayments webhook route', () => {
     });
 
     const res = await POST(makeRequest());
+    expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.duplicate).toBe(true);
+    expect(mockHandleSubscriptionWebhookEvent).not.toHaveBeenCalled();
+  });
+
+  it('rethrows insert failures that are not a unique violation (even if the text mentions "unique")', async () => {
+    mockInsert.mockReturnValueOnce({
+      values: () => Promise.reject(new Error('unique index is being rebuilt')),
+    });
+    mockHandleWebhook.mockResolvedValue({
+      type: 'subscription.activated',
+      providerData: { order_id: 'tx-other-err' },
+    });
+
+    await expect(POST(makeRequest())).rejects.toThrow('unique index');
     expect(mockHandleSubscriptionWebhookEvent).not.toHaveBeenCalled();
   });
 

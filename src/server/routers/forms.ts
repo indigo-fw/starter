@@ -1,17 +1,26 @@
+import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
-import { and, desc, eq, ilike, or, sql, count as drizzleCount } from 'drizzle-orm';
+import {
+  and,
+  desc,
+  count as drizzleCount,
+  eq,
+  ilike,
+  or,
+  sql,
+} from 'drizzle-orm';
 import { z } from 'zod';
 
-import { slugify } from '@/core/lib/content/slug';
-import { cmsForms, cmsFormSubmissions } from '@/server/db/schema';
-import { logAudit } from '@/core/lib/infra/audit';
 import {
   ensureSlugUnique,
-  parsePagination,
-  paginatedResult,
   fetchOrNotFound,
+  paginatedResult,
+  parsePagination,
 } from '@/core/crud/admin-crud';
-import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { slugify } from '@/core/lib/content/slug';
+import { logAudit } from '@/core/lib/infra/audit';
+import { cmsFormSubmissions, cmsForms } from '@/server/db/schema';
 
 const contentProcedure = sectionProcedure('content');
 
@@ -47,7 +56,7 @@ export const formsRouter = createTRPCRouter({
     .input(
       z.object({
         search: z.string().max(200).optional(),
-        page: z.number().int().min(1).optional(),
+        page: z.number().int().min(1).max(MAX_PAGE).optional(),
         pageSize: z.number().int().min(1).max(100).optional(),
       })
     )
@@ -96,7 +105,10 @@ export const formsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return fetchOrNotFound<typeof cmsForms.$inferSelect>(
-        ctx.db, cmsForms, input.id, 'Form'
+        ctx.db,
+        cmsForms,
+        input.id,
+        'Form'
       );
     }),
 
@@ -192,7 +204,10 @@ export const formsRouter = createTRPCRouter({
       const { id, ...updates } = input;
 
       const existing = await fetchOrNotFound<typeof cmsForms.$inferSelect>(
-        ctx.db, cmsForms, id, 'Form'
+        ctx.db,
+        cmsForms,
+        id,
+        'Form'
       );
 
       if (updates.slug && updates.slug !== existing.slug) {
@@ -231,7 +246,10 @@ export const formsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const existing = await fetchOrNotFound<typeof cmsForms.$inferSelect>(
-        ctx.db, cmsForms, input.id, 'Form'
+        ctx.db,
+        cmsForms,
+        input.id,
+        'Form'
       );
 
       await ctx.db.delete(cmsForms).where(eq(cmsForms.id, input.id));
@@ -253,7 +271,7 @@ export const formsRouter = createTRPCRouter({
     .input(
       z.object({
         formId: z.string().uuid(),
-        page: z.number().int().min(1).optional(),
+        page: z.number().int().min(1).max(MAX_PAGE).optional(),
         pageSize: z.number().int().min(1).max(100).optional(),
       })
     )
@@ -285,7 +303,10 @@ export const formsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       await fetchOrNotFound<typeof cmsFormSubmissions.$inferSelect>(
-        ctx.db, cmsFormSubmissions, input.id, 'Submission'
+        ctx.db,
+        cmsFormSubmissions,
+        input.id,
+        'Submission'
       );
 
       await ctx.db
@@ -314,7 +335,10 @@ export const formsRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       // Fetch form for field definitions
       const form = await fetchOrNotFound<typeof cmsForms.$inferSelect>(
-        ctx.db, cmsForms, input.formId, 'Form'
+        ctx.db,
+        cmsForms,
+        input.formId,
+        'Form'
       );
 
       const submissions = await ctx.db
@@ -354,7 +378,10 @@ export const formsRouter = createTRPCRouter({
           ...rows.map((r) => r.map(escapeCsv).join(',')),
         ].join('\n');
 
-        return { content: csvContent, filename: `${form.slug}-submissions.csv` };
+        return {
+          content: csvContent,
+          filename: `${form.slug}-submissions.csv`,
+        };
       }
 
       // JSON format

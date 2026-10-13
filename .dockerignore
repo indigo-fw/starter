@@ -16,4 +16,14 @@ coverage
 __tests__
 *.test.ts
 *.spec.ts
+# Agent/tooling config and dev-only trees — nothing the Dockerfile COPYs or the
+# build reads. (`docs/` stays: the runtime image copies it.)
 .claude
+.agents
+.codex
+.husky
+.indigo
+cloudflare
+docs-site
+e2e
+todos

@@ -31,7 +31,9 @@ import { vi } from 'vitest';
 export function createMockDb() {
   // ---- insert chain -------------------------------------------------------
   const insertReturningMock = vi.fn().mockResolvedValue([]);
-  const insertValuesMock = vi.fn().mockReturnValue({ returning: insertReturningMock });
+  const insertValuesMock = vi
+    .fn()
+    .mockReturnValue({ returning: insertReturningMock });
   const insertMock = vi.fn().mockReturnValue({ values: insertValuesMock });
 
   // ---- select chain -------------------------------------------------------
@@ -58,8 +60,12 @@ export function createMockDb() {
   });
 
   // innerJoin / leftJoin — both expose `.where()` which terminates at selectWhereMock.
-  const selectInnerJoinMock = vi.fn().mockReturnValue({ where: selectWhereMock });
-  const selectLeftJoinMock = vi.fn().mockReturnValue({ where: selectWhereMock });
+  const selectInnerJoinMock = vi
+    .fn()
+    .mockReturnValue({ where: selectWhereMock });
+  const selectLeftJoinMock = vi
+    .fn()
+    .mockReturnValue({ where: selectWhereMock });
 
   // from() — supports all continuation paths used by routers.
   const selectFromMock = vi.fn().mockReturnValue({
@@ -81,11 +87,17 @@ export function createMockDb() {
   const deleteWhereMock = vi.fn().mockResolvedValue(undefined);
   const deleteMock = vi.fn().mockReturnValue({ where: deleteWhereMock });
 
-  return {
+  // ---- transaction --------------------------------------------------------
+  // Runs the callback against this same mock so `tx.update()` etc. hit the
+  // chains above; `_chains` assertions work for transactional code too.
+  const transactionMock = vi.fn();
+
+  const db = {
     select: selectMock,
     insert: insertMock,
     update: updateMock,
     delete: deleteMock,
+    transaction: transactionMock,
     /** Exposed internal mocks for per-test control and assertion. */
     _chains: {
       select: {
@@ -101,8 +113,15 @@ export function createMockDb() {
       insert: { values: insertValuesMock, returning: insertReturningMock },
       update: { set: updateSetMock, where: updateWhereMock },
       delete: { where: deleteWhereMock },
+      transaction: transactionMock,
     },
   };
+
+  transactionMock.mockImplementation(
+    async (fn: (tx: typeof db) => Promise<unknown>) => fn(db)
+  );
+
+  return db;
 }
 
 // ---------------------------------------------------------------------------

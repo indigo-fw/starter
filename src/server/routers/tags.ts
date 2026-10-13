@@ -1,38 +1,36 @@
+import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
 import { and, desc, eq, ilike, inArray, isNull, or, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { DEFAULT_LOCALE } from '@/lib/constants';
 import { getContentType } from '@/config/cms';
-import {
-  mergeWithLocaleFallback,
-  needsLocaleFallback,
-} from '@/core/lib/i18n/locale-fallback';
-import { cmsTerms, cmsTermRelationships } from '@/server/db/schema';
-import { ContentStatus } from '@/core/types/cms';
 import {
   buildAdminList,
   buildStatusCounts,
+  createSlugRestoreCheck,
   ensureSlugUnique,
+  fetchOrNotFound,
+  paginatedResult,
+  parsePagination,
+  permanentDelete,
   softDelete,
   softRestore,
-  permanentDelete,
-  parsePagination,
-  paginatedResult,
-  fetchOrNotFound,
 } from '@/core/crud/admin-crud';
-import { adminListInput } from '@/core/crud/router-schemas';
+import { isDuplicateKeyError } from '@/core/crud/drizzle-utils';
+import { MAX_PAGE, adminListInput } from '@/core/crud/router-schemas';
 import {
   deleteTermRelationshipsByTerm,
   resolveTagsForPosts,
 } from '@/core/crud/taxonomy-helpers';
 import { slugify } from '@/core/lib/content/slug';
-import { logAudit } from '@/core/lib/infra/audit';
 import {
-  createTRPCRouter,
-  publicProcedure,
-  sectionProcedure,
-} from '../trpc';
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
+import { logAudit } from '@/core/lib/infra/audit';
+import { ContentStatus } from '@/core/types/cms';
+import { DEFAULT_LOCALE } from '@/lib/constants';
+import { cmsTermRelationships, cmsTerms } from '@/server/db/schema';
 
 const TAXONOMY_ID = 'tag';
 
@@ -44,43 +42,54 @@ const crudCols = {
   deleted_at: cmsTerms.deletedAt,
 };
 
+// Same scope as the create/update slug checks: slug unique per lang + taxonomy.
+const restoreSlugCheck = createSlugRestoreCheck(
+  {
+    table: cmsTerms,
+    idCol: cmsTerms.id,
+    slugCol: cmsTerms.slug,
+    langCol: cmsTerms.lang,
+    deletedAtCol: cmsTerms.deletedAt,
+    scopeCols: [cmsTerms.taxonomyId],
+  },
+  'tag'
+);
+
 export const tagsRouter = createTRPCRouter({
   /** Admin: list tags with search, pagination, status tabs */
-  list: contentProcedure
-    .input(adminListInput)
-    .query(async ({ ctx, input }) => {
-      return buildAdminList(
-        {
-          db: ctx.db,
-          cols: {
-            table: cmsTerms,
-            id: cmsTerms.id,
-            deleted_at: cmsTerms.deletedAt,
-            lang: cmsTerms.lang,
-            // Tags don't use translation_group; pass a dummy col for the interface
-            translation_group: cmsTerms.id,
-          },
-          input,
-          searchColumns: [cmsTerms.name, cmsTerms.slug],
-          sortColumns: {
-            name: cmsTerms.name,
-            order: cmsTerms.order,
-            created_at: cmsTerms.createdAt,
-          },
-          defaultSort: 'created_at',
-          extraConditions: [eq(cmsTerms.taxonomyId, TAXONOMY_ID)],
+  list: contentProcedure.input(adminListInput).query(async ({ ctx, input }) => {
+    return buildAdminList(
+      {
+        db: ctx.db,
+        cols: {
+          table: cmsTerms,
+          id: cmsTerms.id,
+          deleted_at: cmsTerms.deletedAt,
+          lang: cmsTerms.lang,
+          // Tags don't use translation_group; pass a dummy col for the interface
+          translation_group: cmsTerms.id,
         },
-        async ({ where, orderBy, offset, limit }) => {
-          return ctx.db
-            .select()
-            .from(cmsTerms)
-            .where(where)
-            .orderBy(orderBy)
-            .offset(offset)
-            .limit(limit);
-        }
-      );
-    }),
+        input,
+        searchColumns: [cmsTerms.name, cmsTerms.slug],
+        sortColumns: {
+          name: cmsTerms.name,
+          order: cmsTerms.order,
+          created_at: cmsTerms.createdAt,
+        },
+        defaultSort: 'created_at',
+        extraConditions: [eq(cmsTerms.taxonomyId, TAXONOMY_ID)],
+      },
+      async ({ where, orderBy, offset, limit }) => {
+        return ctx.db
+          .select()
+          .from(cmsTerms)
+          .where(where)
+          .orderBy(orderBy)
+          .offset(offset)
+          .limit(limit);
+      }
+    );
+  }),
 
   /** Admin: status tab counts */
   counts: contentProcedure.query(async ({ ctx }) => {
@@ -100,8 +109,11 @@ export const tagsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return fetchOrNotFound<typeof cmsTerms.$inferSelect>(
-        ctx.db, cmsTerms, input.id, 'Tag',
-        [eq(cmsTerms.taxonomyId, TAXONOMY_ID)],
+        ctx.db,
+        cmsTerms,
+        input.id,
+        'Tag',
+        [eq(cmsTerms.taxonomyId, TAXONOMY_ID)]
       );
     }),
 
@@ -189,8 +201,11 @@ export const tagsRouter = createTRPCRouter({
       const { id, ...updates } = input;
 
       const existing = await fetchOrNotFound<typeof cmsTerms.$inferSelect>(
-        ctx.db, cmsTerms, id, 'Tag',
-        [eq(cmsTerms.taxonomyId, TAXONOMY_ID)],
+        ctx.db,
+        cmsTerms,
+        id,
+        'Tag',
+        [eq(cmsTerms.taxonomyId, TAXONOMY_ID)]
       );
 
       if (updates.slug && updates.slug !== existing.slug) {
@@ -247,7 +262,7 @@ export const tagsRouter = createTRPCRouter({
   restore: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await softRestore(ctx.db, crudCols, input.id);
+      await softRestore(ctx.db, crudCols, input.id, restoreSlugCheck);
       logAudit({
         db: ctx.db,
         userId: ctx.session.user.id,
@@ -311,7 +326,12 @@ export const tagsRouter = createTRPCRouter({
               updatedAt: new Date(),
             })
             .where(eq(cmsTerms.id, existing.id));
-          return { ...existing, deletedAt: null, name: input.name, status: ContentStatus.PUBLISHED };
+          return {
+            ...existing,
+            deletedAt: null,
+            name: input.name,
+            status: ContentStatus.PUBLISHED,
+          };
         }
         return existing;
       }
@@ -332,8 +352,7 @@ export const tagsRouter = createTRPCRouter({
         return tag!;
       } catch (err: unknown) {
         // Unique constraint violation (concurrent insert) — re-fetch
-        const code = (err as { code?: string })?.code;
-        if (code === '23505') {
+        if (isDuplicateKeyError(err)) {
           const [raced] = await ctx.db
             .select()
             .from(cmsTerms)
@@ -397,7 +416,7 @@ export const tagsRouter = createTRPCRouter({
     .input(
       z.object({
         lang: z.string().max(2).default(DEFAULT_LOCALE),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(100),
       })
     )
@@ -475,7 +494,9 @@ export const tagsRouter = createTRPCRouter({
           id: cmsTerms.id,
           name: cmsTerms.name,
           slug: cmsTerms.slug,
-          count: sql<number>`count(${cmsTermRelationships.objectId})`.as('count'),
+          count: sql<number>`count(${cmsTermRelationships.objectId})`.as(
+            'count'
+          ),
         })
         .from(cmsTerms)
         .leftJoin(
@@ -495,7 +516,10 @@ export const tagsRouter = createTRPCRouter({
           )
         )
         .groupBy(cmsTerms.id, cmsTerms.name, cmsTerms.slug)
-        .orderBy(desc(sql`count(${cmsTermRelationships.objectId})`), cmsTerms.name)
+        .orderBy(
+          desc(sql`count(${cmsTermRelationships.objectId})`),
+          cmsTerms.name
+        )
         .limit(input.limit);
     }),
 
@@ -523,7 +547,9 @@ export const tagsRouter = createTRPCRouter({
           id: cmsTerms.id,
           name: cmsTerms.name,
           slug: cmsTerms.slug,
-          count: sql<number>`count(${cmsTermRelationships.objectId})`.as('count'),
+          count: sql<number>`count(${cmsTermRelationships.objectId})`.as(
+            'count'
+          ),
         })
         .from(cmsTerms)
         .innerJoin(
@@ -603,8 +629,11 @@ export const tagsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       await fetchOrNotFound<typeof cmsTerms.$inferSelect>(
-        ctx.db, cmsTerms, input.id, 'Tag',
-        [eq(cmsTerms.taxonomyId, TAXONOMY_ID)],
+        ctx.db,
+        cmsTerms,
+        input.id,
+        'Tag',
+        [eq(cmsTerms.taxonomyId, TAXONOMY_ID)]
       );
 
       await ctx.db
@@ -653,67 +682,74 @@ export const tagsRouter = createTRPCRouter({
   stats: contentProcedure.query(async ({ ctx }) => {
     const baseCondition = eq(cmsTerms.taxonomyId, TAXONOMY_ID);
 
-    const [totalResult, publishedResult, relCountResult, orphanedResult, topTags] =
-      await Promise.all([
-        // Total tags (non-deleted)
-        ctx.db
-          .select({ count: sql<number>`count(*)` })
-          .from(cmsTerms)
-          .where(and(baseCondition, isNull(cmsTerms.deletedAt))),
-        // Published tags
-        ctx.db
-          .select({ count: sql<number>`count(*)` })
-          .from(cmsTerms)
-          .where(
-            and(
-              baseCondition,
-              eq(cmsTerms.status, ContentStatus.PUBLISHED),
-              isNull(cmsTerms.deletedAt)
-            )
-          ),
-        // Total relationships
-        ctx.db
-          .select({ count: sql<number>`count(*)` })
-          .from(cmsTermRelationships)
-          .where(eq(cmsTermRelationships.taxonomyId, TAXONOMY_ID)),
-        // Orphaned tags (0 relationships)
-        ctx.db
-          .select({ count: sql<number>`count(*)` })
-          .from(cmsTerms)
-          .leftJoin(
-            cmsTermRelationships,
-            and(
-              eq(cmsTerms.id, cmsTermRelationships.termId),
-              eq(cmsTermRelationships.taxonomyId, TAXONOMY_ID)
-            )
+    const [
+      totalResult,
+      publishedResult,
+      relCountResult,
+      orphanedResult,
+      topTags,
+    ] = await Promise.all([
+      // Total tags (non-deleted)
+      ctx.db
+        .select({ count: sql<number>`count(*)` })
+        .from(cmsTerms)
+        .where(and(baseCondition, isNull(cmsTerms.deletedAt))),
+      // Published tags
+      ctx.db
+        .select({ count: sql<number>`count(*)` })
+        .from(cmsTerms)
+        .where(
+          and(
+            baseCondition,
+            eq(cmsTerms.status, ContentStatus.PUBLISHED),
+            isNull(cmsTerms.deletedAt)
           )
-          .where(
-            and(
-              baseCondition,
-              isNull(cmsTerms.deletedAt),
-              sql`${cmsTermRelationships.objectId} is null`
-            )
-          ),
-        // Top 10 tags
-        ctx.db
-          .select({
-            name: cmsTerms.name,
-            slug: cmsTerms.slug,
-            count: sql<number>`count(${cmsTermRelationships.objectId})`.as('count'),
-          })
-          .from(cmsTerms)
-          .innerJoin(
-            cmsTermRelationships,
-            and(
-              eq(cmsTerms.id, cmsTermRelationships.termId),
-              eq(cmsTermRelationships.taxonomyId, TAXONOMY_ID)
-            )
+        ),
+      // Total relationships
+      ctx.db
+        .select({ count: sql<number>`count(*)` })
+        .from(cmsTermRelationships)
+        .where(eq(cmsTermRelationships.taxonomyId, TAXONOMY_ID)),
+      // Orphaned tags (0 relationships)
+      ctx.db
+        .select({ count: sql<number>`count(*)` })
+        .from(cmsTerms)
+        .leftJoin(
+          cmsTermRelationships,
+          and(
+            eq(cmsTerms.id, cmsTermRelationships.termId),
+            eq(cmsTermRelationships.taxonomyId, TAXONOMY_ID)
           )
-          .where(and(baseCondition, isNull(cmsTerms.deletedAt)))
-          .groupBy(cmsTerms.name, cmsTerms.slug)
-          .orderBy(desc(sql`count(${cmsTermRelationships.objectId})`))
-          .limit(10),
-      ]);
+        )
+        .where(
+          and(
+            baseCondition,
+            isNull(cmsTerms.deletedAt),
+            sql`${cmsTermRelationships.objectId} is null`
+          )
+        ),
+      // Top 10 tags
+      ctx.db
+        .select({
+          name: cmsTerms.name,
+          slug: cmsTerms.slug,
+          count: sql<number>`count(${cmsTermRelationships.objectId})`.as(
+            'count'
+          ),
+        })
+        .from(cmsTerms)
+        .innerJoin(
+          cmsTermRelationships,
+          and(
+            eq(cmsTerms.id, cmsTermRelationships.termId),
+            eq(cmsTermRelationships.taxonomyId, TAXONOMY_ID)
+          )
+        )
+        .where(and(baseCondition, isNull(cmsTerms.deletedAt)))
+        .groupBy(cmsTerms.name, cmsTerms.slug)
+        .orderBy(desc(sql`count(${cmsTermRelationships.objectId})`))
+        .limit(10),
+    ]);
 
     return {
       totalTags: Number(totalResult[0]?.count ?? 0),

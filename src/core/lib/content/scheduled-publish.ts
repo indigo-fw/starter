@@ -84,11 +84,41 @@ export async function processScheduledContent(): Promise<void> {
 // Worker
 // ---------------------------------------------------------------------------
 
-const _contentQueue = createQueue('content-publish');
+/**
+ * Repeatable-job definition. Single source of truth: the worker arms it at
+ * start and `src/scripts/schedule-jobs.ts` re-arms it by hand — neither
+ * duplicates the id/interval.
+ */
+export const CONTENT_PUBLISH_SCHEDULE = {
+  queue: 'content-publish',
+  schedulerId: 'content-publish',
+  everyMs: 60_000,
+} as const;
+
+const _contentQueue = createQueue(CONTENT_PUBLISH_SCHEDULE.queue);
+
+/**
+ * Idempotently register the repeatable job. Resolves false when Redis is
+ * absent (no queue), so callers can report "skipped" rather than "armed".
+ */
+export async function ensureContentPublishSchedule(): Promise<boolean> {
+  if (!_contentQueue) return false;
+  await _contentQueue.upsertJobScheduler(CONTENT_PUBLISH_SCHEDULE.schedulerId, {
+    every: CONTENT_PUBLISH_SCHEDULE.everyMs,
+  });
+  return true;
+}
 
 /** Initialize content publish worker. */
 export function startContentPublishWorker(): void {
-  createWorker('content-publish', async () => {
+  // Self-register so a fresh deploy publishes scheduled content without a
+  // manual scheduling step. Non-fatal: the worker still consumes jobs armed
+  // earlier (or by schedule-jobs.ts) if the upsert itself fails.
+  ensureContentPublishSchedule().catch((err: unknown) => {
+    logger.warn('Failed to register content-publish schedule', { error: String(err) });
+  });
+
+  createWorker(CONTENT_PUBLISH_SCHEDULE.queue, async () => {
     await processScheduledContent();
   });
 }

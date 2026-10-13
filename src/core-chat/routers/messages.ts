@@ -1,26 +1,41 @@
-import { z } from 'zod';
-import { eq, and, desc, lt, or, sql } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
-import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
-import { db } from '@/server/db';
-import { chatMessages } from '@/core-chat/schema/messages';
-import { chatConversations } from '@/core-chat/schema/conversations';
-import { getChatDeps } from '@/core-chat/deps';
+import { and, desc, eq, lt, or, sql } from 'drizzle-orm';
+import { z } from 'zod';
+
 import { getChatConfig } from '@/core-chat/config';
-import { moderateContent } from '@/core-chat/lib/moderation';
+import { getChatDeps } from '@/core-chat/deps';
+import { checkAutoBlock, logAuditEvent } from '@/core-chat/lib/audit';
 import { enqueueAiResponse } from '@/core-chat/lib/engine';
-import { ChatWsEvent, CensorType, ConversationStatus, MessageRole, MessageStatus } from '@/core-chat/lib/types';
+import { moderateContent } from '@/core-chat/lib/moderation';
+import {
+  CensorType,
+  ChatWsEvent,
+  ConversationStatus,
+  MessageRole,
+  MessageStatus,
+} from '@/core-chat/lib/types';
+import { chatConversations } from '@/core-chat/schema/conversations';
+import { chatMessages } from '@/core-chat/schema/messages';
 import { createLogger } from '@/core/lib/infra/logger';
-import { getRedis } from '@/core/lib/infra/redis';
-import { logAuditEvent, checkAutoBlock } from '@/core-chat/lib/audit';
-import { checkRateLimit, type RateLimitConfig } from '@/core/lib/infra/rate-limit';
+import {
+  type RateLimitConfig,
+  checkRateLimit,
+} from '@/core/lib/infra/rate-limit';
+import { getRequestRedis } from '@/core/lib/infra/redis';
+import { db } from '@/server/db';
+import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
 
 const logger = createLogger('chat-messages');
 
 // ─── Rate limiter (Redis-based, fail-open) ──────────────────────────────────
 
-async function applyChatRateLimit(userId: string, config: { max: number; windowSeconds: number }): Promise<void> {
-  const redis = getRedis();
+async function applyChatRateLimit(
+  userId: string,
+  config: { max: number; windowSeconds: number }
+): Promise<void> {
+  // Request path: the fail-fast profile, not the BullMQ one (which buffers
+  // commands forever while Redis is down and would hang every send).
+  const redis = getRequestRedis();
   const rlConfig: RateLimitConfig = {
     windowMs: config.windowSeconds * 1000,
     maxRequests: config.max,
@@ -44,14 +59,18 @@ export const messageRouter = createTRPCRouter({
    * Uses composite (createdAt, id) cursor to avoid timestamp collision issues.
    */
   list: protectedProcedure
-    .input(z.object({
-      conversationId: z.string().uuid(),
-      cursor: z.object({
-        createdAt: z.string().datetime(),
-        id: z.string().uuid(),
-      }).optional(),
-      limit: z.number().int().min(1).max(100).default(50),
-    }))
+    .input(
+      z.object({
+        conversationId: z.string().uuid(),
+        cursor: z
+          .object({
+            createdAt: z.string().datetime(),
+            id: z.string().uuid(),
+          })
+          .optional(),
+        limit: z.number().int().min(1).max(100).default(50),
+      })
+    )
     .query(async ({ ctx, input }) => {
       // Verify ownership
       const [conv] = await db
@@ -61,10 +80,15 @@ export const messageRouter = createTRPCRouter({
         .limit(1);
 
       if (!conv || conv.userId !== ctx.session.user.id) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Conversation not found',
+        });
       }
 
-      const conditions = [eq(chatMessages.conversationId, input.conversationId)];
+      const conditions = [
+        eq(chatMessages.conversationId, input.conversationId),
+      ];
 
       if (input.cursor) {
         // Composite cursor: (createdAt < cursor.createdAt) OR (createdAt = cursor.createdAt AND id < cursor.id)
@@ -74,9 +98,9 @@ export const messageRouter = createTRPCRouter({
             lt(chatMessages.createdAt, cursorDate),
             and(
               eq(chatMessages.createdAt, cursorDate),
-              sql`${chatMessages.id} < ${input.cursor.id}`,
-            ),
-          )!,
+              sql`${chatMessages.id} < ${input.cursor.id}`
+            )
+          )!
         );
       }
 
@@ -93,21 +117,27 @@ export const messageRouter = createTRPCRouter({
       // Return in chronological order for display
       messages.reverse();
 
-      const nextCursor = hasMore && messages[0]
-        ? { createdAt: messages[0].createdAt!.toISOString(), id: messages[0].id }
-        : undefined;
+      const nextCursor =
+        hasMore && messages[0]
+          ? {
+              createdAt: messages[0].createdAt!.toISOString(),
+              id: messages[0].id,
+            }
+          : undefined;
 
       return { messages, nextCursor };
     }),
 
   /** Send a message — the hot path */
   send: protectedProcedure
-    .input(z.object({
-      id: z.string().uuid(),
-      conversationId: z.string().uuid(),
-      content: z.string().min(1).max(4000),
-      mediaId: z.string().uuid().optional(),
-    }))
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        conversationId: z.string().uuid(),
+        content: z.string().min(1).max(4000),
+        mediaId: z.string().uuid().optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const deps = getChatDeps();
       const config = getChatConfig();
@@ -126,10 +156,16 @@ export const messageRouter = createTRPCRouter({
         .limit(1);
 
       if (!conv || conv.userId !== userId) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Conversation not found',
+        });
       }
       if (conv.status !== ConversationStatus.ACTIVE) {
-        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Conversation is not active' });
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Conversation is not active',
+        });
       }
 
       // 2. Feature gate + token balance pre-flight
@@ -157,34 +193,45 @@ export const messageRouter = createTRPCRouter({
           action: config.moderationAction,
         },
         deps.externalModerate,
-        userId,
+        userId
       );
 
       if (!moderationResult.passed) {
         // Determine censor type based on whether this was an image request
-        const { detectMessageType } = await import('@/core-chat/lib/detect-message-type');
+        const { detectMessageType } =
+          await import('@/core-chat/lib/detect-message-type');
         const msgType = detectMessageType(input.content);
-        const censorType = msgType === 'image' ? CensorType.CENSORED_IMAGE : CensorType.CENSORED_TEXT;
+        const censorType =
+          msgType === 'image'
+            ? CensorType.CENSORED_IMAGE
+            : CensorType.CENSORED_TEXT;
 
-        await db.insert(chatMessages).values({
-          id: input.id,
-          conversationId: input.conversationId,
-          role: MessageRole.USER,
-          content: input.content,
-          status: MessageStatus.MODERATED,
-          moderationResult: {
-            reason: moderationResult.reason,
-            action: moderationResult.action,
+        await db
+          .insert(chatMessages)
+          .values({
+            id: input.id,
+            conversationId: input.conversationId,
+            role: MessageRole.USER,
+            content: input.content,
+            status: MessageStatus.MODERATED,
+            moderationResult: {
+              reason: moderationResult.reason,
+              action: moderationResult.action,
+              censorType,
+            },
+          })
+          .onConflictDoNothing();
+
+        deps.broadcastEvent(
+          `chat:${input.conversationId}`,
+          ChatWsEvent.MSG_STATUS,
+          {
+            type: ChatWsEvent.MSG_STATUS,
+            id: input.id,
+            status: MessageStatus.MODERATED,
             censorType,
-          },
-        }).onConflictDoNothing();
-
-        deps.broadcastEvent(`chat:${input.conversationId}`, ChatWsEvent.MSG_STATUS, {
-          type: ChatWsEvent.MSG_STATUS,
-          id: input.id,
-          status: MessageStatus.MODERATED,
-          censorType,
-        });
+          }
+        );
 
         // Audit log + auto-block check
         logAuditEvent(userId, 'content_moderated', {
@@ -192,37 +239,53 @@ export const messageRouter = createTRPCRouter({
           entityId: input.id,
           reason: moderationResult.reason,
         });
-        checkAutoBlock(userId).then((shouldBlock) => {
-          if (shouldBlock) {
-            logAuditEvent(userId, 'auto_blocked', { reason: 'Exceeded moderation threshold' });
-            // Auto-block detected — wire to project's user ban system (set user.banned=true via deps)
-          }
-        }).catch((e) => logger.warn('Auto-block check failed', { error: String(e) }));
+        checkAutoBlock(userId)
+          .then((shouldBlock) => {
+            if (shouldBlock) {
+              logAuditEvent(userId, 'auto_blocked', {
+                reason: 'Exceeded moderation threshold',
+              });
+              // Auto-block detected — wire to project's user ban system (set user.banned=true via deps)
+            }
+          })
+          .catch((e) =>
+            logger.warn('Auto-block check failed', { error: String(e) })
+          );
 
-        return { messageId: input.id, status: MessageStatus.MODERATED as string };
+        return {
+          messageId: input.id,
+          status: MessageStatus.MODERATED as string,
+        };
       }
 
       // 5. Insert user message (idempotent via ON CONFLICT DO NOTHING)
       const userRole = input.mediaId ? MessageRole.USER_IMG : MessageRole.USER;
-      await db.insert(chatMessages).values({
-        id: input.id,
-        conversationId: input.conversationId,
-        role: userRole,
-        content: input.content,
-        status: MessageStatus.DELIVERED,
-        mediaId: input.mediaId ?? null,
-      }).onConflictDoNothing();
+      await db
+        .insert(chatMessages)
+        .values({
+          id: input.id,
+          conversationId: input.conversationId,
+          role: userRole,
+          content: input.content,
+          status: MessageStatus.DELIVERED,
+          mediaId: input.mediaId ?? null,
+        })
+        .onConflictDoNothing();
 
       // 6. Broadcast confirmation
-      deps.broadcastEvent(`chat:${input.conversationId}`, ChatWsEvent.MSG_CONFIRMED, {
-        type: ChatWsEvent.MSG_CONFIRMED,
-        id: input.id,
-        conversationId: input.conversationId,
-        role: userRole,
-        content: input.content,
-        status: MessageStatus.DELIVERED,
-        createdAt: new Date().toISOString(),
-      });
+      deps.broadcastEvent(
+        `chat:${input.conversationId}`,
+        ChatWsEvent.MSG_CONFIRMED,
+        {
+          type: ChatWsEvent.MSG_CONFIRMED,
+          id: input.id,
+          conversationId: input.conversationId,
+          role: userRole,
+          content: input.content,
+          status: MessageStatus.DELIVERED,
+          createdAt: new Date().toISOString(),
+        }
+      );
 
       // 7. Enqueue AI response via BullMQ (falls back to in-process if no Redis)
       enqueueAiResponse({
@@ -251,17 +314,22 @@ export const messageRouter = createTRPCRouter({
         .limit(1);
 
       if (!conv || conv.userId !== userId) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Conversation not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Conversation not found',
+        });
       }
 
       // Get the last user message for retry
       const [lastMsg] = await db
         .select({ content: chatMessages.content })
         .from(chatMessages)
-        .where(and(
-          eq(chatMessages.conversationId, input.conversationId),
-          eq(chatMessages.role, 'user'),
-        ))
+        .where(
+          and(
+            eq(chatMessages.conversationId, input.conversationId),
+            eq(chatMessages.role, 'user')
+          )
+        )
         .orderBy(desc(chatMessages.createdAt))
         .limit(1);
 
@@ -277,11 +345,13 @@ export const messageRouter = createTRPCRouter({
 
   /** Report a message */
   report: protectedProcedure
-    .input(z.object({
-      messageId: z.string().uuid().optional(),
-      conversationId: z.string().uuid(),
-      text: z.string().min(10).max(5000),
-    }))
+    .input(
+      z.object({
+        messageId: z.string().uuid().optional(),
+        conversationId: z.string().uuid(),
+        text: z.string().min(10).max(5000),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const { chatReports } = await import('@/core-chat/schema/reports');
       await db.insert(chatReports).values({

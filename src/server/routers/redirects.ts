@@ -1,11 +1,21 @@
+import { createTRPCRouter, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
-import { and, count as drizzleCount, desc, eq, inArray, like, or } from 'drizzle-orm';
+import {
+  and,
+  desc,
+  count as drizzleCount,
+  eq,
+  inArray,
+  like,
+  or,
+} from 'drizzle-orm';
 import { z } from 'zod';
 
-import { cmsSlugRedirects, cmsPosts, cmsCategories } from '@/server/db/schema';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { resolveCurrentSlug } from '@/core/crud/slug-redirects';
 import { logAudit } from '@/core/lib/infra/audit';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { createTRPCRouter, sectionProcedure } from '../trpc';
+import { cmsCategories, cmsPosts, cmsSlugRedirects } from '@/server/db/schema';
 
 const proc = sectionProcedure('content');
 
@@ -16,7 +26,7 @@ export const redirectsRouter = createTRPCRouter({
       z
         .object({
           search: z.string().max(200).optional(),
-          page: z.number().int().min(1).optional(),
+          page: z.number().int().min(1).max(MAX_PAGE).optional(),
           pageSize: z.number().int().min(1).max(100).optional(),
         })
         .optional()
@@ -61,13 +71,21 @@ export const redirectsRouter = createTRPCRouter({
       const [categoryRows, postRows] = await Promise.all([
         categoryIds.length > 0
           ? ctx.db
-              .select({ id: cmsCategories.id, name: cmsCategories.name, slug: cmsCategories.slug })
+              .select({
+                id: cmsCategories.id,
+                name: cmsCategories.name,
+                slug: cmsCategories.slug,
+              })
               .from(cmsCategories)
               .where(inArray(cmsCategories.id, categoryIds))
           : Promise.resolve([]),
         postIds.length > 0
           ? ctx.db
-              .select({ id: cmsPosts.id, title: cmsPosts.title, slug: cmsPosts.slug })
+              .select({
+                id: cmsPosts.id,
+                title: cmsPosts.title,
+                slug: cmsPosts.slug,
+              })
               .from(cmsPosts)
               .where(inArray(cmsPosts.id, postIds))
           : Promise.resolve([]),
@@ -79,10 +97,18 @@ export const redirectsRouter = createTRPCRouter({
       const enriched = items.map((item) => {
         if (item.contentType === 'category') {
           const cat = categoryMap.get(item.contentId);
-          return { ...item, targetTitle: cat?.name ?? '(deleted)', targetSlug: cat?.slug ?? '' };
+          return {
+            ...item,
+            targetTitle: cat?.name ?? '(deleted)',
+            targetSlug: cat?.slug ?? '',
+          };
         }
         const post = postMap.get(item.contentId);
-        return { ...item, targetTitle: post?.title ?? '(deleted)', targetSlug: post?.slug ?? '' };
+        return {
+          ...item,
+          targetTitle: post?.title ?? '(deleted)',
+          targetSlug: post?.slug ?? '',
+        };
       });
 
       return paginatedResult(
@@ -131,21 +157,13 @@ export const redirectsRouter = createTRPCRouter({
         });
         if (!next) break;
 
-        // Resolve current slug of the target
-        let resolvedSlug = '';
-        if (next.contentType === 'category') {
-          const cat = await ctx.db.query.cmsCategories.findFirst({
-            where: eq(cmsCategories.id, next.contentId),
-            columns: { slug: true },
-          });
-          resolvedSlug = cat?.slug ?? '';
-        } else {
-          const post = await ctx.db.query.cmsPosts.findFirst({
-            where: eq(cmsPosts.id, next.contentId),
-            columns: { slug: true },
-          });
-          resolvedSlug = post?.slug ?? '';
-        }
+        // Same registry the public route uses, so portfolio/showcase (and any
+        // future type) chains are detected instead of being looked up in cmsPosts.
+        const resolvedSlug = await resolveCurrentSlug(
+          ctx.db,
+          next.contentType,
+          next.contentId
+        );
 
         if (!resolvedSlug || chain.includes(resolvedSlug)) break;
         chain.push(resolvedSlug);

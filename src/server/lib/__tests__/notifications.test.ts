@@ -1,4 +1,9 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import {
+  sendBulkNotification,
+  sendNotification,
+  sendOrgNotification,
+} from '../notifications';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock dependencies before importing the module under test
 const mockInsertReturning = vi.fn().mockResolvedValue([
@@ -11,7 +16,9 @@ const mockInsertReturning = vi.fn().mockResolvedValue([
     category: 'system',
   },
 ]);
-const mockInsertValues = vi.fn().mockReturnValue({ returning: mockInsertReturning });
+const mockInsertValues = vi
+  .fn()
+  .mockReturnValue({ returning: mockInsertReturning });
 const mockInsert = vi.fn().mockReturnValue({ values: mockInsertValues });
 
 const mockSelectFrom = vi.fn();
@@ -48,12 +55,6 @@ vi.mock('server-only', () => ({}));
 vi.mock('@/lib/env', () => ({
   env: {},
 }));
-
-import {
-  sendNotification,
-  sendOrgNotification,
-  sendBulkNotification,
-} from '../notifications';
 
 describe('sendNotification', () => {
   beforeEach(() => {
@@ -129,9 +130,9 @@ describe('sendNotification', () => {
     });
 
     await new Promise((r) => setTimeout(r, 50));
+    // Logged through createLogger(): one formatted line on console.error
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Failed to send notification:',
-      expect.any(Error)
+      expect.stringContaining('Failed to send notification')
     );
 
     consoleSpy.mockRestore();

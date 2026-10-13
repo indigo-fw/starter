@@ -1,11 +1,20 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { updateWithRevision } from '../cms-helpers';
+import { createRevision, pickSnapshot } from '../content-revisions';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { asMock } from '@/core/test-utils';
 
 // ---------------------------------------------------------------------------
 // Mocks
 // ---------------------------------------------------------------------------
 
 vi.mock('@/server/db/schema', () => ({
-  cmsSlugRedirects: { oldSlug: 'oldSlug', contentType: 'contentType', contentId: 'contentId', urlPrefix: 'urlPrefix' },
+  cmsSlugRedirects: {
+    oldSlug: 'oldSlug',
+    contentType: 'contentType',
+    contentId: 'contentId',
+    urlPrefix: 'urlPrefix',
+  },
 }));
 
 vi.mock('../content-revisions', () => ({
@@ -17,10 +26,6 @@ vi.mock('../content-revisions', () => ({
   }),
 }));
 
-import { asMock } from '@/core/test-utils';
-import { updateWithRevision } from '../cms-helpers';
-import { createRevision, pickSnapshot } from '../content-revisions';
-
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -28,11 +33,19 @@ import { createRevision, pickSnapshot } from '../content-revisions';
 function makeDb() {
   const insertValuesMock = vi.fn().mockResolvedValue(undefined);
   const insertMock = vi.fn().mockReturnValue({ values: insertValuesMock });
+  const transactionMock = vi.fn();
 
-  return {
+  const db = {
     insert: insertMock,
+    // updateWithRevision runs everything inside db.transaction(); hand the
+    // callback the same mock so assertions on `db.insert` / `doUpdate(db)` hold.
+    transaction: transactionMock,
     _chains: { insert: { values: insertValuesMock } },
   };
+  transactionMock.mockImplementation(
+    async (fn: (tx: typeof db) => Promise<void>) => fn(db)
+  );
+  return db;
 }
 
 // ---------------------------------------------------------------------------

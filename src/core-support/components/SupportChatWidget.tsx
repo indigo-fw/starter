@@ -1,11 +1,23 @@
 'use client';
 
-import './SupportChatWidget.css';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { MessageCircle, X, Send, ArrowUpRight, Loader2, Mail } from 'lucide-react';
-import { trpc } from '@/lib/trpc/client';
+import './SupportChatWidget.css';
+import {
+  ArrowUpRight,
+  Loader2,
+  Mail,
+  MessageCircle,
+  Send,
+  X,
+} from 'lucide-react';
+
 import { useChannel } from '@/core/lib/realtime/ws-client';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from '@/core/lib/storage/local-storage';
+import { trpc } from '@/lib/trpc/client';
 import { cn } from '@/lib/utils';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -43,10 +55,10 @@ export interface SupportChatWidgetProps {
 
 function getVisitorId(): string {
   if (typeof window === 'undefined') return '';
-  let id = localStorage.getItem('indigo-visitor-id');
+  let id = getLocalStorageItem('indigo-visitor-id');
   if (!id) {
     id = crypto.randomUUID();
-    localStorage.setItem('indigo-visitor-id', id);
+    setLocalStorageItem('indigo-visitor-id', id);
   }
   return id;
 }
@@ -85,28 +97,37 @@ export function SupportChatWidget({
   const closeMut = trpc.supportChat.close.useMutation();
 
   // ─── WS real-time (empty string = no subscription, useChannel guards it) ─
-  useChannel<SupportChatWsEvent>(sessionId ? `supportChat:${sessionId}` : '', useCallback((event: SupportChatWsEvent) => {
-    if (event.type === 'chat_message' && (event.role === 'agent' || event.role === 'ai')) {
-      const msg: SupportChatMessage = {
-        id: event.id ?? crypto.randomUUID(),
-        role: event.role,
-        body: event.body ?? '',
-        createdAt: event.createdAt ?? new Date().toISOString(),
-      };
-      setMessages((prev) => {
-        if (prev.some((m) => m.id === msg.id)) return prev;
-        return [...prev, msg];
-      });
-      // AI response arrived — stop typing indicator
-      if (event.role === 'ai') setIsAiTyping(false);
-      if (!open) setUnread((c) => c + 1);
-    }
-    if (event.type === 'chat_status' && event.status) {
-      setSessionStatus(event.status);
-      setIsAiTyping(false); // Status change = AI done
-      if (event.ticketId) setTicketId(event.ticketId);
-    }
-  }, [open]));
+  useChannel<SupportChatWsEvent>(
+    sessionId ? `supportChat:${sessionId}` : '',
+    useCallback(
+      (event: SupportChatWsEvent) => {
+        if (
+          event.type === 'chat_message' &&
+          (event.role === 'agent' || event.role === 'ai')
+        ) {
+          const msg: SupportChatMessage = {
+            id: event.id ?? crypto.randomUUID(),
+            role: event.role,
+            body: event.body ?? '',
+            createdAt: event.createdAt ?? new Date().toISOString(),
+          };
+          setMessages((prev) => {
+            if (prev.some((m) => m.id === msg.id)) return prev;
+            return [...prev, msg];
+          });
+          // AI response arrived — stop typing indicator
+          if (event.role === 'ai') setIsAiTyping(false);
+          if (!open) setUnread((c) => c + 1);
+        }
+        if (event.type === 'chat_status' && event.status) {
+          setSessionStatus(event.status);
+          setIsAiTyping(false); // Status change = AI done
+          if (event.ticketId) setTicketId(event.ticketId);
+        }
+      },
+      [open]
+    )
+  );
 
   // ─── Typing indicator timeout (30s safety net if WS/AI fails) ──────────
   useEffect(() => {
@@ -148,12 +169,17 @@ export function SupportChatWidget({
         setTicketId(result.ticketId as string);
       }
       if (result.resumed && result.messages.length > 0) {
-        setMessages(result.messages.map((m) => ({
-          id: m.id,
-          role: m.role,
-          body: m.body,
-          createdAt: typeof m.createdAt === 'string' ? m.createdAt : new Date(m.createdAt).toISOString(),
-        })));
+        setMessages(
+          result.messages.map((m) => ({
+            id: m.id,
+            role: m.role,
+            body: m.body,
+            createdAt:
+              typeof m.createdAt === 'string'
+                ? m.createdAt
+                : new Date(m.createdAt).toISOString(),
+          }))
+        );
       }
     } catch {
       // Silently fail
@@ -183,11 +209,17 @@ export function SupportChatWidget({
     }
 
     try {
-      const result = await sendMessage.mutateAsync({ sessionId, visitorId, body });
+      const result = await sendMessage.mutateAsync({
+        sessionId,
+        visitorId,
+        body,
+      });
 
       // Update optimistic message with server ID
       setMessages((prev) =>
-        prev.map((m) => (m.id === tempId ? { ...m, id: result.userMessageId } : m))
+        prev.map((m) =>
+          m.id === tempId ? { ...m, id: result.userMessageId } : m
+        )
       );
 
       // AI response will arrive via WebSocket — typing indicator stays on
@@ -199,30 +231,33 @@ export function SupportChatWidget({
   }, [input, sessionId, isAiTyping, sessionStatus, sendMessage]);
 
   // ─── Escalate to ticket ─────────────────────────────────────────────────
-  const handleEscalate = useCallback(async (email?: string) => {
-    if (!sessionId) return;
-    const visitorId = getVisitorId();
-    try {
-      const result = await escalateMut.mutateAsync({
-        sessionId,
-        visitorId,
-        email: email || undefined,
-      });
-      if (result.ticketId) setTicketId(result.ticketId);
-      if (result.emailCaptured) {
-        setEmailCaptured(true);
-        setNeedsEmail(false);
+  const handleEscalate = useCallback(
+    async (email?: string) => {
+      if (!sessionId) return;
+      const visitorId = getVisitorId();
+      try {
+        const result = await escalateMut.mutateAsync({
+          sessionId,
+          visitorId,
+          email: email || undefined,
+        });
+        if (result.ticketId) setTicketId(result.ticketId);
+        if (result.emailCaptured) {
+          setEmailCaptured(true);
+          setNeedsEmail(false);
+        }
+        setSessionStatus('escalated');
+      } catch (err) {
+        // Anonymous without email → show email form (BAD_REQUEST = email required)
+        // Don't change sessionStatus — keep server and client in sync
+        const code = (err as { data?: { code?: string } })?.data?.code;
+        if (code === 'BAD_REQUEST') {
+          setNeedsEmail(true);
+        }
       }
-      setSessionStatus('escalated');
-    } catch (err) {
-      // Anonymous without email → show email form (BAD_REQUEST = email required)
-      // Don't change sessionStatus — keep server and client in sync
-      const code = (err as { data?: { code?: string } })?.data?.code;
-      if (code === 'BAD_REQUEST') {
-        setNeedsEmail(true);
-      }
-    }
-  }, [sessionId, escalateMut]);
+    },
+    [sessionId, escalateMut]
+  );
 
   const handleEmailSubmit = useCallback(async () => {
     const email = emailInput.trim();
@@ -235,7 +270,9 @@ export function SupportChatWidget({
     if (sessionId) {
       try {
         await closeMut.mutateAsync({ sessionId, visitorId: getVisitorId() });
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
     }
     setSessionId(null);
     setMessages([]);
@@ -249,7 +286,9 @@ export function SupportChatWidget({
     try {
       const result = await startSession.mutateAsync({ visitorId });
       setSessionId(result.id);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }, [sessionId, closeMut, startSession]);
 
   // ─── Key handler ────────────────────────────────────────────────────────
@@ -278,7 +317,9 @@ export function SupportChatWidget({
   return (
     <>
       {/* ═══ Chat Panel ═══ */}
-      <div className={cn('support-chat-panel', open && 'support-chat-panel-open')}>
+      <div
+        className={cn('support-chat-panel', open && 'support-chat-panel-open')}
+      >
         {/* Header */}
         <div className="support-chat-header">
           <div className="flex items-center gap-2">
@@ -330,7 +371,9 @@ export function SupportChatWidget({
                 )}
               >
                 {msg.role === 'agent' && (
-                  <span className="support-chat-agent-label">{__('Support Agent')}</span>
+                  <span className="support-chat-agent-label">
+                    {__('Support Agent')}
+                  </span>
                 )}
                 {msg.body}
               </div>
@@ -340,7 +383,9 @@ export function SupportChatWidget({
           {isAiTyping && (
             <div className="support-chat-msg support-chat-msg-ai">
               <div className="support-chat-bubble support-chat-bubble-ai support-chat-typing">
-                <span /><span /><span />
+                <span />
+                <span />
+                <span />
               </div>
             </div>
           )}
@@ -350,7 +395,10 @@ export function SupportChatWidget({
             <div className="support-chat-escalation">
               <p>{__('Enter your email so our team can follow up:')}</p>
               <form
-                onSubmit={(e) => { e.preventDefault(); handleEmailSubmit(); }}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleEmailSubmit();
+                }}
                 className="support-chat-email-form"
               >
                 <input
@@ -361,8 +409,16 @@ export function SupportChatWidget({
                   placeholder={__('your@email.com')}
                   className="support-chat-email-input"
                 />
-                <button type="submit" className="support-chat-escalate-btn" disabled={escalateMut.isPending || !emailInput.trim()}>
-                  {escalateMut.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                <button
+                  type="submit"
+                  className="support-chat-escalate-btn"
+                  disabled={escalateMut.isPending || !emailInput.trim()}
+                >
+                  {escalateMut.isPending ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Mail className="h-4 w-4" />
+                  )}
                   {__('Connect with support')}
                 </button>
               </form>
@@ -372,9 +428,21 @@ export function SupportChatWidget({
           {/* Escalated by AI — authenticated user can create ticket */}
           {isEscalated && !ticketId && !emailCaptured && !needsEmail && (
             <div className="support-chat-escalation">
-              <p>{__('Would you like to create a support ticket so our team can follow up?')}</p>
-              <button onClick={() => handleEscalate()} className="support-chat-escalate-btn" disabled={escalateMut.isPending}>
-                {escalateMut.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUpRight className="h-4 w-4" />}
+              <p>
+                {__(
+                  'Would you like to create a support ticket so our team can follow up?'
+                )}
+              </p>
+              <button
+                onClick={() => handleEscalate()}
+                className="support-chat-escalate-btn"
+                disabled={escalateMut.isPending}
+              >
+                {escalateMut.isPending ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <ArrowUpRight className="h-4 w-4" />
+                )}
                 {__('Create Support Ticket')}
               </button>
             </div>
@@ -388,8 +456,15 @@ export function SupportChatWidget({
 
           {ticketId && (
             <div className="support-chat-escalation">
-              <p>{__('Your ticket has been created. Our team will follow up soon.')}</p>
-              <a href={supportUrl(ticketId)} className="support-chat-ticket-link">
+              <p>
+                {__(
+                  'Your ticket has been created. Our team will follow up soon.'
+                )}
+              </p>
+              <a
+                href={supportUrl(ticketId)}
+                className="support-chat-ticket-link"
+              >
                 <ArrowUpRight className="h-4 w-4" />
                 {__('View Ticket')}
               </a>
@@ -419,14 +494,16 @@ export function SupportChatWidget({
                 <Send className="h-4 w-4" />
               </button>
             </div>
-            {sessionStatus === 'ai_active' && messages.length > 0 && !needsEmail && (
-              <button
-                onClick={() => handleEscalate()}
-                className="support-chat-human-btn"
-              >
-                {__('Talk to a human')}
-              </button>
-            )}
+            {sessionStatus === 'ai_active' &&
+              messages.length > 0 &&
+              !needsEmail && (
+                <button
+                  onClick={() => handleEscalate()}
+                  className="support-chat-human-btn"
+                >
+                  {__('Talk to a human')}
+                </button>
+              )}
           </div>
         ) : (
           <div className="support-chat-input-area">
@@ -440,7 +517,10 @@ export function SupportChatWidget({
       {/* ═══ Floating Bubble ═══ */}
       <button
         onClick={() => (open ? setOpen(false) : handleOpen())}
-        className={cn('support-chat-bubble-btn', open && 'support-chat-bubble-btn-active')}
+        className={cn(
+          'support-chat-bubble-btn',
+          open && 'support-chat-bubble-btn-active'
+        )}
         aria-label={open ? __('Close chat') : __('Open chat')}
       >
         {open ? (
@@ -449,7 +529,9 @@ export function SupportChatWidget({
           <>
             <MessageCircle className="h-6 w-6" />
             {unread > 0 && (
-              <span className="support-chat-unread">{unread > 9 ? '9+' : unread}</span>
+              <span className="support-chat-unread">
+                {unread > 9 ? '9+' : unread}
+              </span>
             )}
           </>
         )}

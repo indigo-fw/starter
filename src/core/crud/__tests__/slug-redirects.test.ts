@@ -1,22 +1,47 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import {
+  createTableSlugResolver,
+  registerSlugResolver,
+  resolveCurrentSlug,
+  resolveSlugRedirect,
+} from '../slug-redirects';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // ---------------------------------------------------------------------------
 // Mocks — must be before imports
 // ---------------------------------------------------------------------------
 
-const mockSlugRedirectsFindFirst = vi.fn();
-const mockCategoriesFindFirst = vi.fn();
-const mockPostsFindFirst = vi.fn();
-
-vi.mock('@/server/db', () => ({
-  db: {
+const {
+  mockSlugRedirectsFindFirst,
+  mockSelectLimit,
+  mockSelectWhere,
+  mockSelectFrom,
+  mockSelect,
+  mockDb,
+} = vi.hoisted(() => {
+  const mockSlugRedirectsFindFirst = vi.fn();
+  const mockSelectLimit = vi.fn();
+  const mockSelectWhere = vi.fn().mockReturnValue({ limit: mockSelectLimit });
+  const mockSelectFrom = vi.fn().mockReturnValue({ where: mockSelectWhere });
+  const mockSelect = vi.fn().mockReturnValue({ from: mockSelectFrom });
+  const mockDb = {
     query: {
-      cmsSlugRedirects: { findFirst: (...args: unknown[]) => mockSlugRedirectsFindFirst(...args) },
-      cmsCategories: { findFirst: (...args: unknown[]) => mockCategoriesFindFirst(...args) },
-      cmsPosts: { findFirst: (...args: unknown[]) => mockPostsFindFirst(...args) },
+      cmsSlugRedirects: {
+        findFirst: (...args: unknown[]) => mockSlugRedirectsFindFirst(...args),
+      },
     },
-  },
-}));
+    select: (...args: unknown[]) => mockSelect(...args),
+  };
+  return {
+    mockSlugRedirectsFindFirst,
+    mockSelectLimit,
+    mockSelectWhere,
+    mockSelectFrom,
+    mockSelect,
+    mockDb,
+  };
+});
+
+vi.mock('@/server/db', () => ({ db: mockDb }));
 
 vi.mock('@/server/db/schema', () => ({
   cmsSlugRedirects: {
@@ -25,16 +50,6 @@ vi.mock('@/server/db/schema', () => ({
     createdAt: 'created_at',
     contentType: 'content_type',
     contentId: 'content_id',
-  },
-  cmsCategories: {
-    id: 'id',
-    slug: 'slug',
-    deletedAt: 'deleted_at',
-  },
-  cmsPosts: {
-    id: 'id',
-    slug: 'slug',
-    deletedAt: 'deleted_at',
   },
 }));
 
@@ -45,7 +60,23 @@ vi.mock('drizzle-orm', () => ({
   desc: vi.fn((col: unknown) => ({ type: 'desc', col })),
 }));
 
-import { resolveSlugRedirect } from '../slug-redirects';
+// ---------------------------------------------------------------------------
+// Fixtures — stand-ins for the tables routers register at load time
+// ---------------------------------------------------------------------------
+
+const PORTFOLIO_TABLE = {
+  table: 'PORTFOLIO_TABLE' as never,
+  id: 'portfolio.id' as never,
+  slug: 'portfolio.slug' as never,
+  deletedAt: 'portfolio.deleted_at' as never,
+};
+
+const POSTS_TABLE = {
+  table: 'POSTS_TABLE' as never,
+  id: 'posts.id' as never,
+  slug: 'posts.slug' as never,
+  deletedAt: 'posts.deleted_at' as never,
+};
 
 // ---------------------------------------------------------------------------
 // Tests
@@ -53,36 +84,39 @@ import { resolveSlugRedirect } from '../slug-redirects';
 
 beforeEach(() => {
   vi.clearAllMocks();
+  mockSelect.mockReturnValue({ from: mockSelectFrom });
+  mockSelectFrom.mockReturnValue({ where: mockSelectWhere });
+  mockSelectWhere.mockReturnValue({ limit: mockSelectLimit });
+  registerSlugResolver('portfolio', createTableSlugResolver(PORTFOLIO_TABLE));
+  registerSlugResolver('blog', createTableSlugResolver(POSTS_TABLE));
 });
 
 describe('resolveSlugRedirect', () => {
-  it('returns full path when a redirect exists for a post', async () => {
+  it('resolves a portfolio redirect through the registered resolver (not cmsPosts)', async () => {
     mockSlugRedirectsFindFirst.mockResolvedValue({
-      contentType: 'post',
+      contentType: 'portfolio',
+      contentId: 'portfolio-uuid-1',
+    });
+    mockSelectLimit.mockResolvedValue([{ slug: 'new-project-slug' }]);
+
+    const result = await resolveSlugRedirect('old-project-slug', '/portfolio/');
+
+    expect(result).toBe('/portfolio/new-project-slug');
+    expect(mockSelectFrom).toHaveBeenCalledWith('PORTFOLIO_TABLE');
+    expect(mockSelectFrom).not.toHaveBeenCalledWith('POSTS_TABLE');
+  });
+
+  it('resolves a post-backed redirect through its registered table', async () => {
+    mockSlugRedirectsFindFirst.mockResolvedValue({
+      contentType: 'blog',
       contentId: 'post-uuid-1',
     });
-    mockPostsFindFirst.mockResolvedValue({ slug: 'new-post-slug' });
+    mockSelectLimit.mockResolvedValue([{ slug: 'new-post-slug' }]);
 
     const result = await resolveSlugRedirect('old-post-slug', '/blog/');
 
     expect(result).toBe('/blog/new-post-slug');
-    expect(mockSlugRedirectsFindFirst).toHaveBeenCalledTimes(1);
-    expect(mockPostsFindFirst).toHaveBeenCalledTimes(1);
-    expect(mockCategoriesFindFirst).not.toHaveBeenCalled();
-  });
-
-  it('returns full path when a redirect exists for a category', async () => {
-    mockSlugRedirectsFindFirst.mockResolvedValue({
-      contentType: 'category',
-      contentId: 'cat-uuid-1',
-    });
-    mockCategoriesFindFirst.mockResolvedValue({ slug: 'new-cat-slug' });
-
-    const result = await resolveSlugRedirect('old-cat-slug', '/category/');
-
-    expect(result).toBe('/category/new-cat-slug');
-    expect(mockCategoriesFindFirst).toHaveBeenCalledTimes(1);
-    expect(mockPostsFindFirst).not.toHaveBeenCalled();
+    expect(mockSelectFrom).toHaveBeenCalledWith('POSTS_TABLE');
   });
 
   it('returns null when no redirect is found', async () => {
@@ -91,45 +125,68 @@ describe('resolveSlugRedirect', () => {
     const result = await resolveSlugRedirect('nonexistent-slug', '/blog/');
 
     expect(result).toBeNull();
-    expect(mockSlugRedirectsFindFirst).toHaveBeenCalledTimes(1);
-    expect(mockPostsFindFirst).not.toHaveBeenCalled();
-    expect(mockCategoriesFindFirst).not.toHaveBeenCalled();
+    expect(mockSelect).not.toHaveBeenCalled();
   });
 
-  it('returns null when the content has been deleted (post)', async () => {
+  it('returns null for a contentType with no registered resolver', async () => {
     mockSlugRedirectsFindFirst.mockResolvedValue({
-      contentType: 'post',
-      contentId: 'post-uuid-deleted',
+      contentType: 'widget',
+      contentId: 'widget-uuid-1',
     });
-    mockPostsFindFirst.mockResolvedValue(undefined);
 
-    const result = await resolveSlugRedirect('old-slug', '/blog/');
+    const result = await resolveSlugRedirect('old-widget', '/widget/');
 
     expect(result).toBeNull();
+    expect(mockSelect).not.toHaveBeenCalled();
   });
 
-  it('returns null when the content has been deleted (category)', async () => {
+  it('returns null when the target has been deleted', async () => {
     mockSlugRedirectsFindFirst.mockResolvedValue({
-      contentType: 'category',
-      contentId: 'cat-uuid-deleted',
+      contentType: 'portfolio',
+      contentId: 'portfolio-uuid-deleted',
     });
-    mockCategoriesFindFirst.mockResolvedValue(undefined);
+    mockSelectLimit.mockResolvedValue([]);
 
-    const result = await resolveSlugRedirect('old-slug', '/category/');
+    const result = await resolveSlugRedirect('old-slug', '/portfolio/');
 
     expect(result).toBeNull();
   });
 
   it('returns null when the current slug matches the old slug (no-op redirect)', async () => {
     mockSlugRedirectsFindFirst.mockResolvedValue({
-      contentType: 'post',
+      contentType: 'blog',
       contentId: 'post-uuid-1',
     });
-    // The content was renamed back to the old slug
-    mockPostsFindFirst.mockResolvedValue({ slug: 'same-slug' });
+    mockSelectLimit.mockResolvedValue([{ slug: 'same-slug' }]);
 
     const result = await resolveSlugRedirect('same-slug', '/blog/');
 
     expect(result).toBeNull();
+  });
+});
+
+describe('resolveCurrentSlug', () => {
+  it('uses the db handed in, so admin chain detection runs on ctx.db', async () => {
+    const limit = vi.fn().mockResolvedValue([{ slug: 'current' }]);
+    const where = vi.fn().mockReturnValue({ limit });
+    const from = vi.fn().mockReturnValue({ where });
+    const otherDb = { select: vi.fn().mockReturnValue({ from }) };
+
+    const slug = await resolveCurrentSlug(
+      otherDb as never,
+      'portfolio',
+      'portfolio-uuid-1'
+    );
+
+    expect(slug).toBe('current');
+    expect(otherDb.select).toHaveBeenCalledTimes(1);
+    expect(mockSelect).not.toHaveBeenCalled();
+  });
+
+  it('returns null for an unregistered type without touching the db', async () => {
+    const slug = await resolveCurrentSlug(mockDb as never, 'nope', 'id');
+
+    expect(slug).toBeNull();
+    expect(mockSelect).not.toHaveBeenCalled();
   });
 });

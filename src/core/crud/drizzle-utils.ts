@@ -28,7 +28,9 @@ export function wordSplitLike(
   const wordConditions = words.map((word) => {
     const pattern = ilikePattern(word);
     const colConditions = columns.map((col) => ilike(col, pattern));
-    return colConditions.length === 1 ? colConditions[0]! : or(...colConditions);
+    return colConditions.length === 1
+      ? colConditions[0]!
+      : or(...colConditions);
   });
 
   if (wordConditions.length === 1) return wordConditions[0]!;
@@ -51,4 +53,41 @@ export function getAffectedRows(result: unknown): number {
     return Number((result as { rowCount: number }).rowCount);
   }
   return 0;
+}
+
+/**
+ * Detect a Postgres unique-constraint violation (SQLSTATE 23505) anywhere in
+ * an error's cause chain, so callers can answer `CONFLICT` instead of 500.
+ *
+ * Drizzle >= 0.44 wraps driver errors in `DrizzleQueryError`: the `code` lives
+ * on `err.cause` (sometimes deeper), so a top-level `err.code === '23505'`
+ * check silently never fires. Never string-match the message - wording
+ * differs between postgres-js and node-postgres.
+ *
+ * Pass `constraint` to match one specific unique index/constraint name (e.g. a
+ * partial unique index) so an unrelated violation on the same table isn't
+ * reported as the expected conflict.
+ */
+export function isDuplicateKeyError(
+  err: unknown,
+  constraint?: string
+): boolean {
+  let cur: unknown = err;
+  for (let depth = 0; depth < 5 && cur && typeof cur === 'object'; depth++) {
+    const e = cur as {
+      code?: string;
+      constraint_name?: string;
+      constraint?: string;
+      message?: string;
+      cause?: unknown;
+    };
+    if (e.code === '23505') {
+      if (!constraint) return true;
+      const name = e.constraint_name ?? e.constraint;
+      if (name) return name === constraint;
+      return typeof e.message === 'string' && e.message.includes(constraint);
+    }
+    cur = e.cause;
+  }
+  return false;
 }

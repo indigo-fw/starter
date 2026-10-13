@@ -71,7 +71,7 @@ function loadDir(dir: string, baseDir: string, locale: string): FileContent[] {
     }
 
     if (extname(entry).toLowerCase() !== '.mdx') continue;
-    // Skip documentation/meta files (ALL-CAPS names like CLAUDE.mdx, README.mdx, etc.)
+    // Skip documentation/meta files (ALL-CAPS names like AGENTS.mdx, CLAUDE.mdx, README.mdx, etc.)
     if (/^[A-Z][A-Z0-9_-]*\.mdx$/.test(entry)) continue;
 
     try {

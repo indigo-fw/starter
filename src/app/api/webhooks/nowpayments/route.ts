@@ -1,10 +1,12 @@
-import { NextResponse } from 'next/server';
 import { and, eq } from 'drizzle-orm';
-import { db } from '@/server/db';
-import { saasSubscriptionEvents } from '@/server/db/schema';
+import { NextResponse } from 'next/server';
+
 import { getProvider } from '@/core-payments/lib/factory';
 import { getPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
+import { isDuplicateKeyError } from '@/core/crud/drizzle-utils';
 import { createLogger } from '@/core/lib/infra/logger';
+import { db } from '@/server/db';
+import { saasSubscriptionEvents } from '@/server/db/schema';
 
 const logger = createLogger('nowpayments-webhook');
 
@@ -15,31 +17,41 @@ const logger = createLogger('nowpayments-webhook');
  */
 async function releaseEventClaim(idempotencyKey: string): Promise<void> {
   try {
-    await db.delete(saasSubscriptionEvents).where(
-      and(
-        eq(saasSubscriptionEvents.providerId, 'nowpayments'),
-        eq(saasSubscriptionEvents.providerEventId, idempotencyKey),
-      )
-    );
+    await db
+      .delete(saasSubscriptionEvents)
+      .where(
+        and(
+          eq(saasSubscriptionEvents.providerId, 'nowpayments'),
+          eq(saasSubscriptionEvents.providerEventId, idempotencyKey)
+        )
+      );
   } catch (err) {
-    logger.error('Failed to release webhook idempotency claim — replay manually', {
-      idempotencyKey,
-      error: String(err),
-    });
+    logger.error(
+      'Failed to release webhook idempotency claim — replay manually',
+      {
+        idempotencyKey,
+        error: String(err),
+      }
+    );
   }
 }
 
 export async function POST(request: Request) {
   const provider = await getProvider('nowpayments');
   if (!provider) {
-    return NextResponse.json({ error: 'NOWPayments not configured' }, { status: 503 });
+    return NextResponse.json(
+      { error: 'NOWPayments not configured' },
+      { status: 503 }
+    );
   }
 
   let event;
   try {
     event = await provider.handleWebhook(request);
   } catch (err) {
-    logger.error('NOWPayments webhook verification failed', { error: String(err) });
+    logger.error('NOWPayments webhook verification failed', {
+      error: String(err),
+    });
     return NextResponse.json({ error: 'Invalid webhook' }, { status: 400 });
   }
 
@@ -50,7 +62,8 @@ export async function POST(request: Request) {
   // Key per payment *event* instead — payment_id + payment_status is stable
   // per delivery but distinct across transitions; fall back to order_id when
   // payment_id is absent.
-  const providerData = event.providerData as Record<string, unknown> | undefined;
+  const providerData = event.providerData as
+    Record<string, unknown> | undefined;
   const orderId = providerData?.order_id as string | undefined;
   const paymentId = providerData?.payment_id as string | number | undefined;
   const paymentStatus = providerData?.payment_status as string | undefined;
@@ -68,7 +81,8 @@ export async function POST(request: Request) {
         data: providerData as Record<string, unknown>,
       });
     } catch (err) {
-      if (String(err).includes('unique') || String(err).includes('duplicate')) {
+      // Drizzle wraps the pg error (code sits on err.cause) — never string-match the message.
+      if (isDuplicateKeyError(err)) {
         return NextResponse.json({ received: true, duplicate: true });
       }
       throw err;
@@ -79,7 +93,8 @@ export async function POST(request: Request) {
   // Same registry the Stripe route consults — future crypto one-time flows
   // plug in here without route edits. Unmatched events fall through to the
   // subscription handler (today's only NOWPayments flow).
-  const eventMetadata = providerData?.metadata as Record<string, string> | undefined;
+  const eventMetadata = providerData?.metadata as
+    Record<string, string> | undefined;
   const oneTimeHandler = getPaymentWebhookHandler(eventMetadata?.type);
   if (oneTimeHandler && idempotencyKey) {
     try {
@@ -91,17 +106,23 @@ export async function POST(request: Request) {
       });
       return NextResponse.json({ received: true, ...(result ?? {}) });
     } catch (err) {
-      logger.error('Error processing NOWPayments one-time webhook', { type: eventMetadata?.type, error: String(err) });
+      logger.error('Error processing NOWPayments one-time webhook', {
+        type: eventMetadata?.type,
+        error: String(err),
+      });
       await releaseEventClaim(idempotencyKey);
       return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
   }
 
   try {
-    const { handleSubscriptionWebhookEvent } = await import('@/core-subscriptions/lib/webhook-handler');
+    const { handleSubscriptionWebhookEvent } =
+      await import('@/core-subscriptions/lib/webhook-handler');
     await handleSubscriptionWebhookEvent({ event, providerId: 'nowpayments' });
   } catch (err) {
-    logger.error('Error processing NOWPayments webhook', { error: String(err) });
+    logger.error('Error processing NOWPayments webhook', {
+      error: String(err),
+    });
     if (idempotencyKey) await releaseEventClaim(idempotencyKey);
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
   }

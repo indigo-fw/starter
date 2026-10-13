@@ -1,12 +1,30 @@
-import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { and, asc, count, desc, eq, gt, ilike, inArray, isNull, sql } from 'drizzle-orm';
-import { createTRPCRouter, protectedProcedure, publicProcedure, sectionProcedure } from '@/server/trpc';
-import { cmsComments, CommentStatus } from '@/core-comments/schema/comments';
-import { user } from '@/server/db/schema/auth';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { createLogger } from '@/core/lib/infra/logger';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  gt,
+  ilike,
+  inArray,
+  isNull,
+  sql,
+} from 'drizzle-orm';
+import { z } from 'zod';
+
 import { getCommentsDeps } from '@/core-comments/deps';
+import { CommentStatus, cmsComments } from '@/core-comments/schema/comments';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { createLogger } from '@/core/lib/infra/logger';
+import { user } from '@/server/db/schema/auth';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+  sectionProcedure,
+} from '@/server/trpc';
 
 const logger = createLogger('comments-router');
 
@@ -17,12 +35,14 @@ export const commentsRouter = createTRPCRouter({
 
   /** List approved comments for a target (flat list, client handles threading via parentId) */
   list: publicProcedure
-    .input(z.object({
-      targetType: z.string().max(50),
-      targetId: z.string().uuid(),
-      cursor: z.string().uuid().optional(),
-      limit: z.number().int().min(1).max(100).default(50),
-    }))
+    .input(
+      z.object({
+        targetType: z.string().max(50),
+        targetId: z.string().uuid(),
+        cursor: z.string().uuid().optional(),
+        limit: z.number().int().min(1).max(100).default(50),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const conditions = [
         eq(cmsComments.targetType, input.targetType),
@@ -70,20 +90,24 @@ export const commentsRouter = createTRPCRouter({
 
   /** Count approved comments for a target */
   count: publicProcedure
-    .input(z.object({
-      targetType: z.string().max(50),
-      targetId: z.string().uuid(),
-    }))
+    .input(
+      z.object({
+        targetType: z.string().max(50),
+        targetId: z.string().uuid(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const [row] = await ctx.db
         .select({ count: count() })
         .from(cmsComments)
-        .where(and(
-          eq(cmsComments.targetType, input.targetType),
-          eq(cmsComments.targetId, input.targetId),
-          eq(cmsComments.status, CommentStatus.APPROVED),
-          isNull(cmsComments.deletedAt),
-        ))
+        .where(
+          and(
+            eq(cmsComments.targetType, input.targetType),
+            eq(cmsComments.targetId, input.targetId),
+            eq(cmsComments.status, CommentStatus.APPROVED),
+            isNull(cmsComments.deletedAt)
+          )
+        )
         .limit(1);
 
       return row?.count ?? 0;
@@ -91,10 +115,12 @@ export const commentsRouter = createTRPCRouter({
 
   /** Batch count approved comments for multiple targets (e.g. post grids) */
   countMany: publicProcedure
-    .input(z.object({
-      targetType: z.string().max(50),
-      targetIds: z.array(z.string().uuid()).max(100),
-    }))
+    .input(
+      z.object({
+        targetType: z.string().max(50),
+        targetIds: z.array(z.string().uuid()).max(100),
+      })
+    )
     .query(async ({ ctx, input }) => {
       if (input.targetIds.length === 0) return {} as Record<string, number>;
 
@@ -104,12 +130,14 @@ export const commentsRouter = createTRPCRouter({
           count: count(),
         })
         .from(cmsComments)
-        .where(and(
-          eq(cmsComments.targetType, input.targetType),
-          inArray(cmsComments.targetId, input.targetIds),
-          eq(cmsComments.status, CommentStatus.APPROVED),
-          isNull(cmsComments.deletedAt),
-        ))
+        .where(
+          and(
+            eq(cmsComments.targetType, input.targetType),
+            inArray(cmsComments.targetId, input.targetIds),
+            eq(cmsComments.status, CommentStatus.APPROVED),
+            isNull(cmsComments.deletedAt)
+          )
+        )
         .groupBy(cmsComments.targetId)
         .limit(100);
 
@@ -124,12 +152,14 @@ export const commentsRouter = createTRPCRouter({
 
   /** Create a comment (auto-approved for logged-in users) */
   create: protectedProcedure
-    .input(z.object({
-      targetType: z.string().max(50),
-      targetId: z.string().uuid(),
-      parentId: z.string().uuid().optional(),
-      content: z.string().min(1).max(5000),
-    }))
+    .input(
+      z.object({
+        targetType: z.string().max(50),
+        targetId: z.string().uuid(),
+        parentId: z.string().uuid().optional(),
+        content: z.string().min(1).max(5000),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
@@ -144,17 +174,28 @@ export const commentsRouter = createTRPCRouter({
             userId: cmsComments.userId,
           })
           .from(cmsComments)
-          .where(and(
-            eq(cmsComments.id, input.parentId),
-            isNull(cmsComments.deletedAt),
-          ))
+          .where(
+            and(
+              eq(cmsComments.id, input.parentId),
+              isNull(cmsComments.deletedAt)
+            )
+          )
           .limit(1);
 
         if (!parent) {
-          throw new TRPCError({ code: 'NOT_FOUND', message: 'Parent comment not found' });
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Parent comment not found',
+          });
         }
-        if (parent.targetType !== input.targetType || parent.targetId !== input.targetId) {
-          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Parent comment belongs to a different target' });
+        if (
+          parent.targetType !== input.targetType ||
+          parent.targetId !== input.targetId
+        ) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'Parent comment belongs to a different target',
+          });
         }
         parentUserId = parent.userId;
       }
@@ -178,10 +219,15 @@ export const commentsRouter = createTRPCRouter({
           await deps.sendNotification({
             userId: parentUserId,
             title: 'New reply to your comment',
-            body: input.content.slice(0, 100) + (input.content.length > 100 ? '...' : ''),
+            body:
+              input.content.slice(0, 100) +
+              (input.content.length > 100 ? '...' : ''),
           });
         } catch (err) {
-          logger.error('Reply notification failed', err instanceof Error ? { error: err.message } : undefined);
+          logger.error(
+            'Reply notification failed',
+            err instanceof Error ? { error: err.message } : undefined
+          );
         }
       }
 
@@ -195,7 +241,10 @@ export const commentsRouter = createTRPCRouter({
           parentId: input.parentId ?? null,
         });
       } catch (err) {
-        logger.error('onCommentCreated callback failed', err instanceof Error ? { error: err.message } : undefined);
+        logger.error(
+          'onCommentCreated callback failed',
+          err instanceof Error ? { error: err.message } : undefined
+        );
       }
 
       return comment!;
@@ -203,25 +252,32 @@ export const commentsRouter = createTRPCRouter({
 
   /** Update own comment */
   update: protectedProcedure
-    .input(z.object({
-      id: z.string().uuid(),
-      content: z.string().min(1).max(5000),
-    }))
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        content: z.string().min(1).max(5000),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
       const [existing] = await ctx.db
         .select({ id: cmsComments.id })
         .from(cmsComments)
-        .where(and(
-          eq(cmsComments.id, input.id),
-          eq(cmsComments.userId, userId),
-          isNull(cmsComments.deletedAt),
-        ))
+        .where(
+          and(
+            eq(cmsComments.id, input.id),
+            eq(cmsComments.userId, userId),
+            isNull(cmsComments.deletedAt)
+          )
+        )
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Comment not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Comment not found',
+        });
       }
 
       await ctx.db
@@ -239,17 +295,26 @@ export const commentsRouter = createTRPCRouter({
       const userId = ctx.session.user.id;
 
       const [existing] = await ctx.db
-        .select({ id: cmsComments.id, targetType: cmsComments.targetType, targetId: cmsComments.targetId })
+        .select({
+          id: cmsComments.id,
+          targetType: cmsComments.targetType,
+          targetId: cmsComments.targetId,
+        })
         .from(cmsComments)
-        .where(and(
-          eq(cmsComments.id, input.id),
-          eq(cmsComments.userId, userId),
-          isNull(cmsComments.deletedAt),
-        ))
+        .where(
+          and(
+            eq(cmsComments.id, input.id),
+            eq(cmsComments.userId, userId),
+            isNull(cmsComments.deletedAt)
+          )
+        )
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Comment not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Comment not found',
+        });
       }
 
       await ctx.db
@@ -265,7 +330,10 @@ export const commentsRouter = createTRPCRouter({
           targetId: existing.targetId,
         });
       } catch (err) {
-        logger.error('onCommentDeleted callback failed', err instanceof Error ? { error: err.message } : undefined);
+        logger.error(
+          'onCommentDeleted callback failed',
+          err instanceof Error ? { error: err.message } : undefined
+        );
       }
 
       return { success: true };
@@ -275,22 +343,28 @@ export const commentsRouter = createTRPCRouter({
 
   /** Admin list with filters and pagination */
   adminList: contentProcedure
-    .input(z.object({
-      status: z.number().int().min(0).max(3).optional(),
-      targetType: z.string().max(50).optional(),
-      search: z.string().max(200).optional(),
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(100).default(20),
-    }))
+    .input(
+      z.object({
+        status: z.number().int().min(0).max(3).optional(),
+        targetType: z.string().max(50).optional(),
+        search: z.string().max(200).optional(),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(100).default(20),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
       const conditions: ReturnType<typeof eq>[] = [];
-      if (input.status !== undefined) conditions.push(eq(cmsComments.status, input.status));
-      if (input.targetType) conditions.push(eq(cmsComments.targetType, input.targetType));
-      if (input.search) conditions.push(ilike(cmsComments.content, `%${input.search}%`));
+      if (input.status !== undefined)
+        conditions.push(eq(cmsComments.status, input.status));
+      if (input.targetType)
+        conditions.push(eq(cmsComments.targetType, input.targetType));
+      if (input.search)
+        conditions.push(ilike(cmsComments.content, `%${input.search}%`));
 
-      const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+      const whereClause =
+        conditions.length > 0 ? and(...conditions) : undefined;
 
       const [items, [countRow]] = await Promise.all([
         ctx.db
@@ -324,10 +398,12 @@ export const commentsRouter = createTRPCRouter({
 
   /** Update comment status (moderate) */
   updateStatus: contentProcedure
-    .input(z.object({
-      id: z.string().uuid(),
-      status: z.number().int().min(0).max(3),
-    }))
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        status: z.number().int().min(0).max(3),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const [comment] = await ctx.db
         .select({ id: cmsComments.id })
@@ -336,7 +412,10 @@ export const commentsRouter = createTRPCRouter({
         .limit(1);
 
       if (!comment) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Comment not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Comment not found',
+        });
       }
 
       await ctx.db
@@ -358,7 +437,10 @@ export const commentsRouter = createTRPCRouter({
         .limit(1);
 
       if (!comment) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Comment not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Comment not found',
+        });
       }
 
       await ctx.db.delete(cmsComments).where(eq(cmsComments.id, input.id));
@@ -366,26 +448,25 @@ export const commentsRouter = createTRPCRouter({
     }),
 
   /** Status counts for admin filter tabs */
-  statusCounts: contentProcedure
-    .query(async ({ ctx }) => {
-      const [row] = await ctx.db
-        .select({
-          all: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL THEN 1 ELSE 0 END)`,
-          pending: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL AND ${cmsComments.status} = ${CommentStatus.PENDING} THEN 1 ELSE 0 END)`,
-          approved: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL AND ${cmsComments.status} = ${CommentStatus.APPROVED} THEN 1 ELSE 0 END)`,
-          rejected: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL AND ${cmsComments.status} = ${CommentStatus.REJECTED} THEN 1 ELSE 0 END)`,
-          spam: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL AND ${cmsComments.status} = ${CommentStatus.SPAM} THEN 1 ELSE 0 END)`,
-          trash: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NOT NULL THEN 1 ELSE 0 END)`,
-        })
-        .from(cmsComments);
+  statusCounts: contentProcedure.query(async ({ ctx }) => {
+    const [row] = await ctx.db
+      .select({
+        all: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL THEN 1 ELSE 0 END)`,
+        pending: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL AND ${cmsComments.status} = ${CommentStatus.PENDING} THEN 1 ELSE 0 END)`,
+        approved: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL AND ${cmsComments.status} = ${CommentStatus.APPROVED} THEN 1 ELSE 0 END)`,
+        rejected: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL AND ${cmsComments.status} = ${CommentStatus.REJECTED} THEN 1 ELSE 0 END)`,
+        spam: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NULL AND ${cmsComments.status} = ${CommentStatus.SPAM} THEN 1 ELSE 0 END)`,
+        trash: sql<string>`SUM(CASE WHEN ${cmsComments.deletedAt} IS NOT NULL THEN 1 ELSE 0 END)`,
+      })
+      .from(cmsComments);
 
-      return {
-        all: Number(row?.all ?? 0),
-        pending: Number(row?.pending ?? 0),
-        approved: Number(row?.approved ?? 0),
-        rejected: Number(row?.rejected ?? 0),
-        spam: Number(row?.spam ?? 0),
-        trash: Number(row?.trash ?? 0),
-      };
-    }),
+    return {
+      all: Number(row?.all ?? 0),
+      pending: Number(row?.pending ?? 0),
+      approved: Number(row?.approved ?? 0),
+      rejected: Number(row?.rejected ?? 0),
+      spam: Number(row?.spam ?? 0),
+      trash: Number(row?.trash ?? 0),
+    };
+  }),
 });

@@ -445,7 +445,10 @@ function CmsLinkResolved({
     { id, slug, lang, type, locale },
     {
       staleTime: 60 * 60 * 1000,
-      gcTime: 24 * 60 * 60 * 1000,
+      // Finite gcTime schedules a real setTimeout at query creation even during
+      // SSR, pinning the request's async context until it fires — keep Infinity
+      // on the server (the v5 server default).
+      gcTime: typeof window === 'undefined' ? Infinity : 24 * 60 * 60 * 1000,
       enabled: !!(id || slug),
     },
   );

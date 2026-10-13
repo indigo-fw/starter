@@ -12,7 +12,7 @@ noindex: false
 
 ### Keskeiset ominaisuudet
 
-- **Agenttipohjainen kehitys** — CLAUDE.md toimii kattavana projektioppaana, joka mahdollistaa tekoälyagenttien tehokkaan koodikannan ymmärtämisen ja muokkaamisen
+- **Agenttipohjainen kehitys** — AGENTS.md toimii kattavana projektioppaana, joka mahdollistaa tekoälyagenttien tehokkaan koodikannan ymmärtämisen ja muokkaamisen
 - **Moderni teknologiapino** — Rakennettu Next.js 16:lla, TypeScriptillä ja Tailwind CSS v4:llä
 - **Joustava sisältö** — Sivut, blogikirjoitukset, portfoliokohteet, esittelykortit, kategoriat ja tunnisteet
 - **Roolipohjainen käyttöoikeuksien hallinta** — Käyttäjä-, toimittaja-, ylläpitäjä- ja pääylläpitäjäroolit käytäntöpohjaisilla oikeuksilla

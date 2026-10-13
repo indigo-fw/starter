@@ -1,5 +1,12 @@
 import { z } from 'zod';
 
+/**
+ * Deepest page any list accepts. `OFFSET = (page - 1) * pageSize` is computed
+ * in JS and handed to Postgres as a bigint; an unbounded page lets a client
+ * overflow it (or just make the planner scan the whole table) for a 500.
+ */
+export const MAX_PAGE = 100_000;
+
 /** Shared input schema for admin list procedures. Extend with .extend({}) for custom fields. */
 export const adminListInput = z.object({
   search: z.string().max(200).optional(),
@@ -8,7 +15,7 @@ export const adminListInput = z.object({
   lang: z.string().max(10).optional(),
   sortBy: z.string().max(50).optional(),
   sortDir: z.enum(['asc', 'desc']).optional(),
-  page: z.number().int().min(1).optional(),
+  page: z.number().int().min(1).max(MAX_PAGE).optional(),
   pageSize: z.number().int().min(1).max(100).optional(),
 });
 

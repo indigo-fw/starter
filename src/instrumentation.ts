@@ -31,9 +31,8 @@ export async function register() {
 
   // Preload content variables cache + subscribe to Redis pub/sub invalidation.
   try {
-    const { preloadContentVars, initContentVarsSync } = await import(
-      '@/core/lib/content/vars'
-    );
+    const { preloadContentVars, initContentVarsSync } =
+      await import('@/core/lib/content/vars');
     await preloadContentVars();
     await initContentVarsSync();
     console.log('Content vars cache preloaded + sync initialized');
@@ -44,13 +43,26 @@ export async function register() {
 
   // Subscribe to Redis pub/sub for CMS link cache invalidation.
   try {
-    const { initCmsLinkSync } = await import(
-      '@/core/lib/content/cms-link-sync'
-    );
+    const { initCmsLinkSync } =
+      await import('@/core/lib/content/cms-link-sync');
     await initCmsLinkSync();
     console.log('CMS link sync initialized');
   } catch (error) {
     console.error('Failed to initialize CMS link sync:', error);
     console.log('Running without cross-instance link cache invalidation');
+  }
+
+  // Subscribe to session invalidations (bans, account erasure) broadcast by
+  // other instances. Must live here for the same reason as the caches above:
+  // tRPC's createContext reads the Next.js bundle's copy of the module.
+  try {
+    const { initSessionInvalidationSync } =
+      await import('@/core/lib/auth/session-invalidation');
+    await initSessionInvalidationSync();
+  } catch (error) {
+    console.error('Failed to initialize session invalidation sync:', error);
+    console.log(
+      'Bans apply to other instances only after the cookie cache expires'
+    );
   }
 }

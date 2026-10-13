@@ -2,8 +2,7 @@
  * Health check handler factory — project provides core checks (DB, Redis),
  * modules contribute via registerHealthCheck() hooks.
  */
-
-import { runHealthChecks, getRegisteredModules } from '../module/module-hooks';
+import { getRegisteredModules, runHealthChecks } from '../module/module-hooks';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -12,6 +11,14 @@ import { runHealthChecks, getRegisteredModules } from '../module/module-hooks';
 export interface HealthCheckDef {
   name: string;
   check: () => Promise<void>;
+  /**
+   * Whether a failure makes the process unhealthy (503 → orchestrator
+   * restart / LB eject). Default true. Set false for signals that describe
+   * load rather than liveness (memory, queue backlog): they are reported as
+   * `degraded` but never gate — otherwise a newsletter burst or a heap spike
+   * flips every replica unhealthy at once.
+   */
+  critical?: boolean;
 }
 
 interface CheckResult {
@@ -40,7 +47,7 @@ interface HealthHandlerOptions {
  */
 export function createHealthHandler(
   checks: HealthCheckDef[],
-  options?: HealthHandlerOptions,
+  options?: HealthHandlerOptions
 ): () => Promise<Response> {
   const startedAt = options?.startedAt ?? Date.now();
 
@@ -55,7 +62,7 @@ export function createHealthHandler(
         results[def.name] = { status: 'ok', latencyMs: Date.now() - start };
       } catch (err) {
         results[def.name] = {
-          status: 'error',
+          status: def.critical === false ? 'degraded' : 'error',
           latencyMs: Date.now() - start,
           error: String(err),
         };
@@ -79,16 +86,18 @@ export function createHealthHandler(
       // Module checks failed — non-critical
     }
 
-    // Overall status
+    // Overall status: only a failed critical core check (DB, Redis) is
+    // `unhealthy`. Non-critical core checks and module checks can only
+    // degrade — they are visibility, not a liveness verdict.
     const coreStatuses = checks.map((c) => results[c.name]?.status);
     const hasCoreFail = coreStatuses.includes('error');
-    const hasModuleFail = Object.entries(results)
-      .filter(([k]) => k.startsWith('module:'))
-      .some(([, v]) => v.status === 'error');
+    const hasDegraded = Object.values(results).some(
+      (v) => v.status === 'degraded' || v.status === 'error'
+    );
 
     const overallStatus = hasCoreFail
       ? 'unhealthy'
-      : hasModuleFail
+      : hasDegraded
         ? 'degraded'
         : 'healthy';
 
@@ -108,7 +117,9 @@ export function createHealthHandler(
         checks: results,
         ...options?.extra,
       },
-      { status: overallStatus === 'healthy' ? 200 : 503 },
+      // `degraded` still answers 200: the Dockerfile HEALTHCHECK and the LB
+      // only read the status code, and a degraded replica is still serving.
+      { status: overallStatus === 'unhealthy' ? 503 : 200 }
     );
   };
 }

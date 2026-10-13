@@ -4,22 +4,33 @@
  * Extracted from the stripe/nowpayments webhook routes so the project-layer
  * route files only need a dynamic import, not static deps on core-subscriptions.
  */
-
+import { finalizeUsage } from './discount-service';
+import {
+  activateSubscription,
+  cancelSubscription,
+  getOrgByProviderSubscription,
+  updateSubscription,
+} from './subscription-service';
+import {
+  grantSubscriptionTokensForOrg,
+  isYearlyPeriodLength,
+} from './token-grants';
 import { eq } from 'drizzle-orm';
+
+import type { WebhookEvent } from '@/core-payments/types/payment';
+import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
+import { tagSubscriber } from '@/core/lib/email-list/index';
+import { logAudit } from '@/core/lib/infra/audit';
+import { createLogger } from '@/core/lib/infra/logger';
+import { invalidateStats } from '@/core/lib/infra/stats-cache';
+import { runHook } from '@/core/lib/module/module-hooks';
+import {
+  NotificationCategory,
+  NotificationType,
+} from '@/core/types/notifications';
 import { db } from '@/server/db';
 import { user } from '@/server/db/schema';
 import { member } from '@/server/db/schema/organization';
-import type { WebhookEvent } from '@/core-payments/types/payment';
-import { activateSubscription, updateSubscription, cancelSubscription, getOrgByProviderSubscription } from './subscription-service';
-import { finalizeUsage } from './discount-service';
-import { grantSubscriptionTokensForOrg, isYearlyPeriodLength } from './token-grants';
-import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
-import { logAudit } from '@/core/lib/infra/audit';
-import { invalidateStats } from '@/core/lib/infra/stats-cache';
-import { runHook } from '@/core/lib/module/module-hooks';
-import { tagSubscriber } from '@/core/lib/email-list/index';
-import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { createLogger } from '@/core/lib/infra/logger';
 
 const logger = createLogger('subscription-webhook-handler');
 
@@ -38,16 +49,20 @@ export interface SubscriptionWebhookParams {
 function inferInterval(
   event: WebhookEvent,
   providerId: string,
-  deps: ReturnType<typeof getSubscriptionsDeps>,
+  deps: ReturnType<typeof getSubscriptionsDeps>
 ): 'monthly' | 'yearly' | undefined {
   if (event.providerPriceId) {
-    const prices = deps.getPlanByProviderPriceId(providerId, event.providerPriceId)
-      ?.providerPrices[providerId];
+    const prices = deps.getPlanByProviderPriceId(
+      providerId,
+      event.providerPriceId
+    )?.providerPrices[providerId];
     if (prices?.yearly === event.providerPriceId) return 'yearly';
     if (prices?.monthly === event.providerPriceId) return 'monthly';
   }
   if (event.periodStart && event.periodEnd) {
-    return isYearlyPeriodLength(event.periodStart, event.periodEnd) ? 'yearly' : 'monthly';
+    return isYearlyPeriodLength(event.periodStart, event.periodEnd)
+      ? 'yearly'
+      : 'monthly';
   }
   return undefined;
 }
@@ -56,15 +71,20 @@ function inferInterval(
  * Handle a subscription-related webhook event.
  * Called from both the Stripe and NOWPayments webhook routes.
  */
-export async function handleSubscriptionWebhookEvent({ event, providerId }: SubscriptionWebhookParams): Promise<void> {
+export async function handleSubscriptionWebhookEvent({
+  event,
+  providerId,
+}: SubscriptionWebhookParams): Promise<void> {
   const deps = getSubscriptionsDeps();
-  const providerData = event.providerData as Record<string, unknown> | undefined;
+  const providerData = event.providerData as
+    Record<string, unknown> | undefined;
 
   switch (event.type) {
     case 'subscription.activated': {
       if (!event.organizationId) break;
 
-      const inferredInterval = inferInterval(event, providerId, deps) ?? 'monthly';
+      const inferredInterval =
+        inferInterval(event, providerId, deps) ?? 'monthly';
 
       await activateSubscription({
         organizationId: event.organizationId,
@@ -80,9 +100,13 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
       });
 
       // Finalize discount usage if one was applied at checkout
-      const discountUsageId = providerData?.discountUsageId as string | undefined;
+      const discountUsageId = providerData?.discountUsageId as
+        string | undefined;
       if (discountUsageId) {
-        await finalizeUsage(discountUsageId, event.providerSubscriptionId ?? '');
+        await finalizeUsage(
+          discountUsageId,
+          event.providerSubscriptionId ?? ''
+        );
       }
 
       // Credit the plan's monthly tokens immediately (idempotent; the daily
@@ -95,7 +119,11 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
         action: 'subscription.created',
         entityType: 'subscription',
         entityId: event.providerSubscriptionId ?? 'unknown',
-        metadata: { orgId: event.organizationId, planId: event.planId, provider: providerId },
+        metadata: {
+          orgId: event.organizationId,
+          planId: event.planId,
+          provider: providerId,
+        },
       });
 
       deps.sendOrgNotification(event.organizationId, {
@@ -112,9 +140,19 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
         const planObj = event.providerPriceId
           ? deps.getPlanByProviderPriceId(providerId, event.providerPriceId)
           : null;
-        const amountCents = providerData?.amountCents as number | undefined
-          ?? (planObj ? (inferredInterval === 'yearly' ? planObj.priceYearly : planObj.priceMonthly) : 0);
-        runHook('payment.conversion', checkoutUserId, event.providerSubscriptionId ?? 'unknown', amountCents);
+        const amountCents =
+          (providerData?.amountCents as number | undefined) ??
+          (planObj
+            ? inferredInterval === 'yearly'
+              ? planObj.priceYearly
+              : planObj.priceMonthly
+            : 0);
+        runHook(
+          'payment.conversion',
+          checkoutUserId,
+          event.providerSubscriptionId ?? 'unknown',
+          amountCents
+        );
       }
 
       // Tag subscriber in email list
@@ -148,7 +186,9 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
 
       // Monthly-interval renewals arrive as subscription.updated with a new
       // period start — credit the new month's tokens right away (idempotent)
-      const updatedOrgId = await getOrgByProviderSubscription(event.providerSubscriptionId);
+      const updatedOrgId = await getOrgByProviderSubscription(
+        event.providerSubscriptionId
+      );
       if (updatedOrgId) {
         await grantSubscriptionTokensForOrg(updatedOrgId);
       }
@@ -160,7 +200,9 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
     case 'subscription.canceled': {
       if (!event.providerSubscriptionId) break;
 
-      const orgId = await getOrgByProviderSubscription(event.providerSubscriptionId);
+      const orgId = await getOrgByProviderSubscription(
+        event.providerSubscriptionId
+      );
       await cancelSubscription(event.providerSubscriptionId);
 
       invalidateStats('billing');
@@ -216,6 +258,23 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
     case 'payment.refunded': {
       if (!event.organizationId) break;
 
+      // Claw back the affiliate commission recorded at checkout. Only when the
+      // refund can be tied to the buyer — a charge without our metadata (the
+      // provider strips it on partial refunds) has nothing to attribute.
+      const refundMetadata = providerData?.metadata as
+        Record<string, string> | undefined;
+      const refundUserId =
+        (providerData?.userId as string | undefined) ?? refundMetadata?.userId;
+      const amountRefunded = providerData?.amountRefunded;
+      if (refundUserId && typeof amountRefunded === 'number') {
+        runHook(
+          'payment.refund',
+          refundUserId,
+          event.providerSubscriptionId ?? 'unknown',
+          amountRefunded
+        );
+      }
+
       deps.sendOrgNotification(event.organizationId, {
         title: 'Payment refunded',
         body: 'Your payment has been refunded.',
@@ -227,6 +286,9 @@ export async function handleSubscriptionWebhookEvent({ event, providerId }: Subs
     }
 
     default:
-      logger.info('Unhandled subscription webhook event', { type: event.type, providerId });
+      logger.info('Unhandled subscription webhook event', {
+        type: event.type,
+        providerId,
+      });
   }
 }

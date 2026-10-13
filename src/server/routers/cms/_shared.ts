@@ -1,12 +1,15 @@
+import { sectionProcedure } from '../../trpc';
 import { inArray } from 'drizzle-orm';
 
 import { createLogger } from '@/core/lib/infra/logger';
+import { Role } from '@/core/policy';
+import {
+  NotificationCategory,
+  NotificationType,
+} from '@/core/types/notifications';
 import { cmsPosts } from '@/server/db/schema';
 import { user } from '@/server/db/schema';
-import { Role } from '@/core/policy';
 import { sendBulkNotification } from '@/server/lib/notifications';
-import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import { sectionProcedure } from '../../trpc';
 
 export const logger = createLogger('cms-router');
 
@@ -39,7 +42,7 @@ export function notifyContentPublished(
   postTitle: string,
   postSlug: string,
   publisherId: string,
-  contentType: { label: string; urlPrefix: string },
+  contentType: { label: string; urlPrefix: string }
 ): void {
   const doNotify = async () => {
     try {
@@ -63,7 +66,9 @@ export function notifyContentPublished(
         });
       }
     } catch (err) {
-      console.error('Failed to notify staff about published content:', err);
+      logger.error('Failed to notify staff about published content', {
+        error: String(err),
+      });
     }
   };
   doNotify();

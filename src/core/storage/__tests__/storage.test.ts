@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // ─── Mocks (must be declared before any import of the module under test) ───
 
@@ -90,7 +90,9 @@ describe('storage provider registry', () => {
     expect(typeof provider.delete).toBe('function');
     expect(typeof provider.url).toBe('function');
     // Default URL falls back to localhost
-    expect(provider.url('test.png')).toBe('http://localhost:3000/api/uploads/test.png');
+    expect(provider.url('test.png')).toBe(
+      'http://localhost:3000/api/uploads/test.png'
+    );
   });
 
   // ── 2. registerStorageProvider() registers a custom provider ────────────
@@ -104,6 +106,9 @@ describe('storage provider registry', () => {
       download: vi.fn().mockResolvedValue(Buffer.from('data')),
       delete: vi.fn().mockResolvedValue(undefined),
       url: vi.fn().mockReturnValue('https://custom-cdn.test/file.png'),
+      absoluteUrl: vi.fn().mockReturnValue('https://custom-cdn.test/file.png'),
+      exists: vi.fn().mockResolvedValue(false),
+      copy: vi.fn().mockResolvedValue('dest.png'),
     };
     registerStorageProvider('custom', () => customProvider);
 
@@ -116,7 +121,9 @@ describe('storage provider registry', () => {
     process.env.STORAGE_BACKEND = 'nonexistent';
     const { getStorage } = await freshImport();
 
-    expect(() => getStorage()).toThrow(/Unknown storage backend: "nonexistent"/);
+    expect(() => getStorage()).toThrow(
+      /Unknown storage backend: "nonexistent"/
+    );
   });
 
   it('caches the provider after first getStorage() call', async () => {
@@ -134,7 +141,7 @@ describe('storage provider registry', () => {
     const { getStorage } = await freshImport();
 
     expect(getStorage().url('images/photo.jpg')).toBe(
-      'https://cdn.example.com/api/uploads/images/photo.jpg',
+      'https://cdn.example.com/api/uploads/images/photo.jpg'
     );
   });
 
@@ -143,7 +150,7 @@ describe('storage provider registry', () => {
     const { getStorage } = await freshImport();
 
     expect(getStorage().url('doc.pdf')).toBe(
-      'https://app.example.com/api/uploads/doc.pdf',
+      'https://app.example.com/api/uploads/doc.pdf'
     );
   });
 
@@ -153,7 +160,7 @@ describe('storage provider registry', () => {
     const { getStorage } = await freshImport();
 
     expect(getStorage().url('file.txt')).toBe(
-      'https://cdn.example.com/api/uploads/file.txt',
+      'https://cdn.example.com/api/uploads/file.txt'
     );
   });
 
@@ -161,7 +168,7 @@ describe('storage provider registry', () => {
     const { getStorage } = await freshImport();
 
     expect(getStorage().url('test.png')).toBe(
-      'http://localhost:3000/api/uploads/test.png',
+      'http://localhost:3000/api/uploads/test.png'
     );
   });
 
@@ -175,10 +182,9 @@ describe('storage provider registry', () => {
     const result = await provider.upload('images/photo.jpg', buf);
 
     expect(result).toBe('images/photo.jpg');
-    expect(mockMkdir).toHaveBeenCalledWith(
-      expect.stringContaining('uploads'),
-      { recursive: true },
-    );
+    expect(mockMkdir).toHaveBeenCalledWith(expect.stringContaining('uploads'), {
+      recursive: true,
+    });
     // The full path should join cwd + uploads + filepath
     const writtenPath = mockWriteFile.mock.calls[0][0] as string;
     expect(writtenPath).toContain('uploads');

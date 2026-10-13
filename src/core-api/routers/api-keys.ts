@@ -1,16 +1,22 @@
-import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { eq, and, desc, count, sql, gte } from 'drizzle-orm';
-import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
-import type { DbClient } from '@/server/db';
-import { saasApiKeys, saasApiRequestLogs } from '@/core-api/schema/api-keys';
-import { member } from '@/server/db/schema/organization';
+import { and, count, desc, eq, gte, sql } from 'drizzle-orm';
+import { z } from 'zod';
+
 import { getApiDeps } from '@/core-api/deps';
 import { generateApiKey } from '@/core-api/lib/api-key-service';
 import { getRegisteredScopes, validateScopes } from '@/core-api/lib/api-scopes';
+import { saasApiKeys, saasApiRequestLogs } from '@/core-api/schema/api-keys';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { logAudit } from '@/core/lib/infra/audit';
 import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
+import type { DbClient } from '@/server/db';
+import { member } from '@/server/db/schema/organization';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  sectionProcedure,
+} from '@/server/trpc';
 
 const apiAdminProcedure = sectionProcedure('settings');
 
@@ -18,11 +24,7 @@ const apiAdminProcedure = sectionProcedure('settings');
 const ROLL_GRACE_HOURS = 24;
 
 /** Verify calling user is owner/admin of the org. */
-async function requireOrgAdmin(
-  db: DbClient,
-  orgId: string,
-  userId: string,
-) {
+async function requireOrgAdmin(db: DbClient, orgId: string, userId: string) {
   const [membership] = await db
     .select({ role: member.role })
     .from(member)
@@ -42,7 +44,10 @@ export const apiKeysRouter = createTRPCRouter({
 
   /** List API keys for the active org. Never returns the key hash. */
   list: protectedProcedure.query(async ({ ctx }) => {
-    const orgId = await getApiDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+    const orgId = await getApiDeps().resolveOrgId(
+      ctx.activeOrganizationId,
+      ctx.session.user.id
+    );
 
     return ctx.db
       .select({
@@ -63,13 +68,18 @@ export const apiKeysRouter = createTRPCRouter({
 
   /** Create a new API key. Returns the plaintext key exactly once. */
   create: protectedProcedure
-    .input(z.object({
-      name: z.string().min(1).max(255),
-      scopes: z.array(z.string().max(100)).max(50).nullable(),
-      expiresAt: z.date().optional(),
-    }))
+    .input(
+      z.object({
+        name: z.string().min(1).max(255),
+        scopes: z.array(z.string().max(100)).max(50).nullable(),
+        expiresAt: z.date().optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
-      const orgId = await getApiDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await getApiDeps().resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireOrgAdmin(ctx.db, orgId, ctx.session.user.id);
 
       // Validate scopes if provided
@@ -87,10 +97,12 @@ export const apiKeysRouter = createTRPCRouter({
       const [{ total }] = await ctx.db
         .select({ total: count() })
         .from(saasApiKeys)
-        .where(and(
-          eq(saasApiKeys.organizationId, orgId),
-          eq(saasApiKeys.status, 'active'),
-        ));
+        .where(
+          and(
+            eq(saasApiKeys.organizationId, orgId),
+            eq(saasApiKeys.status, 'active')
+          )
+        );
 
       if (total >= 25) {
         throw new TRPCError({
@@ -101,15 +113,18 @@ export const apiKeysRouter = createTRPCRouter({
 
       const { key, hash, prefix } = generateApiKey();
 
-      const [created] = await ctx.db.insert(saasApiKeys).values({
-        organizationId: orgId,
-        createdBy: ctx.session.user.id,
-        name: input.name,
-        keyHash: hash,
-        prefix,
-        scopes: input.scopes,
-        expiresAt: input.expiresAt ?? null,
-      }).returning({ id: saasApiKeys.id });
+      const [created] = await ctx.db
+        .insert(saasApiKeys)
+        .values({
+          organizationId: orgId,
+          createdBy: ctx.session.user.id,
+          name: input.name,
+          keyHash: hash,
+          prefix,
+          scopes: input.scopes,
+          expiresAt: input.expiresAt ?? null,
+        })
+        .returning({ id: saasApiKeys.id });
 
       logAudit({
         db: ctx.db,
@@ -135,20 +150,39 @@ export const apiKeysRouter = createTRPCRouter({
   revoke: protectedProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      const orgId = await getApiDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await getApiDeps().resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireOrgAdmin(ctx.db, orgId, ctx.session.user.id);
 
       const [existing] = await ctx.db
-        .select({ id: saasApiKeys.id, name: saasApiKeys.name, status: saasApiKeys.status, prefix: saasApiKeys.prefix })
+        .select({
+          id: saasApiKeys.id,
+          name: saasApiKeys.name,
+          status: saasApiKeys.status,
+          prefix: saasApiKeys.prefix,
+        })
         .from(saasApiKeys)
-        .where(and(eq(saasApiKeys.id, input.id), eq(saasApiKeys.organizationId, orgId)))
+        .where(
+          and(
+            eq(saasApiKeys.id, input.id),
+            eq(saasApiKeys.organizationId, orgId)
+          )
+        )
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'API key not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'API key not found',
+        });
       }
       if (existing.status === 'revoked') {
-        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Key already revoked' });
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Key already revoked',
+        });
       }
 
       await ctx.db
@@ -180,12 +214,22 @@ export const apiKeysRouter = createTRPCRouter({
    * Both keys work during the grace window.
    */
   roll: protectedProcedure
-    .input(z.object({
-      id: z.string().uuid(),
-      gracePeriodHours: z.number().int().min(0).max(168).default(ROLL_GRACE_HOURS),
-    }))
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        gracePeriodHours: z
+          .number()
+          .int()
+          .min(0)
+          .max(168)
+          .default(ROLL_GRACE_HOURS),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
-      const orgId = await getApiDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await getApiDeps().resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireOrgAdmin(ctx.db, orgId, ctx.session.user.id);
 
       const [existing] = await ctx.db
@@ -196,37 +240,56 @@ export const apiKeysRouter = createTRPCRouter({
           status: saasApiKeys.status,
         })
         .from(saasApiKeys)
-        .where(and(eq(saasApiKeys.id, input.id), eq(saasApiKeys.organizationId, orgId)))
+        .where(
+          and(
+            eq(saasApiKeys.id, input.id),
+            eq(saasApiKeys.organizationId, orgId)
+          )
+        )
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'API key not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'API key not found',
+        });
       }
       if (existing.status !== 'active') {
-        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Can only roll active keys' });
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Can only roll active keys',
+        });
       }
 
-      const graceExpiry = input.gracePeriodHours > 0
-        ? new Date(Date.now() + input.gracePeriodHours * 60 * 60 * 1000)
-        : new Date(); // immediate revoke if 0
+      const graceExpiry =
+        input.gracePeriodHours > 0
+          ? new Date(Date.now() + input.gracePeriodHours * 60 * 60 * 1000)
+          : new Date(); // immediate revoke if 0
 
       // Mark old key as expiring — still works until expiresAt, but doesn't count against active limit
       await ctx.db
         .update(saasApiKeys)
-        .set({ status: 'expiring', expiresAt: graceExpiry, updatedAt: new Date() })
+        .set({
+          status: 'expiring',
+          expiresAt: graceExpiry,
+          updatedAt: new Date(),
+        })
         .where(eq(saasApiKeys.id, input.id));
 
       // Create the replacement key with the same name + scopes
       const { key, hash, prefix } = generateApiKey();
 
-      const [created] = await ctx.db.insert(saasApiKeys).values({
-        organizationId: orgId,
-        createdBy: ctx.session.user.id,
-        name: existing.name,
-        keyHash: hash,
-        prefix,
-        scopes: existing.scopes,
-      }).returning({ id: saasApiKeys.id });
+      const [created] = await ctx.db
+        .insert(saasApiKeys)
+        .values({
+          organizationId: orgId,
+          createdBy: ctx.session.user.id,
+          name: existing.name,
+          keyHash: hash,
+          prefix,
+          scopes: existing.scopes,
+        })
+        .returning({ id: saasApiKeys.id });
 
       logAudit({
         db: ctx.db,
@@ -234,7 +297,10 @@ export const apiKeysRouter = createTRPCRouter({
         action: 'api_key.roll',
         entityType: 'api_key',
         entityId: created!.id,
-        metadata: { replacedKeyId: input.id, gracePeriodHours: input.gracePeriodHours },
+        metadata: {
+          replacedKeyId: input.id,
+          gracePeriodHours: input.gracePeriodHours,
+        },
       });
 
       dispatchWebhook(ctx.db, 'api_key.rolled', {
@@ -249,22 +315,35 @@ export const apiKeysRouter = createTRPCRouter({
 
   /** Rename an API key. */
   rename: protectedProcedure
-    .input(z.object({
-      id: z.string().uuid(),
-      name: z.string().min(1).max(255),
-    }))
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        name: z.string().min(1).max(255),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
-      const orgId = await getApiDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await getApiDeps().resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireOrgAdmin(ctx.db, orgId, ctx.session.user.id);
 
       const [existing] = await ctx.db
         .select({ id: saasApiKeys.id })
         .from(saasApiKeys)
-        .where(and(eq(saasApiKeys.id, input.id), eq(saasApiKeys.organizationId, orgId)))
+        .where(
+          and(
+            eq(saasApiKeys.id, input.id),
+            eq(saasApiKeys.organizationId, orgId)
+          )
+        )
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'API key not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'API key not found',
+        });
       }
 
       await ctx.db
@@ -277,12 +356,17 @@ export const apiKeysRouter = createTRPCRouter({
 
   /** Update scopes on an existing key. */
   updateScopes: protectedProcedure
-    .input(z.object({
-      id: z.string().uuid(),
-      scopes: z.array(z.string().max(100)).max(50).nullable(),
-    }))
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        scopes: z.array(z.string().max(100)).max(50).nullable(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
-      const orgId = await getApiDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await getApiDeps().resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireOrgAdmin(ctx.db, orgId, ctx.session.user.id);
 
       if (input.scopes !== null && input.scopes.length > 0) {
@@ -298,14 +382,25 @@ export const apiKeysRouter = createTRPCRouter({
       const [existing] = await ctx.db
         .select({ id: saasApiKeys.id, status: saasApiKeys.status })
         .from(saasApiKeys)
-        .where(and(eq(saasApiKeys.id, input.id), eq(saasApiKeys.organizationId, orgId)))
+        .where(
+          and(
+            eq(saasApiKeys.id, input.id),
+            eq(saasApiKeys.organizationId, orgId)
+          )
+        )
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'API key not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'API key not found',
+        });
       }
       if (existing.status !== 'active') {
-        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Can only update scopes on active keys' });
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Can only update scopes on active keys',
+        });
       }
 
       await ctx.db
@@ -334,16 +429,27 @@ export const apiKeysRouter = createTRPCRouter({
   getKeyStats: protectedProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      const orgId = await getApiDeps().resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await getApiDeps().resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
 
       const [existing] = await ctx.db
         .select({ id: saasApiKeys.id })
         .from(saasApiKeys)
-        .where(and(eq(saasApiKeys.id, input.id), eq(saasApiKeys.organizationId, orgId)))
+        .where(
+          and(
+            eq(saasApiKeys.id, input.id),
+            eq(saasApiKeys.organizationId, orgId)
+          )
+        )
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'API key not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'API key not found',
+        });
       }
 
       const now = new Date();
@@ -353,15 +459,21 @@ export const apiKeysRouter = createTRPCRouter({
 
       const [stats] = await ctx.db
         .select({
-          last24h: count(sql`CASE WHEN ${saasApiRequestLogs.createdAt} >= ${day} THEN 1 END`),
-          last7d: count(sql`CASE WHEN ${saasApiRequestLogs.createdAt} >= ${week} THEN 1 END`),
+          last24h: count(
+            sql`CASE WHEN ${saasApiRequestLogs.createdAt} >= ${day} THEN 1 END`
+          ),
+          last7d: count(
+            sql`CASE WHEN ${saasApiRequestLogs.createdAt} >= ${week} THEN 1 END`
+          ),
           last30d: count(),
         })
         .from(saasApiRequestLogs)
-        .where(and(
-          eq(saasApiRequestLogs.apiKeyId, input.id),
-          gte(saasApiRequestLogs.createdAt, month),
-        ));
+        .where(
+          and(
+            eq(saasApiRequestLogs.apiKeyId, input.id),
+            gte(saasApiRequestLogs.createdAt, month)
+          )
+        );
 
       return stats!;
     }),
@@ -370,11 +482,13 @@ export const apiKeysRouter = createTRPCRouter({
 
   /** Admin: browse all API request logs with pagination. */
   adminGetLogs: apiAdminProcedure
-    .input(z.object({
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(100).default(20),
-      apiKeyId: z.string().uuid().optional(),
-    }))
+    .input(
+      z.object({
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(100).default(20),
+        apiKeyId: z.string().uuid().optional(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
       const conditions = [];
@@ -401,11 +515,13 @@ export const apiKeysRouter = createTRPCRouter({
 
   /** Admin: list all API keys across all orgs. */
   adminListKeys: apiAdminProcedure
-    .input(z.object({
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(100).default(20),
-      status: z.enum(['active', 'expiring', 'revoked', 'expired']).optional(),
-    }))
+    .input(
+      z.object({
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(100).default(20),
+        status: z.enum(['active', 'expiring', 'revoked', 'expired']).optional(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
       const conditions = [];

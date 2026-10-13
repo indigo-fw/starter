@@ -1,4 +1,23 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { cmsRouter } from '../cms';
+import { createMockCtx } from './test-helpers';
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import { TRPCError } from '@trpc/server';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { buildStatusCounts, fetchOrNotFound } from '@/core/crud/admin-crud';
+import { softDelete, softRestore } from '@/core/crud/admin-crud';
+import { updateWithRevision } from '@/core/crud/cms-helpers';
+import {
+  getTermRelationships,
+  resolveTagsForPosts,
+  syncTermRelationships,
+} from '@/core/crud/taxonomy-helpers';
+import { logAudit } from '@/core/lib/infra/audit';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
+import { asMock } from '@/test-utils';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -55,27 +74,42 @@ vi.mock('@/core/crud/admin-crud', () => ({
   ensureSlugUnique: vi.fn().mockResolvedValue(undefined),
   softDelete: vi.fn().mockResolvedValue(undefined),
   softRestore: vi.fn().mockResolvedValue(undefined),
+  createSlugRestoreCheck: vi
+    .fn()
+    .mockReturnValue(vi.fn().mockResolvedValue(undefined)),
   permanentDelete: vi.fn().mockResolvedValue(undefined),
   fetchOrNotFound: vi.fn(),
   updateContentStatus: vi.fn().mockResolvedValue(undefined),
   generateCopySlug: vi.fn().mockResolvedValue('slug-copy'),
   getTranslationSiblings: vi.fn().mockResolvedValue([]),
-  serializeExport: vi.fn().mockReturnValue({ data: '[]', contentType: 'application/json' }),
-  prepareTranslationCopy: vi.fn().mockResolvedValue({ slug: 'slug-en', translationGroup: 'group-1', previewToken: 'tok' }),
-  parsePagination: vi.fn().mockImplementation((input: { page?: number; pageSize?: number }) => {
-    const page = input.page ?? 1;
-    const pageSize = input.pageSize ?? 100;
-    return { page, pageSize, offset: (page - 1) * pageSize };
-  }),
-  paginatedResult: vi.fn().mockImplementation(
-    (items: unknown[], total: number, page: number, pageSize: number) => ({
-      results: items,
-      total,
-      page,
-      pageSize,
-      totalPages: Math.ceil(total / pageSize),
-    })
-  ),
+  serializeExport: vi
+    .fn()
+    .mockReturnValue({ data: '[]', contentType: 'application/json' }),
+  prepareTranslationCopy: vi
+    .fn()
+    .mockResolvedValue({
+      slug: 'slug-en',
+      translationGroup: 'group-1',
+      previewToken: 'tok',
+    }),
+  parsePagination: vi
+    .fn()
+    .mockImplementation((input: { page?: number; pageSize?: number }) => {
+      const page = input.page ?? 1;
+      const pageSize = input.pageSize ?? 100;
+      return { page, pageSize, offset: (page - 1) * pageSize };
+    }),
+  paginatedResult: vi
+    .fn()
+    .mockImplementation(
+      (items: unknown[], total: number, page: number, pageSize: number) => ({
+        results: items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      })
+    ),
 }));
 
 vi.mock('@/core/crud/cms-helpers', () => ({
@@ -91,9 +125,11 @@ vi.mock('@/core/crud/taxonomy-helpers', () => ({
   syncTermRelationships: vi.fn().mockResolvedValue(undefined),
   getTermRelationships: vi.fn().mockResolvedValue([]),
   deleteAllTermRelationships: vi.fn().mockResolvedValue(undefined),
-  resolveTagsForPosts: vi.fn().mockImplementation((_db, items) =>
-    items.map((item: Record<string, unknown>) => ({ ...item, tags: [] }))
-  ),
+  resolveTagsForPosts: vi
+    .fn()
+    .mockImplementation((_db, items) =>
+      items.map((item: Record<string, unknown>) => ({ ...item, tags: [] }))
+    ),
 }));
 
 vi.mock('@/core/lib/infra/audit', () => ({
@@ -145,6 +181,11 @@ vi.mock('@/core/lib/seo-routes', () => ({
 }));
 
 vi.mock('@/config/cms', () => ({
+  CONTENT_TYPES: [
+    { id: 'page', postType: 1, urlPrefix: '/' },
+    { id: 'blog', postType: 2, urlPrefix: '/blog/' },
+    { id: 'category', urlPrefix: '/category/' },
+  ],
   getContentTypeByPostType: vi.fn().mockReturnValue({
     id: 'blog',
     label: 'Blog Post',
@@ -207,21 +248,6 @@ vi.mock('@/server/db/schema', () => ({
   },
 }));
 
-// ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { TRPCError } from '@trpc/server';
-import { asMock } from '@/test-utils';
-import { cmsRouter } from '../cms';
-import { buildStatusCounts, fetchOrNotFound } from '@/core/crud/admin-crud';
-import { getTermRelationships, syncTermRelationships, resolveTagsForPosts } from '@/core/crud/taxonomy-helpers';
-import { updateWithRevision } from '@/core/crud/cms-helpers';
-import { softDelete, softRestore } from '@/core/crud/admin-crud';
-import { logAudit } from '@/core/lib/infra/audit';
-import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
-import { createMockCtx } from './test-helpers';
-
 const MOCK_POST = {
   id: 'a0a0a0a0-b1b1-4c2c-8d3d-e4e4e4e4e4e4',
   type: 2,
@@ -261,7 +287,13 @@ describe('cmsRouter', () => {
   // =========================================================================
   describe('counts', () => {
     it('returns status counts for a post type', async () => {
-      const mockCounts = { all: 10, published: 5, draft: 3, scheduled: 1, trash: 1 };
+      const mockCounts = {
+        all: 10,
+        published: 5,
+        draft: 3,
+        scheduled: 1,
+        trash: 1,
+      };
       asMock(buildStatusCounts).mockResolvedValue(mockCounts);
 
       const ctx = createMockCtx();
@@ -274,7 +306,11 @@ describe('cmsRouter', () => {
 
     it('passes the correct type filter to buildStatusCounts', async () => {
       asMock(buildStatusCounts).mockResolvedValue({
-        all: 0, published: 0, draft: 0, scheduled: 0, trash: 0,
+        all: 0,
+        published: 0,
+        draft: 0,
+        scheduled: 0,
+        trash: 0,
       });
 
       const ctx = createMockCtx();
@@ -298,7 +334,10 @@ describe('cmsRouter', () => {
       asMock(fetchOrNotFound).mockResolvedValue(MOCK_POST);
 
       asMock(getTermRelationships).mockResolvedValue([
-        { termId: 'c1c1c1c1-0000-4000-a000-000000000001', taxonomyId: 'category' },
+        {
+          termId: 'c1c1c1c1-0000-4000-a000-000000000001',
+          taxonomyId: 'category',
+        },
         { termId: 'd1d1d1d1-0000-4000-a000-000000000001', taxonomyId: 'tag' },
         { termId: 'd1d1d1d1-0000-4000-a000-000000000002', taxonomyId: 'tag' },
       ]);
@@ -308,8 +347,13 @@ describe('cmsRouter', () => {
 
       expect(result.id).toBe(MOCK_POST.id);
       expect(result.title).toBe('Test Blog Post');
-      expect(result.categoryIds).toEqual(['c1c1c1c1-0000-4000-a000-000000000001']);
-      expect(result.tagIds).toEqual(['d1d1d1d1-0000-4000-a000-000000000001', 'd1d1d1d1-0000-4000-a000-000000000002']);
+      expect(result.categoryIds).toEqual([
+        'c1c1c1c1-0000-4000-a000-000000000001',
+      ]);
+      expect(result.tagIds).toEqual([
+        'd1d1d1d1-0000-4000-a000-000000000001',
+        'd1d1d1d1-0000-4000-a000-000000000002',
+      ]);
     });
 
     it('throws NOT_FOUND when post does not exist', async () => {
@@ -385,7 +429,10 @@ describe('cmsRouter', () => {
       const caller = cmsRouter.createCaller(ctx as never);
       await caller.create({
         ...createInput,
-        categoryIds: ['c1c1c1c1-0000-4000-a000-000000000001', 'c1c1c1c1-0000-4000-a000-000000000002'],
+        categoryIds: [
+          'c1c1c1c1-0000-4000-a000-000000000001',
+          'c1c1c1c1-0000-4000-a000-000000000002',
+        ],
         tagIds: ['d1d1d1d1-0000-4000-a000-000000000001'],
       });
 
@@ -393,7 +440,10 @@ describe('cmsRouter', () => {
         ctx.db,
         createdPost.id,
         'category',
-        ['c1c1c1c1-0000-4000-a000-000000000001', 'c1c1c1c1-0000-4000-a000-000000000002']
+        [
+          'c1c1c1c1-0000-4000-a000-000000000001',
+          'c1c1c1c1-0000-4000-a000-000000000002',
+        ]
       );
       expect(syncTermRelationships).toHaveBeenCalledWith(
         ctx.db,
@@ -471,7 +521,10 @@ describe('cmsRouter', () => {
       const caller = cmsRouter.createCaller(ctx as never);
 
       await expect(
-        caller.update({ id: 'f0f0f0f0-a1a1-4b2b-9c3c-d4d4d4d4d4d4', title: 'X' })
+        caller.update({
+          id: 'f0f0f0f0-a1a1-4b2b-9c3c-d4d4d4d4d4d4',
+          title: 'X',
+        })
       ).rejects.toThrow('Post not found');
     });
 
@@ -483,7 +536,10 @@ describe('cmsRouter', () => {
       await caller.update({
         id: MOCK_POST.id,
         categoryIds: ['c1c1c1c1-0000-4000-a000-000000000003'],
-        tagIds: ['d1d1d1d1-0000-4000-a000-000000000003', 'd1d1d1d1-0000-4000-a000-000000000004'],
+        tagIds: [
+          'd1d1d1d1-0000-4000-a000-000000000003',
+          'd1d1d1d1-0000-4000-a000-000000000004',
+        ],
       });
 
       expect(syncTermRelationships).toHaveBeenCalledWith(
@@ -496,7 +552,10 @@ describe('cmsRouter', () => {
         ctx.db,
         MOCK_POST.id,
         'tag',
-        ['d1d1d1d1-0000-4000-a000-000000000003', 'd1d1d1d1-0000-4000-a000-000000000004']
+        [
+          'd1d1d1d1-0000-4000-a000-000000000003',
+          'd1d1d1d1-0000-4000-a000-000000000004',
+        ]
       );
     });
 
@@ -562,7 +621,8 @@ describe('cmsRouter', () => {
       expect(softRestore).toHaveBeenCalledWith(
         ctx.db,
         expect.objectContaining({ table: expect.anything() }),
-        MOCK_POST.id
+        MOCK_POST.id,
+        expect.any(Function)
       );
     });
 
@@ -592,9 +652,15 @@ describe('cmsRouter', () => {
       let selectCallIndex = 0;
 
       const itemsLimitMock = vi.fn().mockResolvedValue(posts);
-      const itemsOffsetMock = vi.fn().mockReturnValue({ limit: itemsLimitMock });
-      const itemsOrderByMock = vi.fn().mockReturnValue({ offset: itemsOffsetMock });
-      const itemsWhereMock = vi.fn().mockReturnValue({ orderBy: itemsOrderByMock });
+      const itemsOffsetMock = vi
+        .fn()
+        .mockReturnValue({ limit: itemsLimitMock });
+      const itemsOrderByMock = vi
+        .fn()
+        .mockReturnValue({ offset: itemsOffsetMock });
+      const itemsWhereMock = vi
+        .fn()
+        .mockReturnValue({ orderBy: itemsOrderByMock });
       const itemsFromMock = vi.fn().mockReturnValue({ where: itemsWhereMock });
 
       const countWhereMock = vi.fn().mockResolvedValue([{ count: 2 }]);
@@ -638,9 +704,15 @@ describe('cmsRouter', () => {
       let selectCallIndex = 0;
 
       const itemsLimitMock = vi.fn().mockResolvedValue([]);
-      const itemsOffsetMock = vi.fn().mockReturnValue({ limit: itemsLimitMock });
-      const itemsOrderByMock = vi.fn().mockReturnValue({ offset: itemsOffsetMock });
-      const itemsWhereMock = vi.fn().mockReturnValue({ orderBy: itemsOrderByMock });
+      const itemsOffsetMock = vi
+        .fn()
+        .mockReturnValue({ limit: itemsLimitMock });
+      const itemsOrderByMock = vi
+        .fn()
+        .mockReturnValue({ offset: itemsOffsetMock });
+      const itemsWhereMock = vi
+        .fn()
+        .mockReturnValue({ orderBy: itemsOrderByMock });
       const itemsFromMock = vi.fn().mockReturnValue({ where: itemsWhereMock });
 
       const countWhereMock = vi.fn().mockResolvedValue([{ count: 0 }]);
@@ -674,9 +746,15 @@ describe('cmsRouter', () => {
       let selectCallIndex = 0;
 
       const itemsLimitMock = vi.fn().mockResolvedValue([]);
-      const itemsOffsetMock = vi.fn().mockReturnValue({ limit: itemsLimitMock });
-      const itemsOrderByMock = vi.fn().mockReturnValue({ offset: itemsOffsetMock });
-      const itemsWhereMock = vi.fn().mockReturnValue({ orderBy: itemsOrderByMock });
+      const itemsOffsetMock = vi
+        .fn()
+        .mockReturnValue({ limit: itemsLimitMock });
+      const itemsOrderByMock = vi
+        .fn()
+        .mockReturnValue({ offset: itemsOffsetMock });
+      const itemsWhereMock = vi
+        .fn()
+        .mockReturnValue({ orderBy: itemsOrderByMock });
       const itemsFromMock = vi.fn().mockReturnValue({ where: itemsWhereMock });
 
       const countWhereMock = vi.fn().mockResolvedValue([{ count: 0 }]);

@@ -26,25 +26,31 @@
  * a period. Note: a mid-cycle plan change can move the anchor and cause one
  * early re-grant — accepted (the user just upgraded).
  */
-
 import { and, asc, eq, gt, inArray, isNull, ne, or } from 'drizzle-orm';
-import { db } from '@/server/db';
-import { saasSubscriptions } from '@/core-subscriptions/schema/subscriptions';
+
+import type { WebhookEvent } from '@/core-payments/types/payment';
+import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
+import {
+  getBillingConfig,
+  getTokenPack,
+} from '@/core-subscriptions/lib/billing-config';
 import {
   addTokens,
   broadcastTokenBalance,
   deductTokens,
-  expirePlanTokens,
   expireDueTokenLots,
+  expirePlanTokens,
   findOrgsWithDueLots,
   getTokenBalance,
 } from '@/core-subscriptions/lib/token-service';
-import { getBillingConfig, getTokenPack } from '@/core-subscriptions/lib/billing-config';
-import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
-import { runHook } from '@/core/lib/module/module-hooks';
-import { NotificationType, NotificationCategory } from '@/core/types/notifications';
-import type { WebhookEvent } from '@/core-payments/types/payment';
+import { saasSubscriptions } from '@/core-subscriptions/schema/subscriptions';
 import { createLogger } from '@/core/lib/infra/logger';
+import { runHook } from '@/core/lib/module/module-hooks';
+import {
+  NotificationCategory,
+  NotificationType,
+} from '@/core/types/notifications';
+import { db } from '@/server/db';
 
 const log = createLogger('token-grants');
 
@@ -55,7 +61,8 @@ const SWEEP_CONCURRENCY = 10;
 
 function toChunks<T>(items: T[], size: number): T[][] {
   const chunks: T[][] = [];
-  for (let i = 0; i < items.length; i += size) chunks.push(items.slice(i, i + size));
+  for (let i = 0; i < items.length; i += size)
+    chunks.push(items.slice(i, i + size));
   return chunks;
 }
 
@@ -63,15 +70,19 @@ function toChunks<T>(items: T[], size: number): T[][] {
 
 /** Add N calendar months, clamping the day (Jan 31 + 1mo → Feb 28/29). */
 export function addMonthsClamped(date: Date, months: number): Date {
-  const lastDay = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + months + 1, 0)).getUTCDate();
-  return new Date(Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth() + months,
-    Math.min(date.getUTCDate(), lastDay),
-    date.getUTCHours(),
-    date.getUTCMinutes(),
-    date.getUTCSeconds(),
-  ));
+  const lastDay = new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + months + 1, 0)
+  ).getUTCDate();
+  return new Date(
+    Date.UTC(
+      date.getUTCFullYear(),
+      date.getUTCMonth() + months,
+      Math.min(date.getUTCDate(), lastDay),
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+      date.getUTCSeconds()
+    )
+  );
 }
 
 /**
@@ -119,7 +130,10 @@ const GRANTABLE_COLUMNS = {
  * cycle could be. Used as fallback for rows that predate the `interval`
  * column, and by the webhook handler when a provider sends no price ID.
  */
-export function isYearlyPeriodLength(start: Date | null | undefined, end: Date | null | undefined): boolean {
+export function isYearlyPeriodLength(
+  start: Date | null | undefined,
+  end: Date | null | undefined
+): boolean {
   if (!start || !end) return false;
   return end.getTime() - start.getTime() > 200 * 24 * 60 * 60 * 1000;
 }
@@ -155,7 +169,9 @@ function isUpfrontClaim(key: string): boolean {
  * (default) drips monthlyTokens on each monthly anniversary; 'upfront'
  * credits monthlyTokens × 12 once at the start of each yearly period.
  */
-export async function grantDueSubscriptionTokens(sub: GrantableSubscription): Promise<boolean> {
+export async function grantDueSubscriptionTokens(
+  sub: GrantableSubscription
+): Promise<boolean> {
   const plan = getSubscriptionsDeps().getPlan(sub.planId);
   const monthlyTokens = plan?.monthlyTokens ?? 0;
   if (monthlyTokens <= 0) return false;
@@ -171,7 +187,8 @@ export async function grantDueSubscriptionTokens(sub: GrantableSubscription): Pr
   // would otherwise receive 12× before any payment (and again at conversion,
   // when the paid period start creates a fresh claim key). Trials stay on
   // the monthly drip; the upfront grant lands at first payment.
-  const upfront = config.yearlyTokenGrant === 'upfront' && isYearlyPeriod(sub) && !trialing;
+  const upfront =
+    config.yearlyTokenGrant === 'upfront' && isYearlyPeriod(sub) && !trialing;
   const startKey = anchor.toISOString().slice(0, 10);
   const last = sub.lastGrantPeriodKey;
 
@@ -184,14 +201,19 @@ export async function grantDueSubscriptionTokens(sub: GrantableSubscription): Pr
     periodKey = startKey;
     claimKey = upfrontClaimKey(startKey);
     // Monthly drips already granted within this period → wait for renewal
-    if (last && (last === claimKey || (!isUpfrontClaim(last) && last >= startKey))) return false;
+    if (
+      last &&
+      (last === claimKey || (!isUpfrontClaim(last) && last >= startKey))
+    )
+      return false;
   } else {
     const due = computeDuePeriodKey(anchor, new Date());
     if (!due) return false;
     periodKey = due;
     claimKey = due;
     // This period was already granted upfront → no drips on top
-    if (last && (last === claimKey || last === upfrontClaimKey(startKey))) return false;
+    if (last && (last === claimKey || last === upfrontClaimKey(startKey)))
+      return false;
   }
 
   const grantAmount = upfront ? monthlyTokens * 12 : monthlyTokens;
@@ -209,8 +231,8 @@ export async function grantDueSubscriptionTokens(sub: GrantableSubscription): Pr
           eq(saasSubscriptions.id, sub.id),
           or(
             isNull(saasSubscriptions.lastGrantPeriodKey),
-            ne(saasSubscriptions.lastGrantPeriodKey, claimKey),
-          ),
+            ne(saasSubscriptions.lastGrantPeriodKey, claimKey)
+          )
         )
       )
       .returning({ id: saasSubscriptions.id });
@@ -222,16 +244,17 @@ export async function grantDueSubscriptionTokens(sub: GrantableSubscription): Pr
     }
 
     // Per-grant validity: the grant becomes a lot expiring N months out
-    const expiresAt = config.planTokenValidityMonths && config.planTokenValidityMonths > 0
-      ? addMonthsClamped(new Date(), config.planTokenValidityMonths)
-      : undefined;
+    const expiresAt =
+      config.planTokenValidityMonths && config.planTokenValidityMonths > 0
+        ? addMonthsClamped(new Date(), config.planTokenValidityMonths)
+        : undefined;
 
     grantedBalance = await addTokens(
       sub.organizationId,
       grantAmount,
       GRANT_REASON,
       { periodKey, planId: sub.planId, ...(upfront && { upfront: true }) },
-      { bucket: 'plan', tx, expiresAt },
+      { bucket: 'plan', tx, expiresAt }
     );
   });
 
@@ -249,7 +272,13 @@ export async function grantDueSubscriptionTokens(sub: GrantableSubscription): Pr
     actionUrl: '/account/billing',
   });
 
-  log.info('Subscription tokens granted', { orgId: sub.organizationId, planId: sub.planId, grantAmount, periodKey, upfront });
+  log.info('Subscription tokens granted', {
+    orgId: sub.organizationId,
+    planId: sub.planId,
+    grantAmount,
+    periodKey,
+    upfront,
+  });
   return true;
 }
 
@@ -258,14 +287,16 @@ export async function grantDueSubscriptionTokens(sub: GrantableSubscription): Pr
  * Called from the subscription webhook handler so activations and renewals
  * credit tokens immediately instead of waiting for the daily cron.
  */
-export async function grantSubscriptionTokensForOrg(orgId: string): Promise<void> {
+export async function grantSubscriptionTokensForOrg(
+  orgId: string
+): Promise<void> {
   const [sub] = await db
     .select(GRANTABLE_COLUMNS)
     .from(saasSubscriptions)
     .where(
       and(
         eq(saasSubscriptions.organizationId, orgId),
-        inArray(saasSubscriptions.status, GRANTABLE_STATUSES),
+        inArray(saasSubscriptions.status, GRANTABLE_STATUSES)
       )
     )
     .limit(1);
@@ -292,12 +323,16 @@ export async function runTokenGrantChecks(): Promise<void> {
   try {
     const dueOrgs = await findOrgsWithDueLots();
     for (const chunk of toChunks(dueOrgs, SWEEP_CONCURRENCY)) {
-      await Promise.all(chunk.map((orgId) =>
-        expireDueTokenLots(orgId).catch((err) =>
-          log.error('Token lot expiry failed', { orgId, error: String(err) }))
-      ));
+      await Promise.all(
+        chunk.map((orgId) =>
+          expireDueTokenLots(orgId).catch((err) =>
+            log.error('Token lot expiry failed', { orgId, error: String(err) })
+          )
+        )
+      );
     }
-    if (dueOrgs.length > 0) log.info(`Expired due token lots for ${dueOrgs.length} orgs`);
+    if (dueOrgs.length > 0)
+      log.info(`Expired due token lots for ${dueOrgs.length} orgs`);
   } catch (err) {
     log.error('Token lot expiry sweep failed', { error: String(err) });
   }
@@ -321,7 +356,7 @@ export async function runTokenGrantChecks(): Promise<void> {
         and(
           inArray(saasSubscriptions.status, GRANTABLE_STATUSES),
           inArray(saasSubscriptions.planId, tokenPlanIds),
-          ...(cursor ? [gt(saasSubscriptions.id, cursor)] : []),
+          ...(cursor ? [gt(saasSubscriptions.id, cursor)] : [])
         )
       )
       .orderBy(asc(saasSubscriptions.id))
@@ -330,12 +365,17 @@ export async function runTokenGrantChecks(): Promise<void> {
     // Grants are race-safe (per-subscription compare-and-set + per-org row
     // lock), so bounded concurrency is fine and keeps grant day fast
     for (const chunk of toChunks(batch, SWEEP_CONCURRENCY)) {
-      const results = await Promise.all(chunk.map((sub) =>
-        grantDueSubscriptionTokens(sub).catch((err) => {
-          log.error('Token grant failed', { orgId: sub.organizationId, error: String(err) });
-          return false;
-        })
-      ));
+      const results = await Promise.all(
+        chunk.map((sub) =>
+          grantDueSubscriptionTokens(sub).catch((err) => {
+            log.error('Token grant failed', {
+              orgId: sub.organizationId,
+              error: String(err),
+            });
+            return false;
+          })
+        )
+      );
       granted += results.filter(Boolean).length;
     }
 
@@ -344,7 +384,10 @@ export async function runTokenGrantChecks(): Promise<void> {
     cursor = batch[batch.length - 1]!.id;
   }
 
-  if (granted > 0) log.info(`Token grant sweep complete: ${granted}/${scanned} subscriptions credited`);
+  if (granted > 0)
+    log.info(
+      `Token grant sweep complete: ${granted}/${scanned} subscriptions credited`
+    );
 }
 
 // ─── Signup bonus ───────────────────────────────────────────────────────────
@@ -353,11 +396,19 @@ export async function runTokenGrantChecks(): Promise<void> {
  * One-time signup token grant for a fresh org. No-op unless
  * `BillingConfig.signupBonusTokens` is set. Wired via the `user.created` hook.
  */
-export async function grantSignupBonusTokens(orgId: string | null): Promise<void> {
+export async function grantSignupBonusTokens(
+  orgId: string | null
+): Promise<void> {
   const bonus = getBillingConfig().signupBonusTokens ?? 0;
   if (bonus <= 0 || !orgId) return;
   try {
-    await addTokens(orgId, bonus, 'bonus', { grant: 'signup' }, { bucket: 'purchased' });
+    await addTokens(
+      orgId,
+      bonus,
+      'bonus',
+      { grant: 'signup' },
+      { bucket: 'purchased' }
+    );
   } catch (err) {
     log.warn('Signup bonus grant failed', { orgId, error: String(err) });
   }
@@ -376,13 +427,21 @@ export interface TokenPackWebhookParams {
  * the remaining balance) on `payment.refunded`. Duplicate delivery is already
  * filtered by the webhook route's idempotency table.
  */
-export async function handleTokenPackWebhookEvent({ event, providerId }: TokenPackWebhookParams): Promise<{ credited: boolean }> {
-  const providerData = event.providerData as Record<string, unknown> | undefined;
+export async function handleTokenPackWebhookEvent({
+  event,
+  providerId,
+}: TokenPackWebhookParams): Promise<{ credited: boolean }> {
+  const providerData = event.providerData as
+    Record<string, unknown> | undefined;
   const metadata = (providerData?.metadata ?? {}) as Record<string, string>;
   const { orgId, packId, userId } = metadata;
 
   if (event.type !== 'payment.completed' && event.type !== 'payment.refunded') {
-    log.info('Ignoring token pack event', { type: event.type, packId, providerId });
+    log.info('Ignoring token pack event', {
+      type: event.type,
+      packId,
+      providerId,
+    });
     return { credited: false };
   }
 
@@ -394,7 +453,11 @@ export async function handleTokenPackWebhookEvent({ event, providerId }: TokenPa
     // purchased bucket first, since that's where the pack was credited —
     // clamped in-transaction so it never overdrafts under concurrent spends.
     if (!orgId || !pack) {
-      log.error('Token pack refund not processable', { orgId, packId, providerId });
+      log.error('Token pack refund not processable', {
+        orgId,
+        packId,
+        providerId,
+      });
       return { credited: false };
     }
     const clawback = Math.min(pack.tokens, await getTokenBalance(orgId));
@@ -404,7 +467,18 @@ export async function handleTokenPackWebhookEvent({ event, providerId }: TokenPa
         clawback,
         'refund',
         { packId, providerId, eventId: providerData?._eventId },
-        { spendOrder: 'purchased-first', clamp: true },
+        { spendOrder: 'purchased-first', clamp: true }
+      );
+    }
+    // Mirror of the payment.conversion emitted on credit, so the affiliate
+    // commission for this pack is clawed back too.
+    if (userId) {
+      const refunded = providerData?.amountRefunded;
+      runHook(
+        'payment.refund',
+        userId,
+        `token_pack:${packId}`,
+        typeof refunded === 'number' ? refunded : pack.priceCents
       );
     }
     getSubscriptionsDeps().sendOrgNotification(orgId, {
@@ -423,10 +497,14 @@ export async function handleTokenPackWebhookEvent({ event, providerId }: TokenPa
   // its idempotency claim) so the provider retries until it succeeds or an
   // operator intervenes.
   if (!orgId || !packId) {
-    throw new Error(`Token pack payment missing orgId/packId metadata (provider ${providerId})`);
+    throw new Error(
+      `Token pack payment missing orgId/packId metadata (provider ${providerId})`
+    );
   }
   if (!pack) {
-    throw new Error(`Token pack "${packId}" not found in billing config — customer paid but cannot be credited`);
+    throw new Error(
+      `Token pack "${packId}" not found in billing config — customer paid but cannot be credited`
+    );
   }
 
   await addTokens(
@@ -434,7 +512,7 @@ export async function handleTokenPackWebhookEvent({ event, providerId }: TokenPa
     pack.tokens,
     'purchase',
     { packId, providerId, eventId: providerData?._eventId },
-    { bucket: 'purchased' },
+    { bucket: 'purchased' }
   );
 
   getSubscriptionsDeps().sendOrgNotification(orgId, {
@@ -447,9 +525,19 @@ export async function handleTokenPackWebhookEvent({ event, providerId }: TokenPa
 
   // Record affiliate conversion, mirroring the subscription checkout path
   if (userId) {
-    runHook('payment.conversion', userId, `token_pack:${packId}`, pack.priceCents);
+    runHook(
+      'payment.conversion',
+      userId,
+      `token_pack:${packId}`,
+      pack.priceCents
+    );
   }
 
-  log.info('Token pack credited', { orgId, packId, tokens: pack.tokens, providerId });
+  log.info('Token pack credited', {
+    orgId,
+    packId,
+    tokens: pack.tokens,
+    providerId,
+  });
   return { credited: true };
 }

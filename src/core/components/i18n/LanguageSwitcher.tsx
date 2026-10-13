@@ -1,12 +1,19 @@
 'use client';
 
-import { LOCALES, DEFAULT_LOCALE, LOCALE_LABELS, IS_MULTILINGUAL } from '@/lib/constants';
-import { useLocale } from '@/core/hooks/useLocale';
-import type { Locale } from '@/lib/constants';
+import { useEffect, useRef, useState } from 'react';
+
 import { Globe } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
-import { trpc } from '@/lib/trpc/client';
+
+import { useLocale } from '@/core/hooks/useLocale';
 import { useSession } from '@/lib/auth-client';
+import {
+  DEFAULT_LOCALE,
+  IS_MULTILINGUAL,
+  LOCALES,
+  LOCALE_LABELS,
+} from '@/lib/constants';
+import type { Locale } from '@/lib/constants';
+import { trpc } from '@/lib/trpc/client';
 
 /** Strip locale prefix from a pathname (e.g. /de/category/woman → /category/woman) */
 function stripLocalePrefix(pathname: string, locale: string): string {
@@ -42,8 +49,9 @@ function LanguageSwitcherInner() {
 
   function switchLocale(locale: Locale) {
     setOpen(false);
-    // Save to DB for logged-in users (fire-and-forget).
-    // Proxy is Edge (no DB access), so this is the only DB update path.
+    // Save to DB for logged-in users (fire-and-forget). The proxy reads
+    // `user.lang` back from the session as a fallback when the locale cookie
+    // is missing (new device, cleared cookies) — see src/proxy.ts.
     if (session?.user) {
       setPreferredLocale.mutate({ locale });
     }
@@ -79,7 +87,7 @@ function LanguageSwitcherInner() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 min-w-[140px] rounded-md border border-(--border-primary) bg-(--surface-primary) py-1 shadow-lg">
+        <div className="absolute top-full right-0 z-50 mt-2 min-w-[140px] rounded-md border border-(--border-primary) bg-(--surface-primary) py-1 shadow-lg">
           {LOCALES.map((locale) => (
             <button
               key={locale}

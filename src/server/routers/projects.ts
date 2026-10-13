@@ -1,18 +1,15 @@
-import { z } from 'zod';
-import { eq, and, isNull, ilike, desc, sql } from 'drizzle-orm';
-import { TRPCError } from '@trpc/server';
-
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import type { Context } from '../trpc';
-import { saasProjects, member } from '@/server/db/schema';
+import { TRPCError } from '@trpc/server';
+import { and, desc, eq, ilike, isNull, sql } from 'drizzle-orm';
+import { z } from 'zod';
+
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { logAudit } from '@/core/lib/infra/audit';
+import { member, saasProjects } from '@/server/db/schema';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 
-async function requireMember(
-  db: Context['db'],
-  orgId: string,
-  userId: string,
-) {
+async function requireMember(db: Context['db'], orgId: string, userId: string) {
   const [m] = await db
     .select()
     .from(member)
@@ -20,7 +17,10 @@ async function requireMember(
     .limit(1);
 
   if (!m) {
-    throw new TRPCError({ code: 'FORBIDDEN', message: 'Not a member of this organization' });
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: 'Not a member of this organization',
+    });
   }
 }
 
@@ -28,14 +28,19 @@ export const projectsRouter = createTRPCRouter({
   /** List projects for the active organization */
   list: protectedProcedure
     .input(
-      z.object({
-        search: z.string().max(200).optional(),
-        page: z.number().int().min(1).default(1),
-        pageSize: z.number().int().min(1).max(100).default(20),
-      }).optional(),
+      z
+        .object({
+          search: z.string().max(200).optional(),
+          page: z.number().int().min(1).max(MAX_PAGE).default(1),
+          pageSize: z.number().int().min(1).max(100).default(20),
+        })
+        .optional()
     )
     .query(async ({ ctx, input }) => {
-      const orgId = await resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireMember(ctx.db, orgId, ctx.session.user.id);
 
       const { search, page = 1, pageSize = 20 } = input ?? {};
@@ -80,7 +85,10 @@ export const projectsRouter = createTRPCRouter({
   get: protectedProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      const orgId = await resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireMember(ctx.db, orgId, ctx.session.user.id);
 
       const [project] = await ctx.db
@@ -90,13 +98,16 @@ export const projectsRouter = createTRPCRouter({
           and(
             eq(saasProjects.id, input.id),
             eq(saasProjects.organizationId, orgId),
-            isNull(saasProjects.deletedAt),
-          ),
+            isNull(saasProjects.deletedAt)
+          )
         )
         .limit(1);
 
       if (!project) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Project not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Project not found',
+        });
       }
 
       return project;
@@ -108,10 +119,13 @@ export const projectsRouter = createTRPCRouter({
       z.object({
         name: z.string().min(1).max(255),
         description: z.string().max(5000).optional(),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
-      const orgId = await resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireMember(ctx.db, orgId, ctx.session.user.id);
 
       const [project] = await ctx.db
@@ -144,10 +158,13 @@ export const projectsRouter = createTRPCRouter({
         name: z.string().min(1).max(255).optional(),
         description: z.string().max(5000).optional(),
         status: z.enum(['active', 'archived']).optional(),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
-      const orgId = await resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireMember(ctx.db, orgId, ctx.session.user.id);
 
       const { id, ...data } = input;
@@ -159,13 +176,16 @@ export const projectsRouter = createTRPCRouter({
           and(
             eq(saasProjects.id, id),
             eq(saasProjects.organizationId, orgId),
-            isNull(saasProjects.deletedAt),
-          ),
+            isNull(saasProjects.deletedAt)
+          )
         )
         .returning();
 
       if (!updated) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Project not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Project not found',
+        });
       }
 
       logAudit({
@@ -183,7 +203,10 @@ export const projectsRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      const orgId = await resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       await requireMember(ctx.db, orgId, ctx.session.user.id);
 
       const [deleted] = await ctx.db
@@ -193,13 +216,16 @@ export const projectsRouter = createTRPCRouter({
           and(
             eq(saasProjects.id, input.id),
             eq(saasProjects.organizationId, orgId),
-            isNull(saasProjects.deletedAt),
-          ),
+            isNull(saasProjects.deletedAt)
+          )
         )
         .returning();
 
       if (!deleted) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Project not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Project not found',
+        });
       }
 
       logAudit({

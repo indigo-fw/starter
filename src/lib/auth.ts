@@ -3,10 +3,10 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { admin, customSession, mcp, organization } from 'better-auth/plugins';
 import { role } from 'better-auth/plugins/access';
 
-import { Role } from '@/core/policy';
-import { db } from '@/server/db';
 import { enqueueTemplateEmail } from '@/core/lib/email';
+import { Role } from '@/core/policy';
 import { handleUserCreated } from '@/lib/auth-hooks';
+import { db } from '@/server/db';
 
 function createAuth() {
   return betterAuth({
@@ -15,6 +15,13 @@ function createAuth() {
     user: {
       modelName: 'user',
       fields: { name: 'name', emailVerified: 'emailVerified' },
+      // Better Auth only returns columns it knows about, so `user.lang`
+      // (written by auth.setPreferredLocale) must be declared to show up in
+      // the session the proxy reads for locale fallback. `input: false` keeps
+      // sign-up payloads from setting it.
+      additionalFields: {
+        lang: { type: 'string', required: false, input: false },
+      },
     },
     session: {
       modelName: 'session',
@@ -61,7 +68,9 @@ function createAuth() {
         create: {
           // Body extracted to `handleUserCreated` (top of file) for direct
           // unit-testability of the personal-org + hook-wiring path.
-          after: async (user) => { await handleUserCreated(user); },
+          after: async (user) => {
+            await handleUserCreated(user);
+          },
         },
       },
     },
@@ -96,7 +105,8 @@ function createAuth() {
         membershipLimit: 100,
         sendInvitationEmail: async ({ invitation, organization: org }) => {
           const { enqueueTemplateEmail } = await import('@/core/lib/email');
-          const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+          const appUrl =
+            process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
           await enqueueTemplateEmail(invitation.email, 'invitation', {
             organizationName: org.name,
             inviteUrl: `${appUrl}/dashboard/organizations?accept=${invitation.id}`,
@@ -116,14 +126,17 @@ function createAuth() {
         return {
           user: {
             ...user,
-            role: u.role as string ?? Role.USER,
-            banned: u.banned as boolean ?? false,
-            emailVerified: u.emailVerified as boolean ?? false,
-            createdAt: u.createdAt as string ?? new Date().toISOString(),
+            role: (u.role as string) ?? Role.USER,
+            banned: (u.banned as boolean) ?? false,
+            emailVerified: (u.emailVerified as boolean) ?? false,
+            createdAt: (u.createdAt as string) ?? new Date().toISOString(),
+            lang: (u.lang as string | null | undefined) ?? null,
           },
           session: {
             ...session,
-            activeOrganizationId: (session as Record<string, unknown>).activeOrganizationId as string | null ?? null,
+            activeOrganizationId:
+              ((session as Record<string, unknown>).activeOrganizationId as
+                string | null) ?? null,
           },
         };
       }),
@@ -144,9 +157,12 @@ function createAuth() {
       window: 60, // seconds
       max: 100, // default cap per window per IP
       customRules: {
-        // Brute-force-sensitive endpoints get a much tighter window.
+        // Brute-force-sensitive endpoints get a much tighter window. Keys are
+        // Better Auth's own endpoint paths (dist/api/routes/*.mjs) — a key
+        // that matches no route is silently dead.
         '/sign-in/email': { window: 60, max: 5 },
-        '/forget-password': { window: 60, max: 3 },
+        '/request-password-reset': { window: 60, max: 3 },
+        '/reset-password': { window: 60, max: 5 },
       },
       storage: 'memory',
     },

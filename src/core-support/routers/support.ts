@@ -1,21 +1,44 @@
-import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { and, count, desc, eq, asc } from 'drizzle-orm';
-import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
-import { saasTickets, saasTicketMessages } from '@/core-support/schema/support-tickets';
-import { user } from '@/server/db/schema/auth';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
+import { and, asc, count, desc, eq } from 'drizzle-orm';
+import { z } from 'zod';
+
+import {
+  saasTicketMessages,
+  saasTickets,
+} from '@/core-support/schema/support-tickets';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { logAudit } from '@/core/lib/infra/audit';
-import { sendNotification, sendOrgNotification } from '@/server/lib/notifications';
-import { NotificationType, NotificationCategory } from '@/core/types/notifications';
+import {
+  NotificationCategory,
+  NotificationType,
+} from '@/core/types/notifications';
+import { user } from '@/server/db/schema/auth';
+import {
+  sendNotification,
+  sendOrgNotification,
+} from '@/server/lib/notifications';
 import { resolveOrgId } from '@/server/lib/resolve-org';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  sectionProcedure,
+} from '@/server/trpc';
 
 /** Fire-and-forget WS broadcast (dynamic import to avoid static ws dependency) */
-function broadcastTicketEvent(ticketId: string, type: string, payload: Record<string, unknown>): void {
+function broadcastTicketEvent(
+  ticketId: string,
+  type: string,
+  payload: Record<string, unknown>
+): void {
   // Include `type` in payload so useChannel callback can discriminate event types
   import('@/server/lib/ws')
-    .then(({ broadcastToChannel }) => broadcastToChannel(`support:${ticketId}`, type, { ...payload, type }))
-    .catch(() => {/* WS not available */});
+    .then(({ broadcastToChannel }) =>
+      broadcastToChannel(`support:${ticketId}`, type, { ...payload, type })
+    )
+    .catch(() => {
+      /* WS not available */
+    });
 }
 
 const supportAdminProcedure = sectionProcedure('settings');
@@ -25,13 +48,26 @@ export const supportRouter = createTRPCRouter({
 
   /** List user's tickets in active org */
   list: protectedProcedure
-    .input(z.object({
-      status: z.enum(['open', 'awaiting_user', 'awaiting_admin', 'resolved', 'closed']).optional(),
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(100).default(20),
-    }))
+    .input(
+      z.object({
+        status: z
+          .enum([
+            'open',
+            'awaiting_user',
+            'awaiting_admin',
+            'resolved',
+            'closed',
+          ])
+          .optional(),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(100).default(20),
+      })
+    )
     .query(async ({ ctx, input }) => {
-      const orgId = await resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       const userId = ctx.session.user.id;
       const { page, pageSize, offset } = parsePagination(input);
 
@@ -58,10 +94,7 @@ export const supportRouter = createTRPCRouter({
           .orderBy(desc(saasTickets.updatedAt))
           .offset(offset)
           .limit(pageSize),
-        ctx.db
-          .select({ count: count() })
-          .from(saasTickets)
-          .where(where),
+        ctx.db.select({ count: count() }).from(saasTickets).where(where),
       ]);
 
       return paginatedResult(items, countRow?.count ?? 0, page, pageSize);
@@ -109,13 +142,18 @@ export const supportRouter = createTRPCRouter({
 
   /** Create a new ticket */
   create: protectedProcedure
-    .input(z.object({
-      subject: z.string().min(1).max(255),
-      body: z.string().min(1).max(5000),
-      priority: z.enum(['low', 'normal', 'high', 'urgent']).default('normal'),
-    }))
+    .input(
+      z.object({
+        subject: z.string().min(1).max(255),
+        body: z.string().min(1).max(5000),
+        priority: z.enum(['low', 'normal', 'high', 'urgent']).default('normal'),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
-      const orgId = await resolveOrgId(ctx.activeOrganizationId, ctx.session.user.id);
+      const orgId = await resolveOrgId(
+        ctx.activeOrganizationId,
+        ctx.session.user.id
+      );
       const userId = ctx.session.user.id;
 
       const ticketId = crypto.randomUUID();
@@ -159,18 +197,22 @@ export const supportRouter = createTRPCRouter({
 
   /** Reply to a ticket (customer) */
   reply: protectedProcedure
-    .input(z.object({
-      ticketId: z.string().uuid(),
-      body: z.string().min(1).max(5000),
-    }))
+    .input(
+      z.object({
+        ticketId: z.string().uuid(),
+        body: z.string().min(1).max(5000),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const [ticket] = await ctx.db
         .select()
         .from(saasTickets)
-        .where(and(
-          eq(saasTickets.id, input.ticketId),
-          eq(saasTickets.userId, ctx.session.user.id),
-        ))
+        .where(
+          and(
+            eq(saasTickets.id, input.ticketId),
+            eq(saasTickets.userId, ctx.session.user.id)
+          )
+        )
         .limit(1);
 
       if (!ticket) {
@@ -178,7 +220,10 @@ export const supportRouter = createTRPCRouter({
       }
 
       if (ticket.status === 'closed') {
-        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Cannot reply to a closed ticket' });
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Cannot reply to a closed ticket',
+        });
       }
 
       const messageId = crypto.randomUUID();
@@ -225,19 +270,23 @@ export const supportRouter = createTRPCRouter({
 
   /** Provide satisfaction feedback on a closed/resolved ticket */
   provideFeedback: protectedProcedure
-    .input(z.object({
-      ticketId: z.string().uuid(),
-      satisfaction: z.enum(['negative', 'neutral', 'positive']),
-      comment: z.string().max(2000).optional(),
-    }))
+    .input(
+      z.object({
+        ticketId: z.string().uuid(),
+        satisfaction: z.enum(['negative', 'neutral', 'positive']),
+        comment: z.string().max(2000).optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const [ticket] = await ctx.db
         .select()
         .from(saasTickets)
-        .where(and(
-          eq(saasTickets.id, input.ticketId),
-          eq(saasTickets.userId, ctx.session.user.id),
-        ))
+        .where(
+          and(
+            eq(saasTickets.id, input.ticketId),
+            eq(saasTickets.userId, ctx.session.user.id)
+          )
+        )
         .limit(1);
 
       if (!ticket) {
@@ -245,7 +294,10 @@ export const supportRouter = createTRPCRouter({
       }
 
       if (ticket.status !== 'closed' && ticket.status !== 'resolved') {
-        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Ticket must be closed to provide feedback' });
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Ticket must be closed to provide feedback',
+        });
       }
 
       await ctx.db
@@ -267,10 +319,12 @@ export const supportRouter = createTRPCRouter({
       const [ticket] = await ctx.db
         .select()
         .from(saasTickets)
-        .where(and(
-          eq(saasTickets.id, input.ticketId),
-          eq(saasTickets.userId, ctx.session.user.id),
-        ))
+        .where(
+          and(
+            eq(saasTickets.id, input.ticketId),
+            eq(saasTickets.userId, ctx.session.user.id)
+          )
+        )
         .limit(1);
 
       if (!ticket) {
@@ -289,20 +343,32 @@ export const supportRouter = createTRPCRouter({
 
   /** List all tickets (admin) */
   adminList: supportAdminProcedure
-    .input(z.object({
-      status: z.enum(['open', 'awaiting_user', 'awaiting_admin', 'resolved', 'closed']).optional(),
-      priority: z.enum(['low', 'normal', 'high', 'urgent']).optional(),
-      assignedTo: z.string().max(200).optional(),
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(100).default(20),
-    }))
+    .input(
+      z.object({
+        status: z
+          .enum([
+            'open',
+            'awaiting_user',
+            'awaiting_admin',
+            'resolved',
+            'closed',
+          ])
+          .optional(),
+        priority: z.enum(['low', 'normal', 'high', 'urgent']).optional(),
+        assignedTo: z.string().max(200).optional(),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(100).default(20),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
       const conditions = [];
       if (input.status) conditions.push(eq(saasTickets.status, input.status));
-      if (input.priority) conditions.push(eq(saasTickets.priority, input.priority));
-      if (input.assignedTo) conditions.push(eq(saasTickets.assignedTo, input.assignedTo));
+      if (input.priority)
+        conditions.push(eq(saasTickets.priority, input.priority));
+      if (input.assignedTo)
+        conditions.push(eq(saasTickets.assignedTo, input.assignedTo));
 
       const where = conditions.length > 0 ? and(...conditions) : undefined;
 
@@ -364,10 +430,12 @@ export const supportRouter = createTRPCRouter({
 
   /** Staff reply (isStaff=true) */
   adminReply: supportAdminProcedure
-    .input(z.object({
-      ticketId: z.string().uuid(),
-      body: z.string().min(1).max(5000),
-    }))
+    .input(
+      z.object({
+        ticketId: z.string().uuid(),
+        body: z.string().min(1).max(5000),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const [ticket] = await ctx.db
         .select()
@@ -421,10 +489,12 @@ export const supportRouter = createTRPCRouter({
 
   /** Assign ticket to admin user */
   assign: supportAdminProcedure
-    .input(z.object({
-      ticketId: z.string().uuid(),
-      assignedTo: z.string().uuid().nullable(),
-    }))
+    .input(
+      z.object({
+        ticketId: z.string().uuid(),
+        assignedTo: z.string().uuid().nullable(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .update(saasTickets)
@@ -445,10 +515,18 @@ export const supportRouter = createTRPCRouter({
 
   /** Manual status transition */
   changeStatus: supportAdminProcedure
-    .input(z.object({
-      ticketId: z.string().uuid(),
-      status: z.enum(['open', 'awaiting_user', 'awaiting_admin', 'resolved', 'closed']),
-    }))
+    .input(
+      z.object({
+        ticketId: z.string().uuid(),
+        status: z.enum([
+          'open',
+          'awaiting_user',
+          'awaiting_admin',
+          'resolved',
+          'closed',
+        ]),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const updates: Record<string, unknown> = {
         status: input.status,
@@ -491,7 +569,10 @@ export const supportRouter = createTRPCRouter({
           userId: ticket.userId,
           title: `Ticket ${input.status}`,
           body: `Your ticket "${ticket.subject}" has been marked as ${input.status}.`,
-          type: input.status === 'resolved' ? NotificationType.SUCCESS : NotificationType.INFO,
+          type:
+            input.status === 'resolved'
+              ? NotificationType.SUCCESS
+              : NotificationType.INFO,
           category: NotificationCategory.SYSTEM,
           actionUrl: `/account/support/${input.ticketId}`,
         });

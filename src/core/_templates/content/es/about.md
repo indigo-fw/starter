@@ -12,7 +12,7 @@ noindex: false
 
 ### Características principales
 
-- **Desarrollo impulsado por agentes** — CLAUDE.md sirve como guía integral del proyecto, permitiendo a los agentes de IA comprender y modificar la base de código de manera efectiva
+- **Desarrollo impulsado por agentes** — AGENTS.md sirve como guía integral del proyecto, permitiendo a los agentes de IA comprender y modificar la base de código de manera efectiva
 - **Stack moderno** — Construido con Next.js 16, TypeScript y Tailwind CSS v4
 - **Contenido flexible** — Páginas, publicaciones de blog, elementos de portafolio, tarjetas de escaparate, categorías y etiquetas
 - **Acceso basado en roles** — Roles de usuario, editor, administrador y superadministrador con permisos basados en políticas

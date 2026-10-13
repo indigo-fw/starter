@@ -1,4 +1,17 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { usersRouter } from '../users';
+import { createMockCtx } from './test-helpers';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { fetchOrNotFound } from '@/core/crud/admin-crud';
+import { anonymizeUser } from '@/core/lib/analytics/gdpr';
+import { invalidateUserSessions } from '@/core/lib/auth/session-invalidation';
+import { logAudit } from '@/core/lib/infra/audit';
+import { isSuperAdmin } from '@/core/policy';
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import { asMock } from '@/test-utils';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -34,7 +47,9 @@ vi.mock('@/core/policy', () => ({
     SUPERADMIN: 'superadmin',
   },
   ROLES: ['user', 'editor', 'admin', 'superadmin'],
-  isSuperAdmin: vi.fn((role: string | null | undefined) => role === 'superadmin'),
+  isSuperAdmin: vi.fn(
+    (role: string | null | undefined) => role === 'superadmin'
+  ),
 }));
 
 vi.mock('@/core/crud/admin-crud', () => ({
@@ -60,22 +75,34 @@ vi.mock('@/core/crud/admin-crud', () => ({
   updateContentStatus: vi.fn().mockResolvedValue(undefined),
   generateCopySlug: vi.fn().mockResolvedValue('slug-copy'),
   getTranslationSiblings: vi.fn().mockResolvedValue([]),
-  serializeExport: vi.fn().mockReturnValue({ data: '[]', contentType: 'application/json' }),
-  prepareTranslationCopy: vi.fn().mockResolvedValue({ slug: 'slug-en', translationGroup: 'group-1', previewToken: 'tok' }),
-  parsePagination: vi.fn().mockImplementation((input: { page?: number; pageSize?: number }) => {
-    const page = input.page ?? 1;
-    const pageSize = input.pageSize ?? 100;
-    return { page, pageSize, offset: (page - 1) * pageSize };
-  }),
-  paginatedResult: vi.fn().mockImplementation(
-    (items: unknown[], total: number, page: number, pageSize: number) => ({
-      results: items,
-      total,
-      page,
-      pageSize,
-      totalPages: Math.ceil(total / pageSize),
-    })
-  ),
+  serializeExport: vi
+    .fn()
+    .mockReturnValue({ data: '[]', contentType: 'application/json' }),
+  prepareTranslationCopy: vi
+    .fn()
+    .mockResolvedValue({
+      slug: 'slug-en',
+      translationGroup: 'group-1',
+      previewToken: 'tok',
+    }),
+  parsePagination: vi
+    .fn()
+    .mockImplementation((input: { page?: number; pageSize?: number }) => {
+      const page = input.page ?? 1;
+      const pageSize = input.pageSize ?? 100;
+      return { page, pageSize, offset: (page - 1) * pageSize };
+    }),
+  paginatedResult: vi
+    .fn()
+    .mockImplementation(
+      (items: unknown[], total: number, page: number, pageSize: number) => ({
+        results: items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      })
+    ),
 }));
 
 vi.mock('@/core/lib/analytics/gdpr', () => ({
@@ -84,6 +111,11 @@ vi.mock('@/core/lib/analytics/gdpr', () => ({
 
 vi.mock('@/core/lib/infra/audit', () => ({
   logAudit: vi.fn(),
+}));
+
+vi.mock('@/core/lib/auth/session-invalidation', () => ({
+  invalidateUserSessions: vi.fn(),
+  isSessionInvalidated: vi.fn().mockReturnValue(false),
 }));
 
 vi.mock('@/core/lib/infra/logger', () => ({
@@ -130,18 +162,6 @@ vi.mock('@/lib/env', () => ({
 }));
 
 // ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { asMock } from '@/test-utils';
-import { usersRouter } from '../users';
-import { fetchOrNotFound } from '@/core/crud/admin-crud';
-import { anonymizeUser } from '@/core/lib/analytics/gdpr';
-import { logAudit } from '@/core/lib/infra/audit';
-import { isSuperAdmin } from '@/core/policy';
-import { createMockCtx } from './test-helpers';
-
-// ---------------------------------------------------------------------------
 // Fixtures
 // ---------------------------------------------------------------------------
 
@@ -166,7 +186,9 @@ describe('usersRouter', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Default: isSuperAdmin returns false for non-superadmin
-    asMock(isSuperAdmin).mockImplementation((role: unknown) => role === 'superadmin');
+    asMock(isSuperAdmin).mockImplementation(
+      (role: unknown) => role === 'superadmin'
+    );
   });
 
   // =========================================================================
@@ -174,13 +196,23 @@ describe('usersRouter', () => {
   // =========================================================================
   describe('list', () => {
     it('returns paginated user list with defaults', async () => {
-      createMockCtx({ session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } } });
+      createMockCtx({
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
+      });
 
       // list uses two concurrent selects (items + count); use a custom dual-select db
       const itemsLimitMock = vi.fn().mockResolvedValue([MOCK_USER]);
-      const itemsOffsetMock = vi.fn().mockReturnValue({ limit: itemsLimitMock });
-      const itemsOrderByMock = vi.fn().mockReturnValue({ offset: itemsOffsetMock });
-      const itemsWhereMock = vi.fn().mockReturnValue({ orderBy: itemsOrderByMock });
+      const itemsOffsetMock = vi
+        .fn()
+        .mockReturnValue({ limit: itemsLimitMock });
+      const itemsOrderByMock = vi
+        .fn()
+        .mockReturnValue({ offset: itemsOffsetMock });
+      const itemsWhereMock = vi
+        .fn()
+        .mockReturnValue({ orderBy: itemsOrderByMock });
       const itemsFromMock = vi.fn().mockReturnValue({ where: itemsWhereMock });
 
       const countWhereMock = vi.fn().mockResolvedValue([{ count: 1 }]);
@@ -189,12 +221,21 @@ describe('usersRouter', () => {
       let selectCall = 0;
       const selectMock = vi.fn().mockImplementation(() => {
         selectCall++;
-        return selectCall % 2 === 1 ? { from: itemsFromMock } : { from: countFromMock };
+        return selectCall % 2 === 1
+          ? { from: itemsFromMock }
+          : { from: countFromMock };
       });
 
-      const db = { select: selectMock, insert: vi.fn(), update: vi.fn(), delete: vi.fn() };
+      const db = {
+        select: selectMock,
+        insert: vi.fn(),
+        update: vi.fn(),
+        delete: vi.fn(),
+      };
       const adminCtx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
         db,
       });
 
@@ -211,9 +252,15 @@ describe('usersRouter', () => {
     it('passes search and role filters to the query', async () => {
       // Verify that both select chains are called (we check the selects are called at all)
       const itemsLimitMock = vi.fn().mockResolvedValue([]);
-      const itemsOffsetMock = vi.fn().mockReturnValue({ limit: itemsLimitMock });
-      const itemsOrderByMock = vi.fn().mockReturnValue({ offset: itemsOffsetMock });
-      const itemsWhereMock = vi.fn().mockReturnValue({ orderBy: itemsOrderByMock });
+      const itemsOffsetMock = vi
+        .fn()
+        .mockReturnValue({ limit: itemsLimitMock });
+      const itemsOrderByMock = vi
+        .fn()
+        .mockReturnValue({ offset: itemsOffsetMock });
+      const itemsWhereMock = vi
+        .fn()
+        .mockReturnValue({ orderBy: itemsOrderByMock });
       const itemsFromMock = vi.fn().mockReturnValue({ where: itemsWhereMock });
 
       const countWhereMock = vi.fn().mockResolvedValue([{ count: 0 }]);
@@ -222,14 +269,26 @@ describe('usersRouter', () => {
       let selectCall = 0;
       const selectMock = vi.fn().mockImplementation(() => {
         selectCall++;
-        return selectCall % 2 === 1 ? { from: itemsFromMock } : { from: countFromMock };
+        return selectCall % 2 === 1
+          ? { from: itemsFromMock }
+          : { from: countFromMock };
       });
 
-      const db = { select: selectMock, insert: vi.fn(), update: vi.fn(), delete: vi.fn() };
+      const db = {
+        select: selectMock,
+        insert: vi.fn(),
+        update: vi.fn(),
+        delete: vi.fn(),
+      };
       const ctx = createMockCtx({ db });
 
       const caller = usersRouter.createCaller(ctx as never);
-      const result = await caller.list({ search: 'alice', role: 'editor', page: 1, pageSize: 10 });
+      const result = await caller.list({
+        search: 'alice',
+        role: 'editor',
+        page: 1,
+        pageSize: 10,
+      });
 
       // Both select chains were called
       expect(selectMock).toHaveBeenCalledTimes(2);
@@ -255,7 +314,10 @@ describe('usersRouter', () => {
       const caller = usersRouter.createCaller(ctx as never);
       const result = await caller.get({ id: MOCK_USER.id });
 
-      expect(result).toMatchObject({ email: 'alice@example.com', role: 'editor' });
+      expect(result).toMatchObject({
+        email: 'alice@example.com',
+        role: 'editor',
+      });
       expect(fetchOrNotFound).toHaveBeenCalledWith(
         ctx.db,
         expect.anything(),
@@ -285,21 +347,42 @@ describe('usersRouter', () => {
   describe('updateRole', () => {
     it('allows admin to promote editor to admin', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
       // Target user is editor
       ctx.db._chains.select.limit.mockResolvedValue([{ role: 'editor' }]);
 
       const caller = usersRouter.createCaller(ctx as never);
-      const result = await caller.updateRole({ id: MOCK_USER.id, role: 'admin' });
+      const result = await caller.updateRole({
+        id: MOCK_USER.id,
+        role: 'admin',
+      });
 
       expect(result).toEqual({ success: true });
       expect(ctx.db.update).toHaveBeenCalled();
     });
 
+    it('voids the cookie-cached sessions so the new role bites immediately', async () => {
+      const ctx = createMockCtx({
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
+      });
+      ctx.db._chains.select.limit.mockResolvedValue([{ role: 'admin' }]);
+
+      const caller = usersRouter.createCaller(ctx as never);
+      await caller.updateRole({ id: MOCK_USER.id, role: 'user' });
+
+      expect(invalidateUserSessions).toHaveBeenCalledWith(MOCK_USER.id);
+    });
+
     it('throws NOT_FOUND when target user does not exist', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
       ctx.db._chains.select.limit.mockResolvedValue([]);
 
@@ -308,11 +391,14 @@ describe('usersRouter', () => {
       await expect(
         caller.updateRole({ id: 'missing-id', role: 'editor' })
       ).rejects.toThrow('User not found');
+      expect(invalidateUserSessions).not.toHaveBeenCalled();
     });
 
     it('throws FORBIDDEN when non-superadmin tries to promote to superadmin', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
       // Target is an editor; actor is admin (not superadmin)
       ctx.db._chains.select.limit.mockResolvedValue([{ role: 'editor' }]);
@@ -322,12 +408,16 @@ describe('usersRouter', () => {
 
       await expect(
         caller.updateRole({ id: MOCK_USER.id, role: 'superadmin' })
-      ).rejects.toThrow('Only superadmin can promote to or demote from superadmin');
+      ).rejects.toThrow(
+        'Only superadmin can promote to or demote from superadmin'
+      );
     });
 
     it('throws FORBIDDEN when non-superadmin tries to demote a superadmin', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
       // Target is currently superadmin
       ctx.db._chains.select.limit.mockResolvedValue([{ role: 'superadmin' }]);
@@ -337,19 +427,30 @@ describe('usersRouter', () => {
 
       await expect(
         caller.updateRole({ id: MOCK_USER.id, role: 'admin' })
-      ).rejects.toThrow('Only superadmin can promote to or demote from superadmin');
+      ).rejects.toThrow(
+        'Only superadmin can promote to or demote from superadmin'
+      );
     });
 
     it('allows superadmin to promote user to superadmin', async () => {
       const superadminId = 's1s1s1s1-a2a2-4b3b-9c4c-d5d5d5d5d5d5';
       const ctx = createMockCtx({
-        session: { user: { id: superadminId, email: 'super@test.com', role: 'superadmin' } },
+        session: {
+          user: {
+            id: superadminId,
+            email: 'super@test.com',
+            role: 'superadmin',
+          },
+        },
       });
       ctx.db._chains.select.limit.mockResolvedValue([{ role: 'admin' }]);
       asMock(isSuperAdmin).mockReturnValue(true);
 
       const caller = usersRouter.createCaller(ctx as never);
-      const result = await caller.updateRole({ id: MOCK_USER.id, role: 'superadmin' });
+      const result = await caller.updateRole({
+        id: MOCK_USER.id,
+        role: 'superadmin',
+      });
 
       expect(result).toEqual({ success: true });
       expect(ctx.db.update).toHaveBeenCalled();
@@ -357,7 +458,9 @@ describe('usersRouter', () => {
 
     it('logs an audit entry after successful role change', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
       ctx.db._chains.select.limit.mockResolvedValue([{ role: 'editor' }]);
 
@@ -391,7 +494,9 @@ describe('usersRouter', () => {
   describe('ban', () => {
     it('bans a non-superadmin user and returns success', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
       ctx.db._chains.select.limit.mockResolvedValue([{ role: 'editor' }]);
       asMock(isSuperAdmin).mockReturnValue(false);
@@ -405,16 +510,18 @@ describe('usersRouter', () => {
 
     it('throws FORBIDDEN when trying to ban a superadmin', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
       ctx.db._chains.select.limit.mockResolvedValue([{ role: 'superadmin' }]);
       asMock(isSuperAdmin).mockReturnValue(true);
 
       const caller = usersRouter.createCaller(ctx as never);
 
-      await expect(
-        caller.ban({ id: MOCK_USER.id })
-      ).rejects.toThrow('Cannot ban a superadmin');
+      await expect(caller.ban({ id: MOCK_USER.id })).rejects.toThrow(
+        'Cannot ban a superadmin'
+      );
     });
 
     it('throws NOT_FOUND when target user does not exist', async () => {
@@ -423,16 +530,18 @@ describe('usersRouter', () => {
 
       const caller = usersRouter.createCaller(ctx as never);
 
-      await expect(
-        caller.ban({ id: 'missing-id' })
-      ).rejects.toThrow('User not found');
+      await expect(caller.ban({ id: 'missing-id' })).rejects.toThrow(
+        'User not found'
+      );
     });
   });
 
   describe('unban', () => {
     it('unbans a user and returns success', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
 
       const caller = usersRouter.createCaller(ctx as never);
@@ -455,11 +564,16 @@ describe('usersRouter', () => {
   describe('gdprAnonymize', () => {
     it('calls anonymizeUser with full mode by default', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
 
       const caller = usersRouter.createCaller(ctx as never);
-      const result = await caller.gdprAnonymize({ id: MOCK_USER.id, mode: 'full' });
+      const result = await caller.gdprAnonymize({
+        id: MOCK_USER.id,
+        mode: 'full',
+      });
 
       expect(result).toEqual({ success: true });
       expect(anonymizeUser).toHaveBeenCalledWith(
@@ -472,7 +586,9 @@ describe('usersRouter', () => {
 
     it('calls anonymizeUser with pseudonymize mode', async () => {
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
 
       const caller = usersRouter.createCaller(ctx as never);
@@ -486,18 +602,88 @@ describe('usersRouter', () => {
       );
     });
 
-    it('wraps anonymizeUser errors in BAD_REQUEST', async () => {
-      asMock(anonymizeUser).mockRejectedValue(new Error('Cannot anonymize a staff account'));
+    it('passes anonymizeUser refusals (TRPCError) through with their code', async () => {
+      const { TRPCError } = await import('@trpc/server');
+      asMock(anonymizeUser).mockRejectedValue(
+        new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Cannot anonymize a staff account',
+        })
+      );
 
       const ctx = createMockCtx({
-        session: { user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' } },
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
       });
 
       const caller = usersRouter.createCaller(ctx as never);
 
       await expect(
         caller.gdprAnonymize({ id: MOCK_USER.id, mode: 'full' })
-      ).rejects.toThrow('Cannot anonymize a staff account');
+      ).rejects.toMatchObject({
+        code: 'FORBIDDEN',
+        message: 'Cannot anonymize a staff account',
+      });
+    });
+
+    it('hides unexpected failures behind a generic INTERNAL_SERVER_ERROR', async () => {
+      asMock(anonymizeUser).mockRejectedValue(
+        new Error('connect ECONNREFUSED 10.0.0.5:5432 (user=indigo)')
+      );
+
+      const ctx = createMockCtx({
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
+      });
+
+      const caller = usersRouter.createCaller(ctx as never);
+
+      await expect(
+        caller.gdprAnonymize({ id: MOCK_USER.id, mode: 'full' })
+      ).rejects.toMatchObject({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Anonymization failed',
+      });
+    });
+  });
+
+  // =========================================================================
+  // update
+  // =========================================================================
+  describe('update', () => {
+    it('voids cached sessions when the role changes', async () => {
+      const ctx = createMockCtx({
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
+      });
+      ctx.db._chains.select.limit.mockResolvedValue([{ role: 'editor' }]);
+
+      const caller = usersRouter.createCaller(ctx as never);
+      await caller.update({ id: MOCK_USER.id, role: 'user' });
+
+      expect(invalidateUserSessions).toHaveBeenCalledWith(MOCK_USER.id);
+    });
+
+    it('does not touch sessions for a profile-only edit', async () => {
+      const ctx = createMockCtx({
+        session: {
+          user: { id: ADMIN_USER_ID, email: 'admin@test.com', role: 'admin' },
+        },
+      });
+      ctx.db._chains.select.limit.mockResolvedValue([{ role: 'editor' }]);
+
+      const caller = usersRouter.createCaller(ctx as never);
+      await caller.update({
+        id: MOCK_USER.id,
+        name: 'Alice S.',
+        role: 'editor',
+      });
+
+      expect(ctx.db.update).toHaveBeenCalled();
+      expect(invalidateUserSessions).not.toHaveBeenCalled();
     });
   });
 

@@ -1,48 +1,53 @@
+import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
+import crypto from 'crypto';
 import { and, desc, eq, inArray, isNull, sql } from 'drizzle-orm';
 import { z } from 'zod';
-import crypto from 'crypto';
 
-import { env } from '@/lib/env';
-import { DEFAULT_LOCALE } from '@/lib/constants';
 import { getContentType } from '@/config/cms';
-import {
-  mergeWithLocaleFallback,
-  needsLocaleFallback,
-} from '@/core/lib/i18n/locale-fallback';
-import { createLogger } from '@/core/lib/infra/logger';
-import { cmsShowcase } from '@/server/db/schema';
-import { createFieldTranslator } from '@/server/translation/translate-fields';
-import { ContentStatus } from '@/core/types/cms';
 import {
   buildAdminList,
   buildStatusCounts,
+  createSlugRestoreCheck,
   ensureSlugUnique,
-  softDelete,
-  softRestore,
-  permanentDelete,
   fetchOrNotFound,
   generateCopySlug,
-  updateContentStatus,
   getTranslationSiblings,
-  serializeExport,
-  parsePagination,
   paginatedResult,
+  parsePagination,
+  permanentDelete,
   prepareTranslationCopy,
+  serializeExport,
+  softDelete,
+  softRestore,
+  updateContentStatus,
 } from '@/core/crud/admin-crud';
-import { adminListInput, exportBulkInput } from '@/core/crud/router-schemas';
 import { updateWithRevision } from '@/core/crud/cms-helpers';
+import {
+  MAX_PAGE,
+  adminListInput,
+  exportBulkInput,
+} from '@/core/crud/router-schemas';
+import {
+  createTableSlugResolver,
+  registerSlugResolver,
+} from '@/core/crud/slug-redirects';
 import {
   deleteAllTermRelationships,
   getTermRelationships,
   syncTermRelationships,
 } from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/infra/audit';
 import {
-  createTRPCRouter,
-  publicProcedure,
-  sectionProcedure,
-} from '../trpc';
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
+import { logAudit } from '@/core/lib/infra/audit';
+import { createLogger } from '@/core/lib/infra/logger';
+import { ContentStatus } from '@/core/types/cms';
+import { DEFAULT_LOCALE } from '@/lib/constants';
+import { env } from '@/lib/env';
+import { cmsShowcase } from '@/server/db/schema';
+import { createFieldTranslator } from '@/server/translation/translate-fields';
 
 const logger = createLogger('showcase-router');
 const contentProcedure = sectionProcedure('content');
@@ -73,41 +78,61 @@ const crudCols = {
   deleted_at: cmsShowcase.deletedAt,
 };
 
+const restoreSlugCheck = createSlugRestoreCheck(
+  {
+    table: cmsShowcase,
+    idCol: cmsShowcase.id,
+    slugCol: cmsShowcase.slug,
+    langCol: cmsShowcase.lang,
+    deletedAtCol: cmsShowcase.deletedAt,
+  },
+  'showcase item'
+);
+
+// `update` writes slug redirects as contentType 'showcase'; resolve them here.
+registerSlugResolver(
+  'showcase',
+  createTableSlugResolver({
+    table: cmsShowcase,
+    id: cmsShowcase.id,
+    slug: cmsShowcase.slug,
+    deletedAt: cmsShowcase.deletedAt,
+  })
+);
+
 export const showcaseRouter = createTRPCRouter({
-  list: contentProcedure
-    .input(adminListInput)
-    .query(async ({ ctx, input }) => {
-      return buildAdminList(
-        {
-          db: ctx.db,
-          cols: {
-            table: cmsShowcase,
-            id: cmsShowcase.id,
-            deleted_at: cmsShowcase.deletedAt,
-            lang: cmsShowcase.lang,
-            translation_group: cmsShowcase.translationGroup,
-          },
-          input,
-          searchColumns: [cmsShowcase.title, cmsShowcase.slug],
-          sortColumns: {
-            title: cmsShowcase.title,
-            created_at: cmsShowcase.createdAt,
-            updated_at: cmsShowcase.updatedAt,
-            sort_order: cmsShowcase.sortOrder,
-          },
-          defaultSort: 'updated_at',
+  list: contentProcedure.input(adminListInput).query(async ({ ctx, input }) => {
+    return buildAdminList(
+      {
+        db: ctx.db,
+        cols: {
+          table: cmsShowcase,
+          id: cmsShowcase.id,
+          deleted_at: cmsShowcase.deletedAt,
+          lang: cmsShowcase.lang,
+          translation_group: cmsShowcase.translationGroup,
         },
-        async ({ where, orderBy, offset, limit }) => {
-          return ctx.db
-            .select()
-            .from(cmsShowcase)
-            .where(where)
-            .orderBy(orderBy)
-            .offset(offset)
-            .limit(limit);
-        }
-      );
-    }),
+        input,
+        searchColumns: [cmsShowcase.title, cmsShowcase.slug],
+        sortColumns: {
+          title: cmsShowcase.title,
+          created_at: cmsShowcase.createdAt,
+          updated_at: cmsShowcase.updatedAt,
+          sort_order: cmsShowcase.sortOrder,
+        },
+        defaultSort: 'updated_at',
+      },
+      async ({ where, orderBy, offset, limit }) => {
+        return ctx.db
+          .select()
+          .from(cmsShowcase)
+          .where(where)
+          .orderBy(orderBy)
+          .offset(offset)
+          .limit(limit);
+      }
+    );
+  }),
 
   counts: contentProcedure.query(async ({ ctx }) => {
     return buildStatusCounts(ctx.db, {
@@ -121,7 +146,10 @@ export const showcaseRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       const item = await fetchOrNotFound<typeof cmsShowcase.$inferSelect>(
-        ctx.db, cmsShowcase, input.id, 'Showcase item'
+        ctx.db,
+        cmsShowcase,
+        input.id,
+        'Showcase item'
       );
       const rels = await getTermRelationships(ctx.db, item.id, 'tag');
       const tagIds = rels.map((r) => r.termId);
@@ -184,7 +212,9 @@ export const showcaseRouter = createTRPCRouter({
           metaDescription: itemInput.metaDescription ?? null,
           seoTitle: itemInput.seoTitle ?? null,
           noindex: itemInput.noindex,
-          publishedAt: itemInput.publishedAt ? new Date(itemInput.publishedAt) : null,
+          publishedAt: itemInput.publishedAt
+            ? new Date(itemInput.publishedAt)
+            : null,
           previewToken,
           translationGroup: itemInput.translationGroup ?? null,
           fallbackToDefault: itemInput.fallbackToDefault ?? null,
@@ -212,12 +242,20 @@ export const showcaseRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const original = await fetchOrNotFound<typeof cmsShowcase.$inferSelect>(
-        ctx.db, cmsShowcase, input.id, 'Showcase item'
+        ctx.db,
+        cmsShowcase,
+        input.id,
+        'Showcase item'
       );
 
       const copySlug = await generateCopySlug(
-        ctx.db, cmsShowcase, cmsShowcase.slug, cmsShowcase.deletedAt,
-        original.slug, cmsShowcase.lang, original.lang,
+        ctx.db,
+        cmsShowcase,
+        cmsShowcase.slug,
+        cmsShowcase.deletedAt,
+        original.slug,
+        cmsShowcase.lang,
+        original.lang
       );
 
       const previewToken = crypto.randomBytes(32).toString('hex');
@@ -276,7 +314,10 @@ export const showcaseRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const source = await fetchOrNotFound<typeof cmsShowcase.$inferSelect>(
-        ctx.db, cmsShowcase, input.id, 'Showcase item'
+        ctx.db,
+        cmsShowcase,
+        input.id,
+        'Showcase item'
       );
 
       let title = source.title;
@@ -296,11 +337,22 @@ export const showcaseRouter = createTRPCRouter({
         ]);
       }
 
-      const { slug, translationGroup, previewToken } = await prepareTranslationCopy(
-        ctx.db, cmsShowcase,
-        { id: cmsShowcase.id, slug: cmsShowcase.slug, lang: cmsShowcase.lang, deletedAt: cmsShowcase.deletedAt, translationGroup: cmsShowcase.translationGroup },
-        input.id, source.slug, source.translationGroup, input.targetLang,
-      );
+      const { slug, translationGroup, previewToken } =
+        await prepareTranslationCopy(
+          ctx.db,
+          cmsShowcase,
+          {
+            id: cmsShowcase.id,
+            slug: cmsShowcase.slug,
+            lang: cmsShowcase.lang,
+            deletedAt: cmsShowcase.deletedAt,
+            translationGroup: cmsShowcase.translationGroup,
+          },
+          input.id,
+          source.slug,
+          source.translationGroup,
+          input.targetLang
+        );
 
       const [newItem] = await ctx.db
         .insert(cmsShowcase)
@@ -333,7 +385,11 @@ export const showcaseRouter = createTRPCRouter({
         entityType: 'showcase',
         entityId: newItem!.id,
         entityTitle: newItem!.title,
-        metadata: { originalId: input.id, targetLang: input.targetLang, autoTranslate: input.autoTranslate },
+        metadata: {
+          originalId: input.id,
+          targetLang: input.targetLang,
+          autoTranslate: input.autoTranslate,
+        },
       });
 
       return { id: newItem!.id, slug: newItem!.slug };
@@ -343,9 +399,14 @@ export const showcaseRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return getTranslationSiblings(
-        ctx.db, cmsShowcase,
-        cmsShowcase.id, cmsShowcase.translationGroup, cmsShowcase.lang,
-        cmsShowcase.slug, cmsShowcase.deletedAt, input.id,
+        ctx.db,
+        cmsShowcase,
+        cmsShowcase.id,
+        cmsShowcase.translationGroup,
+        cmsShowcase.lang,
+        cmsShowcase.slug,
+        cmsShowcase.deletedAt,
+        input.id
       );
     }),
 
@@ -374,8 +435,29 @@ export const showcaseRouter = createTRPCRouter({
         .from(cmsShowcase)
         .where(inArray(cmsShowcase.id, input.ids));
 
-      const headers = ['id', 'title', 'slug', 'cardType', 'variant', 'status', 'lang', 'sortOrder', 'mediaUrl', 'thumbnailUrl', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'description'];
-      return serializeExport(items as Record<string, unknown>[], headers, input.format);
+      const headers = [
+        'id',
+        'title',
+        'slug',
+        'cardType',
+        'variant',
+        'status',
+        'lang',
+        'sortOrder',
+        'mediaUrl',
+        'thumbnailUrl',
+        'metaDescription',
+        'seoTitle',
+        'publishedAt',
+        'createdAt',
+        'updatedAt',
+        'description',
+      ];
+      return serializeExport(
+        items as Record<string, unknown>[],
+        headers,
+        input.format
+      );
     }),
 
   update: contentProcedure
@@ -404,7 +486,10 @@ export const showcaseRouter = createTRPCRouter({
       const { id, tagIds, ...updates } = input;
 
       const existing = await fetchOrNotFound<typeof cmsShowcase.$inferSelect>(
-        ctx.db, cmsShowcase, id, 'Showcase item'
+        ctx.db,
+        cmsShowcase,
+        id,
+        'Showcase item'
       );
 
       if (updates.slug && updates.slug !== existing.slug) {
@@ -476,9 +561,15 @@ export const showcaseRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       await updateContentStatus(
-        ctx.db, cmsShowcase,
-        cmsShowcase.id, cmsShowcase.status, cmsShowcase.publishedAt, cmsShowcase.updatedAt,
-        input.id, input.status, 'Showcase item',
+        ctx.db,
+        cmsShowcase,
+        cmsShowcase.id,
+        cmsShowcase.status,
+        cmsShowcase.publishedAt,
+        cmsShowcase.updatedAt,
+        input.id,
+        input.status,
+        'Showcase item'
       );
 
       const action =
@@ -504,16 +595,22 @@ export const showcaseRouter = createTRPCRouter({
   restore: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await softRestore(ctx.db, crudCols, input.id);
+      await softRestore(ctx.db, crudCols, input.id, restoreSlugCheck);
       return { success: true };
     }),
 
   permanentDelete: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await permanentDelete(ctx.db, crudCols, input.id, 'showcase', async (tx) => {
-        await deleteAllTermRelationships(tx, input.id);
-      });
+      await permanentDelete(
+        ctx.db,
+        crudCols,
+        input.id,
+        'showcase',
+        async (tx) => {
+          await deleteAllTermRelationships(tx, input.id);
+        }
+      );
       return { success: true };
     }),
 
@@ -588,7 +685,7 @@ export const showcaseRouter = createTRPCRouter({
     .input(
       z.object({
         lang: z.string().max(2).default(DEFAULT_LOCALE),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(100),
       })
     )
@@ -617,9 +714,7 @@ export const showcaseRouter = createTRPCRouter({
           fetchItems(DEFAULT_LOCALE),
         ]);
         const merged = mergeWithLocaleFallback(localeItems, defaultItems);
-        merged.sort(
-          (a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)
-        );
+        merged.sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
         const total = merged.length;
         const results = merged
           .slice(offset, offset + pageSize)
@@ -653,7 +748,7 @@ export const showcaseRouter = createTRPCRouter({
         items.map(({ previewToken: _pt, ...rest }) => rest),
         total,
         page,
-        pageSize,
+        pageSize
       );
     }),
 });

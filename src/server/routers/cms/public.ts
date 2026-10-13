@@ -1,29 +1,24 @@
+import { createTRPCRouter, publicProcedure } from '../../trpc';
+import { contentProcedure } from './_shared';
 import { TRPCError } from '@trpc/server';
+import crypto from 'crypto';
 import { and, desc, eq, inArray, isNull, ne, sql } from 'drizzle-orm';
 import { z } from 'zod';
-import crypto from 'crypto';
 
-import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
 import { getContentTypeByPostType } from '@/config/cms';
-import {
-  mergeWithLocaleFallback,
-  needsLocaleFallback,
-} from '@/core/lib/i18n/locale-fallback';
-import {
-  SEO_OVERRIDE_ROUTES,
-  SEO_OVERRIDE_SLUGS,
-} from '@/core/lib/seo-routes';
-import { cmsPosts, cmsTermRelationships } from '@/server/db/schema';
-import { ContentStatus, PostType } from '@/core/types/cms';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import {
   getTermRelationships,
   resolveTagsForPosts,
 } from '@/core/crud/taxonomy-helpers';
 import {
-  createTRPCRouter,
-  publicProcedure,
-} from '../../trpc';
-import { contentProcedure } from './_shared';
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
+import { SEO_OVERRIDE_ROUTES, SEO_OVERRIDE_SLUGS } from '@/core/lib/seo-routes';
+import { ContentStatus, PostType } from '@/core/types/cms';
+import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
+import { cmsPosts, cmsTermRelationships } from '@/server/db/schema';
 
 export const cmsPublicRouter = createTRPCRouter({
   /** Public: get a published post by slug (supports preview token) */
@@ -103,7 +98,7 @@ export const cmsPublicRouter = createTRPCRouter({
         lang: z.string().max(2).default(DEFAULT_LOCALE),
         categoryId: z.string().uuid().optional(),
         tagId: z.string().uuid().optional(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(50).default(10),
       })
     )
@@ -268,7 +263,12 @@ export const cmsPublicRouter = createTRPCRouter({
 
     const existingKeys = new Set(existing.map((p) => `${p.lang}:${p.slug}`));
 
-    const result: { slug: string; label: string; lang: string; exists: boolean }[] = [];
+    const result: {
+      slug: string;
+      label: string;
+      lang: string;
+      exists: boolean;
+    }[] = [];
     for (const route of SEO_OVERRIDE_ROUTES) {
       for (const lang of LOCALES) {
         result.push({
@@ -362,8 +362,9 @@ export const cmsPublicRouter = createTRPCRouter({
           type: cmsPosts.type,
           metaDescription: cmsPosts.metaDescription,
           publishedAt: cmsPosts.publishedAt,
-          sharedTagCount:
-            sql<number>`count(${cmsTermRelationships.termId})`.as('shared_tag_count'),
+          sharedTagCount: sql<number>`count(${cmsTermRelationships.termId})`.as(
+            'shared_tag_count'
+          ),
         })
         .from(cmsPosts)
         .innerJoin(

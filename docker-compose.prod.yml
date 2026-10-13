@@ -4,7 +4,7 @@ services:
     # env_file loads ALL vars from .env — environment: overrides take precedence
     env_file: .env
     ports:
-      - "${PORT:-3000}:3000"
+      - '${PORT:-3000}:3000'
     environment:
       # Override env_file values that need Docker-internal hostnames
       - DATABASE_URL=postgresql://indigo:${POSTGRES_PASSWORD}@postgres:5432/indigo
@@ -20,6 +20,11 @@ services:
       redis:
         condition: service_healthy
     restart: unless-stopped
+    # Liveness comes from the image's HEALTHCHECK (/api/health). To cap memory,
+    # uncomment and pair with MEMORY_MAX_RSS_MB in .env at ~75-80% of the cap:
+    # the app then restarts itself gracefully before the daemon OOM-kills it
+    # mid-request.
+    # mem_limit: 2g
 
   # ─── Uncomment to run background workers separately ───────────────────────
   # worker:
@@ -46,7 +51,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U indigo"]
+      test: ['CMD-SHELL', 'pg_isready -U indigo']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -57,7 +62,7 @@ services:
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 5s
       timeout: 5s
       retries: 5

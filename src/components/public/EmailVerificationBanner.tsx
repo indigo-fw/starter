@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Mail, X } from 'lucide-react';
 import { authClient, useSession } from '@/lib/auth-client';
 import { useBlankTranslations } from '@/lib/translations';
+import { getLocalStorageItem, setLocalStorageItem } from '@/core/lib/storage/local-storage';
 
 const DISMISS_KEY = 'emailVerifyDismissedUntil';
 const DISMISS_HOURS = 24;
@@ -24,7 +25,7 @@ export function EmailVerificationBanner() {
       setVisible(false);
       return;
     }
-    const dismissedUntil = localStorage.getItem(DISMISS_KEY);
+    const dismissedUntil = getLocalStorageItem(DISMISS_KEY);
     if (dismissedUntil && Date.now() < Number(dismissedUntil)) {
       setVisible(false);
       return;
@@ -42,7 +43,7 @@ export function EmailVerificationBanner() {
 
   const handleDismiss = () => {
     const until = Date.now() + DISMISS_HOURS * 60 * 60 * 1000;
-    localStorage.setItem(DISMISS_KEY, String(until));
+    setLocalStorageItem(DISMISS_KEY, String(until));
     setVisible(false);
   };
 

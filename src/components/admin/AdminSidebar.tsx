@@ -1,30 +1,58 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import {
+  Briefcase,
+  ChevronsLeft,
+  ChevronsRight,
+  ExternalLink,
+  FileText,
+  FolderOpen,
+  Hash,
+  LogOut,
+  Menu,
+  Monitor,
+  Moon,
+  Search,
+  Sun,
+  User,
+} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Briefcase, ChevronsLeft, ChevronsRight, ExternalLink, FolderOpen, Hash, LogOut, Menu, Monitor, Moon, Search, Sun, User, FileText } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
-import { IS_ACTIVE, activeAria } from '@/core/lib/active-props';
-import { useAdminTranslations, dataTranslations } from '@/lib/translations';
-import { signOut, useSession } from '@/lib/auth-client';
-import { useSidebarStore } from '@/core/store/sidebar-store';
-import { useThemeStore } from '@/core/store/theme-store';
-import { usePreferencesStore } from '@/core/store/preferences-store';
-import { siteConfig } from '@/config/site';
-import { adminRoutes, adminPanel } from '@/config/routes';
-import { navigation, isNavGroup, getActiveSectionId, flatNavItems } from '@/config/admin-nav';
+import {
+  flatNavItems,
+  getActiveSectionId,
+  isNavGroup,
+  navigation,
+} from '@/config/admin-nav';
 import type { NavChild } from '@/config/admin-nav';
-import { CommandPalette, useCommandPaletteShortcut } from '@/core/components/dashboard/CommandPalette';
+import { adminPanel, adminRoutes } from '@/config/routes';
+import { siteConfig } from '@/config/site';
+import { TokenBalance } from '@/core/components/TokenBalance';
+import {
+  CommandPalette,
+  useCommandPaletteShortcut,
+} from '@/core/components/dashboard/CommandPalette';
 import { NotificationBell } from '@/core/components/dashboard/NotificationBell';
 import { OrgSwitcher } from '@/core/components/dashboard/OrgSwitcher';
-import { TokenBalance } from '@/core/components/TokenBalance';
+import { IS_ACTIVE, activeAria } from '@/core/lib/active-props';
+import { usePreferencesStore } from '@/core/store/preferences-store';
+import { useSidebarStore } from '@/core/store/sidebar-store';
+import { useThemeStore } from '@/core/store/theme-store';
+import { signOut, useSession } from '@/lib/auth-client';
 import { ORGANIZATIONS_VISIBLE } from '@/lib/constants';
+import { dataTranslations, useAdminTranslations } from '@/lib/translations';
+import { cn } from '@/lib/utils';
 
 /* ── Helpers ── */
 
-function isChildActive(child: NavChild, siblings: NavChild[], pathname: string): boolean {
+function isChildActive(
+  child: NavChild,
+  siblings: NavChild[],
+  pathname: string
+): boolean {
   if (pathname === child.href) return true;
   if (pathname.startsWith(child.href + '/')) {
     const hasBetterMatch = siblings.some(
@@ -48,7 +76,11 @@ function RoleBadge({ role }: { role: string }) {
 const themeOrder = ['light', 'dark', 'system'] as const;
 const themeIcons = { light: Sun, dark: Moon, system: Monitor } as const;
 const _d = dataTranslations('General');
-const themeLabels = { light: _d('Light'), dark: _d('Dark'), system: _d('System') };
+const themeLabels = {
+  light: _d('Light'),
+  dark: _d('Dark'),
+  system: _d('System'),
+};
 
 /* ── Main Component ── */
 
@@ -56,7 +88,13 @@ export function AdminSidebar() {
   const __ = useAdminTranslations();
   const pathname = usePathname();
   const router = useRouter();
-  const { isOpen, closeSidebar, toggleSidebar, isL2Collapsed, toggleL2Collapsed } = useSidebarStore();
+  const {
+    isOpen,
+    closeSidebar,
+    toggleSidebar,
+    isL2Collapsed,
+    toggleL2Collapsed,
+  } = useSidebarStore();
   const { data: session } = useSession();
   const { theme, setTheme, initTheme } = useThemeStore();
 
@@ -120,10 +158,14 @@ export function AdminSidebar() {
 
   async function handleSignOut() {
     await signOut();
-    router.push(adminRoutes.login);
+    // Hard navigation (same as the public UserMenu): a client-side push keeps
+    // the react-query cache — and every cached admin query — alive for the
+    // next person who signs in on this tab.
+    window.location.href = adminRoutes.login;
   }
 
-  const userRole = (session?.user as Record<string, unknown> | undefined)?.role as string | undefined;
+  const userRole = (session?.user as Record<string, unknown> | undefined)
+    ?.role as string | undefined;
   const ThemeIcon = themeIcons[theme];
   const logoLetter = siteConfig.name.charAt(0).toUpperCase();
 
@@ -202,10 +244,10 @@ export function AdminSidebar() {
             <div ref={popoverRef} className="dash-user-popover">
               {session?.user && (
                 <div className="px-3 py-2">
-                  <div className="text-sm font-medium text-(--text-primary) truncate">
+                  <div className="truncate text-sm font-medium text-(--text-primary)">
                     {session.user.name ?? session.user.email}
                   </div>
-                  <div className="text-xs text-(--text-muted) truncate mt-0.5">
+                  <div className="mt-0.5 truncate text-xs text-(--text-muted)">
                     {session.user.email}
                   </div>
                   {userRole && (
@@ -215,7 +257,7 @@ export function AdminSidebar() {
                   )}
                 </div>
               )}
-              <div className="border-t border-(--border-secondary) mt-1 pt-1">
+              <div className="mt-1 border-t border-(--border-secondary) pt-1">
                 <button
                   type="button"
                   onClick={handleSignOut}
@@ -237,14 +279,14 @@ export function AdminSidebar() {
     const CollapseIcon = isL2Collapsed ? ChevronsRight : ChevronsLeft;
     return (
       <>
-        <div className="flex items-center justify-between mb-1">
+        <div className="mb-1 flex items-center justify-between">
           <div className={cn('dash-nav-title', isL2Collapsed && 'sr-only')}>
             {activeItem.name}
           </div>
           <button
             type="button"
             onClick={toggleL2Collapsed}
-            className="dash-rail-btn !w-7 !h-7"
+            className="dash-rail-btn !h-7 !w-7"
             title={isL2Collapsed ? __('Expand panel') : __('Collapse panel')}
           >
             <CollapseIcon className="h-3.5 w-3.5" />
@@ -280,10 +322,10 @@ export function AdminSidebar() {
         <Link href={adminRoutes.home} className="dash-rail-logo">
           {logoLetter}
         </Link>
-        {ORGANIZATIONS_VISIBLE && <OrgSwitcher manageOrgsHref={adminPanel.organizations} />}
-        <div className="dash-rail-nav">
-          {renderRailNav()}
-        </div>
+        {ORGANIZATIONS_VISIBLE && (
+          <OrgSwitcher manageOrgsHref={adminPanel.organizations} />
+        )}
+        <div className="dash-rail-nav">{renderRailNav()}</div>
         <div className="dash-rail-bottom">
           <a
             href="/"
@@ -301,10 +343,10 @@ export function AdminSidebar() {
       {/* ── Desktop Level 2 Panel (always mounted for transition) ── */}
       <aside
         className={cn(
-          'dash-nav hidden xl:block transition-[translate,opacity,width] duration-300 ease-in-out',
+          'dash-nav hidden transition-[translate,opacity,width] duration-300 ease-in-out xl:block',
           hasLevel2
             ? 'translate-x-0 opacity-100'
-            : '-translate-x-full opacity-0 pointer-events-none',
+            : 'pointer-events-none -translate-x-full opacity-0',
           hasLevel2 && isL2Collapsed && 'dash-nav-collapsed'
         )}
       >
@@ -313,19 +355,11 @@ export function AdminSidebar() {
 
       {/* ── Mobile Top Bar ── */}
       <div className="dash-mobile-topbar xl:hidden">
-        <button
-          type="button"
-          onClick={toggleSidebar}
-          className="dash-rail-btn"
-        >
+        <button type="button" onClick={toggleSidebar} className="dash-rail-btn">
           <Menu className="h-5 w-5" />
         </button>
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={openPalette}
-            className="dash-rail-btn"
-          >
+          <button type="button" onClick={openPalette} className="dash-rail-btn">
             <Search className="h-5 w-5" />
           </button>
         </div>
@@ -341,13 +375,17 @@ export function AdminSidebar() {
           <div className="fixed inset-y-0 left-0 z-[60] flex xl:hidden">
             {/* Mobile Rail — inline layout instead of reusing .dash-rail (which is position:fixed) */}
             <aside className="dash-mobile-rail">
-              <Link href={adminRoutes.home} onClick={closeSidebar} className="dash-rail-logo">
+              <Link
+                href={adminRoutes.home}
+                onClick={closeSidebar}
+                className="dash-rail-logo"
+              >
                 {logoLetter}
               </Link>
-              {ORGANIZATIONS_VISIBLE && <OrgSwitcher manageOrgsHref={adminPanel.organizations} />}
-              <div className="dash-rail-nav">
-                {renderRailNav()}
-              </div>
+              {ORGANIZATIONS_VISIBLE && (
+                <OrgSwitcher manageOrgsHref={adminPanel.organizations} />
+              )}
+              <div className="dash-rail-nav">{renderRailNav()}</div>
               <div className="dash-rail-bottom">
                 <a
                   href="/"
@@ -363,7 +401,7 @@ export function AdminSidebar() {
             </aside>
             {/* Mobile Level 2 */}
             {hasLevel2 && (
-              <aside className="w-[220px] bg-(--surface-secondary) border-r border-(--border-primary) overflow-y-auto p-4 pt-4">
+              <aside className="w-[220px] overflow-y-auto border-r border-(--border-primary) bg-(--surface-secondary) p-4 pt-4">
                 {renderLevel2()}
               </aside>
             )}

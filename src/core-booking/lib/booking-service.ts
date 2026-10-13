@@ -1,10 +1,16 @@
-import { eq, sql, and, ne, gte, lt, count } from 'drizzle-orm';
-import { db } from '@/server/db';
-import { bookings, bookingEvents, bookingReminders } from '@/core-booking/schema/bookings';
-import { bookingServices } from '@/core-booking/schema/services';
 import { reserveSlotAtomically } from './availability-service';
+import { and, count, eq, gte, lt, ne, sql } from 'drizzle-orm';
+
 import { getBookingDeps } from '@/core-booking/deps';
+import {
+  bookingEvents,
+  bookingReminders,
+  bookings,
+} from '@/core-booking/schema/bookings';
+import { bookingServices } from '@/core-booking/schema/services';
+import { isDuplicateKeyError } from '@/core/crud/drizzle-utils';
 import { createLogger } from '@/core/lib/infra/logger';
+import { db } from '@/server/db';
 
 const logger = createLogger('booking-service');
 
@@ -30,7 +36,7 @@ const MAX_BOOKING_NUMBER_RETRIES = 5;
  * Generate sequential booking number: BOOK-YYYYMMDD-XXXX
  */
 async function generateBookingNumber(
-  tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
+  tx: Parameters<Parameters<typeof db.transaction>[0]>[0]
 ): Promise<string> {
   const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   const prefix = `BOOK-${date}-`;
@@ -53,7 +59,9 @@ async function generateBookingNumber(
  * 4. Insert booking + event + reminders in single transaction
  * 5. Fire side effects (notifications, email) AFTER commit
  */
-export async function createBooking(params: CreateBookingParams): Promise<{ bookingId: string; bookingNumber: string }> {
+export async function createBooking(
+  params: CreateBookingParams
+): Promise<{ bookingId: string; bookingNumber: string }> {
   // Validate service (outside transaction — read-only)
   const [service] = await db
     .select()
@@ -66,7 +74,11 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
   }
 
   const attendees = params.attendees ?? 1;
-  const initialStatus = service.requiresApproval ? 'pending' : (service.priceCents > 0 ? 'pending' : 'confirmed');
+  const initialStatus = service.requiresApproval
+    ? 'pending'
+    : service.priceCents > 0
+      ? 'pending'
+      : 'confirmed';
 
   let bookingId = '';
   let bookingNumber = '';
@@ -78,7 +90,12 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
       const result = await db.transaction(async (tx) => {
         // Atomically check capacity with row-level locking
         const available = await reserveSlotAtomically(
-          tx, params.serviceId, params.startTime, params.endTime, attendees, service.maxCapacity,
+          tx,
+          params.serviceId,
+          params.startTime,
+          params.endTime,
+          attendees,
+          service.maxCapacity
         );
         if (!available) {
           throw new Error('Time slot is no longer available');
@@ -121,7 +138,10 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
         });
 
         // Schedule reminders atomically with the booking
-        const reminderValues = buildReminderValues(txBookingId, params.startTime);
+        const reminderValues = buildReminderValues(
+          txBookingId,
+          params.startTime
+        );
         if (reminderValues.length > 0) {
           await tx.insert(bookingReminders).values(reminderValues);
         }
@@ -133,8 +153,10 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
       bookingNumber = result.bookingNumber;
       break;
     } catch (err) {
-      const message = err instanceof Error ? err.message : '';
-      if (message.includes('unique') || message.includes('duplicate') || message.includes('bookings_booking_number_unique')) {
+      // Drizzle wraps the pg error (code sits on err.cause), so message
+      // matching never fires. Only a booking-number collision is retryable —
+      // any other unique violation is a real bug and must surface.
+      if (isDuplicateKeyError(err, 'bookings_booking_number_unique')) {
         retries++;
         if (retries >= MAX_BOOKING_NUMBER_RETRIES) throw err;
         continue;
@@ -150,7 +172,8 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
   if (params.userId) {
     deps.sendNotification({
       userId: params.userId,
-      title: initialStatus === 'confirmed' ? 'Booking Confirmed' : 'Booking Pending',
+      title:
+        initialStatus === 'confirmed' ? 'Booking Confirmed' : 'Booking Pending',
       body: `Your booking for ${service.name} on ${params.startTime.toLocaleDateString()} has been ${initialStatus === 'confirmed' ? 'confirmed' : 'submitted for approval'}.`,
       actionUrl: `/account/bookings/${bookingId}`,
     });
@@ -159,21 +182,29 @@ export async function createBooking(params: CreateBookingParams): Promise<{ book
   // Send email to whichever address we have — user email or guest email
   const email = params.guestEmail ?? params.userEmail;
   if (email) {
-    deps.enqueueTemplateEmail(
-      email,
-      'booking-confirmation',
-      {
+    deps
+      .enqueueTemplateEmail(email, 'booking-confirmation', {
         bookingNumber,
         serviceName: service.name,
         startTime: params.startTime.toISOString(),
         endTime: params.endTime.toISOString(),
         location: service.location ?? '',
         status: initialStatus,
-      },
-    ).catch((err) => logger.error('Failed to send booking confirmation email', err instanceof Error ? { error: err.message } : undefined));
+      })
+      .catch((err) =>
+        logger.error(
+          'Failed to send booking confirmation email',
+          err instanceof Error ? { error: err.message } : undefined
+        )
+      );
   }
 
-  logger.info('Booking created', { bookingId, bookingNumber, serviceId: params.serviceId, status: initialStatus });
+  logger.info('Booking created', {
+    bookingId,
+    bookingNumber,
+    serviceId: params.serviceId,
+    status: initialStatus,
+  });
 
   return { bookingId, bookingNumber };
 }
@@ -205,17 +236,24 @@ export async function updateBookingStatus(
   bookingId: string,
   newStatus: string,
   actor: string,
-  note?: string,
+  note?: string
 ): Promise<void> {
   const [existing] = await db
-    .select({ status: bookings.status, userId: bookings.userId, guestEmail: bookings.guestEmail })
+    .select({
+      status: bookings.status,
+      userId: bookings.userId,
+      guestEmail: bookings.guestEmail,
+    })
     .from(bookings)
     .where(eq(bookings.id, bookingId))
     .limit(1);
 
   if (!existing) throw new Error('Booking not found');
 
-  const updates: Record<string, unknown> = { status: newStatus, updatedAt: new Date() };
+  const updates: Record<string, unknown> = {
+    status: newStatus,
+    updatedAt: new Date(),
+  };
 
   if (newStatus === 'cancelled') {
     updates.cancelledAt = new Date();
@@ -224,9 +262,7 @@ export async function updateBookingStatus(
   }
 
   await db.transaction(async (tx) => {
-    await tx.update(bookings)
-      .set(updates)
-      .where(eq(bookings.id, bookingId));
+    await tx.update(bookings).set(updates).where(eq(bookings.id, bookingId));
 
     await tx.insert(bookingEvents).values({
       bookingId,
@@ -248,7 +284,12 @@ export async function updateBookingStatus(
     });
   }
 
-  logger.info('Booking status updated', { bookingId, from: existing.status, to: newStatus, actor });
+  logger.info('Booking status updated', {
+    bookingId,
+    from: existing.status,
+    to: newStatus,
+    actor,
+  });
 }
 
 /**
@@ -259,7 +300,7 @@ export async function cancelBooking(
   bookingId: string,
   actor: string,
   reason?: string,
-  isAdmin: boolean = false,
+  isAdmin: boolean = false
 ): Promise<void> {
   const [booking] = await db
     .select({
@@ -279,33 +320,45 @@ export async function cancelBooking(
 
   if (!isAdmin) {
     const [service] = await db
-      .select({ cancellationDeadlineHours: bookingServices.cancellationDeadlineHours })
+      .select({
+        cancellationDeadlineHours: bookingServices.cancellationDeadlineHours,
+      })
       .from(bookingServices)
       .where(eq(bookingServices.id, booking.serviceId))
       .limit(1);
 
     if (service?.cancellationDeadlineHours) {
-      const deadline = new Date(booking.startTime.getTime() - service.cancellationDeadlineHours * 3_600_000);
+      const deadline = new Date(
+        booking.startTime.getTime() -
+          service.cancellationDeadlineHours * 3_600_000
+      );
       if (new Date() > deadline) {
-        throw new Error(`Cancellation deadline has passed (${service.cancellationDeadlineHours}h before start)`);
+        throw new Error(
+          `Cancellation deadline has passed (${service.cancellationDeadlineHours}h before start)`
+        );
       }
     }
   }
 
   await updateBookingStatus(bookingId, 'cancelled', actor, reason);
 
-  await db.update(bookingReminders)
+  await db
+    .update(bookingReminders)
     .set({ status: 'failed' })
-    .where(and(
-      eq(bookingReminders.bookingId, bookingId),
-      eq(bookingReminders.status, 'scheduled'),
-    ));
+    .where(
+      and(
+        eq(bookingReminders.bookingId, bookingId),
+        eq(bookingReminders.status, 'scheduled')
+      )
+    );
 }
 
 /**
  * Get booking count for an org in the current month (for feature gating).
  */
-export async function getBookingCountThisMonth(organizationId: string): Promise<number> {
+export async function getBookingCountThisMonth(
+  organizationId: string
+): Promise<number> {
   const now = new Date();
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
   const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
@@ -313,12 +366,14 @@ export async function getBookingCountThisMonth(organizationId: string): Promise<
   const [result] = await db
     .select({ count: count() })
     .from(bookings)
-    .where(and(
-      eq(bookings.organizationId, organizationId),
-      gte(bookings.createdAt, monthStart),
-      lt(bookings.createdAt, monthEnd),
-      ne(bookings.status, 'cancelled'),
-    ));
+    .where(
+      and(
+        eq(bookings.organizationId, organizationId),
+        gte(bookings.createdAt, monthStart),
+        lt(bookings.createdAt, monthEnd),
+        ne(bookings.status, 'cancelled')
+      )
+    );
 
   return result?.count ?? 0;
 }

@@ -1,16 +1,26 @@
-import { z } from 'zod';
-import { eq, and, desc, sql, count as drizzleCount, gte, lte } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
-import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
-import { db } from '@/server/db';
-import { chatConversations } from '@/core-chat/schema/conversations';
-import { chatCharacters } from '@/core-chat/schema/characters';
-import { chatMessages } from '@/core-chat/schema/messages';
-import { chatProviders } from '@/core-chat/schema/providers';
-import { chatProviderLogs } from '@/core-chat/schema/provider-logs';
-import { user as userTable } from '@/server/db/schema/auth';
-import { parsePagination } from '@/core/crud';
+import {
+  and,
+  desc,
+  count as drizzleCount,
+  eq,
+  gte,
+  lte,
+  sql,
+} from 'drizzle-orm';
+import { z } from 'zod';
+
 import { MessageStatus } from '@/core-chat/lib/types';
+import { chatCharacters } from '@/core-chat/schema/characters';
+import { chatConversations } from '@/core-chat/schema/conversations';
+import { chatMessages } from '@/core-chat/schema/messages';
+import { chatProviderLogs } from '@/core-chat/schema/provider-logs';
+import { chatProviders } from '@/core-chat/schema/providers';
+import { parsePagination } from '@/core/crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { db } from '@/server/db';
+import { user as userTable } from '@/server/db/schema/auth';
+import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
 
 const adminProcedure = sectionProcedure('settings');
 
@@ -69,8 +79,15 @@ export const chatAdminRouter = createTRPCRouter({
           avgMessages: sql<number>`ROUND(AVG(${chatConversations.messageCount}), 1)`,
         })
         .from(chatConversations)
-        .innerJoin(chatCharacters, eq(chatConversations.characterId, chatCharacters.id))
-        .groupBy(chatConversations.characterId, chatCharacters.name, chatCharacters.avatarUrl)
+        .innerJoin(
+          chatCharacters,
+          eq(chatConversations.characterId, chatCharacters.id)
+        )
+        .groupBy(
+          chatConversations.characterId,
+          chatCharacters.name,
+          chatCharacters.avatarUrl
+        )
         .orderBy(sql`COUNT(${chatConversations.id}) DESC`)
         .limit(input.limit);
 
@@ -109,10 +126,12 @@ export const chatAdminRouter = createTRPCRouter({
 
   /** Daily message counts for chart */
   messagesOverTime: adminProcedure
-    .input(z.object({
-      from: z.string().datetime(),
-      to: z.string().datetime(),
-    }))
+    .input(
+      z.object({
+        from: z.string().datetime(),
+        to: z.string().datetime(),
+      })
+    )
     .query(async ({ input }) => {
       const rows = await db
         .select({
@@ -120,10 +139,12 @@ export const chatAdminRouter = createTRPCRouter({
           count: drizzleCount(chatMessages.id),
         })
         .from(chatMessages)
-        .where(and(
-          gte(chatMessages.createdAt, new Date(input.from)),
-          lte(chatMessages.createdAt, new Date(input.to)),
-        ))
+        .where(
+          and(
+            gte(chatMessages.createdAt, new Date(input.from)),
+            lte(chatMessages.createdAt, new Date(input.to))
+          )
+        )
         .groupBy(sql`DATE(${chatMessages.createdAt})`)
         .orderBy(sql`DATE(${chatMessages.createdAt})`);
 
@@ -132,56 +153,75 @@ export const chatAdminRouter = createTRPCRouter({
 
   /** All conversations (admin browser) */
   conversationsList: adminProcedure
-    .input(z.object({
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(50).default(20),
-      status: z.enum(['active', 'archived', 'deleted']).optional(),
-      characterId: z.string().uuid().optional(),
-    }))
+    .input(
+      z.object({
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(50).default(20),
+        status: z.enum(['active', 'archived', 'deleted']).optional(),
+        characterId: z.string().uuid().optional(),
+      })
+    )
     .query(async ({ input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
       const conditions = [];
-      if (input.status) conditions.push(eq(chatConversations.status, input.status));
-      if (input.characterId) conditions.push(eq(chatConversations.characterId, input.characterId));
+      if (input.status)
+        conditions.push(eq(chatConversations.status, input.status));
+      if (input.characterId)
+        conditions.push(eq(chatConversations.characterId, input.characterId));
 
       const where = conditions.length > 0 ? and(...conditions) : undefined;
 
       const [items, countResult] = await Promise.all([
-        db.select({
-          id: chatConversations.id,
-          title: chatConversations.title,
-          status: chatConversations.status,
-          messageCount: chatConversations.messageCount,
-          totalTokensUsed: chatConversations.totalTokensUsed,
-          lastMessageAt: chatConversations.lastMessageAt,
-          createdAt: chatConversations.createdAt,
-          userId: chatConversations.userId,
-          userName: userTable.name,
-          userEmail: userTable.email,
-          characterName: chatCharacters.name,
-          characterAvatar: chatCharacters.avatarUrl,
-        })
+        db
+          .select({
+            id: chatConversations.id,
+            title: chatConversations.title,
+            status: chatConversations.status,
+            messageCount: chatConversations.messageCount,
+            totalTokensUsed: chatConversations.totalTokensUsed,
+            lastMessageAt: chatConversations.lastMessageAt,
+            createdAt: chatConversations.createdAt,
+            userId: chatConversations.userId,
+            userName: userTable.name,
+            userEmail: userTable.email,
+            characterName: chatCharacters.name,
+            characterAvatar: chatCharacters.avatarUrl,
+          })
           .from(chatConversations)
-          .innerJoin(chatCharacters, eq(chatConversations.characterId, chatCharacters.id))
+          .innerJoin(
+            chatCharacters,
+            eq(chatConversations.characterId, chatCharacters.id)
+          )
           .innerJoin(userTable, eq(chatConversations.userId, userTable.id))
           .where(where)
           .orderBy(desc(chatConversations.lastMessageAt))
           .limit(pageSize)
           .offset(offset),
-        db.select({ count: drizzleCount() }).from(chatConversations).where(where),
+        db
+          .select({ count: drizzleCount() })
+          .from(chatConversations)
+          .where(where),
       ]);
 
       const total = countResult[0]?.count ?? 0;
-      return { results: items, total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
+      return {
+        results: items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      };
     }),
 
   /** Read messages for any conversation (admin view) */
   conversationMessages: adminProcedure
-    .input(z.object({
-      conversationId: z.string().uuid(),
-      limit: z.number().int().min(1).max(200).default(100),
-    }))
+    .input(
+      z.object({
+        conversationId: z.string().uuid(),
+        limit: z.number().int().min(1).max(200).default(100),
+      })
+    )
     .query(async ({ input }) => {
       return db
         .select()
@@ -193,39 +233,55 @@ export const chatAdminRouter = createTRPCRouter({
 
   /** List moderated/flagged messages */
   flaggedMessages: adminProcedure
-    .input(z.object({
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(50).default(20),
-    }))
+    .input(
+      z.object({
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(50).default(20),
+      })
+    )
     .query(async ({ input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
       const [items, countResult] = await Promise.all([
-        db.select({
-          id: chatMessages.id,
-          content: chatMessages.content,
-          moderationResult: chatMessages.moderationResult,
-          createdAt: chatMessages.createdAt,
-          conversationId: chatMessages.conversationId,
-          userName: userTable.name,
-          userEmail: userTable.email,
-          characterName: chatCharacters.name,
-        })
+        db
+          .select({
+            id: chatMessages.id,
+            content: chatMessages.content,
+            moderationResult: chatMessages.moderationResult,
+            createdAt: chatMessages.createdAt,
+            conversationId: chatMessages.conversationId,
+            userName: userTable.name,
+            userEmail: userTable.email,
+            characterName: chatCharacters.name,
+          })
           .from(chatMessages)
-          .innerJoin(chatConversations, eq(chatMessages.conversationId, chatConversations.id))
+          .innerJoin(
+            chatConversations,
+            eq(chatMessages.conversationId, chatConversations.id)
+          )
           .innerJoin(userTable, eq(chatConversations.userId, userTable.id))
-          .innerJoin(chatCharacters, eq(chatConversations.characterId, chatCharacters.id))
+          .innerJoin(
+            chatCharacters,
+            eq(chatConversations.characterId, chatCharacters.id)
+          )
           .where(eq(chatMessages.status, MessageStatus.MODERATED))
           .orderBy(desc(chatMessages.createdAt))
           .limit(pageSize)
           .offset(offset),
-        db.select({ count: drizzleCount() })
+        db
+          .select({ count: drizzleCount() })
           .from(chatMessages)
           .where(eq(chatMessages.status, MessageStatus.MODERATED)),
       ]);
 
       const total = countResult[0]?.count ?? 0;
-      return { results: items, total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
+      return {
+        results: items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      };
     }),
 
   /** Dismiss a moderation flag */
@@ -235,14 +291,19 @@ export const chatAdminRouter = createTRPCRouter({
       const result = await db
         .update(chatMessages)
         .set({ status: 'delivered', moderationResult: null })
-        .where(and(
-          eq(chatMessages.id, input.messageId),
-          eq(chatMessages.status, MessageStatus.MODERATED),
-        ))
+        .where(
+          and(
+            eq(chatMessages.id, input.messageId),
+            eq(chatMessages.status, MessageStatus.MODERATED)
+          )
+        )
         .returning({ id: chatMessages.id });
 
       if (result.length === 0) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Flagged message not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Flagged message not found',
+        });
       }
     }),
 
@@ -261,9 +322,16 @@ export const chatAdminRouter = createTRPCRouter({
         avgResponseMs: sql<number>`ROUND(AVG(${chatProviderLogs.responseTimeMs}))`,
       })
       .from(chatProviderLogs)
-      .innerJoin(chatProviders, eq(chatProviderLogs.providerId, chatProviders.id))
+      .innerJoin(
+        chatProviders,
+        eq(chatProviderLogs.providerId, chatProviders.id)
+      )
       .where(gte(chatProviderLogs.createdAt, oneDayAgo))
-      .groupBy(chatProviderLogs.providerId, chatProviders.name, chatProviders.providerType)
+      .groupBy(
+        chatProviderLogs.providerId,
+        chatProviders.name,
+        chatProviders.providerType
+      )
       .orderBy(desc(sql`COUNT(${chatProviderLogs.id})`))
       .limit(20);
 
@@ -272,9 +340,10 @@ export const chatAdminRouter = createTRPCRouter({
       successCount: Number(s.successCount),
       failureCount: Number(s.failureCount),
       avgResponseMs: Number(s.avgResponseMs),
-      successRate: s.totalRequests > 0
-        ? Math.round((Number(s.successCount) / s.totalRequests) * 100)
-        : 0,
+      successRate:
+        s.totalRequests > 0
+          ? Math.round((Number(s.successCount) / s.totalRequests) * 100)
+          : 0,
     }));
   }),
 });

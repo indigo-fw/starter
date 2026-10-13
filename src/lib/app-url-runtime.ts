@@ -1,13 +1,12 @@
 /**
  * Runtime-safe canonical app URL — NO 'server-only' guard.
  *
- * Same split as cms-link / cms-link-sync (see CLAUDE.md): the `server-only`
+ * Same split as cms-link / cms-link-sync (see AGENTS.md): the `server-only`
  * package throws outside Next.js webpack's `react-server` condition, so any
  * module loaded Bun-direct (server.ts serverInit chain, CLI scripts) must not
  * transitively import it. Deps files import from HERE; Next.js server code
  * can keep importing `@/lib/app-url`, which re-exports this with the guard.
  */
-
 import { siteConfig } from '@/config/site';
 
 /**

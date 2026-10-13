@@ -1,24 +1,30 @@
-import Image from 'next/image';
-import { Link } from '@/components/Link';
-
-import { PostType } from '@/core/types/cms';
-import { PostCard } from '@/core/components/PostCard';
-import { ShortcodeRenderer } from '@/core/components/content/ShortcodeRenderer';
-import { resolveContentVars } from '@/core/lib/content/vars';
-import { StructuredData } from '@/core/components/seo/StructuredData';
-import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@/core/lib/seo/json-ld';
-import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
-import { siteConfig } from '@/config/site';
-import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
-import { getLocale } from '@/lib/locale-server';
-import { getServerTranslations } from '@/lib/translations-server';
-import { localePath } from '@/lib/locale';
-import { db } from '@/server/db';
-import { user } from '@/server/db/schema/auth';
-import { eq } from 'drizzle-orm';
 import { getCachedPost, getCachedTRPC } from '../data';
 import { getAncestors } from '../queries';
+import { eq } from 'drizzle-orm';
+import Image from 'next/image';
+
+import { Link } from '@/components/Link';
+import { SHORTCODE_COMPONENTS } from '@/config/shortcodes';
+import { siteConfig } from '@/config/site';
+import { PostCard } from '@/core/components/PostCard';
+import { ShortcodeRenderer } from '@/core/components/content/ShortcodeRenderer';
+import {
+  SafeJsonLd,
+  StructuredData,
+} from '@/core/components/seo/StructuredData';
+import { resolveContentVars } from '@/core/lib/content/vars';
+import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
+import {
+  buildArticleJsonLd,
+  buildBreadcrumbJsonLd,
+} from '@/core/lib/seo/json-ld';
+import { PostType } from '@/core/types/cms';
 import { CONTENT_SLOTS, ContentSlot } from '@/generated/content-slots';
+import { localePath } from '@/lib/locale';
+import { getLocale } from '@/lib/locale-server';
+import { getServerTranslations } from '@/lib/translations-server';
+import { db } from '@/server/db';
+import { user } from '@/server/db/schema/auth';
 
 interface Props {
   slug: string;
@@ -37,23 +43,32 @@ export async function PostDetail({ slug, postType, preview }: Props) {
 
   // Parallel: tags + related posts + ancestors + author name
   const [postTags, relatedPosts, ancestors, authorName] = await Promise.all([
-    api.tags.getForObject({ objectId: post.id }).catch(() => [] as { id: string; name: string; slug: string }[]),
+    api.tags
+      .getForObject({ objectId: post.id })
+      .catch(() => [] as { id: string; name: string; slug: string }[]),
     isBlog
-      ? api.cms.getRelatedPosts({ postId: post.id, lang: locale, limit: 4 }).catch(() => [])
+      ? api.cms
+          .getRelatedPosts({ postId: post.id, lang: locale, limit: 4 })
+          .catch(() => [])
       : Promise.resolve([]),
     isPage && post.parentId
       ? getAncestors(post.id).catch(() => [])
       : Promise.resolve([]),
     post.authorId
-      ? db.select({ name: user.name }).from(user).where(eq(user.id, post.authorId)).limit(1)
-          .then((rows) => rows[0]?.name ?? null).catch(() => null)
+      ? db
+          .select({ name: user.name })
+          .from(user)
+          .where(eq(user.id, post.authorId))
+          .limit(1)
+          .then((rows) => rows[0]?.name ?? null)
+          .catch(() => null)
       : Promise.resolve(null),
   ]);
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12">
       {preview && (
-        <div className="mb-6 rounded-md bg-yellow-50 dark:bg-yellow-500/15 border border-yellow-200 dark:border-yellow-500/30 px-4 py-2 text-sm text-yellow-800 dark:text-yellow-300">
+        <div className="mb-6 rounded-md border border-yellow-200 bg-yellow-50 px-4 py-2 text-sm text-yellow-800 dark:border-yellow-500/30 dark:bg-yellow-500/15 dark:text-yellow-300">
           {__('Preview mode — this content is not yet published.')}
         </div>
       )}
@@ -63,7 +78,10 @@ export async function PostDetail({ slug, postType, preview }: Props) {
         <nav className="mb-6 text-sm text-(--text-muted)">
           {ancestors.map((a, i) => (
             <span key={a.slug}>
-              <Link href={{ pathname: '/[slug]', params: { slug: a.slug } }} className="hover:text-(--text-secondary) hover:underline">
+              <Link
+                href={{ pathname: '/[slug]', params: { slug: a.slug } }}
+                className="hover:text-(--text-secondary) hover:underline"
+              >
                 {a.title}
               </Link>
               {i < ancestors.length && <span className="mx-1.5">/</span>}
@@ -74,7 +92,10 @@ export async function PostDetail({ slug, postType, preview }: Props) {
       )}
 
       {post.featuredImage && (
-        <div className="relative mb-8 w-full" style={{ maxHeight: '400px', height: '400px' }}>
+        <div
+          className="relative mb-8 w-full"
+          style={{ maxHeight: '400px', height: '400px' }}
+        >
           <Image
             src={post.featuredImage}
             alt={post.featuredImageAlt ?? post.title}
@@ -110,15 +131,22 @@ export async function PostDetail({ slug, postType, preview }: Props) {
       {postTags.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-1.5">
           {postTags.map((tag) => (
-            <Link key={tag.slug} href={{ pathname: '/tag/[slug]', params: { slug: tag.slug } }} className="tag">
+            <Link
+              key={tag.slug}
+              href={{ pathname: '/tag/[slug]', params: { slug: tag.slug } }}
+              className="tag"
+            >
               {tag.name}
             </Link>
           ))}
         </div>
       )}
 
-      <div className="prose prose-gray dark:prose-invert mt-8 max-w-none">
-        <ShortcodeRenderer content={resolveContentVars(post.content)} components={SHORTCODE_COMPONENTS} />
+      <div className="prose mt-8 max-w-none prose-gray dark:prose-invert">
+        <ShortcodeRenderer
+          content={resolveContentVars(post.content)}
+          components={SHORTCODE_COMPONENTS}
+        />
       </div>
 
       {/* Related Posts */}
@@ -151,44 +179,50 @@ export async function PostDetail({ slug, postType, preview }: Props) {
       {/* Module-contributed footer (e.g. core-comments' CommentSection) */}
       {isBlog && CONTENT_SLOTS['post-footer']?.length ? (
         <section className="mt-12 border-t border-(--border-secondary) pt-8">
-          <ContentSlot slot="post-footer" targetType="post" targetId={post.id} />
+          <ContentSlot
+            slot="post-footer"
+            targetType="post"
+            targetId={post.id}
+          />
         </section>
       ) : null}
 
       {/* JSON-LD: manual override or auto-generated */}
       {post.jsonLd ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: post.jsonLd.replace(/<\//g, '<\\/'),
-          }}
-        />
+        <SafeJsonLd raw={post.jsonLd} />
       ) : (
-        <StructuredData data={buildArticleJsonLd({
-          title: post.title,
-          description: post.metaDescription,
-          url: buildCanonicalUrl(isBlog ? `/blog/${slug}` : `/${slug}`, locale),
-          image: post.featuredImage,
-          imageAlt: post.featuredImageAlt,
-          publishedAt: post.publishedAt,
-          updatedAt: post.updatedAt,
-          authorNames: authorName ? [authorName] : undefined,
-          locale,
-          siteName: siteConfig.name,
-          siteUrl: siteConfig.url,
-          type: isBlog ? 'BlogPosting' : 'Article',
-        })} />
+        <StructuredData
+          data={buildArticleJsonLd({
+            title: post.title,
+            description: post.metaDescription,
+            url: buildCanonicalUrl(
+              isBlog ? `/blog/${slug}` : `/${slug}`,
+              locale
+            ),
+            image: post.featuredImage,
+            imageAlt: post.featuredImageAlt,
+            publishedAt: post.publishedAt,
+            updatedAt: post.updatedAt,
+            authorNames: authorName ? [authorName] : undefined,
+            locale,
+            siteName: siteConfig.name,
+            siteUrl: siteConfig.url,
+            type: isBlog ? 'BlogPosting' : 'Article',
+          })}
+        />
       )}
 
       {/* BreadcrumbList for hierarchical pages */}
       {ancestors.length > 0 && (
-        <StructuredData data={buildBreadcrumbJsonLd([
-          ...ancestors.map((a) => ({
-            name: a.title,
-            url: buildCanonicalUrl(`/${a.slug}`, locale),
-          })),
-          { name: post.title, url: buildCanonicalUrl(`/${slug}`, locale) },
-        ])} />
+        <StructuredData
+          data={buildBreadcrumbJsonLd([
+            ...ancestors.map((a) => ({
+              name: a.title,
+              url: buildCanonicalUrl(`/${a.slug}`, locale),
+            })),
+            { name: post.title, url: buildCanonicalUrl(`/${slug}`, locale) },
+          ])}
+        />
       )}
     </article>
   );

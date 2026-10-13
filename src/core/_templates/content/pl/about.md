@@ -12,7 +12,7 @@ noindex: false
 
 ### Najważniejsze funkcje
 
-- **Rozwój sterowany przez agentów** — CLAUDE.md pełni funkcję kompleksowego przewodnika po projekcie, umożliwiając agentom AI skuteczne zrozumienie i modyfikację bazy kodu
+- **Rozwój sterowany przez agentów** — AGENTS.md pełni funkcję kompleksowego przewodnika po projekcie, umożliwiając agentom AI skuteczne zrozumienie i modyfikację bazy kodu
 - **Nowoczesny stack** — Zbudowany z wykorzystaniem Next.js 16, TypeScript i Tailwind CSS v4
 - **Elastyczna treść** — Strony, wpisy na blogu, elementy portfolio, karty prezentacji, kategorie i tagi
 - **Dostęp oparty na rolach** — Użytkownik, redaktor, administrator i superadministrator z uprawnieniami opartymi na politykach

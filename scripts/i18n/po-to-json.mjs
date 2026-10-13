@@ -1,3 +1,4 @@
+import { parsePoContent } from './po-parse.mjs';
 import chokidar from 'chokidar';
 import fs from 'fs';
 import path from 'path';
@@ -16,130 +17,9 @@ if (!fs.existsSync(BUILD_DIR)) {
   fs.mkdirSync(BUILD_DIR, { recursive: true });
 }
 
-/**
- * Extract a quoted string value from a PO line like: msgid "hello"  →  hello
- */
-function extractQuoted(line, prefix) {
-  const trimmed = line.trim();
-  if (!trimmed.startsWith(prefix)) return null;
-  // Format: prefix "value" — skip prefix, space, and opening quote
-  return trimmed.substring(prefix.length + 2, trimmed.length - 1);
-}
-
-/**
- * Convert PO sprintf placeholders (%d, %s) to ICU {count} / {value} format.
- * %d → {count}, %s → {value}, %1$d → {count}, etc.
- */
-function sprintfToICU(text) {
-  // Replace %d / %1$d with {count}
-  return text
-    .replace(/%\d*\$?d/g, '{count}')
-    .replace(/%\d*\$?s/g, '{value}');
-}
-
-/**
- * Convert PO plural msgstr[0]/msgstr[1] to ICU plural format.
- * Input:  singular = "1 Element", plural = "%d Elemente"
- * Output: "{count, plural, one {1 Element} other {{count} Elemente}}"
- */
-function toICUPlural(singularStr, pluralStr) {
-  const one = sprintfToICU(singularStr);
-  const other = sprintfToICU(pluralStr);
-  return `{count, plural, one {${one}} other {${other}}}`;
-}
-
-/**
- * Parse a single PO file and return structured JSON object.
- * Supports singular entries (msgid/msgstr) and plural entries
- * (msgid/msgid_plural/msgstr[0]/msgstr[1]) — converting plurals to ICU format.
- */
+/** Parse a PO file into next-intl JSON messages (logic in po-parse.mjs). */
 function parsePo(filePath) {
-  const content = fs.readFileSync(filePath, 'utf8');
-  const result = {};
-  const lines = content.split('\n');
-
-  let ctx = null;       // msgctxt
-  let msgid = null;     // msgid
-  let msgidPlural = null; // msgid_plural
-  let msgstr = null;    // msgstr (singular)
-  let msgstrPlural = {}; // msgstr[0], msgstr[1], ...
-
-  function flush() {
-    if (!msgid) { reset(); return; }
-
-    // Handle context separator: msgctxt "General::verb" → namespace "General", key "Post::verb"
-    const rawCtx = ctx || 'General';
-    let prefix, ctxSuffix;
-    if (rawCtx.includes('::')) {
-      const sepIdx = rawCtx.indexOf('::');
-      prefix = rawCtx.substring(0, sepIdx);
-      ctxSuffix = rawCtx.substring(sepIdx); // includes the "::"
-    } else {
-      prefix = rawCtx;
-      ctxSuffix = '';
-    }
-    const key = msgid.replace(/\./g, '@@@').replace(/\\"/g, '"') + ctxSuffix;
-
-    if (!result[prefix]) result[prefix] = {};
-
-    if (msgidPlural && Object.keys(msgstrPlural).length >= 2) {
-      // Plural entry → convert to ICU format
-      const s = (msgstrPlural[0] || '').replace(/\\"/g, '"');
-      const p = (msgstrPlural[1] || '').replace(/\\"/g, '"');
-      result[prefix][key] = toICUPlural(s, p);
-    } else if (msgstr !== null) {
-      // Singular entry
-      result[prefix][key] = msgstr.replace(/\\"/g, '"');
-    }
-
-    reset();
-  }
-
-  function reset() {
-    ctx = null;
-    msgid = null;
-    msgidPlural = null;
-    msgstr = null;
-    msgstrPlural = {};
-  }
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    // Empty line = end of entry
-    if (trimmed === '') {
-      flush();
-      continue;
-    }
-
-    // Comments
-    if (trimmed.startsWith('#')) continue;
-
-    // msgctxt
-    const ctxVal = extractQuoted(trimmed, 'msgctxt');
-    if (ctxVal !== null) { ctx = ctxVal; continue; }
-
-    // msgid_plural (must check before msgid)
-    const pluralVal = extractQuoted(trimmed, 'msgid_plural');
-    if (pluralVal !== null) { msgidPlural = pluralVal; continue; }
-
-    // msgid
-    const idVal = extractQuoted(trimmed, 'msgid');
-    if (idVal !== null) { if (msgid !== null) flush(); msgid = idVal; continue; }
-
-    // msgstr[N]
-    const pluralMatch = trimmed.match(/^msgstr\[(\d+)\]\s+"(.*)"/);
-    if (pluralMatch) { msgstrPlural[parseInt(pluralMatch[1])] = pluralMatch[2]; continue; }
-
-    // msgstr (singular)
-    const strVal = extractQuoted(trimmed, 'msgstr');
-    if (strVal !== null) { msgstr = strVal; continue; }
-  }
-
-  // Flush last entry
-  flush();
-
-  return result;
+  return parsePoContent(fs.readFileSync(filePath, 'utf8'));
 }
 
 /**

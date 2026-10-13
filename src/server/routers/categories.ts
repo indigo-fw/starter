@@ -1,48 +1,53 @@
+import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
+import crypto from 'crypto';
 import { and, eq, inArray, isNull, sql } from 'drizzle-orm';
 import { z } from 'zod';
-import crypto from 'crypto';
 
-import { env } from '@/lib/env';
-import { DEFAULT_LOCALE } from '@/lib/constants';
 import { getContentType } from '@/config/cms';
-import {
-  mergeWithLocaleFallback,
-  needsLocaleFallback,
-} from '@/core/lib/i18n/locale-fallback';
-import { createLogger } from '@/core/lib/infra/logger';
-import { cmsCategories } from '@/server/db/schema';
-import { createFieldTranslator } from '@/server/translation/translate-fields';
-import { ContentStatus } from '@/core/types/cms';
 import {
   buildAdminList,
   buildStatusCounts,
+  createSlugRestoreCheck,
   ensureSlugUnique,
-  softDelete,
-  softRestore,
-  permanentDelete,
   fetchOrNotFound,
   generateCopySlug,
-  updateContentStatus,
   getTranslationSiblings,
-  serializeExport,
-  parsePagination,
   paginatedResult,
+  parsePagination,
+  permanentDelete,
   prepareTranslationCopy,
+  serializeExport,
+  softDelete,
+  softRestore,
+  updateContentStatus,
 } from '@/core/crud/admin-crud';
-import { adminListInput, exportBulkInput } from '@/core/crud/router-schemas';
 import { updateWithRevision } from '@/core/crud/cms-helpers';
+import {
+  MAX_PAGE,
+  adminListInput,
+  exportBulkInput,
+} from '@/core/crud/router-schemas';
+import {
+  createTableSlugResolver,
+  registerSlugResolver,
+} from '@/core/crud/slug-redirects';
 import {
   deleteTermRelationshipsByTerm,
   getTermRelationships,
   syncTermRelationships,
 } from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/infra/audit';
 import {
-  createTRPCRouter,
-  publicProcedure,
-  sectionProcedure,
-} from '../trpc';
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
+import { logAudit } from '@/core/lib/infra/audit';
+import { createLogger } from '@/core/lib/infra/logger';
+import { ContentStatus } from '@/core/types/cms';
+import { DEFAULT_LOCALE } from '@/lib/constants';
+import { env } from '@/lib/env';
+import { cmsCategories } from '@/server/db/schema';
+import { createFieldTranslator } from '@/server/translation/translate-fields';
 
 const logger = createLogger('categories-router');
 const contentProcedure = sectionProcedure('content');
@@ -68,41 +73,61 @@ const crudCols = {
   deleted_at: cmsCategories.deletedAt,
 };
 
+const restoreSlugCheck = createSlugRestoreCheck(
+  {
+    table: cmsCategories,
+    idCol: cmsCategories.id,
+    slugCol: cmsCategories.slug,
+    langCol: cmsCategories.lang,
+    deletedAtCol: cmsCategories.deletedAt,
+  },
+  'category'
+);
+
+// `update` writes slug redirects as contentType 'category'; resolve them here.
+registerSlugResolver(
+  'category',
+  createTableSlugResolver({
+    table: cmsCategories,
+    id: cmsCategories.id,
+    slug: cmsCategories.slug,
+    deletedAt: cmsCategories.deletedAt,
+  })
+);
+
 export const categoriesRouter = createTRPCRouter({
-  list: contentProcedure
-    .input(adminListInput)
-    .query(async ({ ctx, input }) => {
-      return buildAdminList(
-        {
-          db: ctx.db,
-          cols: {
-            table: cmsCategories,
-            id: cmsCategories.id,
-            deleted_at: cmsCategories.deletedAt,
-            lang: cmsCategories.lang,
-            translation_group: cmsCategories.translationGroup,
-          },
-          input,
-          searchColumns: [cmsCategories.name, cmsCategories.slug],
-          sortColumns: {
-            name: cmsCategories.name,
-            order: cmsCategories.order,
-            created_at: cmsCategories.createdAt,
-            updated_at: cmsCategories.updatedAt,
-          },
-          defaultSort: 'updated_at',
+  list: contentProcedure.input(adminListInput).query(async ({ ctx, input }) => {
+    return buildAdminList(
+      {
+        db: ctx.db,
+        cols: {
+          table: cmsCategories,
+          id: cmsCategories.id,
+          deleted_at: cmsCategories.deletedAt,
+          lang: cmsCategories.lang,
+          translation_group: cmsCategories.translationGroup,
         },
-        async ({ where, orderBy, offset, limit }) => {
-          return ctx.db
-            .select()
-            .from(cmsCategories)
-            .where(where)
-            .orderBy(orderBy)
-            .offset(offset)
-            .limit(limit);
-        }
-      );
-    }),
+        input,
+        searchColumns: [cmsCategories.name, cmsCategories.slug],
+        sortColumns: {
+          name: cmsCategories.name,
+          order: cmsCategories.order,
+          created_at: cmsCategories.createdAt,
+          updated_at: cmsCategories.updatedAt,
+        },
+        defaultSort: 'updated_at',
+      },
+      async ({ where, orderBy, offset, limit }) => {
+        return ctx.db
+          .select()
+          .from(cmsCategories)
+          .where(where)
+          .orderBy(orderBy)
+          .offset(offset)
+          .limit(limit);
+      }
+    );
+  }),
 
   counts: contentProcedure.query(async ({ ctx }) => {
     return buildStatusCounts(ctx.db, {
@@ -116,7 +141,10 @@ export const categoriesRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       const category = await fetchOrNotFound<typeof cmsCategories.$inferSelect>(
-        ctx.db, cmsCategories, input.id, 'Category'
+        ctx.db,
+        cmsCategories,
+        input.id,
+        'Category'
       );
 
       const rels = await getTermRelationships(ctx.db, category.id, 'tag');
@@ -178,7 +206,9 @@ export const categoriesRouter = createTRPCRouter({
           seoTitle: catInput.seoTitle ?? null,
           order: catInput.order,
           noindex: catInput.noindex,
-          publishedAt: catInput.publishedAt ? new Date(catInput.publishedAt) : null,
+          publishedAt: catInput.publishedAt
+            ? new Date(catInput.publishedAt)
+            : null,
           previewToken,
           translationGroup: catInput.translationGroup ?? null,
           fallbackToDefault: catInput.fallbackToDefault ?? null,
@@ -207,12 +237,20 @@ export const categoriesRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const original = await fetchOrNotFound<typeof cmsCategories.$inferSelect>(
-        ctx.db, cmsCategories, input.id, 'Category'
+        ctx.db,
+        cmsCategories,
+        input.id,
+        'Category'
       );
 
       const copySlug = await generateCopySlug(
-        ctx.db, cmsCategories, cmsCategories.slug, cmsCategories.deletedAt,
-        original.slug, cmsCategories.lang, original.lang,
+        ctx.db,
+        cmsCategories,
+        cmsCategories.slug,
+        cmsCategories.deletedAt,
+        original.slug,
+        cmsCategories.lang,
+        original.lang
       );
 
       const previewToken = crypto.randomBytes(32).toString('hex');
@@ -270,7 +308,10 @@ export const categoriesRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const source = await fetchOrNotFound<typeof cmsCategories.$inferSelect>(
-        ctx.db, cmsCategories, input.id, 'Category'
+        ctx.db,
+        cmsCategories,
+        input.id,
+        'Category'
       );
 
       let name = source.name;
@@ -292,11 +333,22 @@ export const categoriesRouter = createTRPCRouter({
         ]);
       }
 
-      const { slug, translationGroup, previewToken } = await prepareTranslationCopy(
-        ctx.db, cmsCategories,
-        { id: cmsCategories.id, slug: cmsCategories.slug, lang: cmsCategories.lang, deletedAt: cmsCategories.deletedAt, translationGroup: cmsCategories.translationGroup },
-        input.id, source.slug, source.translationGroup, input.targetLang,
-      );
+      const { slug, translationGroup, previewToken } =
+        await prepareTranslationCopy(
+          ctx.db,
+          cmsCategories,
+          {
+            id: cmsCategories.id,
+            slug: cmsCategories.slug,
+            lang: cmsCategories.lang,
+            deletedAt: cmsCategories.deletedAt,
+            translationGroup: cmsCategories.translationGroup,
+          },
+          input.id,
+          source.slug,
+          source.translationGroup,
+          input.targetLang
+        );
 
       const [newCategory] = await ctx.db
         .insert(cmsCategories)
@@ -327,7 +379,11 @@ export const categoriesRouter = createTRPCRouter({
         entityType: 'category',
         entityId: newCategory!.id,
         entityTitle: newCategory!.name,
-        metadata: { originalId: input.id, targetLang: input.targetLang, autoTranslate: input.autoTranslate },
+        metadata: {
+          originalId: input.id,
+          targetLang: input.targetLang,
+          autoTranslate: input.autoTranslate,
+        },
       });
 
       return { id: newCategory!.id, slug: newCategory!.slug };
@@ -338,9 +394,14 @@ export const categoriesRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return getTranslationSiblings(
-        ctx.db, cmsCategories,
-        cmsCategories.id, cmsCategories.translationGroup, cmsCategories.lang,
-        cmsCategories.slug, cmsCategories.deletedAt, input.id,
+        ctx.db,
+        cmsCategories,
+        cmsCategories.id,
+        cmsCategories.translationGroup,
+        cmsCategories.lang,
+        cmsCategories.slug,
+        cmsCategories.deletedAt,
+        input.id
       );
     }),
 
@@ -366,8 +427,25 @@ export const categoriesRouter = createTRPCRouter({
         .from(cmsCategories)
         .where(inArray(cmsCategories.id, input.ids));
 
-      const headers = ['id', 'name', 'slug', 'title', 'status', 'lang', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'content'];
-      return serializeExport(cats as Record<string, unknown>[], headers, input.format);
+      const headers = [
+        'id',
+        'name',
+        'slug',
+        'title',
+        'status',
+        'lang',
+        'metaDescription',
+        'seoTitle',
+        'publishedAt',
+        'createdAt',
+        'updatedAt',
+        'content',
+      ];
+      return serializeExport(
+        cats as Record<string, unknown>[],
+        headers,
+        input.format
+      );
     }),
 
   update: contentProcedure
@@ -395,7 +473,10 @@ export const categoriesRouter = createTRPCRouter({
       const { id, tagIds, ...updates } = input;
 
       const existing = await fetchOrNotFound<typeof cmsCategories.$inferSelect>(
-        ctx.db, cmsCategories, id, 'Category'
+        ctx.db,
+        cmsCategories,
+        id,
+        'Category'
       );
 
       if (updates.slug && updates.slug !== existing.slug) {
@@ -468,9 +549,15 @@ export const categoriesRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       await updateContentStatus(
-        ctx.db, cmsCategories,
-        cmsCategories.id, cmsCategories.status, cmsCategories.publishedAt, cmsCategories.updatedAt,
-        input.id, input.status, 'Category',
+        ctx.db,
+        cmsCategories,
+        cmsCategories.id,
+        cmsCategories.status,
+        cmsCategories.publishedAt,
+        cmsCategories.updatedAt,
+        input.id,
+        input.status,
+        'Category'
       );
 
       const action =
@@ -496,16 +583,22 @@ export const categoriesRouter = createTRPCRouter({
   restore: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await softRestore(ctx.db, crudCols, input.id);
+      await softRestore(ctx.db, crudCols, input.id, restoreSlugCheck);
       return { success: true };
     }),
 
   permanentDelete: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await permanentDelete(ctx.db, crudCols, input.id, 'category', async (tx) => {
-        await deleteTermRelationshipsByTerm(tx, input.id, 'category');
-      });
+      await permanentDelete(
+        ctx.db,
+        crudCols,
+        input.id,
+        'category',
+        async (tx) => {
+          await deleteTermRelationshipsByTerm(tx, input.id, 'category');
+        }
+      );
       return { success: true };
     }),
 
@@ -559,7 +652,7 @@ export const categoriesRouter = createTRPCRouter({
     .input(
       z.object({
         lang: z.string().max(2).default(DEFAULT_LOCALE),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(100),
       })
     )
@@ -622,7 +715,7 @@ export const categoriesRouter = createTRPCRouter({
         items.map(({ previewToken: _pt, ...rest }) => rest),
         total,
         page,
-        pageSize,
+        pageSize
       );
     }),
 });

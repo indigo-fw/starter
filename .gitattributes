@@ -22,3 +22,24 @@
 *.pdf  binary
 *.zip  binary
 *.gz   binary
+*.mp4  binary
+*.webm binary
+*.mp3  binary
+*.wav  binary
+*.ogg  binary
+*.otf  binary
+*.wasm binary
+*.psd  binary
+
+# Co-located content images (cms://asset/) go through git-LFS so binaries stay
+# out of the main pack. Deploy contract: the build checkout must materialize
+# LFS objects (CI checkout `lfs: true` or `git lfs pull` before docker build).
+# The Dockerfile fails the build on pointer files; image-sync skips them at
+# runtime as a backstop. Note: GitHub tarball/degit exports ship pointers
+# unless the repo enables "Include Git LFS objects in archives".
+content/**/*.png  filter=lfs diff=lfs merge=lfs -text
+content/**/*.jpg  filter=lfs diff=lfs merge=lfs -text
+content/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+content/**/*.gif  filter=lfs diff=lfs merge=lfs -text
+content/**/*.webp filter=lfs diff=lfs merge=lfs -text
+content/**/*.avif filter=lfs diff=lfs merge=lfs -text

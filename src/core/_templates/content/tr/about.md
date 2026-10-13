@@ -12,7 +12,7 @@ noindex: false
 
 ### Temel Özellikler
 
-- **Ajan odaklı geliştirme** — CLAUDE.md, kapsamlı bir proje rehberi olarak hizmet eder ve yapay zeka ajanlarının kod tabanını etkili bir şekilde anlamasını ve değiştirmesini sağlar
+- **Ajan odaklı geliştirme** — AGENTS.md, kapsamlı bir proje rehberi olarak hizmet eder ve yapay zeka ajanlarının kod tabanını etkili bir şekilde anlamasını ve değiştirmesini sağlar
 - **Modern teknoloji yığını** — Next.js 16, TypeScript ve Tailwind CSS v4 ile geliştirilmiştir
 - **Esnek içerik** — Sayfalar, blog yazıları, portföy öğeleri, vitrin kartları, kategoriler ve etiketler
 - **Rol tabanlı erişim** — Kullanıcı, editör, yönetici ve süper yönetici rolleri ile politika tabanlı izinler

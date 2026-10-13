@@ -8,15 +8,22 @@
  * INDIGO_MAINTAINER=1). Downstream apps consume modules with `add`/`update` —
  * subtree pull --squash needs no shared ancestry — and never push.
  */
-
-import { execSync } from 'child_process';
-import { existsSync, readFileSync, writeFileSync, cpSync, rmSync, readdirSync, rmdirSync } from 'fs';
-import { resolve, dirname, relative } from 'path';
-import { REGISTRY, getRegistryEntry } from './indigo/registry';
-import { visualize, imports } from './indigo/visualize';
-import { codemap } from './indigo/codemap';
 import { brandGenerate } from './indigo/brand';
+import { codemap } from './indigo/codemap';
 import { seedPersonas } from './indigo/personas';
+import { REGISTRY, getRegistryEntry } from './indigo/registry';
+import { imports, visualize } from './indigo/visualize';
+import { execSync } from 'child_process';
+import {
+  cpSync,
+  existsSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  rmdirSync,
+  writeFileSync,
+} from 'fs';
+import { dirname, relative, resolve } from 'path';
 
 const root = process.cwd();
 const configPath = resolve(root, 'indigo.config.ts');
@@ -43,9 +50,9 @@ function runSilent(cmd: string): string {
 
 function getInstalledModules(): string[] {
   const content = readFileSync(configPath, 'utf-8');
-  return REGISTRY
-    .filter((entry) => content.includes(`./src/${entry.id}/module.config`))
-    .map((e) => e.id);
+  return REGISTRY.filter((entry) =>
+    content.includes(`./src/${entry.id}/module.config`)
+  ).map((e) => e.id);
 }
 
 function moduleExists(id: string): boolean {
@@ -63,8 +70,12 @@ function assertMaintainerRepo(): void {
   const origin = runSilent('git remote get-url origin');
   if (origin.includes('indigo-fw/framework')) return;
   console.error('✗ `indigo push` is for the Indigo framework repo only.');
-  console.error(`  This repo's origin is "${origin || '(none)'}", not indigo-fw/framework.`);
-  console.error('  Push module changes from a clone of indigo-fw/framework, or set INDIGO_MAINTAINER=1 if you know what you are doing.');
+  console.error(
+    `  This repo's origin is "${origin || '(none)'}", not indigo-fw/framework.`
+  );
+  console.error(
+    '  Push module changes from a clone of indigo-fw/framework, or set INDIGO_MAINTAINER=1 if you know what you are doing.'
+  );
   process.exit(1);
 }
 
@@ -86,7 +97,9 @@ function popStash(didStash: boolean) {
   try {
     execSync('git stash pop', { cwd: root, stdio: 'inherit' });
   } catch {
-    console.error('  ⚠ Failed to pop stash. Your changes are saved in git stash.');
+    console.error(
+      '  ⚠ Failed to pop stash. Your changes are saved in git stash.'
+    );
     console.error('  Run `git stash pop` manually to recover them.');
   }
 }
@@ -102,7 +115,11 @@ function addToConfig(id: string, importName: string) {
   const lastImportIdx = content.lastIndexOf("from './src/");
   if (lastImportIdx !== -1) {
     const lineEnd = content.indexOf('\n', lastImportIdx);
-    content = content.slice(0, lineEnd + 1) + importLine + '\n' + content.slice(lineEnd + 1);
+    content =
+      content.slice(0, lineEnd + 1) +
+      importLine +
+      '\n' +
+      content.slice(lineEnd + 1);
   }
 
   // Add to array
@@ -112,7 +129,8 @@ function addToConfig(id: string, importName: string) {
     const afterClose = content.slice(arrayEnd);
     // Check if array has entries (not empty)
     const lastEntry = beforeClose.trimEnd();
-    const needsComma = lastEntry.endsWith(',') || lastEntry.endsWith('[') ? '' : ',';
+    const needsComma =
+      lastEntry.endsWith(',') || lastEntry.endsWith('[') ? '' : ',';
     content = lastEntry + needsComma + '\n  ' + importName + ',\n' + afterClose;
   }
 
@@ -123,7 +141,10 @@ function removeFromConfig(id: string, importName: string) {
   let content = readFileSync(configPath, 'utf-8');
 
   // Remove import line
-  const importPattern = new RegExp(`import ${importName} from './src/${id}/module\\.config';\\n?`, 'g');
+  const importPattern = new RegExp(
+    `import ${importName} from './src/${id}/module\\.config';\\n?`,
+    'g'
+  );
   content = content.replace(importPattern, '');
 
   // Remove from array
@@ -138,7 +159,9 @@ function removeFromConfig(id: string, importName: string) {
 
 async function getModuleProjectFiles(id: string): Promise<string[]> {
   try {
-    const configModule = await import(resolve(root, 'src', id, 'module.config.ts'));
+    const configModule = await import(
+      resolve(root, 'src', id, 'module.config.ts')
+    );
     return configModule.default?.projectFiles ?? [];
   } catch {
     return [];
@@ -147,7 +170,9 @@ async function getModuleProjectFiles(id: string): Promise<string[]> {
 
 async function getModuleSchemaFiles(id: string): Promise<string[]> {
   try {
-    const configModule = await import(resolve(root, 'src', id, 'module.config.ts'));
+    const configModule = await import(
+      resolve(root, 'src', id, 'module.config.ts')
+    );
     return configModule.default?.schema ?? [];
   } catch {
     return [];
@@ -162,7 +187,10 @@ function scaffoldTemplates(id: string) {
   // Email templates live at the repo root (emails/en/), not under src/.
   const emailsDir = resolve(templatesDir, 'emails');
   if (existsSync(emailsDir)) {
-    cpSync(emailsDir, resolve(root, 'emails', 'en'), { recursive: true, force: false });
+    cpSync(emailsDir, resolve(root, 'emails', 'en'), {
+      recursive: true,
+      force: false,
+    });
   }
   // force: false = don't overwrite existing files (preserve user customizations)
   cpSync(templatesDir, resolve(root, 'src'), {
@@ -234,7 +262,9 @@ async function add(id: string) {
     const missing = entry.requires.filter((dep) => !installed.includes(dep));
     if (missing.length > 0) {
       console.error(`Missing dependencies: ${missing.join(', ')}`);
-      console.error(`Install them first: bun run indigo add ${missing.join(' && bun run indigo add ')}`);
+      console.error(
+        `Install them first: bun run indigo add ${missing.join(' && bun run indigo add ')}`
+      );
       process.exit(1);
     }
   }
@@ -251,7 +281,7 @@ async function add(id: string) {
     try {
       run(
         `git subtree add --prefix=src/${id} ${entry.repo} main --squash`,
-        `Pulling ${id} from ${entry.repo}...`,
+        `Pulling ${id} from ${entry.repo}...`
       );
     } finally {
       popStash(didStash);
@@ -304,7 +334,9 @@ async function update(id: string) {
 
   const installed = getInstalledModules();
   if (!installed.includes(id)) {
-    console.error(`Module ${id} is not installed. Install it first: bun run indigo add ${id}`);
+    console.error(
+      `Module ${id} is not installed. Install it first: bun run indigo add ${id}`
+    );
     process.exit(1);
   }
 
@@ -319,7 +351,7 @@ async function update(id: string) {
   try {
     run(
       `git subtree pull --prefix=src/${id} ${entry.repo} main --squash`,
-      `Pulling latest ${id} from ${entry.repo}...`,
+      `Pulling latest ${id} from ${entry.repo}...`
     );
   } finally {
     popStash(didStash);
@@ -336,7 +368,10 @@ async function update(id: string) {
   console.log(`\n✓ ${id} updated successfully`);
 }
 
-async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean; keepDb?: boolean }) {
+async function remove(
+  id: string,
+  flags: { yes?: boolean; dropTables?: boolean; keepDb?: boolean }
+) {
   const entry = getRegistryEntry(id);
   if (!entry) {
     console.error(`Unknown module: ${id}`);
@@ -354,19 +389,27 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean; 
     (e) => e.requires?.includes(id) && installed.includes(e.id)
   );
   if (dependents.length > 0) {
-    console.error(`Cannot remove ${id} — required by: ${dependents.map((d) => d.id).join(', ')}`);
-    console.error(`Remove them first: bun run indigo remove ${dependents.map((d) => d.id).join(' && bun run indigo remove ')}`);
+    console.error(
+      `Cannot remove ${id} — required by: ${dependents.map((d) => d.id).join(', ')}`
+    );
+    console.error(
+      `Remove them first: bun run indigo remove ${dependents.map((d) => d.id).join(' && bun run indigo remove ')}`
+    );
     process.exit(1);
   }
 
   if (entry.required) {
-    console.error(`Cannot remove ${id} — it is a required primitive (core still depends on it; see src/core/CLAUDE.md).`);
+    console.error(
+      `Cannot remove ${id} — it is a required primitive (core still depends on it; see src/core/AGENTS.md).`
+    );
     process.exit(1);
   }
 
   // Confirmation prompt
   if (!flags.yes) {
-    const confirmed = await confirm(`Remove module ${id}? This will delete src/${id}/ and all scaffolded files.`);
+    const confirmed = await confirm(
+      `Remove module ${id}? This will delete src/${id}/ and all scaffolded files.`
+    );
     if (!confirmed) {
       console.log('  Cancelled.');
       process.exit(0);
@@ -388,7 +431,9 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean; 
         for (const match of matches) {
           tableNames.push(match[1]);
         }
-        const altMatches = content.matchAll(/(?:mysqlTable|sqliteTable)\(\s*['"]([^'"]+)['"]/g);
+        const altMatches = content.matchAll(
+          /(?:mysqlTable|sqliteTable)\(\s*['"]([^'"]+)['"]/g
+        );
         for (const match of altMatches) {
           tableNames.push(match[1]);
         }
@@ -426,7 +471,10 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean; 
   // Step 5: Generate DROP migration if requested (table names already extracted above)
   if (flags.dropTables && tableNames.length > 0) {
     console.log('  Generating DROP migration...');
-    const timestamp = new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14);
+    const timestamp = new Date()
+      .toISOString()
+      .replace(/[-:T]/g, '')
+      .slice(0, 14);
     const migrationName = `${timestamp}_drop_${id.replace(/-/g, '_')}`;
     const migrationsDir = resolve(root, 'drizzle');
 
@@ -434,7 +482,10 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean; 
       .map((t) => `DROP TABLE IF EXISTS "${t}" CASCADE;`)
       .join('\n');
     const migrationPath = resolve(migrationsDir, `${migrationName}.sql`);
-    writeFileSync(migrationPath, `-- Auto-generated by indigo remove --drop-tables\n${dropStatements}\n`);
+    writeFileSync(
+      migrationPath,
+      `-- Auto-generated by indigo remove --drop-tables\n${dropStatements}\n`
+    );
     console.log(`  Created migration: drizzle/${migrationName}.sql`);
     console.log(`  Review the migration, then run: bun run db:migrate`);
   } else if (flags.dropTables) {
@@ -442,7 +493,7 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean; 
   }
 
   // Step 6: Regenerate schema
-  // Skipped with --keep-db: db:generate needs an interactive TTY (CLAUDE.dev.md)
+  // Skipped with --keep-db: db:generate needs an interactive TTY (AGENTS.dev.md)
   // and downstream/degit installs never run it — they only `db:migrate`.
   if (flags.keepDb) {
     console.log('  Skipping db:generate (--keep-db)');
@@ -452,7 +503,9 @@ async function remove(id: string, flags: { yes?: boolean; dropTables?: boolean; 
 
   console.log(`\n✓ ${id} removed successfully`);
   if (!flags.dropTables) {
-    console.log('  Note: Database tables from this module still exist. Use --drop-tables to generate a DROP migration.');
+    console.log(
+      '  Note: Database tables from this module still exist. Use --drop-tables to generate a DROP migration.'
+    );
   }
 }
 
@@ -468,7 +521,7 @@ async function push(id: string) {
     console.log(`\nPushing core to ${CORE_REPO}...`);
     run(
       `git subtree push --prefix=src/core ${CORE_REPO} main`,
-      'Pushing src/core/ ...',
+      'Pushing src/core/ ...'
     );
     console.log('✓ core pushed successfully');
     return;
@@ -489,7 +542,7 @@ async function push(id: string) {
   console.log(`\nPushing ${id} to ${entry.repo}...`);
   run(
     `git subtree push --prefix=src/${id} ${entry.repo} main`,
-    `Pushing src/${id}/ ...`,
+    `Pushing src/${id}/ ...`
   );
   console.log(`✓ ${id} pushed successfully`);
 }
@@ -504,7 +557,7 @@ async function pushAll() {
     console.log('── core ──');
     run(
       `git subtree push --prefix=src/core ${CORE_REPO} main`,
-      'Pushing src/core/ ...',
+      'Pushing src/core/ ...'
     );
     console.log('');
   }
@@ -516,7 +569,10 @@ async function pushAll() {
 
     console.log(`── ${id} ──`);
     try {
-      execSync(`git subtree push --prefix=src/${id} ${entry.repo} main`, { cwd: root, stdio: 'inherit' });
+      execSync(`git subtree push --prefix=src/${id} ${entry.repo} main`, {
+        cwd: root,
+        stdio: 'inherit',
+      });
     } catch {
       console.error(`  ✗ Failed to push ${id} — continuing with others`);
     }
@@ -538,7 +594,10 @@ async function updateAll() {
 
       console.log(`── ${id} ──`);
       try {
-        execSync(`git subtree pull --prefix=src/${id} ${entry.repo} main --squash`, { cwd: root, stdio: 'inherit' });
+        execSync(
+          `git subtree pull --prefix=src/${id} ${entry.repo} main --squash`,
+          { cwd: root, stdio: 'inherit' }
+        );
       } catch {
         console.error(`  ✗ Failed to update ${id} — continuing with others`);
       }
@@ -565,7 +624,9 @@ function list() {
     const isInstalled = installed.includes(entry.id);
     const status = isInstalled ? '●' : '○';
     const tag = entry.free ? '(free)' : '(paid)';
-    const deps = entry.requires ? ` [requires: ${entry.requires.join(', ')}]` : '';
+    const deps = entry.requires
+      ? ` [requires: ${entry.requires.join(', ')}]`
+      : '';
     console.log(`  ${status} ${entry.id} ${tag}${deps}`);
     console.log(`    ${entry.description}`);
   };
@@ -587,9 +648,17 @@ async function doctor() {
   let issues = 0;
   let warnings = 0;
 
-  function pass(label: string) { console.log(`  ✓ ${label}`); }
-  function warn(label: string, detail: string) { console.log(`  ⚠ ${label}: ${detail}`); warnings++; }
-  function fail(label: string, detail: string) { console.log(`  ✗ ${label}: ${detail}`); issues++; }
+  function pass(label: string) {
+    console.log(`  ✓ ${label}`);
+  }
+  function warn(label: string, detail: string) {
+    console.log(`  ⚠ ${label}: ${detail}`);
+    warnings++;
+  }
+  function fail(label: string, detail: string) {
+    console.log(`  ✗ ${label}: ${detail}`);
+    issues++;
+  }
 
   // ── Environment ──
   console.log('Environment:');
@@ -600,18 +669,27 @@ async function doctor() {
     pass('.env file exists');
     const envContent = readFileSync(envPath, 'utf-8');
 
-    if (!envContent.includes('DATABASE_URL=')) fail('DATABASE_URL', 'not set in .env');
+    if (!envContent.includes('DATABASE_URL='))
+      fail('DATABASE_URL', 'not set in .env');
     else pass('DATABASE_URL is set');
 
-    if (!envContent.includes('BETTER_AUTH_SECRET=')) fail('BETTER_AUTH_SECRET', 'not set in .env');
+    if (!envContent.includes('BETTER_AUTH_SECRET='))
+      fail('BETTER_AUTH_SECRET', 'not set in .env');
     else {
       const match = envContent.match(/BETTER_AUTH_SECRET=(.+)/);
-      if (match && match[1]!.trim().length < 32) fail('BETTER_AUTH_SECRET', 'must be at least 32 characters');
+      if (match && match[1]!.trim().length < 32)
+        fail('BETTER_AUTH_SECRET', 'must be at least 32 characters');
       else pass('BETTER_AUTH_SECRET is set');
     }
 
-    if (!envContent.includes('REDIS_URL=') || envContent.match(/REDIS_URL=\s*$/m)) {
-      warn('REDIS_URL', 'not set — BullMQ queues and rate limiting will use fallback mode');
+    if (
+      !envContent.includes('REDIS_URL=') ||
+      envContent.match(/REDIS_URL=\s*$/m)
+    ) {
+      warn(
+        'REDIS_URL',
+        'not set — BullMQ queues and rate limiting will use fallback mode'
+      );
     } else {
       pass('REDIS_URL is set');
     }
@@ -622,7 +700,10 @@ async function doctor() {
   try {
     const result = runSilent('bunx drizzle-kit check 2>&1');
     if (result.includes('error') || result.includes('Error')) {
-      warn('Drizzle schema check', 'run `bun run db:generate` if you have pending schema changes');
+      warn(
+        'Drizzle schema check',
+        'run `bun run db:generate` if you have pending schema changes'
+      );
     } else {
       pass('Drizzle schema is up to date');
     }
@@ -632,37 +713,60 @@ async function doctor() {
 
   const migrationsDir = resolve(root, 'drizzle');
   if (existsSync(migrationsDir)) {
-    const migrationFiles = readdirSync(migrationsDir).filter(f => f.endsWith('.sql'));
+    const migrationFiles = readdirSync(migrationsDir).filter((f) =>
+      f.endsWith('.sql')
+    );
     pass(`${migrationFiles.length} migration(s) found`);
   } else {
-    warn('Migrations', 'drizzle/ directory not found — run `bun run db:generate`');
+    warn(
+      'Migrations',
+      'drizzle/ directory not found — run `bun run db:generate`'
+    );
   }
 
   // ── Modules ──
   console.log('\nModules:');
   const installed = getInstalledModules();
-  pass(`${installed.length} module(s) installed: ${installed.join(', ') || 'none'}`);
+  pass(
+    `${installed.length} module(s) installed: ${installed.join(', ') || 'none'}`
+  );
 
   for (const mod of installed) {
     const modDir = resolve(root, 'src', mod);
     if (!existsSync(modDir)) {
-      fail(mod, `directory src/${mod}/ missing — run \`bun run indigo add ${mod}\` or remove from config`);
+      fail(
+        mod,
+        `directory src/${mod}/ missing — run \`bun run indigo add ${mod}\` or remove from config`
+      );
     }
   }
 
   // Check generated files are up to date
   const generatedDir = resolve(root, 'src/generated');
   if (!existsSync(generatedDir)) {
-    fail('Generated files', 'src/generated/ missing — run `bun run indigo:sync`');
+    fail(
+      'Generated files',
+      'src/generated/ missing — run `bun run indigo:sync`'
+    );
   } else {
     const expectedFiles = [
-      'module-routers.ts', 'module-schema.ts', 'module-server.ts',
-      'module-widgets.ts', 'module-page-widgets.ts', 'module-dashboard-widgets.ts',
-      'module-seeds.ts', 'module-nav.ts',
+      'module-routers.ts',
+      'module-schema.ts',
+      'module-server.ts',
+      'module-widgets.ts',
+      'module-page-widgets.ts',
+      'module-dashboard-widgets.ts',
+      'module-seeds.ts',
+      'module-nav.ts',
     ];
-    const missingGenerated = expectedFiles.filter(f => !existsSync(resolve(generatedDir, f)));
+    const missingGenerated = expectedFiles.filter(
+      (f) => !existsSync(resolve(generatedDir, f))
+    );
     if (missingGenerated.length > 0) {
-      fail('Generated files', `missing: ${missingGenerated.join(', ')} — run \`bun run indigo:sync\``);
+      fail(
+        'Generated files',
+        `missing: ${missingGenerated.join(', ')} — run \`bun run indigo:sync\``
+      );
     } else {
       pass('All generated files present');
     }
@@ -675,11 +779,17 @@ async function doctor() {
       const content = readFileSync(modConfig, 'utf-8');
       const serverInitMatch = content.match(/serverInit:\s*\[([\s\S]*?)\]/);
       if (serverInitMatch) {
-        const paths = serverInitMatch[1]!.match(/'([^']+)'/g)?.map(p => p.replace(/'/g, '')) ?? [];
+        const paths =
+          serverInitMatch[1]!
+            .match(/'([^']+)'/g)
+            ?.map((p) => p.replace(/'/g, '')) ?? [];
         for (const depPath of paths) {
           const resolved = depPath.replace('@/', 'src/') + '.ts';
           if (!existsSync(resolve(root, resolved))) {
-            fail(mod, `missing deps file: ${resolved} — scaffolded during \`bun run indigo add ${mod}\``);
+            fail(
+              mod,
+              `missing deps file: ${resolved} — scaffolded during \`bun run indigo add ${mod}\``
+            );
           }
         }
       }
@@ -730,22 +840,34 @@ const flags = {
   check: args.includes('--check'),
   reset: args.includes('--reset'),
 };
-const positionalArgs = args.filter((a) => !a.startsWith('--') && !a.startsWith('-'));
+const positionalArgs = args.filter(
+  (a) => !a.startsWith('--') && !a.startsWith('-')
+);
 
 switch (command) {
   case 'add':
-    if (!positionalArgs[0]) { console.error('Usage: bun run indigo add <module>'); process.exit(1); }
+    if (!positionalArgs[0]) {
+      console.error('Usage: bun run indigo add <module>');
+      process.exit(1);
+    }
     await add(positionalArgs[0]);
     break;
   case 'remove':
-    if (!positionalArgs[0]) { console.error('Usage: bun run indigo remove <module> [--yes] [--drop-tables]'); process.exit(1); }
+    if (!positionalArgs[0]) {
+      console.error(
+        'Usage: bun run indigo remove <module> [--yes] [--drop-tables]'
+      );
+      process.exit(1);
+    }
     await remove(positionalArgs[0], flags);
     break;
   case 'update':
     if (flags.all) {
       await updateAll();
     } else if (!positionalArgs[0]) {
-      console.error('Usage: bun run indigo update <module>  or  bun run indigo update --all');
+      console.error(
+        'Usage: bun run indigo update <module>  or  bun run indigo update --all'
+      );
       process.exit(1);
     } else {
       await update(positionalArgs[0]);
@@ -756,7 +878,9 @@ switch (command) {
     if (flags.all) {
       await pushAll();
     } else if (!positionalArgs[0]) {
-      console.error('Usage: bun run indigo push <module>  or  bun run indigo push --all');
+      console.error(
+        'Usage: bun run indigo push <module>  or  bun run indigo push --all'
+      );
       process.exit(1);
     } else {
       await push(positionalArgs[0]);
@@ -790,26 +914,66 @@ switch (command) {
   default:
     console.log('Indigo Module Manager\n');
     console.log('Usage:');
-    console.log('  bun run indigo add <module>                Install a module');
-    console.log('  bun run indigo remove <module> [--yes]      Remove a module');
-    console.log('  bun run indigo remove <module> --drop-tables Remove + generate DROP migration');
-    console.log('  bun run indigo remove <module> --keep-db     Remove a module, skip db:generate');
-    console.log('  bun run indigo update <module>              Update a module (pull latest)');
-    console.log('  bun run indigo update --all                 Update all installed modules');
-    console.log('  bun run indigo push <module>                Push module upstream (framework repo only)');
-    console.log('  bun run indigo push --all                   Push all modules upstream (framework repo only)');
+    console.log(
+      '  bun run indigo add <module>                Install a module'
+    );
+    console.log(
+      '  bun run indigo remove <module> [--yes]      Remove a module'
+    );
+    console.log(
+      '  bun run indigo remove <module> --drop-tables Remove + generate DROP migration'
+    );
+    console.log(
+      '  bun run indigo remove <module> --keep-db     Remove a module, skip db:generate'
+    );
+    console.log(
+      '  bun run indigo update <module>              Update a module (pull latest)'
+    );
+    console.log(
+      '  bun run indigo update --all                 Update all installed modules'
+    );
+    console.log(
+      '  bun run indigo push <module>                Push module upstream (framework repo only)'
+    );
+    console.log(
+      '  bun run indigo push --all                   Push all modules upstream (framework repo only)'
+    );
     console.log('  bun run indigo list                         Show modules');
-    console.log('  bun run indigo sync                         Regenerate glue files');
-    console.log('  bun run indigo doctor                       Validate project health');
-    console.log('  bun run indigo visualize                    Generate architecture diagram in browser');
-    console.log('  bun run indigo visualize --mermaid          Export raw .mmd Mermaid files');
-    console.log('  bun run indigo visualize --imports          Import analysis + boundary violations');
-    console.log('  bun run indigo visualize --imports <module> Import analysis for a specific module');
-    console.log('  bun run indigo map                          Code map (defaults to src/core)');
-    console.log('  bun run indigo map <module|path>            Code map for a specific module');
-    console.log('  bun run indigo brand:generate               Generate all brand assets from src/config/brand.ts');
-    console.log('  bun run indigo brand:generate --check       Validate brand config without writing files');
-    console.log('  bun run indigo personas                     Seed test personas + per-persona MCP keys (dev)');
-    console.log('  bun run indigo personas --reset             Wipe persona users/orgs and re-seed fresh');
+    console.log(
+      '  bun run indigo sync                         Regenerate glue files'
+    );
+    console.log(
+      '  bun run indigo doctor                       Validate project health'
+    );
+    console.log(
+      '  bun run indigo visualize                    Generate architecture diagram in browser'
+    );
+    console.log(
+      '  bun run indigo visualize --mermaid          Export raw .mmd Mermaid files'
+    );
+    console.log(
+      '  bun run indigo visualize --imports          Import analysis + boundary violations'
+    );
+    console.log(
+      '  bun run indigo visualize --imports <module> Import analysis for a specific module'
+    );
+    console.log(
+      '  bun run indigo map                          Code map (defaults to src/core)'
+    );
+    console.log(
+      '  bun run indigo map <module|path>            Code map for a specific module'
+    );
+    console.log(
+      '  bun run indigo brand:generate               Generate all brand assets from src/config/brand.ts'
+    );
+    console.log(
+      '  bun run indigo brand:generate --check       Validate brand config without writing files'
+    );
+    console.log(
+      '  bun run indigo personas                     Seed test personas + per-persona MCP keys (dev)'
+    );
+    console.log(
+      '  bun run indigo personas --reset             Wipe persona users/orgs and re-seed fresh'
+    );
     break;
 }

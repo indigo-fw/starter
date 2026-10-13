@@ -1,17 +1,21 @@
-import type { Metadata } from 'next';
-import { headers } from 'next/headers';
-import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import type { Metadata, Viewport } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getLocale } from 'next-intl/server';
+import { getLocale, getMessages } from 'next-intl/server';
+import { Geist, Geist_Mono } from 'next/font/google';
+import { headers } from 'next/headers';
 
-import { TRPCProvider } from '@/lib/trpc/provider';
+import { WebVitals } from '@/components/WebVitals';
+import { siteDefaults } from '@/config/site';
+import { siteConfig } from '@/config/site';
 import { ImperativeDialogProvider } from '@/core/components/overlays/ImperativeDialogProvider';
 import { StructuredData } from '@/core/components/seo/StructuredData';
-import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/core/lib/seo/json-ld';
-import { siteDefaults } from '@/config/site';
-import { WebVitals } from '@/components/WebVitals';
-
-import './globals.css';
+import {
+  buildOrganizationJsonLd,
+  buildWebSiteJsonLd,
+} from '@/core/lib/seo/json-ld';
+import { DEFAULT_LOCALE } from '@/lib/constants';
+import { TRPCProvider } from '@/lib/trpc/provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -22,9 +26,6 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
-
-import { siteConfig } from '@/config/site';
-import { DEFAULT_LOCALE } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: siteConfig.seo.title,
@@ -46,6 +47,14 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  // Draw under the iOS notch/home bar; the `--safe-area-*` tokens in
+  // core/styles/tokens.css then carry the real insets (0 elsewhere).
+  viewportFit: 'cover',
+};
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -62,17 +71,21 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <StructuredData data={buildOrganizationJsonLd({
-          name: siteConfig.name,
-          url: siteConfig.url,
-          description: siteConfig.seo.description,
-          contactEmail: siteDefaults.contactEmail || undefined,
-        })} />
-        <StructuredData data={buildWebSiteJsonLd({
-          name: siteConfig.name,
-          url: siteConfig.url,
-          description: siteConfig.seo.description,
-        })} />
+        <StructuredData
+          data={buildOrganizationJsonLd({
+            name: siteConfig.name,
+            url: siteConfig.url,
+            description: siteConfig.seo.description,
+            contactEmail: siteDefaults.contactEmail || undefined,
+          })}
+        />
+        <StructuredData
+          data={buildWebSiteJsonLd({
+            name: siteConfig.name,
+            url: siteConfig.url,
+            description: siteConfig.seo.description,
+          })}
+        />
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{

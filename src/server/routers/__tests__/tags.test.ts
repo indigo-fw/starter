@@ -1,4 +1,23 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { tagsRouter } from '../tags';
+import { createMockCtx } from './test-helpers';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import {
+  buildStatusCounts,
+  ensureSlugUnique,
+  fetchOrNotFound,
+  permanentDelete,
+  softDelete,
+  softRestore,
+} from '@/core/crud/admin-crud';
+import { deleteTermRelationshipsByTerm } from '@/core/crud/taxonomy-helpers';
+import { slugify } from '@/core/lib/content/slug';
+import { logAudit } from '@/core/lib/infra/audit';
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import { asMock } from '@/test-utils';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -53,27 +72,42 @@ vi.mock('@/core/crud/admin-crud', () => ({
   ensureSlugUnique: vi.fn().mockResolvedValue(undefined),
   softDelete: vi.fn().mockResolvedValue(undefined),
   softRestore: vi.fn().mockResolvedValue(undefined),
+  createSlugRestoreCheck: vi
+    .fn()
+    .mockReturnValue(vi.fn().mockResolvedValue(undefined)),
   permanentDelete: vi.fn().mockResolvedValue(undefined),
   fetchOrNotFound: vi.fn(),
   updateContentStatus: vi.fn().mockResolvedValue(undefined),
   generateCopySlug: vi.fn().mockResolvedValue('slug-copy'),
   getTranslationSiblings: vi.fn().mockResolvedValue([]),
-  serializeExport: vi.fn().mockReturnValue({ data: '[]', contentType: 'application/json' }),
-  prepareTranslationCopy: vi.fn().mockResolvedValue({ slug: 'slug-en', translationGroup: 'group-1', previewToken: 'tok' }),
-  parsePagination: vi.fn().mockImplementation((input: { page?: number; pageSize?: number }) => {
-    const page = input.page ?? 1;
-    const pageSize = input.pageSize ?? 100;
-    return { page, pageSize, offset: (page - 1) * pageSize };
-  }),
-  paginatedResult: vi.fn().mockImplementation(
-    (items: unknown[], total: number, page: number, pageSize: number) => ({
-      results: items,
-      total,
-      page,
-      pageSize,
-      totalPages: Math.ceil(total / pageSize),
-    })
-  ),
+  serializeExport: vi
+    .fn()
+    .mockReturnValue({ data: '[]', contentType: 'application/json' }),
+  prepareTranslationCopy: vi
+    .fn()
+    .mockResolvedValue({
+      slug: 'slug-en',
+      translationGroup: 'group-1',
+      previewToken: 'tok',
+    }),
+  parsePagination: vi
+    .fn()
+    .mockImplementation((input: { page?: number; pageSize?: number }) => {
+      const page = input.page ?? 1;
+      const pageSize = input.pageSize ?? 100;
+      return { page, pageSize, offset: (page - 1) * pageSize };
+    }),
+  paginatedResult: vi
+    .fn()
+    .mockImplementation(
+      (items: unknown[], total: number, page: number, pageSize: number) => ({
+        results: items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      })
+    ),
 }));
 
 vi.mock('@/core/crud/taxonomy-helpers', () => ({
@@ -81,9 +115,11 @@ vi.mock('@/core/crud/taxonomy-helpers', () => ({
   getTermRelationships: vi.fn().mockResolvedValue([]),
   deleteAllTermRelationships: vi.fn().mockResolvedValue(undefined),
   deleteTermRelationshipsByTerm: vi.fn().mockResolvedValue(undefined),
-  resolveTagsForPosts: vi.fn().mockImplementation((_db: unknown, items: Record<string, unknown>[]) =>
-    items.map((item) => ({ ...item, tags: [] }))
-  ),
+  resolveTagsForPosts: vi
+    .fn()
+    .mockImplementation((_db: unknown, items: Record<string, unknown>[]) =>
+      items.map((item) => ({ ...item, tags: [] }))
+    ),
 }));
 
 vi.mock('@/core/lib/infra/audit', () => ({
@@ -92,7 +128,10 @@ vi.mock('@/core/lib/infra/audit', () => ({
 
 vi.mock('@/core/lib/content/slug', () => ({
   slugify: vi.fn().mockImplementation((name: string) =>
-    name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    name
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
   ),
 }));
 
@@ -125,25 +164,6 @@ vi.mock('@/lib/env', () => ({
   },
 }));
 
-// ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { asMock } from '@/test-utils';
-import { tagsRouter } from '../tags';
-import {
-  buildStatusCounts,
-  ensureSlugUnique,
-  softDelete,
-  softRestore,
-  permanentDelete,
-  fetchOrNotFound,
-} from '@/core/crud/admin-crud';
-import { deleteTermRelationshipsByTerm } from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/infra/audit';
-import { slugify } from '@/core/lib/content/slug';
-import { createMockCtx } from './test-helpers';
-
 const MOCK_TAG = {
   id: 'a0a0a0a0-b1b1-4c2c-8d3d-e4e4e4e4e4e4',
   taxonomyId: 'tag',
@@ -171,7 +191,13 @@ describe('tagsRouter', () => {
   // =========================================================================
   describe('counts', () => {
     it('returns status counts', async () => {
-      const mockCounts = { all: 10, published: 7, draft: 2, scheduled: 0, trash: 1 };
+      const mockCounts = {
+        all: 10,
+        published: 7,
+        draft: 2,
+        scheduled: 0,
+        trash: 1,
+      };
       asMock(buildStatusCounts).mockResolvedValue(mockCounts);
 
       const ctx = createMockCtx();
@@ -218,7 +244,11 @@ describe('tagsRouter', () => {
       expect(result.name).toBe('Next.js');
       expect(result.slug).toBe('nextjs');
       expect(fetchOrNotFound).toHaveBeenCalledWith(
-        ctx.db, expect.anything(), MOCK_TAG.id, 'Tag', expect.anything()
+        ctx.db,
+        expect.anything(),
+        MOCK_TAG.id,
+        'Tag',
+        expect.anything()
       );
     });
 
@@ -272,7 +302,9 @@ describe('tagsRouter', () => {
     it('uses the provided slug instead of slugifying the name', async () => {
       const customSlug = 'my-custom-slug';
       const ctx = createMockCtx();
-      ctx.db._chains.insert.returning.mockResolvedValue([{ ...MOCK_TAG, slug: customSlug }]);
+      ctx.db._chains.insert.returning.mockResolvedValue([
+        { ...MOCK_TAG, slug: customSlug },
+      ]);
 
       const caller = tagsRouter.createCaller(ctx as never);
       await caller.create({ name: 'Next.js', slug: customSlug, lang: 'en' });
@@ -343,7 +375,10 @@ describe('tagsRouter', () => {
 
       const ctx = createMockCtx();
       const caller = tagsRouter.createCaller(ctx as never);
-      const result = await caller.update({ id: MOCK_TAG.id, name: 'Updated Tag' });
+      const result = await caller.update({
+        id: MOCK_TAG.id,
+        name: 'Updated Tag',
+      });
 
       expect(result).toEqual({ success: true });
       expect(ctx.db.update).toHaveBeenCalled();
@@ -415,7 +450,9 @@ describe('tagsRouter', () => {
       const ctx = createMockCtx();
       const caller = tagsRouter.createCaller(ctx as never);
 
-      await expect(caller.update({ id: 'not-a-uuid', name: 'X' })).rejects.toThrow();
+      await expect(
+        caller.update({ id: 'not-a-uuid', name: 'X' })
+      ).rejects.toThrow();
     });
   });
 
@@ -476,7 +513,8 @@ describe('tagsRouter', () => {
       expect(softRestore).toHaveBeenCalledWith(
         ctx.db,
         expect.objectContaining({ table: expect.anything() }),
-        MOCK_TAG.id
+        MOCK_TAG.id,
+        expect.any(Function)
       );
     });
 
@@ -527,7 +565,13 @@ describe('tagsRouter', () => {
 
     it('cleans up term relationships via the cleanup callback', async () => {
       asMock(permanentDelete).mockImplementationOnce(
-        async (_db: unknown, _cols: unknown, _id: string, _type: unknown, cleanupFn: ((tx: unknown, id: string) => Promise<void>) | undefined) => {
+        async (
+          _db: unknown,
+          _cols: unknown,
+          _id: string,
+          _type: unknown,
+          cleanupFn: ((tx: unknown, id: string) => Promise<void>) | undefined
+        ) => {
           // Simulate the cleanup callback being invoked with a mock tx
           await cleanupFn!({} as never, _id);
         }
@@ -566,7 +610,9 @@ describe('tagsRouter', () => {
       const ctx = createMockCtx();
       const caller = tagsRouter.createCaller(ctx as never);
 
-      await expect(caller.permanentDelete({ id: 'not-a-uuid' })).rejects.toThrow();
+      await expect(
+        caller.permanentDelete({ id: 'not-a-uuid' })
+      ).rejects.toThrow();
     });
   });
 
@@ -587,7 +633,11 @@ describe('tagsRouter', () => {
     });
 
     it('restores a soft-deleted tag and returns it with deletedAt cleared', async () => {
-      const trashedTag = { ...MOCK_TAG, deletedAt: new Date('2025-06-01'), status: 0 };
+      const trashedTag = {
+        ...MOCK_TAG,
+        deletedAt: new Date('2025-06-01'),
+        status: 0,
+      };
       const ctx = createMockCtx();
       ctx.db._chains.select.limit.mockResolvedValue([trashedTag]);
 
@@ -628,7 +678,9 @@ describe('tagsRouter', () => {
       });
 
       // Insert fails with a unique constraint violation
-      const pgError = Object.assign(new Error('duplicate key'), { code: '23505' });
+      const pgError = Object.assign(new Error('duplicate key'), {
+        code: '23505',
+      });
       ctx.db._chains.insert.returning.mockRejectedValue(pgError);
 
       const caller = tagsRouter.createCaller(ctx as never);
@@ -648,9 +700,9 @@ describe('tagsRouter', () => {
 
       const caller = tagsRouter.createCaller(ctx as never);
 
-      await expect(caller.getOrCreate({ name: 'Next.js', lang: 'en' })).rejects.toThrow(
-        'connection lost'
-      );
+      await expect(
+        caller.getOrCreate({ name: 'Next.js', lang: 'en' })
+      ).rejects.toThrow('connection lost');
     });
   });
 
@@ -838,7 +890,10 @@ describe('tagsRouter', () => {
       const caller = tagsRouter.createCaller(ctx as never);
 
       await expect(
-        caller.updateStatus({ id: 'f0f0f0f0-a1a1-4b2b-9c3c-d4d4d4d4d4d4', status: 1 })
+        caller.updateStatus({
+          id: 'f0f0f0f0-a1a1-4b2b-9c3c-d4d4d4d4d4d4',
+          status: 1,
+        })
       ).rejects.toThrow('Tag not found');
     });
 

@@ -1,4 +1,9 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { POST } from '../route';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { getProvider } from '@/core-payments/lib/factory';
+import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
+import { asMock } from '@/test-utils';
 
 // Mock payment factory
 const mockHandleWebhook = vi.fn();
@@ -45,32 +50,55 @@ vi.mock('@/core/lib/infra/logger', () => ({
 // Mock dynamically-imported handlers
 const mockHandleSubscriptionWebhookEvent = vi.fn().mockResolvedValue(undefined);
 vi.mock('@/core-subscriptions/lib/webhook-handler', () => ({
-  handleSubscriptionWebhookEvent: (...args: unknown[]) => mockHandleSubscriptionWebhookEvent(...args),
+  handleSubscriptionWebhookEvent: (...args: unknown[]) =>
+    mockHandleSubscriptionWebhookEvent(...args),
 }));
 
-const mockHandleStorePaymentEvent = vi.fn().mockResolvedValue({ processed: true });
+const mockHandleStorePaymentEvent = vi
+  .fn()
+  .mockResolvedValue({ processed: true });
 vi.mock('@/core-store/lib/webhook-handler', () => ({
-  handleStorePaymentEvent: (...args: unknown[]) => mockHandleStorePaymentEvent(...args),
+  handleStorePaymentEvent: (...args: unknown[]) =>
+    mockHandleStorePaymentEvent(...args),
 }));
-
-import { POST } from '../route';
-import { getProvider } from '@/core-payments/lib/factory';
-import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
-import { asMock } from '@/test-utils';
 
 // In production this registration happens in src/config/deps/store-deps.ts at
 // server init. Tests register the same bridge (same payload mapping) because
 // importing the real deps file would drag in the whole store dependency graph.
-registerPaymentWebhookHandler('store_order', async ({ event, providerId, eventId, metadata }) => {
-  const { handleStorePaymentEvent } = await import('@/core-store/lib/webhook-handler');
-  return handleStorePaymentEvent({
-    orderId: metadata.orderId,
-    eventType: event.type,
-    eventId,
-    providerId,
-    transactionId: (event.providerData as Record<string, unknown> | undefined)?.transactionId as string | undefined,
-  });
-});
+registerPaymentWebhookHandler(
+  'store_order',
+  async ({ event, providerId, eventId, metadata }) => {
+    const { handleStorePaymentEvent } =
+      await import('@/core-store/lib/webhook-handler');
+    return handleStorePaymentEvent({
+      orderId: metadata.orderId,
+      eventType: event.type,
+      eventId,
+      providerId,
+      transactionId: (event.providerData as Record<string, unknown> | undefined)
+        ?.transactionId as string | undefined,
+    });
+  }
+);
+
+/**
+ * What a unique violation looks like after drizzle-orm wraps it: the message
+ * is `Failed query: …` and the pg SQLSTATE lives on `cause`, so a message
+ * string-match never fires.
+ */
+function duplicateKeyError(): Error {
+  const pg = Object.assign(
+    new Error('duplicate key value violates unique constraint'),
+    {
+      code: '23505',
+      constraint_name: 'saas_subscription_events_provider_event_id_unique',
+    }
+  );
+  return Object.assign(
+    new Error('Failed query: insert into "saas_subscription_events" …'),
+    { cause: pg }
+  );
+}
 
 function makeRequest(body: string, signature = 'sig_valid') {
   return new Request('http://localhost/api/webhooks/stripe', {
@@ -109,12 +137,27 @@ describe('Stripe webhook route', () => {
       providerData: { _eventId: 'evt_dup' },
     });
     mockInsert.mockImplementationOnce(() => ({
-      values: () => Promise.reject(new Error('unique constraint violation')),
+      values: () => Promise.reject(duplicateKeyError()),
     }));
 
     const res = await POST(makeRequest('{}'));
+    expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.duplicate).toBe(true);
+    expect(mockHandleSubscriptionWebhookEvent).not.toHaveBeenCalled();
+  });
+
+  it('rethrows insert failures that are not a unique violation (even if the text mentions "unique")', async () => {
+    mockHandleWebhook.mockResolvedValue({
+      type: 'subscription.activated',
+      providerData: { _eventId: 'evt_other_err' },
+    });
+    mockInsert.mockImplementationOnce(() => ({
+      values: () => Promise.reject(new Error('unique index is being rebuilt')),
+    }));
+
+    await expect(POST(makeRequest('{}'))).rejects.toThrow('unique index');
+    expect(mockHandleSubscriptionWebhookEvent).not.toHaveBeenCalled();
   });
 
   // ── Subscription event delegation ──────────────────────────────────

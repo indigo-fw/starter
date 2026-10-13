@@ -1,60 +1,68 @@
-import { z } from 'zod';
-import { eq, and, isNull, asc, sql, count as drizzleCount } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
-import { createTRPCRouter, publicProcedure } from '@/server/trpc';
-import { db } from '@/server/db';
+import { and, asc, count as drizzleCount, eq, isNull, sql } from 'drizzle-orm';
+import { z } from 'zod';
+
 import { chatCharacters } from '@/core-chat/schema/characters';
 import { chatMedia } from '@/core-chat/schema/media';
 import { parsePagination } from '@/core/crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { db } from '@/server/db';
+import { createTRPCRouter, publicProcedure } from '@/server/trpc';
 
 const activeCharacterCondition = and(
   eq(chatCharacters.isActive, true),
-  isNull(chatCharacters.deletedAt),
+  isNull(chatCharacters.deletedAt)
 );
 
 export const chatPublicRouter = createTRPCRouter({
   /** List active characters with filters, pagination, and media URLs */
   characters: publicProcedure
-    .input(z.object({
-      genderId: z.number().int().optional(),
-      ethnicityId: z.number().int().optional(),
-      personalityId: z.number().int().optional(),
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(50).default(12),
-    }))
+    .input(
+      z.object({
+        genderId: z.number().int().optional(),
+        ethnicityId: z.number().int().optional(),
+        personalityId: z.number().int().optional(),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(50).default(12),
+      })
+    )
     .query(async ({ input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
       const conditions = [activeCharacterCondition!];
-      if (input.genderId) conditions.push(eq(chatCharacters.genderId, input.genderId));
-      if (input.ethnicityId) conditions.push(eq(chatCharacters.ethnicityId, input.ethnicityId));
-      if (input.personalityId) conditions.push(eq(chatCharacters.personalityId, input.personalityId));
+      if (input.genderId)
+        conditions.push(eq(chatCharacters.genderId, input.genderId));
+      if (input.ethnicityId)
+        conditions.push(eq(chatCharacters.ethnicityId, input.ethnicityId));
+      if (input.personalityId)
+        conditions.push(eq(chatCharacters.personalityId, input.personalityId));
 
       const where = and(...conditions);
 
       const [items, countResult] = await Promise.all([
-        db.select({
-          id: chatCharacters.id,
-          name: chatCharacters.name,
-          slug: chatCharacters.slug,
-          tagline: chatCharacters.tagline,
-          personality: chatCharacters.personality,
-          avatarUrl: chatCharacters.avatarUrl,
-          genderId: chatCharacters.genderId,
-          ethnicityId: chatCharacters.ethnicityId,
-          personalityId: chatCharacters.personalityId,
-          featuredImageId: chatCharacters.featuredImageId,
-          featuredVideoId: chatCharacters.featuredVideoId,
-          // Resolve media URLs via subquery
-          featuredImageUrl: sql<string | null>`(
+        db
+          .select({
+            id: chatCharacters.id,
+            name: chatCharacters.name,
+            slug: chatCharacters.slug,
+            tagline: chatCharacters.tagline,
+            personality: chatCharacters.personality,
+            avatarUrl: chatCharacters.avatarUrl,
+            genderId: chatCharacters.genderId,
+            ethnicityId: chatCharacters.ethnicityId,
+            personalityId: chatCharacters.personalityId,
+            featuredImageId: chatCharacters.featuredImageId,
+            featuredVideoId: chatCharacters.featuredVideoId,
+            // Resolve media URLs via subquery
+            featuredImageUrl: sql<string | null>`(
             SELECT ${chatMedia.filepath} FROM ${chatMedia}
             WHERE ${chatMedia.id} = ${chatCharacters.featuredImageId} LIMIT 1
           )`,
-          featuredVideoUrl: sql<string | null>`(
+            featuredVideoUrl: sql<string | null>`(
             SELECT ${chatMedia.filepath} FROM ${chatMedia}
             WHERE ${chatMedia.id} = ${chatCharacters.featuredVideoId} LIMIT 1
           )`,
-        })
+          })
           .from(chatCharacters)
           .where(where)
           .orderBy(asc(chatCharacters.sortOrder))
@@ -78,20 +86,32 @@ export const chatPublicRouter = createTRPCRouter({
     const base = activeCharacterCondition;
 
     const [genders, ethnicities, personalities] = await Promise.all([
-      db.select({
-        id: chatCharacters.genderId,
-        count: drizzleCount(),
-      }).from(chatCharacters).where(base).groupBy(chatCharacters.genderId),
+      db
+        .select({
+          id: chatCharacters.genderId,
+          count: drizzleCount(),
+        })
+        .from(chatCharacters)
+        .where(base)
+        .groupBy(chatCharacters.genderId),
 
-      db.select({
-        id: chatCharacters.ethnicityId,
-        count: drizzleCount(),
-      }).from(chatCharacters).where(base).groupBy(chatCharacters.ethnicityId),
+      db
+        .select({
+          id: chatCharacters.ethnicityId,
+          count: drizzleCount(),
+        })
+        .from(chatCharacters)
+        .where(base)
+        .groupBy(chatCharacters.ethnicityId),
 
-      db.select({
-        id: chatCharacters.personalityId,
-        count: drizzleCount(),
-      }).from(chatCharacters).where(base).groupBy(chatCharacters.personalityId),
+      db
+        .select({
+          id: chatCharacters.personalityId,
+          count: drizzleCount(),
+        })
+        .from(chatCharacters)
+        .where(base)
+        .groupBy(chatCharacters.personalityId),
     ]);
 
     return {
@@ -119,15 +139,20 @@ export const chatPublicRouter = createTRPCRouter({
           metadata: chatCharacters.metadata,
         })
         .from(chatCharacters)
-        .where(and(
-          eq(chatCharacters.slug, input.slug),
-          eq(chatCharacters.isActive, true),
-          isNull(chatCharacters.deletedAt),
-        ))
+        .where(
+          and(
+            eq(chatCharacters.slug, input.slug),
+            eq(chatCharacters.isActive, true),
+            isNull(chatCharacters.deletedAt)
+          )
+        )
         .limit(1);
 
       if (!character) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Character not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Character not found',
+        });
       }
 
       return character;

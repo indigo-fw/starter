@@ -1,195 +1,217 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Store original WebSocket and mock it
-const mockSend = vi.fn();
-const mockClose = vi.fn();
-
-let _onOpenHandler: (() => void) | null = null;
-let _onMessageHandler: ((event: { data: string }) => void) | null = null;
-let _onCloseHandler: (() => void) | null = null;
-let _onErrorHandler: (() => void) | null = null;
-
-class MockWebSocket {
+/**
+ * Fake WebSocket: records every instance and lets tests drive open/close.
+ * Installed on globalThis BEFORE the client module is imported, since the
+ * client reads `WebSocket.OPEN` etc. from the global at call time.
+ */
+class FakeWebSocket {
   static OPEN = 1;
   static CONNECTING = 0;
   static CLOSING = 2;
   static CLOSED = 3;
+  static instances: FakeWebSocket[] = [];
 
-  readyState = MockWebSocket.CONNECTING;
-  send = mockSend;
-  close = mockClose;
-
-  set onopen(fn: (() => void) | null) {
-    _onOpenHandler = fn;
-  }
-  set onmessage(fn: ((event: { data: string }) => void) | null) {
-    _onMessageHandler = fn;
-  }
-  set onclose(fn: (() => void) | null) {
-    _onCloseHandler = fn;
-  }
-  set onerror(fn: (() => void) | null) {
-    _onErrorHandler = fn;
-  }
+  readyState = FakeWebSocket.CONNECTING;
+  sent: string[] = [];
+  onopen: (() => void) | null = null;
+  onmessage: ((event: { data: string }) => void) | null = null;
+  onclose: (() => void) | null = null;
+  onerror: (() => void) | null = null;
 
   constructor(public url: string) {
-    // Auto-open after creation (simulating connection)
+    FakeWebSocket.instances.push(this);
+  }
+
+  send(data: string) {
+    this.sent.push(data);
+  }
+
+  close() {
+    this.readyState = FakeWebSocket.CLOSED;
+    this.onclose?.();
+  }
+
+  /** Test driver: the server accepted the connection. */
+  open() {
+    this.readyState = FakeWebSocket.OPEN;
+    this.onopen?.();
+  }
+
+  /** Test driver: the server dropped the connection. */
+  drop() {
+    this.readyState = FakeWebSocket.CLOSED;
+    this.onclose?.();
+  }
+
+  frames(): Array<{ type: string; channel?: string }> {
+    return this.sent.map((s) => JSON.parse(s));
   }
 }
 
-// Set up WebSocket mock before imports
-(globalThis as Record<string, unknown>).WebSocket = MockWebSocket;
+(globalThis as Record<string, unknown>).WebSocket = FakeWebSocket;
 
-// Import ws-client module (uses module-level state)
-async function loadWsClient() {
+const URL = 'ws://localhost/ws';
+
+async function loadClient() {
+  // Fresh module per test so module-level connection state doesn't leak.
+  vi.resetModules();
   const mod = await import('../realtime/ws-client');
-  return mod;
+  return mod.__wsInternals;
+}
+
+function latest(): FakeWebSocket {
+  return FakeWebSocket.instances[FakeWebSocket.instances.length - 1]!;
 }
 
 describe('ws-client', () => {
   beforeEach(() => {
     vi.useFakeTimers();
-    mockSend.mockClear();
-    mockClose.mockClear();
-    _onOpenHandler = null;
-    _onMessageHandler = null;
-    _onCloseHandler = null;
-    _onErrorHandler = null;
+    FakeWebSocket.instances = [];
+    // Deterministic jitter: always the top of the range.
+    vi.spyOn(Math, 'random').mockReturnValue(1);
+    Object.defineProperty(navigator, 'onLine', {
+      configurable: true,
+      value: true,
+    });
   });
 
   afterEach(() => {
     vi.useRealTimers();
+    vi.restoreAllMocks();
   });
 
-  describe('useWebSocket', () => {
-    it('exports useWebSocket function', async () => {
-      const { useWebSocket } = await loadWsClient();
-      expect(typeof useWebSocket).toBe('function');
-    });
+  it('queues subscribe frames until the socket is OPEN', async () => {
+    const ws = await loadClient();
+    ws.connect({ url: URL });
+    ws.subscribe('notifications');
+    expect(latest().sent).toEqual([]);
 
-    it('exports useChannel function', async () => {
-      const { useChannel } = await loadWsClient();
-      expect(typeof useChannel).toBe('function');
-    });
+    latest().open();
+    expect(latest().frames()).toEqual([
+      { type: 'subscribe', channel: 'notifications' },
+    ]);
   });
 
-  describe('WebSocket connection logic (unit)', () => {
-    it('MockWebSocket constructor stores URL', () => {
-      const ws = new MockWebSocket('ws://localhost/ws');
-      expect(ws.url).toBe('ws://localhost/ws');
-    });
+  it('replays every subscribed channel after a reconnect', async () => {
+    const ws = await loadClient();
+    ws.connect({ url: URL });
+    latest().open();
+    ws.subscribe('a');
+    ws.subscribe('b');
+    ws.unsubscribe('b');
+    const first = latest();
+    expect(first.frames().map((f) => f.type)).toEqual([
+      'subscribe',
+      'subscribe',
+      'unsubscribe',
+    ]);
 
-    it('MockWebSocket starts in CONNECTING state', () => {
-      const ws = new MockWebSocket('ws://localhost/ws');
-      expect(ws.readyState).toBe(MockWebSocket.CONNECTING);
-    });
+    first.drop();
+    expect(ws.getState()).toBe('disconnected');
+    vi.advanceTimersByTime(1000);
+    expect(FakeWebSocket.instances).toHaveLength(2);
+
+    const second = latest();
+    expect(second).not.toBe(first);
+    second.open();
+    expect(second.frames()).toEqual([{ type: 'subscribe', channel: 'a' }]);
+    expect(ws.getSubscribedChannels()).toEqual(new Set(['a']));
   });
 
-  describe('message parsing', () => {
-    it('parses JSON messages with channel and payload', () => {
-      const msg = JSON.stringify({
-        channel: 'notifications',
-        payload: { id: 'n1', title: 'Test' },
-      });
-
-      // Simulate onmessage parsing logic
-      const parsed = JSON.parse(msg);
-      const channel = parsed.channel ?? parsed.type;
-      expect(channel).toBe('notifications');
-      expect(parsed.payload).toEqual({ id: 'n1', title: 'Test' });
-    });
-
-    it('falls back to type field when channel is absent', () => {
-      const msg = JSON.stringify({
-        type: 'notification',
-        payload: { id: 'n2' },
-      });
-
-      const parsed = JSON.parse(msg);
-      const channel = parsed.channel ?? parsed.type;
-      expect(channel).toBe('notification');
-    });
-
-    it('handles malformed JSON gracefully', () => {
-      const badData = 'not-json{{{';
-      let error = false;
-      try {
-        JSON.parse(badData);
-      } catch {
-        error = true;
-      }
-      expect(error).toBe(true);
-    });
+  it('never gives up by default: backoff caps at 30s and keeps retrying', async () => {
+    const ws = await loadClient();
+    ws.connect({ url: URL });
+    // 1s, 2s, 4s, 8s, 16s, then 30s forever (jitter pinned to the max).
+    const expected = [
+      1000, 2000, 4000, 8000, 16000, 30000, 30000, 30000, 30000, 30000, 30000,
+      30000,
+    ];
+    for (const delay of expected) {
+      const before = FakeWebSocket.instances.length;
+      latest().drop();
+      vi.advanceTimersByTime(delay - 1);
+      expect(FakeWebSocket.instances).toHaveLength(before);
+      vi.advanceTimersByTime(1);
+      expect(FakeWebSocket.instances).toHaveLength(before + 1);
+    }
+    // 12 drops > the old hard limit of 10 — still reconnecting.
+    expect(FakeWebSocket.instances.length).toBeGreaterThan(11);
   });
 
-  describe('subscribe/unsubscribe protocol', () => {
-    it('subscribe sends correct message format', () => {
-      const expected = JSON.stringify({ type: 'subscribe', channel: 'test-channel' });
-      // Verify the protocol shape
-      const msg = { type: 'subscribe', channel: 'test-channel' };
-      expect(JSON.stringify(msg)).toBe(expected);
-    });
-
-    it('unsubscribe sends correct message format', () => {
-      const msg = { type: 'unsubscribe', channel: 'test-channel' };
-      expect(msg.type).toBe('unsubscribe');
-      expect(msg.channel).toBe('test-channel');
-    });
+  it('resets the backoff after a successful open', async () => {
+    const ws = await loadClient();
+    ws.connect({ url: URL });
+    latest().drop();
+    vi.advanceTimersByTime(1000);
+    latest().drop();
+    vi.advanceTimersByTime(2000);
+    latest().open();
+    latest().drop();
+    // Back to the first step.
+    vi.advanceTimersByTime(1000);
+    expect(FakeWebSocket.instances).toHaveLength(4);
   });
 
-  describe('reconnection logic', () => {
-    it('calculates exponential backoff delays', () => {
-      const delays: number[] = [];
-
-      for (let retryCount = 0; retryCount < 5; retryCount++) {
-        const delay = Math.min(1000 * Math.pow(2, retryCount), 30_000);
-        delays.push(delay);
-      }
-
-      expect(delays).toEqual([1000, 2000, 4000, 8000, 16000]);
-    });
-
-    it('caps backoff delay at 30 seconds', () => {
-      const retryCount = 20; // Very high retry count
-      const delay = Math.min(1000 * Math.pow(2, retryCount), 30_000);
-      expect(delay).toBe(30_000);
-    });
+  it('honours an explicit maxRetries', async () => {
+    const ws = await loadClient();
+    ws.connect({ url: URL, maxRetries: 2 });
+    latest().drop();
+    vi.advanceTimersByTime(1000);
+    latest().drop();
+    vi.advanceTimersByTime(2000);
+    expect(FakeWebSocket.instances).toHaveLength(3);
+    latest().drop();
+    vi.advanceTimersByTime(60_000);
+    expect(FakeWebSocket.instances).toHaveLength(3);
   });
 
-  describe('getWsUrl', () => {
-    it('constructs ws:// URL for http: protocol', () => {
-      // Simulate the logic from getWsUrl
-      const protocol: string = 'http:';
-      const host = 'localhost:3000';
-      const wsProtocol = protocol === 'https:' ? 'wss:' : 'ws:';
-      const url = `${wsProtocol}//${host}/ws`;
+  it('disconnect() stops reconnecting; a later connect() re-arms it', async () => {
+    const ws = await loadClient();
+    ws.connect({ url: URL });
+    latest().open();
+    ws.disconnect();
+    vi.advanceTimersByTime(60_000);
+    expect(FakeWebSocket.instances).toHaveLength(1);
 
-      expect(url).toBe('ws://localhost:3000/ws');
-    });
-
-    it('constructs wss:// URL for https: protocol', () => {
-      const protocol = 'https:';
-      const host = 'example.com';
-      const wsProtocol = protocol === 'https:' ? 'wss:' : 'ws:';
-      const url = `${wsProtocol}//${host}/ws`;
-
-      expect(url).toBe('wss://example.com/ws');
-    });
+    ws.connect({ url: URL });
+    expect(FakeWebSocket.instances).toHaveLength(2);
+    latest().drop();
+    vi.advanceTimersByTime(1000);
+    expect(FakeWebSocket.instances).toHaveLength(3);
   });
 
-  describe('message buffer in useChannel', () => {
-    it('keeps last 100 messages (slices at -99 before adding new)', () => {
-      const messages: number[] = [];
-      for (let i = 0; i < 105; i++) {
-        // Replicate the logic: [...prev.slice(-99), newItem]
-        const updated = [...messages.slice(-99), i];
-        messages.length = 0;
-        messages.push(...updated);
-      }
-
-      expect(messages).toHaveLength(100);
-      expect(messages[0]).toBe(5); // First 5 dropped
-      expect(messages[99]).toBe(104);
+  it('waits for the online event instead of burning retries while offline', async () => {
+    const ws = await loadClient();
+    ws.connect({ url: URL });
+    latest().open();
+    Object.defineProperty(navigator, 'onLine', {
+      configurable: true,
+      value: false,
     });
+    latest().drop();
+    vi.advanceTimersByTime(120_000);
+    expect(FakeWebSocket.instances).toHaveLength(1);
+
+    Object.defineProperty(navigator, 'onLine', {
+      configurable: true,
+      value: true,
+    });
+    window.dispatchEvent(new Event('online'));
+    expect(FakeWebSocket.instances).toHaveLength(2);
+  });
+
+  it('dispatches channel messages and the global wildcard', async () => {
+    const ws = await loadClient();
+    ws.connect({ url: URL });
+    latest().open();
+    // Reach listeners through the public hook contract is React-only; the
+    // transport parse path is exercised here via a raw frame round-trip.
+    const frame = JSON.stringify({
+      channel: 'notifications',
+      payload: { id: 'n1' },
+    });
+    expect(() => latest().onmessage?.({ data: frame })).not.toThrow();
+    expect(() => latest().onmessage?.({ data: 'not-json{{{' })).not.toThrow();
   });
 });

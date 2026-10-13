@@ -1,11 +1,18 @@
-import { z } from 'zod';
+import { getActivityDeps } from '../deps';
+import { activityEvents } from '../schema/activity';
 import { TRPCError } from '@trpc/server';
 import { and, count, desc, eq, lt } from 'drizzle-orm';
-import { createTRPCRouter, publicProcedure, protectedProcedure, sectionProcedure } from '@/server/trpc';
-import { activityEvents } from '../schema/activity';
+import { z } from 'zod';
+
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { user } from '@/server/db/schema/auth';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { getActivityDeps } from '../deps';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+  sectionProcedure,
+} from '@/server/trpc';
 
 const dashboardProcedure = sectionProcedure('dashboard');
 
@@ -18,7 +25,7 @@ export const activityRouter = createTRPCRouter({
       z.object({
         cursor: z.string().uuid().optional(),
         limit: z.number().int().min(1).max(50).default(20),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const { cursor, limit } = input;
@@ -75,7 +82,7 @@ export const activityRouter = createTRPCRouter({
       z.object({
         cursor: z.string().uuid().optional(),
         limit: z.number().int().min(1).max(50).default(20),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const { cursor, limit } = input;
@@ -128,7 +135,7 @@ export const activityRouter = createTRPCRouter({
         organizationId: z.string().uuid(),
         cursor: z.string().uuid().optional(),
         limit: z.number().int().min(1).max(50).default(20),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const { organizationId, cursor, limit } = input;
@@ -136,7 +143,7 @@ export const activityRouter = createTRPCRouter({
       // Validate that user belongs to the org
       const resolvedOrgId = await getActivityDeps().resolveOrgId(
         organizationId,
-        ctx.session.user.id,
+        ctx.session.user.id
       );
 
       if (resolvedOrgId !== organizationId) {
@@ -196,7 +203,7 @@ export const activityRouter = createTRPCRouter({
         targetType: z.string().max(50),
         targetId: z.string().uuid(),
         limit: z.number().int().min(1).max(50).default(20),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const items = await ctx.db
@@ -220,8 +227,8 @@ export const activityRouter = createTRPCRouter({
         .where(
           and(
             eq(activityEvents.targetType, input.targetType),
-            eq(activityEvents.targetId, input.targetId),
-          ),
+            eq(activityEvents.targetId, input.targetId)
+          )
         )
         .orderBy(desc(activityEvents.createdAt))
         .limit(input.limit);
@@ -238,17 +245,20 @@ export const activityRouter = createTRPCRouter({
         action: z.string().max(100).optional(),
         actorId: z.string().uuid().optional(),
         targetType: z.string().max(50).optional(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(20),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
       const conditions = [];
-      if (input.action) conditions.push(eq(activityEvents.action, input.action));
-      if (input.actorId) conditions.push(eq(activityEvents.actorId, input.actorId));
-      if (input.targetType) conditions.push(eq(activityEvents.targetType, input.targetType));
+      if (input.action)
+        conditions.push(eq(activityEvents.action, input.action));
+      if (input.actorId)
+        conditions.push(eq(activityEvents.actorId, input.actorId));
+      if (input.targetType)
+        conditions.push(eq(activityEvents.targetType, input.targetType));
 
       const where = conditions.length > 0 ? and(...conditions) : undefined;
 

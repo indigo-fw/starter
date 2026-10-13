@@ -20,7 +20,8 @@ src/core-mymodule/
   deps.ts           # Dependency injection interface
   register.ts       # Re-exports
   module.config.ts  # Self-description
-  CLAUDE.md         # AI agent docs
+  AGENTS.md         # AI agent docs (canonical — read by Codex, Cursor, Gemini)
+  CLAUDE.md         # One line: @AGENTS.md — Claude Code loads the same guide
   _templates/       # Project files scaffolded on install
 ```
 
@@ -182,5 +183,5 @@ await runHook('mymodule.event', userId, eventData);
 | Channel Auth | `registerChannelAuthorizer` | Returns `true`/`false`/`null` (not my channel) |
 
 <Callout type="tip">
-Always document your module's hooks in its `CLAUDE.md` so AI agents can understand the integration points.
+Always document your module's hooks in its `AGENTS.md` so AI agents can understand the integration points.
 </Callout>

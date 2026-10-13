@@ -1,17 +1,18 @@
-import { z } from 'zod';
+import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 import { and, desc, eq, ilike, isNull, or, sql } from 'drizzle-orm';
+import { z } from 'zod';
 
-import { cmsPosts } from '@/server/db/schema/cms';
+import { CONTENT_TYPES } from '@/config/cms';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { ilikePattern } from '@/core/crud/drizzle-utils';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
+import { ContentStatus } from '@/core/types/cms';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import { cmsCategories } from '@/server/db/schema/categories';
+import { cmsPosts } from '@/server/db/schema/cms';
 import { cmsPortfolio } from '@/server/db/schema/portfolio';
 import { cmsShowcase } from '@/server/db/schema/showcase';
 import { cmsTerms } from '@/server/db/schema/terms';
-import { ContentStatus } from '@/core/types/cms';
-import { DEFAULT_LOCALE } from '@/lib/constants';
-import { CONTENT_TYPES } from '@/config/cms';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { ilikePattern } from '@/core/crud/drizzle-utils';
-import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 
 /**
  * Content search router — search across all content types for internal linking.
@@ -44,114 +45,112 @@ export const contentSearchRouter = createTRPCRouter({
       const results: SearchResult[] = [];
 
       // Run all 4 content type queries in parallel
-      const [posts, categories, tags, portfolioItems, showcaseItems] = await Promise.all([
-        // Search posts (pages + blogs)
-        ctx.db
-          .select({
-            id: cmsPosts.id,
-            type: cmsPosts.type,
-            slug: cmsPosts.slug,
-            title: cmsPosts.title,
-          })
-          .from(cmsPosts)
-          .where(
-            and(
-              eq(cmsPosts.status, ContentStatus.PUBLISHED),
-              isNull(cmsPosts.deletedAt),
-              ...(lang ? [eq(cmsPosts.lang, lang)] : []),
-              or(
-                ilike(cmsPosts.title, pattern),
-                ilike(cmsPosts.slug, pattern)
+      const [posts, categories, tags, portfolioItems, showcaseItems] =
+        await Promise.all([
+          // Search posts (pages + blogs)
+          ctx.db
+            .select({
+              id: cmsPosts.id,
+              type: cmsPosts.type,
+              slug: cmsPosts.slug,
+              title: cmsPosts.title,
+            })
+            .from(cmsPosts)
+            .where(
+              and(
+                eq(cmsPosts.status, ContentStatus.PUBLISHED),
+                isNull(cmsPosts.deletedAt),
+                ...(lang ? [eq(cmsPosts.lang, lang)] : []),
+                or(
+                  ilike(cmsPosts.title, pattern),
+                  ilike(cmsPosts.slug, pattern)
+                )
               )
             )
-          )
-          .limit(limit),
+            .limit(limit),
 
-        // Search categories
-        ctx.db
-          .select({
-            id: cmsCategories.id,
-            slug: cmsCategories.slug,
-            name: cmsCategories.name,
-          })
-          .from(cmsCategories)
-          .where(
-            and(
-              eq(cmsCategories.status, ContentStatus.PUBLISHED),
-              isNull(cmsCategories.deletedAt),
-              ...(lang ? [eq(cmsCategories.lang, lang)] : []),
-              or(
-                ilike(cmsCategories.name, pattern),
-                ilike(cmsCategories.slug, pattern)
+          // Search categories
+          ctx.db
+            .select({
+              id: cmsCategories.id,
+              slug: cmsCategories.slug,
+              name: cmsCategories.name,
+            })
+            .from(cmsCategories)
+            .where(
+              and(
+                eq(cmsCategories.status, ContentStatus.PUBLISHED),
+                isNull(cmsCategories.deletedAt),
+                ...(lang ? [eq(cmsCategories.lang, lang)] : []),
+                or(
+                  ilike(cmsCategories.name, pattern),
+                  ilike(cmsCategories.slug, pattern)
+                )
               )
             )
-          )
-          .limit(limit),
+            .limit(limit),
 
-        // Search tags
-        ctx.db
-          .select({
-            id: cmsTerms.id,
-            slug: cmsTerms.slug,
-            name: cmsTerms.name,
-          })
-          .from(cmsTerms)
-          .where(
-            and(
-              eq(cmsTerms.taxonomyId, 'tag'),
-              eq(cmsTerms.status, ContentStatus.PUBLISHED),
-              isNull(cmsTerms.deletedAt),
-              ...(lang ? [eq(cmsTerms.lang, lang)] : []),
-              or(
-                ilike(cmsTerms.name, pattern),
-                ilike(cmsTerms.slug, pattern)
+          // Search tags
+          ctx.db
+            .select({
+              id: cmsTerms.id,
+              slug: cmsTerms.slug,
+              name: cmsTerms.name,
+            })
+            .from(cmsTerms)
+            .where(
+              and(
+                eq(cmsTerms.taxonomyId, 'tag'),
+                eq(cmsTerms.status, ContentStatus.PUBLISHED),
+                isNull(cmsTerms.deletedAt),
+                ...(lang ? [eq(cmsTerms.lang, lang)] : []),
+                or(ilike(cmsTerms.name, pattern), ilike(cmsTerms.slug, pattern))
               )
             )
-          )
-          .limit(limit),
+            .limit(limit),
 
-        // Search portfolio
-        ctx.db
-          .select({
-            id: cmsPortfolio.id,
-            slug: cmsPortfolio.slug,
-            name: cmsPortfolio.name,
-          })
-          .from(cmsPortfolio)
-          .where(
-            and(
-              eq(cmsPortfolio.status, ContentStatus.PUBLISHED),
-              isNull(cmsPortfolio.deletedAt),
-              ...(lang ? [eq(cmsPortfolio.lang, lang)] : []),
-              or(
-                ilike(cmsPortfolio.name, pattern),
-                ilike(cmsPortfolio.slug, pattern)
+          // Search portfolio
+          ctx.db
+            .select({
+              id: cmsPortfolio.id,
+              slug: cmsPortfolio.slug,
+              name: cmsPortfolio.name,
+            })
+            .from(cmsPortfolio)
+            .where(
+              and(
+                eq(cmsPortfolio.status, ContentStatus.PUBLISHED),
+                isNull(cmsPortfolio.deletedAt),
+                ...(lang ? [eq(cmsPortfolio.lang, lang)] : []),
+                or(
+                  ilike(cmsPortfolio.name, pattern),
+                  ilike(cmsPortfolio.slug, pattern)
+                )
               )
             )
-          )
-          .limit(limit),
+            .limit(limit),
 
-        // Search showcase
-        ctx.db
-          .select({
-            id: cmsShowcase.id,
-            slug: cmsShowcase.slug,
-            title: cmsShowcase.title,
-          })
-          .from(cmsShowcase)
-          .where(
-            and(
-              eq(cmsShowcase.status, ContentStatus.PUBLISHED),
-              isNull(cmsShowcase.deletedAt),
-              ...(lang ? [eq(cmsShowcase.lang, lang)] : []),
-              or(
-                ilike(cmsShowcase.title, pattern),
-                ilike(cmsShowcase.slug, pattern)
+          // Search showcase
+          ctx.db
+            .select({
+              id: cmsShowcase.id,
+              slug: cmsShowcase.slug,
+              title: cmsShowcase.title,
+            })
+            .from(cmsShowcase)
+            .where(
+              and(
+                eq(cmsShowcase.status, ContentStatus.PUBLISHED),
+                isNull(cmsShowcase.deletedAt),
+                ...(lang ? [eq(cmsShowcase.lang, lang)] : []),
+                or(
+                  ilike(cmsShowcase.title, pattern),
+                  ilike(cmsShowcase.slug, pattern)
+                )
               )
             )
-          )
-          .limit(limit),
-      ]);
+            .limit(limit),
+        ]);
 
       for (const post of posts) {
         const ct = CONTENT_TYPES.find((c) => c.postType === post.type);
@@ -218,12 +217,18 @@ export const contentSearchRouter = createTRPCRouter({
 
   /** Public: full-text search across published posts */
   fullTextSearch: publicProcedure
-    .meta({ mcp: { description: 'Full-text search across all published content (pages, blog posts, etc). The fastest way to find content by keyword. Public — works without authentication.', readOnly: true } })
+    .meta({
+      mcp: {
+        description:
+          'Full-text search across all published content (pages, blog posts, etc). The fastest way to find content by keyword. Public — works without authentication.',
+        readOnly: true,
+      },
+    })
     .input(
       z.object({
         query: z.string().min(1).max(200),
         lang: z.string().max(2).default(DEFAULT_LOCALE),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(50).default(10),
       })
     )
@@ -237,10 +242,7 @@ export const contentSearchRouter = createTRPCRouter({
           eq(cmsPosts.status, ContentStatus.PUBLISHED),
           eq(cmsPosts.lang, input.lang),
           isNull(cmsPosts.deletedAt),
-          or(
-            ilike(cmsPosts.title, pattern),
-            ilike(cmsPosts.content, pattern)
-          )
+          or(ilike(cmsPosts.title, pattern), ilike(cmsPosts.content, pattern))
         );
 
         const [items, countResult] = await Promise.all([
@@ -268,7 +270,9 @@ export const contentSearchRouter = createTRPCRouter({
         const results = items.map((item) => {
           const ct = CONTENT_TYPES.find((c) => c.postType === item.type);
           const url = ct
-            ? ct.urlPrefix === '/' ? `/${item.slug}` : `${ct.urlPrefix}${item.slug}`
+            ? ct.urlPrefix === '/'
+              ? `/${item.slug}`
+              : `${ct.urlPrefix}${item.slug}`
             : `/${item.slug}`;
           return { ...item, url, headline: item.metaDescription ?? '' };
         });
@@ -294,8 +298,13 @@ export const contentSearchRouter = createTRPCRouter({
             type: cmsPosts.type,
             metaDescription: cmsPosts.metaDescription,
             publishedAt: cmsPosts.publishedAt,
-            rank: sql<number>`ts_rank(${cmsPosts.searchVector}, ${tsQuery})`.as('rank'),
-            headline: sql<string>`ts_headline(${tsConfig}, regexp_replace(coalesce(${cmsPosts.content}, ''), '<[^>]*>', '', 'g'), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as('headline'),
+            rank: sql<number>`ts_rank(${cmsPosts.searchVector}, ${tsQuery})`.as(
+              'rank'
+            ),
+            headline:
+              sql<string>`ts_headline(${tsConfig}, regexp_replace(coalesce(${cmsPosts.content}, ''), '<[^>]*>', '', 'g'), ${tsQuery}, 'MaxWords=35, MinWords=15, StartSel=<mark>, StopSel=</mark>')`.as(
+                'headline'
+              ),
           })
           .from(cmsPosts)
           .where(conditions)
@@ -312,7 +321,9 @@ export const contentSearchRouter = createTRPCRouter({
       const results = items.map((item) => {
         const ct = CONTENT_TYPES.find((c) => c.postType === item.type);
         const url = ct
-          ? ct.urlPrefix === '/' ? `/${item.slug}` : `${ct.urlPrefix}${item.slug}`
+          ? ct.urlPrefix === '/'
+            ? `/${item.slug}`
+            : `${ct.urlPrefix}${item.slug}`
           : `/${item.slug}`;
         return { ...item, url };
       });

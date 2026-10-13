@@ -1,18 +1,32 @@
-import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { eq, asc, count, and } from 'drizzle-orm';
-import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
-import { cmsDocs } from '@/core-docs/schema/docs';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
+import { and, asc, count, eq } from 'drizzle-orm';
+import { z } from 'zod';
+
 import { stripHtml } from '@/core-docs/lib/docs-loader';
-import { getDocBySlug, getDocsNavigation, searchDocs, generateLlmExport } from '@/core-docs/lib/docs-service';
+import {
+  generateLlmExport,
+  getDocBySlug,
+  getDocsNavigation,
+  searchDocs,
+} from '@/core-docs/lib/docs-service';
+import { cmsDocs } from '@/core-docs/schema/docs';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { slugify } from '@/core/lib/content/slug';
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
+import {
+  createTRPCRouter,
+  publicProcedure,
+  sectionProcedure,
+} from '@/server/trpc';
 
-const localeInput = z.string().max(10).default(DEFAULT_LOCALE).refine(
-  (v) => (LOCALES as readonly string[]).includes(v),
-  { message: 'Invalid locale' },
-);
+const localeInput = z
+  .string()
+  .max(10)
+  .default(DEFAULT_LOCALE)
+  .refine((v) => (LOCALES as readonly string[]).includes(v), {
+    message: 'Invalid locale',
+  });
 
 const docsAdminProcedure = sectionProcedure('content');
 
@@ -21,14 +35,19 @@ export const docsRouter = createTRPCRouter({
 
   /** Get a single doc by slug (unified: file + CMS) */
   getBySlug: publicProcedure
-    .input(z.object({
-      slug: z.string().min(1).max(500),
-      locale: localeInput,
-    }))
+    .input(
+      z.object({
+        slug: z.string().min(1).max(500),
+        locale: localeInput,
+      })
+    )
     .query(async ({ input }) => {
       const doc = await getDocBySlug(input.slug, input.locale);
       if (!doc) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Documentation page not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Documentation page not found',
+        });
       }
       return doc;
     }),
@@ -42,11 +61,13 @@ export const docsRouter = createTRPCRouter({
 
   /** Search docs (unified: file + CMS) */
   search: publicProcedure
-    .input(z.object({
-      query: z.string().min(1).max(200),
-      limit: z.number().int().min(1).max(50).default(20),
-      locale: localeInput,
-    }))
+    .input(
+      z.object({
+        query: z.string().min(1).max(200),
+        limit: z.number().int().min(1).max(50).default(20),
+        locale: localeInput,
+      })
+    )
     .query(async ({ input }) => {
       return searchDocs(input.query, input.limit, input.locale);
     }),
@@ -62,13 +83,15 @@ export const docsRouter = createTRPCRouter({
 
   /** List all CMS-authored docs */
   adminList: docsAdminProcedure
-    .input(z.object({
-      status: z.enum(['published', 'draft']).optional(),
-      section: z.string().max(255).optional(),
-      locale: z.string().max(10).optional(),
-      page: z.number().int().min(1).default(1),
-      pageSize: z.number().int().min(1).max(100).default(50),
-    }))
+    .input(
+      z.object({
+        status: z.enum(['published', 'draft']).optional(),
+        section: z.string().max(255).optional(),
+        locale: z.string().max(10).optional(),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
+        pageSize: z.number().int().min(1).max(100).default(50),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
 
@@ -93,7 +116,11 @@ export const docsRouter = createTRPCRouter({
           })
           .from(cmsDocs)
           .where(where)
-          .orderBy(asc(cmsDocs.locale), asc(cmsDocs.section), asc(cmsDocs.sortOrder))
+          .orderBy(
+            asc(cmsDocs.locale),
+            asc(cmsDocs.section),
+            asc(cmsDocs.sortOrder)
+          )
           .offset(offset)
           .limit(pageSize),
         ctx.db.select({ count: count() }).from(cmsDocs).where(where),
@@ -121,18 +148,20 @@ export const docsRouter = createTRPCRouter({
 
   /** Create a new CMS doc */
   adminCreate: docsAdminProcedure
-    .input(z.object({
-      title: z.string().min(1).max(255),
-      slug: z.string().max(500).optional(),
-      locale: localeInput,
-      body: z.string().max(500000).default(''),
-      section: z.string().max(255).optional(),
-      sortOrder: z.number().int().default(0),
-      parentId: z.string().uuid().optional(),
-      metaTitle: z.string().max(255).optional(),
-      metaDescription: z.string().max(500).optional(),
-      status: z.enum(['published', 'draft']).default('draft'),
-    }))
+    .input(
+      z.object({
+        title: z.string().min(1).max(255),
+        slug: z.string().max(500).optional(),
+        locale: localeInput,
+        body: z.string().max(500000).default(''),
+        section: z.string().max(255).optional(),
+        sortOrder: z.number().int().default(0),
+        parentId: z.string().uuid().optional(),
+        metaTitle: z.string().max(255).optional(),
+        metaDescription: z.string().max(500).optional(),
+        status: z.enum(['published', 'draft']).default('draft'),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const slug = input.slug || slugify(input.title);
       const id = crypto.randomUUID();
@@ -157,19 +186,21 @@ export const docsRouter = createTRPCRouter({
 
   /** Update a CMS doc */
   adminUpdate: docsAdminProcedure
-    .input(z.object({
-      id: z.string().uuid(),
-      title: z.string().min(1).max(255).optional(),
-      slug: z.string().max(500).optional(),
-      locale: localeInput.optional(),
-      body: z.string().max(500000).optional(),
-      section: z.string().max(255).nullish(),
-      sortOrder: z.number().int().optional(),
-      parentId: z.string().uuid().nullish(),
-      metaTitle: z.string().max(255).nullish(),
-      metaDescription: z.string().max(500).nullish(),
-      status: z.enum(['published', 'draft']).optional(),
-    }))
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        title: z.string().min(1).max(255).optional(),
+        slug: z.string().max(500).optional(),
+        locale: localeInput.optional(),
+        body: z.string().max(500000).optional(),
+        section: z.string().max(255).nullish(),
+        sortOrder: z.number().int().optional(),
+        parentId: z.string().uuid().nullish(),
+        metaTitle: z.string().max(255).nullish(),
+        metaDescription: z.string().max(500).nullish(),
+        status: z.enum(['published', 'draft']).optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       const { id, ...fields } = input;
       const updates: Record<string, unknown> = { updatedAt: new Date() };
@@ -181,17 +212,18 @@ export const docsRouter = createTRPCRouter({
         updates.body = fields.body;
         updates.bodyText = stripHtml(fields.body);
       }
-      if (fields.section !== undefined) updates.section = fields.section ?? null;
+      if (fields.section !== undefined)
+        updates.section = fields.section ?? null;
       if (fields.sortOrder !== undefined) updates.sortOrder = fields.sortOrder;
-      if (fields.parentId !== undefined) updates.parentId = fields.parentId ?? null;
-      if (fields.metaTitle !== undefined) updates.metaTitle = fields.metaTitle ?? null;
-      if (fields.metaDescription !== undefined) updates.metaDescription = fields.metaDescription ?? null;
+      if (fields.parentId !== undefined)
+        updates.parentId = fields.parentId ?? null;
+      if (fields.metaTitle !== undefined)
+        updates.metaTitle = fields.metaTitle ?? null;
+      if (fields.metaDescription !== undefined)
+        updates.metaDescription = fields.metaDescription ?? null;
       if (fields.status !== undefined) updates.status = fields.status;
 
-      await ctx.db
-        .update(cmsDocs)
-        .set(updates)
-        .where(eq(cmsDocs.id, id));
+      await ctx.db.update(cmsDocs).set(updates).where(eq(cmsDocs.id, id));
 
       return { success: true };
     }),
@@ -200,21 +232,25 @@ export const docsRouter = createTRPCRouter({
   adminDelete: docsAdminProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db
-        .delete(cmsDocs)
-        .where(eq(cmsDocs.id, input.id));
+      await ctx.db.delete(cmsDocs).where(eq(cmsDocs.id, input.id));
 
       return { success: true };
     }),
 
   /** Reorder docs within a section */
   adminReorder: docsAdminProcedure
-    .input(z.object({
-      items: z.array(z.object({
-        id: z.string().uuid(),
-        sortOrder: z.number().int(),
-      })).max(200),
-    }))
+    .input(
+      z.object({
+        items: z
+          .array(
+            z.object({
+              id: z.string().uuid(),
+              sortOrder: z.number().int(),
+            })
+          )
+          .max(200),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       for (const item of input.items) {
         await ctx.db

@@ -1,17 +1,26 @@
-import { getScopedKey } from '@/core/lib/infra/scope';
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
+import type { Element, ElementContent, Root } from 'hast';
+import type {
+  MdxJsxAttribute,
+  MdxJsxExpressionAttribute,
+  MdxJsxFlowElementHast,
+  MdxJsxTextElementHast,
+} from 'mdast-util-mdx-jsx';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeSlug from 'rehype-slug';
+import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
 import remarkMdx from 'remark-mdx';
+import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeStringify from 'rehype-stringify';
-import type { Root, Element, ElementContent } from 'hast';
-import type { MdxJsxAttribute, MdxJsxExpressionAttribute, MdxJsxFlowElementHast, MdxJsxTextElementHast } from 'mdast-util-mdx-jsx';
+import { unified } from 'unified';
 import type { Parent } from 'unist';
 import { visit } from 'unist-util-visit';
+
 import { resolveContentVars } from '@/core/lib/content/vars';
+import { createLogger } from '@/core/lib/infra/logger';
+import { getScopedKey } from '@/core/lib/infra/scope';
+
+const log = createLogger('mdx');
 
 // ─── MDX Component Registry ────────────────────────────────────────────────
 
@@ -26,8 +35,12 @@ type MdxJsxAttributes = Array<MdxJsxAttribute | MdxJsxExpressionAttribute>;
  * Return null to skip (falls through to unknown-component fallback).
  */
 export type MdxComponentTransform = (
-  node: { name: string; attributes: MdxJsxAttributes; children: ElementContent[] },
-  helpers: { h: typeof h; text: typeof text; getAttr: typeof getAttr },
+  node: {
+    name: string;
+    attributes: MdxJsxAttributes;
+    children: ElementContent[];
+  },
+  helpers: { h: typeof h; text: typeof text; getAttr: typeof getAttr }
 ) => Element | null;
 
 const _componentRegistry = new Map<string, MdxComponentTransform>();
@@ -42,7 +55,10 @@ const _componentRegistry = new Map<string, MdxComponentTransform>();
  *     return h('div', { class: `callout callout-${type}` }, node.children);
  *   });
  */
-export function registerMdxComponent(name: string, transform: MdxComponentTransform): void {
+export function registerMdxComponent(
+  name: string,
+  transform: MdxComponentTransform
+): void {
   _componentRegistry.set(name, transform);
 }
 
@@ -55,17 +71,31 @@ export function getRegisteredMdxComponents(): string[] {
 
 registerMdxComponent('Callout', (node, { h, text, getAttr }) => {
   const type = getAttr(node, 'type') ?? 'info';
-  const icons: Record<string, string> = { info: '\u2139\uFE0F', warning: '\u26A0\uFE0F', tip: '\uD83D\uDCA1', danger: '\u274C' };
-  return h('div', { class: `docs-callout docs-callout-${type}`, role: 'note' }, [
-    h('p', { class: 'docs-callout-title' }, [
-      h('strong', {}, [text(`${icons[type] ?? icons.info} ${type.charAt(0).toUpperCase() + type.slice(1)}`)]),
-    ]),
-    h('div', { class: 'docs-callout-body' }, node.children),
-  ]);
+  const icons: Record<string, string> = {
+    info: '\u2139\uFE0F',
+    warning: '\u26A0\uFE0F',
+    tip: '\uD83D\uDCA1',
+    danger: '\u274C',
+  };
+  return h(
+    'div',
+    { class: `docs-callout docs-callout-${type}`, role: 'note' },
+    [
+      h('p', { class: 'docs-callout-title' }, [
+        h('strong', {}, [
+          text(
+            `${icons[type] ?? icons.info} ${type.charAt(0).toUpperCase() + type.slice(1)}`
+          ),
+        ]),
+      ]),
+      h('div', { class: 'docs-callout-body' }, node.children),
+    ]
+  );
 });
 
 registerMdxComponent('CodeTabs', (node, { h }) =>
-  h('div', { class: 'docs-code-tabs' }, node.children));
+  h('div', { class: 'docs-code-tabs' }, node.children)
+);
 
 registerMdxComponent('Tab', (node, { h, text, getAttr }) => {
   const label = getAttr(node, 'label') ?? '';
@@ -76,7 +106,8 @@ registerMdxComponent('Tab', (node, { h, text, getAttr }) => {
 });
 
 registerMdxComponent('Steps', (node, { h }) =>
-  h('ol', { class: 'docs-steps' }, node.children));
+  h('ol', { class: 'docs-steps' }, node.children)
+);
 
 registerMdxComponent('Step', (node, { h, text, getAttr }) => {
   const title = getAttr(node, 'title') ?? '';
@@ -88,7 +119,11 @@ registerMdxComponent('Step', (node, { h, text, getAttr }) => {
 
 registerMdxComponent('Badge', (node, { h, getAttr }) => {
   const variant = getAttr(node, 'variant') ?? 'default';
-  return h('span', { class: `docs-badge docs-badge-${variant}` }, node.children);
+  return h(
+    'span',
+    { class: `docs-badge docs-badge-${variant}` },
+    node.children
+  );
 });
 
 // ─── Rehype Plugin ──────────────────────────────────────────────────────────
@@ -100,30 +135,41 @@ registerMdxComponent('Badge', (node, { h, getAttr }) => {
 function rehypeMdxComponents() {
   return (tree: Root) => {
     const helpers = { h, text, getAttr };
-    for (const nodeType of ['mdxJsxFlowElement', 'mdxJsxTextElement'] as const) {
-      visit(tree, nodeType, (node: MdxJsxNode, index, parent: Parent | undefined) => {
-        if (!parent || index == null) return;
+    for (const nodeType of [
+      'mdxJsxFlowElement',
+      'mdxJsxTextElement',
+    ] as const) {
+      visit(
+        tree,
+        nodeType,
+        (node: MdxJsxNode, index, parent: Parent | undefined) => {
+          if (!parent || index == null) return;
 
-        const { name } = node;
-        if (!name) return;
+          const { name } = node;
+          if (!name) return;
 
-        const transform = _componentRegistry.get(name);
-        let replacement: Element | null = null;
+          const transform = _componentRegistry.get(name);
+          let replacement: Element | null = null;
 
-        if (transform) {
-          replacement = transform(
-            { name, attributes: node.attributes, children: node.children },
-            helpers,
-          );
-        } else {
-          // Unknown: wrap in span to prevent serializer crash
-          replacement = h('span', { 'data-mdx-component': name }, node.children);
+          if (transform) {
+            replacement = transform(
+              { name, attributes: node.attributes, children: node.children },
+              helpers
+            );
+          } else {
+            // Unknown: wrap in span to prevent serializer crash
+            replacement = h(
+              'span',
+              { 'data-mdx-component': name },
+              node.children
+            );
+          }
+
+          if (replacement) {
+            parent.children[index] = replacement;
+          }
         }
-
-        if (replacement) {
-          parent.children[index] = replacement;
-        }
-      });
+      );
     }
   };
 }
@@ -131,13 +177,22 @@ function rehypeMdxComponents() {
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 /** Get a string attribute from an MDX JSX node. */
-export function getAttr(node: { attributes?: MdxJsxAttributes }, name: string): string | undefined {
-  const attr = node.attributes?.find((a): a is MdxJsxAttribute => a.type === 'mdxJsxAttribute' && a.name === name);
+export function getAttr(
+  node: { attributes?: MdxJsxAttributes },
+  name: string
+): string | undefined {
+  const attr = node.attributes?.find(
+    (a): a is MdxJsxAttribute => a.type === 'mdxJsxAttribute' && a.name === name
+  );
   return typeof attr?.value === 'string' ? attr.value : undefined;
 }
 
 /** Create an hast element node. */
-export function h(tag: string, props: Record<string, string>, children: ElementContent[]): Element {
+export function h(
+  tag: string,
+  props: Record<string, string>,
+  children: ElementContent[]
+): Element {
   return { type: 'element', tagName: tag, properties: props, children };
 }
 
@@ -153,7 +208,10 @@ const mdxProcessor = unified()
   .use(remarkParse)
   .use(remarkMdx)
   .use(remarkGfm)
-  .use(remarkRehype, { allowDangerousHtml: true, passThrough: ['mdxJsxFlowElement', 'mdxJsxTextElement'] })
+  .use(remarkRehype, {
+    allowDangerousHtml: true,
+    passThrough: ['mdxJsxFlowElement', 'mdxJsxTextElement'],
+  })
   .use(rehypeMdxComponents)
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings, { behavior: 'wrap' })
@@ -196,7 +254,7 @@ export function invalidateCompileCache(): void {
  */
 export async function compileMdx(
   source: string,
-  cacheKey?: string,
+  cacheKey?: string
 ): Promise<string> {
   const scopedCacheKey = cacheKey ? getScopedKey(cacheKey) : undefined;
   if (scopedCacheKey) {
@@ -211,7 +269,7 @@ export async function compileMdx(
     if (scopedCacheKey) setCache(scopedCacheKey, html);
     return html;
   } catch (err) {
-    console.error('[mdx] Compilation failed:', err);
+    log.error('Compilation failed', { error: String(err) });
     return `<div class="docs-compile-error"><p><strong>Error compiling document</strong></p><pre>${escapeHtml(String(err))}</pre></div>`;
   }
 }

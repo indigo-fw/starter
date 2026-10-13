@@ -1,33 +1,47 @@
 /**
- * Register BullMQ repeatable job schedules.
+ * Re-arm BullMQ repeatable job schedules by hand.
  *
- * Run after deploy (idempotent — safe to run multiple times):
+ * Workers self-register their schedules when they start (`ensure*Schedule`
+ * exports next to each worker), so a normal deploy needs no manual step. Run
+ * this only to re-arm after wiping Redis without restarting the app:
  *   bun run src/scripts/schedule-jobs.ts
+ *
+ * Idempotent. Schedule ids/intervals live with the workers — never duplicate
+ * them here.
  */
+import { ensureContentPublishSchedule } from '@/core/lib/content/scheduled-publish';
 
-import { createQueue } from '@/core/lib/infra/queue';
+type ScheduleFn = () => Promise<boolean>;
+
+/**
+ * core-support is optional: a computed specifier keeps typecheck green on
+ * installs without it, and the runtime miss is simply "nothing to arm".
+ */
+async function loadSupportChatSchedule(): Promise<ScheduleFn | null> {
+  const supportBase = '../core-support';
+  try {
+    const mod: unknown = await import(`${supportBase}/jobs/support-chat`);
+    const fn = (mod as { ensureSupportChatCleanupSchedule?: unknown })
+      .ensureSupportChatCleanupSchedule;
+    return typeof fn === 'function' ? (fn as ScheduleFn) : null;
+  } catch {
+    return null;
+  }
+}
 
 async function main() {
-  const contentQueue = createQueue('content-publish');
-  if (!contentQueue) {
+  if (!(await ensureContentPublishSchedule())) {
     console.log('No Redis — skipping job scheduling');
     process.exit(0);
   }
+  const armed = ['content-publish'];
 
-  // Content publish check every 60 seconds
-  await contentQueue.upsertJobScheduler('content-publish', {
-    every: 60_000,
-  });
-
-  // Support chat session cleanup every hour
-  const supportChatQueue = createQueue('support-chat-cleanup');
-  if (supportChatQueue) {
-    await supportChatQueue.upsertJobScheduler('support-chat-cleanup', {
-      every: 60 * 60 * 1000, // 1 hour
-    });
+  const ensureSupportChat = await loadSupportChatSchedule();
+  if (ensureSupportChat && (await ensureSupportChat())) {
+    armed.push('support-chat-cleanup');
   }
 
-  console.log('Job schedules registered');
+  console.log(`Job schedules registered: ${armed.join(', ')}`);
   process.exit(0);
 }
 

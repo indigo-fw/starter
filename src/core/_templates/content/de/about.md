@@ -12,7 +12,7 @@ noindex: false
 
 ### Hauptmerkmale
 
-- **Agentengesteuerte Entwicklung** — CLAUDE.md dient als umfassender Projektleitfaden und ermöglicht es KI-Agenten, die Codebasis effektiv zu verstehen und zu modifizieren
+- **Agentengesteuerte Entwicklung** — AGENTS.md dient als umfassender Projektleitfaden und ermöglicht es KI-Agenten, die Codebasis effektiv zu verstehen und zu modifizieren
 - **Moderner Stack** — Entwickelt mit Next.js 16, TypeScript und Tailwind CSS v4
 - **Flexible Inhalte** — Seiten, Blogbeiträge, Portfolio-Elemente, Showcase-Karten, Kategorien und Schlagwörter
 - **Rollenbasierter Zugriff** — Benutzer-, Redakteur-, Admin- und Superadmin-Rollen mit richtlinienbasierten Berechtigungen

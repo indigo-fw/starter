@@ -1,18 +1,22 @@
+import { createTRPCRouter, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
 import { and, count, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
+import {
+  createRevision,
+  getRevisions,
+  pickSnapshot,
+} from '@/core/crud/content-revisions';
+import { logAudit } from '@/core/lib/infra/audit';
 import type { DbClient } from '@/server/db';
 import {
-  cmsPosts,
   cmsCategories,
-  cmsPortfolio,
-  cmsShowcase,
   cmsContentRevisions,
+  cmsPortfolio,
+  cmsPosts,
+  cmsShowcase,
 } from '@/server/db/schema';
-import { getRevisions } from '@/core/crud/content-revisions';
-import { logAudit } from '@/core/lib/infra/audit';
-import { createTRPCRouter, sectionProcedure } from '../trpc';
 
 const contentProcedure = sectionProcedure('content');
 
@@ -27,6 +31,16 @@ const contentProcedure = sectionProcedure('content');
  */
 interface RestoreTarget {
   fields: Set<string>;
+  /**
+   * Snapshot keys a restore cannot do without. Guards against corrupted jsonb
+   * or very old revisions predating a schema change silently blanking a row.
+   */
+  required: readonly string[];
+  /** Live row (including `deletedAt`) — snapshotted before the overwrite so the restore is undoable. */
+  fetchCurrent: (
+    db: DbClient,
+    contentId: string
+  ) => Promise<Record<string, unknown> | undefined>;
   applyRestore: (
     db: DbClient,
     contentId: string,
@@ -107,13 +121,36 @@ const restorePost: RestoreTarget['applyRestore'] = (db, contentId, safeData) =>
     .where(eq(cmsPosts.id, contentId))
     .then(() => undefined);
 
+const fetchPost: RestoreTarget['fetchCurrent'] = (db, contentId) =>
+  db
+    .select()
+    .from(cmsPosts)
+    .where(eq(cmsPosts.id, contentId))
+    .limit(1)
+    .then(([row]) => row);
+
+const POST_TARGET: RestoreTarget = {
+  fields: SAFE_POST_FIELDS,
+  required: ['title', 'slug'],
+  fetchCurrent: fetchPost,
+  applyRestore: restorePost,
+};
+
 /** contentType → restore target. Page/blog/post all restore into cmsPosts. */
 const RESTORE_TARGETS: Record<string, RestoreTarget> = {
-  page: { fields: SAFE_POST_FIELDS, applyRestore: restorePost },
-  blog: { fields: SAFE_POST_FIELDS, applyRestore: restorePost },
-  post: { fields: SAFE_POST_FIELDS, applyRestore: restorePost },
+  page: POST_TARGET,
+  blog: POST_TARGET,
+  post: POST_TARGET,
   category: {
     fields: SAFE_CATEGORY_FIELDS,
+    required: ['name', 'slug'],
+    fetchCurrent: (db, contentId) =>
+      db
+        .select()
+        .from(cmsCategories)
+        .where(eq(cmsCategories.id, contentId))
+        .limit(1)
+        .then(([row]) => row),
     applyRestore: (db, contentId, safeData) =>
       db
         .update(cmsCategories)
@@ -123,6 +160,14 @@ const RESTORE_TARGETS: Record<string, RestoreTarget> = {
   },
   portfolio: {
     fields: SAFE_PORTFOLIO_FIELDS,
+    required: ['name', 'slug'],
+    fetchCurrent: (db, contentId) =>
+      db
+        .select()
+        .from(cmsPortfolio)
+        .where(eq(cmsPortfolio.id, contentId))
+        .limit(1)
+        .then(([row]) => row),
     applyRestore: (db, contentId, safeData) =>
       db
         .update(cmsPortfolio)
@@ -132,6 +177,14 @@ const RESTORE_TARGETS: Record<string, RestoreTarget> = {
   },
   showcase: {
     fields: SAFE_SHOWCASE_FIELDS,
+    required: ['title', 'slug'],
+    fetchCurrent: (db, contentId) =>
+      db
+        .select()
+        .from(cmsShowcase)
+        .where(eq(cmsShowcase.id, contentId))
+        .limit(1)
+        .then(([row]) => row),
     applyRestore: (db, contentId, safeData) =>
       db
         .update(cmsShowcase)
@@ -165,7 +218,12 @@ export const revisionsRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      return getRevisions(ctx.db, input.contentType, input.contentId, input.limit);
+      return getRevisions(
+        ctx.db,
+        input.contentType,
+        input.contentId,
+        input.limit
+      );
     }),
 
   /** Get a single revision */
@@ -179,7 +237,10 @@ export const revisionsRouter = createTRPCRouter({
         .limit(1);
 
       if (!revision) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Revision not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Revision not found',
+        });
       }
 
       return revision;
@@ -217,7 +278,10 @@ export const revisionsRouter = createTRPCRouter({
         .limit(1);
 
       if (!revision) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Revision not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Revision not found',
+        });
       }
 
       const rawSnapshot = revision.snapshot as Record<string, unknown>;
@@ -238,7 +302,38 @@ export const revisionsRouter = createTRPCRouter({
         });
       }
 
-      await target.applyRestore(ctx.db, revision.contentId, safeData);
+      const missing = target.required.filter((key) => !(key in safeData));
+      if (missing.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `Revision snapshot is missing required fields: ${missing.join(', ')}`,
+        });
+      }
+
+      // Trashed content keeps its revisions; restoring into it would silently
+      // edit a row nobody can see. Un-trash first, then restore.
+      const current = await target.fetchCurrent(ctx.db, revision.contentId);
+      if (!current || current.deletedAt) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message:
+            'Content not found or in trash — restore it from trash first',
+        });
+      }
+
+      // Snapshot the live state before overwriting so the restore itself can be
+      // undone from the revision list; same transaction so a failed update
+      // doesn't leave a phantom revision behind.
+      await ctx.db.transaction(async (tx) => {
+        await createRevision(
+          tx,
+          revision.contentType,
+          revision.contentId,
+          pickSnapshot(current, [...target.fields]),
+          ctx.session.user.id
+        );
+        await target.applyRestore(tx, revision.contentId, safeData);
+      });
 
       logAudit({
         db: ctx.db,

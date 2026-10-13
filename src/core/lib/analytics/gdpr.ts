@@ -1,13 +1,15 @@
-import { eq } from 'drizzle-orm';
+import { TRPCError } from '@trpc/server';
 import { createHmac } from 'crypto';
+import { eq } from 'drizzle-orm';
 
-import type { DbClient } from '@/server/db';
-import { user, session, account } from '@/server/db/schema/auth';
-import { cmsAuditLog } from '@/server/db/schema/audit';
-import { Policy } from '@/core/policy';
+import { invalidateUserSessions } from '@/core/lib/auth/session-invalidation';
 import { logAudit } from '@/core/lib/infra/audit';
-import { runHook } from '@/core/lib/module/module-hooks';
 import { createLogger } from '@/core/lib/infra/logger';
+import { runGuard, runHook } from '@/core/lib/module/module-hooks';
+import { Policy } from '@/core/policy';
+import type { DbClient } from '@/server/db';
+import { cmsAuditLog } from '@/server/db/schema/audit';
+import { account, session, user } from '@/server/db/schema/auth';
 
 const logger = createLogger('GDPR');
 
@@ -51,16 +53,25 @@ export async function anonymizeUser(
     .where(eq(user.id, userId))
     .limit(1);
 
+  // TRPCErrors (not plain Error) so routers can pass refusals straight through
+  // with the right status, and treat anything else as an internal failure
+  // whose message must not reach the client.
   if (!target) {
-    throw new Error('User not found');
+    throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' });
   }
 
   if (isAnonymized(target)) {
-    throw new Error('User has already been deleted');
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message: 'User has already been deleted',
+    });
   }
 
   if (Policy.for(target.role).canAccessAdmin()) {
-    throw new Error('Cannot anonymize a staff account');
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: 'Cannot anonymize a staff account',
+    });
   }
 
   // 2. Run pre-delete hooks (e.g. cancel subscriptions)
@@ -73,13 +84,21 @@ export async function anonymizeUser(
     });
   }
 
-  // 3. Delete all sessions (FK cascades handle related data)
-  await db.delete(session).where(eq(session.userId, userId));
+  // 3. Let every installed module erase its own record of this person BEFORE
+  //    anything is destroyed. runGuard (not runHook) so a failing scrubber
+  //    aborts here — retryable, with the user row still intact — instead of
+  //    reporting success while module-owned PII survives.
+  await runGuard('user.anonymize', userId);
 
-  // 4. Delete all accounts (credentials, OAuth tokens)
+  // 4. Delete all sessions (FK cascades handle related data) and void the
+  //    cookie-cached ones so the erased account can't keep acting for 5 min
+  await db.delete(session).where(eq(session.userId, userId));
+  invalidateUserSessions(userId);
+
+  // 5. Delete all accounts (credentials, OAuth tokens)
   await db.delete(account).where(eq(account.userId, userId));
 
-  // 5. Overwrite user PII based on mode
+  // 6. Overwrite user PII based on mode
   if (mode === 'pseudonymize') {
     const pseudo = pseudonymize(userId);
     await db
@@ -111,7 +130,7 @@ export async function anonymizeUser(
       .where(eq(user.id, userId));
   }
 
-  // 6. Audit log
+  // 7. Audit log
   logAudit({
     db,
     userId: adminId ?? userId,
@@ -145,7 +164,7 @@ export async function exportUserData(
     .limit(1);
 
   if (!userData) {
-    throw new Error('User not found');
+    throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' });
   }
 
   // Collect audit log entries for this user
@@ -155,9 +174,17 @@ export async function exportUserData(
     .where(eq(cmsAuditLog.userId, userId))
     .limit(1000);
 
-  return {
+  const bundle: Record<string, unknown> = {
     user: userData,
     auditLog: auditEntries,
-    exportedAt: new Date().toISOString(),
   };
+
+  // Let each installed module add what IT knows about this person — support
+  // tickets, comments, orders, chat history. Core cannot see module tables, so
+  // without this the export silently omits most of the user's data. A guard,
+  // not a fire-and-forget hook: a failing exporter must not produce a bundle
+  // that looks complete.
+  await runGuard('user.export', userId, bundle);
+
+  return { ...bundle, exportedAt: new Date().toISOString() };
 }

@@ -1,8 +1,9 @@
+import { createTRPCRouter, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { getQueues } from '@/core/lib/infra/queue';
-import { createTRPCRouter, sectionProcedure } from '../trpc';
 
 const settingsProcedure = sectionProcedure('settings');
 
@@ -12,7 +13,13 @@ export const jobQueueRouter = createTRPCRouter({
     const queues = getQueues();
     const stats: Record<
       string,
-      { waiting: number; active: number; completed: number; failed: number; delayed: number }
+      {
+        waiting: number;
+        active: number;
+        completed: number;
+        failed: number;
+        delayed: number;
+      }
     > = {};
 
     for (const queue of queues) {
@@ -41,7 +48,7 @@ export const jobQueueRouter = createTRPCRouter({
       z.object({
         queue: z.string().max(100),
         status: z.enum(['waiting', 'active', 'completed', 'failed', 'delayed']),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(50).default(20),
       })
     )

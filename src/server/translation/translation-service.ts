@@ -1,10 +1,10 @@
+import { translateWithDeepL } from './deepl-client';
 import { createHash } from 'crypto';
 import { eq } from 'drizzle-orm';
 
 import { env } from '@/lib/env';
 import { db } from '@/server/db';
 import { cmsTranslations } from '@/server/db/schema';
-import { translateWithDeepL } from './deepl-client';
 
 function computeHash(langFrom: string, langTo: string, text: string): string {
   return createHash('sha256')
@@ -46,13 +46,21 @@ export async function translate(
 
   const translated = await translateWithDeepL(trimmed, langTo, langFrom);
 
-  await db.insert(cmsTranslations).values({
-    hash,
-    langFrom,
-    langTo,
-    textOriginal: trimmed,
-    textTranslated: translated,
-  });
+  // `hash` is unique and concurrent cache-misses are routine: duplicateAsTranslation
+  // translates several fields in one Promise.all, and identical strings (e.g.
+  // title === seoTitle) share a hash. Without the conflict clause the loser's
+  // insert throws 23505 and createFieldTranslator falls back to the untranslated
+  // source. Both callers hold DeepL output for the same input, so we keep ours.
+  await db
+    .insert(cmsTranslations)
+    .values({
+      hash,
+      langFrom,
+      langTo,
+      textOriginal: trimmed,
+      textTranslated: translated,
+    })
+    .onConflictDoNothing({ target: cmsTranslations.hash });
 
   return translated;
 }

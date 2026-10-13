@@ -1,7 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
+
+// Deliberately raw next/link: `@/components/Link` pulls in next-intl + tRPC
+// hooks, and this boundary must render even when those are what just broke.
 import Link from 'next/link';
+
+import { getLocalStorageItem } from '@/core/lib/storage/local-storage';
+import { useBlankTranslations } from '@/lib/translations';
 
 interface Props {
   error: Error & { digest?: string };
@@ -21,7 +27,28 @@ function isConnectionError(error: Error): boolean {
   );
 }
 
+/**
+ * A chunk that no longer exists on the server (the bundle changed under a
+ * long-lived tab after a deploy). `reset()` re-renders the SAME stale bundle,
+ * so the request fails again and "Try Again" loops forever; only a full
+ * reload fetches the new manifest.
+ */
+function isStaleChunkError(error: Error): boolean {
+  const msg = error.message.toLowerCase();
+  const name = error.name.toLowerCase();
+  return (
+    name === 'chunkloaderror' ||
+    msg.includes('chunkloaderror') ||
+    msg.includes('loading chunk') ||
+    msg.includes('loading css chunk') ||
+    msg.includes('dynamically imported module') ||
+    msg.includes('load failed')
+  );
+}
+
 export default function GlobalError({ error, reset }: Props) {
+  const __ = useBlankTranslations();
+
   useEffect(() => {
     console.error('Application error:', error);
 
@@ -29,15 +56,26 @@ export default function GlobalError({ error, reset }: Props) {
     const key = location.pathname.startsWith('/dashboard')
       ? 'indigo-theme-admin'
       : 'indigo-theme-public';
-    const theme = localStorage.getItem(key) || localStorage.getItem('indigo-theme');
+    const theme =
+      getLocalStorageItem(key) || getLocalStorageItem('indigo-theme');
     const isDark =
       theme === 'dark' ||
-      (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches) ||
+      (theme === 'system' &&
+        matchMedia('(prefers-color-scheme: dark)').matches) ||
       (!theme && matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.classList.toggle('dark', isDark);
   }, [error]);
 
   const isConnection = isConnectionError(error);
+  const needsReload = isStaleChunkError(error);
+
+  const handleRetry = () => {
+    if (needsReload) {
+      window.location.reload();
+      return;
+    }
+    reset();
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-(--surface-secondary) p-4">
@@ -59,32 +97,42 @@ export default function GlobalError({ error, reset }: Props) {
         </div>
 
         <h2 className="mt-4 text-lg font-semibold text-(--text-primary)">
-          {isConnection ? 'Connection Error' : 'Something went wrong'}
+          {isConnection ? __('Connection Error') : __('Something went wrong')}
         </h2>
 
         <p className="mt-2 text-sm text-(--text-secondary)">
-          {isConnection
-            ? 'There was a problem connecting to the server. Please check your connection and try again.'
-            : 'An unexpected error occurred. Please try again or contact support if the problem persists.'}
+          {needsReload
+            ? __(
+                'This page was updated. Please reload to get the latest version.'
+              )
+            : isConnection
+              ? __(
+                  'There was a problem connecting to the server. Please check your connection and try again.'
+                )
+              : __(
+                  'An unexpected error occurred. Please try again or contact support if the problem persists.'
+                )}
         </p>
 
         {error.digest && (
-          <p className="mt-2 text-xs text-(--text-muted)">Error ID: {error.digest}</p>
+          <p className="mt-2 text-xs text-(--text-muted)">
+            {__('Error ID: {digest}', { digest: error.digest })}
+          </p>
         )}
 
         <div className="mt-6 flex justify-center gap-3">
           <button
-            onClick={reset}
+            onClick={handleRetry}
             className="inline-flex items-center justify-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium text-white"
             style={{ background: 'var(--gradient-brand)' }}
           >
-            Try Again
+            {needsReload ? __('Reload') : __('Try Again')}
           </button>
           <Link
             href="/"
             className="rounded-md border border-(--border-primary) bg-(--surface-primary) px-4 py-2 text-sm font-medium text-(--text-secondary) hover:bg-(--surface-secondary)"
           >
-            Go Home
+            {__('Go Home')}
           </Link>
         </div>
       </div>

@@ -1,19 +1,15 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { getSessionCookie } from "better-auth/cookies";
-import { LOCALES, DEFAULT_LOCALE } from "@/lib/constants";
-import { siteConfig } from "@/config/site";
-import type { Locale } from "@/lib/constants";
+import { getSessionCookie } from 'better-auth/cookies';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
 import {
-  DASHBOARD_PREFIX,
   ACCOUNT_PREFIX,
+  DASHBOARD_PREFIX,
   PUBLIC_ADMIN_PATHS,
   adminRoutes,
   publicAuthRoutes,
-} from "@/config/routes";
-import { auth } from "@/lib/auth";
-import { isEmailVerificationRequired } from "@/lib/email-verification";
-
+} from '@/config/routes';
+import { siteConfig } from '@/config/site';
 /**
  * Next.js 16 Proxy — runs before routes are rendered.
  *
@@ -26,12 +22,17 @@ import { isEmailVerificationRequired } from "@/lib/email-verification";
 
 // ─── Edge rate limiting ─────────────────────────────────────────────────────────────
 
-import { edgeRateLimit } from "@/core/lib/api/edge-rate-limit";
+import { getClientIp } from '@/core/lib/api/client-ip';
+import { edgeRateLimit } from '@/core/lib/api/edge-rate-limit';
+import { auth } from '@/lib/auth';
+import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
+import type { Locale } from '@/lib/constants';
+import { isEmailVerificationRequired } from '@/lib/email-verification';
 
 // General API rate limit: 60 req/min per IP
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 60;
-const RATE_LIMIT_PATHS = ["/api/trpc/", "/api/v1/"];
+const RATE_LIMIT_PATHS = ['/api/trpc/', '/api/v1/'];
 
 // Stricter limit for auth endpoints: 10 req/min per IP (brute-force protection)
 const AUTH_RATE_LIMIT_WINDOW_MS = 60_000;
@@ -39,14 +40,14 @@ const AUTH_RATE_LIMIT_MAX = 10;
 
 /** Non-default locale codes for prefix matching */
 const NON_DEFAULT_LOCALE_SET: Set<string> = new Set(
-  LOCALES.filter((l) => l !== DEFAULT_LOCALE),
+  LOCALES.filter((l) => l !== DEFAULT_LOCALE)
 );
 
 /** Generate a cryptographic nonce and set nonce-based CSP on the response. */
 function withCsp(response: NextResponse): NextResponse {
   const nonce = Buffer.from(
-    crypto.getRandomValues(new Uint8Array(16)),
-  ).toString("base64");
+    crypto.getRandomValues(new Uint8Array(16))
+  ).toString('base64');
 
   const csp = [
     "default-src 'self'",
@@ -59,32 +60,40 @@ function withCsp(response: NextResponse): NextResponse {
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
-  ].join("; ");
+  ].join('; ');
 
-  response.headers.set("Content-Security-Policy", csp);
-  response.headers.set("x-nonce", nonce);
+  response.headers.set('Content-Security-Policy', csp);
+  response.headers.set('x-nonce', nonce);
   return response;
 }
 
 const VERIFY_EMAIL_PATH = publicAuthRoutes.verifyEmail;
 
+type ProxySession = Awaited<ReturnType<typeof auth.api.getSession>>;
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // ── Edge rate limiting ──
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    request.headers.get("x-real-ip") ??
-    "unknown";
+  // Two branches below (account gating, locale fallback) need the session;
+  // memoize so a request never pays for the lookup twice.
+  let sessionPromise: Promise<ProxySession> | null = null;
+  const getSessionOnce = () =>
+    (sessionPromise ??= auth.api.getSession({ headers: request.headers }));
 
-  if (pathname.startsWith("/api/auth/")) {
+  // ── Edge rate limiting ──
+  // Trusted-hop resolver, not `x-forwarded-for[0]`: the leftmost XFF entry is
+  // client-controlled, so keying on it let a client rotate a fake IP per
+  // request and never hit the limit (see client-ip.ts).
+  const ip = getClientIp(request.headers);
+
+  if (pathname.startsWith('/api/auth/')) {
     // Strict auth rate limit — brute-force protection
     if (
       !(await edgeRateLimit(ip, AUTH_RATE_LIMIT_WINDOW_MS, AUTH_RATE_LIMIT_MAX))
     ) {
-      return new NextResponse("Too Many Requests", {
+      return new NextResponse('Too Many Requests', {
         status: 429,
-        headers: { "Retry-After": "60", "Content-Type": "application/json" },
+        headers: { 'Retry-After': '60', 'Content-Type': 'application/json' },
       });
     }
     // Auth routes don't need locale/CSP processing — pass through
@@ -93,9 +102,9 @@ export async function proxy(request: NextRequest) {
 
   if (RATE_LIMIT_PATHS.some((p) => pathname.startsWith(p))) {
     if (!(await edgeRateLimit(ip, RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX))) {
-      return new NextResponse("Too Many Requests", {
+      return new NextResponse('Too Many Requests', {
         status: 429,
-        headers: { "Retry-After": "60" },
+        headers: { 'Retry-After': '60' },
       });
     }
     // Other API routes don't need locale/CSP processing — pass through
@@ -106,7 +115,7 @@ export async function proxy(request: NextRequest) {
   if (pathname.startsWith(DASHBOARD_PREFIX)) {
     if (
       PUBLIC_ADMIN_PATHS.some(
-        (p) => pathname === p || pathname.startsWith(p + "/"),
+        (p) => pathname === p || pathname.startsWith(p + '/')
       )
     ) {
       return withCsp(NextResponse.next());
@@ -127,13 +136,13 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(
         new URL(
           `${publicAuthRoutes.login}?callbackUrl=${encodeURIComponent(pathname)}`,
-          request.url,
-        ),
+          request.url
+        )
       );
     }
 
     // Check email verification grace period
-    const session = await auth.api.getSession({ headers: request.headers });
+    const session = await getSessionOnce();
     const u = session?.user as Record<string, unknown> | undefined;
     if (
       u &&
@@ -151,7 +160,7 @@ export async function proxy(request: NextRequest) {
     const sessionCookie = getSessionCookie(request);
     if (!sessionCookie) {
       return NextResponse.redirect(
-        new URL(publicAuthRoutes.login, request.url),
+        new URL(publicAuthRoutes.login, request.url)
       );
     }
   }
@@ -163,15 +172,16 @@ export async function proxy(request: NextRequest) {
   //
   // Flow:
   //   1. URL has locale prefix → set cookie + rewrite (non-default) or pass through (default)
-  //   2. URL has no prefix → check cookie → redirect if non-default preference
+  //   2. URL has no prefix → check cookie, else a logged-in user's saved
+  //      `user.lang` → redirect if non-default preference
   //   3. Neither → no redirect (Googlebot, first visitors)
 
-  const LOCALE_COOKIE = "preferred_locale";
+  const LOCALE_COOKIE = 'preferred_locale';
   const LOCALE_COOKIE_MAX_AGE = 365 * 24 * 60 * 60;
 
   const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
-  const segments = pathname.split("/");
-  const firstSegment = segments[1] ?? "";
+  const segments = pathname.split('/');
+  const firstSegment = segments[1] ?? '';
   const urlLocale = NON_DEFAULT_LOCALE_SET.has(firstSegment)
     ? (firstSegment as Locale)
     : firstSegment === DEFAULT_LOCALE
@@ -187,40 +197,44 @@ export async function proxy(request: NextRequest) {
       NON_DEFAULT_LOCALE_SET.has(firstSegment.toLowerCase())
     ) {
       const url = request.nextUrl.clone();
-      url.pathname = `/${firstSegment.toLowerCase()}${segments.slice(2).length ? "/" + segments.slice(2).join("/") : ""}`;
+      url.pathname = `/${firstSegment.toLowerCase()}${segments.slice(2).length ? '/' + segments.slice(2).join('/') : ''}`;
       return NextResponse.redirect(url, 301);
     }
 
     // Default locale prefix (/en/xxx): strip prefix via rewrite (same as non-default).
     // Indigo's App Router has no [locale] directory — it reads locale from x-locale header.
     if (urlLocale === DEFAULT_LOCALE) {
-      const strippedPath = "/" + segments.slice(2).join("/") || "/";
+      const strippedPath = '/' + segments.slice(2).join('/') || '/';
       const url = request.nextUrl.clone();
       url.pathname = strippedPath;
       const response = NextResponse.rewrite(url);
-      response.headers.set("x-locale", DEFAULT_LOCALE);
+      response.headers.set('x-locale', DEFAULT_LOCALE);
+      if (request.nextUrl.search)
+        response.headers.set('x-search', request.nextUrl.search);
       if (cookieLocale !== DEFAULT_LOCALE) {
         response.cookies.set(LOCALE_COOKIE, DEFAULT_LOCALE, {
-          path: "/",
+          path: '/',
           maxAge: LOCALE_COOKIE_MAX_AGE,
-          sameSite: "lax",
+          sameSite: 'lax',
         });
       }
       return withCsp(response);
     }
 
     // Non-default locale prefix (/de/xxx, /es/xxx): rewrite to strip prefix.
-    const strippedPath = "/" + segments.slice(2).join("/") || "/";
+    const strippedPath = '/' + segments.slice(2).join('/') || '/';
     const url = request.nextUrl.clone();
     url.pathname = strippedPath;
 
     const response = NextResponse.rewrite(url);
-    response.headers.set("x-locale", urlLocale);
+    response.headers.set('x-locale', urlLocale);
+    if (request.nextUrl.search)
+      response.headers.set('x-search', request.nextUrl.search);
     if (cookieLocale !== urlLocale) {
       response.cookies.set(LOCALE_COOKIE, urlLocale, {
-        path: "/",
+        path: '/',
         maxAge: LOCALE_COOKIE_MAX_AGE,
-        sameSite: "lax",
+        sameSite: 'lax',
       });
     }
     return withCsp(response);
@@ -228,23 +242,35 @@ export async function proxy(request: NextRequest) {
 
   // ── No locale prefix → check stored preference ──
 
+  // Cookie is primary (instant, no lookup). A logged-in user without the cookie
+  // (new device, cleared cookies) falls back to the `user.lang` they saved via
+  // auth.setPreferredLocale — exposed on the session by customSession in
+  // src/lib/auth.ts. The redirect then lands on a prefixed URL, which sets the
+  // cookie for every request after.
+  let preferredLocale = cookieLocale;
+  if (!preferredLocale && getSessionCookie(request)) {
+    const session = await getSessionOnce();
+    const lang = (session?.user as { lang?: string | null } | undefined)?.lang;
+    if (lang) preferredLocale = lang;
+  }
+
   if (
-    cookieLocale &&
-    cookieLocale !== DEFAULT_LOCALE &&
-    NON_DEFAULT_LOCALE_SET.has(cookieLocale)
+    preferredLocale &&
+    preferredLocale !== DEFAULT_LOCALE &&
+    NON_DEFAULT_LOCALE_SET.has(preferredLocale)
   ) {
     const url = request.nextUrl.clone();
-    url.pathname = `/${cookieLocale}${pathname}`;
+    url.pathname = `/${preferredLocale}${pathname}`;
     return NextResponse.redirect(url);
   }
 
-  // Auto-detect locale from Accept-Language (opt-in, only when no cookie)
-  if (siteConfig.localeAutoDetect && !cookieLocale) {
-    const acceptLang = request.headers.get("accept-language");
+  // Auto-detect locale from Accept-Language (opt-in, only when no stored preference)
+  if (siteConfig.localeAutoDetect && !preferredLocale) {
+    const acceptLang = request.headers.get('accept-language');
     if (acceptLang) {
       const preferred = acceptLang
-        .split(",")
-        .map((p) => p.trim().split(";")[0]!.split("-")[0]!.toLowerCase());
+        .split(',')
+        .map((p) => p.trim().split(';')[0]!.split('-')[0]!.toLowerCase());
       for (const code of preferred) {
         if (code !== DEFAULT_LOCALE && NON_DEFAULT_LOCALE_SET.has(code)) {
           const url = request.nextUrl.clone();
@@ -257,7 +283,9 @@ export async function proxy(request: NextRequest) {
 
   // Default locale — no rewrite, set header for consistency.
   const response = NextResponse.next();
-  response.headers.set("x-locale", DEFAULT_LOCALE);
+  response.headers.set('x-locale', DEFAULT_LOCALE);
+  if (request.nextUrl.search)
+    response.headers.set('x-search', request.nextUrl.search);
   return withCsp(response);
 }
 
@@ -266,12 +294,12 @@ export const config = {
     // Pages (everything except API/internals/static). The rate-limit branches at
     // the top of `proxy()` return early for API paths, so page/i18n/CSP logic
     // below them only ever runs for these page routes.
-    "/((?!api|_next|uploads|favicon\\.ico|sitemap\\.xml|news-sitemap\\.xml|robots\\.txt).*)",
+    '/((?!api|_next|uploads|favicon\\.ico|sitemap\\.xml|news-sitemap\\.xml|robots\\.txt).*)',
     // API paths that MUST hit the edge rate limiter. Without these explicit
     // entries the negative-lookahead above excludes all of `/api/*`, so the
     // auth-brute-force and tRPC/v1 limiters were dead code.
-    "/api/auth/:path*",
-    "/api/trpc/:path*",
-    "/api/v1/:path*",
+    '/api/auth/:path*',
+    '/api/trpc/:path*',
+    '/api/v1/:path*',
   ],
 };

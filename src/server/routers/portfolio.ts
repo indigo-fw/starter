@@ -1,48 +1,53 @@
+import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
+import crypto from 'crypto';
 import { and, desc, eq, inArray, isNull, sql } from 'drizzle-orm';
 import { z } from 'zod';
-import crypto from 'crypto';
 
-import { env } from '@/lib/env';
-import { DEFAULT_LOCALE } from '@/lib/constants';
 import { getContentType } from '@/config/cms';
-import {
-  mergeWithLocaleFallback,
-  needsLocaleFallback,
-} from '@/core/lib/i18n/locale-fallback';
-import { createLogger } from '@/core/lib/infra/logger';
-import { cmsPortfolio, cmsTermRelationships } from '@/server/db/schema';
-import { createFieldTranslator } from '@/server/translation/translate-fields';
-import { ContentStatus } from '@/core/types/cms';
 import {
   buildAdminList,
   buildStatusCounts,
+  createSlugRestoreCheck,
   ensureSlugUnique,
-  softDelete,
-  softRestore,
-  permanentDelete,
   fetchOrNotFound,
   generateCopySlug,
-  updateContentStatus,
   getTranslationSiblings,
-  serializeExport,
-  parsePagination,
   paginatedResult,
+  parsePagination,
+  permanentDelete,
   prepareTranslationCopy,
+  serializeExport,
+  softDelete,
+  softRestore,
+  updateContentStatus,
 } from '@/core/crud/admin-crud';
-import { adminListInput, exportBulkInput } from '@/core/crud/router-schemas';
 import { updateWithRevision } from '@/core/crud/cms-helpers';
+import {
+  MAX_PAGE,
+  adminListInput,
+  exportBulkInput,
+} from '@/core/crud/router-schemas';
+import {
+  createTableSlugResolver,
+  registerSlugResolver,
+} from '@/core/crud/slug-redirects';
 import {
   deleteAllTermRelationships,
   getTermRelationships,
   syncTermRelationships,
 } from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/infra/audit';
 import {
-  createTRPCRouter,
-  publicProcedure,
-  sectionProcedure,
-} from '../trpc';
+  mergeWithLocaleFallback,
+  needsLocaleFallback,
+} from '@/core/lib/i18n/locale-fallback';
+import { logAudit } from '@/core/lib/infra/audit';
+import { createLogger } from '@/core/lib/infra/logger';
+import { ContentStatus } from '@/core/types/cms';
+import { DEFAULT_LOCALE } from '@/lib/constants';
+import { env } from '@/lib/env';
+import { cmsPortfolio, cmsTermRelationships } from '@/server/db/schema';
+import { createFieldTranslator } from '@/server/translation/translate-fields';
 
 const logger = createLogger('portfolio-router');
 const contentProcedure = sectionProcedure('content');
@@ -72,41 +77,61 @@ const crudCols = {
   deleted_at: cmsPortfolio.deletedAt,
 };
 
+const restoreSlugCheck = createSlugRestoreCheck(
+  {
+    table: cmsPortfolio,
+    idCol: cmsPortfolio.id,
+    slugCol: cmsPortfolio.slug,
+    langCol: cmsPortfolio.lang,
+    deletedAtCol: cmsPortfolio.deletedAt,
+  },
+  'portfolio item'
+);
+
+// `update` writes slug redirects as contentType 'portfolio'; resolve them here.
+registerSlugResolver(
+  'portfolio',
+  createTableSlugResolver({
+    table: cmsPortfolio,
+    id: cmsPortfolio.id,
+    slug: cmsPortfolio.slug,
+    deletedAt: cmsPortfolio.deletedAt,
+  })
+);
+
 export const portfolioRouter = createTRPCRouter({
-  list: contentProcedure
-    .input(adminListInput)
-    .query(async ({ ctx, input }) => {
-      return buildAdminList(
-        {
-          db: ctx.db,
-          cols: {
-            table: cmsPortfolio,
-            id: cmsPortfolio.id,
-            deleted_at: cmsPortfolio.deletedAt,
-            lang: cmsPortfolio.lang,
-            translation_group: cmsPortfolio.translationGroup,
-          },
-          input,
-          searchColumns: [cmsPortfolio.name, cmsPortfolio.slug],
-          sortColumns: {
-            title: cmsPortfolio.name,
-            name: cmsPortfolio.name,
-            created_at: cmsPortfolio.createdAt,
-            updated_at: cmsPortfolio.updatedAt,
-          },
-          defaultSort: 'updated_at',
+  list: contentProcedure.input(adminListInput).query(async ({ ctx, input }) => {
+    return buildAdminList(
+      {
+        db: ctx.db,
+        cols: {
+          table: cmsPortfolio,
+          id: cmsPortfolio.id,
+          deleted_at: cmsPortfolio.deletedAt,
+          lang: cmsPortfolio.lang,
+          translation_group: cmsPortfolio.translationGroup,
         },
-        async ({ where, orderBy, offset, limit }) => {
-          return ctx.db
-            .select()
-            .from(cmsPortfolio)
-            .where(where)
-            .orderBy(orderBy)
-            .offset(offset)
-            .limit(limit);
-        }
-      );
-    }),
+        input,
+        searchColumns: [cmsPortfolio.name, cmsPortfolio.slug],
+        sortColumns: {
+          title: cmsPortfolio.name,
+          name: cmsPortfolio.name,
+          created_at: cmsPortfolio.createdAt,
+          updated_at: cmsPortfolio.updatedAt,
+        },
+        defaultSort: 'updated_at',
+      },
+      async ({ where, orderBy, offset, limit }) => {
+        return ctx.db
+          .select()
+          .from(cmsPortfolio)
+          .where(where)
+          .orderBy(orderBy)
+          .offset(offset)
+          .limit(limit);
+      }
+    );
+  }),
 
   counts: contentProcedure.query(async ({ ctx }) => {
     return buildStatusCounts(ctx.db, {
@@ -120,7 +145,10 @@ export const portfolioRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       const item = await fetchOrNotFound<typeof cmsPortfolio.$inferSelect>(
-        ctx.db, cmsPortfolio, input.id, 'Portfolio item'
+        ctx.db,
+        cmsPortfolio,
+        input.id,
+        'Portfolio item'
       );
 
       const rels = await getTermRelationships(ctx.db, item.id, 'tag');
@@ -183,7 +211,9 @@ export const portfolioRouter = createTRPCRouter({
           metaDescription: itemInput.metaDescription ?? null,
           seoTitle: itemInput.seoTitle ?? null,
           noindex: itemInput.noindex,
-          publishedAt: itemInput.publishedAt ? new Date(itemInput.publishedAt) : null,
+          publishedAt: itemInput.publishedAt
+            ? new Date(itemInput.publishedAt)
+            : null,
           previewToken,
           translationGroup: itemInput.translationGroup ?? null,
           fallbackToDefault: itemInput.fallbackToDefault ?? null,
@@ -192,7 +222,9 @@ export const portfolioRouter = createTRPCRouter({
           clientName: itemInput.clientName ?? null,
           projectUrl: itemInput.projectUrl ?? null,
           techStack: itemInput.techStack ?? [],
-          completedAt: itemInput.completedAt ? new Date(itemInput.completedAt) : null,
+          completedAt: itemInput.completedAt
+            ? new Date(itemInput.completedAt)
+            : null,
         })
         .returning();
 
@@ -216,12 +248,20 @@ export const portfolioRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const original = await fetchOrNotFound<typeof cmsPortfolio.$inferSelect>(
-        ctx.db, cmsPortfolio, input.id, 'Portfolio item'
+        ctx.db,
+        cmsPortfolio,
+        input.id,
+        'Portfolio item'
       );
 
       const copySlug = await generateCopySlug(
-        ctx.db, cmsPortfolio, cmsPortfolio.slug, cmsPortfolio.deletedAt,
-        original.slug, cmsPortfolio.lang, original.lang,
+        ctx.db,
+        cmsPortfolio,
+        cmsPortfolio.slug,
+        cmsPortfolio.deletedAt,
+        original.slug,
+        cmsPortfolio.lang,
+        original.lang
       );
 
       const previewToken = crypto.randomBytes(32).toString('hex');
@@ -281,7 +321,10 @@ export const portfolioRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const source = await fetchOrNotFound<typeof cmsPortfolio.$inferSelect>(
-        ctx.db, cmsPortfolio, input.id, 'Portfolio item'
+        ctx.db,
+        cmsPortfolio,
+        input.id,
+        'Portfolio item'
       );
 
       let name = source.name;
@@ -295,21 +338,33 @@ export const portfolioRouter = createTRPCRouter({
         const sl = source.lang ?? DEFAULT_LOCALE;
         const tl = input.targetLang;
         const safe = createFieldTranslator(tl, sl, logger);
-        [name, title, content, metaDescription, seoTitle, featuredImageAlt] = await Promise.all([
-          safe('name', name),
-          safe('title', title),
-          safe('text', content),
-          safe('metaDescription', metaDescription),
-          safe('seoTitle', seoTitle),
-          safe('featuredImageAlt', featuredImageAlt),
-        ]);
+        [name, title, content, metaDescription, seoTitle, featuredImageAlt] =
+          await Promise.all([
+            safe('name', name),
+            safe('title', title),
+            safe('text', content),
+            safe('metaDescription', metaDescription),
+            safe('seoTitle', seoTitle),
+            safe('featuredImageAlt', featuredImageAlt),
+          ]);
       }
 
-      const { slug, translationGroup, previewToken } = await prepareTranslationCopy(
-        ctx.db, cmsPortfolio,
-        { id: cmsPortfolio.id, slug: cmsPortfolio.slug, lang: cmsPortfolio.lang, deletedAt: cmsPortfolio.deletedAt, translationGroup: cmsPortfolio.translationGroup },
-        input.id, source.slug, source.translationGroup, input.targetLang,
-      );
+      const { slug, translationGroup, previewToken } =
+        await prepareTranslationCopy(
+          ctx.db,
+          cmsPortfolio,
+          {
+            id: cmsPortfolio.id,
+            slug: cmsPortfolio.slug,
+            lang: cmsPortfolio.lang,
+            deletedAt: cmsPortfolio.deletedAt,
+            translationGroup: cmsPortfolio.translationGroup,
+          },
+          input.id,
+          source.slug,
+          source.translationGroup,
+          input.targetLang
+        );
 
       const [newItem] = await ctx.db
         .insert(cmsPortfolio)
@@ -343,7 +398,11 @@ export const portfolioRouter = createTRPCRouter({
         entityType: 'portfolio',
         entityId: newItem!.id,
         entityTitle: newItem!.name,
-        metadata: { originalId: input.id, targetLang: input.targetLang, autoTranslate: input.autoTranslate },
+        metadata: {
+          originalId: input.id,
+          targetLang: input.targetLang,
+          autoTranslate: input.autoTranslate,
+        },
       });
 
       return { id: newItem!.id, slug: newItem!.slug };
@@ -353,9 +412,14 @@ export const portfolioRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return getTranslationSiblings(
-        ctx.db, cmsPortfolio,
-        cmsPortfolio.id, cmsPortfolio.translationGroup, cmsPortfolio.lang,
-        cmsPortfolio.slug, cmsPortfolio.deletedAt, input.id,
+        ctx.db,
+        cmsPortfolio,
+        cmsPortfolio.id,
+        cmsPortfolio.translationGroup,
+        cmsPortfolio.lang,
+        cmsPortfolio.slug,
+        cmsPortfolio.deletedAt,
+        input.id
       );
     }),
 
@@ -384,8 +448,29 @@ export const portfolioRouter = createTRPCRouter({
         .from(cmsPortfolio)
         .where(inArray(cmsPortfolio.id, input.ids));
 
-      const headers = ['id', 'name', 'slug', 'title', 'status', 'lang', 'clientName', 'projectUrl', 'techStack', 'completedAt', 'metaDescription', 'seoTitle', 'publishedAt', 'createdAt', 'updatedAt', 'content'];
-      return serializeExport(items as Record<string, unknown>[], headers, input.format);
+      const headers = [
+        'id',
+        'name',
+        'slug',
+        'title',
+        'status',
+        'lang',
+        'clientName',
+        'projectUrl',
+        'techStack',
+        'completedAt',
+        'metaDescription',
+        'seoTitle',
+        'publishedAt',
+        'createdAt',
+        'updatedAt',
+        'content',
+      ];
+      return serializeExport(
+        items as Record<string, unknown>[],
+        headers,
+        input.format
+      );
     }),
 
   update: contentProcedure
@@ -416,7 +501,10 @@ export const portfolioRouter = createTRPCRouter({
       const { id, tagIds, ...updates } = input;
 
       const existing = await fetchOrNotFound<typeof cmsPortfolio.$inferSelect>(
-        ctx.db, cmsPortfolio, id, 'Portfolio item'
+        ctx.db,
+        cmsPortfolio,
+        id,
+        'Portfolio item'
       );
 
       if (updates.slug && updates.slug !== existing.slug) {
@@ -494,9 +582,15 @@ export const portfolioRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       await updateContentStatus(
-        ctx.db, cmsPortfolio,
-        cmsPortfolio.id, cmsPortfolio.status, cmsPortfolio.publishedAt, cmsPortfolio.updatedAt,
-        input.id, input.status, 'Portfolio item',
+        ctx.db,
+        cmsPortfolio,
+        cmsPortfolio.id,
+        cmsPortfolio.status,
+        cmsPortfolio.publishedAt,
+        cmsPortfolio.updatedAt,
+        input.id,
+        input.status,
+        'Portfolio item'
       );
 
       const action =
@@ -522,16 +616,22 @@ export const portfolioRouter = createTRPCRouter({
   restore: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await softRestore(ctx.db, crudCols, input.id);
+      await softRestore(ctx.db, crudCols, input.id, restoreSlugCheck);
       return { success: true };
     }),
 
   permanentDelete: contentProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await permanentDelete(ctx.db, crudCols, input.id, 'portfolio', async (tx) => {
-        await deleteAllTermRelationships(tx, input.id);
-      });
+      await permanentDelete(
+        ctx.db,
+        crudCols,
+        input.id,
+        'portfolio',
+        async (tx) => {
+          await deleteAllTermRelationships(tx, input.id);
+        }
+      );
       return { success: true };
     }),
 
@@ -608,7 +708,7 @@ export const portfolioRouter = createTRPCRouter({
       z.object({
         lang: z.string().max(2).default(DEFAULT_LOCALE),
         tagId: z.string().uuid().optional(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(100),
       })
     )
@@ -656,9 +756,10 @@ export const portfolioRouter = createTRPCRouter({
         // Normalize join result shape — innerJoin returns { cms_portfolio, ... }
         const normalize = (items: unknown[]) =>
           items.map((item) => {
-            const row = 'cms_portfolio' in (item as object)
-              ? (item as Record<string, unknown>).cms_portfolio
-              : item;
+            const row =
+              'cms_portfolio' in (item as object)
+                ? (item as Record<string, unknown>).cms_portfolio
+                : item;
             return row as typeof cmsPortfolio.$inferSelect;
           });
         const merged = mergeWithLocaleFallback(
@@ -750,7 +851,7 @@ export const portfolioRouter = createTRPCRouter({
         items.map(({ previewToken: _pt, ...rest }) => rest),
         total,
         page,
-        pageSize,
+        pageSize
       );
     }),
 });

@@ -1,13 +1,27 @@
+import {
+  getAuthorIds,
+  getAuthorsForObject,
+  syncAuthorRelationships,
+} from '../lib/author-helpers';
+import { cmsAuthorRelationships, cmsAuthors } from '../schema/authors';
 import { and, asc, count, desc, eq, ilike, isNull } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { createTRPCRouter, publicProcedure, sectionProcedure } from '@/server/trpc';
-import { parsePagination, paginatedResult, fetchOrNotFound, ensureSlugUnique } from '@/core/crud/admin-crud';
+import {
+  ensureSlugUnique,
+  fetchOrNotFound,
+  paginatedResult,
+  parsePagination,
+} from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { logAudit } from '@/core/lib/infra/audit';
-import { cmsAuthors, cmsAuthorRelationships } from '../schema/authors';
-import { cmsPosts } from '@/server/db/schema/cms';
 import { ContentStatus } from '@/core/types/cms';
-import { syncAuthorRelationships, getAuthorIds, getAuthorsForObject } from '../lib/author-helpers';
+import { cmsPosts } from '@/server/db/schema/cms';
+import {
+  createTRPCRouter,
+  publicProcedure,
+  sectionProcedure,
+} from '@/server/trpc';
 
 const contentProcedure = sectionProcedure('content');
 
@@ -19,13 +33,15 @@ export const authorsRouter = createTRPCRouter({
     .input(
       z.object({
         search: z.string().max(100).optional(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(20),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
-      const where = input.search ? ilike(cmsAuthors.name, `%${input.search}%`) : undefined;
+      const where = input.search
+        ? ilike(cmsAuthors.name, `%${input.search}%`)
+        : undefined;
 
       const [items, [countRow]] = await Promise.all([
         ctx.db
@@ -46,7 +62,10 @@ export const authorsRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return fetchOrNotFound<typeof cmsAuthors.$inferSelect>(
-        ctx.db, cmsAuthors, input.id, 'Author',
+        ctx.db,
+        cmsAuthors,
+        input.id,
+        'Author'
       );
     }),
 
@@ -60,13 +79,13 @@ export const authorsRouter = createTRPCRouter({
         avatar: z.string().max(1024).optional(),
         socialUrls: z.string().max(2000).optional(),
         userId: z.string().optional(),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       await ensureSlugUnique(
         ctx.db,
         { table: cmsAuthors, slugCol: cmsAuthors.slug, slug: input.slug },
-        'Author',
+        'Author'
       );
 
       const [author] = await ctx.db
@@ -104,7 +123,7 @@ export const authorsRouter = createTRPCRouter({
         avatar: z.string().max(1024).optional().nullable(),
         socialUrls: z.string().max(2000).optional().nullable(),
         userId: z.string().optional().nullable(),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const { id, ...updates } = input;
@@ -119,7 +138,7 @@ export const authorsRouter = createTRPCRouter({
             idCol: cmsAuthors.id,
             excludeId: id,
           },
-          'Author',
+          'Author'
         );
       }
 
@@ -157,9 +176,15 @@ export const authorsRouter = createTRPCRouter({
   candidates: contentProcedure
     .input(z.object({ search: z.string().max(100).optional() }).optional())
     .query(async ({ ctx, input }) => {
-      const where = input?.search ? ilike(cmsAuthors.name, `%${input.search}%`) : undefined;
+      const where = input?.search
+        ? ilike(cmsAuthors.name, `%${input.search}%`)
+        : undefined;
       return ctx.db
-        .select({ id: cmsAuthors.id, name: cmsAuthors.name, avatar: cmsAuthors.avatar })
+        .select({
+          id: cmsAuthors.id,
+          name: cmsAuthors.name,
+          avatar: cmsAuthors.avatar,
+        })
         .from(cmsAuthors)
         .where(where)
         .orderBy(asc(cmsAuthors.name))
@@ -173,15 +198,22 @@ export const authorsRouter = createTRPCRouter({
         objectId: z.string().uuid(),
         contentType: z.string().max(50),
         authorIds: z.array(z.string().uuid()).max(20),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
-      await syncAuthorRelationships(ctx.db, input.objectId, input.contentType, input.authorIds);
+      await syncAuthorRelationships(
+        ctx.db,
+        input.objectId,
+        input.contentType,
+        input.authorIds
+      );
     }),
 
   /** Get author IDs for a content object (admin form) */
   getRelationships: contentProcedure
-    .input(z.object({ objectId: z.string().uuid(), contentType: z.string().max(50) }))
+    .input(
+      z.object({ objectId: z.string().uuid(), contentType: z.string().max(50) })
+    )
     .query(async ({ ctx, input }) => {
       return getAuthorIds(ctx.db, input.objectId, input.contentType);
     }),
@@ -211,9 +243,9 @@ export const authorsRouter = createTRPCRouter({
       z.object({
         authorId: z.string().uuid(),
         lang: z.string().max(2).default('en'),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(50).default(10),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const { page, pageSize, offset } = parsePagination(input);
@@ -231,15 +263,15 @@ export const authorsRouter = createTRPCRouter({
         .from(cmsPosts)
         .innerJoin(
           cmsAuthorRelationships,
-          eq(cmsPosts.id, cmsAuthorRelationships.objectId),
+          eq(cmsPosts.id, cmsAuthorRelationships.objectId)
         )
         .where(
           and(
             eq(cmsAuthorRelationships.authorId, input.authorId),
             eq(cmsPosts.status, ContentStatus.PUBLISHED),
             eq(cmsPosts.lang, input.lang),
-            isNull(cmsPosts.deletedAt),
-          ),
+            isNull(cmsPosts.deletedAt)
+          )
         );
 
       const [items, [countRow]] = await Promise.all([
@@ -252,15 +284,15 @@ export const authorsRouter = createTRPCRouter({
           .from(cmsPosts)
           .innerJoin(
             cmsAuthorRelationships,
-            eq(cmsPosts.id, cmsAuthorRelationships.objectId),
+            eq(cmsPosts.id, cmsAuthorRelationships.objectId)
           )
           .where(
             and(
               eq(cmsAuthorRelationships.authorId, input.authorId),
               eq(cmsPosts.status, ContentStatus.PUBLISHED),
               eq(cmsPosts.lang, input.lang),
-              isNull(cmsPosts.deletedAt),
-            ),
+              isNull(cmsPosts.deletedAt)
+            )
           ),
       ]);
 
@@ -269,7 +301,9 @@ export const authorsRouter = createTRPCRouter({
 
   /** Get authors for a content object (frontend rendering) */
   getForObject: publicProcedure
-    .input(z.object({ objectId: z.string().uuid(), contentType: z.string().max(50) }))
+    .input(
+      z.object({ objectId: z.string().uuid(), contentType: z.string().max(50) })
+    )
     .query(async ({ ctx, input }) => {
       return getAuthorsForObject(ctx.db, input.objectId, input.contentType);
     }),

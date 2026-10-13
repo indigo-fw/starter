@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Bun: dev server (server.ts)",
+      "type": "bun",
+      "request": "launch",
+      "program": "${workspaceFolder}/server.ts",
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "watchMode": false,
+      "env": {
+        "NODE_OPTIONS": "",
+        "NEXT_TELEMETRY_DISABLED": "1"
+      }
+    },
+    {
+      "name": "Bun: run current file",
+      "type": "bun",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "watchMode": false,
+      "env": {
+        "NODE_OPTIONS": "",
+        "NEXT_TELEMETRY_DISABLED": "1"
+      }
+    }
+  ]
+}

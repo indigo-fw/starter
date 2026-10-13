@@ -12,7 +12,7 @@ noindex: false
 
 ### Funzionalità principali
 
-- **Sviluppo guidato da agenti** — CLAUDE.md funge da guida completa del progetto, consentendo agli agenti IA di comprendere e modificare la base di codice in modo efficace
+- **Sviluppo guidato da agenti** — AGENTS.md funge da guida completa del progetto, consentendo agli agenti IA di comprendere e modificare la base di codice in modo efficace
 - **Stack moderno** — Costruito con Next.js 16, TypeScript e Tailwind CSS v4
 - **Contenuti flessibili** — Pagine, articoli del blog, elementi del portfolio, schede vetrina, categorie ed etichette
 - **Accesso basato sui ruoli** — Ruoli utente, editor, amministratore e superamministratore con permessi basati su politiche

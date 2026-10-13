@@ -1,10 +1,14 @@
-import { db } from '@/server/db';
-import { saasNotifications, member } from '@/server/db/schema';
 import { eq } from 'drizzle-orm';
+
+import { createLogger } from '@/core/lib/infra/logger';
 import type {
-  NotificationType,
   NotificationCategory,
+  NotificationType,
 } from '@/core/types/notifications';
+import { db } from '@/server/db';
+import { member, saasNotifications } from '@/server/db/schema';
+
+const log = createLogger('notifications');
 
 interface SendNotificationInput {
   userId: string;
@@ -55,7 +59,10 @@ export function sendNotification(input: SendNotificationInput): void {
         // Push not available — notification still persisted in DB
       }
     } catch (err) {
-      console.error('Failed to send notification:', err);
+      log.error('Failed to send notification', {
+        userId: input.userId,
+        error: String(err),
+      });
     }
   };
 
@@ -79,7 +86,10 @@ export function sendOrgNotification(
         sendNotification({ ...input, userId: m.userId, orgId });
       }
     } catch (err) {
-      console.error('Failed to send org notification:', err);
+      log.error('Failed to send org notification', {
+        orgId,
+        error: String(err),
+      });
     }
   };
 

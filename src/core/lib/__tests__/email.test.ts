@@ -1,4 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+// Import after mocks
+import { enqueueEmail, enqueueTemplateEmail } from '../email/queue';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // --- Hoisted mock fns (available inside vi.mock factories) ---
 
@@ -53,6 +55,8 @@ vi.mock('@/core/lib/infra/logger', () => ({
     warn: vi.fn(),
     debug: vi.fn(),
   }),
+  markLogged: (err: unknown) => err,
+  wasLogged: () => false,
 }));
 
 vi.mock('@/core/lib/infra/queue', () => ({
@@ -63,6 +67,8 @@ vi.mock('@/core/lib/infra/queue', () => ({
 vi.mock('../email/transport', () => ({
   sendEmail: (...args: unknown[]) => mockSendEmail(...args),
   isValidEmail: (...args: unknown[]) => mockIsValidEmail(...args),
+  isAnonymizedAddress: () => false,
+  isPermanentEmailError: () => false,
 }));
 
 vi.mock('../email/template', () => ({
@@ -73,9 +79,6 @@ vi.mock('../email/deps', () => ({
   getEmailDeps: (...args: unknown[]) => mockGetEmailDeps(...args),
 }));
 
-// Import after mocks
-import { enqueueEmail, enqueueTemplateEmail } from '../email/queue';
-
 // --- Tests ---
 
 describe('enqueueEmail', () => {
@@ -85,7 +88,11 @@ describe('enqueueEmail', () => {
   });
 
   it('enqueues to BullMQ when queue is available', async () => {
-    const payload = { to: 'user@test.com', subject: 'Hello', html: '<p>Hi</p>' };
+    const payload = {
+      to: 'user@test.com',
+      subject: 'Hello',
+      html: '<p>Hi</p>',
+    };
 
     await enqueueEmail(payload);
 
@@ -93,7 +100,7 @@ describe('enqueueEmail', () => {
     expect(mockQueueAdd).toHaveBeenCalledWith(
       'send-raw',
       payload,
-      expect.objectContaining({ attempts: expect.any(Number) }),
+      expect.objectContaining({ attempts: expect.any(Number) })
     );
     expect(mockSendEmail).not.toHaveBeenCalled();
   });
@@ -116,6 +123,8 @@ describe('enqueueEmail', () => {
     vi.doMock('../email/transport', () => ({
       sendEmail: mockSendEmail,
       isValidEmail: mockIsValidEmail,
+      isAnonymizedAddress: () => false,
+      isPermanentEmailError: () => false,
     }));
     vi.doMock('../email/template', () => ({
       renderTemplate: mockRenderTemplate,
@@ -129,10 +138,19 @@ describe('enqueueEmail', () => {
 
     const { enqueueEmail: enqueueEmailFresh } = await import('../email/queue');
 
-    const payload = { to: 'user@test.com', subject: 'Hello', html: '<p>Hi</p>' };
+    const payload = {
+      to: 'user@test.com',
+      subject: 'Hello',
+      html: '<p>Hi</p>',
+    };
     await enqueueEmailFresh(payload);
 
-    expect(mockSendEmail).toHaveBeenCalledWith('user@test.com', 'Hello', '<p>Hi</p>');
+    expect(mockSendEmail).toHaveBeenCalledWith(
+      'user@test.com',
+      'Hello',
+      '<p>Hi</p>',
+      { replyTo: undefined, headers: undefined }
+    );
   });
 
   it('warns on invalid email address', async () => {
@@ -163,7 +181,12 @@ describe('enqueueTemplateEmail', () => {
   });
 
   it('enqueues template job with correct template name and vars', async () => {
-    await enqueueTemplateEmail('user@test.com', 'welcome', { name: 'Alice' }, 'en');
+    await enqueueTemplateEmail(
+      'user@test.com',
+      'welcome',
+      { name: 'Alice' },
+      'en'
+    );
 
     expect(mockQueueAdd).toHaveBeenCalledOnce();
     expect(mockQueueAdd).toHaveBeenCalledWith(
@@ -174,7 +197,7 @@ describe('enqueueTemplateEmail', () => {
         data: { name: 'Alice' },
         locale: 'en',
       },
-      expect.objectContaining({ attempts: expect.any(Number) }),
+      expect.objectContaining({ attempts: expect.any(Number) })
     );
     expect(mockSendEmail).not.toHaveBeenCalled();
     expect(mockRenderTemplate).not.toHaveBeenCalled();
@@ -198,6 +221,8 @@ describe('enqueueTemplateEmail', () => {
     vi.doMock('../email/transport', () => ({
       sendEmail: mockSendEmail,
       isValidEmail: mockIsValidEmail,
+      isAnonymizedAddress: () => false,
+      isPermanentEmailError: () => false,
     }));
     vi.doMock('../email/template', () => ({
       renderTemplate: mockRenderTemplate,
@@ -222,18 +247,29 @@ describe('enqueueTemplateEmail', () => {
       retryPolicy: undefined,
     });
 
-    const { enqueueTemplateEmail: enqueueTemplateFresh } = await import('../email/queue');
+    const { enqueueTemplateEmail: enqueueTemplateFresh } =
+      await import('../email/queue');
 
-    await enqueueTemplateFresh('user@test.com', 'welcome', { name: 'Alice' }, 'en');
+    await enqueueTemplateFresh(
+      'user@test.com',
+      'welcome',
+      { name: 'Alice' },
+      'en'
+    );
 
     expect(mockRenderTemplate).toHaveBeenCalledWith(
       'welcome',
       { name: 'Alice' },
       'en',
       mockBranding,
-      expect.objectContaining({ templatesDir: '/emails' }),
+      expect.objectContaining({ templatesDir: '/emails' })
     );
-    expect(mockSendEmail).toHaveBeenCalledWith(['user@test.com'], 'Test Subject', '<p>Test</p>');
+    expect(mockSendEmail).toHaveBeenCalledWith(
+      ['user@test.com'],
+      'Test Subject',
+      '<p>Test</p>',
+      {}
+    );
   });
 
   it('handles array of recipients', async () => {
@@ -241,7 +277,7 @@ describe('enqueueTemplateEmail', () => {
       ['a@test.com', 'b@test.com'],
       'newsletter',
       { title: 'News' },
-      'en',
+      'en'
     );
 
     expect(mockQueueAdd).toHaveBeenCalledOnce();
@@ -253,7 +289,7 @@ describe('enqueueTemplateEmail', () => {
         data: { title: 'News' },
         locale: 'en',
       },
-      expect.objectContaining({ attempts: expect.any(Number) }),
+      expect.objectContaining({ attempts: expect.any(Number) })
     );
   });
 
@@ -264,7 +300,7 @@ describe('enqueueTemplateEmail', () => {
       ['bad1', 'bad2'],
       'welcome',
       { name: 'Test' },
-      'en',
+      'en'
     );
 
     expect(mockQueueAdd).not.toHaveBeenCalled();
@@ -272,12 +308,14 @@ describe('enqueueTemplateEmail', () => {
   });
 
   it('defaults locale to "en" when not provided', async () => {
-    await enqueueTemplateEmail('user@test.com', 'reset-password', { token: 'abc' });
+    await enqueueTemplateEmail('user@test.com', 'reset-password', {
+      token: 'abc',
+    });
 
     expect(mockQueueAdd).toHaveBeenCalledWith(
       'send-template',
       expect.objectContaining({ locale: 'en' }),
-      expect.anything(),
+      expect.anything()
     );
   });
 });

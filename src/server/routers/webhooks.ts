@@ -1,13 +1,18 @@
+import { createTRPCRouter, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
 import crypto from 'crypto';
-import { desc, eq, count } from 'drizzle-orm';
+import { count, desc, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { cmsWebhooks, cmsWebhookDeliveries } from '@/server/db/schema';
-import { fetchOrNotFound, parsePagination, paginatedResult } from '@/core/crud/admin-crud';
+import {
+  fetchOrNotFound,
+  paginatedResult,
+  parsePagination,
+} from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { logAudit } from '@/core/lib/infra/audit';
 import { getDeliveryStats } from '@/core/lib/webhooks/delivery-log';
-import { createTRPCRouter, sectionProcedure } from '../trpc';
+import { cmsWebhookDeliveries, cmsWebhooks } from '@/server/db/schema';
 
 const settingsProcedure = sectionProcedure('settings');
 
@@ -26,7 +31,10 @@ export const webhooksRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       return fetchOrNotFound<typeof cmsWebhooks.$inferSelect>(
-        ctx.db, cmsWebhooks, input.id, 'Webhook'
+        ctx.db,
+        cmsWebhooks,
+        input.id,
+        'Webhook'
       );
     }),
 
@@ -80,7 +88,12 @@ export const webhooksRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const { id, ...updates } = input;
 
-      await fetchOrNotFound<typeof cmsWebhooks.$inferSelect>(ctx.db, cmsWebhooks, id, 'Webhook');
+      await fetchOrNotFound<typeof cmsWebhooks.$inferSelect>(
+        ctx.db,
+        cmsWebhooks,
+        id,
+        'Webhook'
+      );
 
       await ctx.db
         .update(cmsWebhooks)
@@ -102,7 +115,12 @@ export const webhooksRouter = createTRPCRouter({
   delete: settingsProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await fetchOrNotFound<typeof cmsWebhooks.$inferSelect>(ctx.db, cmsWebhooks, input.id, 'Webhook');
+      await fetchOrNotFound<typeof cmsWebhooks.$inferSelect>(
+        ctx.db,
+        cmsWebhooks,
+        input.id,
+        'Webhook'
+      );
 
       await ctx.db.delete(cmsWebhooks).where(eq(cmsWebhooks.id, input.id));
 
@@ -122,7 +140,7 @@ export const webhooksRouter = createTRPCRouter({
     .input(
       z.object({
         webhookId: z.string().uuid(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(20),
       })
     )
@@ -161,7 +179,10 @@ export const webhooksRouter = createTRPCRouter({
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const hook = await fetchOrNotFound<typeof cmsWebhooks.$inferSelect>(
-        ctx.db, cmsWebhooks, input.id, 'Webhook'
+        ctx.db,
+        cmsWebhooks,
+        input.id,
+        'Webhook'
       );
 
       const body = JSON.stringify({

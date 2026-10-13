@@ -3,11 +3,14 @@
  * Imported as a side-effect in server.ts.
  */
 import { setAffiliatesDeps } from '@/core-affiliates/deps';
-import { recordConversion } from '@/core-affiliates/lib/affiliates';
+import {
+  recordConversion,
+  recordRefund,
+} from '@/core-affiliates/lib/affiliates';
 import { captureAttribution } from '@/core-affiliates/lib/attribution';
+import { getRevenueByUsers } from '@/core-payments/lib/transaction-service';
 import { saasPaymentTransactions } from '@/core-payments/schema/payments';
 import { registerHook } from '@/core/lib/module/module-hooks';
-import { getRevenueByUsers } from '@/core-payments/lib/transaction-service';
 
 setAffiliatesDeps({
   paymentTransactionsTable: saasPaymentTransactions,
@@ -18,6 +21,10 @@ setAffiliatesDeps({
 // Type safety via HookMap — core-owned events (see @/core/lib/module/module-hooks).
 registerHook('payment.conversion', async (userId, referenceId, amountCents) => {
   await recordConversion(userId, referenceId, amountCents);
+});
+
+registerHook('payment.refund', async (userId, referenceId, amountCents) => {
+  await recordRefund(userId, referenceId, amountCents);
 });
 
 registerHook('attribution.capture', async (userId, data) => {

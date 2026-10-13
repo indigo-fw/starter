@@ -1,4 +1,6 @@
+import { getAffectedRows, wordSplitLike } from './drizzle-utils';
 import { TRPCError } from '@trpc/server';
+import crypto from 'crypto';
 import {
   type AnyColumn,
   type SQL,
@@ -12,14 +14,15 @@ import {
   ne,
   sql,
 } from 'drizzle-orm';
-import type { PgColumn, PgTable, PgTableWithColumns } from 'drizzle-orm/pg-core';
+import type {
+  PgColumn,
+  PgTable,
+  PgTableWithColumns,
+} from 'drizzle-orm/pg-core';
 
-import crypto from 'crypto';
-
-import type { DbClient, DrizzleDB, DrizzleDBOrTx } from '@/server/db';
-import { getAffectedRows, wordSplitLike } from './drizzle-utils';
-import { cmsContentRevisions, cmsSlugRedirects } from '@/server/db/schema';
 import { ContentStatus } from '@/core/types/cms';
+import type { DbClient, DrizzleDB, DrizzleDBOrTx } from '@/server/db';
+import { cmsContentRevisions, cmsSlugRedirects } from '@/server/db/schema';
 
 // ---------------------------------------------------------------------------
 // Column refs for generic CRUD
@@ -279,6 +282,74 @@ export async function ensureSlugUnique(
   }
 }
 
+/**
+ * Builds a `softRestore` pre-check that refuses to un-trash a row whose slug has
+ * since been reused by a live row. The slug unique indexes are partial
+ * (`WHERE deleted_at IS NULL`), so without this the restore itself hits 23505
+ * and surfaces as a 500 instead of a CONFLICT the editor can act on.
+ *
+ * `scopeCols` are extra columns whose value on the trashed row must also match
+ * (e.g. post `type`, term `taxonomyId`) — mirror whatever `ensureSlugUnique`
+ * scopes on at create/update for the same table.
+ */
+export function createSlugRestoreCheck(
+  cols: {
+    table: PgTable;
+    idCol: PgColumn;
+    slugCol: PgColumn;
+    langCol: PgColumn;
+    deletedAtCol: PgColumn;
+    scopeCols?: PgColumn[];
+  },
+  entityName: string
+): (db: DbClient, id: string) => Promise<void> {
+  return async (db, id) => {
+    const projection: Record<string, PgColumn> = {
+      slug: cols.slugCol,
+      lang: cols.langCol,
+    };
+    for (const col of cols.scopeCols ?? []) projection[col.name] = col;
+
+    const [row] = await db
+      .select(projection)
+      .from(cols.table)
+      .where(eq(cols.idCol, id))
+      .limit(1);
+    // Missing row: let softRestore report NOT_FOUND through its own path.
+    if (!row) return;
+
+    const trashed = row as Record<string, unknown>;
+    const extraConditions = (cols.scopeCols ?? []).map((col) =>
+      eq(col, trashed[col.name])
+    );
+
+    try {
+      await ensureSlugUnique(
+        db,
+        {
+          table: cols.table,
+          slugCol: cols.slugCol,
+          slug: String(trashed.slug),
+          langCol: cols.langCol,
+          lang: typeof trashed.lang === 'string' ? trashed.lang : undefined,
+          deletedAtCol: cols.deletedAtCol,
+          extraConditions,
+        },
+        entityName
+      );
+    } catch (err) {
+      if (err instanceof TRPCError && err.code === 'CONFLICT') {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: `Cannot restore: an active ${entityName} already uses the slug "${String(trashed.slug)}". Rename or trash it first.`,
+          cause: err,
+        });
+      }
+      throw err;
+    }
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Pagination helpers
 // ---------------------------------------------------------------------------
@@ -327,7 +398,7 @@ export async function fetchOrNotFound<T>(
   table: PgTableWithColumns<any>,
   id: string,
   entityName: string,
-  extraConditions?: SQL[],
+  extraConditions?: SQL[]
 ): Promise<T> {
   const idCol = (table as Record<string, PgColumn>).id;
 
@@ -339,7 +410,10 @@ export async function fetchOrNotFound<T>(
     .where(and(...conditions))
     .limit(1);
   if (!record) {
-    throw new TRPCError({ code: 'NOT_FOUND', message: `${entityName} not found` });
+    throw new TRPCError({
+      code: 'NOT_FOUND',
+      message: `${entityName} not found`,
+    });
   }
   return record as T;
 }
@@ -361,7 +435,7 @@ export async function generateCopySlug(
   originalSlug: string,
   langCol?: PgColumn,
   lang?: string,
-  maxAttempts = 20,
+  maxAttempts = 20
 ): Promise<string> {
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const suffix = attempt === 0 ? '' : `-${attempt + 1}`;
@@ -399,7 +473,7 @@ export async function updateContentStatus(
   updatedAtCol: PgColumn,
   id: string,
   status: number,
-  entityName: string,
+  entityName: string
 ): Promise<void> {
   const [existing] = await db
     .select({ id: idCol, publishedAt: publishedAtCol })
@@ -407,7 +481,10 @@ export async function updateContentStatus(
     .where(eq(idCol, id))
     .limit(1);
   if (!existing) {
-    throw new TRPCError({ code: 'NOT_FOUND', message: `${entityName} not found` });
+    throw new TRPCError({
+      code: 'NOT_FOUND',
+      message: `${entityName} not found`,
+    });
   }
   const updates: Record<string, unknown> = {
     [statusCol.name]: status,
@@ -436,24 +513,21 @@ export async function getTranslationSiblings(
   langCol: PgColumn,
   slugCol: PgColumn,
   deletedAtCol: PgColumn,
-  id: string,
+  id: string
 ): Promise<Array<{ id: string; lang: string; slug: string }>> {
   const [record] = await db
     .select({ translationGroup: translationGroupCol })
     .from(table)
     .where(eq(idCol, id))
     .limit(1);
-  if (!(record as Record<string, unknown> | undefined)?.translationGroup) return [];
+  if (!(record as Record<string, unknown> | undefined)?.translationGroup)
+    return [];
   const group = (record as Record<string, unknown>).translationGroup as string;
   return db
     .select({ id: idCol, lang: langCol, slug: slugCol })
     .from(table)
     .where(
-      and(
-        eq(translationGroupCol, group),
-        ne(idCol, id),
-        isNull(deletedAtCol),
-      ),
+      and(eq(translationGroupCol, group), ne(idCol, id), isNull(deletedAtCol))
     )
     .limit(50) as Promise<Array<{ id: string; lang: string; slug: string }>>;
 }
@@ -469,10 +543,13 @@ export async function getTranslationSiblings(
 export function serializeExport(
   items: Record<string, unknown>[],
   headers: string[],
-  format: 'json' | 'csv',
+  format: 'json' | 'csv'
 ): { data: string; contentType: string } {
   if (format === 'json') {
-    return { data: JSON.stringify(items, null, 2), contentType: 'application/json' };
+    return {
+      data: JSON.stringify(items, null, 2),
+      contentType: 'application/json',
+    };
   }
   const rows = items.map((row) =>
     headers
@@ -484,12 +561,54 @@ export function serializeExport(
         if (typeof val === 'object') return JSON.stringify(val);
         return String(val).replace(/\t/g, ' ').replace(/\n/g, '\\n');
       })
-      .join('\t'),
+      .join('\t')
   );
   return {
     data: [headers.join('\t'), ...rows].join('\n'),
     contentType: 'text/tab-separated-values',
   };
+}
+
+// ---------------------------------------------------------------------------
+// ensureUniqueInTranslationGroup — one live row per language in a group
+// ---------------------------------------------------------------------------
+
+/**
+ * Throws CONFLICT when a non-deleted row already holds `lang` in `group`.
+ * App-layer guard: the tables carry no unique index on (translation_group, lang).
+ */
+export async function ensureUniqueInTranslationGroup(
+  db: DbClient,
+  cols: {
+    table: PgTable;
+    id: PgColumn;
+    lang: PgColumn;
+    deletedAt: PgColumn;
+    translationGroup: PgColumn;
+  },
+  group: string,
+  lang: string,
+  excludeId?: string
+): Promise<void> {
+  const conditions: SQL[] = [
+    eq(cols.translationGroup, group),
+    eq(cols.lang, lang),
+    isNull(cols.deletedAt),
+  ];
+  if (excludeId != null) conditions.push(ne(cols.id, excludeId));
+
+  const [existing] = await db
+    .select({ id: cols.id })
+    .from(cols.table)
+    .where(and(...conditions))
+    .limit(1);
+
+  if (existing) {
+    throw new TRPCError({
+      code: 'CONFLICT',
+      message: `A translation for language "${lang}" already exists in this translation group`,
+    });
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -518,8 +637,26 @@ export async function prepareTranslationCopy(
   sourceId: string,
   sourceSlug: string,
   sourceTranslationGroup: string | null,
-  targetLang: string,
+  targetLang: string
 ): Promise<{ slug: string; translationGroup: string; previewToken: string }> {
+  // A group may hold one row per language. Nothing in the schema enforces it
+  // (no unique index on group + lang), so check here before touching anything —
+  // a fresh source has no group yet and therefore no siblings to collide with.
+  if (sourceTranslationGroup) {
+    await ensureUniqueInTranslationGroup(
+      db,
+      {
+        table,
+        id: cols.id,
+        lang: cols.lang,
+        deletedAt: cols.deletedAt,
+        translationGroup: cols.translationGroup,
+      },
+      sourceTranslationGroup,
+      targetLang
+    );
+  }
+
   // Create or reuse translation group
   const translationGroup = sourceTranslationGroup ?? crypto.randomUUID();
   if (!sourceTranslationGroup) {
@@ -538,8 +675,8 @@ export async function prepareTranslationCopy(
       and(
         eq(cols.slug, slug),
         eq(cols.lang, targetLang),
-        isNull(cols.deletedAt),
-      ),
+        isNull(cols.deletedAt)
+      )
     )
     .limit(1);
   if (existing) {

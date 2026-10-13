@@ -2,9 +2,10 @@
 
 import { useEffect, useRef } from 'react';
 
-import { trpc } from '@/lib/trpc/client';
+import { getLocalStorageItem } from '@/core/lib/storage/local-storage';
 import { usePreferencesStore } from '@/core/store/preferences-store';
 import { useThemeStore } from '@/core/store/theme-store';
+import { trpc } from '@/lib/trpc/client';
 
 const ADMIN_THEME_KEY = 'indigo-theme-admin';
 
@@ -42,15 +43,21 @@ export function PreferencesHydrator() {
 
     hydrate(data, (key: string, value: unknown) => {
       // Fire-and-forget DB persist
-      utils.client.users.setPreference.mutate({ key, value }).catch((err: unknown) => {
-        console.warn('[Preferences] Failed to persist preference', key, err);
-      });
+      utils.client.users.setPreference
+        .mutate({ key, value })
+        .catch((err: unknown) => {
+          console.warn('[Preferences] Failed to persist preference', key, err);
+        });
     });
 
     // Sync DB theme → localStorage (DB wins for cross-device consistency)
-    const dbTheme = (data as Record<string, unknown>)?.['theme.admin'] as string | undefined;
-    if (dbTheme && (dbTheme === 'light' || dbTheme === 'dark' || dbTheme === 'system')) {
-      const localTheme = localStorage.getItem(ADMIN_THEME_KEY);
+    const dbTheme = (data as Record<string, unknown>)?.['theme.admin'] as
+      string | undefined;
+    if (
+      dbTheme &&
+      (dbTheme === 'light' || dbTheme === 'dark' || dbTheme === 'system')
+    ) {
+      const localTheme = getLocalStorageItem(ADMIN_THEME_KEY);
       if (localTheme !== dbTheme) {
         setTheme(dbTheme);
       }

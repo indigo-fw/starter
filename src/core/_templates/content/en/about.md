@@ -12,7 +12,7 @@ noindex: false
 
 ### Key Features
 
-- **Agent-Driven Development** — CLAUDE.md serves as the comprehensive project guide, enabling AI agents to understand and modify the codebase effectively
+- **Agent-Driven Development** — AGENTS.md serves as the comprehensive project guide, enabling AI agents to understand and modify the codebase effectively
 - **Modern Stack** — Built with Next.js 16, TypeScript, and Tailwind CSS v4
 - **Flexible Content** — Pages, blog posts, portfolio items, showcase cards, categories, and tags
 - **Role-Based Access** — User, editor, admin, and superadmin roles with policy-based permissions

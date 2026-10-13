@@ -1,4 +1,27 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { createMockCtx } from '../../__tests__/test-helpers';
+import { cmsPostsRouter } from '../posts';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import {
+  fetchOrNotFound,
+  generateCopySlug,
+  permanentDelete,
+  softDelete,
+} from '@/core/crud/admin-crud';
+import { updateWithRevision } from '@/core/crud/cms-helpers';
+import {
+  deleteAllTermRelationships,
+  getTermRelationships,
+  syncTermRelationships,
+} from '@/core/crud/taxonomy-helpers';
+import { broadcastCmsLinkInvalidation } from '@/core/lib/content/cms-link';
+import { logAudit } from '@/core/lib/infra/audit';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import { asMock } from '@/test-utils';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -55,11 +78,16 @@ vi.mock('@/core/crud/admin-crud', () => ({
   ensureSlugUnique: vi.fn().mockResolvedValue(undefined),
   softDelete: vi.fn().mockResolvedValue(undefined),
   softRestore: vi.fn().mockResolvedValue(undefined),
+  createSlugRestoreCheck: vi
+    .fn()
+    .mockReturnValue(vi.fn().mockResolvedValue(undefined)),
   permanentDelete: vi.fn().mockResolvedValue(undefined),
   fetchOrNotFound: vi.fn(),
   generateCopySlug: vi.fn().mockResolvedValue('test-blog-post-copy'),
   getTranslationSiblings: vi.fn().mockResolvedValue([]),
-  serializeExport: vi.fn().mockReturnValue({ data: '[]', contentType: 'application/json' }),
+  serializeExport: vi
+    .fn()
+    .mockReturnValue({ data: '[]', contentType: 'application/json' }),
   prepareTranslationCopy: vi.fn().mockResolvedValue({
     slug: 'slug-en',
     translationGroup: 'group-1',
@@ -127,6 +155,10 @@ vi.mock('@/core/lib/infra/logger', () => ({
 }));
 
 vi.mock('@/config/cms', () => ({
+  CONTENT_TYPES: [
+    { id: 'page', postType: 1, urlPrefix: '/' },
+    { id: 'blog', postType: 2, urlPrefix: '/blog/' },
+  ],
   getContentTypeByPostType: vi.fn().mockReturnValue({
     id: 'blog',
     label: 'Blog Post',
@@ -193,29 +225,6 @@ vi.mock('@/core/crud/post-author-helpers', () => ({
   getPostAuthorIds: vi.fn().mockResolvedValue([]),
   syncPostAuthors: vi.fn().mockResolvedValue(undefined),
 }));
-
-// ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { asMock } from '@/test-utils';
-import { cmsPostsRouter } from '../posts';
-import {
-  fetchOrNotFound,
-  softDelete,
-  permanentDelete,
-  generateCopySlug,
-} from '@/core/crud/admin-crud';
-import { updateWithRevision } from '@/core/crud/cms-helpers';
-import {
-  syncTermRelationships,
-  getTermRelationships,
-  deleteAllTermRelationships,
-} from '@/core/crud/taxonomy-helpers';
-import { logAudit } from '@/core/lib/infra/audit';
-import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
-import { broadcastCmsLinkInvalidation } from '@/core/lib/content/cms-link';
-import { createMockCtx } from '../../__tests__/test-helpers';
 
 // ---------------------------------------------------------------------------
 // Fixtures
@@ -314,7 +323,10 @@ describe('cmsPostsRouter', () => {
         ctx.db,
         createdPost.id,
         'category',
-        ['c1c1c1c1-0000-4000-a000-000000000001', 'c1c1c1c1-0000-4000-a000-000000000002']
+        [
+          'c1c1c1c1-0000-4000-a000-000000000001',
+          'c1c1c1c1-0000-4000-a000-000000000002',
+        ]
       );
       expect(syncTermRelationships).toHaveBeenCalledWith(
         ctx.db,
@@ -441,7 +453,12 @@ describe('cmsPostsRouter', () => {
 
       expect(updateWithRevision).toHaveBeenCalledWith(
         expect.objectContaining({
-          snapshotKeys: expect.arrayContaining(['title', 'slug', 'content', 'status']),
+          snapshotKeys: expect.arrayContaining([
+            'title',
+            'slug',
+            'content',
+            'status',
+          ]),
         })
       );
     });
@@ -472,7 +489,10 @@ describe('cmsPostsRouter', () => {
       const caller = cmsPostsRouter.createCaller(ctx as never);
 
       await expect(
-        caller.update({ id: 'f0f0f0f0-a1a1-4b2b-9c3c-d4d4d4d4d4d4', title: 'X' })
+        caller.update({
+          id: 'f0f0f0f0-a1a1-4b2b-9c3c-d4d4d4d4d4d4',
+          title: 'X',
+        })
       ).rejects.toThrow('Post not found');
     });
 
@@ -500,7 +520,10 @@ describe('cmsPostsRouter', () => {
         ctx.db,
         MOCK_POST.id,
         'tag',
-        ['d1d1d1d1-0000-4000-a000-000000000003', 'd1d1d1d1-0000-4000-a000-000000000004']
+        [
+          'd1d1d1d1-0000-4000-a000-000000000003',
+          'd1d1d1d1-0000-4000-a000-000000000004',
+        ]
       );
     });
 
@@ -604,7 +627,13 @@ describe('cmsPostsRouter', () => {
 
       // Capture the cleanup callback
       asMock(permanentDelete).mockImplementation(
-        async (_db: unknown, _cols: unknown, _id: unknown, _ct: unknown, cleanup: ((tx: unknown) => Promise<void>) | undefined) => {
+        async (
+          _db: unknown,
+          _cols: unknown,
+          _id: unknown,
+          _ct: unknown,
+          cleanup: ((tx: unknown) => Promise<void>) | undefined
+        ) => {
           if (cleanup) await cleanup(ctx.db);
         }
       );
@@ -612,7 +641,10 @@ describe('cmsPostsRouter', () => {
       const caller = cmsPostsRouter.createCaller(ctx as never);
       await caller.permanentDelete({ id: MOCK_POST.id });
 
-      expect(deleteAllTermRelationships).toHaveBeenCalledWith(ctx.db, MOCK_POST.id);
+      expect(deleteAllTermRelationships).toHaveBeenCalledWith(
+        ctx.db,
+        MOCK_POST.id
+      );
     });
 
     it('throws NOT_FOUND when post does not exist', async () => {
@@ -695,7 +727,10 @@ describe('cmsPostsRouter', () => {
       ctx.db._chains.insert.returning.mockResolvedValue([copiedPost]);
 
       asMock(getTermRelationships).mockResolvedValue([
-        { termId: 'c1c1c1c1-0000-4000-a000-000000000001', taxonomyId: 'category' },
+        {
+          termId: 'c1c1c1c1-0000-4000-a000-000000000001',
+          taxonomyId: 'category',
+        },
         { termId: 'd1d1d1d1-0000-4000-a000-000000000001', taxonomyId: 'tag' },
         { termId: 'd1d1d1d1-0000-4000-a000-000000000002', taxonomyId: 'tag' },
       ]);
@@ -713,7 +748,10 @@ describe('cmsPostsRouter', () => {
         ctx.db,
         copiedPost.id,
         'tag',
-        ['d1d1d1d1-0000-4000-a000-000000000001', 'd1d1d1d1-0000-4000-a000-000000000002']
+        [
+          'd1d1d1d1-0000-4000-a000-000000000001',
+          'd1d1d1d1-0000-4000-a000-000000000002',
+        ]
       );
     });
 

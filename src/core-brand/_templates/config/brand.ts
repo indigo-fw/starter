@@ -14,9 +14,8 @@
  *                 Requires either a separate `icon` OR `faviconGlyph` for
  *                 favicons (auto-cropping a lockup is not supported)
  *
- * See `src/core-brand/CLAUDE.md` for details.
+ * See `src/core-brand/AGENTS.md` for details.
  */
-
 import type { BrandConfig } from '@/core-brand/types/brand-config';
 
 export const brand: BrandConfig = {

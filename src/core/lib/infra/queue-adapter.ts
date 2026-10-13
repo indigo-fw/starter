@@ -1,5 +1,6 @@
-import { getRedis } from '@/core/lib/infra/redis';
 import { createLogger } from '@/core/lib/infra/logger';
+import { getOrCreateQueue } from '@/core/lib/infra/queue';
+import { getRedis } from '@/core/lib/infra/redis';
 
 const log = createLogger('queue-adapter');
 
@@ -17,18 +18,19 @@ export async function enqueue(
   payload: unknown,
   opts?: { priority?: number; maxAttempts?: number; runAfter?: Date }
 ): Promise<string> {
-  const redis = getRedis();
+  // Through the shared registry so the job lands under BULLMQ_PREFIX with the
+  // queue-wide defaults — the consumer (`createWorker`) listens there, so a
+  // bare `new Queue()` would be invisible to it under a custom prefix.
+  const bullQueue = getOrCreateQueue(queue);
 
-  if (redis) {
-    // BullMQ path
-    const { Queue } = await import('bullmq');
-    const bullQueue = new Queue(queue, { connection: redis });
+  if (bullQueue) {
     const job = await bullQueue.add('task', payload, {
       priority: opts?.priority,
       attempts: opts?.maxAttempts ?? 3,
-      delay: opts?.runAfter ? Math.max(0, opts.runAfter.getTime() - Date.now()) : undefined,
+      delay: opts?.runAfter
+        ? Math.max(0, opts.runAfter.getTime() - Date.now())
+        : undefined,
     });
-    await bullQueue.close();
     return job.id ?? crypto.randomUUID();
   }
 

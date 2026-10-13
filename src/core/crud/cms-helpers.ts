@@ -1,6 +1,7 @@
+import { createRevision, pickSnapshot } from './content-revisions';
+
 import type { DbClient } from '@/server/db';
 import { cmsSlugRedirects } from '@/server/db/schema';
-import { createRevision, pickSnapshot } from './content-revisions';
 
 // ---------------------------------------------------------------------------
 // updateWithRevision — wraps revision + slug redirect + update in transaction
@@ -19,10 +20,16 @@ export interface UpdateWithRevisionOpts<T extends Record<string, unknown>> {
   newSlug?: string;
   /** URL prefix for redirect (e.g. '/blog/') */
   urlPrefix?: string;
-  /** The actual update callback */
+  /** The actual update callback — receives the transaction client */
   doUpdate: (db: DbClient) => Promise<void>;
 }
 
+/**
+ * Snapshot the old record as a revision, record a slug redirect when the slug
+ * changed, then run the caller's update — all inside ONE transaction. A
+ * failure in `doUpdate` must not leave an orphan revision row or a redirect
+ * pointing at a slug that was never actually renamed.
+ */
 export async function updateWithRevision<T extends Record<string, unknown>>(
   opts: UpdateWithRevisionOpts<T>
 ): Promise<void> {
@@ -39,20 +46,20 @@ export async function updateWithRevision<T extends Record<string, unknown>>(
     doUpdate,
   } = opts;
 
-  // Create revision snapshot
   const snapshot = pickSnapshot(oldRecord, snapshotKeys);
-  await createRevision(db, contentType, contentId, snapshot, userId);
 
-  // Slug redirect if slug changed
-  if (oldSlug && newSlug && oldSlug !== newSlug && urlPrefix != null) {
-    await db.insert(cmsSlugRedirects).values({
-      oldSlug,
-      contentType,
-      contentId,
-      urlPrefix,
-    });
-  }
+  await db.transaction(async (tx) => {
+    await createRevision(tx, contentType, contentId, snapshot, userId);
 
-  // Execute the update
-  await doUpdate(db);
+    if (oldSlug && newSlug && oldSlug !== newSlug && urlPrefix != null) {
+      await tx.insert(cmsSlugRedirects).values({
+        oldSlug,
+        contentType,
+        contentId,
+        urlPrefix,
+      });
+    }
+
+    await doUpdate(tx);
+  });
 }

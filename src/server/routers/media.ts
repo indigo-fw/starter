@@ -1,19 +1,16 @@
+import { createTRPCRouter, publicProcedure, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
 import { and, count, desc, eq, ilike, inArray, isNull, or } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { cmsMedia } from '@/server/db/schema';
-import { getStorage } from '@/core/storage';
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { slugifyFilename } from '@/core/lib/content/slug';
-import { FileType } from '@/core/types/cms';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
 import { logAudit } from '@/core/lib/infra/audit';
+import { getStorage } from '@/core/storage';
+import { FileType } from '@/core/types/cms';
+import { cmsMedia } from '@/server/db/schema';
 import { enqueueMediaProcessing } from '@/server/jobs/media/index';
-import {
-  createTRPCRouter,
-  publicProcedure,
-  sectionProcedure,
-} from '../trpc';
 
 const mediaProcedure = sectionProcedure('media');
 
@@ -64,7 +61,7 @@ export const mediaRouter = createTRPCRouter({
   list: mediaProcedure
     .input(
       z.object({
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(20),
         fileType: z.number().int().optional(),
         uploadedById: z.string().max(200).optional(),
@@ -87,8 +84,8 @@ export const mediaRouter = createTRPCRouter({
           or(
             ilike(cmsMedia.filename, pattern),
             ilike(cmsMedia.title, pattern),
-            ilike(cmsMedia.altText, pattern),
-          )!,
+            ilike(cmsMedia.altText, pattern)
+          )!
         );
       }
 
@@ -102,10 +99,7 @@ export const mediaRouter = createTRPCRouter({
           .orderBy(desc(cmsMedia.createdAt))
           .offset(offset)
           .limit(pageSize),
-        ctx.db
-          .select({ count: count() })
-          .from(cmsMedia)
-          .where(where),
+        ctx.db.select({ count: count() }).from(cmsMedia).where(where),
       ]);
 
       // Add URL to each item
@@ -171,7 +165,9 @@ export const mediaRouter = createTRPCRouter({
       });
 
       // Enqueue image processing (thumbnail, medium, blur — fire-and-forget)
-      enqueueMediaProcessing(media!.id, input.mimeType, input.fileSize).catch(() => {});
+      enqueueMediaProcessing(media!.id, input.mimeType, input.fileSize).catch(
+        () => {}
+      );
 
       return media!;
     }),
@@ -195,13 +191,18 @@ export const mediaRouter = createTRPCRouter({
         .limit(1);
 
       if (!existing) {
-        throw new TRPCError({ code: 'NOT_FOUND', message: 'Media file not found' });
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Media file not found',
+        });
       }
 
       const setData: Record<string, unknown> = {};
       if (updates.title !== undefined) setData.title = updates.title || null;
-      if (updates.altText !== undefined) setData.altText = updates.altText || null;
-      if (updates.description !== undefined) setData.description = updates.description || null;
+      if (updates.altText !== undefined)
+        setData.altText = updates.altText || null;
+      if (updates.description !== undefined)
+        setData.description = updates.description || null;
 
       if (Object.keys(setData).length === 0) return existing;
 
@@ -221,9 +222,7 @@ export const mediaRouter = createTRPCRouter({
       const [existing] = await ctx.db
         .select()
         .from(cmsMedia)
-        .where(
-          and(eq(cmsMedia.id, input.id), isNull(cmsMedia.deletedAt))
-        )
+        .where(and(eq(cmsMedia.id, input.id), isNull(cmsMedia.deletedAt)))
         .limit(1);
 
       if (!existing) {
@@ -268,12 +267,7 @@ export const mediaRouter = createTRPCRouter({
           blurDataUrl: cmsMedia.blurDataUrl,
         })
         .from(cmsMedia)
-        .where(
-          and(
-            inArray(cmsMedia.id, input.ids),
-            isNull(cmsMedia.deletedAt)
-          )
-        )
+        .where(and(inArray(cmsMedia.id, input.ids), isNull(cmsMedia.deletedAt)))
         .limit(50);
 
       const storage = getStorage();
@@ -283,7 +277,9 @@ export const mediaRouter = createTRPCRouter({
         altText: item.altText,
         width: item.width,
         height: item.height,
-        thumbnailUrl: item.thumbnailPath ? storage.url(item.thumbnailPath) : null,
+        thumbnailUrl: item.thumbnailPath
+          ? storage.url(item.thumbnailPath)
+          : null,
         mediumUrl: item.mediumPath ? storage.url(item.mediumPath) : null,
         blurDataUrl: item.blurDataUrl,
       }));

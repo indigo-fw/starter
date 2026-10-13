@@ -1,9 +1,10 @@
+import { createTRPCRouter, sectionProcedure } from '../trpc';
 import { and, count, desc, eq, ilike, inArray, or } from 'drizzle-orm';
 import { z } from 'zod';
 
+import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
+import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { cmsAuditLog, user } from '@/server/db/schema';
-import { parsePagination, paginatedResult } from '@/core/crud/admin-crud';
-import { createTRPCRouter, sectionProcedure } from '../trpc';
 
 const settingsProcedure = sectionProcedure('settings');
 const dashboardProcedure = sectionProcedure('dashboard');
@@ -11,8 +12,15 @@ const contentProcedure = sectionProcedure('content');
 
 /** Actions relevant to content editors */
 const CONTENT_ACTIONS = [
-  'create', 'update', 'publish', 'unpublish', 'delete',
-  'restore', 'import', 'media.upload', 'media.delete',
+  'create',
+  'update',
+  'publish',
+  'unpublish',
+  'delete',
+  'restore',
+  'import',
+  'media.upload',
+  'media.delete',
 ];
 
 export const auditRouter = createTRPCRouter({
@@ -44,7 +52,7 @@ export const auditRouter = createTRPCRouter({
         action: z.string().max(30).optional(),
         userId: z.string().max(64).optional(),
         userSearch: z.string().max(100).optional(),
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(100).default(20),
       })
     )
@@ -108,16 +116,10 @@ export const auditRouter = createTRPCRouter({
   feed: contentProcedure
     .input(
       z.object({
-        page: z.number().int().min(1).default(1),
+        page: z.number().int().min(1).max(MAX_PAGE).default(1),
         pageSize: z.number().int().min(1).max(50).default(20),
-        entityTypes: z
-          .array(z.string().max(30))
-          .max(10)
-          .optional(),
-        actions: z
-          .array(z.string().max(30))
-          .max(10)
-          .optional(),
+        entityTypes: z.array(z.string().max(30)).max(10).optional(),
+        actions: z.array(z.string().max(30)).max(10).optional(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -129,7 +131,10 @@ export const auditRouter = createTRPCRouter({
       const actions = input.actions?.filter((a) => CONTENT_ACTIONS.includes(a));
 
       const conditions = [
-        inArray(cmsAuditLog.action, actions?.length ? actions : CONTENT_ACTIONS),
+        inArray(
+          cmsAuditLog.action,
+          actions?.length ? actions : CONTENT_ACTIONS
+        ),
       ];
       if (input.entityTypes && input.entityTypes.length > 0) {
         conditions.push(inArray(cmsAuditLog.entityType, input.entityTypes));
@@ -156,10 +161,7 @@ export const auditRouter = createTRPCRouter({
           .orderBy(desc(cmsAuditLog.createdAt))
           .offset(offset)
           .limit(pageSize),
-        ctx.db
-          .select({ count: count() })
-          .from(cmsAuditLog)
-          .where(where),
+        ctx.db.select({ count: count() }).from(cmsAuditLog).where(where),
       ]);
 
       return paginatedResult(items, countRow?.count ?? 0, page, pageSize);
