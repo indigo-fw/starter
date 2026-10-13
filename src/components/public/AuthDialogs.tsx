@@ -1,7 +1,9 @@
 'use client';
 
 import { Suspense } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+// eslint-disable-next-line no-restricted-imports -- the OAuth callbackURL must be the literal browser path incl. locale prefix; the i18n usePathname strips it
+import { usePathname } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { Dialog } from '@/core/components/overlays/Dialog';
 import { useAuthDialogStore } from '@/store/auth-dialog-store';
 import { LoginForm } from '@/app/(public)/login/LoginForm';

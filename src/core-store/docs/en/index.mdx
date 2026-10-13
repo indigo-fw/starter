@@ -51,20 +51,56 @@ on install) via `setStoreDeps()`:
 | `createSubscriptionCheckout` | No | Checkout for subscription products |
 
 `setRefundHandler()` optionally registers a payment refund handler (e.g. a
-Stripe refund). Return refunds are idempotent: the return is claimed
-(`refunding`) before the handler is called, so a double click or a retried
-request reaches the gateway once, and the order's cumulative `refundedCents`
-can never exceed its total across several returns. Your handler should
-resolve `{ refundId, status: 'succeeded' }` when money moved, resolve
-`{ status: 'failed', failureReason }` on a definitive decline (the return is
-released for retry), and **throw only when the outcome is unknown** — the
-return then stays in `refunding` until an admin verifies at the provider and
-resolves it with `storeReturns.resolveStuckRefund` (`refunded` or `release`).
-Whole-order admin refunds and provider-initiated `payment.refunded` webhooks
-write to the same per-order ledger, so the three paths can never together
-refund more than the order total.
+Stripe refund) — see *Refunds* below for the contract.
+
 The `seedStore` step creates demo products, shipping zones, and tax rates on
 `bun run init`.
+
+## Refunds
+
+Every refund path is **claim → gateway → commit** (`lib/refund-service.ts` is
+the shared plumbing), and `store_orders.refundedCents` is the single ledger.
+Three paths write to it, so together they can never refund more than the
+order total:
+
+| Path | Claim | Amount |
+|---|---|---|
+| Return refund (`storeReturns.processRefund`) | return status `approved`/`received` → `refunding` (compare-and-set) **before** the gateway call | the approved return amount |
+| Whole-order refund (`storeAdminOrders.refundOrder`) | the order status itself flips (compare-and-set on a paid status + the prior `refundedCents`) | `total − refunded` |
+| Provider-initiated `payment.refunded` webhook | one `UPDATE … WHERE status <> 'refunded'` | settles `refundedCents = totalCents` |
+
+The ledger is bumped only under `refundedCents + amount <= totalCents`, so a
+double click or a retried request reaches the gateway once and an over-refund
+is impossible by construction. `approveReturn` caps the amount at
+`total − refunded − other pending returns`; `receiveReturn` / `rejectReturn`
+refuse once a refund is in flight or done. An order becomes `refunded` only
+when `refundedCents == totalCents`, otherwise `partially_refunded`.
+
+### Refund handler contract
+
+Your `RefundHandler` decides what the claim does next:
+
+- resolve `{ refundId, status: 'succeeded' }` — money moved; the ledger is bumped and a status event recorded.
+- resolve `{ status: 'failed', failureReason }` — a definitive decline; the claim is rolled back (return → `approved`, order → its previous status) and can be retried.
+- **throw only when the outcome is unknown** (timeout, 5xx) — the claim is **kept** and never auto-retried, because a retry could refund twice.
+
+### Resolving a stuck refund
+
+A kept claim is visible as a return in `refunding`, or an order in `refunded`
+whose `refundedCents < totalCents`. An admin checks the provider dashboard and
+resolves it:
+
+| Procedure | Scope | `outcome` |
+|---|---|---|
+| `storeReturns.resolveStuckRefund({ returnId, outcome })` | return in `refunding` | `refunded` — the money moved; runs the normal commit. `release` — nothing moved; back to `approved`, ledger untouched |
+| `storeAdminOrders.resolveStuckRefund({ orderId, outcome, providerRefundId?, note?, restoreStatus? })` | order `refunded` with `refundedCents < totalCents` | `refunded` — commits `total − refunded` exactly like a normal success (ledger bump + status event; `providerRefundId`/`note` are recorded). `release` — order goes back to `restoreStatus` if given (`processing`, `shipped`, `delivered`, `partially_refunded`), else inferred: `partially_refunded` if the ledger is non-zero, `delivered` if `deliveredAt` is set, `shipped` if `shippedAt` is set, otherwise `processing`; ledger untouched, order refundable again |
+
+Both compare-and-set on the claim as read (status + `refundedCents`) and throw
+`CONFLICT` if it was resolved concurrently; an order that is not in `refunded`
+is `CONFLICT` too, and one already settled in full is `BAD_REQUEST`. Every
+resolution is audit-logged with the acting admin: `store.order.refund_confirmed`
+or `store.order.refund_released` (entity `store_order`, with amounts, final
+status, provider refund id and note in the metadata).
 
 ## Schema
 
@@ -75,7 +111,7 @@ The `seedStore` step creates demo products, shipping zones, and tax rates on
 | `store_products`, `store_product_variants`, `store_variant_groups` | Catalog and variants |
 | `store_product_images`, `store_categories`, `store_product_categories` | Media and categorization |
 | `store_carts`, `store_cart_items` | Server-side cart |
-| `store_orders`, `store_order_items`, `store_order_events`, `store_downloads` | Orders and digital downloads |
+| `store_orders`, `store_order_items`, `store_order_events`, `store_downloads` | Orders (incl. the `refundedCents` ledger) and digital downloads |
 | `store_addresses` | Customer addresses |
 | `store_shipping_zones`, `store_shipping_rates`, `store_tax_rates`, `store_settings` | Shipping and tax |
 | `store_discount_codes`, `store_discount_usage` | Discounts and usage tracking |
@@ -84,7 +120,7 @@ The `seedStore` step creates demo products, shipping zones, and tax rates on
 | `store_wishlists`, `store_related_products` | Wishlists and product relations |
 | `store_inventory_reservations`, `store_back_in_stock_alerts` | Inventory and stock alerts |
 | `store_shipments`, `store_shipment_items` | Fulfillment |
-| `store_returns`, `store_return_items` | Returns and refunds |
+| `store_returns`, `store_return_items` | Returns and refunds (status includes `refunding` while a gateway refund is in flight) |
 | `store_exchange_rates`, `store_bundle_items` | Currency and product bundles |
 
 ## API
@@ -97,14 +133,14 @@ The `seedStore` step creates demo products, shipping zones, and tax rates on
 | `storeCart` | public | Cart for anonymous and authenticated users |
 | `storeCheckout` | protected | Shipping options, totals preview, place order |
 | `storeOrders` | protected + admin | Customer order history and admin order management |
-| `storeAdminOrders` | admin | Export, refund, and invoice generation |
+| `storeAdminOrders` | admin | Export, whole-order `refundOrder`, `resolveStuckRefund`, and invoice generation |
 | `storeWishlist` | protected | Toggle, list, check, and batch-check |
 | `storeDiscounts` | public + admin | Public code validation, admin CRUD |
 | `storeReviews` | public + protected + admin | List/ratings, create, and moderation |
 | `storeRelations` | public + admin | Related products — get and admin set |
 | `storeAttributes` | public + admin | Filterable attribute list and admin CRUD |
 | `storeAddresses` | protected | Customer address book |
-| `storeReturns` | protected + admin | Return requests and processing |
+| `storeReturns` | protected + admin | Return requests, approval, refund processing, `resolveStuckRefund` |
 | `storeFulfillment` | admin | Shipments and shipment items |
 | `storeAnalytics`, `storeAlerts`, `storeAdmin` | admin / mixed | Store analytics, stock alerts, admin tooling |
 

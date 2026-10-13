@@ -16,6 +16,10 @@ const serverEnvSchema = z.object({
 
   // Auth
   BETTER_AUTH_SECRET: z.string().min(32),
+  // Reject throwaway-provider addresses at sign-up / email change
+  // (src/lib/auth-signup-guard.ts). Read raw at the call site; declared here
+  // so a typo fails boot.
+  AUTH_BLOCK_DISPOSABLE_EMAILS: boolFromEnv.default(true),
 
   // Social providers (optional)
   GOOGLE_CLIENT_ID: z.string().optional(),
@@ -44,6 +48,9 @@ const serverEnvSchema = z.object({
           .every((s) => z.email().safeParse(s).success),
       'STAFF_ALERT_EMAILS must be a comma-separated list of email addresses'
     ),
+  // Staff support inbox used when Settings → Company has none (read raw in
+  // src/config/deps/support-deps.ts); declared here so a typo fails boot.
+  SUPPORT_EMAIL: z.email().optional(),
 
   // Redis
   REDIS_URL: z.url().optional(),
@@ -129,6 +136,10 @@ const serverEnvSchema = z.object({
   // Missing-media fallback (src/app/api/uploads/[...path]/route.ts)
   MEDIA_FALLBACK_URL: z.url().optional(),
   MEDIA_FALLBACK_STORE: boolFromEnv.default(false),
+  // Longest-side cap applied to uploaded originals (src/core/lib/media/
+  // normalize-image.ts); 0 disables the resize, orientation/metadata
+  // normalisation always runs.
+  UPLOAD_MAX_IMAGE_PX: z.coerce.number().int().min(0).default(2560),
 
   // Web Push (VAPID) — push notifications disabled without keys
   VAPID_PUBLIC_KEY: z.string().optional(),

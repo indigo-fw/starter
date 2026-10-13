@@ -4,7 +4,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // ─── Imports (after mocks) ────────────────────────────────────────────────
 
-import { refundWholeOrder } from '@/core-store/lib/refund-service';
+import {
+  refundWholeOrder,
+  resolveStuckOrderRefund,
+} from '@/core-store/lib/refund-service';
 import {
   type RefundHandler,
   setRefundHandler,
@@ -19,11 +22,13 @@ const {
   mockRestoreInventory,
   logError,
   mockSendNotification,
+  mockLogAudit,
 } = vi.hoisted(() => ({
   mockUpdateOrderStatus: vi.fn().mockResolvedValue(undefined),
   mockRestoreInventory: vi.fn().mockResolvedValue(undefined),
   logError: vi.fn(),
   mockSendNotification: vi.fn(),
+  mockLogAudit: vi.fn(),
 }));
 
 vi.mock('@/server/db', async () => ({
@@ -42,7 +47,9 @@ vi.mock('@/core-store/deps', () => ({
     enqueueTemplateEmail: vi.fn().mockResolvedValue(undefined),
   }),
 }));
-vi.mock('@/core/lib/infra/audit', () => ({ logAudit: vi.fn() }));
+vi.mock('@/core/lib/infra/audit', () => ({
+  logAudit: (...args: unknown[]) => mockLogAudit(...args),
+}));
 vi.mock('@/core/lib/webhooks/webhooks', () => ({ dispatchWebhook: vi.fn() }));
 
 vi.mock('@/core/lib/infra/logger', () => ({
@@ -248,6 +255,223 @@ describe('refundWholeOrder', () => {
       expect.objectContaining({ refundId: 're_1' })
     );
     expect(mockUpdateOrderStatus).not.toHaveBeenCalled();
+  });
+});
+
+// ─── resolveStuckOrderRefund ──────────────────────────────────────────────
+
+describe('resolveStuckOrderRefund', () => {
+  /** An order left by a gateway throw: claimed (`refunded`) but ledger short. */
+  const stuck = (overrides: Record<string, unknown> = {}) =>
+    order({
+      status: 'refunded',
+      shippedAt: null,
+      deliveredAt: new Date('2026-10-01'),
+      ...overrides,
+    });
+
+  it('"refunded" commits via the normal path (counter bump + status event) and audit-logs', async () => {
+    selectQueue.push([stuck()]);
+    updateQueue.push([{ refundedCents: 10000 }]);
+
+    const result = await resolveStuckOrderRefund({
+      orderId: ORDER_ID,
+      outcome: 'refunded',
+      actorUserId: 'admin-1',
+      providerRefundId: 're_manual',
+    });
+
+    expect(result).toEqual({ refundedCents: 10000, status: 'refunded' });
+    expect(orderWrites()).toHaveLength(1);
+    expect(orderWrites()[0]).toHaveProperty('refundedCents');
+    expect(orderWrites()[0]).not.toHaveProperty('status');
+    expect(mockUpdateOrderStatus).toHaveBeenCalledWith(
+      ORDER_ID,
+      'refunded',
+      'admin-1',
+      expect.stringContaining('10000 cents')
+    );
+    expect(mockLogAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: 'store.order.refund_confirmed',
+        entityType: 'store_order',
+        entityId: ORDER_ID,
+        userId: 'admin-1',
+        metadata: expect.objectContaining({
+          amountCents: 10000,
+          refundedCents: 10000,
+          providerRefundId: 're_manual',
+        }),
+      })
+    );
+    expect(refundPayment).not.toHaveBeenCalled();
+  });
+
+  it('"refunded" books only the outstanding remainder on a partially refunded order', async () => {
+    selectQueue.push([stuck({ refundedCents: 6000 })]);
+    updateQueue.push([{ refundedCents: 10000 }]);
+
+    await resolveStuckOrderRefund({
+      orderId: ORDER_ID,
+      outcome: 'refunded',
+      actorUserId: 'admin-1',
+    });
+
+    expect(mockLogAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        metadata: expect.objectContaining({ amountCents: 4000 }),
+      })
+    );
+  });
+
+  it('"release" rolls the status back to the pre-claim state without touching the ledger', async () => {
+    selectQueue.push([stuck()]);
+    updateQueue.push({ rowCount: 1 });
+
+    const result = await resolveStuckOrderRefund({
+      orderId: ORDER_ID,
+      outcome: 'release',
+      actorUserId: 'admin-1',
+      note: 'Provider shows no refund',
+    });
+
+    expect(result).toEqual({ refundedCents: 0, status: 'delivered' });
+    expect(orderWrites()).toEqual([
+      expect.objectContaining({ status: 'delivered', refundedAt: null }),
+    ]);
+    expect(orderWrites()[0]).not.toHaveProperty('refundedCents');
+    expect(mockUpdateOrderStatus).not.toHaveBeenCalled();
+    expect(mockLogAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: 'store.order.refund_released',
+        entityId: ORDER_ID,
+        metadata: expect.objectContaining({
+          status: 'delivered',
+          note: 'Provider shows no refund',
+        }),
+      })
+    );
+  });
+
+  it('"release" infers the pre-claim status from ledger and fulfilment timestamps', async () => {
+    const cases: Array<[Record<string, unknown>, string]> = [
+      [{ refundedCents: 2500 }, 'partially_refunded'],
+      [{ deliveredAt: null, shippedAt: new Date('2026-09-30') }, 'shipped'],
+      [{ deliveredAt: null, shippedAt: null }, 'processing'],
+    ];
+    for (const [overrides, expected] of cases) {
+      selectQueue.push([stuck(overrides)]);
+      updateQueue.push({ rowCount: 1 });
+      const result = await resolveStuckOrderRefund({
+        orderId: ORDER_ID,
+        outcome: 'release',
+        actorUserId: 'admin-1',
+      });
+      expect(result.status).toBe(expected);
+    }
+  });
+
+  it('"release" honours an explicit restoreStatus', async () => {
+    selectQueue.push([stuck()]);
+    updateQueue.push({ rowCount: 1 });
+
+    const result = await resolveStuckOrderRefund({
+      orderId: ORDER_ID,
+      outcome: 'release',
+      actorUserId: 'admin-1',
+      restoreStatus: 'shipped',
+    });
+
+    expect(result.status).toBe('shipped');
+    expect(orderWrites()[0]).toMatchObject({ status: 'shipped' });
+  });
+
+  it('refuses an order that is not holding a refund claim (CONFLICT, nothing written)', async () => {
+    for (const status of ['delivered', 'partially_refunded', 'pending']) {
+      selectQueue.push([order({ status })]);
+      await expectTRPC(
+        resolveStuckOrderRefund({
+          orderId: ORDER_ID,
+          outcome: 'release',
+          actorUserId: 'admin-1',
+        }),
+        'CONFLICT'
+      );
+    }
+    expect(updates).toHaveLength(0);
+    expect(mockUpdateOrderStatus).not.toHaveBeenCalled();
+    expect(mockLogAudit).not.toHaveBeenCalled();
+  });
+
+  it('refuses a fully settled refunded order (nothing to resolve)', async () => {
+    selectQueue.push([stuck({ refundedCents: 10000 })]);
+
+    await expectTRPC(
+      resolveStuckOrderRefund({
+        orderId: ORDER_ID,
+        outcome: 'refunded',
+        actorUserId: 'admin-1',
+      }),
+      'BAD_REQUEST'
+    );
+    expect(updates).toHaveLength(0);
+    expect(mockLogAudit).not.toHaveBeenCalled();
+  });
+
+  it('"release" CONFLICTs when resolved concurrently (CAS matched 0 rows)', async () => {
+    selectQueue.push([stuck()]);
+    updateQueue.push({ rowCount: 0 });
+
+    await expectTRPC(
+      resolveStuckOrderRefund({
+        orderId: ORDER_ID,
+        outcome: 'release',
+        actorUserId: 'admin-1',
+      }),
+      'CONFLICT'
+    );
+    expect(mockLogAudit).not.toHaveBeenCalled();
+  });
+
+  it('"refunded" CONFLICTs when the claim changed under it — no status event, no audit', async () => {
+    selectQueue.push([stuck()]);
+    updateQueue.push([]);
+
+    await expectTRPC(
+      resolveStuckOrderRefund({
+        orderId: ORDER_ID,
+        outcome: 'refunded',
+        actorUserId: 'admin-1',
+      }),
+      'CONFLICT'
+    );
+    expect(mockUpdateOrderStatus).not.toHaveBeenCalled();
+    expect(mockLogAudit).not.toHaveBeenCalled();
+  });
+
+  it('a stuck order end-to-end: gateway throw, then ops confirms and the ledger settles', async () => {
+    selectQueue.push([order()]);
+    updateQueue.push({ rowCount: 1 });
+    refundPayment.mockRejectedValue(new Error('ETIMEDOUT'));
+    await expectTRPC(
+      refundWholeOrder({ orderId: ORDER_ID, actor: 'admin-1' }),
+      'INTERNAL_SERVER_ERROR'
+    );
+
+    selectQueue.push([stuck()]);
+    updateQueue.push([{ refundedCents: 10000 }]);
+    await resolveStuckOrderRefund({
+      orderId: ORDER_ID,
+      outcome: 'refunded',
+      actorUserId: 'admin-2',
+    });
+
+    expect(orderWrites().map((w) => Object.keys(w).sort())).toEqual([
+      ['refundedAt', 'status', 'updatedAt'],
+      ['refundedCents', 'updatedAt'],
+    ]);
+    expect(refundPayment).toHaveBeenCalledTimes(1);
+    expect(mockUpdateOrderStatus).toHaveBeenCalledTimes(1);
   });
 });
 

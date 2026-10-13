@@ -154,6 +154,9 @@ async function main() {
   // Bonus: avoids the `'server-only'` runtime throw on Bun-direct loads of
   // `cms-link.ts` (the package's index.js throws outside the `react-server`
   // export condition that webpack sets for Next.js server bundles).
+  // Anything imported from here must stay off `'server-only'` transitively —
+  // split cache/pub-sub into a `*-sync.ts` sibling (`cms-link-sync.ts`,
+  // `cms-override-sync.ts`); guarded by scripts/__tests__/bun-entry-imports.test.ts.
 
   // Register webhook delivery logger
   const { setWebhookDeliveryLogger } =
@@ -219,6 +222,18 @@ async function main() {
       },
     });
 
+    // Every 30 min, approvals only: a lost webhook otherwise waits for the
+    // daily sweep (dunning → runReconciliation, 24 h stale threshold) before
+    // the customer gets what they paid for. Acts solely on an explicit
+    // provider `successful`; failing/abandoning stays with the daily sweep.
+    // Same CAS + idempotency key as that sweep, so overlapping runs are no-ops.
+    const { RECONCILE_APPROVALS_CRON, runRecentApprovalsReconciliation } =
+      await import('./src/core-payments/jobs/reconcile-approvals');
+    registerCronJob({
+      ...RECONCILE_APPROVALS_CRON,
+      handler: runRecentApprovalsReconciliation,
+    });
+
     // Monthly subscription token grants (no-op unless a plan sets monthlyTokens).
     // Daily sweep: catches yearly-interval anniversaries and missed webhooks.
     registerCronJob({
@@ -233,7 +248,7 @@ async function main() {
 
     await startCronScheduler();
     logger.info(
-      'Cron scheduler ready (maintenance at 3 AM, dunning hourly, token grants at 1 AM)'
+      'Cron scheduler ready (maintenance at 3 AM, dunning hourly, payment approvals every 30 min, token grants at 1 AM)'
     );
 
     // Recover stale DB queue tasks on startup

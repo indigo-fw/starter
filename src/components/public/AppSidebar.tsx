@@ -4,6 +4,7 @@ import './AppSidebar.css';
 
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { Link } from '@/components/Link';
+// eslint-disable-next-line no-restricted-imports -- active-state matching compares against the locale-prefixed hrefs consumers build with getPathname(); the i18n usePathname strips that prefix
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';

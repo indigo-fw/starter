@@ -2,7 +2,7 @@
  * Wire core-support module dependencies to project-specific implementations.
  * Imported as a side-effect in server.ts (like email-list registration).
  */
-import { eq, inArray } from 'drizzle-orm';
+import { and, eq, inArray, isNull } from 'drizzle-orm';
 
 import { siteDefaults } from '@/config/site';
 import { supportChatConfig } from '@/core-support/config';
@@ -14,7 +14,10 @@ import {
 } from '@/core-support/schema/support-tickets';
 import { enqueueTemplateEmail } from '@/core/lib/email';
 import { createLogger } from '@/core/lib/infra/logger';
-import { registerChannelAuthorizer } from '@/core/lib/module/module-hooks';
+import {
+  registerChannelAuthorizer,
+  registerHook,
+} from '@/core/lib/module/module-hooks';
 import { Policy } from '@/core/policy';
 import {
   NotificationCategory,
@@ -30,6 +33,28 @@ import {
 import { resolveOrgId } from '@/server/lib/resolve-org';
 
 const logger = createLogger('support-chat-ai');
+
+// When a guest used support chat before registering, claim those sessions for
+// the new account. Lives here (in core-support's deps file) rather than inline
+// in src/lib/auth.ts so removing core-support doesn't break the auth bootstrap.
+registerHook('user.created', async (newUser) => {
+  try {
+    await db
+      .update(saasSupportChatSessions)
+      .set({ userId: newUser.id })
+      .where(
+        and(
+          eq(saasSupportChatSessions.email, newUser.email),
+          isNull(saasSupportChatSessions.userId)
+        )
+      );
+  } catch (err) {
+    logger.warn('Failed to link orphaned chat sessions', {
+      email: newUser.email,
+      error: String(err),
+    });
+  }
+});
 
 const DEFAULT_API_URL = 'https://api.openai.com/v1/chat/completions';
 const DEFAULT_MODEL = 'gpt-4o-mini';

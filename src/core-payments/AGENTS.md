@@ -36,7 +36,14 @@ branches and may switch to the helper.
 
 ## Reconciliation (`lib/reconciliation-service.ts`)
 
-Daily sweep (via dunning) over PENDING rows older than 24 h. The row is the state machine: every
+Two sweeps, one set of invariants. **Daily** (`reconcileStalePendingTransactions`, via dunning →
+`runReconciliation`) covers PENDING rows older than 24 h and is the only one that may fail or
+abandon. **Approvals-only** (`reconcileRecentApprovals`, cron `jobs/reconcile-approvals.ts`,
+every 30 min, worker role, registered explicitly in `server.ts`) covers rows 10 min – 24 h old,
+oldest first, ≤200 per run, and acts solely on an explicit provider `successful` — `failed` /
+`pending` / `unknown` / errors change nothing. Both share the CAS, the `reconcile:<txId>` key and
+`getConfiguredProviderChecks()`, so they may overlap each other or a late webhook and never
+double-fulfil. The row is the state machine: every
 write is a CAS on `status = pending`, so a late webhook always wins. A row the sweep moves to
 SUCCESSFUL is **fulfilled** through `dispatchPaymentEvent` with a synthesised event
 (`payment.completed` for a registered one-time type, else `subscription.activated`), idempotency

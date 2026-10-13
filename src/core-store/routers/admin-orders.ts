@@ -5,7 +5,11 @@ import { z } from 'zod';
 import { getStoreDeps } from '@/core-store/deps';
 import { generateInvoiceHtml } from '@/core-store/lib/invoice-template';
 import { assignInvoiceNumber } from '@/core-store/lib/order-service';
-import { refundWholeOrder } from '@/core-store/lib/refund-service';
+import {
+  ORDER_REFUNDABLE_STATUSES,
+  refundWholeOrder,
+  resolveStuckOrderRefund,
+} from '@/core-store/lib/refund-service';
 import { storeOrderItems, storeOrders } from '@/core-store/schema/orders';
 import { serializeExport } from '@/core/crud/admin-crud';
 import { createLogger } from '@/core/lib/infra/logger';
@@ -188,6 +192,33 @@ export const storeAdminOrdersRouter = createTRPCRouter({
       }
 
       return { success: true, refundId };
+    }),
+
+  /**
+   * Ops: resolve an order left holding a whole-order refund claim (status
+   * `refunded`, `refundedCents` short of the total) after the payment provider
+   * call ended with an unknown outcome. Check the provider dashboard first,
+   * then confirm (`refunded`, optionally with the provider's refund id →
+   * ledger committed, customer notified) or release the claim (`release` →
+   * back to the pre-claim paid status, inferred unless `restoreStatus` says
+   * otherwise; the ledger is untouched).
+   */
+  resolveStuckRefund: storeAdminProcedure
+    .input(
+      z.object({
+        orderId: z.string().uuid(),
+        outcome: z.enum(['refunded', 'release']),
+        providerRefundId: z.string().max(200).optional(),
+        note: z.string().max(500).optional(),
+        restoreStatus: z.enum(ORDER_REFUNDABLE_STATUSES).optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const result = await resolveStuckOrderRefund({
+        ...input,
+        actorUserId: ctx.session.user.id,
+      });
+      return { success: true, ...result };
     }),
 
   /**

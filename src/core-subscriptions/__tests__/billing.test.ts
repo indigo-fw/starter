@@ -1,4 +1,13 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
+import { billingRouter } from '@/core-subscriptions/routers/billing';
+import { createMockCtx } from '@/server/routers/__tests__/test-helpers';
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import { asMock } from '@/test-utils';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -67,22 +76,34 @@ vi.mock('@/core/crud/admin-crud', () => ({
   updateContentStatus: vi.fn().mockResolvedValue(undefined),
   generateCopySlug: vi.fn().mockResolvedValue('slug-copy'),
   getTranslationSiblings: vi.fn().mockResolvedValue([]),
-  serializeExport: vi.fn().mockReturnValue({ data: '[]', contentType: 'application/json' }),
-  prepareTranslationCopy: vi.fn().mockResolvedValue({ slug: 'slug-en', translationGroup: 'group-1', previewToken: 'tok' }),
-  parsePagination: vi.fn().mockImplementation((input: { page?: number; pageSize?: number }) => {
-    const page = input.page ?? 1;
-    const pageSize = input.pageSize ?? 100;
-    return { page, pageSize, offset: (page - 1) * pageSize };
-  }),
-  paginatedResult: vi.fn().mockImplementation(
-    (items: unknown[], total: number, page: number, pageSize: number) => ({
-      results: items,
-      total,
-      page,
-      pageSize,
-      totalPages: Math.ceil(total / pageSize),
-    })
-  ),
+  serializeExport: vi
+    .fn()
+    .mockReturnValue({ data: '[]', contentType: 'application/json' }),
+  prepareTranslationCopy: vi
+    .fn()
+    .mockResolvedValue({
+      slug: 'slug-en',
+      translationGroup: 'group-1',
+      previewToken: 'tok',
+    }),
+  parsePagination: vi
+    .fn()
+    .mockImplementation((input: { page?: number; pageSize?: number }) => {
+      const page = input.page ?? 1;
+      const pageSize = input.pageSize ?? 100;
+      return { page, pageSize, offset: (page - 1) * pageSize };
+    }),
+  paginatedResult: vi
+    .fn()
+    .mockImplementation(
+      (items: unknown[], total: number, page: number, pageSize: number) => ({
+        results: items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      })
+    ),
 }));
 
 vi.mock('@/core/lib/infra/audit', () => ({
@@ -99,7 +120,9 @@ vi.mock('@/core-subscriptions/lib/subscription-service', () => ({
 
 // Mock discount service
 vi.mock('@/core-subscriptions/lib/discount-service', () => ({
-  validateCode: vi.fn().mockResolvedValue({ valid: true, finalPriceCents: 1000 }),
+  validateCode: vi
+    .fn()
+    .mockResolvedValue({ valid: true, finalPriceCents: 1000 }),
   applyDiscount: vi.fn().mockResolvedValue({
     discount: { type: 'percentage', value: 10 },
     usageId: 'usage-1',
@@ -110,7 +133,11 @@ vi.mock('@/core-subscriptions/lib/discount-service', () => ({
 }));
 
 vi.mock('@/core/lib/infra/stats-cache', () => ({
-  getStats: vi.fn().mockImplementation((_key: string, fetchFn: () => Promise<unknown>) => fetchFn()),
+  getStats: vi
+    .fn()
+    .mockImplementation((_key: string, fetchFn: () => Promise<unknown>) =>
+      fetchFn()
+    ),
 }));
 
 // Inline plan data inside deps mock
@@ -122,7 +149,13 @@ const mockPlans = [
     providerPrices: {},
     priceMonthly: 0,
     priceYearly: 0,
-    features: { maxMembers: 1, maxStorageMb: 100, customDomain: false, apiAccess: false, prioritySupport: false },
+    features: {
+      maxMembers: 1,
+      maxStorageMb: 100,
+      customDomain: false,
+      apiAccess: false,
+      prioritySupport: false,
+    },
     displayFeatures: ['1 member'],
     cta: 'Get Started',
   },
@@ -136,7 +169,13 @@ const mockPlans = [
     priceMonthly: 4900,
     priceYearly: 49000,
     trialDays: 14,
-    features: { maxMembers: 20, maxStorageMb: 10240, customDomain: true, apiAccess: true, prioritySupport: false },
+    features: {
+      maxMembers: 20,
+      maxStorageMb: 10240,
+      customDomain: true,
+      apiAccess: true,
+      prioritySupport: false,
+    },
     displayFeatures: ['20 members'],
     cta: 'Start Trial',
     popular: true,
@@ -146,13 +185,11 @@ const mockBillingDeps = {
   getPlans: () => mockPlans,
   getPlan: (id: string) => mockPlans.find((p: { id: string }) => p.id === id),
   getPlanByProviderPriceId: (_providerId: string, priceId: string) =>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockPlans.find((p: any) => {
       const prices = p.providerPrices?.['stripe'];
       if (!prices) return false;
       return prices.monthly === priceId || prices.yearly === priceId;
     }),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getProviderPriceId: (plan: any, providerId: string, interval: string) => {
     const prices = plan.providerPrices?.[providerId];
     if (!prices) return null;
@@ -215,16 +252,6 @@ vi.mock('@/server/lib/resolve-org', () => ({
   resolveOrgId: vi.fn().mockResolvedValue('org-1'),
 }));
 
-// ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { asMock } from '@/test-utils';
-import { billingRouter } from '@/core-subscriptions/routers/billing';
-import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
-
-import { createMockCtx } from '@/server/routers/__tests__/test-helpers';
-
 // Convenience aliases for mocking payment deps (accessed via getSubscriptionsDeps())
 const isBillingEnabled = mockBillingDeps.isBillingEnabled;
 const getProvider = mockBillingDeps.getProvider;
@@ -236,8 +263,16 @@ const getEnabledProviders = mockBillingDeps.getEnabledProviders;
 
 const ORG_ID = 'org-1';
 
-const MOCK_MEMBER_OWNER = { organizationId: ORG_ID, userId: 'user-1', role: 'owner' };
-const MOCK_MEMBER_REGULAR = { organizationId: ORG_ID, userId: 'user-1', role: 'member' };
+const MOCK_MEMBER_OWNER = {
+  organizationId: ORG_ID,
+  userId: 'user-1',
+  role: 'owner',
+};
+const MOCK_MEMBER_REGULAR = {
+  organizationId: ORG_ID,
+  userId: 'user-1',
+  role: 'member',
+};
 
 const MOCK_SUBSCRIPTION = {
   id: 'sub-1',
@@ -262,8 +297,15 @@ const MOCK_PROVIDER = {
     name: 'Stripe',
     allowedIntervals: ['monthly', 'yearly'] as Array<'monthly' | 'yearly'>,
   },
-  createCheckout: vi.fn().mockResolvedValue({ url: 'https://checkout.stripe.com/pay/xxx', providerId: 'stripe' }),
-  createPortalSession: vi.fn().mockResolvedValue('https://billing.stripe.com/session/xxx'),
+  createCheckout: vi
+    .fn()
+    .mockResolvedValue({
+      url: 'https://checkout.stripe.com/pay/xxx',
+      providerId: 'stripe',
+    }),
+  createPortalSession: vi
+    .fn()
+    .mockResolvedValue('https://billing.stripe.com/session/xxx'),
 };
 
 // ---------------------------------------------------------------------------
@@ -273,16 +315,23 @@ const MOCK_PROVIDER = {
 describe('billingRouter', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockBillingDeps.resolveOrgId.mockImplementation(async (activeOrgId: string | null) => {
-      if (activeOrgId) return activeOrgId;
-      throw new Error('No active organization selected');
-    });
+    mockBillingDeps.resolveOrgId.mockImplementation(
+      async (activeOrgId: string | null) => {
+        if (activeOrgId) return activeOrgId;
+        throw new Error('No active organization selected');
+      }
+    );
     asMock(isBillingEnabled).mockReturnValue(false);
     asMock(getProvider).mockResolvedValue(null);
     asMock(getSubscription).mockResolvedValue(null);
     // Reset MOCK_PROVIDER function mocks
-    MOCK_PROVIDER.createCheckout.mockResolvedValue({ url: 'https://checkout.stripe.com/pay/xxx', providerId: 'stripe' });
-    MOCK_PROVIDER.createPortalSession.mockResolvedValue('https://billing.stripe.com/session/xxx');
+    MOCK_PROVIDER.createCheckout.mockResolvedValue({
+      url: 'https://checkout.stripe.com/pay/xxx',
+      providerId: 'stripe',
+    });
+    MOCK_PROVIDER.createPortalSession.mockResolvedValue(
+      'https://billing.stripe.com/session/xxx'
+    );
   });
 
   // =========================================================================
@@ -328,7 +377,9 @@ describe('billingRouter', () => {
     });
 
     it('returns configured providers', async () => {
-      asMock(getEnabledProviders).mockReturnValue([{ id: 'stripe', name: 'Stripe' }]);
+      asMock(getEnabledProviders).mockReturnValue([
+        { id: 'stripe', name: 'Stripe' },
+      ]);
 
       const ctx = createMockCtx({ activeOrganizationId: ORG_ID });
       const caller = billingRouter.createCaller(ctx as never);
@@ -347,7 +398,9 @@ describe('billingRouter', () => {
       const ctx = createMockCtx({ activeOrganizationId: null });
       const caller = billingRouter.createCaller(ctx as never);
 
-      await expect(caller.getSubscription()).rejects.toThrow('No active organization selected');
+      await expect(caller.getSubscription()).rejects.toThrow(
+        'No active organization selected'
+      );
     });
 
     it('returns free plan default when no subscription exists', async () => {
@@ -387,7 +440,9 @@ describe('billingRouter', () => {
       const ctx = createMockCtx({ activeOrganizationId: ORG_ID });
       const caller = billingRouter.createCaller(ctx as never);
 
-      await expect(caller.createCheckoutSession(checkoutInput)).rejects.toThrow('Billing is not configured');
+      await expect(caller.createCheckoutSession(checkoutInput)).rejects.toThrow(
+        'Billing is not configured'
+      );
     });
 
     it('throws BAD_REQUEST when provider is unavailable', async () => {
@@ -438,7 +493,10 @@ describe('billingRouter', () => {
       const caller = billingRouter.createCaller(ctx as never);
 
       await expect(
-        caller.createCheckoutSession({ ...checkoutInput, planId: 'nonexistent' })
+        caller.createCheckoutSession({
+          ...checkoutInput,
+          planId: 'nonexistent',
+        })
       ).rejects.toThrow('Plan not found');
     });
 
@@ -468,7 +526,10 @@ describe('billingRouter', () => {
 
       const yearlyOnlyProvider = {
         ...MOCK_PROVIDER,
-        config: { ...MOCK_PROVIDER.config, allowedIntervals: ['yearly' as const] },
+        config: {
+          ...MOCK_PROVIDER.config,
+          allowedIntervals: ['yearly' as const],
+        },
       };
       asMock(getProvider).mockResolvedValue(yearlyOnlyProvider as never);
 
@@ -485,7 +546,9 @@ describe('billingRouter', () => {
       asMock(getProvider).mockResolvedValue(MOCK_PROVIDER as never);
 
       const ctx = createMockCtx({ activeOrganizationId: ORG_ID });
-      ctx.db._chains.select.limit.mockResolvedValue([{ ...MOCK_MEMBER_OWNER, role: 'admin' }]);
+      ctx.db._chains.select.limit.mockResolvedValue([
+        { ...MOCK_MEMBER_OWNER, role: 'admin' },
+      ]);
 
       const caller = billingRouter.createCaller(ctx as never);
       const result = await caller.createCheckoutSession(checkoutInput);
@@ -499,7 +562,9 @@ describe('billingRouter', () => {
   // =========================================================================
   describe('createPortalSession', () => {
     it('throws PRECONDITION_FAILED when provider has no portal support', async () => {
-      asMock(getProvider).mockResolvedValue({ config: { id: 'nowpayments', name: 'NOWPayments' } } as never);
+      asMock(getProvider).mockResolvedValue({
+        config: { id: 'nowpayments', name: 'NOWPayments' },
+      } as never);
 
       const ctx = createMockCtx({ activeOrganizationId: ORG_ID });
       const caller = billingRouter.createCaller(ctx as never);
@@ -575,16 +640,20 @@ describe('billingRouter', () => {
         const orderByMock = vi.fn().mockReturnValue({ limit: limitMock });
 
         const makeThenable = () => ({
-          then: (resolve: (v: unknown) => unknown) => Promise.resolve(rows).then(resolve),
+          then: (resolve: (v: unknown) => unknown) =>
+            Promise.resolve(rows).then(resolve),
           groupBy: groupByMock,
           orderBy: orderByMock,
           limit: limitMock,
         });
         const whereMock = vi.fn().mockImplementation(makeThenable);
-        const leftJoinMock = vi.fn().mockReturnValue({ orderBy: orderByMock, where: whereMock });
+        const leftJoinMock = vi
+          .fn()
+          .mockReturnValue({ orderBy: orderByMock, where: whereMock });
 
         const fromMock = vi.fn().mockReturnValue({
-          then: (resolve: (v: unknown) => unknown) => Promise.resolve(rows).then(resolve),
+          then: (resolve: (v: unknown) => unknown) =>
+            Promise.resolve(rows).then(resolve),
           where: whereMock,
           orderBy: orderByMock,
           leftJoin: leftJoinMock,
@@ -593,13 +662,18 @@ describe('billingRouter', () => {
         return { from: fromMock };
       });
 
-      return { select: selectMock, insert: vi.fn(), update: vi.fn(), delete: vi.fn() };
+      return {
+        select: selectMock,
+        insert: vi.fn(),
+        update: vi.fn(),
+        delete: vi.fn(),
+      };
     }
 
     /** Standard 8-response array for getStats with zero values */
     const ZERO_STATS: unknown[][] = [
-      [],             // 1. planDistribution
-      [],             // 2. activeSubGroups
+      [], // 1. planDistribution
+      [], // 2. activeSubGroups
       [{ count: 0 }], // 3. trialing
       [{ count: 0 }], // 4. canceled30d
       [{ count: 0 }], // 5. pastDue
@@ -610,8 +684,18 @@ describe('billingRouter', () => {
 
     it('returns billing stats with expected shape', async () => {
       const responses = [...ZERO_STATS];
-      responses[0] = [{ planId: 'pro', count: 2 }, { planId: 'free', count: 5 }];
-      responses[1] = [{ planId: 'pro', providerId: 'stripe', providerPriceId: 'price_pro_monthly', count: 2 }];
+      responses[0] = [
+        { planId: 'pro', count: 2 },
+        { planId: 'free', count: 5 },
+      ];
+      responses[1] = [
+        {
+          planId: 'pro',
+          providerId: 'stripe',
+          providerPriceId: 'price_pro_monthly',
+          count: 2,
+        },
+      ];
       responses[3] = [{ count: 1 }]; // canceled30d
       responses[7] = [{ count: 3 }]; // activeDiscountCodes
 
@@ -635,7 +719,14 @@ describe('billingRouter', () => {
     it('calculates MRR correctly for monthly subscribers', async () => {
       const responses = [...ZERO_STATS];
       responses[0] = [{ planId: 'pro', count: 2 }];
-      responses[1] = [{ planId: 'pro', providerId: 'stripe', providerPriceId: 'price_pro_monthly', count: 2 }];
+      responses[1] = [
+        {
+          planId: 'pro',
+          providerId: 'stripe',
+          providerPriceId: 'price_pro_monthly',
+          count: 2,
+        },
+      ];
 
       const db = buildStatsDb(responses);
       const ctx = createMockCtx({ db });
@@ -648,7 +739,14 @@ describe('billingRouter', () => {
     it('calculates MRR correctly for yearly subscribers (divided by 12)', async () => {
       const responses = [...ZERO_STATS];
       responses[0] = [{ planId: 'pro', count: 1 }];
-      responses[1] = [{ planId: 'pro', providerId: 'stripe', providerPriceId: 'price_pro_yearly', count: 1 }];
+      responses[1] = [
+        {
+          planId: 'pro',
+          providerId: 'stripe',
+          providerPriceId: 'price_pro_yearly',
+          count: 1,
+        },
+      ];
 
       const db = buildStatsDb(responses);
       const ctx = createMockCtx({ db });

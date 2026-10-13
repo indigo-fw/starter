@@ -43,8 +43,11 @@ Every ticket event sends exactly one email (no digests or throttling):
 | Event | Recipient | Template |
 |---|---|---|
 | Customer opens a ticket | Support inbox | `support-ticket-new` |
+| Signed-in user escalates a chat (`supportChat.escalate`) | Support inbox | `support-ticket-new` — the preview starts with `[Escalated from support chat]` followed by the transcript, so staff see the origin without a separate template |
 | Customer replies | Support inbox | `support-ticket-reply` |
 | Staff replies | Customer, in their UI language (`user.lang`) | `support-ticket-answer` |
+
+Chat escalation mail is fire-and-forget (a mail failure never fails the escalation) and is deliberately **not** subject to `create`'s 10-tickets-per-hour cap: escalation is gated by the chat flow itself and yields at most one ticket per session. Anonymous escalations capture an email address and mark the session `escalated` but create no ticket and send nothing.
 
 Templates install to `emails/en/` and can be overridden per locale from the admin email-templates page. Each email carries a 200-character preview and a link to the ticket. The support inbox is `getSupportEmail()` — the default wiring reads **Settings → Company → Support Email** (`company.support_email`, falling back to the contact email, then the `SUPPORT_EMAIL` environment variable). When none is set, staff emails are skipped with a warning; in-app notifications still reach every user whose role grants the `settings` admin section, or just the assignee on an assigned ticket.
 
@@ -67,6 +70,7 @@ The AI uses an OpenAI-compatible API. It is optional — without an API key the 
 | `AI_API_KEY` | API key for the chat AI — without it, AI responses are disabled |
 | `AI_API_URL` | OpenAI-compatible endpoint (defaults to OpenAI) |
 | `AI_MODEL` | Model to use (defaults to `gpt-4o-mini`) |
+| `SUPPORT_EMAIL` | Headless fallback for the staff inbox, used only when **Settings → Company** has neither a support nor a contact email. Resolution order: `company.support_email` → `company.contact_email` → `SUPPORT_EMAIL` → `siteDefaults.supportEmail` → `siteDefaults.contactEmail` |
 
 ### Chat config
 

@@ -65,7 +65,7 @@ Stripe requires `STRIPE_SECRET_KEY` and a webhook secret in your environment. Co
 |---|---|
 | `billing_profiles` | `organizationId` (unique, 1:1 with org), `legalName`, `companyRegistrationId`, `vatId`, `taxExempt`, `invoiceEmail`, address fields, `defaultCurrency` |
 | `saas_payment_transactions` | `organizationId`, `providerId`, `providerTxId`, `amountCents`, `currency`, `status`, `transactionType` (`payment`/`authorization`/`capture`/`refund`/`void`), `paymentIntentId`, `authorizedAmountCents`, `capturedAmountCents` |
-| `saas_subscription_events` | `providerEventId` (unique idempotency key), `type`, `data` — log of processed webhook events |
+| `saas_subscription_events` | `providerEventId` (unique idempotency key), `type`, `data` — log of processed webhook events, pruned after 90 days |
 
 ## API
 
@@ -80,8 +80,41 @@ Stripe requires `STRIPE_SECRET_KEY` and a webhook secret in your environment. Co
 
 - **Provider registry** — register a provider with `registerPaymentProvider(id, factory)` from `@/core-payments/lib/factory`. The factory is lazy and cached; return `null` when required env vars are missing. Stripe is registered out of the box; other modules register via a side-effect import.
 - **Transactions** — use the transaction service in `@/core-payments/lib/transaction-service` to create and update transaction records from provider webhooks.
-- **Webhook routes** stay in the project under `app/api/webhooks/`. `dispatchPaymentEvent()` from `@/core-payments/lib/webhook-registry` routes a verified event the same way the routes do (one-time registry handler by `metadata.type`, else the subscription handler injected as `PaymentsDeps.handleSubscriptionWebhookEvent`).
-- **Reconciliation** — the daily sweep (`reconcileStalePendingTransactions`, run from the dunning job) checks pending transactions older than 24 h with the provider. Confirmed payments are marked `successful` **and fulfilled** through `dispatchPaymentEvent()` under the idempotency key `reconcile:<transactionId>`; a late provider webhook is still deduped by its own event id and can never fulfil twice because every status write is a compare-and-set. Payments the provider still reports pending (or has no record of) are closed as `failed` after 24 h with `rawResponse.reconciliation.outcome = 'abandoned'`. If fulfilment throws, the row stays `successful`, `rawResponse.reconciliation.fulfilment` is `'failed'`, and the sweep logs an error — fulfil manually.
+- **Webhook routes** stay in the project under `app/api/webhooks/` — see *Webhooks* below.
+- **Hooks** — the core-owned hook events `payment.conversion` and `payment.refund` (`[userId, referenceId, amountCents]`) are emitted by the subscription webhook handler and token-pack flows in `core-subscriptions`; `core-affiliates` consumes them for commissions and claw-backs. Emit the same pair from your own one-time payment handlers so downstream modules see every sale and refund.
+
+## Webhooks
+
+### Handler registry and `dispatchPaymentEvent()`
+
+One-time checkouts tag the provider session with `metadata.type` (`'store_order'`, `'token_pack'`, …). A module registers a handler for its type from its deps wiring:
+
+```ts
+import { registerPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
+
+registerPaymentWebhookHandler('store_order', async ({ event, providerId, eventId, metadata }) => {
+  // fulfil the order; throw to make the provider retry
+});
+```
+
+`dispatchPaymentEvent()` (same file) is the routing step the webhook routes and reconciliation share: registry handler by `metadata.type`, else the subscription handler injected as `PaymentsDeps.handleSubscriptionWebhookEvent` (the project wires it to `core-subscriptions`), else `NOT_IMPLEMENTED` so the caller can release its idempotency claim. New purchase flows plug in without editing the provider routes. Providers declare `supportsOneTimePayments`; the crypto provider does not support them.
+
+### Idempotency
+
+Each route claims the event **before** doing any work by inserting into `saas_subscription_events` (`providerEventId` is unique). A redelivered event hits the unique index — detected with `isDuplicateKeyError()` from `@/core/crud`, never by message matching — and is acknowledged with `{ received: true, duplicate: true }` without re-processing. If the handler throws, the route releases the claim, alerts staff (see below) and returns 500 so the provider retries; a later redelivery is then processed as new. Processed events are pruned after 90 days by the daily maintenance job. The NOWPayments handler additionally runs a state machine on transaction status (compare-and-set on the allowed previous status) so a late `failed`/`expired` can never flip a `successful` row.
+
+### Staff alerts
+
+Both routes call `sendStaffAlert()` (`@/core/lib/email/staff-alert`): with kind `unverified` when signature verification fails (throttled and capped — anyone can POST to the route) and with kind `money-event` when a verified event's handler throws (never throttled — a payment or subscription state may be lost). Alerts are mailed to `STAFF_ALERT_EMAILS` and always logged. Operator guidance: [Deployment → Staff alerts](/docs/guides/deployment#staff-alerts).
+
+## Reconciliation
+
+Webhooks get lost. Two sweeps in `lib/reconciliation-service.ts` walk `pending` transactions and ask the provider (`checkStripeTransaction`, `checkNowPaymentsTransaction` — only for providers with keys configured):
+
+- **Approvals-only** — `reconcileRecentApprovals`, cron `payments-reconcile-approvals` every 30 min (worker role, registered in `server.ts` from `jobs/reconcile-approvals.ts`). Rows 10 min – 24 h old, oldest first, 200 per run. Acts on exactly one answer, an explicit provider `successful`; `failed`, `pending`, `unknown` and errors change nothing.
+- **Full** — `reconcileStalePendingTransactions`, run first in every hourly dunning pass via `SubscriptionsDeps.runReconciliation`. Rows older than 24 h; the only sweep that may fail or abandon.
+
+Shared invariants: the row is the state machine — every write is a compare-and-set on `status = pending`, so a late webhook always wins and overlapping sweeps are no-ops. A recovered row is marked `successful` **and fulfilled** through `dispatchPaymentEvent()` with a synthesised event (`payment.completed` for a registered one-time type, else `subscription.activated`) under the idempotency key `reconcile:<transactionId>` — never the provider's event id, so the real webhook still deduplicates by its own. Checkers answer `successful | failed | pending | unknown`: only an explicit `pending` (or no provider record) ages into `failed` with `rawResponse.reconciliation.outcome = 'abandoned'` after 24 h; `unknown` (outage, auth, rate limit) never does. Rows without a `providerTxId` use the checker's optional `findByMerchantReference`. If fulfilment throws after the provider confirmed payment, the row stays `successful` (the money was taken), `rawResponse.reconciliation.fulfilment` is `'failed'` and an error is logged — **manual fulfilment is required**.
 
 ## Related
 

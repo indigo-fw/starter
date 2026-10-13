@@ -57,8 +57,27 @@ export function formatRelativeTime(
 // (filled by <TimezoneSync>). Every helper takes the zone as stored, so a
 // missing or garbage value quietly degrades to UTC instead of throwing from a
 // cron job. Pure Intl; safe in client bundles too.
+//
+// This is the ONE implementation of "local day / local hour"; the older
+// `@/core/lib/i18n/timezone` helpers are thin wrappers over these.
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+
+// Shape gate before Intl sees the string: rejects garbage cheaply and keeps
+// offset-style zones ("+05:30", accepted by newer ICU) out, so a stored value
+// resolves the same way on every runtime.
+const IANA_ZONE_SHAPE = /^[A-Za-z0-9_+\-/]{3,64}$/;
+
+/** True when `tz` is an IANA zone name this runtime's Intl can resolve. */
+export function isValidTimezone(tz: string): boolean {
+  if (!IANA_ZONE_SHAPE.test(tz)) return false;
+  try {
+    new Intl.DateTimeFormat('en-US', { timeZone: tz }).format(new Date());
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 interface WallClock {
   year: number;
@@ -94,6 +113,25 @@ function wallClock(timeZone: string, d: Date): WallClock {
   };
 }
 
+/**
+ * Wall clock in the user's zone, degrading to UTC when the zone is missing,
+ * malformed or unknown to Intl. One formatter construction on the happy path
+ * (no separate validity probe) — these run per user inside cron loops.
+ */
+function safeWallClock(
+  timezone: string | null | undefined,
+  d: Date
+): WallClock {
+  if (timezone && IANA_ZONE_SHAPE.test(timezone)) {
+    try {
+      return wallClock(timezone, d);
+    } catch {
+      // unknown zone → UTC below
+    }
+  }
+  return wallClock('UTC', d);
+}
+
 /** Zone offset in ms at instant `d` (positive east of UTC), from the wall clock. */
 function zoneOffsetMs(timeZone: string, d: Date): number {
   const w = wallClock(timeZone, d);
@@ -114,13 +152,9 @@ export function localDayStr(
   timezone: string | null | undefined,
   d: Date = new Date()
 ): string {
-  try {
-    const w = wallClock(timezone || 'UTC', d);
-    const pad = (n: number) => String(n).padStart(2, '0');
-    return `${w.year}-${pad(w.month)}-${pad(w.day)}`;
-  } catch {
-    return d.toISOString().slice(0, 10);
-  }
+  const w = safeWallClock(timezone, d);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${w.year}-${pad(w.month)}-${pad(w.day)}`;
 }
 
 /** The hour (0–23) in the user's timezone (UTC when the zone is missing/invalid). */
@@ -128,11 +162,16 @@ export function localHour(
   timezone: string | null | undefined,
   d: Date = new Date()
 ): number {
-  try {
-    return wallClock(timezone || 'UTC', d).hour;
-  } catch {
-    return d.getUTCHours();
-  }
+  return safeWallClock(timezone, d).hour;
+}
+
+/** Weekday (Sun..Sat → 0..6) of the user's local calendar day (UTC when the zone is missing/invalid). */
+export function localWeekday(
+  timezone: string | null | undefined,
+  d: Date = new Date()
+): number {
+  const w = safeWallClock(timezone, d);
+  return new Date(Date.UTC(w.year, w.month - 1, w.day)).getUTCDay();
 }
 
 /**
@@ -146,7 +185,7 @@ export function startOfLocalDayUtc(
   timezone: string | null | undefined,
   now: Date = new Date()
 ): Date {
-  const zone = timezone || 'UTC';
+  const zone = timezone && IANA_ZONE_SHAPE.test(timezone) ? timezone : 'UTC';
   try {
     const w = wallClock(zone, now);
     const naiveMidnight = Date.UTC(w.year, w.month - 1, w.day);

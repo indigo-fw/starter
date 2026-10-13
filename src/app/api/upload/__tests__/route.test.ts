@@ -4,14 +4,38 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { checkRateLimit } from '@/core/lib/infra/rate-limit';
 import { asMock } from '@/test-utils';
 
-const { sharpState, mockLog } = vi.hoisted(() => ({
+const { sharpState, normState, mockLog, uploadMock } = vi.hoisted(() => ({
   sharpState: {
     format: 'png' as string | undefined,
     width: 1000,
     height: 500,
     fail: false,
   },
+  // Output of the (mocked) privacy pass. Dims default to the sniffed ones;
+  // `bytes` is what the route must store and report.
+  normState: {
+    width: undefined as number | undefined,
+    height: undefined as number | undefined,
+    bytes: Buffer.from('normalised-original'),
+    fail: false,
+    passthrough: false,
+  },
   mockLog: { debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn() },
+  uploadMock: vi.fn(async (p: string) => p),
+}));
+
+vi.mock('@/core/lib/media/normalize-image', () => ({
+  getUploadMaxImagePx: () => 2560,
+  normalizeImage: vi.fn(async (buffer: Buffer, mimeType: string) => {
+    if (normState.fail) throw new Error('VipsJpeg: premature end of data');
+    return {
+      buffer: normState.passthrough ? buffer : normState.bytes,
+      width: normState.width ?? sharpState.width,
+      height: normState.height ?? sharpState.height,
+      mimeType,
+      normalized: !normState.passthrough,
+    };
+  }),
 }));
 
 vi.mock('sharp', () => {
@@ -57,7 +81,7 @@ vi.mock('@/lib/auth', () => ({
 }));
 vi.mock('@/core/storage', () => ({
   getStorage: () => ({
-    upload: vi.fn(async (p: string) => p),
+    upload: uploadMock,
     url: (p: string) => `http://localhost:3000/api/uploads/${p}`,
   }),
 }));
@@ -82,6 +106,76 @@ describe('POST /api/upload', () => {
     sharpState.width = 1000;
     sharpState.height = 500;
     sharpState.fail = false;
+    normState.width = undefined;
+    normState.height = undefined;
+    normState.fail = false;
+    normState.passthrough = false;
+  });
+
+  it('stores the normalised bytes and reports their size, not the upload size', async () => {
+    sharpState.format = 'jpeg';
+    const res = await POST(requestWith(fileOf('Photo.jpg', 'image/jpeg', 64)));
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.fileSize).toBe(normState.bytes.length);
+    expect(body.fileSize).not.toBe(64);
+    // First upload is the original; it must be the normalised buffer.
+    const [, storedBuffer] = uploadMock.mock.calls[0] as unknown as [
+      string,
+      Buffer,
+    ];
+    expect(storedBuffer.equals(normState.bytes)).toBe(true);
+  });
+
+  it('reports normalised dimensions and derives variants from them', async () => {
+    // Sniffed 4000x2000, capped by the pass to 2560x1280.
+    sharpState.width = 4000;
+    sharpState.height = 2000;
+    normState.width = 2560;
+    normState.height = 1280;
+    const body = await (
+      await POST(requestWith(fileOf('big.png', 'image/png')))
+    ).json();
+    expect(body.width).toBe(2560);
+    expect(body.height).toBe(1280);
+    expect(body.mediumPath).toMatch(/-medium\.webp$/);
+
+    // Capped below the medium breakpoint → thumbnail only.
+    normState.width = 600;
+    normState.height = 300;
+    const small = await (
+      await POST(requestWith(fileOf('big.png', 'image/png')))
+    ).json();
+    expect(small.width).toBe(600);
+    expect(small.thumbnailPath).toMatch(/-thumb\.webp$/);
+    expect(small.mediumPath).toBeUndefined();
+  });
+
+  it('returns 415 and stores nothing when normalisation throws', async () => {
+    sharpState.format = 'jpeg';
+    normState.fail = true;
+    const res = await POST(requestWith(fileOf('a.jpg', 'image/jpeg')));
+    expect(res.status).toBe(415);
+    expect((await res.json()).error).toMatch(/could not be processed/);
+    expect(uploadMock).not.toHaveBeenCalled();
+    expect(mockLog.error).toHaveBeenCalledWith(
+      'Image normalisation failed',
+      expect.objectContaining({ mimeType: 'image/jpeg' })
+    );
+  });
+
+  it('a passed-through GIF keeps its original bytes and size', async () => {
+    sharpState.format = 'gif';
+    normState.passthrough = true;
+    const res = await POST(requestWith(fileOf('anim.gif', 'image/gif', 48)));
+    expect(res.status).toBe(200);
+    expect((await res.json()).fileSize).toBe(48);
+  });
+
+  it('does not normalise documents or video', async () => {
+    const res = await POST(requestWith(fileOf('clip.mp4', 'video/mp4', 32)));
+    expect(res.status).toBe(200);
+    expect((await res.json()).fileSize).toBe(32);
   });
 
   it('accepts a well-formed image and reports dimensions', async () => {

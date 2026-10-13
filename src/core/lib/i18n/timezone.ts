@@ -8,42 +8,40 @@
  *
  *   todayInTimezone('Asia/Tokyo')  // "2026-05-13" while UTC is still 2026-05-12
  *   todayInTimezone(null)          // falls back to UTC
+ *
+ * Kept as public API; every helper here is a "now"-only wrapper over the
+ * single implementation in `@/core/lib/infra/datetime`, which also takes an
+ * explicit `Date` — prefer those names in new code.
  */
+import {
+  isValidTimezone,
+  localDayStr,
+  localHour,
+  localWeekday,
+} from '@/core/lib/infra/datetime';
 
-/** YYYY-MM-DD for "now" in the given IANA timezone (or UTC if null/invalid). */
+export { isValidTimezone };
+
+/**
+ * YYYY-MM-DD for "now" in the given IANA timezone (or UTC if null/invalid).
+ * @deprecated Use `localDayStr(tz)` from `@/core/lib/infra/datetime`.
+ */
 export function todayInTimezone(tz: string | null | undefined): string {
-  const zone = tz && isValidTimezone(tz) ? tz : 'UTC';
-  // en-CA's date format is YYYY-MM-DD natively.
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: zone,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(new Date());
+  return localDayStr(tz);
 }
 
-/** Hour-of-day (0–23) for "now" in the given IANA timezone. */
+/**
+ * Hour-of-day (0–23) for "now" in the given IANA timezone (or UTC if null/invalid).
+ * @deprecated Use `localHour(tz)` from `@/core/lib/infra/datetime`.
+ */
 export function hourInTimezone(tz: string | null | undefined): number {
-  const zone = tz && isValidTimezone(tz) ? tz : 'UTC';
-  return parseInt(
-    new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: 'numeric', hour12: false }).format(new Date()),
-    10,
-  );
+  return localHour(tz);
 }
 
-/** Three-letter weekday abbrev (Sun..Sat → 0..6) for "now" in the given TZ. */
+/**
+ * Weekday (Sun..Sat → 0..6) for "now" in the given IANA timezone (or UTC if null/invalid).
+ * @deprecated Use `localWeekday(tz)` from `@/core/lib/infra/datetime`.
+ */
 export function weekdayInTimezone(tz: string | null | undefined): number {
-  const zone = tz && isValidTimezone(tz) ? tz : 'UTC';
-  const name = new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'short' }).format(new Date());
-  return { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[name] ?? 0;
-}
-
-export function isValidTimezone(tz: string): boolean {
-  if (!/^[A-Za-z0-9_+\-/]{3,64}$/.test(tz)) return false;
-  try {
-    new Intl.DateTimeFormat('en-US', { timeZone: tz }).format(new Date());
-    return true;
-  } catch {
-    return false;
-  }
+  return localWeekday(tz);
 }

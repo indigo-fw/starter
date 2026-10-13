@@ -56,14 +56,26 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends libvips42 && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy built artifacts and runtime files. node_modules ships in full (incl.
-# devDependencies): the runtime executes TypeScript source directly (`bun run
-# server.ts`, `src/scripts/migrate.ts` from the entrypoint) rather than a
-# pruned production build, and no step has yet verified which devDependencies
-# that path can live without. Known follow-up: measure, then prune.
+# Production dependencies only, installed fresh for this image rather than
+# copied from the node:20 builder — so sharp's prebuilt libvips binary matches
+# this stage's own platform. The runtime executes TypeScript source directly
+# (`bun run server.ts`, `src/scripts/migrate.ts` from the entrypoint, and the
+# demo's `bun run init -- -y --reset`), so the prune was verified against the
+# source import closure, not a bundle: every bare import specifier reachable
+# from server.ts, next.config.ts, src/ (minus tests) and scripts/ resolves to
+# `dependencies`, a node:/bun: builtin, or a type-only import bun erases
+# (`drizzle-kit` in drizzle.config.ts, `hast`/`unist`). The devDependencies
+# scripts do reach — `typescript` (indigo map, PO extraction), `chokidar`
+# (po-to-json watch mode), `vitest` — are build/dev-time only. Re-run that
+# grep when adding a devDependency that src/ or scripts/ imports.
+# `--ignore-scripts`: the root `prepare` runs husky, which isn't installed here
+# (sharp needs no install script — its binary ships as an optional dependency).
+# `@/…` path aliases come from tsconfig.json, which bun resolves natively.
+COPY package.json bun.lock* ./
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install --frozen-lockfile --production --ignore-scripts
+
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./
 COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/server.ts ./
 COPY --from=builder /app/next.config.ts ./

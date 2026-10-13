@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+import { redirect } from '@/i18n/navigation';
 import { getCachedNavigation } from './data';
 import { getLocale } from '@/core/lib/i18n/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';
@@ -13,7 +13,11 @@ export default async function DocsIndexPage() {
   const navigation = await getCachedNavigation(locale);
 
   if (navigation.length > 0) {
-    redirect(`/docs/${navigation[0].slug}`);
+    // Doc slugs are hierarchical ("guides/foo") — split into catch-all segments
+    redirect({
+      href: { pathname: '/docs/[...slug]', params: { slug: navigation[0].slug.split('/') } },
+      locale,
+    });
   }
 
   const __ = await getServerTranslations();

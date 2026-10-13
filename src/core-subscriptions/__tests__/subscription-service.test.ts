@@ -1,4 +1,17 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { and, eq } from 'drizzle-orm';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import {
+  activateSubscription,
+  cancelSubscription,
+  updateSubscription,
+} from '@/core-subscriptions/lib/subscription-service';
+import { db } from '@/server/db';
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import { asMock } from '@/test-utils';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -11,7 +24,9 @@ vi.mock('@/server/db', () => {
   const selectMock = vi.fn().mockReturnValue({ from: fromMock });
 
   const onConflictDoUpdateMock = vi.fn().mockResolvedValue(undefined);
-  const valuesMock = vi.fn().mockReturnValue({ onConflictDoUpdate: onConflictDoUpdateMock });
+  const valuesMock = vi
+    .fn()
+    .mockReturnValue({ onConflictDoUpdate: onConflictDoUpdateMock });
   const insertMock = vi.fn().mockReturnValue({ values: valuesMock });
 
   const updateWhereMock = vi.fn().mockResolvedValue(undefined);
@@ -25,9 +40,16 @@ vi.mock('@/server/db', () => {
       update: updateMock,
       // Expose chain refs for beforeEach resets
       _mocks: {
-        select: selectMock, from: fromMock, where: whereMock, limit: limitMock,
-        insert: insertMock, values: valuesMock, onConflictDoUpdate: onConflictDoUpdateMock,
-        update: updateMock, set: setMock, updateWhere: updateWhereMock,
+        select: selectMock,
+        from: fromMock,
+        where: whereMock,
+        limit: limitMock,
+        insert: insertMock,
+        values: valuesMock,
+        onConflictDoUpdate: onConflictDoUpdateMock,
+        update: updateMock,
+        set: setMock,
+        updateWhere: updateWhereMock,
       },
     },
   };
@@ -67,22 +89,8 @@ vi.mock('@/core/lib/infra/logger', () => ({
 }));
 
 // ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { asMock } from '@/test-utils';
-import {
-  activateSubscription,
-  updateSubscription,
-  cancelSubscription,
-} from '@/core-subscriptions/lib/subscription-service';
-import { db } from '@/server/db';
-import { eq, and } from 'drizzle-orm';
-
-// ---------------------------------------------------------------------------
 // Access mock chain via the imported db object (resilient to mock leakage)
 // ---------------------------------------------------------------------------
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const m = (db as any)._mocks as Record<string, ReturnType<typeof vi.fn>>;
 
 function mockSub(overrides: Record<string, unknown> = {}) {
@@ -146,13 +154,19 @@ describe('subscription-service', () => {
       // Default: m.limit returns [] → sub is undefined → planId: 'free'
       await cancelSubscription('sub_stripe_123');
       expect(m.set).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'canceled', planId: 'free', updatedAt: expect.any(Date) }),
+        expect.objectContaining({
+          status: 'canceled',
+          planId: 'free',
+          updatedAt: expect.any(Date),
+        })
       );
     });
 
     it('keeps current plan when cancelAtPeriodEnd is true and period has not ended', async () => {
       const futureDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-      m.limit.mockResolvedValue([mockSub({ cancelAtPeriodEnd: true, currentPeriodEnd: futureDate })]);
+      m.limit.mockResolvedValue([
+        mockSub({ cancelAtPeriodEnd: true, currentPeriodEnd: futureDate }),
+      ]);
 
       await cancelSubscription('sub_stripe_123');
       const setArg = asMock(m.set).mock.calls[0]![0] as Record<string, unknown>;
@@ -162,11 +176,13 @@ describe('subscription-service', () => {
 
     it('downgrades to free when cancelAtPeriodEnd is true but period already ended', async () => {
       const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
-      m.limit.mockResolvedValue([mockSub({ cancelAtPeriodEnd: true, currentPeriodEnd: pastDate })]);
+      m.limit.mockResolvedValue([
+        mockSub({ cancelAtPeriodEnd: true, currentPeriodEnd: pastDate }),
+      ]);
 
       await cancelSubscription('sub_stripe_123');
       expect(m.set).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'canceled', planId: 'free' }),
+        expect.objectContaining({ status: 'canceled', planId: 'free' })
       );
     });
 
@@ -174,8 +190,16 @@ describe('subscription-service', () => {
       await cancelSubscription('sub_stripe_789');
       // eq called twice: once for SELECT WHERE, once for UPDATE WHERE
       expect(eq).toHaveBeenCalledTimes(2);
-      expect(eq).toHaveBeenNthCalledWith(1, 'saas_subscriptions.provider_subscription_id', 'sub_stripe_789');
-      expect(eq).toHaveBeenNthCalledWith(2, 'saas_subscriptions.provider_subscription_id', 'sub_stripe_789');
+      expect(eq).toHaveBeenNthCalledWith(
+        1,
+        'saas_subscriptions.provider_subscription_id',
+        'sub_stripe_789'
+      );
+      expect(eq).toHaveBeenNthCalledWith(
+        2,
+        'saas_subscriptions.provider_subscription_id',
+        'sub_stripe_789'
+      );
     });
   });
 
@@ -186,14 +210,20 @@ describe('subscription-service', () => {
     it('updates planId when provided', async () => {
       await updateSubscription('sub_stripe_123', { planId: 'enterprise' });
       expect(m.set).toHaveBeenCalledWith(
-        expect.objectContaining({ planId: 'enterprise', updatedAt: expect.any(Date) }),
+        expect.objectContaining({
+          planId: 'enterprise',
+          updatedAt: expect.any(Date),
+        })
       );
     });
 
     it('updates status when provided', async () => {
       await updateSubscription('sub_stripe_123', { status: 'past_due' });
       expect(m.set).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'past_due', updatedAt: expect.any(Date) }),
+        expect.objectContaining({
+          status: 'past_due',
+          updatedAt: expect.any(Date),
+        })
       );
     });
 
@@ -206,7 +236,7 @@ describe('subscription-service', () => {
           currentPeriodStart: periodStart,
           currentPeriodEnd: periodEnd,
           updatedAt: expect.any(Date),
-        }),
+        })
       );
     });
 
@@ -243,13 +273,13 @@ describe('subscription-service', () => {
             providerSubscriptionId: 'sub_stripe_123',
             planId: 'pro',
             status: 'active',
-          }),
+          })
         );
         expect(m.onConflictDoUpdate).toHaveBeenCalledWith(
           expect.objectContaining({
             target: 'saas_subscriptions.provider_subscription_id',
             set: expect.objectContaining({ planId: 'pro', status: 'active' }),
-          }),
+          })
         );
       });
 
@@ -262,7 +292,9 @@ describe('subscription-service', () => {
           providerCustomerId: 'cus_123',
           providerSubscriptionId: 'sub_stripe_123',
         });
-        expect(m.values).toHaveBeenCalledWith(expect.objectContaining({ status: 'active' }));
+        expect(m.values).toHaveBeenCalledWith(
+          expect.objectContaining({ status: 'active' })
+        );
       });
     });
 
@@ -282,10 +314,17 @@ describe('subscription-service', () => {
         expect(and).toHaveBeenCalled();
         // UPDATE targets the existing row by id
         expect(m.set).toHaveBeenCalledWith(
-          expect.objectContaining({ providerCustomerId: 'cus_crypto_123', planId: 'pro', status: 'active' }),
+          expect.objectContaining({
+            providerCustomerId: 'cus_crypto_123',
+            planId: 'pro',
+            status: 'active',
+          })
         );
         expect(m.updateWhere).toHaveBeenCalled();
-        expect(eq).toHaveBeenCalledWith('saas_subscriptions.id', 'existing-sub-id');
+        expect(eq).toHaveBeenCalledWith(
+          'saas_subscriptions.id',
+          'existing-sub-id'
+        );
       });
 
       it('inserts a new subscription when none exists', async () => {
@@ -306,7 +345,7 @@ describe('subscription-service', () => {
             providerCustomerId: 'cus_crypto_456',
             planId: 'pro',
             status: 'active',
-          }),
+          })
         );
       });
 
@@ -326,7 +365,7 @@ describe('subscription-service', () => {
             providerPriceId: null,
             currentPeriodStart: null,
             currentPeriodEnd: null,
-          }),
+          })
         );
       });
     });

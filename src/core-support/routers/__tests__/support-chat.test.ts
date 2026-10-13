@@ -1,4 +1,10 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import { supportChatRouter } from '@/core-support/routers/support-chat';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -18,7 +24,9 @@ vi.mock('@/core/lib/infra/redis', () => ({
 }));
 
 vi.mock('@/core/lib/infra/rate-limit', () => ({
-  checkRateLimit: vi.fn().mockResolvedValue({ allowed: true, remaining: 10, retryAfterMs: 0 }),
+  checkRateLimit: vi
+    .fn()
+    .mockResolvedValue({ allowed: true, remaining: 10, retryAfterMs: 0 }),
 }));
 
 vi.mock('@/core/lib/api/trpc-rate-limit', () => ({
@@ -44,7 +52,13 @@ const mockSupportDeps = {
   sendNotification: vi.fn(),
   sendOrgNotification: vi.fn(),
   broadcastEvent: vi.fn(),
-  lookupUsers: vi.fn().mockResolvedValue(new Map([['user-1', { id: 'user-1', name: 'Test User', email: 'test@test.com' }]])),
+  lookupUsers: vi
+    .fn()
+    .mockResolvedValue(
+      new Map([
+        ['user-1', { id: 'user-1', name: 'Test User', email: 'test@test.com' }],
+      ])
+    ),
   callAI: vi.fn().mockResolvedValue(null),
 };
 vi.mock('@/core-support/deps', () => ({
@@ -52,9 +66,27 @@ vi.mock('@/core-support/deps', () => ({
   setSupportDeps: vi.fn(),
 }));
 
+const { mockNotifyStaffNewTicket } = vi.hoisted(() => ({
+  mockNotifyStaffNewTicket: vi.fn().mockResolvedValue(undefined),
+}));
+vi.mock('@/core-support/lib/email-notifications', () => ({
+  notifyStaffNewTicket: mockNotifyStaffNewTicket,
+}));
+
 vi.mock('@/core/types/notifications', () => ({
-  NotificationType: { INFO: 'info', SUCCESS: 'success', WARNING: 'warning', ERROR: 'error' },
-  NotificationCategory: { BILLING: 'billing', ORGANIZATION: 'organization', CONTENT: 'content', SYSTEM: 'system', SECURITY: 'security' },
+  NotificationType: {
+    INFO: 'info',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error',
+  },
+  NotificationCategory: {
+    BILLING: 'billing',
+    ORGANIZATION: 'organization',
+    CONTENT: 'content',
+    SYSTEM: 'system',
+    SECURITY: 'security',
+  },
 }));
 
 vi.mock('@/core/policy', () => ({
@@ -73,20 +105,24 @@ vi.mock('@/core/policy', () => ({
 }));
 
 vi.mock('@/core/crud/admin-crud', () => ({
-  parsePagination: vi.fn().mockImplementation((input: { page?: number; pageSize?: number }) => {
-    const page = input?.page ?? 1;
-    const pageSize = input?.pageSize ?? 20;
-    return { page, pageSize, offset: (page - 1) * pageSize };
-  }),
-  paginatedResult: vi.fn().mockImplementation(
-    (items: unknown[], total: number, page: number, pageSize: number) => ({
-      results: items,
-      total,
-      page,
-      pageSize,
-      totalPages: Math.ceil(total / pageSize),
-    })
-  ),
+  parsePagination: vi
+    .fn()
+    .mockImplementation((input: { page?: number; pageSize?: number }) => {
+      const page = input?.page ?? 1;
+      const pageSize = input?.pageSize ?? 20;
+      return { page, pageSize, offset: (page - 1) * pageSize };
+    }),
+  paginatedResult: vi
+    .fn()
+    .mockImplementation(
+      (items: unknown[], total: number, page: number, pageSize: number) => ({
+        results: items,
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      })
+    ),
 }));
 
 vi.mock('@/core-support/schema/support-chat', () => ({
@@ -122,12 +158,6 @@ vi.mock('@/core-support/config', () => ({
 }));
 
 // ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { supportChatRouter } from '@/core-support/routers/support-chat';
-
-// ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
@@ -141,9 +171,15 @@ function thenable(data: unknown, chainMethods: Record<string, unknown> = {}) {
 
 function createSelectChain(data: unknown) {
   const limitMock = vi.fn().mockResolvedValue(data);
-  const offsetMock = vi.fn().mockReturnValue(thenable(data, { limit: limitMock }));
-  const orderByMock = vi.fn().mockReturnValue(thenable(data, { limit: limitMock, offset: offsetMock }));
-  const groupByMock = vi.fn().mockReturnValue(thenable(data, { orderBy: orderByMock }));
+  const offsetMock = vi
+    .fn()
+    .mockReturnValue(thenable(data, { limit: limitMock }));
+  const orderByMock = vi
+    .fn()
+    .mockReturnValue(thenable(data, { limit: limitMock, offset: offsetMock }));
+  const groupByMock = vi
+    .fn()
+    .mockReturnValue(thenable(data, { orderBy: orderByMock }));
   const whereMock = vi.fn().mockReturnValue(
     thenable(data, {
       limit: limitMock,
@@ -165,7 +201,9 @@ function createSelectChain(data: unknown) {
 
 function createMockDb() {
   const returningMock = vi.fn().mockResolvedValue([{ id: 'new-id' }]);
-  const insertValuesMock = vi.fn().mockReturnValue({ returning: returningMock });
+  const insertValuesMock = vi
+    .fn()
+    .mockReturnValue({ returning: returningMock });
   const insertMock = vi.fn().mockReturnValue({ values: insertValuesMock });
 
   const selectMock = vi.fn().mockImplementation(() => createSelectChain([]));
@@ -193,7 +231,10 @@ function createMockDb() {
   };
 }
 
-function setupSelectSequence(db: ReturnType<typeof createMockDb>, sequence: unknown[]) {
+function setupSelectSequence(
+  db: ReturnType<typeof createMockDb>,
+  sequence: unknown[]
+) {
   let callIdx = 0;
   db.select.mockImplementation(() => {
     const data = sequence[callIdx] ?? [];
@@ -214,7 +255,9 @@ function createPublicCtx(overrides: Record<string, unknown> = {}) {
 
 function createAdminCtx(overrides: Record<string, unknown> = {}) {
   return {
-    session: { user: { id: 'admin-1', email: 'admin@test.com', role: 'admin' } },
+    session: {
+      user: { id: 'admin-1', email: 'admin@test.com', role: 'admin' },
+    },
     db: createMockDb(),
     headers: new Headers(),
     activeOrganizationId: 'org-1',
@@ -423,9 +466,119 @@ describe('supportChatRouter', () => {
       expect(ctx.db.update).toHaveBeenCalled();
     });
 
+    it('emails staff once about the escalated ticket', async () => {
+      const ctx = createAdminCtx();
+      setupSelectSequence(ctx.db, [
+        [MOCK_SESSION],
+        [{ role: 'user', body: 'Help me', createdAt: new Date() }],
+      ]);
+      mockSupportDeps.lookupUsers.mockResolvedValueOnce(
+        new Map([
+          [
+            'admin-1',
+            { id: 'admin-1', name: 'Admin', email: 'admin@test.com' },
+          ],
+        ])
+      );
+
+      const caller = supportChatRouter.createCaller(ctx as never);
+      await caller.escalate({
+        sessionId: SESSION_UUID,
+        visitorId: VISITOR_ID,
+        subject: 'Billing question',
+      });
+
+      await vi.waitFor(() => {
+        expect(mockNotifyStaffNewTicket).toHaveBeenCalledTimes(1);
+      });
+      expect(mockNotifyStaffNewTicket).toHaveBeenCalledWith(
+        expect.objectContaining({
+          ticketId: 'ticket-1',
+          subject: 'Billing question',
+          priority: 'normal',
+          body: expect.stringContaining('[Escalated from support chat]'),
+          customer: { name: 'Admin', email: 'admin@test.com', lang: null },
+        })
+      );
+      // The hint rides inside the preview, so the transcript must follow it
+      expect(mockNotifyStaffNewTicket.mock.calls[0][0].body).toContain(
+        'Help me'
+      );
+    });
+
+    it('skips the staff email when no ticket was created', async () => {
+      const ctx = createAdminCtx();
+      setupSelectSequence(ctx.db, [
+        [MOCK_SESSION],
+        [{ role: 'user', body: 'Help me', createdAt: new Date() }],
+      ]);
+      mockSupportDeps.createTicketFromChat.mockResolvedValueOnce(null);
+
+      const caller = supportChatRouter.createCaller(ctx as never);
+      const result = await caller.escalate({
+        sessionId: SESSION_UUID,
+        visitorId: VISITOR_ID,
+      });
+
+      expect(result.ticketId).toBeNull();
+      await Promise.resolve();
+      expect(mockNotifyStaffNewTicket).not.toHaveBeenCalled();
+    });
+
+    it('still escalates when the staff email fails', async () => {
+      const ctx = createAdminCtx();
+      setupSelectSequence(ctx.db, [
+        [MOCK_SESSION],
+        [{ role: 'user', body: 'Help me', createdAt: new Date() }],
+      ]);
+      mockSupportDeps.lookupUsers.mockResolvedValueOnce(
+        new Map([
+          [
+            'admin-1',
+            { id: 'admin-1', name: 'Admin', email: 'admin@test.com' },
+          ],
+        ])
+      );
+      mockNotifyStaffNewTicket.mockRejectedValueOnce(new Error('smtp down'));
+
+      const caller = supportChatRouter.createCaller(ctx as never);
+      const result = await caller.escalate({
+        sessionId: SESSION_UUID,
+        visitorId: VISITOR_ID,
+      });
+
+      expect(result.ticketId).toBe('ticket-1');
+      await vi.waitFor(() => {
+        expect(mockNotifyStaffNewTicket).toHaveBeenCalledTimes(1);
+      });
+      expect(ctx.db.update).toHaveBeenCalled();
+    });
+
+    it('still escalates when the customer lookup fails', async () => {
+      const ctx = createAdminCtx();
+      setupSelectSequence(ctx.db, [
+        [MOCK_SESSION],
+        [{ role: 'user', body: 'Help me', createdAt: new Date() }],
+      ]);
+      mockSupportDeps.lookupUsers.mockRejectedValueOnce(new Error('db down'));
+
+      const caller = supportChatRouter.createCaller(ctx as never);
+      const result = await caller.escalate({
+        sessionId: SESSION_UUID,
+        visitorId: VISITOR_ID,
+      });
+
+      expect(result.ticketId).toBe('ticket-1');
+      await Promise.resolve();
+      expect(mockNotifyStaffNewTicket).not.toHaveBeenCalled();
+    });
+
     it('returns existing ticketId if already escalated', async () => {
       const ctx = createPublicCtx();
-      const escalatedSession = { ...MOCK_SESSION, ticketId: 'existing-ticket-id' };
+      const escalatedSession = {
+        ...MOCK_SESSION,
+        ticketId: 'existing-ticket-id',
+      };
       setupSelectSequence(ctx.db, [[escalatedSession]]);
 
       const caller = supportChatRouter.createCaller(ctx as never);

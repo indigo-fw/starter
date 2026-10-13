@@ -1,19 +1,21 @@
-import { notFound, permanentRedirect } from 'next/navigation';
+import './register-renderers';
+import { getContentRenderer } from './renderer-registry';
+import { resolveSlug } from './resolve';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { CONTENT_TYPES } from '@/config/cms';
 import { siteConfig } from '@/config/site';
-import { getLocale } from '@/lib/locale-server';
-import { getForwardedSearch } from '@/core/lib/i18n/locale-server';
-import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
+import { MdxContentPage } from '@/core/components/content/MdxContentPage';
+import { MdxTabsHydrator } from '@/core/components/content/MdxTabsHydrator';
 import { resolveSlugRedirect } from '@/core/crud/slug-redirects';
 import { getCachedCompiledContent } from '@/core/lib/content/renderer';
 import { resolveContentVars } from '@/core/lib/content/vars';
-import { MdxContentPage } from '@/core/components/content/MdxContentPage';
-import { MdxTabsHydrator } from '@/core/components/content/MdxTabsHydrator';
-import { resolveSlug } from './resolve';
-import { getContentRenderer } from './renderer-registry';
-import './register-renderers';
+import { getForwardedSearch } from '@/core/lib/i18n/locale-server';
+import { buildCanonicalUrl } from '@/core/lib/seo/canonical';
+import { permanentRedirect } from '@/i18n/navigation';
+import type { Locale } from '@/lib/constants';
+import { getLocale } from '@/lib/locale-server';
 
 interface Props {
   params: Promise<{ slug: string[] }>;
@@ -33,9 +35,28 @@ function rethrowIfRedirect(err: unknown): void {
   }
 }
 
+/**
+ * Slug-redirect targets are DB-computed (`<urlPrefix><slug>` + forwarded query),
+ * not statically typed pathnames — hence the cast. next-intl passes unknown
+ * strings through verbatim and only adds the visitor's locale prefix, which a
+ * raw next/navigation redirect would drop.
+ */
+async function redirectToCurrentSlug(
+  redirectPath: string,
+  locale: Locale
+): Promise<void> {
+  permanentRedirect({
+    href: (redirectPath + (await getForwardedSearch())) as '/',
+    locale,
+  });
+}
+
 // ── Metadata ──
 
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
   const { slug } = await params;
   const { preview } = await searchParams;
   const locale = await getLocale();
@@ -47,16 +68,25 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     const { content } = fileResult;
     const fm = content.frontmatter;
     const seoTitle = fm.seoTitle ? resolveContentVars(fm.seoTitle) : null;
-    const description = fm.description ? resolveContentVars(fm.description) : undefined;
-    const { buildPageTitle } = await import('@/core/lib/content/title-template');
+    const description = fm.description
+      ? resolveContentVars(fm.description)
+      : undefined;
+    const { buildPageTitle } =
+      await import('@/core/lib/content/title-template');
     // Template seoTitle is already complete after resolution; plain seoTitle/title gets site name suffix
     const title = seoTitle?.includes('%')
-      ? buildPageTitle({ configTemplate: seoTitle, seoTitle: null, fallbackTitle: '', sitename: siteConfig.name })
+      ? buildPageTitle({
+          configTemplate: seoTitle,
+          seoTitle: null,
+          fallbackTitle: '',
+          sitename: siteConfig.name,
+        })
       : `${seoTitle ?? resolveContentVars(fm.title ?? fullSlug)} | ${siteConfig.name}`;
     return {
       title,
       description,
-      robots: (preview || fm.noindex) ? { index: false, follow: false } : undefined,
+      robots:
+        preview || fm.noindex ? { index: false, follow: false } : undefined,
       alternates: { canonical: buildCanonicalUrl(`/${fullSlug}`, locale) },
       openGraph: {
         locale,
@@ -76,7 +106,11 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   if (!renderer) return {};
 
   try {
-    const meta = await renderer.generateMetadata({ slug: resolved.slug, locale, baseUrl });
+    const meta = await renderer.generateMetadata({
+      slug: resolved.slug,
+      locale,
+      baseUrl,
+    });
     // Ensure preview pages are never indexed
     if (preview) {
       meta.robots = { index: false, follow: false };
@@ -113,14 +147,15 @@ export default async function CatchAllPage({ params, searchParams }: Props) {
   if (!resolved) {
     // Try slug redirect before 404-ing (query string preserved for attribution)
     for (const ct of CONTENT_TYPES) {
-      const slugStr = slug.length === 2 && ct.listSegment === slug[0]
-        ? slug[1]!
-        : slug.length === 1 && ct.urlPrefix === '/'
-          ? slug[0]!
-          : null;
+      const slugStr =
+        slug.length === 2 && ct.listSegment === slug[0]
+          ? slug[1]!
+          : slug.length === 1 && ct.urlPrefix === '/'
+            ? slug[0]!
+            : null;
       if (!slugStr) continue;
       const redirectPath = await resolveSlugRedirect(slugStr, ct.urlPrefix);
-      if (redirectPath) permanentRedirect(redirectPath + (await getForwardedSearch()));
+      if (redirectPath) await redirectToCurrentSlug(redirectPath, locale);
     }
     notFound();
   }
@@ -142,7 +177,7 @@ export default async function CatchAllPage({ params, searchParams }: Props) {
       resolved.slug,
       resolved.contentType.urlPrefix
     );
-    if (redirectPath) permanentRedirect(redirectPath + (await getForwardedSearch()));
+    if (redirectPath) await redirectToCurrentSlug(redirectPath, locale);
     notFound();
   }
 }

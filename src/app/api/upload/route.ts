@@ -6,6 +6,10 @@ import { createLogger } from '@/core/lib/infra/logger';
 import { checkRateLimit } from '@/core/lib/infra/rate-limit';
 import { getRequestRedis } from '@/core/lib/infra/redis';
 import { configureSharp } from '@/core/lib/media-processing';
+import {
+  getUploadMaxImagePx,
+  normalizeImage,
+} from '@/core/lib/media/normalize-image';
 import { Policy } from '@/core/policy';
 import { getStorage } from '@/core/storage';
 import { auth } from '@/lib/auth';
@@ -144,12 +148,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer());
+    let buffer: Buffer = Buffer.from(await file.arrayBuffer());
 
     // Content sniff: the declared MIME + extension are trivially spoofed. Decode
     // the actual bytes and require the detected format to match — blocks a
     // renamed HTML/script/polyglot from being stored and served as a "png".
     let meta: sharp.Metadata | undefined;
+    let width: number | undefined;
+    let height: number | undefined;
     if (spec.kind === 'image') {
       try {
         meta = await sharp(buffer).metadata();
@@ -159,6 +165,28 @@ export async function POST(request: Request) {
       if (!meta?.format || !IMAGE_MAGIC[mimeType]?.includes(meta.format)) {
         return NextResponse.json(
           { error: 'File content does not match its image type' },
+          { status: 415 }
+        );
+      }
+
+      // Privacy pass on the stored original: bake in EXIF orientation, drop
+      // EXIF/GPS/XMP, cap the longest side. A failure rejects the upload —
+      // the unprocessed bytes must never reach storage.
+      try {
+        const normalized = await normalizeImage(buffer, mimeType, {
+          maxPx: getUploadMaxImagePx(),
+        });
+        buffer = normalized.buffer;
+        width = normalized.width;
+        height = normalized.height;
+      } catch (err) {
+        logger.error('Image normalisation failed', {
+          mimeType,
+          filename: file.name,
+          error: err instanceof Error ? err.message : String(err),
+        });
+        return NextResponse.json(
+          { error: 'Image could not be processed' },
           { status: 415 }
         );
       }
@@ -175,27 +203,18 @@ export async function POST(request: Request) {
     });
     const url = storage.url(storedPath);
 
-    let width: number | undefined;
-    let height: number | undefined;
     let thumbnailPath: string | undefined;
     let mediumPath: string | undefined;
     let blurDataUrl: string | undefined;
 
-    if (meta) {
-      // Phone photos are stored sideways with an EXIF orientation tag; the
-      // variants below auto-orient (.rotate()), so report the upright size.
-      const exifSwapsAxes = (meta.orientation ?? 1) >= 5;
-      width = exifSwapsAxes ? meta.height : meta.width;
-      height = exifSwapsAxes ? meta.width : meta.height;
-    }
-
-    // Generate image variants for supported types
+    // Generate image variants for supported types — from the normalised
+    // (upright, capped) bytes, so a cap below 800 px simply yields no medium.
     if (meta && VARIANT_TYPES.has(mimeType)) {
       try {
         const nameBase = safeFilename.replace(/\.[^.]+$/, '');
 
         // Thumbnail: 400px wide
-        if (meta.width && meta.width > 400) {
+        if (width && width > 400) {
           const thumbBuffer = await sharp(buffer)
             .rotate()
             .resize(400, undefined, { withoutEnlargement: true })
@@ -208,7 +227,7 @@ export async function POST(request: Request) {
         }
 
         // Medium: 800px wide
-        if (meta.width && meta.width > 800) {
+        if (width && width > 800) {
           const medBuffer = await sharp(buffer)
             .rotate()
             .resize(800, undefined, { withoutEnlargement: true })
@@ -241,7 +260,8 @@ export async function POST(request: Request) {
       filepath: storedPath,
       filename: safeFilename,
       mimeType,
-      fileSize: file.size,
+      // Stored size, not the upload's — the normalised original is what's on disk.
+      fileSize: buffer.length,
       url,
       width,
       height,

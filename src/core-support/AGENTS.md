@@ -20,5 +20,6 @@ AI-powered support chat widget + ticket system with escalation.
 
 - Ticket events notify **staff** (users whose role grants `section.settings`), never the customer's org — org admins are usually the customer.
 - One email per event (`lib/email-notifications.ts`); no throttling here (separate backlog item). Helpers never throw — a mail outage must not fail the ticket mutation.
+- Chat escalation (`supportChat.escalate`) sends the same `support-ticket-new` staff mail with an `[Escalated from support chat]` preview hint; it bypasses `create`'s 10/h cap on purpose (one ticket per session, gated by the chat flow) and the customer is resolved via `deps.lookupUsers`.
 - Customer email goes out in `user.lang` (unknown → default locale) with a locale-prefixed `/account/support/<id>` link; staff links are locale-free `/dashboard/...`.
 - Own-ticket procedures (`list`/`get`/`create`/`reply`/`close`) use `appealProcedure` so a banned user can contest the ban. Caps make that safe: `create` 10/hour per user (`rl:support:create:<userId>`, fail-open), banned → one open ticket, `reply` ≤ `UNANSWERED_REPLY_LIMIT` (8) customer messages since the last staff reply. All reject with `TOO_MANY_REQUESTS`.

@@ -1,22 +1,24 @@
 import { cache } from 'react';
-import { notFound, permanentRedirect } from 'next/navigation';
-import { TRPCError } from '@trpc/server';
-import { serverTRPC } from '@/lib/trpc/server';
-import { CONTENT_TYPES } from '@/config/cms';
-import { localePath } from '@/core/lib/i18n/locale';
-import { getForwardedSearch } from '@/core/lib/i18n/locale-server';
-import { LOCALES, DEFAULT_LOCALE } from '@/lib/constants';
-import type { Locale } from '@/lib/constants';
-import { resolveRecordVars } from '@/core/lib/content/vars';
-import { resolveRecordCmsLinks } from '@/core/lib/content/cms-link';
-import { resolveRecordAssetUris } from '@/core/lib/content/asset-link';
+
 import {
-  getPostTranslationSiblings,
   getCategoryTranslationSiblings,
   getPortfolioTranslationSiblings,
+  getPostTranslationSiblings,
   getShowcaseTranslationSiblings,
 } from './queries';
+import { TRPCError } from '@trpc/server';
+import { notFound } from 'next/navigation';
+
+import { CONTENT_TYPES } from '@/config/cms';
 import '@/config/cms-link-init';
+import { resolveRecordAssetUris } from '@/core/lib/content/asset-link';
+import { resolveRecordCmsLinks } from '@/core/lib/content/cms-link';
+import { resolveRecordVars } from '@/core/lib/content/vars';
+import { getForwardedSearch } from '@/core/lib/i18n/locale-server';
+import { permanentRedirect } from '@/i18n/navigation';
+import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants';
+import type { Locale } from '@/lib/constants';
+import { serverTRPC } from '@/lib/trpc/server';
 
 /** Rethrows NOT_FOUND TRPCErrors as Next.js notFound() for proper 404 handling. */
 function rethrowAsNotFound(err: unknown): never {
@@ -43,7 +45,7 @@ async function redirectIfLocalizedSlugExists(
   requestedSlug: string,
   lang: string,
   urlPrefix: string,
-  getSiblings: (id: string) => Promise<{ lang: string; slug: string }[]>,
+  getSiblings: (id: string) => Promise<{ lang: string; slug: string }[]>
 ): Promise<void> {
   if (!record.isFallback) return;
   if (!(LOCALES as readonly string[]).includes(lang) || lang === DEFAULT_LOCALE)
@@ -56,7 +58,10 @@ async function redirectIfLocalizedSlugExists(
   const search = await getForwardedSearch();
   const path =
     urlPrefix === '/' ? `/${localized.slug}` : `${urlPrefix}${localized.slug}`;
-  permanentRedirect(localePath(path + search, lang as Locale));
+  // DB-computed path, not a statically typed pathname — hence the cast. next-intl
+  // passes unknown strings through verbatim and adds the `lang` prefix (same URL
+  // as the previous hand-built localePath()).
+  permanentRedirect({ href: (path + search) as '/', locale: lang as Locale });
 }
 
 /**
@@ -84,11 +89,19 @@ export const getCachedTRPC = cache(async () => {
 export const getCachedPost = cache(
   async (slug: string, type: number, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
-    const post = await api.cms.getBySlug({ slug, type, lang, previewToken }).catch(rethrowAsNotFound);
+    const post = await api.cms
+      .getBySlug({ slug, type, lang, previewToken })
+      .catch(rethrowAsNotFound);
     const urlPrefix =
       CONTENT_TYPES.find((ct) => 'postType' in ct && ct.postType === type)
         ?.urlPrefix ?? '/';
-    await redirectIfLocalizedSlugExists(post, slug, lang, urlPrefix, getPostTranslationSiblings);
+    await redirectIfLocalizedSlugExists(
+      post,
+      slug,
+      lang,
+      urlPrefix,
+      getPostTranslationSiblings
+    );
     const withVars = resolveRecordVars(post);
     const withAssets = await resolveRecordAssetUris(withVars);
     return resolveRecordCmsLinks(withAssets, lang);
@@ -106,8 +119,16 @@ export const getCachedTag = cache(async (slug: string, lang: string) => {
 export const getCachedPortfolio = cache(
   async (slug: string, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
-    const item = await api.portfolio.getBySlug({ slug, lang, previewToken }).catch(rethrowAsNotFound);
-    await redirectIfLocalizedSlugExists(item, slug, lang, prefixOf('portfolio'), getPortfolioTranslationSiblings);
+    const item = await api.portfolio
+      .getBySlug({ slug, lang, previewToken })
+      .catch(rethrowAsNotFound);
+    await redirectIfLocalizedSlugExists(
+      item,
+      slug,
+      lang,
+      prefixOf('portfolio'),
+      getPortfolioTranslationSiblings
+    );
     const withVars = resolveRecordVars(item);
     const withAssets = await resolveRecordAssetUris(withVars);
     return resolveRecordCmsLinks(withAssets, lang);
@@ -117,8 +138,16 @@ export const getCachedPortfolio = cache(
 export const getCachedShowcase = cache(
   async (slug: string, lang: string, previewToken?: string) => {
     const api = await getCachedTRPC();
-    const item = await api.showcase.getBySlug({ slug, lang, previewToken }).catch(rethrowAsNotFound);
-    await redirectIfLocalizedSlugExists(item, slug, lang, prefixOf('showcase'), getShowcaseTranslationSiblings);
+    const item = await api.showcase
+      .getBySlug({ slug, lang, previewToken })
+      .catch(rethrowAsNotFound);
+    await redirectIfLocalizedSlugExists(
+      item,
+      slug,
+      lang,
+      prefixOf('showcase'),
+      getShowcaseTranslationSiblings
+    );
     const withVars = resolveRecordVars(item);
     const withAssets = await resolveRecordAssetUris(withVars);
     return resolveRecordCmsLinks(withAssets, lang);
@@ -127,8 +156,16 @@ export const getCachedShowcase = cache(
 
 export const getCachedCategory = cache(async (slug: string, lang: string) => {
   const api = await getCachedTRPC();
-  const cat = await api.categories.getBySlug({ slug, lang }).catch(rethrowAsNotFound);
-  await redirectIfLocalizedSlugExists(cat, slug, lang, prefixOf('category'), getCategoryTranslationSiblings);
+  const cat = await api.categories
+    .getBySlug({ slug, lang })
+    .catch(rethrowAsNotFound);
+  await redirectIfLocalizedSlugExists(
+    cat,
+    slug,
+    lang,
+    prefixOf('category'),
+    getCategoryTranslationSiblings
+  );
   const withVars = resolveRecordVars(cat);
   const withAssets = await resolveRecordAssetUris(withVars);
   return resolveRecordCmsLinks(withAssets, lang);

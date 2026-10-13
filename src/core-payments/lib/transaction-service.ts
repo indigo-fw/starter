@@ -505,12 +505,12 @@ const checkNowPaymentsTransaction: ProviderCheckFn = async (
 };
 
 /**
- * Reconcile stale pending payment transactions by checking with providers,
- * fulfilling anything the provider confirms as paid through the same dispatch
- * the webhook routes use. Called from the daily dunning job via
- * `SubscriptionsDeps.runReconciliation`.
+ * Provider checkers for every provider this install has credentials for —
+ * the one set both reconciliation sweeps poll with, so a provider gets the
+ * same `successful | failed | pending | unknown` reading whichever sweep asks.
+ * Empty when no provider is configured (nothing can be confirmed).
  */
-export async function runReconciliation(): Promise<void> {
+export function getConfiguredProviderChecks(): Record<string, ProviderCheck> {
   const providerChecks: Record<string, ProviderCheck> = {};
 
   if (process.env.STRIPE_SECRET_KEY) {
@@ -519,6 +519,20 @@ export async function runReconciliation(): Promise<void> {
   if (process.env.NOWPAYMENTS_API_KEY) {
     providerChecks['nowpayments'] = checkNowPaymentsTransaction;
   }
+
+  return providerChecks;
+}
+
+/**
+ * Reconcile stale pending payment transactions by checking with providers,
+ * fulfilling anything the provider confirms as paid through the same dispatch
+ * the webhook routes use. Called from the hourly dunning job via
+ * `SubscriptionsDeps.runReconciliation`; the sweep itself only looks at rows
+ * past the 24 h stale threshold. Younger rows are served by the approvals-only
+ * sweep in `jobs/reconcile-approvals.ts`.
+ */
+export async function runReconciliation(): Promise<void> {
+  const providerChecks = getConfiguredProviderChecks();
 
   if (Object.keys(providerChecks).length === 0) {
     return;

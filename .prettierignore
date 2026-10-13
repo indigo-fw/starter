@@ -24,3 +24,6 @@ docs-site/
 .agents/
 .claude/
 .codex/
+
+# Vendored data lists — one entry per line, regenerated from upstream
+src/core/lib/auth/disposable-domains.json

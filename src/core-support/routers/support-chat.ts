@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import { supportChatConfig } from '@/core-support/config';
 import { getSupportDeps } from '@/core-support/deps';
+import { notifyStaffNewTicket } from '@/core-support/lib/email-notifications';
 import {
   saasSupportChatMessages,
   saasSupportChatSessions,
@@ -42,6 +43,53 @@ async function applyChatRateLimit(headers: Headers): Promise<void> {
 }
 
 const ESCALATE_PREFIX = '[ESCALATE]';
+
+/** Prefixes the email preview so staff see the ticket's origin without a dedicated template. */
+const ESCALATION_HINT = '[Escalated from support chat]';
+
+/**
+ * Staff email for a ticket created by chat escalation — the same
+ * `support-ticket-new` mail `support.create` sends, otherwise an escalated chat
+ * sits unseen until someone opens the admin. The transcript is already the
+ * ticket's first message (`deps.createTicketFromChat`), so previewing it adds
+ * nothing the ticket page does not show.
+ *
+ * Deliberately not subject to `support.create`'s 10/h per-user cap: escalation
+ * is gated by the chat flow (AI `[ESCALATE]` or the message cap) and yields at
+ * most one ticket per session, so the cap could only block a legitimate
+ * hand-off. Never throws — mail must not fail the escalation.
+ */
+async function notifyStaffEscalatedTicket(params: {
+  ticketId: string;
+  userId: string;
+  subject: string;
+  transcript: string;
+}): Promise<void> {
+  try {
+    const users = await getSupportDeps().lookupUsers([params.userId]);
+    const customer = users.get(params.userId);
+    if (!customer) {
+      logger.warn('Escalation customer not found; staff email skipped', {
+        ticketId: params.ticketId,
+        userId: params.userId,
+      });
+      return;
+    }
+    await notifyStaffNewTicket({
+      ticketId: params.ticketId,
+      subject: params.subject,
+      // `createTicketFromChat` has no priority input; chat tickets open at the default.
+      priority: 'normal',
+      body: `${ESCALATION_HINT} ${params.transcript}`,
+      customer: { name: customer.name, email: customer.email, lang: null },
+    });
+  } catch (err) {
+    logger.error('Failed to send staff email for escalated chat', {
+      ticketId: params.ticketId,
+      error: String(err),
+    });
+  }
+}
 
 /** Fire-and-forget WS broadcast via injected deps */
 function broadcastSupportChatEvent(
@@ -424,6 +472,15 @@ export const supportChatRouter = createTRPCRouter({
           .update(saasSupportChatSessions)
           .set({ status: 'escalated', ticketId, subject })
           .where(eq(saasSupportChatSessions.id, input.sessionId));
+
+        if (ticketId) {
+          void notifyStaffEscalatedTicket({
+            ticketId,
+            userId,
+            subject,
+            transcript,
+          });
+        }
 
         deps.sendOrgNotification(orgId, {
           title: 'Chat escalated to ticket',

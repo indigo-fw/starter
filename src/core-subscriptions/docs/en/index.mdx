@@ -151,10 +151,43 @@ Webhook routes remain in the project under `app/api/webhooks/`.
 | `discountCodes.delete` | admin (`billing`) | Delete a discount code |
 | `discountCodes.getUsageStats` | admin (`billing`) | Usage stats for a code |
 
+## Dunning
+
+`runDunningChecks()` (`lib/dunning.ts`) is registered in `server.ts` as the `dunning` cron and runs **hourly** (`0 * * * *`). Every check is idempotent — reminders are deduplicated through the audit log and the rest are state transitions — so extra runs are cheap no-ops. One run does, in order:
+
+1. **Payment reconciliation** — `SubscriptionsDeps.runReconciliation` (wired to `core-payments`) first, so a payment recovered from a lost webhook is seen by the checks below. See [core-payments](/docs/modules/core-payments#reconciliation).
+2. **Expiring reminders** — subscriptions ending within 7 days get one reminder email with `daysLeft`.
+3. **Expired subscriptions** — past `currentPeriodEnd` without renewal → `past_due`. Non-Stripe providers only; Stripe drives this through its webhooks.
+4. **Grace periods** — an `active` subscription whose `gracePeriodEndsAt` (set on a failed payment) has elapsed → `past_due`.
+5. **Long-overdue cleanup** — `past_due` for more than 30 days → cancelled and downgraded to the free plan. Non-Stripe providers only.
+
+### Reminders go out in the customer's local day
+
+Dates and send times for the expiring reminder are computed in the **organization owner's timezone** (`user.timezone`; falls back to the first member with a timezone, then UTC):
+
+- `daysLeft` is a whole-local-day difference (`localDaysUntil`), so "expires in 3 days" reads the same whichever hour the cron happened to run.
+- The reminder is sent only when the owner's local hour is in the **09:00–20:00 window** (`EXPIRING_SEND_WINDOW`). Outside it the subscription is skipped this run and picked up by a later one — no audit row is written until a send happens, so nothing is lost.
+- **Last-chance override:** with one local day or less remaining the reminder goes out regardless of the hour.
+
+This is why the cron is hourly: a once-a-day run at a fixed UTC hour would only ever open the window for the timezones where that hour lands between 09 and 20 local. The helpers (`localDayStr`, `localHour`, `startOfLocalDayUtc`, `localDaysUntil`) live in `@/core/lib/infra/datetime` and are reusable for any daily-cadence feature.
+
+```ts
+// server.ts
+registerCronJob({
+  name: 'dunning',
+  pattern: '0 * * * *',
+  handler: async () => {
+    const { runDunningChecks } = await import('./src/core-subscriptions/lib/dunning');
+    await runDunningChecks();
+  },
+});
+```
+
 ## Integration
 
 - Token mutations `addTokens()` and `deductTokens()` use an atomic `UPDATE WHERE balance >= amount` and are race-safe — call them from feature handlers for usage-based billing.
-- Dunning checks (`runDunningChecks`) process past-due and unpaid subscriptions.
+- Dunning checks (`runDunningChecks`) process expiring, past-due and unpaid subscriptions — see *Dunning* above.
+- The subscription webhook handler emits the core-owned hooks `payment.conversion` (on activation) and `payment.refund` (on `payment.refunded`, with the refunded amount); token-pack refunds emit `payment.refund` with `referenceId` `token_pack:<packId>`. `core-affiliates` consumes both for commissions and claw-backs.
 - Nav items are registered under the `billing` group (`Overview`, `Discount Codes`).
 - The seed `seedBilling` creates demo users, orgs, subscriptions, and token balances.
 

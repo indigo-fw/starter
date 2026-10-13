@@ -1,12 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockImpl = (fn: unknown, impl: (...args: any[]) => any) =>
-  (fn as ReturnType<typeof vi.fn>).mockImplementation(impl);
-
 // ─── parseFrontmatter (pure function — no mocks needed) ─────────────────────
 
 import { parseFrontmatter } from '../content/frontmatter';
+import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+const mockImpl = (fn: unknown, impl: (...args: any[]) => any) =>
+  (fn as ReturnType<typeof vi.fn>).mockImplementation(impl);
 
 describe('parseFrontmatter', () => {
   it('parses title, date, and tags from YAML frontmatter', () => {
@@ -52,7 +51,10 @@ hidden: false
 ---
 Content.`;
 
-    const { frontmatter } = parseFrontmatter<{ noindex: boolean; hidden: boolean }>(raw);
+    const { frontmatter } = parseFrontmatter<{
+      noindex: boolean;
+      hidden: boolean;
+    }>(raw);
     expect(frontmatter.noindex).toBe(true);
     expect(frontmatter.hidden).toBe(false);
   });
@@ -157,7 +159,8 @@ image: /img/hero.jpg
 
 Some markdown here.`;
 
-    const { frontmatter, content } = parseFrontmatter<Record<string, unknown>>(raw);
+    const { frontmatter, content } =
+      parseFrontmatter<Record<string, unknown>>(raw);
     expect(frontmatter.title).toBe('My Post');
     expect(frontmatter.type).toBe('post');
     expect(frontmatter.date).toBe('2024-06-01');
@@ -252,8 +255,6 @@ const {
   loadAllFileContent,
 } = await import('../content/loader');
 const { pickCanonicalGroup } = await import('../content/sync');
-
-import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 
 // Helper: build a fake stat object
 function fakeStat(isDir: boolean, mtime = new Date('2024-01-01')) {

@@ -1,13 +1,16 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Link } from '@/components/Link';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { Loader2, Search } from 'lucide-react';
-import { trpc } from '@/lib/trpc/client';
-import { useBlankTranslations } from '@/lib/translations';
+import { useSearchParams } from 'next/navigation';
+
+import { Link } from '@/components/Link';
 import { useLocale } from '@/core/hooks';
+import { useRouter } from '@/i18n/navigation';
 import { localePath } from '@/lib/locale';
+import { useBlankTranslations } from '@/lib/translations';
+import { trpc } from '@/lib/trpc/client';
 
 interface SearchResult {
   id: string;
@@ -56,7 +59,7 @@ export default function SearchClient({
     {
       enabled: needsFetch,
       placeholderData: (prev) => prev,
-    },
+    }
   );
 
   // Once data has been fetched, prefer tRPC results even if drift goes away.
@@ -73,18 +76,17 @@ export default function SearchClient({
 
   // Sync URL when query/page changes (without full navigation)
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (query) params.set('q', query);
-    if (page > 1) params.set('page', String(page));
-    const newUrl = `${localePath('/search', locale)}${params.toString() ? `?${params}` : ''}`;
+    const params: Record<string, string> = {};
+    if (query) params.q = query;
+    if (page > 1) params.page = String(page);
 
     // Only update if different from current
     const currentQ = searchParams.get('q') ?? '';
     const currentPage = Number(searchParams.get('page')) || 1;
     if (currentQ !== query || currentPage !== page) {
-      router.replace(newUrl, { scroll: false });
+      router.replace({ pathname: '/search', query: params }, { scroll: false });
     }
-  }, [query, page, locale, router, searchParams]);
+  }, [query, page, router, searchParams]);
 
   // Debounced live search: triggers 400ms after the user stops typing
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -100,7 +102,7 @@ export default function SearchClient({
         }
       }, 400);
     },
-    [query],
+    [query]
   );
 
   // Immediate search on submit (cancels pending debounce)
@@ -114,7 +116,7 @@ export default function SearchClient({
         setPage(1);
       }
     },
-    [inputValue, query],
+    [inputValue, query]
   );
 
   const goToPage = useCallback((p: number) => {
@@ -124,7 +126,9 @@ export default function SearchClient({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="text-3xl font-bold text-(--text-primary)">{__('Search')}</h1>
+      <h1 className="text-3xl font-bold text-(--text-primary)">
+        {__('Search')}
+      </h1>
 
       <form className="mt-6" onSubmit={handleSubmit}>
         <div className="flex gap-2">
@@ -158,8 +162,12 @@ export default function SearchClient({
         <p className="mt-4 text-sm text-(--text-muted)">
           {isFetching
             ? __('Searching...')
-            : __._n('1 result for "{query}"', '{total} results for "{query}"', total, { query, total })
-          }
+            : __._n(
+                '1 result for "{query}"',
+                '{total} results for "{query}"',
+                total,
+                { query, total }
+              )}
         </p>
       )}
 
@@ -168,7 +176,7 @@ export default function SearchClient({
           <article key={result.id} className="animate-in fade-in duration-200">
             <Link
               href={result.url}
-              className="text-lg font-medium text-brand-700 dark:text-brand-400 hover:underline"
+              className="text-lg font-medium text-brand-700 hover:underline dark:text-brand-400"
             >
               {result.title}
             </Link>
@@ -185,7 +193,9 @@ export default function SearchClient({
         ))}
 
         {query && !isFetching && results.length === 0 && (
-          <p className="text-sm text-(--text-muted)">{__('No results found.')}</p>
+          <p className="text-sm text-(--text-muted)">
+            {__('No results found.')}
+          </p>
         )}
       </div>
 
@@ -194,7 +204,7 @@ export default function SearchClient({
           {page > 1 && (
             <button
               onClick={() => goToPage(page - 1)}
-              className="rounded-md border border-(--border-primary) px-3 py-1.5 text-sm hover:bg-(--bg-secondary) transition-colors"
+              className="rounded-md border border-(--border-primary) px-3 py-1.5 text-sm transition-colors hover:bg-(--bg-secondary)"
             >
               {__('Previous')}
             </button>
@@ -205,7 +215,7 @@ export default function SearchClient({
           {page < totalPages && (
             <button
               onClick={() => goToPage(page + 1)}
-              className="rounded-md border border-(--border-primary) px-3 py-1.5 text-sm hover:bg-(--bg-secondary) transition-colors"
+              className="rounded-md border border-(--border-primary) px-3 py-1.5 text-sm transition-colors hover:bg-(--bg-secondary)"
             >
               {__('Next')}
             </button>

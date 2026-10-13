@@ -6,6 +6,7 @@ import { role } from 'better-auth/plugins/access';
 import { enqueueTemplateEmail } from '@/core/lib/email';
 import { Role } from '@/core/policy';
 import { handleUserCreated } from '@/lib/auth-hooks';
+import { disposableEmailGuard } from '@/lib/auth-signup-guard';
 import { db } from '@/server/db';
 
 function createAuth() {
@@ -61,6 +62,13 @@ function createAuth() {
           verifyUrl: url,
         });
       },
+    },
+
+    // Request-level guards run before the endpoint handler sees the body.
+    // Disposable-address rejection on /sign-up/email and /change-email —
+    // body in src/lib/auth-signup-guard.ts; off via AUTH_BLOCK_DISPOSABLE_EMAILS=false.
+    hooks: {
+      before: disposableEmailGuard,
     },
 
     databaseHooks: {

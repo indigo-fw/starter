@@ -1,13 +1,14 @@
-import type { Metadata } from 'next';
-import { redirect } from 'next/navigation';
-
-import { getServerTranslations } from '@/lib/translations-server';
-import { siteConfig } from '@/config/site';
-import { serverTRPC } from '@/lib/trpc/server';
-import '@/core-store/components/product/store-grid.css';
-import '@/core-store/components/cart/store-cart.css';
-
 import { CheckoutForm } from './CheckoutForm';
+import type { Metadata } from 'next';
+
+import { siteConfig } from '@/config/site';
+import { redirect } from '@/i18n/navigation';
+import { getLocale } from '@/lib/locale-server';
+import { getServerTranslations } from '@/lib/translations-server';
+import { serverTRPC } from '@/lib/trpc/server';
+
+import '@/core-store/components/cart/store-cart.css';
+import '@/core-store/components/product/store-grid.css';
 
 export async function generateMetadata(): Promise<Metadata> {
   const __ = await getServerTranslations();
@@ -32,12 +33,14 @@ export default async function CheckoutPage() {
   }
 
   if (!hasItems) {
-    redirect('/cart');
+    redirect({ href: '/cart', locale: await getLocale() });
   }
 
   return (
     <div className="app-container py-12">
-      <h1 className="store-title" style={{ marginBottom: '2rem' }}>{__('Checkout')}</h1>
+      <h1 className="store-title" style={{ marginBottom: '2rem' }}>
+        {__('Checkout')}
+      </h1>
       <CheckoutForm />
     </div>
   );

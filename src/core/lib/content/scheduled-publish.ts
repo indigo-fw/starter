@@ -8,7 +8,7 @@ import { logAudit } from '../infra/audit';
 import { dispatchWebhook } from '../webhooks/webhooks';
 import { createLogger } from '../infra/logger';
 import { db } from '@/server/db';
-import { invalidateCmsOverrideCache } from '@/core/lib/seo/cms-override';
+import { invalidateCmsOverrideCache } from '@/core/lib/seo/cms-override-sync';
 import { broadcastCmsLinkInvalidation } from '@/core/lib/content/cms-link-sync';
 
 const logger = createLogger('scheduled-publish');

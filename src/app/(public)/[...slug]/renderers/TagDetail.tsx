@@ -1,14 +1,13 @@
-import NextLink from 'next/link';
-import { Link } from '@/components/Link';
+import { getCachedTRPC, getCachedTag } from '../data';
 import { Rss } from 'lucide-react';
 
-import { PostType } from '@/core/types/cms';
+import { Link } from '@/components/Link';
 import { PostCard } from '@/core/components/PostCard';
 import { TagCloud } from '@/core/components/TagCloud';
+import { PostType } from '@/core/types/cms';
 import { localePath } from '@/lib/locale';
 import { getLocale } from '@/lib/locale-server';
 import { getServerTranslations } from '@/lib/translations-server';
-import { getCachedTag, getCachedTRPC } from '../data';
 
 interface Props {
   slug: string;
@@ -52,20 +51,23 @@ export async function TagDetail({ slug, currentPage }: Props) {
         <h1 className="text-3xl font-bold text-(--text-primary) sm:text-4xl">
           {__('Tag')}: {tag.name}
         </h1>
-        <NextLink
+        <Link
           href={`/api/feed/tag/${tag.slug}?lang=${locale}`}
-          className="rounded-full p-1.5 text-(--text-muted) transition-colors hover:bg-orange-50 dark:hover:bg-orange-500/15 hover:text-orange-500"
+          className="rounded-full p-1.5 text-(--text-muted) transition-colors hover:bg-orange-50 hover:text-orange-500 dark:hover:bg-orange-500/15"
           title={__('RSS Feed')}
         >
           <Rss className="h-5 w-5" />
-        </NextLink>
+        </Link>
       </div>
 
       {allResults.length > 0 || portfolioItems.results.length > 0 ? (
         <div className="mt-10 space-y-6">
           {allResults.map((post) => {
             const isBlog = post.type === PostType.BLOG;
-            const href = localePath(isBlog ? `/blog/${post.slug}` : `/${post.slug}`, locale);
+            const href = localePath(
+              isBlog ? `/blog/${post.slug}` : `/${post.slug}`,
+              locale
+            );
             return (
               <PostCard
                 key={post.id}
@@ -96,7 +98,11 @@ export async function TagDetail({ slug, currentPage }: Props) {
             <nav className="flex items-center justify-between pt-4">
               {currentPage > 1 ? (
                 <Link
-                  href={{ pathname: '/tag/[slug]', params: { slug }, query: { page: String(currentPage - 1) } }}
+                  href={{
+                    pathname: '/tag/[slug]',
+                    params: { slug },
+                    query: { page: String(currentPage - 1) },
+                  }}
                   className="text-sm font-medium text-brand-600 hover:text-brand-700"
                 >
                   &larr; {__('Previous')}
@@ -105,11 +111,18 @@ export async function TagDetail({ slug, currentPage }: Props) {
                 <span />
               )}
               <span className="text-sm text-(--text-muted)">
-                {__('Page {page} of {totalPages}', { page: currentPage, totalPages })}
+                {__('Page {page} of {totalPages}', {
+                  page: currentPage,
+                  totalPages,
+                })}
               </span>
               {currentPage < totalPages ? (
                 <Link
-                  href={{ pathname: '/tag/[slug]', params: { slug }, query: { page: String(currentPage + 1) } }}
+                  href={{
+                    pathname: '/tag/[slug]',
+                    params: { slug },
+                    query: { page: String(currentPage + 1) },
+                  }}
                   className="text-sm font-medium text-brand-600 hover:text-brand-700"
                 >
                   {__('Next')} &rarr;
@@ -121,7 +134,9 @@ export async function TagDetail({ slug, currentPage }: Props) {
           )}
         </div>
       ) : (
-        <p className="mt-6 text-(--text-muted)">{__('No content found with this tag.')}</p>
+        <p className="mt-6 text-(--text-muted)">
+          {__('No content found with this tag.')}
+        </p>
       )}
 
       {/* Tag Cloud */}

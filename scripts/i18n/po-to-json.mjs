@@ -1,5 +1,4 @@
 import { parsePoContent } from './po-parse.mjs';
-import chokidar from 'chokidar';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -130,8 +129,12 @@ function transformPoFiles() {
 /**
  * Watch PO files and transform them on changes.
  */
-function watchPoFiles() {
+async function watchPoFiles() {
   console.log(`Watching for changes in ${ADMIN_DIR} and ${PUBLIC_DIR}...`);
+
+  // chokidar is a devDependency; the production image (which runs the one-shot
+  // compile via `bun run init`) doesn't ship it — load it only for watch mode.
+  const { default: chokidar } = await import('chokidar');
 
   const watcher = chokidar.watch([ADMIN_DIR, PUBLIC_DIR], {
     ignored: (_path, stats) => stats?.isFile() && !_path.endsWith('.po'),
@@ -163,7 +166,7 @@ function watchPoFiles() {
 const mode = process.argv[2];
 
 if (mode === 'watch') {
-  watchPoFiles();
+  await watchPoFiles();
 } else {
   transformPoFiles();
 }

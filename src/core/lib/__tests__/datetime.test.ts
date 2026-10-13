@@ -1,10 +1,76 @@
 import {
+  isValidTimezone,
   localDayStr,
   localDaysUntil,
   localHour,
+  localWeekday,
   startOfLocalDayUtc,
 } from '../infra/datetime';
 import { describe, expect, it } from 'vitest';
+
+describe('isValidTimezone', () => {
+  it('accepts IANA names Intl can resolve', () => {
+    expect(isValidTimezone('UTC')).toBe(true);
+    expect(isValidTimezone('Asia/Tokyo')).toBe(true);
+    expect(isValidTimezone('America/Argentina/Buenos_Aires')).toBe(true);
+    expect(isValidTimezone('Etc/GMT+5')).toBe(true);
+  });
+
+  it('rejects unknown zones and malformed strings without throwing', () => {
+    expect(isValidTimezone('Not/AReal_Zone')).toBe(false);
+    expect(isValidTimezone('')).toBe(false);
+    expect(isValidTimezone('Europe Berlin')).toBe(false);
+    expect(isValidTimezone('a'.repeat(65))).toBe(false);
+  });
+
+  it('rejects offset-style zones even where ICU would accept them', () => {
+    // Stored values must resolve identically on every runtime
+    expect(isValidTimezone('+05:30')).toBe(false);
+  });
+});
+
+describe('invalid zones never throw and resolve to UTC consistently', () => {
+  const d = new Date('2026-06-21T17:45:30Z');
+  const bad = [
+    'Not/AReal_Zone',
+    '+05:30',
+    'Europe Berlin',
+    '',
+    null,
+    undefined,
+  ];
+
+  it.each(bad)('every helper falls back to UTC for %j', (tz) => {
+    expect(localDayStr(tz, d)).toBe('2026-06-21');
+    expect(localHour(tz, d)).toBe(17);
+    expect(localWeekday(tz, d)).toBe(0);
+    expect(startOfLocalDayUtc(tz, d).toISOString()).toBe(
+      '2026-06-21T00:00:00.000Z'
+    );
+    expect(localDaysUntil(tz, new Date('2026-06-28T00:00:00Z'), d)).toBe(7);
+  });
+});
+
+describe('localWeekday', () => {
+  it('returns Sun..Sat as 0..6 for the local calendar day', () => {
+    // 2026-06-21 is a Sunday; Tokyo is already Monday at 23:30Z
+    expect(localWeekday('UTC', new Date('2026-06-21T23:30:00Z'))).toBe(0);
+    expect(localWeekday('Asia/Tokyo', new Date('2026-06-21T23:30:00Z'))).toBe(
+      1
+    );
+    // 00:30Z Monday is still Sunday evening in New York
+    expect(
+      localWeekday('America/New_York', new Date('2026-06-22T00:30:00Z'))
+    ).toBe(0);
+    expect(localWeekday('UTC', new Date('2026-06-27T12:00:00Z'))).toBe(6);
+  });
+
+  it('falls back to the UTC weekday for an invalid zone', () => {
+    expect(localWeekday('Mars/Olympus', new Date('2026-06-22T00:30:00Z'))).toBe(
+      1
+    );
+  });
+});
 
 describe('localDayStr', () => {
   it('formats the UTC day', () => {

@@ -95,7 +95,8 @@ registerHook('attribution.capture', (userId, data) =>
 
 ## Integration
 
-- Call `captureAttribution()` from your auth/registration flow to record first-touch attribution, and `recordConversion()` / `recordRefund()` from payment webhooks — or trigger them via the `attribution.capture`, `payment.conversion` and `payment.refund` hooks. A refund claws the commission back proportionally (partial refunds included) and is idempotent per `referenceId`, so redelivered webhooks are safe.
+- Call `captureAttribution()` from your auth/registration flow to record first-touch attribution, and `recordConversion()` / `recordRefund()` from payment webhooks — or trigger them via the `attribution.capture`, `payment.conversion` and `payment.refund` hooks. `core-subscriptions` already emits both payment hooks (subscription activation and `payment.refunded`, token-pack purchase and refund), so with the default wiring nothing else is needed.
+- **Claw-back.** `recordRefund(userId, referenceId, amountRefundedCents)` finds the converted referral, computes `clawback = commission × min(1, refunded / purchase)` (so a partial refund claws back proportionally), writes a `refund` and a `clawback` event, and lowers `totalEarningsCents` — never below zero (an already-paid-out commission is a bookkeeping matter for the project, not a negative balance). It is idempotent per `referenceId`: a second call for the same transaction is a no-op, so redelivered webhooks are safe.
 - `captureReferral()` records a referral after registration (active affiliates only, self-referrals blocked).
 - Render the `AttributionCapture` layout widget in your public layout to capture UTM parameters on landing.
 - The `AffiliateOverview` page widget renders in the `billing` slot; a nav item `Affiliates` is registered under the `billing` group.

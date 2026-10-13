@@ -1,3 +1,4 @@
-bunx lint-staged
+# Serial: the eslint task reads files the prettier/tailwind tasks rewrite.
+bunx lint-staged --concurrent false
 bun run typecheck
 bun run test

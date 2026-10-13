@@ -20,6 +20,34 @@ describe('env cross-field validation', () => {
     expect(failingPaths(BASE)).toEqual([]);
   });
 
+  it('AUTH_BLOCK_DISPOSABLE_EMAILS defaults on and only takes booleans', () => {
+    const parsed = envSchema.safeParse(BASE);
+    expect(parsed.success && parsed.data.AUTH_BLOCK_DISPOSABLE_EMAILS).toBe(
+      true
+    );
+    const off = envSchema.safeParse({
+      ...BASE,
+      AUTH_BLOCK_DISPOSABLE_EMAILS: 'false',
+    });
+    expect(off.success && off.data.AUTH_BLOCK_DISPOSABLE_EMAILS).toBe(false);
+    expect(
+      failingPaths({ ...BASE, AUTH_BLOCK_DISPOSABLE_EMAILS: 'nope' })
+    ).toEqual(['AUTH_BLOCK_DISPOSABLE_EMAILS']);
+  });
+
+  it('UPLOAD_MAX_IMAGE_PX defaults to 2560, allows 0, rejects negatives/floats', () => {
+    const parsed = envSchema.safeParse(BASE);
+    expect(parsed.success && parsed.data.UPLOAD_MAX_IMAGE_PX).toBe(2560);
+    const zero = envSchema.safeParse({ ...BASE, UPLOAD_MAX_IMAGE_PX: '0' });
+    expect(zero.success && zero.data.UPLOAD_MAX_IMAGE_PX).toBe(0);
+    expect(failingPaths({ ...BASE, UPLOAD_MAX_IMAGE_PX: '-1' })).toEqual([
+      'UPLOAD_MAX_IMAGE_PX',
+    ]);
+    expect(failingPaths({ ...BASE, UPLOAD_MAX_IMAGE_PX: '12.5' })).toEqual([
+      'UPLOAD_MAX_IMAGE_PX',
+    ]);
+  });
+
   it('STORAGE_BACKEND=s3 requires every S3_* key', () => {
     expect(failingPaths({ ...BASE, STORAGE_BACKEND: 's3' })).toEqual([
       'S3_ENDPOINT',
@@ -84,6 +112,16 @@ describe('env cross-field validation', () => {
         REDIS_URL: 'redis://localhost:6379',
       })
     ).toEqual([]);
+  });
+
+  it('SUPPORT_EMAIL is optional but must be an email when set', () => {
+    expect(failingPaths(BASE)).toEqual([]);
+    expect(
+      failingPaths({ ...BASE, SUPPORT_EMAIL: 'support@example.com' })
+    ).toEqual([]);
+    expect(failingPaths({ ...BASE, SUPPORT_EMAIL: 'not-an-email' })).toEqual([
+      'SUPPORT_EMAIL',
+    ]);
   });
 
   it('rejects malformed ops knobs instead of silently defaulting', () => {

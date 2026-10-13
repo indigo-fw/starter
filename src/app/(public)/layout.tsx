@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 
 import { and, asc, eq, isNull } from 'drizzle-orm';
 import { Rss, Search } from 'lucide-react';
-import NextLink from 'next/link';
 
 import { Link } from '@/components/Link';
 import { AppFooter } from '@/components/public/AppFooter';
@@ -288,16 +287,16 @@ export default async function PublicLayout({
             {/* Col 4: More */}
             <div>
               <h4 className="app-footer-col-title">{__('More')}</h4>
-              <NextLink
+              <Link
                 href={apiRoutes.feedBlog}
                 className="app-footer-link inline-flex items-center gap-1"
               >
                 <Rss className="h-3.5 w-3.5" />
                 {__('RSS Feed')}
-              </NextLink>
-              <NextLink href={adminRoutes.home} className="app-footer-link">
+              </Link>
+              <Link href={adminRoutes.home} className="app-footer-link">
                 {__('Admin')}
-              </NextLink>
+              </Link>
               <CookieSettingsButton className="app-footer-link" />
             </div>
           </div>

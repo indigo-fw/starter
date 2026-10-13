@@ -98,9 +98,10 @@ export const attributionsRouter = createTRPCRouter({
             totalRevenueCents: sql<number>`COALESCE(SUM(CASE WHEN ${txTable.status as any} = 'succeeded' THEN ${txTable.amountCents as any} ELSE 0 END), 0)`,
           })
           .from(saasUserAcquisitions)
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .leftJoin(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- injected table ref
             txTable as any,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- injected table ref
             eq((txTable as any).userId, saasUserAcquisitions.userId)
           )
           .where(and(...conditions))

@@ -23,6 +23,13 @@ export { localePath } from './i18n/locale';
 export { getLocale } from './i18n/locale-server';
 export { useBlankTranslations, dataTranslations } from './i18n/translations';
 
+// Auth
+export {
+  isDisposableEmail,
+  addDisposableDomains,
+  DISPOSABLE_EMAIL_MESSAGE,
+} from './auth/disposable-email';
+
 // Infra
 export { logAudit } from './infra/audit';
 export type { LogAuditParams } from './infra/audit';
