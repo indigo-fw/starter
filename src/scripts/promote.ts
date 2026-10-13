@@ -58,17 +58,15 @@ async function main() {
     // The role rides in the cookie-cached session for up to 5 min. This script
     // is its own process, so only the Redis broadcast reaches the running
     // server; without REDIS_URL the promotion bites at the next cache refresh.
-    invalidateUserSessions(found.id);
+    // Awaited so the publish has left before `finally` closes the socket.
+    await invalidateUserSessions(found.id);
 
     console.log(
       `Promoted "${found.name}" <${found.email}> from "${found.role}" to superadmin.`
     );
   } finally {
     await sql.end();
-    // The broadcast above is fire-and-forget; give the publish a beat to leave,
-    // then close the Redis socket — an open ioredis connection would otherwise
-    // keep this process alive forever.
-    await new Promise((resolve) => setTimeout(resolve, 250));
+    // An open ioredis connection would otherwise keep this process alive forever.
     const { disconnectAll } = await import('@/core/lib/infra/redis');
     await disconnectAll();
   }

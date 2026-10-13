@@ -1,4 +1,3 @@
-import { DEFAULT_LOCALE } from '@/lib/constants';
 import { isNull } from 'drizzle-orm';
 import {
   boolean,
@@ -12,6 +11,8 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
+
+import { DEFAULT_LOCALE } from '@/lib/constants';
 
 // ─── cms_portfolio ─────────────────────────────────────────────────────────────
 
@@ -48,6 +49,10 @@ export const cmsPortfolio = pgTable(
   (t) => [
     uniqueIndex('cms_portfolio_slug_lang_uniq')
       .on(t.slug, t.lang)
+      .where(isNull(t.deletedAt)),
+    // One live row per language per translation group (see cms.ts for why).
+    uniqueIndex('cms_portfolio_group_lang_uniq')
+      .on(t.translationGroup, t.lang)
       .where(isNull(t.deletedAt)),
     index('cms_portfolio_status_idx').on(t.status),
     index('cms_portfolio_published_at_idx').on(t.publishedAt),

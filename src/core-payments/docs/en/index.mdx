@@ -80,7 +80,8 @@ Stripe requires `STRIPE_SECRET_KEY` and a webhook secret in your environment. Co
 
 - **Provider registry** — register a provider with `registerPaymentProvider(id, factory)` from `@/core-payments/lib/factory`. The factory is lazy and cached; return `null` when required env vars are missing. Stripe is registered out of the box; other modules register via a side-effect import.
 - **Transactions** — use the transaction service in `@/core-payments/lib/transaction-service` to create and update transaction records from provider webhooks.
-- **Webhook routes** stay in the project under `app/api/webhooks/`.
+- **Webhook routes** stay in the project under `app/api/webhooks/`. `dispatchPaymentEvent()` from `@/core-payments/lib/webhook-registry` routes a verified event the same way the routes do (one-time registry handler by `metadata.type`, else the subscription handler injected as `PaymentsDeps.handleSubscriptionWebhookEvent`).
+- **Reconciliation** — the daily sweep (`reconcileStalePendingTransactions`, run from the dunning job) checks pending transactions older than 24 h with the provider. Confirmed payments are marked `successful` **and fulfilled** through `dispatchPaymentEvent()` under the idempotency key `reconcile:<transactionId>`; a late provider webhook is still deduped by its own event id and can never fulfil twice because every status write is a compare-and-set. Payments the provider still reports pending (or has no record of) are closed as `failed` after 24 h with `rawResponse.reconciliation.outcome = 'abandoned'`. If fulfilment throws, the row stays `successful`, `rawResponse.reconciliation.fulfilment` is `'failed'`, and the sweep logs an error — fulfil manually.
 
 ## Related
 

@@ -179,13 +179,15 @@ async function main() {
     const { startModuleWorkers } =
       await import('./src/generated/module-server');
     const { startMediaWorker } = await import('./src/server/jobs/media/index');
+    const { startEmailListWorker } = await import('./src/core/lib/email-list');
     startEmailWorker();
+    startEmailListWorker();
     startContentPublishWorker();
     startWebhookWorker();
     await startModuleWorkers();
     startMediaWorker();
     logger.info(
-      'BullMQ workers ready (email + content + webhook + module + media workers started)'
+      'BullMQ workers ready (email + email-list + content + webhook + module + media workers started)'
     );
 
     // Register maintenance tasks (side-effect import)
@@ -203,9 +205,13 @@ async function main() {
       handler: runAllMaintenanceTasks,
     });
 
+    // Hourly, not daily: dunning sends inside each org's LOCAL 09–20 window
+    // (core-subscriptions/lib/dunning.ts), so a once-a-day run would only reach
+    // zones where that hour happens to be in-window. Every check is idempotent
+    // (audit-log dedupe + state transitions), so extra runs are cheap no-ops.
     registerCronJob({
       name: 'dunning',
-      pattern: '0 8 * * *',
+      pattern: '0 * * * *',
       handler: async () => {
         const { runDunningChecks } =
           await import('./src/core-subscriptions/lib/dunning');
@@ -227,7 +233,7 @@ async function main() {
 
     await startCronScheduler();
     logger.info(
-      'Cron scheduler ready (maintenance at 3 AM, dunning at 8 AM, token grants at 1 AM)'
+      'Cron scheduler ready (maintenance at 3 AM, dunning hourly, token grants at 1 AM)'
     );
 
     // Recover stale DB queue tasks on startup

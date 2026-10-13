@@ -26,7 +26,7 @@ Totals pipeline: subtotal → discount → shipping → tax. Discount codes are 
 - **Related products** — admin-configured relations (related/upsell/crosssell); falls back to category-based when none configured.
 - **Inventory** — `checkLowStock()` runs after every inventory deduction; warns at threshold.
 - **Abandoned carts** — daily maintenance task: 24h+ idle carts with items, logged-in users only; reminder email deduped via a cart metadata flag.
-- **Refunds** — admin flow updates status + optionally calls the pluggable `RefundHandler`.
+- **Refunds** — every path is claim → gateway → commit (`lib/refund-service.ts` is the shared plumbing; `store_orders.refundedCents` is the single ledger, bumped only under `refundedCents + amount <= totalCents`). Returns claim `approved|received → refunding` (CAS) **before** the `RefundHandler` call; whole-order `refundOrder` claims by flipping the order status itself (CAS on paid status + prior `refundedCents`) and refunds `total − refunded`; the `payment.refunded` webhook settles `refundedCents = totalCents` in one `WHERE status <> 'refunded'` update. A handler **throw** = unknown outcome → claim kept, never auto-retried (returns: `resolveStuckRefund` is the audited ops exit; orders: fix the counter by hand); `status: 'failed'` = definitive decline → claim rolled back. `approveReturn` caps at `total − refunded − other pending returns`. Order becomes `refunded` only when `refundedCents == totalCents`, else `partially_refunded`. `receiveReturn`/`rejectReturn` refuse once a refund is in flight or done.
 - **Invoices** — print-ready HTML with EU tax breakdown; PDF via browser print.
 
 ## EU Compliance

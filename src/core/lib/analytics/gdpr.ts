@@ -3,15 +3,20 @@ import { createHmac } from 'crypto';
 import { eq } from 'drizzle-orm';
 
 import { invalidateUserSessions } from '@/core/lib/auth/session-invalidation';
+import { enqueueTemplateEmail } from '@/core/lib/email/queue';
 import { logAudit } from '@/core/lib/infra/audit';
 import { createLogger } from '@/core/lib/infra/logger';
 import { runGuard, runHook } from '@/core/lib/module/module-hooks';
 import { Policy } from '@/core/policy';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 import type { DbClient } from '@/server/db';
 import { cmsAuditLog } from '@/server/db/schema/audit';
 import { account, session, user } from '@/server/db/schema/auth';
 
 const logger = createLogger('GDPR');
+
+/** Confirmation mailed to the erased address once the scrub has succeeded. */
+export const GDPR_DELETION_TEMPLATE = 'gdpr-deletion';
 
 export type AnonymizationMode = 'full' | 'pseudonymize';
 
@@ -48,7 +53,13 @@ export async function anonymizeUser(
 ): Promise<void> {
   // 1. Validate: user exists, not already anonymized, and is not staff
   const [target] = await db
-    .select({ id: user.id, role: user.role, email: user.email })
+    .select({
+      id: user.id,
+      role: user.role,
+      email: user.email,
+      name: user.name,
+      lang: user.lang,
+    })
     .from(user)
     .where(eq(user.id, userId))
     .limit(1);
@@ -130,7 +141,26 @@ export async function anonymizeUser(
       .where(eq(user.id, userId));
   }
 
-  // 7. Audit log
+  // 7. Confirm to the person (GDPR Art. 12(3)). Sent only now, so a scrub that
+  //    failed halfway never produces a false "you are erased" mail, but to the
+  //    address captured in step 1 — the row now holds a placeholder the queue
+  //    refuses, and the queue checks only the address it is handed, never the
+  //    user row. Best-effort: a mail problem must not undo a completed erasure.
+  try {
+    await enqueueTemplateEmail(
+      target.email,
+      GDPR_DELETION_TEMPLATE,
+      { userName: target.name ?? '' },
+      target.lang ?? DEFAULT_LOCALE
+    );
+  } catch (err) {
+    logger.warn('Failed to enqueue GDPR deletion confirmation', {
+      userId,
+      error: String(err),
+    });
+  }
+
+  // 8. Audit log
   logAudit({
     db,
     userId: adminId ?? userId,

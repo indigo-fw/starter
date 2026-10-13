@@ -1,0 +1,13 @@
+<!-- subject: Customer reply: {{subject}} -->
+<!-- preheader: {{customerEmail}} replied and is waiting for an answer -->
+<h2 style="margin:0 0 16px; font-size:22px; color:#111827">Customer reply</h2>
+<p style="margin:0 0 8px; color:#4b5563; line-height:1.6">
+  <strong>{{customerName|A customer}}</strong> ({{customerEmail}}) replied on:
+</p>
+<p style="margin:0 0 16px; font-size:18px; color:#111827; font-weight:600">{{subject}}</p>
+<blockquote style="margin:0 0 24px; padding:12px 16px; border-left:3px solid {{brandColor}}; background:#f9fafb; color:#374151; line-height:1.6">
+  {{preview}}
+</blockquote>
+<a href="{{{ticketUrl}}}" style="display:inline-block; background:{{brandColor}}; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-weight:500">
+  Reply to customer
+</a>

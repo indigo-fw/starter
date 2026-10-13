@@ -5,15 +5,19 @@
  * - The unified Stripe webhook (for Stripe store orders)
  * - The store webhook route (for non-Stripe providers)
  */
+import { and, eq, ne, sql } from 'drizzle-orm';
 
-import { and, eq } from 'drizzle-orm';
-import { db } from '@/server/db';
-import { storeOrders, storeOrderEvents } from '@/core-store/schema/orders';
-import { updateOrderStatus, deductOrderInventory, restoreOrderInventory } from '@/core-store/lib/order-service';
 import { getStoreDeps } from '@/core-store/deps';
+import {
+  deductOrderInventory,
+  restoreOrderInventory,
+  updateOrderStatus,
+} from '@/core-store/lib/order-service';
+import { storeOrderEvents, storeOrders } from '@/core-store/schema/orders';
 import { logAudit } from '@/core/lib/infra/audit';
-import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { createLogger } from '@/core/lib/infra/logger';
+import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
+import { db } from '@/server/db';
 
 const logger = createLogger('store-webhook-handler');
 
@@ -29,7 +33,9 @@ export interface StoreWebhookEventData {
  * Handle a store payment webhook event.
  * Returns { processed, reason? } for the caller to build the response.
  */
-export async function handleStorePaymentEvent(data: StoreWebhookEventData): Promise<{
+export async function handleStorePaymentEvent(
+  data: StoreWebhookEventData
+): Promise<{
   processed: boolean;
   reason?: string;
 }> {
@@ -42,13 +48,16 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
   try {
     await db.insert(storeOrderEvents).values({
       orderId,
-      status: eventType === 'payment.failed' ? 'payment_failed' : 'payment_received',
+      status:
+        eventType === 'payment.failed' ? 'payment_failed' : 'payment_received',
       note: `Webhook: ${eventType}`,
       actor: 'system',
       metadata: { eventId, providerId },
     });
   } catch (err) {
-    logger.warn('Store webhook: event log insert failed', { error: String(err) });
+    logger.warn('Store webhook: event log insert failed', {
+      error: String(err),
+    });
   }
 
   // Verify order exists
@@ -73,7 +82,8 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
     return { processed: false, reason: 'order not found' };
   }
 
-  const isFailure = eventType === 'payment.failed' || eventType === 'payment.refunded';
+  const isFailure =
+    eventType === 'payment.failed' || eventType === 'payment.refunded';
 
   if (!isFailure) {
     // ── Payment success ──────────────────────────────────────────────
@@ -89,7 +99,9 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
         updatedAt: new Date(),
         ...(transactionId ? { paymentTransactionId: transactionId } : {}),
       })
-      .where(and(eq(storeOrders.id, orderId), eq(storeOrders.status, 'pending')))
+      .where(
+        and(eq(storeOrders.id, orderId), eq(storeOrders.status, 'pending'))
+      )
       .returning({ id: storeOrders.id });
 
     if (claimed.length === 0) {
@@ -105,13 +117,18 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
       note: 'Payment confirmed via webhook',
       actor: 'system',
     });
-    dispatchWebhook(db, 'store.order.processing', { orderId, status: 'processing', actor: 'system' });
+    dispatchWebhook(db, 'store.order.processing', {
+      orderId,
+      status: 'processing',
+      actor: 'system',
+    });
 
     // Deduct inventory now that payment is confirmed
     await deductOrderInventory(orderId);
 
     // Release cart reservations (stock now deducted, reservations no longer needed)
-    const cartId = (order.metadata as Record<string, unknown> | null)?.cartId as string | undefined;
+    const cartId = (order.metadata as Record<string, unknown> | null)
+      ?.cartId as string | undefined;
     if (cartId) {
       const { releaseCartReservations } = await import('./reservation-service');
       await releaseCartReservations(cartId);
@@ -133,18 +150,28 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
         body: 'Your order is being processed.',
       });
 
-      await deps.enqueueTemplateEmail(
-        order.placedByUserId,
-        'order-confirmation',
-        { orderId: order.id, orderNumber: order.orderNumber, total },
-      ).catch((err) => logger.warn('Failed to enqueue order email', { error: String(err) }));
+      await deps
+        .enqueueTemplateEmail(order.placedByUserId, 'order-confirmation', {
+          orderId: order.id,
+          orderNumber: order.orderNumber,
+          total,
+        })
+        .catch((err) =>
+          logger.warn('Failed to enqueue order email', { error: String(err) })
+        );
     } else if (order.guestEmail) {
       // Guest order — email only (no in-app notification)
-      await deps.enqueueTemplateEmail(
-        order.guestEmail,
-        'order-confirmation',
-        { orderId: order.id, orderNumber: order.orderNumber, total },
-      ).catch((err) => logger.warn('Failed to enqueue guest order email', { error: String(err) }));
+      await deps
+        .enqueueTemplateEmail(order.guestEmail, 'order-confirmation', {
+          orderId: order.id,
+          orderNumber: order.orderNumber,
+          total,
+        })
+        .catch((err) =>
+          logger.warn('Failed to enqueue guest order email', {
+            error: String(err),
+          })
+        );
     }
 
     logAudit({
@@ -170,17 +197,46 @@ export async function handleStorePaymentEvent(data: StoreWebhookEventData): Prom
       deps.sendNotification({
         userId: order.placedByUserId,
         title: 'Payment issue',
-        body: eventType === 'payment.refunded'
-          ? 'Your payment was refunded.'
-          : 'There was an issue with your payment. Please try again.',
+        body:
+          eventType === 'payment.refunded'
+            ? 'Your payment was refunded.'
+            : 'There was an issue with your payment. Please try again.',
       });
     }
 
-    if (eventType === 'payment.refunded' && order.status !== 'refunded') {
-      await updateOrderStatus(orderId, 'refunded', 'system', 'Payment refunded via webhook');
-      // Restore inventory on refund (only if order was previously paid/processing)
-      if (order.status === 'processing' || order.status === 'shipped' || order.status === 'delivered') {
-        await restoreOrderInventory(orderId);
+    if (eventType === 'payment.refunded') {
+      // Provider-initiated full refund. One CAS'd UPDATE flips the status and
+      // settles the ledger (`refundedCents = totalCents`) so later return/admin
+      // refunds hit the cap; `status <> 'refunded'` makes redelivery a no-op.
+      const settled = await db
+        .update(storeOrders)
+        .set({
+          status: 'refunded',
+          refundedCents: sql`${storeOrders.totalCents}`,
+          refundedAt: new Date(),
+          updatedAt: new Date(),
+        })
+        .where(
+          and(eq(storeOrders.id, orderId), ne(storeOrders.status, 'refunded'))
+        )
+        .returning({ id: storeOrders.id });
+
+      if (settled.length > 0) {
+        // Idempotent re-set for the event log + webhook + notification it emits.
+        await updateOrderStatus(
+          orderId,
+          'refunded',
+          'system',
+          'Payment refunded via webhook'
+        );
+        // Restore inventory on refund (only if order was previously paid/processing)
+        if (
+          order.status === 'processing' ||
+          order.status === 'shipped' ||
+          order.status === 'delivered'
+        ) {
+          await restoreOrderInventory(orderId);
+        }
       }
     }
 

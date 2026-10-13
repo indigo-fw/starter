@@ -1,21 +1,17 @@
 import { createTRPCRouter, sectionProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
-import {
-  and,
-  desc,
-  count as drizzleCount,
-  eq,
-  inArray,
-  like,
-  or,
-} from 'drizzle-orm';
+import { and, desc, count as drizzleCount, eq, like, or } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
 import { MAX_PAGE } from '@/core/crud/router-schemas';
-import { resolveCurrentSlug } from '@/core/crud/slug-redirects';
+import {
+  type RedirectTarget,
+  resolveCurrentSlug,
+  resolveRedirectTargets,
+} from '@/core/crud/slug-redirects';
 import { logAudit } from '@/core/lib/infra/audit';
-import { cmsCategories, cmsPosts, cmsSlugRedirects } from '@/server/db/schema';
+import { cmsSlugRedirects } from '@/server/db/schema';
 
 const proc = sectionProcedure('content');
 
@@ -60,54 +56,35 @@ export const redirectsRouter = createTRPCRouter({
           .where(where),
       ]);
 
-      // Resolve target titles — batch by contentType to avoid N+1
-      const categoryIds = items
-        .filter((i) => i.contentType === 'category')
-        .map((i) => i.contentId);
-      const postIds = items
-        .filter((i) => i.contentType !== 'category')
-        .map((i) => i.contentId);
-
-      const [categoryRows, postRows] = await Promise.all([
-        categoryIds.length > 0
-          ? ctx.db
-              .select({
-                id: cmsCategories.id,
-                name: cmsCategories.name,
-                slug: cmsCategories.slug,
-              })
-              .from(cmsCategories)
-              .where(inArray(cmsCategories.id, categoryIds))
-          : Promise.resolve([]),
-        postIds.length > 0
-          ? ctx.db
-              .select({
-                id: cmsPosts.id,
-                title: cmsPosts.title,
-                slug: cmsPosts.slug,
-              })
-              .from(cmsPosts)
-              .where(inArray(cmsPosts.id, postIds))
-          : Promise.resolve([]),
-      ]);
-
-      const categoryMap = new Map(categoryRows.map((c) => [c.id, c]));
-      const postMap = new Map(postRows.map((p) => [p.id, p]));
+      // Resolve target titles through the same registry the public route uses
+      // (one batched query per contentType), so portfolio/showcase and any
+      // future type get real titles instead of "(deleted)".
+      const idsByType = new Map<string, string[]>();
+      for (const item of items) {
+        const ids = idsByType.get(item.contentType) ?? [];
+        ids.push(item.contentId);
+        idsByType.set(item.contentType, ids);
+      }
+      const targets = new Map<string, RedirectTarget>();
+      await Promise.all(
+        [...idsByType].map(async ([contentType, ids]) => {
+          const resolved = await resolveRedirectTargets(
+            ctx.db,
+            contentType,
+            ids
+          );
+          for (const [id, target] of resolved) {
+            targets.set(`${contentType}:${id}`, target);
+          }
+        })
+      );
 
       const enriched = items.map((item) => {
-        if (item.contentType === 'category') {
-          const cat = categoryMap.get(item.contentId);
-          return {
-            ...item,
-            targetTitle: cat?.name ?? '(deleted)',
-            targetSlug: cat?.slug ?? '',
-          };
-        }
-        const post = postMap.get(item.contentId);
+        const target = targets.get(`${item.contentType}:${item.contentId}`);
         return {
           ...item,
-          targetTitle: post?.title ?? '(deleted)',
-          targetSlug: post?.slug ?? '',
+          targetTitle: target?.title ?? '(deleted)',
+          targetSlug: target?.slug ?? '',
         };
       });
 

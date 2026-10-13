@@ -13,10 +13,12 @@ import {
   fetchOrNotFound,
   generateCopySlug,
   getTranslationSiblings,
+  insertOrConflict,
   paginatedResult,
   parsePagination,
   permanentDelete,
   prepareTranslationCopy,
+  resolveUniqueSlug,
   serializeExport,
   softDelete,
   softRestore,
@@ -30,6 +32,7 @@ import {
 } from '@/core/crud/router-schemas';
 import {
   createTableSlugResolver,
+  createTableTargetResolver,
   registerSlugResolver,
 } from '@/core/crud/slug-redirects';
 import {
@@ -92,6 +95,12 @@ registerSlugResolver(
     id: cmsCategories.id,
     slug: cmsCategories.slug,
     deletedAt: cmsCategories.deletedAt,
+  }),
+  createTableTargetResolver({
+    table: cmsCategories,
+    id: cmsCategories.id,
+    slug: cmsCategories.slug,
+    title: cmsCategories.name,
   })
 );
 
@@ -157,7 +166,8 @@ export const categoriesRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string().min(1).max(255),
-        slug: z.string().min(1).max(255),
+        // Empty = derive from `name` (auto-suffixed on collision); a typed slug CONFLICTs.
+        slug: z.string().max(255),
         lang: z.string().min(2).max(2),
         title: z.string().min(1).max(255),
         content: z.string().default(''),
@@ -177,44 +187,64 @@ export const categoriesRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const { tagIds, ...catInput } = input;
 
-      await ensureSlugUnique(
-        ctx.db,
-        {
-          table: cmsCategories,
-          slugCol: cmsCategories.slug,
-          slug: catInput.slug,
-          langCol: cmsCategories.lang,
-          lang: catInput.lang,
-          deletedAtCol: cmsCategories.deletedAt,
-        },
-        'Category'
-      );
+      let slug = catInput.slug;
+      if (slug) {
+        await ensureSlugUnique(
+          ctx.db,
+          {
+            table: cmsCategories,
+            slugCol: cmsCategories.slug,
+            slug,
+            langCol: cmsCategories.lang,
+            lang: catInput.lang,
+            deletedAtCol: cmsCategories.deletedAt,
+          },
+          'Category'
+        );
+      } else {
+        slug = await resolveUniqueSlug(
+          ctx.db,
+          {
+            table: cmsCategories,
+            slug: cmsCategories.slug,
+            lang: cmsCategories.lang,
+            deletedAt: cmsCategories.deletedAt,
+          },
+          catInput.name,
+          { lang: catInput.lang }
+        );
+      }
 
       const previewToken = crypto.randomBytes(32).toString('hex');
 
-      const [category] = await ctx.db
-        .insert(cmsCategories)
-        .values({
-          name: catInput.name,
-          slug: catInput.slug,
-          lang: catInput.lang,
-          title: catInput.title,
-          content: catInput.content,
-          status: catInput.status,
-          icon: catInput.icon ?? null,
-          metaDescription: catInput.metaDescription ?? null,
-          seoTitle: catInput.seoTitle ?? null,
-          order: catInput.order,
-          noindex: catInput.noindex,
-          publishedAt: catInput.publishedAt
-            ? new Date(catInput.publishedAt)
-            : null,
-          previewToken,
-          translationGroup: catInput.translationGroup ?? null,
-          fallbackToDefault: catInput.fallbackToDefault ?? null,
-          jsonLd: catInput.jsonLd ?? null,
-        })
-        .returning();
+      const [category] = await insertOrConflict(
+        cmsCategories,
+        catInput.lang,
+        () =>
+          ctx.db
+            .insert(cmsCategories)
+            .values({
+              name: catInput.name,
+              slug,
+              lang: catInput.lang,
+              title: catInput.title,
+              content: catInput.content,
+              status: catInput.status,
+              icon: catInput.icon ?? null,
+              metaDescription: catInput.metaDescription ?? null,
+              seoTitle: catInput.seoTitle ?? null,
+              order: catInput.order,
+              noindex: catInput.noindex,
+              publishedAt: catInput.publishedAt
+                ? new Date(catInput.publishedAt)
+                : null,
+              previewToken,
+              translationGroup: catInput.translationGroup ?? null,
+              fallbackToDefault: catInput.fallbackToDefault ?? null,
+              jsonLd: catInput.jsonLd ?? null,
+            })
+            .returning()
+      );
 
       if (tagIds?.length && category) {
         await syncTermRelationships(ctx.db, category.id, 'tag', tagIds);
@@ -350,27 +380,32 @@ export const categoriesRouter = createTRPCRouter({
           input.targetLang
         );
 
-      const [newCategory] = await ctx.db
-        .insert(cmsCategories)
-        .values({
-          name,
-          slug,
-          lang: input.targetLang,
-          title,
-          content,
-          status: ContentStatus.DRAFT,
-          icon: source.icon,
-          metaDescription,
-          seoTitle,
-          order: source.order,
-          noindex: source.noindex,
-          publishedAt: null,
-          previewToken,
-          translationGroup,
-          fallbackToDefault: source.fallbackToDefault,
-          jsonLd: source.jsonLd,
-        })
-        .returning();
+      const [newCategory] = await insertOrConflict(
+        cmsCategories,
+        input.targetLang,
+        () =>
+          ctx.db
+            .insert(cmsCategories)
+            .values({
+              name,
+              slug,
+              lang: input.targetLang,
+              title,
+              content,
+              status: ContentStatus.DRAFT,
+              icon: source.icon,
+              metaDescription,
+              seoTitle,
+              order: source.order,
+              noindex: source.noindex,
+              publishedAt: null,
+              previewToken,
+              translationGroup,
+              fallbackToDefault: source.fallbackToDefault,
+              jsonLd: source.jsonLd,
+            })
+            .returning()
+      );
 
       logAudit({
         db: ctx.db,

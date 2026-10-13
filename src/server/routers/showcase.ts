@@ -13,10 +13,12 @@ import {
   fetchOrNotFound,
   generateCopySlug,
   getTranslationSiblings,
+  insertOrConflict,
   paginatedResult,
   parsePagination,
   permanentDelete,
   prepareTranslationCopy,
+  resolveUniqueSlug,
   serializeExport,
   softDelete,
   softRestore,
@@ -30,6 +32,7 @@ import {
 } from '@/core/crud/router-schemas';
 import {
   createTableSlugResolver,
+  createTableTargetResolver,
   registerSlugResolver,
 } from '@/core/crud/slug-redirects';
 import {
@@ -97,6 +100,12 @@ registerSlugResolver(
     id: cmsShowcase.id,
     slug: cmsShowcase.slug,
     deletedAt: cmsShowcase.deletedAt,
+  }),
+  createTableTargetResolver({
+    table: cmsShowcase,
+    id: cmsShowcase.id,
+    slug: cmsShowcase.slug,
+    title: cmsShowcase.title,
   })
 );
 
@@ -160,7 +169,8 @@ export const showcaseRouter = createTRPCRouter({
     .input(
       z.object({
         title: z.string().min(1).max(255),
-        slug: z.string().min(1).max(255),
+        // Empty = derive from `title` (auto-suffixed on collision); a typed slug CONFLICTs.
+        slug: z.string().max(255),
         lang: z.string().min(2).max(2),
         description: z.string().default(''),
         cardType: z.enum(CARD_TYPES).default('richtext'),
@@ -181,46 +191,63 @@ export const showcaseRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const { tagIds, ...itemInput } = input;
 
-      await ensureSlugUnique(
-        ctx.db,
-        {
-          table: cmsShowcase,
-          slugCol: cmsShowcase.slug,
-          slug: itemInput.slug,
-          langCol: cmsShowcase.lang,
-          lang: itemInput.lang,
-          deletedAtCol: cmsShowcase.deletedAt,
-        },
-        'Showcase item'
-      );
+      let slug = itemInput.slug;
+      if (slug) {
+        await ensureSlugUnique(
+          ctx.db,
+          {
+            table: cmsShowcase,
+            slugCol: cmsShowcase.slug,
+            slug,
+            langCol: cmsShowcase.lang,
+            lang: itemInput.lang,
+            deletedAtCol: cmsShowcase.deletedAt,
+          },
+          'Showcase item'
+        );
+      } else {
+        slug = await resolveUniqueSlug(
+          ctx.db,
+          {
+            table: cmsShowcase,
+            slug: cmsShowcase.slug,
+            lang: cmsShowcase.lang,
+            deletedAt: cmsShowcase.deletedAt,
+          },
+          itemInput.title,
+          { lang: itemInput.lang }
+        );
+      }
 
       const previewToken = crypto.randomBytes(32).toString('hex');
 
-      const [item] = await ctx.db
-        .insert(cmsShowcase)
-        .values({
-          title: itemInput.title,
-          slug: itemInput.slug,
-          lang: itemInput.lang,
-          description: itemInput.description,
-          cardType: itemInput.cardType,
-          variant: itemInput.variant,
-          mediaUrl: itemInput.mediaUrl ?? null,
-          thumbnailUrl: itemInput.thumbnailUrl ?? null,
-          status: itemInput.status,
-          sortOrder: itemInput.sortOrder,
-          metaDescription: itemInput.metaDescription ?? null,
-          seoTitle: itemInput.seoTitle ?? null,
-          noindex: itemInput.noindex,
-          publishedAt: itemInput.publishedAt
-            ? new Date(itemInput.publishedAt)
-            : null,
-          previewToken,
-          translationGroup: itemInput.translationGroup ?? null,
-          fallbackToDefault: itemInput.fallbackToDefault ?? null,
-          createdBy: ctx.session.user.id,
-        })
-        .returning();
+      const [item] = await insertOrConflict(cmsShowcase, itemInput.lang, () =>
+        ctx.db
+          .insert(cmsShowcase)
+          .values({
+            title: itemInput.title,
+            slug,
+            lang: itemInput.lang,
+            description: itemInput.description,
+            cardType: itemInput.cardType,
+            variant: itemInput.variant,
+            mediaUrl: itemInput.mediaUrl ?? null,
+            thumbnailUrl: itemInput.thumbnailUrl ?? null,
+            status: itemInput.status,
+            sortOrder: itemInput.sortOrder,
+            metaDescription: itemInput.metaDescription ?? null,
+            seoTitle: itemInput.seoTitle ?? null,
+            noindex: itemInput.noindex,
+            publishedAt: itemInput.publishedAt
+              ? new Date(itemInput.publishedAt)
+              : null,
+            previewToken,
+            translationGroup: itemInput.translationGroup ?? null,
+            fallbackToDefault: itemInput.fallbackToDefault ?? null,
+            createdBy: ctx.session.user.id,
+          })
+          .returning()
+      );
 
       if (tagIds?.length && item) {
         await syncTermRelationships(ctx.db, item.id, 'tag', tagIds);
@@ -354,29 +381,34 @@ export const showcaseRouter = createTRPCRouter({
           input.targetLang
         );
 
-      const [newItem] = await ctx.db
-        .insert(cmsShowcase)
-        .values({
-          title,
-          slug,
-          lang: input.targetLang,
-          description,
-          cardType: source.cardType,
-          variant: source.variant,
-          mediaUrl: source.mediaUrl,
-          thumbnailUrl: source.thumbnailUrl,
-          status: ContentStatus.DRAFT,
-          sortOrder: source.sortOrder,
-          metaDescription,
-          seoTitle,
-          noindex: source.noindex,
-          publishedAt: null,
-          previewToken,
-          translationGroup,
-          fallbackToDefault: source.fallbackToDefault,
-          createdBy: ctx.session.user.id,
-        })
-        .returning();
+      const [newItem] = await insertOrConflict(
+        cmsShowcase,
+        input.targetLang,
+        () =>
+          ctx.db
+            .insert(cmsShowcase)
+            .values({
+              title,
+              slug,
+              lang: input.targetLang,
+              description,
+              cardType: source.cardType,
+              variant: source.variant,
+              mediaUrl: source.mediaUrl,
+              thumbnailUrl: source.thumbnailUrl,
+              status: ContentStatus.DRAFT,
+              sortOrder: source.sortOrder,
+              metaDescription,
+              seoTitle,
+              noindex: source.noindex,
+              publishedAt: null,
+              previewToken,
+              translationGroup,
+              fallbackToDefault: source.fallbackToDefault,
+              createdBy: ctx.session.user.id,
+            })
+            .returning()
+      );
 
       logAudit({
         db: ctx.db,

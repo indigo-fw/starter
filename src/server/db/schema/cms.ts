@@ -1,3 +1,5 @@
+import { user } from './auth';
+import { tsvector } from './types';
 import { isNull } from 'drizzle-orm';
 import {
   boolean,
@@ -12,9 +14,6 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
-
-import { user } from './auth';
-import { tsvector } from './types';
 
 // ─── cms_posts ─────────────────────────────────────────────────────────────────
 
@@ -50,6 +49,12 @@ export const cmsPosts = pgTable(
   (t) => [
     uniqueIndex('cms_posts_type_lang_slug_uniq')
       .on(t.type, t.lang, t.slug)
+      .where(isNull(t.deletedAt)),
+    // One live row per language per translation group — the DB-level backstop
+    // for ensureUniqueInTranslationGroup(). NULL groups are distinct in PG, so
+    // ungrouped rows never collide.
+    uniqueIndex('cms_posts_group_lang_uniq')
+      .on(t.translationGroup, t.lang)
       .where(isNull(t.deletedAt)),
     index('cms_posts_type_status_lang_idx').on(t.type, t.status, t.lang),
     index('cms_posts_slug_lang_idx').on(t.slug, t.lang),
@@ -151,9 +156,7 @@ export const cmsSlugRedirects = pgTable(
     urlPrefix: varchar('url_prefix', { length: 50 }).notNull(),
     createdAt: timestamp('created_at').notNull().defaultNow(),
   },
-  (t) => [
-    index('cms_slug_redirects_lookup_idx').on(t.oldSlug, t.urlPrefix),
-  ]
+  (t) => [index('cms_slug_redirects_lookup_idx').on(t.oldSlug, t.urlPrefix)]
 );
 
 export type CmsSlugRedirect = typeof cmsSlugRedirects.$inferSelect;

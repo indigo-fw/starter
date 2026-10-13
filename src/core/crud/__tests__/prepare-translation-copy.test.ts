@@ -145,6 +145,26 @@ describe('prepareTranslationCopy', () => {
     expect(db.update).not.toHaveBeenCalled(); // source already had a group
   });
 
+  it('numbers a taken target slug instead of appending a timestamp', async () => {
+    const db = makeDb(
+      [], // group + lang probe
+      [{ id: 'taken' }], // hello-de taken
+      [] // hello-de-2 free
+    );
+
+    const result = await prepareTranslationCopy(
+      db as never,
+      TABLE,
+      COLS,
+      'source-id',
+      'hello',
+      'group-1',
+      'de'
+    );
+
+    expect(result.slug).toBe('hello-de-2');
+  });
+
   it('skips the group check for a source without a group and assigns one', async () => {
     const db = makeDb([]); // only the slug probe runs
 

@@ -3,6 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { invalidateUserSessions } from '@/core/lib/auth/session-invalidation';
+import { enqueueTemplateEmail } from '@/core/lib/email/queue';
 import { runGuard } from '@/core/lib/module/module-hooks';
 import { asMock } from '@/test-utils';
 
@@ -14,6 +15,9 @@ vi.mock('@/core/lib/auth/session-invalidation', () => ({
   invalidateUserSessions: vi.fn(),
 }));
 vi.mock('@/core/lib/infra/audit', () => ({ logAudit: vi.fn() }));
+vi.mock('@/core/lib/email/queue', () => ({
+  enqueueTemplateEmail: vi.fn().mockResolvedValue(undefined),
+}));
 vi.mock('@/core/lib/infra/logger', () => ({
   createLogger: () => ({
     debug: vi.fn(),
@@ -38,7 +42,13 @@ vi.mock('@/server/db/schema/audit', () => ({
   cmsAuditLog: { userId: 'audit.user_id' },
 }));
 vi.mock('@/server/db/schema/auth', () => ({
-  user: { id: 'user.id', role: 'user.role', email: 'user.email' },
+  user: {
+    id: 'user.id',
+    role: 'user.role',
+    email: 'user.email',
+    name: 'user.name',
+    lang: 'user.lang',
+  },
   session: { userId: 'session.user_id' },
   account: { userId: 'account.user_id' },
 }));
@@ -117,6 +127,64 @@ describe('anonymizeUser', () => {
         banned: true,
       })
     );
+  });
+
+  it('confirms the erasure to the real address, in the user locale, after the scrub', async () => {
+    const db = createDb([
+      {
+        id: USER_ID,
+        role: 'user',
+        email: 'alice@test.com',
+        name: 'Alice',
+        lang: 'de',
+      },
+    ]);
+    await anonymizeUser(db as never, USER_ID);
+
+    expect(enqueueTemplateEmail).toHaveBeenCalledWith(
+      'alice@test.com',
+      'gdpr-deletion',
+      { userName: 'Alice' },
+      'de'
+    );
+    // Mail goes out only once the scrub has succeeded (no false confirmation).
+    const enqueueOrder =
+      asMock(enqueueTemplateEmail).mock.invocationCallOrder[0]!;
+    expect(db._set.mock.invocationCallOrder[0]!).toBeLessThan(enqueueOrder);
+  });
+
+  it('completes the erasure even when the confirmation mail cannot be queued', async () => {
+    asMock(enqueueTemplateEmail).mockRejectedValueOnce(new Error('queue down'));
+    const db = createDb([
+      {
+        id: USER_ID,
+        role: 'user',
+        email: 'alice@test.com',
+        name: 'Alice',
+        lang: null,
+      },
+    ]);
+    await expect(anonymizeUser(db as never, USER_ID)).resolves.toBeUndefined();
+    expect(db._set).toHaveBeenCalledWith(
+      expect.objectContaining({ email: `deleted-${USER_ID}@gdpr.invalid` })
+    );
+  });
+
+  it('sends no confirmation when a module scrubber aborts the erasure', async () => {
+    asMock(runGuard).mockRejectedValueOnce(new Error('scrub failed'));
+    const db = createDb([
+      {
+        id: USER_ID,
+        role: 'user',
+        email: 'alice@test.com',
+        name: 'Alice',
+        lang: 'en',
+      },
+    ]);
+    await expect(anonymizeUser(db as never, USER_ID)).rejects.toThrow(
+      'scrub failed'
+    );
+    expect(enqueueTemplateEmail).not.toHaveBeenCalled();
   });
 
   it('aborts before destroying anything when a module scrubber fails', async () => {

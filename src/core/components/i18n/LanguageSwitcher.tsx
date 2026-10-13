@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { Globe } from 'lucide-react';
 
+import { useCloseOnClickOutside } from '@/core/hooks/useCloseOnClickOutside';
 import { useLocale } from '@/core/hooks/useLocale';
 import { useSession } from '@/lib/auth-client';
 import {
@@ -63,17 +64,7 @@ function LanguageSwitcherInner() {
     });
   }
 
-  // Close on click outside
-  useEffect(() => {
-    if (!open) return;
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [open]);
+  useCloseOnClickOutside(ref, () => setOpen(false), { enabled: open });
 
   return (
     <div ref={ref} className="relative">

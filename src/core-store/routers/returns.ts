@@ -1,18 +1,24 @@
-import { z } from 'zod';
-import { and, count, desc, eq } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
-import { createTRPCRouter, protectedProcedure, sectionProcedure } from '@/server/trpc';
-import { storeReturns } from '@/core-store/schema/returns';
+import { and, count, desc, eq } from 'drizzle-orm';
+import { z } from 'zod';
+
+import { getStoreDeps } from '@/core-store/deps';
+import {
+  approveReturn,
+  createReturn,
+  processReturnRefund,
+  receiveReturn,
+  rejectReturn,
+  resolveStuckRefund,
+} from '@/core-store/lib/return-service';
 import { storeOrders } from '@/core-store/schema/orders';
+import { storeReturns } from '@/core-store/schema/returns';
 import { organization } from '@/server/db/schema/organization';
 import {
-  createReturn,
-  approveReturn,
-  receiveReturn,
-  processReturnRefund,
-  rejectReturn,
-} from '@/core-store/lib/return-service';
-import { getStoreDeps } from '@/core-store/deps';
+  createTRPCRouter,
+  protectedProcedure,
+  sectionProcedure,
+} from '@/server/trpc';
 
 const storeAdminProcedure = sectionProcedure('settings');
 
@@ -30,12 +36,18 @@ export const storeReturnsRouter = createTRPCRouter({
               orderItemId: z.string().uuid(),
               quantity: z.number().int().min(1),
               reason: z.string().max(500).optional(),
-              condition: z.enum(['unopened', 'damaged', 'defective', 'wrong_item', 'other']),
-            }),
+              condition: z.enum([
+                'unopened',
+                'damaged',
+                'defective',
+                'wrong_item',
+                'other',
+              ]),
+            })
           )
           .min(1)
           .max(50),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
@@ -51,8 +63,8 @@ export const storeReturnsRouter = createTRPCRouter({
           and(
             eq(storeOrders.id, input.orderId),
             eq(storeOrders.organizationId, orgId),
-            eq(storeOrders.placedByUserId, userId),
-          ),
+            eq(storeOrders.placedByUserId, userId)
+          )
         )
         .limit(1);
 
@@ -93,14 +105,23 @@ export const storeReturnsRouter = createTRPCRouter({
     .input(
       z.object({
         status: z
-          .enum(['requested', 'approved', 'received', 'refunded', 'rejected'])
+          .enum([
+            'requested',
+            'approved',
+            'received',
+            'refunding',
+            'refunded',
+            'rejected',
+          ])
           .optional(),
         limit: z.number().int().max(100).default(50),
         offset: z.number().int().default(0),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
-      const conditions = input.status ? eq(storeReturns.status, input.status) : undefined;
+      const conditions = input.status
+        ? eq(storeReturns.status, input.status)
+        : undefined;
 
       const [items, [countRow]] = await Promise.all([
         ctx.db
@@ -119,7 +140,10 @@ export const storeReturnsRouter = createTRPCRouter({
             updatedAt: storeReturns.updatedAt,
           })
           .from(storeReturns)
-          .innerJoin(organization, eq(organization.id, storeReturns.organizationId))
+          .innerJoin(
+            organization,
+            eq(organization.id, storeReturns.organizationId)
+          )
           .where(conditions)
           .orderBy(desc(storeReturns.createdAt))
           .offset(input.offset)
@@ -136,7 +160,7 @@ export const storeReturnsRouter = createTRPCRouter({
       z.object({
         returnId: z.string().uuid(),
         refundAmountCents: z.number().int().min(0).optional(),
-      }),
+      })
     )
     .mutation(async ({ input }) => {
       await approveReturn(input.returnId, input.refundAmountCents);
@@ -149,7 +173,7 @@ export const storeReturnsRouter = createTRPCRouter({
       z.object({
         returnId: z.string().uuid(),
         restock: z.boolean().default(true),
-      }),
+      })
     )
     .mutation(async ({ input }) => {
       await receiveReturn(input.returnId, input.restock);
@@ -164,13 +188,32 @@ export const storeReturnsRouter = createTRPCRouter({
       return { success: true, refundId: result.refundId };
     }),
 
+  /**
+   * Ops: resolve a return stuck in `refunding` after the payment provider call
+   * ended with an unknown outcome. Check the provider dashboard first, then
+   * confirm (`refunded`, optionally with the provider's refund id) or release
+   * the claim (`release` → back to `approved`).
+   */
+  resolveStuckRefund: storeAdminProcedure
+    .input(
+      z.object({
+        returnId: z.string().uuid(),
+        outcome: z.enum(['refunded', 'release']),
+        providerRefundId: z.string().max(200).optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      await resolveStuckRefund({ ...input, actorUserId: ctx.session.user.id });
+      return { success: true };
+    }),
+
   /** Reject a return request with a reason */
   rejectReturn: storeAdminProcedure
     .input(
       z.object({
         returnId: z.string().uuid(),
         reason: z.string().max(500),
-      }),
+      })
     )
     .mutation(async ({ input }) => {
       await rejectReturn(input.returnId, input.reason);

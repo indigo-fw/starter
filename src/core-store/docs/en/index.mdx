@@ -51,8 +51,20 @@ on install) via `setStoreDeps()`:
 | `createSubscriptionCheckout` | No | Checkout for subscription products |
 
 `setRefundHandler()` optionally registers a payment refund handler (e.g. a
-Stripe refund). The `seedStore` step creates demo products, shipping zones, and
-tax rates on `bun run init`.
+Stripe refund). Return refunds are idempotent: the return is claimed
+(`refunding`) before the handler is called, so a double click or a retried
+request reaches the gateway once, and the order's cumulative `refundedCents`
+can never exceed its total across several returns. Your handler should
+resolve `{ refundId, status: 'succeeded' }` when money moved, resolve
+`{ status: 'failed', failureReason }` on a definitive decline (the return is
+released for retry), and **throw only when the outcome is unknown** — the
+return then stays in `refunding` until an admin verifies at the provider and
+resolves it with `storeReturns.resolveStuckRefund` (`refunded` or `release`).
+Whole-order admin refunds and provider-initiated `payment.refunded` webhooks
+write to the same per-order ledger, so the three paths can never together
+refund more than the order total.
+The `seedStore` step creates demo products, shipping zones, and tax rates on
+`bun run init`.
 
 ## Schema
 

@@ -1,4 +1,16 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+import {
+  checkExpiredSubscriptions,
+  checkExpiringSubscriptions,
+  isWithinSendWindow,
+  runDunningChecks,
+} from '@/core-subscriptions/lib/dunning';
+import { logAudit } from '@/core/lib/infra/audit';
 
 // ---------------------------------------------------------------------------
 // Mock ALL external dependencies BEFORE imports
@@ -6,8 +18,13 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // vi.hoisted ensures these are available when vi.mock factories run (hoisted above mocks)
 const {
-  mockSelectFn, mockUpdateWhereMock: _mockUpdateWhereMock, mockUpdateSetMock, mockUpdateMock: _mockUpdateMock, mockDb,
-  selectState, innerJoinState,
+  mockSelectFn,
+  mockUpdateWhereMock: _mockUpdateWhereMock,
+  mockUpdateSetMock,
+  mockUpdateMock: _mockUpdateMock,
+  mockDb,
+  selectState,
+  innerJoinState,
 } = vi.hoisted(() => {
   const selectState = { sequence: [] as unknown[][], callIdx: 0 };
   const innerJoinState = { sequence: [] as unknown[][], callIdx: 0 };
@@ -27,28 +44,44 @@ const {
         Promise.resolve(d).then(res, rej),
       ...chain,
     });
-    const innerJoinWhereMock = vi.fn().mockReturnValue(
-      _thenable([], { limit: innerJoinWhereLimitMock })
-    );
-    const innerJoinMock = vi.fn().mockReturnValue(
-      _thenable([], { where: innerJoinWhereMock })
-    );
-    const whereMock = vi.fn().mockReturnValue(
-      _thenable(data, { limit: limitMock, innerJoin: innerJoinMock })
-    );
+    const innerJoinWhereMock = vi
+      .fn()
+      .mockReturnValue(_thenable([], { limit: innerJoinWhereLimitMock }));
+    const innerJoinMock = vi
+      .fn()
+      .mockReturnValue(_thenable([], { where: innerJoinWhereMock }));
+    const whereMock = vi
+      .fn()
+      .mockReturnValue(
+        _thenable(data, { limit: limitMock, innerJoin: innerJoinMock })
+      );
     const fromMock = vi.fn().mockReturnValue(
-      _thenable(data, { where: whereMock, innerJoin: innerJoinMock, limit: limitMock })
+      _thenable(data, {
+        where: whereMock,
+        innerJoin: innerJoinMock,
+        limit: limitMock,
+      })
     );
     return { from: fromMock };
   });
 
   const mockUpdateWhereMock = vi.fn().mockResolvedValue(undefined);
-  const mockUpdateSetMock = vi.fn().mockReturnValue({ where: mockUpdateWhereMock });
+  const mockUpdateSetMock = vi
+    .fn()
+    .mockReturnValue({ where: mockUpdateWhereMock });
   const mockUpdateMock = vi.fn().mockReturnValue({ set: mockUpdateSetMock });
 
   const mockDb = { select: mockSelectFn, update: mockUpdateMock };
 
-  return { mockSelectFn, mockUpdateWhereMock, mockUpdateSetMock, mockUpdateMock, mockDb, selectState, innerJoinState };
+  return {
+    mockSelectFn,
+    mockUpdateWhereMock,
+    mockUpdateSetMock,
+    mockUpdateMock,
+    mockDb,
+    selectState,
+    innerJoinState,
+  };
 });
 
 vi.mock('@/server/db', () => ({
@@ -71,6 +104,7 @@ vi.mock('@/server/db/schema/organization', () => ({
   member: {
     userId: 'member.user_id',
     organizationId: 'member.organization_id',
+    role: 'member.role',
   },
 }));
 
@@ -78,6 +112,7 @@ vi.mock('@/server/db/schema/auth', () => ({
   user: {
     id: 'user.id',
     email: 'user.email',
+    timezone: 'user.timezone',
   },
 }));
 
@@ -108,12 +143,25 @@ vi.mock('@/server/lib/notifications', () => ({
 }));
 
 vi.mock('@/core/types/notifications', () => ({
-  NotificationType: { INFO: 'info', SUCCESS: 'success', WARNING: 'warning', ERROR: 'error' },
-  NotificationCategory: { BILLING: 'billing', ORGANIZATION: 'organization', CONTENT: 'content', SYSTEM: 'system', SECURITY: 'security' },
+  NotificationType: {
+    INFO: 'info',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error',
+  },
+  NotificationCategory: {
+    BILLING: 'billing',
+    ORGANIZATION: 'organization',
+    CONTENT: 'content',
+    SYSTEM: 'system',
+    SECURITY: 'security',
+  },
 }));
 
 const mockPaymentsDeps = vi.hoisted(() => ({
-  getPlan: vi.fn().mockReturnValue({ name: 'Pro', priceMonthly: 2900, priceYearly: 29000 }),
+  getPlan: vi
+    .fn()
+    .mockReturnValue({ name: 'Pro', priceMonthly: 2900, priceYearly: 29000 }),
   sendOrgNotification: vi.fn(),
   enqueueTemplateEmail: vi.fn().mockResolvedValue(undefined),
   broadcastEvent: vi.fn(),
@@ -128,12 +176,9 @@ vi.mock('@/core-subscriptions/deps', () => ({
   setSubscriptionsDeps: vi.fn(),
 }));
 
-// ---------------------------------------------------------------------------
-// Imports (after mocks)
-// ---------------------------------------------------------------------------
-
-import { checkExpiringSubscriptions, checkExpiredSubscriptions, runDunningChecks } from '@/core-subscriptions/lib/dunning';
-import { logAudit } from '@/core/lib/infra/audit';
+// 12:00 UTC: inside the 09–20 window for UTC (the no-timezone fallback), so the
+// pre-existing tests keep sending; 08:00 in New York (outside) for the window tests.
+const NOON_UTC = new Date('2026-10-13T12:00:00Z');
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -168,10 +213,45 @@ function createExpiredSub(overrides: Record<string, unknown> = {}) {
 describe('dunning service', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(NOON_UTC);
     selectState.sequence = [];
     selectState.callIdx = 0;
     innerJoinState.sequence = [];
     innerJoinState.callIdx = 0;
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  // =========================================================================
+  // local send window
+  // =========================================================================
+  describe('isWithinSendWindow', () => {
+    it('is open 09:00–19:59 local and closed otherwise', () => {
+      expect(isWithinSendWindow('UTC', new Date('2026-10-13T09:00:00Z'))).toBe(
+        true
+      );
+      expect(isWithinSendWindow('UTC', new Date('2026-10-13T19:59:00Z'))).toBe(
+        true
+      );
+      expect(isWithinSendWindow('UTC', new Date('2026-10-13T20:00:00Z'))).toBe(
+        false
+      );
+      expect(isWithinSendWindow('UTC', new Date('2026-10-13T08:59:00Z'))).toBe(
+        false
+      );
+    });
+
+    it('evaluates the hour in the given zone, falling back to UTC', () => {
+      // 12:00Z = 08:00 New York (closed), 21:00 Tokyo (closed), 14:00 Berlin (open)
+      expect(isWithinSendWindow('America/New_York', NOON_UTC)).toBe(false);
+      expect(isWithinSendWindow('Asia/Tokyo', NOON_UTC)).toBe(false);
+      expect(isWithinSendWindow('Europe/Berlin', NOON_UTC)).toBe(true);
+      expect(isWithinSendWindow(null, NOON_UTC)).toBe(true);
+      expect(isWithinSendWindow('Not/AZone', NOON_UTC)).toBe(true);
+    });
   });
 
   // =========================================================================
@@ -186,12 +266,10 @@ describe('dunning service', () => {
       // 2. audit log check (already reminded?) -> []
       // 3. org member emails (via innerJoin chain) -> handled by innerJoinState.sequence
       selectState.sequence = [
-        [sub],  // expiring subs
-        [],     // not yet reminded (audit log)
+        [sub], // expiring subs
+        [], // not yet reminded (audit log)
       ];
-      innerJoinState.sequence = [
-        [{ email: 'admin@org.com' }],
-      ];
+      innerJoinState.sequence = [[{ email: 'admin@org.com' }]];
 
       await checkExpiringSubscriptions();
 
@@ -229,7 +307,7 @@ describe('dunning service', () => {
       const sub = createExpiringSub();
 
       selectState.sequence = [
-        [sub],              // expiring subs
+        [sub], // expiring subs
         [{ id: 'audit-1' }], // already reminded
       ];
 
@@ -258,6 +336,113 @@ describe('dunning service', () => {
       await checkExpiringSubscriptions();
 
       expect(mockPaymentsDeps.sendOrgNotification).not.toHaveBeenCalled();
+    });
+
+    it("defers the reminder while it is night in the owner's timezone", async () => {
+      const sub = createExpiringSub(); // 3 days out
+      selectState.sequence = [[sub], []];
+      // 12:00Z is 08:00 in New York — one hour before the window opens
+      innerJoinState.sequence = [
+        [
+          {
+            email: 'owner@org.com',
+            role: 'owner',
+            timezone: 'America/New_York',
+          },
+        ],
+      ];
+
+      await checkExpiringSubscriptions();
+
+      expect(mockPaymentsDeps.sendOrgNotification).not.toHaveBeenCalled();
+      expect(mockPaymentsDeps.enqueueTemplateEmail).not.toHaveBeenCalled();
+      // No audit row → the next run inside the window still sends
+      expect(logAudit).not.toHaveBeenCalled();
+    });
+
+    it("sends once the owner's local window is open, with local-day daysLeft", async () => {
+      vi.setSystemTime(new Date('2026-10-13T14:00:00Z')); // 10:00 New York
+      // 2026-10-16T02:00Z is still the evening of the 15th in New York → 2 local days,
+      // where a UTC ceil() would have said 3.
+      const sub = createExpiringSub({
+        currentPeriodEnd: new Date('2026-10-16T02:00:00Z'),
+      });
+      selectState.sequence = [[sub], []];
+      innerJoinState.sequence = [
+        [
+          { email: 'member@org.com', role: 'member', timezone: 'Asia/Tokyo' },
+          {
+            email: 'owner@org.com',
+            role: 'owner',
+            timezone: 'America/New_York',
+          },
+        ],
+      ];
+
+      await checkExpiringSubscriptions();
+
+      expect(mockPaymentsDeps.sendOrgNotification).toHaveBeenCalledWith(
+        'org-1',
+        expect.objectContaining({
+          body: expect.stringContaining('expires in 2 days'),
+        })
+      );
+      expect(mockPaymentsDeps.enqueueTemplateEmail).toHaveBeenCalledTimes(2);
+      expect(mockPaymentsDeps.enqueueTemplateEmail).toHaveBeenCalledWith(
+        'owner@org.com',
+        'subscription-expiring',
+        expect.objectContaining({ daysLeft: '2' })
+      );
+      expect(logAudit).toHaveBeenCalledWith(
+        expect.objectContaining({
+          metadata: expect.objectContaining({ daysLeft: 2 }),
+        })
+      );
+    });
+
+    it('ignores the window as a last chance when one local day is left', async () => {
+      // 08:00 New York (closed), expiring tomorrow local
+      const sub = createExpiringSub({
+        currentPeriodEnd: new Date('2026-10-14T18:00:00Z'),
+      });
+      selectState.sequence = [[sub], []];
+      innerJoinState.sequence = [
+        [
+          {
+            email: 'owner@org.com',
+            role: 'owner',
+            timezone: 'America/New_York',
+          },
+        ],
+      ];
+
+      await checkExpiringSubscriptions();
+
+      expect(mockPaymentsDeps.sendOrgNotification).toHaveBeenCalledWith(
+        'org-1',
+        expect.objectContaining({
+          body: expect.stringContaining('expires in 1 days'),
+        })
+      );
+    });
+
+    it('says "expires today" instead of "in 0 days"', async () => {
+      const sub = createExpiringSub({
+        currentPeriodEnd: new Date('2026-10-13T20:00:00Z'),
+      });
+      selectState.sequence = [[sub], []];
+      innerJoinState.sequence = [
+        [{ email: 'owner@org.com', role: 'owner', timezone: null }],
+      ];
+
+      await checkExpiringSubscriptions();
+
+      expect(mockPaymentsDeps.sendOrgNotification).toHaveBeenCalledWith(
+        'org-1',
+        expect.objectContaining({
+          body: expect.stringContaining('expires today'),
+        })
+      );
     });
   });
 

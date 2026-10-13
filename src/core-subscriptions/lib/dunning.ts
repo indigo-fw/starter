@@ -1,14 +1,55 @@
-import { and, eq, gte, lte, lt } from 'drizzle-orm';
-import { db } from '@/server/db';
-import { saasSubscriptions } from '@/core-subscriptions/schema/subscriptions';
-import { member } from '@/server/db/schema/organization';
-import { user } from '@/server/db/schema/auth';
-import { cmsAuditLog } from '@/server/db/schema/audit';
-import { createLogger } from '@/core/lib/infra/logger';
-import { logAudit } from '@/core/lib/infra/audit';
+import { and, eq, gte, lt, lte } from 'drizzle-orm';
+
 import { getSubscriptionsDeps } from '@/core-subscriptions/deps';
+import { saasSubscriptions } from '@/core-subscriptions/schema/subscriptions';
+import { logAudit } from '@/core/lib/infra/audit';
+import { localDaysUntil, localHour } from '@/core/lib/infra/datetime';
+import { createLogger } from '@/core/lib/infra/logger';
+import { db } from '@/server/db';
+import { cmsAuditLog } from '@/server/db/schema/audit';
+import { user } from '@/server/db/schema/auth';
+import { member } from '@/server/db/schema/organization';
 
 const log = createLogger('dunning');
+
+/**
+ * Local hours [from, to) during which the expiring reminder may go out, in the
+ * org owner's timezone — nobody wants "your plan expires" at 3 AM. Outside the
+ * window the subscription is simply skipped this run and picked up by a later
+ * one (no audit row is written until a send happens).
+ *
+ * Assumption: the dunning cron runs often enough to see every timezone inside
+ * its window — hourly (`0 * * * *`) is the natural cadence; all dunning checks
+ * are idempotent, so running them hourly is safe. A once-a-day cron at a fixed
+ * UTC hour only ever opens the window for the zones where that hour lands
+ * between 09 and 20 local. The last-chance rule below keeps the rest from being
+ * starved: with one local day left the reminder goes out regardless of hour.
+ */
+export const EXPIRING_SEND_WINDOW = { fromHour: 9, toHour: 20 } as const;
+const LAST_CHANCE_DAYS_LEFT = 1;
+
+/** True when `now` falls inside the send window in `timezone` (UTC when unknown). */
+export function isWithinSendWindow(
+  timezone: string | null | undefined,
+  now: Date = new Date()
+): boolean {
+  const hour = localHour(timezone, now);
+  return (
+    hour >= EXPIRING_SEND_WINDOW.fromHour && hour < EXPIRING_SEND_WINDOW.toHour
+  );
+}
+
+/**
+ * The org's reference timezone for daily-cadence decisions: the owner's, else
+ * the first member who has one, else null (→ UTC). One zone per org, because
+ * one reminder (and one audit row) goes out per subscription, not per member.
+ */
+function resolveOrgTimezone(
+  members: Array<{ role: string | null; timezone: string | null }>
+): string | null {
+  const owner = members.find((m) => m.role === 'owner' && m.timezone);
+  return owner?.timezone ?? members.find((m) => m.timezone)?.timezone ?? null;
+}
 
 /**
  * Check for subscriptions expiring within 7 days and send reminders.
@@ -53,33 +94,51 @@ export async function checkExpiringSubscriptions(): Promise<void> {
 
     if (alreadyReminded) continue;
 
-    const plan = getSubscriptionsDeps().getPlan(sub.planId);
-    const daysLeft = Math.ceil(
-      (sub.currentPeriodEnd.getTime() - now.getTime()) / (24 * 60 * 60 * 1000)
-    );
-
-    // Send notification to all org members
-    getSubscriptionsDeps().sendOrgNotification(sub.organizationId, {
-      title: 'Subscription expiring soon',
-      body: `Your ${plan?.name ?? sub.planId} plan expires in ${daysLeft} days. Please renew to avoid service interruption.`,
-      actionUrl: '/dashboard/settings/billing',
-    });
-
-    // Send email to org members
+    // Members are fetched before deciding anything: their timezone sets the
+    // org's local day, and they are the recipients once we do send.
     const admins = await db
-      .select({ email: user.email })
+      .select({ email: user.email, role: member.role, timezone: user.timezone })
       .from(member)
       .innerJoin(user, eq(user.id, member.userId))
       .where(eq(member.organizationId, sub.organizationId))
       .limit(10);
 
+    const timezone = resolveOrgTimezone(admins);
+    const daysLeft = localDaysUntil(timezone, sub.currentPeriodEnd, now);
+
+    if (
+      !isWithinSendWindow(timezone, now) &&
+      daysLeft > LAST_CHANCE_DAYS_LEFT
+    ) {
+      log.debug('Expiring reminder deferred: outside local send window', {
+        subId: sub.id,
+        timezone,
+        daysLeft,
+      });
+      continue;
+    }
+
+    const plan = getSubscriptionsDeps().getPlan(sub.planId);
+    const expiresIn = daysLeft <= 0 ? 'today' : `in ${daysLeft} days`;
+
+    // Send notification to all org members
+    getSubscriptionsDeps().sendOrgNotification(sub.organizationId, {
+      title: 'Subscription expiring soon',
+      body: `Your ${plan?.name ?? sub.planId} plan expires ${expiresIn}. Please renew to avoid service interruption.`,
+      actionUrl: '/dashboard/settings/billing',
+    });
+
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
     for (const admin of admins) {
-      getSubscriptionsDeps().enqueueTemplateEmail(admin.email, 'subscription-expiring', {
-        planName: plan?.name ?? sub.planId,
-        daysLeft: String(daysLeft),
-        billingUrl: `${appUrl}/dashboard/settings/billing`,
-      }).catch((err) => log.error('Failed to send expiring email', { error: String(err) }));
+      getSubscriptionsDeps()
+        .enqueueTemplateEmail(admin.email, 'subscription-expiring', {
+          planName: plan?.name ?? sub.planId,
+          daysLeft: String(daysLeft),
+          billingUrl: `${appUrl}/dashboard/settings/billing`,
+        })
+        .catch((err) =>
+          log.error('Failed to send expiring email', { error: String(err) })
+        );
     }
 
     logAudit({
@@ -91,7 +150,11 @@ export async function checkExpiringSubscriptions(): Promise<void> {
       metadata: { orgId: sub.organizationId, daysLeft },
     });
 
-    log.info('Sent expiring reminder', { subId: sub.id, orgId: sub.organizationId, daysLeft });
+    log.info('Sent expiring reminder', {
+      subId: sub.id,
+      orgId: sub.organizationId,
+      daysLeft,
+    });
   }
 }
 
@@ -145,10 +208,14 @@ export async function checkExpiredSubscriptions(): Promise<void> {
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
     for (const admin of admins) {
-      getSubscriptionsDeps().enqueueTemplateEmail(admin.email, 'subscription-expired', {
-        planName: plan?.name ?? sub.planId,
-        billingUrl: `${appUrl}/dashboard/settings/billing`,
-      }).catch((err) => log.error('Failed to send expired email', { error: String(err) }));
+      getSubscriptionsDeps()
+        .enqueueTemplateEmail(admin.email, 'subscription-expired', {
+          planName: plan?.name ?? sub.planId,
+          billingUrl: `${appUrl}/dashboard/settings/billing`,
+        })
+        .catch((err) =>
+          log.error('Failed to send expired email', { error: String(err) })
+        );
     }
 
     logAudit({
@@ -160,7 +227,10 @@ export async function checkExpiredSubscriptions(): Promise<void> {
       metadata: { orgId: sub.organizationId },
     });
 
-    log.info('Marked subscription as past_due', { subId: sub.id, orgId: sub.organizationId });
+    log.info('Marked subscription as past_due', {
+      subId: sub.id,
+      orgId: sub.organizationId,
+    });
   }
 }
 
@@ -189,7 +259,11 @@ export async function checkGracePeriods(): Promise<void> {
   for (const sub of expired) {
     await db
       .update(saasSubscriptions)
-      .set({ status: 'past_due', gracePeriodEndsAt: null, updatedAt: new Date() })
+      .set({
+        status: 'past_due',
+        gracePeriodEndsAt: null,
+        updatedAt: new Date(),
+      })
       .where(eq(saasSubscriptions.id, sub.id));
 
     const plan = getSubscriptionsDeps().getPlan(sub.planId);
@@ -209,7 +283,10 @@ export async function checkGracePeriods(): Promise<void> {
       metadata: { orgId: sub.organizationId },
     });
 
-    log.info('Grace period expired, marked past_due', { subId: sub.id, orgId: sub.organizationId });
+    log.info('Grace period expired, marked past_due', {
+      subId: sub.id,
+      orgId: sub.organizationId,
+    });
   }
 }
 
@@ -263,10 +340,14 @@ export async function checkLongOverdueSubscriptions(): Promise<void> {
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
     for (const admin of admins) {
-      getSubscriptionsDeps().enqueueTemplateEmail(admin.email, 'subscription-canceled', {
-        planName: plan?.name ?? sub.planId,
-        billingUrl: `${appUrl}/dashboard/settings/billing`,
-      }).catch((err) => log.error('Failed to send cancellation email', { error: String(err) }));
+      getSubscriptionsDeps()
+        .enqueueTemplateEmail(admin.email, 'subscription-canceled', {
+          planName: plan?.name ?? sub.planId,
+          billingUrl: `${appUrl}/dashboard/settings/billing`,
+        })
+        .catch((err) =>
+          log.error('Failed to send cancellation email', { error: String(err) })
+        );
     }
 
     logAudit({
@@ -278,7 +359,10 @@ export async function checkLongOverdueSubscriptions(): Promise<void> {
       metadata: { orgId: sub.organizationId, previousPlan: sub.planId },
     });
 
-    log.info('Canceled long-overdue subscription', { subId: sub.id, orgId: sub.organizationId });
+    log.info('Canceled long-overdue subscription', {
+      subId: sub.id,
+      orgId: sub.organizationId,
+    });
   }
 }
 

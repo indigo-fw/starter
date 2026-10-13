@@ -10,10 +10,24 @@ export type { EmailDeps, EmailSendOptions } from './deps';
 
 // Template engine
 export type { EmailBranding } from './template';
-export { renderTemplate, escapeHtml, replacePlaceholders, loadTemplateFile } from './template';
+export {
+  renderTemplate,
+  escapeHtml,
+  replacePlaceholders,
+  loadTemplateFile,
+} from './template';
 
 // Transport
 export { sendEmail, isValidEmail, getTransport, FROM_EMAIL } from './transport';
 
 // Queue + worker
 export { enqueueTemplateEmail, enqueueEmail, startEmailWorker } from './queue';
+
+// Staff alerts (throttled operator mail for silent failures)
+export {
+  sendStaffAlert,
+  alertSignature,
+  getStaffAlertRecipients,
+  STAFF_ALERT_TEMPLATE,
+} from './staff-alert';
+export type { StaffAlertKind, StaffAlertOptions } from './staff-alert';

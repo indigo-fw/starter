@@ -2,14 +2,18 @@
  * Wire core-payments module dependencies to project-specific implementations.
  * Imported as a side-effect in server.ts.
  */
-import { setPaymentsDeps, type PaymentsDeps } from '@/core-payments/deps';
+import { getEnabledProviderConfigs } from '@/config/payment-providers';
+import {
+  getPlan,
+  getPlanByProviderPriceId,
+  getProviderPriceId,
+} from '@/config/plans';
+import { type PaymentsDeps, setPaymentsDeps } from '@/core-payments/deps';
 import { billingProfiles } from '@/core-payments/schema/billing-profile';
+import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
 import { registerHook } from '@/core/lib/module/module-hooks';
 import { db } from '@/server/db';
-import { getPlan, getPlanByProviderPriceId, getProviderPriceId } from '@/config/plans';
-import { getEnabledProviderConfigs } from '@/config/payment-providers';
 import { resolveOrgId } from '@/server/lib/resolve-org';
-import { getSubscription } from '@/core-subscriptions/lib/subscription-service';
 
 // Seed a billing profile for every newly created organization. Lives here (a
 // core-payments project file) so the organizations router never imports
@@ -24,7 +28,8 @@ registerHook('org.created', async (orgId, name) => {
 setPaymentsDeps({
   getEnabledProviderConfigs,
   getPlan: getPlan as PaymentsDeps['getPlan'],
-  getPlanByProviderPriceId: getPlanByProviderPriceId as PaymentsDeps['getPlanByProviderPriceId'],
+  getPlanByProviderPriceId:
+    getPlanByProviderPriceId as PaymentsDeps['getPlanByProviderPriceId'],
   getProviderPriceId: getProviderPriceId as PaymentsDeps['getProviderPriceId'],
 
   resolveOrgId(activeOrgId, userId) {
@@ -33,7 +38,9 @@ setPaymentsDeps({
 
   broadcastEvent(channel, type, payload) {
     import('@/server/lib/ws')
-      .then(({ broadcastToChannel }) => broadcastToChannel(channel, type, payload))
+      .then(({ broadcastToChannel }) =>
+        broadcastToChannel(channel, type, payload)
+      )
       .catch(() => {});
   },
 
@@ -42,4 +49,13 @@ setPaymentsDeps({
     const sub = await getSubscription(orgId);
     return sub ? { providerCustomerId: sub.providerCustomerId ?? null } : null;
   },
+
+  // Reconciliation fulfils a recovered subscription payment through this seam
+  // (dispatchPaymentEvent falls back to it when no one-time registry handler
+  // claims the event). Lazy import: core-subscriptions is optional — remove this
+  // entry if that module is not installed.
+  handleSubscriptionWebhookEvent: (params) =>
+    import('@/core-subscriptions/lib/webhook-handler').then((m) =>
+      m.handleSubscriptionWebhookEvent(params)
+    ),
 });

@@ -8,6 +8,8 @@ import { logAudit } from '../infra/audit';
 import { dispatchWebhook } from '../webhooks/webhooks';
 import { createLogger } from '../infra/logger';
 import { db } from '@/server/db';
+import { invalidateCmsOverrideCache } from '@/core/lib/seo/cms-override';
+import { broadcastCmsLinkInvalidation } from '@/core/lib/content/cms-link-sync';
 
 const logger = createLogger('scheduled-publish');
 
@@ -75,6 +77,10 @@ export async function processScheduledContent(): Promise<void> {
     }
 
     if (entries.length > 0) {
+      // A scheduled page publish must reach coded routes the same way an admin
+      // publish does — both caches gate on "no override exists" for hours.
+      invalidateCmsOverrideCache();
+      broadcastCmsLinkInvalidation();
       logger.info(`Auto-published ${entries.length} ${target.name}`);
     }
   }

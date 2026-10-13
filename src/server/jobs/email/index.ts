@@ -16,7 +16,12 @@ export type TemplateName =
   | 'subscription-expired'
   | 'subscription-canceled'
   | 'order-confirmation'
-  | 'order-shipped';
+  | 'order-shipped'
+  | 'staff-alert'
+  | 'gdpr-deletion'
+  | 'support-ticket-new'
+  | 'support-ticket-reply'
+  | 'support-ticket-answer';
 
 export const TEMPLATE_NAMES: TemplateName[] = [
   'welcome',
@@ -30,4 +35,9 @@ export const TEMPLATE_NAMES: TemplateName[] = [
   'order-confirmation',
   'order-shipped',
   'subscription-canceled',
+  'staff-alert',
+  'gdpr-deletion',
+  'support-ticket-new',
+  'support-ticket-reply',
+  'support-ticket-answer',
 ];

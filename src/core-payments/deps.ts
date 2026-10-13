@@ -4,7 +4,10 @@
  * Framework conventions (trpc, db, user/org/member tables, audit, core utils)
  * are imported directly. Only project-specific behavior is injected here.
  */
-import type { PaymentProviderConfig } from '@/core-payments/types/payment';
+import type {
+  PaymentProviderConfig,
+  WebhookEvent,
+} from '@/core-payments/types/payment';
 
 /** Minimal plan shape needed by payment providers for price resolution. */
 export interface PaymentPlanInfo {
@@ -24,22 +27,47 @@ export interface PaymentsDeps {
   getPlan: (id: string) => PaymentPlanInfo | undefined;
 
   /** Get a plan by provider price ID (for webhook event processing). */
-  getPlanByProviderPriceId: (providerId: string, priceId: string) => PaymentPlanInfo | undefined;
+  getPlanByProviderPriceId: (
+    providerId: string,
+    priceId: string
+  ) => PaymentPlanInfo | undefined;
 
   /** Get provider price ID for a plan + interval. */
-  getProviderPriceId: (plan: PaymentPlanInfo, providerId: string, interval: 'monthly' | 'yearly') => string | null | undefined;
+  getProviderPriceId: (
+    plan: PaymentPlanInfo,
+    providerId: string,
+    interval: 'monthly' | 'yearly'
+  ) => string | null | undefined;
 
   /** Resolve the active organization ID for a user. */
   resolveOrgId: (activeOrgId: string | null, userId: string) => Promise<string>;
 
   /** Broadcast a real-time event to a WebSocket channel. Fire-and-forget. */
-  broadcastEvent: (channel: string, type: string, payload: Record<string, unknown>) => void;
+  broadcastEvent: (
+    channel: string,
+    type: string,
+    payload: Record<string, unknown>
+  ) => void;
 
   /**
    * Look up active subscription for an org (optional — only if subscriptions module installed).
    * Used by Stripe provider to check for existing customer ID.
    */
-  getActiveSubscriptionForOrg?: (orgId: string) => Promise<{ providerCustomerId: string | null } | null>;
+  getActiveSubscriptionForOrg?: (
+    orgId: string
+  ) => Promise<{ providerCustomerId: string | null } | null>;
+
+  /**
+   * Subscription-lifecycle webhook handler (optional — only if the subscriptions
+   * module is installed). `dispatchPaymentEvent()` falls back to it for events
+   * no one-time registry handler claims; without it a recovered subscription
+   * payment cannot be fulfilled and reconciliation reports the failure.
+   * Wire as `(p) => import('@/core-subscriptions/lib/webhook-handler').then((m) => m.handleSubscriptionWebhookEvent(p))`.
+   */
+  handleSubscriptionWebhookEvent?: (params: {
+    event: WebhookEvent;
+    providerId: string;
+  }) => Promise<void>;
 }
 
 let _deps: PaymentsDeps | null = null;
@@ -51,7 +79,7 @@ export function setPaymentsDeps(deps: PaymentsDeps): void {
 export function getPaymentsDeps(): PaymentsDeps {
   if (!_deps) {
     throw new Error(
-      'Payments dependencies not configured. Call setPaymentsDeps() at startup — see src/core-payments/deps.ts',
+      'Payments dependencies not configured. Call setPaymentsDeps() at startup — see src/core-payments/deps.ts'
     );
   }
   return _deps;

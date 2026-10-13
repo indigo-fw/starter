@@ -1,20 +1,23 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { Editor } from '@tiptap/react';
+
 import type { EditorView } from '@codemirror/view';
-import { computePosition, flip, shift, offset } from '@floating-ui/dom';
+import { computePosition, flip, offset, shift } from '@floating-ui/dom';
+import type { Editor } from '@tiptap/react';
 import {
-  Sparkles,
-  RefreshCw,
-  Scissors,
+  Check,
   Expand,
   Languages,
   Loader2,
-  Check,
-  X,
   Pen,
+  RefreshCw,
+  Scissors,
+  Sparkles,
+  X,
 } from 'lucide-react';
+
+import { useCloseOnClickOutside } from '@/core/hooks/useCloseOnClickOutside';
 
 export interface AiAssistAction {
   id: string;
@@ -31,25 +34,29 @@ function getDefaultActions(__: (s: string) => string): AiAssistAction[] {
       id: 'rewrite',
       label: __('Rewrite'),
       icon: <RefreshCw className={iconClass} />,
-      instruction: 'Rewrite this text to be clearer and more engaging. Keep the same meaning and approximate length.',
+      instruction:
+        'Rewrite this text to be clearer and more engaging. Keep the same meaning and approximate length.',
     },
     {
       id: 'shorten',
       label: __('Shorten'),
       icon: <Scissors className={iconClass} />,
-      instruction: 'Make this text more concise. Remove unnecessary words while preserving the key message.',
+      instruction:
+        'Make this text more concise. Remove unnecessary words while preserving the key message.',
     },
     {
       id: 'expand',
       label: __('Expand'),
       icon: <Expand className={iconClass} />,
-      instruction: 'Expand this text with more detail and depth while keeping the same style and tone.',
+      instruction:
+        'Expand this text with more detail and depth while keeping the same style and tone.',
     },
     {
       id: 'fix-grammar',
       label: __('Fix grammar'),
       icon: <Pen className={iconClass} />,
-      instruction: 'Fix any grammar, spelling, or punctuation errors. Do not change the style or meaning.',
+      instruction:
+        'Fix any grammar, spelling, or punctuation errors. Do not change the style or meaning.',
     },
     {
       id: 'translate',
@@ -70,7 +77,11 @@ export interface AiAssistAdapter {
   /** Replace the current selection with the AI result. */
   applyResult: (text: string) => void;
   /** Viewport coords of the selection start, used to anchor the floating menu. */
-  getSelectionCoords: () => { left: number; top: number; bottom: number } | null;
+  getSelectionCoords: () => {
+    left: number;
+    top: number;
+    bottom: number;
+  } | null;
 }
 
 /** Adapter for a Tiptap editor. */
@@ -82,7 +93,12 @@ export function tiptapAiAdapter(editor: Editor): AiAssistAdapter {
     },
     applyResult: (text) => {
       const { from, to } = editor.state.selection;
-      editor.chain().focus().deleteRange({ from, to }).insertContentAt(from, text).run();
+      editor
+        .chain()
+        .focus()
+        .deleteRange({ from, to })
+        .insertContentAt(from, text)
+        .run();
     },
     getSelectionCoords: () => {
       const pos = editor.state.selection.from;
@@ -125,7 +141,13 @@ interface AiAssistMenuProps {
   onSubmit: (text: string, instruction: string) => Promise<string>;
 }
 
-export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistMenuProps) {
+export function AiAssistMenu({
+  adapter,
+  __,
+  open,
+  onClose,
+  onSubmit,
+}: AiAssistMenuProps) {
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -135,21 +157,24 @@ export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistM
   const inputRef = useRef<HTMLInputElement>(null);
   const actions = getDefaultActions(__);
 
-  const runAction = useCallback(async (instruction: string) => {
-    const text = adapter.getSelectedText();
-    if (!text) return;
-    setLoading(true);
-    setError(null);
-    setResult(null);
-    try {
-      const res = await onSubmit(text, instruction);
-      setResult(res);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : __('AI request failed'));
-    } finally {
-      setLoading(false);
-    }
-  }, [adapter, onSubmit, __]);
+  const runAction = useCallback(
+    async (instruction: string) => {
+      const text = adapter.getSelectedText();
+      if (!text) return;
+      setLoading(true);
+      setError(null);
+      setResult(null);
+      try {
+        const res = await onSubmit(text, instruction);
+        setResult(res);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : __('AI request failed'));
+      } finally {
+        setLoading(false);
+      }
+    },
+    [adapter, onSubmit, __]
+  );
 
   const applyResult = useCallback(() => {
     if (!result) return;
@@ -185,11 +210,7 @@ export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistM
 
     computePosition(virtualEl, menuRef.current, {
       placement: 'top-start',
-      middleware: [
-        offset(8),
-        flip({ padding: 8 }),
-        shift({ padding: 8 }),
-      ],
+      middleware: [offset(8), flip({ padding: 8 }), shift({ padding: 8 })],
     }).then(({ x, y }) => {
       if (!menuRef.current) return;
       Object.assign(menuRef.current.style, {
@@ -217,17 +238,7 @@ export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistM
     }
   }, [open]);
 
-  // Close on click outside
-  useEffect(() => {
-    if (!open) return;
-    function handleClick(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        onClose();
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [open, onClose]);
+  useCloseOnClickOutside(menuRef, onClose, { enabled: open });
 
   // Close on Escape
   useEffect(() => {
@@ -249,7 +260,9 @@ export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistM
       {/* Header */}
       <div className="flex items-center gap-2 border-b border-(--border-primary) px-3 py-2">
         <Sparkles className="h-4 w-4 text-accent-500" />
-        <span className="text-sm font-medium text-(--text-primary)">{__('AI Assist')}</span>
+        <span className="text-sm font-medium text-(--text-primary)">
+          {__('AI Assist')}
+        </span>
         <button
           type="button"
           onClick={onClose}
@@ -263,7 +276,9 @@ export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistM
       {loading && (
         <div className="flex items-center gap-2 px-3 py-4">
           <Loader2 className="h-4 w-4 animate-spin text-accent-500" />
-          <span className="text-sm text-(--text-secondary)">{__('Thinking...')}</span>
+          <span className="text-sm text-(--text-secondary)">
+            {__('Thinking...')}
+          </span>
         </div>
       )}
 
@@ -315,7 +330,7 @@ export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistM
               key={action.id}
               type="button"
               onClick={() => runAction(action.instruction)}
-              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-(--text-secondary) hover:bg-(--surface-secondary) transition-colors"
+              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-(--text-secondary) transition-colors hover:bg-(--surface-secondary)"
             >
               {action.icon}
               {action.label}
@@ -346,7 +361,7 @@ export function AiAssistMenu({ adapter, __, open, onClose, onSubmit }: AiAssistM
             <button
               type="button"
               onClick={() => setShowCustom(true)}
-              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-(--text-muted) hover:bg-(--surface-secondary) transition-colors"
+              className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-(--text-muted) transition-colors hover:bg-(--surface-secondary)"
             >
               <Sparkles className="h-4 w-4" />
               {__('Custom instruction...')}

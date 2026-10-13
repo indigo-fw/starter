@@ -37,6 +37,7 @@ import {
 } from '@/core/components/dashboard/CommandPalette';
 import { NotificationBell } from '@/core/components/dashboard/NotificationBell';
 import { OrgSwitcher } from '@/core/components/dashboard/OrgSwitcher';
+import { useCloseOnClickOutside } from '@/core/hooks/useCloseOnClickOutside';
 import { IS_ACTIVE, activeAria } from '@/core/lib/active-props';
 import { usePreferencesStore } from '@/core/store/preferences-store';
 import { useSidebarStore } from '@/core/store/sidebar-store';
@@ -115,22 +116,12 @@ export function AdminSidebar() {
     return initTheme();
   }, [initTheme]);
 
-  // Close popover on outside click
-  useEffect(() => {
-    if (!userPopoverOpen) return;
-    function handleMouseDown(e: MouseEvent) {
-      if (
-        popoverRef.current &&
-        !popoverRef.current.contains(e.target as Node) &&
-        avatarBtnRef.current &&
-        !avatarBtnRef.current.contains(e.target as Node)
-      ) {
-        setUserPopoverOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleMouseDown);
-    return () => document.removeEventListener('mousedown', handleMouseDown);
-  }, [userPopoverOpen]);
+  // The avatar button lives outside the popover; excluding it keeps its own
+  // onClick as the single toggle instead of close-then-reopen.
+  useCloseOnClickOutside(popoverRef, () => setUserPopoverOpen(false), {
+    enabled: userPopoverOpen,
+    excludeRefs: [avatarBtnRef],
+  });
 
   // Close popover when mobile overlay state changes (adjust state during render — React docs pattern)
   const [prevIsOpen, setPrevIsOpen] = useState(isOpen);

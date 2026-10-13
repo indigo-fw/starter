@@ -1,0 +1,18 @@
+<!-- subject: [{{siteName}}] Staff alert: {{source}} — {{errorShort}} -->
+<!-- preheader: {{kind}} failure in {{source}} — needs a human -->
+<h2 style="margin:0 0 16px; font-size:22px; color:#111827">Staff alert — {{source}}</h2>
+<p style="margin:0 0 16px; color:#4b5563; line-height:1.6">
+  {{siteName}} hit a failure that will not fix itself. Kind: <strong>{{kind}}</strong>.
+  Signature <code>{{signature}}</code> — throttled kinds send one mail per signature per 15 minutes, so repeats of this fault are in the server logs, not your inbox.
+</p>
+<h3 style="margin:24px 0 8px; font-size:16px; color:#111827">Error</h3>
+<pre style="margin:0; background:#f3f4f6; color:#111827; padding:12px; border-radius:6px; font-size:13px; white-space:pre-wrap; word-break:break-word">{{error}}</pre>
+<h3 style="margin:24px 0 8px; font-size:16px; color:#111827">Diagnostics</h3>
+<pre style="margin:0; background:#f3f4f6; color:#111827; padding:12px; border-radius:6px; font-size:13px; white-space:pre-wrap; word-break:break-word">{{diagnostics|(none)}}</pre>
+<h3 style="margin:24px 0 8px; font-size:16px; color:#111827">Payload</h3>
+<pre style="margin:0; background:#f3f4f6; color:#111827; padding:12px; border-radius:6px; font-size:13px; white-space:pre-wrap; word-break:break-word">{{payload|(none)}}</pre>
+<h3 style="margin:24px 0 8px; font-size:16px; color:#111827">Stack</h3>
+<pre style="margin:0; background:#f3f4f6; color:#111827; padding:12px; border-radius:6px; font-size:13px; white-space:pre-wrap; word-break:break-word">{{stack|(none)}}</pre>
+<p style="margin:24px 0 0; color:#9ca3af; font-size:14px">
+  Check the provider dashboard and the application logs for the full context. Payload is truncated to 4 KB with transport and secret fields removed.
+</p>

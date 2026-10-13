@@ -1,5 +1,6 @@
+import { type EmailListProvider, EmailListProviderError } from './index';
+
 import { createLogger } from '@/core/lib/infra/logger';
-import type { EmailListProvider } from './index';
 
 const log = createLogger('brevo');
 
@@ -12,7 +13,10 @@ export class BrevoProvider implements EmailListProvider {
     this.listId = parseInt(process.env.BREVO_LIST_ID ?? '0', 10);
   }
 
-  async subscribe(email: string, fields?: Record<string, unknown>): Promise<void> {
+  async subscribe(
+    email: string,
+    fields?: Record<string, unknown>
+  ): Promise<void> {
     const res = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: {
@@ -26,8 +30,12 @@ export class BrevoProvider implements EmailListProvider {
         updateEnabled: true,
       }),
     });
+    // Throw so the queue retries; the worker logs with a hashed address.
     if (!res.ok) {
-      log.warn('Brevo subscribe failed', { email, status: res.status });
+      throw new EmailListProviderError(
+        `Brevo subscribe failed: HTTP ${res.status}`,
+        res.status
+      );
     }
   }
 

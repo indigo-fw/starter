@@ -8,10 +8,17 @@
 import { and, desc, eq, gte, inArray, lte, sql } from 'drizzle-orm';
 
 import {
+  type ProviderCheck,
   type ProviderCheckFn,
+  type ProviderCheckResult,
+  type ProviderCheckStatus,
+  fulfilRecoveredPayment,
   reconcileStalePendingTransactions,
 } from '@/core-payments/lib/reconciliation-service';
-import { saasPaymentTransactions } from '@/core-payments/schema/payments';
+import {
+  saasPaymentTransactions,
+  saasSubscriptionEvents,
+} from '@/core-payments/schema/payments';
 import { TransactionStatus } from '@/core-payments/types/payment';
 import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
@@ -390,15 +397,23 @@ export async function recordVoid(transactionId: string): Promise<void> {
 }
 
 // ─── Reconciliation ─────────────────────────────────────────────────────────
+// ─── Reconciliation ─────────────────────────────────────────────────────────
 
 /** 10-second timeout for provider API calls */
 const PROVIDER_TIMEOUT_MS = 10_000;
 
-async function checkStripeTransaction(
-  providerTxId: string
-): Promise<'successful' | 'pending' | 'failed'> {
+/**
+ * Transport/auth problems are `unknown`, not `pending`: the sweep ages an
+ * explicit `pending` into FAILED, and a Stripe outage must never do that.
+ */
+function statusForUnusableResponse(status: number): ProviderCheckStatus {
+  if (status === 404) return 'failed';
+  return 'unknown';
+}
+
+const checkStripeTransaction: ProviderCheckFn = async (providerTxId) => {
   const stripeKey = process.env.STRIPE_SECRET_KEY;
-  if (!stripeKey) return 'pending';
+  if (!stripeKey) return 'unknown';
 
   const isCheckout = providerTxId.startsWith('cs_');
   const url = isCheckout
@@ -410,31 +425,49 @@ async function checkStripeTransaction(
     signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
   });
 
-  if (res.status === 429 || res.status === 401) return 'pending';
-  if (res.status === 404) return 'failed';
-  if (!res.ok) return 'pending';
+  if (!res.ok) return statusForUnusableResponse(res.status);
 
   const data = (await res.json()) as Record<string, unknown>;
+  // The webhook event carries these — give the subscription handler the same
+  // handles on a recovered row.
+  const event: ProviderCheckResult['event'] = {
+    ...(typeof data.customer === 'string' && {
+      providerCustomerId: data.customer,
+    }),
+    ...(typeof data.subscription === 'string' && {
+      providerSubscriptionId: data.subscription,
+    }),
+    ...(!isCheckout && { providerSubscriptionId: providerTxId }),
+  };
 
+  let status: ProviderCheckStatus;
   if (isCheckout) {
-    const status = data.payment_status as string;
-    if (status === 'paid') return 'successful';
-    if (status === 'unpaid' || status === 'no_payment_required')
-      return 'pending';
-    return 'failed';
+    const paymentStatus = data.payment_status as string;
+    status =
+      paymentStatus === 'paid'
+        ? 'successful'
+        : paymentStatus === 'unpaid' || paymentStatus === 'no_payment_required'
+          ? 'pending'
+          : 'failed';
+  } else {
+    const subStatus = data.status as string;
+    status =
+      subStatus === 'active' || subStatus === 'trialing'
+        ? 'successful'
+        : subStatus === 'past_due' || subStatus === 'incomplete'
+          ? 'pending'
+          : 'failed';
   }
 
-  const subStatus = data.status as string;
-  if (subStatus === 'active' || subStatus === 'trialing') return 'successful';
-  if (subStatus === 'past_due' || subStatus === 'incomplete') return 'pending';
-  return 'failed';
-}
+  return { status, providerData: data, event };
+};
 
-async function checkNowPaymentsTransaction(
-  providerTxId: string
-): Promise<'successful' | 'pending' | 'failed'> {
+const checkNowPaymentsTransaction: ProviderCheckFn = async (
+  providerTxId,
+  tx
+) => {
   const apiKey = process.env.NOWPAYMENTS_API_KEY;
-  if (!apiKey) return 'pending';
+  if (!apiKey) return 'unknown';
 
   const baseUrl = `${getNowPaymentsApiBase()}/v1`;
 
@@ -443,26 +476,42 @@ async function checkNowPaymentsTransaction(
     signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
   });
 
-  if (res.status === 429 || res.status === 401 || res.status === 403)
-    return 'pending';
-  if (res.status === 404) return 'failed';
-  if (!res.ok) return 'pending';
+  if (!res.ok) return statusForUnusableResponse(res.status);
 
   const data = (await res.json()) as Record<string, unknown>;
   const status = data.payment_status as string;
 
-  if (status === 'finished' || status === 'confirmed') return 'successful';
-  if (status === 'waiting' || status === 'confirming' || status === 'sending')
-    return 'pending';
-  return 'failed';
-}
+  // Only `finished` means the full amount settled — `confirmed` can still be
+  // partial, which is why the IPN handler refuses to activate on it too. Now
+  // that recovery fulfils, the sweep must draw the same line.
+  if (status === 'finished') {
+    return {
+      status: 'successful',
+      providerData: data,
+      // Same synthetic customer handle the NOWPayments `finished` IPN emits,
+      // so the subscription row looks identical whichever path activated it.
+      event: { providerCustomerId: `np_org_${tx.organizationId}` },
+    };
+  }
+  if (
+    status === 'waiting' ||
+    status === 'confirming' ||
+    status === 'confirmed' ||
+    status === 'sending'
+  ) {
+    return { status: 'pending', providerData: data };
+  }
+  return { status: 'failed', providerData: data };
+};
 
 /**
- * Reconcile stale pending payment transactions by checking with providers.
- * Moved here from dunning.ts since it operates on the payments table.
+ * Reconcile stale pending payment transactions by checking with providers,
+ * fulfilling anything the provider confirms as paid through the same dispatch
+ * the webhook routes use. Called from the daily dunning job via
+ * `SubscriptionsDeps.runReconciliation`.
  */
 export async function runReconciliation(): Promise<void> {
-  const providerChecks: Record<string, ProviderCheckFn> = {};
+  const providerChecks: Record<string, ProviderCheck> = {};
 
   if (process.env.STRIPE_SECRET_KEY) {
     providerChecks['stripe'] = checkStripeTransaction;
@@ -479,10 +528,23 @@ export async function runReconciliation(): Promise<void> {
     db,
     saasPaymentTransactions,
     providerChecks,
-    { staleThresholdHours: 24 }
+    {
+      staleThresholdHours: 24,
+      abandonAfterHours: 24,
+      fulfil: (recovered) =>
+        fulfilRecoveredPayment(recovered, {
+          db,
+          eventsTable: saasSubscriptionEvents,
+        }),
+    }
   );
 
-  if (result.checked > 0) {
+  if (result.fulfilmentFailed > 0) {
+    log.error(
+      'Reconciliation recovered paid transactions it could not fulfil — see per-row errors above',
+      result
+    );
+  } else if (result.checked > 0) {
     log.info('Reconciliation results', result);
   }
 }

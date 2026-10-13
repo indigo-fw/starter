@@ -51,23 +51,26 @@ function remember(userId: string, invalidatedAt: number): void {
 /**
  * Void every session of `userId` issued up to now. Call AFTER deleting the
  * user's DB session rows (this only covers the cookie-cache window).
- * Fire-and-forget safe: never throws.
+ *
+ * The local map is updated synchronously; the returned promise settles once
+ * the Redis broadcast has been sent (or skipped/failed). Request handlers may
+ * `void` it — only short-lived processes (CLI scripts) need to await it so
+ * they don't close the Redis socket before the publish leaves. Never rejects.
  */
-export function invalidateUserSessions(userId: string): void {
+export async function invalidateUserSessions(userId: string): Promise<void> {
   const at = Date.now();
   remember(userId, at);
-  void import('@/core/lib/infra/redis')
-    .then(async ({ getPublisher }) => {
-      const publisher = getPublisher();
-      if (!publisher) return;
-      await publisher.publish(CHANNEL, JSON.stringify({ userId, at }));
-    })
-    .catch((err: unknown) => {
-      log.warn('Failed to broadcast session invalidation', {
-        userId,
-        error: String(err),
-      });
+  try {
+    const { getPublisher } = await import('@/core/lib/infra/redis');
+    const publisher = getPublisher();
+    if (!publisher) return;
+    await publisher.publish(CHANNEL, JSON.stringify({ userId, at }));
+  } catch (err: unknown) {
+    log.warn('Failed to broadcast session invalidation', {
+      userId,
+      error: String(err),
     });
+  }
 }
 
 /**

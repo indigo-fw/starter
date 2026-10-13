@@ -1,14 +1,15 @@
-import { z } from 'zod';
-import { eq, and, gte, lte, desc } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
-import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
-import { storeOrders, storeOrderItems } from '@/core-store/schema/orders';
-import { serializeExport } from '@/core/crud/admin-crud';
-import { updateOrderStatus, assignInvoiceNumber } from '@/core-store/lib/order-service';
+import { and, desc, eq, gte, lte } from 'drizzle-orm';
+import { z } from 'zod';
+
 import { getStoreDeps } from '@/core-store/deps';
-import { getRefundHandler } from '@/core-store/lib/refund-types';
 import { generateInvoiceHtml } from '@/core-store/lib/invoice-template';
+import { assignInvoiceNumber } from '@/core-store/lib/order-service';
+import { refundWholeOrder } from '@/core-store/lib/refund-service';
+import { storeOrderItems, storeOrders } from '@/core-store/schema/orders';
+import { serializeExport } from '@/core/crud/admin-crud';
 import { createLogger } from '@/core/lib/infra/logger';
+import { createTRPCRouter, sectionProcedure } from '@/server/trpc';
 
 const logger = createLogger('store-admin-orders');
 const storeAdminProcedure = sectionProcedure('settings');
@@ -22,7 +23,10 @@ function centsToDecimal(cents: number): string {
 function addressField(address: unknown, ...fields: string[]): string {
   if (!address || typeof address !== 'object') return '';
   const obj = address as Record<string, unknown>;
-  return fields.map((f) => (obj[f] ? String(obj[f]) : '')).filter(Boolean).join(', ');
+  return fields
+    .map((f) => (obj[f] ? String(obj[f]) : ''))
+    .filter(Boolean)
+    .join(', ');
 }
 
 /** Format a Date or null to ISO date string */
@@ -42,15 +46,26 @@ export const storeAdminOrdersRouter = createTRPCRouter({
         from: z.string().max(10).optional(),
         to: z.string().max(10).optional(),
         status: z
-          .enum(['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded'])
+          .enum([
+            'pending',
+            'processing',
+            'shipped',
+            'delivered',
+            'cancelled',
+            'refunded',
+          ])
           .optional(),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const conditions = [];
       if (input.status) conditions.push(eq(storeOrders.status, input.status));
-      if (input.from) conditions.push(gte(storeOrders.createdAt, new Date(input.from)));
-      if (input.to) conditions.push(lte(storeOrders.createdAt, new Date(input.to + 'T23:59:59')));
+      if (input.from)
+        conditions.push(gte(storeOrders.createdAt, new Date(input.from)));
+      if (input.to)
+        conditions.push(
+          lte(storeOrders.createdAt, new Date(input.to + 'T23:59:59'))
+        );
 
       const where = conditions.length > 0 ? and(...conditions) : undefined;
 
@@ -97,7 +112,11 @@ export const storeAdminOrdersRouter = createTRPCRouter({
         'createdAt',
       ];
 
-      const { data, contentType } = serializeExport(rows, headers, input.format);
+      const { data, contentType } = serializeExport(
+        rows,
+        headers,
+        input.format
+      );
 
       const dateStr = new Date().toISOString().slice(0, 10);
       const ext = input.format === 'json' ? 'json' : 'csv';
@@ -115,7 +134,7 @@ export const storeAdminOrdersRouter = createTRPCRouter({
         orderId: z.string().uuid(),
         reason: z.string().max(500).optional(),
         notifyCustomer: z.boolean().default(true),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const [order] = await ctx.db
@@ -128,46 +147,13 @@ export const storeAdminOrdersRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Order not found' });
       }
 
-      const refundableStatuses = ['processing', 'shipped', 'delivered'] as const;
-      if (!refundableStatuses.includes(order.status as (typeof refundableStatuses)[number])) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: `Cannot refund an order with status "${order.status}". Only processing, shipped, or delivered orders can be refunded.`,
-        });
-      }
-
-      // Update order status to refunded
-      await updateOrderStatus(
-        input.orderId,
-        'refunded',
-        ctx.session.user.id,
-        input.reason ?? 'Refund issued by admin',
-      );
-
-      // Attempt payment refund via optional handler
-      const refundHandler = getRefundHandler();
-      let refundId: string | undefined;
-
-      if (refundHandler && order.paymentTransactionId) {
-        try {
-          const result = await refundHandler.refundPayment({
-            orderId: order.id,
-            transactionId: order.paymentTransactionId,
-            amountCents: order.totalCents,
-            currency: order.currency,
-            reason: input.reason,
-          });
-          refundId = result.refundId;
-          logger.info('Payment refund processed', { orderId: order.id, refundId });
-        } catch (err) {
-          logger.error('Payment refund failed', {
-            orderId: order.id,
-            error: err instanceof Error ? err.message : String(err),
-          });
-          // Order is already marked refunded — log but don't throw.
-          // Admin can retry the payment refund manually in the provider dashboard.
-        }
-      }
+      // Claim → gateway → commit; throws before any notification goes out if
+      // the refund was not confirmed (see refund-service.ts for the semantics).
+      const { refundId, amountCents } = await refundWholeOrder({
+        orderId: input.orderId,
+        actor: ctx.session.user.id,
+        reason: input.reason,
+      });
 
       // Notify the customer
       if (input.notifyCustomer && order.placedByUserId) {
@@ -180,17 +166,24 @@ export const storeAdminOrdersRouter = createTRPCRouter({
         });
 
         // Also send email if billing profile has an email
-        const billingProfile = order.billingProfile as Record<string, unknown> | null;
+        const billingProfile = order.billingProfile as Record<
+          string,
+          unknown
+        > | null;
         const email = billingProfile?.invoiceEmail as string | undefined;
         if (email) {
-          deps.enqueueTemplateEmail(email, 'order-refunded', {
-            orderNumber: order.orderNumber,
-            total: centsToDecimal(order.totalCents),
-            currency: order.currency,
-            reason: input.reason ?? '',
-          }).catch((err) => {
-            logger.error('Failed to send refund email', { error: String(err) });
-          });
+          deps
+            .enqueueTemplateEmail(email, 'order-refunded', {
+              orderNumber: order.orderNumber,
+              total: centsToDecimal(amountCents),
+              currency: order.currency,
+              reason: input.reason ?? '',
+            })
+            .catch((err) => {
+              logger.error('Failed to send refund email', {
+                error: String(err),
+              });
+            });
         }
       }
 
@@ -264,12 +257,19 @@ export const storeAdminOrdersRouter = createTRPCRouter({
           (acc, t) => {
             const key = `${t.rate}`;
             if (!acc[key]) {
-              acc[key] = { name: t.name ?? 'Tax', rate: `${t.rate}%`, amountCents: 0 };
+              acc[key] = {
+                name: t.name ?? 'Tax',
+                rate: `${t.rate}%`,
+                amountCents: 0,
+              };
             }
             acc[key]!.amountCents += t.taxCents;
             return acc;
           },
-          {} as Record<string, { name: string; rate: string; amountCents: number }>,
+          {} as Record<
+            string,
+            { name: string; rate: string; amountCents: number }
+          >
         );
 
       const taxDetails = taxDetailsFormatted
@@ -306,7 +306,10 @@ export const storeAdminOrdersRouter = createTRPCRouter({
         subtotal: centsToDecimal(order.subtotalCents),
         shipping: centsToDecimal(order.shippingCents),
         tax: centsToDecimal(order.taxCents),
-        discount: order.discountCents > 0 ? centsToDecimal(order.discountCents) : undefined,
+        discount:
+          order.discountCents > 0
+            ? centsToDecimal(order.discountCents)
+            : undefined,
         total: centsToDecimal(order.totalCents),
         currency: order.currency,
         taxDetails,

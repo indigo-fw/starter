@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import { getProvider } from '@/core-payments/lib/factory';
 import { getPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
 import { isDuplicateKeyError } from '@/core/crud/drizzle-utils';
+import { sendStaffAlert } from '@/core/lib/email/staff-alert';
 import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { saasSubscriptionEvents } from '@/server/db/schema';
@@ -45,13 +46,24 @@ export async function POST(request: Request) {
     );
   }
 
+  // The provider consumes the body; keep the original readable for the alert.
+  const clonedRequest = request.clone();
+
   let event;
   try {
-    event = await provider.handleWebhook(request);
+    event = await provider.handleWebhook(clonedRequest);
   } catch (err) {
     logger.error('NOWPayments webhook verification failed', {
       error: String(err),
     });
+    // A wrong IPN secret fails every event this way; anyone can also POST
+    // junk here, so the alert rides the capped `unverified` path.
+    await sendStaffAlert(
+      'nowpayments-webhook',
+      err,
+      await request.text().catch(() => ''),
+      { kind: 'unverified' }
+    );
     return NextResponse.json({ error: 'Invalid webhook' }, { status: 400 });
   }
 
@@ -110,6 +122,16 @@ export async function POST(request: Request) {
         type: eventMetadata?.type,
         error: String(err),
       });
+      // Verified IPN, handler bug: once NOWPayments stops retrying the
+      // payment is gone for good — a human must see this before that.
+      await sendStaffAlert('nowpayments-webhook', err, providerData, {
+        kind: 'money-event',
+        diagnostics: {
+          idempotencyKey,
+          type: event.type,
+          handler: eventMetadata?.type,
+        },
+      });
       await releaseEventClaim(idempotencyKey);
       return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
@@ -122,6 +144,14 @@ export async function POST(request: Request) {
   } catch (err) {
     logger.error('Error processing NOWPayments webhook', {
       error: String(err),
+    });
+    await sendStaffAlert('nowpayments-webhook', err, providerData, {
+      kind: 'money-event',
+      diagnostics: {
+        idempotencyKey,
+        type: event.type,
+        handler: 'subscription',
+      },
     });
     if (idempotencyKey) await releaseEventClaim(idempotencyKey);
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });

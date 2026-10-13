@@ -2,19 +2,35 @@
  * Wire core-support module dependencies to project-specific implementations.
  * Imported as a side-effect in server.ts (like email-list registration).
  */
-import { setSupportDeps } from '@/core-support/deps';
-import { saasTickets, saasTicketMessages } from '@/core-support/schema/support-tickets';
-import { saasSupportChatSessions } from '@/core-support/schema/support-chat';
-import { user } from '@/server/db/schema/auth';
-import { db } from '@/server/db';
 import { and, eq, inArray, isNull } from 'drizzle-orm';
-import { resolveOrgId } from '@/server/lib/resolve-org';
-import { sendNotification, sendOrgNotification } from '@/server/lib/notifications';
-import { NotificationType, NotificationCategory } from '@/core/types/notifications';
+
+import { siteDefaults } from '@/config/site';
 import { supportChatConfig } from '@/core-support/config';
+import { setSupportDeps } from '@/core-support/deps';
+import { saasSupportChatSessions } from '@/core-support/schema/support-chat';
+import {
+  saasTicketMessages,
+  saasTickets,
+} from '@/core-support/schema/support-tickets';
+import { enqueueTemplateEmail } from '@/core/lib/email';
 import { createLogger } from '@/core/lib/infra/logger';
-import { registerChannelAuthorizer, registerHook } from '@/core/lib/module/module-hooks';
+import {
+  registerChannelAuthorizer,
+  registerHook,
+} from '@/core/lib/module/module-hooks';
 import { Policy } from '@/core/policy';
+import {
+  NotificationCategory,
+  NotificationType,
+} from '@/core/types/notifications';
+import { db } from '@/server/db';
+import { cmsOptions } from '@/server/db/schema';
+import { user } from '@/server/db/schema/auth';
+import {
+  sendNotification,
+  sendOrgNotification,
+} from '@/server/lib/notifications';
+import { resolveOrgId } from '@/server/lib/resolve-org';
 
 const logger = createLogger('support-chat-ai');
 
@@ -26,20 +42,37 @@ registerHook('user.created', async (newUser) => {
     await db
       .update(saasSupportChatSessions)
       .set({ userId: newUser.id })
-      .where(and(
-        eq(saasSupportChatSessions.email, newUser.email),
-        isNull(saasSupportChatSessions.userId),
-      ));
+      .where(
+        and(
+          eq(saasSupportChatSessions.email, newUser.email),
+          isNull(saasSupportChatSessions.userId)
+        )
+      );
   } catch (err) {
-    logger.warn('Failed to link orphaned chat sessions', { email: newUser.email, error: String(err) });
+    logger.warn('Failed to link orphaned chat sessions', {
+      email: newUser.email,
+      error: String(err),
+    });
   }
 });
 
 const DEFAULT_API_URL = 'https://api.openai.com/v1/chat/completions';
 const DEFAULT_MODEL = 'gpt-4o-mini';
 
+/** Staff ticket emails go to the first of these that is set (admin → Settings → Company). */
+const SUPPORT_EMAIL_OPTION_KEYS = [
+  'company.support_email',
+  'company.contact_email',
+];
+
 setSupportDeps({
-  async createTicketFromChat({ userId, orgId, subject, chatSessionId, transcript }) {
+  async createTicketFromChat({
+    userId,
+    orgId,
+    subject,
+    chatSessionId,
+    transcript,
+  }) {
     const ticketId = crypto.randomUUID();
 
     await db.insert(saasTickets).values({
@@ -90,8 +123,12 @@ setSupportDeps({
 
   broadcastEvent(channel, type, payload) {
     import('@/server/lib/ws')
-      .then(({ broadcastToChannel }) => broadcastToChannel(channel, type, payload))
-      .catch(() => {/* WS not available */});
+      .then(({ broadcastToChannel }) =>
+        broadcastToChannel(channel, type, payload)
+      )
+      .catch(() => {
+        /* WS not available */
+      });
   },
 
   async lookupUsers(userIds) {
@@ -135,7 +172,10 @@ setSupportDeps({
 
       if (!response.ok) {
         const errBody = await response.text().catch(() => 'Unknown error');
-        logger.error('Chat AI API error', { status: String(response.status), body: errBody });
+        logger.error('Chat AI API error', {
+          status: String(response.status),
+          body: errBody,
+        });
         return null;
       }
 
@@ -148,6 +188,41 @@ setSupportDeps({
       logger.error('Chat AI call failed', { error: String(err) });
       return null;
     }
+  },
+
+  enqueueTemplateEmail(to, template, data, locale) {
+    return enqueueTemplateEmail(to, template, data, locale);
+  },
+
+  // Site settings first so operators can change the inbox without a deploy;
+  // `SUPPORT_EMAIL` env and `siteDefaults` are the headless fallbacks.
+  async getSupportEmail() {
+    let fromSettings = '';
+    try {
+      const rows = await db
+        .select({ key: cmsOptions.key, value: cmsOptions.value })
+        .from(cmsOptions)
+        .where(inArray(cmsOptions.key, SUPPORT_EMAIL_OPTION_KEYS))
+        .limit(SUPPORT_EMAIL_OPTION_KEYS.length);
+      const opts = new Map(
+        rows.map((r) => [r.key, typeof r.value === 'string' ? r.value : ''])
+      );
+      fromSettings =
+        opts.get('company.support_email') ||
+        opts.get('company.contact_email') ||
+        '';
+    } catch (err) {
+      logger.warn('Could not read support email from settings', {
+        error: String(err),
+      });
+    }
+    return (
+      fromSettings ||
+      process.env.SUPPORT_EMAIL ||
+      siteDefaults.supportEmail ||
+      siteDefaults.contactEmail ||
+      null
+    );
   },
 });
 
@@ -182,7 +257,10 @@ registerChannelAuthorizer(async (userId, channel) => {
     const sessionId = channel.slice(12);
     try {
       const [session] = await db
-        .select({ visitorId: saasSupportChatSessions.visitorId, userId: saasSupportChatSessions.userId })
+        .select({
+          visitorId: saasSupportChatSessions.visitorId,
+          userId: saasSupportChatSessions.userId,
+        })
         .from(saasSupportChatSessions)
         .where(eq(saasSupportChatSessions.id, sessionId))
         .limit(1);

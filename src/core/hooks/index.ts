@@ -7,11 +7,28 @@ export { useBulkSelection } from './useBulkSelection';
 export { useBulkActions } from './useBulkActions';
 export { useColumnVisibility } from './useColumnVisibility';
 export { useKeyboardShortcuts } from './useKeyboardShortcuts';
+export type {
+  Shortcut,
+  KeyboardShortcutsOptions,
+} from './useKeyboardShortcuts';
+export { useCloseOnClickOutside } from './useCloseOnClickOutside';
+export type { CloseOnClickOutsideOptions } from './useCloseOnClickOutside';
+export { useLongPress } from './useLongPress';
+export type { LongPressOptions } from './useLongPress';
+export { useHydrated } from './useHydrated';
 export { useLinkPicker } from './useLinkPicker';
 export type { EditorHandle } from './useLinkPicker';
 export { useLinkValidation } from './useLinkValidation';
 export { useOverlay } from './useOverlay';
 export type { UseOverlayOptions, UseOverlayReturn } from './useOverlay';
 export { useLocale } from './useLocale';
-export { useConfirm, useAlert, usePrompt } from '../components/overlays/ImperativeDialogProvider';
-export type { ConfirmOptions, AlertOptions, PromptOptions } from '../components/overlays/ImperativeDialogProvider';
+export {
+  useConfirm,
+  useAlert,
+  usePrompt,
+} from '../components/overlays/ImperativeDialogProvider';
+export type {
+  ConfirmOptions,
+  AlertOptions,
+  PromptOptions,
+} from '../components/overlays/ImperativeDialogProvider';

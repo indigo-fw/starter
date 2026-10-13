@@ -13,10 +13,12 @@ import {
   fetchOrNotFound,
   generateCopySlug,
   getTranslationSiblings,
+  insertOrConflict,
   paginatedResult,
   parsePagination,
   permanentDelete,
   prepareTranslationCopy,
+  resolveUniqueSlug,
   serializeExport,
   softDelete,
   softRestore,
@@ -30,6 +32,7 @@ import {
 } from '@/core/crud/router-schemas';
 import {
   createTableSlugResolver,
+  createTableTargetResolver,
   registerSlugResolver,
 } from '@/core/crud/slug-redirects';
 import {
@@ -96,6 +99,12 @@ registerSlugResolver(
     id: cmsPortfolio.id,
     slug: cmsPortfolio.slug,
     deletedAt: cmsPortfolio.deletedAt,
+  }),
+  createTableTargetResolver({
+    table: cmsPortfolio,
+    id: cmsPortfolio.id,
+    slug: cmsPortfolio.slug,
+    title: cmsPortfolio.title,
   })
 );
 
@@ -161,7 +170,8 @@ export const portfolioRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string().min(1).max(255),
-        slug: z.string().min(1).max(255),
+        // Empty = derive from `name` (auto-suffixed on collision); a typed slug CONFLICTs.
+        slug: z.string().max(255),
         lang: z.string().min(2).max(2),
         title: z.string().min(1).max(255),
         content: z.string().default(''),
@@ -184,49 +194,66 @@ export const portfolioRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const { tagIds, ...itemInput } = input;
 
-      await ensureSlugUnique(
-        ctx.db,
-        {
-          table: cmsPortfolio,
-          slugCol: cmsPortfolio.slug,
-          slug: itemInput.slug,
-          langCol: cmsPortfolio.lang,
-          lang: itemInput.lang,
-          deletedAtCol: cmsPortfolio.deletedAt,
-        },
-        'Portfolio item'
-      );
+      let slug = itemInput.slug;
+      if (slug) {
+        await ensureSlugUnique(
+          ctx.db,
+          {
+            table: cmsPortfolio,
+            slugCol: cmsPortfolio.slug,
+            slug,
+            langCol: cmsPortfolio.lang,
+            lang: itemInput.lang,
+            deletedAtCol: cmsPortfolio.deletedAt,
+          },
+          'Portfolio item'
+        );
+      } else {
+        slug = await resolveUniqueSlug(
+          ctx.db,
+          {
+            table: cmsPortfolio,
+            slug: cmsPortfolio.slug,
+            lang: cmsPortfolio.lang,
+            deletedAt: cmsPortfolio.deletedAt,
+          },
+          itemInput.name,
+          { lang: itemInput.lang }
+        );
+      }
 
       const previewToken = crypto.randomBytes(32).toString('hex');
 
-      const [item] = await ctx.db
-        .insert(cmsPortfolio)
-        .values({
-          name: itemInput.name,
-          slug: itemInput.slug,
-          lang: itemInput.lang,
-          title: itemInput.title,
-          content: itemInput.content,
-          status: itemInput.status,
-          metaDescription: itemInput.metaDescription ?? null,
-          seoTitle: itemInput.seoTitle ?? null,
-          noindex: itemInput.noindex,
-          publishedAt: itemInput.publishedAt
-            ? new Date(itemInput.publishedAt)
-            : null,
-          previewToken,
-          translationGroup: itemInput.translationGroup ?? null,
-          fallbackToDefault: itemInput.fallbackToDefault ?? null,
-          featuredImage: itemInput.featuredImage ?? null,
-          featuredImageAlt: itemInput.featuredImageAlt ?? null,
-          clientName: itemInput.clientName ?? null,
-          projectUrl: itemInput.projectUrl ?? null,
-          techStack: itemInput.techStack ?? [],
-          completedAt: itemInput.completedAt
-            ? new Date(itemInput.completedAt)
-            : null,
-        })
-        .returning();
+      const [item] = await insertOrConflict(cmsPortfolio, itemInput.lang, () =>
+        ctx.db
+          .insert(cmsPortfolio)
+          .values({
+            name: itemInput.name,
+            slug,
+            lang: itemInput.lang,
+            title: itemInput.title,
+            content: itemInput.content,
+            status: itemInput.status,
+            metaDescription: itemInput.metaDescription ?? null,
+            seoTitle: itemInput.seoTitle ?? null,
+            noindex: itemInput.noindex,
+            publishedAt: itemInput.publishedAt
+              ? new Date(itemInput.publishedAt)
+              : null,
+            previewToken,
+            translationGroup: itemInput.translationGroup ?? null,
+            fallbackToDefault: itemInput.fallbackToDefault ?? null,
+            featuredImage: itemInput.featuredImage ?? null,
+            featuredImageAlt: itemInput.featuredImageAlt ?? null,
+            clientName: itemInput.clientName ?? null,
+            projectUrl: itemInput.projectUrl ?? null,
+            techStack: itemInput.techStack ?? [],
+            completedAt: itemInput.completedAt
+              ? new Date(itemInput.completedAt)
+              : null,
+          })
+          .returning()
+      );
 
       if (tagIds?.length && item) {
         await syncTermRelationships(ctx.db, item.id, 'tag', tagIds);
@@ -366,30 +393,35 @@ export const portfolioRouter = createTRPCRouter({
           input.targetLang
         );
 
-      const [newItem] = await ctx.db
-        .insert(cmsPortfolio)
-        .values({
-          name,
-          slug,
-          lang: input.targetLang,
-          title,
-          content,
-          status: ContentStatus.DRAFT,
-          metaDescription,
-          seoTitle,
-          noindex: source.noindex,
-          publishedAt: null,
-          previewToken,
-          translationGroup,
-          fallbackToDefault: source.fallbackToDefault,
-          featuredImage: source.featuredImage,
-          featuredImageAlt,
-          clientName: source.clientName,
-          projectUrl: source.projectUrl,
-          techStack: source.techStack,
-          completedAt: source.completedAt,
-        })
-        .returning();
+      const [newItem] = await insertOrConflict(
+        cmsPortfolio,
+        input.targetLang,
+        () =>
+          ctx.db
+            .insert(cmsPortfolio)
+            .values({
+              name,
+              slug,
+              lang: input.targetLang,
+              title,
+              content,
+              status: ContentStatus.DRAFT,
+              metaDescription,
+              seoTitle,
+              noindex: source.noindex,
+              publishedAt: null,
+              previewToken,
+              translationGroup,
+              fallbackToDefault: source.fallbackToDefault,
+              featuredImage: source.featuredImage,
+              featuredImageAlt,
+              clientName: source.clientName,
+              projectUrl: source.projectUrl,
+              techStack: source.techStack,
+              completedAt: source.completedAt,
+            })
+            .returning()
+      );
 
       logAudit({
         db: ctx.db,

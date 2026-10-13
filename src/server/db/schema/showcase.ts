@@ -1,4 +1,4 @@
-import { DEFAULT_LOCALE } from '@/lib/constants';
+import { user } from './auth';
 import { isNull } from 'drizzle-orm';
 import {
   boolean,
@@ -12,7 +12,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 
-import { user } from './auth';
+import { DEFAULT_LOCALE } from '@/lib/constants';
 
 // ─── cms_showcase ───────────────────────────────────────────────────────────────
 
@@ -24,7 +24,9 @@ export const cmsShowcase = pgTable(
     slug: varchar('slug', { length: 255 }).notNull(),
     lang: varchar('lang', { length: 2 }).notNull().default(DEFAULT_LOCALE),
     description: text('description').notNull().default(''),
-    cardType: varchar('card_type', { length: 20 }).notNull().default('richtext'),
+    cardType: varchar('card_type', { length: 20 })
+      .notNull()
+      .default('richtext'),
     variant: varchar('variant', { length: 20 }).notNull().default('full'),
     mediaUrl: text('media_url'),
     thumbnailUrl: text('thumbnail_url'),
@@ -47,6 +49,10 @@ export const cmsShowcase = pgTable(
   (t) => [
     uniqueIndex('cms_showcase_slug_lang_uniq')
       .on(t.slug, t.lang)
+      .where(isNull(t.deletedAt)),
+    // One live row per language per translation group (see cms.ts for why).
+    uniqueIndex('cms_showcase_group_lang_uniq')
+      .on(t.translationGroup, t.lang)
       .where(isNull(t.deletedAt)),
     index('cms_showcase_status_idx').on(t.status),
     index('cms_showcase_sort_order_idx').on(t.sortOrder),

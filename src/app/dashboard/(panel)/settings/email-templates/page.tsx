@@ -1,62 +1,114 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+
 import { ArrowLeft, Loader2, RotateCcw, Save } from 'lucide-react';
 
-import { trpc } from '@/lib/trpc/client';
-import { useAdminTranslations } from '@/lib/translations';
-import { toast } from '@/store/toast-store';
-import { cn } from '@/lib/utils';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { useAdminTranslations } from '@/lib/translations';
+import { trpc } from '@/lib/trpc/client';
+import { cn } from '@/lib/utils';
 import type { TemplateName } from '@/server/jobs/email';
+import { toast } from '@/store/toast-store';
 
-const TEMPLATES: { name: TemplateName; label: string; variables: string[] }[] = [
-  {
-    name: 'welcome',
-    label: 'Welcome',
-    variables: ['siteName', 'appUrl'],
-  },
-  {
-    name: 'verify-email',
-    label: 'Email Verification',
-    variables: ['name', 'verifyUrl', 'siteName'],
-  },
-  {
-    name: 'password-reset',
-    label: 'Password Reset',
-    variables: ['name', 'resetUrl', 'siteName'],
-  },
-  {
-    name: 'invitation',
-    label: 'Organization Invitation',
-    variables: ['organizationName', 'inviteUrl', 'siteName'],
-  },
-  {
-    name: 'payment-failed',
-    label: 'Payment Failed',
-    variables: ['billingUrl', 'siteName'],
-  },
-  {
-    name: 'subscription-activated',
-    label: 'Subscription Activated',
-    variables: ['planName', 'dashboardUrl', 'siteName'],
-  },
-  {
-    name: 'subscription-expiring',
-    label: 'Subscription Expiring',
-    variables: ['planName', 'daysLeft', 'billingUrl', 'siteName'],
-  },
-  {
-    name: 'subscription-expired',
-    label: 'Subscription Expired',
-    variables: ['planName', 'billingUrl', 'siteName'],
-  },
-  {
-    name: 'subscription-canceled',
-    label: 'Subscription Canceled',
-    variables: ['planName', 'billingUrl', 'siteName'],
-  },
-];
+const TEMPLATES: { name: TemplateName; label: string; variables: string[] }[] =
+  [
+    {
+      name: 'welcome',
+      label: 'Welcome',
+      variables: ['siteName', 'appUrl'],
+    },
+    {
+      name: 'verify-email',
+      label: 'Email Verification',
+      variables: ['name', 'verifyUrl', 'siteName'],
+    },
+    {
+      name: 'password-reset',
+      label: 'Password Reset',
+      variables: ['name', 'resetUrl', 'siteName'],
+    },
+    {
+      name: 'invitation',
+      label: 'Organization Invitation',
+      variables: ['organizationName', 'inviteUrl', 'siteName'],
+    },
+    {
+      name: 'payment-failed',
+      label: 'Payment Failed',
+      variables: ['billingUrl', 'siteName'],
+    },
+    {
+      name: 'subscription-activated',
+      label: 'Subscription Activated',
+      variables: ['planName', 'dashboardUrl', 'siteName'],
+    },
+    {
+      name: 'subscription-expiring',
+      label: 'Subscription Expiring',
+      variables: ['planName', 'daysLeft', 'billingUrl', 'siteName'],
+    },
+    {
+      name: 'subscription-expired',
+      label: 'Subscription Expired',
+      variables: ['planName', 'billingUrl', 'siteName'],
+    },
+    {
+      name: 'subscription-canceled',
+      label: 'Subscription Canceled',
+      variables: ['planName', 'billingUrl', 'siteName'],
+    },
+    {
+      name: 'staff-alert',
+      label: 'Staff Alert',
+      variables: [
+        'siteName',
+        'source',
+        'errorShort',
+        'kind',
+        'signature',
+        'error',
+        'diagnostics',
+        'payload',
+        'stack',
+      ],
+    },
+    {
+      name: 'gdpr-deletion',
+      label: 'Account Deletion Confirmation',
+      variables: ['siteName', 'userName', 'contactEmail', 'brandColor'],
+    },
+    {
+      name: 'support-ticket-new',
+      label: 'Support: New Ticket (staff)',
+      variables: [
+        'subject',
+        'customerEmail',
+        'priority',
+        'customerName',
+        'brandColor',
+        'preview',
+        'ticketUrl',
+      ],
+    },
+    {
+      name: 'support-ticket-reply',
+      label: 'Support: Customer Reply (staff)',
+      variables: [
+        'subject',
+        'customerEmail',
+        'customerName',
+        'brandColor',
+        'preview',
+        'ticketUrl',
+      ],
+    },
+    {
+      name: 'support-ticket-answer',
+      label: 'Support: Staff Answer (customer)',
+      variables: ['subject', 'name', 'brandColor', 'preview', 'ticketUrl'],
+    },
+  ];
 
 // ---------------------------------------------------------------------------
 // Editor sub-component — keyed on `editing` so it remounts with fresh state
@@ -132,10 +184,7 @@ function TemplateEditor({
       <header className="dash-header">
         <div className="dash-toolbar">
           <div className="flex items-center gap-3">
-            <button
-              onClick={onClose}
-              className="btn btn-secondary"
-            >
+            <button onClick={onClose} className="btn btn-secondary">
               <ArrowLeft className="h-4 w-4" />
             </button>
             <h1 className="text-2xl font-bold text-(--text-primary)">
@@ -167,75 +216,79 @@ function TemplateEditor({
           </div>
         </div>
       </header>
-      <main className="dash-main"><div className="dash-inner email-editor-page">
-      <div className="space-y-4">
-        <div className="card p-4">
-          <label className="block text-sm font-medium text-(--text-secondary)">
-            {__('Subject')}
-          </label>
-          <input
-            type="text"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            className="input mt-1"
-            placeholder={__('Email subject line')}
+      <main className="dash-main">
+        <div className="dash-inner email-editor-page">
+          <div className="space-y-4">
+            <div className="card p-4">
+              <label className="block text-sm font-medium text-(--text-secondary)">
+                {__('Subject')}
+              </label>
+              <input
+                type="text"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                className="input mt-1"
+                placeholder={__('Email subject line')}
+              />
+            </div>
+
+            <div className="card p-4">
+              <label className="block text-sm font-medium text-(--text-secondary)">
+                {__('HTML Body')}
+              </label>
+              <textarea
+                value={html}
+                onChange={(e) => setHtml(e.target.value)}
+                rows={16}
+                className="textarea mt-1 font-mono text-xs"
+                placeholder="<html>...</html>"
+              />
+            </div>
+
+            <div className="card p-4">
+              <p className="text-sm font-medium text-(--text-secondary)">
+                {__('Available Variables')}
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {template.variables.map((v) => (
+                  <code
+                    key={v}
+                    className="rounded bg-(--surface-secondary) px-2 py-0.5 text-xs text-(--text-secondary)"
+                  >
+                    {`{{${v}}}`}
+                  </code>
+                ))}
+              </div>
+            </div>
+
+            {html && (
+              <div className="card p-4">
+                <p className="text-sm font-medium text-(--text-secondary)">
+                  {__('Preview')}
+                </p>
+                <iframe
+                  ref={iframeRef}
+                  title="Email preview"
+                  className="mt-2 h-80 w-full rounded border border-(--border-primary) bg-white"
+                  sandbox=""
+                />
+              </div>
+            )}
+          </div>
+
+          <ConfirmDialog
+            open={!!resetTarget}
+            title={__('Reset to default?')}
+            message={__(
+              'This will remove your customizations and revert to the file-based template.'
+            )}
+            confirmLabel={__('Reset')}
+            variant="danger"
+            onConfirm={handleReset}
+            onCancel={() => setResetTarget(null)}
           />
         </div>
-
-        <div className="card p-4">
-          <label className="block text-sm font-medium text-(--text-secondary)">
-            {__('HTML Body')}
-          </label>
-          <textarea
-            value={html}
-            onChange={(e) => setHtml(e.target.value)}
-            rows={16}
-            className="textarea mt-1 font-mono text-xs"
-            placeholder="<html>...</html>"
-          />
-        </div>
-
-        <div className="card p-4">
-          <p className="text-sm font-medium text-(--text-secondary)">
-            {__('Available Variables')}
-          </p>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {template.variables.map((v) => (
-              <code
-                key={v}
-                className="rounded bg-(--surface-secondary) px-2 py-0.5 text-xs text-(--text-secondary)"
-              >
-                {`{{${v}}}`}
-              </code>
-            ))}
-          </div>
-        </div>
-
-        {html && (
-          <div className="card p-4">
-            <p className="text-sm font-medium text-(--text-secondary)">
-              {__('Preview')}
-            </p>
-            <iframe
-              ref={iframeRef}
-              title="Email preview"
-              className="mt-2 h-80 w-full rounded border border-(--border-primary) bg-white"
-              sandbox=""
-            />
-          </div>
-        )}
-      </div>
-
-      <ConfirmDialog
-        open={!!resetTarget}
-        title={__('Reset to default?')}
-        message={__('This will remove your customizations and revert to the file-based template.')}
-        confirmLabel={__('Reset')}
-        variant="danger"
-        onConfirm={handleReset}
-        onCancel={() => setResetTarget(null)}
-      />
-    </div></main>
+      </main>
     </>
   );
 }
@@ -273,8 +326,7 @@ export default function EmailTemplatesPage() {
 
   if (editing) {
     const override = overrideData[`email.template.en.${editing}`] as
-      | { subject?: string; html?: string }
-      | undefined;
+      { subject?: string; html?: string } | undefined;
     return (
       <TemplateEditor
         key={editing}
@@ -296,43 +348,49 @@ export default function EmailTemplatesPage() {
           </h1>
         </div>
       </header>
-      <main className="dash-main"><div className="dash-inner email-templates-page">
-      <p className="text-sm text-(--text-muted)">
-        {__('Customize email templates. Overrides are stored in the database; unmodified templates use the default file.')}
-      </p>
+      <main className="dash-main">
+        <div className="dash-inner email-templates-page">
+          <p className="text-sm text-(--text-muted)">
+            {__(
+              'Customize email templates. Overrides are stored in the database; unmodified templates use the default file.'
+            )}
+          </p>
 
-      <div className="email-templates-cards mt-4 grid gap-4 sm:grid-cols-2">
-        {TEMPLATES.map((t) => {
-          const hasOverride = getOverrideStatus(t.name);
-          return (
-            <button
-              key={t.name}
-              onClick={() => setEditing(t.name)}
-              className="card p-4 text-left transition-shadow hover:ring-1 hover:ring-brand-400"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-(--text-primary)">
-                  {__(t.label)}
-                </h3>
-                <span
-                  className={cn(
-                    'rounded-full px-2 py-0.5 text-xs font-medium',
-                    hasOverride
-                      ? 'bg-brand-100 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.15)] text-brand-700 dark:text-brand-400'
-                      : 'bg-(--surface-secondary) text-(--text-muted)'
-                  )}
+          <div className="email-templates-cards mt-4 grid gap-4 sm:grid-cols-2">
+            {TEMPLATES.map((t) => {
+              const hasOverride = getOverrideStatus(t.name);
+              return (
+                <button
+                  key={t.name}
+                  onClick={() => setEditing(t.name)}
+                  className="card p-4 text-left transition-shadow hover:ring-1 hover:ring-brand-400"
                 >
-                  {hasOverride ? __('Custom') : __('Default')}
-                </span>
-              </div>
-              <p className="mt-1 text-xs text-(--text-muted)">
-                {__('Variables: {vars}', { vars: t.variables.map((v) => `{{${v}}}`).join(', ') })}
-              </p>
-            </button>
-          );
-        })}
-      </div>
-    </div></main>
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold text-(--text-primary)">
+                      {__(t.label)}
+                    </h3>
+                    <span
+                      className={cn(
+                        'rounded-full px-2 py-0.5 text-xs font-medium',
+                        hasOverride
+                          ? 'bg-brand-100 text-brand-700 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.15)] dark:text-brand-400'
+                          : 'bg-(--surface-secondary) text-(--text-muted)'
+                      )}
+                    >
+                      {hasOverride ? __('Custom') : __('Default')}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-(--text-muted)">
+                    {__('Variables: {vars}', {
+                      vars: t.variables.map((v) => `{{${v}}}`).join(', '),
+                    })}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </main>
     </>
   );
 }

@@ -20,8 +20,10 @@ import {
   fetchOrNotFound,
   generateCopySlug,
   getTranslationSiblings,
+  insertOrConflict,
   permanentDelete,
   prepareTranslationCopy,
+  resolveUniqueSlug,
   serializeExport,
   softDelete,
   softRestore,
@@ -30,6 +32,7 @@ import { updateWithRevision } from '@/core/crud/cms-helpers';
 import { adminListInput, exportBulkInput } from '@/core/crud/router-schemas';
 import {
   createTableSlugResolver,
+  createTableTargetResolver,
   registerSlugResolver,
 } from '@/core/crud/slug-redirects';
 import {
@@ -41,6 +44,7 @@ import { broadcastCmsLinkInvalidation } from '@/core/lib/content/cms-link';
 import { getMdxManagedSlugs } from '@/core/lib/content/loader';
 import { getContentVarDefs } from '@/core/lib/content/vars';
 import { logAudit } from '@/core/lib/infra/audit';
+import { invalidateCmsOverrideCache } from '@/core/lib/seo/cms-override';
 import { dispatchWebhook } from '@/core/lib/webhooks/webhooks';
 import { ContentStatus, PostType } from '@/core/types/cms';
 import { DEFAULT_LOCALE } from '@/lib/constants';
@@ -56,8 +60,16 @@ const resolvePostSlug = createTableSlugResolver({
   slug: cmsPosts.slug,
   deletedAt: cmsPosts.deletedAt,
 });
+const resolvePostTarget = createTableTargetResolver({
+  table: cmsPosts,
+  id: cmsPosts.id,
+  slug: cmsPosts.slug,
+  title: cmsPosts.title,
+});
 for (const ct of CONTENT_TYPES) {
-  if (ct.postType != null) registerSlugResolver(ct.id, resolvePostSlug);
+  if (ct.postType != null) {
+    registerSlugResolver(ct.id, resolvePostSlug, resolvePostTarget);
+  }
 }
 
 // Same scope as the create/update slug checks: slug unique per lang + post type.
@@ -205,47 +217,66 @@ export const cmsPostsRouter = createTRPCRouter({
       const { categoryIds, tagIds, ...postInput } = input;
       const contentType = getContentTypeByPostType(postInput.type);
 
-      await ensureSlugUnique(
-        ctx.db,
-        {
-          table: cmsPosts,
-          slugCol: cmsPosts.slug,
-          slug: input.slug,
-          langCol: cmsPosts.lang,
-          lang: input.lang,
-          deletedAtCol: cmsPosts.deletedAt,
-          extraConditions: [eq(cmsPosts.type, input.type)],
-        },
-        contentType.label
-      );
+      // An empty slug means "derive one from the title", and only a derived
+      // slug may be renamed on collision — one the editor typed must CONFLICT.
+      let slug = postInput.slug;
+      if (slug) {
+        await ensureSlugUnique(
+          ctx.db,
+          {
+            table: cmsPosts,
+            slugCol: cmsPosts.slug,
+            slug,
+            langCol: cmsPosts.lang,
+            lang: input.lang,
+            deletedAtCol: cmsPosts.deletedAt,
+            extraConditions: [eq(cmsPosts.type, input.type)],
+          },
+          contentType.label
+        );
+      } else {
+        slug = await resolveUniqueSlug(
+          ctx.db,
+          {
+            table: cmsPosts,
+            slug: cmsPosts.slug,
+            lang: cmsPosts.lang,
+            deletedAt: cmsPosts.deletedAt,
+          },
+          postInput.title,
+          { lang: input.lang, extraConditions: [eq(cmsPosts.type, input.type)] }
+        );
+      }
 
       const previewToken = crypto.randomBytes(32).toString('hex');
 
-      const [post] = await ctx.db
-        .insert(cmsPosts)
-        .values({
-          type: postInput.type,
-          title: postInput.title,
-          slug: postInput.slug,
-          lang: postInput.lang,
-          content: postInput.content,
-          status: postInput.status,
-          metaDescription: postInput.metaDescription ?? null,
-          seoTitle: postInput.seoTitle ?? null,
-          featuredImage: postInput.featuredImage ?? null,
-          featuredImageAlt: postInput.featuredImageAlt ?? null,
-          jsonLd: postInput.jsonLd ?? null,
-          noindex: postInput.noindex,
-          publishedAt: postInput.publishedAt
-            ? new Date(postInput.publishedAt)
-            : null,
-          previewToken,
-          translationGroup: postInput.translationGroup ?? null,
-          fallbackToDefault: postInput.fallbackToDefault ?? null,
-          parentId: postInput.parentId ?? null,
-          authorId: ctx.session.user.id,
-        })
-        .returning();
+      const [post] = await insertOrConflict(cmsPosts, postInput.lang, () =>
+        ctx.db
+          .insert(cmsPosts)
+          .values({
+            type: postInput.type,
+            title: postInput.title,
+            slug,
+            lang: postInput.lang,
+            content: postInput.content,
+            status: postInput.status,
+            metaDescription: postInput.metaDescription ?? null,
+            seoTitle: postInput.seoTitle ?? null,
+            featuredImage: postInput.featuredImage ?? null,
+            featuredImageAlt: postInput.featuredImageAlt ?? null,
+            jsonLd: postInput.jsonLd ?? null,
+            noindex: postInput.noindex,
+            publishedAt: postInput.publishedAt
+              ? new Date(postInput.publishedAt)
+              : null,
+            previewToken,
+            translationGroup: postInput.translationGroup ?? null,
+            fallbackToDefault: postInput.fallbackToDefault ?? null,
+            parentId: postInput.parentId ?? null,
+            authorId: ctx.session.user.id,
+          })
+          .returning()
+      );
 
       if (categoryIds?.length && post) {
         await syncTermRelationships(ctx.db, post.id, 'category', categoryIds);
@@ -268,6 +299,7 @@ export const cmsPostsRouter = createTRPCRouter({
         type: post!.type,
       });
       broadcastCmsLinkInvalidation();
+      invalidateCmsOverrideCache();
 
       if (post!.status === ContentStatus.PUBLISHED) {
         notifyContentPublished(
@@ -385,6 +417,7 @@ export const cmsPostsRouter = createTRPCRouter({
         title: updates.title ?? existing.title,
       });
       broadcastCmsLinkInvalidation();
+      invalidateCmsOverrideCache();
 
       if (
         updates.status === ContentStatus.PUBLISHED &&
@@ -453,6 +486,7 @@ export const cmsPostsRouter = createTRPCRouter({
       });
 
       broadcastCmsLinkInvalidation();
+      invalidateCmsOverrideCache();
 
       if (
         input.status === ContentStatus.PUBLISHED &&
@@ -477,6 +511,7 @@ export const cmsPostsRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       await softDelete(ctx.db, crudCols, input.id);
       broadcastCmsLinkInvalidation();
+      invalidateCmsOverrideCache();
       return { success: true };
     }),
 
@@ -486,6 +521,7 @@ export const cmsPostsRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       await softRestore(ctx.db, crudCols, input.id, restoreSlugCheck);
       broadcastCmsLinkInvalidation();
+      invalidateCmsOverrideCache();
       return { success: true };
     }),
 
@@ -514,6 +550,7 @@ export const cmsPostsRouter = createTRPCRouter({
         }
       );
       broadcastCmsLinkInvalidation();
+      invalidateCmsOverrideCache();
       return { success: true };
     }),
 
@@ -717,29 +754,31 @@ export const cmsPostsRouter = createTRPCRouter({
           input.targetLang
         );
 
-      const [newPost] = await ctx.db
-        .insert(cmsPosts)
-        .values({
-          type: source.type,
-          title,
-          slug,
-          lang: input.targetLang,
-          content,
-          status: ContentStatus.DRAFT,
-          metaDescription,
-          seoTitle,
-          featuredImage: source.featuredImage,
-          featuredImageAlt,
-          jsonLd: source.jsonLd,
-          noindex: source.noindex,
-          publishedAt: null,
-          previewToken,
-          translationGroup,
-          fallbackToDefault: source.fallbackToDefault,
-          parentId: source.parentId,
-          authorId: ctx.session.user.id,
-        })
-        .returning();
+      const [newPost] = await insertOrConflict(cmsPosts, input.targetLang, () =>
+        ctx.db
+          .insert(cmsPosts)
+          .values({
+            type: source.type,
+            title,
+            slug,
+            lang: input.targetLang,
+            content,
+            status: ContentStatus.DRAFT,
+            metaDescription,
+            seoTitle,
+            featuredImage: source.featuredImage,
+            featuredImageAlt,
+            jsonLd: source.jsonLd,
+            noindex: source.noindex,
+            publishedAt: null,
+            previewToken,
+            translationGroup,
+            fallbackToDefault: source.fallbackToDefault,
+            parentId: source.parentId,
+            authorId: ctx.session.user.id,
+          })
+          .returning()
+      );
 
       logAudit({
         db: ctx.db,

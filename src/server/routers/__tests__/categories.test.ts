@@ -84,17 +84,20 @@ vi.mock('@/core/crud/admin-crud', () => ({
   fetchOrNotFound: vi.fn(),
   updateContentStatus: vi.fn().mockResolvedValue(undefined),
   generateCopySlug: vi.fn().mockResolvedValue('slug-copy'),
+  resolveUniqueSlug: vi.fn().mockResolvedValue('derived-slug'),
+  // Pass-through: the CONFLICT mapping itself is covered in core's admin-crud tests
+  insertOrConflict: vi.fn(
+    (_table: unknown, _lang: string, insert: () => unknown) => insert()
+  ),
   getTranslationSiblings: vi.fn().mockResolvedValue([]),
   serializeExport: vi
     .fn()
     .mockReturnValue({ data: '[]', contentType: 'application/json' }),
-  prepareTranslationCopy: vi
-    .fn()
-    .mockResolvedValue({
-      slug: 'slug-en',
-      translationGroup: 'group-1',
-      previewToken: 'tok',
-    }),
+  prepareTranslationCopy: vi.fn().mockResolvedValue({
+    slug: 'slug-en',
+    translationGroup: 'group-1',
+    previewToken: 'tok',
+  }),
   parsePagination: vi
     .fn()
     .mockImplementation((input: { page?: number; pageSize?: number }) => {

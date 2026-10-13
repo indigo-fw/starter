@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import Link from 'next/link';
 import { Copy, Languages, Loader2, Plus } from 'lucide-react';
+import Link from 'next/link';
 
+import { useCloseOnClickOutside } from '@/core/hooks/useCloseOnClickOutside';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
 import { toast } from '@/core/store/toast-store';
 import { cn } from '@/lib/utils';
@@ -27,35 +28,39 @@ interface TranslationBarProps {
 }
 
 export function TranslationBar({
-  currentLang, translations, adminSlug: _adminSlug, translationAvailable, onDuplicate,
-  locales, localeLabels, editUrl,
+  currentLang,
+  translations,
+  adminSlug: _adminSlug,
+  translationAvailable,
+  onDuplicate,
+  locales,
+  localeLabels,
+  editUrl,
 }: TranslationBarProps) {
   const __ = useAdminTranslations();
   const [duplicating, setDuplicating] = useState<string | null>(null);
   const [dropdownLang, setDropdownLang] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  useCloseOnClickOutside(dropdownRef, () => setDropdownLang(null), {
+    enabled: dropdownLang !== null,
+  });
+
   useEffect(() => {
     if (!dropdownLang) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setDropdownLang(null);
-      }
-    };
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setDropdownLang(null);
     };
-    document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [dropdownLang]);
 
   if (locales.length <= 1) return null;
 
-  const existingLangs = new Set([currentLang, ...translations.map((t) => t.lang)]);
+  const existingLangs = new Set([
+    currentLang,
+    ...translations.map((t) => t.lang),
+  ]);
   const missingLangs = locales.filter((l) => !existingLangs.has(l));
 
   const handleDuplicate = async (lang: string, autoTranslate: boolean) => {
@@ -65,7 +70,10 @@ export function TranslationBar({
       await onDuplicate(lang, autoTranslate);
     } catch (error) {
       setDuplicating(null);
-      const msg = error instanceof Error ? error.message : __('Failed to create translation');
+      const msg =
+        error instanceof Error
+          ? error.message
+          : __('Failed to create translation');
       toast.error(msg);
     }
   };
@@ -91,7 +99,11 @@ export function TranslationBar({
         ))}
 
         {missingLangs.map((lang) => (
-          <div key={lang} className="relative" ref={dropdownLang === lang ? dropdownRef : undefined}>
+          <div
+            key={lang}
+            className="relative"
+            ref={dropdownLang === lang ? dropdownRef : undefined}
+          >
             <button
               type="button"
               disabled={duplicating !== null}
@@ -120,7 +132,10 @@ export function TranslationBar({
             </button>
 
             {dropdownLang === lang && (
-              <div role="menu" className="absolute left-0 top-full z-10 mt-1 min-w-40 rounded-md border border-(--border-primary) bg-(--bg-primary) py-1 shadow-lg">
+              <div
+                role="menu"
+                className="absolute top-full left-0 z-10 mt-1 min-w-40 rounded-md border border-(--border-primary) bg-(--bg-primary) py-1 shadow-lg"
+              >
                 <button
                   type="button"
                   role="menuitem"

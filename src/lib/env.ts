@@ -29,6 +29,21 @@ const serverEnvSchema = z.object({
   SMTP_USER: z.string().optional(),
   SMTP_PASS: z.string().optional(),
   FROM_EMAIL: z.email().optional(),
+  // Comma-separated staff inboxes for operational alerts (webhook handler
+  // failures, signature errors). Unset = alerts are logged, never mailed.
+  STAFF_ALERT_EMAILS: z
+    .string()
+    .optional()
+    .refine(
+      (v) =>
+        !v ||
+        v
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .every((s) => z.email().safeParse(s).success),
+      'STAFF_ALERT_EMAILS must be a comma-separated list of email addresses'
+    ),
 
   // Redis
   REDIS_URL: z.url().optional(),
@@ -98,6 +113,22 @@ const serverEnvSchema = z.object({
 
   // WebSocket
   WS_ENABLED: boolFromEnv.default(true),
+  WS_MAX_PAYLOAD_BYTES: z.coerce.number().int().positive().default(1_048_576),
+  WS_PERMESSAGE_DEFLATE: boolFromEnv.default(false),
+
+  // Ops knobs — read raw from process.env at their call sites (logger and
+  // route handlers also run where this server-only module can't load).
+  // Declared here so typos and bad values fail boot instead of silently
+  // falling back to defaults.
+  LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).optional(),
+  MEMORY_MAX_RSS_MB: z.coerce.number().int().min(0).optional(),
+  BULLMQ_PREFIX: z.string().default('bull'),
+  TRUSTED_PROXY_HOPS: z.coerce.number().int().min(1).default(1),
+  AUDIT_LOG_RETENTION_DAYS: z.coerce.number().int().min(0).optional(),
+
+  // Missing-media fallback (src/app/api/uploads/[...path]/route.ts)
+  MEDIA_FALLBACK_URL: z.url().optional(),
+  MEDIA_FALLBACK_STORE: boolFromEnv.default(false),
 
   // Web Push (VAPID) — push notifications disabled without keys
   VAPID_PUBLIC_KEY: z.string().optional(),
@@ -125,7 +156,61 @@ const serverEnvSchema = z.object({
   EMAIL_DRY_RUN: boolFromEnv.optional(),
 });
 
-const envSchema = serverEnvSchema.merge(clientEnvSchema);
+const S3_REQUIRED = [
+  'S3_ENDPOINT',
+  'S3_REGION',
+  'S3_BUCKET',
+  'S3_ACCESS_KEY_ID',
+  'S3_SECRET_ACCESS_KEY',
+] as const;
+
+const EMAIL_LIST_REQUIRED = {
+  mailchimp: ['MAILCHIMP_API_KEY', 'MAILCHIMP_LIST_ID'],
+  brevo: ['BREVO_API_KEY', 'BREVO_LIST_ID'],
+} as const;
+
+/**
+ * Cross-field rules. Each selector's dependent keys are optional in the flat
+ * schema, so without these a misconfigured deploy boots fine and only fails at
+ * first use (S3 upload, first newsletter sync, first queued job) — in
+ * production, hours after the deploy looked green. Exported for tests.
+ */
+export const envSchema = serverEnvSchema
+  .merge(clientEnvSchema)
+  .superRefine((data, ctx) => {
+    const missing = (key: string, reason: string) =>
+      ctx.addIssue({
+        code: 'custom',
+        path: [key],
+        message: `${key} must be set when ${reason}`,
+      });
+
+    if (data.STORAGE_BACKEND === 's3') {
+      for (const key of S3_REQUIRED) {
+        if (!data[key]) missing(key, 'STORAGE_BACKEND=s3');
+      }
+    }
+
+    if (data.MEDIA_FALLBACK_STORE && !data.MEDIA_FALLBACK_URL) {
+      missing(
+        'MEDIA_FALLBACK_URL',
+        'MEDIA_FALLBACK_STORE=true (nothing to mirror from otherwise)'
+      );
+    }
+
+    if (data.EMAIL_LIST_PROVIDER) {
+      for (const key of EMAIL_LIST_REQUIRED[data.EMAIL_LIST_PROVIDER]) {
+        if (!data[key])
+          missing(key, `EMAIL_LIST_PROVIDER=${data.EMAIL_LIST_PROVIDER}`);
+      }
+    }
+
+    // BullMQ is the worker's only job; without Redis it would boot, answer
+    // health probes, and process nothing.
+    if (data.SERVER_ROLE === 'worker' && !data.REDIS_URL) {
+      missing('REDIS_URL', 'SERVER_ROLE=worker (BullMQ needs Redis)');
+    }
+  });
 
 // Validate and export
 const parsedEnv = envSchema.safeParse(process.env);

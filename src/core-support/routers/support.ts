@@ -1,7 +1,22 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, count, desc, eq } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  gt,
+  inArray,
+  notInArray,
+} from 'drizzle-orm';
 import { z } from 'zod';
 
+import {
+  type TicketEmailCustomer,
+  notifyCustomerStaffReply,
+  notifyStaffCustomerReply,
+  notifyStaffNewTicket,
+} from '@/core-support/lib/email-notifications';
 import {
   saasTicketMessages,
   saasTickets,
@@ -10,20 +25,175 @@ import { paginatedResult, parsePagination } from '@/core/crud/admin-crud';
 import { MAX_PAGE } from '@/core/crud/router-schemas';
 import { logAudit } from '@/core/lib/infra/audit';
 import {
+  type RateLimitConfig,
+  checkRateLimit,
+} from '@/core/lib/infra/rate-limit';
+import { getRequestRedis } from '@/core/lib/infra/redis';
+import { Policy, Role } from '@/core/policy';
+import {
   NotificationCategory,
   NotificationType,
 } from '@/core/types/notifications';
 import { user } from '@/server/db/schema/auth';
 import {
+  sendBulkNotification,
   sendNotification,
-  sendOrgNotification,
 } from '@/server/lib/notifications';
 import { resolveOrgId } from '@/server/lib/resolve-org';
 import {
+  type Context,
+  appealProcedure,
   createTRPCRouter,
   protectedProcedure,
   sectionProcedure,
 } from '@/server/trpc';
+
+// ─── Abuse caps ─────────────────────────────────────────────────────────────
+
+/** Per-user ticket creation cap. Fail-open when Redis is down (see `checkRateLimit`). */
+const CREATE_RATE_LIMIT: RateLimitConfig = {
+  windowMs: 60 * 60_000,
+  maxRequests: 10,
+};
+
+/**
+ * Customer messages allowed on a ticket before staff answers. Stops a single
+ * ticket from becoming an unbounded stream of pings; closing the ticket is the
+ * hard stop above this.
+ */
+export const UNANSWERED_REPLY_LIMIT = 8;
+
+type DbClient = Context['db'];
+
+/** Roles whose holders see the support admin section — the "staff" audience. */
+const STAFF_ROLES = Object.values(Role).filter((role) =>
+  Policy.for(role).can('section.settings')
+);
+
+async function enforceCreateRateLimit(userId: string): Promise<void> {
+  const result = await checkRateLimit(
+    getRequestRedis(),
+    `rl:support:create:${userId}`,
+    CREATE_RATE_LIMIT
+  );
+  if (!result.allowed) {
+    throw new TRPCError({
+      code: 'TOO_MANY_REQUESTS',
+      message: `You have opened too many tickets recently. Try again in ${Math.ceil(result.retryAfterMs / 1000)}s`,
+    });
+  }
+}
+
+/**
+ * A banned user may contest the ban, but only in ONE open ticket at a time.
+ * `appealProcedure` lets them through the auth gate; without this cap the
+ * 10/hour limit would be far too loose for someone with nothing left to lose.
+ */
+async function enforceBannedSingleTicket(
+  db: DbClient,
+  userId: string
+): Promise<void> {
+  const [open] = await db
+    .select({ count: count() })
+    .from(saasTickets)
+    .where(
+      and(
+        eq(saasTickets.userId, userId),
+        notInArray(saasTickets.status, ['resolved', 'closed'])
+      )
+    )
+    .limit(1);
+  if ((open?.count ?? 0) > 0) {
+    throw new TRPCError({
+      code: 'TOO_MANY_REQUESTS',
+      message:
+        'You already have an open ticket. Please continue the conversation there.',
+    });
+  }
+}
+
+/** Counts customer messages since the last staff reply (all of them if staff never replied). */
+async function enforceUnansweredReplyLimit(
+  db: DbClient,
+  ticketId: string
+): Promise<void> {
+  const [lastStaff] = await db
+    .select({ createdAt: saasTicketMessages.createdAt })
+    .from(saasTicketMessages)
+    .where(
+      and(
+        eq(saasTicketMessages.ticketId, ticketId),
+        eq(saasTicketMessages.isStaff, true)
+      )
+    )
+    .orderBy(desc(saasTicketMessages.createdAt))
+    .limit(1);
+
+  const [unanswered] = await db
+    .select({ count: count() })
+    .from(saasTicketMessages)
+    .where(
+      and(
+        eq(saasTicketMessages.ticketId, ticketId),
+        eq(saasTicketMessages.isStaff, false),
+        ...(lastStaff
+          ? [gt(saasTicketMessages.createdAt, lastStaff.createdAt)]
+          : [])
+      )
+    )
+    .limit(1);
+
+  if ((unanswered?.count ?? 0) >= UNANSWERED_REPLY_LIMIT) {
+    throw new TRPCError({
+      code: 'TOO_MANY_REQUESTS',
+      message:
+        'You have reached the reply limit for this ticket. Please wait for our team to respond.',
+    });
+  }
+}
+
+// ─── Notification helpers ───────────────────────────────────────────────────
+
+async function loadCustomer(
+  db: DbClient,
+  userId: string
+): Promise<TicketEmailCustomer | null> {
+  const [row] = await db
+    .select({ name: user.name, email: user.email, lang: user.lang })
+    .from(user)
+    .where(eq(user.id, userId))
+    .limit(1);
+  return row ?? null;
+}
+
+/**
+ * In-app notification for every staff member. Staff, not the customer's org:
+ * org admins are usually the customer themselves, so an org broadcast told
+ * support nothing and the person who opened the ticket everything.
+ */
+async function notifyStaffInApp(
+  db: DbClient,
+  params: { title: string; body: string; actionUrl: string }
+): Promise<void> {
+  const staff = await db
+    .select({ id: user.id })
+    .from(user)
+    .where(inArray(user.role, STAFF_ROLES))
+    .limit(100);
+  sendBulkNotification(
+    staff.map((s) => s.id),
+    {
+      ...params,
+      type: NotificationType.INFO,
+      category: NotificationCategory.SYSTEM,
+    }
+  );
+}
+
+/** Better Auth's admin plugin adds `banned`; the tRPC session type does not surface it. */
+function isBanned(sessionUser: object): boolean {
+  return (sessionUser as { banned?: boolean | null }).banned === true;
+}
 
 /** Fire-and-forget WS broadcast (dynamic import to avoid static ws dependency) */
 function broadcastTicketEvent(
@@ -44,10 +214,15 @@ function broadcastTicketEvent(
 const supportAdminProcedure = sectionProcedure('settings');
 
 export const supportRouter = createTRPCRouter({
-  // ─── Customer-facing (protectedProcedure, org-scoped) ─────────────────────
+  // ─── Customer-facing (org-scoped) ──────────────────────────────────────────
+  //
+  // Own-ticket procedures use `appealProcedure` so a BANNED user can still
+  // contest the ban through support — the only channel left to them. The
+  // abuse caps above (one open ticket, UNANSWERED_REPLY_LIMIT, 10/hour) are
+  // what make that safe; every query still scopes by `ctx.session.user.id`.
 
   /** List user's tickets in active org */
-  list: protectedProcedure
+  list: appealProcedure
     .input(
       z.object({
         status: z
@@ -101,7 +276,7 @@ export const supportRouter = createTRPCRouter({
     }),
 
   /** Get single ticket + messages (must own or be staff) */
-  get: protectedProcedure
+  get: appealProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       const [ticket] = await ctx.db
@@ -117,7 +292,6 @@ export const supportRouter = createTRPCRouter({
       // Must own the ticket or be staff
       const isOwner = ticket.userId === ctx.session.user.id;
       if (!isOwner) {
-        const { Policy } = await import('@/core/policy');
         if (!Policy.for(ctx.session.user.role).can('section.settings')) {
           throw new TRPCError({ code: 'FORBIDDEN', message: 'Access denied' });
         }
@@ -141,7 +315,7 @@ export const supportRouter = createTRPCRouter({
     }),
 
   /** Create a new ticket */
-  create: protectedProcedure
+  create: appealProcedure
     .input(
       z.object({
         subject: z.string().min(1).max(255),
@@ -150,11 +324,14 @@ export const supportRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const orgId = await resolveOrgId(
-        ctx.activeOrganizationId,
-        ctx.session.user.id
-      );
       const userId = ctx.session.user.id;
+
+      await enforceCreateRateLimit(userId);
+      if (isBanned(ctx.session.user)) {
+        await enforceBannedSingleTicket(ctx.db, userId);
+      }
+
+      const orgId = await resolveOrgId(ctx.activeOrganizationId, userId);
 
       const ticketId = crypto.randomUUID();
       await ctx.db.insert(saasTickets).values({
@@ -183,20 +360,28 @@ export const supportRouter = createTRPCRouter({
         metadata: { subject: input.subject, priority: input.priority },
       });
 
-      // Notify org admins
-      sendOrgNotification(orgId, {
+      await notifyStaffInApp(ctx.db, {
         title: 'New support ticket',
         body: `New ticket: ${input.subject}`,
-        type: NotificationType.INFO,
-        category: NotificationCategory.SYSTEM,
         actionUrl: `/dashboard/settings/support/${ticketId}`,
       });
+
+      const customer = await loadCustomer(ctx.db, userId);
+      if (customer) {
+        void notifyStaffNewTicket({
+          ticketId,
+          subject: input.subject,
+          priority: input.priority,
+          body: input.body,
+          customer,
+        });
+      }
 
       return { id: ticketId };
     }),
 
   /** Reply to a ticket (customer) */
-  reply: protectedProcedure
+  reply: appealProcedure
     .input(
       z.object({
         ticketId: z.string().uuid(),
@@ -226,6 +411,8 @@ export const supportRouter = createTRPCRouter({
         });
       }
 
+      await enforceUnansweredReplyLimit(ctx.db, input.ticketId);
+
       const messageId = crypto.randomUUID();
       const now = new Date();
 
@@ -253,15 +440,31 @@ export const supportRouter = createTRPCRouter({
         createdAt: now.toISOString(),
       });
 
-      // Notify assigned admin if any
+      // Assigned staff get a targeted ping; an unassigned ticket pings all staff
+      // so a reply never lands on nobody.
+      const inApp = {
+        title: 'Customer reply on ticket',
+        body: `Reply on: ${ticket.subject}`,
+        actionUrl: `/dashboard/settings/support/${input.ticketId}`,
+      };
       if (ticket.assignedTo) {
         sendNotification({
           userId: ticket.assignedTo,
-          title: 'Customer reply on ticket',
-          body: `Reply on: ${ticket.subject}`,
+          ...inApp,
           type: NotificationType.INFO,
           category: NotificationCategory.SYSTEM,
-          actionUrl: `/dashboard/settings/support/${input.ticketId}`,
+        });
+      } else {
+        await notifyStaffInApp(ctx.db, inApp);
+      }
+
+      const customer = await loadCustomer(ctx.db, ctx.session.user.id);
+      if (customer) {
+        void notifyStaffCustomerReply({
+          ticketId: input.ticketId,
+          subject: ticket.subject,
+          body: input.body,
+          customer,
         });
       }
 
@@ -313,7 +516,7 @@ export const supportRouter = createTRPCRouter({
     }),
 
   /** Close own ticket */
-  close: protectedProcedure
+  close: appealProcedure
     .input(z.object({ ticketId: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const [ticket] = await ctx.db
@@ -483,6 +686,17 @@ export const supportRouter = createTRPCRouter({
         category: NotificationCategory.SYSTEM,
         actionUrl: `/account/support/${input.ticketId}`,
       });
+
+      // Email too: the in-app notification only reaches a customer who is signed in.
+      const customer = await loadCustomer(ctx.db, ticket.userId);
+      if (customer) {
+        void notifyCustomerStaffReply({
+          ticketId: input.ticketId,
+          subject: ticket.subject,
+          body: input.body,
+          customer,
+        });
+      }
 
       return { success: true };
     }),

@@ -1,4 +1,8 @@
-import { getAffectedRows, wordSplitLike } from './drizzle-utils';
+import {
+  getAffectedRows,
+  isDuplicateKeyError,
+  wordSplitLike,
+} from './drizzle-utils';
 import { TRPCError } from '@trpc/server';
 import crypto from 'crypto';
 import {
@@ -9,6 +13,7 @@ import {
   desc,
   count as drizzleCount,
   eq,
+  getTableName,
   isNotNull,
   isNull,
   ne,
@@ -20,6 +25,7 @@ import type {
   PgTableWithColumns,
 } from 'drizzle-orm/pg-core';
 
+import { slugify } from '@/core/lib/content/slug';
 import { ContentStatus } from '@/core/types/cms';
 import type { DbClient, DrizzleDB, DrizzleDBOrTx } from '@/server/db';
 import { cmsContentRevisions, cmsSlugRedirects } from '@/server/db/schema';
@@ -239,47 +245,116 @@ export async function buildStatusCounts(
 // Slug uniqueness check
 // ---------------------------------------------------------------------------
 
-export async function ensureSlugUnique(
+interface SlugScope {
+  table: PgTable;
+  slugCol: PgColumn;
+  idCol?: PgColumn;
+  excludeId?: string;
+  langCol?: PgColumn;
+  lang?: string;
+  deletedAtCol?: PgColumn;
+  extraConditions?: SQL[];
+}
+
+/** One live row already holds `slug` inside the scope? Shared by the throwing and the renaming variants. */
+async function isSlugTaken(
   db: DbClient,
-  config: {
-    table: PgTable;
-    slugCol: PgColumn;
-    slug: string;
-    idCol?: PgColumn;
-    excludeId?: string;
-    langCol?: PgColumn;
-    lang?: string;
-    deletedAtCol?: PgColumn;
-    extraConditions?: SQL[];
-  },
-  entityName: string
-): Promise<void> {
-  const conditions: (SQL | undefined)[] = [eq(config.slugCol, config.slug)];
-  if (config.langCol && config.lang) {
-    conditions.push(eq(config.langCol, config.lang));
+  slug: string,
+  scope: SlugScope
+): Promise<boolean> {
+  const conditions: (SQL | undefined)[] = [eq(scope.slugCol, slug)];
+  if (scope.langCol && scope.lang) {
+    conditions.push(eq(scope.langCol, scope.lang));
   }
-  if (config.idCol && config.excludeId != null) {
-    conditions.push(ne(config.idCol, config.excludeId));
+  if (scope.idCol && scope.excludeId != null) {
+    conditions.push(ne(scope.idCol, scope.excludeId));
   }
-  if (config.deletedAtCol) {
-    conditions.push(isNull(config.deletedAtCol));
+  if (scope.deletedAtCol) {
+    conditions.push(isNull(scope.deletedAtCol));
   }
-  if (config.extraConditions) {
-    conditions.push(...config.extraConditions);
+  if (scope.extraConditions) {
+    conditions.push(...scope.extraConditions);
   }
 
   const [existing] = await db
-    .select({ id: config.slugCol })
-    .from(config.table)
+    .select({ id: scope.slugCol })
+    .from(scope.table)
     .where(and(...conditions))
     .limit(1);
 
-  if (existing) {
+  return Boolean(existing);
+}
+
+/**
+ * Throws CONFLICT when `config.slug` is already live in its scope. Use this for
+ * slugs the user typed — silently renaming what they asked for would be worse
+ * than telling them. Auto-generated slugs go through `resolveUniqueSlug`.
+ */
+export async function ensureSlugUnique(
+  db: DbClient,
+  config: SlugScope & { slug: string },
+  entityName: string
+): Promise<void> {
+  if (await isSlugTaken(db, config.slug, config)) {
     throw new TRPCError({
       code: 'CONFLICT',
       message: `A ${entityName} with slug "${config.slug}" already exists`,
     });
   }
+}
+
+/** Numbered suffixes tried before falling back to a random one. */
+const SLUG_NUMBERED_ATTEMPTS = 20;
+/** Random suffixes tried before giving up — a collision here means the table is adversarial. */
+const SLUG_RANDOM_ATTEMPTS = 3;
+
+/**
+ * Slugifies `base` and returns the first free variant in the scope:
+ * `my-post`, `my-post-2`, … `my-post-20`, then `my-post-<6 hex>`.
+ *
+ * For slugs the system derives (titles, copies, translations) — never for a
+ * slug the user typed, which must CONFLICT via `ensureSlugUnique` instead.
+ * `excludeId` lets an update keep its own row out of the probe.
+ */
+export async function resolveUniqueSlug(
+  db: DbClient,
+  cols: {
+    table: PgTable;
+    slug: PgColumn;
+    id?: PgColumn;
+    lang?: PgColumn;
+    deletedAt?: PgColumn;
+  },
+  base: string,
+  scope: { lang?: string; extraConditions?: SQL[] } = {},
+  excludeId?: string
+): Promise<string> {
+  const baseSlug = slugify(base) || 'untitled';
+  const probe: SlugScope = {
+    table: cols.table,
+    slugCol: cols.slug,
+    idCol: cols.id,
+    excludeId,
+    langCol: cols.lang,
+    lang: scope.lang,
+    deletedAtCol: cols.deletedAt,
+    extraConditions: scope.extraConditions,
+  };
+
+  for (let n = 1; n <= SLUG_NUMBERED_ATTEMPTS; n++) {
+    const candidate = n === 1 ? baseSlug : `${baseSlug}-${n}`;
+    if (!(await isSlugTaken(db, candidate, probe))) return candidate;
+  }
+
+  for (let i = 0; i < SLUG_RANDOM_ATTEMPTS; i++) {
+    const candidate = `${baseSlug}-${crypto.randomBytes(3).toString('hex')}`;
+    if (!(await isSlugTaken(db, candidate, probe))) return candidate;
+  }
+
+  throw new TRPCError({
+    code: 'CONFLICT',
+    message: `Could not find a free slug for "${baseSlug}"`,
+  });
 }
 
 /**
@@ -423,8 +498,8 @@ export async function fetchOrNotFound<T>(
 // ---------------------------------------------------------------------------
 
 /**
- * Generates a unique copy slug like "my-post-copy", "my-post-copy-2", etc.
- * Replaces the 20-attempt while-loop duplicated in cms, categories, and portfolio routers.
+ * Unique copy slug: "my-post-copy", "my-post-copy-2", … then a random suffix
+ * (see `resolveUniqueSlug`), so duplicating a heavily-copied record never fails.
  */
 export async function generateCopySlug(
   db: DbClient,
@@ -434,25 +509,51 @@ export async function generateCopySlug(
   deletedAtCol: PgColumn,
   originalSlug: string,
   langCol?: PgColumn,
-  lang?: string,
-  maxAttempts = 20
+  lang?: string
 ): Promise<string> {
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const suffix = attempt === 0 ? '' : `-${attempt + 1}`;
-    const candidate = `${originalSlug}-copy${suffix}`;
-    const conditions: SQL[] = [eq(slugCol, candidate), isNull(deletedAtCol)];
-    if (langCol && lang) conditions.push(eq(langCol, lang));
-    const [existing] = await db
-      .select({ id: slugCol })
-      .from(table)
-      .where(and(...conditions))
-      .limit(1);
-    if (!existing) return candidate;
+  return resolveUniqueSlug(
+    db,
+    { table, slug: slugCol, lang: langCol, deletedAt: deletedAtCol },
+    `${originalSlug}-copy`,
+    { lang }
+  );
+}
+
+// ---------------------------------------------------------------------------
+// insertOrConflict — surface unique-index races as CONFLICT, not 500
+// ---------------------------------------------------------------------------
+
+/**
+ * Runs `insert` and maps a unique violation to CONFLICT. The partial index
+ * `<table>_group_lang_uniq` (one live row per language per translation group)
+ * gets its own message; the pre-checks (`ensureUniqueInTranslationGroup`,
+ * `ensureSlugUnique`) still run first — this only catches the race two
+ * concurrent writers can win together, which would otherwise surface as a 500.
+ */
+export async function insertOrConflict<T>(
+  table: PgTable,
+  lang: string,
+  insert: () => Promise<T>
+): Promise<T> {
+  try {
+    return await insert();
+  } catch (err) {
+    if (isDuplicateKeyError(err, `${getTableName(table)}_group_lang_uniq`)) {
+      throw new TRPCError({
+        code: 'CONFLICT',
+        message: `A ${lang} translation already exists in this group`,
+        cause: err,
+      });
+    }
+    if (isDuplicateKeyError(err)) {
+      throw new TRPCError({
+        code: 'CONFLICT',
+        message: 'A record with the same slug already exists',
+        cause: err,
+      });
+    }
+    throw err;
   }
-  throw new TRPCError({
-    code: 'CONFLICT',
-    message: `Could not generate unique slug after ${maxAttempts} attempts`,
-  });
 }
 
 // ---------------------------------------------------------------------------
@@ -575,7 +676,9 @@ export function serializeExport(
 
 /**
  * Throws CONFLICT when a non-deleted row already holds `lang` in `group`.
- * App-layer guard: the tables carry no unique index on (translation_group, lang).
+ * Fast, readable pre-check in front of the partial unique index
+ * `<table>_group_lang_uniq`; `insertOrConflict` maps the index's own 23505
+ * (the concurrent-writer race this check cannot see) to the same CONFLICT.
  */
 export async function ensureUniqueInTranslationGroup(
   db: DbClient,
@@ -639,9 +742,9 @@ export async function prepareTranslationCopy(
   sourceTranslationGroup: string | null,
   targetLang: string
 ): Promise<{ slug: string; translationGroup: string; previewToken: string }> {
-  // A group may hold one row per language. Nothing in the schema enforces it
-  // (no unique index on group + lang), so check here before touching anything —
-  // a fresh source has no group yet and therefore no siblings to collide with.
+  // A group may hold one row per language. Check before touching anything so
+  // the caller gets CONFLICT instead of a half-done copy — a fresh source has
+  // no group yet and therefore no siblings to collide with.
   if (sourceTranslationGroup) {
     await ensureUniqueInTranslationGroup(
       db,
@@ -666,22 +769,14 @@ export async function prepareTranslationCopy(
       .where(eq(cols.id, sourceId));
   }
 
-  // Generate unique slug for target language
-  let slug = `${sourceSlug}-${targetLang}`;
-  const [existing] = await db
-    .select({ slug: cols.slug })
-    .from(table)
-    .where(
-      and(
-        eq(cols.slug, slug),
-        eq(cols.lang, targetLang),
-        isNull(cols.deletedAt)
-      )
-    )
-    .limit(1);
-  if (existing) {
-    slug = `${slug}-${Date.now()}`;
-  }
+  // Derived slug, so a taken `<slug>-<lang>` gets a numbered suffix rather
+  // than the old unreadable `-<timestamp>` or a CONFLICT the editor can't fix.
+  const slug = await resolveUniqueSlug(
+    db,
+    { table, slug: cols.slug, lang: cols.lang, deletedAt: cols.deletedAt },
+    `${sourceSlug}-${targetLang}`,
+    { lang: targetLang }
+  );
 
   const previewToken = crypto.randomBytes(32).toString('hex');
 

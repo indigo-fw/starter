@@ -2,6 +2,7 @@ import { POST } from '../route';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { getProvider } from '@/core-payments/lib/factory';
+import { sendStaffAlert } from '@/core/lib/email/staff-alert';
 import { asMock } from '@/test-utils';
 
 // Mock payment factory
@@ -41,6 +42,10 @@ vi.mock('@/core/lib/infra/logger', () => ({
     warn: vi.fn(),
     error: vi.fn(),
   }),
+}));
+
+vi.mock('@/core/lib/email/staff-alert', () => ({
+  sendStaffAlert: vi.fn().mockResolvedValue(undefined),
 }));
 
 // Mock dynamically-imported handler
@@ -102,6 +107,13 @@ describe('NOWPayments webhook route', () => {
     mockHandleWebhook.mockRejectedValue(new Error('Invalid signature'));
     const res = await POST(makeRequest());
     expect(res.status).toBe(400);
+    // Unverified traffic alerts on the capped path, with the raw body attached.
+    expect(sendStaffAlert).toHaveBeenCalledWith(
+      'nowpayments-webhook',
+      expect.any(Error),
+      expect.any(String),
+      { kind: 'unverified' }
+    );
   });
 
   it('returns duplicate:true for already-processed events', async () => {
@@ -177,5 +189,15 @@ describe('NOWPayments webhook route', () => {
 
     const res = await POST(makeRequest());
     expect(res.status).toBe(500);
+    // A verified IPN whose handler failed is a money event: never throttled.
+    expect(sendStaffAlert).toHaveBeenCalledWith(
+      'nowpayments-webhook',
+      expect.any(Error),
+      { order_id: 'tx-err' },
+      {
+        kind: 'money-event',
+        diagnostics: expect.objectContaining({ handler: 'subscription' }),
+      }
+    );
   });
 });

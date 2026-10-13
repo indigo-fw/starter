@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import { getProvider } from '@/core-payments/lib/factory';
 import { getPaymentWebhookHandler } from '@/core-payments/lib/webhook-registry';
 import { isDuplicateKeyError } from '@/core/crud/drizzle-utils';
+import { sendStaffAlert } from '@/core/lib/email/staff-alert';
 import { createLogger } from '@/core/lib/infra/logger';
 import { db } from '@/server/db';
 import { saasSubscriptionEvents } from '@/server/db/schema';
@@ -52,6 +53,14 @@ export async function POST(request: Request) {
     event = await stripeProvider.handleWebhook(clonedRequest);
   } catch (err) {
     logger.error('Stripe webhook verification failed', { error: String(err) });
+    // A wrong STRIPE_WEBHOOK_SECRET fails every event this way; anyone can also
+    // POST junk here, so the alert rides the capped `unverified` path.
+    await sendStaffAlert(
+      'stripe-webhook',
+      err,
+      await request.text().catch(() => ''),
+      { kind: 'unverified' }
+    );
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 
@@ -99,6 +108,16 @@ export async function POST(request: Request) {
         type: eventMetadata?.type,
         error: String(err),
       });
+      // Verified event, handler bug: Stripe retries for 3 days, then the
+      // payment is gone for good — a human must see this before that.
+      await sendStaffAlert('stripe-webhook', err, event.providerData, {
+        kind: 'money-event',
+        diagnostics: {
+          stripeEventId,
+          type: event.type,
+          handler: eventMetadata?.type,
+        },
+      });
       await releaseEventClaim(stripeEventId);
       return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
@@ -112,6 +131,10 @@ export async function POST(request: Request) {
   } catch (err) {
     logger.error('Error processing Stripe subscription webhook', {
       error: String(err),
+    });
+    await sendStaffAlert('stripe-webhook', err, event.providerData, {
+      kind: 'money-event',
+      diagnostics: { stripeEventId, type: event.type, handler: 'subscription' },
     });
     await releaseEventClaim(stripeEventId);
     return NextResponse.json({ error: 'Processing failed' }, { status: 500 });

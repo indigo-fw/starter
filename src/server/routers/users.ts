@@ -124,7 +124,7 @@ export const usersRouter = createTRPCRouter({
 
       // The role rides in the cookie-cached session for up to 5 min, so a
       // demotion (or promotion) would otherwise not bite until then.
-      invalidateUserSessions(input.id);
+      void invalidateUserSessions(input.id);
 
       logAudit({
         db: ctx.db,
@@ -176,7 +176,7 @@ export const usersRouter = createTRPCRouter({
       // A ban must bite now, not at the next DB lookup: drop the user's
       // sessions AND void the cookie-cached ones (see session-invalidation.ts).
       await ctx.db.delete(session).where(eq(session.userId, input.id));
-      invalidateUserSessions(input.id);
+      void invalidateUserSessions(input.id);
 
       logAudit({
         db: ctx.db,
@@ -297,7 +297,7 @@ export const usersRouter = createTRPCRouter({
 
       // Same reason as updateRole: the cookie-cached session carries the role.
       if (input.role !== undefined && input.role !== target.role) {
-        invalidateUserSessions(input.id);
+        void invalidateUserSessions(input.id);
       }
 
       logAudit({

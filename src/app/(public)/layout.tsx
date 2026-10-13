@@ -1,37 +1,50 @@
-import '@/core/styles/tokens-public.css';
-import '@/core/styles/frontend/index.css';
-
 import { Suspense } from 'react';
-import NextLink from 'next/link';
-import { Link } from '@/components/Link';
-import { Rss, Search } from 'lucide-react';
 
-import { siteConfig } from '@/config/site';
-import { db } from '@/server/db';
-import { cmsCategories, cmsMenus, cmsMenuItems } from '@/server/db/schema';
-import { ContentStatus } from '@/core/types/cms';
 import { and, asc, eq, isNull } from 'drizzle-orm';
-import { DynamicNav } from '@/core/components/DynamicNav';
-import { ThemeToggle } from '@/core/components/ThemeToggle';
-import { MobileMenu } from '@/core/components/MobileMenu';
-import { LanguageSwitcher } from '@/core/components/i18n/LanguageSwitcher';
-import { UserMenu } from '@/components/public/UserMenu';
-import { getLocale } from '@/lib/locale-server';
-import { localePath } from '@/lib/locale';
-import { LOCALES, DEFAULT_LOCALE, LOCALE_LABELS, type Locale } from '@/lib/constants';
-import { adminRoutes, contentRoutes, apiRoutes } from '@/config/routes';
-import { AppNav } from '@/components/public/AppNav';
+import { Rss, Search } from 'lucide-react';
+import NextLink from 'next/link';
+
+import { Link } from '@/components/Link';
 import { AppFooter } from '@/components/public/AppFooter';
+import { AppNav } from '@/components/public/AppNav';
 import { DeferredGlobalUI } from '@/components/public/DeferredGlobalUI';
-import { PUBLIC_LAYOUT_WIDGETS, HEADER_WIDGETS } from '@/generated/module-widgets';
-import { getServerTranslations, type TranslationFn } from '@/lib/translations-server';
-import { LanguageSuggestionBanner } from '@/core/components/i18n/LanguageSuggestionBanner';
-import { getLanguageSuggestion } from '@/core/lib/i18n/language-suggestion';
-import { dataTranslations } from '@/lib/translations';
-import { ConsentProvider } from '@/core/lib/consent/context';
-import { getServerConsent } from '@/core/lib/consent/server';
+import { UserMenu } from '@/components/public/UserMenu';
+import { adminRoutes, apiRoutes, contentRoutes } from '@/config/routes';
+import { siteConfig } from '@/config/site';
+import { DynamicNav } from '@/core/components/DynamicNav';
+import { InAppBrowserBanner } from '@/core/components/InAppBrowserBanner';
+import { MobileMenu } from '@/core/components/MobileMenu';
+import { ThemeToggle } from '@/core/components/ThemeToggle';
 import { ConsentGate } from '@/core/components/consent/ConsentGate';
 import { CookieSettingsButton } from '@/core/components/consent/CookieSettingsButton';
+import { LanguageSuggestionBanner } from '@/core/components/i18n/LanguageSuggestionBanner';
+import { LanguageSwitcher } from '@/core/components/i18n/LanguageSwitcher';
+import { ConsentProvider } from '@/core/lib/consent/context';
+import { getServerConsent } from '@/core/lib/consent/server';
+import { getLanguageSuggestion } from '@/core/lib/i18n/language-suggestion';
+import { ContentStatus } from '@/core/types/cms';
+import {
+  HEADER_WIDGETS,
+  PUBLIC_LAYOUT_WIDGETS,
+} from '@/generated/module-widgets';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  LOCALE_LABELS,
+  type Locale,
+} from '@/lib/constants';
+import { localePath } from '@/lib/locale';
+import { getLocale } from '@/lib/locale-server';
+import { dataTranslations } from '@/lib/translations';
+import {
+  type TranslationFn,
+  getServerTranslations,
+} from '@/lib/translations-server';
+import { db } from '@/server/db';
+import { cmsCategories, cmsMenuItems, cmsMenus } from '@/server/db/schema';
+
+import '@/core/styles/frontend/index.css';
+import '@/core/styles/tokens-public.css';
 
 // Extraction marker — ensures the language suggestion key appears in public PO files
 const _d = dataTranslations('General');
@@ -95,7 +108,10 @@ async function getMobileNavItems(
       label: c.name,
       url: localePath(`/category/${c.slug}`, locale),
     })),
-    { label: __('Portfolio'), url: localePath(contentRoutes.portfolio, locale) },
+    {
+      label: __('Portfolio'),
+      url: localePath(contentRoutes.portfolio, locale),
+    },
     { label: __('Showcase'), url: localePath(contentRoutes.showcase, locale) },
     { label: __('Store'), url: localePath(contentRoutes.store, locale) },
     { label: __('Search'), url: localePath(contentRoutes.search, locale) },
@@ -118,160 +134,188 @@ export default async function PublicLayout({
 
   return (
     <ConsentProvider initialConsent={initialConsent}>
-    <div className="app-wrapper" data-page="public">
-      <Suspense fallback={null}>
-        {PUBLIC_LAYOUT_WIDGETS.map((entry, i) => {
-          const W = entry.Component;
-          if (entry.consentCategory) {
-            return (
-              <ConsentGate key={i} category={entry.consentCategory}>
-                <W />
-              </ConsentGate>
-            );
-          }
-          return <W key={i} />;
-        })}
-      </Suspense>
-      <link
-        rel="alternate"
-        type="application/rss+xml"
-        title={`${siteConfig.name} — ${__('Blog RSS')}`}
-        href={`${apiRoutes.feedBlog}?lang=${locale}`}
-      />
+      <div className="app-wrapper" data-page="public">
+        <Suspense fallback={null}>
+          {PUBLIC_LAYOUT_WIDGETS.map((entry, i) => {
+            const W = entry.Component;
+            if (entry.consentCategory) {
+              return (
+                <ConsentGate key={i} category={entry.consentCategory}>
+                  <W />
+                </ConsentGate>
+              );
+            }
+            return <W key={i} />;
+          })}
+        </Suspense>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${siteConfig.name} — ${__('Blog RSS')}`}
+          href={`${apiRoutes.feedBlog}?lang=${locale}`}
+        />
 
-      {/* ═══ Header ═══ */}
-      <header className="app-header">
-        <div className="app-toolbar app-container">
-          <AppNav
-            logo={
-              <Link href="/" className="app-logo">
-                {siteConfig.name}
-              </Link>
-            }
-            nav={
-              <nav className="app-nav hidden sm:flex">
-                <DynamicNav
-                  menuSlug="main"
-                  fallback={
-                    <>
-                      <Link href="/blog" className="app-nav-link">
-                        {__('Blog')}
-                      </Link>
-                      {categories.map((cat) => (
-                        <Link
-                          key={cat.slug}
-                          href={{ pathname: '/category/[slug]', params: { slug: cat.slug } }}
-                          className="app-nav-link"
-                        >
-                          {cat.name}
-                        </Link>
-                      ))}
-                      <Link href="/showcase" className="app-nav-link">
-                        {__('Showcase')}
-                      </Link>
-                      <Link href="/store" className="app-nav-link">
-                        {__('Store')}
-                      </Link>
-                    </>
-                  }
-                />
-              </nav>
-            }
-            actions={
-              <>
-                <Link href="/search" className="icon-btn" title={__('Search')}>
-                  <Search className="h-4 w-4" />
+        {/* ═══ Header ═══ */}
+        <header className="app-header">
+          <div className="app-toolbar app-container">
+            <AppNav
+              logo={
+                <Link href="/" className="app-logo">
+                  {siteConfig.name}
                 </Link>
-                {/* Module-contributed header widgets (e.g. core-store's CartWidget) —
+              }
+              nav={
+                <nav className="app-nav hidden sm:flex">
+                  <DynamicNav
+                    menuSlug="main"
+                    fallback={
+                      <>
+                        <Link href="/blog" className="app-nav-link">
+                          {__('Blog')}
+                        </Link>
+                        {categories.map((cat) => (
+                          <Link
+                            key={cat.slug}
+                            href={{
+                              pathname: '/category/[slug]',
+                              params: { slug: cat.slug },
+                            }}
+                            className="app-nav-link"
+                          >
+                            {cat.name}
+                          </Link>
+                        ))}
+                        <Link href="/showcase" className="app-nav-link">
+                          {__('Showcase')}
+                        </Link>
+                        <Link href="/store" className="app-nav-link">
+                          {__('Store')}
+                        </Link>
+                      </>
+                    }
+                  />
+                </nav>
+              }
+              actions={
+                <>
+                  <Link
+                    href="/search"
+                    className="icon-btn"
+                    title={__('Search')}
+                  >
+                    <Search className="h-4 w-4" />
+                  </Link>
+                  {/* Module-contributed header widgets (e.g. core-store's CartWidget) —
                     declared via `layoutWidgets: [{ slot: 'header', … }]` in module
                     config, so removing a module never breaks this layout. */}
-                {HEADER_WIDGETS.map((entry, i) => {
-                  const W = entry.Component;
-                  return <W key={i} />;
-                })}
-                <LanguageSwitcher />
-                <ThemeToggle />
-                <UserMenu />
-                <MobileMenu items={mobileItems} />
-              </>
-            }
+                  {HEADER_WIDGETS.map((entry, i) => {
+                    const W = entry.Component;
+                    return <W key={i} />;
+                  })}
+                  <LanguageSwitcher />
+                  <ThemeToggle />
+                  <UserMenu />
+                  <MobileMenu items={mobileItems} />
+                </>
+              }
+            />
+          </div>
+        </header>
+
+        <InAppBrowserBanner />
+        {langSuggestion && (
+          <LanguageSuggestionBanner
+            suggestedLocale={langSuggestion.suggestedLocale}
+            messageInCurrentLang={langSuggestion.messageInCurrentLang}
+            messageInSuggestedLang={langSuggestion.messageInSuggestedLang}
+            defaultLocale={DEFAULT_LOCALE}
           />
-        </div>
-      </header>
+        )}
+        <main className="app-main">{children}</main>
 
-      {langSuggestion && (
-        <LanguageSuggestionBanner
-          suggestedLocale={langSuggestion.suggestedLocale}
-          messageInCurrentLang={langSuggestion.messageInCurrentLang}
-          messageInSuggestedLang={langSuggestion.messageInSuggestedLang}
-          defaultLocale={DEFAULT_LOCALE}
-        />
-      )}
-      <main className="app-main">{children}</main>
-
-      {/* ═══ Footer ═══ */}
-      <AppFooter>
-        <div className="app-footer-grid">
-          {/* Col 1: About */}
-          <div>
-            <p className="text-sm font-semibold text-(--text-primary)">
-              {siteConfig.name}
-            </p>
-            <p className="mt-2 text-sm text-(--text-muted)">
-              {siteConfig.description}
-            </p>
-          </div>
-
-          {/* Col 2: Categories */}
-          {categories.length > 0 && (
+        {/* ═══ Footer ═══ */}
+        <AppFooter>
+          <div className="app-footer-grid">
+            {/* Col 1: About */}
             <div>
-              <h4 className="app-footer-col-title">{__('Categories')}</h4>
-              {categories.map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={{ pathname: '/category/[slug]', params: { slug: cat.slug } }}
-                  className="app-footer-link"
-                >
-                  {cat.name}
-                </Link>
-              ))}
+              <p className="text-sm font-semibold text-(--text-primary)">
+                {siteConfig.name}
+              </p>
+              <p className="mt-2 text-sm text-(--text-muted)">
+                {siteConfig.description}
+              </p>
             </div>
-          )}
 
-          {/* Col 3: Quick Links */}
-          <div>
-            <h4 className="app-footer-col-title">{__('Quick Links')}</h4>
-            <Link href="/blog" className="app-footer-link">{__('Blog')}</Link>
-            <Link href="/portfolio" className="app-footer-link">{__('Portfolio')}</Link>
-            <Link href="/showcase" className="app-footer-link">{__('Showcase')}</Link>
-            <Link href="/store" className="app-footer-link">{__('Store')}</Link>
-            <Link href="/search" className="app-footer-link">{__('Search')}</Link>
+            {/* Col 2: Categories */}
+            {categories.length > 0 && (
+              <div>
+                <h4 className="app-footer-col-title">{__('Categories')}</h4>
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={{
+                      pathname: '/category/[slug]',
+                      params: { slug: cat.slug },
+                    }}
+                    className="app-footer-link"
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Col 3: Quick Links */}
+            <div>
+              <h4 className="app-footer-col-title">{__('Quick Links')}</h4>
+              <Link href="/blog" className="app-footer-link">
+                {__('Blog')}
+              </Link>
+              <Link href="/portfolio" className="app-footer-link">
+                {__('Portfolio')}
+              </Link>
+              <Link href="/showcase" className="app-footer-link">
+                {__('Showcase')}
+              </Link>
+              <Link href="/store" className="app-footer-link">
+                {__('Store')}
+              </Link>
+              <Link href="/search" className="app-footer-link">
+                {__('Search')}
+              </Link>
+            </div>
+
+            {/* Col 4: More */}
+            <div>
+              <h4 className="app-footer-col-title">{__('More')}</h4>
+              <NextLink
+                href={apiRoutes.feedBlog}
+                className="app-footer-link inline-flex items-center gap-1"
+              >
+                <Rss className="h-3.5 w-3.5" />
+                {__('RSS Feed')}
+              </NextLink>
+              <NextLink href={adminRoutes.home} className="app-footer-link">
+                {__('Admin')}
+              </NextLink>
+              <CookieSettingsButton className="app-footer-link" />
+            </div>
           </div>
 
-          {/* Col 4: More */}
-          <div>
-            <h4 className="app-footer-col-title">{__('More')}</h4>
-            <NextLink href={apiRoutes.feedBlog} className="app-footer-link inline-flex items-center gap-1">
-              <Rss className="h-3.5 w-3.5" />
-              {__('RSS Feed')}
-            </NextLink>
-            <NextLink href={adminRoutes.home} className="app-footer-link">{__('Admin')}</NextLink>
-            <CookieSettingsButton className="app-footer-link" />
+          <div className="app-footer-bottom">
+            <span>
+              &copy; {new Date().getFullYear()} {siteConfig.name}
+            </span>
+            <span>{__('Powered by Indigo')}</span>
           </div>
-        </div>
-
-        <div className="app-footer-bottom">
-          <span>&copy; {new Date().getFullYear()} {siteConfig.name}</span>
-          <span>{__('Powered by Indigo')}</span>
-        </div>
-      </AppFooter>
-      <DeferredGlobalUI
-        cookieConsent={{
-          privacyPolicyUrl: '/privacy-policy',
-          cookiePolicyUrl: '/cookie-policy',
-        }}
-      />
-    </div>
+        </AppFooter>
+        <DeferredGlobalUI
+          cookieConsent={{
+            privacyPolicyUrl: '/privacy-policy',
+            cookiePolicyUrl: '/cookie-policy',
+          }}
+        />
+      </div>
     </ConsentProvider>
   );
 }

@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { X, Loader2 } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { trpc } from '@/lib/trpc/client';
-import { DEFAULT_LOCALE } from '@/lib/constants';
+import { Loader2, X } from 'lucide-react';
+
+import { useCloseOnClickOutside } from '@/core/hooks/useCloseOnClickOutside';
 import { useAdminTranslations } from '@/core/lib/i18n/translations';
+import { DEFAULT_LOCALE } from '@/lib/constants';
+import { trpc } from '@/lib/trpc/client';
 
 interface Props {
   selectedTagIds: string[];
@@ -19,7 +21,11 @@ interface TagOption {
   slug: string;
 }
 
-export function TagInput({ selectedTagIds, onChange, lang = DEFAULT_LOCALE }: Props) {
+export function TagInput({
+  selectedTagIds,
+  onChange,
+  lang = DEFAULT_LOCALE,
+}: Props) {
   const __ = useAdminTranslations();
   const [inputValue, setInputValue] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
@@ -40,8 +46,13 @@ export function TagInput({ selectedTagIds, onChange, lang = DEFAULT_LOCALE }: Pr
       // Synchronous reset handled via adjust-state-during-render below
       return;
     }
-    debounceTimerRef.current = setTimeout(() => setDebouncedQuery(inputValue), 250);
-    return () => { if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current); };
+    debounceTimerRef.current = setTimeout(
+      () => setDebouncedQuery(inputValue),
+      250
+    );
+    return () => {
+      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+    };
   }, [inputValue]);
 
   // Immediately clear debounced query when input is too short (adjust state during render)
@@ -67,7 +78,11 @@ export function TagInput({ selectedTagIds, onChange, lang = DEFAULT_LOCALE }: Pr
   // Sync selected tags when resolved data loads or selectedTagIds change (adjust state during render)
   const [prevResolvedData, setPrevResolvedData] = useState(resolvedTags.data);
   const [prevSelectedTagIds, setPrevSelectedTagIds] = useState(selectedTagIds);
-  if (resolvedTags.data && (resolvedTags.data !== prevResolvedData || selectedTagIds !== prevSelectedTagIds)) {
+  if (
+    resolvedTags.data &&
+    (resolvedTags.data !== prevResolvedData ||
+      selectedTagIds !== prevSelectedTagIds)
+  ) {
     setPrevResolvedData(resolvedTags.data);
     setPrevSelectedTagIds(selectedTagIds);
     // Preserve order of selectedTagIds
@@ -78,27 +93,19 @@ export function TagInput({ selectedTagIds, onChange, lang = DEFAULT_LOCALE }: Pr
     setSelectedTags(ordered);
   }
 
-  // Close dropdown on outside click
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setShowDropdown(false);
-        setHighlightedIndex(-1);
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
+  useCloseOnClickOutside(containerRef, () => {
+    setShowDropdown(false);
+    setHighlightedIndex(-1);
+  });
 
   const suggestions = (searchQuery.data ?? []).filter(
     (t) => !selectedTagIds.includes(t.id)
   );
 
   // Reset highlighted index when suggestions change (adjust state during render)
-  const [prevSuggestionsLength, setPrevSuggestionsLength] = useState(suggestions.length);
+  const [prevSuggestionsLength, setPrevSuggestionsLength] = useState(
+    suggestions.length
+  );
   if (suggestions.length !== prevSuggestionsLength) {
     setPrevSuggestionsLength(suggestions.length);
     setHighlightedIndex(-1);
@@ -168,7 +175,7 @@ export function TagInput({ selectedTagIds, onChange, lang = DEFAULT_LOCALE }: Pr
           {selectedTags.map((tag) => (
             <span
               key={tag.id}
-              className="tag-input-chip inline-flex items-center gap-1 rounded-full bg-brand-50 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.12)] px-2.5 py-0.5 text-xs font-medium text-brand-700 dark:text-brand-400"
+              className="tag-input-chip inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.12)] dark:text-brand-400"
             >
               {tag.name}
               <button
@@ -199,7 +206,7 @@ export function TagInput({ selectedTagIds, onChange, lang = DEFAULT_LOCALE }: Pr
           className="input py-1.5"
         />
         {getOrCreate.isPending && (
-          <Loader2 className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-(--text-muted)" />
+          <Loader2 className="absolute top-1/2 right-2 h-4 w-4 -translate-y-1/2 animate-spin text-(--text-muted)" />
         )}
       </div>
 
@@ -224,7 +231,7 @@ export function TagInput({ selectedTagIds, onChange, lang = DEFAULT_LOCALE }: Pr
                 }
                 className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-sm ${
                   index === highlightedIndex
-                    ? 'bg-brand-50 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.12)] text-brand-700 dark:text-brand-400'
+                    ? 'bg-brand-50 text-brand-700 dark:bg-[oklch(0.65_0.17_var(--brand-hue)_/_0.12)] dark:text-brand-400'
                     : 'hover:bg-(--surface-secondary)'
                 }`}
               >

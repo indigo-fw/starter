@@ -61,6 +61,9 @@ vi.mock('@/core/policy', () => ({
 }));
 
 vi.mock('@/core/crud/admin-crud', () => ({
+  insertOrConflict: vi.fn(
+    (_table: unknown, _lang: string, insert: () => unknown) => insert()
+  ),
   buildAdminList: vi.fn().mockResolvedValue({
     results: [],
     total: 0,

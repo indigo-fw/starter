@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { Link } from '@/components/Link';
+import { useCloseOnClickOutside } from '@/core/hooks/useCloseOnClickOutside';
 import { useSession, signOut } from '@/lib/auth-client';
 import { User, Settings, Shield, CreditCard, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -18,15 +19,7 @@ export function UserMenu() {
   const openRegisterDialog = useAuthDialogStore((s) => s.openRegisterDialog);
   const __ = useTranslations();
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useCloseOnClickOutside(ref, () => setOpen(false), { enabled: open });
 
   if (isPending) return null;
 

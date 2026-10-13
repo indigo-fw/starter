@@ -14,6 +14,8 @@ export {
   getTranslationSiblings,
   serializeExport,
   prepareTranslationCopy,
+  createSlugRestoreCheck,
+  ensureUniqueInTranslationGroup,
 } from './admin-crud';
 export type {
   CrudColumns,
@@ -37,7 +39,13 @@ export {
   getRevisions,
   pickSnapshot,
 } from './content-revisions';
-export { resolveSlugRedirect } from './slug-redirects';
+export {
+  registerSlugResolver,
+  createTableSlugResolver,
+  resolveCurrentSlug,
+  resolveSlugRedirect,
+} from './slug-redirects';
+export type { SlugResolver } from './slug-redirects';
 export {
   wordSplitLike,
   getAffectedRows,

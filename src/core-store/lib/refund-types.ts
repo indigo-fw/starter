@@ -7,6 +7,21 @@
  *   setRefundHandler({ refundPayment: async (params) => stripe.refunds.create(...) });
  */
 
+/**
+ * Outcome contract the return-refund flow relies on:
+ * - resolve with `status: 'succeeded'` (or omit `status`) → money moved, books are updated
+ * - resolve with `status: 'failed'` → definitive decline, nothing moved; the
+ *   return is released so it can be retried
+ * - **throw** → outcome unknown (timeout, network). The return stays claimed
+ *   in `refunding` and is never auto-retried — a human verifies at the
+ *   provider first. Only throw when you genuinely don't know.
+ */
+export interface RefundResult {
+  refundId?: string;
+  status?: 'succeeded' | 'failed';
+  failureReason?: string;
+}
+
 export interface RefundHandler {
   refundPayment: (params: {
     orderId: string;
@@ -14,7 +29,7 @@ export interface RefundHandler {
     amountCents: number;
     currency: string;
     reason?: string;
-  }) => Promise<{ refundId: string }>;
+  }) => Promise<RefundResult>;
 }
 
 let _refundHandler: RefundHandler | null = null;

@@ -34,7 +34,29 @@ bun run db:migrate
 
 ## Configuration
 
-Dependencies are wired through `setSupportDeps()` in `config/deps/support-deps.ts`: `createTicketFromChat`, `resolveOrgId`, `sendNotification` / `sendOrgNotification`, `broadcastEvent`, `lookupUsers`, and `callAI`.
+Dependencies are wired through `setSupportDeps()` in `config/deps/support-deps.ts`: `createTicketFromChat`, `resolveOrgId`, `sendNotification` / `sendOrgNotification`, `broadcastEvent`, `lookupUsers`, `callAI`, `enqueueTemplateEmail`, and `getSupportEmail`.
+
+### Email notifications
+
+Every ticket event sends exactly one email (no digests or throttling):
+
+| Event | Recipient | Template |
+|---|---|---|
+| Customer opens a ticket | Support inbox | `support-ticket-new` |
+| Customer replies | Support inbox | `support-ticket-reply` |
+| Staff replies | Customer, in their UI language (`user.lang`) | `support-ticket-answer` |
+
+Templates install to `emails/en/` and can be overridden per locale from the admin email-templates page. Each email carries a 200-character preview and a link to the ticket. The support inbox is `getSupportEmail()` — the default wiring reads **Settings → Company → Support Email** (`company.support_email`, falling back to the contact email, then the `SUPPORT_EMAIL` environment variable). When none is set, staff emails are skipped with a warning; in-app notifications still reach every user whose role grants the `settings` admin section, or just the assignee on an assigned ticket.
+
+### Abuse limits
+
+| Limit | Scope | Response |
+|---|---|---|
+| 10 tickets per hour | per user (Redis sliding window, fail-open) | `TOO_MANY_REQUESTS` |
+| 1 open ticket | banned users (`create`) | `TOO_MANY_REQUESTS` |
+| 8 unanswered messages | per ticket (`reply`), resets when staff replies | `TOO_MANY_REQUESTS` |
+
+Banned users can still open and follow one ticket so they have a way to contest the ban — `support.list`/`get`/`create`/`reply`/`close` accept banned sessions; everything else rejects them as usual.
 
 The AI uses an OpenAI-compatible API. It is optional — without an API key the widget still works and simply creates tickets immediately.
 
@@ -77,15 +99,15 @@ When the AI begins a reply with `[ESCALATE]`, or when the message count reaches 
 
 | Endpoint | Access | Purpose |
 |---|---|---|
-| `support.list` | protected | List the user's tickets in the active org |
-| `support.get` | protected | Get a ticket and its messages (owner or staff) |
-| `support.create` | protected | Create a new ticket |
-| `support.reply` | protected | Reply to a ticket as the customer |
+| `support.list` | protected (banned allowed) | List the user's tickets in the active org |
+| `support.get` | protected (banned allowed) | Get a ticket and its messages (owner or staff) |
+| `support.create` | protected (banned allowed) | Create a new ticket — emails the support inbox; see *Abuse limits* |
+| `support.reply` | protected (banned allowed) | Reply to a ticket as the customer — emails the support inbox |
 | `support.provideFeedback` | protected | Submit satisfaction feedback on a closed ticket |
-| `support.close` | protected | Close your own ticket |
+| `support.close` | protected (banned allowed) | Close your own ticket |
 | `support.adminList` | admin (`settings`) | List all tickets with filters |
 | `support.adminGet` | admin (`settings`) | Get any ticket and its messages |
-| `support.adminReply` | admin (`settings`) | Staff reply on a ticket |
+| `support.adminReply` | admin (`settings`) | Staff reply on a ticket — emails the customer in their language |
 | `support.assign` | admin (`settings`) | Assign a ticket to a staff user |
 | `support.changeStatus` | admin (`settings`) | Manually transition a ticket's status |
 | `support.getStats` | admin (`settings`) | Ticket counts by status |

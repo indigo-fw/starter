@@ -1,7 +1,4 @@
-import { createLogger } from '@/core/lib/infra/logger';
-import type { EmailListProvider } from './index';
-
-const log = createLogger('mailchimp');
+import { type EmailListProvider, EmailListProviderError } from './index';
 
 export class MailchimpProvider implements EmailListProvider {
   private apiKey: string;
@@ -14,7 +11,10 @@ export class MailchimpProvider implements EmailListProvider {
     this.server = this.apiKey.split('-').pop() ?? '';
   }
 
-  async subscribe(email: string, fields?: Record<string, unknown>): Promise<void> {
+  async subscribe(
+    email: string,
+    fields?: Record<string, unknown>
+  ): Promise<void> {
     const url = `https://${this.server}.api.mailchimp.com/3.0/lists/${this.listId}/members`;
     const res = await fetch(url, {
       method: 'POST',
@@ -28,9 +28,13 @@ export class MailchimpProvider implements EmailListProvider {
         merge_fields: fields ?? {},
       }),
     });
+    // 400 = already subscribed, which is fine. Anything else throws so the
+    // queue retries; the worker logs with a hashed address.
     if (!res.ok && res.status !== 400) {
-      // 400 = already subscribed, which is fine
-      log.warn('Mailchimp subscribe failed', { email, status: res.status });
+      throw new EmailListProviderError(
+        `Mailchimp subscribe failed: HTTP ${res.status}`,
+        res.status
+      );
     }
   }
 
@@ -48,21 +52,17 @@ export class MailchimpProvider implements EmailListProvider {
       }),
     });
     if (!res.ok) {
-      log.warn('Mailchimp tag failed', { email, tags, status: res.status });
+      throw new EmailListProviderError(
+        `Mailchimp tag failed: HTTP ${res.status}`,
+        res.status
+      );
     }
   }
 
   private async md5(input: string): Promise<string> {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input);
-    const hashBuffer = await crypto.subtle.digest('MD5', data).catch(() => {
-      // MD5 not available in all runtimes via subtle — fall back to simple hash
-      // In practice, Mailchimp accepts the email directly in some endpoints
-      return new ArrayBuffer(0);
-    });
-    if (hashBuffer.byteLength === 0) return input;
-    return Array.from(new Uint8Array(hashBuffer))
-      .map((b) => b.toString(16).padStart(2, '0'))
-      .join('');
+    // Mailchimp keys members by the MD5 of the lower-cased address. WebCrypto
+    // has no MD5, so this goes through node:crypto (available in Bun and Node).
+    const { createHash } = await import('node:crypto');
+    return createHash('md5').update(input).digest('hex');
   }
 }

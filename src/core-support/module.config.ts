@@ -4,29 +4,49 @@ const config: ModuleConfig = {
   id: 'core-support',
   category: 'primitive',
   routers: [
-    { name: 'supportChatRouter', key: 'supportChat', from: '@/core-support/routers/support-chat' },
-    { name: 'supportRouter', key: 'support', from: '@/core-support/routers/support' },
+    {
+      name: 'supportChatRouter',
+      key: 'supportChat',
+      from: '@/core-support/routers/support-chat',
+    },
+    {
+      name: 'supportRouter',
+      key: 'support',
+      from: '@/core-support/routers/support',
+    },
   ],
   schema: [
     '@/core-support/schema/support-chat',
     '@/core-support/schema/support-tickets',
   ],
-  serverInit: [
-    '@/config/deps/support-deps',
-  ],
+  serverInit: ['@/config/deps/support-deps'],
   jobs: [
-    { name: 'startSupportChatCleanupWorker', from: '@/core-support/jobs/support-chat' },
+    {
+      name: 'startSupportChatCleanupWorker',
+      from: '@/core-support/jobs/support-chat',
+    },
   ],
   seed: [],
   layoutWidgets: [
-    { name: 'SupportChatWidgetWrapper', from: '@/components/public/SupportChatWidgetWrapper' },
+    {
+      name: 'SupportChatWidgetWrapper',
+      from: '@/components/public/SupportChatWidgetWrapper',
+    },
   ],
   pageWidgets: [],
   navItems: [
-    { groupId: 'settings', name: 'Support', href: '/dashboard/settings/support', icon: 'LifeBuoy' },
+    {
+      groupId: 'settings',
+      name: 'Support',
+      href: '/dashboard/settings/support',
+      icon: 'LifeBuoy',
+    },
   ],
   projectFiles: [
     'config/deps/support-deps.ts',
+    'emails/en/support-ticket-new.html',
+    'emails/en/support-ticket-reply.html',
+    'emails/en/support-ticket-answer.html',
     'components/public/SupportChatWidgetWrapper.tsx',
     'app/dashboard/(panel)/settings/support/page.tsx',
     'app/dashboard/(panel)/settings/support/[id]/page.tsx',
